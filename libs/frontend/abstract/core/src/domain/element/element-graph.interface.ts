@@ -1,4 +1,4 @@
-import type { IElement } from './element.model.interface'
+import type { IElementModel } from './element.model.interface'
 
 export interface IElementGraph {
   edges: Array<{
@@ -6,5 +6,5 @@ export interface IElementGraph {
     source: string
     target: string
   }>
-  vertices: Array<IElement>
+  vertices: Array<IElementModel>
 }

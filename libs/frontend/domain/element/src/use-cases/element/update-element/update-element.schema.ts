@@ -5,12 +5,12 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     name: {
       autoFocus: true,
       type: 'string',
@@ -19,10 +19,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     postRenderAction: {
       nullable: true,
       properties: {
-        id: {
-          label: 'Post Render action',
-          type: 'string',
-        },
+        ...idSchema({ label: 'Post render action' }),
       },
       required: [],
       type: 'object',
@@ -30,10 +27,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     preRenderAction: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Pre Render action',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -41,10 +37,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperComponent: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Child Mapper Component',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -52,13 +47,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperPreviousSibling: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Render next to',
-          type: 'string',
-          uniforms: {
-            component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
-          },
-        },
+          component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
+        }),
       },
       required: [],
       type: 'object',
@@ -80,19 +72,39 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     },
     renderType: {
       label: 'Render Type',
-      nullable: true,
-      properties: {
-        id: {
-          type: 'string',
-        },
-        kind: {
-          enum: Object.values(IRenderTypeKind),
-          label: 'Render Type',
-          type: 'string',
-        },
-      },
-      required: ['id', 'kind'],
       type: 'object',
+      oneOf: [
+        {
+          properties: {
+            id: {
+              type: 'string',
+            },
+            __typename: {
+              enum: [IElementRenderTypeKind.Component],
+              label: 'Render Type',
+              type: 'string',
+              nullable: true,
+            },
+          },
+          required: ['id'],
+          type: 'object',
+        },
+        {
+          properties: {
+            id: {
+              type: 'string',
+            },
+            __typename: {
+              enum: [IElementRenderTypeKind.Atom],
+              label: 'Render Type',
+              type: 'string',
+              nullable: true,
+            },
+          },
+          required: ['id'],
+          type: 'object',
+        },
+      ],
     },
   },
   required: [],

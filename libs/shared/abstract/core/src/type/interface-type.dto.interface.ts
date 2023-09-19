@@ -1,8 +1,26 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import {
+  IMaybeDiscriminatedEntity,
+  IEntity,
+} from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { IBaseTypeDTO } from './base-type.dto.interface'
 
-export interface IInterfaceTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.InterfaceType}`
-  fields: Array<IEntity>
-}
+export const IInterfaceTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.InterfaceType}`)),
+  Type.Object({
+    fields: Type.Array(IEntity),
+  }),
+])
+
+export type IInterfaceTypeDTO = Static<typeof IInterfaceTypeDTO>
+
+/**
+ * Entity
+ */
+export const IInterfaceTypeEntity = IMaybeDiscriminatedEntity(
+  `${ITypeKind.InterfaceType}`,
+)
+
+export type IInterfaceTypeEntity = Static<typeof IInterfaceTypeEntity>

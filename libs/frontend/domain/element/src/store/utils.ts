@@ -1,21 +1,28 @@
-import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IComponentModel,
+} from '@codelab/frontend/abstract/core'
 import { atomRef, componentRef } from '@codelab/frontend/abstract/core'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import type { IElementRenderType } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 export const getRenderType = (
-  renderType: IElementDTO['renderType'],
-): Ref<IAtom> | Ref<IComponent> | null => {
-  if (renderType?.kind === IRenderTypeKind.Atom) {
-    return atomRef(renderType.id)
-  }
+  renderType: IElementRenderType,
+): Ref<IAtomModel> | Ref<IComponentModel> => {
+  switch (renderType.__typename) {
+    case IElementRenderTypeKind.Atom: {
+      return atomRef(renderType.id)
+    }
 
-  if (renderType?.kind === IRenderTypeKind.Component) {
-    return componentRef(renderType.id)
-  }
+    case IElementRenderTypeKind.Component: {
+      return componentRef(renderType.id)
+    }
 
-  return null
+    default: {
+      throw new Error('Missing __typename')
+    }
+  }
 }
 
 export const jsonStringToCss = (json: string | null | undefined) => {

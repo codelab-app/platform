@@ -1,7 +1,8 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export const QueryPageHookConfigSchema = z.object({
-  pageId: z.string().min(1),
+export const QueryPageHookConfigSchema = Type.Object({
+  pageId: Type.String({ minLength: 1 }),
 })
 
-export type IQueryPageHookConfig = z.infer<typeof QueryPageHookConfigSchema>
+export type IQueryPageHookConfig = Static<typeof QueryPageHookConfigSchema>

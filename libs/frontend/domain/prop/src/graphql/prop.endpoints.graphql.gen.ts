@@ -49,7 +49,7 @@ export const CreatePropsDocument = gql`
 `
 export const UpdatePropsDocument = gql`
   mutation UpdateProps($where: PropWhere, $update: PropUpdateInput) {
-    updateProps(where: $where, update: $update) {
+    updateProps(update: $update, where: $where) {
       props {
         id
       }

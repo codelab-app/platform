@@ -22,9 +22,9 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { id: string } | null
-  renderComponentType?: { id: string } | null
-  renderAtomType?: AtomFragment | null
-  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  renderType:
+    | ({ __typename: 'Atom' } & AtomFragment)
+    | { __typename: 'Component'; id: string }
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -52,9 +52,9 @@ export type ProductionElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { id: string } | null
-  renderComponentType?: { id: string } | null
-  renderAtomType?: ProductionAtomFragment | null
-  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  renderType:
+    | ({ __typename: 'Atom' } & ProductionAtomFragment)
+    | { __typename: 'Component'; id: string }
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -82,15 +82,15 @@ export const ElementFragmentDoc = gql`
     page {
       id
     }
-    renderComponentType {
-      id
-    }
-    renderAtomType {
-      ...Atom
-    }
     renderType {
-      id
-      kind
+      ... on Atom {
+        __typename
+        ...Atom
+      }
+      ... on Component {
+        __typename
+        id
+      }
     }
     prevSibling {
       id
@@ -141,15 +141,15 @@ export const ProductionElementFragmentDoc = gql`
     page {
       id
     }
-    renderComponentType {
-      id
-    }
-    renderAtomType {
-      ...ProductionAtom
-    }
     renderType {
-      id
-      kind
+      ... on Atom {
+        __typename
+        ...ProductionAtom
+      }
+      ... on Component {
+        __typename
+        id
+      }
     }
     prevSibling {
       id

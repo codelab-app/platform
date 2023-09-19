@@ -1,4 +1,4 @@
-import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
+import type { IElementModel, IPropData } from '@codelab/frontend/abstract/core'
 import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
@@ -17,7 +17,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
-  element: Ref<IElement>
+  element: Ref<IElementModel>
 }
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(

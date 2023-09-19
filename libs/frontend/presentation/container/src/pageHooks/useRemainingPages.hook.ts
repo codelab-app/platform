@@ -8,7 +8,7 @@ import { useCurrentApp } from '../routerHooks'
  */
 export const useRemainingPages = () => {
   const { appService, renderService } = useStore()
-  const { app } = useCurrentApp()
+  const app = useCurrentApp()
 
   return useAsync(async () => {
     if (!app?.pages) {

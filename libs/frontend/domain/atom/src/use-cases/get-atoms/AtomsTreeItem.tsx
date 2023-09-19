@@ -12,7 +12,6 @@ import {
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { AtomType } from '@codelab/shared/abstract/codegen'
-import type { Ref } from 'mobx-keystone'
 import React from 'react'
 import { useGetLibrary } from './dataSource/atom-library'
 

@@ -4,10 +4,10 @@ import type {
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IPage } from './page.model.interface'
+import type { IPageModel } from './page.model.interface'
 
 export type IPageRepository = IRepository<
-  IPage,
+  IPageModel,
   PageFragment,
   PageWhere,
   PageOptions

@@ -8,7 +8,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 import type { IElementRenderType } from '../element'
-import type { IComponent } from './component.model.interface'
+import type { IComponentModel } from './component.model.interface'
 import type { IComponentService } from './component.service.interface'
 
 /**
@@ -17,7 +17,7 @@ import type { IComponentService } from './component.service.interface'
  * Component can depend on element, but not the other way around
  */
 
-export const componentRef = rootRef<IComponent>('@codelab/ComponentRef', {
+export const componentRef = rootRef<IComponentModel>('@codelab/ComponentRef', {
   onResolvedValueChange: (ref, newComponent, oldComponent) => {
     if (oldComponent && !newComponent) {
       detach(ref)
@@ -43,11 +43,11 @@ export const getComponentService = (self: object) => {
  */
 export const isComponentInstance = (
   node: IElementRenderType | null,
-): node is Ref<IComponent> => {
+): node is Ref<IComponentModel> => {
   return !isNil(node) && isRefOfType(node, componentRef)
 }
 
-export const isComponentModel = (model?: object): model is IComponent => {
+export const isComponentModel = (model?: object): model is IComponentModel => {
   return (
     !isNil(model) &&
     // `IComponent` is mobx model type

@@ -14,9 +14,9 @@ export const actionSchema = gql`
   }
 
   interface BaseAction {
-    id: ID! @id(autogenerate: false)
+    id: ID!
     name: String!
-    type: ActionKind! @readonly
+    type: ActionKind! @settable(onUpdate: false)
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
     element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
   }

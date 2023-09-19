@@ -1,1 +1,1 @@
-export * from './prop.repo'
+export * from './prop.repo.service'

@@ -1,7 +1,7 @@
 import { detach, rootRef } from 'mobx-keystone'
-import type { IDomain } from './domain.model.interface'
+import type { IDomainModel } from './domain.model.interface'
 
-export const domainRef = rootRef<IDomain>('@codelab/DomainRef', {
+export const domainRef = rootRef<IDomainModel>('@codelab/DomainRef', {
   onResolvedValueChange: (ref, newApp, oldApp) => {
     if (oldApp && !newApp) {
       detach(ref)

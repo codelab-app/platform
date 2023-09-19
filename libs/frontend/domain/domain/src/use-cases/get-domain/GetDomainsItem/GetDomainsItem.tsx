@@ -1,5 +1,5 @@
 import { LinkOutlined } from '@ant-design/icons'
-import type { IDomain } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import { Alert, Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -10,7 +10,7 @@ import { ConfigStatus } from './ConfigStatus'
 import { hideAntBody } from './get-domains-item.styles'
 
 export interface GetAppsItemProps {
-  domain: IDomain
+  domain: IDomainModel
 }
 
 export const GetDomainItem = observer<GetAppsItemProps>(({ domain }) => {

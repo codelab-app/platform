@@ -1,11 +1,14 @@
-import type { IApp, IPagesTreeDataNode } from '@codelab/frontend/abstract/core'
+import type {
+  IAppModel,
+  IPagesTreeDataNode,
+} from '@codelab/frontend/abstract/core'
 import { CuiTree } from '@codelab/frontend/presentation//codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { PageTreeItem } from './PageTreeItem'
 
 interface PageListProps {
-  app: IApp
+  app: IAppModel
 }
 
 export const PageList = observer(({ app }: PageListProps) => {

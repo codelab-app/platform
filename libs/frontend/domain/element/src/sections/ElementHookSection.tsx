@@ -5,13 +5,13 @@ import type {
 import { observer } from 'mobx-react-lite'
 
 export interface ElementHookSectionProps {
+  atomService: IAtomService
   elementId: string
   typeService: ITypeService
-  atomService: IAtomService
 }
 
 export const ElementHookSection = observer<ElementHookSectionProps>(
-  ({ elementId, typeService, atomService }) => {
+  ({ atomService, elementId, typeService }) => {
     return null
 
     // const element = useGetElementById(elementId)

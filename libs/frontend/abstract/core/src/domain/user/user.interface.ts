@@ -1,10 +1,5 @@
-import type { IRole } from '@codelab/shared/abstract/core'
+import type { IRole, IUserDTO } from '@codelab/shared/abstract/core'
 
-export interface IUser {
-  auth0Id: string
-  id: string
-  roles: Array<IRole>
-  username: string
-
+export interface IUser extends IUserDTO {
   setId(id: string): void
 }

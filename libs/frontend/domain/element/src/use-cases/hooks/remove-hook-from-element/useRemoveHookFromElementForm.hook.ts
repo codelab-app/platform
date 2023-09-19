@@ -1,4 +1,4 @@
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 
 export const useRemoveHookFromElementForm = (elementId: string) => {
   // const { deleteIds, entity, actionType } = useHookState()
@@ -24,7 +24,7 @@ export const useRemoveHookFromElementForm = (elementId: string) => {
     model: {},
     onSubmit: () => Promise.reject('Not implemented'),
     onSubmitError: [
-      createNotificationHandler({
+      createFormErrorNotificationHandler({
         title: 'Error while deleting hook',
       }),
     ],

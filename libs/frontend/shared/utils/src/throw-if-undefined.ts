@@ -6,5 +6,5 @@ export const throwIfUndefined = <T>(value: T | undefined) => {
   /**
    * Cast away undefined
    */
-  return value!
+  return value as T
 }

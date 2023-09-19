@@ -1,6 +1,6 @@
 import type {
-  IComponent,
-  IElement,
+  IComponentModel,
+  IElementModel,
   IField,
   IReactNodeType,
   IRenderer,
@@ -26,10 +26,10 @@ export type ITestRootStore = Pick<
 }
 
 export interface TestServices {
-  component: IComponent
+  component: IComponentModel
   componentField: IField
-  componentInstance: IElement
-  element: IElement
+  componentInstance: IElementModel
+  element: IElementModel
   reactNodeType: IReactNodeType
   renderPropType: IRenderPropType
   renderer: IRenderer

@@ -1,5 +1,5 @@
 import type { Ref } from 'mobx-keystone'
-import type { IAtom } from '../atom'
-import type { IComponent } from '../component'
+import type { IAtomModel } from '../atom'
+import type { IComponentModel } from '../component'
 
-export type IElementRenderType = Ref<IAtom> | Ref<IComponent>
+export type IElementRenderType = Ref<IAtomModel> | Ref<IComponentModel>

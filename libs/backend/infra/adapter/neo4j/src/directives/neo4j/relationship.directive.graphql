@@ -1,0 +1,31 @@
+# Used for IDE linting only
+
+directive @relationship(
+  aggregate: Boolean
+  direction: RelationshipDirection!
+  nestedOperations: [RelationshipNestedOperations!]
+  properties: String
+  queryDirection: RelationshipQueryDirection
+  type: String!
+) on FIELD_DEFINITION
+
+enum RelationshipQueryDirection {
+  BOTH
+  DEFAULT_DIRECTED
+  IN
+  OUT
+}
+
+enum RelationshipDirection {
+  IN
+  OUT
+}
+
+enum RelationshipNestedOperations {
+  CONNECT
+  CONNECT_OR_CREATE
+  CREATE
+  DELETE
+  DISCONNECT
+  UPDATE
+}

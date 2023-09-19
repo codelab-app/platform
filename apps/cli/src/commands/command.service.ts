@@ -1,11 +1,7 @@
 import {
-  ExportService,
-  ImportService,
-  ResetService,
   ScrapeAntdService,
   ScrapeHtmlService,
   SeedService,
-  ServerlessService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
@@ -16,12 +12,8 @@ import { hideBin } from 'yargs/helpers'
 @Injectable()
 export class CommandService {
   constructor(
-    private readonly importService: ImportService,
     private readonly terraformService: TerraformService,
-    private readonly serverlessService: ServerlessService,
     private readonly taskService: TaskService,
-    private readonly resetService: ResetService,
-    private readonly exportService: ExportService,
     private readonly seedService: SeedService,
     private readonly scrapeAntdService: ScrapeAntdService,
     private readonly scrapeHtmlService: ScrapeHtmlService,
@@ -40,10 +32,6 @@ export class CommandService {
        * These scripts could act on different deployment environment, so we group under `data`
        */
       // .command(this.seedService)
-      .command(this.resetService)
-      .command(this.importService)
-      .command(this.serverlessService)
-      .command(this.exportService)
       /**
        * These scripts don't require env to be explicitly set
        */

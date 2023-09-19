@@ -1,7 +1,7 @@
 import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
-import type { IComponent } from '../component'
-import type { IElement } from '../element'
+import type { IComponentModel } from '../component'
+import type { IElementModel } from '../element'
 import type { IPageNode } from '../page'
 import type { IPropData } from '../prop/prop.model.interface'
 import type { TypedProp } from '../type'
@@ -33,13 +33,13 @@ export interface IRuntimeProp<T extends IPageNode> {
   props: IPropData
 }
 
-export interface IElementRuntimeProp extends IRuntimeProp<IElement> {
+export interface IElementRuntimeProp extends IRuntimeProp<IElementModel> {
   /**
    * Evaluated childMapperPropKey based on the state and props
    */
   evaluatedChildMapperProp: Array<unknown>
 }
-export interface IComponentRuntimeProp extends IRuntimeProp<IComponent> {
+export interface IComponentRuntimeProp extends IRuntimeProp<IComponentModel> {
   /**
    * merge component.props evaluation with instance element props evaluation
    */

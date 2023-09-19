@@ -10,7 +10,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/presentation/codelab-ui/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/presentation/codelab-ui/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "configurations": {

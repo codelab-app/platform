@@ -3,7 +3,6 @@
   "ignorePatterns": ["**/*"],
   "plugins": [
     "@nx",
-    "@typescript-eslint",
     "import",
     "unused-imports",
     "react",
@@ -99,7 +98,6 @@
             "ignore": ["css"]
           }
         ],
-        "jest/expect-expect": "off",
         /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
         "@next/next/google-font-display": "off",
         "@next/next/google-font-preconnect": "off",
@@ -570,6 +568,7 @@
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",
+
           {
             "default": {
               // "optionalityOrder": "required-first",
@@ -595,29 +594,6 @@
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-unnecessary-condition": "error",
-        "@typescript-eslint/ban-types": [
-          "error",
-          {
-            "types": {
-              "React.FC": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              },
-              "FC": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              },
-              "React.FunctionComponent": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              },
-              "FunctionComponent": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              }
-            }
-          }
-        ],
         "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/array-type": [
           "error",
@@ -638,23 +614,23 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
-    }
+    },
     // {
     //   "files": ["*.ts"],
     //   "processor": "@graphql-eslint/graphql"
     // },
-    // {
-    //   "files": ["*.graphql"],
-    //   // "parser": "@graphql-eslint/eslint-plugin",
-    //   // "plugins": ["@graphql-eslint"],
-    //   "extends": ["plugin:@graphql-eslint/schema-all"],
-    //   // "parserOptions": {
-    //   //   "operations": "{apps,libs}/**/*.graphql",
-    //   //   "schema": "./schema.graphql"
-    //   // },
-    //   "rules": {
-    //     "@graphql-eslint/known-type-names": "error"
-    //   }
-    // }
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      "extends": ["plugin:@graphql-eslint/schema-all"],
+      "parserOptions": {
+        // "skipGraphQLConfig": true
+        // "schema": "./schema.graphql"
+      },
+      "rules": {
+        "@graphql-eslint/known-type-names": "error"
+      }
+    }
   ]
 }

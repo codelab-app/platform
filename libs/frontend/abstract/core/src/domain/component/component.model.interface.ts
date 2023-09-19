@@ -1,5 +1,5 @@
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IOwner } from '@codelab/shared/abstract/core'
+import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -8,21 +8,19 @@ import type {
 } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IElement, IElementTree } from '../element'
+import type { IElementModel, IElementTree } from '../element'
 import type { IProp } from '../prop'
 import type { IComponentRuntimeProp } from '../render'
 import type { IStore } from '../store'
 import type { IInterfaceType } from '../type'
-import type { IComponentDTO } from './component.dto.interface'
 
-export interface IComponent
-  extends ICacheService<IComponentDTO, IComponent>,
-    IOwner,
+export interface IComponentModel
+  extends ICacheService<IComponentDTO, IComponentModel>,
     IElementTree {
   api: Ref<IInterfaceType>
-  childrenContainerElement: Ref<IElement>
-  descendantComponents: Array<IComponent>
-  instanceElement: Nullable<Ref<IElement>>
+  childrenContainerElement: Ref<IElementModel>
+  descendantComponents: Array<IComponentModel>
+  instanceElement: Nullable<Ref<IElementModel>>
   keyGenerator: Nullish<string>
   name: string
   props: Ref<IProp>
@@ -34,9 +32,9 @@ export interface IComponent
   sourceComponent?: Nullable<IEntity>
   store: Ref<IStore>
 
-  clone(key: string, instanceId?: string): IComponent
-  setChildrenContainerElement(element: Ref<IElement>): void
-  setInstanceElement(elementRef: Ref<IElement>): void
+  clone(key: string, instanceId?: string): IComponentModel
+  setChildrenContainerElement(element: Ref<IElementModel>): void
+  setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: Nullable<Ref<IProp>>): void
   setSourceComponent(entity: IEntity): void
   setStore(props: Nullable<Ref<IStore>>): void

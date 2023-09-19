@@ -1,4 +1,4 @@
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import type {
   IActionService,
   IAdminService,
@@ -23,9 +23,7 @@ import type {
  * Initial data to be injected into store
  */
 export interface RootStoreData {
-  init?: boolean
-  servicesFromSnapshot?: unknown
-  user?: IUserDTO
+  user: Auth0IdToken
 }
 
 export interface IRootStore {

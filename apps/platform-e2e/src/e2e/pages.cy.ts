@@ -1,8 +1,8 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import { pageName, updatedPageName } from './apps/app.data'
 
 before(() => {
@@ -10,12 +10,9 @@ before(() => {
 
   loginSession()
 
-  cy.request<IAppDTO>('/api/cypress/app').then((res) => {
-    const app = res.body
+  cy.request<IApp>('POST', '/api/cypress/app').then(({ body: app }) => {
     cy.visit(
-      `/apps/cypress/${slugify(
-        app.name,
-      )}/pages/404/builder?primarySidebarKey=pageList`,
+      `/apps/cypress/${app.slug}/pages/404/builder?primarySidebarKey=pageList`,
     )
     cy.getSpinner().should('not.exist')
     cy.findAllByText(IPageKindName.Provider).should('exist')

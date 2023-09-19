@@ -1,9 +1,9 @@
 import type { PageType } from '@codelab/frontend/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
-  IAtom,
+  IAtomModel,
   IAtomService,
-  IComponent,
+  IComponentModel,
   IComponentService,
   IType,
   ITypeService,
@@ -13,7 +13,7 @@ export interface Filterables {
   [x: string]: Array<string> | boolean | number | string | undefined
 }
 
-export type SupportedPaginationModel = IAtom | IComponent | IType
+export type SupportedPaginationModel = IAtomModel | IComponentModel | IType
 
 export type SupportedPaginationModelPage =
   | PageType.Atoms

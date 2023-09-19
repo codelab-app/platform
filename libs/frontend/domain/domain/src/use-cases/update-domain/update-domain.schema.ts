@@ -8,7 +8,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const updateDomainSchema: JSONSchemaType<IUpdateDomainData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     ...appSchema,
     name: {
       autoFocus: true,

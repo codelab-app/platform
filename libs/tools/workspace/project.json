@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "name": "tools-workspace",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/tools/workspace/src",
   "tags": ["scope:shared"],
@@ -60,10 +60,7 @@
       "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/tools/workspace/**/*.ts",
-          "libs/tools/workspace/package.json",
-          "libs/tools/workspace/generators.json",
-          "libs/tools/workspace/executors.json"
+          "libs/tools/workspace/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "outputs": ["{options.outputFile}"]
@@ -84,53 +81,53 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "libs/tools/workspace/jest.config.ts",
+        "passWithNoTests": true
+      },
       "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true,
-          "parallel": 3
-        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3,
+          "ci": true,
+          "codeCoverage": true
         }
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "memoryLimit": 8192,
-        "passWithNoTests": true,
-        "testPathPattern": ["[i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/tools/workspace/jest.config.ts",
+        "passWithNoTests": true
+      },
       "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
+        },
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
         }
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "passWithNoTests": true,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   }

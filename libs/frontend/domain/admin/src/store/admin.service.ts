@@ -1,31 +1,61 @@
-import type { IAdminService } from '@codelab/frontend/abstract/core'
+import type { IUserOutputDto } from '@codelab/backend/abstract/core'
+import {
+  getAppService,
+  type IAdminService,
+} from '@codelab/frontend/abstract/core'
+import { restClient } from '@codelab/frontend/config'
+import { ModalService } from '@codelab/frontend/shared/utils'
+import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import {
   _async,
   _await,
   Model,
   model,
   modelFlow,
+  prop,
   transaction,
 } from 'mobx-keystone'
-import { adminApi } from './admin.api'
 
 @model('@codelab/AdminService')
-export class AdminService extends Model({}) implements IAdminService {
+export class AdminService
+  extends Model({
+    exportDataModal: prop(() => new ModalService({})),
+    importDataModal: prop(() => new ModalService({})),
+  })
+  implements IAdminService
+{
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
-    const { resetDatabase } = yield* _await(adminApi.ResetDatabase())
-
-    return resetDatabase?.success
+    return yield* _await(restClient.post('/admin/reset'))
   })
 
   @modelFlow
-  exportData = _async(function* (this: AdminService) {
-    return yield* _await(fetch(`/api/export/admin`))
+  exportData = _async(function* (this: AdminService, data: ExportDto) {
+    return yield* _await(restClient.post('/admin/export', data))
   })
 
   @modelFlow
-  importData = _async(function* (this: AdminService) {
-    return yield* _await(fetch(`/api/import/admin`))
+  importData = _async(function* (this: AdminService, data: ImportDto) {
+    return yield* _await(restClient.post('/admin/import', data))
+  })
+
+  @computed
+  private get appService() {
+    return getAppService(this)
+  }
+
+  @modelFlow
+  importApp = _async(function* (this: AdminService, appData: string) {
+    return yield* _await(
+      restClient
+        .post<IUserOutputDto>('/import/app', appData)
+        .then(({ data }) => {
+          const appId = data.apps[0]?.app.id
+
+          return this.appService.loadAppsPreview({ id: appId })
+        }),
+    )
   })
 }

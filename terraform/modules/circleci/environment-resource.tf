@@ -17,9 +17,17 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_HOST" {
   organization = local.organization
 }
 
+// TODO: Remove after merge
 resource "circleci_environment_variable" "PLATFORM_API_HOST" {
   name         = "PLATFORM_API_HOST"
-  value        = var.platform_api_host
+  value        = var.next_public_platform_api_host
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_API_HOST" {
+  name         = "NEXT_PUBLIC_PLATFORM_API_HOST"
+  value        = var.next_public_platform_api_host
   project      = local.project_name
   organization = local.organization
 }

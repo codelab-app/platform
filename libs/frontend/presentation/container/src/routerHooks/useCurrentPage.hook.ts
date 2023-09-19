@@ -1,32 +1,28 @@
-import { createUniqueName, getNameFromSlug } from '@codelab/shared/utils'
+import { getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useStore } from '../providers'
 import { useCurrentApp } from './useCurrentApp.hook'
 
+/**
+ * Shouldn't throw error since incorrect slug shouldn't break the app, but rather redirect
+ */
 export const useCurrentPage = () => {
-  const { app } = useCurrentApp()
-  const { pageService, userService } = useStore()
+  const app = useCurrentApp()
+  const { pageService } = useStore()
   const { query } = useRouter()
   const pageSlug = query.pageSlug as string
-  const userName = query.userName as string
   const pageName = getNameFromSlug(pageSlug)
 
-  const user = userService.usersList.find(
-    ({ username }) => username === userName,
-  )
-
-  if (!user) {
-    throw new Error(`User ${userName} not found`)
-  }
-
   return useMemo(() => {
-    const _compoundName = createUniqueName(pageName, user.auth0Id)
+    if (!app) {
+      return undefined
+    }
 
-    const page =
-      app &&
-      pageService.pagesByApp(app.id).find(({ name }) => name === pageName)
+    const page = pageService
+      .pagesByApp(app.id)
+      .find(({ name }) => name === pageName)
 
-    return { _compoundName, page, pageName, pageSlug }
-  }, [pageName, userName])
+    return page
+  }, [pageName])
 }

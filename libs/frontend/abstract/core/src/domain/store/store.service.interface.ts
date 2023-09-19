@@ -11,12 +11,11 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import type { IUpdateStoreData } from './store.data.interface'
 import type { IStore } from './store.model.interface'
 import type { IStoreRepository } from './store.repo.interface'
 
 export interface IStoreService
-  extends ICRUDService<IStore, IStoreDTO, IUpdateStoreData>,
+  extends ICRUDService<IStore, IStoreDTO, IStoreDTO>,
     IQueryService<IStore, StoreWhere, StoreOptions>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   storeRepository: IStoreRepository

@@ -1,7 +1,6 @@
 import {
   actionRef,
   type IAction,
-  type IActionDTO,
   type IActionService,
   type IActionWhere,
   type ICreateActionData,
@@ -11,6 +10,7 @@ import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
+import type { IActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -69,10 +69,18 @@ export class ActionService
 
   @modelAction
   add<T extends IActionDTO>(actionDTO: T) {
-    const action =
-      actionDTO.__typename === IActionKind.CodeAction
-        ? CodeAction.create(actionDTO)
-        : ApiAction.create(actionDTO)
+    let action: IAction
+
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction:
+        action = CodeAction.create(actionDTO)
+        break
+      case IActionKind.ApiAction:
+        action = ApiAction.create(actionDTO)
+        break
+      default:
+        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
+    }
 
     this.actions.set(action.id, action)
 

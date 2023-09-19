@@ -1,6 +1,6 @@
 import type {
   IBuilderService,
-  IComponent,
+  IComponentModel,
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
@@ -11,7 +11,7 @@ import React from 'react'
 
 interface BuilderTreeItemComponentTitleProps {
   builderService: IBuilderService
-  component: IComponent
+  component: IComponentModel
   elementService: IElementService
 }
 

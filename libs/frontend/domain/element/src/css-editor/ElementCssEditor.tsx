@@ -1,7 +1,7 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import type {
   CssMap,
-  IElement,
+  IElementModel,
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
@@ -11,7 +11,7 @@ import { Col, Collapse, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { getElementModel } from '../utils/get-element-model'
+import { Element } from '../store'
 import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
 import { BordersEditor } from './css-borders-editor/BordersEditor'
 import { EffectsEditor } from './css-effects-editor/EffectsEditor'
@@ -30,7 +30,7 @@ const Label = styled.span`
 `
 
 export interface ElementCssEditorInternalProps {
-  element: IElement
+  element: IElementModel
   elementService: IElementService
 }
 
@@ -51,8 +51,8 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     )
 
     const updateElementStyles = useCallback(
-      (updatedElement: IElement) => {
-        const elementModel = getElementModel(updatedElement)
+      (updatedElement: IElementModel) => {
+        const elementModel = Element.create(updatedElement)
         const oldStyle = lastStateRef.current
         const { style } = updatedElement
 

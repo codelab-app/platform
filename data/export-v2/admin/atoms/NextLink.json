@@ -1,0 +1,80 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+    "kind": "InterfaceType",
+    "name": "NextLink  API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
+            },
+            "defaultValues": "",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
+            "key": "href",
+            "name": "Href",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":false}}"
+          }
+        ],
+        "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+        "kind": "InterfaceType",
+        "name": "NextLink  API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [
+        {
+          "api": {
+            "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
+          },
+          "defaultValues": "",
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
+          "key": "href",
+          "name": "Href",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": "{\"general\":{\"nullable\":false}}"
+        }
+      ],
+      "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+      "kind": "InterfaceType",
+      "name": "NextLink  API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
+    "name": "NextLink",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [],
+    "type": "NextLink"
+  }
+}

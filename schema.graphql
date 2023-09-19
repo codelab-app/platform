@@ -166,7 +166,6 @@ input ActionTypeSort {
 }
 
 input ActionTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -228,14 +227,9 @@ input AnyActionWhere {
 
 union AnyType =
     ActionType
-  | AppType
   | ArrayType
-  | CodeMirrorType
-  | ElementType
   | EnumType
   | InterfaceType
-  | LambdaType
-  | PageType
   | PrimitiveType
   | ReactNodeType
   | RenderPropType
@@ -243,14 +237,9 @@ union AnyType =
 
 input AnyTypeWhere {
   ActionType: ActionTypeWhere
-  AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
-  CodeMirrorType: CodeMirrorTypeWhere
-  ElementType: ElementTypeWhere
   EnumType: EnumTypeWhere
   InterfaceType: InterfaceTypeWhere
-  LambdaType: LambdaTypeWhere
-  PageType: PageTypeWhere
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
   RenderPropType: RenderPropTypeWhere
@@ -377,7 +366,7 @@ input ApiActionConfigAggregateInput {
 
 input ApiActionConfigConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -479,14 +468,8 @@ input ApiActionConnectInput {
 input ApiActionConnectOrCreateInput {
   config: ApiActionConfigConnectOrCreateFieldInput
   element: BaseActionElementConnectOrCreateFieldInput
-  errorAction: ApiActionErrorActionConnectOrCreateInput
   resource: ApiActionResourceConnectOrCreateFieldInput
   store: BaseActionStoreConnectOrCreateFieldInput
-  successAction: ApiActionSuccessActionConnectOrCreateInput
-}
-
-input ApiActionConnectOrCreateWhere {
-  node: ApiActionUniqueWhere!
 }
 
 input ApiActionConnectWhere {
@@ -546,8 +529,8 @@ type ApiActionElementElementAggregationSelection {
 }
 
 type ApiActionElementElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -558,21 +541,6 @@ input ApiActionElementNodeAggregationWhereInput {
   AND: [ApiActionElementNodeAggregationWhereInput!]
   NOT: ApiActionElementNodeAggregationWhereInput
   OR: [ApiActionElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -588,6 +556,21 @@ input ApiActionElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -640,15 +623,6 @@ input ApiActionErrorActionApiActionConnectFieldInput {
   where: ApiActionConnectWhere
 }
 
-input ApiActionErrorActionApiActionConnectOrCreateFieldInput {
-  onCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate!
-  where: ApiActionConnectOrCreateWhere!
-}
-
-input ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate {
-  node: ApiActionOnCreateInput!
-}
-
 input ApiActionErrorActionApiActionConnectionWhere {
   AND: [ApiActionErrorActionApiActionConnectionWhere!]
   NOT: ApiActionErrorActionApiActionConnectionWhere
@@ -672,7 +646,6 @@ input ApiActionErrorActionApiActionDisconnectFieldInput {
 
 input ApiActionErrorActionApiActionFieldInput {
   connect: ApiActionErrorActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInput
   create: ApiActionErrorActionApiActionCreateFieldInput
 }
 
@@ -682,7 +655,6 @@ input ApiActionErrorActionApiActionUpdateConnectionInput {
 
 input ApiActionErrorActionApiActionUpdateFieldInput {
   connect: ApiActionErrorActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInput
   create: ApiActionErrorActionApiActionCreateFieldInput
   delete: ApiActionErrorActionApiActionDeleteFieldInput
   disconnect: ApiActionErrorActionApiActionDisconnectFieldInput
@@ -693,15 +665,6 @@ input ApiActionErrorActionApiActionUpdateFieldInput {
 input ApiActionErrorActionCodeActionConnectFieldInput {
   connect: CodeActionConnectInput
   where: CodeActionConnectWhere
-}
-
-input ApiActionErrorActionCodeActionConnectOrCreateFieldInput {
-  onCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate!
-  where: CodeActionConnectOrCreateWhere!
-}
-
-input ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate {
-  node: CodeActionOnCreateInput!
 }
 
 input ApiActionErrorActionCodeActionConnectionWhere {
@@ -727,7 +690,6 @@ input ApiActionErrorActionCodeActionDisconnectFieldInput {
 
 input ApiActionErrorActionCodeActionFieldInput {
   connect: ApiActionErrorActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
   create: ApiActionErrorActionCodeActionCreateFieldInput
 }
 
@@ -737,7 +699,6 @@ input ApiActionErrorActionCodeActionUpdateConnectionInput {
 
 input ApiActionErrorActionCodeActionUpdateFieldInput {
   connect: ApiActionErrorActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
   create: ApiActionErrorActionCodeActionCreateFieldInput
   delete: ApiActionErrorActionCodeActionDeleteFieldInput
   disconnect: ApiActionErrorActionCodeActionDisconnectFieldInput
@@ -748,11 +709,6 @@ input ApiActionErrorActionCodeActionUpdateFieldInput {
 input ApiActionErrorActionConnectInput {
   ApiAction: ApiActionErrorActionApiActionConnectFieldInput
   CodeAction: ApiActionErrorActionCodeActionConnectFieldInput
-}
-
-input ApiActionErrorActionConnectOrCreateInput {
-  ApiAction: ApiActionErrorActionApiActionConnectOrCreateFieldInput
-  CodeAction: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
 }
 
 type ApiActionErrorActionConnection {
@@ -794,12 +750,6 @@ type ApiActionErrorActionRelationship {
 input ApiActionErrorActionUpdateInput {
   ApiAction: ApiActionErrorActionApiActionUpdateFieldInput
   CodeAction: ApiActionErrorActionCodeActionUpdateFieldInput
-}
-
-input ApiActionOnCreateInput {
-  id: ID!
-  name: String!
-  type: ActionKind! = ApiAction
 }
 
 input ApiActionOptions {
@@ -847,7 +797,7 @@ input ApiActionResourceConnectFieldInput {
   connect: ResourceConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ResourceConnectWhere
@@ -1006,15 +956,6 @@ input ApiActionSuccessActionApiActionConnectFieldInput {
   where: ApiActionConnectWhere
 }
 
-input ApiActionSuccessActionApiActionConnectOrCreateFieldInput {
-  onCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate!
-  where: ApiActionConnectOrCreateWhere!
-}
-
-input ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate {
-  node: ApiActionOnCreateInput!
-}
-
 input ApiActionSuccessActionApiActionConnectionWhere {
   AND: [ApiActionSuccessActionApiActionConnectionWhere!]
   NOT: ApiActionSuccessActionApiActionConnectionWhere
@@ -1038,7 +979,6 @@ input ApiActionSuccessActionApiActionDisconnectFieldInput {
 
 input ApiActionSuccessActionApiActionFieldInput {
   connect: ApiActionSuccessActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionApiActionCreateFieldInput
 }
 
@@ -1048,7 +988,6 @@ input ApiActionSuccessActionApiActionUpdateConnectionInput {
 
 input ApiActionSuccessActionApiActionUpdateFieldInput {
   connect: ApiActionSuccessActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionApiActionCreateFieldInput
   delete: ApiActionSuccessActionApiActionDeleteFieldInput
   disconnect: ApiActionSuccessActionApiActionDisconnectFieldInput
@@ -1059,15 +998,6 @@ input ApiActionSuccessActionApiActionUpdateFieldInput {
 input ApiActionSuccessActionCodeActionConnectFieldInput {
   connect: CodeActionConnectInput
   where: CodeActionConnectWhere
-}
-
-input ApiActionSuccessActionCodeActionConnectOrCreateFieldInput {
-  onCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate!
-  where: CodeActionConnectOrCreateWhere!
-}
-
-input ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate {
-  node: CodeActionOnCreateInput!
 }
 
 input ApiActionSuccessActionCodeActionConnectionWhere {
@@ -1093,7 +1023,6 @@ input ApiActionSuccessActionCodeActionDisconnectFieldInput {
 
 input ApiActionSuccessActionCodeActionFieldInput {
   connect: ApiActionSuccessActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionCodeActionCreateFieldInput
 }
 
@@ -1103,7 +1032,6 @@ input ApiActionSuccessActionCodeActionUpdateConnectionInput {
 
 input ApiActionSuccessActionCodeActionUpdateFieldInput {
   connect: ApiActionSuccessActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionCodeActionCreateFieldInput
   delete: ApiActionSuccessActionCodeActionDeleteFieldInput
   disconnect: ApiActionSuccessActionCodeActionDisconnectFieldInput
@@ -1114,11 +1042,6 @@ input ApiActionSuccessActionCodeActionUpdateFieldInput {
 input ApiActionSuccessActionConnectInput {
   ApiAction: ApiActionSuccessActionApiActionConnectFieldInput
   CodeAction: ApiActionSuccessActionCodeActionConnectFieldInput
-}
-
-input ApiActionSuccessActionConnectOrCreateInput {
-  ApiAction: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
-  CodeAction: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
 }
 
 type ApiActionSuccessActionConnection {
@@ -1160,10 +1083,6 @@ type ApiActionSuccessActionRelationship {
 input ApiActionSuccessActionUpdateInput {
   ApiAction: ApiActionSuccessActionApiActionUpdateFieldInput
   CodeAction: ApiActionSuccessActionCodeActionUpdateFieldInput
-}
-
-input ApiActionUniqueWhere {
-  id: ID
 }
 
 input ApiActionUpdateInput {
@@ -1228,7 +1147,7 @@ type ApiActionsConnection {
 }
 
 type App implements WithOwner {
-  _compoundName: String!
+  compositeKey: String!
   domains(
     directed: Boolean = true
     options: DomainOptions
@@ -1279,7 +1198,7 @@ type App implements WithOwner {
 }
 
 type AppAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
 }
@@ -1305,7 +1224,7 @@ input AppConnectWhere {
 }
 
 input AppCreateInput {
-  _compoundName: String!
+  compositeKey: String!
   domains: AppDomainsFieldInput
   id: ID!
   owner: WithOwnerOwnerFieldInput
@@ -1350,7 +1269,7 @@ input AppDomainsConnectFieldInput {
   connect: [DomainConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: DomainConnectWhere
@@ -1448,7 +1367,7 @@ type AppEdge {
 }
 
 input AppOnCreateInput {
-  _compoundName: String!
+  compositeKey: String!
   id: ID!
 }
 
@@ -1531,7 +1450,7 @@ type AppPagePagesAggregationSelection {
 }
 
 type AppPagePagesNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
 }
@@ -1552,7 +1471,7 @@ input AppPagesConnectFieldInput {
   connect: [PageConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PageConnectWhere
@@ -1608,21 +1527,21 @@ input AppPagesNodeAggregationWhereInput {
   AND: [AppPagesNodeAggregationWhereInput!]
   NOT: AppPagesNodeAggregationWhereInput
   OR: [AppPagesNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   url_AVERAGE_LENGTH_EQUAL: Float
   url_AVERAGE_LENGTH_GT: Float
   url_AVERAGE_LENGTH_GTE: Float
@@ -1669,7 +1588,7 @@ input AppRelationInput {
 Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object.
 """
 input AppSort {
-  _compoundName: SortDirection
+  compositeKey: SortDirection
   id: SortDirection
 }
 
@@ -1708,14 +1627,6 @@ input AppTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input AppTypeConnectOrCreateWhere {
-  node: AppTypeUniqueWhere!
-}
-
-input AppTypeConnectWhere {
-  node: AppTypeWhere!
-}
-
 input AppTypeCreateInput {
   id: ID!
   kind: TypeKind! = AppType
@@ -1734,12 +1645,6 @@ input AppTypeDisconnectInput {
 type AppTypeEdge {
   cursor: String!
   node: AppType!
-}
-
-input AppTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = AppType
-  name: String!
 }
 
 input AppTypeOptions {
@@ -1828,10 +1733,6 @@ input AppTypeSort {
   name: SortDirection
 }
 
-input AppTypeUniqueWhere {
-  id: ID
-}
-
 input AppTypeUpdateInput {
   id: ID
   name: String
@@ -1882,12 +1783,12 @@ type AppTypesConnection {
 }
 
 input AppUniqueWhere {
-  _compoundName: String
+  compositeKey: String
   id: ID
 }
 
 input AppUpdateInput {
-  _compoundName: String
+  compositeKey: String
   domains: [AppDomainsUpdateFieldInput!]
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
@@ -1910,12 +1811,12 @@ input AppWhere {
   AND: [AppWhere!]
   NOT: AppWhere
   OR: [AppWhere!]
-  _compoundName: String
-  _compoundName_CONTAINS: String
-  _compoundName_ENDS_WITH: String
-  _compoundName_IN: [String!]
-  _compoundName_MATCHES: String
-  _compoundName_STARTS_WITH: String
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
+  compositeKey_STARTS_WITH: String
   domainsAggregate: AppDomainsAggregateInput
 
   """
@@ -2084,10 +1985,6 @@ input ArrayTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input ArrayTypeConnectOrCreateWhere {
-  node: ArrayTypeUniqueWhere!
-}
-
 input ArrayTypeConnectWhere {
   node: ArrayTypeWhere!
 }
@@ -2148,7 +2045,7 @@ input ArrayTypeFieldRefsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -2348,12 +2245,6 @@ input ArrayTypeItemTypeUpdateFieldInput {
   where: ArrayTypeItemTypeConnectionWhere
 }
 
-input ArrayTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = ArrayType
-  name: String!
-}
-
 input ArrayTypeOptions {
   limit: Int
   offset: Int
@@ -2440,10 +2331,6 @@ input ArrayTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input ArrayTypeUniqueWhere {
-  id: ID
 }
 
 input ArrayTypeUpdateInput {
@@ -2648,19 +2535,10 @@ input AtomApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input AtomApiConnectOrCreateFieldInput {
-  onCreate: AtomApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input AtomApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type AtomApiConnection {
@@ -2696,7 +2574,6 @@ input AtomApiDisconnectFieldInput {
 
 input AtomApiFieldInput {
   connect: AtomApiConnectFieldInput
-  connectOrCreate: AtomApiConnectOrCreateFieldInput
   create: AtomApiCreateFieldInput
 }
 
@@ -2732,7 +2609,6 @@ input AtomApiUpdateConnectionInput {
 
 input AtomApiUpdateFieldInput {
   connect: AtomApiConnectFieldInput
-  connectOrCreate: AtomApiConnectOrCreateFieldInput
   create: AtomApiCreateFieldInput
   delete: AtomApiDeleteFieldInput
   disconnect: AtomApiDisconnectFieldInput
@@ -2777,7 +2653,6 @@ input AtomConnectInput {
 }
 
 input AtomConnectOrCreateInput {
-  api: AtomApiConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   requiredParents: [AtomRequiredParentsConnectOrCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
@@ -2945,7 +2820,7 @@ input AtomRequiredParentsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -3126,7 +3001,7 @@ input AtomSuggestedChildrenConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -3304,7 +3179,7 @@ input AtomTagsConnectFieldInput {
   connect: [TagConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -3780,6 +3655,7 @@ input AtomUniqueWhere {
   externalSourceType: String
   id: ID
   name: String
+  type: AtomType
 }
 
 input AtomUpdateInput {
@@ -4065,7 +3941,7 @@ input BaseActionElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -4121,21 +3997,6 @@ input BaseActionElementNodeAggregationWhereInput {
   AND: [BaseActionElementNodeAggregationWhereInput!]
   NOT: BaseActionElementNodeAggregationWhereInput
   OR: [BaseActionElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4151,6 +4012,21 @@ input BaseActionElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4277,7 +4153,7 @@ input BaseActionStoreConnectFieldInput {
   connect: StoreConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: StoreConnectWhere
@@ -4405,187 +4281,6 @@ input BaseActionWhere {
   type_IN: [ActionKind!]
 }
 
-type BaseType implements IBaseType {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): BaseTypeUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [IBaseTypeOwnerConnectionSort!]
-    where: IBaseTypeOwnerConnectionWhere
-  ): IBaseTypeOwnerConnection!
-}
-
-input BaseTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
-}
-
-input BaseTypeConnectOrCreateWhere {
-  node: BaseTypeUniqueWhere!
-}
-
-input BaseTypeConnectWhere {
-  node: BaseTypeWhere!
-}
-
-input BaseTypeCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner: IBaseTypeOwnerFieldInput
-}
-
-input BaseTypeDeleteInput {
-  owner: IBaseTypeOwnerDeleteFieldInput
-}
-
-input BaseTypeDisconnectInput {
-  owner: IBaseTypeOwnerDisconnectFieldInput
-}
-
-input BaseTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-}
-
-input BaseTypeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more BaseTypeSort objects to sort BaseTypes by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [BaseTypeSort!]
-}
-
-input BaseTypeOwnerAggregateInput {
-  AND: [BaseTypeOwnerAggregateInput!]
-  NOT: BaseTypeOwnerAggregateInput
-  OR: [BaseTypeOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: BaseTypeOwnerNodeAggregationWhereInput
-}
-
-input BaseTypeOwnerNodeAggregationWhereInput {
-  AND: [BaseTypeOwnerNodeAggregationWhereInput!]
-  NOT: BaseTypeOwnerNodeAggregationWhereInput
-  OR: [BaseTypeOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_LENGTH_EQUAL: Float
-  auth0Id_AVERAGE_LENGTH_GT: Float
-  auth0Id_AVERAGE_LENGTH_GTE: Float
-  auth0Id_AVERAGE_LENGTH_LT: Float
-  auth0Id_AVERAGE_LENGTH_LTE: Float
-  auth0Id_LONGEST_LENGTH_EQUAL: Int
-  auth0Id_LONGEST_LENGTH_GT: Int
-  auth0Id_LONGEST_LENGTH_GTE: Int
-  auth0Id_LONGEST_LENGTH_LT: Int
-  auth0Id_LONGEST_LENGTH_LTE: Int
-  auth0Id_SHORTEST_LENGTH_EQUAL: Int
-  auth0Id_SHORTEST_LENGTH_GT: Int
-  auth0Id_SHORTEST_LENGTH_GTE: Int
-  auth0Id_SHORTEST_LENGTH_LT: Int
-  auth0Id_SHORTEST_LENGTH_LTE: Int
-  email_AVERAGE_LENGTH_EQUAL: Float
-  email_AVERAGE_LENGTH_GT: Float
-  email_AVERAGE_LENGTH_GTE: Float
-  email_AVERAGE_LENGTH_LT: Float
-  email_AVERAGE_LENGTH_LTE: Float
-  email_LONGEST_LENGTH_EQUAL: Int
-  email_LONGEST_LENGTH_GT: Int
-  email_LONGEST_LENGTH_GTE: Int
-  email_LONGEST_LENGTH_LT: Int
-  email_LONGEST_LENGTH_LTE: Int
-  email_SHORTEST_LENGTH_EQUAL: Int
-  email_SHORTEST_LENGTH_GT: Int
-  email_SHORTEST_LENGTH_GTE: Int
-  email_SHORTEST_LENGTH_LT: Int
-  email_SHORTEST_LENGTH_LTE: Int
-  username_AVERAGE_LENGTH_EQUAL: Float
-  username_AVERAGE_LENGTH_GT: Float
-  username_AVERAGE_LENGTH_GTE: Float
-  username_AVERAGE_LENGTH_LT: Float
-  username_AVERAGE_LENGTH_LTE: Float
-  username_LONGEST_LENGTH_EQUAL: Int
-  username_LONGEST_LENGTH_GT: Int
-  username_LONGEST_LENGTH_GTE: Int
-  username_LONGEST_LENGTH_LT: Int
-  username_LONGEST_LENGTH_LTE: Int
-  username_SHORTEST_LENGTH_EQUAL: Int
-  username_SHORTEST_LENGTH_GT: Int
-  username_SHORTEST_LENGTH_GTE: Int
-  username_SHORTEST_LENGTH_LT: Int
-  username_SHORTEST_LENGTH_LTE: Int
-}
-
-"""
-Fields to sort BaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseTypeSort object.
-"""
-input BaseTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-}
-
-input BaseTypeUniqueWhere {
-  id: ID
-  name: String
-}
-
-input BaseTypeUpdateInput {
-  id: ID
-  name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
-}
-
-type BaseTypeUserOwnerAggregationSelection {
-  count: Int!
-  node: BaseTypeUserOwnerNodeAggregateSelection
-}
-
-type BaseTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
-}
-
-input BaseTypeWhere {
-  AND: [BaseTypeWhere!]
-  NOT: BaseTypeWhere
-  OR: [BaseTypeWhere!]
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_MATCHES: String
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_MATCHES: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: BaseTypeOwnerAggregateInput
-  ownerConnection: IBaseTypeOwnerConnectionWhere
-  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
-
 input BaseTypesWhere {
   name: String
 }
@@ -4649,10 +4344,6 @@ input CodeActionConnectOrCreateInput {
   store: BaseActionStoreConnectOrCreateFieldInput
 }
 
-input CodeActionConnectOrCreateWhere {
-  node: CodeActionUniqueWhere!
-}
-
 input CodeActionConnectWhere {
   node: CodeActionWhere!
 }
@@ -4699,8 +4390,8 @@ type CodeActionElementElementAggregationSelection {
 }
 
 type CodeActionElementElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -4711,21 +4402,6 @@ input CodeActionElementNodeAggregationWhereInput {
   AND: [CodeActionElementNodeAggregationWhereInput!]
   NOT: CodeActionElementNodeAggregationWhereInput
   OR: [CodeActionElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4741,6 +4417,21 @@ input CodeActionElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4786,13 +4477,6 @@ input CodeActionElementNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_GTE: Int
   style_SHORTEST_LENGTH_LT: Int
   style_SHORTEST_LENGTH_LTE: Int
-}
-
-input CodeActionOnCreateInput {
-  code: String!
-  id: ID!
-  name: String!
-  type: ActionKind! = CodeAction
 }
 
 input CodeActionOptions {
@@ -4861,10 +4545,6 @@ type CodeActionStoreStoreAggregationSelection {
 type CodeActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-}
-
-input CodeActionUniqueWhere {
-  id: ID
 }
 
 input CodeActionUpdateInput {
@@ -4962,14 +4642,6 @@ input CodeMirrorTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input CodeMirrorTypeConnectOrCreateWhere {
-  node: CodeMirrorTypeUniqueWhere!
-}
-
-input CodeMirrorTypeConnectWhere {
-  node: CodeMirrorTypeWhere!
-}
-
 input CodeMirrorTypeCreateInput {
   id: ID!
   kind: TypeKind! = CodeMirrorType
@@ -4989,13 +4661,6 @@ input CodeMirrorTypeDisconnectInput {
 type CodeMirrorTypeEdge {
   cursor: String!
   node: CodeMirrorType!
-}
-
-input CodeMirrorTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = CodeMirrorType
-  language: CodeMirrorLanguage!
-  name: String!
 }
 
 input CodeMirrorTypeOptions {
@@ -5083,10 +4748,6 @@ input CodeMirrorTypeSort {
   kind: SortDirection
   language: SortDirection
   name: SortDirection
-}
-
-input CodeMirrorTypeUniqueWhere {
-  id: ID
 }
 
 input CodeMirrorTypeUpdateInput {
@@ -5258,19 +4919,10 @@ input ComponentApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input ComponentApiConnectOrCreateFieldInput {
-  onCreate: ComponentApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input ComponentApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type ComponentApiConnection {
@@ -5306,7 +4958,6 @@ input ComponentApiDisconnectFieldInput {
 
 input ComponentApiFieldInput {
   connect: ComponentApiConnectFieldInput
-  connectOrCreate: ComponentApiConnectOrCreateFieldInput
   create: ComponentApiCreateFieldInput
 }
 
@@ -5342,7 +4993,6 @@ input ComponentApiUpdateConnectionInput {
 
 input ComponentApiUpdateFieldInput {
   connect: ComponentApiConnectFieldInput
-  connectOrCreate: ComponentApiConnectOrCreateFieldInput
   create: ComponentApiCreateFieldInput
   delete: ComponentApiDeleteFieldInput
   disconnect: ComponentApiDisconnectFieldInput
@@ -5366,7 +5016,7 @@ input ComponentChildrenContainerElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -5422,21 +5072,6 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   AND: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
   NOT: ComponentChildrenContainerElementNodeAggregationWhereInput
   OR: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5452,6 +5087,21 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5528,7 +5178,6 @@ input ComponentConnectInput {
 }
 
 input ComponentConnectOrCreateInput {
-  api: ComponentApiConnectOrCreateFieldInput
   childrenContainerElement: ComponentChildrenContainerElementConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   props: ComponentPropsConnectOrCreateFieldInput
@@ -5585,8 +5234,8 @@ type ComponentElementChildrenContainerElementAggregationSelection {
 }
 
 type ComponentElementChildrenContainerElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -5599,8 +5248,8 @@ type ComponentElementRootElementAggregationSelection {
 }
 
 type ComponentElementRootElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -5720,7 +5369,7 @@ input ComponentPropsAggregateInput {
 
 input ComponentPropsConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -5835,7 +5484,7 @@ input ComponentRootElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -5891,21 +5540,6 @@ input ComponentRootElementNodeAggregationWhereInput {
   AND: [ComponentRootElementNodeAggregationWhereInput!]
   NOT: ComponentRootElementNodeAggregationWhereInput
   OR: [ComponentRootElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5921,6 +5555,21 @@ input ComponentRootElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6012,7 +5661,7 @@ input ComponentStoreConnectFieldInput {
   connect: StoreConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: StoreConnectWhere
@@ -6202,6 +5851,8 @@ type ComponentsConnection {
   totalCount: Int!
 }
 
+union ContainerNode = Component | Page
+
 type CreateActionTypesMutationResponse {
   actionTypes: [ActionType!]!
   info: CreateInfo!
@@ -6289,6 +5940,9 @@ type CreateHooksMutationResponse {
 
 type CreateInfo {
   bookmark: String
+    @deprecated(
+      reason: "This field has been deprecated because bookmarks are now handled by the driver."
+    )
   nodesCreated: Int!
   relationshipsCreated: Int!
 }
@@ -6365,6 +6019,9 @@ type CreateUsersMutationResponse {
 
 type DeleteInfo {
   bookmark: String
+    @deprecated(
+      reason: "This field has been deprecated because bookmarks are now handled by the driver."
+    )
   nodesDeleted: Int!
   relationshipsDeleted: Int!
 }
@@ -6412,7 +6069,7 @@ type DomainAppAppAggregationSelection {
 }
 
 type DomainAppAppNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -6420,7 +6077,7 @@ input DomainAppConnectFieldInput {
   connect: AppConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AppConnectWhere
@@ -6476,21 +6133,21 @@ input DomainAppNodeAggregationWhereInput {
   AND: [DomainAppNodeAggregationWhereInput!]
   NOT: DomainAppNodeAggregationWhereInput
   OR: [DomainAppNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type DomainAppRelationship {
@@ -6614,7 +6271,6 @@ type DomainsConnection {
 }
 
 type Element {
-  _compoundName: String!
   childMapperComponent(
     directed: Boolean = true
     options: ComponentOptions
@@ -6648,6 +6304,8 @@ type Element {
     where: ElementChildMapperPreviousSiblingConnectionWhere
   ): ElementChildMapperPreviousSiblingConnection!
   childMapperPropKey: String
+  closestContainerNode: ContainerNode!
+  compositeKey: String!
   descendantElements: [Element!]!
   firstChild(
     directed: Boolean = true
@@ -6779,67 +6437,31 @@ type Element {
     sort: [ElementPropsConnectionSort!]
     where: ElementPropsConnectionWhere
   ): ElementPropsConnection!
-  renderAtomType(
-    directed: Boolean = true
-    options: AtomOptions
-    where: AtomWhere
-  ): Atom
-  renderAtomTypeAggregate(
-    directed: Boolean = true
-    where: AtomWhere
-  ): ElementAtomRenderAtomTypeAggregationSelection
-  renderAtomTypeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementRenderAtomTypeConnectionSort!]
-    where: ElementRenderAtomTypeConnectionWhere
-  ): ElementRenderAtomTypeConnection!
-  renderComponentType(
-    directed: Boolean = true
-    options: ComponentOptions
-    where: ComponentWhere
-  ): Component
-  renderComponentTypeAggregate(
-    directed: Boolean = true
-    where: ComponentWhere
-  ): ElementComponentRenderComponentTypeAggregationSelection
-  renderComponentTypeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementRenderComponentTypeConnectionSort!]
-    where: ElementRenderComponentTypeConnectionWhere
-  ): ElementRenderComponentTypeConnection!
   renderForEachPropKey: String
   renderIfExpression: String
-  renderType: RenderType
+  renderType(
+    directed: Boolean = true
+    options: QueryOptions
+    where: ElementRenderTypeWhere
+  ): ElementRenderType!
+  renderTypeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    where: ElementRenderTypeConnectionWhere
+  ): ElementRenderTypeConnection!
   slug: String!
   style: String
 }
 
 type ElementAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
   style: StringAggregateSelectionNullable!
-}
-
-type ElementAtomRenderAtomTypeAggregationSelection {
-  count: Int!
-  node: ElementAtomRenderAtomTypeNodeAggregateSelection
-}
-
-type ElementAtomRenderAtomTypeNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementChildMapperComponentAggregateInput {
@@ -6858,7 +6480,7 @@ input ElementChildMapperComponentConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -6981,7 +6603,7 @@ input ElementChildMapperPreviousSiblingConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -7037,21 +6659,6 @@ input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
   AND: [ElementChildMapperPreviousSiblingNodeAggregationWhereInput!]
   NOT: ElementChildMapperPreviousSiblingNodeAggregationWhereInput
   OR: [ElementChildMapperPreviousSiblingNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7067,6 +6674,21 @@ input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7155,17 +6777,6 @@ type ElementComponentParentComponentNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
-type ElementComponentRenderComponentTypeAggregationSelection {
-  count: Int!
-  node: ElementComponentRenderComponentTypeNodeAggregateSelection
-}
-
-type ElementComponentRenderComponentTypeNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  keyGenerator: StringAggregateSelectionNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
 input ElementConnectInput {
   childMapperComponent: ElementChildMapperComponentConnectFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingConnectFieldInput
@@ -7178,8 +6789,7 @@ input ElementConnectInput {
   preRenderAction: ElementPreRenderActionConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
   props: ElementPropsConnectFieldInput
-  renderAtomType: ElementRenderAtomTypeConnectFieldInput
-  renderComponentType: ElementRenderComponentTypeConnectFieldInput
+  renderType: ElementRenderTypeConnectInput
 }
 
 input ElementConnectOrCreateInput {
@@ -7192,8 +6802,7 @@ input ElementConnectOrCreateInput {
   parentComponent: ElementParentComponentConnectOrCreateFieldInput
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
   props: ElementPropsConnectOrCreateFieldInput
-  renderAtomType: ElementRenderAtomTypeConnectOrCreateFieldInput
-  renderComponentType: ElementRenderComponentTypeConnectOrCreateFieldInput
+  renderType: ElementRenderTypeConnectOrCreateInput
 }
 
 input ElementConnectOrCreateWhere {
@@ -7205,10 +6814,10 @@ input ElementConnectWhere {
 }
 
 input ElementCreateInput {
-  _compoundName: String!
   childMapperComponent: ElementChildMapperComponentFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
   childMapperPropKey: String
+  compositeKey: String!
   firstChild: ElementFirstChildFieldInput
   id: ID!
   nextSibling: ElementNextSiblingFieldInput
@@ -7219,10 +6828,9 @@ input ElementCreateInput {
   preRenderAction: ElementPreRenderActionFieldInput
   prevSibling: ElementPrevSiblingFieldInput
   props: ElementPropsFieldInput
-  renderAtomType: ElementRenderAtomTypeFieldInput
-  renderComponentType: ElementRenderComponentTypeFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
+  renderType: ElementRenderTypeCreateInput
   style: String
 }
 
@@ -7238,8 +6846,7 @@ input ElementDeleteInput {
   preRenderAction: ElementPreRenderActionDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
-  renderAtomType: ElementRenderAtomTypeDeleteFieldInput
-  renderComponentType: ElementRenderComponentTypeDeleteFieldInput
+  renderType: ElementRenderTypeDeleteInput
 }
 
 input ElementDisconnectInput {
@@ -7254,8 +6861,7 @@ input ElementDisconnectInput {
   preRenderAction: ElementPreRenderActionDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   props: ElementPropsDisconnectFieldInput
-  renderAtomType: ElementRenderAtomTypeDisconnectFieldInput
-  renderComponentType: ElementRenderComponentTypeDisconnectFieldInput
+  renderType: ElementRenderTypeDisconnectInput
 }
 
 type ElementEdge {
@@ -7269,8 +6875,8 @@ type ElementElementChildMapperPreviousSiblingAggregationSelection {
 }
 
 type ElementElementChildMapperPreviousSiblingNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -7283,8 +6889,8 @@ type ElementElementFirstChildAggregationSelection {
 }
 
 type ElementElementFirstChildNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -7297,8 +6903,8 @@ type ElementElementNextSiblingAggregationSelection {
 }
 
 type ElementElementNextSiblingNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -7311,8 +6917,8 @@ type ElementElementParentAggregationSelection {
 }
 
 type ElementElementParentNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -7325,8 +6931,8 @@ type ElementElementPrevSiblingAggregationSelection {
 }
 
 type ElementElementPrevSiblingNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -7349,7 +6955,7 @@ input ElementFirstChildConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -7405,21 +7011,6 @@ input ElementFirstChildNodeAggregationWhereInput {
   AND: [ElementFirstChildNodeAggregationWhereInput!]
   NOT: ElementFirstChildNodeAggregationWhereInput
   OR: [ElementFirstChildNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7435,6 +7026,21 @@ input ElementFirstChildNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7517,7 +7123,7 @@ input ElementNextSiblingConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -7573,21 +7179,6 @@ input ElementNextSiblingNodeAggregationWhereInput {
   AND: [ElementNextSiblingNodeAggregationWhereInput!]
   NOT: ElementNextSiblingNodeAggregationWhereInput
   OR: [ElementNextSiblingNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7603,6 +7194,21 @@ input ElementNextSiblingNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7670,8 +7276,8 @@ input ElementNextSiblingUpdateFieldInput {
 }
 
 input ElementOnCreateInput {
-  _compoundName: String!
   childMapperPropKey: String
+  compositeKey: String!
   id: ID!
   renderForEachPropKey: String
   renderIfExpression: String
@@ -7704,7 +7310,7 @@ input ElementPageConnectFieldInput {
   connect: PageConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PageConnectWhere
@@ -7760,21 +7366,21 @@ input ElementPageNodeAggregationWhereInput {
   AND: [ElementPageNodeAggregationWhereInput!]
   NOT: ElementPageNodeAggregationWhereInput
   OR: [ElementPageNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   url_AVERAGE_LENGTH_EQUAL: Float
   url_AVERAGE_LENGTH_GT: Float
   url_AVERAGE_LENGTH_GTE: Float
@@ -7798,7 +7404,7 @@ type ElementPagePageAggregationSelection {
 }
 
 type ElementPagePageNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
 }
@@ -7850,7 +7456,7 @@ input ElementParentComponentConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -7961,7 +7567,7 @@ input ElementParentConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -8017,21 +7623,6 @@ input ElementParentNodeAggregationWhereInput {
   AND: [ElementParentNodeAggregationWhereInput!]
   NOT: ElementParentNodeAggregationWhereInput
   OR: [ElementParentNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8047,6 +7638,21 @@ input ElementParentNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8247,7 +7853,7 @@ input ElementPrevSiblingConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -8303,21 +7909,6 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   AND: [ElementPrevSiblingNodeAggregationWhereInput!]
   NOT: ElementPrevSiblingNodeAggregationWhereInput
   OR: [ElementPrevSiblingNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8333,6 +7924,21 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8423,7 +8029,7 @@ input ElementPropsAggregateInput {
 
 input ElementPropsConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -8525,307 +8131,183 @@ input ElementRelationInput {
   preRenderAction: ElementPreRenderActionCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
-  renderAtomType: ElementRenderAtomTypeCreateFieldInput
-  renderComponentType: ElementRenderComponentTypeCreateFieldInput
+  renderType: ElementRenderTypeCreateFieldInput
 }
 
-input ElementRenderAtomTypeAggregateInput {
-  AND: [ElementRenderAtomTypeAggregateInput!]
-  NOT: ElementRenderAtomTypeAggregateInput
-  OR: [ElementRenderAtomTypeAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementRenderAtomTypeNodeAggregationWhereInput
-}
+union ElementRenderType = Atom | Component
 
-input ElementRenderAtomTypeConnectFieldInput {
+input ElementRenderTypeAtomConnectFieldInput {
   connect: AtomConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
   where: AtomConnectWhere
 }
 
-input ElementRenderAtomTypeConnectOrCreateFieldInput {
-  onCreate: ElementRenderAtomTypeConnectOrCreateFieldInputOnCreate!
+input ElementRenderTypeAtomConnectOrCreateFieldInput {
+  onCreate: ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate!
   where: AtomConnectOrCreateWhere!
 }
 
-input ElementRenderAtomTypeConnectOrCreateFieldInputOnCreate {
+input ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate {
   node: AtomOnCreateInput!
 }
 
-type ElementRenderAtomTypeConnection {
-  edges: [ElementRenderAtomTypeRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementRenderAtomTypeConnectionSort {
-  node: AtomSort
-}
-
-input ElementRenderAtomTypeConnectionWhere {
-  AND: [ElementRenderAtomTypeConnectionWhere!]
-  NOT: ElementRenderAtomTypeConnectionWhere
-  OR: [ElementRenderAtomTypeConnectionWhere!]
+input ElementRenderTypeAtomConnectionWhere {
+  AND: [ElementRenderTypeAtomConnectionWhere!]
+  NOT: ElementRenderTypeAtomConnectionWhere
+  OR: [ElementRenderTypeAtomConnectionWhere!]
   node: AtomWhere
 }
 
-input ElementRenderAtomTypeCreateFieldInput {
+input ElementRenderTypeAtomCreateFieldInput {
   node: AtomCreateInput!
 }
 
-input ElementRenderAtomTypeDeleteFieldInput {
+input ElementRenderTypeAtomDeleteFieldInput {
   delete: AtomDeleteInput
-  where: ElementRenderAtomTypeConnectionWhere
+  where: ElementRenderTypeAtomConnectionWhere
 }
 
-input ElementRenderAtomTypeDisconnectFieldInput {
+input ElementRenderTypeAtomDisconnectFieldInput {
   disconnect: AtomDisconnectInput
-  where: ElementRenderAtomTypeConnectionWhere
+  where: ElementRenderTypeAtomConnectionWhere
 }
 
-input ElementRenderAtomTypeFieldInput {
-  connect: ElementRenderAtomTypeConnectFieldInput
-  connectOrCreate: ElementRenderAtomTypeConnectOrCreateFieldInput
-  create: ElementRenderAtomTypeCreateFieldInput
+input ElementRenderTypeAtomFieldInput {
+  connect: ElementRenderTypeAtomConnectFieldInput
+  connectOrCreate: ElementRenderTypeAtomConnectOrCreateFieldInput
+  create: ElementRenderTypeAtomCreateFieldInput
 }
 
-input ElementRenderAtomTypeNodeAggregationWhereInput {
-  AND: [ElementRenderAtomTypeNodeAggregationWhereInput!]
-  NOT: ElementRenderAtomTypeNodeAggregationWhereInput
-  OR: [ElementRenderAtomTypeNodeAggregationWhereInput!]
-  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
-  externalCssSource_AVERAGE_LENGTH_GT: Float
-  externalCssSource_AVERAGE_LENGTH_GTE: Float
-  externalCssSource_AVERAGE_LENGTH_LT: Float
-  externalCssSource_AVERAGE_LENGTH_LTE: Float
-  externalCssSource_LONGEST_LENGTH_EQUAL: Int
-  externalCssSource_LONGEST_LENGTH_GT: Int
-  externalCssSource_LONGEST_LENGTH_GTE: Int
-  externalCssSource_LONGEST_LENGTH_LT: Int
-  externalCssSource_LONGEST_LENGTH_LTE: Int
-  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
-  externalCssSource_SHORTEST_LENGTH_GT: Int
-  externalCssSource_SHORTEST_LENGTH_GTE: Int
-  externalCssSource_SHORTEST_LENGTH_LT: Int
-  externalCssSource_SHORTEST_LENGTH_LTE: Int
-  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
-  externalJsSource_AVERAGE_LENGTH_GT: Float
-  externalJsSource_AVERAGE_LENGTH_GTE: Float
-  externalJsSource_AVERAGE_LENGTH_LT: Float
-  externalJsSource_AVERAGE_LENGTH_LTE: Float
-  externalJsSource_LONGEST_LENGTH_EQUAL: Int
-  externalJsSource_LONGEST_LENGTH_GT: Int
-  externalJsSource_LONGEST_LENGTH_GTE: Int
-  externalJsSource_LONGEST_LENGTH_LT: Int
-  externalJsSource_LONGEST_LENGTH_LTE: Int
-  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
-  externalJsSource_SHORTEST_LENGTH_GT: Int
-  externalJsSource_SHORTEST_LENGTH_GTE: Int
-  externalJsSource_SHORTEST_LENGTH_LT: Int
-  externalJsSource_SHORTEST_LENGTH_LTE: Int
-  externalSourceType_AVERAGE_LENGTH_EQUAL: Float
-  externalSourceType_AVERAGE_LENGTH_GT: Float
-  externalSourceType_AVERAGE_LENGTH_GTE: Float
-  externalSourceType_AVERAGE_LENGTH_LT: Float
-  externalSourceType_AVERAGE_LENGTH_LTE: Float
-  externalSourceType_LONGEST_LENGTH_EQUAL: Int
-  externalSourceType_LONGEST_LENGTH_GT: Int
-  externalSourceType_LONGEST_LENGTH_GTE: Int
-  externalSourceType_LONGEST_LENGTH_LT: Int
-  externalSourceType_LONGEST_LENGTH_LTE: Int
-  externalSourceType_SHORTEST_LENGTH_EQUAL: Int
-  externalSourceType_SHORTEST_LENGTH_GT: Int
-  externalSourceType_SHORTEST_LENGTH_GTE: Int
-  externalSourceType_SHORTEST_LENGTH_LT: Int
-  externalSourceType_SHORTEST_LENGTH_LTE: Int
-  icon_AVERAGE_LENGTH_EQUAL: Float
-  icon_AVERAGE_LENGTH_GT: Float
-  icon_AVERAGE_LENGTH_GTE: Float
-  icon_AVERAGE_LENGTH_LT: Float
-  icon_AVERAGE_LENGTH_LTE: Float
-  icon_LONGEST_LENGTH_EQUAL: Int
-  icon_LONGEST_LENGTH_GT: Int
-  icon_LONGEST_LENGTH_GTE: Int
-  icon_LONGEST_LENGTH_LT: Int
-  icon_LONGEST_LENGTH_LTE: Int
-  icon_SHORTEST_LENGTH_EQUAL: Int
-  icon_SHORTEST_LENGTH_GT: Int
-  icon_SHORTEST_LENGTH_GTE: Int
-  icon_SHORTEST_LENGTH_LT: Int
-  icon_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type ElementRenderAtomTypeRelationship {
-  cursor: String!
-  node: Atom!
-}
-
-input ElementRenderAtomTypeUpdateConnectionInput {
+input ElementRenderTypeAtomUpdateConnectionInput {
   node: AtomUpdateInput
 }
 
-input ElementRenderAtomTypeUpdateFieldInput {
-  connect: ElementRenderAtomTypeConnectFieldInput
-  connectOrCreate: ElementRenderAtomTypeConnectOrCreateFieldInput
-  create: ElementRenderAtomTypeCreateFieldInput
-  delete: ElementRenderAtomTypeDeleteFieldInput
-  disconnect: ElementRenderAtomTypeDisconnectFieldInput
-  update: ElementRenderAtomTypeUpdateConnectionInput
-  where: ElementRenderAtomTypeConnectionWhere
+input ElementRenderTypeAtomUpdateFieldInput {
+  connect: ElementRenderTypeAtomConnectFieldInput
+  connectOrCreate: ElementRenderTypeAtomConnectOrCreateFieldInput
+  create: ElementRenderTypeAtomCreateFieldInput
+  delete: ElementRenderTypeAtomDeleteFieldInput
+  disconnect: ElementRenderTypeAtomDisconnectFieldInput
+  update: ElementRenderTypeAtomUpdateConnectionInput
+  where: ElementRenderTypeAtomConnectionWhere
 }
 
-input ElementRenderComponentTypeAggregateInput {
-  AND: [ElementRenderComponentTypeAggregateInput!]
-  NOT: ElementRenderComponentTypeAggregateInput
-  OR: [ElementRenderComponentTypeAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementRenderComponentTypeNodeAggregationWhereInput
-}
-
-input ElementRenderComponentTypeConnectFieldInput {
+input ElementRenderTypeComponentConnectFieldInput {
   connect: ComponentConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
   where: ComponentConnectWhere
 }
 
-input ElementRenderComponentTypeConnectOrCreateFieldInput {
-  onCreate: ElementRenderComponentTypeConnectOrCreateFieldInputOnCreate!
+input ElementRenderTypeComponentConnectOrCreateFieldInput {
+  onCreate: ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate!
   where: ComponentConnectOrCreateWhere!
 }
 
-input ElementRenderComponentTypeConnectOrCreateFieldInputOnCreate {
+input ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate {
   node: ComponentOnCreateInput!
 }
 
-type ElementRenderComponentTypeConnection {
-  edges: [ElementRenderComponentTypeRelationship!]!
+input ElementRenderTypeComponentConnectionWhere {
+  AND: [ElementRenderTypeComponentConnectionWhere!]
+  NOT: ElementRenderTypeComponentConnectionWhere
+  OR: [ElementRenderTypeComponentConnectionWhere!]
+  node: ComponentWhere
+}
+
+input ElementRenderTypeComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input ElementRenderTypeComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeComponentFieldInput {
+  connect: ElementRenderTypeComponentConnectFieldInput
+  connectOrCreate: ElementRenderTypeComponentConnectOrCreateFieldInput
+  create: ElementRenderTypeComponentCreateFieldInput
+}
+
+input ElementRenderTypeComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input ElementRenderTypeComponentUpdateFieldInput {
+  connect: ElementRenderTypeComponentConnectFieldInput
+  connectOrCreate: ElementRenderTypeComponentConnectOrCreateFieldInput
+  create: ElementRenderTypeComponentCreateFieldInput
+  delete: ElementRenderTypeComponentDeleteFieldInput
+  disconnect: ElementRenderTypeComponentDisconnectFieldInput
+  update: ElementRenderTypeComponentUpdateConnectionInput
+  where: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeConnectInput {
+  Atom: ElementRenderTypeAtomConnectFieldInput
+  Component: ElementRenderTypeComponentConnectFieldInput
+}
+
+input ElementRenderTypeConnectOrCreateInput {
+  Atom: ElementRenderTypeAtomConnectOrCreateFieldInput
+  Component: ElementRenderTypeComponentConnectOrCreateFieldInput
+}
+
+type ElementRenderTypeConnection {
+  edges: [ElementRenderTypeRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementRenderComponentTypeConnectionSort {
-  node: ComponentSort
+input ElementRenderTypeConnectionWhere {
+  Atom: ElementRenderTypeAtomConnectionWhere
+  Component: ElementRenderTypeComponentConnectionWhere
 }
 
-input ElementRenderComponentTypeConnectionWhere {
-  AND: [ElementRenderComponentTypeConnectionWhere!]
-  NOT: ElementRenderComponentTypeConnectionWhere
-  OR: [ElementRenderComponentTypeConnectionWhere!]
-  node: ComponentWhere
+input ElementRenderTypeCreateFieldInput {
+  Atom: ElementRenderTypeAtomCreateFieldInput
+  Component: ElementRenderTypeComponentCreateFieldInput
 }
 
-input ElementRenderComponentTypeCreateFieldInput {
-  node: ComponentCreateInput!
+input ElementRenderTypeCreateInput {
+  Atom: ElementRenderTypeAtomFieldInput
+  Component: ElementRenderTypeComponentFieldInput
 }
 
-input ElementRenderComponentTypeDeleteFieldInput {
-  delete: ComponentDeleteInput
-  where: ElementRenderComponentTypeConnectionWhere
+input ElementRenderTypeDeleteInput {
+  Atom: ElementRenderTypeAtomDeleteFieldInput
+  Component: ElementRenderTypeComponentDeleteFieldInput
 }
 
-input ElementRenderComponentTypeDisconnectFieldInput {
-  disconnect: ComponentDisconnectInput
-  where: ElementRenderComponentTypeConnectionWhere
+input ElementRenderTypeDisconnectInput {
+  Atom: ElementRenderTypeAtomDisconnectFieldInput
+  Component: ElementRenderTypeComponentDisconnectFieldInput
 }
 
-input ElementRenderComponentTypeFieldInput {
-  connect: ElementRenderComponentTypeConnectFieldInput
-  connectOrCreate: ElementRenderComponentTypeConnectOrCreateFieldInput
-  create: ElementRenderComponentTypeCreateFieldInput
-}
-
-input ElementRenderComponentTypeNodeAggregationWhereInput {
-  AND: [ElementRenderComponentTypeNodeAggregationWhereInput!]
-  NOT: ElementRenderComponentTypeNodeAggregationWhereInput
-  OR: [ElementRenderComponentTypeNodeAggregationWhereInput!]
-  keyGenerator_AVERAGE_LENGTH_EQUAL: Float
-  keyGenerator_AVERAGE_LENGTH_GT: Float
-  keyGenerator_AVERAGE_LENGTH_GTE: Float
-  keyGenerator_AVERAGE_LENGTH_LT: Float
-  keyGenerator_AVERAGE_LENGTH_LTE: Float
-  keyGenerator_LONGEST_LENGTH_EQUAL: Int
-  keyGenerator_LONGEST_LENGTH_GT: Int
-  keyGenerator_LONGEST_LENGTH_GTE: Int
-  keyGenerator_LONGEST_LENGTH_LT: Int
-  keyGenerator_LONGEST_LENGTH_LTE: Int
-  keyGenerator_SHORTEST_LENGTH_EQUAL: Int
-  keyGenerator_SHORTEST_LENGTH_GT: Int
-  keyGenerator_SHORTEST_LENGTH_GTE: Int
-  keyGenerator_SHORTEST_LENGTH_LT: Int
-  keyGenerator_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type ElementRenderComponentTypeRelationship {
+type ElementRenderTypeRelationship {
   cursor: String!
-  node: Component!
+  node: ElementRenderType!
 }
 
-input ElementRenderComponentTypeUpdateConnectionInput {
-  node: ComponentUpdateInput
+input ElementRenderTypeUpdateInput {
+  Atom: ElementRenderTypeAtomUpdateFieldInput
+  Component: ElementRenderTypeComponentUpdateFieldInput
 }
 
-input ElementRenderComponentTypeUpdateFieldInput {
-  connect: ElementRenderComponentTypeConnectFieldInput
-  connectOrCreate: ElementRenderComponentTypeConnectOrCreateFieldInput
-  create: ElementRenderComponentTypeCreateFieldInput
-  delete: ElementRenderComponentTypeDeleteFieldInput
-  disconnect: ElementRenderComponentTypeDisconnectFieldInput
-  update: ElementRenderComponentTypeUpdateConnectionInput
-  where: ElementRenderComponentTypeConnectionWhere
+input ElementRenderTypeWhere {
+  Atom: AtomWhere
+  Component: ComponentWhere
 }
 
 """
 Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
 """
 input ElementSort {
-  _compoundName: SortDirection
   childMapperPropKey: SortDirection
+  compositeKey: SortDirection
   id: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
@@ -8878,14 +8360,6 @@ input ElementTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input ElementTypeConnectOrCreateWhere {
-  node: ElementTypeUniqueWhere!
-}
-
-input ElementTypeConnectWhere {
-  node: ElementTypeWhere!
-}
-
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
   id: ID!
@@ -8912,13 +8386,6 @@ enum ElementTypeKind {
   ChildrenOnly
   DescendantsOnly
   ExcludeDescendantsElements
-}
-
-input ElementTypeOnCreateInput {
-  elementKind: ElementTypeKind!
-  id: ID!
-  kind: TypeKind! = ElementType
-  name: String!
 }
 
 input ElementTypeOptions {
@@ -9008,10 +8475,6 @@ input ElementTypeSort {
   name: SortDirection
 }
 
-input ElementTypeUniqueWhere {
-  id: ID
-}
-
 input ElementTypeUpdateInput {
   elementKind: ElementTypeKind
   id: ID
@@ -9065,15 +8528,15 @@ type ElementTypesConnection {
 }
 
 input ElementUniqueWhere {
-  _compoundName: String
+  compositeKey: String
   id: ID
 }
 
 input ElementUpdateInput {
-  _compoundName: String
   childMapperComponent: ElementChildMapperComponentUpdateFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingUpdateFieldInput
   childMapperPropKey: String
+  compositeKey: String
   firstChild: ElementFirstChildUpdateFieldInput
   id: ID
   nextSibling: ElementNextSiblingUpdateFieldInput
@@ -9084,10 +8547,9 @@ input ElementUpdateInput {
   preRenderAction: ElementPreRenderActionUpdateFieldInput
   prevSibling: ElementPrevSiblingUpdateFieldInput
   props: ElementPropsUpdateFieldInput
-  renderAtomType: ElementRenderAtomTypeUpdateFieldInput
-  renderComponentType: ElementRenderComponentTypeUpdateFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
+  renderType: ElementRenderTypeUpdateInput
   style: String
 }
 
@@ -9095,12 +8557,6 @@ input ElementWhere {
   AND: [ElementWhere!]
   NOT: ElementWhere
   OR: [ElementWhere!]
-  _compoundName: String
-  _compoundName_CONTAINS: String
-  _compoundName_ENDS_WITH: String
-  _compoundName_IN: [String!]
-  _compoundName_MATCHES: String
-  _compoundName_STARTS_WITH: String
   childMapperComponent: ComponentWhere
   childMapperComponentAggregate: ElementChildMapperComponentAggregateInput
   childMapperComponentConnection: ElementChildMapperComponentConnectionWhere
@@ -9117,6 +8573,12 @@ input ElementWhere {
   childMapperPropKey_IN: [String]
   childMapperPropKey_MATCHES: String
   childMapperPropKey_STARTS_WITH: String
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
+  compositeKey_STARTS_WITH: String
   firstChild: ElementWhere
   firstChildAggregate: ElementFirstChildAggregateInput
   firstChildConnection: ElementFirstChildConnectionWhere
@@ -9162,16 +8624,6 @@ input ElementWhere {
   propsConnection: ElementPropsConnectionWhere
   propsConnection_NOT: ElementPropsConnectionWhere
   props_NOT: PropWhere
-  renderAtomType: AtomWhere
-  renderAtomTypeAggregate: ElementRenderAtomTypeAggregateInput
-  renderAtomTypeConnection: ElementRenderAtomTypeConnectionWhere
-  renderAtomTypeConnection_NOT: ElementRenderAtomTypeConnectionWhere
-  renderAtomType_NOT: AtomWhere
-  renderComponentType: ComponentWhere
-  renderComponentTypeAggregate: ElementRenderComponentTypeAggregateInput
-  renderComponentTypeConnection: ElementRenderComponentTypeConnectionWhere
-  renderComponentTypeConnection_NOT: ElementRenderComponentTypeConnectionWhere
-  renderComponentType_NOT: ComponentWhere
   renderForEachPropKey: String
   renderForEachPropKey_CONTAINS: String
   renderForEachPropKey_ENDS_WITH: String
@@ -9184,6 +8636,8 @@ input ElementWhere {
   renderIfExpression_IN: [String]
   renderIfExpression_MATCHES: String
   renderIfExpression_STARTS_WITH: String
+  renderTypeConnection: ElementRenderTypeConnectionWhere
+  renderTypeConnection_NOT: ElementRenderTypeConnectionWhere
   style: String
   style_CONTAINS: String
   style_ENDS_WITH: String
@@ -9275,7 +8729,7 @@ input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: EnumTypeValueConnectWhere
@@ -9381,10 +8835,6 @@ input EnumTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input EnumTypeConnectOrCreateWhere {
-  node: EnumTypeUniqueWhere!
-}
-
 input EnumTypeConnectWhere {
   node: EnumTypeWhere!
 }
@@ -9456,7 +8906,7 @@ input EnumTypeFieldRefsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -9597,12 +9047,6 @@ input EnumTypeFieldRefsUpdateFieldInput {
   where: EnumTypeFieldRefsConnectionWhere
 }
 
-input EnumTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = EnumType
-  name: String!
-}
-
 input EnumTypeOptions {
   limit: Int
   offset: Int
@@ -9691,10 +9135,6 @@ input EnumTypeSort {
   name: SortDirection
 }
 
-input EnumTypeUniqueWhere {
-  id: ID
-}
-
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsUpdateFieldInput!]
@@ -9748,10 +9188,6 @@ input EnumTypeValueConnectInput {
   enumType: EnumTypeValueEnumTypeConnectFieldInput
 }
 
-input EnumTypeValueConnectOrCreateInput {
-  enumType: EnumTypeValueEnumTypeConnectOrCreateFieldInput
-}
-
 input EnumTypeValueConnectWhere {
   node: EnumTypeValueWhere!
 }
@@ -9792,19 +9228,10 @@ input EnumTypeValueEnumTypeConnectFieldInput {
   connect: EnumTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: EnumTypeConnectWhere
-}
-
-input EnumTypeValueEnumTypeConnectOrCreateFieldInput {
-  onCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate!
-  where: EnumTypeConnectOrCreateWhere!
-}
-
-input EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate {
-  node: EnumTypeOnCreateInput!
 }
 
 type EnumTypeValueEnumTypeConnection {
@@ -9850,7 +9277,6 @@ type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection {
 
 input EnumTypeValueEnumTypeFieldInput {
   connect: EnumTypeValueEnumTypeConnectFieldInput
-  connectOrCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInput
   create: EnumTypeValueEnumTypeCreateFieldInput
 }
 
@@ -9886,7 +9312,6 @@ input EnumTypeValueEnumTypeUpdateConnectionInput {
 
 input EnumTypeValueEnumTypeUpdateFieldInput {
   connect: EnumTypeValueEnumTypeConnectFieldInput
-  connectOrCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInput
   create: EnumTypeValueEnumTypeCreateFieldInput
   delete: EnumTypeValueEnumTypeDeleteFieldInput
   disconnect: EnumTypeValueEnumTypeDisconnectFieldInput
@@ -10167,19 +9592,10 @@ input FieldApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input FieldApiConnectOrCreateFieldInput {
-  onCreate: FieldApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input FieldApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type FieldApiConnection {
@@ -10215,7 +9631,6 @@ input FieldApiDisconnectFieldInput {
 
 input FieldApiFieldInput {
   connect: FieldApiConnectFieldInput
-  connectOrCreate: FieldApiConnectOrCreateFieldInput
   create: FieldApiCreateFieldInput
 }
 
@@ -10251,7 +9666,6 @@ input FieldApiUpdateConnectionInput {
 
 input FieldApiUpdateFieldInput {
   connect: FieldApiConnectFieldInput
-  connectOrCreate: FieldApiConnectOrCreateFieldInput
   create: FieldApiCreateFieldInput
   delete: FieldApiDeleteFieldInput
   disconnect: FieldApiDisconnectFieldInput
@@ -10264,10 +9678,6 @@ input FieldConnectInput {
   fieldType: FieldFieldTypeConnectFieldInput
   nextSibling: FieldNextSiblingConnectFieldInput
   prevSibling: FieldPrevSiblingConnectFieldInput
-}
-
-input FieldConnectOrCreateInput {
-  api: FieldApiConnectOrCreateFieldInput
 }
 
 input FieldConnectWhere {
@@ -10419,7 +9829,7 @@ input FieldNextSiblingConnectFieldInput {
   connect: FieldConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -10586,7 +9996,7 @@ input FieldPrevSiblingConnectFieldInput {
   connect: FieldConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -10831,7 +10241,7 @@ input GetBaseTypesOptions {
 }
 
 type GetBaseTypesReturn {
-  items: [BaseType!]!
+  items: [IBaseType!]!
   totalCount: Int!
 }
 
@@ -10946,7 +10356,7 @@ input HookConfigAggregateInput {
 
 input HookConfigConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -11049,6 +10459,7 @@ input HookConnectOrCreateInput {
 input HookCreateInput {
   config: HookConfigFieldInput
   element: HookElementFieldInput
+  id: ID!
   type: AtomType!
 }
 
@@ -11083,7 +10494,7 @@ input HookElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -11135,8 +10546,8 @@ type HookElementElementAggregationSelection {
 }
 
 type HookElementElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -11153,21 +10564,6 @@ input HookElementNodeAggregationWhereInput {
   AND: [HookElementNodeAggregationWhereInput!]
   NOT: HookElementNodeAggregationWhereInput
   OR: [HookElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -11183,6 +10579,21 @@ input HookElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -11285,6 +10696,7 @@ input HookSort {
 input HookUpdateInput {
   config: HookConfigUpdateFieldInput
   element: HookElementUpdateFieldInput
+  id: ID
   type: AtomType
 }
 
@@ -11345,7 +10757,6 @@ input IBaseTypeCreateInput {
   ActionType: ActionTypeCreateInput
   AppType: AppTypeCreateInput
   ArrayType: ArrayTypeCreateInput
-  BaseType: BaseTypeCreateInput
   CodeMirrorType: CodeMirrorTypeCreateInput
   ElementType: ElementTypeCreateInput
   EnumType: EnumTypeCreateInput
@@ -11372,7 +10783,6 @@ input IBaseTypeImplementationsConnectInput {
   ActionType: [ActionTypeConnectInput!]
   AppType: [AppTypeConnectInput!]
   ArrayType: [ArrayTypeConnectInput!]
-  BaseType: [BaseTypeConnectInput!]
   CodeMirrorType: [CodeMirrorTypeConnectInput!]
   ElementType: [ElementTypeConnectInput!]
   EnumType: [EnumTypeConnectInput!]
@@ -11389,7 +10799,6 @@ input IBaseTypeImplementationsDeleteInput {
   ActionType: [ActionTypeDeleteInput!]
   AppType: [AppTypeDeleteInput!]
   ArrayType: [ArrayTypeDeleteInput!]
-  BaseType: [BaseTypeDeleteInput!]
   CodeMirrorType: [CodeMirrorTypeDeleteInput!]
   ElementType: [ElementTypeDeleteInput!]
   EnumType: [EnumTypeDeleteInput!]
@@ -11406,7 +10815,6 @@ input IBaseTypeImplementationsDisconnectInput {
   ActionType: [ActionTypeDisconnectInput!]
   AppType: [AppTypeDisconnectInput!]
   ArrayType: [ArrayTypeDisconnectInput!]
-  BaseType: [BaseTypeDisconnectInput!]
   CodeMirrorType: [CodeMirrorTypeDisconnectInput!]
   ElementType: [ElementTypeDisconnectInput!]
   EnumType: [EnumTypeDisconnectInput!]
@@ -11423,7 +10831,6 @@ input IBaseTypeImplementationsUpdateInput {
   ActionType: ActionTypeUpdateInput
   AppType: AppTypeUpdateInput
   ArrayType: ArrayTypeUpdateInput
-  BaseType: BaseTypeUpdateInput
   CodeMirrorType: CodeMirrorTypeUpdateInput
   ElementType: ElementTypeUpdateInput
   EnumType: EnumTypeUpdateInput
@@ -11440,7 +10847,6 @@ input IBaseTypeImplementationsWhere {
   ActionType: ActionTypeWhere
   AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
-  BaseType: BaseTypeWhere
   CodeMirrorType: CodeMirrorTypeWhere
   ElementType: ElementTypeWhere
   EnumType: EnumTypeWhere
@@ -11479,7 +10885,7 @@ input IBaseTypeOwnerConnectFieldInput {
   connect: UserConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: UserConnectWhere
@@ -11744,7 +11150,7 @@ input InterfaceTypeApiOfAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -11922,10 +11328,6 @@ input InterfaceTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input InterfaceTypeConnectOrCreateWhere {
-  node: InterfaceTypeUniqueWhere!
-}
-
 input InterfaceTypeConnectWhere {
   node: InterfaceTypeWhere!
 }
@@ -12003,7 +11405,7 @@ input InterfaceTypeFieldRefsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -12160,7 +11562,7 @@ input InterfaceTypeFieldsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -12301,12 +11703,6 @@ input InterfaceTypeFieldsUpdateFieldInput {
   where: InterfaceTypeFieldsConnectionWhere
 }
 
-input InterfaceTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = InterfaceType
-  name: String!
-}
-
 input InterfaceTypeOptions {
   limit: Int
   offset: Int
@@ -12394,10 +11790,6 @@ input InterfaceTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input InterfaceTypeUniqueWhere {
-  id: ID
 }
 
 input InterfaceTypeUpdateInput {
@@ -12610,14 +12002,6 @@ input LambdaTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input LambdaTypeConnectOrCreateWhere {
-  node: LambdaTypeUniqueWhere!
-}
-
-input LambdaTypeConnectWhere {
-  node: LambdaTypeWhere!
-}
-
 input LambdaTypeCreateInput {
   id: ID!
   kind: TypeKind! = LambdaType
@@ -12636,12 +12020,6 @@ input LambdaTypeDisconnectInput {
 type LambdaTypeEdge {
   cursor: String!
   node: LambdaType!
-}
-
-input LambdaTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = LambdaType
-  name: String!
 }
 
 input LambdaTypeOptions {
@@ -12728,10 +12106,6 @@ input LambdaTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input LambdaTypeUniqueWhere {
-  id: ID
 }
 
 input LambdaTypeUpdateInput {
@@ -12935,7 +12309,6 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  resetDatabase: ResetDatabaseMutationResponse
   updateActionTypes(
     connect: ActionTypeConnectInput
     connectOrCreate: ActionTypeConnectOrCreateInput
@@ -13046,7 +12419,6 @@ type Mutation {
   ): UpdateElementsMutationResponse!
   updateEnumTypeValues(
     connect: EnumTypeValueConnectInput
-    connectOrCreate: EnumTypeValueConnectOrCreateInput
     create: EnumTypeValueRelationInput
     delete: EnumTypeValueDeleteInput
     disconnect: EnumTypeValueDisconnectInput
@@ -13064,7 +12436,6 @@ type Mutation {
   ): UpdateEnumTypesMutationResponse!
   updateFields(
     connect: FieldConnectInput
-    connectOrCreate: FieldConnectOrCreateInput
     create: FieldRelationInput
     delete: FieldDeleteInput
     disconnect: FieldDisconnectInput
@@ -13191,10 +12562,18 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
+  updateUsers(
+    connect: UserConnectInput
+    connectOrCreate: UserConnectOrCreateInput
+    create: UserRelationInput
+    delete: UserDeleteInput
+    disconnect: UserDisconnectInput
+    update: UserUpdateInput
+    where: UserWhere
+  ): UpdateUsersMutationResponse!
 }
 
 type Page {
-  _compoundName: String!
   app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
   appAggregate(
     directed: Boolean = true
@@ -13207,6 +12586,7 @@ type Page {
     sort: [PageAppConnectionSort!]
     where: PageAppConnectionWhere
   ): PageAppConnection!
+  compositeKey: String!
   id: ID!
   kind: PageKind!
   name: String!
@@ -13263,7 +12643,7 @@ type Page {
 }
 
 type PageAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
@@ -13287,7 +12667,7 @@ type PageAppAppAggregationSelection {
 }
 
 type PageAppAppNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -13295,7 +12675,7 @@ input PageAppConnectFieldInput {
   connect: AppConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AppConnectWhere
@@ -13351,21 +12731,21 @@ input PageAppNodeAggregationWhereInput {
   AND: [PageAppNodeAggregationWhereInput!]
   NOT: PageAppNodeAggregationWhereInput
   OR: [PageAppNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageAppRelationship {
@@ -13410,8 +12790,8 @@ input PageConnectWhere {
 }
 
 input PageCreateInput {
-  _compoundName: String!
   app: PageAppFieldInput
+  compositeKey: String!
   id: ID!
   kind: PageKind!
   pageContentContainer: PagePageContentContainerFieldInput
@@ -13445,8 +12825,8 @@ type PageElementPageContentContainerAggregationSelection {
 }
 
 type PageElementPageContentContainerNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -13459,8 +12839,8 @@ type PageElementRootElementAggregationSelection {
 }
 
 type PageElementRootElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -13485,7 +12865,7 @@ enum PageKind {
 }
 
 input PageOnCreateInput {
-  _compoundName: String!
+  compositeKey: String!
   id: ID!
   kind: PageKind!
   url: String!
@@ -13517,7 +12897,7 @@ input PagePageContentContainerConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -13573,21 +12953,6 @@ input PagePageContentContainerNodeAggregationWhereInput {
   AND: [PagePageContentContainerNodeAggregationWhereInput!]
   NOT: PagePageContentContainerNodeAggregationWhereInput
   OR: [PagePageContentContainerNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -13603,6 +12968,21 @@ input PagePageContentContainerNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -13692,7 +13072,7 @@ input PageRootElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -13748,21 +13128,6 @@ input PageRootElementNodeAggregationWhereInput {
   AND: [PageRootElementNodeAggregationWhereInput!]
   NOT: PageRootElementNodeAggregationWhereInput
   OR: [PageRootElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -13778,6 +13143,21 @@ input PageRootElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -13848,7 +13228,7 @@ input PageRootElementUpdateFieldInput {
 Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object.
 """
 input PageSort {
-  _compoundName: SortDirection
+  compositeKey: SortDirection
   id: SortDirection
   kind: SortDirection
   url: SortDirection
@@ -13870,7 +13250,7 @@ input PageStoreConnectFieldInput {
   connect: StoreConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: StoreConnectWhere
@@ -14007,14 +13387,6 @@ input PageTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input PageTypeConnectOrCreateWhere {
-  node: PageTypeUniqueWhere!
-}
-
-input PageTypeConnectWhere {
-  node: PageTypeWhere!
-}
-
 input PageTypeCreateInput {
   id: ID!
   kind: TypeKind! = PageType
@@ -14033,12 +13405,6 @@ input PageTypeDisconnectInput {
 type PageTypeEdge {
   cursor: String!
   node: PageType!
-}
-
-input PageTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = PageType
-  name: String!
 }
 
 input PageTypeOptions {
@@ -14127,10 +13493,6 @@ input PageTypeSort {
   name: SortDirection
 }
 
-input PageTypeUniqueWhere {
-  id: ID
-}
-
 input PageTypeUpdateInput {
   id: ID
   name: String
@@ -14181,13 +13543,13 @@ type PageTypesConnection {
 }
 
 input PageUniqueWhere {
-  _compoundName: String
+  compositeKey: String
   id: ID
 }
 
 input PageUpdateInput {
-  _compoundName: String
   app: PageAppUpdateFieldInput
+  compositeKey: String
   id: ID
   kind: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
@@ -14200,17 +13562,17 @@ input PageWhere {
   AND: [PageWhere!]
   NOT: PageWhere
   OR: [PageWhere!]
-  _compoundName: String
-  _compoundName_CONTAINS: String
-  _compoundName_ENDS_WITH: String
-  _compoundName_IN: [String!]
-  _compoundName_MATCHES: String
-  _compoundName_STARTS_WITH: String
   app: AppWhere
   appAggregate: PageAppAggregateInput
   appConnection: PageAppConnectionWhere
   appConnection_NOT: PageAppConnectionWhere
   app_NOT: AppWhere
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
+  compositeKey_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -14415,7 +13777,6 @@ input PrimitiveTypeSort {
 }
 
 input PrimitiveTypeUniqueWhere {
-  id: ID
   name: String
   primitiveKind: PrimitiveTypeKind
 }
@@ -15040,7 +14401,6 @@ input ReactNodeTypeSort {
 }
 
 input ReactNodeTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -15257,7 +14617,6 @@ input RenderPropTypeSort {
 }
 
 input RenderPropTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -15308,20 +14667,6 @@ type RenderPropTypesConnection {
   edges: [RenderPropTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type RenderType {
-  id: ID!
-  kind: RenderTypeKind!
-}
-
-enum RenderTypeKind {
-  Atom
-  Component
-}
-
-type ResetDatabaseMutationResponse {
-  success: Boolean
 }
 
 type Resource implements WithOwner {
@@ -15378,7 +14723,7 @@ input ResourceConfigAggregateInput {
 
 input ResourceConfigConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -15759,15 +15104,6 @@ input StoreActionsApiActionConnectFieldInput {
   where: ApiActionConnectWhere
 }
 
-input StoreActionsApiActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsApiActionConnectOrCreateFieldInputOnCreate!
-  where: ApiActionConnectOrCreateWhere!
-}
-
-input StoreActionsApiActionConnectOrCreateFieldInputOnCreate {
-  node: ApiActionOnCreateInput!
-}
-
 input StoreActionsApiActionConnectionWhere {
   AND: [StoreActionsApiActionConnectionWhere!]
   NOT: StoreActionsApiActionConnectionWhere
@@ -15791,7 +15127,6 @@ input StoreActionsApiActionDisconnectFieldInput {
 
 input StoreActionsApiActionFieldInput {
   connect: [StoreActionsApiActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsApiActionConnectOrCreateFieldInput!]
   create: [StoreActionsApiActionCreateFieldInput!]
 }
 
@@ -15801,7 +15136,6 @@ input StoreActionsApiActionUpdateConnectionInput {
 
 input StoreActionsApiActionUpdateFieldInput {
   connect: [StoreActionsApiActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsApiActionConnectOrCreateFieldInput!]
   create: [StoreActionsApiActionCreateFieldInput!]
   delete: [StoreActionsApiActionDeleteFieldInput!]
   disconnect: [StoreActionsApiActionDisconnectFieldInput!]
@@ -15812,15 +15146,6 @@ input StoreActionsApiActionUpdateFieldInput {
 input StoreActionsCodeActionConnectFieldInput {
   connect: [CodeActionConnectInput!]
   where: CodeActionConnectWhere
-}
-
-input StoreActionsCodeActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsCodeActionConnectOrCreateFieldInputOnCreate!
-  where: CodeActionConnectOrCreateWhere!
-}
-
-input StoreActionsCodeActionConnectOrCreateFieldInputOnCreate {
-  node: CodeActionOnCreateInput!
 }
 
 input StoreActionsCodeActionConnectionWhere {
@@ -15846,7 +15171,6 @@ input StoreActionsCodeActionDisconnectFieldInput {
 
 input StoreActionsCodeActionFieldInput {
   connect: [StoreActionsCodeActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsCodeActionConnectOrCreateFieldInput!]
   create: [StoreActionsCodeActionCreateFieldInput!]
 }
 
@@ -15856,7 +15180,6 @@ input StoreActionsCodeActionUpdateConnectionInput {
 
 input StoreActionsCodeActionUpdateFieldInput {
   connect: [StoreActionsCodeActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsCodeActionConnectOrCreateFieldInput!]
   create: [StoreActionsCodeActionCreateFieldInput!]
   delete: [StoreActionsCodeActionDeleteFieldInput!]
   disconnect: [StoreActionsCodeActionDisconnectFieldInput!]
@@ -15867,11 +15190,6 @@ input StoreActionsCodeActionUpdateFieldInput {
 input StoreActionsConnectInput {
   ApiAction: [StoreActionsApiActionConnectFieldInput!]
   CodeAction: [StoreActionsCodeActionConnectFieldInput!]
-}
-
-input StoreActionsConnectOrCreateInput {
-  ApiAction: [StoreActionsApiActionConnectOrCreateFieldInput!]
-  CodeAction: [StoreActionsCodeActionConnectOrCreateFieldInput!]
 }
 
 type StoreActionsConnection {
@@ -15937,19 +15255,10 @@ input StoreApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input StoreApiConnectOrCreateFieldInput {
-  onCreate: StoreApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input StoreApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type StoreApiConnection {
@@ -15985,7 +15294,6 @@ input StoreApiDisconnectFieldInput {
 
 input StoreApiFieldInput {
   connect: StoreApiConnectFieldInput
-  connectOrCreate: StoreApiConnectOrCreateFieldInput
   create: StoreApiCreateFieldInput
 }
 
@@ -16021,7 +15329,6 @@ input StoreApiUpdateConnectionInput {
 
 input StoreApiUpdateFieldInput {
   connect: StoreApiConnectFieldInput
-  connectOrCreate: StoreApiConnectOrCreateFieldInput
   create: StoreApiCreateFieldInput
   delete: StoreApiDeleteFieldInput
   disconnect: StoreApiDisconnectFieldInput
@@ -16056,7 +15363,7 @@ input StoreComponentConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -16171,8 +15478,6 @@ input StoreConnectInput {
 }
 
 input StoreConnectOrCreateInput {
-  actions: StoreActionsConnectOrCreateInput
-  api: StoreApiConnectOrCreateFieldInput
   component: StoreComponentConnectOrCreateFieldInput
   page: StorePageConnectOrCreateFieldInput
 }
@@ -16254,7 +15559,7 @@ input StorePageConnectFieldInput {
   connect: PageConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PageConnectWhere
@@ -16310,21 +15615,21 @@ input StorePageNodeAggregationWhereInput {
   AND: [StorePageNodeAggregationWhereInput!]
   NOT: StorePageNodeAggregationWhereInput
   OR: [StorePageNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   url_AVERAGE_LENGTH_EQUAL: Float
   url_AVERAGE_LENGTH_GT: Float
   url_AVERAGE_LENGTH_GTE: Float
@@ -16348,7 +15653,7 @@ type StorePagePageAggregationSelection {
 }
 
 type StorePagePageNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
 }
@@ -16504,7 +15809,7 @@ type Tag {
   ): TagChildrenConnection!
   descendants: [Tag!]!
   id: ID!
-  isRoot: Boolean
+  isRoot: Boolean!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -16568,7 +15873,7 @@ input TagAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -16736,7 +16041,7 @@ input TagChildrenConnectFieldInput {
   connect: [TagConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -16909,7 +16214,7 @@ input TagOwnerConnectFieldInput {
   connect: UserConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: UserConnectWhere
@@ -17047,7 +16352,7 @@ input TagParentConnectFieldInput {
   connect: TagConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -17636,73 +16941,9 @@ input UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeActionTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput {
-  connect: [AppTypeConnectInput!]
-  where: AppTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInputOnCreate!
-  where: AppTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInputOnCreate {
-  node: AppTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeAppTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeAppTypeConnectionWhere!]
-  node: AppTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput {
-  node: AppTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput {
-  delete: AppTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput {
-  disconnect: AppTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput {
-  node: AppTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-}
-
 input UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput {
   connect: [ArrayTypeConnectInput!]
   where: ArrayTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate!
-  where: ArrayTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate {
-  node: ArrayTypeOnCreateInput!
 }
 
 input UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere {
@@ -17728,7 +16969,6 @@ input UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeArrayTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
 }
 
@@ -17738,7 +16978,6 @@ input UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput {
 
 input UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
   delete: [UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput!]
@@ -17746,71 +16985,11 @@ input UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput {
-  connect: [CodeMirrorTypeConnectInput!]
-  where: CodeMirrorTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate!
-  where: CodeMirrorTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate {
-  node: CodeMirrorTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere!]
-  node: CodeMirrorTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput {
-  node: CodeMirrorTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput {
-  delete: CodeMirrorTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput {
-  disconnect: CodeMirrorTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput {
-  node: CodeMirrorTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-}
-
 input UnionTypeTypesOfUnionTypeConnectInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
@@ -17819,14 +16998,6 @@ input UnionTypeTypesOfUnionTypeConnectInput {
 
 input UnionTypeTypesOfUnionTypeConnectOrCreateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput!]
-  ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput!]
-  EnumType: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
-  InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
@@ -17841,14 +17012,9 @@ type UnionTypeTypesOfUnionTypeConnection {
 
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   ActionType: UnionTypeTypesOfUnionTypeActionTypeConnectionWhere
-  AppType: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
   ArrayType: UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere
-  CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-  ElementType: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
   EnumType: UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere
   InterfaceType: UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere
-  LambdaType: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-  PageType: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
@@ -17857,14 +17023,9 @@ input UnionTypeTypesOfUnionTypeConnectionWhere {
 
 input UnionTypeTypesOfUnionTypeCreateFieldInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
@@ -17873,14 +17034,9 @@ input UnionTypeTypesOfUnionTypeCreateFieldInput {
 
 input UnionTypeTypesOfUnionTypeCreateInput {
   ActionType: UnionTypeTypesOfUnionTypeActionTypeFieldInput
-  AppType: UnionTypeTypesOfUnionTypeAppTypeFieldInput
   ArrayType: UnionTypeTypesOfUnionTypeArrayTypeFieldInput
-  CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput
-  ElementType: UnionTypeTypesOfUnionTypeElementTypeFieldInput
   EnumType: UnionTypeTypesOfUnionTypeEnumTypeFieldInput
   InterfaceType: UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput
-  LambdaType: UnionTypeTypesOfUnionTypeLambdaTypeFieldInput
-  PageType: UnionTypeTypesOfUnionTypePageTypeFieldInput
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput
@@ -17889,14 +17045,9 @@ input UnionTypeTypesOfUnionTypeCreateInput {
 
 input UnionTypeTypesOfUnionTypeDeleteInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
@@ -17905,87 +17056,18 @@ input UnionTypeTypesOfUnionTypeDeleteInput {
 
 input UnionTypeTypesOfUnionTypeDisconnectInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput!]
 }
 
-input UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput {
-  connect: [ElementTypeConnectInput!]
-  where: ElementTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInputOnCreate!
-  where: ElementTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInputOnCreate {
-  node: ElementTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeElementTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeElementTypeConnectionWhere!]
-  node: ElementTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput {
-  node: ElementTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput {
-  delete: ElementTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput {
-  disconnect: ElementTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput {
-  node: ElementTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-}
-
 input UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput {
   connect: [EnumTypeConnectInput!]
   where: EnumTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate!
-  where: EnumTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate {
-  node: EnumTypeOnCreateInput!
 }
 
 input UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere {
@@ -18011,7 +17093,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeEnumTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
 }
 
@@ -18021,7 +17102,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput {
 
 input UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
   delete: [UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput!]
@@ -18032,15 +17112,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput {
 input UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput {
   connect: [InterfaceTypeConnectInput!]
   where: InterfaceTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 input UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere {
@@ -18066,7 +17137,6 @@ input UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
 }
 
@@ -18076,122 +17146,11 @@ input UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput {
 
 input UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
   delete: [UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput!]
   update: UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput
   where: UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput {
-  connect: [LambdaTypeConnectInput!]
-  where: LambdaTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInputOnCreate!
-  where: LambdaTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInputOnCreate {
-  node: LambdaTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere!]
-  node: LambdaTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput {
-  node: LambdaTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput {
-  delete: LambdaTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput {
-  disconnect: LambdaTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput {
-  node: LambdaTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectFieldInput {
-  connect: [PageTypeConnectInput!]
-  where: PageTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInputOnCreate!
-  where: PageTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInputOnCreate {
-  node: PageTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypePageTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypePageTypeConnectionWhere!]
-  node: PageTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeCreateFieldInput {
-  node: PageTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput {
-  delete: PageTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput {
-  disconnect: PageTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput {
-  node: PageTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput {
@@ -18421,14 +17380,9 @@ input UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput {
 
 input UnionTypeTypesOfUnionTypeUpdateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput!]
@@ -18436,7 +17390,6 @@ input UnionTypeTypesOfUnionTypeUpdateInput {
 }
 
 input UnionTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -18597,6 +17550,9 @@ type UpdateHooksMutationResponse {
 
 type UpdateInfo {
   bookmark: String
+    @deprecated(
+      reason: "This field has been deprecated because bookmarks are now handled by the driver."
+    )
   nodesCreated: Int!
   nodesDeleted: Int!
   relationshipsCreated: Int!
@@ -18666,6 +17622,11 @@ type UpdateTypeReferencesMutationResponse {
 type UpdateUnionTypesMutationResponse {
   info: UpdateInfo!
   unionTypes: [UnionType!]!
+}
+
+type UpdateUsersMutationResponse {
+  info: UpdateInfo!
+  users: [User!]!
 }
 
 type User {
@@ -18747,13 +17708,9 @@ type User {
   ): UserTagsConnection!
   types(
     directed: Boolean = true
-    options: BaseTypeOptions
-    where: BaseTypeWhere
-  ): [BaseType!]!
-  typesAggregate(
-    directed: Boolean = true
-    where: BaseTypeWhere
-  ): UserBaseTypeTypesAggregationSelection
+    options: IBaseTypeOptions
+    where: IBaseTypeWhere
+  ): [IBaseType!]!
   typesConnection(
     after: String
     directed: Boolean = true
@@ -18778,7 +17735,7 @@ type UserAppAppsAggregationSelection {
 }
 
 type UserAppAppsNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -18798,7 +17755,7 @@ input UserAppsConnectFieldInput {
   connect: [AppConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AppConnectWhere
@@ -18854,21 +17811,21 @@ input UserAppsNodeAggregationWhereInput {
   AND: [UserAppsNodeAggregationWhereInput!]
   NOT: UserAppsNodeAggregationWhereInput
   OR: [UserAppsNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserAppsRelationship {
@@ -18920,7 +17877,7 @@ input UserAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -19072,16 +18029,6 @@ input UserAtomsUpdateFieldInput {
   where: UserAtomsConnectionWhere
 }
 
-type UserBaseTypeTypesAggregationSelection {
-  count: Int!
-  node: UserBaseTypeTypesNodeAggregateSelection
-}
-
-type UserBaseTypeTypesNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
 type UserComponentComponentsAggregationSelection {
   count: Int!
   node: UserComponentComponentsNodeAggregateSelection
@@ -19109,7 +18056,7 @@ input UserComponentsConnectFieldInput {
   connect: [ComponentConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -19225,6 +18172,14 @@ input UserConnectInput {
   types: [UserTypesConnectFieldInput!]
 }
 
+input UserConnectOrCreateInput {
+  apps: [UserAppsConnectOrCreateFieldInput!]
+  atoms: [UserAtomsConnectOrCreateFieldInput!]
+  components: [UserComponentsConnectOrCreateFieldInput!]
+  elements: [UserElementsConnectOrCreateFieldInput!]
+  tags: [UserTagsConnectOrCreateFieldInput!]
+}
+
 input UserConnectOrCreateWhere {
   node: UserUniqueWhere!
 }
@@ -19276,8 +18231,8 @@ type UserElementElementsAggregationSelection {
 }
 
 type UserElementElementsNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
@@ -19300,7 +18255,7 @@ input UserElementsConnectFieldInput {
   connect: [ElementConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -19356,21 +18311,6 @@ input UserElementsNodeAggregationWhereInput {
   AND: [UserElementsNodeAggregationWhereInput!]
   NOT: UserElementsNodeAggregationWhereInput
   OR: [UserElementsNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -19386,6 +18326,21 @@ input UserElementsNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -19470,6 +18425,15 @@ input UserOptions {
   sort: [UserSort!]
 }
 
+input UserRelationInput {
+  apps: [UserAppsCreateFieldInput!]
+  atoms: [UserAtomsCreateFieldInput!]
+  components: [UserComponentsCreateFieldInput!]
+  elements: [UserElementsCreateFieldInput!]
+  tags: [UserTagsCreateFieldInput!]
+  types: [UserTypesCreateFieldInput!]
+}
+
 """
 Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object.
 """
@@ -19506,7 +18470,7 @@ input UserTagsConnectFieldInput {
   connect: [TagConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -19598,35 +18562,9 @@ input UserTagsUpdateFieldInput {
   where: UserTagsConnectionWhere
 }
 
-input UserTypesAggregateInput {
-  AND: [UserTypesAggregateInput!]
-  NOT: UserTypesAggregateInput
-  OR: [UserTypesAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: UserTypesNodeAggregationWhereInput
-}
-
 input UserTypesConnectFieldInput {
-  connect: [BaseTypeConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: BaseTypeConnectWhere
-}
-
-input UserTypesConnectOrCreateFieldInput {
-  onCreate: UserTypesConnectOrCreateFieldInputOnCreate!
-  where: BaseTypeConnectOrCreateWhere!
-}
-
-input UserTypesConnectOrCreateFieldInputOnCreate {
-  node: BaseTypeOnCreateInput!
+  connect: IBaseTypeConnectInput
+  where: IBaseTypeConnectWhere
 }
 
 type UserTypesConnection {
@@ -19636,69 +18574,46 @@ type UserTypesConnection {
 }
 
 input UserTypesConnectionSort {
-  node: BaseTypeSort
+  node: IBaseTypeSort
 }
 
 input UserTypesConnectionWhere {
   AND: [UserTypesConnectionWhere!]
   NOT: UserTypesConnectionWhere
   OR: [UserTypesConnectionWhere!]
-  node: BaseTypeWhere
+  node: IBaseTypeWhere
 }
 
 input UserTypesCreateFieldInput {
-  node: BaseTypeCreateInput!
+  node: IBaseTypeCreateInput!
 }
 
 input UserTypesDeleteFieldInput {
-  delete: BaseTypeDeleteInput
+  delete: IBaseTypeDeleteInput
   where: UserTypesConnectionWhere
 }
 
 input UserTypesDisconnectFieldInput {
-  disconnect: BaseTypeDisconnectInput
+  disconnect: IBaseTypeDisconnectInput
   where: UserTypesConnectionWhere
 }
 
 input UserTypesFieldInput {
   connect: [UserTypesConnectFieldInput!]
-  connectOrCreate: [UserTypesConnectOrCreateFieldInput!]
   create: [UserTypesCreateFieldInput!]
-}
-
-input UserTypesNodeAggregationWhereInput {
-  AND: [UserTypesNodeAggregationWhereInput!]
-  NOT: UserTypesNodeAggregationWhereInput
-  OR: [UserTypesNodeAggregationWhereInput!]
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserTypesRelationship {
   cursor: String!
-  node: BaseType!
+  node: IBaseType!
 }
 
 input UserTypesUpdateConnectionInput {
-  node: BaseTypeUpdateInput
+  node: IBaseTypeUpdateInput
 }
 
 input UserTypesUpdateFieldInput {
   connect: [UserTypesConnectFieldInput!]
-  connectOrCreate: [UserTypesConnectOrCreateFieldInput!]
   create: [UserTypesCreateFieldInput!]
   delete: [UserTypesDeleteFieldInput!]
   disconnect: [UserTypesDisconnectFieldInput!]
@@ -19955,7 +18870,6 @@ input UserWhere {
   Return Users where some of the related Tags match this filter
   """
   tags_SOME: TagWhere
-  typesAggregate: UserTypesAggregateInput
 
   """
   Return Users where all of the related UserTypesConnections match this filter
@@ -19976,26 +18890,6 @@ input UserWhere {
   Return Users where some of the related UserTypesConnections match this filter
   """
   typesConnection_SOME: UserTypesConnectionWhere
-
-  """
-  Return Users where all of the related BaseTypes match this filter
-  """
-  types_ALL: BaseTypeWhere
-
-  """
-  Return Users where none of the related BaseTypes match this filter
-  """
-  types_NONE: BaseTypeWhere
-
-  """
-  Return Users where one of the related BaseTypes match this filter
-  """
-  types_SINGLE: BaseTypeWhere
-
-  """
-  Return Users where some of the related BaseTypes match this filter
-  """
-  types_SOME: BaseTypeWhere
   username: String
   username_CONTAINS: String
   username_ENDS_WITH: String
@@ -20031,7 +18925,7 @@ input WithOwnerOwnerConnectFieldInput {
   connect: UserConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: UserConnectWhere

@@ -60,7 +60,7 @@ export const CreateDomainsDocument = gql`
 `
 export const UpdateDomainsDocument = gql`
   mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
-    updateDomains(where: $where, update: $update) {
+    updateDomains(update: $update, where: $where) {
       domains {
         id
       }

@@ -1,0 +1,18 @@
+enum PopulatedByOperation {
+  CREATE
+  UPDATE
+}
+
+"""
+Instructs @neo4j/graphql to invoke the specified callback function to populate the field when updating or creating the properties on a node or relationship.
+"""
+directive @populatedBy(
+  """
+  The name of the callback function.
+  """
+  callback: String!
+  """
+  Which events to invoke the callback on.
+  """
+  operations: [PopulatedByOperation!]! = [CREATE, UPDATE]
+) on FIELD_DEFINITION

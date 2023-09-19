@@ -3,14 +3,14 @@ import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
-  Omit<ICreateElementData, 'page' | 'parentComponent'>
+  Omit<ICreateElementData, 'closestContainerNode' | 'page' | 'parentComponent'>
 > = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     style: {
       nullable: true,
       type: 'string',
@@ -22,10 +22,9 @@ export const createElementSchema: JSONSchemaType<
     parentElement: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Parent element',
-          type: 'string',
-        },
+        }),
       },
       required: ['id'],
       type: 'object',
@@ -33,10 +32,9 @@ export const createElementSchema: JSONSchemaType<
     postRenderAction: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Post Render action',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -44,10 +42,9 @@ export const createElementSchema: JSONSchemaType<
     preRenderAction: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Pre Render action',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -55,10 +52,9 @@ export const createElementSchema: JSONSchemaType<
     prevSibling: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Linked by',
-          type: 'string',
-        },
+        }),
       },
       required: ['id'],
       type: 'object',
@@ -77,22 +73,42 @@ export const createElementSchema: JSONSchemaType<
     },
     renderType: {
       label: 'Render Type',
-      nullable: true,
-      properties: {
-        id: {
-          type: 'string',
-        },
-        kind: {
-          enum: Object.values(IRenderTypeKind),
-          label: 'Render Type',
-          type: 'string',
-        },
-      },
-      required: ['id', 'kind'],
       type: 'object',
+      oneOf: [
+        {
+          properties: {
+            id: {
+              type: 'string',
+            },
+            __typename: {
+              enum: [IElementRenderTypeKind.Component],
+              label: 'Render Type',
+              type: 'string',
+              nullable: true,
+            },
+          },
+          required: ['id'],
+          type: 'object',
+        },
+        {
+          properties: {
+            id: {
+              type: 'string',
+            },
+            __typename: {
+              enum: [IElementRenderTypeKind.Atom],
+              label: 'Render Type',
+              type: 'string',
+              nullable: true,
+            },
+          },
+          required: ['id'],
+          type: 'object',
+        },
+      ],
     },
   },
-  required: ['name', 'id'],
+  required: ['name', 'id', 'renderType'],
   title: 'Create Element Input',
   type: 'object',
 }

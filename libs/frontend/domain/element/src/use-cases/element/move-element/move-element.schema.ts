@@ -1,10 +1,12 @@
 import type { MoveData } from '@codelab/frontend/abstract/core'
+import { idSchema } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 
 export const moveElementSchema: JSONSchemaType<MoveData> = {
   properties: {
     parentElement: {
       properties: {
+        ...idSchema(),
         id: {
           label: 'Parent Element',
           type: 'string',
@@ -15,6 +17,7 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
     },
     prevSibling: {
       properties: {
+        ...idSchema(),
         id: {
           label: 'Linked by',
           type: 'string',

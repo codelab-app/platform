@@ -1,8 +1,7 @@
 import type {
   AppOptions,
   AppWhere,
-  GetRenderedPageAndAppDataQuery,
-  GetRenderedPageAndCommonAppDataQuery,
+  GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
@@ -21,30 +20,28 @@ import type {
   IPageBuilderAppProps,
   IUpdateAppData,
 } from './app.dto.interface'
-import type { IApp } from './app.model.interface'
+import type { IAppModel } from './app.model.interface'
 import type { IAppRepository } from './app.repo.interface'
 
 export interface IAppService
-  extends ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
-    IQueryService<IApp, AppWhere, AppOptions>,
-    ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
+  extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
+    IQueryService<IAppModel, AppWhere, AppOptions>,
+    ICRUDModalService<Ref<IAppModel>, { app: Maybe<IAppModel> }> {
   appRepository: IAppRepository
-  apps: ObjectMap<IApp>
+  apps: ObjectMap<IAppModel>
   appsJson: IPropData
-  appsList: Array<IApp>
-  buildModal: IEntityModalService<Ref<IApp>, { app: IApp }>
+  appsList: Array<IAppModel>
+  buildModal: IEntityModalService<Ref<IAppModel>, { app: IAppModel }>
 
-  add(appDto: IAppDTO): IApp
-  app(id: string): Maybe<IApp>
+  add(appDto: IAppDTO): IAppModel
+  app(id: string): Maybe<IAppModel>
   getAppPages(appId: string, where: PageWhere): Promise<void>
-  getRenderedPageAndCommonAppData(
-    appId: string,
-    pageName: string,
-    initialData?:
-      | GetRenderedPageAndAppDataQuery
-      | GetRenderedPageAndCommonAppDataQuery,
-    rendererType?: RendererType,
-  ): Promise<IApp | undefined>
-  loadAppsWithNestedPreviews(where: AppWhere): Promise<Array<IApp>>
+  loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
   loadPages(data: IPageBuilderAppProps): void
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  loadDevelopmentPage(
+    appCompositeKey: string,
+    pageCompositeKey: string,
+  ): Promise<IAppModel | undefined>
+  loadProductionPage(initialData: GetProductionPageQuery): IAppModel | undefined
 }

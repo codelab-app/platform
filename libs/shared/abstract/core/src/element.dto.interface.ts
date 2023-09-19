@@ -1,30 +1,45 @@
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import type { RenderType } from './render-type'
+import { IEntity } from '@codelab/shared/abstract/types'
+import { Typebox } from '@codelab/shared/infra/validation'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IElementRenderType } from './element-render-type'
 
-/**
- * This is the graphql fragment equivalent, used for hydrating object
- */
-export interface IElementDTO {
-  childMapperComponent?: Nullable<IEntity>
-  childMapperPreviousSibling?: Nullable<IEntity>
-  childMapperPropKey?: Nullable<string>
-  firstChild?: Nullable<IEntity>
-  id: string
-  name: string
-  nextSibling?: Nullable<IEntity>
-  page?: Nullable<IEntity>
-  parent?: Nullable<IEntity>
-  parentComponent?: Nullable<IEntity>
-  postRenderAction?: Nullable<IEntity>
-  preRenderAction?: Nullable<IEntity>
-  prevSibling?: Nullable<IEntity>
-  props: IEntity
-  renderForEachPropKey?: Nullable<string>
-  renderIfExpression?: Nullable<string>
-  renderType?: Nullable<RenderType>
-  style?: Nullable<string>
-}
+export const IElementDTO = Type.Object({
+  childMapperComponent: Typebox.Nullish(IEntity),
+  childMapperPreviousSibling: Typebox.Nullish(IEntity),
+  childMapperPropKey: Typebox.Nullish(Type.String()),
+  /**
+   * For frontend models we can compute from Mobx, but for backend we would map the data in
+   */
+  closestContainerNode: IEntity,
+  firstChild: Typebox.Nullish(IEntity),
+  id: Type.String(),
+  name: Type.String(),
+  nextSibling: Typebox.Nullish(IEntity),
+  page: Typebox.Nullish(IEntity),
+  parentComponent: Typebox.Nullish(IEntity),
+  parentElement: Typebox.Nullish(IEntity),
+  postRenderAction: Typebox.Nullish(IEntity),
+  preRenderAction: Typebox.Nullish(IEntity),
+  prevSibling: Typebox.Nullish(IEntity),
+  props: IEntity,
+  refKey: Typebox.Nullish(Type.String()),
+  renderForEachPropKey: Typebox.Nullish(Type.String()),
+  renderIfExpression: Typebox.Nullish(Type.String()),
+  renderType: IElementRenderType,
+  style: Typebox.Nullish(Type.String()),
+})
 
-export interface ICreateIElementDTO extends IElementDTO {
-  closestContainerNode: IEntity
-}
+export type IElementDTO = Static<typeof IElementDTO>
+
+export const ICreateElementDTO = Type.Composite([
+  IElementDTO,
+  Type.Object({
+    /**
+     * Used for composite key
+     */
+    closestContainerNode: IEntity,
+  }),
+])
+
+export type ICreateElementDTO = Static<typeof ICreateElementDTO>

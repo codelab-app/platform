@@ -10,17 +10,17 @@ import type {
   IQueryService,
 } from '../../service'
 import type { ICreateDomainData } from './domain.dto.interface'
-import type { IDomain } from './domain.model.interface'
+import type { IDomainModel } from './domain.model.interface'
 
 export interface IDomainService
-  extends ICRUDService<IDomain, ICreateDomainData, ICreateDomainData>,
-    Omit<IQueryService<IDomain, DomainWhere, DomainOptions>, 'getOne'>,
-    ICRUDModalService<Ref<IDomain>, { domain: Maybe<IDomain> }> {
+  extends ICRUDService<IDomainModel, ICreateDomainData, ICreateDomainData>,
+    Omit<IQueryService<IDomainModel, DomainWhere, DomainOptions>, 'getOne'>,
+    ICRUDModalService<Ref<IDomainModel>, { domain: Maybe<IDomainModel> }> {
   createModal: ICRUDModalService<
-    Ref<IDomain>,
+    Ref<IDomainModel>,
     { domain: Maybe<string> }
   >['createModal']
-  domains: ObjectMap<IDomain>
-  domainsList: Array<IDomain>
-  getAll(where?: DomainWhere): Promise<Array<IDomain>>
+  domains: ObjectMap<IDomainModel>
+  domainsList: Array<IDomainModel>
+  getAll(where?: DomainWhere): Promise<Array<IDomainModel>>
 }

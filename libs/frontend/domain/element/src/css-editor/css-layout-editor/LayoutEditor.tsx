@@ -1,5 +1,5 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { DisplayEditor } from './DisplayEditor'
@@ -11,7 +11,7 @@ import { SizeEditor } from './SizeEditor'
 const { Panel } = Collapse
 
 interface LayoutEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 

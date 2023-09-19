@@ -9,13 +9,7 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({
-  id,
-  itemType,
-  kind,
-  name,
-  owner,
-}: IArrayTypeDTO): ArrayType => {
+const create = ({ id, itemType, kind, name }: IArrayTypeDTO): ArrayType => {
   assertIsTypeKind(kind, ITypeKind.ArrayType)
 
   return new ArrayType({
@@ -23,7 +17,6 @@ const create = ({
     itemType: itemType ? typeRef(itemType.id) : null,
     kind,
     name,
-    owner,
   })
 }
 

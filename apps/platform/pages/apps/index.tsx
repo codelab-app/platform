@@ -22,7 +22,9 @@ import {
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { getEnv } from '@codelab/shared/config'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
@@ -75,23 +77,15 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService } = useStore()
-  const { user } = useUser()
+  const { appService, userService } = useStore()
+  const user = userService.user
 
-  const [{ status }, loadApp] = useAsync((owner: IAuth0Owner) =>
-    appService.loadAppsWithNestedPreviews({ owner }),
+  const [{ status }, loadApp] = useAsync((owner: IEntity) =>
+    appService.loadAppsPreview({ owner }),
   )
 
   useEffect(() => {
-    if (user?.sub) {
-      void loadApp.execute({ auth0Id: user.sub })
-    }
-
-    // in development need to execute this each time page is loaded,
-    // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-    if (user && getEnv().endpoint.isLocal) {
-      void fetch('/api/upsert-user')
-    }
+    void loadApp.execute({ id: user.id })
   }, [user, loadApp])
 
   return (

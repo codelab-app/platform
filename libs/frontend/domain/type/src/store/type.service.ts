@@ -100,7 +100,6 @@ export class TypeService
     const interfaceType = new InterfaceType({
       id: data.id,
       name: data.name,
-      owner: data.owner,
     })
 
     this.types.set(interfaceType.id, interfaceType)

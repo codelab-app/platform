@@ -1,0 +1,891 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520",
+    "kind": "InterfaceType",
+    "name": "AntDesignDrawer API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+              "kind": "PrimitiveType",
+              "name": "Number"
+            },
+            "id": "998e7e01-6284-4549-8f72-fe25aa604a2d",
+            "key": "zIndex",
+            "name": "Z Index",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "2b3e913f-f5f3-4dd4-957f-48b09af7cff9",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Width Enum"
+            },
+            "id": "b2c4a9ce-bb0a-4be7-9ad0-6ca587124257",
+            "key": "width",
+            "name": "Width",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "id": "4caf4754-5004-4f91-9b3d-988aa5a458ec",
+            "key": "title",
+            "name": "Title",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "7196993a-b2e6-464a-ae7a-df919fc8494e",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Size Enum"
+            },
+            "id": "72703c50-fc1d-462c-9f4f-df1e73145de7",
+            "key": "size",
+            "name": "Size",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "f25db2cf-9a4c-4131-8be2-f058b91e6554",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Push Enum"
+            },
+            "id": "e31729ef-edec-47f9-98c3-86c4d5d70379",
+            "key": "push",
+            "name": "Push",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "165472bd-51ac-4b25-9770-1d80933ac794",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Placement Enum"
+            },
+            "id": "edeae7da-2291-42d4-947f-bcd3591378c2",
+            "key": "placement",
+            "name": "Placement",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "e86127de-6e11-4e85-b59e-c70aec3c7d2a",
+            "key": "open",
+            "name": "Open",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ActionType",
+              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+              "kind": "ActionType",
+              "name": "ActionType"
+            },
+            "id": "9d21cce2-7769-4a75-98e3-b39c2595771a",
+            "key": "onClose",
+            "name": "On Close",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "70eff519-c9c0-4c6a-89e9-88a8d1de4153",
+            "key": "maskClosable",
+            "name": "Mask Closable",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "72790a03-4203-4c15-b1bf-8da49ba0f410",
+            "key": "mask",
+            "name": "Mask",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "28980184-53d5-4ad2-b829-65b70dc9b401",
+            "key": "keyboard",
+            "name": "Keyboard",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "a6b6be60-fbbf-4a0c-b209-978a283cef9e",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Height Enum"
+            },
+            "id": "0a1053b8-7a92-4118-a609-1ed0abcc451e",
+            "key": "height",
+            "name": "Height",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "a4a94b1c-dfc8-4732-a754-cae8596bd4c9",
+              "kind": "EnumType",
+              "name": "AntDesignDrawer Get Container Enum"
+            },
+            "id": "dbdd4707-cc6f-49e2-ba76-8e72debf5b57",
+            "key": "getContainer",
+            "name": "Get Container",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "b5da6978-be38-4e45-8af6-f0d9a1f105c7",
+            "key": "forceRender",
+            "name": "Force Render",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "id": "a492ec08-e5cc-41e2-b1d2-0dbc12a65afb",
+            "key": "footer",
+            "name": "Footer",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "id": "013d7974-0a78-49c2-a766-8b2f075aa75c",
+            "key": "extra",
+            "name": "Extra",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "ad1d5a1e-220b-496b-97c1-2e43f8163259",
+            "key": "destroyOnClose",
+            "name": "Destroy On Close",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "id": "a67a3d72-d0d0-49a1-9adb-0e4232e1cad0",
+            "key": "closeIcon",
+            "name": "Close Icon",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "6637ca35-5330-496f-a279-496ad97db246",
+            "key": "closable",
+            "name": "Closable",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "ed588f68-7701-4d94-ad8f-d8be2ef6cce3",
+            "key": "className",
+            "name": "Class Name",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "f881d1dc-46a7-4b1a-892c-97b3f476bf3e",
+            "key": "autoFocus",
+            "name": "Auto Focus",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ActionType",
+              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+              "kind": "ActionType",
+              "name": "ActionType"
+            },
+            "id": "4edf4022-4336-455e-a62e-241552f5a4cd",
+            "key": "afterOpenChange",
+            "name": "After Open Change",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          }
+        ],
+        "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520",
+        "kind": "InterfaceType",
+        "name": "AntDesignDrawer API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "id": "998e7e01-6284-4549-8f72-fe25aa604a2d",
+          "key": "zIndex",
+          "name": "Z Index",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "2b3e913f-f5f3-4dd4-957f-48b09af7cff9",
+            "kind": "EnumType",
+            "name": "AntDesignDrawer Width Enum"
+          },
+          "id": "b2c4a9ce-bb0a-4be7-9ad0-6ca587124257",
+          "key": "width",
+          "name": "Width",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "id": "4caf4754-5004-4f91-9b3d-988aa5a458ec",
+          "key": "title",
+          "name": "Title",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "7196993a-b2e6-464a-ae7a-df919fc8494e",
+            "kind": "EnumType",
+            "name": "AntDesignDrawer Size Enum"
+          },
+          "id": "72703c50-fc1d-462c-9f4f-df1e73145de7",
+          "key": "size",
+          "name": "Size",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "f25db2cf-9a4c-4131-8be2-f058b91e6554",
+            "kind": "EnumType",
+            "name": "AntDesignDrawer Push Enum"
+          },
+          "id": "e31729ef-edec-47f9-98c3-86c4d5d70379",
+          "key": "push",
+          "name": "Push",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "165472bd-51ac-4b25-9770-1d80933ac794",
+            "kind": "EnumType",
+            "name": "AntDesignDrawer Placement Enum"
+          },
+          "id": "edeae7da-2291-42d4-947f-bcd3591378c2",
+          "key": "placement",
+          "name": "Placement",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "e86127de-6e11-4e85-b59e-c70aec3c7d2a",
+          "key": "open",
+          "name": "Open",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "id": "9d21cce2-7769-4a75-98e3-b39c2595771a",
+          "key": "onClose",
+          "name": "On Close",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "70eff519-c9c0-4c6a-89e9-88a8d1de4153",
+          "key": "maskClosable",
+          "name": "Mask Closable",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "72790a03-4203-4c15-b1bf-8da49ba0f410",
+          "key": "mask",
+          "name": "Mask",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "28980184-53d5-4ad2-b829-65b70dc9b401",
+          "key": "keyboard",
+          "name": "Keyboard",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "a6b6be60-fbbf-4a0c-b209-978a283cef9e",
+            "kind": "EnumType",
+            "name": "AntDesignDrawer Height Enum"
+          },
+          "id": "0a1053b8-7a92-4118-a609-1ed0abcc451e",
+          "key": "height",
+          "name": "Height",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "a4a94b1c-dfc8-4732-a754-cae8596bd4c9",
+            "kind": "EnumType",
+            "name": "AntDesignDrawer Get Container Enum"
+          },
+          "id": "dbdd4707-cc6f-49e2-ba76-8e72debf5b57",
+          "key": "getContainer",
+          "name": "Get Container",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "b5da6978-be38-4e45-8af6-f0d9a1f105c7",
+          "key": "forceRender",
+          "name": "Force Render",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "id": "a492ec08-e5cc-41e2-b1d2-0dbc12a65afb",
+          "key": "footer",
+          "name": "Footer",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "id": "013d7974-0a78-49c2-a766-8b2f075aa75c",
+          "key": "extra",
+          "name": "Extra",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "ad1d5a1e-220b-496b-97c1-2e43f8163259",
+          "key": "destroyOnClose",
+          "name": "Destroy On Close",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "id": "a67a3d72-d0d0-49a1-9adb-0e4232e1cad0",
+          "key": "closeIcon",
+          "name": "Close Icon",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "6637ca35-5330-496f-a279-496ad97db246",
+          "key": "closable",
+          "name": "Closable",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "ed588f68-7701-4d94-ad8f-d8be2ef6cce3",
+          "key": "className",
+          "name": "Class Name",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "f881d1dc-46a7-4b1a-892c-97b3f476bf3e",
+          "key": "autoFocus",
+          "name": "Auto Focus",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "id": "4edf4022-4336-455e-a62e-241552f5a4cd",
+          "key": "afterOpenChange",
+          "name": "After Open Change",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        }
+      ],
+      "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520",
+      "kind": "InterfaceType",
+      "name": "AntDesignDrawer API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Drawer",
+    "id": "fd5d7747-12a7-4861-8215-eef991e8144e",
+    "name": "AntDesignDrawer",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "8119e0cb-bde8-45cd-9ee4-7ff429377b3b",
+        "name": "Drawer",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        }
+      }
+    ],
+    "type": "AntDesignDrawer"
+  }
+}

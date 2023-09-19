@@ -86,7 +86,7 @@ export const GetAtomsDocument = gql`
     aggregate: atomsAggregate(where: $where) {
       count
     }
-    items: atoms(where: $where, options: $options) {
+    items: atoms(options: $options, where: $where) {
       ...Atom
     }
   }

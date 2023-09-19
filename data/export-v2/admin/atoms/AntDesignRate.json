@@ -1,0 +1,53 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "47250e07-adcf-4e44-8528-93d903799b06",
+    "kind": "InterfaceType",
+    "name": "AntDesignRate API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "47250e07-adcf-4e44-8528-93d903799b06",
+        "kind": "InterfaceType",
+        "name": "AntDesignRate API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [],
+      "id": "47250e07-adcf-4e44-8528-93d903799b06",
+      "kind": "InterfaceType",
+      "name": "AntDesignRate API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Rate",
+    "id": "bd05ca0b-36c0-43c7-95c5-e56578f842ce",
+    "name": "AntDesignRate",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "6966c0d3-fbaa-452c-a7ba-1149ffb9aa73",
+        "name": "Rate",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        }
+      }
+    ],
+    "type": "AntDesignRate"
+  }
+}

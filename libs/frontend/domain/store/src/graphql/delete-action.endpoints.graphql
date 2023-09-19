@@ -2,7 +2,7 @@ mutation DeleteCodeActions(
   $where: CodeActionWhere!
   $delete: CodeActionDeleteInput
 ) {
-  deleteCodeActions(where: $where, delete: $delete) {
+  deleteCodeActions(delete: $delete, where: $where) {
     nodesDeleted
     relationshipsDeleted
   }
@@ -12,7 +12,7 @@ mutation DeleteApiActions(
   $where: ApiActionWhere!
   $delete: ApiActionDeleteInput
 ) {
-  deleteApiActions(where: $where, delete: $delete) {
+  deleteApiActions(delete: $delete, where: $where) {
     nodesDeleted
     relationshipsDeleted
   }

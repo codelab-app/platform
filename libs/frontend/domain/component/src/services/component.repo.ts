@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IComponentRepository,
 } from '@codelab/frontend/abstract/core'
 import type {
@@ -16,7 +16,10 @@ export class ComponentRepository
   implements IComponentRepository
 {
   @modelFlow
-  add = _async(function* (this: ComponentRepository, component: IComponent) {
+  add = _async(function* (
+    this: ComponentRepository,
+    component: IComponentModel,
+  ) {
     const {
       createComponents: { components },
     } = yield* _await(
@@ -27,7 +30,10 @@ export class ComponentRepository
   })
 
   @modelFlow
-  update = _async(function* (this: ComponentRepository, component: IComponent) {
+  update = _async(function* (
+    this: ComponentRepository,
+    component: IComponentModel,
+  ) {
     const { childrenContainerElement, id, keyGenerator, name } = component
 
     const {
@@ -60,7 +66,7 @@ export class ComponentRepository
   @modelFlow
   delete = _async(function* (
     this: ComponentRepository,
-    components: Array<IComponent>,
+    components: Array<IComponentModel>,
   ) {
     const {
       deleteComponents: { nodesDeleted },

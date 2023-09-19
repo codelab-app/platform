@@ -1,11 +1,13 @@
 import type { RendererType } from '@codelab/frontend/abstract/core'
 import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { AppProperties } from '@codelab/shared/domain/mapper'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
 import { useCurrentApp, useCurrentComponent } from '../routerHooks'
-import { loadAllTypesForElements } from './useRenderedPage.hook'
+import { useAppQuery } from './useAppQuery.hook'
+import { loadAllTypesForElements } from './utils'
 
 /**
  * Fetch related data for rendering component, and load them into store
@@ -18,14 +20,19 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     elementService,
     renderService,
     typeService,
+    userService,
   } = useStore()
 
-  const { _compoundName } = useCurrentApp()
   const { componentName } = useCurrentComponent()
+  const { appName } = useAppQuery()
+  const user = userService.user
   const router = useRouter()
 
   return useAsync(async () => {
-    const [app] = await appService.loadAppsWithNestedPreviews({ _compoundName })
+    const [app] = await appService.loadAppsPreview({
+      compositeKey: AppProperties.appCompositeKey(appName, user),
+    })
+
     const components = await componentService.getAll({ name: componentName })
     const component = components.find(({ name }) => name === componentName)
 

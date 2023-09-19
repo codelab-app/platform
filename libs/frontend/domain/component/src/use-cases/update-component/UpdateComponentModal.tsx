@@ -1,7 +1,7 @@
 import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -29,9 +29,8 @@ export const UpdateComponentModal = observer(() => {
       <ModalForm.Form<IUpdateComponentData>
         model={model}
         onSubmit={handleSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating component',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={updateComponentSchema}

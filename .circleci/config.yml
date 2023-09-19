@@ -70,7 +70,7 @@ commands:
             sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
             sudo apt update
-            sudo apt install terraform=1.3.9
+            sudo apt install terraform=1.5.1
           name: Install Terraform
   restore-infra-workspace:
     description: Restore Infra Workspace
@@ -189,7 +189,7 @@ jobs:
       - run: npx cypress install
       - run: npx cypress verify
       - run:
-          command: yarn cli tasks e2e --stage ci
+          command: nx e2e platform-e2e -c ci
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos

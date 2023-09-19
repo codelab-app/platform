@@ -1,5 +1,5 @@
 export * from './extract-css-number'
 export * from './extract-css-unit'
-export * from './makeAddonAfterNumber'
-export * from './makeMenu'
+export * from './MakeAddonAfterNumber'
+export * from './MakeMenu'
 export * from './update-gui-css-property'

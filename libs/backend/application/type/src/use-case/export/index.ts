@@ -1,4 +1,2 @@
-export * from './export-admin-types'
-export * from './export-atom-apis'
-export * from './export-system-types'
-export * from './export-user-types'
+export * from './export-api.command.service'
+export * from './export-system-types.command.service'

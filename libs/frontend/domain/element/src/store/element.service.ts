@@ -1,8 +1,9 @@
 import type {
-  IComponent,
+  IComponentModel,
   ICreateElementData,
-  IElement,
+  IElementModel,
   IElementService,
+  IInterfaceType,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -20,21 +21,22 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
-import {
-  RenderedComponentFragment,
-  RenderTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type {
-  IAuth0Owner,
   IElementDTO,
-  RenderType,
+  IElementRenderType,
 } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -50,7 +52,7 @@ import {
 import { v4 } from 'uuid'
 import { ElementRepository } from '../services/element.repo'
 import { makeAutoIncrementedName } from '../utils'
-import { getRenderTypeApi, makeDefaultProps } from './api.utils'
+import { makeDefaultProps } from './api.utils'
 import { Element } from './element.model'
 import {
   CreateElementFormService,
@@ -71,7 +73,7 @@ import {
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
-    clonedElements: prop(() => objectMap<IElement>()),
+    clonedElements: prop(() => objectMap<IElementModel>()),
     createForm: prop(() => new CreateElementFormService({})),
     createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
@@ -82,7 +84,7 @@ export class ElementService
      * - Elements part of rootTree
      * - Elements that are detached
      */
-    elements: prop(() => objectMap<IElement>()),
+    elements: prop(() => objectMap<IElementModel>()),
     id: idProp,
     updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
@@ -130,7 +132,12 @@ export class ElementService
   }
 
   @modelAction
-  add = (elementDTO: IElementDTO): IElement => {
+  loadElement = (element: IElementDTO) => {
+    //
+  }
+
+  @modelAction
+  add = (elementDTO: IElementDTO): IElementModel => {
     let element = this.maybeElement(elementDTO.id)
 
     if (element) {
@@ -153,17 +160,11 @@ export class ElementService
   @transaction
   private loadRenderTypeInterface = _async(function* (
     this: ElementService,
-    data: ICreateElementData,
+    elementRenderType: IElementRenderType,
   ) {
-    const renderTypeApi =
-      data.renderType &&
-      (yield* _await(
-        getRenderTypeApi({
-          atomService: this.atomService,
-          componentService: this.componentService,
-          renderType: data.renderType,
-        }),
-      ))
+    const renderTypeApi = yield* _await(
+      this.getRenderTypeApi(elementRenderType),
+    )
 
     if (renderTypeApi) {
       // If the new element is an atom or component that is not used yet anywhere
@@ -174,13 +175,47 @@ export class ElementService
     return renderTypeApi
   })
 
+  @modelFlow
+  getRenderTypeApi = async (renderType: IElementRenderType) => {
+    // When creating a new element, we need the interface type fields
+    // and we use it to create a props with default values for the created element
+    let renderTypeApi: Ref<IInterfaceType>
+
+    switch (renderType.__typename) {
+      case IElementRenderTypeKind.Atom: {
+        const atomRenderTypeRef = throwIfUndefined(
+          await this.atomService.getOne(renderType.id),
+        )
+
+        renderTypeApi = atomRenderTypeRef.api
+        break
+      }
+
+      case IElementRenderTypeKind.Component: {
+        const componentRenderTypeRef = throwIfUndefined(
+          await this.componentService.getOne(renderType.id),
+        )
+
+        renderTypeApi = componentRenderTypeRef.api
+        break
+      }
+
+      default:
+        throw new Error('Missing renderType')
+    }
+
+    return renderTypeApi
+  }
+
   /**
    * We need a separate create function for element trees
    */
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    const renderTypeApi = yield* _await(this.loadRenderTypeInterface(data))
+    const renderTypeApi = yield* _await(
+      this.loadRenderTypeInterface(data.renderType),
+    )
 
     const elementProps = this.propService.add({
       data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
@@ -190,8 +225,6 @@ export class ElementService
     const element = this.add({
       ...data,
       // initial link to resolve closestContainerNode
-      parent: data.parentElement,
-      prevSibling: data.prevSibling,
       props: elementProps,
     })
 
@@ -203,11 +236,11 @@ export class ElementService
   @modelFlow
   @transaction
   update = _async(function* (this: ElementService, data: IUpdateElementData) {
-    yield* _await(this.loadRenderTypeInterface(data))
+    yield* _await(this.loadRenderTypeInterface(data.renderType))
 
     const { id, ...elementData } = data
     const element = this.element(id)
-    const { id: newRenderTypeId } = elementData.renderType ?? {}
+    const { id: newRenderTypeId } = elementData.renderType
     const { id: oldRenderTypeId } = element.renderType ?? {}
 
     if (newRenderTypeId !== oldRenderTypeId) {
@@ -234,7 +267,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  delete = _async(function* (this: ElementService, subRoot: IElement) {
+  delete = _async(function* (this: ElementService, subRoot: IElementModel) {
     console.debug('deleteElementSubgraph', subRoot)
 
     const subRootElement = this.element(subRoot.id)
@@ -297,7 +330,15 @@ export class ElementService
       ...component.rootElement.descendantElements,
     ]
 
-    const hydratedElements = elements.map((element) => this.add(element))
+    const hydratedElements = elements.map((element) =>
+      this.add({
+        ...element,
+        closestContainerNode: {
+          id: component.id,
+        },
+      }),
+    )
+
     const rootElement = this.element(component.rootElement.id)
 
     return { hydratedElements, rootElement }
@@ -337,8 +378,8 @@ export class ElementService
       element.nextSibling?.current.id,
     ]
 
-    if (element.parent?.current.firstChild?.id === element.id) {
-      affectedNodeIds.push(element.parent.current.id)
+    if (element.parentElement?.current.firstChild?.id === element.id) {
+      affectedNodeIds.push(element.parentElement.current.id)
     }
 
     element.detachFromParent()
@@ -542,8 +583,8 @@ export class ElementService
     targetElement,
   }: {
     dropPosition: number
-    element: IElement
-    targetElement: IElement
+    element: IElementModel
+    targetElement: IElementModel
   }) => {
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
     const insertAfterId = targetElement.children[dropPosition]?.id
@@ -576,8 +617,8 @@ export class ElementService
       targetElement,
     }: {
       dropPosition: number
-      component: IComponent
-      targetElement: IElement
+      component: IComponentModel
+      targetElement: IElementModel
     },
   ) {
     const elementTree = targetElement.closestContainerNode
@@ -609,19 +650,19 @@ export class ElementService
       : ''
 
     const name = `${component.name}${componentInstanceCounter}`
-
-    const renderType: RenderType = {
-      id: component.id,
-      kind: IRenderTypeKind.Component,
-    }
-
     const parentElement = { id: targetElement.id }
 
     const data: ICreateElementData = {
+      closestContainerNode: {
+        id: component.id,
+      },
       id: v4(),
       name,
       parentElement,
-      renderType,
+      renderType: {
+        __typename: IElementRenderTypeKind.Component,
+        id: component.id,
+      },
     }
 
     const element = yield* _await(this.create(data))
@@ -689,7 +730,10 @@ export class ElementService
     yield* _await(this.updateAffectedElements(affectedNodeIds))
   })
 
-  private async recursiveDuplicate(element: IElement, parentElement: IElement) {
+  private async recursiveDuplicate(
+    element: IElementModel,
+    parentElement: IElementModel,
+  ) {
     const duplicateName = makeAutoIncrementedName(
       this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
         [],
@@ -710,6 +754,7 @@ export class ElementService
         ? { id: element.childMapperPreviousSibling.id }
         : null,
       childMapperPropKey: element.childMapperPropKey,
+      closestContainerNode: element.closestContainerNode,
       id: v4(),
       name: duplicateName,
       page: element.page ? { id: element.page.id } : null,
@@ -719,14 +764,7 @@ export class ElementService
       props,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
-      renderType: element.renderType
-        ? {
-            id: element.renderType.id,
-            kind: isComponentInstance(element.renderType)
-              ? RenderTypeKind.Component
-              : RenderTypeKind.Atom,
-          }
-        : null,
+      renderType: element.renderType,
       style: element.style,
     }
 
@@ -761,7 +799,7 @@ export class ElementService
       ),
     )
 
-    const oldToNewIdMap: Map<string, IElement> = children.reduce(
+    const oldToNewIdMap: Map<string, IElementModel> = children.reduce(
       (acc, curElementModel) => new Map([...acc, ...curElementModel]),
       new Map([[element.id, elementCloneModel]]),
     )
@@ -773,8 +811,8 @@ export class ElementService
   @transaction
   cloneElement = _async(function* (
     this: ElementService,
-    targetElement: IElement,
-    targetParent: IElement,
+    targetElement: IElementModel,
+    targetParent: IElementModel,
   ) {
     const oldToNewIdMap = yield* _await(
       this.recursiveDuplicate(targetElement, targetParent),
@@ -808,14 +846,18 @@ export class ElementService
    * @param element - The element to clone the actions and state fields from
    * @param component - The component to clone the actions and state fields to
    */
-  private async cloneElementStore(element: IElement, component: IComponent) {
+  private async cloneElementStore(
+    element: IElementModel,
+    component: IComponentModel,
+  ) {
     const elementStore = element.store.current
     const componentStore = component.store.current
+    const componentStoreId = componentStore.api.current.id
 
     // Duplicate state fields into the component store api
     await Promise.all(
       elementStore.api.current.fields.map((field) =>
-        this.fieldService.cloneField(field, componentStore.api.current.id),
+        this.fieldService.cloneField(field, componentStoreId),
       ),
     )
 
@@ -883,14 +925,19 @@ export class ElementService
   @transaction
   convertElementToComponent = _async(function* (
     this: ElementService,
-    element: IElement,
-    owner: IAuth0Owner,
+    element: IElementModel,
+    owner: IElementDTO,
   ) {
     if (!element.closestParent) {
       throw new Error("Can't convert root element")
     }
 
-    const { closestParent: parentElement, name, prevSibling } = element
+    const {
+      closestContainerNode,
+      closestParent: parentElement,
+      name,
+      prevSibling,
+    } = element
 
     // 1. deselect active element to avoid script errors if the selected element
     // is a child of the element we are converting or the element itself
@@ -899,7 +946,7 @@ export class ElementService
     // 2. create the component first before detaching the element from the element tree,
     // this way in case if component creation fails, we avoid data loss
     const createdComponent = yield* _await(
-      this.componentService.create({ id: v4(), name, owner }),
+      this.componentService.create({ id: v4(), name }),
     )
 
     yield* _await(this.cloneElementStore(element, createdComponent))
@@ -922,8 +969,19 @@ export class ElementService
 
     // 5. create a new element as an instance of the component
     const componentId = createdComponent.id
-    const renderType = { id: componentId, kind: IRenderTypeKind.Component }
-    const instanceElement = { id: v4(), name, parentElement, renderType }
+
+    const renderType = {
+      __typename: IElementRenderTypeKind.Component,
+      id: componentId,
+    }
+
+    const instanceElement = {
+      closestContainerNode,
+      id: v4(),
+      name,
+      parentElement,
+      renderType,
+    }
 
     const createdElement = yield* _await(
       prevSibling

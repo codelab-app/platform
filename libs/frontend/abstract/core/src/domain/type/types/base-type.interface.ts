@@ -1,8 +1,4 @@
-import type {
-  IBaseTypeDTO,
-  IOwner,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../../service'
 import type { IModel } from '../../model.interface'
 import type { IActionType } from './action-type.interface'
@@ -21,8 +17,7 @@ import type { IUnionType } from './union-type.interface'
 
 export interface IBaseType<DTO extends IBaseTypeDTO, CreateInput, UpdateInput>
   extends Omit<IModel<CreateInput, UpdateInput, void>, 'toDeleteInput'>,
-    ICacheService<DTO, IBaseType<DTO, CreateInput, UpdateInput>>,
-    IOwner {
+    ICacheService<DTO, IBaseType<DTO, CreateInput, UpdateInput>> {
   id: string
   kind: ITypeKind
   name: string

@@ -1,7 +1,7 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -10,13 +10,13 @@ import { v4 } from 'uuid'
 import { createAtomSchema } from './create-atom.schema'
 
 export const CreateAtomModal = observer(() => {
-  const { atomService, tagService, userService } = useStore()
+  const { atomService, tagService } = useStore()
   const closeModal = () => atomService.createModal.close()
 
   const onSubmit = async (data: ICreateAtomData) =>
     await atomService.create(data)
 
-  const onSubmitError = createNotificationHandler({
+  const onSubmitError = createFormErrorNotificationHandler({
     title: 'Error while creating atom',
   })
 
@@ -31,7 +31,6 @@ export const CreateAtomModal = observer(() => {
       <ModalForm.Form<ICreateAtomData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

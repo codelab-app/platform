@@ -2,6 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
+  PagePreviewFragment,
   PageFragment,
   BuilderPageFragment,
   ProductionPageFragment,
@@ -12,6 +13,7 @@ import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
+  PagePreviewFragmentDoc,
   PageFragmentDoc,
   BuilderPageFragmentDoc,
   ProductionPageFragmentDoc,
@@ -22,7 +24,7 @@ export type AppPreviewFragment = {
   name: string
   slug: string
   owner: OwnerFragment
-  pages: Array<{ id: string }>
+  pages: Array<PagePreviewFragment>
 }
 
 export type AppFragment = {
@@ -58,11 +60,12 @@ export const AppPreviewFragmentDoc = gql`
     owner {
       ...Owner
     }
-    pages {
-      id
+    pages(where: { kind: Provider }) {
+      ...PagePreview
     }
   }
   ${OwnerFragmentDoc}
+  ${PagePreviewFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
@@ -94,7 +97,7 @@ export const PageBuilderAppFragmentDoc = gql`
     pages(
       where: {
         OR: [
-          { _compoundName: $pageName }
+          { compositeKey: $pageCompositeKey }
           { kind: Provider }
           { kind: NotFound }
           { kind: InternalServerError }
@@ -116,7 +119,9 @@ export const PageAppFragmentDoc = gql`
     owner {
       ...Owner
     }
-    pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
+    pages(
+      where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
+    ) {
       ...ProductionPage
     }
   }

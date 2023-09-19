@@ -1,0 +1,53 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "794aa40b-20b1-4ee3-b7da-0455fe11041f",
+    "kind": "InterfaceType",
+    "name": "HtmlNav API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "794aa40b-20b1-4ee3-b7da-0455fe11041f",
+        "kind": "InterfaceType",
+        "name": "HtmlNav API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [],
+      "id": "794aa40b-20b1-4ee3-b7da-0455fe11041f",
+      "kind": "InterfaceType",
+      "name": "HtmlNav API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "98546e52-bced-4d60-b535-da434eb6c261",
+    "name": "HtmlNav",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "3d0656ad-9ea0-43fb-b5dc-2e0d2b7d180c",
+        "name": "HtmlNav",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "7770d516-4052-4392-abf5-6fba7be6950d",
+          "name": "Sectioning"
+        }
+      }
+    ],
+    "type": "HtmlNav"
+  }
+}

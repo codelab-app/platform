@@ -11,7 +11,7 @@ import {
 } from 'mobx-keystone'
 import type { IPageNodeRef } from '../../page'
 import { isElementPageNodeRef } from '../../page'
-import type { IElement } from '../element.model.interface'
+import type { IElementModel } from '../element.model.interface'
 import { getElementService } from '../element.service.context'
 import type { IElementTree } from '../element-tree.interface.model'
 
@@ -26,7 +26,7 @@ import type { IElementTree } from '../element-tree.interface.model'
 export class ElementTree
   extends Model({
     id: idProp,
-    rootElement: prop<Ref<IElement>>().withSetter(),
+    rootElement: prop<Ref<IElementModel>>().withSetter(),
   })
   implements IElementTree
 {
@@ -54,13 +54,13 @@ export class ElementTree
    * Get all descendant elements of current subRoot
    */
   @modelAction
-  descendants(subRoot: Ref<IElement>) {
-    const descendants: Array<IElement> = []
+  descendants(subRoot: Ref<IElementModel>) {
+    const descendants: Array<IElementModel> = []
 
     walkTree(
       subRoot,
       (node) => {
-        descendants.push(node as IElement)
+        descendants.push(node as IElementModel)
       },
       // Walks from root to children
       WalkTreeMode.ParentFirst,
@@ -80,7 +80,7 @@ export class ElementTree
 
     while (currentElement) {
       path.push(currentElement.id)
-      currentElement = currentElement.parent?.current
+      currentElement = currentElement.parentElement?.current
     }
 
     return path.reverse()

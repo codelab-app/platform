@@ -17,6 +17,12 @@
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
+      "parserOptions": {
+        "schema": "../../../../schema.graphql"
+      }
     }
   ]
 }

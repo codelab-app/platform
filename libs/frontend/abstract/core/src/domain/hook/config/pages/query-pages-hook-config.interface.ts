@@ -1,12 +1,13 @@
-import { z } from 'zod'
-
 // export interface IQueryPagesHookConfig {
 //   __typename: 'QueryPagesHookConfig'
 //   appId: string
 // }
 
-export const QueryPagesHookConfigSchema = z.object({
-  appId: z.string().min(1),
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+
+export const QueryPagesHookConfigSchema = Type.Object({
+  appId: Type.String({ minLength: 1 }),
 })
 
-export type IQueryPagesHookConfig = z.infer<typeof QueryPagesHookConfigSchema>
+export type IQueryPagesHookConfig = Static<typeof QueryPagesHookConfigSchema>

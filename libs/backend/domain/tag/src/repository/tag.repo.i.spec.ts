@@ -1,31 +1,32 @@
-import { AdminService } from '@codelab/backend/domain/admin'
-import { User, UserRepository } from '@codelab/backend/domain/user'
-import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { resetDatabase } from '@codelab/backend/test'
+import { DatabaseService } from '@codelab/backend/application/shared'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
-import omit from 'lodash/omit'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
-import { TagRepository } from './tag.repo'
+import { TagRepository } from './tag.repo.service'
 
-const tagRepository = new TagRepository()
 let user: IUserDTO
-const driver = getDriver()
-
-beforeAll(async () => {
-  user = await resetDatabase({
-    AdminService,
-    driver,
-    User,
-    UserRepository,
-  })
-})
-
-afterAll(async () => {
-  await driver.close()
-})
 
 describe('Tag repository.', () => {
+  let tagRepository: TagRepository
+  let databaseService: DatabaseService
+
+  beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [TagRepository, DatabaseService],
+    }).compile()
+
+    databaseService = module.get<DatabaseService>(DatabaseService)
+    tagRepository = module.get<TagRepository>(TagRepository)
+
+    await databaseService.reset()
+  })
+
+  afterAll(async () => {
+    await databaseService.closeDriver()
+  })
+
   it('can create a tag', async () => {
     // Parent
     const parentTagId = v4()
@@ -42,14 +43,12 @@ describe('Tag repository.', () => {
       ],
       id: parentTagId,
       name: parentTagName,
-      owner: { auth0Id: user.auth0Id },
     })
 
     const childTag = new Tag({
       children: [],
       id: childTagId,
       name: childTagName,
-      owner: { auth0Id: user.auth0Id },
       // parent: parentTag,
     })
 

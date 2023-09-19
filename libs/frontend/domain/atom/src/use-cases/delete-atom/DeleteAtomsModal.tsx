@@ -1,6 +1,6 @@
 import { useStore } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -22,7 +22,7 @@ export const DeleteAtomsModal = observer(() => {
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting atom',
         })}
         onSubmitSuccess={closeModal}

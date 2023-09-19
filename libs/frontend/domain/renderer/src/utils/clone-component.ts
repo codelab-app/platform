@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IPageNode,
   IPropData,
 } from '@codelab/frontend/abstract/core'
@@ -13,7 +13,7 @@ import type {
  */
 
 export const cloneComponent = (
-  component: IComponent,
+  component: IComponentModel,
   node: IPageNode,
   props: IPropData,
 ) => {

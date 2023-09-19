@@ -9,3 +9,9 @@ docker compose \
   --env-file .env \
   -f .docker/docker-compose.yaml \
   up -d
+
+# `up` does not restart container if config has been changed
+docker compose \
+  --env-file .env \
+  -f .docker/docker-compose.yaml \
+  restart

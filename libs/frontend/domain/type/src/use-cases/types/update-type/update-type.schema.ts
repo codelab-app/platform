@@ -3,7 +3,6 @@ import {
   hideField,
   idSchema,
   nonEmptyString,
-  ownerSchema,
 } from '@codelab/frontend/presentation/view'
 import {
   ICodeMirrorLanguage,
@@ -44,12 +43,8 @@ export const updateTypeSchema: JSONSchemaType<
       nullable: true,
       type: 'string',
     },
-    owner: {
-      ...ownerSchema.owner,
-      ...hideField,
-    },
     id: {
-      ...idSchema.id,
+      ...idSchema().id,
       ...hideField,
     },
     kind: { enum: Object.values(ITypeKind), type: 'string' },

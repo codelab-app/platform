@@ -1,9 +1,5 @@
 import duplicateElement from './duplicateElement.cypher'
-import getClosestContainerNodeIdCypher from './getClosestContainerNodeId.cypher'
+import getClosestContainerNodeCypher from './getClosestContainerNode.cypher'
 import getDescendantsCypher from './getDescendants.cypher'
 
-export {
-  duplicateElement,
-  getClosestContainerNodeIdCypher,
-  getDescendantsCypher,
-}
+export { duplicateElement, getClosestContainerNodeCypher, getDescendantsCypher }

@@ -1,11 +1,17 @@
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
+import { Typebox } from '@codelab/shared/infra/validation'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IActionEntity } from './action'
 
-export interface IStoreDTO {
-  actions?: Array<IEntity>
-  api: IEntity
-  component?: IEntity | null
-  id: string
-  name: string
-  page?: IEntity | null
-  source?: Nullable<IEntity>
-}
+export const IStoreDTO = Type.Object({
+  actions: Type.Optional(Type.Array(IActionEntity)),
+  api: IEntity,
+  component: Typebox.Nullish(IEntity),
+  id: Type.String(),
+  name: Type.String(),
+  page: Typebox.Nullish(IEntity),
+  source: Typebox.Nullish(IEntity),
+})
+
+export type IStoreDTO = Static<typeof IStoreDTO>

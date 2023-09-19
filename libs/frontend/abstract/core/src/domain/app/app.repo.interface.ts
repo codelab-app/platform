@@ -4,10 +4,10 @@ import type {
   AppWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IApp } from './app.model.interface'
+import type { IAppModel } from './app.model.interface'
 
 export type IAppRepository = IRepository<
-  IApp,
+  IAppModel,
   AppFragment,
   AppWhere,
   AppOptions

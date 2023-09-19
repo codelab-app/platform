@@ -1,8 +1,8 @@
 import type {
-  BaseTypeOptions,
-  BaseTypeWhere,
   GetTypesQuery,
   IBaseType,
+  IBaseTypeOptions,
+  IBaseTypeWhere,
 } from '@codelab/shared/abstract/codegen'
 import type {
   IPrimitiveTypeKind,
@@ -23,7 +23,7 @@ import type { IInterfaceType, IInterfaceTypeRef, IType } from './types'
 
 export interface ITypeService
   extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
-    Omit<IQueryService<IType, BaseTypeWhere, BaseTypeOptions>, 'getAll'>,
+    Omit<IQueryService<IType, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
     ICRUDModalService<Ref<IType>, { type: Maybe<IType> }>,
     ICRUDFormService<Ref<IType>, { type: Maybe<IType> }>,
     IPaginateable<IType, { name?: string }> {

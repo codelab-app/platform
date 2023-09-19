@@ -4,7 +4,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     name: {
       autoFocus: true,
       type: 'string',
@@ -12,9 +12,7 @@ export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
     parent: {
       nullable: true,
       properties: {
-        id: {
-          type: 'string',
-        },
+        ...idSchema(),
       },
       required: [],
       type: 'object',

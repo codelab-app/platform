@@ -16,7 +16,7 @@ import {
 
 export const PagesPrimarySidebar = observer(() => {
   const { pageService } = useStore()
-  const { app } = useCurrentApp()
+  const app = useCurrentApp()
   const { popover } = useCui()
 
   return (

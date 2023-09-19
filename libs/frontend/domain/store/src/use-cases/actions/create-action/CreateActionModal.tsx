@@ -3,7 +3,7 @@ import { HttpMethod } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -64,7 +64,7 @@ export const CreateActionModal = observer<{ store?: IStore }>(({ store }) => {
       <ModalForm.Form<ICreateActionData>
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating action',
         })}
         onSubmitSuccess={closeModal}

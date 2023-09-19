@@ -1,0 +1,283 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "5e70be35-f44b-49b8-8595-5b2a0f649118",
+    "kind": "InterfaceType",
+    "name": "HtmlSvg API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "001eafb6-36df-482a-a18f-3a60e3a30e29",
+            "key": "xmlns:xlink",
+            "name": "Xmlns:xlink",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "967fdc7a-b144-43d5-81b5-73e88eb5c6d1",
+            "key": "xmlns",
+            "name": "Xmlns",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "06fb19ae-53db-4bf0-a32d-dc1e9106f42b",
+            "key": "width",
+            "name": "Width",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "b62494a5-6141-4ab6-979d-4b3362ca44f6",
+            "key": "viewBox",
+            "name": "View Box",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "c12d907e-e5f4-434e-a716-3127dd6afb57",
+            "key": "preserveAspectRatio",
+            "name": "Preserve Aspect Ratio",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "a5f87172-0048-4f2b-8e1b-8cbb0f9fff01",
+            "key": "height",
+            "name": "Height",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          }
+        ],
+        "id": "5e70be35-f44b-49b8-8595-5b2a0f649118",
+        "kind": "InterfaceType",
+        "name": "HtmlSvg API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [
+        {
+          "api": {
+            "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "001eafb6-36df-482a-a18f-3a60e3a30e29",
+          "key": "xmlns:xlink",
+          "name": "Xmlns:xlink",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "967fdc7a-b144-43d5-81b5-73e88eb5c6d1",
+          "key": "xmlns",
+          "name": "Xmlns",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "06fb19ae-53db-4bf0-a32d-dc1e9106f42b",
+          "key": "width",
+          "name": "Width",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "b62494a5-6141-4ab6-979d-4b3362ca44f6",
+          "key": "viewBox",
+          "name": "View Box",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "c12d907e-e5f4-434e-a716-3127dd6afb57",
+          "key": "preserveAspectRatio",
+          "name": "Preserve Aspect Ratio",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "5e70be35-f44b-49b8-8595-5b2a0f649118"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "a5f87172-0048-4f2b-8e1b-8cbb0f9fff01",
+          "key": "height",
+          "name": "Height",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        }
+      ],
+      "id": "5e70be35-f44b-49b8-8595-5b2a0f649118",
+      "kind": "InterfaceType",
+      "name": "HtmlSvg API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "25c95359-b9fa-487b-8840-4edaafc24f75",
+    "name": "HtmlSvg",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "6aebd5f3-10d7-4274-9bba-242c5f2d44e9",
+        "name": "HtmlSvg",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        }
+      }
+    ],
+    "type": "HtmlSvg"
+  }
+}

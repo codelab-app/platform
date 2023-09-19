@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { EOL } from 'os'
 import * as path from 'path'
+import prettier from 'prettier'
 
 export const saveFormattedFile = (outputFilePath: string, data: object) => {
   if (!outputFilePath.endsWith('.json')) {
@@ -13,4 +14,11 @@ export const saveFormattedFile = (outputFilePath: string, data: object) => {
   fs.mkdirSync(path.dirname(exportPath), { recursive: true })
   fs.writeFileSync(exportPath, json)
   fs.appendFileSync(exportPath, EOL, 'utf8')
+}
+
+export const formatToPrettifiedJson = (data: object) => {
+  const jsonString = JSON.stringify(data, null, 2)
+  const prettifiedJsonString = prettier.format(jsonString, { parser: 'json' })
+
+  return prettifiedJsonString
 }

@@ -1,1 +1,1 @@
-export * from './atom.repo'
+export * from './atom.repo.service'

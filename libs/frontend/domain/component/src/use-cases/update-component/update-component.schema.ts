@@ -13,10 +13,11 @@ import type { JSONSchemaType } from 'ajv'
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     childrenContainerElement: {
       label: '',
       properties: {
+        ...idSchema(),
         id: {
           label: 'Container for component children',
           type: 'string',

@@ -6,8 +6,8 @@ import { ActionKind, ResourceType } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../../support/antd/form'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running API action and setting state on element pre-render', () => {
   let app: IAppDTO
@@ -18,9 +18,11 @@ describe('Running API action and setting state on element pre-render', () => {
   const apiActionName = 'On Fetch Data'
   const codeActionName = 'Store Data'
   const mockResponse = 'text response from api'
+
   before(() => {
     cy.resetDatabase()
     loginSession()
+
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 

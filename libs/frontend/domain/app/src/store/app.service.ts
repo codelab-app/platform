@@ -1,16 +1,15 @@
 import type {
-  IApp,
+  IAppModel,
   IAppService,
   ICreateAppData,
-  IDomainDTO,
   IPageBuilderAppProps,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
+  getUserService,
   pageRef,
-  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
@@ -31,10 +30,15 @@ import {
 import type {
   AppWhere,
   BuilderPageFragment,
-  GetRenderedPageAndCommonAppDataQuery,
+  GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IDomainDTO } from '@codelab/shared/abstract/core'
+import {
+  IAppDTO,
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -57,7 +61,7 @@ import { AppModalService } from './app-modal.service'
 export class AppService
   extends Model({
     appRepository: prop(() => new AppRepository({})),
-    apps: prop(() => objectMap<IApp>()),
+    apps: prop(() => objectMap<IAppModel>()),
     buildModal: prop(() => new AppModalService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new AppModalService({})),
@@ -102,6 +106,11 @@ export class AppService
   }
 
   @computed
+  private get userService() {
+    return getUserService(this)
+  }
+
+  @computed
   private get pageService() {
     return getPageService(this)
   }
@@ -142,68 +151,65 @@ export class AppService
   loadPages = ({ pages }: IPageBuilderAppProps) => {
     sortPagesByKindAndName(pages)
 
-    const allElements = [
-      ...flatMap(pages, ({ rootElement }) => [
-        rootElement,
-        ...rootElement.descendantElements,
-      ]),
-    ]
+    const allElements = flatMap(pages, (page) => {
+      const { id, rootElement } = page
 
-    allElements.forEach((elementData) => {
-      this.propService.add(elementData.props)
+      this.pageService.add(page)
 
-      /**
-       * Element comes with `component` or `atom` data that we need to load as well
-       */
-      if (elementData.renderAtomType?.id) {
-        this.atomService.add(elementData.renderAtomType)
-      }
+      const elements = [rootElement, ...rootElement.descendantElements]
 
-      if (elementData.renderAtomType?.tags) {
-        elementData.renderAtomType.tags.forEach((tag) =>
-          this.tagService.add(tag),
-        )
-      }
+      elements.forEach((elementData) => {
+        this.propService.add(elementData.props)
 
-      if (elementData.renderAtomType?.api) {
-        this.typeService.loadTypes({
-          interfaceTypes: [elementData.renderAtomType.api],
+        /**
+         * Element comes with `component` or `atom` data that we need to load as well
+         *
+         * TODO: Need to handle component case
+         */
+        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
+          this.typeService.loadTypes({
+            interfaceTypes: [elementData.renderType.api],
+          })
+
+          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
+
+          this.atomService.add(elementData.renderType)
+        }
+
+        this.elementService.add({
+          ...elementData,
+          closestContainerNode: { id },
         })
-      }
-
-      this.elementService.add(elementData)
+      })
     })
 
-    pages.forEach((pageData) => {
-      this.pageService.add(pageData)
-
-      // store must be attached after page
-      this.storeService.load([pageData.store])
-    })
+    return allElements
   }
 
   /**
-   * For nested properties, only show the preview
+   * This is used for the apps list preview
+   *
+   * 1) We require the first page to create a URL
    */
   @modelFlow
-  loadAppsWithNestedPreviews = _async(function* (
-    this: AppService,
-    where: AppWhere,
-  ) {
-    const { items: appsData } = yield* _await(this.appRepository.find(where))
+  loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
+    const { apps: appsData } = yield* _await(this.appRepository.appsList(where))
 
     const apps = appsData.map((appData) => {
       /**
        * Pages
        */
-      this.loadPages(appData)
-
-      /**
-       * Domains
-       */
-      appData.domains.forEach((domain) => {
-        this.domainService.add(domain)
+      appData.pages.forEach((page) => {
+        this.pageService.add(page)
       })
+      // this.loadPages(appData)
+
+      // /**
+      //  * Domains
+      //  */
+      // appData.domains.forEach((domain) => {
+      //   this.domainService.add(domain)
+      // })
 
       return this.add(appData)
     })
@@ -258,7 +264,6 @@ export class AppService
       app.writeCache({
         domains,
         name,
-        owner,
         pages,
       })
     } else {
@@ -278,20 +283,23 @@ export class AppService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: AppService,
-    { id, name, owner }: ICreateAppData,
-  ) {
-    const pages = this.pageService.pageFactory.addSystemPages({
-      id,
-      name,
-      owner,
-    })
+  create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
+    const atomReactFragment = yield* _await(
+      this.atomService.getDefaultElementRenderType(),
+    )
+
+    const pages = this.pageService.pageFactory.addSystemPages(
+      {
+        id,
+        name,
+      },
+      atomReactFragment,
+    )
 
     const app = this.add({
       id,
       name,
-      owner,
+      owner: this.userService.user,
       pages,
     })
 
@@ -311,22 +319,14 @@ export class AppService
    */
   @modelFlow
   @transaction
-  getRenderedPageAndCommonAppData = _async(function* (
+  loadDevelopmentPage = _async(function* (
     this: AppService,
-    appName: string,
-    pageName: string,
-    // Production is pre-built with all required data, no need for network request
-    initialData?: GetRenderedPageAndCommonAppDataQuery,
-    rendererType?: RendererType,
+    appCompositeKey: string,
+    pageCompositeKey: string,
   ) {
-    const apiFunction =
-      rendererType === RendererType.Production
-        ? pageApi.GetRenderedPageAndAppData
-        : pageApi.GetRenderedPageAndCommonAppData
-
-    const fetchedData = initialData
-      ? initialData
-      : yield* _await(apiFunction({ appName, pageName }))
+    const fetchedData = yield* _await(
+      pageApi.GetDevelopmentPage({ appCompositeKey, pageCompositeKey }),
+    )
 
     const {
       apps: [appData],
@@ -347,6 +347,27 @@ export class AppService
 
     return this.add(appData)
   })
+
+  /**
+   * This is the 'production' version of `loadBuilderPage`. Already has initial data, just needs to hydrate the models
+   */
+  @modelFlow
+  loadProductionPage = (initialData: GetProductionPageQuery) => {
+    const {
+      apps: [appData],
+      resources,
+    } = initialData
+
+    if (!appData) {
+      return undefined
+    }
+
+    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
+
+    this.resourceService.load(resources)
+
+    return this.add(appData)
+  }
 
   @modelFlow
   @transaction
@@ -377,7 +398,7 @@ export class AppService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppService, app: IApp) {
+  delete = _async(function* (this: AppService, app: IAppModel) {
     /**
      * Optimistic update
      */

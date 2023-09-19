@@ -8,6 +8,6 @@ export const userSelectionSet = `{
 
 export const ownerFieldSelectionSet = `
   owner {
-    auth0Id
+    id
   }
 `

@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "frontend-domain-element",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/frontend/domain/element/src",
   "tags": ["scope:frontend", "layer:domain"],
@@ -15,7 +15,9 @@
       },
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/frontend/domain/element/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/frontend/domain/element/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "outputs": ["{options.outputFile}"]
     },

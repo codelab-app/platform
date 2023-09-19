@@ -6,6 +6,7 @@ export class Page implements IPageDTO {
   app: IEntity
 
   // descendentElements?: Array<IEntity> | undefined
+
   id: string
 
   kind: PageKind

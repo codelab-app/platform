@@ -4,17 +4,14 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
-import { useRenderedPage } from '@codelab/frontend/presentation/container'
+import { useProductionPage } from '@codelab/frontend/presentation/container'
 import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
 const Index = (props: ProductionWebsiteProps) => {
-  const [{ result }, actions] = useRenderedPage({
-    productionProps: props,
-    rendererType: RendererType.Production,
-  })
+  const [{ result }, actions] = useProductionPage(props)
 
   useMountEffect(actions.execute)
 
@@ -50,30 +47,33 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
     throw new Error('No context params ')
   }
 
-  const pageRepository = new PageRepository()
   const { domain, page } = context.params
   const pageStr = Array.isArray(page) ? page.join('/') : page
   const pageUrl = pageStr ? `/${pageStr}` : '/'
 
-  const foundPage = await pageRepository.findOne({
-    app: { domains_SOME: { name_IN: [String(domain)] } },
-    url: pageUrl,
-  })
+  // const foundPage = await pageRepository.findOne({
+  //   app: { domains_SOME: { name_IN: [String(domain)] } },
+  //   url: pageUrl,
+  // })
 
-  if (!foundPage) {
-    throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
-  }
+  // if (!foundPage) {
+  //   throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
+  // }
 
-  const renderingData = await pageApi.GetRenderedPageAndAppData({
-    appName: foundPage.app._compoundName,
-    pageName: foundPage._compoundName,
-  })
+  // const renderingData = await pageApi.GetProductionPage({
+  //   appName: foundPage.app._compoundName,
+  //   pageName: foundPage._compoundName,
+  // })
 
+  // return {
+  //   props: {
+  //     appName: foundPage.app.name,
+  //     pageName: foundPage.name,
+  //     renderingData,
+  //   },
+  // }
   return {
-    props: {
-      appName: foundPage.app.name,
-      pageName: foundPage.name,
-      renderingData,
-    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    props: {} as any,
   }
 }

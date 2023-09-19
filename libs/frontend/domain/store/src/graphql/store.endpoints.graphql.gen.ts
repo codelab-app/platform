@@ -57,7 +57,7 @@ export const CreateStoresDocument = gql`
 `
 export const DeleteStoresDocument = gql`
   mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
-    deleteStores(where: $where, delete: $delete) {
+    deleteStores(delete: $delete, where: $where) {
       nodesDeleted
     }
   }
@@ -67,7 +67,7 @@ export const GetStoresDocument = gql`
     aggregate: storesAggregate(where: $where) {
       count
     }
-    items: stores(where: $where, options: $options) {
+    items: stores(options: $options, where: $where) {
       ...Store
     }
   }

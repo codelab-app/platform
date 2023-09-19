@@ -1,13 +1,13 @@
 import type {
   ICreateResourceData,
-  IResource,
+  IResourceModel,
   IResourceService,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
-import { IResourceDTO } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import { IResourceDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -33,7 +33,7 @@ export class ResourceService
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
     resourceRepository: prop(() => new ResourceRepository({})),
-    resources: prop(() => objectMap<IResource>()),
+    resources: prop(() => objectMap<IResourceModel>()),
     updateForm: prop(() => new ResourceFormService({})),
     updateModal: prop(() => new ResourceModalService({})),
   })
@@ -82,7 +82,7 @@ export class ResourceService
   @transaction
   create = _async(function* (
     this: ResourceService,
-    { config: configData, id, name, owner, type }: ICreateResourceData,
+    { config: configData, id, name, type }: ICreateResourceData,
   ) {
     const config = this.propService.add({
       data: JSON.stringify(configData),
@@ -93,7 +93,6 @@ export class ResourceService
       config,
       id,
       name,
-      owner,
       type,
     })
 
@@ -124,7 +123,7 @@ export class ResourceService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, resource: IResource) {
+  delete = _async(function* (this: ResourceService, resource: IResourceModel) {
     const { id } = resource
 
     this.resources.delete(id)
@@ -147,12 +146,11 @@ export class ResourceService
   }
 
   @modelAction
-  add({ config, id, name, owner, type }: IResourceDTO) {
+  add({ config, id, name, type }: IResourceDTO) {
     const resource = Resource.create({
       config,
       id,
       name,
-      owner,
       type,
     })
 

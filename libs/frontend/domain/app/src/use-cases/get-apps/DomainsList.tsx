@@ -3,12 +3,12 @@ import {
   CloseCircleOutlined,
   LinkOutlined,
 } from '@ant-design/icons'
-import type { IDomain } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import Link from 'next/link'
 import React from 'react'
 
 export interface DomainListProps {
-  domains: Array<IDomain>
+  domains: Array<IDomainModel>
 }
 
 export const DomainsList = ({ domains }: DomainListProps) => {

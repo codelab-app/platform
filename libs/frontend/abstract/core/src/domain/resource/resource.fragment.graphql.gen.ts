@@ -10,7 +10,6 @@ export type ResourceFragment = {
   name: string
   type: Types.ResourceType
   config: PropFragment
-  owner: { id: string; auth0Id: string }
 }
 
 export const ResourceFragmentDoc = gql`
@@ -20,10 +19,6 @@ export const ResourceFragmentDoc = gql`
     type
     config {
       ...Prop
-    }
-    owner {
-      id
-      auth0Id
     }
   }
   ${PropFragmentDoc}

@@ -1,7 +1,7 @@
 import type {
   ICreatePageData,
   IInterfaceType,
-  IPage,
+  IPageModel,
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
@@ -13,6 +13,7 @@ import {
   ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
@@ -49,7 +50,7 @@ export class PageService
     deleteModal: prop(() => new PageModalService({})),
     pageFactory: prop(() => new PageFactory({})),
     pageRepository: prop(() => new PageRepository({})),
-    pages: prop(() => objectMap<IPage>()),
+    pages: prop(() => objectMap<IPageModel>()),
     updateForm: prop(() => new PageFormService({})),
     updateModal: prop(() => new PageModalService({})),
   })
@@ -92,6 +93,11 @@ export class PageService
   @computed
   private get userService() {
     return getUserService(this)
+  }
+
+  @computed
+  private get atomService() {
+    return getAtomService(this)
   }
 
   @computed
@@ -147,18 +153,26 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { app, id, name, owner, url }: ICreatePageData,
+    { app, id, name, url }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       data: '{}',
       id: v4(),
     })
 
+    const atomReactFragment = yield* _await(
+      this.atomService.getDefaultElementRenderType(),
+    )
+
     const rootElement = this.elementService.add({
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },
       props: rootElementProps,
+      renderType: atomReactFragment,
     })
 
     const appModel = this.appService.apps.get(app.id)
@@ -171,7 +185,6 @@ export class PageService
       name: InterfaceType.createName(
         `${appModel?.name}(${userName}) ${name} Store`,
       ),
-      owner: owner,
     })
 
     const store = this.storeService.add({
@@ -206,7 +219,7 @@ export class PageService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PageService, page: IPage) {
+  delete = _async(function* (this: PageService, page: IPageModel) {
     const { rootElement, store } = page
     const pageStore = store.current
 

@@ -1,4 +1,4 @@
-import { FIELD_TYPE } from '../../antd/form'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
 
 const modalName = 'Create Tag'
 

@@ -4,7 +4,6 @@ import {
   cdnEsmValidation,
   idSchema,
   nonEmptyString,
-  ownerSchema,
 } from '@codelab/frontend/presentation/view'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
@@ -13,13 +12,17 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {
     suggestedChildren: {
       items: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          ...idSchema(),
+        },
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,
       type: 'array',
     },
-    ...idSchema,
+    ...idSchema(),
     // Hide field for now, added only to implement the interface
     // api: {
     //   type: 'string',
@@ -32,13 +35,10 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    ...ownerSchema,
     tags: {
       items: {
         properties: {
-          id: {
-            type: 'string',
-          },
+          ...idSchema(),
         },
         required: ['id'],
         type: 'object',
@@ -68,7 +68,11 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
     },
     requiredParents: {
       items: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          ...idSchema(),
+        },
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,
@@ -77,7 +81,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   },
   title: 'Create Atom',
   type: 'object',
-  required: ['name', 'type', 'owner'],
+  required: ['name', 'type'],
   if: {
     properties: {
       type: {

@@ -13,8 +13,5 @@ if [ "$CI" != true ] && [ "$VERCEL" != "1" ]; then
   # fi
 
   # nx build tools-workspace && yarn link tools-workspace
-  # nx run-many --target=build --projects=cli,tools-workspace
-
-  # Build CLI for later use
-  # nx build cli
+  # nx run-many --target=build --projects=tools-workspace
 fi

@@ -2,7 +2,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 const CONVERT_TO_COMPONENT_TEXT = 'Convert To Component'
 const ELEMENT_CONTAINER = 'Element Abc'
@@ -33,6 +33,7 @@ const elements = [
 
 describe('Converting an element to a component', () => {
   let app: IAppDTO
+
   before(() => {
     cy.resetDatabase()
     loginSession()

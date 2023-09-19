@@ -54,7 +54,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/platform-api/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/platform-api/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "configurations": {
         "ci": {

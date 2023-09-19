@@ -1,16 +1,23 @@
-import { AuthUseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/shared'
 import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import { type IAtomType } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
+import { Injectable } from '@nestjs/common'
 
 /**
  * Seed empty API from atom names
  */
-export class SeedEmptyApiService extends AuthUseCase<Array<IAtomType>, void> {
-  interfaceTypeRepository: InterfaceTypeRepository =
-    new InterfaceTypeRepository()
+@Injectable()
+export class SeedEmptyApiService extends UseCase<Array<IAtomType>, void> {
+  constructor(
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private owner: IEntity,
+  ) {
+    super()
+  }
 
   /**
    * Create empty interfaces from Ant Design atom name
@@ -25,8 +32,11 @@ export class SeedEmptyApiService extends AuthUseCase<Array<IAtomType>, void> {
 
     await Promise.all(
       atoms.map(async (name) => {
-        // Want to get atom api y atom name
-        const interfaceType = InterfaceType.createFromAtomName(name, this.owner)
+        // Create empty api from atom name
+        const { fields, ...interfaceType } = InterfaceType.createFromAtomName(
+          name,
+          this.owner,
+        )
 
         // Search existing interface type
         const existingInterfaceType = existingInterfaceTypes.get(
@@ -39,8 +49,8 @@ export class SeedEmptyApiService extends AuthUseCase<Array<IAtomType>, void> {
         }
 
         await this.interfaceTypeRepository.save({
+          fields: [],
           ...interfaceType,
-          owner: this.owner,
         })
       }),
     )

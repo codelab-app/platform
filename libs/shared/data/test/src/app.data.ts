@@ -1,7 +1,6 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import type {
   IAppDTO,
-  IAuth0Owner,
   IInterfaceTypeDTO,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
@@ -9,13 +8,12 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
-export const storeApiData = (owner: IAuth0Owner): IInterfaceTypeDTO => ({
+export const storeApiData = (): IInterfaceTypeDTO => ({
   __typename: `${ITypeKind.InterfaceType}`,
   fields: [],
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: `Test Store API`,
-  owner,
 })
 
 export const storeData = (api: IEntity): IStoreDTO => ({
@@ -24,7 +22,7 @@ export const storeData = (api: IEntity): IStoreDTO => ({
   name: 'Test Store',
 })
 
-export const appData = (owner: IAuth0Owner): IAppDTO => ({
+export const appData = (owner: IEntity): IAppDTO => ({
   id: v4(),
   name: 'Codelab App',
   owner,

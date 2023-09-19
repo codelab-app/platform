@@ -1,4 +1,7 @@
-import type { ICreateElementData } from '@codelab/frontend/abstract/core'
+import type {
+  ICreateElementData,
+  ICreateElementSchema,
+} from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import {
@@ -11,7 +14,7 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type {
   Maybe,
   UniformSelectFieldProps,
@@ -52,7 +55,7 @@ export const CreateElementForm = observer(
       const { prevSibling } = data
 
       const isValidParent = validateParentForCreate(
-        data.renderType?.id,
+        data.renderType.id,
         data.parentElement?.id,
       )
 
@@ -70,7 +73,7 @@ export const CreateElementForm = observer(
       return Promise.resolve()
     }
 
-    const onSubmitError = createNotificationHandler({
+    const onSubmitError = createFormErrorNotificationHandler({
       title: 'Error while creating element',
     })
 
@@ -92,7 +95,7 @@ export const CreateElementForm = observer(
       : undefined
 
     return (
-      <Form<ICreateElementData>
+      <Form<ICreateElementSchema>
         data-testid="create-element-form"
         model={model}
         onSubmit={onSubmit}

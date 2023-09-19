@@ -1,27 +1,34 @@
 import { SyncOutlined } from '@ant-design/icons'
-import type { IDomain } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import {
   useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
+import { AppProperties } from '@codelab/shared/domain/mapper'
 import { useAsync } from '@react-hookz/web'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 interface RefreshDomainButtonProps {
-  domain: IDomain
+  domain: IDomainModel
 }
 
 export const RefreshDomainButton = observer(
   ({ domain }: RefreshDomainButtonProps) => {
-    const { domainService } = useStore()
-    const { _compoundName } = useCurrentApp()
+    const { domainService, userService } = useStore()
+    const user = userService.user
+    const app = useCurrentApp()
+
+    if (!app) {
+      return null
+    }
+
+    const compositeKey = AppProperties.appCompositeKey(app.name, user)
 
     const [{ status }, getAllDomains] = useAsync(async () =>
       domainService.getAll({
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        appConnection: { node: { _compoundName } },
+        appConnection: { node: { compositeKey } },
         id: domain.id,
       }),
     )

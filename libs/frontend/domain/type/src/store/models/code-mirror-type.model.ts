@@ -11,7 +11,6 @@ const create = ({
   kind,
   language,
   name,
-  owner,
 }: ICodeMirrorTypeDTO): CodeMirrorType => {
   assertIsTypeKind(kind, ITypeKind.CodeMirrorType)
 
@@ -20,7 +19,6 @@ const create = ({
     kind,
     language,
     name,
-    owner,
   })
 }
 

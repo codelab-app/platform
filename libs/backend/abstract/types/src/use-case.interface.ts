@@ -1,6 +1,5 @@
-export interface IUseCase<IRequest = void, IResponse = void> {
-  // tracer: Tracer
+import type { MaybePromise } from '@codelab/shared/abstract/types'
 
-  // _execute(request: IRequest): IResponse | Promise<IResponse>
-  execute(request: IRequest): IResponse | Promise<IResponse>
+export interface IUseCase<IRequest = void, IResponse = void> {
+  execute(request: IRequest): MaybePromise<IResponse>
 }

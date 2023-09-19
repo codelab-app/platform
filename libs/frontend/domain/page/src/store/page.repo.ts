@@ -1,4 +1,7 @@
-import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
+import type {
+  IPageModel,
+  IPageRepository,
+} from '@codelab/frontend/abstract/core'
 import type { PageOptions, PageWhere } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'
@@ -8,7 +11,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   // clear apps cache when we add a new page
   // to make sure that the new page is included in the apps query
   // @clearCacheForKey('apps')
-  async add(page: IPage) {
+  async add(page: IPageModel) {
     const {
       createPages: { pages },
     } = await pageApi.CreatePages({ input: page.toCreateInput() })
@@ -16,7 +19,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     return pages[0]!
   }
 
-  async update(page: IPage) {
+  async update(page: IPageModel) {
     const {
       updatePages: { pages },
     } = await pageApi.UpdatePages({
@@ -31,7 +34,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     return pageApi.GetPages({ options, where })
   }
 
-  async delete(pages: Array<IPage>) {
+  async delete(pages: Array<IPageModel>) {
     const {
       deletePages: { nodesDeleted },
     } = await pageApi.DeletePages({

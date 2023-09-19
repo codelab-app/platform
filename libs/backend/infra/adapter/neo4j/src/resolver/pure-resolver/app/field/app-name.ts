@@ -1,4 +1,5 @@
 import type { App } from '@codelab/shared/abstract/codegen'
+import { AppProperties } from '@codelab/shared/domain/mapper'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
 /**
@@ -6,6 +7,5 @@ import type { IFieldResolver } from '@graphql-tools/utils'
  *
  * We can compute name by replacing the ID
  */
-export const name: IFieldResolver<App, unknown> = (app) => {
-  return app._compoundName.replace(`${app.owner.auth0Id}-`, '')
-}
+export const appName: IFieldResolver<App, unknown> =
+  AppProperties.appNameFromCompositeKey

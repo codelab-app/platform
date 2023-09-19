@@ -1,7 +1,10 @@
-import type { IAtom, ICreateElementData } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  ICreateElementData,
+} from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
@@ -11,7 +14,7 @@ const RenderTypeFields = ({
   onChange,
   parentAtom,
 }: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
-  parentAtom?: IAtom
+  parentAtom?: IAtomModel
 }) => (
   <section>
     <SelectField
@@ -19,23 +22,26 @@ const RenderTypeFields = ({
       onChange={(value) => {
         // when the type changes, the selected atom or component has to be
         // removed since they share the same field name `renderType.id`
-        onChange(value ? { kind: value } : null)
+        if (value) {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          onChange({ __typename: value })
+        }
       }}
       options={[
         {
           label: 'Atom',
-          value: IRenderTypeKind.Atom,
+          value: IElementRenderTypeKind.Atom,
         },
         {
           label: 'Component',
-          value: IRenderTypeKind.Component,
+          value: IElementRenderTypeKind.Component,
         },
       ]}
       required={false}
     />
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.kind === IRenderTypeKind.Atom
+        context.model.renderType?.__typename === IElementRenderTypeKind.Atom
       }
     >
       {/**
@@ -46,7 +52,8 @@ const RenderTypeFields = ({
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.kind === IRenderTypeKind.Component
+        context.model.renderType?.__typename ===
+        IElementRenderTypeKind.Component
       }
     >
       <SelectComponent error={error} label="Component" name="id" />

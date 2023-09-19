@@ -13,6 +13,16 @@ import {
   ProductionElementFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
+export type PagePreviewFragment = {
+  id: string
+  name: string
+  kind: Types.PageKind
+  url: string
+  app: { id: string }
+  rootElement: { id: string }
+  store: { id: string }
+}
+
 export type PageFragment = {
   id: string
   name: string
@@ -51,6 +61,23 @@ export type ProductionPageFragment = {
   pageContentContainer?: { id: string } | null
 }
 
+export const PagePreviewFragmentDoc = gql`
+  fragment PagePreview on Page {
+    id
+    name
+    kind
+    url
+    app {
+      id
+    }
+    rootElement {
+      id
+    }
+    store {
+      id
+    }
+  }
+`
 export const PageFragmentDoc = gql`
   fragment Page on Page {
     id

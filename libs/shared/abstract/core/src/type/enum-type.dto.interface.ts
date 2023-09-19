@@ -1,13 +1,21 @@
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { IBaseTypeDTO } from './base-type.dto.interface'
 
-export interface IEnumTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.EnumType}`
-  allowedValues: Array<IEnumTypeValueDTO>
-}
+export const IEnumTypeValueDTO = Type.Object({
+  id: Type.String(),
+  key: Type.String(),
+  value: Type.String(),
+})
 
-export interface IEnumTypeValueDTO {
-  id: string
-  key: string
-  value: string
-}
+export type IEnumTypeValueDTO = Static<typeof IEnumTypeValueDTO>
+
+export const IEnumTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.EnumType}`)),
+  Type.Object({
+    allowedValues: Type.Array(IEnumTypeValueDTO),
+  }),
+])
+
+export type IEnumTypeDTO = Static<typeof IEnumTypeDTO>

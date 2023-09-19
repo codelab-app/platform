@@ -4,7 +4,8 @@ import { propSelectionSet } from './prop-selection-set'
 const baseElementSelectionSet = `
   id
   name
-  _compoundName
+  slug
+  compositeKey
   style
   parentComponent {
     id
@@ -54,9 +55,12 @@ const baseElementSelectionSet = `
 
 export const elementSelectionSet = `{
   ${baseElementSelectionSet}
-  renderAtomType
-    ${atomSelectionSet}
+  renderAtomType {
+    id
+  }
 }`
+
+// ${atomSelectionSet}
 
 export const exportElementSelectionSet = `{
   ${baseElementSelectionSet}

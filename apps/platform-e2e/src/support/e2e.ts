@@ -13,15 +13,33 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
-import 'cypress-jest-adapter'
-import './commands'
-import './antd/register'
-import './codelab-ui/register'
+import { antCommands } from '@codelab/testing/cypress/antd'
+import { codelabUICommands } from '@codelab/testing/cypress/codelab'
+import {
+  databaseCommands,
+  graphQLCommands,
+  registerCommands,
+  userCommands,
+} from '@codelab/testing/cypress/command'
+import { nextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
+import { builderCommands } from './builder'
+import { UICommands } from './entities'
+
+registerCommands([
+  ...graphQLCommands,
+  ...userCommands,
+  ...antCommands,
+  ...codelabUICommands,
+  ...databaseCommands,
+  ...UICommands,
+  ...nextjsAuth0Commands,
+  ...builderCommands,
+])
 
 // afterEach(stopOnFirstError)
 
-Cypress.on('test:after:run', (test) => {
-  if (test.state !== 'passed' && test.retries > 0) {
-    ;(Cypress as any).runner.stop()
-  }
-})
+// Cypress.on('test:after:run', (test) => {
+//   if (test.state !== 'passed' && test.retries > 0) {
+//     ;(Cypress as any).runner.stop()
+//   }
+// })
