@@ -16,6 +16,7 @@ import '@testing-library/cypress/add-commands'
 import { antCommands } from '@codelab/testing/cypress/antd'
 import { codelabUICommands } from '@codelab/testing/cypress/codelab'
 import {
+  apiCommands,
   databaseCommands,
   graphQLCommands,
   registerCommands,
@@ -26,6 +27,7 @@ import { builderCommands } from './builder'
 import { UICommands } from './entities'
 
 registerCommands([
+  ...apiCommands,
   ...graphQLCommands,
   ...userCommands,
   ...antCommands,
