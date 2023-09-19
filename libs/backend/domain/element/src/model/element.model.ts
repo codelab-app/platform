@@ -1,7 +1,7 @@
 import type {
-  IElementRenderType,
   ICreateElementDTO,
   IElementDTO,
+  IElementRenderType,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
@@ -40,7 +40,7 @@ export class Element implements IElementDTO {
 
   renderIfExpression?: Nullable<string> | undefined
 
-  renderType: ElementRenderType
+  renderType: IElementRenderType
 
   closestContainerNode: IEntity
 

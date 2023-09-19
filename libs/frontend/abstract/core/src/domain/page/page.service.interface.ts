@@ -3,7 +3,10 @@ import type {
   PageOptions,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type {
+  IElementRenderType,
+  IPageDTO,
+} from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -20,7 +23,10 @@ import type { IPageRepository } from './page.repo.interface'
 export type IPageAppFragment = Pick<IAppModel, 'id' | 'name'>
 
 export interface IPageFactory {
-  addSystemPages(app: IPageAppFragment): Array<IPageModel>
+  addSystemPages(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ): Array<IPageModel>
 }
 
 export interface IPageService

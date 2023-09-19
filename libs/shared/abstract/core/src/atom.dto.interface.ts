@@ -1,6 +1,6 @@
 import {
-  IMaybeDiscriminatedEntity,
   IEntity,
+  IMaybeDiscriminatedEntity,
 } from '@codelab/shared/abstract/types'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'

@@ -6592,6 +6592,7 @@ export type Element = {
   renderForEachPropKey?: Maybe<Scalars['String']['output']>
   renderIfExpression?: Maybe<Scalars['String']['output']>
   renderType: ElementRenderType
+  renderTypeConnection: ElementRenderTypeConnection
   slug: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
 }
@@ -6793,6 +6794,19 @@ export type ElementPropsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<ElementPropsConnectionSort>>
   where?: InputMaybe<ElementPropsConnectionWhere>
+}
+
+export type ElementRenderTypeArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<QueryOptions>
+  where?: InputMaybe<ElementRenderTypeWhere>
+}
+
+export type ElementRenderTypeConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<ElementRenderTypeConnectionWhere>
 }
 
 export type ElementAggregateSelection = {
@@ -7152,6 +7166,7 @@ export type ElementConnectInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionConnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>
   props?: InputMaybe<ElementPropsConnectFieldInput>
+  renderType?: InputMaybe<ElementRenderTypeConnectInput>
 }
 
 export type ElementConnectOrCreateInput = {
@@ -7164,6 +7179,7 @@ export type ElementConnectOrCreateInput = {
   parentComponent?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>
   props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
+  renderType?: InputMaybe<ElementRenderTypeConnectOrCreateInput>
 }
 
 export type ElementConnectOrCreateWhere = {
@@ -7191,6 +7207,7 @@ export type ElementCreateInput = {
   props?: InputMaybe<ElementPropsFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
+  renderType?: InputMaybe<ElementRenderTypeCreateInput>
   style?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -7206,6 +7223,7 @@ export type ElementDeleteInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionDeleteFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
   props?: InputMaybe<ElementPropsDeleteFieldInput>
+  renderType?: InputMaybe<ElementRenderTypeDeleteInput>
 }
 
 export type ElementDisconnectInput = {
@@ -7220,6 +7238,7 @@ export type ElementDisconnectInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionDisconnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDisconnectFieldInput>
   props?: InputMaybe<ElementPropsDisconnectFieldInput>
+  renderType?: InputMaybe<ElementRenderTypeDisconnectInput>
 }
 
 export type ElementEdge = {
@@ -8555,9 +8574,178 @@ export type ElementRelationInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>
   props?: InputMaybe<ElementPropsCreateFieldInput>
+  renderType?: InputMaybe<ElementRenderTypeCreateFieldInput>
 }
 
 export type ElementRenderType = Atom | Component
+
+export type ElementRenderTypeAtomConnectFieldInput = {
+  connect?: InputMaybe<AtomConnectInput>
+  where?: InputMaybe<AtomConnectWhere>
+}
+
+export type ElementRenderTypeAtomConnectOrCreateFieldInput = {
+  onCreate: ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate
+  where: AtomConnectOrCreateWhere
+}
+
+export type ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type ElementRenderTypeAtomConnectionWhere = {
+  AND?: InputMaybe<Array<ElementRenderTypeAtomConnectionWhere>>
+  NOT?: InputMaybe<ElementRenderTypeAtomConnectionWhere>
+  OR?: InputMaybe<Array<ElementRenderTypeAtomConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+}
+
+export type ElementRenderTypeAtomCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type ElementRenderTypeAtomDeleteFieldInput = {
+  delete?: InputMaybe<AtomDeleteInput>
+  where?: InputMaybe<ElementRenderTypeAtomConnectionWhere>
+}
+
+export type ElementRenderTypeAtomDisconnectFieldInput = {
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  where?: InputMaybe<ElementRenderTypeAtomConnectionWhere>
+}
+
+export type ElementRenderTypeAtomFieldInput = {
+  connect?: InputMaybe<ElementRenderTypeAtomConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementRenderTypeAtomCreateFieldInput>
+}
+
+export type ElementRenderTypeAtomUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type ElementRenderTypeAtomUpdateFieldInput = {
+  connect?: InputMaybe<ElementRenderTypeAtomConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementRenderTypeAtomCreateFieldInput>
+  delete?: InputMaybe<ElementRenderTypeAtomDeleteFieldInput>
+  disconnect?: InputMaybe<ElementRenderTypeAtomDisconnectFieldInput>
+  update?: InputMaybe<ElementRenderTypeAtomUpdateConnectionInput>
+  where?: InputMaybe<ElementRenderTypeAtomConnectionWhere>
+}
+
+export type ElementRenderTypeComponentConnectFieldInput = {
+  connect?: InputMaybe<ComponentConnectInput>
+  where?: InputMaybe<ComponentConnectWhere>
+}
+
+export type ElementRenderTypeComponentConnectOrCreateFieldInput = {
+  onCreate: ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate
+  where: ComponentConnectOrCreateWhere
+}
+
+export type ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate = {
+  node: ComponentOnCreateInput
+}
+
+export type ElementRenderTypeComponentConnectionWhere = {
+  AND?: InputMaybe<Array<ElementRenderTypeComponentConnectionWhere>>
+  NOT?: InputMaybe<ElementRenderTypeComponentConnectionWhere>
+  OR?: InputMaybe<Array<ElementRenderTypeComponentConnectionWhere>>
+  node?: InputMaybe<ComponentWhere>
+}
+
+export type ElementRenderTypeComponentCreateFieldInput = {
+  node: ComponentCreateInput
+}
+
+export type ElementRenderTypeComponentDeleteFieldInput = {
+  delete?: InputMaybe<ComponentDeleteInput>
+  where?: InputMaybe<ElementRenderTypeComponentConnectionWhere>
+}
+
+export type ElementRenderTypeComponentDisconnectFieldInput = {
+  disconnect?: InputMaybe<ComponentDisconnectInput>
+  where?: InputMaybe<ElementRenderTypeComponentConnectionWhere>
+}
+
+export type ElementRenderTypeComponentFieldInput = {
+  connect?: InputMaybe<ElementRenderTypeComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementRenderTypeComponentConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementRenderTypeComponentCreateFieldInput>
+}
+
+export type ElementRenderTypeComponentUpdateConnectionInput = {
+  node?: InputMaybe<ComponentUpdateInput>
+}
+
+export type ElementRenderTypeComponentUpdateFieldInput = {
+  connect?: InputMaybe<ElementRenderTypeComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementRenderTypeComponentConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementRenderTypeComponentCreateFieldInput>
+  delete?: InputMaybe<ElementRenderTypeComponentDeleteFieldInput>
+  disconnect?: InputMaybe<ElementRenderTypeComponentDisconnectFieldInput>
+  update?: InputMaybe<ElementRenderTypeComponentUpdateConnectionInput>
+  where?: InputMaybe<ElementRenderTypeComponentConnectionWhere>
+}
+
+export type ElementRenderTypeConnectInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomConnectFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentConnectFieldInput>
+}
+
+export type ElementRenderTypeConnectOrCreateInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomConnectOrCreateFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentConnectOrCreateFieldInput>
+}
+
+export type ElementRenderTypeConnection = {
+  __typename?: 'ElementRenderTypeConnection'
+  edges: Array<ElementRenderTypeRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type ElementRenderTypeConnectionWhere = {
+  Atom?: InputMaybe<ElementRenderTypeAtomConnectionWhere>
+  Component?: InputMaybe<ElementRenderTypeComponentConnectionWhere>
+}
+
+export type ElementRenderTypeCreateFieldInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomCreateFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentCreateFieldInput>
+}
+
+export type ElementRenderTypeCreateInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentFieldInput>
+}
+
+export type ElementRenderTypeDeleteInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomDeleteFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentDeleteFieldInput>
+}
+
+export type ElementRenderTypeDisconnectInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomDisconnectFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentDisconnectFieldInput>
+}
+
+export type ElementRenderTypeRelationship = {
+  __typename?: 'ElementRenderTypeRelationship'
+  cursor: Scalars['String']['output']
+  node: ElementRenderType
+}
+
+export type ElementRenderTypeUpdateInput = {
+  Atom?: InputMaybe<ElementRenderTypeAtomUpdateFieldInput>
+  Component?: InputMaybe<ElementRenderTypeComponentUpdateFieldInput>
+}
+
+export type ElementRenderTypeWhere = {
+  Atom?: InputMaybe<AtomWhere>
+  Component?: InputMaybe<ComponentWhere>
+}
 
 /** Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object. */
 export type ElementSort = {
@@ -8843,6 +9031,7 @@ export type ElementUpdateInput = {
   props?: InputMaybe<ElementPropsUpdateFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
+  renderType?: InputMaybe<ElementRenderTypeUpdateInput>
   style?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -8935,6 +9124,8 @@ export type ElementWhere = {
   >
   renderIfExpression_MATCHES?: InputMaybe<Scalars['String']['input']>
   renderIfExpression_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  renderTypeConnection?: InputMaybe<ElementRenderTypeConnectionWhere>
+  renderTypeConnection_NOT?: InputMaybe<ElementRenderTypeConnectionWhere>
   style?: InputMaybe<Scalars['String']['input']>
   style_CONTAINS?: InputMaybe<Scalars['String']['input']>
   style_ENDS_WITH?: InputMaybe<Scalars['String']['input']>

@@ -23,7 +23,8 @@ const RenderTypeFields = ({
         // when the type changes, the selected atom or component has to be
         // removed since they share the same field name `renderType.id`
         if (value) {
-          onChange({ kind: value })
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          onChange({ __typename: value })
         }
       }}
       options={[
@@ -40,7 +41,7 @@ const RenderTypeFields = ({
     />
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.kind === IElementRenderTypeKind.Atom
+        context.model.renderType?.__typename === IElementRenderTypeKind.Atom
       }
     >
       {/**
@@ -51,7 +52,8 @@ const RenderTypeFields = ({
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.kind === IElementRenderTypeKind.Component
+        context.model.renderType?.__typename ===
+        IElementRenderTypeKind.Component
       }
     >
       <SelectComponent error={error} label="Component" name="id" />

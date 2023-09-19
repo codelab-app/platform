@@ -3,11 +3,11 @@ import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import { ElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
-  Omit<ICreateElementData, 'page' | 'parentComponent'>
+  Omit<ICreateElementData, 'closestContainerNode' | 'page' | 'parentComponent'>
 > = {
   properties: {
     ...idSchema(),
@@ -73,22 +73,42 @@ export const createElementSchema: JSONSchemaType<
     },
     renderType: {
       label: 'Render Type',
-      nullable: true,
-      properties: {
-        id: {
-          type: 'string',
-        },
-        kind: {
-          enum: Object.values(ElementRenderTypeKind),
-          label: 'Render Type',
-          type: 'string',
-        },
-      },
-      required: ['id', 'kind'],
       type: 'object',
+      oneOf: [
+        {
+          properties: {
+            id: {
+              type: 'string',
+            },
+            __typename: {
+              enum: [IElementRenderTypeKind.Component],
+              label: 'Render Type',
+              type: 'string',
+              nullable: true,
+            },
+          },
+          required: ['id'],
+          type: 'object',
+        },
+        {
+          properties: {
+            id: {
+              type: 'string',
+            },
+            __typename: {
+              enum: [IElementRenderTypeKind.Atom],
+              label: 'Render Type',
+              type: 'string',
+              nullable: true,
+            },
+          },
+          required: ['id'],
+          type: 'object',
+        },
+      ],
     },
   },
-  required: ['name', 'id'],
+  required: ['name', 'id', 'renderType'],
   title: 'Create Element Input',
   type: 'object',
 }

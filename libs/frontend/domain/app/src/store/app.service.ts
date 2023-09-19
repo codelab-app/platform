@@ -34,7 +34,11 @@ import type {
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
-import { IAppDTO, IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import {
+  IAppDTO,
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -280,10 +284,17 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const pages = this.pageService.pageFactory.addSystemPages({
-      id,
-      name,
-    })
+    const atomReactFragment = yield* _await(
+      this.atomService.getDefaultElementRenderType(),
+    )
+
+    const pages = this.pageService.pageFactory.addSystemPages(
+      {
+        id,
+        name,
+      },
+      atomReactFragment,
+    )
 
     const app = this.add({
       id,

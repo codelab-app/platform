@@ -17,9 +17,11 @@ import {
 } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import isEmpty from 'lodash/isEmpty'
 import { computed, observable } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -46,6 +48,7 @@ export class AtomService
     atoms: prop(() => objectMap<IAtomModel>()),
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
+    defaultRenderType: prop<Nullable<Ref<IAtomModel>>>(null).withSetter(),
     deleteManyModal: prop(() => new AtomsModalService({})),
     id: idProp,
     loadedExternalCssSources: prop(() => arraySet<string>()),
@@ -307,5 +310,31 @@ export class AtomService
     const result = yield* _await(this.atomRepository.delete(atomsToDelete))
 
     return result
+  })
+
+  @modelFlow
+  getDefaultElementRenderType = _async(function* (this: IAtomService) {
+    if (this.defaultRenderType) {
+      return this.defaultRenderType.current
+    }
+
+    /**
+     * Only fetch if not exists
+     */
+    const atomReactFragment = (yield* _await(
+      this.atomRepository.find({
+        type: IAtomType.ReactFragment,
+      }),
+    )).items[0]
+
+    if (!atomReactFragment) {
+      throw new Error('Atom of type `ReactFragment` must be seeded first')
+    }
+
+    const atom = this.add(atomReactFragment)
+
+    this.setDefaultRenderType(atomRef(atom))
+
+    return atom
   })
 }

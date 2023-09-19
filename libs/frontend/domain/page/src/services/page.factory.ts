@@ -10,10 +10,14 @@ import {
   ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import {
+  IAtomType,
+  IElementRenderType,
+  IElementRenderTypeKind,
   IPageKind,
   IPageKindName,
   ITypeKind,
@@ -28,6 +32,11 @@ export class PageFactory extends Model({}) implements IPageFactory {
   @computed
   get pageService() {
     return getPageService(this)
+  }
+
+  @computed
+  get atomService() {
+    return getAtomService(this)
   }
 
   @computed
@@ -55,17 +64,25 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return getUserService(this)
   }
 
+  /**
+   *
+   * @param app
+   * @returns
+   */
   @modelAction
-  addSystemPages(app: IPageAppFragment) {
+  addSystemPages(app: IPageAppFragment, renderType: IElementRenderType) {
     return [
-      this.addProviderPage(app),
-      this.addNotFoundPage(app),
-      this.addInternalServerErrorPage(app),
+      this.addProviderPage(app, renderType),
+      this.addNotFoundPage(app, renderType),
+      this.addInternalServerErrorPage(app, renderType),
     ]
   }
 
   @modelAction
-  private addProviderPage(app: IPageAppFragment) {
+  private addProviderPage(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ) {
     return this.addDefaultPage(
       {
         app,
@@ -75,11 +92,15 @@ export class PageFactory extends Model({}) implements IPageFactory {
         url: `/${IPageKindName.Provider}`,
       },
       app.name,
+      renderType,
     )
   }
 
   @modelAction
-  private addNotFoundPage(app: IPageAppFragment) {
+  private addNotFoundPage(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ) {
     return this.addDefaultPage(
       {
         app,
@@ -89,11 +110,15 @@ export class PageFactory extends Model({}) implements IPageFactory {
         url: `/${IPageKindName.NotFound}`,
       },
       app.name,
+      renderType,
     )
   }
 
   @modelAction
-  private addInternalServerErrorPage(app: IPageAppFragment) {
+  private addInternalServerErrorPage(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ) {
     return this.addDefaultPage(
       {
         app,
@@ -103,6 +128,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
         url: `/${IPageKindName.InternalServerError}`,
       },
       app.name,
+      renderType,
     )
   }
 
@@ -110,6 +136,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   private addDefaultPage(
     { app, id, kind, name, url }: ICreatePageData,
     appName: string,
+    renderType: IElementRenderType,
   ) {
     const rootElementProps = this.propService.add({
       id: v4(),
@@ -131,10 +158,14 @@ export class PageFactory extends Model({}) implements IPageFactory {
     })
 
     const rootElement = this.elementService.add({
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },
       props: rootElementProps,
+      renderType,
     })
 
     const pageContentContainer =

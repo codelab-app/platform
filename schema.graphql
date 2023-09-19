@@ -6439,7 +6439,17 @@ type Element {
   ): ElementPropsConnection!
   renderForEachPropKey: String
   renderIfExpression: String
-  renderType: ElementRenderType!
+  renderType(
+    directed: Boolean = true
+    options: QueryOptions
+    where: ElementRenderTypeWhere
+  ): ElementRenderType!
+  renderTypeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    where: ElementRenderTypeConnectionWhere
+  ): ElementRenderTypeConnection!
   slug: String!
   style: String
 }
@@ -6779,6 +6789,7 @@ input ElementConnectInput {
   preRenderAction: ElementPreRenderActionConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
   props: ElementPropsConnectFieldInput
+  renderType: ElementRenderTypeConnectInput
 }
 
 input ElementConnectOrCreateInput {
@@ -6791,6 +6802,7 @@ input ElementConnectOrCreateInput {
   parentComponent: ElementParentComponentConnectOrCreateFieldInput
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
   props: ElementPropsConnectOrCreateFieldInput
+  renderType: ElementRenderTypeConnectOrCreateInput
 }
 
 input ElementConnectOrCreateWhere {
@@ -6818,6 +6830,7 @@ input ElementCreateInput {
   props: ElementPropsFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
+  renderType: ElementRenderTypeCreateInput
   style: String
 }
 
@@ -6833,6 +6846,7 @@ input ElementDeleteInput {
   preRenderAction: ElementPreRenderActionDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
+  renderType: ElementRenderTypeDeleteInput
 }
 
 input ElementDisconnectInput {
@@ -6847,6 +6861,7 @@ input ElementDisconnectInput {
   preRenderAction: ElementPreRenderActionDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   props: ElementPropsDisconnectFieldInput
+  renderType: ElementRenderTypeDisconnectInput
 }
 
 type ElementEdge {
@@ -8116,9 +8131,176 @@ input ElementRelationInput {
   preRenderAction: ElementPreRenderActionCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
+  renderType: ElementRenderTypeCreateFieldInput
 }
 
 union ElementRenderType = Atom | Component
+
+input ElementRenderTypeAtomConnectFieldInput {
+  connect: AtomConnectInput
+  where: AtomConnectWhere
+}
+
+input ElementRenderTypeAtomConnectOrCreateFieldInput {
+  onCreate: ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input ElementRenderTypeAtomConnectOrCreateFieldInputOnCreate {
+  node: AtomOnCreateInput!
+}
+
+input ElementRenderTypeAtomConnectionWhere {
+  AND: [ElementRenderTypeAtomConnectionWhere!]
+  NOT: ElementRenderTypeAtomConnectionWhere
+  OR: [ElementRenderTypeAtomConnectionWhere!]
+  node: AtomWhere
+}
+
+input ElementRenderTypeAtomCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input ElementRenderTypeAtomDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: ElementRenderTypeAtomConnectionWhere
+}
+
+input ElementRenderTypeAtomDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: ElementRenderTypeAtomConnectionWhere
+}
+
+input ElementRenderTypeAtomFieldInput {
+  connect: ElementRenderTypeAtomConnectFieldInput
+  connectOrCreate: ElementRenderTypeAtomConnectOrCreateFieldInput
+  create: ElementRenderTypeAtomCreateFieldInput
+}
+
+input ElementRenderTypeAtomUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input ElementRenderTypeAtomUpdateFieldInput {
+  connect: ElementRenderTypeAtomConnectFieldInput
+  connectOrCreate: ElementRenderTypeAtomConnectOrCreateFieldInput
+  create: ElementRenderTypeAtomCreateFieldInput
+  delete: ElementRenderTypeAtomDeleteFieldInput
+  disconnect: ElementRenderTypeAtomDisconnectFieldInput
+  update: ElementRenderTypeAtomUpdateConnectionInput
+  where: ElementRenderTypeAtomConnectionWhere
+}
+
+input ElementRenderTypeComponentConnectFieldInput {
+  connect: ComponentConnectInput
+  where: ComponentConnectWhere
+}
+
+input ElementRenderTypeComponentConnectOrCreateFieldInput {
+  onCreate: ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate!
+  where: ComponentConnectOrCreateWhere!
+}
+
+input ElementRenderTypeComponentConnectOrCreateFieldInputOnCreate {
+  node: ComponentOnCreateInput!
+}
+
+input ElementRenderTypeComponentConnectionWhere {
+  AND: [ElementRenderTypeComponentConnectionWhere!]
+  NOT: ElementRenderTypeComponentConnectionWhere
+  OR: [ElementRenderTypeComponentConnectionWhere!]
+  node: ComponentWhere
+}
+
+input ElementRenderTypeComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input ElementRenderTypeComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeComponentFieldInput {
+  connect: ElementRenderTypeComponentConnectFieldInput
+  connectOrCreate: ElementRenderTypeComponentConnectOrCreateFieldInput
+  create: ElementRenderTypeComponentCreateFieldInput
+}
+
+input ElementRenderTypeComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input ElementRenderTypeComponentUpdateFieldInput {
+  connect: ElementRenderTypeComponentConnectFieldInput
+  connectOrCreate: ElementRenderTypeComponentConnectOrCreateFieldInput
+  create: ElementRenderTypeComponentCreateFieldInput
+  delete: ElementRenderTypeComponentDeleteFieldInput
+  disconnect: ElementRenderTypeComponentDisconnectFieldInput
+  update: ElementRenderTypeComponentUpdateConnectionInput
+  where: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeConnectInput {
+  Atom: ElementRenderTypeAtomConnectFieldInput
+  Component: ElementRenderTypeComponentConnectFieldInput
+}
+
+input ElementRenderTypeConnectOrCreateInput {
+  Atom: ElementRenderTypeAtomConnectOrCreateFieldInput
+  Component: ElementRenderTypeComponentConnectOrCreateFieldInput
+}
+
+type ElementRenderTypeConnection {
+  edges: [ElementRenderTypeRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementRenderTypeConnectionWhere {
+  Atom: ElementRenderTypeAtomConnectionWhere
+  Component: ElementRenderTypeComponentConnectionWhere
+}
+
+input ElementRenderTypeCreateFieldInput {
+  Atom: ElementRenderTypeAtomCreateFieldInput
+  Component: ElementRenderTypeComponentCreateFieldInput
+}
+
+input ElementRenderTypeCreateInput {
+  Atom: ElementRenderTypeAtomFieldInput
+  Component: ElementRenderTypeComponentFieldInput
+}
+
+input ElementRenderTypeDeleteInput {
+  Atom: ElementRenderTypeAtomDeleteFieldInput
+  Component: ElementRenderTypeComponentDeleteFieldInput
+}
+
+input ElementRenderTypeDisconnectInput {
+  Atom: ElementRenderTypeAtomDisconnectFieldInput
+  Component: ElementRenderTypeComponentDisconnectFieldInput
+}
+
+type ElementRenderTypeRelationship {
+  cursor: String!
+  node: ElementRenderType!
+}
+
+input ElementRenderTypeUpdateInput {
+  Atom: ElementRenderTypeAtomUpdateFieldInput
+  Component: ElementRenderTypeComponentUpdateFieldInput
+}
+
+input ElementRenderTypeWhere {
+  Atom: AtomWhere
+  Component: ComponentWhere
+}
 
 """
 Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
@@ -8367,6 +8549,7 @@ input ElementUpdateInput {
   props: ElementPropsUpdateFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
+  renderType: ElementRenderTypeUpdateInput
   style: String
 }
 
@@ -8453,6 +8636,8 @@ input ElementWhere {
   renderIfExpression_IN: [String]
   renderIfExpression_MATCHES: String
   renderIfExpression_STARTS_WITH: String
+  renderTypeConnection: ElementRenderTypeConnectionWhere
+  renderTypeConnection_NOT: ElementRenderTypeConnectionWhere
   style: String
   style_CONTAINS: String
   style_ENDS_WITH: String

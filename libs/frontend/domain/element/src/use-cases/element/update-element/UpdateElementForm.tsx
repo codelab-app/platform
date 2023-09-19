@@ -19,7 +19,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import ChildMapperCompositeField from '../../../components/ChildMapperCompositeField'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
-import { getElementModel } from '../../../utils/get-element-model'
+import { Element } from '../../../store'
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
@@ -30,7 +30,7 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
     const { elementService } = useStore()
-    const model = getElementModel(element)
+    const model = Element.create(element)
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -38,7 +38,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     const expandedFields: Array<string> = []
 
-    if (model.renderType?.id ?? model.renderType?.kind) {
+    if (model.renderType.id) {
       expandedFields.push('renderer')
     }
 

@@ -13,6 +13,7 @@ import {
   ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
@@ -95,6 +96,11 @@ export class PageService
   }
 
   @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
   get pagesList() {
     return [...this.pages.values()]
   }
@@ -154,11 +160,19 @@ export class PageService
       id: v4(),
     })
 
+    const atomReactFragment = yield* _await(
+      this.atomService.getDefaultElementRenderType(),
+    )
+
     const rootElement = this.elementService.add({
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },
       props: rootElementProps,
+      renderType: atomReactFragment,
     })
 
     const appModel = this.appService.apps.get(app.id)

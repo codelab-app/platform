@@ -4,7 +4,7 @@ import type {
   AtomWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import type { IComponentType } from '../../renderer'
 import type {
@@ -34,6 +34,7 @@ export interface IAtomService
   atomRepository: IAtomRepository
   atoms: ObjectMap<IAtomModel>
   atomsList: Array<IAtomModel>
+  defaultRenderType: Nullable<Ref<IAtomModel>>
   deleteManyModal: IEntityModalService<
     Array<Ref<IAtomModel>>,
     { atoms: Array<IAtomModel> }
@@ -44,6 +45,7 @@ export interface IAtomService
 
   add(atomDTO: IAtomDTO): IAtomModel
   delete(ids: Array<string>): Promise<number>
+  getDefaultElementRenderType(): Promise<IAtomModel>
   getOptions(): Promise<
     Array<{
       id: string
@@ -52,4 +54,5 @@ export interface IAtomService
       requiredParents: Array<{ id: string; type: AtomType }>
     }>
   >
+  setDefaultRenderType(ref: Ref<IAtomModel>): void
 }

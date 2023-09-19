@@ -39,6 +39,7 @@ export const elementSchema = gql`
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
 
     renderType: ElementRenderType!
+      @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # renderComponentType: Component
     #   @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
     # renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)

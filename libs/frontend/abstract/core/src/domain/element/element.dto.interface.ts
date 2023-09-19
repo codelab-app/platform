@@ -6,6 +6,7 @@ import {
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import type { Overwrite } from 'utility-types'
 
 export const ICreateElementData = Type.Composite([
   Type.Pick(IElementDTO, [
@@ -23,6 +24,11 @@ export const ICreateElementData = Type.Composite([
     props: Type.Optional(Type.Pick(IPropDTO, ['data'])),
   }),
 ])
+
+export type ICreateElementSchema = Overwrite<
+  ICreateElementData,
+  { renderType: IElementRenderType | null }
+>
 
 export type ICreateElementData = Static<typeof ICreateElementData>
 

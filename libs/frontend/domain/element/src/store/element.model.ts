@@ -155,7 +155,7 @@ export class Element
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    renderType: prop<IElementRenderType | null>(null).withSetter(),
+    renderType: prop<IElementRenderType>().withSetter(),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
     style: prop<Nullable<string>>(null).withSetter(),
@@ -484,9 +484,9 @@ export class Element
 
   @computed
   get propsHaveErrors() {
-    if (!this.renderType?.current.api.current) {
-      return false
-    }
+    // if (!this.renderType.current.api.current) {
+    //   return false
+    // }
 
     const schema = schemaTransformer.transform(
       this.renderType.current.api.current,
@@ -534,7 +534,7 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.renderType?.maybeCurrent?.name ||
+      this.renderType.maybeCurrent?.name ||
       (isAtomInstance(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtomModel).type)
         : undefined) ||
@@ -548,7 +548,7 @@ export class Element
     return {
       primary: this.label,
       secondary:
-        this.renderType?.maybeCurrent?.name ||
+        this.renderType.maybeCurrent?.name ||
         (isAtomInstance(this.renderType)
           ? compoundCaseToTitleCase(this.renderType.current.type)
           : undefined),
@@ -671,8 +671,6 @@ export class Element
           node: this.props.current.toCreateInput(),
         },
       },
-      renderAtomType,
-      renderComponentType,
       style: this.style,
     }
   }
@@ -715,10 +713,16 @@ export class Element
       ),
       postRenderAction,
       preRenderAction,
-      renderAtomType,
-      renderComponentType,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
+      renderType: {
+        Atom: isAtomInstance(this.renderType)
+          ? connectNodeId(this.renderType.id)
+          : undefined,
+        Component: isComponentInstance(this.renderType)
+          ? connectNodeId(this.renderType.id)
+          : undefined,
+      },
       style: this.style,
     }
   }
@@ -891,13 +895,11 @@ export class Element
     renderType,
     style,
   }: Partial<IElementDTO>) {
-    const elementRenderType = getRenderType(renderType)
-
     this.name = name ?? this.name
     this.style = style ?? this.style
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
-    this.renderType = elementRenderType ?? null
+    this.renderType = renderType ? getRenderType(renderType) : this.renderType
     this.props = props?.id ? propRef(props.id) : this.props
     this.childMapperPropKey = childMapperPropKey ?? null
     this.parentElement = parentElement?.id

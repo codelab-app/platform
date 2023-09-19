@@ -1,8 +1,5 @@
 import type { Atom, Component } from '@codelab/backend/abstract/codegen'
-import {
-  IDiscriminatedEntity,
-  IMaybeDiscriminatedEntity,
-} from '@codelab/shared/abstract/types'
+import { IMaybeDiscriminatedEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IAtomDTO } from './atom.dto.interface'
@@ -18,8 +15,8 @@ export const IComponentID = Type.String()
 export const IAtomID = Type.String()
 
 export const IElementRenderType = Type.Union([
-  IDiscriminatedEntity(`${IElementRenderTypeKind.Atom}`),
-  IDiscriminatedEntity(`${IElementRenderTypeKind.Component}`),
+  IMaybeDiscriminatedEntity(`${IElementRenderTypeKind.Atom}`),
+  IMaybeDiscriminatedEntity(`${IElementRenderTypeKind.Component}`),
 ])
 
 export type IElementRenderType = Static<typeof IElementRenderType>
