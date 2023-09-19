@@ -14,16 +14,16 @@ export interface IEndpointEnvVars {
    */
   graphqlApiProxyUrl: string
   isLocal: boolean
-  nextPublicPlatformHost: string
   /**
    * The actual backend GraphQL endpoint
    */
   platformApiGraphqlUrl: string
   platformApiHost: string
+  platformHost: string
 }
 
 export class EndpointEnvVars implements IEndpointEnvVars {
-  private _nextPublicPlatformHost?: string
+  private _platformHost?: string
 
   private _platformApiHost?: string
 
@@ -50,8 +50,8 @@ export class EndpointEnvVars implements IEndpointEnvVars {
   /**
    * This is used before module is initialized, so we must access process.env
    */
-  get nextPublicPlatformHost(): string {
-    return (this._nextPublicPlatformHost ??= get('NEXT_PUBLIC_PLATFORM_HOST')
+  get platformHost(): string {
+    return (this._platformHost ??= get('NEXT_PUBLIC_PLATFORM_HOST')
       .required()
       .asString())
   }
@@ -62,6 +62,6 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This uses the Next.js proxy middleware
    */
   get graphqlApiProxyUrl() {
-    return `${this.nextPublicPlatformHost}/api/graphql`
+    return `${this.platformHost}/api/graphql`
   }
 }

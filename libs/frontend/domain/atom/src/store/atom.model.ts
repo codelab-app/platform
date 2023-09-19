@@ -14,7 +14,10 @@ import {
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -73,6 +76,14 @@ export class Atom
   })
   implements IAtomModel
 {
+  /**
+   * Make it so we can match the interface
+   */
+  @computed
+  get __typename() {
+    return IElementRenderTypeKind.Atom
+  }
+
   /**
    * Determines whether the atom accepts children and text make sense for the type.
    */

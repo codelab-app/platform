@@ -1,15 +1,18 @@
 import type {
   IAtomModel,
   IComponentModel,
+  IElementRenderTypeModel,
 } from '@codelab/frontend/abstract/core'
 import { atomRef, componentRef } from '@codelab/frontend/abstract/core'
-import type { IElementRenderType } from '@codelab/shared/abstract/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import {
+  type IElementRenderType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 export const getRenderType = (
   renderType: IElementRenderType,
-): Ref<IAtomModel> | Ref<IComponentModel> => {
+): IElementRenderTypeModel => {
   switch (renderType.__typename) {
     case IElementRenderTypeKind.Atom: {
       return atomRef(renderType.id)

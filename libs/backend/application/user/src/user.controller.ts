@@ -1,4 +1,4 @@
-import { CurrentUser } from '@codelab/backend/application/shared'
+import { AuthService, CurrentUser } from '@codelab/backend/application/shared'
 import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
 import {
   InterfaceType,
@@ -23,7 +23,7 @@ export class UserController {
     private userRepository: UserRepository,
     private interfaceTypeRepository: InterfaceTypeRepository,
     private atomRepository: AtomRepository,
-    @Inject(AUTH0_MANAGEMENT_CLIENT_TOKEN) private client: ManagementClient,
+    private authService: AuthService,
   ) {}
 
   /**
@@ -102,7 +102,7 @@ export class UserController {
       type: IAtomType.ReactFragment,
     })
 
-    await this.atomRepository.save(atom)
+    const results = await this.atomRepository.save(atom)
 
     return user
   }

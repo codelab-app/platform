@@ -3,12 +3,12 @@ import {
   DeleteTreeData,
   UpdateData,
 } from '@codelab/shared/data/test'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Tag CRUD', () => {
   before(() => {
     cy.resetDatabase()
-    loginSession()
+    loginAndResetDatabase()
 
     cy.request('/api/cypress/tag').then(() => {
       cy.visit('/tags')
