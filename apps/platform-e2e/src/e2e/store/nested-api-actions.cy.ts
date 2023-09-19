@@ -10,6 +10,8 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDTO
@@ -28,13 +30,9 @@ describe('Running nested API and code actions', () => {
   const mockGetResponse = 'the updated response'
 
   before(() => {
-    loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
-  })
+    cy.resetDatabase()
+    loginSession()
 
-  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 

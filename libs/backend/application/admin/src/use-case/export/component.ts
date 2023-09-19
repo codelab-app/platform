@@ -1,7 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 
 import { ExportAdminDataService } from '@codelab/backend/application/admin'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiHandler } from 'next'
 
 const exportComponent: NextApiHandler = async (req, res) => {

@@ -29,10 +29,6 @@
         "test": {
           "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
           "devServerTarget": "platform-e2e:serve:test",
-          "reporter": "../../node_modules/cypress-multi-reporters",
-          "reporterOptions": {
-            "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
-          },
           "record": false,
           "watch": true,
           "exit": false
@@ -52,10 +48,10 @@
               "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
             },
             {
-              "command": "npx nx serve platform -c test"
+              "command": "nx serve platform -c test"
             },
             {
-              "command": "npx nx serve platform-api -c test"
+              "command": "nx serve platform-api -c test"
             }
           ]
         },
@@ -89,6 +85,6 @@
       }
     }
   },
-  "tags": ["projectType:application", "type:concrete"],
+  "tags": ["scope:frontend"],
   "implicitDependencies": ["platform"]
 }

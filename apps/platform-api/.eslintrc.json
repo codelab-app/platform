@@ -19,7 +19,9 @@
     },
     {
       "files": ["*.graphql"],
-      "rules": {}
+      "parserOptions": {
+        "schema": "../../schema.graphql"
+      }
     }
   ]
 }

@@ -1,4 +1,5 @@
 import type { IOwner } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 import { showFieldOnDev } from './show-field-on-dev'
 

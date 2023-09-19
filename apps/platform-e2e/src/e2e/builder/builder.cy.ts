@@ -3,6 +3,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'

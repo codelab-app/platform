@@ -1,30 +1,30 @@
 {
-  "name": "backend-infra-adapter-codelab",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/infra/adapter/codelab/src",
+  "name": "backend-infra-adapter-codelab",
   "projectType": "library",
+  "sourceRoot": "libs/backend/infra/adapter/codelab/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/infra/adapter/codelab/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/backend-infra-adapter-codelab.xml",
           "quiet": true
         }
-      }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/codelab/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "layer:infra",
-    "scope:backend"
-  ]
+  }
 }

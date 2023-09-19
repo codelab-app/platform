@@ -1,9 +1,11 @@
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import { appName, updatedAppName } from './apps/app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
-    loginAndSetupData()
+    cy.resetDatabase()
+    loginSession()
+    cy.visit('/apps')
   })
 
   describe('create', () => {

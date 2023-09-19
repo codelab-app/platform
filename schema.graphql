@@ -12769,7 +12769,6 @@ type Mutation {
   ): UpdateEnumTypesMutationResponse!
   updateFields(
     connect: FieldConnectInput
-    connectOrCreate: FieldConnectOrCreateInput
     create: FieldRelationInput
     delete: FieldDeleteInput
     disconnect: FieldDisconnectInput

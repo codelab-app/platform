@@ -1,30 +1,30 @@
 {
-  "name": "backend-application-page",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/application/page/src",
+  "name": "backend-application-page",
   "projectType": "library",
+  "sourceRoot": "libs/backend/application/page/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/application/page/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/backend-application-page.xml",
           "quiet": true
         }
-      }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/application/page/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:backend",
-    "layer:application"
-  ]
+  }
 }

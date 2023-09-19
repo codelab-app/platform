@@ -1,8 +1,10 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { areDirectoriesIdentical } from 'libs/backend/shared/util/src/file/directory-compare'
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { encrypt } from 'libs/testing/cypress/nextjs-auth0/src/utils/encrypt'
 import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
@@ -13,7 +15,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     auth0ClientId: getEnv().auth0.clientId,
     auth0ClientSecret: getEnv().auth0.clientSecret,
     auth0CookieSecret: getEnv().auth0.secret,
-    auth0IssuerBaseUrl: getEnv().auth0.issuerBaseUrl,
+    auth0Domain: getEnv().auth0.issuerBaseUrl,
     auth0LogoutUrl: '/api/auth/logout',
     auth0Password: getEnv().auth0.cypressPassword,
     auth0ReturnToUrl: '/',
@@ -21,13 +23,12 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     auth0SessionCookieName: 'appSession',
     // This is the Auth0 Management API url
     auth0Username: getEnv().auth0.cypressUsername,
-    platformApiHost: getEnv().endpoint.platformApiHost,
     workspaceRoot: path.resolve(__dirname, '../..'),
   },
   execTimeout: 5000,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  pageLoadTimeout: 15000,
+  pageLoadTimeout: 10000,
   projectId: '9hfoow',
   responseTimeout: 5000,
   retries: {
@@ -40,6 +41,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   setupNodeEvents: (on, config) => {
     on('task', {
       areDirectoriesIdentical,
+      encrypt,
     })
   },
   testIsolation: false,

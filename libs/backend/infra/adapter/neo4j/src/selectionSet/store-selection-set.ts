@@ -1,7 +1,7 @@
 import { actionSelectionSet } from './action-selection-set'
 import { exportInterfaceTypeWithFieldsSelectionSet } from './type-selection-set'
 
-export const storeSelectionSet = `
+export const storeSelectionSet = `{
   id
   name
   api {
@@ -10,7 +10,7 @@ export const storeSelectionSet = `
   actions ${actionSelectionSet}
 `
 
-export const exportStoreSelectionSet = `
+export const exportStoreSelectionSet = `{
   id
   name
   api {

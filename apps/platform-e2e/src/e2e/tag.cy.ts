@@ -4,16 +4,7 @@ import {
   DeleteTreeData,
   UpdateData,
 } from '@codelab/shared/data/test'
-
-const testCreate = (name: string, parentName?: string) => {
-  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
-
-  if (parentName) {
-    cy.toggleTreeNodeSwitcher(parentName)
-  }
-
-  cy.getTree().findByText(name).should('exist')
-}
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Tag CRUD', () => {
   before(() => {

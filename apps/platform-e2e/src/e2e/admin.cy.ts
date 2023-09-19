@@ -1,12 +1,13 @@
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import path from 'path'
 
-describe.skip('Admin', () => {
+describe('Admin', () => {
   let user: IUserDTO
 
   before(() => {
-    loginAndSetupData()
+    cy.resetDatabase()
+    loginSession()
     cy.getCurrentUser().then((results) => {
       user = results
     })
@@ -30,7 +31,7 @@ describe.skip('Admin', () => {
       },
       method: 'POST',
       timeout: TIMEOUT,
-      url: '/api/data/admin/import',
+      url: '/api/data/migration/import',
     })
 
     cy.request({
@@ -40,7 +41,7 @@ describe.skip('Admin', () => {
       },
       method: 'POST',
       timeout: TIMEOUT,
-      url: '/api/data/admin/export',
+      url: '/api/data/migration/export',
     }).as('export')
 
     cy.task(

@@ -149,6 +149,7 @@
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",
+
           {
             "default": {
               // "optionalityOrder": "required-first",
@@ -216,30 +217,11 @@
       "plugins": ["@graphql-eslint"],
       "extends": ["plugin:@graphql-eslint/schema-all"],
       "parserOptions": {
-        "skipGraphQLConfig": true,
-        "schema": "schema.graphql"
+        // "skipGraphQLConfig": true
+        // "schema": "./schema.graphql"
       },
       "rules": {
-        "@graphql-eslint/alphabetize": [
-          "error",
-          {
-            "fields": ["ObjectTypeDefinition"],
-            "selections": ["OperationDefinition", "FragmentDefinition"]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.cypress.ts"],
-      "rules": {
-        "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/no-empty-interface": "off"
-      }
-    },
-    {
-      "files": ["*.config.ts"],
-      "rules": {
-        "@typescript-eslint/no-explicit-any": "off"
+        "@graphql-eslint/known-type-names": "error"
       }
     }
   ]

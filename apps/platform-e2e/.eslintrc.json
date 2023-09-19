@@ -9,6 +9,8 @@
         "project": ["apps/platform-e2e/tsconfig(.*)?.json"]
       },
       "rules": {
+        "import/no-unresolved": "error",
+        "import/named": "error",
         "@typescript-eslint/no-explicit-any": "off"
       }
     },
@@ -18,7 +20,9 @@
     },
     {
       "files": ["*.graphql"],
-      "rules": {}
+      "parserOptions": {
+        "schema": "../../schema.graphql"
+      }
     }
   ]
 }
