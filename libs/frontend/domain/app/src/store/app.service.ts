@@ -315,8 +315,6 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    console.log(id, name)
-
     const atomReactFragment = yield* _await(
       this.atomService.getDefaultElementRenderType(),
     )

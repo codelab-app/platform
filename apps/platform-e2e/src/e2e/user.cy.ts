@@ -1,4 +1,4 @@
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('UserController', () => {
   before(() => {

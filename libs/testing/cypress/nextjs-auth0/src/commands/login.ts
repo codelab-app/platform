@@ -5,7 +5,7 @@ interface LoginCredentials {
   username?: string
 }
 
-export const loginSession = () => {
+export const loginAndResetDatabase = () => {
   cy.session(
     ['auth0-session'],
     () => {
