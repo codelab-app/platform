@@ -1,0 +1,3 @@
+scalar SelectionSet
+
+directive @customResolver(requires: SelectionSet) on FIELD_DEFINITION

@@ -9,7 +9,7 @@ export enum CacheInstance {
 }
 
 const createStringToJSONSchema = <T>(): z.ZodTransformer<z.ZodString, T> => {
-  return z.string().transform((str, ctx) => {
+  return Type.String().transform((str, ctx) => {
     try {
       return JSON.parse(str) as T
     } catch (error) {

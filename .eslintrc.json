@@ -154,6 +154,7 @@
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",
+
           {
             "default": {
               // "optionalityOrder": "required-first",

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:apps/platform-e2e/src/support/commands/tags/tag.command.ts
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+=======
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+>>>>>>> da3909c80 (test: use cli for testing import export):apps/platform-e2e/src/support/entities/tag/tag.command.ts
 
 const modalName = 'Create Tag'
 

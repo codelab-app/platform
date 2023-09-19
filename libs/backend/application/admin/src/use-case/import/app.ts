@@ -1,8 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-
 import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 import { importUserData } from '@codelab/backend/application/user'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiHandler } from 'next'
 
 const importApp: NextApiHandler = async (req, res) => {

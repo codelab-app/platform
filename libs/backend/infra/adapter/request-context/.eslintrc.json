@@ -21,7 +21,10 @@
     },
     {
       "files": ["*.graphql"],
-      "rules": {}
+      "rules": {},
+      "parserOptions": {
+        "schema": "../../../../../schema.graphql"
+      }
     }
   ]
 }

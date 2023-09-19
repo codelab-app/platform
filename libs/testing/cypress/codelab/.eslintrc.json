@@ -1,0 +1,27 @@
+{
+  "extends": ["plugin:cypress/recommended", "../../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["libs/testing/cypress/codelab/tsconfig.*?.json"]
+      },
+      "rules": {}
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
+      "parserOptions": {
+        "schema": "../../../../schema.graphql"
+      }
+    }
+  ]
+}

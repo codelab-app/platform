@@ -15,6 +15,10 @@ export class NodeEnvVars implements INodeEnvVars {
     return env.get('CI').default('false').asBool()
   }
 
+  get isCi() {
+    return env.get('CI').default('false').asBool()
+  }
+
   get isDevelopment() {
     return this.nodeEnv === 'development'
   }

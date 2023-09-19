@@ -1,0 +1,115 @@
+import type { RendererType } from '@codelab/frontend/abstract/core'
+import { rendererRef } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
+import { PageKind } from '@codelab/shared/abstract/codegen'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
+import { useAsync } from '@react-hookz/web'
+import { useRouter } from 'next/router'
+import { useStore } from '../providers'
+import { useAppQuery } from './useAppQuery.hook'
+import { usePageQuery } from './usePageQuery.hook'
+import { loadAllTypesForElements } from './utils'
+
+interface DevelopmentPageProps {
+  rendererType: RendererType
+}
+
+/**
+ * Fetch related data for rendering page, and load them into store
+ */
+export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
+  const {
+    appService,
+    builderService,
+    componentService,
+    elementService,
+    pageService,
+    renderService,
+    typeService,
+    userService,
+  } = useStore()
+
+  const router = useRouter()
+  const user = userService.user
+  const { appName } = useAppQuery()
+  const { pageName } = usePageQuery()
+  const app = appService.appsList.find((_app) => _app.name === appName)
+
+  console.log(appName, pageName, app)
+
+  return useAsync(async () => {
+    if (!app) {
+      await router.push({ pathname: PageType.AppList, query: {} })
+
+      return null
+    }
+
+    await appService.loadDevelopmentPage(
+      AppProperties.appCompositeKey(app.name, user),
+      PageProperties.pageCompositeKey(pageName, app),
+    )
+
+    const page = pageService.pagesList.find((_page) => _page.name === pageName)
+
+    if (!page) {
+      await router.push({ pathname: PageType.AppList, query: {} })
+
+      return null
+    }
+
+    const roots = [
+      // This will load the custom components in the _app (provider page) for the regular pages since we also
+      // render the elements of the provider page as part of the regular page
+      ...(page.kind === PageKind.Regular
+        ? [app.providerPage.rootElement.current]
+        : []),
+      page.rootElement.current,
+    ]
+
+    await loadAllTypesForElements(componentService, typeService, roots)
+
+    const pageRootElement = elementService.maybeElement(page.rootElement.id)
+
+    if (pageRootElement) {
+      builderService.selectElementNode(pageRootElement)
+    }
+
+    // extract the dynamic segments from the url query params for the page url
+    // build complains with the return type `RegExpMatchArray` of `match`
+    const extractedUrlSegments =
+      (page.url.match(/:\w+/g) as Nullable<Array<string>>) ?? []
+
+    const urlSegments = extractedUrlSegments.reduce<Record<string, string>>(
+      (acc, segment) => {
+        const segmentName = segment.substring(1)
+
+        if (router.query[segmentName]) {
+          acc[segmentName] = router.query[segmentName] as string
+        }
+
+        return acc
+      },
+      {},
+    )
+
+    const renderer = renderService.addRenderer({
+      elementTree: page,
+      id: page.id,
+      providerTree: app.providerPage,
+      rendererType,
+      urlSegments,
+    })
+
+    renderService.setActiveRenderer(rendererRef(renderer.id))
+    await renderer.expressionTransformer.init()
+
+    return {
+      app,
+      elementTree: page,
+      page,
+      renderer,
+    }
+  })
+}

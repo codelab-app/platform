@@ -842,7 +842,6 @@ export type MutationUpdateFieldsArgs = {
   disconnect?: InputMaybe<FieldDisconnectInput>
   create?: InputMaybe<FieldRelationInput>
   delete?: InputMaybe<FieldDeleteInput>
-  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
 }
 
 export type MutationCreateAtomsArgs = {
@@ -30831,11 +30830,13 @@ export type UserTypesCreateFieldInput = {
 }
 
 export type UserTypesDeleteFieldInput = {
+  delete?: InputMaybe<IBaseTypeDeleteInput>
   where?: InputMaybe<UserTypesConnectionWhere>
   delete?: InputMaybe<IBaseTypeDeleteInput>
 }
 
 export type UserTypesDisconnectFieldInput = {
+  disconnect?: InputMaybe<IBaseTypeDisconnectInput>
   where?: InputMaybe<UserTypesConnectionWhere>
   disconnect?: InputMaybe<IBaseTypeDisconnectInput>
 }
@@ -31375,7 +31376,7 @@ export declare class FieldModel {
     connect?: FieldConnectInput
     disconnect?: FieldDisconnectInput
     create?: FieldCreateInput
-    connectOrCreate?: FieldConnectOrCreateInput
+
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any

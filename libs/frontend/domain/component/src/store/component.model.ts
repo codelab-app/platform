@@ -251,7 +251,6 @@ export class Component
 
       if (parentElement) {
         const parentId = elementMap.get(parentElement.current.id)
-
         element.setParentElement(elementRef(parentId!))
       }
 
