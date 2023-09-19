@@ -7,14 +7,14 @@ interface LoginCredentials {
 
 export const loginSession = () => {
   cy.session(
-    ['auth0-session-10'],
+    ['auth0-session-1'],
     () => {
       login().then((user) => {
-        cy.request({ body: user, method: 'POST', url: '/api/data/user/save' })
+        cy.request({ body: user, method: 'POST', url: '/api/data/user/setup' })
       })
     },
     {
-      cacheAcrossSpecs: true,
+      cacheAcrossSpecs: false,
       validate: () => {
         // cy.get('@upsertUser.all').should('not.have.length', 0)
       },

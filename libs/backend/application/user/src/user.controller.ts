@@ -102,7 +102,7 @@ export class UserController {
       type: IAtomType.ReactFragment,
     })
 
-    await this.atomRepository.save(atom)
+    const results = await this.atomRepository.save(atom)
 
     return user
   }
