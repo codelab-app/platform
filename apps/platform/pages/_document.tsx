@@ -51,6 +51,7 @@ export default class MyDocument extends Document {
           {/*/ > */}
           <script
             dangerouslySetInnerHTML={{
+              // eslint-disable-next-line @typescript-eslint/naming-convention
               __html: `
             window.addEventListener('error', event => {
               if(event.filename.includes('editorjs')) {
