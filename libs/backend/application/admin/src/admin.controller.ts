@@ -34,8 +34,20 @@ export class AdminController {
   }
 
   @Post('reset')
-  async reset(@Body() resetDataDto: ResetDataDto) {
-    await this.adminRepository.reset(resetDataDto.close)
+  async reset() {
+    await this.adminRepository.resetAllExceptUser()
+
+    return {
+      message: 'Admin data reset success',
+    }
+  }
+
+  /**
+   * We want to keep the default atom
+   */
+  @Post('reset-all-except-user-and-atom')
+  async cypressReset() {
+    await this.adminRepository.resetAllExceptUserAndAtom()
 
     return {
       message: 'Admin data reset success',

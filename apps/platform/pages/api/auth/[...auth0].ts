@@ -35,7 +35,7 @@ export default auth0Instance().handleAuth({
         },
       })
     } catch (error) {
-      console.error(error)
+      // console.error(error)
     }
   },
   login: async (req: NextApiRequest, res: NextApiResponse) => {
