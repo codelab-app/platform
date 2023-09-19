@@ -22,7 +22,7 @@ export const LabeledSelect = ({
 }: LabeledSelectProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col span={8}>
+      <Col span={6}>
         {label && (
           <ResetLabel canReset={canReset} label={label} onReset={onReset} />
         )}

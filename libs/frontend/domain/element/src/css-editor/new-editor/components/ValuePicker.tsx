@@ -7,19 +7,6 @@ import React from 'react'
 import { CssUnit, parseCssValue } from '../utils'
 import { ResetLabel } from './ResetLabel'
 
-const units = [
-  CssUnit.PX,
-  CssUnit.PERCENT,
-  CssUnit.REM,
-  CssUnit.EM,
-  CssUnit.VW,
-  CssUnit.VH,
-  CssUnit.CH,
-  CssUnit.SVW,
-  CssUnit.SVH,
-  CssUnit.Auto,
-]
-
 // TODO: revisit auto and '-'
 const selectAfter = (
   size: SizeType,
@@ -118,7 +105,7 @@ export const ValuePicker = ({
   return (
     <Row align="middle" justify="space-between" wrap={false}>
       {label && (
-        <Col span={8}>
+        <Col span={6}>
           <ResetLabel canReset={canReset} label={label} onReset={onReset} />
         </Col>
       )}

@@ -24,13 +24,18 @@ export const SegmentedSelect = ({
   value,
 }: SegmentedSelectProps) => {
   return (
-    <Row align="middle" justify="space-between" wrap={false}>
-      <Col>
+    <Row
+      align="middle"
+      className="overflow-hidden"
+      justify="space-between"
+      wrap={false}
+    >
+      <Col span={6}>
         {label && (
           <ResetLabel canReset={canReset} label={label} onReset={onReset} />
         )}
       </Col>
-      <Col>
+      <Col className="w-full">
         <ConfigProvider
           theme={{
             token: disableAnimation
@@ -41,6 +46,7 @@ export const SegmentedSelect = ({
           }}
         >
           <Segmented
+            block
             className="text-[11px]"
             onChange={(selected) => onChange?.(selected.toString())}
             options={options}

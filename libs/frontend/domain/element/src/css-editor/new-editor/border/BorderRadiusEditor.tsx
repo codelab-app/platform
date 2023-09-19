@@ -25,9 +25,42 @@ const sideOptions = [
   },
 ]
 
+// TODO: revisit not working properly
 export const BorderRadiusEditor = () => {
   const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
-  const [selectedSide, setSelectedSide] = useState('all')
+
+  const expanded = (): boolean => {
+    const res = [
+      getCurrentStyle(CssProperty.BorderTopLeftRadius),
+      getCurrentStyle(CssProperty.BorderTopRightRadius),
+      getCurrentStyle(CssProperty.BorderBottomLeftRadius),
+      getCurrentStyle(CssProperty.BorderBottomRightRadius),
+    ].some((val) => val !== getCurrentStyle(CssProperty.BorderRadius))
+
+    return res
+  }
+
+  const [selectedSide, setSelectedSide] = useState(!expanded() ? 'side' : 'all')
+
+  const resetAll = () => {
+    console.log('reset all')
+    resetStyle(CssProperty.BorderTopLeftRadius)
+    resetStyle(CssProperty.BorderTopRightRadius)
+    resetStyle(CssProperty.BorderBottomLeftRadius)
+    resetStyle(CssProperty.BorderBottomRightRadius)
+    resetStyle(CssProperty.BorderRadius)
+  }
+
+  const setAll = (value: string) => {
+    if (expanded()) {
+      setStyle(CssProperty.BorderTopLeftRadius, value)
+      setStyle(CssProperty.BorderTopRightRadius, value)
+      setStyle(CssProperty.BorderBottomLeftRadius, value)
+      setStyle(CssProperty.BorderBottomRightRadius, value)
+    }
+
+    setStyle(CssProperty.BorderRadius, value)
+  }
 
   return (
     <div className="space-y-2">
@@ -39,10 +72,10 @@ export const BorderRadiusEditor = () => {
       >
         <Col span={10}>
           <SegmentedSelect
-            canReset={canReset(CssProperty.BorderRadius)}
+            canReset={canReset(CssProperty.BorderRadius) || expanded()}
             label="Radius"
             onChange={setSelectedSide}
-            onReset={() => resetStyle(CssProperty.BorderRadius)}
+            onReset={resetAll}
             options={sideOptions}
             size="small"
             value={selectedSide}
@@ -51,7 +84,7 @@ export const BorderRadiusEditor = () => {
         <Col span={12}>
           <ValuePicker
             currentValue={getCurrentStyle(CssProperty.BorderRadius)}
-            onChange={(value) => setStyle(CssProperty.BorderRadius, value)}
+            onChange={setAll}
           />
           {/* </Row> */}
         </Col>

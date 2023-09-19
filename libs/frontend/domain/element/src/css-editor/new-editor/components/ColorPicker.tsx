@@ -20,7 +20,7 @@ export const ColorPicker = ({
 }: ColorPickerProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col span={8}>
+      <Col span={6}>
         <ResetLabel canReset={canReset} label={label} onReset={onReset} />
       </Col>
       <Col className="w-full">

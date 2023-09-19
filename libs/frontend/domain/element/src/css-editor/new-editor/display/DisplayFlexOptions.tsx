@@ -13,6 +13,7 @@ import { useStyle } from '../style.hook'
 const justifyOptions = [
   {
     icon: <VerticalAlignBottomOutlined rotate={90} />,
+    label: 'Start',
     value: 'flex-start',
   },
   {
