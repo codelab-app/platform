@@ -3,13 +3,13 @@
     {
       "domains": [
         {
-          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
-          "name": "test-local.com",
+          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
+          "name": "codelab-demo.online",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
         },
         {
-          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
-          "name": "codelab-demo.online",
+          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
+          "name": "test-local.com",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
         }
       ],
@@ -53,7 +53,7 @@
               "id": "5220576a-6c35-4aa8-be58-3b02b707ab05",
               "name": "Main",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Main",
-              "style": "{\"desktop\":{\"cssString\":\"background-color: #111010;\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"background-color: #111010;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -115,7 +115,7 @@
               "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a",
               "name": "Root",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Root",
-              "style": "{\"mobile-portrait\":{\"cssString\":\"\"},\"desktop\":{\"cssString\":\"min-height: 100vh;\\n\\n* {\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"min-height: 100vh;\\n\\n* {\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -146,7 +146,7 @@
               "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a",
               "name": "Left Menu",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Left Menu",
-              "style": "{\"desktop\":{\"cssString\":\"background-color: #111010 !important;\"},\"mobile-landscape\":{\"cssString\":\"\"},\"tablet\":{\"cssString\":\"display: none\"},\"mobile-portrait\":{\"cssString\":\"\"}}",
+              "style": "{\"desktop\":{\"cssString\":\"display: block;\"},\"mobile-portrait\":{\"cssString\":\"background-color: #111010 !important;\\ndisplay: none;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -177,7 +177,7 @@
               "id": "199bcf59-a390-4593-98df-c161c29de60b",
               "name": "Body",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Body",
-              "style": "{\"desktop\":{\"cssString\":\"padding: 15vh 25% 0 25%;\\nbackground-color: #111010;\"}}",
+              "style": "{\"desktop\":{\"cssString\":\"padding: 15vh 25% 0 25%;\"},\"tablet\":{\"cssString\":\"padding: 10vh 15% 0 15%;\"},\"mobile-portrait\":{\"cssString\":\"padding: 5vh 5% 0 5%;\\nbackground-color: #111010;\"},\"mobile-landscape\":{\"cssString\":\"\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -208,7 +208,7 @@
               "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e",
               "name": "Header",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Header",
-              "style": "{\"desktop\":{\"cssString\":\"background-color: #111010;\\ndisplay: none;\\n\\n.ant-space-item {\\n  width: 100%;\\n}\\n.ant-anchor {\\n  display: flex;\\n  justify-content: space-around;\\n  margin-top: 12px;\\n}\"},\"tablet\":{\"cssString\":\"display: block;\"},\"mobile-portrait\":{\"cssString\":\"\"}}",
+              "style": "{\"desktop\":{\"cssString\":\"display: none;\"},\"tablet\":{\"cssString\":\"display: block;\"},\"mobile-portrait\":{\"cssString\":\"background-color: #111010;\\ndisplay: block;\\n\\n.ant-space-item {\\n  width: 100%;\\n}\\n.ant-anchor {\\n  display: flex;\\n  justify-content: space-around;\\n  margin-top: 12px;\\n}\"},\"mobile-landscape\":{\"cssString\":\"\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -239,7 +239,7 @@
               "id": "b495dad3-d4b7-4ac8-aea4-68d21c04f1bf",
               "name": "Logo",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Logo",
-              "style": "{\"desktop\":{\"cssString\":\"padding-left: 16px;\\n\\nstrong {\\n  font-size: 2rem;\\n}\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"padding-left: 16px;\\n\\nstrong {\\n  font-size: 2rem;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -356,8 +356,8 @@
             {
               "id": "bf6abfe6-6700-41b7-b208-aa59a442c709",
               "name": "Navigation",
-              "_compoundName": "cc2ffc1f-5956-469a-af08-3621df67530b-Navigation",
-              "style": "{\"desktop\":{\"cssString\":\"p {\\n  margin-left: 12px;\\n  margin-bottom: 8px;\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
+              "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Navigation",
+              "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  margin-left: 12px;\\n  margin-bottom: 8px;\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
               "parentComponent": {
                 "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
                 "name": "Navigation"
@@ -607,7 +607,7 @@
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "loadDataFromSupabase",
                 "type": "CodeAction",
-                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length || !state.posts.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data?.reverse();\n    state.posts = posts.data?.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n\n  if (!state.post) {\n    debugger\n    state.post = state.posts?.find(post => post.id == url.postId);\n  }\n}"
+                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages?.length || !state.posts?.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data?.reverse();\n    state.posts = posts.data?.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n\n  if (!state.post) {\n    debugger\n    state.post = state.posts?.find(post => post.id == url.postId);\n  }\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -746,112 +746,10 @@
         {
           "elements": [
             {
-              "id": "f3377f1d-6d2d-4ff8-87c5-62063616dd43",
-              "name": "Page Title",
-              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Page Title",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
-              "renderType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "kind": "Component"
-              },
-              "parent": { "id": "b1ba1591-c439-4249-9228-952cede73674" },
-              "prevSibling": null,
-              "nextSibling": { "id": "fa1e97e1-9935-46a3-9674-3f09aeddfafe" },
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "95b0d416-c623-4ff8-b60d-928056a5d419",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"About Me\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": null
-            },
-            {
-              "id": "fa1e97e1-9935-46a3-9674-3f09aeddfafe",
-              "name": "Summary 1",
-              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 1",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "f3377f1d-6d2d-4ff8-87c5-62063616dd43" },
-              "nextSibling": { "id": "6a61505c-8fca-4de1-ba36-da7dcd126629" },
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "c6c65984-f867-4002-824c-73ffa56d025c",
-                "data": "{\"customText\":\"<p>Hello! I'm Vladyslav Polishchuk.</p><p>At present, I'm a Full-Stack Software Developer at a progressive startup where we're pioneering a state-of-the-art website builder for developers. My role here allows me to indulge in my passion for React, as well as engage with the vibrant, innovative developer community that we serve.</p>\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "name": "AntDesignTypographyParagraph"
-              }
-            },
-            {
-              "id": "6afde46f-1ed8-4bb9-84cb-b7d92941b9dd",
-              "name": "Youtube Button Link",
-              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Youtube Button Link",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": {
-                "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
-                "name": "Social Button Link"
-              },
-              "renderType": {
-                "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
-                "kind": "Component"
-              },
-              "parent": null,
-              "prevSibling": { "id": "be7337c5-0dfe-421a-aec9-00e79aa988b8" },
-              "nextSibling": null,
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "6434003c-a7c1-49d5-84f0-a2bb398014f9",
-                "data": "{\"label\":\"Youtube\",\"icon\":\"YoutubeOutlined\",\"href\":\"https://youtube.com\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": null
-            },
-            {
               "id": "ce924e8f-8d7e-4ce4-85c7-efd4652f5968",
               "name": "Buttons Container",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Buttons Container",
-              "style": "{\"desktop\":{\"cssString\":\"margin-top: 1rem;\\nmargin-bottom: 1rem;\\n\\n.ant-space-item {\\n  width: 100%;\\n}\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 1rem;\\nmargin-bottom: 1rem;\\n\\n.ant-space-item {\\n  width: 100%;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1093,7 +991,7 @@
               "id": "6a61505c-8fca-4de1-ba36-da7dcd126629",
               "name": "Separator",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Separator",
-              "style": "{\"desktop\":{\"cssString\":\"width: 100%;\\nborder-top-width: 1px;\\nborder-color: #404040;\\nmargin-top: 1em;\\nmargin-bottom: 2em;\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"width: 100%;\\nborder-top-width: 1px;\\nborder-color: #404040;\\nmargin-top: 1em;\\nmargin-bottom: 2em;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1121,27 +1019,55 @@
               }
             },
             {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title2",
-              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Page Title2",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "parentComponent": {
+              "id": "f3377f1d-6d2d-4ff8-87c5-62063616dd43",
+              "name": "Page Title",
+              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Page Title",
+              "style": null,
+              "parentComponent": null,
+              "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
               },
+              "renderType": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "kind": "Component"
+              },
+              "parent": { "id": "b1ba1591-c439-4249-9228-952cede73674" },
+              "prevSibling": null,
+              "nextSibling": { "id": "fa1e97e1-9935-46a3-9674-3f09aeddfafe" },
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "95b0d416-c623-4ff8-b60d-928056a5d419",
+                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"About Me\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "fa1e97e1-9935-46a3-9674-3f09aeddfafe",
+              "name": "Summary 1",
+              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 1",
+              "style": null,
+              "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
+              "prevSibling": { "id": "f3377f1d-6d2d-4ff8-87c5-62063616dd43" },
+              "nextSibling": { "id": "6a61505c-8fca-4de1-ba36-da7dcd126629" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "id": "c6c65984-f867-4002-824c-73ffa56d025c",
+                "data": "{\"customText\":\"<p>Hello! I'm Vladyslav Polishchuk.</p><p>At present, I'm a Full-Stack Software Developer at a progressive startup where we're pioneering a state-of-the-art website builder for developers. My role here allows me to indulge in my passion for React, as well as engage with the vibrant, innovative developer community that we serve.</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1155,10 +1081,41 @@
               }
             },
             {
+              "id": "6afde46f-1ed8-4bb9-84cb-b7d92941b9dd",
+              "name": "Youtube Button Link",
+              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Youtube Button Link",
+              "style": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
+                "name": "Social Button Link"
+              },
+              "renderType": {
+                "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
+                "kind": "Component"
+              },
+              "parent": null,
+              "prevSibling": { "id": "be7337c5-0dfe-421a-aec9-00e79aa988b8" },
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "6434003c-a7c1-49d5-84f0-a2bb398014f9",
+                "data": "{\"label\":\"Youtube\",\"icon\":\"YoutubeOutlined\",\"href\":\"https://youtube.com\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
               "id": "4eb7f514-bba7-4faf-89e1-58538f4c4737",
               "name": "Social Button Link",
-              "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Social Button Link",
-              "customCss": "height: 48px;\nwidth: 100%;\nbackground-color: transparent;\nalign-items: center;\ndisplay: flex;\njustify-content: center;",
+              "_compoundName": "4133b79e-28a9-40e3-874e-4d628cc5032f-Social Button Link",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"height: 48px;\\nwidth: 100%;\\nbackground-color: transparent;\\nalign-items: center;\\ndisplay: flex;\\njustify-content: center;\"}}",
               "parentComponent": {
                 "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
                 "name": "Social Button Link"
@@ -1249,6 +1206,40 @@
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
               }
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title2",
+              "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
+              "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  font-size: 1.875rem;\\n  line-height: 2.25rem;\\n  font-weight: 700;\\n  color: #ffffff;\\n}\"}}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"{\\\"time\\\":1694968401979,\\\"blocks\\\":[{\\\"id\\\":\\\"fh-IuJnDUN\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"<span style=\\\\\\\"font-size: 30px;\\\\\\\">{{componentProps.text}}</span><br>\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false,\"data-component-id\":\"3z-ghYJzzXcOC2pkHiBBxfqQ\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             }
           ],
           "id": "9c964ca7-3688-4b0c-9958-8277f176fb83",
@@ -1275,6 +1266,37 @@
         {
           "elements": [
             {
+              "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94",
+              "name": "Posts Spinner",
+              "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Posts Spinner",
+              "style": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "kind": "Component"
+              },
+              "parent": null,
+              "prevSibling": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
+              "nextSibling": { "id": "0a483e29-d318-40f8-b1d4-e52e2e515cff" },
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "892b0d91-406a-469d-8dc3-4c79aeb1c54b",
+                "data": "{\"show\":\"{{rootState.posts?.length === 0}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
               "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b",
               "name": "Body",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Body",
@@ -1295,55 +1317,18 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": {
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "type": "CodeAction"
               },
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": null
-            },
-            {
-              "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc",
-              "name": "Page Title",
-              "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Page Title",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
-              "renderType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "kind": "Component"
-              },
-              "parent": { "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b" },
-              "prevSibling": null,
-              "nextSibling": { "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94" },
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "4e19258b-2baf-4a57-8894-2cec4af41182",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Blog\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "0a483e29-d318-40f8-b1d4-e52e2e515cff",
               "name": "Posts Container",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Posts Container",
-              "customCss": "margin-top: .1rem;",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: .1rem;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1374,38 +1359,69 @@
               }
             },
             {
-              "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94",
-              "name": "Posts Spinner",
-              "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Posts Spinner",
+              "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc",
+              "name": "Page Title",
+              "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Page Title",
               "style": null,
               "parentComponent": null,
               "renderComponentType": {
-                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
-                "name": "Spin"
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
               },
               "renderType": {
-                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "kind": "Component"
               },
-              "parent": null,
-              "prevSibling": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
-              "nextSibling": { "id": "0a483e29-d318-40f8-b1d4-e52e2e515cff" },
+              "parent": { "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b" },
+              "prevSibling": null,
+              "nextSibling": { "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "892b0d91-406a-469d-8dc3-4c79aeb1c54b",
-                "data": "{\"show\":\"{{rootState.posts?.length === 0}}\"}"
+                "id": "4e19258b-2baf-4a57-8894-2cec4af41182",
+                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Blog\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
+            },
+            {
+              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
+              "name": "Spin",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spin",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 2rem;\\n\\n.ant-spin-dot-item {\\n  background-color: gray;\\n}\"}}",
+              "parentComponent": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "name": "AntDesignSpin"
+              }
             },
             {
               "id": "0d693472-497b-4ba2-8713-ec04d13c338b",
@@ -1445,7 +1461,7 @@
               "id": "1b604fd3-992a-4f48-b396-00683a3e31cd",
               "name": "Title",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Title",
-              "customCss": "margin-bottom: .1em !important;\n\np {\n  color: #f5f5f5 !important;\n}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-bottom: 0.1em !important;\\n\\np {\\n  color: #f5f5f5 !important;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1476,7 +1492,7 @@
               "id": "4d292c24-688d-4668-b39e-0824becdb741",
               "name": "Date Created",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Date Created",
-              "customCss": "p {\n  color: #a3a3a3 !important;\n  font-size: 14px;\n}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"p {\\n  color: #a3a3a3 !important;\\n  font-size: 14px;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1506,8 +1522,8 @@
             {
               "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
               "name": "Page Title2",
-              "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Page Title2",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
+              "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  font-size: 1.875rem;\\n  line-height: 2.25rem;\\n  font-weight: 700;\\n  color: #ffffff;\\n}\"}}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -1524,7 +1540,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"{\\\"time\\\":1694968401979,\\\"blocks\\\":[{\\\"id\\\":\\\"fh-IuJnDUN\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"<span style=\\\\\\\"font-size: 30px;\\\\\\\">{{componentProps.text}}</span><br>\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false,\"data-component-id\":\"3z-ghYJzzXcOC2pkHiBBxfqQ\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1535,43 +1551,6 @@
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
-              }
-            },
-            {
-              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
-              "name": "Spin",
-              "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Spin",
-              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
-              "parentComponent": {
-                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
-                "name": "Spin"
-              },
-              "renderComponentType": null,
-              "renderType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
-                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "name": "AntDesignSpin"
               }
             }
           ],
@@ -1599,68 +1578,34 @@
         {
           "elements": [
             {
-              "id": "9e315c8b-b704-4798-a008-3b68284ead8b",
-              "name": "Create Date",
-              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Create Date",
-              "customCss": "margin-top: -1rem;\n\np {\n  color: #a3a3a3 !important;\n}",
+              "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a",
+              "name": "Spinner",
+              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Spinner",
+              "style": null,
               "parentComponent": null,
-              "renderComponentType": null,
+              "renderComponentType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
               "renderType": {
-                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
-                "kind": "Atom"
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "kind": "Component"
               },
               "parent": null,
-              "prevSibling": { "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a" },
-              "nextSibling": { "id": "e16889f2-f7fd-4392-981c-e3364dba2463" },
+              "prevSibling": { "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e" },
+              "nextSibling": { "id": "9e315c8b-b704-4798-a008-3b68284ead8b" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "8cdb2278-5b8a-4a7e-8bf2-a9033399e5ce",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{rootState.post?.created_at ?? ''}}</p>\"}"
+                "id": "c4b79519-7703-4d33-94b7-1806f0a2c8e5",
+                "data": "{\"show\":\"{{!rootState.post}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
-                "name": "AntDesignTypographyText"
-              }
-            },
-            {
-              "id": "4084b13f-8293-45e1-a8a7-fdc15338235e",
-              "name": "Body",
-              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Body",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": null,
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": { "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e" },
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "a755c28d-bacc-4e53-a837-ccb29b34891d",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": {
-                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
-                "type": "CodeAction"
-              },
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -1698,7 +1643,7 @@
               "id": "e16889f2-f7fd-4392-981c-e3364dba2463",
               "name": "Blog Content",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Blog Content",
-              "customCss": "margin-top: 1rem;",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 1rem;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1726,61 +1671,52 @@
               }
             },
             {
-              "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a",
-              "name": "Spinner",
-              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Spinner",
+              "id": "4084b13f-8293-45e1-a8a7-fdc15338235e",
+              "name": "Body",
+              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Body",
               "style": null,
               "parentComponent": null,
-              "renderComponentType": {
-                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
-                "name": "Spin"
-              },
-              "renderType": {
-                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
-                "kind": "Component"
-              },
+              "renderComponentType": null,
+              "renderType": null,
               "parent": null,
-              "prevSibling": { "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e" },
-              "nextSibling": { "id": "9e315c8b-b704-4798-a008-3b68284ead8b" },
-              "firstChild": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": { "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e" },
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "c4b79519-7703-4d33-94b7-1806f0a2c8e5",
-                "data": "{\"show\":\"{{!rootState.post}}\"}"
+                "id": "a755c28d-bacc-4e53-a837-ccb29b34891d",
+                "data": "{}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
+              "preRenderAction": {
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "type": "CodeAction"
+              },
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title",
-              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Page Title",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "parentComponent": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
+              "id": "9e315c8b-b704-4798-a008-3b68284ead8b",
+              "name": "Create Date",
+              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Create Date",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: -1rem;\\n\\np {\\n  color: #a3a3a3 !important;\\n}\"}}",
+              "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
+              "prevSibling": { "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a" },
+              "nextSibling": { "id": "e16889f2-f7fd-4392-981c-e3364dba2463" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "id": "8cdb2278-5b8a-4a7e-8bf2-a9033399e5ce",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"{\\\"time\\\":1694966181094,\\\"blocks\\\":[{\\\"id\\\":\\\"Ygu-UpYx07\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{rootState.post?.created_at ?? ''}}\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1789,15 +1725,15 @@
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "name": "AntDesignTypographyParagraph"
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
               }
             },
             {
               "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
               "name": "Spin",
-              "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Spin",
-              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spin",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 2rem;\\n\\n.ant-spin-dot-item {\\n  background-color: gray;\\n}\"}}",
               "parentComponent": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
                 "name": "Spin"
@@ -1826,6 +1762,40 @@
                 "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
                 "name": "AntDesignSpin"
               }
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title2",
+              "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
+              "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  font-size: 1.875rem;\\n  line-height: 2.25rem;\\n  font-weight: 700;\\n  color: #ffffff;\\n}\"}}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"{\\\"time\\\":1694968401979,\\\"blocks\\\":[{\\\"id\\\":\\\"fh-IuJnDUN\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"<span style=\\\\\\\"font-size: 30px;\\\\\\\">{{componentProps.text}}</span><br>\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false,\"data-component-id\":\"3z-ghYJzzXcOC2pkHiBBxfqQ\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             }
           ],
           "id": "14e09a14-62c3-4a5f-bec3-9b43747bb21d",
@@ -1852,74 +1822,10 @@
         {
           "elements": [
             {
-              "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853",
-              "name": "Body",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Body",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": null,
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "1d496164-d8a6-4043-b3f2-0a18e8fdff22",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": {
-                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
-                "type": "CodeAction"
-              },
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": null
-            },
-            {
-              "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936",
-              "name": "Page Title",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Page Title",
-              "style": null,
-              "parentComponent": null,
-              "renderComponentType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
-              "renderType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "kind": "Component"
-              },
-              "parent": { "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853" },
-              "prevSibling": null,
-              "nextSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "5accf1aa-8898-4052-bf78-ddef55bad33b",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Guestbook\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": null
-            },
-            {
-              "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890",
-              "name": "Github Sign In",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Sign In",
-              "customCss": "height: 42px;\nbackground-color: #262626;",
+              "id": "aae162f4-85c8-4aec-a76f-06e538f4d638",
+              "name": "Logout Button",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Logout Button",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"height: 42px;\\nbackground-color: #262626;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1927,24 +1833,88 @@
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
-              "nextSibling": { "id": "350fca05-1a63-4e3d-8da4-acd12cc75729" },
-              "firstChild": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
+              "prevSibling": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
+              "nextSibling": null,
+              "firstChild": { "id": "4ac4edbb-894f-4419-bebd-45cb982e8476" },
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "63b358b6-fc9e-401b-a406-99f6a4389447",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"2990c9dc-71bb-4598-ae42-023c9dcf5436\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "id": "c681ccf8-cbe1-4999-858d-f191860479f7",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p><br></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
-              "renderIfExpression": "{{!rootState.token}}",
-              "propTransformationJs": null,
+              "renderIfExpression": null,
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": {
                 "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
                 "name": "AntDesignButton"
+              }
+            },
+            {
+              "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c",
+              "name": "Post Message Button Label",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Post Message Button Label",
+              "style": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "6b42fa43-2f8c-417f-aadd-6cf5536aa8bc",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Post</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
+              "id": "7927550c-2427-478f-b6b2-ad5cc975c440",
+              "name": "Container",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Container",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 2rem;\"}}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f" },
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "ec015ed6-f7df-4070-b0bf-580cc9ad4c48",
+                "data": "{\"direction\":\"vertical\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": "{{rootState.messages}}",
+              "childMapperComponent": {
+                "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
+                "name": "Message"
+              },
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "name": "AntDesignSpace"
               }
             },
             {
@@ -1979,24 +1949,24 @@
               }
             },
             {
-              "id": "3cc2aa10-2799-4a6a-88d1-3fb7dc5077ff",
-              "name": "Github Label",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Label",
-              "style": null,
+              "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86",
+              "name": "Post Message Button",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Post Message Button",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"height: 42px;\\nbackground-color: #262626;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
-                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
-              "nextSibling": null,
-              "firstChild": null,
+              "prevSibling": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
+              "nextSibling": { "id": "aae162f4-85c8-4aec-a76f-06e538f4d638" },
+              "firstChild": { "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c" },
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "f589d2dd-fc72-407f-8351-21dc42c20b02",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Sign in with GitHub</p>\"}"
+                "id": "158a661a-ecda-4736-85d4-b4aa5420d71a",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"78a73536-541d-411c-9bae-a62d26adbb31\"},\"customText\":\"<p><br></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2005,49 +1975,15 @@
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": {
-                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
-                "name": "AntDesignTypographyText"
-              }
-            },
-            {
-              "id": "350fca05-1a63-4e3d-8da4-acd12cc75729",
-              "name": "Message Input Container",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message Input Container",
-              "customCss": "height: 42px;\n\n.ant-space-item:first-child {\n  flex-grow: 1;\n}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
-              "nextSibling": { "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f" },
-              "firstChild": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "be84fea2-1c16-4ba9-9bee-14e74be6e47a",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": "{{!!rootState.token}}",
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-                "name": "AntDesignSpace"
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "name": "AntDesignButton"
               }
             },
             {
               "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b",
               "name": "Message Input",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message Input",
-              "customCss": "height: 42px;\nbackground-color: #262626;",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"height: 42px;\\nbackground-color: #262626;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2072,40 +2008,6 @@
               "renderAtomType": {
                 "id": "8d669da3-4198-494a-8018-851f6a802bf2",
                 "name": "AntDesignInput"
-              }
-            },
-            {
-              "id": "aae162f4-85c8-4aec-a76f-06e538f4d638",
-              "name": "Logout Button",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Logout Button",
-              "customCss": "height: 42px;\nbackground-color: #262626;",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
-              "nextSibling": null,
-              "firstChild": { "id": "4ac4edbb-894f-4419-bebd-45cb982e8476" },
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "c681ccf8-cbe1-4999-858d-f191860479f7",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p><br></p>\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
-                "name": "AntDesignButton"
               }
             },
             {
@@ -2140,42 +2042,9 @@
               }
             },
             {
-              "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86",
-              "name": "Post Message Button",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Post Message Button",
-              "customCss": "height: 42px;\nbackground-color: #262626;",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
-              "nextSibling": { "id": "aae162f4-85c8-4aec-a76f-06e538f4d638" },
-              "firstChild": { "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c" },
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "158a661a-ecda-4736-85d4-b4aa5420d71a",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"78a73536-541d-411c-9bae-a62d26adbb31\"},\"customText\":\"<p><br></p>\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
-                "name": "AntDesignButton"
-              }
-            },
-            {
-              "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c",
-              "name": "Post Message Button Label",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Post Message Button Label",
+              "id": "3cc2aa10-2799-4a6a-88d1-3fb7dc5077ff",
+              "name": "Github Label",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Label",
               "style": null,
               "parentComponent": null,
               "renderComponentType": null,
@@ -2183,64 +2052,24 @@
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "kind": "Atom"
               },
-              "parent": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
-              "prevSibling": null,
+              "parent": null,
+              "prevSibling": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
               "nextSibling": null,
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "6b42fa43-2f8c-417f-aadd-6cf5536aa8bc",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Post</p>\"}"
+                "id": "f589d2dd-fc72-407f-8351-21dc42c20b02",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Sign in with GitHub</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
-              }
-            },
-            {
-              "id": "7927550c-2427-478f-b6b2-ad5cc975c440",
-              "name": "Container",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Container",
-              "customCss": "margin-top: 2rem;",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f" },
-              "nextSibling": null,
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "ec015ed6-f7df-4070-b0bf-580cc9ad4c48",
-                "data": "{\"direction\":\"vertical\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": "{{rootState.messages}}",
-              "childMapperComponent": {
-                "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
-                "name": "Message"
-              },
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-                "name": "AntDesignSpace"
               }
             },
             {
@@ -2275,24 +2104,148 @@
               "renderAtomType": null
             },
             {
-              "id": "10abe9dc-dc98-4914-a38d-c301f34bfc0a",
-              "name": "Text",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Text",
-              "customCss": "display: inline-block;\n\np {\n  color: #a3a3a3 !important;\n}",
+              "id": "350fca05-1a63-4e3d-8da4-acd12cc75729",
+              "name": "Message Input Container",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message Input Container",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"height: 42px;\\n\\n.ant-space-item:first-child {\\n  flex-grow: 1;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
-                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
                 "kind": "Atom"
               },
-              "parent": { "id": "d19ad430-a7a1-49fd-a126-a2e8ad4491ab" },
+              "parent": null,
+              "prevSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
+              "nextSibling": { "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f" },
+              "firstChild": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "be84fea2-1c16-4ba9-9bee-14e74be6e47a",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": "{{!!rootState.token}}",
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "name": "AntDesignSpace"
+              }
+            },
+            {
+              "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890",
+              "name": "Github Sign In",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Sign In",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"height: 42px;\\nbackground-color: #262626;\"}}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
+              "nextSibling": { "id": "350fca05-1a63-4e3d-8da4-acd12cc75729" },
+              "firstChild": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "63b358b6-fc9e-401b-a406-99f6a4389447",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"2990c9dc-71bb-4598-ae42-023c9dcf5436\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": "{{!rootState.token}}",
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "name": "AntDesignButton"
+              }
+            },
+            {
+              "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853",
+              "name": "Body",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Body",
+              "style": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": null,
+              "parent": null,
               "prevSibling": null,
-              "nextSibling": { "id": "42ade74c-59ad-47af-81bc-5ce7b09daaed" },
+              "nextSibling": null,
+              "firstChild": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "1d496164-d8a6-4043-b3f2-0a18e8fdff22",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": {
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "type": "CodeAction"
+              },
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936",
+              "name": "Page Title",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Page Title",
+              "style": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderType": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "kind": "Component"
+              },
+              "parent": { "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853" },
+              "prevSibling": null,
+              "nextSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "8c3e2294-4a72-41f1-a2d9-c01acdaf4d80",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{componentProps.owner}}:   </p>\"}"
+                "id": "5accf1aa-8898-4052-bf78-ddef55bad33b",
+                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Guestbook\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
+              "name": "Spin",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spin",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 2rem;\\n\\n.ant-spin-dot-item {\\n  background-color: gray;\\n}\"}}",
+              "parentComponent": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2301,8 +2254,8 @@
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": {
-                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
-                "name": "AntDesignTypographyText"
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "name": "AntDesignSpin"
               }
             },
             {
@@ -2334,10 +2287,41 @@
               "renderAtomType": null
             },
             {
+              "id": "10abe9dc-dc98-4914-a38d-c301f34bfc0a",
+              "name": "Text",
+              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Text",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"display: inline-block;\\n\\np {\\n  color: #a3a3a3 !important;\\n}\"}}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": { "id": "d19ad430-a7a1-49fd-a126-a2e8ad4491ab" },
+              "prevSibling": null,
+              "nextSibling": { "id": "42ade74c-59ad-47af-81bc-5ce7b09daaed" },
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "8c3e2294-4a72-41f1-a2d9-c01acdaf4d80",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{componentProps.owner}}:   </p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
               "id": "42ade74c-59ad-47af-81bc-5ce7b09daaed",
               "name": "Message2",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message2",
-              "customCss": "display: inline-block;\ncolor: #ececec !important;",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"display: inline-block;\\ncolor: #ececec !important;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2367,8 +2351,8 @@
             {
               "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
               "name": "Page Title2",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Page Title2",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
+              "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  font-size: 1.875rem;\\n  line-height: 2.25rem;\\n  font-weight: 700;\\n  color: #ffffff;\\n}\"}}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -2385,7 +2369,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"{\\\"time\\\":1694968401979,\\\"blocks\\\":[{\\\"id\\\":\\\"fh-IuJnDUN\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"<span style=\\\\\\\"font-size: 30px;\\\\\\\">{{componentProps.text}}</span><br>\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false,\"data-component-id\":\"3z-ghYJzzXcOC2pkHiBBxfqQ\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2396,40 +2380,6 @@
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
-              }
-            },
-            {
-              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
-              "name": "Spin",
-              "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spin",
-              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
-              "parentComponent": {
-                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
-                "name": "Spin"
-              },
-              "renderComponentType": null,
-              "renderType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
-                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "name": "AntDesignSpin"
               }
             }
           ],
@@ -2485,7 +2435,7 @@
               "id": "0796d377-83ee-4b25-8cdb-1386931ff443",
               "name": "Subscribe Container",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Subscribe Container",
-              "style": "{\"desktop\":{\"cssString\":\".ant-anchor {\\n  display: flex;\\n}\\n\\n.ant-anchor-link {\\n  padding: 0 24px 0 0 !important;\\n}\\n\\na {\\n  color: #a3a3a3 !important;\\n}\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\".ant-anchor {\\n  display: flex;\\n}\\n\\n.ant-anchor-link {\\n  padding: 0 24px 0 0 !important;\\n}\\n\\na {\\n  color: #a3a3a3 !important;\\n}\"},\"mobile-portrait\":{\"cssString\":\".ant-anchor {\\n  display: flex;\\n}\\n\\n.ant-anchor-link {\\n  padding: 0 24px 0 0 !important;\\n}\\n\\na {\\n  color: #a3a3a3 !important;\\n}\"},\"mobile-landscape\":{\"cssString\":\"\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2516,7 +2466,7 @@
               "id": "63fe96eb-6278-4c24-a0a2-7cdd4384974b",
               "name": "Avatar",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Avatar",
-              "style": "{\"desktop\":{\"cssString\":\"width: 100px;\\nheight: 100px;\\nmargin-right: 24px;\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"width: 100px;\\nheight: 100px;\\nmargin-right: 24px;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2578,7 +2528,7 @@
               "id": "249127dd-160f-4f0c-b5a9-958a61a5cc79",
               "name": "About 2",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-About 2",
-              "style": "{\"desktop\":{\"cssString\":\"margin-bottom: 32px;\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-bottom: 32px;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2640,7 +2590,7 @@
               "id": "9e8a51cd-dc2d-421e-8276-5f2a9fd9ebca",
               "name": "Stats Container",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Stats Container",
-              "style": "{\"desktop\":{\"cssString\":\"margin-top: 32px;\\nmargin-bottom: 32px;\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 32px;\\nmargin-bottom: 32px;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2733,7 +2683,7 @@
               "id": "e91993f3-684a-4ebd-8288-40d000939b7b",
               "name": "Stats Links Container",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Stats Links Container",
-              "style": "{\"desktop\":{\"cssString\":\"padding: 0;\\n\\n.ant-anchor > span {\\n  display: block;\\n}\"}}",
+              "style": "{\"desktop\":{\"cssString\":\"padding: 0;\\n\\n.ant-anchor > span {\\n  display: block;\\n}\"},\"mobile-portrait\":{\"cssString\":\"padding: 0;\\n\\n.ant-anchor > span {\\n  display: block;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2764,7 +2714,7 @@
               "id": "e6e0ef15-6b50-4d68-bc01-2ac45f8fad8f",
               "name": "About 1",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-About 1",
-              "style": "{\"desktop\":{\"cssString\":\"margin-bottom: 32px;\"}}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"margin-bottom: 32px;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2885,43 +2835,6 @@
               "renderAtomType": null
             },
             {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title2",
-              "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "parentComponent": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
-              "renderComponentType": null,
-              "renderType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "name": "AntDesignTypographyParagraph"
-              }
-            },
-            {
               "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3",
               "name": "Social Link",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Social Link",
@@ -2953,7 +2866,7 @@
               "id": "f43e3a60-5328-4c48-85ec-157ef6731e82",
               "name": "Icon",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Icon",
-              "customCss": "svg {\n  width: 24px;\n  height: 24px;\n}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"svg {\\n  width: 24px;\\n  height: 24px;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2984,7 +2897,7 @@
               "id": "fc52756d-170e-4a4f-988a-fe25a037d7e2",
               "name": "Link",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Link",
-              "customCss": "display: inline-block;\nline-height: 20px;\n\na {\n  color: #a3a3a3 !important;\n}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"display: inline-block;\\nline-height: 20px;\\n\\na {\\n  color: #a3a3a3 !important;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3010,6 +2923,40 @@
                 "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
                 "name": "AntDesignAnchorLink"
               }
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title2",
+              "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
+              "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  font-size: 1.875rem;\\n  line-height: 2.25rem;\\n  font-weight: 700;\\n  color: #ffffff;\\n}\"}}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"{\\\"time\\\":1694968401979,\\\"blocks\\\":[{\\\"id\\\":\\\"fh-IuJnDUN\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"<span style=\\\\\\\"font-size: 30px;\\\\\\\">{{componentProps.text}}</span><br>\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false,\"data-component-id\":\"3z-ghYJzzXcOC2pkHiBBxfqQ\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             }
           ],
           "id": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1",
@@ -3034,8 +2981,7 @@
           "url": "/"
         }
       ],
-      "slug": "portfolio-website",
-      "styling": "DesktopFirst"
+      "slug": "portfolio-website"
     }
   ],
   "components": [
@@ -3250,7 +3196,7 @@
       "rootElement": {
         "id": "bf6abfe6-6700-41b7-b208-aa59a442c709",
         "name": "Navigation",
-        "_compoundName": "cc2ffc1f-5956-469a-af08-3621df67530b-Navigation",
+        "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Navigation",
         "style": "{\"desktop\":{\"cssString\":\"p {\\n  margin-left: 12px;\\n  margin-bottom: 8px;\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"},\"mobile-landscape\":{\"cssString\":\"p {\\n  margin-left: 12px;\\n  margin-bottom: 8px;\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
         "parentComponent": {
           "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
@@ -3309,7 +3255,7 @@
       "rootElement": {
         "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
         "name": "Page Title2",
-        "_compoundName": "fd462921-8775-45cc-911e-8763ba7f756b-Page Title2",
+        "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
         "style": "{\"mobile-landscape\":{\"cssString\":\"p {\\n  font-size: 1.875rem;\\n  line-height: 2.25rem;\\n  font-weight: 700;\\n  color: #ffffff;\\n}\"}}",
         "parentComponent": {
           "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -3327,7 +3273,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-          "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+          "data": "{\"customText\":\"{\\\"time\\\":1694968401979,\\\"blocks\\\":[{\\\"id\\\":\\\"fh-IuJnDUN\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"<span style=\\\\\\\"font-size: 30px;\\\\\\\">{{componentProps.text}}</span><br>\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false,\"data-component-id\":\"3z-ghYJzzXcOC2pkHiBBxfqQ\"}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
@@ -3393,7 +3339,7 @@
         "id": "4eb7f514-bba7-4faf-89e1-58538f4c4737",
         "name": "Social Button Link",
         "_compoundName": "4133b79e-28a9-40e3-874e-4d628cc5032f-Social Button Link",
-        "style": "{\"desktop\":{\"cssString\":\"height: 48px;\\nwidth: 100%;\\nbackground-color: transparent;\\nalign-items: center;\\ndisplay: flex;\\njustify-content: center;\"}}",
+        "style": "{\"desktop\":{\"cssString\":\"height: 48px;\\nwidth: 100%;\\nbackground-color: transparent;\\nalign-items: center;\\ndisplay: flex;\\njustify-content: center;\"},\"mobile-portrait\":{\"cssString\":\"height: 48px;\\nwidth: 100%;\\nbackground-color: transparent;\\nalign-items: center;\\ndisplay: flex;\\njustify-content: center;\"}}",
         "parentComponent": {
           "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
           "name": "Social Button Link"
@@ -3594,8 +3540,8 @@
       "rootElement": {
         "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
         "name": "Spin",
-        "_compoundName": "c133e491-6120-4f50-aebb-a9af78ce4da0-Spin",
-        "style": "{\"desktop\":{\"cssString\":\"margin-top: 2rem;\\n\\n.ant-spin-dot-item {\\n  background-color: gray;\\n}\"}}",
+        "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spin",
+        "style": "{\"mobile-portrait\":{\"cssString\":\"margin-top: 2rem;\\n\\n.ant-spin-dot-item {\\n  background-color: gray;\\n}\"}}",
         "parentComponent": {
           "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
           "name": "Spin"
@@ -3784,8 +3730,8 @@
       "kind": "InterfaceType",
       "name": "Post",
       "fields": [
-        { "id": "abb5583e-c6b9-46ca-8c59-84dbf4c4d18b" },
         { "id": "fef2be1d-5db0-4168-b623-3fc24d902fd5" },
+        { "id": "abb5583e-c6b9-46ca-8c59-84dbf4c4d18b" },
         { "id": "05fa3493-e692-40eb-ad22-4185d980a932" }
       ]
     },
@@ -3795,10 +3741,10 @@
       "kind": "InterfaceType",
       "name": "Message",
       "fields": [
-        { "id": "7c33f212-7398-4e53-a3f4-42e56878abc1" },
-        { "id": "28133c72-18df-41b3-b4a9-0c0d1a86551f" },
         { "id": "dc8e2502-8244-4604-8b0c-d8d003cb2ed2" },
-        { "id": "dca32e10-bd59-4c00-91ee-075cb1cb92aa" }
+        { "id": "7c33f212-7398-4e53-a3f4-42e56878abc1" },
+        { "id": "dca32e10-bd59-4c00-91ee-075cb1cb92aa" },
+        { "id": "28133c72-18df-41b3-b4a9-0c0d1a86551f" }
       ]
     },
     {
