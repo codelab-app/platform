@@ -12,7 +12,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 import type { ElementData } from '../../support/builder/builder.command'
 
 const ELEMENT_FORM = 'Element Form'
@@ -115,7 +115,7 @@ describe('Testing the Form atom', () => {
   const urlPostSegment = '/data'
   before(() => {
     cy.resetDatabase()
-    loginSession()
+    loginAndResetDatabase()
 
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')

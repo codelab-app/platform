@@ -138,7 +138,7 @@ export class ElementService
 
   @modelAction
   add = (elementDTO: IElementDTO): IElementModel => {
-    let element = this.maybeElement(elementDTO.id)
+    let element = this.elements.get(elementDTO.id)
 
     if (element) {
       element.writeCache(elementDTO)
@@ -241,7 +241,7 @@ export class ElementService
     const { id, ...elementData } = data
     const element = this.element(id)
     const { id: newRenderTypeId } = elementData.renderType
-    const { id: oldRenderTypeId } = element.renderType ?? {}
+    const { id: oldRenderTypeId } = element.renderType
 
     if (newRenderTypeId !== oldRenderTypeId) {
       this.propService.reset(element.props.id)
@@ -624,7 +624,7 @@ export class ElementService
     const elementTree = targetElement.closestContainerNode
 
     const existingInstances = elementTree.elements.filter(
-      ({ renderType }) => renderType?.id === component.id,
+      ({ renderType }) => renderType.id === component.id,
     )
 
     /**

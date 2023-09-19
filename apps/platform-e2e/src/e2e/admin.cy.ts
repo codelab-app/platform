@@ -1,5 +1,5 @@
 import type { IUserDTO } from '@codelab/shared/abstract/core'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 import path from 'path'
 
 describe('Admin', () => {
@@ -7,7 +7,7 @@ describe('Admin', () => {
 
   before(() => {
     cy.resetDatabase()
-    loginSession()
+    loginAndResetDatabase()
     cy.getCurrentUser().then((results) => {
       user = results
     })

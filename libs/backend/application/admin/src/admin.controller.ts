@@ -45,7 +45,7 @@ export class AdminController {
   /**
    * We want to keep the default atom
    */
-  @Post('reset-cypress')
+  @Post('reset-all-except-user-and-atom')
   async cypressReset() {
     await this.adminRepository.resetAllExceptUserAndAtom()
 
