@@ -312,6 +312,9 @@ export class AtomService
     return result
   })
 
+  /**
+   * `Element.renderType` is required now, so anytime we create an Element, we need to pass the default value, which is an `Atom.type === ReactFragment`
+   */
   @modelFlow
   getDefaultElementRenderType = _async(function* (this: IAtomService) {
     if (this.defaultRenderType) {

@@ -35,3 +35,14 @@ export interface Auth0IdToken {
   sub: string
   updated_at: string
 }
+
+export interface JwtPayload {
+  [JWT_CLAIMS]: CodelabApiClaims
+  aud: Array<string>
+  azp: string
+  exp: number
+  iat: number
+  iss: string
+  scope: string
+  sub: string
+}
