@@ -1,6 +1,6 @@
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 import {
   resourceName,
   resourcesUrl,
@@ -9,7 +9,8 @@ import {
 
 describe('Resource CRUD', () => {
   before(() => {
-    loginAndSetupData()
+    cy.resetDatabase()
+    loginAndResetDatabase()
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
   })

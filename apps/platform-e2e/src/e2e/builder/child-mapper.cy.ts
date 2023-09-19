@@ -3,7 +3,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 interface ComponentChildData {
   atom: string
@@ -19,115 +19,110 @@ const componentChildren = [
 ]
 
 describe('Element Child Mapper', () => {
-  let app: IAppDTO
   before(() => {
-    loginAndSetupData()
+    cy.resetDatabase()
+    loginAndResetDatabase()
 
-    cy.postApiRequest('/api/data/type/seed-cypress-type')
+    cy.request('/api/cypress/type')
 
-    cy.postApiRequest('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app'))
+    cy.request('/api/cypress/atom')
+      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
       .then((apps) => {
-        app = apps.body
+        const app = apps.body
+
+        // create a component
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder?primarySidebarKey=components`,
+        )
+        // GetRenderedPageAndCommonAppData
+        cy.waitForApiCalls()
+        cy.getSpinner().should('not.exist')
+
+        // GetAtoms
+        // GetComponents
+        cy.waitForApiCalls()
+        cy.getSpinner().should('not.exist')
+
+        cy.getCuiSidebar('Components')
+          .getToolbarItem('Add Component')
+          .first()
+          .click()
+        cy.findByTestId('create-component-form')
+          .findByLabelText('Name')
+          .type(COMPONENT_NAME)
+
+        cy.getCuiPopover('Create Component').within(() => {
+          cy.getToolbarItem('Create').click()
+        })
+
+        cy.findByTestId('create-component-form').should('not.exist', {
+          timeout: 10000,
+        })
+        cy.findByText(COMPONENT_NAME).should('exist')
+
+        // add element to component
+        cy.getSider().getButton({ icon: 'edit' }).click()
+        cy.wrap(componentChildren).each((child: ComponentChildData) => {
+          cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
+          cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(
+            () => {
+              cy.getToolbarItem('Add Child').click()
+            },
+          )
+
+          cy.findByTestId('create-element-form').setFormFieldValue({
+            label: 'Render Type',
+            type: FIELD_TYPE.SELECT,
+            value: 'Atom',
+          })
+          cy.findByTestId('create-element-form').setFormFieldValue({
+            label: 'Atom',
+            type: FIELD_TYPE.SELECT,
+            value: child.atom,
+          })
+          cy.findByTestId('create-element-form').setFormFieldValue({
+            label: 'Name',
+            type: FIELD_TYPE.INPUT,
+            value: child.name,
+          })
+
+          cy.getCuiPopover('Create Element').within(() => {
+            cy.getToolbarItem('Create').click()
+          })
+
+          cy.findByTestId('create-element-form').should('not.exist', {
+            timeout: 10000,
+          })
+          cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
+        })
+
+        cy.typeIntoTextEditor('text {{ componentProps.name }}')
+
+        cy.waitForApiCalls()
+
+        cy.openPreview()
+        cy.get('#render-root').contains('text undefined')
+
+        // go to builder
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder?primarySidebarKey=explorer`,
+        )
+        cy.getSpinner().should('not.exist')
+
+        // select root now so we can update its child later
+        // there is an issue with tree interaction
+        // Increased timeout since builder may take longer to load
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+          .should('be.visible')
+          .click({ force: true })
       })
   })
-  it('should create the component that will be used for the child mapper', () => {
-    // create a component
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder?primarySidebarKey=components`,
-    )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
 
-    // GetAtoms
-    // GetComponents
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
-
-    cy.getCuiSidebar('Components')
-      .getToolbarItem('Add Component')
-      .first()
-      .click()
-    cy.findByTestId('create-component-form')
-      .findByLabelText('Name')
-      .type(COMPONENT_NAME)
-
-    cy.getCuiPopover('Create Component').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
-
-    cy.findByTestId('create-component-form').should('not.exist', {
-      timeout: 10000,
-    })
-    cy.findByText(COMPONENT_NAME).should('exist')
-
-    // add element to component
-    cy.getSider().getButton({ icon: 'edit' }).click()
-    cy.wrap(componentChildren).each((child: ComponentChildData) => {
-      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
-      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-        cy.getToolbarItem('Add Child').click()
-      })
-
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Render Type',
-        type: FIELD_TYPE.SELECT,
-        value: 'Atom',
-      })
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Atom',
-        type: FIELD_TYPE.SELECT,
-        value: child.atom,
-      })
-      // need to wait for the code to put the autocomputed name before typing
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Name',
-        type: FIELD_TYPE.INPUT,
-        value: child.name,
-      })
-
-      cy.getCuiPopover('Create Element').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
-
-      cy.findByTestId('create-element-form').should('not.exist', {
-        timeout: 10000,
-      })
-      // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000)
-      cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
-    })
-
-    cy.typeIntoTextEditor('text {{ componentProps.name }}')
-
-    cy.waitForApiCalls()
-
-    cy.openPreview()
-    cy.get('#render-root').contains('text undefined')
-
-    // go to builder
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder?primarySidebarKey=explorer`,
-    )
-    cy.getSpinner().should('not.exist')
-
-    // select root now so we can update its child later
-    // there is an issue with tree interaction
-    // Increased timeout since builder may take longer to load
-    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-      .should('be.visible')
-      .click({ force: true })
-  })
-
-  it('should create the element tree where we will insert the component as a child mapper component', () => {
+  it('should create an AntDesignRow element and add child mapper data', () => {
     cy.createElementTree([
       {
         name: ELEMENT_ROW,
@@ -142,9 +137,6 @@ describe('Element Child Mapper', () => {
         parentElement: ELEMENT_ROW,
       },
     ])
-  })
-
-  it('should create an AntDesignRow element and add child mapper data', () => {
     cy.findAllByText(ELEMENT_ROW).first().click()
     cy.findByText('Child Mapper').click()
     cy.get('.ant-collapse').setFormFieldValue({

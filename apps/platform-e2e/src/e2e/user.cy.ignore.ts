@@ -1,4 +1,4 @@
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('User', () => {
   before(() => {
@@ -12,7 +12,7 @@ describe('User', () => {
   })
 
   it('logs in shows email and signs out', () => {
-    loginAndSetupData()
+    loginAndResetDatabase()
     cy.visit('/')
     cy.request('/api/auth/me').then((results) => {
       const email = results.body.email

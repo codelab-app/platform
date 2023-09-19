@@ -12,7 +12,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 import type { ElementData } from '../../support/builder/builder.command'
 
 const ELEMENT_FORM = 'Element Form'
@@ -113,19 +113,10 @@ describe('Testing the Form atom', () => {
   const resourceName = 'Api Resource'
   const resourceUrl = 'http://some-api.com/api'
   const urlPostSegment = '/data'
-
   before(() => {
-    loginAndSetupData()
-    cy.request('/api/data/type/seed-cypress-type')
+    cy.resetDatabase()
+    loginAndResetDatabase()
 
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
-        app = apps.body
-      })
-  })
-
-  it('should create the resource that will be used upon submission of the form', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 
@@ -145,24 +136,38 @@ describe('Testing the Form atom', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
+
+    cy.request('/api/cypress/type')
+
+    cy.request('/api/cypress/atom')
+      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
+      .then((apps) => {
+        app = apps.body
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder`,
+        )
+        cy.getSpinner().should('not.exist')
+
+        // select root now so we can update its child later
+        // there is an issue with tree interaction
+        // Increased timeout since builder may take longer to load
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+          .should('be.visible')
+          .click({ force: true })
+      })
   })
 
   it('should create an API action to be used upon submission of form', () => {
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder`,
-    )
-    cy.getSpinner().should('not.exist')
-
-    // select root now so we can update its child later
-    // there is an issue with tree interaction
-    // Increased timeout since builder may take longer to load
-    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-      .should('be.visible')
-      .click({ force: true })
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getHeaderToolbarItem('Add Action').click()
+
+    cy.get('input[name="id"]')
+      .invoke('val')
+      .then((id) => {
+        apiPostActionId = id as string
+      })
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -207,14 +212,8 @@ describe('Testing the Form atom', () => {
       value: HttpMethod.POST,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
       cy.getToolbarItem('Create').click()
-    })
-
-    cy.wait('@createAction').then(({ response }) => {
-      apiPostActionId = response?.body.data.createApiActions.apiActions[0]
-        .id as string
     })
   })
 

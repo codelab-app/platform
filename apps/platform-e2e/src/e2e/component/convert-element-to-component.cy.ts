@@ -2,7 +2,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 const CONVERT_TO_COMPONENT_TEXT = 'Convert To Component'
 const ELEMENT_CONTAINER = 'Element Abc'
@@ -35,31 +35,32 @@ describe('Converting an element to a component', () => {
   let app: IAppDTO
 
   before(() => {
-    loginAndSetupData()
+    cy.resetDatabase()
+    loginAndResetDatabase()
 
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+    cy.request('/api/cypress/atom')
+      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
       .then((apps) => {
         app = apps.body
-      })
-  })
-  it('should convert the element into a component and create an instance of it', () => {
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder`,
-    )
-    cy.getSpinner().should('not.exist')
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder`,
+        )
+        cy.getSpinner().should('not.exist')
 
-    // select root now so we can update its child later
-    // there is an issue with tree interaction
-    // Increased timeout since builder may take longer to load
-    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-      .should('be.visible')
-      .click({ force: true })
+        // select root now so we can update its child later
+        // there is an issue with tree interaction
+        // Increased timeout since builder may take longer to load
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+          .should('be.visible')
+          .click({ force: true })
+      })
 
     cy.createElementTree(elements)
+  })
 
+  it('should convert the element into a component and create an instance of it', () => {
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_CONTAINER).rightclick()
 
     cy.findByText(CONVERT_TO_COMPONENT_TEXT).click()
