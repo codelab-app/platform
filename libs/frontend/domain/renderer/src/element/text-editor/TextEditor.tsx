@@ -31,15 +31,13 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
   // This is for being backwards compatible with the old text editor
   const getInitialData = (): OutputData => {
     if (!data) {
-      return { blocks: [{ data: { text: '' }, type: 'paragraph' }] }
+      return emptyBlock
     }
 
     try {
       return JSON.parse(data)
     } catch {
-      return {
-        blocks: [{ data: { text: data }, type: 'paragraph' }],
-      }
+      return emptyBlock
     }
   }
 
@@ -79,12 +77,18 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
         editor.destroy()
       }
     }
-  }, [editor])
+  }, [])
 
   useEffect(() => {
     const toggleReadonly = async () => {
       if (editor) {
         await editor.readOnly.toggle(readOnly)
+
+        if (editor.blocks.getBlocksCount() === 0) {
+          // without a placeholder text, adding a new text is a little difficult
+          await editor.render(placholderBlock)
+        }
+
         selectAllTextInTheElement(elementId)
       }
     }
@@ -113,3 +117,16 @@ const selectAllTextInTheElement = (elementId: string) => {
   selection?.removeAllRanges()
   selection?.addRange(range)
 }
+
+const placholderBlock = {
+  blocks: [
+    {
+      data: {
+        text: 'Text',
+      },
+      type: 'paragraph',
+    },
+  ],
+}
+
+const emptyBlock = { blocks: [{ data: { text: '' }, type: 'paragraph' }] }

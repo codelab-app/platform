@@ -52,7 +52,7 @@ import {
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
-import { shouldInjectText, shouldRenderElement } from './utils'
+import { shouldRenderElement } from './utils'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
