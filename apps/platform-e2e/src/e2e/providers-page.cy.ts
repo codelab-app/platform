@@ -2,7 +2,7 @@ import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 import { appName, pageName } from './apps/app.data'
 
 const CARD_COMPONENT_NAME = 'Card Component'
@@ -44,7 +44,7 @@ const openPageByName = (name: string) => {
 describe('_app page', () => {
   before(() => {
     cy.resetDatabase()
-    loginSession()
+    loginAndResetDatabase()
 
     cy.request('/api/cypress/atom')
     cy.visit('/apps')

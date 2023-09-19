@@ -3,6 +3,7 @@ import {
   SeedCypressAppHandler,
 } from '@codelab/backend/application/app'
 import { SeedCypressAtomsHandler } from '@codelab/backend/application/atom'
+import { JwtAuthGuard } from '@codelab/backend/application/shared'
 import { SeedCypressTagsHandler } from '@codelab/backend/application/tag'
 import { SeedCypressTypesHandler } from '@codelab/backend/application/type'
 import { AppDomainModule } from '@codelab/backend/domain/app'
@@ -17,6 +18,7 @@ import { Neo4jModule, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { Module } from '@nestjs/common'
+import { APP_GUARD } from '@nestjs/core'
 import { CqrsModule } from '@nestjs/cqrs'
 import { CypressController } from './cypress.controller'
 
@@ -49,10 +51,10 @@ import { CypressController } from './cypress.controller'
     AppApplicationModule,
   ],
   providers: [
-    // SeedCypressAppHandler,
-    // SeedCypressAtomsHandler,
-    // SeedCypressTagsHandler,
-    // SeedCypressTypesHandler,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class CypressServerlessModule {}

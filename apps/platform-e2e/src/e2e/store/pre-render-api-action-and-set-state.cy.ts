@@ -7,7 +7,7 @@ import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running API action and setting state on element pre-render', () => {
   let app: IAppDTO
@@ -21,7 +21,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
   before(() => {
     cy.resetDatabase()
-    loginSession()
+    loginAndResetDatabase()
 
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')

@@ -2,7 +2,7 @@ import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 
 const atomName = 'Button'
 const atomType = IAtomType.AntDesignButton

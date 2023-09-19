@@ -2,13 +2,13 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IApp, IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
 import { pageName, updatedPageName } from './apps/app.data'
 
 before(() => {
   cy.resetDatabase()
 
-  loginSession()
+  loginAndResetDatabase()
 
   cy.request<IApp>('POST', '/api/cypress/app').then(({ body: app }) => {
     cy.visit(
