@@ -1,1 +1,1 @@
-export * from './action.repo'
+export * from './action.factory.service'

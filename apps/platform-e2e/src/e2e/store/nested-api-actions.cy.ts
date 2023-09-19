@@ -11,8 +11,8 @@ import {
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../../support/antd/form'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDTO
@@ -29,9 +29,11 @@ describe('Running nested API and code actions', () => {
   const apiPostActionName = 'On Update Data'
   const codeActionName = 'Store Data'
   const mockGetResponse = 'the updated response'
+
   before(() => {
     cy.resetDatabase()
     loginSession()
+
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 

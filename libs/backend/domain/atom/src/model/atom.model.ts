@@ -1,9 +1,7 @@
-import type {
-  IAtomDTO,
-  IAtomType,
-  IAuth0Owner,
-} from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import { type IEntity } from '@codelab/shared/abstract/types'
+import type { ValidationError } from 'class-validator'
+import { validateSync } from 'class-validator'
 
 export class Atom implements IAtomDTO {
   icon?: string | null | undefined
@@ -18,9 +16,10 @@ export class Atom implements IAtomDTO {
 
   externalSourceType: string | null | undefined
 
+  // Assuming this is a string, add validators as per actual type
   type: IAtomType
 
-  api: IEntity | undefined
+  api: IEntity
 
   tags: Array<IEntity>
 
@@ -28,9 +27,22 @@ export class Atom implements IAtomDTO {
 
   suggestedChildren: Array<IEntity>
 
-  owner: IAuth0Owner
+  static create(data: IAtomDTO): Atom {
+    const atom = new Atom(data)
+    const errors = validateSync(atom)
 
-  constructor({
+    if (errors.length > 0) {
+      const message = errors
+        .map((error: ValidationError) => Object.values(error.constraints || {}))
+        .join(', ')
+
+      throw new Error(message)
+    }
+
+    return atom
+  }
+
+  private constructor({
     api,
     externalCssSource,
     externalJsSource,
@@ -38,7 +50,6 @@ export class Atom implements IAtomDTO {
     icon,
     id,
     name,
-    owner,
     requiredParents = [],
     suggestedChildren = [],
     tags = [],
@@ -55,6 +66,5 @@ export class Atom implements IAtomDTO {
     this.tags = tags
     this.requiredParents = requiredParents
     this.suggestedChildren = suggestedChildren
-    this.owner = owner
   }
 }

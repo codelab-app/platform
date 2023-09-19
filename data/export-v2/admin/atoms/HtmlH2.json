@@ -1,0 +1,53 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "5221f96e-0084-4a4b-810c-c9423c885a06",
+    "kind": "InterfaceType",
+    "name": "HtmlH2 API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "5221f96e-0084-4a4b-810c-c9423c885a06",
+        "kind": "InterfaceType",
+        "name": "HtmlH2 API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [],
+      "id": "5221f96e-0084-4a4b-810c-c9423c885a06",
+      "kind": "InterfaceType",
+      "name": "HtmlH2 API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "a80e76ee-4ce2-4179-a2b7-736112551937",
+    "name": "HtmlH2",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "82a9af93-1179-4e04-af08-68bbe0f0a004",
+        "name": "HtmlH2",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "f53bb282-e5e3-4e99-a420-c4cef331d189",
+          "name": "Heading"
+        }
+      }
+    ],
+    "type": "HtmlH2"
+  }
+}

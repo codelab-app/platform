@@ -1,7 +1,6 @@
 import type {
-  IComponentDTO,
   IComponentRuntimeProp,
-  IElement,
+  IElementModel,
   IInterfaceType,
   IProp,
   IStore,
@@ -13,17 +12,17 @@ import {
   ElementTree,
   getComponentService,
   getRenderService,
-  IComponent,
+  IComponentModel,
   isComponentInstance,
   propRef,
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -34,7 +33,6 @@ const create = ({
   id,
   keyGenerator,
   name,
-  owner,
   props,
   rootElement,
   store,
@@ -46,7 +44,6 @@ const create = ({
     instanceElement: null,
     keyGenerator,
     name,
-    owner,
     props: propRef(props.id),
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
@@ -57,22 +54,18 @@ const create = ({
 export class Component
   extends ExtendedModel(ElementTree, {
     api: prop<Ref<IInterfaceType>>(),
-    childrenContainerElement: prop<Ref<IElement>>().withSetter(),
+    childrenContainerElement: prop<Ref<IElementModel>>().withSetter(),
     // element which this component is attached to.
-    instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     // a function to extract component key from input
     keyGenerator: prop<Nullish<string>>().withSetter(),
     name: prop<string>().withSetter(),
-    owner: prop<IAuth0Owner>(),
-
     props: prop<Ref<IProp>>().withSetter(),
-
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
-
     store: prop<Ref<IStore>>().withSetter(),
   })
-  implements IComponent
+  implements IComponentModel
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
@@ -95,7 +88,6 @@ export class Component
     childrenContainerElement,
     keyGenerator,
     name,
-    owner,
     props,
     rootElement,
   }: Partial<IComponentDTO>) {
@@ -105,7 +97,6 @@ export class Component
     this.rootElement = rootElement?.id
       ? elementRef(rootElement.id)
       : this.rootElement
-    this.owner = owner ?? this.owner
     this.api = apiRef
     this.props = props?.id ? propRef(props.id) : this.props
     this.keyGenerator = keyGenerator ?? this.keyGenerator
@@ -117,7 +108,7 @@ export class Component
   }
 
   @modelAction
-  private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
+  private cloneTree(clonedComponent: IComponentModel, cloneIndex: number) {
     console.debug('ElementTreeService.cloneTree', this.elements)
 
     const elementMap: Map<string, string> = new Map()
@@ -152,11 +143,11 @@ export class Component
       : null
 
     elements.forEach((element) => {
-      const { firstChild, nextSibling, parent, prevSibling } = element
+      const { firstChild, nextSibling, parentElement, prevSibling } = element
 
-      if (parent) {
-        const parentId = elementMap.get(parent.current.id)
-        element.setParent(elementRef(parentId!))
+      if (parentElement) {
+        const parentId = elementMap.get(parentElement.current.id)
+        element.setParentElement(elementRef(parentId!))
       }
 
       if (firstChild) {
@@ -201,7 +192,7 @@ export class Component
       return componentService.clonedComponents.get(key)!
     }
 
-    const clonedComponent: IComponent = clone<IComponent>(this)
+    const clonedComponent: IComponentModel = clone<IComponentModel>(this)
     componentService.clonedComponents.set(key, clonedComponent)
 
     const clonesList = [...componentService.clonedComponents.values()].filter(
@@ -235,7 +226,6 @@ export class Component
       id: this.id,
       keyGenerator: this.keyGenerator,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
       props: { create: { node: this.props.current.toCreateInput() } },
       rootElement: {
         create: { node: this.rootElement.current.toCreateInput() },
@@ -251,7 +241,7 @@ export class Component
    */
   @computed
   get descendantComponents() {
-    const descendants = new Set<IComponent>()
+    const descendants = new Set<IComponentModel>()
 
     this.elements.forEach((element) => {
       if (isComponentInstance(element.renderType)) {

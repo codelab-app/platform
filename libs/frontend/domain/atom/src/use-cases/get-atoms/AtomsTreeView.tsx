@@ -1,4 +1,7 @@
-import type { IAtom, IAtomsTreeDataNode } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IAtomsTreeDataNode,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -18,7 +21,7 @@ export const AtomsTreeView = observer(
     const getLibrary = useGetLibrary()
 
     const { data, filter, handleChange, isLoading } = useTablePagination<
-      IAtom,
+      IAtomModel,
       { name: string }
     >({
       filterTypes: { name: 'string' },

@@ -1,7 +1,8 @@
+import { Typebox } from '@codelab/shared/infra/validation'
+import { Type } from '@sinclair/typebox'
 import type { ModalProps } from 'antd'
 import { Button, Input, Modal } from 'antd'
 import React, { useState } from 'react'
-import { z } from 'zod'
 
 interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
   onOk(email: string): void
@@ -9,7 +10,7 @@ interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
 
 export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
   const [email, setEmail] = useState('')
-  const { success: isValid } = z.string().email().safeParse(email)
+  const isValid = Typebox.ValidateAndClean(Type.String().email(), email)
 
   return (
     <Modal

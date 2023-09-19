@@ -1,11 +1,11 @@
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ColorPicker } from '../components/ColorPicker'
 import { updateGuiCssProperty } from '../utils'
 
 interface BackgroundEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 

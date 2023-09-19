@@ -8,14 +8,13 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO) => {
+const create = ({ id, kind, name, typesOfUnionType }: IUnionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
 
   return new UnionType({
     id,
     kind,
     name,
-    owner,
     typesOfUnionType: typesOfUnionType.map((typeOfUnionType) =>
       typeRef(typeOfUnionType.id),
     ),

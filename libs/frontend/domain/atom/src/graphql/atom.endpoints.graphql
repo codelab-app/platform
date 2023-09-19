@@ -21,7 +21,7 @@ query GetAtoms($where: AtomWhere, $options: AtomOptions) {
   aggregate: atomsAggregate(where: $where) {
     count
   }
-  items: atoms(where: $where, options: $options) {
+  items: atoms(options: $options, where: $where) {
     ...Atom
   }
 }

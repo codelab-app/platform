@@ -1,5 +1,4 @@
 import { getEnv } from '@codelab/shared/config'
-import { flattenWithPrefix, withTracing } from '@codelab/shared/infra/otel'
 import type { VercelKV } from '@vercel/kv'
 import { createClient } from '@vercel/kv'
 import { z } from 'zod'
@@ -10,7 +9,7 @@ export enum CacheInstance {
 }
 
 const createStringToJSONSchema = <T>(): z.ZodTransformer<z.ZodString, T> => {
-  return z.string().transform((str, ctx) => {
+  return Type.String().transform((str, ctx) => {
     try {
       return JSON.parse(str) as T
     } catch (error) {

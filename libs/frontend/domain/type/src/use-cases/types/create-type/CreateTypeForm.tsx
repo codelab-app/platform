@@ -6,7 +6,7 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -29,7 +29,7 @@ export const CreateTypeForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateTypeFormProps) => {
-    const { typeService, userService } = useStore()
+    const { typeService } = useStore()
     const closeForm = () => typeService.createForm.close()
 
     const onSubmit = async (data: ICreateTypeData) => {
@@ -52,12 +52,10 @@ export const CreateTypeForm = observer(
       <Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating type',
-          type: 'error',
         })}
         onSubmitSuccess={closeForm}
         schema={createTypeSchema}

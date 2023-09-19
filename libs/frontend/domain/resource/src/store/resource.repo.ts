@@ -1,5 +1,5 @@
 import type { IResourceRepository } from '@codelab/frontend/abstract/core'
-import { IResource } from '@codelab/frontend/abstract/core'
+import { IResourceModel } from '@codelab/frontend/abstract/core'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import {
   ResourceOptions,
@@ -19,7 +19,7 @@ export class ResourceRepository
   }
 
   @clearCacheForKey('resources')
-  async add(resource: IResource) {
+  async add(resource: IResourceModel) {
     const {
       createResources: { resources },
     } = await resourceApi.CreateResources({ input: [resource.toCreateInput()] })
@@ -28,7 +28,7 @@ export class ResourceRepository
   }
 
   @clearCacheForKey('resources')
-  async update(resource: IResource) {
+  async update(resource: IResourceModel) {
     const {
       updateResources: { resources },
     } = await resourceApi.UpdateResource({
@@ -40,7 +40,7 @@ export class ResourceRepository
   }
 
   @clearCacheForKey('resources')
-  async delete(resources: Array<IResource>) {
+  async delete(resources: Array<IResourceModel>) {
     const {
       deleteResources: { nodesDeleted },
     } = await resourceApi.DeleteResources({

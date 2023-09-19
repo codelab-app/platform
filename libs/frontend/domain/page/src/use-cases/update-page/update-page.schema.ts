@@ -12,7 +12,7 @@ export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContentContainer'>
 
 export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     ...appSchema,
     name: {
       autoFocus: true,

@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { Type } from '@sinclair/typebox'
 import type { IGraphqlHookConfig } from './graphql'
 import { GraphqlHookConfigSchema } from './graphql'
 import type { IQueryPageHookConfig } from './page'
@@ -20,7 +20,7 @@ export type IHookConfig =
   | IQueryPagesHookConfig
   | IRecoilStateHookConfig
 
-export const HookConfigSchema: z.ZodSchema<IHookConfig> = z.union([
+export const HookConfigSchema = Type.Union([
   GraphqlHookConfigSchema,
   QueryConfigHookConfigSchema,
   QueryPageHookConfigSchema,

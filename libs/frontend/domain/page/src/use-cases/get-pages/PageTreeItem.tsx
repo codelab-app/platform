@@ -7,7 +7,10 @@ import {
   LoadingOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type { IApp, IPagesTreeDataNode } from '@codelab/frontend/abstract/core'
+import type {
+  IAppModel,
+  IPagesTreeDataNode,
+} from '@codelab/frontend/abstract/core'
 import { pageRef } from '@codelab/frontend/abstract/core'
 import {
   ExplorerPaneType,
@@ -27,7 +30,7 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
 interface PageTreeItemProps {
-  app: IApp
+  app: IAppModel
   data: IPagesTreeDataNode
 }
 
@@ -56,7 +59,7 @@ export const PageTreeItem = observer(
               ...router.query,
               pageSlug: page.slug,
               primarySidebarKey: ExplorerPaneType.Explorer,
-              userName: userService.user.username,
+              userSlug: userService.user.username,
             },
           })
         },

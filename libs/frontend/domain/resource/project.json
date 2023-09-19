@@ -10,7 +10,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/domain/resource/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/domain/resource/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "configurations": {

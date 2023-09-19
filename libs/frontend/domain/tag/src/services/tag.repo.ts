@@ -1,4 +1,4 @@
-import type { ITag, ITagRepository } from '@codelab/frontend/abstract/core'
+import type { ITagModel, ITagRepository } from '@codelab/frontend/abstract/core'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { tagApi } from '../store/tag.api'
@@ -6,7 +6,7 @@ import { tagApi } from '../store/tag.api'
 @model('@codelab/TagRepository')
 export class TagRepository extends Model({}) implements ITagRepository {
   @modelFlow
-  add = _async(function* (this: TagRepository, tag: ITag) {
+  add = _async(function* (this: TagRepository, tag: ITagModel) {
     const {
       createTags: { tags },
     } = yield* _await(
@@ -19,7 +19,7 @@ export class TagRepository extends Model({}) implements ITagRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: TagRepository, tag: ITag) {
+  update = _async(function* (this: TagRepository, tag: ITagModel) {
     const {
       updateTags: { tags },
     } = yield* _await(
@@ -42,7 +42,7 @@ export class TagRepository extends Model({}) implements ITagRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: TagRepository, tags: Array<ITag>) {
+  delete = _async(function* (this: TagRepository, tags: Array<ITagModel>) {
     const {
       deleteTags: { nodesDeleted },
     } = yield* _await(

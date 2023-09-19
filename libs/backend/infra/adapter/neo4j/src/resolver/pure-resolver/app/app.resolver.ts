@@ -1,10 +1,10 @@
 import type { IResolvers } from '@graphql-tools/utils'
-import { name } from './field/app-name'
-import { slug } from './field/app-slug'
+import { appName } from './field/app-name'
+import { appSlug } from './field/app-slug'
 
 export const appResolver: IResolvers = {
   App: {
-    name,
-    slug,
+    name: appName,
+    slug: appSlug,
   },
 }

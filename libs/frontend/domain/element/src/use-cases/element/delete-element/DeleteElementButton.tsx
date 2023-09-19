@@ -1,4 +1,4 @@
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Button } from 'antd'
@@ -8,7 +8,7 @@ import React from 'react'
 interface DeleteElementProps {
   className?: string
   disabled: boolean
-  element: IElement
+  element: IElementModel
 }
 
 export const DeleteElementButton = observer<DeleteElementProps>(

@@ -1,4 +1,7 @@
-import type { IEntityFormService, IPage } from '@codelab/frontend/abstract/core'
+import type {
+  IEntityFormService,
+  IPageModel,
+} from '@codelab/frontend/abstract/core'
 import { InlineFormService } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -8,10 +11,10 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/PageFormService')
 export class PageFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<Ref<IPage>>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IPageModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<Ref<IPage>, { page: Maybe<IPage> }>
+  implements IEntityFormService<Ref<IPageModel>, { page: Maybe<IPageModel> }>
 {
   @computed
   get page() {

@@ -1,8 +1,8 @@
 import type {
   BuilderDragData,
   IBuilderService,
-  IComponent,
-  IElement,
+  IComponentModel,
+  IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -43,7 +43,9 @@ export class BuilderService
     ),
     /**
      * select a node would add it to expand list
-     * sometimes, it's not necessary to expand the node. E.g:
+     * sometimes, it's not necessary to expand the node.
+     *
+     * E.g:
      *   - when deleting a node because that node needs to be expanded to delete
      *   - clear node selection
      */
@@ -132,7 +134,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectComponentNode(node: Nullable<IComponent>) {
+  selectComponentNode(node: Nullable<IComponentModel>) {
     if (!node) {
       return
     }
@@ -142,7 +144,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectElementNode(node: Nullable<IElement>) {
+  selectElementNode(node: Nullable<IElementModel>) {
     if (!node) {
       return
     }

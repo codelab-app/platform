@@ -35,8 +35,6 @@ export type Type_AppType_Fragment = AppTypeFragment
 
 export type Type_ArrayType_Fragment = ArrayTypeFragment
 
-export type Type_BaseType_Fragment = {}
-
 export type Type_CodeMirrorType_Fragment = CodeMirrorTypeFragment
 
 export type Type_ElementType_Fragment = ElementTypeFragment
@@ -61,7 +59,6 @@ export type TypeFragment =
   | Type_ActionType_Fragment
   | Type_AppType_Fragment
   | Type_ArrayType_Fragment
-  | Type_BaseType_Fragment
   | Type_CodeMirrorType_Fragment
   | Type_ElementType_Fragment
   | Type_EnumType_Fragment

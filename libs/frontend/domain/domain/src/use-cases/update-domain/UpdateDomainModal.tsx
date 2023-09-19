@@ -1,32 +1,37 @@
+import type { ApolloError } from '@apollo/client'
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/core'
 import {
   useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { useNotify } from '@codelab/frontend/shared/utils'
+import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
-import { handleDomainExistError } from '../../errors'
+import { checkDomainExists } from '../../errors'
 import { updateDomainSchema } from './update-domain.schema'
 
 export const UpdateDomainModal = observer(() => {
   const { domainService } = useStore()
   const domain = domainService.updateModal.domain
   const isOpen = domainService.updateModal.isOpen
-  const { app } = useCurrentApp()
+  const app = useCurrentApp()
 
   const onSubmit = (domainDTO: IUpdateDomainData) => {
     return domainService.update(domainDTO)
   }
 
   const closeModal = () => domainService.updateModal.close()
-  const { onError } = useNotify({}, {})
+
+  const onError = useErrorNotify({
+    description: '',
+    title: 'Error while updating app domain',
+  })
 
   const onSubmitError = (error: unknown) => {
-    if (!handleDomainExistError(error, onError)) {
-      onError('Error while updating app domain')
+    if (!checkDomainExists(error as ApolloError)) {
+      void onError()
     }
   }
 

@@ -12,8 +12,8 @@ import {
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../../support/antd/form'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running actions inside code action with arguments', () => {
   let app: IAppDTO
@@ -29,6 +29,7 @@ describe('Running actions inside code action with arguments', () => {
   const codeActionName2 = 'codeAction2'
   const stateKey1 = 'stateKey1'
   const stateKey2 = 'stateKey2'
+
   before(() => {
     cy.resetDatabase()
     loginSession()

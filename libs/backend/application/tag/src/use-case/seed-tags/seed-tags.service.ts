@@ -1,20 +1,27 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import { AuthUseCase } from '@codelab/backend/application/service'
-import { TagRepository } from '@codelab/backend/domain/tag'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
-import { withTracing } from '@codelab/shared/infra/otel'
+import { UseCase } from '@codelab/backend/application/shared'
+import type { TagRepository } from '@codelab/backend/domain/tag'
+import { type ITagDTO } from '@codelab/shared/abstract/core'
+import type { CommandBus } from '@nestjs/cqrs'
 import uniqBy from 'lodash/uniqBy'
-import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
+import { ImportTagsCommand } from '../import-tags.command.service'
 import { TagTreeUtils } from './seed-tags.util'
 
-export class SeedTagsService extends AuthUseCase<TagNode, void> {
-  tagRepository: TagRepository = new TagRepository()
+export class SeedTagsService extends UseCase<TagNode, void> {
+  constructor(
+    private tagRepository: TagRepository,
+    private commandBus: CommandBus,
+  ) {
+    super()
+  }
 
   async _execute(tagTree: TagNode) {
     const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
 
-    await this.tagRepository.seedTags(tags, this.owner)
+    await this.commandBus.execute<ImportTagsCommand>(
+      new ImportTagsCommand(tags),
+    )
   }
 
   /* *
@@ -56,7 +63,6 @@ export class SeedTagsService extends AuthUseCase<TagNode, void> {
         descendants: [],
         id: tag.id,
         name: tag.name,
-        owner: this.owner,
         parent: parent ? { id: parent.id, name: parent.name } : undefined,
       }
     })

@@ -2,7 +2,6 @@ import type {
   ICodeMirrorLanguage,
   IElementTypeKind,
   IEnumTypeValueDTO,
-  IOwner,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -11,7 +10,7 @@ import type {
  *
  * For the backend, we'll create a type for each sub-type.
  */
-export interface ICreateTypeData extends IOwner {
+export interface ICreateTypeData {
   allowedValues?: Array<IEnumTypeValueDTO>
   arrayTypeId?: string
   elementKind?: IElementTypeKind

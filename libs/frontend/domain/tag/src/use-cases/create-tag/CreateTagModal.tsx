@@ -1,7 +1,7 @@
 import type { ICreateTagData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -9,7 +9,7 @@ import { v4 } from 'uuid'
 import { createTagSchema } from './create.tag.schema'
 
 export const CreateTagModal = observer(() => {
-  const { tagService, userService } = useStore()
+  const { tagService } = useStore()
   const isOpen = tagService.createModal.isOpen
 
   const onSubmit = (input: ICreateTagData) => {
@@ -28,11 +28,10 @@ export const CreateTagModal = observer(() => {
       <ModalForm.Form
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
           parent: { id: defaultOption.value.toString() },
         }}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating tag',
         })}
         onSubmitSuccess={closeModal}

@@ -1,7 +1,7 @@
 {
   "name": "platform",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/platform/src",
+  "sourceRoot": "apps/platform",
   "projectType": "application",
   "generators": {},
   "targets": {
@@ -59,7 +59,7 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/platform/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/platform/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {

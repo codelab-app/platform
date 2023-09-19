@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IComponentService,
   ICreateComponentData,
   IInterfaceType,
@@ -8,7 +8,6 @@ import {
   componentRef,
   getElementService,
   getRenderService,
-  IComponentDTO,
   IUpdateComponentData,
   RendererType,
   typeRef,
@@ -23,7 +22,11 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IComponentDTO,
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import uniq from 'lodash/uniq'
@@ -53,15 +56,15 @@ import { ComponentModalService } from './component-modal.service'
 export class ComponentService
   extends Model({
     allComponentsLoaded: prop(() => false),
-    clonedComponents: prop(() => objectMap<IComponent>()),
+    clonedComponents: prop(() => objectMap<IComponentModel>()),
     componentRepository: prop(() => new ComponentRepository({})),
-    components: prop(() => objectMap<IComponent>()),
+    components: prop(() => objectMap<IComponentModel>()),
     createForm: prop(() => new ComponentFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
     id: idProp,
     paginationService: prop(
-      () => new PaginationService<IComponent, { name?: string }>({}),
+      () => new PaginationService<IComponentModel, { name?: string }>({}),
     ),
     updateModal: prop(() => new ComponentModalService({})),
   })
@@ -163,13 +166,12 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    { id, keyGenerator, name, owner }: ICreateComponentData,
+    { id, keyGenerator, name }: ICreateComponentData,
   ) {
     const storeApi = this.typeService.addInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${name} Store`),
-      owner: owner,
     })
 
     const store = this.storeService.add({
@@ -181,17 +183,23 @@ export class ComponentService
     const rootElementProps = this.propService.add({ data: '{}', id: v4() })
 
     const rootElement = this.elementService.add({
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: `${name} Root`,
       parentComponent: { id },
       props: rootElementProps,
+      renderType: {
+        __typename: IElementRenderTypeKind.Component,
+        id,
+      },
     })
 
     const api = this.typeService.addInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(name),
-      owner,
     })
 
     const componentProps = this.propService.add({
@@ -205,7 +213,6 @@ export class ComponentService
       id,
       keyGenerator,
       name,
-      owner,
       props: componentProps,
       rootElement,
       store,
@@ -236,7 +243,10 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentService, component: IComponent) {
+  delete = _async(function* (
+    this: ComponentService,
+    component: IComponentModel,
+  ) {
     const { id } = component
     const store = component.store.current
     const rootElement = component.rootElement.current
@@ -271,6 +281,8 @@ export class ComponentService
     }
 
     const componentModels = components.map((component) => {
+      const { id } = component
+
       this.storeService.load([component.store])
       this.propService.add(component.props)
       this.typeService.loadTypes({ interfaceTypes: [component.api] })
@@ -285,20 +297,22 @@ export class ComponentService
 
         /**
          * Element comes with `component` or `atom` data that we need to load as well
+         * TODO: Need to handle component case, refactor reuse
          */
-        if (elementData.renderAtomType?.id) {
+        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
           this.typeService.loadTypes({
-            interfaceTypes: [elementData.renderAtomType.api],
+            interfaceTypes: [elementData.renderType.api],
           })
 
-          elementData.renderAtomType.tags.forEach((tag) =>
-            this.tagService.add(tag),
-          )
+          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
 
-          this.atomService.add(elementData.renderAtomType)
+          this.atomService.add(elementData.renderType)
         }
 
-        this.elementService.add(elementData)
+        this.elementService.add({
+          ...elementData,
+          closestContainerNode: { id },
+        })
       })
 
       return this.add(component)

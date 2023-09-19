@@ -1,7 +1,7 @@
 import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -60,7 +60,6 @@ export const UpdateTypeModal = observer(() => {
         ? typeToUpdate.language
         : undefined,
     name: typeToUpdate?.name,
-    owner: typeToUpdate?.owner,
     primitiveKind:
       typeToUpdate?.kind === ITypeKind.PrimitiveType
         ? typeToUpdate.primitiveKind
@@ -82,9 +81,8 @@ export const UpdateTypeModal = observer(() => {
       <ModalForm.Form<IUpdateTypeData>
         model={model}
         onSubmit={handleSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while updating type',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={updateTypeSchema}

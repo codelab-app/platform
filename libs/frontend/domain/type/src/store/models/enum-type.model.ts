@@ -6,7 +6,7 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 import { EnumTypeValue } from './enum-type-value.model'
 
-const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDTO) => {
+const create = ({ allowedValues, id, kind, name }: IEnumTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
@@ -16,7 +16,6 @@ const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDTO) => {
     id,
     kind,
     name,
-    owner,
   })
 }
 

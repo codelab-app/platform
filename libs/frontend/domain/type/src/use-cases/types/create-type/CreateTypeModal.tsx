@@ -1,7 +1,7 @@
 import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -12,7 +12,7 @@ import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer(() => {
-  const { typeService, userService } = useStore()
+  const { typeService } = useStore()
   const isOpen = typeService.createModal.isOpen
   const closeModal = () => typeService.createModal.close()
 
@@ -39,12 +39,10 @@ export const CreateTypeModal = observer(() => {
       <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating type',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}

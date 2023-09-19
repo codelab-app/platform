@@ -1,16 +1,11 @@
-import type { CypressAuth0Commands } from './auth0'
+import type { CypressCodelabUICommands } from '@codelab/testing/cypress/codelab'
+import type { CypressDatabaseCommands } from '@codelab/testing/cypress/command'
+import type { CypressNextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
 import type { CypressBuilderCommands } from './builder'
-import type { CypressDatabaseCommands } from './database'
 import type { CypressUICommands } from './entities'
 import type { CypressHelpersCommands } from './helpers'
 import type { CypressNextjsAuth0Commands } from './nextjs-auth0/nextjs-auth0.register'
 import type { CypressTextEditorCommands } from './text-editor/text-editor.register'
-
-export interface CypressCommand {
-  fn: any
-  name: keyof Cypress.Chainable<any>
-  options?: Cypress.CommandOptions & { prevSubject: false }
-}
 
 /**
  * Merges with @testing-library/cypress, need to follow their global declare
@@ -21,6 +16,7 @@ declare global {
     interface Chainable<Subject>
       extends CypressDatabaseCommands,
         CypressBuilderCommands,
+        CypressCodelabUICommands,
         CypressNextjsAuth0Commands,
         CypressUICommands,
         CypressAuth0Commands,

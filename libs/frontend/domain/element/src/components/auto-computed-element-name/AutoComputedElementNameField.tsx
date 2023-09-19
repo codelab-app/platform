@@ -1,5 +1,6 @@
 import { useStore } from '@codelab/frontend/presentation/container'
-import { IRenderTypeKind, RenderType } from '@codelab/shared/abstract/core'
+import type { IElementRenderType } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { InputProps } from 'antd'
@@ -23,21 +24,21 @@ type AutoComputedElementNameProps = FieldProps<
  */
 const AutoComputedElementName = observer<AutoComputedElementNameProps>(
   (props) => {
+    const { atomService, builderService, componentService } = useStore()
     const { name, onChange, value } = props
 
-    const [renderTypeField] = useField<{ value?: Partial<RenderType> }>(
+    const [renderTypeField] = useField<{ value?: Partial<IElementRenderType> }>(
       'renderType',
       {},
     )
 
-    const { atomService, builderService, componentService } = useStore()
     // Used to check if the previous selected atom/component name
     // is different from the current value to determine if the user
     // altered the auto-generated name
     const currentRenderTypeName = useRef<string>()
 
     const changedRenderTypeHandler = async (
-      renderType?: Partial<RenderType>,
+      renderType?: Partial<IElementRenderType>,
     ) => {
       let renderTypeName: Maybe<string>
 
@@ -45,11 +46,11 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
         return
       }
 
-      if (renderType.kind === IRenderTypeKind.Atom) {
+      if (renderType.__typename === IElementRenderTypeKind.Atom) {
         renderTypeName = (await atomService.getOne(renderType.id))?.name
       }
 
-      if (renderType.kind === IRenderTypeKind.Component) {
+      if (renderType.__typename === IElementRenderTypeKind.Component) {
         renderTypeName = (await componentService.getOne(renderType.id))?.name
       }
 

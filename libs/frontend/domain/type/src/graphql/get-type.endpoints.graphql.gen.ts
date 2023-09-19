@@ -4,7 +4,6 @@ import {
   BaseType_ActionType_Fragment,
   BaseType_AppType_Fragment,
   BaseType_ArrayType_Fragment,
-  BaseType_BaseType_Fragment,
   BaseType_CodeMirrorType_Fragment,
   BaseType_ElementType_Fragment,
   BaseType_EnumType_Fragment,
@@ -20,7 +19,6 @@ import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
-  Type_BaseType_Fragment,
   Type_CodeMirrorType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
@@ -44,7 +42,24 @@ export type GetBaseTypesQueryVariables = Types.Exact<{
 }>
 
 export type GetBaseTypesQuery = {
-  baseTypes: { totalCount: number; items: Array<BaseType_BaseType_Fragment> }
+  baseTypes: {
+    totalCount: number
+    items: Array<
+      | BaseType_ActionType_Fragment
+      | BaseType_AppType_Fragment
+      | BaseType_ArrayType_Fragment
+      | BaseType_CodeMirrorType_Fragment
+      | BaseType_ElementType_Fragment
+      | BaseType_EnumType_Fragment
+      | BaseType_InterfaceType_Fragment
+      | BaseType_LambdaType_Fragment
+      | BaseType_PageType_Fragment
+      | BaseType_PrimitiveType_Fragment
+      | BaseType_ReactNodeType_Fragment
+      | BaseType_RenderPropType_Fragment
+      | BaseType_UnionType_Fragment
+    >
+  }
 }
 
 export type GetTypesQueryVariables = Types.Exact<{
@@ -184,7 +199,21 @@ export type GetTypeOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetTypeOptionsQuery = {
   baseTypes: {
-    items: Array<{ id: string; name: string; kind: Types.TypeKind }>
+    items: Array<
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+    >
   }
 }
 
@@ -261,7 +290,7 @@ export const GetPrimitiveTypesDocument = gql`
     $options: PrimitiveTypeOptions
     $where: PrimitiveTypeWhere
   ) {
-    types: primitiveTypes(where: $where, options: $options) {
+    types: primitiveTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -269,7 +298,7 @@ export const GetPrimitiveTypesDocument = gql`
 `
 export const GetArrayTypesDocument = gql`
   query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
-    types: arrayTypes(where: $where, options: $options) {
+    types: arrayTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -277,7 +306,7 @@ export const GetArrayTypesDocument = gql`
 `
 export const GetUnionTypesDocument = gql`
   query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
-    types: unionTypes(where: $where, options: $options) {
+    types: unionTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -288,7 +317,7 @@ export const GetInterfaceTypesDocument = gql`
     $options: InterfaceTypeOptions
     $where: InterfaceTypeWhere
   ) {
-    types: interfaceTypes(where: $where, options: $options) {
+    types: interfaceTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -299,7 +328,7 @@ export const GetElementTypesDocument = gql`
     $options: ElementTypeOptions
     $where: ElementTypeWhere
   ) {
-    types: elementTypes(where: $where, options: $options) {
+    types: elementTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -310,7 +339,7 @@ export const GetRenderPropTypesDocument = gql`
     $options: RenderPropTypeOptions
     $where: RenderPropTypeWhere
   ) {
-    types: renderPropTypes(where: $where, options: $options) {
+    types: renderPropTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -321,7 +350,7 @@ export const GetReactNodeTypesDocument = gql`
     $options: ReactNodeTypeOptions
     $where: ReactNodeTypeWhere
   ) {
-    types: reactNodeTypes(where: $where, options: $options) {
+    types: reactNodeTypes(options: $options, where: $where) {
       ...ReactNodeType
     }
   }
@@ -329,7 +358,7 @@ export const GetReactNodeTypesDocument = gql`
 `
 export const GetEnumTypesDocument = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
-    types: enumTypes(where: $where, options: $options) {
+    types: enumTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -337,7 +366,7 @@ export const GetEnumTypesDocument = gql`
 `
 export const GetLambdaTypesDocument = gql`
   query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
-    types: lambdaTypes(where: $where, options: $options) {
+    types: lambdaTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -345,7 +374,7 @@ export const GetLambdaTypesDocument = gql`
 `
 export const GetPageTypesDocument = gql`
   query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
-    types: pageTypes(where: $where, options: $options) {
+    types: pageTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -353,7 +382,7 @@ export const GetPageTypesDocument = gql`
 `
 export const GetAppTypesDocument = gql`
   query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
-    types: appTypes(where: $where, options: $options) {
+    types: appTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -361,7 +390,7 @@ export const GetAppTypesDocument = gql`
 `
 export const GetActionTypesDocument = gql`
   query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
-    types: actionTypes(where: $where, options: $options) {
+    types: actionTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -372,7 +401,7 @@ export const GetCodeMirrorTypesDocument = gql`
     $options: CodeMirrorTypeOptions
     $where: CodeMirrorTypeWhere
   ) {
-    types: codeMirrorTypes(where: $where, options: $options) {
+    types: codeMirrorTypes(options: $options, where: $where) {
       ...Type
     }
   }

@@ -7,9 +7,12 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
+  useAppQuery,
   useCurrentApp,
   useCurrentComponent,
   useCurrentPage,
+  usePageQuery,
+  useUserQuery,
 } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -19,15 +22,14 @@ import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
   const router = useRouter()
-  const { appName: currentAppName, appSlug, userName } = useCurrentApp()
-  const { pageName: currentPageName, pageSlug } = useCurrentPage()
   const { componentName: currentComponentName } = useCurrentComponent()
   const isComponentBuilder = router.pathname === PageType.ComponentBuilder
   const isComponentPreview = router.pathname === PageType.ComponentPreview
   const isPageBuilder = router.pathname === PageType.PageBuilder
   const isPagePreview = router.pathname === PageType.PageDetail
-  const appName = currentAppName || '?'
-  const pageName = currentPageName || '?'
+  const { appName, appSlug } = useAppQuery()
+  const { pageName, pageSlug } = usePageQuery()
+  const { userSlug } = useUserQuery()
   const componentName = currentComponentName || '?'
 
   const switchPreviewMode = () => {
@@ -62,7 +64,7 @@ export const PageDetailHeader = observer(() => {
         appSlug,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
-        userName,
+        userSlug,
       },
     })
   }, [router])
@@ -85,7 +87,7 @@ export const PageDetailHeader = observer(() => {
     },
   ]
 
-  const directionItems = currentPageName
+  const directionItems = pageName
     ? [
         { onClick: navigateAppsPage, title: appName },
         { title: 'Pages' },

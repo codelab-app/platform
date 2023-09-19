@@ -9,7 +9,9 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/frontend/domain/domain/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/frontend/domain/domain/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "configurations": {
         "ci": {

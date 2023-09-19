@@ -1,5 +1,5 @@
 import { useStore } from '@codelab/frontend/presentation/container'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 
 export const useRequiredParentValidator = () => {
   const { atomService, elementService } = useStore()
@@ -30,8 +30,8 @@ export const useRequiredParentValidator = () => {
         .map((requiredParent) => requiredParent.current.name)
         .join(', ')
 
-      createNotificationHandler({
-        content: `[${childAtom.name} can only be a child of ${requiredParents}].`,
+      createFormErrorNotificationHandler({
+        description: `[${childAtom.name} can only be a child of ${requiredParents}].`,
         title: 'Invalid parent',
       })()
     }

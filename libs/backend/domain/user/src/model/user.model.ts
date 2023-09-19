@@ -1,10 +1,6 @@
 import { Role } from '@codelab/backend/abstract/codegen'
-import type {
-  Auth0SessionUser,
-  IRole,
-  IUserDTO,
-} from '@codelab/shared/abstract/core'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export class User implements IUserDTO {
@@ -26,15 +22,15 @@ export class User implements IUserDTO {
     this.username = username
   }
 
-  static fromSession({ email, nickname, sub, ...session }: Auth0SessionUser) {
+  static fromSession({ email, nickname, sub, ...session }: Auth0IdToken) {
     const auth0Id = sub
-    const roles = session[JWT_CLAIMS].roles
+    const roles = session[JWT_CLAIMS].roles.map((role) => IRole[role])
 
     return new User({
       auth0Id,
       email,
       id: v4(),
-      roles: [Role.Admin],
+      roles,
       username: nickname,
     })
   }

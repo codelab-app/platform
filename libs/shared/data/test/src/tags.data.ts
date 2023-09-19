@@ -1,4 +1,4 @@
-import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 type PartialTagDTO = Partial<ITagDTO> & Pick<ITagDTO, 'name'>
@@ -70,13 +70,12 @@ const partialTagData: Array<PartialTagDTO> = [
   },
 ]
 
-export const createTagsData = (owner: IAuth0Owner): Array<ITagDTO> =>
+export const createTagsData = (): Array<ITagDTO> =>
   partialTagData
     // add missing pieces
     .map(({ children, id, name, parent }) => ({
       children: children ?? [],
       id: id ?? v4(),
       name,
-      owner,
       parent,
     }))

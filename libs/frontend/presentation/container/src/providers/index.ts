@@ -1,1 +1,1 @@
-export * from './store-provider'
+export * from './StoreProvider'

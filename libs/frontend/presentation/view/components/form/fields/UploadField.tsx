@@ -22,7 +22,7 @@ const UploadFieldInternal = (props: UploadFieldProps) =>
 
         if (status === 'error') {
           notify(
-            { title: 'File upload failed', type: 'error' },
+            { description: '', title: 'File upload failed', type: 'error' },
             info.file.error,
           )
         }

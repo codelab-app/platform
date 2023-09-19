@@ -11,9 +11,9 @@ export type RemoveHookFromElementButtonProps = PropsWithChildren<
 >
 
 export const RemoveHookFromElementButton = ({
-  hookId,
   children,
   entity,
+  hookId,
   icon,
 }: RemoveHookFromElementButtonProps) => {
   // const { openDeleteModal } = useHookDispatch()

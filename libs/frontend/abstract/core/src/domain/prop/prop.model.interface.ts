@@ -6,7 +6,7 @@ import type { IPropDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IElement } from '../element'
+import type { IElementModel } from '../element'
 import type { IModel } from '../model.interface'
 import type { IInterfaceType } from '../type'
 
@@ -33,5 +33,5 @@ export interface IProp
 export type IPropData = Record<string, any>
 
 export interface IPropDataByElementId {
-  [id: IElement['id']]: IPropData
+  [id: IElementModel['id']]: IPropData
 }

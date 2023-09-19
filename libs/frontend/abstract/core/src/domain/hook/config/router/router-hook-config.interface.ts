@@ -1,5 +1,6 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export const RouterConfigSchema = z.object({})
+export const RouterConfigSchema = Type.Object({})
 
-export type IRouterHookConfig = z.infer<typeof RouterConfigSchema>
+export type IRouterHookConfig = Static<typeof RouterConfigSchema>

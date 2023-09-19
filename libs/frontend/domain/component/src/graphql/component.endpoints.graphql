@@ -10,7 +10,7 @@ mutation DeleteComponents(
   $where: ComponentWhere
   $delete: ComponentDeleteInput
 ) {
-  deleteComponents(where: $where, delete: $delete) {
+  deleteComponents(delete: $delete, where: $where) {
     nodesDeleted
   }
 }
@@ -19,7 +19,7 @@ mutation UpdateComponents(
   $where: ComponentWhere
   $update: ComponentUpdateInput
 ) {
-  updateComponents(where: $where, update: $update) {
+  updateComponents(update: $update, where: $where) {
     components {
       id
     }

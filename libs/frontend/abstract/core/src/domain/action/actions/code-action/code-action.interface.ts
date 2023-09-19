@@ -3,10 +3,9 @@ import type {
   CodeActionDeleteInput,
   CodeActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IActionKind } from '@codelab/shared/abstract/core'
+import type { IActionKind, ICodeActionDTO } from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../../../service'
 import type { IBaseAction } from '../../base-action.interface'
-import type { ICodeActionDTO } from './code-action.dto.interface'
 
 export interface ICodeAction
   extends IBaseAction,

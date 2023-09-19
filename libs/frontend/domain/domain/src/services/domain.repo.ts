@@ -1,5 +1,5 @@
 import type {
-  IDomain,
+  IDomainModel,
   IDomainRepository,
 } from '@codelab/frontend/abstract/core'
 import type {
@@ -12,7 +12,7 @@ import { domainApis } from '../store'
 @model('@codelab/DomainRepository')
 export class DomainRepository extends Model({}) implements IDomainRepository {
   @modelFlow
-  add = _async(function* (this: DomainRepository, domain: IDomain) {
+  add = _async(function* (this: DomainRepository, domain: IDomainModel) {
     const {
       createDomains: { domains },
     } = yield* _await(
@@ -25,7 +25,7 @@ export class DomainRepository extends Model({}) implements IDomainRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: DomainRepository, domain: IDomain) {
+  update = _async(function* (this: DomainRepository, domain: IDomainModel) {
     const {
       updateDomains: { domains },
     } = yield* _await(
@@ -48,7 +48,10 @@ export class DomainRepository extends Model({}) implements IDomainRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: DomainRepository, domains: Array<IDomain>) {
+  delete = _async(function* (
+    this: DomainRepository,
+    domains: Array<IDomainModel>,
+  ) {
     const {
       deleteDomains: { nodesDeleted },
     } = yield* _await(

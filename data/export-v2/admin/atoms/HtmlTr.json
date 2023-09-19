@@ -1,0 +1,245 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b",
+    "kind": "InterfaceType",
+    "name": "HtmlTr API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "ad09d99a-de90-4016-ae1b-1391c6120156",
+              "kind": "EnumType",
+              "name": "HtmlTr Valign Enum"
+            },
+            "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1",
+            "key": "valign",
+            "name": "Valign",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "def977fa-6038-4df1-98b9-e94f557b685a",
+            "key": "charoff",
+            "name": "Charoff",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "48847c03-783e-4924-b677-88daa0f11393",
+            "key": "char",
+            "name": "Char",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e",
+            "key": "bgcolor",
+            "name": "Bgcolor",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "b7d3776e-a1f2-4090-bef7-9865a4ee020b",
+              "kind": "EnumType",
+              "name": "HtmlTr Align Enum"
+            },
+            "id": "6baccaaf-0c19-4178-abae-124e8bf17300",
+            "key": "align",
+            "name": "Align",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          }
+        ],
+        "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b",
+        "kind": "InterfaceType",
+        "name": "HtmlTr API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [
+        {
+          "api": {
+            "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "ad09d99a-de90-4016-ae1b-1391c6120156",
+            "kind": "EnumType",
+            "name": "HtmlTr Valign Enum"
+          },
+          "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1",
+          "key": "valign",
+          "name": "Valign",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "def977fa-6038-4df1-98b9-e94f557b685a",
+          "key": "charoff",
+          "name": "Charoff",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "48847c03-783e-4924-b677-88daa0f11393",
+          "key": "char",
+          "name": "Char",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e",
+          "key": "bgcolor",
+          "name": "Bgcolor",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "b7d3776e-a1f2-4090-bef7-9865a4ee020b",
+            "kind": "EnumType",
+            "name": "HtmlTr Align Enum"
+          },
+          "id": "6baccaaf-0c19-4178-abae-124e8bf17300",
+          "key": "align",
+          "name": "Align",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        }
+      ],
+      "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b",
+      "kind": "InterfaceType",
+      "name": "HtmlTr API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "9f9deec1-7be5-44b4-bd4b-010c5ca27220",
+    "name": "HtmlTr",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "4c592fd1-b7ce-467b-84b8-cef50a20735c",
+        "name": "HtmlTr",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        }
+      }
+    ],
+    "type": "HtmlTr"
+  }
+}

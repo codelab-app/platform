@@ -4,18 +4,18 @@ import type {
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
-import {
-  IActionDTO,
-  IApiActionDTO,
-  ICodeActionDTO,
-} from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   ActionFragment,
   ApiActionFragment,
   CodeActionFragment,
 } from '@codelab/shared/abstract/codegen'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import {
+  IActionDTO,
+  IActionKind,
+  IApiActionDTO,
+  ICodeActionDTO,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 

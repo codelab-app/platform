@@ -1,14 +1,29 @@
-import type { IApp, IDomain, IPage } from '@codelab/frontend/abstract/core'
-import { domainRef, pageRef } from '@codelab/frontend/abstract/core'
+import type {
+  IAppModel,
+  IDomainModel,
+  IPageModel,
+  IUser,
+} from '@codelab/frontend/abstract/core'
+import {
+  domainRef,
+  getUserService,
+  pageRef,
+  userRef,
+} from '@codelab/frontend/abstract/core'
+import { useCurrentInterfaceId } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import { createUniqueName, slugify } from '@codelab/shared/utils'
+import {
+  AppProperties,
+  connectNodeId,
+  connectOwner,
+} from '@codelab/shared/domain/mapper'
+import { slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -19,7 +34,7 @@ const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
     name,
-    owner,
+    owner: userRef(owner.id),
     pages: pages?.map((page) => pageRef(page.id)),
   })
 
@@ -29,18 +44,22 @@ const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends Model({
-    domains: prop<Array<Ref<IDomain>>>(() => []),
+    domains: prop<Array<Ref<IDomainModel>>>(() => []),
     id: idProp,
-    name: prop<string>().withSetter(),
-    owner: prop<IAuth0Owner>(),
-    pages: prop<Array<Ref<IPage>>>(() => []),
-    // slug: prop<string>().withSetter(),
+    name: prop<string>(),
+    owner: prop<Ref<IUser>>(),
+    pages: prop<Array<Ref<IPageModel>>>(() => []),
   })
-  implements IApp
+  implements IAppModel
 {
   @computed
   get slug() {
     return slugify(this.name)
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 
   @modelAction
@@ -50,13 +69,14 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ domains, id, name, pages }: Partial<IAppDTO>) {
+  writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
     this.id = id ?? this.id
-    this.name = name ?? this.name
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+    this.name = name ?? this.name
     this.domains = domains
       ? domains.map((domain) => domainRef(domain.id))
       : this.domains
+    this.owner = owner?.id ? userRef(owner.id) : this.owner
 
     return this
   }
@@ -105,9 +125,12 @@ export class App
 
   toCreateInput(): AppCreateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.owner.auth0Id),
+      compositeKey: AppProperties.appCompositeKey(
+        this.name,
+        this.userService.user,
+      ),
       id: this.id,
-      owner: connectAuth0Owner(this.owner),
+      owner: connectOwner(this.userService.user),
       pages: {
         create: this.pages.map((page) => ({
           node: page.current.toCreateInput(),
@@ -118,7 +141,10 @@ export class App
 
   toUpdateInput(): AppUpdateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.owner.auth0Id),
+      compositeKey: AppProperties.appCompositeKey(
+        this.name,
+        this.userService.user,
+      ),
     }
   }
 

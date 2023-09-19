@@ -12,7 +12,7 @@ const validateJson = (value: string): Nullable<IPropData> => {
     return JSON.parse(value)
   } catch (error) {
     if (error instanceof Error) {
-      notify({ content: error.message, title: error.name, type: 'error' })
+      notify({ description: error.message, title: error.name, type: 'error' })
     }
 
     console.log(error)
@@ -44,8 +44,8 @@ const validateSchema = (node: IPageNodeRef) => {
       const { instancePath, message } = validation.details[0]
 
       notify({
-        content: `${instancePath} ${message}`,
-        title: message,
+        description: `${instancePath} ${message}`,
+        title: `${message}`,
         type: 'error',
       })
 
@@ -73,10 +73,16 @@ export const usePropsInspector = (node: IPageNodeRef) => {
     }
 
     setIsLoading(true)
+
     await propService.update({ data, id: node.current.props.id })
+
     setIsLoading(false)
 
-    notify({ title: `${nodeLabel} props updated.`, type: 'success' })
+    notify({
+      description: '',
+      title: `${nodeLabel} props updated.`,
+      type: 'success',
+    })
   }
 
   return { isLoading, nodeLabel, save }

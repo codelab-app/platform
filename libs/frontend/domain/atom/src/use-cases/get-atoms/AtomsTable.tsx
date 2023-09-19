@@ -1,4 +1,4 @@
-import type { IAtom, ITag } from '@codelab/frontend/abstract/core'
+import type { IAtomModel, ITagModel } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -26,7 +26,7 @@ export const AtomsTable = observer(() => {
   const { atomService, fieldService } = useStore()
 
   const { data, filter, handleChange, isLoading, pagination } =
-    useTablePagination<IAtom, { name: string }>({
+    useTablePagination<IAtomModel, { name: string }>({
       filterTypes: { name: 'string' },
       paginationService: atomService.paginationService,
       pathname: PageType.Atoms,
@@ -114,7 +114,7 @@ export const AtomsTable = observer(() => {
     ),
     tags: atom.tags
       .map((tag) => tag.maybeCurrent)
-      .filter(Boolean) as Array<ITag>,
+      .filter(Boolean) as Array<ITagModel>,
     type: atom.type,
   }))
 

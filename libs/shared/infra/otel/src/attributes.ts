@@ -6,7 +6,7 @@ interface PlainObject {
 }
 
 export const flattenWithPrefix = (
-  data: PlainObject,
+  data: PlainObject = {},
   prefix = 'codelab',
 ): PlainObject => {
   const flattened: PlainObject = flatten(data)

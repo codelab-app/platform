@@ -2,7 +2,6 @@ import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   idSchema,
-  ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
@@ -10,8 +9,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const createComponentSchema: JSONSchemaType<ICreateComponentData> = {
   properties: {
-    ...idSchema,
-    ...ownerSchema,
+    ...idSchema(),
     name: {
       type: 'string',
       autoFocus: true,
@@ -27,7 +25,7 @@ export const createComponentSchema: JSONSchemaType<ICreateComponentData> = {
       },
     },
   },
-  required: ['name', 'owner', 'id'],
+  required: ['name', 'id'],
   title: 'Create Component Input',
   type: 'object',
 }

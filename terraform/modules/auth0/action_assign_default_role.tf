@@ -1,3 +1,4 @@
+
 resource "auth0_action" "assign_default_role" {
   name = "Assign Default Role"
 
@@ -11,7 +12,7 @@ resource "auth0_action" "assign_default_role" {
     version = "2.27.0"
   }
 
-  runtime = "node16"
+  runtime = "node18-actions"
   code    = <<-EOT
     /**
       * Handler that will be called during the execution of a PostLogin flow.
@@ -37,7 +38,7 @@ resource "auth0_action" "assign_default_role" {
         domain: "${var.auth0_domain}",
         scope: 'update:users',
         clientId: "${auth0_client.machine_client.client_id}",
-        clientSecret: "${auth0_client.machine_client.client_secret}"
+        clientSecret: "${data.auth0_client.machine_client.client_secret}"
       }).getAccessToken();
 
       const client = new ManagementClient({

@@ -4,7 +4,6 @@ import {
   BaseType_ActionType_Fragment,
   BaseType_AppType_Fragment,
   BaseType_ArrayType_Fragment,
-  BaseType_BaseType_Fragment,
   BaseType_CodeMirrorType_Fragment,
   BaseType_ElementType_Fragment,
   BaseType_EnumType_Fragment,
@@ -22,7 +21,6 @@ import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 export type ArrayTypeFragment = {
   itemType:
-    | { id: string; name: string; kind: Types.TypeKind }
     | { id: string; name: string; kind: Types.TypeKind }
     | { id: string; name: string; kind: Types.TypeKind }
     | { id: string; name: string; kind: Types.TypeKind }

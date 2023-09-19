@@ -1,4 +1,4 @@
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { useDndContext } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
@@ -8,7 +8,7 @@ import { useCreateElementDroppable } from './useCreateElementDroppable.hook'
 import { shouldCreateElementAsFirstChild } from './utils'
 
 interface BuilderDropHandlerProps {
-  element: IElement
+  element: IElementModel
 }
 
 const dropIndicatorRender = (dropPosition: 0 | 1) => {

@@ -49,7 +49,7 @@ export const CreateFieldsDocument = gql`
 `
 export const UpdateFieldsDocument = gql`
   mutation UpdateFields($where: FieldWhere!, $update: FieldUpdateInput!) {
-    updateFields(where: $where, update: $update) {
+    updateFields(update: $update, where: $where) {
       fields {
         id
       }
@@ -68,7 +68,7 @@ export const GetFieldsDocument = gql`
     aggregate: fieldsAggregate(where: $where) {
       count
     }
-    items: fields(where: $where, options: $options) {
+    items: fields(options: $options, where: $where) {
       ...Field
     }
   }

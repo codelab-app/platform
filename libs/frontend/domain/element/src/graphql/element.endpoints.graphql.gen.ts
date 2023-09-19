@@ -58,14 +58,14 @@ export const CreateElementsDocument = gql`
 `
 export const DeleteElementsDocument = gql`
   mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
-    deleteElements(where: $where, delete: $delete) {
+    deleteElements(delete: $delete, where: $where) {
       nodesDeleted
     }
   }
 `
 export const UpdateElementsDocument = gql`
   mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
-    updateElements(where: $where, update: $update) {
+    updateElements(update: $update, where: $where) {
       elements {
         id
       }

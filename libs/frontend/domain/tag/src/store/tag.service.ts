@@ -1,6 +1,6 @@
 import type {
   ICreateTagData,
-  ITag,
+  ITagModel,
   ITagService,
   ITagTreeService,
   IUpdateTagData,
@@ -31,13 +31,13 @@ import { TagTreeService } from './tag-tree.service'
 @model('@codelab/TagService')
 export class TagService
   extends Model({
-    checkedTags: prop<Array<Ref<ITag>>>(() => []).withSetter(),
+    checkedTags: prop<Array<Ref<ITagModel>>>(() => []).withSetter(),
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new TagsModalService({})),
-    selectedTag: prop<Nullish<Ref<ITag>>>(null).withSetter(),
+    selectedTag: prop<Nullish<Ref<ITagModel>>>(null).withSetter(),
     tagRepository: prop(() => new TagRepository({})),
-    tags: prop(() => objectMap<ITag>()),
+    tags: prop(() => objectMap<ITagModel>()),
     treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
     updateForm: prop(() => new TagFormService({})),
     updateModal: prop(() => new TagModalService({})),
@@ -161,14 +161,13 @@ export class TagService
   })
 
   @modelAction
-  add({ children, descendants, id, isRoot, name, owner, parent }: ITagDTO) {
+  add({ children, descendants, id, isRoot, name, parent }: ITagDTO) {
     const tag = new Tag({
       children: children?.map((child) => tagRef(child.id)),
       descendants: descendants?.map((child) => tagRef(child.id)),
       id,
       isRoot,
       name,
-      owner,
       parent: parent?.id ? tagRef(parent.id) : null,
     })
 

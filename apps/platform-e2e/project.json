@@ -12,7 +12,7 @@
         "browser": "electron",
         "testingType": "e2e"
       },
-      "defaultConfiguration": "dev",
+      "defaultConfiguration": "test",
       "configurations": {
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
@@ -28,11 +28,8 @@
         },
         "test": {
           "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
-          "devServerTarget": "platform-e2e:serve:test"
-        },
-        "dev": {
-          "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
-          "devServerTarget": "platform-e2e:serve:dev",
+          "devServerTarget": "platform-e2e:serve:test",
+          "record": false,
           "watch": true,
           "exit": false
         }
@@ -45,29 +42,16 @@
         "readyWhen": "READY"
       },
       "configurations": {
-        "dev": {
-          "commands": [
-            {
-              "command": "npx wait-on --interval 1000 --delay 5000 http://127.0.0.1:3001 tcp:127.0.0.1:4001 && echo 'READY'"
-            },
-            {
-              "command": "npx env-cmd -f .env.test nx serve platform -c test"
-            },
-            {
-              "command": "npx env-cmd -f .env.test nx serve platform-api -c test"
-            }
-          ]
-        },
         "test": {
           "commands": [
             {
               "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 tcp:127.0.0.1:4001  && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform -c test"
+              "command": "nx serve platform -c test"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform-api -c test"
+              "command": "nx serve platform-api -c test"
             }
           ]
         },
@@ -89,7 +73,7 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/platform-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/platform-e2e/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {
@@ -101,6 +85,6 @@
       }
     }
   },
-  "tags": [],
+  "tags": ["scope:frontend"],
   "implicitDependencies": ["platform"]
 }

@@ -1,1 +1,1 @@
-export * from './lib/frontend-config'
+export * from './axios/rest-client'

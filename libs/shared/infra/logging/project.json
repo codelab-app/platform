@@ -8,7 +8,9 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/infra/logging/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/shared/infra/logging/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "configurations": {
         "ci": {

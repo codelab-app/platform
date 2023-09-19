@@ -1,1 +1,1 @@
-export * from './resource.repo'
+export * from './resource.repo.service'

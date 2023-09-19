@@ -1,5 +1,5 @@
 import type {
-  IApp,
+  IAppModel,
   IField,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
@@ -11,7 +11,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -31,7 +30,6 @@ const create = ({
   id,
   kind,
   name,
-  owner,
 }: IInterfaceTypeDTO): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
@@ -39,7 +37,6 @@ const create = ({
     id,
     kind,
     name,
-    owner,
   })
 
   interfaceType.writeFieldCache(fields)
@@ -53,13 +50,11 @@ const createName = (name: string) => {
 
 const createApiNode = ({
   name,
-  owner,
-}: Pick<IApp, 'name' | 'owner'>): InterfaceTypeCreateInput => {
+}: Pick<IAppModel, 'name'>): InterfaceTypeCreateInput => {
   return {
     id: v4(),
     kind: ITypeKind.InterfaceType,
     name: `${name} Store API`,
-    owner: connectAuth0Owner(owner),
   }
 }
 

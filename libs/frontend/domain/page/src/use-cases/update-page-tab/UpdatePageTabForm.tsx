@@ -12,7 +12,7 @@ import { schema } from './update-page-tab.schema'
 
 export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
-    const { page } = useCurrentPage()
+    const page = useCurrentPage()
 
     if (!page) {
       return null

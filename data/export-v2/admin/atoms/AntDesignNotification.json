@@ -1,0 +1,53 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "bd9932c8-c015-4002-9df8-ad43b3b79bd3",
+    "kind": "InterfaceType",
+    "name": "AntDesignNotification API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "bd9932c8-c015-4002-9df8-ad43b3b79bd3",
+        "kind": "InterfaceType",
+        "name": "AntDesignNotification API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [],
+      "id": "bd9932c8-c015-4002-9df8-ad43b3b79bd3",
+      "kind": "InterfaceType",
+      "name": "AntDesignNotification API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Notification",
+    "id": "27b2ff87-ea42-4bc4-951e-2e55916bdb8e",
+    "name": "AntDesignNotification",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "444fa118-cd80-496b-8ad4-1e1ca916db68",
+        "name": "Notification",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        }
+      }
+    ],
+    "type": "AntDesignNotification"
+  }
+}

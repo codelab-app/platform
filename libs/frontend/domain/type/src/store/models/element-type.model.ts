@@ -8,7 +8,7 @@ import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({ elementKind, id, kind, name, owner }: IElementTypeDTO) => {
+const create = ({ elementKind, id, kind, name }: IElementTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
 
   return new ElementType({
@@ -16,7 +16,6 @@ const create = ({ elementKind, id, kind, name, owner }: IElementTypeDTO) => {
     id,
     kind,
     name,
-    owner,
   })
 }
 

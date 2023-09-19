@@ -7,7 +7,9 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/frontend/domain/tag/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/frontend/domain/tag/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {

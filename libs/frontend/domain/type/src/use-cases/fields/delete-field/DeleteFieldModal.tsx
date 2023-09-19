@@ -1,7 +1,7 @@
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -29,9 +29,8 @@ export const DeleteFieldModal = observer(() => {
         onSubmit={(input) => {
           return fieldService.delete([field])
         }}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting field',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}

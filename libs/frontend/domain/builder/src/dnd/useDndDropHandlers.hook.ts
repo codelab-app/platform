@@ -61,7 +61,7 @@ export const useDndDropHandler = (
     const parentId =
       dragPosition === DragPosition.Inside
         ? targetElement.id
-        : targetElement.parent?.id
+        : targetElement.parentElement?.id
 
     if (!validateParentForCreate(createElementDTO.renderType?.id, parentId)) {
       return
@@ -83,8 +83,8 @@ export const useDndDropHandler = (
 
       // if theres no element before the target, create the new element
       // as the first child of the target's parent element
-      if (!targetElement.prevSibling && targetElement.parent?.id) {
-        createElementDTO.parentElement = targetElement.parent
+      if (!targetElement.prevSibling && targetElement.parentElement?.id) {
+        createElementDTO.parentElement = targetElement.parentElement
         await elementService.createElementAsFirstChild(createElementDTO)
       }
     }
@@ -116,7 +116,7 @@ export const useDndDropHandler = (
     const parentId =
       dragPosition === DragPosition.Inside
         ? targetElement.id
-        : targetElement.parent?.id
+        : targetElement.parentElement?.id
 
     if (!validateParentForMove(draggedElement.id, parentId)) {
       return
@@ -145,10 +145,13 @@ export const useDndDropHandler = (
 
       // if theres no element before the target, move the dragged element
       // as the first child of the target's parent element
-      if (!targetElement.prevSibling && targetElement.parent?.getRefId()) {
+      if (
+        !targetElement.prevSibling &&
+        targetElement.parentElement?.getRefId()
+      ) {
         return await elementService.moveElementAsFirstChild({
           element: draggedElement,
-          parentElement: targetElement.parent,
+          parentElement: targetElement.parentElement,
         })
       }
     }

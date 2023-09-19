@@ -1,24 +1,15 @@
 import { gql } from '@apollo/client'
-import { __RenderTypeKind } from '@codelab/shared/abstract/core'
-
-const renderTypeKindSchema = `enum RenderTypeKind {
-  ${Object.values(__RenderTypeKind).join('\n')}
-}`
+import { getClosestContainerNodeCypher } from '../../cypher'
 
 export const elementSchema = gql`
-  ${renderTypeKindSchema}
-
-  # Create this to match frontend
-  type RenderType @exclude {
-    id: ID!
-    kind: RenderTypeKind!
-  }
+  union ElementRenderType = Atom | Component
+  union ContainerNode = Page | Component
 
   type Element {
-    id: ID! @id(autogenerate: false)
-    _compoundName: String! @unique
-    name: String! @customResolver(requires: ["id", "_compoundName"])
-    slug: String! @customResolver(requires: ["id", "_compoundName"])
+    id: ID! @unique
+    compositeKey: String! @unique
+    name: String! @customResolver(requires: "id compositeKey")
+    slug: String! @customResolver(requires: "id compositeKey")
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
@@ -47,14 +38,14 @@ export const elementSchema = gql`
     postRenderAction: BaseAction
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
 
-    # Type of element to render, could be either a component or atom
-    renderComponentType: Component
-      @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
-
-    renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
-    renderType: RenderType
+    renderType: ElementRenderType!
+      @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
+    # renderComponentType: Component
+    #   @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
+    # renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
 
     # This is a custom field resolver
     descendantElements: [Element!]!
+    closestContainerNode: ContainerNode!
   }
 `

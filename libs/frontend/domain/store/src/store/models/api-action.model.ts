@@ -1,9 +1,8 @@
 import type {
   IAction,
   IApiAction,
-  IApiActionDTO,
   IProp,
-  IResource,
+  IResourceModel,
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
@@ -16,6 +15,7 @@ import {
   ApiActionDeleteInput,
   ApiActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IApiActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
@@ -48,7 +48,7 @@ export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
     config: prop<Ref<IProp>>(),
     errorAction: prop<Nullish<Ref<IAction>>>(),
-    resource: prop<Ref<IResource>>(),
+    resource: prop<Ref<IResourceModel>>(),
     source: prop<Nullable<Ref<IAction>>>(null),
     successAction: prop<Nullish<Ref<IAction>>>(),
   })

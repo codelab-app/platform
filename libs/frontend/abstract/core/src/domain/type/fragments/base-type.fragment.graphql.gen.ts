@@ -1,16 +1,13 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { OwnerFragment } from '../../user/owner.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { OwnerFragmentDoc } from '../../user/owner.fragment.graphql.gen'
 export type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_AppType_Fragment = {
@@ -18,7 +15,6 @@ export type BaseType_AppType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_ArrayType_Fragment = {
@@ -26,15 +22,6 @@ export type BaseType_ArrayType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
-}
-
-export type BaseType_BaseType_Fragment = {
-  __typename: 'BaseType'
-  kind: Types.TypeKind
-  id: string
-  name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_CodeMirrorType_Fragment = {
@@ -42,7 +29,6 @@ export type BaseType_CodeMirrorType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_ElementType_Fragment = {
@@ -50,7 +36,6 @@ export type BaseType_ElementType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_EnumType_Fragment = {
@@ -58,7 +43,6 @@ export type BaseType_EnumType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_InterfaceType_Fragment = {
@@ -66,7 +50,6 @@ export type BaseType_InterfaceType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_LambdaType_Fragment = {
@@ -74,7 +57,6 @@ export type BaseType_LambdaType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_PageType_Fragment = {
@@ -82,7 +64,6 @@ export type BaseType_PageType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_PrimitiveType_Fragment = {
@@ -90,7 +71,6 @@ export type BaseType_PrimitiveType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_ReactNodeType_Fragment = {
@@ -98,7 +78,6 @@ export type BaseType_ReactNodeType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_RenderPropType_Fragment = {
@@ -106,7 +85,6 @@ export type BaseType_RenderPropType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseType_UnionType_Fragment = {
@@ -114,14 +92,12 @@ export type BaseType_UnionType_Fragment = {
   kind: Types.TypeKind
   id: string
   name: string
-  owner: OwnerFragment
 }
 
 export type BaseTypeFragment =
   | BaseType_ActionType_Fragment
   | BaseType_AppType_Fragment
   | BaseType_ArrayType_Fragment
-  | BaseType_BaseType_Fragment
   | BaseType_CodeMirrorType_Fragment
   | BaseType_ElementType_Fragment
   | BaseType_EnumType_Fragment
@@ -138,12 +114,8 @@ export const BaseTypeFragmentDoc = gql`
     __typename
     kind
     id
-    owner {
-      ...Owner
-    }
     name
   }
-  ${OwnerFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

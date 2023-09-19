@@ -1,5 +1,5 @@
 import type {
-  IElement,
+  IElementModel,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -19,7 +19,7 @@ export class ComponentRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): IRenderOutput {
+  render(element: IElementModel, props: IPropData): IRenderOutput {
     if (!isComponentInstance(element.renderType)) {
       return this.next.render(element, props)
     }
@@ -37,8 +37,8 @@ export class ComponentRenderPipe
 
   private static logRendering(
     renderer: IRenderer,
-    rootElement: IElement,
-    element: IElement,
+    rootElement: IElementModel,
+    element: IElementModel,
   ) {
     if (renderer.debugMode) {
       console.info(

@@ -1,10 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  AppFragment,
+  AppPreviewFragment,
+} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { AppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  AppFragmentDoc,
+  AppPreviewFragmentDoc,
+} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
@@ -35,6 +41,13 @@ export type GetAppsQuery = {
   items: Array<AppFragment>
 }
 
+export type GetAppsListQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.AppOptions>
+  where?: Types.InputMaybe<Types.AppWhere>
+}>
+
+export type GetAppsListQuery = { apps: Array<AppPreviewFragment> }
+
 export const CreateAppsDocument = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {
     createApps(input: $input) {
@@ -46,7 +59,7 @@ export const CreateAppsDocument = gql`
 `
 export const UpdateAppsDocument = gql`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
-    updateApps(where: $where, update: $update) {
+    updateApps(update: $update, where: $where) {
       apps {
         id
       }
@@ -55,7 +68,7 @@ export const UpdateAppsDocument = gql`
 `
 export const DeleteAppsDocument = gql`
   mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
-    deleteApps(where: $where, delete: $delete) {
+    deleteApps(delete: $delete, where: $where) {
       nodesDeleted
     }
   }
@@ -70,6 +83,14 @@ export const GetAppsDocument = gql`
     }
   }
   ${AppFragmentDoc}
+`
+export const GetAppsListDocument = gql`
+  query GetAppsList($options: AppOptions, $where: AppWhere) {
+    apps(options: $options, where: $where) {
+      ...AppPreview
+    }
+  }
+  ${AppPreviewFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -142,6 +163,20 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetApps',
+        'query',
+      )
+    },
+    GetAppsList(
+      variables?: GetAppsListQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetAppsListQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetAppsListQuery>(GetAppsListDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetAppsList',
         'query',
       )
     },

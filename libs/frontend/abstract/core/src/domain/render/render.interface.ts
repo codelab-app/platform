@@ -1,6 +1,6 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { IComponentService } from '../component'
-import type { IElement, IElementService } from '../element'
+import type { IElementModel, IElementService } from '../element'
 import type { IPropData, IPropDataByElementId } from '../prop'
 import type { IRenderer } from './renderer.model.interface'
 
@@ -15,7 +15,7 @@ export enum RendererTab {
 export interface IRenderOutput {
   atomType?: IAtomType
   /** This is the element which this RenderOutput was rendered from */
-  element: IElement
+  element: IElementModel
   /** Any props that should get passed to descendants of this element, mapped by id */
   globalProps?: IPropDataByElementId
   props?: IPropData
@@ -30,5 +30,5 @@ export interface IBaseRenderPipe {
 
 export interface IRenderPipe extends IBaseRenderPipe {
   next?: IRenderPipe
-  render(element: IElement, props: IPropData): IRenderOutput
+  render(element: IElementModel, props: IPropData): IRenderOutput
 }

@@ -1,4 +1,4 @@
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { ObjectTyped } from 'object-typed'
@@ -13,22 +13,22 @@ import {
 } from '../utils'
 
 interface BoxShadowEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 
 interface BooleanProp {
-  name: 'inset' | 'boxShadow'
+  name: 'boxShadow' | 'inset'
   type: 'boolean'
   value: boolean
 }
 
 interface NumberProp {
-  name: 'offsetX' | 'offsetY' | 'blurRadius' | 'spreadRadius'
+  name: 'blurRadius' | 'offsetX' | 'offsetY' | 'spreadRadius'
   type: 'input-number-with-unit'
-  value: number
-  units: Array<string>
   unit: string
+  units: Array<string>
+  value: number
 }
 
 interface ColorPickerProp {
@@ -38,20 +38,32 @@ interface ColorPickerProp {
 }
 
 interface BoxShadowState {
+  blurRadius: NumberProp
   boxShadow: BooleanProp
+  color: ColorPickerProp
   inset: BooleanProp
   offsetX: NumberProp
   offsetY: NumberProp
-  blurRadius: NumberProp
   spreadRadius: NumberProp
-  color: ColorPickerProp
 }
 
 const props: BoxShadowState = {
+  blurRadius: {
+    name: 'blurRadius',
+    type: 'input-number-with-unit',
+    unit: 'unset',
+    units: ['unset', 'px', 'em', 'rem', 'ch', 'vh', 'vw'],
+    value: 5,
+  },
   boxShadow: {
     name: 'boxShadow',
     type: 'boolean',
     value: false,
+  },
+  color: {
+    name: 'color',
+    type: 'color-picker',
+    value: '#000000',
   },
   inset: {
     name: 'inset',
@@ -61,35 +73,23 @@ const props: BoxShadowState = {
   offsetX: {
     name: 'offsetX',
     type: 'input-number-with-unit',
-    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
     unit: 'px',
+    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
     value: 5,
   },
   offsetY: {
     name: 'offsetY',
     type: 'input-number-with-unit',
-    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
     unit: 'px',
-    value: 5,
-  },
-  blurRadius: {
-    name: 'blurRadius',
-    type: 'input-number-with-unit',
-    units: ['unset', 'px', 'em', 'rem', 'ch', 'vh', 'vw'],
-    unit: 'unset',
+    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
     value: 5,
   },
   spreadRadius: {
     name: 'spreadRadius',
     type: 'input-number-with-unit',
-    units: ['unset', 'px', 'em', 'rem', 'ch', 'vh', 'vw'],
     unit: 'unset',
+    units: ['unset', 'px', 'em', 'rem', 'ch', 'vh', 'vw'],
     value: 5,
-  },
-  color: {
-    name: 'color',
-    type: 'color-picker',
-    value: '#000000',
   },
 }
 
@@ -127,31 +127,31 @@ const parseBoxShadow = (boxShadow: Nullish<string>): BoxShadowState => {
   const spreadRadiusUnit = extractCssUnit(spreadRadius ?? '')
 
   return {
-    boxShadow: { ...props.boxShadow, value: true },
-    inset: { ...props.inset, value: inset },
-    offsetX: {
-      ...props.offsetX,
-      value: offsetXNumber ?? props.offsetX.value,
-      unit: offsetXUnit ?? props.offsetX.unit,
-    },
-    offsetY: {
-      ...props.offsetY,
-      value: offsetYNumber ?? props.offsetY.value,
-      unit: offsetYUnit ?? props.offsetY.unit,
-    },
     blurRadius: {
       ...props.blurRadius,
-      value: blurRadiusNumber ?? props.blurRadius.value,
       unit: blurRadiusUnit ?? props.blurRadius.unit,
+      value: blurRadiusNumber ?? props.blurRadius.value,
     },
-    spreadRadius: {
-      ...props.spreadRadius,
-      value: spreadRadiusNumber ?? props.spreadRadius.value,
-      unit: spreadRadiusUnit ?? props.spreadRadius.unit,
-    },
+    boxShadow: { ...props.boxShadow, value: true },
     color: {
       ...props.color,
       value: color,
+    },
+    inset: { ...props.inset, value: inset },
+    offsetX: {
+      ...props.offsetX,
+      unit: offsetXUnit ?? props.offsetX.unit,
+      value: offsetXNumber ?? props.offsetX.value,
+    },
+    offsetY: {
+      ...props.offsetY,
+      unit: offsetYUnit ?? props.offsetY.unit,
+      value: offsetYNumber ?? props.offsetY.value,
+    },
+    spreadRadius: {
+      ...props.spreadRadius,
+      unit: spreadRadiusUnit ?? props.spreadRadius.unit,
+      value: spreadRadiusNumber ?? props.spreadRadius.value,
     },
   }
 }
@@ -220,8 +220,8 @@ export const BoxShadow = observer(
                   ...boxShadowState,
                   [property.name]: {
                     ...boxShadowState[property.name],
-                    value,
                     unit,
+                    value,
                   },
                 })
               }

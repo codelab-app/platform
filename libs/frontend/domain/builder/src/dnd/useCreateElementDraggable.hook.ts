@@ -8,7 +8,7 @@ import { useDraggable } from '@dnd-kit/core'
 
 export interface UseCreateElementDraggableProps {
   component?: Pick<IBuilderComponent, 'icon' | 'name'>
-  createElementInput?: Omit<ICreateElementData, 'id'>
+  createElementInput?: Omit<ICreateElementData, 'closestContainerNode' | 'id'>
   id: IElementRef
   type?: BuilderDndType
   overlayRenderer?(): JSX.Element

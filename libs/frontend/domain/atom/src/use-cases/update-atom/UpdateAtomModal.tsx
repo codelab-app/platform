@@ -2,7 +2,7 @@ import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
 import { SelectAtom } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -18,7 +18,7 @@ export const UpdateAtomModal = observer(() => {
     return atomService.update(atomDTO)
   }
 
-  const onSubmitError = createNotificationHandler({
+  const onSubmitError = createFormErrorNotificationHandler({
     title: 'Error while updating atom',
   })
 
@@ -29,9 +29,9 @@ export const UpdateAtomModal = observer(() => {
     externalSourceType: atom?.externalSourceType ?? undefined,
     id: atom?.id,
     name: atom?.name,
-    requiredParents: atom?.requiredParents.map((child) => child.id),
+    requiredParents: atom?.requiredParents.map((child) => child),
     suggestedChildren: atom?.suggestedChildren.map(
-      (suggestedChild) => suggestedChild.id,
+      (suggestedChild) => suggestedChild,
     ),
     tags: atom?.tags,
     type: atom?.type,

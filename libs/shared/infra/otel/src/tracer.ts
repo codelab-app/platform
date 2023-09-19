@@ -1,48 +1,64 @@
+import type { MaybePromise } from '@codelab/shared/abstract/types'
 import { toError } from '@codelab/shared/utils'
-import type { Span } from '@opentelemetry/api'
+import type { Context, Span } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
 import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 
-export const CLI_TRACER = 'cli-tracer'
+type Callback<Return> = (span: Span) => Return
 
-export interface Callback<Return> {
-  (span: Span): Promise<Return> | Return
-}
+/**
+ * Re-used by frontend and backend
+ */
+export const withTracerActiveSpan =
+  (tracerName: string) =>
+  <T>(
+    operationName: string,
+    callback: Callback<MaybePromise<T>>,
+    /**
+     * Allow explicit context so concurrency doesn't mess up the nesting
+     */
+    parentContext?: Context,
+  ): MaybePromise<T> => {
+    const activeContext = parentContext ?? context.active()
 
-export const withTracing = <Return>(
-  operationName: string,
-  callback: Callback<Return>,
-  // This keeps the application code separate
-  spanCallback?: (span: Span) => void,
-) => {
-  return async () => {
-    const tracer = trace.getTracer(CLI_TRACER)
+    return trace
+      .getTracer(tracerName)
+      .startActiveSpan(operationName, {}, activeContext, async (span) => {
+        try {
+          // Create a new context with the current span, linking it to the current context
+          const ctx = setSpan(activeContext, span)
+          // Execute the callback within the context that includes the new span
+          // const result = context.with(ctx, () => callback(span))
+          /**
+           * Inspired by https://github.com/open-telemetry/opentelemetry-js/issues/2951#issuecomment-1214587378
+           */
+          const boundFunction = context.bind(ctx, callback)
+          const result = boundFunction(span)
 
-    return tracer.startActiveSpan(operationName, async (span) => {
-      try {
-        if (spanCallback) {
-          spanCallback(span)
+          if (result instanceof Promise) {
+            return result
+              .then((value) => {
+                span.end()
+
+                return value
+              })
+              .catch((error) => {
+                console.error(error)
+                span.recordException(toError(error))
+                span.setStatus({ code: SpanStatusCode.ERROR })
+                span.end()
+                throw error
+              })
+          } else {
+            span.end()
+          }
+
+          return result
+        } catch (error) {
+          console.error(error)
+          span.recordException(toError(error))
+          span.setStatus({ code: SpanStatusCode.ERROR })
+          throw error
         }
-
-        const result = context.with(setSpan(context.active(), span), () =>
-          callback(span),
-        )
-
-        if (result instanceof Promise) {
-          const awaitedResult = await result
-
-          return awaitedResult
-        }
-
-        return result
-      } catch (error) {
-        console.error(error)
-        span.recordException(toError(error))
-        span.setStatus({ code: SpanStatusCode.ERROR })
-        throw error
-      } finally {
-        span.end()
-      }
-    })
+      })
   }
-}

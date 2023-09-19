@@ -1,0 +1,1 @@
+directive @node(labels: [String!]!) on OBJECT

@@ -1,10 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AppFragment } from '../app/app.fragment.graphql.gen'
+import {
+  AppFragment,
+  AppPreviewFragment,
+} from '../app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { AppFragmentDoc } from '../app/app.fragment.graphql.gen'
+import {
+  AppFragmentDoc,
+  AppPreviewFragmentDoc,
+} from '../app/app.fragment.graphql.gen'
 export type UserFragment = {
   id: string
   username: string

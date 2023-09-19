@@ -1,6 +1,6 @@
 import type {
   BuilderDropData,
-  IElement,
+  IElementModel,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import { BuilderDndType } from '@codelab/frontend/abstract/core'
@@ -12,7 +12,7 @@ import { calcDragPosition, useElementLayout } from './draggable-element.util'
 import { ElementDragOverlay } from './ElementDragOverlay'
 
 export interface DraggableElementProps {
-  element: IElement
+  element: IElementModel
   makeRenderedElements(
     props?: IPropData,
   ): Array<React.ReactElement> | React.ReactElement

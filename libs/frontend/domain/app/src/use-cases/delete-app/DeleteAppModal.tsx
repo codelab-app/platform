@@ -1,6 +1,6 @@
 import { useStore } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
@@ -8,7 +8,7 @@ export const DeleteAppModal = observer(() => {
   const { appService, domainService } = useStore()
   const app = appService.deleteModal.app
 
-  const onSubmitError = createNotificationHandler({
+  const onSubmitError = createFormErrorNotificationHandler({
     title: 'Error while deleting app',
   })
 

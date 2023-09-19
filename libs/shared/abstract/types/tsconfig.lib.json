@@ -1,15 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "../../../../dist/out-tsc",
-    "declaration": true,
-    "types": ["node"],
-
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "outDir": "../../../../dist/out-tsc"
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../infra/validation/src/types/nullish.ts"]
 }

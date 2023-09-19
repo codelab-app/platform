@@ -1,13 +1,11 @@
-import type {
-  ICodeAction,
-  ICodeActionDTO,
-} from '@codelab/frontend/abstract/core'
+import type { ICodeAction } from '@codelab/frontend/abstract/core'
 import { storeRef } from '@codelab/frontend/abstract/core'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,
   CodeActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { ICodeActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

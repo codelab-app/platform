@@ -1,9 +1,9 @@
 import type { Ref } from 'mobx-keystone'
 import { detach, rootRef } from 'mobx-keystone'
 import type { IElementRenderType } from '../element'
-import type { IAtom } from './atom.model.interface'
+import type { IAtomModel } from './atom.model.interface'
 
-export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
+export const atomRef = rootRef<IAtomModel>('@codelab/AtomRef', {
   onResolvedValueChange: (ref, newAtom, oldAtom) => {
     if (oldAtom && !newAtom) {
       detach(ref)
@@ -16,6 +16,6 @@ export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
  */
 export const isAtomInstance = (
   atom: IElementRenderType | null,
-): atom is Ref<IAtom> => {
+): atom is Ref<IAtomModel> => {
   return atom?.$modelType === '@codelab/AtomRef'
 }

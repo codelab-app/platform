@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const componentSchema = gql`
   type Component implements WithOwner {
-    id: ID! @id(autogenerate: false)
+    id: ID! @unique
     name: String!
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
@@ -19,21 +19,8 @@ export const componentSchema = gql`
       @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
   }
 
-  extend type Component
-    @auth(
-      rules: [
-        { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["User"]
-          where: { owner: { auth0Id: "$jwt.sub" } }
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["Admin"]
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-      ]
-    )
+  # extend type Component
+  #   @authorization(
+  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
+  #   )
 `

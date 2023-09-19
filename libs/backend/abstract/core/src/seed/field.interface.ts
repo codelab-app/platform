@@ -1,14 +1,15 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export const AntDesignFieldSchema = z.object({
-  defaultValue: z.string(),
-  description: z.string(),
-  property: z.string(),
-  type: z.string(),
-  version: z.string(),
+export const AntDesignFieldSchema = Type.Object({
+  defaultValue: Type.String(),
+  description: Type.String(),
+  property: Type.String(),
+  type: Type.String(),
+  version: Type.String(),
 })
 
-export type AntDesignField = z.infer<typeof AntDesignFieldSchema>
+export type AntDesignField = Static<typeof AntDesignFieldSchema>
 
 /**
  * This is field of chatgpt generated data

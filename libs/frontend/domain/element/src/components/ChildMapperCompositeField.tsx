@@ -1,4 +1,4 @@
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { SelectComponent } from '@codelab/frontend/domain/type'
 import {
   AutoCompleteField,
@@ -10,7 +10,7 @@ import { mapElementOption } from '../utils'
 import { SelectLinkElement } from './SelectLinkElement'
 
 interface ChildMapperFieldsProps {
-  element: IElement
+  element: IElementModel
 }
 
 const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {

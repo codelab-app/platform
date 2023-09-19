@@ -7,7 +7,9 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/shared/abstract/types/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/shared/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {

@@ -1,4 +1,6 @@
-import { z } from 'zod'
+import { Typebox } from '@codelab/shared/infra/validation'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 import { PersistenceType } from './persistence-type.enum'
 
 // export interface IRecoilStateHookConfig {
@@ -8,10 +10,10 @@ import { PersistenceType } from './persistence-type.enum'
 //   persisted: PersistenceType
 // }
 
-export const RecoilStateHookConfigSchema = z.object({
-  defaultValue: z.string().optional().nullable(),
-  persisted: z.nativeEnum(PersistenceType),
-  stateKey: z.string().min(1),
+export const RecoilStateHookConfigSchema = Type.Object({
+  defaultValue: Typebox.Nullish(Type.String()),
+  persisted: Type.Enum(PersistenceType),
+  stateKey: Type.String({ minLength: 1 }),
 })
 
-export type IRecoilStateHookConfig = z.infer<typeof RecoilStateHookConfigSchema>
+export type IRecoilStateHookConfig = Static<typeof RecoilStateHookConfigSchema>

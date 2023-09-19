@@ -1,5 +1,5 @@
 import type {
-  IAtom,
+  IAtomModel,
   IAtomService,
   IComponentType,
   ICreateAtomData,
@@ -17,9 +17,11 @@ import {
 } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import isEmpty from 'lodash/isEmpty'
 import { computed, observable } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -43,15 +45,16 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 export class AtomService
   extends Model({
     atomRepository: prop(() => new AtomRepository({})),
-    atoms: prop(() => objectMap<IAtom>()),
+    atoms: prop(() => objectMap<IAtomModel>()),
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
+    defaultRenderType: prop<Nullable<Ref<IAtomModel>>>(null).withSetter(),
     deleteManyModal: prop(() => new AtomsModalService({})),
     id: idProp,
     loadedExternalCssSources: prop(() => arraySet<string>()),
     loadedExternalJsSources: prop(() => arraySet<string>()),
     paginationService: prop(
-      () => new PaginationService<IAtom, { name?: string }>({}),
+      () => new PaginationService<IAtomModel, { name?: string }>({}),
     ),
     updateForm: prop(() => new AtomFormService({})),
     updateModal: prop(() => new AtomModalService({})),
@@ -95,8 +98,8 @@ export class AtomService
       externalJsSource,
       externalSourceType,
       name,
-      requiredParents: requiredParents.map((child) => ({ id: child })),
-      suggestedChildren: suggestedChildren.map((child) => ({ id: child })),
+      requiredParents: requiredParents.map((child) => ({ id: child.id })),
+      suggestedChildren: suggestedChildren.map((child) => ({ id: child.id })),
       tags,
       type,
     })
@@ -133,13 +136,12 @@ export class AtomService
     icon,
     id,
     name,
-    owner,
     requiredParents,
     suggestedChildren,
     type,
   }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
-    const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : undefined
+    const apiRef = typeRef<IInterfaceType>(api.id)
 
     const atom = Atom.create({
       api: apiRef,
@@ -149,7 +151,6 @@ export class AtomService
       icon,
       id,
       name,
-      owner,
       requiredParents,
       suggestedChildren,
       tags: [],
@@ -264,7 +265,6 @@ export class AtomService
       externalSourceType,
       id,
       name,
-      owner,
       tags = [],
       type,
     }: ICreateAtomData,
@@ -273,7 +273,6 @@ export class AtomService
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
-      owner,
     })
 
     const atom = this.add({
@@ -283,7 +282,6 @@ export class AtomService
       externalSourceType,
       id,
       name,
-      owner,
       tags,
       type,
     })
@@ -298,7 +296,7 @@ export class AtomService
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, ids: Array<string>) {
-    const atomsToDelete: Array<IAtom> = []
+    const atomsToDelete: Array<IAtomModel> = []
 
     ids.forEach((id) => {
       const atom = this.atoms.get(id)
@@ -312,5 +310,31 @@ export class AtomService
     const result = yield* _await(this.atomRepository.delete(atomsToDelete))
 
     return result
+  })
+
+  @modelFlow
+  getDefaultElementRenderType = _async(function* (this: IAtomService) {
+    if (this.defaultRenderType) {
+      return this.defaultRenderType.current
+    }
+
+    /**
+     * Only fetch if not exists
+     */
+    const atomReactFragment = (yield* _await(
+      this.atomRepository.find({
+        type: IAtomType.ReactFragment,
+      }),
+    )).items[0]
+
+    if (!atomReactFragment) {
+      throw new Error('Atom of type `ReactFragment` must be seeded first')
+    }
+
+    const atom = this.add(atomReactFragment)
+
+    this.setDefaultRenderType(atomRef(atom))
+
+    return atom
   })
 }

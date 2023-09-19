@@ -2,7 +2,7 @@ import type {
   CreateResourceData,
   CreateResourceProperties,
   IEntityModalService,
-  IResource,
+  IResourceModel,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
@@ -26,10 +26,10 @@ export class CreateResourceModalService
 @model('@codelab/ResourceModalService')
 export class ResourceModalService
   extends ExtendedModel(
-    modelClass<ModalService<Ref<IResource>>>(ModalService),
+    modelClass<ModalService<Ref<IResourceModel>>>(ModalService),
     {},
   )
-  implements IEntityModalService<Ref<IResource>>
+  implements IEntityModalService<Ref<IResourceModel>>
 {
   @computed
   get resource() {

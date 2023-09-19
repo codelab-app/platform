@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import type { IDomain } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import { domainRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Button } from 'antd'
@@ -8,7 +8,7 @@ import React from 'react'
 import { RefreshDomainButton } from './RefreshDomainButton'
 
 export interface ItemToolsProps {
-  domain: IDomain
+  domain: IDomainModel
 }
 
 export const ItemTools = observer<ItemToolsProps>(

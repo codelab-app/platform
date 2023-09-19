@@ -11,27 +11,36 @@ import type {
   IQueryService,
 } from '../../service'
 import type { ICreateTagData, IUpdateTagData } from './tag.data.interface'
-import type { ITag } from './tag.model.interface'
+import type { ITagModel } from './tag.model.interface'
 import type { ITagTreeService } from './tag-tree.service.interface'
 
 export interface ITagService
-  extends Omit<ICRUDService<ITag, ICreateTagData, IUpdateTagData>, 'delete'>,
-    Omit<IQueryService<ITag, TagWhere, TagOptions>, 'getOne'>,
-    Omit<ICRUDModalService<Ref<ITag>, { tag: Maybe<ITag> }>, 'deleteModal'>,
-    ICRUDFormService<Ref<ITag>, { tag: Maybe<ITag> }> {
-  checkedTags: Array<Ref<ITag>>
-  deleteManyModal: IEntityModalService<Array<Ref<ITag>>, { tags: Array<ITag> }>
+  extends Omit<
+      ICRUDService<ITagModel, ICreateTagData, IUpdateTagData>,
+      'delete'
+    >,
+    Omit<IQueryService<ITagModel, TagWhere, TagOptions>, 'getOne'>,
+    Omit<
+      ICRUDModalService<Ref<ITagModel>, { tag: Maybe<ITagModel> }>,
+      'deleteModal'
+    >,
+    ICRUDFormService<Ref<ITagModel>, { tag: Maybe<ITagModel> }> {
+  checkedTags: Array<Ref<ITagModel>>
+  deleteManyModal: IEntityModalService<
+    Array<Ref<ITagModel>>,
+    { tags: Array<ITagModel> }
+  >
   selectedOption: LabeledValue
-  tags: ObjectMap<ITag>
-  tagsList: Array<ITag>
+  tags: ObjectMap<ITagModel>
+  tagsList: Array<ITagModel>
   tagsSelectOptions: Array<LabeledValue>
   treeService: ITagTreeService
 
-  add(tagDTO: ITagDTO): ITag
+  add(tagDTO: ITagDTO): ITagModel
   delete(ids: Array<string>): Promise<number>
   deleteCheckedTags(): void
   loadTagTree(): void
-  setCheckedTags(tags: Array<Ref<ITag>>): void
-  setSelectedTag(tag: Nullish<Ref<ITag>>): void
-  tag(id: string): Maybe<ITag>
+  setCheckedTags(tags: Array<Ref<ITagModel>>): void
+  setSelectedTag(tag: Nullish<Ref<ITagModel>>): void
+  tag(id: string): Maybe<ITagModel>
 }

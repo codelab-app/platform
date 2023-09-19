@@ -1,3 +1,22 @@
+#
+# app.id is required to compute name
+#
+fragment PagePreview on Page {
+  id
+  name
+  kind
+  url
+  app {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    id
+  }
+}
+
 fragment Page on Page {
   id
   name

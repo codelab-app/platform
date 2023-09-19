@@ -16,7 +16,7 @@ mutation CreateDomains($input: [DomainCreateInput!]!) {
 }
 
 mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
-  updateDomains(where: $where, update: $update) {
+  updateDomains(update: $update, where: $where) {
     domains {
       id
     }

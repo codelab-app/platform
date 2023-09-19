@@ -1,8 +1,9 @@
-import type { IDomain, IDomainDTO } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
+import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -26,7 +27,7 @@ export class Domain
     name: prop<string>(),
     projectDomain: prop<Maybe<VercelProjectDomain>>(),
   })
-  implements IDomain
+  implements IDomainModel
 {
   static create = create
 

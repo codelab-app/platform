@@ -1,10 +1,11 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export const LambdaSchema = z.object({
-  body: z.string(),
-  id: z.string().default(''),
-  name: z.string(),
-  ownerId: z.string(),
+export const LambdaSchema = Type.Object({
+  body: Type.String(),
+  id: Type.String({ default: '' }),
+  name: Type.String(),
+  ownerId: Type.String(),
 })
 
-export type ILambda = z.infer<typeof LambdaSchema>
+export type ILambda = Static<typeof LambdaSchema>

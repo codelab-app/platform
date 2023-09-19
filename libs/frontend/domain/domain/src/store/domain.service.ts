@@ -1,13 +1,13 @@
 import type {
   ICreateDomainData,
-  IDomain,
-  IDomainDTO,
+  IDomainModel,
   IDomainService,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/core'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
+import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -84,7 +84,7 @@ export class DomainService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: DomainService, domain: IDomain) {
+  delete = _async(function* (this: DomainService, domain: IDomainModel) {
     const { id } = domain
 
     this.domains.delete(id)

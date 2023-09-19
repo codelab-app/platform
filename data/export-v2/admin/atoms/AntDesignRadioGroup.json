@@ -1,0 +1,359 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
+    "kind": "InterfaceType",
+    "name": "AntDesignRadioGroup API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b",
+            "key": "value",
+            "name": "Value",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "80c4a122-a636-402e-a62b-c227f8b49266",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Size Enum"
+            },
+            "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40",
+            "key": "size",
+            "name": "Size",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "2cd0802e-5189-418d-a4a8-ebe1a3ccbc59",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Options Enum"
+            },
+            "id": "777c8179-3aeb-4461-9297-e160d55383be",
+            "key": "options",
+            "name": "Options",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "83f64ffa-19ed-4c20-9dbb-45bc7a488481",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Option Type Enum"
+            },
+            "id": "93c25b30-70de-4475-94a2-55fce07b7b95",
+            "key": "optionType",
+            "name": "Option Type",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "ActionType",
+              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+              "kind": "ActionType",
+              "name": "ActionType"
+            },
+            "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7",
+            "key": "onChange",
+            "name": "On Change",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "64b40767-903d-4c83-b1af-7b582a6cdd53",
+            "key": "name",
+            "name": "Name",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "id": "b403e44b-e341-4c4c-a8c8-00e50c890523",
+            "key": "disabled",
+            "name": "Disabled",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "fafe3bdf-56a7-4e73-aac8-980882d4f4aa",
+              "kind": "EnumType",
+              "name": "AntDesignRadioGroup Button Style Enum"
+            },
+            "id": "34358b01-2609-4577-bcf3-d4e89d66b818",
+            "key": "buttonStyle",
+            "name": "Button Style",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          }
+        ],
+        "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
+        "kind": "InterfaceType",
+        "name": "AntDesignRadioGroup API"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": "null",
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b",
+          "key": "value",
+          "name": "Value",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": "{\"general\":{\"nullable\":true}}"
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "80c4a122-a636-402e-a62b-c227f8b49266",
+            "kind": "EnumType",
+            "name": "AntDesignRadioGroup Size Enum"
+          },
+          "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40",
+          "key": "size",
+          "name": "Size",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "2cd0802e-5189-418d-a4a8-ebe1a3ccbc59",
+            "kind": "EnumType",
+            "name": "AntDesignRadioGroup Options Enum"
+          },
+          "id": "777c8179-3aeb-4461-9297-e160d55383be",
+          "key": "options",
+          "name": "Options",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "83f64ffa-19ed-4c20-9dbb-45bc7a488481",
+            "kind": "EnumType",
+            "name": "AntDesignRadioGroup Option Type Enum"
+          },
+          "id": "93c25b30-70de-4475-94a2-55fce07b7b95",
+          "key": "optionType",
+          "name": "Option Type",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7",
+          "key": "onChange",
+          "name": "On Change",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "id": "64b40767-903d-4c83-b1af-7b582a6cdd53",
+          "key": "name",
+          "name": "Name",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "id": "b403e44b-e341-4c4c-a8c8-00e50c890523",
+          "key": "disabled",
+          "name": "Disabled",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "fafe3bdf-56a7-4e73-aac8-980882d4f4aa",
+            "kind": "EnumType",
+            "name": "AntDesignRadioGroup Button Style Enum"
+          },
+          "id": "34358b01-2609-4577-bcf3-d4e89d66b818",
+          "key": "buttonStyle",
+          "name": "Button Style",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        }
+      ],
+      "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
+      "kind": "InterfaceType",
+      "name": "AntDesignRadioGroup API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Radio",
+    "id": "76a44443-b519-4e3c-9529-c34309999fee",
+    "name": "AntDesignRadioGroup",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "children": [],
+        "id": "f22443ff-e508-49d4-b6ca-c8ed576f3049",
+        "name": "Radio.Group",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "979779f0-236d-45c0-a165-83fcd7e2a35a",
+          "name": "Radio"
+        }
+      }
+    ],
+    "type": "AntDesignRadioGroup"
+  }
+}

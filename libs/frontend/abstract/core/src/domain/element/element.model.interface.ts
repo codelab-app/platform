@@ -2,7 +2,7 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -14,10 +14,10 @@ import type { ICacheService } from '../../service'
 import type { IElementTreeViewDataNode } from '../../ui'
 import type { IAction } from '../action'
 import type { BuilderWidthBreakPoint } from '../builder'
-import type { IComponent } from '../component'
+import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
-import type { IPage } from '../page'
+import type { IPageModel } from '../page'
 import type { IProp, IPropData } from '../prop'
 import type { IElementRuntimeProp, RendererType } from '../render'
 import type { IStore } from '../store'
@@ -76,45 +76,45 @@ export interface ElementCssRules {
   [key: string]: ElementCssRules | string
 }
 
-export interface IElement
+export interface IElementModel
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void>,
       'toDeleteInput'
     >,
-    ICacheService<IElementDTO, IElement> {
+    ICacheService<IElementDTO, IElementModel>,
+    Pick<IElementDTO, 'name'> {
   ancestorError: Nullish<RenderingError>
   atomName: string
-  childMapperComponent?: Nullable<Ref<IComponent>>
-  childMapperPreviousSibling?: Nullable<Ref<IElement>>
+  childMapperComponent?: Nullable<Ref<IComponentModel>>
+  childMapperPreviousSibling?: Nullable<Ref<IElementModel>>
   childMapperPropKey?: Nullable<string>
-  children: Array<IElement>
+  children: Array<IElementModel>
   // the closest container node that element belongs to
-  closestContainerNode: IComponent | IPage
-  closestParent: IElement | null
+  closestContainerNode: IComponentModel | IPageModel
+  closestParent: IElementModel | null
   // the closest rootElement of node (page/component) that element belongs to
-  closestRootElement: IElement
+  closestRootElement: IElementModel
   customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
-  descendantElements: Array<IElement>
+  descendantElements: Array<IElementModel>
   // used for expressions evaluation
   expressionEvaluationContext: IEvaluationContext
-  firstChild?: Nullable<Ref<IElement>>
+  firstChild?: Nullable<Ref<IElementModel>>
   guiCss?: Nullable<string>
   hooks: Array<IHook>
   id: string
   isRoot: boolean
   label: string
-  name: string
-  nextSibling?: Nullable<Ref<IElement>>
-  owner: Nullable<IAuth0Owner>
+  nextSibling?: Nullable<Ref<IElementModel>>
+  owner: Nullable<IEntity>
   // page that this element belongs to
-  page: Nullable<Ref<IPage>>
-  parent?: Nullable<Ref<IElement>>
+  page: Nullable<Ref<IPageModel>>
   // component that this element belongs to
-  parentComponent?: Nullable<Ref<IComponent>>
+  parentComponent?: Nullable<Ref<IComponentModel>>
+  parentElement?: Nullable<Ref<IElementModel>>
   postRenderAction?: Nullable<Ref<IAction>>
   preRenderAction?: Nullable<Ref<IAction>>
-  prevSibling?: Nullable<Ref<IElement>>
+  prevSibling?: Nullable<Ref<IElementModel>>
   props: Ref<IProp>
   // same as expressionEvaluationContext but without props
   propsEvaluationContext: IEvaluationContext
@@ -123,7 +123,7 @@ export interface IElement
   providerStore?: Ref<IStore>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
-  renderType: IElementRenderType | null
+  renderType: IElementRenderType
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
@@ -161,29 +161,29 @@ export interface IElement
   urlProps?: IPropData
 
   appendToGuiCss(css: CssMap): void
-  attachAsNextSibling(sibling: IElement): void
-  attachAsPrevSibling(sibling: IElement): void
-  attachToParentAsFirstChild(parentElement: IElement): void
-  clone(cloneIndex?: number): IElement
+  attachAsNextSibling(sibling: IElementModel): void
+  attachAsPrevSibling(sibling: IElementModel): void
+  attachToParentAsFirstChild(parentElement: IElementModel): void
+  clone(cloneIndex?: number): IElementModel
   connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void
   detachFromParent(): void
   setCustomCss(css: string): void
-  setFirstChild(firstChild: Ref<IElement>): void
+  setFirstChild(firstChild: Ref<IElementModel>): void
   setName(name: string): void
-  setNextSibling(nextSibling: Ref<IElement>): void
+  setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void
-  setPage(page: Ref<IPage>): void
-  setParent(parent: Ref<IElement>): void
-  setParentComponent(component: Ref<IComponent>): void
-  setPrevSibling(prevSibling: Ref<IElement>): void
+  setPage(page: Ref<IPageModel>): void
+  setParentComponent(component: Ref<IComponentModel>): void
+  setParentElement(parent: Ref<IElementModel>): void
+  setPrevSibling(prevSibling: Ref<IElementModel>): void
   setProps(props: Nullable<Ref<IProp>>): void
   setRenderForEachPropKey(key: string): void
   setRenderIfExpression(key: Nullish<string>): void
   setRenderType(renderType: IElementRenderType): void
   setRenderingError(error: Nullish<RenderingError>): void
-  setSourceElement(element: Ref<IElement>): void
+  setSourceElement(element: Ref<IElementModel>): void
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'

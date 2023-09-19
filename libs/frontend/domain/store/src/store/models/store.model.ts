@@ -1,8 +1,8 @@
 import type {
   IAction,
-  IComponent,
+  IComponentModel,
   IInterfaceType,
-  IPage,
+  IPageModel,
   IPropData,
   IStore,
 } from '@codelab/frontend/abstract/core'
@@ -58,10 +58,10 @@ export class Store
   extends Model(() => ({
     actions: prop<Array<Ref<IAction>>>(),
     api: prop<Ref<IInterfaceType>>(),
-    component: prop<Nullable<Ref<IComponent>>>().withSetter(),
+    component: prop<Nullable<Ref<IComponentModel>>>().withSetter(),
     id: idProp,
     name: prop<string>(),
-    page: prop<Nullable<Ref<IPage>>>(),
+    page: prop<Nullable<Ref<IPageModel>>>(),
     // if this is a duplicate, source store id else null
     source: prop<Nullable<Ref<IStore>>>(null).withSetter(),
   }))

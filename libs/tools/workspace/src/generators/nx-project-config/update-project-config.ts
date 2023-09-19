@@ -4,6 +4,8 @@ import {
   readProjectConfiguration,
   updateProjectConfiguration,
 } from '@nx/devkit'
+import { addGraphqlEslintConfig } from './eslint/add-graphql-eslint-config'
+import { addGraphqlExtension } from './lint/add-graphql-extension'
 import { addCiLintConfig } from './lint/ci-lint-config'
 import { updateTestConfig } from './test/test-config'
 
@@ -17,9 +19,13 @@ export const updateProjectConfig = (tree: Tree, projectName: string) => {
 
   console.log(`Checking for ${projectConfig.name}...`)
 
+  /**
+   * Modifies projectConfig here
+   */
   addCiLintConfig(tree, projectConfig)
+  addGraphqlEslintConfig(tree, projectConfig)
+  addGraphqlExtension(tree, projectConfig)
   updateTestConfig(tree, projectConfig)
 
   updateProjectConfiguration(tree, projectName, projectConfig)
-  // updateLibTsconfig()
 }

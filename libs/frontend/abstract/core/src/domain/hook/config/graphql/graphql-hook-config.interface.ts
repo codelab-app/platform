@@ -1,9 +1,11 @@
-import { z } from 'zod'
+import { Typebox } from '@codelab/shared/infra/validation'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export const GraphqlHookConfigSchema = z.object({
-  dataKey: z.string().optional().nullable(),
-  graphqlBody: z.string().min(1),
-  graphqlUrl: z.string().min(1).url(),
+export const GraphqlHookConfigSchema = Type.Object({
+  dataKey: Typebox.Nullish(Type.String()),
+  graphqlBody: Type.String({ minLength: 1 }),
+  graphqlUrl: Type.String({ format: 'uri', minLength: 1 }),
 })
 
-export type IGraphqlHookConfig = z.infer<typeof GraphqlHookConfigSchema>
+export type IGraphqlHookConfig = Static<typeof GraphqlHookConfigSchema>

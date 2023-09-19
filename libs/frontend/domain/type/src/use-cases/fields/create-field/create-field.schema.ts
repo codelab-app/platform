@@ -24,7 +24,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
     },
   },
   properties: {
-    ...idSchema,
+    ...idSchema(),
     defaultValues: {
       // by using ref, this can support array or object type that
       // has items or properties of any possible default value type

@@ -1,9 +1,9 @@
-import type { IAtom, IField } from '../domain'
+import type { IAtomModel, IField } from '../domain'
 import type { ITreeDataNode } from './tree-data-node.interface'
 
 export type IAtomsTreeDataNode = ITreeDataNode<
   | {
-      node: IAtom
+      node: IAtomModel
       type: 'atom'
     }
   | {

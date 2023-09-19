@@ -1,1 +1,1 @@
-export * from './component.repo'
+export * from './component.repo.service'

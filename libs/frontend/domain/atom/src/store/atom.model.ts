@@ -1,25 +1,25 @@
 import type {
-  IAtom,
+  IAtomModel,
   IInterfaceType,
-  ITag,
+  ITagModel,
 } from '@codelab/frontend/abstract/core'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
+import {
+  atomRef,
+  getUserService,
+  typeRef,
+} from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IAtomDTO,
-  IAtomType,
-  IAuth0Owner,
-} from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
-  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
+  connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
@@ -36,21 +36,19 @@ const create = ({
   icon,
   id,
   name,
-  owner,
   requiredParents,
   suggestedChildren,
   tags,
   type,
 }: IAtomDTO) => {
   return new Atom({
-    api: api?.id ? typeRef<IInterfaceType>(api.id) : undefined,
+    api: typeRef<IInterfaceType>(api.id),
     externalCssSource,
     externalJsSource,
     externalSourceType,
     icon,
     id,
     name,
-    owner,
     requiredParents: requiredParents?.map((child) => atomRef(child.id)),
     suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
@@ -61,20 +59,19 @@ const create = ({
 @model('@codelab/Atom')
 export class Atom
   extends Model({
-    api: prop<Nullable<Ref<IInterfaceType>>>(null),
+    api: prop<Ref<IInterfaceType>>(),
     externalCssSource: prop<string | null | undefined>(),
     externalJsSource: prop<string | null | undefined>(),
     externalSourceType: prop<string | null | undefined>(),
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
-    owner: prop<IAuth0Owner>(),
-    requiredParents: prop<Array<Ref<IAtom>>>(() => []),
-    suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
-    tags: prop<Array<Ref<ITag>>>(() => []),
+    requiredParents: prop<Array<Ref<IAtomModel>>>(() => []),
+    suggestedChildren: prop<Array<Ref<IAtomModel>>>(() => []),
+    tags: prop<Array<Ref<ITagModel>>>(() => []),
     type: prop<IAtomType>(),
   })
-  implements IAtom
+  implements IAtomModel
 {
   /**
    * Determines whether the atom accepts children and text make sense for the type.
@@ -82,6 +79,11 @@ export class Atom
   @computed
   get allowCustomTextInjection(): boolean {
     return customTextInjectionWhiteList.indexOf(this.type) > -1
+  }
+
+  @computed
+  get userService() {
+    return getUserService(this)
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
@@ -118,14 +120,16 @@ export class Atom
 
   @modelAction
   toCreateInput(): AtomCreateInput {
+    console.log(this.userService.user)
+
     return {
       api: {
         create: {
           node: {
             id: v4(),
             kind: ITypeKind.InterfaceType,
-            name: `${this.name}  API`,
-            owner: connectAuth0Owner(this.owner),
+            name: `${this.name} API`,
+            owner: connectOwner(this.userService.user),
           },
         },
       },
@@ -134,7 +138,7 @@ export class Atom
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
+      owner: connectOwner(this.userService.user),
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
@@ -143,13 +147,12 @@ export class Atom
   @modelAction
   toUpdateInput(): AtomUpdateInput {
     return {
-      api: this.api?.id ? connectNodeId(this.api.id) : undefined,
+      api: this.api.id ? connectNodeId(this.api.id) : undefined,
       externalCssSource: this.externalCssSource,
       externalJsSource: this.externalJsSource,
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
       requiredParents: reconnectNodeIds(
         this.requiredParents.map((parent) => parent.current.id),
       ),

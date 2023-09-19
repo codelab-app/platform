@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { withAutoForm } from '@codelab/frontend/presentation/view'
 import { AutoForm } from 'uniforms-antd'
 

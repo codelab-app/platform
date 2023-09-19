@@ -39,12 +39,12 @@ export const UpdateCodeActionsDocument = gql`
     $where: CodeActionWhere
   ) {
     updateCodeActions(
-      update: $update
-      where: $where
       connect: $connect
       create: $create
       delete: $delete
       disconnect: $disconnect
+      update: $update
+      where: $where
     ) {
       codeActions {
         id
@@ -62,12 +62,12 @@ export const UpdateApiActionsDocument = gql`
     $where: ApiActionWhere
   ) {
     updateApiActions(
-      update: $update
-      where: $where
       connect: $connect
       create: $create
       delete: $delete
       disconnect: $disconnect
+      update: $update
+      where: $where
     ) {
       apiActions {
         id

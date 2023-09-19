@@ -99,13 +99,24 @@
         "linter": "eslint"
       },
       "library": {
-        "linter": "eslint"
+        "linter": "eslint",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:backend"
       }
     },
     "@nx/next": {
       "application": {
         "style": "styled-components",
         "linter": "eslint"
+      }
+    },
+    "@nx/js": {
+      "library": {
+        "unitTestRunner": "none",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:shared"
       }
     }
   },

@@ -1,9 +1,4 @@
-import type {
-  ICreateStoreData,
-  IStore,
-  IStoreService,
-  IUpdateStoreData,
-} from '@codelab/frontend/abstract/core'
+import type { IStore, IStoreService } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
@@ -105,7 +100,7 @@ export class StoreService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: StoreService, data: ICreateStoreData) {
+  create = _async(function* (this: StoreService, data: IStoreDTO) {
     const store = this.add(data)
 
     yield* _await(this.storeRepository.add(store))
@@ -115,7 +110,7 @@ export class StoreService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: StoreService, data: IUpdateStoreData) {
+  update = _async(function* (this: StoreService, data: IStoreDTO) {
     const store = this.stores.get(data.id)!
 
     store.writeCache({ name: data.name })

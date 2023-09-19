@@ -8,7 +8,7 @@
       "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/presentation/view/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/presentation/view/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "outputs": ["{options.outputFile}"],

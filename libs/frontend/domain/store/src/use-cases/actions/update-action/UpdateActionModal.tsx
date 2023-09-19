@@ -2,7 +2,7 @@ import type { IUpdateActionData } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -19,7 +19,7 @@ export const UpdateActionModal = observer(() => {
     return actionService.update(actionDTO)
   }
 
-  const onSubmitError = createNotificationHandler({
+  const onSubmitError = createFormErrorNotificationHandler({
     title: 'Error while updating action',
   })
 

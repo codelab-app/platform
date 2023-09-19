@@ -1,16 +1,16 @@
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { List } from 'antd'
 import React from 'react'
 import { HooksListItem } from './hooksListItem.hook'
 
 export interface HooksListProps {
-  element: IElement
+  element: IElementModel
 }
 
 export const HooksList = ({ element }: HooksListProps) => {
   return (
     <List
-      dataSource={element.hooks || []}
+      dataSource={element.hooks}
       renderItem={(hook) => <HooksListItem hook={hook} />}
     />
   )

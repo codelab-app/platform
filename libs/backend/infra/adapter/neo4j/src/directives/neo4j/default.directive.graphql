@@ -1,0 +1,3 @@
+scalar ScalarOrEnum
+
+directive @default(value: ScalarOrEnum!) on FIELD_DEFINITION

@@ -1,5 +1,5 @@
 import {
-  type IElement,
+  type IElementModel,
   type IPropData,
   type IRenderOutput,
   type IRenderPipe,
@@ -18,7 +18,7 @@ export class AtomRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): IRenderOutput {
+  render(element: IElementModel, props: IPropData): IRenderOutput {
     if (!isAtomInstance(element.renderType)) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })

@@ -1,18 +1,19 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 import { AntDesignFieldSchema } from './field.interface'
 
 /**
  * An atom can have more than one api
  */
-export const AntDesignApiSchema = z.object({
+export const AntDesignApiSchema = Type.Object({
   /**
    * This is the AntDesign components
    */
-  atom: z.object({
-    // api: z.string(),
-    name: z.string(),
+  atom: Type.Object({
+    // api: Type.String(),
+    name: Type.String(),
   }),
-  fields: z.array(AntDesignFieldSchema),
+  fields: Type.Array(AntDesignFieldSchema),
 })
 
-export type AntDesignApi = z.infer<typeof AntDesignApiSchema>
+export type AntDesignApi = Static<typeof AntDesignApiSchema>

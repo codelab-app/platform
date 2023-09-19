@@ -5,10 +5,10 @@ import type {
   AtomWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IAtom } from './atom.model.interface'
+import type { IAtomModel } from './atom.model.interface'
 
 export type IAtomRepository = IRepository<
-  IAtom,
+  IAtomModel,
   AtomFragment,
   AtomWhere,
   AtomOptions

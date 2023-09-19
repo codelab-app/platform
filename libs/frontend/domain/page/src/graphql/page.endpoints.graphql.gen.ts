@@ -3,7 +3,6 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   PageFragment,
   BuilderPageFragment,
-  ProductionPageFragment,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import {
@@ -16,7 +15,6 @@ import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
   BuilderPageFragmentDoc,
-  ProductionPageFragmentDoc,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import {
@@ -57,22 +55,22 @@ export type GetPagesQuery = {
   items: Array<PageFragment>
 }
 
-export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
-  appName: Types.Scalars['String']['input']
-  pageName: Types.Scalars['String']['input']
+export type GetDevelopmentPageQueryVariables = Types.Exact<{
+  appCompositeKey: Types.Scalars['String']['input']
+  pageCompositeKey: Types.Scalars['String']['input']
 }>
 
-export type GetRenderedPageAndCommonAppDataQuery = {
+export type GetDevelopmentPageQuery = {
   apps: Array<PageBuilderAppFragment>
   resources: Array<ResourceFragment>
 }
 
-export type GetRenderedPageAndAppDataQueryVariables = Types.Exact<{
-  appName: Types.Scalars['String']['input']
-  pageName: Types.Scalars['String']['input']
+export type GetProductionPageQueryVariables = Types.Exact<{
+  appCompositeKey: Types.Scalars['String']['input']
+  pageCompositeKey: Types.Scalars['String']['input']
 }>
 
-export type GetRenderedPageAndAppDataQuery = {
+export type GetProductionPageQuery = {
   apps: Array<PageAppFragment>
   resources: Array<ResourceFragment>
 }
@@ -94,14 +92,14 @@ export const CreatePagesDocument = gql`
 `
 export const DeletePagesDocument = gql`
   mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
-    deletePages(where: $where, delete: $delete) {
+    deletePages(delete: $delete, where: $where) {
       nodesDeleted
     }
   }
 `
 export const UpdatePagesDocument = gql`
   mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
-    updatePages(where: $where, update: $update) {
+    updatePages(update: $update, where: $where) {
       pages {
         id
       }
@@ -119,9 +117,12 @@ export const GetPagesDocument = gql`
   }
   ${PageFragmentDoc}
 `
-export const GetRenderedPageAndCommonAppDataDocument = gql`
-  query GetRenderedPageAndCommonAppData($appName: String!, $pageName: String!) {
-    apps(where: { _compoundName: $appName }) {
+export const GetDevelopmentPageDocument = gql`
+  query GetDevelopmentPage(
+    $appCompositeKey: String!
+    $pageCompositeKey: String!
+  ) {
+    apps(where: { compositeKey: $appCompositeKey }) {
       ...PageBuilderApp
     }
     resources {
@@ -131,9 +132,12 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
   ${PageBuilderAppFragmentDoc}
   ${ResourceFragmentDoc}
 `
-export const GetRenderedPageAndAppDataDocument = gql`
-  query GetRenderedPageAndAppData($appName: String!, $pageName: String!) {
-    apps(where: { _compoundName: $appName }) {
+export const GetProductionPageDocument = gql`
+  query GetProductionPage(
+    $appCompositeKey: String!
+    $pageCompositeKey: String!
+  ) {
+    apps(where: { compositeKey: $appCompositeKey }) {
       ...PageApp
     }
     resources {
@@ -225,33 +229,33 @@ export function getSdk(
         'query',
       )
     },
-    GetRenderedPageAndCommonAppData(
-      variables: GetRenderedPageAndCommonAppDataQueryVariables,
+    GetDevelopmentPage(
+      variables: GetDevelopmentPageQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<GetRenderedPageAndCommonAppDataQuery> {
+    ): Promise<GetDevelopmentPageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetRenderedPageAndCommonAppDataQuery>(
-            GetRenderedPageAndCommonAppDataDocument,
+          client.request<GetDevelopmentPageQuery>(
+            GetDevelopmentPageDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetRenderedPageAndCommonAppData',
+        'GetDevelopmentPage',
         'query',
       )
     },
-    GetRenderedPageAndAppData(
-      variables: GetRenderedPageAndAppDataQueryVariables,
+    GetProductionPage(
+      variables: GetProductionPageQueryVariables,
       requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<GetRenderedPageAndAppDataQuery> {
+    ): Promise<GetProductionPageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetRenderedPageAndAppDataQuery>(
-            GetRenderedPageAndAppDataDocument,
+          client.request<GetProductionPageQuery>(
+            GetProductionPageDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetRenderedPageAndAppData',
+        'GetProductionPage',
         'query',
       )
     },

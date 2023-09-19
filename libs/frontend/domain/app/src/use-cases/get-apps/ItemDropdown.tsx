@@ -6,7 +6,7 @@ import {
   GlobalOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { MenuProps } from 'antd'
@@ -18,8 +18,8 @@ import type { CSSProperties } from 'react'
 import React from 'react'
 
 export interface ItemMenuProps {
-  app: IApp
-  domains?: Array<IDomain>
+  app: IAppModel
+  domains?: Array<IDomainModel>
 }
 
 const menuItemStyle: CSSProperties = {
@@ -41,12 +41,10 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
   const onBuildClick = () => appService.buildModal.open(appRef(app.id))
   const router = useRouter()
 
-  const appOwner = userService.usersList.find(
-    (user) => user.auth0Id === app.owner.auth0Id,
-  )
-
   const goToDomainsPage = () =>
-    router.push(`${router.pathname}/${appOwner?.username}/${app.slug}/domains`)
+    router.push(
+      `${router.pathname}/${userService.user.username}/${app.slug}/domains`,
+    )
 
   const menuItems: MenuProps['items'] = [
     {

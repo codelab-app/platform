@@ -8,17 +8,18 @@ export interface TagSelectProps {
   name: string
 }
 
-export const TagSelect = observer<TagSelectProps>(({ label, name }) => {
-  const { tagService } = useStore()
-  const tagOptions = tagService.tagsSelectOptions
+export const TagSelect: React.FunctionComponent<TagSelectProps> =
+  observer<TagSelectProps>(({ label, name }) => {
+    const { tagService } = useStore()
+    const tagOptions = tagService.tagsSelectOptions
 
-  return (
-    <SelectField
-      label={label}
-      name={name}
-      optionFilterProp="label"
-      options={tagOptions}
-      showSearch
-    />
-  )
-})
+    return (
+      <SelectField
+        label={label}
+        name={name}
+        optionFilterProp="label"
+        options={tagOptions}
+        showSearch
+      />
+    )
+  })

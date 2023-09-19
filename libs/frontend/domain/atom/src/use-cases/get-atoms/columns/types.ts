@@ -2,7 +2,7 @@ import type {
   IAtomService,
   IFieldService,
   IInterfaceType,
-  ITag,
+  ITagModel,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import type { ReactNode } from 'react'
@@ -23,7 +23,7 @@ export interface AtomRecord {
   name: string
   requiredParents: Array<Pick<IAtomDTO, 'id' | 'name'>>
   suggestedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
-  tags: Array<ITag>
+  tags: Array<ITagModel>
   type: IAtomType
 }
 

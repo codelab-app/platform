@@ -1,7 +1,7 @@
-import type { IElement, MoveData } from '@codelab/frontend/abstract/core'
+import type { IElementModel, MoveData } from '@codelab/frontend/abstract/core'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -15,7 +15,7 @@ import {
 } from './utils'
 
 export interface MoveElementFormProps {
-  element: IElement
+  element: IElementModel
 }
 
 /** Not intended to be used in a modal */
@@ -25,14 +25,14 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
   const { current: model } = useRef({
-    parentElement: { id: element.parent?.id },
+    parentElement: { id: element.parentElement?.id },
     prevSibling: { id: element.prevSibling?.current.id },
   })
 
   useEffect(() => {
     model.prevSibling.id = element.prevSibling?.current.id
-    model.parentElement.id = element.parent?.id
-  }, [element.parent, element.prevSibling])
+    model.parentElement.id = element.parentElement?.id
+  }, [element.parentElement, element.prevSibling])
 
   const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
     const {
@@ -82,7 +82,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
       key={element.id}
       model={model}
       onSubmit={onSubmit}
-      onSubmitError={createNotificationHandler({
+      onSubmitError={createFormErrorNotificationHandler({
         title: 'Error while moving element',
       })}
       schema={moveElementSchema}

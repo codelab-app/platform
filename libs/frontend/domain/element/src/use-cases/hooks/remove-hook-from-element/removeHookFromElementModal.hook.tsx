@@ -8,14 +8,14 @@ export const RemoveHookFromElementModal = ({
   elementId,
 }: RemoveHookFromElementModalProps) => {
   const {
-    onSubmit,
-    onSubmitSuccess,
     actionType,
-    onSubmitError,
+    entity,
     loading,
     model,
+    onSubmit,
+    onSubmitError,
+    onSubmitSuccess,
     reset,
-    entity,
   } = useRemoveHookFromElementForm(elementId)
 
   return null

@@ -1,1 +1,1 @@
-export * from './tag.repo'
+export * from './tag.repo.service'

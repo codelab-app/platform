@@ -6,20 +6,13 @@ import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({
-  id,
-  kind,
-  name,
-  owner,
-  primitiveKind,
-}: IPrimitiveTypeDTO) => {
+const create = ({ id, kind, name, primitiveKind }: IPrimitiveTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.PrimitiveType)
 
   return new PrimitiveType({
     id,
     kind,
     name,
-    owner,
     primitiveKind,
   })
 }

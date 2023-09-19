@@ -1,11 +1,14 @@
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
-import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IComponentModel,
+} from '@codelab/frontend/abstract/core'
 import {
   BuilderDndType,
   isComponentModel,
   isComponentPageNode,
 } from '@codelab/frontend/abstract/core'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
@@ -14,7 +17,7 @@ import React, { useMemo } from 'react'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable.hook'
 
 interface DraggableComponentItemProps {
-  component: IAtom | IComponent
+  component: IAtomModel | IComponentModel
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
@@ -34,10 +37,11 @@ export const DraggableComponentItem = ({
     return {
       name: compoundCaseToTitleCase(component.name),
       renderType: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        __typename: isComponentPageNode(component as IComponentModel)
+          ? IElementRenderTypeKind.Component
+          : IElementRenderTypeKind.Atom,
         id: component.id,
-        kind: isComponentPageNode(component as IComponent)
-          ? IRenderTypeKind.Component
-          : IRenderTypeKind.Atom,
       },
     }
   }, [component])
@@ -80,7 +84,7 @@ export const DraggableComponentItem = ({
 
 interface ComponentItemProps {
   className?: string
-  component: IAtom | IComponent
+  component: IAtomModel | IComponentModel
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void

@@ -1,4 +1,4 @@
-import type { IAtom } from '@codelab/frontend/abstract/core'
+import type { IAtomModel } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { AtomType } from '@codelab/shared/abstract/codegen'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
@@ -16,7 +16,7 @@ export type SelectAtomProps = Pick<
   /**
    * Used for atom validation
    */
-  parent?: IAtom
+  parent?: IAtomModel
 }
 
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
@@ -62,7 +62,7 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
 
 const filterAtoms = (
   allAtoms: Array<
-    | IAtom
+    | IAtomModel
     | {
         id: string
         name: string
@@ -70,7 +70,7 @@ const filterAtoms = (
         requiredParents: Array<{ id: string; type: AtomType }>
       }
   >,
-  parent: IAtom,
+  parent: IAtomModel,
 ) => {
   const atomsRequiringCurrentParent = allAtoms
     .filter((atom) => {
@@ -112,7 +112,7 @@ const filterAtoms = (
 
 const mapAtomOptions = (
   atom:
-    | IAtom
+    | IAtomModel
     | {
         id: string
         name: string

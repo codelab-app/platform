@@ -1,13 +1,14 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
 /**
  * A reference to another entity.
  */
-export const refSchema = z.object({
-  id: z.string(),
+export const IRef = Type.Object({
+  id: Type.String(),
 })
 
-export type IRef = z.infer<typeof refSchema>
+export type IRef = Static<typeof IRef>
 
 export const resolveRefOrThrow = <T extends IRef>(
   ref: IRef | T,

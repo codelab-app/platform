@@ -7,7 +7,7 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -28,7 +28,7 @@ export const CreateAtomForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateAtomFormProps) => {
-    const { atomService, tagService, userService } = useStore()
+    const { atomService, tagService } = useStore()
     const closeForm = () => atomService.createForm.close()
 
     const onSubmit = async (data: ICreateAtomData) => {
@@ -39,7 +39,7 @@ export const CreateAtomForm = observer(
       return res
     }
 
-    const onSubmitError = createNotificationHandler({
+    const onSubmitError = createFormErrorNotificationHandler({
       title: 'Error while creating atom',
     })
 
@@ -49,7 +49,6 @@ export const CreateAtomForm = observer(
       <Form<ICreateAtomData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
