@@ -19,7 +19,10 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
+import {
+  type IComponentDTO,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
@@ -69,6 +72,11 @@ export class Component
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
+
+  @computed
+  get __typename() {
+    return IElementRenderTypeKind.Component
+  }
 
   @computed
   get renderService() {

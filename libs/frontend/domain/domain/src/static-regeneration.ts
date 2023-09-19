@@ -4,7 +4,7 @@ import { getEnv } from '@codelab/shared/config'
 
 // and request will be redirected to appropriate user domain
 export const regeneratePages = (pages: Array<string>, domain: string) => {
-  const baseUrl = getEnv().endpoint.nextPublicPlatformHost
+  const baseUrl = getEnv().endpoint.platformHost
   const pagesParam = pages.join(',')
   const protocol = baseUrl.startsWith('http') ? '' : 'https://'
 

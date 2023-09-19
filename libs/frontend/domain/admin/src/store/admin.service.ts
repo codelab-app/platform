@@ -3,7 +3,7 @@ import {
   getAppService,
   type IAdminService,
 } from '@codelab/frontend/abstract/core'
-import { restClient } from '@codelab/frontend/config'
+import { restPlatformClient } from '@codelab/frontend/config'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -28,17 +28,19 @@ export class AdminService
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
-    return yield* _await(restClient.post('/admin/reset'))
+    return yield* _await(
+      restPlatformClient.post('/admin/reset-all-except-user-and-atom'),
+    )
   })
 
   @modelFlow
   exportData = _async(function* (this: AdminService, data: ExportDto) {
-    return yield* _await(restClient.post('/admin/export', data))
+    return yield* _await(restPlatformClient.post('/admin/export', data))
   })
 
   @modelFlow
   importData = _async(function* (this: AdminService, data: ImportDto) {
-    return yield* _await(restClient.post('/admin/import', data))
+    return yield* _await(restPlatformClient.post('/admin/import', data))
   })
 
   @computed
@@ -49,7 +51,7 @@ export class AdminService
   @modelFlow
   importApp = _async(function* (this: AdminService, appData: string) {
     return yield* _await(
-      restClient
+      restPlatformClient
         .post<IUserOutputDto>('/import/app', appData)
         .then(({ data }) => {
           const appId = data.apps[0]?.app.id

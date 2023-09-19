@@ -7,7 +7,7 @@ import {
   modelTypeKey,
   rootRef,
 } from 'mobx-keystone'
-import type { IElementRenderType } from '../element'
+import type { IElementRenderTypeModel } from '../element'
 import type { IComponentModel } from './component.model.interface'
 import type { IComponentService } from './component.service.interface'
 
@@ -42,7 +42,7 @@ export const getComponentService = (self: object) => {
  * Used for determining the RenderType of an element
  */
 export const isComponentInstance = (
-  node: IElementRenderType | null,
+  node: IElementRenderTypeModel | null,
 ): node is Ref<IComponentModel> => {
   return !isNil(node) && isRefOfType(node, componentRef)
 }

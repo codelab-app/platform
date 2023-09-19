@@ -5,16 +5,27 @@ interface LoginCredentials {
   username?: string
 }
 
-export const loginSession = () => {
+export const loginAndResetDatabase = () => {
   cy.session(
-    ['auth0-session-10'],
+    ['auth0-session-1'],
     () => {
-      login().then((user) => {
-        cy.request({ body: user, method: 'POST', url: '/api/data/user/save' })
+      login().then(({ accessToken, user }) => {
+        cy.log('Login Session', user, accessToken)
+
+        cy.resetDatabase()
+
+        cy.request({
+          body: user,
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          method: 'POST',
+          url: '/api/data/user/setup',
+        })
       })
     },
     {
-      cacheAcrossSpecs: true,
+      cacheAcrossSpecs: false,
       validate: () => {
         // cy.get('@upsertUser.all').should('not.have.length', 0)
       },
@@ -49,10 +60,11 @@ export const login = ({
 
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L73 */
         cy.task('encrypt', payload).then((encryptedSession) => {
+          cy.setCookie('access_token', accessToken)
           cy._setAuth0Cookie(encryptedSession as string)
         })
 
-        return Promise.resolve(user)
+        return Promise.resolve({ accessToken, user })
       })
     })
   } catch (error) {

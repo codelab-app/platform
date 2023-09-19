@@ -21,7 +21,7 @@ import type { IPageModel } from '../page'
 import type { IProp, IPropData } from '../prop'
 import type { IElementRuntimeProp, RendererType } from '../render'
 import type { IStore } from '../store'
-import type { IElementRenderType } from './render-type'
+import type { IElementRenderTypeModel } from './render-type'
 
 /**
  * This is a non-element type node that contains the root element.
@@ -123,7 +123,7 @@ export interface IElementModel
   providerStore?: Ref<IStore>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
-  renderType: IElementRenderType
+  renderType: IElementRenderTypeModel
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
@@ -181,7 +181,7 @@ export interface IElementModel
   setProps(props: Nullable<Ref<IProp>>): void
   setRenderForEachPropKey(key: string): void
   setRenderIfExpression(key: Nullish<string>): void
-  setRenderType(renderType: IElementRenderType): void
+  setRenderType(renderType: IElementRenderTypeModel): void
   setRenderingError(error: Nullish<RenderingError>): void
   setSourceElement(element: Ref<IElementModel>): void
   toUpdateNodesInput(): Pick<

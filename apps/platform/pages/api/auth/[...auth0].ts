@@ -4,7 +4,10 @@ import {
   handleCallback,
   handleLogin,
 } from '@auth0/nextjs-auth0'
-import { restClient } from '@codelab/frontend/config'
+import {
+  restPlatformApiClient,
+  restPlatformClient,
+} from '@codelab/frontend/config'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 
 export default handleAuth({
@@ -14,13 +17,24 @@ export default handleAuth({
         afterCallback: async (_req, _res, session, state) => {
           const user = session.user as Auth0IdToken
 
-          await restClient.post('user/setup', user)
+          if (!session.accessToken) {
+            throw new Error('Missing access token')
+          }
+
+          /**
+           * Cannot call frontend proxy here, since it would end the current call
+           */
+          await restPlatformApiClient.post('user/setup', user, {
+            headers: {
+              Authorization: `Bearer ${session.accessToken}`,
+            },
+          })
 
           return session
         },
       })
     } catch (error) {
-      console.error(error)
+      // console.error(error)
     }
   },
 })

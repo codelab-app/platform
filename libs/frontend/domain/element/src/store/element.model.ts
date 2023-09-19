@@ -3,7 +3,7 @@ import type {
   IAction,
   IAtomModel,
   IComponentModel,
-  IElementRenderType,
+  IElementRenderTypeModel,
   IElementRuntimeProp,
   IHook,
   IPageModel,
@@ -42,7 +42,11 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { type IElementDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  type IElementDTO,
+  IElementRenderType,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -89,6 +93,8 @@ const create = ({
   renderType,
   style,
 }: IElementDTO) => {
+  console.log(renderType)
+
   const elementRenderType = getRenderType(renderType)
 
   return new Element({
@@ -155,7 +161,7 @@ export class Element
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    renderType: prop<IElementRenderType>().withSetter(),
+    renderType: prop<IElementRenderTypeModel>().withSetter(),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
     style: prop<Nullable<string>>(null).withSetter(),
