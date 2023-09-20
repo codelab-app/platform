@@ -3,7 +3,7 @@ import {
   DeleteTreeData,
   UpdateData,
 } from '@codelab/shared/data/test'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Tag CRUD', () => {
   before(() => {

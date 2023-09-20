@@ -5,14 +5,14 @@ interface LoginCredentials {
   username?: string
 }
 
-export const loginAndResetDatabase = () => {
+export const loginSession = () => {
   cy.session(
     ['auth0-session'],
     () => {
       login()
     },
     {
-      cacheAcrossSpecs: false,
+      cacheAcrossSpecs: true,
       validate: () => {
         // cy.get('@upsertUser.all').should('not.have.length', 0)
       },

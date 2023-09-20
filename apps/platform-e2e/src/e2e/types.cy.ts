@@ -1,6 +1,6 @@
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'

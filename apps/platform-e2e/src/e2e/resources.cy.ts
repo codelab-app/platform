@@ -1,6 +1,6 @@
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import {
   resourceName,
   resourcesUrl,

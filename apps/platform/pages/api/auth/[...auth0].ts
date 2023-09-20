@@ -4,6 +4,7 @@ import {
   handleCallback,
   handleLogin,
 } from '@auth0/nextjs-auth0'
+import { authMiddleware } from '@codelab/backend/infra/adapter/graphql'
 import {
   restPlatformApiClient,
   restPlatformClient,
