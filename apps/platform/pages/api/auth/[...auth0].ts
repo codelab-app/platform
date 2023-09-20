@@ -24,7 +24,7 @@ export default handleAuth({
           /**
            * Cannot call frontend proxy here, since it would end the current call
            */
-          await restPlatformApiClient.post('user/setup', user, {
+          await restPlatformApiClient.post('user/setup-dev', user, {
             headers: {
               Authorization: `Bearer ${session.accessToken}`,
               'X-ID-TOKEN': session.idToken,
