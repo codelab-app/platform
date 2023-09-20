@@ -1,4 +1,4 @@
-export const resetDatabase = () => {
+export const resetDatabaseExceptForUserAndAtom = () => {
   cy.getCookie('access_token').then((accessToken) => {
     if (!accessToken) {
       throw new Error('Missing access token')
@@ -10,7 +10,7 @@ export const resetDatabase = () => {
       },
       method: 'POST',
       timeout: 10000,
-      url: '/api/data/admin/reset-all-except-user-and-atom',
+      url: '/api/data/admin/reset-database-except-user-and-atom',
     })
   })
 }

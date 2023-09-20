@@ -11,7 +11,10 @@ export class AdminRepository {
   async resetAllExceptUserAndAtom(close = false) {
     const query = `
       MATCH (n)
-      WHERE NOT n:User OR (n:Atom AND n.type = 'ReactFragment')
+      WHERE NOT (n:User
+        OR (n:Atom AND n.nme = 'ReactFragment')
+        OR (n:InterfaceType AND n.name = 'ReactFragment API')
+      )
       DETACH DELETE n
     `
 

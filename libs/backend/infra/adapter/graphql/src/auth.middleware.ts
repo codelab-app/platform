@@ -12,13 +12,22 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
       Object.assign(req, { user: session.user })
     }
 
-    const accessToken = (await getAccessToken(req, res)).accessToken
+    const accessToken = session?.accessToken
 
     /**
      * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level
      */
     if (accessToken) {
       req.headers.authorization = `Bearer ${accessToken}`
+    }
+
+    /**
+     * Attach ID token so we have more information
+     */
+    const idToken = session?.idToken
+
+    if (idToken) {
+      req.headers['X-ID-TOKEN'] = idToken
     }
   } catch (error) {
     // console.log('error when get access token', error)

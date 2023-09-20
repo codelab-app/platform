@@ -12,7 +12,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDTO
@@ -31,8 +31,8 @@ describe('Running nested API and code actions', () => {
   const mockGetResponse = 'the updated response'
 
   before(() => {
-    cy.resetDatabase()
-    loginAndResetDatabase()
+    loginSession()
+    cy.resetDatabaseExceptForUserAndAtom()
 
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
