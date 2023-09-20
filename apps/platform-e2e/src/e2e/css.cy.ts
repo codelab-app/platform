@@ -24,8 +24,8 @@ describe('CSS CRUD', () => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
 
-    cy.request('/api/cypress/atom')
-      .then(() => cy.request('/api/cypress/app'))
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request('/api/data/app/seed-cypress-app'))
       .then((apps) => {
         const app = apps.body
 

@@ -20,7 +20,6 @@ import {
   reconnectNodeIds,
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -43,6 +42,8 @@ export class AtomRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _add(atoms: Array<IAtomDTO>) {
+    console.log(atoms)
+
     return (
       await (
         await this.ogmService.Atom
@@ -95,8 +96,7 @@ export class AtomRepository extends AbstractRepository<
     { api, id, requiredParents = [], suggestedChildren = [], tags }: IAtomDTO,
     where: AtomWhere,
   ) {
-    console.log(where)
-    cLog({
+    console.log({
       api: reconnectNodeId(api.id),
       requiredParents: whereNodeIds(requiredParents.map((parent) => parent.id)),
       suggestedChildren: whereNodeIds(

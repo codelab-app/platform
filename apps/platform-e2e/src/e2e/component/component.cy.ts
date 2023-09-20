@@ -31,11 +31,11 @@ describe('Component CRUD', () => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
 
-    cy.request('/api/cypress/type')
+    cy.request('/api/data/type/seed-cypress-type')
 
-    cy.request('/api/cypress/atom')
+    cy.request('/api/data/atom/seed-cypress-atom')
       .then(() => {
-        return cy.request<IAppDTO>('/api/cypress/app')
+        return cy.request<IAppDTO>('/api/data/app/seed-cypress-app')
       })
       .then((apps) => {
         testApp = apps

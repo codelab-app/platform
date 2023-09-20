@@ -8,7 +8,7 @@ import { CommandBus } from '@nestjs/cqrs'
 import { SeedCypressTypesCommand } from './use-case'
 
 @Controller('type')
-export class TypeApplicationController {
+export class AppApplicationController {
   constructor(private commandBus: CommandBus) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
