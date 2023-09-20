@@ -27,6 +27,7 @@ export default handleAuth({
           await restPlatformApiClient.post('user/setup', user, {
             headers: {
               Authorization: `Bearer ${session.accessToken}`,
+              'X-ID-TOKEN': session.idToken,
             },
           })
 

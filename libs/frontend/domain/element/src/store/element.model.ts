@@ -655,17 +655,6 @@ export class Element
 
   @modelAction
   toCreateInput(): ElementCreateInput {
-    /**
-     * Here we'll want to set default value based on the interface
-     */
-    const renderAtomType = isAtomInstance(this.renderType)
-      ? connectNodeId(this.renderType.id)
-      : undefined
-
-    const renderComponentType = isComponentInstance(this.renderType)
-      ? connectNodeId(this.renderType.id)
-      : undefined
-
     return {
       compositeKey: ElementProperties.elementCompositeKey(
         this.name,
@@ -676,6 +665,14 @@ export class Element
         create: {
           node: this.props.current.toCreateInput(),
         },
+      },
+      renderType: {
+        Atom: isAtomInstance(this.renderType)
+          ? connectNodeId(this.renderType.id)
+          : undefined,
+        Component: isComponentInstance(this.renderType)
+          ? connectNodeId(this.renderType.id)
+          : undefined,
       },
       style: this.style,
     }

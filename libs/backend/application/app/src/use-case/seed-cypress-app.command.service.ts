@@ -9,6 +9,7 @@ import { Prop, PropRepository } from '@codelab/backend/domain/prop'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IApp } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
@@ -52,6 +53,7 @@ export class SeedCypressAppHandler
     private authService: AuthService,
   ) {}
 
+  @Span()
   async execute() {
     /**
      * Create props
@@ -137,6 +139,8 @@ export class SeedCypressAppHandler
 
     await this.appRepository.add([app])
 
+    console.log('app')
+
     /**
      * Create pages
      */
@@ -146,6 +150,8 @@ export class SeedCypressAppHandler
     const internalServerErrorPageStore = Store.create(
       IPageKindName.InternalServerError,
     )
+
+    console.log('api')
 
     await this.interfaceTypeRepository.add([
       providerPageStore.api as InterfaceType,
