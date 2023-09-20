@@ -10,7 +10,7 @@ describe('Tag CRUD', () => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
 
-    cy.request('/api/cypress/tag').then(() => {
+    cy.request('/api/data/tag/seed-cypress-tag').then(() => {
       cy.visit('/tags')
     })
   })

@@ -12,7 +12,7 @@ export class AdminRepository {
     const query = `
       MATCH (n)
       WHERE NOT (n:User
-        OR (n:Atom AND n.nme = 'ReactFragment')
+        OR (n:Atom AND n.name = 'ReactFragment')
         OR (n:InterfaceType AND n.name = 'ReactFragment API')
       )
       DETACH DELETE n

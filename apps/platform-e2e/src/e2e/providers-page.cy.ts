@@ -44,7 +44,7 @@ describe('_app page', () => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
 
-    cy.request('/api/cypress/atom')
+    cy.request('/api/data/atom/seed-cypress-atom')
     cy.visit('/apps')
   })
 

@@ -44,10 +44,10 @@ describe('Running API action and setting state on element pre-render', () => {
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
 
-    cy.request('/api/cypress/type')
+    cy.request('/api/data/type/seed-cypress-type')
 
-    cy.request('/api/cypress/atom')
-      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
       .then((apps) => {
         app = apps.body
         cy.visit(
