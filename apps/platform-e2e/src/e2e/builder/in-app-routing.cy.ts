@@ -3,7 +3,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 const TestPageText = 'this is the test page'
 const DynamicPageText = 'this is the dynamic page'
@@ -15,8 +15,8 @@ const dynamicUrlSegment2 = 'second-url-segment'
 describe('Routing between app pages within the builder', () => {
   let app: IAppDTO
   before(() => {
-    cy.resetDatabase()
-    loginAndResetDatabase()
+    loginSession()
+    cy.resetDatabaseExceptForUserAndAtom()
 
     cy.request('/api/cypress/type')
 

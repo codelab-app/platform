@@ -3,7 +3,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 interface ComponentChildData {
   atom: string
@@ -20,8 +20,8 @@ const componentChildren = [
 
 describe('Element Child Mapper', () => {
   before(() => {
-    cy.resetDatabase()
-    loginAndResetDatabase()
+    loginSession()
+    cy.resetDatabaseExceptForUserAndAtom()
 
     cy.request('/api/cypress/type')
 
