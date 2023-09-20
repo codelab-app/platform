@@ -59,8 +59,6 @@ export class AtomRepository extends AbstractRepository<
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
   protected async _add(atoms: Array<IAtomDTO>) {
-    console.log(atoms)
-
     return (
       await (
         await this.ogmService.Atom
