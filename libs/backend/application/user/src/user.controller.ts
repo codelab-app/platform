@@ -1,4 +1,6 @@
+import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { AuthService, CurrentUser } from '@codelab/backend/application/shared'
+import { AdminRepository } from '@codelab/backend/domain/admin'
 import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
 import {
   InterfaceType,
@@ -16,14 +18,15 @@ import {
 import { Body, Controller, Inject, Post } from '@nestjs/common'
 import { ManagementClient } from 'auth0'
 import { v4 } from 'uuid'
+import { UserApplicationService } from './user.application.service'
 
 @Controller('user')
 export class UserController {
   constructor(
     private userRepository: UserRepository,
-    private interfaceTypeRepository: InterfaceTypeRepository,
-    private atomRepository: AtomRepository,
-    private authService: AuthService,
+    private atomService: AtomApplicationService,
+    private adminRepository: AdminRepository,
+    private userService: UserApplicationService,
   ) {}
 
   /**
@@ -53,48 +56,22 @@ export class UserController {
     return user
   }
 
+  @Post('setup-e2e')
+  async setupE2e() {
+    await this.adminRepository.resetDatabase()
+
+    await this.userService.seedUserFromRequest()
+
+    await this.atomService.seedReactFragment()
+  }
+
   /**
-   * Setup new account. Used for development only, as production would already have those atoms setup
-   *
-   * - upsert user
-   * - seed ReactFragment
+   * For dev we don't clear any data
    */
-  @Post('setup')
+  @Post('setup-dev')
   async setup() {
-    const currentUser = this.authService.currentUser
+    await this.userService.seedUserFromRequest()
 
-    const user = await this.userRepository.save(currentUser, {
-      auth0Id: currentUser.auth0Id,
-    })
-
-    const reactFragmentExists = await this.atomRepository.findOne({
-      type: IAtomType.ReactFragment,
-    })
-
-    if (reactFragmentExists) {
-      return user
-    }
-
-    // Seed atom manually for now, in future we will import
-    const newInterfaceType = InterfaceType.createFromAtomName(
-      IAtomType.ReactFragment,
-    )
-
-    const interfaceType = await this.interfaceTypeRepository.save(
-      newInterfaceType,
-    )
-
-    const atom = Atom.create({
-      api: interfaceType,
-      id: v4(),
-      name: IAtomType.ReactFragment,
-      type: IAtomType.ReactFragment,
-    })
-
-    const results = await this.atomRepository.save(atom)
-
-    console.log(results)
-
-    return user
+    await this.atomService.seedReactFragment()
   }
 }
