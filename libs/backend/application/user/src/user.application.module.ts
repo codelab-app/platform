@@ -23,6 +23,6 @@ import { UserApplicationController } from './user.application.controller'
     CqrsModule,
     AuthModule,
   ],
-  providers: [ExportUserDataHandler],
+  providers: [ExportUserDataHandler, UserApplicationService],
 })
 export class UserApplicationModule {}
