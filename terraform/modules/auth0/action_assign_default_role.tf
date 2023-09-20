@@ -12,7 +12,7 @@ resource "auth0_action" "assign_default_role" {
     version = "2.27.0"
   }
 
-  runtime = "node18-actions"
+  runtime = "node18"
   code    = <<-EOT
     /**
       * Handler that will be called during the execution of a PostLogin flow.

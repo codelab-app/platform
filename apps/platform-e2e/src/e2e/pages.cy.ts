@@ -7,7 +7,6 @@ import { pageName, updatedPageName } from './apps/app.data'
 
 before(() => {
   loginSession()
-  cy.resetDatabaseExceptForUserAndAtom()
 
   cy.request<IApp>('POST', '/api/data/app/seed-cypress-app').then(
     ({ body: app }) => {

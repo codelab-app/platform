@@ -7,7 +7,7 @@ interface LoginCredentials {
 
 export const loginSession = () => {
   cy.session(
-    ['auth0-session-2'],
+    ['auth0-session'],
     () => {
       login()
     },

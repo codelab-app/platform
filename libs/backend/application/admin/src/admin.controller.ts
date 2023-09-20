@@ -33,9 +33,18 @@ export class AdminController {
     // }
   }
 
-  @Post('reset')
-  async reset() {
-    await this.adminRepository.resetAllExceptUser()
+  @Post('reset-database')
+  async resetDatabase() {
+    await this.adminRepository.resetDatabase()
+
+    return {
+      message: 'Admin data reset success',
+    }
+  }
+
+  @Post('reset-database-except-user')
+  async resetDatabaseExceptUser() {
+    await this.adminRepository.resetDatabaseExceptUser()
 
     return {
       message: 'Admin data reset success',
@@ -47,7 +56,7 @@ export class AdminController {
    */
   @Post('reset-database-except-user-and-atom')
   async cypressReset() {
-    await this.adminRepository.resetAllExceptUserAndAtom()
+    await this.adminRepository.resetDatabaseExceptUserAndAtom()
 
     return {
       message: 'Admin data reset success',

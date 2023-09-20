@@ -8,7 +8,7 @@ export class AdminRepository {
   /**
    * Keep the default renderType
    */
-  async resetAllExceptUserAndAtom(close = false) {
+  async resetDatabaseExceptUserAndAtom(close = false) {
     const query = `
       MATCH (n)
       WHERE NOT (n:User
@@ -21,7 +21,7 @@ export class AdminRepository {
     return this.runCypherQuery(close, query)
   }
 
-  async resetAllExceptUser(close = false) {
+  async resetDatabaseExceptUser(close = false) {
     const query = `
       MATCH (n)
       WHERE NOT n:User
@@ -31,7 +31,10 @@ export class AdminRepository {
     return this.runCypherQuery(close, query)
   }
 
-  async resetAll(close = false) {
+  /**
+   * Deletes everything in database
+   */
+  async resetDatabase(close = false) {
     const query = `
       MATCH (n)
       DETACH DELETE n

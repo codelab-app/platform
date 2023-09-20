@@ -6,7 +6,7 @@ resource "auth0_action" "assign_jwt_claims" {
     version = "v3"
   }
 
-  runtime = "node18-actions"
+  runtime = "node18"
 
   dependencies {
     name    = "uuid"
