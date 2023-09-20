@@ -60,23 +60,12 @@ export class UserController {
    * - seed ReactFragment
    */
   @Post('setup')
-  async setup(@Body() auth0IdToken: Auth0IdToken) {
-    const { email, nickname: username, sub: auth0Id } = auth0IdToken
-    const id = auth0IdToken[JWT_CLAIMS].neo4j_user_id
-    const roles = auth0IdToken[JWT_CLAIMS].roles
+  async setup() {
+    const currentUser = this.authService.currentUser
 
-    const user = await this.userRepository.save(
-      {
-        auth0Id,
-        email,
-        id,
-        roles: roles.map((role) => IRole[role]),
-        username,
-      },
-      {
-        auth0Id,
-      },
-    )
+    const user = await this.userRepository.save(currentUser, {
+      auth0Id: currentUser.auth0Id,
+    })
 
     const reactFragmentExists = await this.atomRepository.findOne({
       type: IAtomType.ReactFragment,
@@ -103,6 +92,8 @@ export class UserController {
     })
 
     const results = await this.atomRepository.save(atom)
+
+    console.log(results)
 
     return user
   }
