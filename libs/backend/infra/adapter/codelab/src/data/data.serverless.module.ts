@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
+import { AppApplicationModule } from '@codelab/backend/application/app'
 import { JwtAuthGuard } from '@codelab/backend/application/shared'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { neo4jConfig, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
@@ -9,7 +10,6 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_GUARD } from '@nestjs/core'
 import { endpointConfig } from '../platform/endpoint.config'
-import { DemoModule } from './demo'
 
 @Module({
   controllers: [],
@@ -19,10 +19,10 @@ import { DemoModule } from './demo'
     //   port: 8000,
     // }),
     RequestContextModule,
-    DemoModule,
     OtelModule,
     AdminApplicationModule,
     UserApplicationModule,
+    AppApplicationModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,

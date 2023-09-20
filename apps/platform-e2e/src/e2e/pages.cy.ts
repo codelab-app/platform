@@ -2,23 +2,23 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IApp, IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginAndResetDatabase } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import { pageName, updatedPageName } from './apps/app.data'
 
 before(() => {
-  cy.resetDatabase()
+  loginSession()
 
-  loginAndResetDatabase()
-
-  cy.request<IApp>('POST', '/api/cypress/app').then(({ body: app }) => {
-    cy.visit(
-      `/apps/cypress/${app.slug}/pages/404/builder?primarySidebarKey=pageList`,
-    )
-    cy.getSpinner().should('not.exist')
-    cy.findAllByText(IPageKindName.Provider).should('exist')
-    cy.findAllByText(IPageKindName.NotFound).should('exist')
-    cy.findAllByText(IPageKindName.InternalServerError).should('exist')
-  })
+  cy.request<IApp>('POST', '/api/data/app/seed-cypress-app').then(
+    ({ body: app }) => {
+      cy.visit(
+        `/apps/cypress/${app.slug}/pages/404/builder?primarySidebarKey=pageList`,
+      )
+      cy.getSpinner().should('not.exist')
+      cy.findAllByText(IPageKindName.Provider).should('exist')
+      cy.findAllByText(IPageKindName.NotFound).should('exist')
+      cy.findAllByText(IPageKindName.InternalServerError).should('exist')
+    },
+  )
 })
 
 describe('Pages CRUD', () => {

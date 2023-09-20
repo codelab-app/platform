@@ -37,8 +37,9 @@ export const elementSchema = gql`
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: OUT)
     postRenderAction: BaseAction
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
-
     renderType: ElementRenderType!
+      # There is bug for union type, need to use custom query
+      # https://github.com/neo4j/graphql/issues/487
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # renderComponentType: Component
     #   @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
