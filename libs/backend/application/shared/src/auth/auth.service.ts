@@ -13,7 +13,9 @@ export class AuthService {
     const req = RequestContext.currentContext?.req as AuthenticatedRequest
     const user = req['user']
 
-    if (!user || !user[JWT_CLAIMS].neo4j_user_id) {
+    console.log(user)
+
+    if (!user) {
       throw new Error('Missing user in request')
     }
 
