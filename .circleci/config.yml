@@ -180,7 +180,7 @@ jobs:
           name: Deploy Project Artifacts to Vercel
   e2e:
     executor: docker-node-neo4j
-    parallelism: 6
+    parallelism: 4
     resource_class: large
     steps:
       - restore-workspace
