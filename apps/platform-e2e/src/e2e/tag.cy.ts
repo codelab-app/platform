@@ -9,7 +9,7 @@ describe('Tag CRUD', () => {
   before(() => {
     loginAndSetupData()
 
-    cy.request('/api/data/tag/seed-cypress-tag').then(() => {
+    cy.request('POST', '/api/data/tag/seed-cypress-tag').then(() => {
       cy.visit('/tags')
     })
   })
