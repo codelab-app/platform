@@ -142,7 +142,7 @@ export class AtomService
       type,
     } = atomDto
 
-    console.debug('atomService.add()', atomDto)
+    console.debug('AtomService.add()', atomDto)
 
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
     const apiRef = typeRef<IInterfaceType>(api.id)

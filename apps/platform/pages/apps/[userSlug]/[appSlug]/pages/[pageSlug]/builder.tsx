@@ -75,6 +75,7 @@ const PageBuilder: CodelabPage = observer(() => {
   useEffect(() => {
     router.events.off('routeChangeStart', routeChangeHandler)
     void loadDevelopmentPage.execute()
+    console.debug('after useDevelopmentPage()')
   }, [pageName])
 
   const isLoading = isNil(result?.app)

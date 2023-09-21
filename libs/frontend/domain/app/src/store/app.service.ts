@@ -159,14 +159,11 @@ export class AppService
    */
   @modelAction
   loadPages = ({ pages }: IPageBuilderAppProps) => {
-    console.debug('appService.loadPages()', pages)
+    console.debug('AppService.loadPages()', pages)
     sortPagesByKindAndName(pages)
 
     const allElements = flatMap(pages, (page) => {
       const { id, rootElement } = page
-
-      this.pageService.add(page)
-
       const elements = [rootElement, ...rootElement.descendantElements]
 
       elements.forEach((elementData) => {
@@ -192,6 +189,9 @@ export class AppService
           closestContainerNode: { id },
         })
       })
+
+      this.pageService.add(page)
+      this.storeService.load([page.store])
     })
 
     return allElements
@@ -233,7 +233,7 @@ export class AppService
     this: AppService,
     where: AppUniqueWhere,
   ) {
-    console.debug('appService.loadDevelopmentApp()', { where })
+    console.debug('AppService.loadDevelopmentApp()', { where })
 
     const appData = yield* _await(this.appRepository.findOne(where))
 
@@ -354,7 +354,7 @@ export class AppService
     appName: string,
     pageName: string,
   ) {
-    console.debug('appService.loadDevelopmentPage()')
+    console.debug('AppService.loadDevelopmentPage()')
 
     const user = this.userService.user
     const appCompositeKey = AppProperties.appCompositeKey(appName, user)
