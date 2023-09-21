@@ -16,7 +16,7 @@ export class ModalService<
   }))<TMetadata>
   implements IModalService<TMetadata>
 {
-  private closeOnRouteChange = () => this.close()
+  closeOnRouteChange = () => this.close()
 
   @modelAction
   open(...args: TMetadata extends undefined ? [] : [TMetadata]) {
