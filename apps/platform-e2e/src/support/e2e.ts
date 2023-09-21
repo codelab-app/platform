@@ -16,6 +16,7 @@ import '@testing-library/cypress/add-commands'
 import { antCommands } from '@codelab/testing/cypress/antd'
 import { codelabUICommands } from '@codelab/testing/cypress/codelab'
 import {
+  apiCommands,
   databaseCommands,
   graphQLCommands,
   registerCommands,
@@ -26,6 +27,7 @@ import { builderCommands } from './builder'
 import { UICommands } from './entities'
 
 registerCommands([
+  ...apiCommands,
   ...graphQLCommands,
   ...userCommands,
   ...antCommands,
@@ -38,6 +40,9 @@ registerCommands([
 
 // afterEach(stopOnFirstError)
 
+// This actually make some tests get skipped even if it seems the e2e
+// tests are passing, so it could skip testing breaking changes
+// Lets comment this out for now
 // Cypress.on('test:after:run', (test) => {
 //   if (test.state !== 'passed' && test.retries > 0) {
 //     ;(Cypress as any).runner.stop()

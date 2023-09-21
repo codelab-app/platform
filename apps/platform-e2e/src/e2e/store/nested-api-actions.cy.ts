@@ -32,7 +32,16 @@ describe('Running nested API and code actions', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
+    cy.request('/api/data/type/seed-cypress-type')
 
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+      .then((apps) => {
+        app = apps.body
+      })
+  })
+
+  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 
@@ -218,6 +227,11 @@ describe('Running nested API and code actions', () => {
 
     cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+
+    cy.wait('@createAction').then(({ response }) => {
+      apiPostActionId = response?.body.data.createApiActions.apiActions[0]
+        .id as string
+    })
 
     cy.wait('@createAction').then(({ response }) => {
       apiPostActionId = response?.body.data.createApiActions.apiActions[0]

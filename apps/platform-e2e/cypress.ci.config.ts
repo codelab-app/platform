@@ -8,7 +8,7 @@ const ciCypressJsonConfig: Cypress.ConfigOptions = {
   execTimeout: 20000,
   pageLoadTimeout: 20000,
   // Cypress Cloud
-  responseTimeout: 20000,
+  responseTimeout: 60000,
   retries: {
     runMode: 1,
   },

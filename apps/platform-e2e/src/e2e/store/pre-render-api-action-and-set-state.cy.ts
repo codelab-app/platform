@@ -22,7 +22,16 @@ describe('Running API action and setting state on element pre-render', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
+    cy.request('/api/data/type/seed-cypress-type')
 
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+      .then((apps) => {
+        app = apps.body
+      })
+  })
+
+  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 

@@ -5,7 +5,6 @@ describe('Apps CRUD', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
-    cy.visit('/apps')
   })
 
   describe('create', () => {
