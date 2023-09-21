@@ -15145,6 +15145,11 @@ export type ContainerNodeWhere = {
   Component?: InputMaybe<ComponentWhere>
 }
 
+export type ContainerNodeWhere = {
+  Page?: InputMaybe<PageWhere>
+  Component?: InputMaybe<ComponentWhere>
+}
+
 export type DomainAppAggregateInput = {
   count?: InputMaybe<Scalars['Int']['input']>
   count_LT?: InputMaybe<Scalars['Int']['input']>
