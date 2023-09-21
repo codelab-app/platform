@@ -5,27 +5,26 @@ import {
 } from '@codelab/shared/data/test'
 import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
+const testCreate = (name: string, parentName?: string) => {
+  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
+
+  if (parentName) {
+    cy.toggleTreeNodeSwitcher(parentName)
+  }
+
+  cy.getTree().findByText(name).should('exist')
+}
+
 describe('Tag CRUD', () => {
   before(() => {
     loginAndSetupData()
 
-    cy.request('POST', '/api/data/tag/seed-cypress-tag').then(() => {
-      cy.visit('/tags')
-    })
+    cy.postApiRequest('/api/data/tag/seed-cypress-tag')
   })
 
   describe('create', () => {
-    const testCreate = (name: string, parentName?: string) => {
-      cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
-
-      if (parentName) {
-        cy.toggleTreeNodeSwitcher(parentName)
-      }
-
-      cy.getTree().findByText(name).should('exist')
-    }
-
     it('should be able to create a tag', () => {
+      cy.visit('/tags')
       cy.createTagByUI(CreateData.tag_0)
       testCreate(CreateData.tag_0)
     })

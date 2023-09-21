@@ -30,31 +30,13 @@ describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
       loginAndSetupData()
-      cy.resetDatabaseExceptForUserAndAtom()
 
-      cy.request('/api/data/type/seed-cypress-type')
 
-      cy.request('/api/data/atom/seed-cypress-atom')
-        .then(() => {
-          return cy.request<IAppDTO>('/api/data/app/seed-cypress-app')
-        })
+      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app')
         .then((apps) => {
           testApp = apps
 
           app = apps.body
-          cy.visit(
-            `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-              PAGE_NAME,
-            )}/builder?primarySidebarKey=components`,
-          )
-          // GetRenderedPageAndCommonAppData
-          cy.waitForApiCalls()
-          cy.getSpinner().should('not.exist')
-
-          // GetAtoms
-          // GetComponents
-          cy.waitForApiCalls()
-          cy.getSpinner().should('not.exist')
         })
     })
     it('should be able to add a new component', () => {

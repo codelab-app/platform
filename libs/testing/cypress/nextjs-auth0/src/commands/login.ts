@@ -22,7 +22,7 @@ export const loginAndSetupData = () => {
   /**
    * Reset database, seed user & react fragment
    */
-  cy.postApiRequest('/api/data/user/setup-e2e')
+  return cy.postApiRequest('/api/data/user/setup-e2e')
 }
 
 export const login = ({

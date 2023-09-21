@@ -37,7 +37,7 @@ export class UserApplicationController {
   @Post('save')
   async save(@Body() auth0IdToken: Auth0IdToken) {
     const { email, nickname: username, sub: auth0Id } = auth0IdToken
-    const id = auth0IdToken[JWT_CLAIMS].neo4j_user_id ?? auth0IdToken.sub
+    const id = auth0IdToken[JWT_CLAIMS].neo4j_user_id
     const roles = auth0IdToken[JWT_CLAIMS].roles
 
     const user = await this.userRepository.save(
