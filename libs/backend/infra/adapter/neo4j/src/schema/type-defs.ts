@@ -20,7 +20,6 @@ import { fieldSchema, typeSchema } from './type'
 export const typeDefs = print(gql`
   ${adminSchema}
   ${commonSchema}
-  ${adminSchema}
   ${userSchema}
   ${appSchema}
   ${fieldSchema}
@@ -32,7 +31,6 @@ export const typeDefs = print(gql`
   ${propSchema}
   ${hookSchema}
   ${componentSchema}
-  ${adminSchema}
   ${storeSchema}
   ${actionSchema}
   ${resourceSchema}

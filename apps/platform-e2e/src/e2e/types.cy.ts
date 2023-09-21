@@ -60,9 +60,11 @@ describe('Types CRUD', () => {
         value: stringPrimitiveType,
       })
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
         cy.getToolbarItem('Create').click()
       })
+      cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
@@ -90,9 +92,11 @@ describe('Types CRUD', () => {
         cy.findAllByLabelText('Value').last().type(enumItem.value)
       })
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
         cy.getToolbarItem('Create').click()
       })
+      cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
@@ -117,9 +121,11 @@ describe('Types CRUD', () => {
         value: arrayItemType,
       })
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
         cy.getToolbarItem('Create').click()
       })
+      cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
@@ -142,9 +148,11 @@ describe('Types CRUD', () => {
         value: interfaceTypeKind,
       })
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
         cy.getToolbarItem('Create').click()
       })
+      cy.wait('@action')
 
       cy.findByText(interfaceTypeName).should('exist')
     })
@@ -183,7 +191,12 @@ describe('Types CRUD', () => {
 
       cy.findByText(fieldDefaultValue).should('be.visible')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getToolbarItem('Create').click()
+      cy.wait('@action')
+      // its re-rendering after saving and is flaky when running in CI
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
@@ -223,7 +236,9 @@ describe('Types CRUD', () => {
         value: updatedArrayTypeName,
       })
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getButton({ label: 'Update Type' }).click()
+      cy.wait('@action')
 
       cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).should('not.exist')
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).should('exist')
@@ -242,9 +257,11 @@ describe('Types CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).should('not.exist')
@@ -261,9 +278,11 @@ describe('Types CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(updatedArrayTypeName).should('not.exist')
@@ -280,9 +299,11 @@ describe('Types CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(enumTypeName).should('not.exist')
@@ -299,9 +320,11 @@ describe('Types CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(primitiveTypeName).should('not.exist')

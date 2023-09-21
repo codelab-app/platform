@@ -41,25 +41,25 @@ describe('Converting an element to a component', () => {
       .then(() => cy.request<IAppDTO>('/api/cypress/app'))
       .then((apps) => {
         app = apps.body
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-
-        // select root now so we can update its child later
-        // there is an issue with tree interaction
-        // Increased timeout since builder may take longer to load
-        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-          .should('be.visible')
-          .click({ force: true })
       })
+  })
+  it('should convert the element into a component and create an instance of it', () => {
+    cy.visit(
+      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+        IPageKindName.Provider,
+      )}/builder`,
+    )
+    cy.getSpinner().should('not.exist')
+
+    // select root now so we can update its child later
+    // there is an issue with tree interaction
+    // Increased timeout since builder may take longer to load
+    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+      .should('be.visible')
+      .click({ force: true })
 
     cy.createElementTree(elements)
-  })
 
-  it('should convert the element into a component and create an instance of it', () => {
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_CONTAINER).rightclick()
 
     cy.findByText(CONVERT_TO_COMPONENT_TEXT).click()

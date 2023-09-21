@@ -95,6 +95,10 @@ describe('Routing between app pages within the builder', () => {
       value: IAtomType.AntDesignTypographyText,
     })
 
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -109,7 +113,13 @@ describe('Routing between app pages within the builder', () => {
       timeout: 10000,
     })
 
-    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
+
+    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({
+      force: true,
+    })
 
     cy.typeIntoTextEditor(
       `${DynamicPageText} - {{url.testId}} - {{url.subtestId}}`,
@@ -146,6 +156,9 @@ describe('Routing between app pages within the builder', () => {
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
     })
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
@@ -161,7 +174,13 @@ describe('Routing between app pages within the builder', () => {
       timeout: 10000,
     })
 
-    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
+
+    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({
+      force: true,
+    })
 
     cy.typeIntoTextEditor(TestPageText)
 
@@ -173,20 +192,20 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
 
-    // Create an alias of the new element id to later be used for
-    // getting its corresponding text editor
-    cy.storeNewElementId()
-
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
       type: FIELD_TYPE.SELECT,
       value: 'Atom',
     })
+
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.NextLink,
     })
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
@@ -200,13 +219,17 @@ describe('Routing between app pages within the builder', () => {
       value: `{ "href": "/tests/${dynamicUrlSegment1}/subtests/${dynamicUrlSegment2}" }`,
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    // Create an alias of the new element id to later be used for
+    // getting its corresponding text editor
+    cy.createElementAndStoreId()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
+
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
 
     cy.getNewElementId().then((nextLinkId) => {
       // This is a link element so need to prevent the default action
@@ -237,8 +260,6 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
 
-    cy.storeNewElementId()
-
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
       type: FIELD_TYPE.SELECT,
@@ -249,6 +270,9 @@ describe('Routing between app pages within the builder', () => {
       type: FIELD_TYPE.SELECT,
       value: IAtomType.NextLink,
     })
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
@@ -262,13 +286,15 @@ describe('Routing between app pages within the builder', () => {
       value: '{ "href": "/test-page" }',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.createElementAndStoreId()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
+
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
 
     cy.getCuiTreeItemByPrimaryTitle('Next Link Element').click({ force: true })
 
@@ -282,6 +308,8 @@ describe('Routing between app pages within the builder', () => {
 
     cy.waitForApiCalls()
 
+    cy.openPreview()
+
     cy.get('#render-root').contains(GoToTestPageText).should('exist')
   })
 
@@ -291,7 +319,6 @@ describe('Routing between app pages within the builder', () => {
   })
 
   it('should navigate to the dynamic page within the builder when NextLink in the /test-page is clicked', () => {
-    cy.openPreview()
     cy.get('#render-root').contains(GoToDynamicPageText).click()
     cy.findByText(
       `${DynamicPageText} - ${dynamicUrlSegment1} - ${dynamicUrlSegment2}`,

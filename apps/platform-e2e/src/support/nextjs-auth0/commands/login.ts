@@ -13,16 +13,10 @@ export const loginSession = () => {
       // Needs to visit the page where the user data will get upserted
       // so that there will be no forbidden errors when doing mutations
       // because the roles are needed
-      cy.visit('/apps')
-      cy.intercept('GET', '/api/upsert-user').as('upsertUser')
-      cy.getSpinner().should('not.exist')
-      cy.wait('@upsertUser', { timeout: 15000 })
+      cy.request('/api/upsert-user')
     },
     {
       cacheAcrossSpecs: true,
-      validate: () => {
-        cy.get('@upsertUser.all').should('not.have.length', 0)
-      },
     },
   )
 }

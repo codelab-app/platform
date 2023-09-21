@@ -25,49 +25,50 @@ const componentChildren: Array<ComponentChildData> = [
 ]
 
 let testApp: any
-let appName: string | undefined
+let app: IAppDTO
 describe('Component CRUD', () => {
-  before(() => {
-    cy.resetDatabase()
-    loginSession()
-
-    cy.request('/api/cypress/type')
-
-    cy.request('/api/cypress/atom')
-      .then(() => {
-        return cy.request<IAppDTO>('/api/cypress/app')
-      })
-      .then((apps) => {
-        testApp = apps
-
-        const app = apps.body
-        appName = app.name
-        cy.visit(
-          `/apps/cypress/${slugify(appName)}/pages/${slugify(
-            PAGE_NAME,
-          )}/builder?primarySidebarKey=components`,
-        )
-        // GetRenderedPageAndCommonAppData
-        cy.waitForApiCalls()
-        cy.getSpinner().should('not.exist')
-
-        // GetAtoms
-        // GetComponents
-        cy.waitForApiCalls()
-        cy.getSpinner().should('not.exist')
-      })
-  })
-
   describe('Add component', () => {
+    before(() => {
+      cy.resetDatabase().then(() => {
+        loginSession()
+
+        cy.request('/api/cypress/type')
+
+        cy.request('/api/cypress/atom')
+          .then(() => {
+            return cy.request<IAppDTO>('/api/cypress/app')
+          })
+          .then((apps) => {
+            testApp = apps
+            app = apps.body
+          })
+      })
+    })
     it('should be able to add a new component', () => {
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          PAGE_NAME,
+        )}/builder?primarySidebarKey=components`,
+      )
+      // GetRenderedPageAndCommonAppData
+      cy.waitForApiCalls()
+      cy.getSpinner().should('not.exist')
+
+      // GetAtoms
+      // GetComponents
+      cy.waitForApiCalls()
+      cy.getSpinner().should('not.exist')
+
       cy.log('my app', JSON.stringify(testApp, null, 2))
       cy.getCuiSidebar('Components').getToolbarItem('Add Component').click()
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
+      cy.intercept('POST', `api/graphql`).as('createComponent')
       cy.getCuiPopover('Create Component').within(() => {
         cy.getToolbarItem('Create').click()
       })
+      cy.wait('@createComponent')
       cy.findByTestId('create-component-form').should('not.exist', {
         timeout: 10000,
       })
@@ -124,6 +125,9 @@ describe('Component CRUD', () => {
           type: FIELD_TYPE.SELECT,
           value: child.atom,
         })
+        // need to wait for the code to put the autocomputed name before typing
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Name',
           type: FIELD_TYPE.INPUT,
@@ -136,6 +140,10 @@ describe('Component CRUD', () => {
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
         })
+
+        // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(2000)
         cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
       })
 
@@ -149,7 +157,7 @@ describe('Component CRUD', () => {
 
     it('should be able to specify where to render component children', () => {
       cy.visit(
-        `/apps/cypress/${slugify(appName)}/pages/${slugify(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
           PAGE_NAME,
         )}/builder?primarySidebarKey=components`,
       )
@@ -172,7 +180,7 @@ describe('Component CRUD', () => {
 
     it('should be able to create an instance of the component', () => {
       cy.visit(
-        `/apps/cypress/${slugify(appName)}/pages/${slugify(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
           PAGE_NAME,
         )}/builder?primarySidebarKey=explorer`,
       )
@@ -191,6 +199,9 @@ describe('Component CRUD', () => {
         type: FIELD_TYPE.SELECT,
         value: COMPONENT_NAME,
       })
+      // need to wait for the code to put the autocomputed name before typing
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Name',
@@ -205,6 +216,9 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
       })
+      // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000)
     })
 
     it('should be able to set props on an instance of the component', () => {
@@ -235,21 +249,25 @@ describe('Component CRUD', () => {
         value: IAtomType.AntDesignTypographyText,
       })
 
+      // need to wait for the code to put the autocomputed name before typing
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
+
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Name',
         type: FIELD_TYPE.INPUT,
         value: COMPONENT_INSTANCE_TEXT,
       })
 
-      cy.storeNewElementId()
-
-      cy.getCuiPopover('Create Element').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.createElementAndStoreId()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
       })
+
+      // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000)
 
       cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_TEXT).click({
         force: true,

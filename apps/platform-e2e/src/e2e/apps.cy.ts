@@ -9,6 +9,10 @@ describe('Apps CRUD', () => {
 
   describe('create', () => {
     it('should be able to create app', () => {
+      cy.visit('/apps')
+      cy.intercept('GET', '/api/upsert-user').as('upsertUser')
+      cy.getSpinner().should('not.exist')
+      cy.wait('@upsertUser')
       // check that we don't have app with test-name
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 

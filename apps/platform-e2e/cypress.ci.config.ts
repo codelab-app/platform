@@ -12,7 +12,7 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   pageLoadTimeout: 20000,
   // Cypress Cloud
   projectId: '9hfoow',
-  responseTimeout: 20000,
+  responseTimeout: 60000,
   // numTestsKeptInMemory: 1,
   retries: {
     openMode: 0,

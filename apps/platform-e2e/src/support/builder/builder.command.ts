@@ -1,9 +1,11 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import type { IAtomType } from '@codelab/shared/abstract/core'
+import { customTextInjectionWhiteList } from 'libs/frontend/domain/atom/src/store/custom-text-injection-whitelist'
 import { FIELD_TYPE } from '../antd/form'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 export interface ElementData {
-  atom?: string
+  atom?: IAtomType
   name: string
   parentElement: string
   propsData?: object
@@ -38,6 +40,9 @@ export const createElementTree = (elements: Array<ElementData>) => {
         type: FIELD_TYPE.SELECT,
         value: atom,
       })
+      // need to wait for the code to put the autocomputed name before typing
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
 
       if (propsData) {
         cy.findByTestId('create-element-form').setFormFieldValue({
@@ -76,32 +81,55 @@ export const createElementTree = (elements: Array<ElementData>) => {
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
-    // editorjs fails internally without this, maybe some kind of initialisation
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(500)
+
+    if (atom && customTextInjectionWhiteList.includes(atom)) {
+      // editorjs fails internally without this, maybe some kind of initialisation
+      // fails mostly on elements that can have text editor like typography text
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000)
+    }
+
     cy.getCuiSidebar('Explorer').findByText(name).should('exist').click()
   })
 }
 
 export const openPreview = () => {
-  return cy.get('[data-cy="codelabui-toolbar-item-Preview"] button').click()
+  // wait for api calls if theres any e.g. actual saving in the database
+  // this is just the simplest way, we should improve this
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(1000)
+  cy.get('[data-cy="codelabui-toolbar-item-Preview"] button').click()
+  // wait for the multiple api calls
+  // this is just the simplest way, we should improve this
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(1000)
+
+  return
 }
 
 export const openBuilder = () => {
-  return cy.get('[data-cy="codelabui-toolbar-item-Builder"] button').click()
+  cy.get('[data-cy="codelabui-toolbar-item-Builder"] button').click()
+  // wait for the multiple api calls
+  // eslint-disable-next-line cypress/no-unnecessary-waiting
+  cy.wait(1000)
+
+  return
 }
 
 /**
  * Creates an alias, with name {@link NEW_ELEMENT_ID_NAME}, for the new element id.
  * This should be called only when the create element form is open.
  */
-export const storeNewElementId = () => {
-  return cy
-    .get('input[name="id"]')
-    .invoke('val')
-    .then((id) => {
-      cy.wrap(id).as(NEW_ELEMENT_ID_NAME)
-    })
+export const createElementAndStoreId = () => {
+  cy.intercept('POST', `api/graphql`).as('graphqlRequest')
+  cy.getCuiPopover('Create Element').within(() => {
+    cy.getToolbarItem('Create').click()
+  })
+  cy.wait('@graphqlRequest').then(({ response }) => {
+    cy.wrap(response?.body.data.createElements.elements[0].id).as(
+      NEW_ELEMENT_ID_NAME,
+    )
+  })
 }
 
 /**
