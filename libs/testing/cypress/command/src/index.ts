@@ -1,3 +1,4 @@
+export * from './api/api.register'
 export * from './command.interface'
 export * from './database/database.register'
 export * from './deprecated'
