@@ -52,8 +52,6 @@ export const CreateElementForm = observer(
     }
 
     const onSubmit = async (data: ICreateElementData) => {
-      console.log(data)
-
       const { prevSibling } = data
 
       const isValidParent = validateParentForCreate(

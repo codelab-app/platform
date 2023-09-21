@@ -34,10 +34,6 @@ export const DeleteElementModal = observer(() => {
     return Promise.resolve()
   }
 
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while deleting element',
-  })
-
   return (
     <ModalForm.Modal
       okText="Delete"
@@ -48,7 +44,9 @@ export const DeleteElementModal = observer(() => {
       <ModalForm.Form<DeleteElementData>
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while deleting element',
+        })}
         onSubmitSuccess={closeModal}
         schema={deleteElementSchema}
       >
