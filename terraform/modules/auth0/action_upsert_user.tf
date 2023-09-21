@@ -72,7 +72,7 @@ exports.onExecutePostLogin = async (event, api) => {
         auth0Id: event.user.user_id,
         email: event.user.email,
         username: event.user.nickname,
-        roles: ['${auth0_role.admin_role.name}']
+        roles: ['${auth0_role.admin.name}']
       }
     ]
   }
