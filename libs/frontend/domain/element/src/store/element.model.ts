@@ -165,6 +165,8 @@ export class Element
       .withSetter()
       .withSnapshotProcessor({
         toSnapshot: (snapshot) => {
+          console.log(snapshot)
+
           const containerNode = {
             __typename:
               snapshot.$modelType === '@codelab/AtomRef'

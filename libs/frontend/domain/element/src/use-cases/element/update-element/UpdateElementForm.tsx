@@ -31,7 +31,10 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
     const { elementService } = useStore()
+    console.log(element)
+
     const model = getSnapshot(element)
+    console.log(model)
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
