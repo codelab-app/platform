@@ -13,7 +13,6 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
-import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
