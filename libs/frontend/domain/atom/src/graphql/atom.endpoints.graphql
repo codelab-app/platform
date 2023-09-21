@@ -35,6 +35,10 @@ query GetAtomOptions {
       id
       type
     }
+    # To satisfy interface
+    api {
+      id
+    }
   }
 }
 

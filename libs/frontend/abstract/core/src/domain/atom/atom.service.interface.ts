@@ -5,7 +5,10 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { CheckboxOptionType } from 'antd'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
+import type { GuaranteedProps } from 'uniforms'
 import type { IComponentType } from '../../renderer'
 import type {
   ICRUDFormService,
@@ -54,5 +57,9 @@ export interface IAtomService
       requiredParents: Array<{ id: string; type: AtomType }>
     }>
   >
+  getSelectAtomOptions(
+    fieldProps: GuaranteedProps<string | undefined>,
+    parent: IAtomModel | undefined,
+  ): Promise<Array<DefaultOptionType>>
   setDefaultRenderType(ref: Ref<IAtomModel>): void
 }

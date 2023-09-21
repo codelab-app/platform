@@ -21106,6 +21106,7 @@ export type GetAtomOptionsQuery = {
     name: string
     type: AtomType
     requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
+    api: { __typename?: 'InterfaceType'; id: string }
   }>
 }
 
