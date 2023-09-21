@@ -5,6 +5,7 @@ import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
+import { trace } from '@opentelemetry/api'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
@@ -28,32 +29,22 @@ export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
     pageService,
     renderService,
     typeService,
-    userService,
   } = useStore()
 
   const router = useRouter()
-  const user = userService.user
   const { appName } = useAppQuery()
   const { pageName } = usePageQuery()
-  const app = appService.appsList.find((_app) => _app.name === appName)
-
-  console.log(appName, pageName, app)
 
   return useAsync(async () => {
-    if (!app) {
-      await router.push({ pathname: PageType.AppList, query: {} })
+    console.debug('useDevelopmentPage', { appName, pageName })
+    await appService.loadDevelopmentPage(appName, pageName)
 
-      return null
-    }
-
-    await appService.loadDevelopmentPage(
-      AppProperties.appCompositeKey(app.name, user),
-      PageProperties.pageCompositeKey(pageName, app),
-    )
-
+    const app = appService.appsList.find((_app) => _app.name === appName)
     const page = pageService.pagesList.find((_page) => _page.name === pageName)
 
-    if (!page) {
+    console.debug(app, page)
+
+    if (!app || !page) {
       await router.push({ pathname: PageType.AppList, query: {} })
 
       return null
@@ -101,6 +92,8 @@ export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
       rendererType,
       urlSegments,
     })
+
+    console.debug(renderer)
 
     renderService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()

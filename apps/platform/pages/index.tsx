@@ -3,7 +3,7 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import { Button } from 'antd'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const HomePage: CodelabPage<DashboardTemplateProps> = () => {
   const { user } = useUser()
