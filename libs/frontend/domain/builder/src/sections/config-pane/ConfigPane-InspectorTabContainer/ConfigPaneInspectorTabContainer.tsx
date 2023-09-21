@@ -95,8 +95,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     {
       children: (
         <div key={selectedNode.id}>
-          {isElementPageNodeRef(selectedNode) &&
-          selectedNode.current.renderType ? (
+          {isElementPageNodeRef(selectedNode) ? (
             <UpdateElementPropsForm element={selectedNode} />
           ) : isComponentPageNodeRef(selectedNode) ? (
             <UpdateComponentPropsForm component={selectedNode.current} />

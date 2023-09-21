@@ -45,6 +45,7 @@ import {
 import {
   type IElementDTO,
   IElementRenderType,
+  IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
@@ -111,7 +112,6 @@ const create = ({
     id,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
-
     // parent of first child
     parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
     postRenderAction: postRenderAction?.id
@@ -161,7 +161,25 @@ export class Element
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    renderType: prop<IElementRenderTypeModel>().withSetter(),
+    renderType: prop<IElementRenderTypeModel>()
+      .withSetter()
+      .withSnapshotProcessor({
+        toSnapshot: (snapshot) => {
+          const containerNode = {
+            __typename:
+              snapshot.$modelType === '@codelab/AtomRef'
+                ? IElementRenderTypeKind.Atom
+                : snapshot.$modelType === '@codelab/ComponentRef'
+                ? IElementRenderTypeKind.Component
+                : (() => {
+                    throw new Error('Neither AtomRef nor ComponentRef')
+                  })(),
+            id: snapshot.id,
+          }
+
+          return containerNode
+        },
+      }),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
     style: prop<Nullable<string>>(null).withSetter(),
