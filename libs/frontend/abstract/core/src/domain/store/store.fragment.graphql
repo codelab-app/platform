@@ -4,11 +4,13 @@ fragment Store on Store {
   api {
     ...InterfaceType
   }
-  component {
-    id
-  }
-  page {
-    id
+  container {
+    ... on Page {
+      id
+    }
+    ... on Component {
+      id
+    }
   }
   actions {
     ...Action
@@ -18,11 +20,13 @@ fragment Store on Store {
 fragment ProductionStore on Store {
   id
   name
-  component {
-    id
-  }
-  page {
-    id
+  container {
+    ... on Page {
+      id
+    }
+    ... on Component {
+      id
+    }
   }
   actions {
     ...Action

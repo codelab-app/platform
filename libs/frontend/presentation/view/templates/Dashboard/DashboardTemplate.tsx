@@ -1,4 +1,4 @@
-import { CuiNavigationBar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useAppQuery,
   useCurrentApp,
@@ -20,7 +20,7 @@ import type { DashboardTemplateProps } from './Types'
 
 const { Sider } = Layout
 
-export const DashboardTemplateSSR = observer(
+export const DashboardTemplate = observer(
   ({
     children,
     ConfigPane,
@@ -104,4 +104,4 @@ export const DashboardTemplateSSR = observer(
   },
 )
 
-export default DashboardTemplateSSR
+export default DashboardTemplate

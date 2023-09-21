@@ -11,7 +11,7 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiSkeletonWrapper,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {

@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { FormNames } from '@codelab/frontend/abstract/types'
-import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useCurrentApp,
   useStore,

@@ -3,14 +3,12 @@ import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { CuiProvider } from '@codelab/frontend/presentation//codelab-ui'
 import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
+import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { StoreProvider } from '@codelab/frontend/presentation/container'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
-
-require('reflect-metadata')
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const store = useMemo(() => {
@@ -50,9 +48,5 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
     </StoreProvider>
   )
 }
-
-export const getServerSideProps = withPageAuthRedirect()
-
-App.displayName = 'App'
 
 export default App

@@ -6,7 +6,7 @@ import {
   FileOutlined,
 } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import type { NavigationBarItem } from '@codelab/frontend/presentation//codelab-ui'
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import React from 'react'
 

@@ -20,7 +20,7 @@ fragment PagePreview on Page {
 fragment Page on Page {
   id
   name
-  slug
+  # slug
   app {
     id
   }
@@ -43,7 +43,7 @@ fragment Page on Page {
 fragment BuilderPage on Page {
   id
   name
-  slug
+  # slug
   rootElement {
     ...Element
     descendantElements {

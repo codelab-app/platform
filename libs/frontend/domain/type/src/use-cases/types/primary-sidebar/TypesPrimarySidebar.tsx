@@ -4,7 +4,7 @@ import {
   CuiSidebar,
   useCui,
   useToolbarPagination,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
