@@ -1,10 +1,10 @@
 import type { CypressCommand } from '../command.interface'
-import { platformApiRequest } from './api'
+import { postApiRequest } from './api'
 
 export interface CypressApiCommands {
-  platformApiRequest: typeof platformApiRequest
+  postApiRequest: typeof postApiRequest
 }
 
 export const apiCommands: Array<CypressCommand> = [
-  { fn: platformApiRequest, name: 'platformApiRequest' },
+  { fn: postApiRequest, name: 'postApiRequest' },
 ]

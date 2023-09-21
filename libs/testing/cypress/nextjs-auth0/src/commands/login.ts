@@ -19,11 +19,7 @@ export const loginSession = () => {
     },
   )
 
-  cy.request({
-    method: 'POST',
-    timeout: 10000,
-    url: '/api/data/user/setup-e2e',
-  })
+  cy.postApiRequest('/api/data/user/setup-e2e')
 }
 
 export const login = ({

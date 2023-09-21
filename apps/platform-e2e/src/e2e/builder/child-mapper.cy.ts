@@ -24,10 +24,10 @@ describe('Element Child Mapper', () => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
 
-    cy.request('/api/data/type/seed-cypress-type')
+    cy.postApiRequest('/api/data/type/seed-cypress-type')
 
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+    cy.postApiRequest('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app'))
       .then((apps) => {
         app = apps.body
       })

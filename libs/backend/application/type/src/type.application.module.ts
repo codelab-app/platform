@@ -1,6 +1,7 @@
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+import { TypeApplicationController } from './type.application.controller'
 import {
   ExportApiHandler,
   ExportSystemTypesHandler,
@@ -9,6 +10,7 @@ import {
 import { ImportSystemTypesHandler } from './use-case/import/import-system-types.command.service'
 
 @Module({
+  controllers: [TypeApplicationController],
   exports: [
     ImportApiHandler,
     ExportApiHandler,
