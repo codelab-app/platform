@@ -1,44 +1,43 @@
-import {
-  AppstoreOutlined,
-  EyeInvisibleOutlined,
-  GroupOutlined,
-  OneToOneOutlined,
-  PicCenterOutlined,
-} from '@ant-design/icons'
 import { SegmentedSelect } from '../components'
-import { CssProperty } from '../css'
+import { CssProperty, Display } from '../css'
 import { useStyle } from '../style.hook'
 import { DisplayFlexOptions } from './DisplayFlexOptions'
 import { DisplayGridOptions } from './DisplayGridOptions'
+import { DisplayIcon } from './Icons'
 
 const displayOptions = [
   {
-    icon: <GroupOutlined />,
-    value: 'block',
+    icon: <DisplayIcon display={Display.Block} />,
+    title: 'Block',
+    value: Display.Block,
   },
   {
-    icon: <OneToOneOutlined />,
-    value: 'flex',
+    icon: <DisplayIcon display={Display.Flex} />,
+    title: 'Flex',
+    value: Display.Flex,
   },
   {
-    icon: <AppstoreOutlined />,
-    value: 'grid',
+    icon: <DisplayIcon display={Display.Grid} />,
+    title: 'Grid',
+    value: Display.Grid,
   },
   {
-    icon: <PicCenterOutlined rotate={90} />,
-    value: 'inline-block',
+    icon: <DisplayIcon display={Display.InlineBlock} />,
+    title: 'Inline Block',
+    value: Display.InlineBlock,
   },
   {
-    icon: <PicCenterOutlined />,
-    value: 'inline',
+    icon: <DisplayIcon display={Display.Inline} />,
+    title: 'Inline',
+    value: Display.Inline,
   },
   {
-    icon: <EyeInvisibleOutlined />,
-    value: 'None',
+    icon: <DisplayIcon display={Display.None} />,
+    title: 'None',
+    value: Display.None,
   },
 ]
 
-// TODO: Rotate icons based on direction
 export const DisplayEditor = () => {
   const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
   const showFlexOptions = getCurrentStyle(CssProperty.Display) === 'flex'

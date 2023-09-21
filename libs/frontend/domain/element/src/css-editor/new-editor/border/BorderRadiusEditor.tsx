@@ -40,7 +40,7 @@ export const BorderRadiusEditor = () => {
     return res
   }
 
-  const [selectedSide, setSelectedSide] = useState(!expanded() ? 'side' : 'all')
+  const [selectedSide, setSelectedSide] = useState(expanded() ? 'side' : 'all')
 
   const resetAll = () => {
     console.log('reset all')
@@ -64,13 +64,8 @@ export const BorderRadiusEditor = () => {
 
   return (
     <div className="space-y-2">
-      <Row
-        align="middle"
-        className="w-full"
-        justify="space-between"
-        wrap={false}
-      >
-        <Col span={10}>
+      <Row align="middle" justify="space-between" wrap={false}>
+        <Col span={12}>
           <SegmentedSelect
             canReset={canReset(CssProperty.BorderRadius) || expanded()}
             label="Radius"
@@ -79,9 +74,10 @@ export const BorderRadiusEditor = () => {
             options={sideOptions}
             size="small"
             value={selectedSide}
+            wideLabel
           />
         </Col>
-        <Col span={12}>
+        <Col span={11}>
           <ValuePicker
             currentValue={getCurrentStyle(CssProperty.BorderRadius)}
             onChange={setAll}

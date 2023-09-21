@@ -48,6 +48,7 @@ export const SizeEditor = () => {
             label="Width"
             onChange={(value) => setStyle(CssProperty.Width, value)}
             onReset={() => resetStyle(CssProperty.Width)}
+            wideLabel
           />
           <ValuePicker
             canReset={canReset(CssProperty.Height)}
@@ -55,6 +56,7 @@ export const SizeEditor = () => {
             label="Height"
             onChange={(value) => setStyle(CssProperty.Height, value)}
             onReset={() => resetStyle(CssProperty.Height)}
+            wideLabel
           />
         </Row>
         <Row className="space-x-3" justify="space-between" wrap={false}>
@@ -64,6 +66,7 @@ export const SizeEditor = () => {
             label="Min W"
             onChange={(value) => setStyle(CssProperty.MinWidth, value)}
             onReset={() => resetStyle(CssProperty.MinWidth)}
+            wideLabel
           />
           <ValuePicker
             canReset={canReset(CssProperty.MinHeight)}
@@ -71,6 +74,7 @@ export const SizeEditor = () => {
             label="Min H"
             onChange={(value) => setStyle(CssProperty.MinHeight, value)}
             onReset={() => resetStyle(CssProperty.MinHeight)}
+            wideLabel
           />
         </Row>
         <Row className="space-x-3" justify="space-between" wrap={false}>
@@ -80,6 +84,7 @@ export const SizeEditor = () => {
             label="Max W"
             onChange={(value) => setStyle(CssProperty.MaxWidth, value)}
             onReset={() => resetStyle(CssProperty.MaxWidth)}
+            wideLabel
           />
           <ValuePicker
             canReset={canReset(CssProperty.MaxHeight)}
@@ -87,6 +92,7 @@ export const SizeEditor = () => {
             label="Max H"
             onChange={(value) => setStyle(CssProperty.MaxHeight, value)}
             onReset={() => resetStyle(CssProperty.MaxHeight)}
+            wideLabel
           />
         </Row>
       </Col>

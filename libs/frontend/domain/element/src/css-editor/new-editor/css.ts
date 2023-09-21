@@ -78,6 +78,40 @@ export enum CssProperty {
   Color = 'color',
 }
 
+export enum FlexAlignItems {
+  Start = 'flex-start',
+  Center = 'center',
+  End = 'flex-end',
+  Stretch = 'stretch',
+  Baseline = 'baseline',
+}
+
+export enum FlexJustifyItems {
+  Start = 'flex-start',
+  Center = 'center',
+  End = 'flex-end',
+  SpaceBetween = 'space-between',
+  SpaceAround = 'space-around',
+}
+
+export enum GridAlign {
+  Start = 'start',
+  Center = 'center',
+  End = 'end',
+  Stretch = 'stretch',
+  SpaceBetween = 'space-between',
+  SpaceAround = 'space-around',
+}
+
+export enum Display {
+  Block = 'block',
+  Flex = 'flex',
+  Grid = 'grid',
+  InlineBlock = 'inline-block',
+  Inline = 'inline',
+  None = 'None',
+}
+
 export const DefaultCssProperties: Record<
   CssProperty,
   { defaultValue: string; key: CssProperty }

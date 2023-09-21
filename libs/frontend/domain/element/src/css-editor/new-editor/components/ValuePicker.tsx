@@ -70,6 +70,7 @@ interface ValuePickerProps {
   min?: number
   prefix?: ReactNode
   size?: SizeType
+  wideLabel?: boolean
   onChange?(value: string): void
   onReset?(): unknown
 }
@@ -85,6 +86,7 @@ export const ValuePicker = ({
   onReset,
   prefix,
   size,
+  wideLabel,
 }: ValuePickerProps) => {
   const { unit, value } = parseCssValue(currentValue ?? '0px')
   const isAuto = unit === CssUnit.Auto
@@ -105,7 +107,7 @@ export const ValuePicker = ({
   return (
     <Row align="middle" justify="space-between" wrap={false}>
       {label && (
-        <Col span={6}>
+        <Col span={wideLabel ? 8 : 6}>
           <ResetLabel canReset={canReset} label={label} onReset={onReset} />
         </Col>
       )}

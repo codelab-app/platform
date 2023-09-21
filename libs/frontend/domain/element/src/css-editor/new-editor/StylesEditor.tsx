@@ -35,6 +35,9 @@ export const StylesEditor = () => {
             optionFontSize: CONTROL_FONT_SIZE,
           },
         },
+        token: {
+          // motionUnit: 0,
+        },
       }}
     >
       <Collapse
