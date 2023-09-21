@@ -52,6 +52,8 @@ export const CreateElementForm = observer(
     }
 
     const onSubmit = async (data: ICreateElementData) => {
+      console.log(data)
+
       const { prevSibling } = data
 
       const isValidParent = validateParentForCreate(
@@ -72,10 +74,6 @@ export const CreateElementForm = observer(
 
       return Promise.resolve()
     }
-
-    const onSubmitError = createFormErrorNotificationHandler({
-      title: 'Error while creating element',
-    })
 
     const closeForm = () => elementService.createForm.close()
 
@@ -99,7 +97,9 @@ export const CreateElementForm = observer(
         data-testid="create-element-form"
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while creating element',
+        })}
         onSubmitSuccess={closeForm}
         schema={createElementSchema}
         submitRef={submitRef}
