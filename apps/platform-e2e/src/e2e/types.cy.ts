@@ -198,7 +198,7 @@ describe('Types CRUD', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
 
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
+      // cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
