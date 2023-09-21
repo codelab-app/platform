@@ -7,7 +7,7 @@ import {
 } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import { type IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -30,9 +30,10 @@ export class SeedCypressAtomsHandler
   @Span()
   async execute() {
     const atomsData = createAtomsData()
+      // ReactFragment is already seeded
+      .filter((atom) => atom.name !== IAtomType.ReactFragment)
+
     const apisData = createAtomsApiData(atomsData)
-    // Create a map to store the IDs of the saved InterfaceTypes
-    const interfaceTypeIdsMap: Record<string, string> = {}
 
     /**
      * Create the api for the atoms
@@ -40,15 +41,7 @@ export class SeedCypressAtomsHandler
     for await (const api of apisData) {
       const interfaceTypeModel = new InterfaceType(api)
 
-      const interfaceType = await this.interfaceTypeRepository.save(
-        interfaceTypeModel,
-        {
-          name: interfaceTypeModel.name,
-        },
-      )
-
-      // Save the ID in the map
-      interfaceTypeIdsMap[interfaceType.name] = interfaceType.id
+      await this.interfaceTypeRepository.save(interfaceTypeModel)
     }
 
     const atoms: Array<IAtomDTO> = []
@@ -58,15 +51,7 @@ export class SeedCypressAtomsHandler
      */
     for await (const atomData of atomsData) {
       const atomModel = Atom.create(atomData)
-
-      // Replace the API ID with the saved one
-      atomModel.api.id = throwIfUndefined(
-        interfaceTypeIdsMap[InterfaceType.getApiName(atomData)],
-      )
-
-      const atom = await this.atomRepository.save(atomModel, {
-        name: atomModel.name,
-      })
+      const atom = await this.atomRepository.save(atomModel)
 
       atoms.push(atom)
     }

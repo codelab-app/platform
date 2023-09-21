@@ -24,6 +24,7 @@ import {
   controllers: [AppApplicationController],
   exports: [SeedCypressAppHandler, ExportAppsHandler, ImportAppHandler],
   imports: [
+    AtomDomainModule,
     AppDomainModule,
     PageDomainModule,
     AtomApplicationModule,

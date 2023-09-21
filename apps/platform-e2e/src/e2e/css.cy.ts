@@ -1,7 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
@@ -21,8 +21,7 @@ const clickEditor = () => {
 
 describe('CSS CRUD', () => {
   before(() => {
-    loginSession()
-    cy.resetDatabaseExceptForUserAndAtom()
+    loginAndSetupData()
 
     cy.request('/api/data/atom/seed-cypress-atom')
       .then(() => cy.request('/api/data/app/seed-cypress-app'))

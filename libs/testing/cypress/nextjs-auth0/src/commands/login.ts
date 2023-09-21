@@ -5,7 +5,7 @@ interface LoginCredentials {
   username?: string
 }
 
-export const loginSession = () => {
+export const loginAndSetupData = () => {
   cy.session(
     ['auth0-session'],
     () => {
@@ -19,6 +19,9 @@ export const loginSession = () => {
     },
   )
 
+  /**
+   * Reset database, seed user & react fragment
+   */
   cy.postApiRequest('/api/data/user/setup-e2e')
 }
 
