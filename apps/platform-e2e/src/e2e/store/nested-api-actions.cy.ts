@@ -225,6 +225,11 @@ describe('Running nested API and code actions', () => {
       apiPostActionId = response?.body.data.createApiActions.apiActions[0]
         .id as string
     })
+
+    cy.wait('@createAction').then(({ response }) => {
+      apiPostActionId = response?.body.data.createApiActions.apiActions[0]
+        .id as string
+    })
   })
 
   it('should create a button element and set the POST api action as the click handler', () => {

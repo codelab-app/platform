@@ -207,6 +207,11 @@ describe('Testing the Form atom', () => {
       apiPostActionId = response?.body.data.createApiActions.apiActions[0]
         .id as string
     })
+
+    cy.wait('@createAction').then(({ response }) => {
+      apiPostActionId = response?.body.data.createApiActions.apiActions[0]
+        .id as string
+    })
   })
 
   it('should create the form elements', () => {

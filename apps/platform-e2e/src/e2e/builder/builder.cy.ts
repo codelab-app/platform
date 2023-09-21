@@ -54,7 +54,6 @@ const updatedElementName = 'Container Updated'
 
 describe('Elements CRUD', () => {
   let app: IAppDTO
-
   before(() => {
     loginAndSetupData()
 
@@ -62,7 +61,6 @@ describe('Elements CRUD', () => {
       app = apps.body
     })
   })
-
   describe('create', () => {
     it('should be able to create elements', () => {
       cy.visit(
