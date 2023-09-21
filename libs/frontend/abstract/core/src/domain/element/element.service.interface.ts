@@ -85,7 +85,7 @@ export interface IElementService
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }
-  loadElement(element: IElementDTO): void
+  // loadElement(element: IElementDTO): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
   moveElementAsFirstChild(props: {
     element: IEntity

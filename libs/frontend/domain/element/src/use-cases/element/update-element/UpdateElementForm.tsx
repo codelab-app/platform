@@ -13,12 +13,13 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import ChildMapperCompositeField from '../../../components/ChildMapperCompositeField'
-import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
+import { RenderTypeCompositeField } from '../../../components/RenderTypeCompositeField'
 import { Element } from '../../../store'
 import { updateElementSchema } from './update-element.schema'
 
@@ -29,8 +30,11 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
+    const model = getSnapshot(element)
+
+    console.log(model)
+
     const { elementService } = useStore()
-    const model = Element.create(element)
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -58,10 +62,12 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('childMapper')
     }
 
+    console.log(updateElementSchema)
+
     return (
       <Form<IUpdateBaseElementData>
         autosave
-        key={element.id}
+        key={model.id}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

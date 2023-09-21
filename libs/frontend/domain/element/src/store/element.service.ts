@@ -132,11 +132,6 @@ export class ElementService
   }
 
   @modelAction
-  loadElement = (element: IElementDTO) => {
-    //
-  }
-
-  @modelAction
   add = (elementDTO: IElementDTO): IElementModel => {
     console.debug('ElementService.add()', elementDTO)
 
