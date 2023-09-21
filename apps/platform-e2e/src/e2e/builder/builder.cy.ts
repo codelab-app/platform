@@ -51,32 +51,33 @@ const elements = [
 const updatedElementName = 'Container Updated'
 
 describe('Elements CRUD', () => {
+  let app: IAppDTO
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
 
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+    cy.postApiRequest('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app'))
       .then((apps) => {
-        const app = apps.body
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-
-        // select root now so we can update its child later
-        // there is an issue with tree interaction
-        // Increased timeout since builder may take longer to load
-        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-          .should('be.visible')
-          .click({ force: true })
+        app = apps.body
       })
   })
-
   describe('create', () => {
     it('should be able to create elements', () => {
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          IPageKindName.Provider,
+        )}/builder`,
+      )
+      cy.getSpinner().should('not.exist')
+
+      // select root now so we can update its child later
+      // there is an issue with tree interaction
+      // Increased timeout since builder may take longer to load
+      cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+        .should('be.visible')
+        .click({ force: true })
+
       cy.createElementTree(elements)
     })
   })

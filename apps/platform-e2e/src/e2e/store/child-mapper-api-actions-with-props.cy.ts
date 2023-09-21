@@ -46,7 +46,16 @@ describe('Element Child Mapper', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
+    cy.request('/api/data/type/seed-cypress-type')
 
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+      .then((apps) => {
+        app = apps.body
+      })
+  })
+
+  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 
@@ -66,14 +75,6 @@ describe('Element Child Mapper', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
-
-    cy.request('/api/data/type/seed-cypress-type')
-
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
-        app = apps.body
-      })
   })
 
   it('should create a component and api action', () => {
@@ -116,12 +117,6 @@ describe('Element Child Mapper', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getHeaderToolbarItem('Add Action').click()
 
-    cy.get('input[name="id"]')
-      .invoke('val')
-      .then((id) => {
-        apiGetActionId = id as string
-      })
-
     cy.setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -152,8 +147,14 @@ describe('Element Child Mapper', () => {
       value: HttpResponseType.Text,
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
       cy.getToolbarItem('Create').click()
+    })
+
+    cy.wait('@createAction').then(({ response }) => {
+      apiGetActionId = response?.body.data.createApiActions.apiActions[0]
+        .id as string
     })
   })
 
@@ -180,6 +181,10 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.INPUT,
       value: `{ "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiGetActionId}", "type": "${actionTypeId}" } }`,
     })
+
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -195,6 +200,10 @@ describe('Element Child Mapper', () => {
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
+
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
 
     cy.typeIntoTextEditor('Name of data - {{ componentProps.name }}')
 

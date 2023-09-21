@@ -23,6 +23,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     auth0SessionCookieName: 'appSession',
     // This is the Auth0 Management API url
     auth0Username: getEnv().auth0.cypressUsername,
+    platformApiHost: getEnv().endpoint.platformApiHost,
     workspaceRoot: path.resolve(__dirname, '../..'),
   },
   execTimeout: 5000,

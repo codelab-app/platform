@@ -5,11 +5,11 @@ describe('Apps CRUD', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
-    cy.visit('/apps')
   })
 
   describe('create', () => {
     it('should be able to create app', () => {
+      cy.visit('/apps')
       // check that we don't have app with test-name
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 

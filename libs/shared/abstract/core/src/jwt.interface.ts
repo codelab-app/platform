@@ -9,8 +9,8 @@ export interface CodelabApiClaims {
   /**
    * Possibly undefined on `dev`
    */
-  neo4j_user_id: string
-  /**
+  neo4j_user_id?: string
+  /* *
    * When it comes from the Auth0 endpoint, the session data is encoded as string, not enum
    */
   roles: Array<keyof typeof IRole>
