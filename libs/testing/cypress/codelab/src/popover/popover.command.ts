@@ -1,3 +1,7 @@
 export const getCuiPopover = (title: string) => {
-  return cy.get(`[data-cy="codelabui-sidebar-popover-${title}"]`)
+  cy.log('getCuiPopover', title)
+
+  return cy.get(`[data-cy="codelabui-sidebar-popover-${title}"]`, {
+    log: false,
+  })
 }
