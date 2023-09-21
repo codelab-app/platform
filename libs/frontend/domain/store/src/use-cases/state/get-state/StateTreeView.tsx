@@ -6,7 +6,7 @@ import {
   CuiEmpty,
   CuiSkeletonWrapper,
   CuiTree,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'

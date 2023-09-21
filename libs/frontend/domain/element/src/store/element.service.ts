@@ -138,6 +138,8 @@ export class ElementService
 
   @modelAction
   add = (elementDTO: IElementDTO): IElementModel => {
+    console.debug('elementService.add()', elementDTO)
+
     let element = this.elements.get(elementDTO.id)
 
     if (element) {

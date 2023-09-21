@@ -38,6 +38,10 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
 import { UserService } from '@codelab/frontend/domain/user'
+import {
+  TracerService,
+  tracerServiceContext,
+} from '@codelab/frontend/infra/adapter/otel'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {
@@ -58,6 +62,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
     resourceService: prop(() => new ResourceService({})),
     storeService: prop(() => new StoreService({})),
     tagService: prop(() => new TagService({})),
+    tracerService: prop(() => new TracerService({})),
     typeService: prop(() => new TypeService({})),
     userService: prop(() => UserService.init(user)),
   }) {
@@ -78,6 +83,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
       renderServiceContext.set(this, this.renderService)
+      tracerServiceContext.set(this, this.tracerService)
     }
   }
 

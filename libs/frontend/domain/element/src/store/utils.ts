@@ -13,6 +13,8 @@ import type { Ref } from 'mobx-keystone'
 export const getRenderType = (
   renderType: IElementRenderType,
 ): IElementRenderTypeModel => {
+  console.log(renderType)
+
   switch (renderType.__typename) {
     case IElementRenderTypeKind.Atom: {
       return atomRef(renderType.id)

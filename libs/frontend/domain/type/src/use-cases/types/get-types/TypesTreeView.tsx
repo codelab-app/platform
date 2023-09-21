@@ -1,6 +1,6 @@
 import type { IType, ITypesTreeDataNode } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { CuiTree } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/codegen'

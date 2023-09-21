@@ -20,7 +20,7 @@ import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'

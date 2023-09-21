@@ -1,6 +1,6 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import { FormNames } from '@codelab/frontend/abstract/types'
-import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -3,7 +3,7 @@ import type { CheckedKeys } from '@codelab/frontend/abstract/types'
 import {
   CuiSkeletonWrapper,
   CuiTree,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useAsync } from '@react-hookz/web'
 import type { TreeProps } from 'antd'

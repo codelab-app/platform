@@ -33,8 +33,8 @@ import {
   UpdateFieldModal,
   UpdateFieldPopover,
 } from '@codelab/frontend/domain/type'
-import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
-import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
+import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useCurrentComponent,
   useCurrentPage,

@@ -39,6 +39,8 @@ export class PropService
 
   @modelAction
   add({ api, data, id }: IPropDTO) {
+    console.debug('propService.add()', { api, data, id })
+
     let props = this.prop(id)
 
     if (props) {

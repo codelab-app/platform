@@ -3,7 +3,7 @@ import type {
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { isElementPageNode } from '@codelab/frontend/abstract/core'
-import { CuiTreeItem } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiTreeItem } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { BuilderDropHandler } from '../../../dnd/BuilderDropHandler'

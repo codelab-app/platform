@@ -12,7 +12,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { mapElementOption } from '@codelab/frontend/domain/element'
-import { useCui } from '@codelab/frontend/presentation//codelab-ui'
+import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Key } from '@codelab/frontend/presentation/view'
 import type { Nullable } from '@codelab/shared/abstract/types'

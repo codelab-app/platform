@@ -26,7 +26,6 @@ export type PagePreviewFragment = {
 export type PageFragment = {
   id: string
   name: string
-  slug: string
   kind: Types.PageKind
   url: string
   app: { id: string }
@@ -38,7 +37,6 @@ export type PageFragment = {
 export type BuilderPageFragment = {
   id: string
   name: string
-  slug: string
   kind: Types.PageKind
   url: string
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
@@ -82,7 +80,6 @@ export const PageFragmentDoc = gql`
   fragment Page on Page {
     id
     name
-    slug
     app {
       id
     }
@@ -108,7 +105,6 @@ export const BuilderPageFragmentDoc = gql`
   fragment BuilderPage on Page {
     id
     name
-    slug
     rootElement {
       ...Element
       descendantElements {
