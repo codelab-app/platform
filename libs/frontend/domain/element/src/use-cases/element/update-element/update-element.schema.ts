@@ -71,8 +71,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       type: 'string',
     },
     renderType: {
-      label: 'Render Type',
-      type: 'object',
       oneOf: [
         {
           properties: {
@@ -106,8 +104,25 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         },
       ],
     },
+    // renderType: {
+    //   label: 'Render Type',
+    //   properties: {
+    //     id: {
+    //       type: 'string',
+    //     },
+    //     __typename: {
+    //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //       enum: Object.values(IElementRenderTypeKind),
+    //       nullable: true,
+    //       label: 'Render Type',
+    //       type: 'string',
+    //     },
+    //   },
+    //   required: ['id'],
+    //   type: 'object',
+    // },
   },
-  required: [],
+  required: ['renderType'],
   title: 'Update Element Input',
   type: 'object',
 } as const

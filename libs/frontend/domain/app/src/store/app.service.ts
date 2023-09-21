@@ -184,10 +184,14 @@ export class AppService
           this.atomService.add(elementData.renderType)
         }
 
-        this.elementService.add({
+        const elementDto = {
           ...elementData,
           closestContainerNode: { id },
-        })
+        }
+
+        console.log('AppService.loadPages() elementDto', elementDto)
+
+        this.elementService.add(elementDto)
       })
 
       this.pageService.add(page)
