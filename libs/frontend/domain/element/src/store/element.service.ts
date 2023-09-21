@@ -173,7 +173,10 @@ export class ElementService
   })
 
   @modelFlow
-  getRenderTypeApi = async (renderType: IElementRenderType) => {
+  private getRenderTypeApi = _async(function* (
+    this: ElementService,
+    renderType: IElementRenderType,
+  ) {
     // When creating a new element, we need the interface type fields
     // and we use it to create a props with default values for the created element
     let renderTypeApi: Ref<IInterfaceType>
@@ -181,7 +184,7 @@ export class ElementService
     switch (renderType.__typename) {
       case IElementRenderTypeKind.Atom: {
         const atomRenderTypeRef = throwIfUndefined(
-          await this.atomService.getOne(renderType.id),
+          yield* _await(this.atomService.getOne(renderType.id)),
         )
 
         renderTypeApi = atomRenderTypeRef.api
@@ -190,7 +193,7 @@ export class ElementService
 
       case IElementRenderTypeKind.Component: {
         const componentRenderTypeRef = throwIfUndefined(
-          await this.componentService.getOne(renderType.id),
+          yield* _await(this.componentService.getOne(renderType.id)),
         )
 
         renderTypeApi = componentRenderTypeRef.api
@@ -202,7 +205,7 @@ export class ElementService
     }
 
     return renderTypeApi
-  }
+  })
 
   /**
    * We need a separate create function for element trees

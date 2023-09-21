@@ -52,15 +52,17 @@ const updatedElementName = 'Container Updated'
 
 describe('Elements CRUD', () => {
   let app: IAppDTO
+
   before(() => {
     loginAndSetupData()
 
-    cy.postApiRequest('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
         app = apps.body
-      })
+      },
+    )
   })
+
   describe('create', () => {
     it('should be able to create elements', () => {
       cy.visit(
