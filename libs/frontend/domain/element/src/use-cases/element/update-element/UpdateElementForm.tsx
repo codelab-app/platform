@@ -30,11 +30,8 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
-    const model = getSnapshot(element)
-
-    console.log(model)
-
     const { elementService } = useStore()
+    const model = getSnapshot(element)
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -61,8 +58,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     ) {
       expandedFields.push('childMapper')
     }
-
-    console.log(updateElementSchema)
 
     return (
       <Form<IUpdateBaseElementData>

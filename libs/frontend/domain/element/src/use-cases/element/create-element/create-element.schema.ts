@@ -72,8 +72,6 @@ export const createElementSchema: JSONSchemaType<
       type: 'object',
     },
     renderType: {
-      label: 'Render Type',
-      type: 'object',
       oneOf: [
         {
           properties: {
@@ -108,7 +106,7 @@ export const createElementSchema: JSONSchemaType<
       ],
     },
   },
-  required: ['name', 'id', 'renderType'],
+  required: ['name', 'id'],
   title: 'Create Element Input',
   type: 'object',
 }

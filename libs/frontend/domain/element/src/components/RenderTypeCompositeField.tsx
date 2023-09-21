@@ -25,9 +25,10 @@ const RenderTypeFields = ({
 
           // when the type changes, the selected atom or component has to be
           // removed since they share the same field name `renderType.id`
-          // if (value) {
-          //   onChange(value)
-          // }
+          if (value) {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            onChange({ __typename: value })
+          }
         }}
         options={[
           {

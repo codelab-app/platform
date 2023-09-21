@@ -80,7 +80,7 @@ export interface IElementService
   createElementAsNextSibling(data: ICreateElementData): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
-  getRenderTypeApi(renderType: IElementRenderType): Promise<Ref<IInterfaceType>>
+  // getRenderTypeApi(renderType: IElementRenderType): Promise<Ref<IInterfaceType>>
   loadComponentTree(component: RenderedComponentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
