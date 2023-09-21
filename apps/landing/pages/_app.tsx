@@ -18,10 +18,6 @@ import { Intercom } from '../home/Intercom'
 import { useHotjar } from '../hooks/useHotjar.hook'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
-/**
- * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
- */
-
 const App = ({ Component, pageProps }: IAppProps) => {
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage

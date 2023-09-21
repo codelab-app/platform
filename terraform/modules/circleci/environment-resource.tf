@@ -46,6 +46,20 @@ resource "circleci_environment_variable" "AUTH0_CLIENT_SECRET" {
   organization = local.organization
 }
 
+resource "circleci_environment_variable" "AUTH0_M2M_CLIENT_ID" {
+  name         = "AUTH0_M2M_CLIENT_ID"
+  value        = var.auth0_m2m_client_id
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "AUTH0_M2M_CLIENT_SECRET" {
+  name         = "AUTH0_M2M_CLIENT_SECRET"
+  value        = var.auth0_m2m_client_secret
+  project      = local.project_name
+  organization = local.organization
+}
+
 resource "circleci_environment_variable" "AUTH0_CYPRESS_USERNAME" {
   name         = "AUTH0_CYPRESS_USERNAME"
   value        = var.auth0_cypress_username
