@@ -2,6 +2,7 @@
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { JwtAuthGuard } from '@codelab/backend/application/shared'
+import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { neo4jConfig, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
@@ -22,6 +23,7 @@ import { endpointConfig } from '../platform/endpoint.config'
     OtelModule,
     AdminApplicationModule,
     UserApplicationModule,
+    TagApplicationModule,
     AppApplicationModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
