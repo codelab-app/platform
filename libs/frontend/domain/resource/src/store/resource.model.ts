@@ -1,10 +1,12 @@
 import type { IProp, IResourceModel } from '@codelab/frontend/abstract/core'
-import { propRef } from '@codelab/frontend/abstract/core'
+import { getUserService, propRef } from '@codelab/frontend/abstract/core'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
+import { connectOwner } from '@codelab/shared/domain/mapper'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -28,6 +30,11 @@ export class Resource
 {
   static create = create
 
+  @computed
+  private get userService() {
+    return getUserService(this)
+  }
+
   toCreateInput(): ResourceCreateInput {
     return {
       config: {
@@ -37,6 +44,7 @@ export class Resource
       },
       id: this.id,
       name: this.name,
+      owner: connectOwner(this.userService.user),
       type: this.type,
     }
   }

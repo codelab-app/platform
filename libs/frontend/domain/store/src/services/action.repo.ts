@@ -99,33 +99,37 @@ export class ActionRepository extends Model({}) implements IActionRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: ActionRepository, action: IAction) {
-    switch (action.type) {
-      case IActionKind.CodeAction: {
-        const {
-          deleteCodeActions: { nodesDeleted },
-        } = yield* _await(
-          deleteActionApi.DeleteCodeActions({
-            delete: action.toDeleteInput(),
-            where: { id: action.id },
-          }),
-        )
+  delete = _async(function* (this: ActionRepository, actions: Array<IAction>) {
+    for (const action of actions) {
+      switch (action.type) {
+        case IActionKind.CodeAction: {
+          const {
+            deleteCodeActions: { nodesDeleted },
+          } = yield* _await(
+            deleteActionApi.DeleteCodeActions({
+              delete: action.toDeleteInput(),
+              where: { id: action.id },
+            }),
+          )
 
-        return nodesDeleted
-      }
+          return nodesDeleted
+        }
 
-      case IActionKind.ApiAction: {
-        const {
-          deleteApiActions: { nodesDeleted },
-        } = yield* _await(
-          deleteActionApi.DeleteApiActions({
-            delete: action.toDeleteInput(),
-            where: { id: action.id },
-          }),
-        )
+        case IActionKind.ApiAction: {
+          const {
+            deleteApiActions: { nodesDeleted },
+          } = yield* _await(
+            deleteActionApi.DeleteApiActions({
+              delete: action.toDeleteInput(),
+              where: { id: action.id },
+            }),
+          )
 
-        return nodesDeleted
+          return nodesDeleted
+        }
       }
     }
+
+    return actions.length
   })
 }

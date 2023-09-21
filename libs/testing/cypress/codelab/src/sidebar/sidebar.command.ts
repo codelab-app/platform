@@ -1,15 +1,29 @@
 export const getCuiSidebar = (label: string) => {
-  return cy.get(`[data-cy="codelabui-sidebar-${label}"]`)
+  cy.log('getCuiSidebar', label)
+
+  return cy.get(`[data-cy="codelabui-sidebar-${label}"]`, { log: false })
 }
 
 export const getCuiSidebarViewHeader = (label: string) => {
-  return cy.get(`[data-cy="codelabui-sidebar-view-header-${label}"]`)
+  cy.log('getCuiSidebarViewHeader', label)
+
+  return cy.get(`[data-cy="codelabui-sidebar-view-header-${label}"]`, {
+    log: false,
+  })
 }
 
 export const getCuiSidebarViewContent = (label: string) => {
-  return cy.get(`[data-cy="codelabui-sidebar-view-content-${label}"]`)
+  cy.log('getCuiSidebarViewContent', label)
+
+  return cy.get(`[data-cy="codelabui-sidebar-view-content-${label}"]`, {
+    log: false,
+  })
 }
 
 export const getCuiSidebarToolbarItem = (label: string) => {
-  return cy.get(`[data-cy="codelabui-sidebar-toolbar-item-${label}"]`)
+  cy.log('getCuiSidebarToolbarItem', label)
+
+  return cy.get(`[data-cy="codelabui-sidebar-toolbar-item-${label}"]`, {
+    log: false,
+  })
 }

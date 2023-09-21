@@ -24,7 +24,6 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
       required: [],
       type: 'object',
     },
-    ...ownerSchema,
   },
   required: ['id', 'name'],
   title: 'Create Tag Input',

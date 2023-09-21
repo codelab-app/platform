@@ -61,7 +61,7 @@ export const CreateTypeForm = observer(
         schema={createTypeSchema}
         submitRef={submitRef}
       >
-        <AutoFields fields={['name', 'owner']} />
+        <AutoFields fields={['name']} />
         <SelectField name="kind" showSearch />
 
         <DisplayIfKind kind={ITypeKind.PrimitiveType}>
