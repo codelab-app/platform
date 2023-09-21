@@ -1,5 +1,4 @@
 export * from './clone-component'
-export * from './is-droppable'
 export * from './make-drop-indicator-style'
 export * from './query-rendered-element-by-id'
 export * from './render-output'

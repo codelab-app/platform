@@ -86,6 +86,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const dragDropHandlers = useDragDropHandlers(
       builderService,
       elementService,
+      atomService,
       element,
       renderer.rendererType,
     )

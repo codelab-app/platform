@@ -1,4 +1,6 @@
 import type {
+  IAtom,
+  IAtomService,
   IBuilderService,
   IDropPosition,
   IElement,
@@ -7,24 +9,24 @@ import type {
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { createDragImage } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
-import { isDroppable } from './is-droppable'
 import { queryRenderedElementById } from './query-rendered-element-by-id'
 
-let dropElement: IElement | null
-let dragElement: IElement | null
+let dropTargetElement: IElement | null
+let draggedElement: IElement | null
 let dropPosition: IDropPosition | 'forbidden'
 
 export const useDragDropHandlers = (
   builderService: IBuilderService,
   elementService: IElementService,
-  element: IElement,
+  atomService: IAtomService,
+  currentElement: IElement,
   rendererType: RendererType,
 ) => {
   const dragStartHandler = useCallback(
     (event: React.DragEvent<HTMLElement>) => {
       // we stop propogation because we only want the event to be triggered on currenty dragged element and not the parents
       event.stopPropagation()
-      dragElement = element
+      draggedElement = currentElement
 
       const target = event.target as HTMLElement
       // assign a specific class to the DOM element that is currently being dragged
@@ -35,10 +37,14 @@ export const useDragDropHandlers = (
 
       // set drag image
       // drag image is something you see attaced to the pointer while dragging
-      event.dataTransfer.setDragImage(createDragImage(element.name), 5, 5)
+      event.dataTransfer.setDragImage(
+        createDragImage(currentElement.name),
+        5,
+        5,
+      )
       builderService.hoverElementNode(null)
     },
-    [builderService, element],
+    [builderService, currentElement],
   )
 
   const dragOverHandler = useCallback(
@@ -47,10 +53,10 @@ export const useDragDropHandlers = (
       // we stop propogation because we only want the event to be triggered on currenty dragged element and not the parents
       event.stopPropagation()
 
-      dropElement = element
+      dropTargetElement = currentElement
 
       const parentElement =
-        queryRenderedElementById(element.closestParent?.id ?? '') ??
+        queryRenderedElementById(currentElement.closestParent?.id ?? '') ??
         document.getElementById('render-root')
 
       if (!parentElement) {
@@ -58,7 +64,7 @@ export const useDragDropHandlers = (
       }
 
       if (
-        dragElement?.id === dropElement.id ||
+        draggedElement?.id === dropTargetElement.id ||
         isDescendantOfCurrentlyDraggedElement(event.target as HTMLElement)
       ) {
         // we don't allow an element to be dropped on itself or its descendant
@@ -67,15 +73,23 @@ export const useDragDropHandlers = (
         return
       }
 
+      const dropTargetAtom = atomService.atoms.get(
+        dropTargetElement.renderType?.id ?? '',
+      )
+
+      const draggedAtom = atomService.atoms.get(
+        draggedElement?.renderType?.id ?? '',
+      )
+
       dropPosition = detectDropPosition(
         event,
         parentElement,
-        isDroppable(element.atomName),
+        isDroppable(dropTargetAtom, draggedAtom),
       )
 
-      builderService.dragOverElementNode(element, dropPosition)
+      builderService.dragOverElementNode(currentElement, dropPosition)
     },
-    [builderService, element],
+    [builderService, atomService, currentElement],
   )
 
   const dragEndHandler = useCallback(
@@ -95,29 +109,32 @@ export const useDragDropHandlers = (
 
       if (dropPosition === 'right' || dropPosition === 'bottom') {
         void elementService.moveElementAsNextSibling({
-          element: { id: dragElement?.id ?? '' },
-          targetElement: { id: dropElement?.id ?? '' },
+          element: { id: draggedElement?.id ?? '' },
+          targetElement: { id: dropTargetElement?.id ?? '' },
         })
       }
 
-      if (dropPosition === 'left' || dropPosition === 'top') {
-        if (dropElement?.prevSibling?.current) {
+      if (
+        dropTargetElement?.prevSibling?.current.id !== draggedElement?.id &&
+        (dropPosition === 'left' || dropPosition === 'top')
+      ) {
+        if (dropTargetElement?.prevSibling?.current.id) {
           void elementService.moveElementAsNextSibling({
-            element: { id: dragElement?.id ?? '' },
-            targetElement: { id: dropElement.prevSibling.current.id },
+            element: { id: draggedElement?.id ?? '' },
+            targetElement: { id: dropTargetElement.prevSibling.current.id },
           })
         } else {
           void elementService.moveElementAsFirstChild({
-            element: { id: dragElement?.id ?? '' },
-            parentElement: { id: dropElement?.parent?.current.id ?? '' },
+            element: { id: draggedElement?.id ?? '' },
+            parentElement: { id: dropTargetElement?.parent?.current.id ?? '' },
           })
         }
       }
 
       if (dropPosition === 'inside') {
         void elementService.moveElementAsFirstChild({
-          element: { id: dragElement?.id ?? '' },
-          parentElement: { id: dropElement?.id ?? '' },
+          element: { id: draggedElement?.id ?? '' },
+          parentElement: { id: dropTargetElement?.id ?? '' },
         })
       }
     },
@@ -145,7 +162,7 @@ const detectDropPosition = (
   parent: HTMLElement,
   isElementDroppable: boolean,
 ) => {
-  const target = event.target as HTMLElement
+  const target = findClosestDraggableElement(event.target as HTMLElement)
   const rect = target.getBoundingClientRect()
   const divider = 8
   const closeToRight = rect.right - event.clientX <= rect.width / divider
@@ -196,4 +213,31 @@ const detectDropPosition = (
 
 const isDescendantOfCurrentlyDraggedElement = (element: HTMLElement) => {
   return Boolean(element.closest(`.currently-dragged`))
+}
+
+const isDroppable = (
+  dropTargetAtom: IAtom | undefined,
+  draggedAtom: IAtom | undefined,
+) => {
+  return true
+  /**  
+   For now, all atoms are droppable.
+   Basically, we will add a new field called "allowedChildren" to the atom schema.
+   If the allowedChildren is empty, then any atoms can be dropped.
+   If the allowedChildren has one or more atoms, then only those atoms can be dropped.
+   We will implement the logic for this function later.
+   Adding a new field to the schema in this PR would make the changes overwhelming
+  */
+}
+
+const findClosestDraggableElement = (
+  targetElement: HTMLElement,
+): HTMLElement => {
+  let draggableElement = targetElement as HTMLElement | null | undefined
+
+  while (!draggableElement?.attributes.getNamedItem('draggable')?.value) {
+    draggableElement = draggableElement?.parentElement
+  }
+
+  return draggableElement
 }
