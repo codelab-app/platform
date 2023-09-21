@@ -131,7 +131,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     //   type: 'object',
     // },
   },
-  required: [],
+  required: ['renderType'],
   title: 'Update Element Input',
   type: 'object',
 } as const

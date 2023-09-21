@@ -13,6 +13,7 @@ import {
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -28,6 +29,10 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
+    const model = getSnapshot(element)
+
+    console.log(model)
+
     const { elementService } = useStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
@@ -55,6 +60,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     ) {
       expandedFields.push('childMapper')
     }
+
+    console.log(updateElementSchema)
 
     return (
       <Form<IUpdateBaseElementData>
