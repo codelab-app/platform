@@ -10,7 +10,7 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import {
   useAppQuery,
   useCurrentApp,

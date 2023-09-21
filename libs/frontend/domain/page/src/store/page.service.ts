@@ -234,6 +234,8 @@ export class PageService
 
   @modelAction
   add = (pageDTO: IPageDTO) => {
+    console.debug('pageService.add()', pageDTO)
+
     let page = this.pages.get(pageDTO.id)
 
     if (page) {

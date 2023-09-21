@@ -128,6 +128,8 @@ export class TypeService
    */
   @modelAction
   loadTypes = (types: Partial<GetTypesQuery>) => {
+    console.debug('typeService.loadTypes()', types)
+
     const flatTypes = Object.values(types).flat()
     this.fieldService.load(
       (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),

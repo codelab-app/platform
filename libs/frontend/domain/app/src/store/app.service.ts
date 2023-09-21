@@ -9,6 +9,7 @@ import {
   getComponentService,
   getElementService,
   getUserService,
+  IAppRepository,
   pageRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
@@ -23,11 +24,13 @@ import {
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { VercelService } from '@codelab/frontend/domain/vercel'
+import { getTracerService, Span } from '@codelab/frontend/infra/adapter/otel'
 import {
   ModalService,
   sortPagesByKindAndName,
 } from '@codelab/frontend/shared/utils'
 import type {
+  AppUniqueWhere,
   AppWhere,
   BuilderPageFragment,
   GetProductionPageQuery,
@@ -39,6 +42,8 @@ import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
+import { context, trace } from '@opentelemetry/api'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -70,6 +75,11 @@ export class AppService
   })
   implements IAppService
 {
+  @computed
+  private get tracerService() {
+    return getTracerService(this)
+  }
+
   @computed
   private get elementService() {
     return getElementService(this)
@@ -149,6 +159,7 @@ export class AppService
    */
   @modelAction
   loadPages = ({ pages }: IPageBuilderAppProps) => {
+    console.debug('appService.loadPages()', pages)
     sortPagesByKindAndName(pages)
 
     const allElements = flatMap(pages, (page) => {
@@ -215,6 +226,26 @@ export class AppService
     })
 
     return apps
+  })
+
+  @modelFlow
+  loadDevelopmentApp = _async(function* (
+    this: AppService,
+    where: AppUniqueWhere,
+  ) {
+    console.debug('appService.loadDevelopmentApp()', { where })
+
+    const appData = yield* _await(this.appRepository.findOne(where))
+
+    if (!appData) {
+      throw new Error('App data not found')
+    }
+
+    console.debug('appData', appData)
+
+    this.loadPages(appData)
+
+    return this.add(appData)
   })
 
   @computed
@@ -318,23 +349,42 @@ export class AppService
    - types
    */
   @modelFlow
-  @transaction
   loadDevelopmentPage = _async(function* (
     this: AppService,
-    appCompositeKey: string,
-    pageCompositeKey: string,
+    appName: string,
+    pageName: string,
   ) {
-    const fetchedData = yield* _await(
+    console.debug('appService.loadDevelopmentPage()')
+
+    const user = this.userService.user
+    const appCompositeKey = AppProperties.appCompositeKey(appName, user)
+
+    /**
+     * Fetch app first, since app could be not loaded
+     */
+    const app = yield* _await(
+      this.loadDevelopmentApp({
+        compositeKey: AppProperties.appCompositeKey(appName, user),
+      }),
+    )
+
+    console.debug('loaded app', app)
+
+    const pageCompositeKey = PageProperties.pageCompositeKey(pageName, app)
+
+    const pageData = yield* _await(
       pageApi.GetDevelopmentPage({ appCompositeKey, pageCompositeKey }),
     )
+
+    console.debug('pageApi.GetDevelopmentPage()', pageData)
 
     const {
       apps: [appData],
       resources,
-    } = fetchedData
+    } = pageData
 
     if (!appData) {
-      return undefined
+      return null
     }
 
     /**

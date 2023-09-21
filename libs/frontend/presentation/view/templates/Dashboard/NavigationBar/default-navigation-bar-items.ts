@@ -1,4 +1,4 @@
-import type { NavigationBarItem } from '@codelab/frontend/presentation//codelab-ui'
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
   allPagesMenuItem,

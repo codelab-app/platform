@@ -7,7 +7,7 @@ export const componentSchema = gql`
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
     owner: User!
-    store: Store! @relationship(type: "STORE_OF_COMPONENT", direction: IN)
+    store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
     props: Prop! @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
 
     # Function to extract a unique key from component input

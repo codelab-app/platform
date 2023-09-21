@@ -13,6 +13,7 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
+import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
 import {
   useCurrentPage,
   useDevelopmentPage,
@@ -24,6 +25,9 @@ import {
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { builderRouteChangeHandler } from '@codelab/frontend/shared/utils'
+import { withBoundContext } from '@codelab/shared/infra/otel'
+import { context, trace } from '@opentelemetry/api'
+import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
@@ -36,7 +40,7 @@ const PageBuilder: CodelabPage = observer(() => {
   const { pageService } = useStore()
   const { pageName } = usePageQuery()
 
-  const [{ error, result }, loadCurrentPage] = useDevelopmentPage({
+  const [{ error, result }, loadDevelopmentPage] = useDevelopmentPage({
     rendererType: RendererType.PageBuilder,
   })
 
@@ -70,7 +74,7 @@ const PageBuilder: CodelabPage = observer(() => {
 
   useEffect(() => {
     router.events.off('routeChangeStart', routeChangeHandler)
-    void loadCurrentPage.execute()
+    void loadDevelopmentPage.execute()
   }, [pageName])
 
   const isLoading = isNil(result?.app)

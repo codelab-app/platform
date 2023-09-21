@@ -9,13 +9,14 @@ import {
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
+import { trace } from '@opentelemetry/api'
 import { Image, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

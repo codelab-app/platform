@@ -5,7 +5,7 @@ import {
   type JwtPayload,
 } from '@codelab/shared/abstract/core'
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
-import { ConfigType } from '@nestjs/config'
+import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import type * as express from 'express'
 import * as jwt from 'jsonwebtoken'

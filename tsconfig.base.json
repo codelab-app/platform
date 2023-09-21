@@ -221,14 +221,14 @@
       "@codelab/frontend/infra/adapter/otel": [
         "libs/frontend/infra/adapter/otel/src/index.ts"
       ],
-      "@codelab/frontend/presentation//codelab-ui": [
-        "libs/frontend/presentation/codelab-ui/src/index.ts"
-      ],
       "@codelab/frontend/presentation/client/graphql": [
         "libs/frontend/presentation/client/graphql/src/index.ts"
       ],
       "@codelab/frontend/presentation/client/mobx": [
         "libs/frontend/presentation/client/mobx/src/index.ts"
+      ],
+      "@codelab/frontend/presentation/codelab-ui": [
+        "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
@@ -279,7 +279,10 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/frontend/domain/shared": [
+        "libs/frontend/domain/shared/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

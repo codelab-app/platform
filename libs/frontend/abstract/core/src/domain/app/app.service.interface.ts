@@ -1,5 +1,6 @@
 import type {
   AppOptions,
+  AppUniqueWhere,
   AppWhere,
   GetProductionPageQuery,
   PageWhere,
@@ -37,11 +38,11 @@ export interface IAppService
   app(id: string): Maybe<IAppModel>
   getAppPages(appId: string, where: PageWhere): Promise<void>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
-  loadPages(data: IPageBuilderAppProps): void
-  // eslint-disable-next-line @typescript-eslint/member-ordering
+  loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
   loadDevelopmentPage(
-    appCompositeKey: string,
-    pageCompositeKey: string,
-  ): Promise<IAppModel | undefined>
+    appName: string,
+    pageName: string,
+  ): Promise<IAppModel | null>
+  loadPages(data: IPageBuilderAppProps): void
   loadProductionPage(initialData: GetProductionPageQuery): IAppModel | undefined
 }

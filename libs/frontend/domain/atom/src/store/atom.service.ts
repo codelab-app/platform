@@ -128,18 +128,22 @@ export class AtomService
   dynamicComponents: Record<string, IComponentType> = {}
 
   @modelAction
-  add = ({
-    api,
-    externalCssSource,
-    externalJsSource,
-    externalSourceType,
-    icon,
-    id,
-    name,
-    requiredParents,
-    suggestedChildren,
-    type,
-  }: IAtomDTO) => {
+  add = (atomDto: IAtomDTO) => {
+    const {
+      api,
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      icon,
+      id,
+      name,
+      requiredParents,
+      suggestedChildren,
+      type,
+    } = atomDto
+
+    console.debug('atomService.add()', atomDto)
+
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
     const apiRef = typeRef<IInterfaceType>(api.id)
 

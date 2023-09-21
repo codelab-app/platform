@@ -1,0 +1,16 @@
+{
+  "name": "frontend-domain-shared",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/domain/shared/src",
+  "projectType": "library",
+  "tags": ["scope:frontend"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/frontend/domain/shared/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

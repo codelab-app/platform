@@ -1,11 +1,11 @@
 import { EyeOutlined, ToolOutlined } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import {
   useAppQuery,
   useCurrentApp,

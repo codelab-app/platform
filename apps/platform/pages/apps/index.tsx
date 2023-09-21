@@ -9,12 +9,12 @@ import {
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/domain/app'
-import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {

@@ -4,7 +4,7 @@ import { FormNames } from '@codelab/frontend/abstract/types'
 import {
   CuiSidebarPopover,
   useCui,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'

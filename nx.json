@@ -78,9 +78,15 @@
         "babel": true
       },
       "library": {
-        "style": "css",
+        "style": "styled-components",
         "linter": "eslint",
-        "unitTestRunner": "none"
+        "unitTestRunner": "none",
+        "compiler": "swc",
+        "component": false,
+        "directory": "frontend",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:frontend"
       },
       "storybook-configuration": {
         "linter": "eslint"
