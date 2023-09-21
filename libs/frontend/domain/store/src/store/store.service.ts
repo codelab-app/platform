@@ -70,6 +70,7 @@ export class StoreService
 
   @modelAction
   load = (stores: Array<StoreFragment>) => {
+    console.debug('StoreService.load()', stores)
     this.actionService.load(stores.flatMap((store) => store.actions))
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition

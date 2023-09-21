@@ -138,7 +138,7 @@ export class ElementService
 
   @modelAction
   add = (elementDTO: IElementDTO): IElementModel => {
-    console.debug('elementService.add()', elementDTO)
+    console.debug('ElementService.add()', elementDTO)
 
     let element = this.elements.get(elementDTO.id)
 
@@ -147,7 +147,7 @@ export class ElementService
     } else {
       element = Element.create(elementDTO)
 
-      this.elements.set(element.id, element)
+      this.elements.set(elementDTO.id, element)
     }
 
     return element

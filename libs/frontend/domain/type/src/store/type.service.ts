@@ -128,7 +128,7 @@ export class TypeService
    */
   @modelAction
   loadTypes = (types: Partial<GetTypesQuery>) => {
-    console.debug('typeService.loadTypes()', types)
+    console.debug('TypeService.loadTypes()', types)
 
     const flatTypes = Object.values(types).flat()
     this.fieldService.load(
