@@ -19,7 +19,9 @@ import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import compact from 'lodash/compact'
 import isEmpty from 'lodash/isEmpty'
+import uniqBy from 'lodash/uniqBy'
 import { computed, observable } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -36,6 +38,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { filterAtoms, mapAtomOptions } from './atom.filter'
 import { Atom } from './atom.model'
 import { AtomRepository } from './atom.repo'
 import { AtomFormService } from './atom-form.service'
@@ -129,37 +132,22 @@ export class AtomService
 
   @modelAction
   add = (atomDto: IAtomDTO) => {
-    const {
-      api,
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      icon,
-      id,
-      name,
-      requiredParents,
-      suggestedChildren,
-      type,
-    } = atomDto
-
     console.debug('AtomService.add()', atomDto)
 
-    // const tagRefs = tags?.map((tag) => tagRef(tag.id))
-    const apiRef = typeRef<IInterfaceType>(api.id)
+    let atom = this.atoms.get(atomDto.id)
 
-    const atom = Atom.create({
-      api: apiRef,
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      icon,
-      id,
-      name,
-      requiredParents,
-      suggestedChildren,
-      tags: [],
-      type,
-    })
+    if (atom) {
+      atom.writeCache(atomDto)
+    } else {
+      const apiRef = typeRef<IInterfaceType>(atomDto.api.id)
+
+      atom = Atom.create({
+        ...atomDto,
+        api: apiRef,
+      })
+    }
+
+    const { externalCssSource, externalJsSource, externalSourceType } = atomDto
 
     // dynamically load an external css
     if (
@@ -343,5 +331,26 @@ export class AtomService
     this.setDefaultRenderType(atomRef(atom))
 
     return atom
+  })
+
+  @modelFlow
+  getSelectAtomOptions = _async(function* (
+    this: AtomService,
+    fieldProps: { value?: string },
+    parent?: IAtomModel,
+  ) {
+    const result = yield* _await(this.atomRepository.findOptions())
+
+    const currentAtom = fieldProps.value
+      ? this.atoms.get(fieldProps.value)
+      : undefined
+
+    const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
+
+    for (const atom of atoms) {
+      this.add(atom)
+    }
+
+    return parent ? filterAtoms(atoms, parent) : atoms.map(mapAtomOptions)
   })
 }

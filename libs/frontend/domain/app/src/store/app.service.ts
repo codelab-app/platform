@@ -290,7 +290,7 @@ export class AppService
   })
 
   @modelAction
-  add({ domains, id, name, owner, pages }: IAppDTO) {
+  add = ({ domains, id, name, owner, pages }: IAppDTO) => {
     domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
 
     let app = this.apps.get(id)

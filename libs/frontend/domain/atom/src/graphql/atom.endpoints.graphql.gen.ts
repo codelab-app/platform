@@ -48,6 +48,7 @@ export type GetAtomOptionsQuery = {
     name: string
     type: Types.AtomType
     requiredParents: Array<{ id: string; type: Types.AtomType }>
+    api: { id: string }
   }>
 }
 
@@ -101,6 +102,9 @@ export const GetAtomOptionsDocument = gql`
       requiredParents {
         id
         type
+      }
+      api {
+        id
       }
     }
   }

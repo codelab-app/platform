@@ -508,9 +508,8 @@ export class Element
 
   @computed
   get propsHaveErrors() {
-    // if (!this.renderType.current.api.current) {
-    //   return false
-    // }
+    console.log(this, this.renderType)
+    console.log(this.renderType.current, this.renderType.current.api)
 
     const schema = schemaTransformer.transform(
       this.renderType.current.api.current,
