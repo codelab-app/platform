@@ -1,3 +1,5 @@
 export const getCuiSkeleton = () => {
-  return cy.get(`[data-cy="codelabui-skeleton"]`)
+  cy.log('getCuiSkeleton')
+
+  return cy.get(`[data-cy="codelabui-skeleton"]`, { log: false })
 }

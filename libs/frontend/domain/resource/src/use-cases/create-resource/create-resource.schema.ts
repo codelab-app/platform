@@ -13,7 +13,6 @@ import type { JSONSchemaType } from 'ajv'
 export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
   properties: {
     ...idSchema(),
-    ...ownerSchema,
     config: {
       label: '',
       properties: {

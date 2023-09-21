@@ -209,7 +209,7 @@ export class ActionService
 
     this.actions.delete(id)
 
-    yield* _await(this.actionRepository.delete(action))
+    yield* _await(this.actionRepository.delete([action]))
 
     return action
   })

@@ -1,6 +1,7 @@
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
 import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import type { EditorView } from '@codemirror/view'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -158,10 +159,11 @@ describe('Types CRUD', () => {
     it('should be able to add fields', () => {
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
 
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
-        .getCuiTreeItemToolbar()
-        .getToolbarItem('Add field')
-        .click()
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
+        cy.getCuiTreeItemToolbar().within(() => {
+          cy.getToolbarItem('Add field').click()
+        })
+      })
 
       cy.setFormFieldValue({
         label: 'Key',
