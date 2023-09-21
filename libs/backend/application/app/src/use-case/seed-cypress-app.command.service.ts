@@ -47,6 +47,7 @@ export class SeedCypressAppHandler
     private readonly pageRepository: PageRepository,
     private readonly propRepository: PropRepository,
     private readonly elementRepository: ElementRepository,
+    private atomRepository: AtomRepository,
     private commandBus: CommandBus,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
@@ -78,14 +79,13 @@ export class SeedCypressAppHandler
     /**
      * Create atoms for renderType
      */
-    const atoms = await this.commandBus.execute<
-      SeedCypressAtomsCommand,
-      Array<IAtom>
-    >(new SeedCypressAtomsCommand())
-
-    const atomReactFragment = atoms.find(
-      (atom) => atom.type === IAtomType.ReactFragment,
+    await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
+      new SeedCypressAtomsCommand(),
     )
+
+    const atomReactFragment = await this.atomRepository.findOne({
+      name: IAtomType.ReactFragment,
+    })
 
     if (!atomReactFragment) {
       throw new Error('Missing react fragment')
@@ -139,8 +139,6 @@ export class SeedCypressAppHandler
 
     await this.appRepository.add([app])
 
-    console.log('app')
-
     /**
      * Create pages
      */
@@ -150,8 +148,6 @@ export class SeedCypressAppHandler
     const internalServerErrorPageStore = Store.create(
       IPageKindName.InternalServerError,
     )
-
-    console.log('api')
 
     await this.interfaceTypeRepository.add([
       providerPageStore.api as InterfaceType,

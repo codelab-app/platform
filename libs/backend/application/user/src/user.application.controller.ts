@@ -21,7 +21,7 @@ import { v4 } from 'uuid'
 import { UserApplicationService } from './user.application.service'
 
 @Controller('user')
-export class UserController {
+export class UserApplicationController {
   constructor(
     private userRepository: UserRepository,
     private atomService: AtomApplicationService,

@@ -2,7 +2,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -53,8 +53,7 @@ const updatedElementName = 'Container Updated'
 describe('Elements CRUD', () => {
   let app: IAppDTO
   before(() => {
-    loginSession()
-    cy.resetDatabaseExceptForUserAndAtom()
+    loginAndSetupData()
 
     cy.postApiRequest('/api/data/atom/seed-cypress-atom')
       .then(() => cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app'))

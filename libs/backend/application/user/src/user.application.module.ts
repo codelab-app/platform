@@ -9,11 +9,11 @@ import { Auth0Module } from '@codelab/backend/infra/adapter/auth0'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { ExportUserDataHandler } from './use-case'
+import { UserApplicationController } from './user.application.controller'
 import { UserApplicationService } from './user.application.service'
-import { UserController } from './user.controller'
 
 @Module({
-  controllers: [UserController],
+  controllers: [UserApplicationController],
   exports: [ExportUserDataHandler],
   imports: [
     UserDomainModule,

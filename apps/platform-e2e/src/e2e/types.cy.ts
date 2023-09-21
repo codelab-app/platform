@@ -1,6 +1,6 @@
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -29,8 +29,7 @@ const fieldDefaultValue = 'something default'
 
 describe('Types CRUD', () => {
   before(() => {
-    loginSession()
-    cy.resetDatabaseExceptForUserAndAtom()
+    loginAndSetupData()
     cy.visit(`/types`)
   })
 
