@@ -1,12 +1,19 @@
 import type { ITagModel } from '@codelab/frontend/abstract/core'
-import { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
+import {
+  getUserService,
+  ITagsTreeDataNode,
+} from '@codelab/frontend/abstract/core'
 import type {
   TagCreateInput,
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import {
+  connectNodeId,
+  connectOwner,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -46,6 +53,11 @@ export class Tag
     return this.name
   }
 
+  @computed
+  get userService() {
+    return getUserService(this)
+  }
+
   static create = create
 
   @modelAction
@@ -78,6 +90,7 @@ export class Tag
     return {
       id: this.id,
       name: this.name,
+      owner: connectOwner(this.userService.user),
       parent: connectNodeId(this.parent?.current.id),
     }
   }
