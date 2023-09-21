@@ -7,7 +7,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running API action and setting state on element pre-render', () => {
   let app: IAppDTO
@@ -20,8 +20,7 @@ describe('Running API action and setting state on element pre-render', () => {
   const mockResponse = 'text response from api'
 
   before(() => {
-    loginSession()
-    cy.resetDatabaseExceptForUserAndAtom()
+    loginAndSetupData()
     cy.request('/api/data/type/seed-cypress-type')
 
     cy.request('/api/data/atom/seed-cypress-atom')

@@ -2,7 +2,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 const COMPONENT_NAME = 'Component Name'
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
@@ -29,7 +29,7 @@ let app: IAppDTO
 describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
-      loginSession()
+      loginAndSetupData()
       cy.resetDatabaseExceptForUserAndAtom()
 
       cy.request('/api/data/type/seed-cypress-type')

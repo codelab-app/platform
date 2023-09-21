@@ -18,6 +18,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
+  disconnectAll,
   ElementProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
@@ -96,6 +97,16 @@ export class ElementRepository extends AbstractRepository<
             props: connectNodeId(props.id),
             renderForEachPropKey,
             renderIfExpression,
+            renderType: {
+              Atom:
+                renderType.__typename === 'Atom'
+                  ? connectNodeId(renderType.id)
+                  : undefined,
+              Component:
+                renderType.__typename === 'Component'
+                  ? connectNodeId(renderType.id)
+                  : undefined,
+            },
             style,
           }),
         ),
@@ -104,7 +115,7 @@ export class ElementRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { closestContainerNode, id, name, props }: ICreateElementDTO,
+    { closestContainerNode, id, name, props, renderType }: ICreateElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -118,6 +129,16 @@ export class ElementRepository extends AbstractRepository<
           ),
           id,
           props: reconnectNodeId(props.id),
+          renderType: {
+            Atom:
+              renderType.__typename === 'Atom'
+                ? connectNodeId(renderType.id)
+                : disconnectAll(),
+            Component:
+              renderType.__typename === 'Component'
+                ? connectNodeId(renderType.id)
+                : disconnectAll(),
+          },
         },
         where,
       })

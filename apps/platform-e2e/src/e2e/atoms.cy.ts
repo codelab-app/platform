@@ -1,6 +1,6 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 const atomName = 'Button'
 const atomType = IAtomType.AntDesignButton
@@ -8,8 +8,7 @@ const updatedAtomName = 'Updated Button'
 
 describe('Atoms CRUD', () => {
   before(() => {
-    loginSession()
-    cy.resetDatabaseExceptForUserAndAtom()
+    loginAndSetupData()
     cy.visit('/atoms')
   })
 
