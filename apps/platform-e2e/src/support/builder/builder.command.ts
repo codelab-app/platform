@@ -12,6 +12,8 @@ export interface ElementData {
 }
 
 export const createElementTree = (elements: Array<ElementData>) => {
+  cy.log('createElementTree', elements)
+
   return cy.wrap(elements).each((element: ElementData) => {
     const { atom, name, parentElement, propsData } = element
 
@@ -29,50 +31,43 @@ export const createElementTree = (elements: Array<ElementData>) => {
       })
     }
 
-    if (atom) {
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Render Type',
-        type: FIELD_TYPE.SELECT,
-        value: 'Atom',
-      })
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Atom',
-        type: FIELD_TYPE.SELECT,
-        value: atom,
-      })
-      // need to wait for the code to put the autocomputed name before typing
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Render Type',
+      type: FIELD_TYPE.SELECT,
+      value: 'Atom',
+    })
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Atom',
+      type: FIELD_TYPE.SELECT,
+      value: atom,
+    })
 
-      if (propsData) {
-        cy.findByTestId('create-element-form').setFormFieldValue({
-          label: 'Props Data',
-          type: FIELD_TYPE.INPUT,
-          value: JSON.stringify(propsData),
-        })
-      }
+    // need to wait for the code to put the auto-computed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
 
-      cy.findByTestId('create-element-form')
-        .getFormField({
-          label: 'Name',
-        })
-        .within(() => {
-          // Need to wait for the name to automatically be set first (after the
-          // atom is set) because it would override the name otherwise
-          cy.get('input').should('not.have.value', '')
-        })
+    if (propsData) {
       cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Name',
+        label: 'Props Data',
         type: FIELD_TYPE.INPUT,
-        value: name,
-      })
-    } else {
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Name',
-        type: FIELD_TYPE.INPUT,
-        value: name,
+        value: JSON.stringify(propsData),
       })
     }
+
+    cy.findByTestId('create-element-form')
+      .getFormField({
+        label: 'Name',
+      })
+      .within(() => {
+        // Need to wait for the name to automatically be set first (after the
+        // atom is set) because it would override the name otherwise
+        cy.get('input').should('not.have.value', '')
+      })
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Name',
+      type: FIELD_TYPE.INPUT,
+      value: name,
+    })
 
     cy.getCuiPopover('Create Element').within(() => {
       cy.getToolbarItem('Create').click()

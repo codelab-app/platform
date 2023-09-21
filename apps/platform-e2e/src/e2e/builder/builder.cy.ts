@@ -14,10 +14,12 @@ const ELEMENT_BUTTON = 'Button'
 
 const elements = [
   {
+    atom: IAtomType.ReactFragment,
     name: ELEMENT_CONTAINER,
     parentElement: ROOT_ELEMENT_NAME,
   },
   {
+    atom: IAtomType.ReactFragment,
     name: ELEMENT_ROW,
     parentElement: ELEMENT_CONTAINER,
   },
