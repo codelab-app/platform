@@ -1,5 +1,6 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import type {
+  DomainDeleteInput,
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
@@ -45,7 +46,7 @@ export class Domain
     }
   }
 
-  toDeleteInput() {
+  static toDeleteInput(): DomainDeleteInput {
     return {}
   }
 

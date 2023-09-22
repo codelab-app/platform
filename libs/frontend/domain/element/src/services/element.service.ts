@@ -50,10 +50,10 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { ElementRepository } from '../services/element.repo'
+import { makeDefaultProps } from '../store/api.utils'
+import { Element } from '../store/element.model'
 import { makeAutoIncrementedName } from '../utils'
-import { makeDefaultProps } from './api.utils'
-import { Element } from './element.model'
+import { ElementRepository } from './element.repo'
 import {
   CreateElementFormService,
   UpdateElementFormService,
@@ -155,25 +155,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  private loadRenderTypeInterface = _async(function* (
-    this: ElementService,
-    elementRenderType: IElementRenderType,
-  ) {
-    const renderTypeApi = yield* _await(
-      this.getRenderTypeApi(elementRenderType),
-    )
-
-    if (renderTypeApi) {
-      // If the new element is an atom or component that is not used yet anywhere
-      // in the current page, this will load its interface types and its fields
-      yield* _await(this.typeService.getOne(renderTypeApi.id))
-    }
-
-    return renderTypeApi
-  })
-
-  @modelFlow
-  private getRenderTypeApi = _async(function* (
+  loadRenderType = _async(function* (
     this: ElementService,
     renderType: IElementRenderType,
   ) {
@@ -204,6 +186,20 @@ export class ElementService
         throw new Error('Missing renderType')
     }
 
+    if (renderTypeApi) {
+      // If the new element is an atom or component that is not used yet anywhere
+      // in the current page, this will load its interface types and its fields
+      yield* _await(this.typeService.getOne(renderTypeApi.id))
+    }
+
+    return renderTypeApi
+  })
+
+  @modelFlow
+  getRenderTypeApi = _async(function* (
+    this: ElementService,
+    renderType: IElementRenderType,
+  ) {
     return renderTypeApi
   })
 
@@ -213,12 +209,10 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    const renderTypeApi = yield* _await(
-      this.loadRenderTypeInterface(data.renderType),
-    )
+    const renderTypeApi = yield* _await(this.loadRenderType(data.renderType))
 
     const elementProps = this.propService.add({
-      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
+      data: data.props?.data ?? makeDefaultProps(renderTypeApi.current),
       id: v4(),
     })
 
@@ -236,7 +230,7 @@ export class ElementService
   @modelFlow
   @transaction
   update = _async(function* (this: ElementService, data: IUpdateElementData) {
-    yield* _await(this.loadRenderTypeInterface(data.renderType))
+    yield* _await(this.loadRenderType(data.renderType))
 
     const { id, ...elementData } = data
     const element = this.element(id)

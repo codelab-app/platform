@@ -16,6 +16,7 @@ import {
   RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
@@ -226,13 +227,13 @@ export class Store
     return { name: this.name }
   }
 
-  toDeleteInput(): StoreDeleteInput {
+  static toDeleteInput(): StoreDeleteInput {
     return {
       actions: {
         ApiAction: [{ where: {} }],
         CodeAction: [{ where: {} }],
       },
-      api: { where: {} },
+      api: { delete: InterfaceType.toDeleteInput(), where: {} },
     }
   }
 

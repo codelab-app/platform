@@ -84,15 +84,27 @@ export class DomainService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: DomainService, domain: IDomainModel) {
-    const { id } = domain
+  delete = _async(function* (
+    this: DomainService,
+    domains: Array<IDomainModel>,
+  ) {
+    const deleteDomain = _async(function* (
+      this: DomainService,
+      domain: IDomainModel,
+    ) {
+      const { id } = domain
 
-    this.domains.delete(id)
+      this.domains.delete(id)
 
-    yield* _await(this.vercelService.delete(domain.name))
-    yield* _await(this.domainRepository.delete([domain]))
+      yield* _await(this.vercelService.delete(domain.name))
+      yield* _await(this.domainRepository.delete([domain]))
 
-    return domain
+      return domain
+    })
+
+    yield* _await(Promise.all(domains.map((domain) => deleteDomain(domain))))
+
+    return
   })
 
   @modelFlow

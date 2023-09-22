@@ -3,6 +3,6 @@
  */
 export interface IModel<CreateInput, UpdateInput, DeleteInput> {
   toCreateInput(): CreateInput
-  toDeleteInput(): DeleteInput
+  // toDeleteInput(): DeleteInput
   toUpdateInput(): UpdateInput
 }

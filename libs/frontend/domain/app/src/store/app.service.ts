@@ -36,12 +36,12 @@ import type {
   GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IDomainDTO } from '@codelab/shared/abstract/core'
+import type { IAppDTO, IDomainDTO } from '@codelab/shared/abstract/core'
 import {
-  IAppDTO,
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
 import { context, trace } from '@opentelemetry/api'
 import flatMap from 'lodash/flatMap'
@@ -162,38 +162,14 @@ export class AppService
     console.debug('AppService.loadPages()', pages)
     sortPagesByKindAndName(pages)
 
-    const allElements = flatMap(pages, (page) => {
+    const allElements = pages.map((page) => {
       const { id, rootElement } = page
-      const elements = [rootElement, ...rootElement.descendantElements]
 
-      elements.forEach((elementData) => {
-        this.propService.add(elementData.props)
+      const elements = [rootElement, ...rootElement.descendantElements].map(
+        (element) => ({ ...element, closestContainerNode: { id: page.id } }),
+      )
 
-        /**
-         * Element comes with `component` or `atom` data that we need to load as well
-         *
-         * TODO: Need to handle component case
-         */
-        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
-          this.typeService.loadTypes({
-            interfaceTypes: [elementData.renderType.api],
-          })
-
-          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
-
-          this.atomService.add(elementData.renderType)
-        }
-
-        const elementDto = {
-          ...elementData,
-          closestContainerNode: { id },
-        }
-
-        console.log('AppService.loadPages() elementDto', elementDto)
-
-        this.elementService.add(elementDto)
-      })
-
+      this.pageService.loadElements(elements)
       this.pageService.add(page)
       this.storeService.load([page.store])
     })
@@ -452,41 +428,35 @@ export class AppService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppService, app: IAppModel) {
-    /**
-     * Optimistic update
-     */
-    this.apps.delete(app.id)
+  delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
+    const deleteApp = _async(function* (this: AppService, app: IAppModel) {
+      /**
+       * Optimistic update
+       */
+      this.apps.delete(app.id)
 
-    /**
-     * Get all pages to delete
-     */
-    const pages = yield* _await(
-      this.pageService.getAll({
-        appConnection: { node: { id: app.id } },
-      }),
-    )
+      /**
+       * Get all pages to delete
+       */
+      const pages = yield* _await(
+        this.pageService.getAll({
+          appConnection: { node: { id: app.id } },
+        }),
+      )
 
-    /**
-     * Get all elements of page to delete
-     */
-    const pageElements = pages.flatMap((page) => page.elements)
-    const pageStores = pages.map((page) => page.store.current)
-    const storeApis = pageStores.flatMap((store) => store.api?.current ?? [])
-    const fields = storeApis.flatMap((api) => api.fields)
-    const fieldApis = fields.flatMap((field) => field.api.current)
-    const allTypes = [...storeApis, ...fieldApis]
+      // Need to load elements as well
+      const elements = pages.flatMap((page) => page.elements)
 
-    yield* _await(this.elementService.elementRepository.delete(pageElements))
-    yield* _await(this.appRepository.delete([app]))
-    yield* _await(this.storeService.storeRepository.delete(pageStores))
-    yield* _await(this.typeService.typeRepository.delete(allTypes))
-    yield* _await(this.fieldService.fieldRepository.delete(fields))
+      yield* _await(this.elementService.elementRepository.delete(elements))
+      yield* _await(this.appRepository.delete([app]))
 
-    for (const domain of app.domains) {
-      yield* _await(this.vercelService.delete(domain.current.name))
-    }
+      for (const domain of app.domains) {
+        yield* _await(this.vercelService.delete(domain.current.name))
+      }
 
-    return app
+      return app
+    })
+
+    yield* _await(Promise.all(apps.map((app) => deleteApp(app))))
   })
 }
