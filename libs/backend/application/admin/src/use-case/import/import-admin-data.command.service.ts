@@ -89,12 +89,6 @@ export class ImportAdminDataHandler
     }
   }
 
-  private async importComponents() {
-    for (const component of this.readAdminDataService.components) {
-      await this.commandBus.execute(new ImportComponentsCommand(component))
-    }
-  }
-
   @Span()
   private async importSystemTypes() {
     return this.commandBus.execute<ImportSystemTypesCommand>(

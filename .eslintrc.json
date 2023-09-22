@@ -149,7 +149,6 @@
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",
-
           {
             "default": {
               // "optionalityOrder": "required-first",
@@ -158,6 +157,31 @@
             "interfaces": {
               "memberTypes": ["signature", "constructor", "field", "method"],
               // "optionalityOrder": "required-first",
+              "order": "alphabetically"
+            },
+            "classes": {
+              // More important up front
+              "memberTypes": [
+                ["public-static-field", "public-static-method"],
+                "get",
+                "public-field",
+                // These are generally _async arrow syntax methods
+                "public-decorated-field",
+                "public-decorated-method",
+                "public-method",
+                [
+                  "protected-field",
+                  "protected-get",
+                  "protected-set",
+                  "protected-method"
+                ],
+                "private-static-method",
+                "private-static-field",
+                ["private-field", "private-method"],
+                // Private static used for data mapping internally
+                "private-get",
+                "private-set"
+              ],
               "order": "alphabetically"
             }
             // "classes": {

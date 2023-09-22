@@ -20,19 +20,6 @@ export class ReadAdminDataService implements IAdminOutputDto {
     private validationService: ValidationService,
   ) {}
 
-  /**
-   * Data
-   */
-  get systemTypes() {
-    const types = JSON.parse(
-      fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
-    )
-
-    return types.map((type: unknown) =>
-      this.validationService.validateAndClean(ITypeOutputDto, type),
-    )
-  }
-
   get atoms() {
     const atomFilenames = fs
       .readdirSync(this.migrationDataService.atomsPath)
@@ -79,6 +66,19 @@ export class ReadAdminDataService implements IAdminOutputDto {
         component,
       )
     })
+  }
+
+  /**
+   * Data
+   */
+  get systemTypes() {
+    const types = JSON.parse(
+      fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
+    )
+
+    return types.map((type: unknown) =>
+      this.validationService.validateAndClean(ITypeOutputDto, type),
+    )
   }
 
   /**
