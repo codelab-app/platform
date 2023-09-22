@@ -8,7 +8,7 @@ import type {
   AppWhere,
 } from '@codelab/shared/abstract/codegen'
 import { ExtendedModel, Model, model, modelClass } from 'mobx-keystone'
-import { appApi } from '../store'
+import { App, appApi } from '../store'
 
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
@@ -54,7 +54,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
     const {
       deleteApps: { nodesDeleted },
     } = await appApi.DeleteApps({
-      delete: apps[0]?.toDeleteInput(),
+      delete: App.toDeleteInput(),
       where: { id_IN: apps.map((app) => app.id) },
     })
 

@@ -4,7 +4,10 @@ import type {
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, IPropData } from '@codelab/frontend/abstract/core'
-import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  InterfaceTypeCreateInput,
+  InterfaceTypeDeleteInput,
+} from '@codelab/shared/abstract/codegen'
 import {
   assertIsTypeKind,
   IInterfaceTypeDTO,
@@ -123,4 +126,15 @@ export class InterfaceType
   static create = create
 
   static createApiNode = createApiNode
+
+  static toDeleteInput(): InterfaceTypeDeleteInput {
+    return {
+      fields: [
+        {
+          delete: {},
+          where: {},
+        },
+      ],
+    }
+  }
 }

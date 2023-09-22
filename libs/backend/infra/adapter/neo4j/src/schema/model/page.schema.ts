@@ -18,7 +18,6 @@ export const pageSchema = gql`
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     app: App! @relationship(type: "PAGES", direction: IN)
-
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
     #getServerSideProps: String
     # this is an element on _app page tree inside of which child pages content is rendered

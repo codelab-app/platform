@@ -1,5 +1,6 @@
 export * from './assert'
 export * from './entity'
+export * from './enum/enum-value'
 export * from './env'
 export * from './error'
 export * from './filter'

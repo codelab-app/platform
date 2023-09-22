@@ -10,6 +10,9 @@ import {
   pageRef,
   userRef,
 } from '@codelab/frontend/abstract/core'
+import { Domain } from '@codelab/frontend/domain/domain'
+import { Page } from '@codelab/frontend/domain/page'
+import { Store } from '@codelab/frontend/domain/store'
 import { useCurrentInterfaceId } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
@@ -148,11 +151,17 @@ export class App
     }
   }
 
-  toDeleteInput(): AppDeleteInput {
+  static toDeleteInput(): AppDeleteInput {
     return {
+      domains: [
+        {
+          delete: Domain.toDeleteInput(),
+          where: {},
+        },
+      ],
       pages: [
         {
-          delete: {},
+          delete: Page.toDeleteInput(),
           where: {},
         },
       ],

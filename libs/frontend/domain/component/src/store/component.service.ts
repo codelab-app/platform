@@ -231,7 +231,11 @@ export class ComponentService
     this: ComponentService,
     { childrenContainerElement, id, keyGenerator, name }: IUpdateComponentData,
   ) {
-    const component = this.components.get(id)!
+    const component = this.components.get(id)
+
+    if (!component) {
+      throw new Error('ID not found')
+    }
 
     component.writeCache({ childrenContainerElement, keyGenerator, name })
     this.writeCloneCache({ childrenContainerElement, id, keyGenerator, name })
@@ -245,20 +249,31 @@ export class ComponentService
   @transaction
   delete = _async(function* (
     this: ComponentService,
-    component: IComponentModel,
+    components: Array<IComponentModel>,
   ) {
-    const { id } = component
-    const store = component.store.current
-    const rootElement = component.rootElement.current
+    const deleteComponent = _async(function* (
+      this: ComponentService,
+      component: IComponentModel,
+    ) {
+      const { id } = component
+      const store = component.store.current
+      const rootElement = component.rootElement.current
 
-    this.components.delete(id)
-    this.removeClones(id)
+      this.components.delete(id)
+      this.removeClones(id)
 
-    yield* _await(this.storeService.delete(store))
-    yield* _await(this.elementService.delete(rootElement))
-    yield* _await(this.componentRepository.delete([component]))
+      yield* _await(this.storeService.delete([store]))
+      yield* _await(this.elementService.delete(rootElement))
+      yield* _await(this.componentRepository.delete([component]))
 
-    return component
+      return component
+    })
+
+    yield* _await(
+      Promise.all(components.map((component) => deleteComponent(component))),
+    )
+
+    return
   })
 
   @modelFlow

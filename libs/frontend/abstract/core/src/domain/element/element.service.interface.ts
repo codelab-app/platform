@@ -20,6 +20,7 @@ import type {
 import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
+import type { IElementRenderTypeModel } from './render-type'
 
 /**
  * Used for modal input
@@ -80,11 +81,13 @@ export interface IElementService
   createElementAsNextSibling(data: ICreateElementData): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
-  // getRenderTypeApi(renderType: IElementRenderType): Promise<Ref<IInterfaceType>>
   loadComponentTree(component: RenderedComponentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }
+  loadRenderType(
+    renderType: IElementRenderType,
+  ): Promise<IElementRenderTypeModel>
   // loadElement(element: IElementDTO): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
   moveElementAsFirstChild(props: {
