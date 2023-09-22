@@ -6,18 +6,6 @@ import { PLATFORM_API_TRACER_NAME } from './tracer'
 
 @Injectable()
 export class TraceService {
-  public getTracer() {
-    return trace.getTracer(PLATFORM_API_TRACER_NAME)
-  }
-
-  public getSpan(): Span | undefined {
-    return trace.getSpan(context.active())
-  }
-
-  public startSpan(name: string): Span {
-    return this.getTracer().startSpan(name)
-  }
-
   public addAttribute(key: string, value: AttributeValue) {
     const span = this.getSpan()
 
@@ -28,14 +16,6 @@ export class TraceService {
     const span = this.getSpan()
 
     span?.setAttributes(flattenWithPrefix(object))
-  }
-
-  public addJsonAttributes(key: string, object?: object) {
-    const span = this.getSpan()
-
-    span?.setAttributes({
-      [key]: JSON.stringify(object),
-    })
   }
 
   public addEvent(name: string, data: unknown) {
@@ -51,5 +31,25 @@ export class TraceService {
     }
 
     span?.addEvent(name, stringifiedData)
+  }
+
+  public addJsonAttributes(key: string, object?: object) {
+    const span = this.getSpan()
+
+    span?.setAttributes({
+      [key]: JSON.stringify(object),
+    })
+  }
+
+  public getSpan(): Span | undefined {
+    return trace.getSpan(context.active())
+  }
+
+  public getTracer() {
+    return trace.getTracer(PLATFORM_API_TRACER_NAME)
+  }
+
+  public startSpan(name: string): Span {
+    return this.getTracer().startSpan(name)
   }
 }

@@ -1,4 +1,7 @@
-import type { IStore, IStoreRepository } from '@codelab/frontend/abstract/core'
+import type {
+  IStoreModel,
+  IStoreRepository,
+} from '@codelab/frontend/abstract/core'
 import type { StoreOptions, StoreWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { Store, storeApi } from '../store'
@@ -6,7 +9,7 @@ import { Store, storeApi } from '../store'
 @model('@codelab/StoreRepository')
 export class StoreRepository extends Model({}) implements IStoreRepository {
   @modelFlow
-  add = _async(function* (this: StoreRepository, store: IStore) {
+  add = _async(function* (this: StoreRepository, store: IStoreModel) {
     const {
       createStores: { stores },
     } = yield* _await(
@@ -19,17 +22,20 @@ export class StoreRepository extends Model({}) implements IStoreRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: StoreRepository, store: IStore) {
+  delete = _async(function* (
+    this: StoreRepository,
+    stores: Array<IStoreModel>,
+  ) {
     const {
-      updateStores: { stores },
+      deleteStores: { nodesDeleted },
     } = yield* _await(
-      storeApi.UpdateStores({
-        update: store.toUpdateInput(),
-        where: { id: store.id },
+      storeApi.DeleteStores({
+        delete: Store.toDeleteInput(),
+        where: { id_IN: stores.map((store) => store.id) },
       }),
     )
 
-    return stores[0]!
+    return nodesDeleted
   })
 
   @modelFlow
@@ -42,16 +48,16 @@ export class StoreRepository extends Model({}) implements IStoreRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: StoreRepository, stores: Array<IStore>) {
+  update = _async(function* (this: StoreRepository, store: IStoreModel) {
     const {
-      deleteStores: { nodesDeleted },
+      updateStores: { stores },
     } = yield* _await(
-      storeApi.DeleteStores({
-        delete: Store.toDeleteInput(),
-        where: { id_IN: stores.map((store) => store.id) },
+      storeApi.UpdateStores({
+        update: store.toUpdateInput(),
+        where: { id: store.id },
       }),
     )
 
-    return nodesDeleted
+    return stores[0]!
   })
 }

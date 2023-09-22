@@ -17,6 +17,7 @@ import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService, pageApi } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
+import { ModalService } from '@codelab/frontend/domain/shared'
 import {
   getActionService,
   getStoreService,
@@ -25,10 +26,7 @@ import { getTagService } from '@codelab/frontend/domain/tag'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import { getTracerService, Span } from '@codelab/frontend/infra/adapter/otel'
-import {
-  ModalService,
-  sortPagesByKindAndName,
-} from '@codelab/frontend/shared/utils'
+import { sortPagesByKindAndName } from '@codelab/frontend/shared/utils'
 import type {
   AppUniqueWhere,
   AppWhere,
@@ -76,106 +74,118 @@ export class AppService
   implements IAppService
 {
   @computed
-  private get tracerService() {
-    return getTracerService(this)
-  }
-
-  @computed
-  private get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  private get componentService() {
-    return getComponentService(this)
-  }
-
-  @computed
-  private get atomService() {
-    return getAtomService(this)
-  }
-
-  @computed
-  private get resourceService() {
-    return getResourceService(this)
-  }
-
-  @computed
-  private get domainService() {
-    return getDomainService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
-  }
-
-  @computed
-  private get pageService() {
-    return getPageService(this)
-  }
-
-  @computed
-  private get tagService() {
-    return getTagService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get fieldService() {
-    return getFieldService(this)
-  }
-
-  @computed
   get appsJson() {
     return this.appsList.map((app) => app.toJson).reduce(merge, {})
   }
 
-  /**
-   * Aggregate root method to setup all data invariants
-   *
-   * - Hydrate app
-   * - Hydrate page
-   * - Hydrate element
-   */
-  @modelAction
-  loadPages = ({ pages }: IPageBuilderAppProps) => {
-    console.debug('AppService.loadPages()', pages)
-    sortPagesByKindAndName(pages)
+  @computed
+  get appsList() {
+    return [...this.apps.values()]
+  }
 
-    const allElements = pages.map((page) => {
-      const { id, rootElement } = page
+  @modelFlow
+  @transaction
+  create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
+    const atomReactFragment = yield* _await(
+      this.atomService.getDefaultElementRenderType(),
+    )
 
-      const elements = [rootElement, ...rootElement.descendantElements].map(
-        (element) => ({ ...element, closestContainerNode: { id: page.id } }),
-      )
+    const pages = this.pageService.pageFactory.addSystemPages(
+      {
+        id,
+        name,
+      },
+      atomReactFragment,
+    )
 
-      this.pageService.loadElements(elements)
-      this.pageService.add(page)
-      this.storeService.load([page.store])
+    const app = this.add({
+      id,
+      name,
+      owner: this.userService.user,
+      pages,
     })
 
-    return allElements
-  }
+    yield* _await(this.appRepository.add(app))
+
+    return app
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
+    const deleteApp = _async(function* (this: AppService, app: IAppModel) {
+      /**
+       * Optimistic update
+       */
+      this.apps.delete(app.id)
+
+      /**
+       * Get all pages to delete
+       */
+      const pages = yield* _await(
+        this.pageService.getAll({
+          appConnection: { node: { id: app.id } },
+        }),
+      )
+
+      // Need to load elements as well
+      const elements = pages.flatMap((page) => page.elements)
+
+      yield* _await(this.elementService.elementRepository.delete(elements))
+      yield* _await(this.appRepository.delete([app]))
+
+      for (const domain of app.domains) {
+        yield* _await(this.vercelService.delete(domain.current.name))
+      }
+
+      return app
+    })
+
+    yield* _await(Promise.all(apps.map((app) => deleteApp(app))))
+  })
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: AppService, where: AppWhere) {
+    const { items: apps } = yield* _await(this.appRepository.find(where))
+
+    return apps.map((app) => this.add(app))
+  })
+
+  @modelFlow
+  @transaction
+  getAppPages = _async(function* (
+    this: AppService,
+    appId: string,
+    where: PageWhere,
+  ) {
+    const { items: pages } = yield* _await(
+      this.pageService.pageRepository.find({
+        AND: [{ appConnection: { node: { id: appId } } }, where],
+      }),
+    )
+
+    this.loadPages({ pages })
+
+    const app = this.app(appId)
+    pages.forEach(({ id }) => {
+      const pageExistsInApp = app?.pages.find(
+        (appPage) => appPage.current.id === id,
+      )
+
+      if (!pageExistsInApp) {
+        app?.pages.push(pageRef(id))
+      }
+    })
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: AppService, id: string) {
+    const [app] = yield* _await(this.getAll({ id }))
+
+    return app
+  })
 
   /**
    * This is used for the apps list preview
@@ -226,97 +236,6 @@ export class AppService
     this.loadPages(appData)
 
     return this.add(appData)
-  })
-
-  @computed
-  get appsList() {
-    return [...this.apps.values()]
-  }
-
-  app(id: string) {
-    return this.apps.get(id)
-  }
-
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: AppService, where: AppWhere) {
-    const { items: apps } = yield* _await(this.appRepository.find(where))
-
-    return apps.map((app) => this.add(app))
-  })
-
-  @modelFlow
-  @transaction
-  update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
-    const app = this.apps.get(id)!
-
-    app.writeCache({ name })
-
-    yield* _await(this.appRepository.update(app))
-
-    return app
-  })
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: AppService, id: string) {
-    const [app] = yield* _await(this.getAll({ id }))
-
-    return app
-  })
-
-  @modelAction
-  add = ({ domains, id, name, owner, pages }: IAppDTO) => {
-    domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
-
-    let app = this.apps.get(id)
-
-    if (app) {
-      app.writeCache({
-        domains,
-        name,
-        pages,
-      })
-    } else {
-      app = App.create({
-        domains,
-        id,
-        name,
-        owner,
-        pages,
-      })
-    }
-
-    this.apps.set(app.id, app)
-
-    return app
-  }
-
-  @modelFlow
-  @transaction
-  create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const atomReactFragment = yield* _await(
-      this.atomService.getDefaultElementRenderType(),
-    )
-
-    const pages = this.pageService.pageFactory.addSystemPages(
-      {
-        id,
-        name,
-      },
-      atomReactFragment,
-    )
-
-    const app = this.add({
-      id,
-      name,
-      owner: this.userService.user,
-      pages,
-    })
-
-    yield* _await(this.appRepository.add(app))
-
-    return app
   })
 
   /**
@@ -378,6 +297,72 @@ export class AppService
     return this.add(appData)
   })
 
+  @modelFlow
+  @transaction
+  update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
+    const app = this.apps.get(id)!
+
+    app.writeCache({ name })
+
+    yield* _await(this.appRepository.update(app))
+
+    return app
+  })
+
+  @modelAction
+  add = ({ domains, id, name, owner, pages }: IAppDTO) => {
+    domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
+
+    let app = this.apps.get(id)
+
+    if (app) {
+      app.writeCache({
+        domains,
+        name,
+        pages,
+      })
+    } else {
+      app = App.create({
+        domains,
+        id,
+        name,
+        owner,
+        pages,
+      })
+    }
+
+    this.apps.set(app.id, app)
+
+    return app
+  }
+
+  /**
+   * Aggregate root method to setup all data invariants
+   *
+   * - Hydrate app
+   * - Hydrate page
+   * - Hydrate element
+   */
+  @modelAction
+  loadPages = ({ pages }: IPageBuilderAppProps) => {
+    console.debug('AppService.loadPages()', pages)
+    sortPagesByKindAndName(pages)
+
+    const allElements = pages.map((page) => {
+      const { id, rootElement } = page
+
+      const elements = [rootElement, ...rootElement.descendantElements].map(
+        (element) => ({ ...element, closestContainerNode: { id: page.id } }),
+      )
+
+      this.pageService.loadElements(elements)
+      this.pageService.add(page)
+      this.storeService.load([page.store])
+    })
+
+    return allElements
+  }
+
   /**
    * This is the 'production' version of `loadBuilderPage`. Already has initial data, just needs to hydrate the models
    */
@@ -399,64 +384,47 @@ export class AppService
     return this.add(appData)
   }
 
-  @modelFlow
-  @transaction
-  getAppPages = _async(function* (
-    this: AppService,
-    appId: string,
-    where: PageWhere,
-  ) {
-    const { items: pages } = yield* _await(
-      this.pageService.pageRepository.find({
-        AND: [{ appConnection: { node: { id: appId } } }, where],
-      }),
-    )
+  app(id: string) {
+    return this.apps.get(id)
+  }
 
-    this.loadPages({ pages })
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
 
-    const app = this.app(appId)
-    pages.forEach(({ id }) => {
-      const pageExistsInApp = app?.pages.find(
-        (appPage) => appPage.current.id === id,
-      )
+  @computed
+  private get componentService() {
+    return getComponentService(this)
+  }
 
-      if (!pageExistsInApp) {
-        app?.pages.push(pageRef(id))
-      }
-    })
-  })
+  @computed
+  private get domainService() {
+    return getDomainService(this)
+  }
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
-    const deleteApp = _async(function* (this: AppService, app: IAppModel) {
-      /**
-       * Optimistic update
-       */
-      this.apps.delete(app.id)
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
 
-      /**
-       * Get all pages to delete
-       */
-      const pages = yield* _await(
-        this.pageService.getAll({
-          appConnection: { node: { id: app.id } },
-        }),
-      )
+  @computed
+  private get pageService() {
+    return getPageService(this)
+  }
 
-      // Need to load elements as well
-      const elements = pages.flatMap((page) => page.elements)
+  @computed
+  private get resourceService() {
+    return getResourceService(this)
+  }
 
-      yield* _await(this.elementService.elementRepository.delete(elements))
-      yield* _await(this.appRepository.delete([app]))
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
 
-      for (const domain of app.domains) {
-        yield* _await(this.vercelService.delete(domain.current.name))
-      }
-
-      return app
-    })
-
-    yield* _await(Promise.all(apps.map((app) => deleteApp(app))))
-  })
+  @computed
+  private get userService() {
+    return getUserService(this)
+  }
 }

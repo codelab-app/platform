@@ -53,22 +53,6 @@ export class UnionTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: UnionTypeWhere
-    options?: UnionTypeOptions
-  }) {
-    return await (
-      await this.ogmService.UnionType
-    ).find({
-      options,
-      selectionSet: exportUnionTypeSelectionSet,
-      where,
-    })
-  }
-
   protected async _add(unionTypes: Array<IUnionTypeDTO>) {
     return (
       await (
@@ -104,6 +88,22 @@ export class UnionTypeRepository extends AbstractRepository<
         selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
       })
     ).unionTypes
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: UnionTypeWhere
+    options?: UnionTypeOptions
+  }) {
+    return await (
+      await this.ogmService.UnionType
+    ).find({
+      options,
+      selectionSet: exportUnionTypeSelectionSet,
+      where,
+    })
   }
 
   protected async _update(

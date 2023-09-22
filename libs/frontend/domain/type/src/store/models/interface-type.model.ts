@@ -68,6 +68,30 @@ export class InterfaceType
   })
   implements IInterfaceType
 {
+  static create = create
+
+  static createApiNode = createApiNode
+
+  static createName = createName
+
+  static toDeleteInput(): InterfaceTypeDeleteInput {
+    return {
+      fields: [
+        {
+          delete: {},
+          where: {},
+        },
+      ],
+    }
+  }
+
+  @computed
+  get defaultValues(): IPropData {
+    return this.fields
+      .map((field) => ({ [field.key]: field.defaultValues }))
+      .reduce(merge, {})
+  }
+
   @computed
   get fields() {
     const fields = [...this._fields.values()].map((field) => field.current)
@@ -98,20 +122,6 @@ export class InterfaceType
     })
   }
 
-  @computed
-  get defaultValues(): IPropData {
-    return this.fields
-      .map((field) => ({ [field.key]: field.defaultValues }))
-      .reduce(merge, {})
-  }
-
-  @modelAction
-  writeFieldCache(fields: Array<IEntity>) {
-    for (const field of fields) {
-      this._fields.set(field.id, fieldRef(field.id))
-    }
-  }
-
   @modelAction
   writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
     super.writeCache(interfaceTypeDTO)
@@ -121,20 +131,10 @@ export class InterfaceType
     return this
   }
 
-  static createName = createName
-
-  static create = create
-
-  static createApiNode = createApiNode
-
-  static toDeleteInput(): InterfaceTypeDeleteInput {
-    return {
-      fields: [
-        {
-          delete: {},
-          where: {},
-        },
-      ],
+  @modelAction
+  writeFieldCache(fields: Array<IEntity>) {
+    for (const field of fields) {
+      this._fields.set(field.id, fieldRef(field.id))
     }
   }
 }

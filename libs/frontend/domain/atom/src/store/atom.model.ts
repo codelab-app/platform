@@ -102,34 +102,6 @@ export class Atom
   static create = create
 
   @modelAction
-  writeCache({
-    api,
-    externalCssSource,
-    externalJsSource,
-    externalSourceType,
-    icon,
-    id,
-    name,
-    requiredParents = [],
-    suggestedChildren = [],
-    tags = [],
-    type,
-  }: Partial<IAtomDTO>) {
-    this.externalCssSource = externalCssSource ?? this.externalCssSource
-    this.externalJsSource = externalJsSource ?? this.externalJsSource
-    this.externalSourceType = externalSourceType ?? this.externalSourceType
-    this.name = name ?? this.name
-    this.type = type ?? this.type
-    this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
-    this.tags = tags.map((tag) => tagRef(tag.id))
-    this.icon = icon ?? this.icon
-    this.suggestedChildren = suggestedChildren.map((child) => atomRef(child.id))
-    this.requiredParents = requiredParents.map((child) => atomRef(child.id))
-
-    return this
-  }
-
-  @modelAction
   toCreateInput(): AtomCreateInput {
     console.log(this.userService.user)
 
@@ -173,5 +145,33 @@ export class Atom
       tags: reconnectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
+  }
+
+  @modelAction
+  writeCache({
+    api,
+    externalCssSource,
+    externalJsSource,
+    externalSourceType,
+    icon,
+    id,
+    name,
+    requiredParents = [],
+    suggestedChildren = [],
+    tags = [],
+    type,
+  }: Partial<IAtomDTO>) {
+    this.externalCssSource = externalCssSource ?? this.externalCssSource
+    this.externalJsSource = externalJsSource ?? this.externalJsSource
+    this.externalSourceType = externalSourceType ?? this.externalSourceType
+    this.name = name ?? this.name
+    this.type = type ?? this.type
+    this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
+    this.tags = tags.map((tag) => tagRef(tag.id))
+    this.icon = icon ?? this.icon
+    this.suggestedChildren = suggestedChildren.map((child) => atomRef(child.id))
+    this.requiredParents = requiredParents.map((child) => atomRef(child.id))
+
+    return this
   }
 }

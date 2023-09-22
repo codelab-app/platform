@@ -29,6 +29,19 @@ export class CodeActionRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
+  protected async _add(actions: Array<ICodeActionDTO>) {
+    return (
+      await (
+        await this.ogmService.CodeAction
+      ).create({
+        input: actions.map(({ store, ...action }) => ({
+          ...action,
+          store: connectNodeId(store.id),
+        })),
+      })
+    ).codeActions
+  }
+
   protected async _find({
     options,
     where,
@@ -43,19 +56,6 @@ export class CodeActionRepository extends AbstractRepository<
       selectionSet: actionSelectionSet,
       where,
     })
-  }
-
-  protected async _add(actions: Array<ICodeActionDTO>) {
-    return (
-      await (
-        await this.ogmService.CodeAction
-      ).create({
-        input: actions.map(({ store, ...action }) => ({
-          ...action,
-          store: connectNodeId(store.id),
-        })),
-      })
-    ).codeActions
   }
 
   protected async _update(

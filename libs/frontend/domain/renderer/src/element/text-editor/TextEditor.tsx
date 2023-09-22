@@ -22,7 +22,7 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
 
     return propService.updateWithDefaultValuesApplied({
       data: { ...props.data.data, customText: JSON.stringify(output) },
-      defaultValues: getDefaultFieldProps(element.renderType?.current),
+      defaultValues: getDefaultFieldProps(element.renderType.current),
       id: props.id,
     })
   }

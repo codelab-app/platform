@@ -3,6 +3,7 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   useCurrentPage,
   useDevelopmentPage,
@@ -13,7 +14,6 @@ import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import {
   builderRouteChangeHandler,
   extractErrorMessage,
-  withPageAuthRedirect,
 } from '@codelab/frontend/shared/utils'
 import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
 import { Alert, Spin } from 'antd'

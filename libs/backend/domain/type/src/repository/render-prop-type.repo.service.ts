@@ -31,6 +31,20 @@ export class RenderPropTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
+  protected async _add(renderPropTypes: Array<IRenderPropTypeDTO>) {
+    return (
+      await (
+        await this.ogmService.RenderPropType
+      ).create({
+        input: renderPropTypes.map(({ __typename, ...renderPropType }) => ({
+          ...renderPropType,
+          owner: connectOwner(this.authService.currentUser),
+        })),
+        selectionSet: `{ renderPropTypes ${exportRenderPropTypeSelectionSet} }`,
+      })
+    ).renderPropTypes
+  }
+
   protected async _find({
     options,
     where,
@@ -45,20 +59,6 @@ export class RenderPropTypeRepository extends AbstractRepository<
       selectionSet: exportRenderPropTypeSelectionSet,
       where,
     })
-  }
-
-  protected async _add(renderPropTypes: Array<IRenderPropTypeDTO>) {
-    return (
-      await (
-        await this.ogmService.RenderPropType
-      ).create({
-        input: renderPropTypes.map(({ __typename, ...renderPropType }) => ({
-          ...renderPropType,
-          owner: connectOwner(this.authService.currentUser),
-        })),
-        selectionSet: `{ renderPropTypes ${exportRenderPropTypeSelectionSet} }`,
-      })
-    ).renderPropTypes
   }
 
   protected async _update(

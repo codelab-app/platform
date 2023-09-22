@@ -1,6 +1,9 @@
-import type { IStore, IStoreService } from '@codelab/frontend/abstract/core'
+import type {
+  IStoreModel,
+  IStoreService,
+} from '@codelab/frontend/abstract/core'
+import { ModalService } from '@codelab/frontend/domain/shared'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   StoreFragment,
   StoreWhere,
@@ -29,29 +32,65 @@ export class StoreService
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
     storeRepository: prop(() => new StoreRepository({})),
-    stores: prop(() => objectMap<IStore>()),
+    stores: prop(() => objectMap<IStoreModel>()),
     updateModal: prop(() => new StoreModalService({})),
   })
   implements IStoreService
 {
   @computed
-  get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
   get storesList() {
     return [...this.stores.values()]
   }
 
-  store(id: string) {
-    return this.stores.get(id)
-  }
+  @modelFlow
+  @transaction
+  create = _async(function* (this: StoreService, data: IStoreDTO) {
+    const store = this.add(data)
+
+    yield* _await(this.storeRepository.add(store))
+
+    return store
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: StoreService, stores: Array<IStoreModel>) {
+    stores.forEach((store) => {
+      this.stores.delete(store.id)
+    })
+
+    yield* _await(this.storeRepository.delete(stores))
+
+    return
+  })
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: StoreService, where: StoreWhere) {
+    const { items: stores } = yield* _await(this.storeRepository.find(where))
+
+    return this.load(stores)
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: StoreService, id: string) {
+    const [store] = yield* _await(this.getAll({ id }))
+
+    return store
+  })
+
+  @modelFlow
+  @transaction
+  update = _async(function* (this: StoreService, data: IStoreDTO) {
+    const store = this.stores.get(data.id)!
+
+    store.writeCache({ name: data.name })
+
+    yield* _await(this.storeRepository.update(store))
+
+    return store
+  })
 
   @modelAction
   add(storeDTO: IStoreDTO) {
@@ -83,53 +122,17 @@ export class StoreService
     return stores.map((store) => this.add({ ...store, source: null }))
   }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: StoreService, where: StoreWhere) {
-    const { items: stores } = yield* _await(this.storeRepository.find(where))
+  store(id: string) {
+    return this.stores.get(id)
+  }
 
-    return this.load(stores)
-  })
+  @computed
+  private get actionService() {
+    return getActionService(this)
+  }
 
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: StoreService, id: string) {
-    const [store] = yield* _await(this.getAll({ id }))
-
-    return store
-  })
-
-  @modelFlow
-  @transaction
-  create = _async(function* (this: StoreService, data: IStoreDTO) {
-    const store = this.add(data)
-
-    yield* _await(this.storeRepository.add(store))
-
-    return store
-  })
-
-  @modelFlow
-  @transaction
-  update = _async(function* (this: StoreService, data: IStoreDTO) {
-    const store = this.stores.get(data.id)!
-
-    store.writeCache({ name: data.name })
-
-    yield* _await(this.storeRepository.update(store))
-
-    return store
-  })
-
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: StoreService, store: IStore) {
-    const { id } = store
-
-    this.stores.delete(id)
-
-    yield* _await(this.storeRepository.delete([store]))
-
-    return store!
-  })
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
 }

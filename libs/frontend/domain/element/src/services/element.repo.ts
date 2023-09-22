@@ -25,6 +25,36 @@ export class ElementRepository extends Model({}) implements IElementRepository {
   })
 
   @modelFlow
+  delete = _async(function* (
+    this: ElementRepository,
+    elements: Array<IElementModel>,
+  ) {
+    const {
+      deleteElements: { nodesDeleted },
+    } = yield* _await(
+      elementApi.DeleteElements({
+        delete: {
+          props: {},
+        },
+        where: {
+          id_IN: elements.map((element) => element.id),
+        },
+      }),
+    )
+
+    return nodesDeleted
+  })
+
+  @modelFlow
+  find = _async(function* (
+    this: ElementRepository,
+    where: ElementWhere,
+    options?: ElementOptions,
+  ) {
+    return yield* _await(elementApi.GetElements({ options, where }))
+  })
+
+  @modelFlow
   update = _async(function* (this: ElementRepository, element: IElementModel) {
     const {
       updateElements: { elements },
@@ -55,52 +85,4 @@ export class ElementRepository extends Model({}) implements IElementRepository {
 
     return elements[0]!
   })
-
-  @modelFlow
-  find = _async(function* (
-    this: ElementRepository,
-    where: ElementWhere,
-    options?: ElementOptions,
-  ) {
-    return yield* _await(elementApi.GetElements({ options, where }))
-  })
-
-  @modelFlow
-  delete = _async(function* (
-    this: ElementRepository,
-    elements: Array<IElementModel>,
-  ) {
-    const {
-      deleteElements: { nodesDeleted },
-    } = yield* _await(
-      elementApi.DeleteElements({
-        delete: {
-          props: {},
-        },
-        where: {
-          id_IN: elements.map((element) => element.id),
-        },
-      }),
-    )
-
-    return nodesDeleted
-  })
-
-  // @modelFlow
-  // deleteMany = _async(function* (this: ElementRepository, ids: Array<string>) {
-  //   const {
-  //     deleteElements: { nodesDeleted },
-  //   } = yield* _await(
-  //     elementApi.DeleteElements({
-  //       delete: {
-  //         props: {},
-  //       },
-  //       where: {
-  //         id_IN: ids,
-  //       },
-  //     }),
-  //   )
-
-  //   return nodesDeleted
-  // })
 }

@@ -1,6 +1,6 @@
 export * from './action.dto.interface'
 export * from './action.input.interface'
-export * from './action.interface'
+export * from './action.model.interface'
 export * from './action.ref'
 export * from './action.repo.interface'
 export * from './action.service.interface'

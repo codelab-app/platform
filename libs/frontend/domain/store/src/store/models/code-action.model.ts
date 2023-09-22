@@ -1,4 +1,4 @@
-import type { ICodeAction } from '@codelab/frontend/abstract/core'
+import type { ICodeActionModel } from '@codelab/frontend/abstract/core'
 import { storeRef } from '@codelab/frontend/abstract/core'
 import {
   CodeActionCreateInput,
@@ -25,15 +25,9 @@ export class CodeAction
   extends ExtendedModel(createBaseAction(IActionKind.CodeAction), {
     code: prop<string>(),
   })
-  implements ICodeAction
+  implements ICodeActionModel
 {
-  @modelAction
-  writeCache({ code, name }: Partial<ICodeActionDTO>) {
-    this.name = name ?? this.name
-    this.code = code ?? this.code
-
-    return this
-  }
+  static create = create
 
   @modelAction
   toCreateInput(): CodeActionCreateInput {
@@ -47,6 +41,11 @@ export class CodeAction
   }
 
   @modelAction
+  static toDeleteInput(): CodeActionDeleteInput {
+    return {}
+  }
+
+  @modelAction
   toUpdateInput(): CodeActionUpdateInput {
     return {
       code: this.code,
@@ -55,9 +54,10 @@ export class CodeAction
   }
 
   @modelAction
-  toDeleteInput(): CodeActionDeleteInput {
-    return {}
-  }
+  writeCache({ code, name }: Partial<ICodeActionDTO>) {
+    this.name = name ?? this.name
+    this.code = code ?? this.code
 
-  static create = create
+    return this
+  }
 }

@@ -1,9 +1,9 @@
 import type {
-  IAction,
+  IActionModel,
   IActionRunner,
-  IApiAction,
+  IApiActionModel,
   IBaseResourceConfigData,
-  ICodeAction,
+  ICodeActionModel,
   IElementModel,
   IEvaluationContext,
   IGraphQLActionConfig,
@@ -16,7 +16,7 @@ import {
   elementRef,
   getRenderService,
   getRunnerId,
-  IProp,
+  IPropModel,
 } from '@codelab/frontend/abstract/core'
 import { evaluateObject, tryParse } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
@@ -114,47 +114,13 @@ const create = (rootElement: IElementModel) => {
 @model('@codelab/ActionRunner')
 export class ActionRunner
   extends Model(() => ({
-    actionRef: prop<Ref<IAction>>(),
+    actionRef: prop<Ref<IActionModel>>(),
     elementRef: prop<Ref<IElementModel>>(),
     id: prop<string>(),
   }))
   implements IActionRunner
 {
-  @computed
-  get renderer() {
-    const renderService = getRenderService(this)
-
-    return renderService.activeRenderer?.current
-  }
-
-  @computed
-  get runner() {
-    return this.actionRef.current.type === IActionKind.ApiAction
-      ? this.apiRunner
-      : this.codeRunner
-  }
-
-  @modelAction
-  private replaceStateInConfig(config: IProp) {
-    return evaluateObject(config.values, {
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: {},
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: {},
-      url: {},
-    })
-  }
-
-  @computed
-  get _resourceConfig() {
-    return this.replaceStateInConfig(
-      (this.actionRef.current as IApiAction).resource.current.config.current,
-    ) as IBaseResourceConfigData
-  }
+  static create = create
 
   @computed
   get _graphqlClient() {
@@ -162,6 +128,14 @@ export class ActionRunner
     const options = { headers: tryParse(headers) }
 
     return new GraphQLClient(url, options)
+  }
+
+  @computed
+  get _resourceConfig() {
+    return this.replaceStateInConfig(
+      (this.actionRef.current as IApiActionModel).resource.current.config
+        .current,
+    ) as IBaseResourceConfigData
   }
 
   @computed
@@ -173,7 +147,7 @@ export class ActionRunner
 
   @computed
   get apiRunner() {
-    const action = this.actionRef.current as IApiAction
+    const action = this.actionRef.current as IApiActionModel
 
     const providerStoreId =
       this.renderer?.providerTree?.current.rootElement.current.store.id
@@ -251,7 +225,7 @@ export class ActionRunner
           const url = this.url;
           const props = this.props;
           const componentProps = this.componentProps;
-          return ${(this.actionRef.current as ICodeAction).code}(...args)
+          return ${(this.actionRef.current as ICodeActionModel).code}(...args)
         }`,
       )()
     } catch (error) {
@@ -261,5 +235,32 @@ export class ActionRunner
     }
   }
 
-  static create = create
+  @computed
+  get renderer() {
+    const renderService = getRenderService(this)
+
+    return renderService.activeRenderer?.current
+  }
+
+  @computed
+  get runner() {
+    return this.actionRef.current.type === IActionKind.ApiAction
+      ? this.apiRunner
+      : this.codeRunner
+  }
+
+  @modelAction
+  private replaceStateInConfig(config: IPropModel) {
+    return evaluateObject(config.values, {
+      actions: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      url: {},
+    })
+  }
 }

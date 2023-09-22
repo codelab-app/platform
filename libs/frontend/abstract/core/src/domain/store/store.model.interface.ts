@@ -8,18 +8,18 @@ import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IActionsTreeDataNode } from '../../ui'
-import type { IAction } from '../action'
+import type { IActionModel } from '../action'
 import type { IComponentModel } from '../component'
 import type { IModel } from '../model.interface'
 import type { IPageModel } from '../page'
 import type { IPropData } from '../prop'
 import type { IInterfaceType } from '../type'
 
-export interface IStore
+export interface IStoreModel
   extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput>,
-    ICacheService<IStoreDTO, IStore> {
+    ICacheService<IStoreDTO, IStoreModel> {
   actionRunners: Record<string, (...args: Array<unknown>) => void>
-  actions: Array<Ref<IAction>>
+  actions: Array<Ref<IActionModel>>
   actionsTree: Array<IActionsTreeDataNode>
   api: Ref<IInterfaceType>
   component: Nullable<Ref<IComponentModel>>
@@ -31,7 +31,7 @@ export interface IStore
   source: Nullable<IEntity>
   state: IPropData
 
-  clone(componentId: string): IStore
+  clone(componentId: string): IStoreModel
   registerRef(key: string, node: HTMLElement): void
   setComponent(componentRef: Ref<IComponentModel>): void
 }

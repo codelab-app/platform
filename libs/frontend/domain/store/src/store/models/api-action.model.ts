@@ -1,7 +1,7 @@
 import type {
-  IAction,
-  IApiAction,
-  IProp,
+  IActionModel,
+  IApiActionModel,
+  IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -10,7 +10,7 @@ import {
   resourceRef,
   storeRef,
 } from '@codelab/frontend/abstract/core'
-import {
+import type {
   ApiActionCreateInput,
   ApiActionDeleteInput,
   ApiActionUpdateInput,
@@ -46,14 +46,22 @@ const create = ({
 @model('@codelab/ApiAction')
 export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
-    config: prop<Ref<IProp>>(),
-    errorAction: prop<Nullish<Ref<IAction>>>(),
+    config: prop<Ref<IPropModel>>(),
+    errorAction: prop<Nullish<Ref<IActionModel>>>(),
     resource: prop<Ref<IResourceModel>>(),
-    source: prop<Nullable<Ref<IAction>>>(null),
-    successAction: prop<Nullish<Ref<IAction>>>(),
+    source: prop<Nullable<Ref<IActionModel>>>(null),
+    successAction: prop<Nullish<Ref<IActionModel>>>(),
   })
-  implements IApiAction
+  implements IApiActionModel
 {
+  static create = create
+
+  static toDeleteInput(): ApiActionDeleteInput {
+    return {
+      config: { where: {} },
+    }
+  }
+
   @modelAction
   writeCache({
     config,
@@ -64,7 +72,7 @@ export class ApiAction
   }: Partial<IApiActionDTO>) {
     this.name = name ?? this.name
     this.resource = resource ? resourceRef(resource.id) : this.resource
-    this.config = config ? propRef<IProp>(config.id) : this.config
+    this.config = config ? propRef<IPropModel>(config.id) : this.config
     this.errorAction = errorAction
       ? actionRef(errorAction.id)
       : this.errorAction
@@ -75,7 +83,6 @@ export class ApiAction
     return this
   }
 
-  @modelAction
   toCreateInput(): ApiActionCreateInput {
     return {
       config: {
@@ -104,7 +111,6 @@ export class ApiAction
     }
   }
 
-  @modelAction
   toUpdateInput(): ApiActionUpdateInput {
     return {
       config: {
@@ -130,13 +136,4 @@ export class ApiAction
         : undefined,
     }
   }
-
-  @modelAction
-  toDeleteInput(): ApiActionDeleteInput {
-    return {
-      config: { where: {} },
-    }
-  }
-
-  static create = create
 }

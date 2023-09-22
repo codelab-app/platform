@@ -1,5 +1,5 @@
-import type { OmitFirstArg } from '../../deprecated/types'
 import type { CypressCommand } from '@codelab/testing/cypress/command'
+import type { OmitFirstArg } from '../../deprecated/types'
 import { getIcon } from './icon.command'
 
 export interface AntIconCommands {

@@ -36,6 +36,21 @@ export class EnumTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
+  protected async _add(enumTypes: Array<IEnumTypeDTO>) {
+    return (
+      await (
+        await this.ogmService.EnumType
+      ).create({
+        input: enumTypes.map(({ __typename, allowedValues, ...enumType }) => ({
+          ...enumType,
+          allowedValues: this.mapCreateEnumTypeValues(allowedValues),
+          owner: connectOwner(this.authService.currentUser),
+        })),
+        selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
+      })
+    ).enumTypes
+  }
+
   protected async _find({
     options,
     where,
@@ -50,21 +65,6 @@ export class EnumTypeRepository extends AbstractRepository<
       selectionSet: exportEnumTypeSelectionSet,
       where,
     })
-  }
-
-  protected async _add(enumTypes: Array<IEnumTypeDTO>) {
-    return (
-      await (
-        await this.ogmService.EnumType
-      ).create({
-        input: enumTypes.map(({ __typename, allowedValues, ...enumType }) => ({
-          ...enumType,
-          allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-          owner: connectOwner(this.authService.currentUser),
-        })),
-        selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
-      })
-    ).enumTypes
   }
 
   protected async _update(

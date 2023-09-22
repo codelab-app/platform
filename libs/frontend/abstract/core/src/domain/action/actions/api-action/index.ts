@@ -1,2 +1,2 @@
-export * from './api-action.interface'
+export * from './api-action.model.interface'
 export * from './config'

@@ -22,8 +22,6 @@ export interface IRenderOutput {
 }
 
 export interface IBaseRenderPipe {
-  componentService: IComponentService
-  elementService: IElementService
   id: string
   renderer: IRenderer
 }

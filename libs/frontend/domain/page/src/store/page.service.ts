@@ -16,9 +16,12 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Element } from '@codelab/frontend/domain/element'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import {
+  InlineFormService,
+  ModalService,
+} from '@codelab/frontend/domain/shared'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
-import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import {
@@ -61,117 +64,10 @@ export class PageService
   })
   implements IPageService
 {
-  /**
-    This function fetches all data related to the specific page.
-   */
-  @modelFlow
-  @transaction
-  getRenderedPage = _async(function* (this: PageService, pageId: string) {
-    return yield* _await(pageApi.GetRenderedPage({ pageId }))
-  })
-
-  @computed
-  private get appService() {
-    return getAppService(this)
-  }
-
-  @computed
-  private get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
-  }
-
-  @computed
-  private get atomService() {
-    return getAtomService(this)
-  }
-
   @computed
   get pagesList() {
     return [...this.pages.values()]
   }
-
-  pagesByApp(appId: string) {
-    return this.pagesList.filter((page) => page.app.id === appId)
-  }
-
-  page(id: string) {
-    return this.pages.get(id)
-  }
-
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: PageService,
-    { app, id, name, pageContentContainer, url }: IUpdatePageData,
-  ) {
-    const page = this.pages.get(id)!
-
-    page.writeCache({
-      app,
-      name,
-      pageContentContainer,
-      url,
-    })
-
-    yield* _await(this.pageRepository.update(page))
-
-    return page!
-  })
-
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: PageService, where: PageWhere) {
-    const { items: pages } = yield* _await(this.pageRepository.find(where))
-
-    /**
-     * Load elements so they can be referenced
-     */
-    return pages.map((page) => {
-      const elements = [
-        page.rootElement,
-        ...page.rootElement.descendantElements,
-      ]
-
-      elements.forEach((element) =>
-        this.elementService.add({
-          ...element,
-          closestContainerNode: {
-            id: page.id,
-          },
-        }),
-      )
-
-      return this.add(page)
-    })
-  })
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: PageService, id: string) {
-    const pages = yield* _await(this.getAll({ id }))
-
-    return pages[0]
-  })
 
   @modelFlow
   @transaction
@@ -283,39 +179,69 @@ export class PageService
     yield* _await(this.pageRepository.delete(pages))
   })
 
-  /**
-   * Since elements are
-   */
-  @modelAction
-  loadElements = (elements: Array<IElementDTO>) => {
-    elements.forEach((element) => {
-      this.propService.add(element.props)
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: PageService, where: PageWhere) {
+    const { items: pages } = yield* _await(this.pageRepository.find(where))
 
-      /**
-       * Element comes with `component` or `atom` data that we need to load as well
-       *
-       * TODO: Need to handle component case
-       */
-      if (element.renderType.__typename === IElementRenderTypeKind.Atom) {
-        this.typeService.loadTypes({
-          interfaceTypes: [element.renderType.api],
-        })
+    /**
+     * Load elements so they can be referenced
+     */
+    return pages.map((page) => {
+      const elements = [
+        page.rootElement,
+        ...page.rootElement.descendantElements,
+      ]
 
-        // element.renderType.tags.forEach((tag) => this.tagService.add(tag))
+      elements.forEach((element) =>
+        this.elementService.add({
+          ...element,
+          closestContainerNode: {
+            id: page.id,
+          },
+        }),
+      )
 
-        this.atomService.add(element.renderType)
-      }
-
-      const elementDto = {
-        ...element,
-        closestContainerNode: { id },
-      }
-
-      console.log('AppService.loadPages() elementDto', elementDto)
-
-      this.elementService.add(elementDto)
+      return this.add(page)
     })
-  }
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: PageService, id: string) {
+    const pages = yield* _await(this.getAll({ id }))
+
+    return pages[0]
+  })
+
+  /**
+    This function fetches all data related to the specific page.
+   */
+  @modelFlow
+  @transaction
+  getRenderedPage = _async(function* (this: PageService, pageId: string) {
+    return yield* _await(pageApi.GetRenderedPage({ pageId }))
+  })
+
+  @modelFlow
+  @transaction
+  update = _async(function* (
+    this: PageService,
+    { app, id, name, pageContentContainer, url }: IUpdatePageData,
+  ) {
+    const page = this.pages.get(id)!
+
+    page.writeCache({
+      app,
+      name,
+      pageContentContainer,
+      url,
+    })
+
+    yield* _await(this.pageRepository.update(page))
+
+    return page!
+  })
 
   @modelAction
   add = (pageDTO: IPageDTO) => {
@@ -331,5 +257,81 @@ export class PageService
     }
 
     return page
+  }
+
+  /**
+   * Since elements are
+   */
+  @modelAction
+  loadElements = (elements: Array<IElementDTO>) => {
+    elements.forEach((element) => {
+      this.propService.add(element.props)
+
+      /**
+       * Element comes with `component` or `atom` data that we need to load as well
+       *
+       * TODO: Need to handle component case
+       */
+      if (element.renderType.__typename === IElementRenderTypeKind.Atom) {
+        // this.elementService.loadRenderType(element.renderType)
+        // TODO: Load from elementAggregateRoot, which contains nested data
+        // this.typeService.loadTypes({
+        //   interfaceTypes: [element.renderType.api],
+        // })
+        // element.renderType.tags.forEach((tag) => this.tagService.add(tag))
+        // this.atomService.add(element.renderType)
+      }
+
+      const elementDto = {
+        ...element,
+      }
+
+      console.log('AppService.loadPages() elementDto', elementDto)
+
+      this.elementService.add(elementDto)
+    })
+  }
+
+  page(id: string) {
+    return this.pages.get(id)
+  }
+
+  pagesByApp(appId: string) {
+    return this.pagesList.filter((page) => page.app.id === appId)
+  }
+
+  @computed
+  private get appService() {
+    return getAppService(this)
+  }
+
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 }

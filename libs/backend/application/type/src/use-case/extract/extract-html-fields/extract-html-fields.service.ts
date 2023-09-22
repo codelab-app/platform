@@ -27,8 +27,6 @@ export class ExtractHtmlFieldsService
     private authService: AuthService,
   ) {}
 
-  private htmlDataFolder = `${process.cwd()}/data/html/`
-
   async execute(atoms: Array<IAtomDTO>) {
     const htmlAttributesByName = JSON.parse(
       readFileSync(path.resolve(this.htmlDataFolder, 'html.json'), 'utf8'),
@@ -51,21 +49,6 @@ export class ExtractHtmlFieldsService
 
       return [...(await accFieldsPromise), ...fields]
     }, Promise.resolve([] as Array<IFieldDTO>))
-  }
-
-  private async transformFields(atom: IAtomDTO, fields: Array<HtmlField>) {
-    return fields.reduce<Promise<Array<IFieldDTO>>>(
-      async (accFields, field) => {
-        const existingOrNewField = await this.createOrUpdateField(atom, field)
-
-        if (!existingOrNewField) {
-          return [...(await accFields)]
-        }
-
-        return [...(await accFields), existingOrNewField]
-      },
-      Promise.resolve([]),
-    )
   }
 
   private async createOrUpdateField(
@@ -106,5 +89,22 @@ export class ExtractHtmlFieldsService
       key: field.key,
       name: compoundCaseToTitleCase(field.key),
     })
+  }
+
+  private htmlDataFolder = `${process.cwd()}/data/html/`
+
+  private async transformFields(atom: IAtomDTO, fields: Array<HtmlField>) {
+    return fields.reduce<Promise<Array<IFieldDTO>>>(
+      async (accFields, field) => {
+        const existingOrNewField = await this.createOrUpdateField(atom, field)
+
+        if (!existingOrNewField) {
+          return [...(await accFields)]
+        }
+
+        return [...(await accFields), existingOrNewField]
+      },
+      Promise.resolve([]),
+    )
   }
 }

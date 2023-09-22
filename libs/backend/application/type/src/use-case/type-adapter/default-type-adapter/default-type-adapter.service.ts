@@ -53,30 +53,30 @@ export class DefaultTypeAdapterService
   extends UseCase<Request, IType | undefined>
   implements ITypeTransformer
 {
-  reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
+  actionTypeRegex = /(^function\(.*?\))|((\(.*?\)) => \w)/
 
-  renderPropTypeRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]
+  arrayTypeRegex = /\[\]$/
 
   booleanTypeRegex = /^boolean$/
 
-  stringTypeRegex = /^string$/
+  containsInterfaceTypeRegex = /{[\s\S]*}/
 
-  numberTypeRegex = /^number$/
+  enumTypeRegex = /\|/
 
   integerTypeRegex = /^integer$/
-
-  arrayTypeRegex = /\[\]$/
 
   /**
    * This pattern ensures that it will match any string that starts with a { and ends with a }, even if there are multiple lines or nested objects within the interface type. The [\s\S]* part of the regex pattern matches any character, including whitespace and non-whitespace characters, zero or more times.
    */
   interfaceTypeRegex = /^\{[\s\S]*}$/
 
-  containsInterfaceTypeRegex = /{[\s\S]*}/
+  numberTypeRegex = /^number$/
 
-  enumTypeRegex = /\|/
+  reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
 
-  actionTypeRegex = /(^function\(.*?\))|((\(.*?\)) => \w)/
+  renderPropTypeRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]
+
+  stringTypeRegex = /^string$/
 
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,
@@ -163,53 +163,6 @@ export class DefaultTypeAdapterService
     return await matchingTypeChecks[0]?.transform(type, atom, field)
   }
 
-  isNumberType(type: string) {
-    return this.numberTypeRegex.test(type)
-  }
-
-  isStringType(type: string) {
-    return this.stringTypeRegex.test(type)
-  }
-
-  /**
-   * Must be a union type if contains a nested interface type
-   */
-  isEnumType(type: string) {
-    if (this.containsInterfaceTypeRegex.test(type)) {
-      return false
-    }
-
-    return this.enumTypeRegex.test(type)
-  }
-
-  isBooleanType(type: string) {
-    return this.booleanTypeRegex.test(type)
-  }
-
-  isActionType(type: string) {
-    return this.actionTypeRegex.test(type) && !this.isReactNodeType(type)
-  }
-
-  isIntegerType(type: string) {
-    return this.integerTypeRegex.test(type)
-  }
-
-  isUnionType(type: string) {
-    return this.enumTypeRegex.test(type) && this.interfaceTypeRegex.test(type)
-  }
-
-  isInterfaceType(type: string) {
-    return this.interfaceTypeRegex.test(type)
-  }
-
-  isRenderPropType(type: string) {
-    return this.renderPropTypeRegexes.some((regex) => regex.test(type))
-  }
-
-  isArrayType(type: string) {
-    return this.arrayTypeRegex.test(type)
-  }
-
   // async arrayType(type: string): Promise<IArrayType> {
   //   const arrayType: IArrayTypeDTO = {
   //     __typename: ITypeKind.ArrayType,
@@ -225,18 +178,40 @@ export class DefaultTypeAdapterService
     )
   }
 
-  async reactNodeType() {
+  async booleanType() {
     return throwIfUndefined(
-      await this.reactNodeTypeRepository.findOne({
-        name: ITypeKind.ReactNodeType,
+      await this.primitiveTypeRepository.findOne({
+        name: IPrimitiveTypeKind.Boolean,
       }),
     )
   }
 
-  async renderPropType() {
+  async enumType(
+    type: string,
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ) {
+    const values = parseSeparators({ type })
+
+    const enumType: IEnumTypeDTO = {
+      __typename: ITypeKind.EnumType,
+      allowedValues: values.map((value) => ({
+        id: v4(),
+        key: value,
+        value: value,
+      })),
+      id: v4(),
+      kind: ITypeKind.EnumType,
+      name: EnumType.compositeName(atom, field),
+    }
+
+    return await this.typeFactory.save<IEnumType>(enumType)
+  }
+
+  async integerType() {
     return throwIfUndefined(
-      await this.renderPropTypeRepository.findOne({
-        name: ITypeKind.RenderPropType,
+      await this.primitiveTypeRepository.findOne({
+        name: IPrimitiveTypeKind.Integer,
       }),
     )
   }
@@ -259,22 +234,6 @@ export class DefaultTypeAdapterService
     return await this.typeFactory.save<IInterfaceType>(interfaceType)
   }
 
-  async booleanType() {
-    return throwIfUndefined(
-      await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.Boolean,
-      }),
-    )
-  }
-
-  async stringType() {
-    return throwIfUndefined(
-      await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.String,
-      }),
-    )
-  }
-
   async numberType() {
     return throwIfUndefined(
       await this.primitiveTypeRepository.findOne({
@@ -283,10 +242,26 @@ export class DefaultTypeAdapterService
     )
   }
 
-  async integerType() {
+  async reactNodeType() {
+    return throwIfUndefined(
+      await this.reactNodeTypeRepository.findOne({
+        name: ITypeKind.ReactNodeType,
+      }),
+    )
+  }
+
+  async renderPropType() {
+    return throwIfUndefined(
+      await this.renderPropTypeRepository.findOne({
+        name: ITypeKind.RenderPropType,
+      }),
+    )
+  }
+
+  async stringType() {
     return throwIfUndefined(
       await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.Integer,
+        name: IPrimitiveTypeKind.String,
       }),
     )
   }
@@ -331,29 +306,54 @@ export class DefaultTypeAdapterService
     return await this.typeFactory.save<IUnionType>(unionType)
   }
 
-  async enumType(
-    type: string,
-    atom: Pick<IAtomDTO, 'name'>,
-    field: Pick<IFieldDTO, 'key'>,
-  ) {
-    const values = parseSeparators({ type })
-
-    const enumType: IEnumTypeDTO = {
-      __typename: ITypeKind.EnumType,
-      allowedValues: values.map((value) => ({
-        id: v4(),
-        key: value,
-        value: value,
-      })),
-      id: v4(),
-      kind: ITypeKind.EnumType,
-      name: EnumType.compositeName(atom, field),
-    }
-
-    return await this.typeFactory.save<IEnumType>(enumType)
+  private isActionType(type: string) {
+    return this.actionTypeRegex.test(type) && !this.isReactNodeType(type)
   }
 
-  isReactNodeType(type: string) {
+  private isArrayType(type: string) {
+    return this.arrayTypeRegex.test(type)
+  }
+
+  private isBooleanType(type: string) {
+    return this.booleanTypeRegex.test(type)
+  }
+
+  /**
+   * Must be a union type if contains a nested interface type
+   */
+  private isEnumType(type: string) {
+    if (this.containsInterfaceTypeRegex.test(type)) {
+      return false
+    }
+
+    return this.enumTypeRegex.test(type)
+  }
+
+  private isIntegerType(type: string) {
+    return this.integerTypeRegex.test(type)
+  }
+
+  private isInterfaceType(type: string) {
+    return this.interfaceTypeRegex.test(type)
+  }
+
+  private isNumberType(type: string) {
+    return this.numberTypeRegex.test(type)
+  }
+
+  private isReactNodeType(type: string) {
     return this.reactNodeTypeRegex.test(type)
+  }
+
+  private isRenderPropType(type: string) {
+    return this.renderPropTypeRegexes.some((regex) => regex.test(type))
+  }
+
+  private isStringType(type: string) {
+    return this.stringTypeRegex.test(type)
+  }
+
+  private isUnionType(type: string) {
+    return this.enumTypeRegex.test(type) && this.interfaceTypeRegex.test(type)
   }
 }

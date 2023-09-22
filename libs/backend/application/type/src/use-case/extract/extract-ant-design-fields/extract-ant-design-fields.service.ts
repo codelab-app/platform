@@ -23,8 +23,6 @@ export class ExtractAntDesignFieldsService extends UseCase<
   Array<IAtomDTO>,
   Array<IFieldDTO>
 > {
-  private antdDataFolder = `${process.cwd()}/data/antd-v5/`
-
   constructor(
     private fieldRepository: FieldRepository,
     private typeFactory: TypeFactory,
@@ -59,22 +57,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
     return fieldsByAtom
   }
 
-  private async transformFields(
-    atom: IAtomDTO,
-    atomFields: Array<AntDesignField>,
-  ) {
-    const result: Array<IFieldDTO> = []
-
-    for (const field of atomFields) {
-      const existingOrNewField = await this.createOrUpdateField(atom, field)
-
-      if (existingOrNewField) {
-        result.push(existingOrNewField)
-      }
-    }
-
-    return result
-  }
+  private antdDataFolder = `${process.cwd()}/data/antd-v5/`
 
   private async createOrUpdateField(
     atom: IAtomDTO,
@@ -114,5 +97,22 @@ export class ExtractAntDesignFieldsService extends UseCase<
       key: field.property,
       name: compoundCaseToTitleCase(field.property),
     })
+  }
+
+  private async transformFields(
+    atom: IAtomDTO,
+    atomFields: Array<AntDesignField>,
+  ) {
+    const result: Array<IFieldDTO> = []
+
+    for (const field of atomFields) {
+      const existingOrNewField = await this.createOrUpdateField(atom, field)
+
+      if (existingOrNewField) {
+        result.push(existingOrNewField)
+      }
+    }
+
+    return result
   }
 }

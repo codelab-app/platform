@@ -60,22 +60,6 @@ export class InterfaceTypeRepository extends AbstractRepository<
     })
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    options: InterfaceTypeOptions
-    where: InterfaceTypeWhere
-  }) {
-    return await (
-      await this.ogmService.InterfaceType
-    ).find({
-      options,
-      selectionSet: interfaceTypeSelectionSet,
-      where,
-    })
-  }
-
   /**
    * If interface doesn't exist, we can safely assume that fields don't exist as well. So fields will always be created.
    *
@@ -97,6 +81,22 @@ export class InterfaceTypeRepository extends AbstractRepository<
         selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
       })
     ).interfaceTypes
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  }) {
+    return await (
+      await this.ogmService.InterfaceType
+    ).find({
+      options,
+      selectionSet: interfaceTypeSelectionSet,
+      where,
+    })
   }
 
   /**

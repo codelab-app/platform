@@ -36,22 +36,6 @@ export class AppRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: AppWhere
-    options?: AppOptions
-  }) {
-    return await (
-      await this.ogmService.App
-    ).find({
-      options,
-      selectionSet: appSelectionSet,
-      where,
-    })
-  }
-
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
@@ -71,6 +55,22 @@ export class AppRepository extends AbstractRepository<
         })),
       })
     ).apps
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: AppWhere
+    options?: AppOptions
+  }) {
+    return await (
+      await this.ogmService.App
+    ).find({
+      options,
+      selectionSet: appSelectionSet,
+      where,
+    })
   }
 
   protected async _update({ name, pages }: IAppDTO, where: AppWhere) {

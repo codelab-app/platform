@@ -14,10 +14,13 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import {
+  ModalService,
+  PaginationService,
+} from '@codelab/frontend/domain/shared'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
-import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import type {
   ComponentOptions,
   ComponentWhere,
@@ -70,96 +73,9 @@ export class ComponentService
   })
   implements IComponentService
 {
-  onAttachedToRootStore() {
-    this.paginationService.getDataFn = async (page, pageSize, filter) => {
-      const items = await this.getAll(
-        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
-        {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        },
-      )
-
-      return { items, totalItems: this.paginationService.totalItems }
-    }
-  }
-
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  get tagService() {
-    return getTagService(this)
-  }
-
-  @computed
-  get atomService() {
-    return getAtomService(this)
-  }
-
-  @computed
-  get renderService() {
-    return getRenderService(this)
-  }
-
   @computed
   get componentList() {
     return [...this.components.values()]
-  }
-
-  @modelAction
-  component(id: string) {
-    const component = this.maybeComponent(id)
-
-    if (!component) {
-      throw new Error('Missing component')
-    }
-
-    return component
-  }
-
-  @modelAction
-  maybeComponent(id: string) {
-    return this.components.get(id) || this.clonedComponents.get(id)
-  }
-
-  @modelAction
-  add(componentDTO: IComponentDTO) {
-    let component = this.maybeComponent(componentDTO.id)
-
-    if (component) {
-      component.writeCache(componentDTO)
-    } else {
-      component = Component.create(componentDTO)
-
-      this.renderService.addRenderer({
-        elementTree: component,
-        id: component.id,
-        providerTree: null,
-        rendererType: RendererType.ComponentBuilder,
-      })
-
-      this.components.set(component.id, component)
-    }
-
-    return component
   }
 
   @modelFlow
@@ -221,26 +137,6 @@ export class ComponentService
     yield* _await(this.componentRepository.add(component))
 
     this.paginationService.dataRefs.set(component.id, componentRef(component))
-
-    return component
-  })
-
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: ComponentService,
-    { childrenContainerElement, id, keyGenerator, name }: IUpdateComponentData,
-  ) {
-    const component = this.components.get(id)
-
-    if (!component) {
-      throw new Error('ID not found')
-    }
-
-    component.writeCache({ childrenContainerElement, keyGenerator, name })
-    this.writeCloneCache({ childrenContainerElement, id, keyGenerator, name })
-
-    yield* _await(this.componentRepository.update(component))
 
     return component
   })
@@ -358,6 +254,85 @@ export class ComponentService
     return all[0]
   })
 
+  @modelFlow
+  @transaction
+  update = _async(function* (
+    this: ComponentService,
+    { childrenContainerElement, id, keyGenerator, name }: IUpdateComponentData,
+  ) {
+    const component = this.components.get(id)
+
+    if (!component) {
+      throw new Error('ID not found')
+    }
+
+    component.writeCache({ childrenContainerElement, keyGenerator, name })
+    this.writeCloneCache({ childrenContainerElement, id, keyGenerator, name })
+
+    yield* _await(this.componentRepository.update(component))
+
+    return component
+  })
+
+  @modelAction
+  add(componentDTO: IComponentDTO) {
+    let component = this.maybeComponent(componentDTO.id)
+
+    if (component) {
+      component.writeCache(componentDTO)
+    } else {
+      component = Component.create(componentDTO)
+
+      this.renderService.addRenderer({
+        elementTree: component,
+        id: component.id,
+        providerTree: null,
+        rendererType: RendererType.ComponentBuilder,
+      })
+
+      this.components.set(component.id, component)
+    }
+
+    return component
+  }
+
+  @modelAction
+  component(id: string) {
+    const component = this.maybeComponent(id)
+
+    if (!component) {
+      throw new Error('Missing component')
+    }
+
+    return component
+  }
+
+  @modelAction
+  maybeComponent(id: string) {
+    return this.components.get(id) || this.clonedComponents.get(id)
+  }
+
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const items = await this.getAll(
+        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
+      )
+
+      return { items, totalItems: this.paginationService.totalItems }
+    }
+  }
+
+  @modelAction
+  private removeClones(componentId: string) {
+    return [...this.clonedComponents.entries()]
+      .filter(([_, component]) => component.sourceComponent?.id === componentId)
+      .forEach(([elementId]) => this.clonedComponents.delete(elementId))
+  }
+
   @modelAction
   private writeCloneCache({
     childrenContainerElement,
@@ -379,10 +354,38 @@ export class ComponentService
       })
   }
 
-  @modelAction
-  private removeClones(componentId: string) {
-    return [...this.clonedComponents.entries()]
-      .filter(([_, component]) => component.sourceComponent?.id === componentId)
-      .forEach(([elementId]) => this.clonedComponents.delete(elementId))
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  private get renderService() {
+    return getRenderService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  private get tagService() {
+    return getTagService(this)
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
   }
 }

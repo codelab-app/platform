@@ -1,7 +1,7 @@
 import type {
   IBaseAction,
   IElementModel,
-  IStore,
+  IStoreModel,
 } from '@codelab/frontend/abstract/core'
 import type { IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -14,7 +14,7 @@ export const createBaseAction = <T extends IActionKind>(type: T) =>
       element: prop<Maybe<Ref<IElementModel>>>(),
       id: idProp,
       name: prop<string>(),
-      store: prop<Ref<IStore>>(),
+      store: prop<Ref<IStoreModel>>(),
       type: prop<T>(() => type),
     })
     implements IBaseAction {}

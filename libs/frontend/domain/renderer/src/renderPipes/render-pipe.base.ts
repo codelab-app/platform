@@ -14,21 +14,6 @@ export class BaseRenderPipe
   })
   implements IBaseRenderPipe
 {
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  get componentService() {
-    return getComponentService(this)
-  }
-
-  @computed
-  get renderService() {
-    return getRenderService(this)
-  }
-
   /**
    * The RenderService is the one that contains these pipes
    */
@@ -41,5 +26,10 @@ export class BaseRenderPipe
     }
 
     return renderer
+  }
+
+  @computed
+  private get renderService() {
+    return getRenderService(this)
   }
 }

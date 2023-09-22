@@ -1,5 +1,5 @@
 import type { IEntityModalService } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/domain/shared'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

@@ -5,11 +5,11 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 export class CodeAction implements ICodeActionDTO {
   __typename: `${IActionKind.CodeAction}` = `${IActionKind.CodeAction}`
 
+  code: string
+
   id: string
 
   name: string
-
-  code: string
 
   store: IEntity
 

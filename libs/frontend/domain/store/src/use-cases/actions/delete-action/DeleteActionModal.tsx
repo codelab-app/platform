@@ -15,12 +15,8 @@ export const DeleteActionModal = observer(() => {
       return Promise.reject()
     }
 
-    return actionService.delete(action)
+    return actionService.delete([action])
   }
-
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while deleting action',
-  })
 
   return (
     <ModalForm.Modal
@@ -33,7 +29,9 @@ export const DeleteActionModal = observer(() => {
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while deleting action',
+        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

@@ -10,7 +10,7 @@ import type { ICacheService } from '../../service'
 import type { IElementModel, IElementTree } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPropData } from '../prop'
-import type { IStore } from '../store'
+import type { IStoreModel } from '../store'
 
 export interface IPageModel
   extends IModel<PageCreateInput, PageUpdateInput, PageDeleteInput>,
@@ -26,6 +26,6 @@ export interface IPageModel
    */
   pageContentContainer?: Nullish<Ref<IElementModel>>
   rootElement: Ref<IElementModel>
-  store: Ref<IStore>
+  store: Ref<IStoreModel>
   toJson: IPropData
 }

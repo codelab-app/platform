@@ -5,7 +5,7 @@ export type ICreatePropData = IPropDTO
 
 export type IUpdatePropData = IPropDTO
 
-export interface IUpdatePropDataWithDefaulValues {
+export interface IUpdatePropDataWithDefaultValues {
   data: IPropData
   defaultValues: IPropData | undefined
   id: string

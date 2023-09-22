@@ -64,25 +64,25 @@ export class SeedFrameworkService extends UseCase<FrameworkData, void> {
     )
   }
 
-  private seedSystemTypes() {
-    const types = Object.values(systemTypesData())
-
-    return this.typeSeederService.seedTypes(types)
+  private async seedApis(fields: Array<IFieldDTO>) {
+    return this.typeSeederService.seedFields(fields)
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {
     return this.seedAtomsService.execute(atoms)
   }
 
-  private seedTags(tags: FrameworkData['tags']) {
-    return this.seedTagsService.execute(tags)
-  }
-
   private async seedEmptyApi(atoms: Array<IAtomType>) {
     return this.seedEmptyApiService.execute(atoms)
   }
 
-  private async seedApis(fields: Array<IFieldDTO>) {
-    return this.typeSeederService.seedFields(fields)
+  private seedSystemTypes() {
+    const types = Object.values(systemTypesData())
+
+    return this.typeSeederService.seedTypes(types)
+  }
+
+  private seedTags(tags: FrameworkData['tags']) {
+    return this.seedTagsService.execute(tags)
   }
 }

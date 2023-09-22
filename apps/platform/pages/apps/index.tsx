@@ -9,6 +9,7 @@ import {
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/domain/app'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
@@ -21,7 +22,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'

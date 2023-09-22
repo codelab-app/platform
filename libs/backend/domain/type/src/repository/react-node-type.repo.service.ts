@@ -31,6 +31,20 @@ export class ReactNodeTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
+  protected async _add(reactNodeTypes: Array<IReactNodeTypeDTO>) {
+    return (
+      await (
+        await this.ogmService.ReactNodeType
+      ).create({
+        input: reactNodeTypes.map(({ __typename, ...reactNodeType }) => ({
+          ...reactNodeType,
+          owner: connectOwner(this.authService.currentUser),
+        })),
+        selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
+      })
+    ).reactNodeTypes
+  }
+
   protected async _find({
     options,
     where,
@@ -45,20 +59,6 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       selectionSet: exportReactNodeTypeSelectionSet,
       where,
     })
-  }
-
-  protected async _add(reactNodeTypes: Array<IReactNodeTypeDTO>) {
-    return (
-      await (
-        await this.ogmService.ReactNodeType
-      ).create({
-        input: reactNodeTypes.map(({ __typename, ...reactNodeType }) => ({
-          ...reactNodeType,
-          owner: connectOwner(this.authService.currentUser),
-        })),
-        selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
-      })
-    ).reactNodeTypes
   }
 
   protected async _update(

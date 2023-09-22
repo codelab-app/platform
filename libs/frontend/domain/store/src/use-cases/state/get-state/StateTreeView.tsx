@@ -1,6 +1,6 @@
 import type {
   IStateTreeDataNode,
-  IStore,
+  IStoreModel,
 } from '@codelab/frontend/abstract/core'
 import {
   CuiEmpty,
@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { StateTreeItem } from './StateTreeItem'
 
-export const StateTreeView = observer<{ store: IStore }>(({ store }) => {
+export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {
   const { typeService } = useStore()
 
   const [{ result: type, status }, getOne] = useAsync(

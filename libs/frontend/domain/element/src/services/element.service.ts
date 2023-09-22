@@ -2,11 +2,14 @@ import type {
   IComponentModel,
   ICreateElementData,
   IElementModel,
+  IElementRenderTypeModel,
   IElementService,
   IInterfaceType,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
+  atomRef,
+  componentRef,
   elementRef,
   getBuilderService,
   getComponentService,
@@ -91,116 +94,113 @@ export class ElementService
   })
   implements IElementService
 {
-  @computed
-  private get atomService() {
-    return getAtomService(this)
-  }
-
-  @computed
-  private get componentService() {
-    return getComponentService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  private get builderService() {
-    return getBuilderService(this)
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
-  private get fieldService() {
-    return getFieldService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @modelAction
-  add = (elementDTO: IElementDTO): IElementModel => {
-    console.debug('ElementService.add()', elementDTO)
-
-    let element = this.elements.get(elementDTO.id)
-
-    if (element) {
-      element.writeCache(elementDTO)
-    } else {
-      element = Element.create(elementDTO)
-
-      this.elements.set(elementDTO.id, element)
-    }
-
-    return element
-  }
-
-  /**
-   * If an element is created or updated with renderType atom or component
-   * that is not used yet anywhere in the current page,
-   * this will load its interface types and its fields
-   */
   @modelFlow
   @transaction
-  loadRenderType = _async(function* (
+  cloneElement = _async(function* (
     this: ElementService,
-    renderType: IElementRenderType,
+    targetElement: IElementModel,
+    targetParent: IElementModel,
   ) {
-    // When creating a new element, we need the interface type fields
-    // and we use it to create a props with default values for the created element
-    let renderTypeApi: Ref<IInterfaceType>
+    const oldToNewIdMap = yield* _await(
+      this.recursiveDuplicate(targetElement, targetParent),
+    )
 
-    switch (renderType.__typename) {
-      case IElementRenderTypeKind.Atom: {
-        const atomRenderTypeRef = throwIfUndefined(
-          yield* _await(this.atomService.getOne(renderType.id)),
-        )
+    const createdElements = [...oldToNewIdMap.values()]
+    // re-attach the prop map bindings now that we have the new ids
+    const allInputs = [targetElement, ...targetElement.descendantElements]
 
-        renderTypeApi = atomRenderTypeRef.api
-        break
+    for (const inputElement of allInputs) {
+      const newId = oldToNewIdMap.get(inputElement.id)?.id
+
+      if (!newId) {
+        throw new Error(`Could not find new id for ${inputElement.id}`)
       }
 
-      case IElementRenderTypeKind.Component: {
-        const componentRenderTypeRef = throwIfUndefined(
-          yield* _await(this.componentService.getOne(renderType.id)),
-        )
+      const duplicated = createdElements.find((element) => element.id === newId)
 
-        renderTypeApi = componentRenderTypeRef.api
-        break
+      if (!duplicated) {
+        throw new Error(`Could not find duplicated element ${newId}`)
       }
-
-      default:
-        throw new Error('Missing renderType')
     }
 
-    if (renderTypeApi) {
-      // If the new element is an atom or component that is not used yet anywhere
-      // in the current page, this will load its interface types and its fields
-      yield* _await(this.typeService.getOne(renderTypeApi.id))
-    }
-
-    return renderTypeApi
+    return createdElements
   })
 
   @modelFlow
-  getRenderTypeApi = _async(function* (
+  @transaction
+  convertElementToComponent = _async(function* (
     this: ElementService,
-    renderType: IElementRenderType,
+    element: IElementModel,
+    owner: IElementDTO,
   ) {
-    return renderTypeApi
+    if (!element.closestParent) {
+      throw new Error("Can't convert root element")
+    }
+
+    const {
+      closestContainerNode,
+      closestParent: parentElement,
+      name,
+      prevSibling,
+    } = element
+
+    // 1. deselect active element to avoid script errors if the selected element
+    // is a child of the element we are converting or the element itself
+    this.builderService.setSelectedNode(null)
+
+    // 2. create the component first before detaching the element from the element tree,
+    // this way in case if component creation fails, we avoid data loss
+    const createdComponent = yield* _await(
+      this.componentService.create({ id: v4(), name }),
+    )
+
+    yield* _await(this.cloneElementStore(element, createdComponent))
+
+    // 3. detach the element from the element tree
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+
+    // 4. attach current element to the component
+    const affectedAttachedNodes = this.attachElementAsFirstChild({
+      element,
+      parentElement: createdComponent.rootElement,
+    })
+
+    yield* _await(
+      this.updateAffectedElements([
+        ...oldConnectedNodeIds,
+        ...affectedAttachedNodes,
+      ]),
+    )
+
+    // 5. create a new element as an instance of the component
+    const componentId = createdComponent.id
+
+    const renderType = {
+      __typename: IElementRenderTypeKind.Component,
+      id: componentId,
+    }
+
+    const instanceElement = {
+      closestContainerNode,
+      id: v4(),
+      name,
+      parentElement,
+      renderType,
+    }
+
+    const createdElement = yield* _await(
+      prevSibling
+        ? this.createElementAsNextSibling({
+            ...instanceElement,
+            prevSibling,
+          })
+        : this.createElementAsFirstChild(instanceElement),
+    )
+
+    // 6. set newly created element as selected element in builder tree
+    this.builderService.setSelectedNode(elementRef(createdElement))
+
+    return createdElement
   })
 
   /**
@@ -209,10 +209,11 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    const renderTypeApi = yield* _await(this.loadRenderType(data.renderType))
+    const renderType = yield* _await(this.loadRenderType(data.renderType))
 
     const elementProps = this.propService.add({
-      data: data.props?.data ?? makeDefaultProps(renderTypeApi.current),
+      data:
+        data.props?.data ?? makeDefaultProps(renderType.current.api.current),
       id: v4(),
     })
 
@@ -229,285 +230,6 @@ export class ElementService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: ElementService, data: IUpdateElementData) {
-    yield* _await(this.loadRenderType(data.renderType))
-
-    const { id, ...elementData } = data
-    const element = this.element(id)
-    const { id: newRenderTypeId } = elementData.renderType
-    const { id: oldRenderTypeId } = element.renderType
-
-    if (newRenderTypeId !== oldRenderTypeId) {
-      this.propService.reset(element.props.id)
-    }
-
-    element.writeCache({ ...elementData })
-    this.writeCloneCache({ id, ...elementData })
-
-    yield* _await(this.elementRepository.update(element))
-
-    return element
-  })
-
-  @modelAction
-  private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
-    return [...this.clonedElements.values()]
-      .filter((clonedElement) => clonedElement.sourceElement?.id === id)
-      .map((clone) => clone.writeCache({ ...elementData }))
-  }
-
-  /**
-   * Need to take care of reconnecting parent/sibling nodes
-   */
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: ElementService, subRoot: IElementModel) {
-    console.debug('deleteElementSubgraph', subRoot)
-
-    const subRootElement = this.element(subRoot.id)
-    const parentComponent = subRootElement.parentComponent?.current
-    const childrenContainer = parentComponent?.childrenContainerElement.current
-
-    // Check if the element is linked as a children container in parent component
-    // and replace this link to component root before element is deleted
-    if (parentComponent && childrenContainer?.id === subRootElement.id) {
-      yield* _await(
-        this.componentService.update({
-          childrenContainerElement: {
-            id: parentComponent.rootElement.current.id,
-          },
-          id: parentComponent.id,
-          name: parentComponent.name,
-        }),
-      )
-    }
-
-    const affectedNodeIds = this.detachElementFromElementTree(subRootElement.id)
-
-    const allElementsToDelete = [
-      subRootElement,
-      ...subRootElement.descendantElements,
-    ]
-
-    this.elements.delete(subRootElement.id)
-    allElementsToDelete.reverse().forEach((element) => {
-      this.removeClones(element.id)
-      this.elements.delete(element.id)
-    })
-
-    yield* _await(this.updateAffectedElements(affectedNodeIds))
-    yield* _await(this.elementRepository.delete(allElementsToDelete))
-
-    return
-  })
-
-  @modelAction
-  element(id: string) {
-    const element = this.maybeElement(id)
-
-    if (!element) {
-      throw new Error('Missing element')
-    }
-
-    return element
-  }
-
-  @modelAction
-  maybeElement(id: string) {
-    return this.elements.get(id) || this.clonedElements.get(id)
-  }
-
-  @modelAction
-  loadComponentTree(component: RenderedComponentFragment) {
-    const elements = [
-      component.rootElement,
-      ...component.rootElement.descendantElements,
-    ]
-
-    const hydratedElements = elements.map((element) =>
-      this.add({
-        ...element,
-        closestContainerNode: {
-          id: component.id,
-        },
-      }),
-    )
-
-    const rootElement = this.element(component.rootElement.id)
-
-    return { hydratedElements, rootElement }
-  }
-
-  /**
-   * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
-   *
-   * There are 2 scenarios
-   *
-   * When element is firstChild, we'll need to re-add a first child
-   *
-   * (parent)
-   * \
-   * [element]-(sibling)
-   *
-   * When element is a sibling, we'll reconnect siblings
-   *
-   * (parent)
-   * \
-   * (firstChild)-[element]-(sibling)
-   *
-   * - Detach from parent
-   * - Detach from next sibling
-   * - Detach from prev sibling
-   * - Connect prev to next
-   */
-  @modelAction
-  private detachElementFromElementTree(
-    this: ElementService,
-    elementId: string,
-  ) {
-    const element = this.element(elementId)
-
-    const affectedNodeIds = [
-      element.prevSibling?.current.id,
-      element.nextSibling?.current.id,
-    ]
-
-    if (element.parentElement?.current.firstChild?.id === element.id) {
-      affectedNodeIds.push(element.parentElement.current.id)
-    }
-
-    element.detachFromParent()
-    element.connectPrevToNextSibling()
-
-    return compact(affectedNodeIds)
-  }
-
-  /**
-   * Element appends as next sibling to target
-   *
-   * (target)-(nextSibling)
-   * (target)-[element]-(nextSibling)
-   */
-  @modelAction
-  private attachElementAsNextSibling(
-    this: ElementService,
-    {
-      element: existingElement,
-      targetElement: existingTargetElement,
-    }: {
-      element: IEntity
-      targetElement: IEntity
-    },
-  ) {
-    const element = this.element(existingElement.id)
-    const targetElement = this.element(existingTargetElement.id)
-    const affectedNodeIds: Array<string> = []
-
-    if (targetElement.nextSibling) {
-      element.attachAsPrevSibling(targetElement.nextSibling.current)
-      affectedNodeIds.push(targetElement.nextSibling.current.id)
-    }
-
-    element.attachAsNextSibling(targetElement)
-    affectedNodeIds.push(targetElement.id)
-    affectedNodeIds.push(element.id)
-
-    return affectedNodeIds
-  }
-
-  /**
-   * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
-   *
-   * (parent)
-   * \
-   * (firstChild)
-   *
-   * (parent)
-   * \
-   * [element]-(firstChild)
-   */
-  @modelAction
-  private attachElementAsFirstChild(
-    this: ElementService,
-    {
-      element: existingElement,
-      parentElement: existingParentElement,
-    }: {
-      element: IEntity
-      parentElement: IEntity
-    },
-  ) {
-    const element = this.element(existingElement.id)
-    const parentElement = this.element(existingParentElement.id)
-    const affectedNodeIds: Array<string> = []
-
-    /**
-     * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
-     */
-    if (parentElement.firstChild) {
-      element.attachAsPrevSibling(parentElement.firstChild.current)
-      affectedNodeIds.push(parentElement.firstChild.current.id)
-    }
-
-    // attach to parent
-    element.attachToParentAsFirstChild(parentElement)
-    affectedNodeIds.push(parentElement.id)
-    affectedNodeIds.push(element.id)
-
-    return affectedNodeIds
-  }
-
-  /**
-   * Moves an element to the next position of target element
-   */
-  @modelFlow
-  @transaction
-  moveElementAsNextSibling = _async(function* (
-    this: ElementService,
-    {
-      element,
-      targetElement,
-    }: Parameters<IElementService['moveElementAsNextSibling']>[0],
-  ) {
-    const target = this.element(targetElement.id)
-
-    if (target.nextSibling?.getRefId() === element.id) {
-      return
-    }
-
-    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-
-    const newConnectedNodeIds = this.attachElementAsNextSibling({
-      element,
-      targetElement,
-    })
-
-    const affectedIds = [...newConnectedNodeIds, ...oldConnectedNodeIds]
-    yield* _await(this.updateAffectedElements(affectedIds))
-  })
-
-  @modelFlow
-  @transaction
-  moveElementAsFirstChild = _async(function* (
-    this: ElementService,
-    {
-      element,
-      parentElement,
-    }: Parameters<IElementService['moveElementAsFirstChild']>[0],
-  ) {
-    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-
-    const newConnectedNodeIds = this.attachElementAsFirstChild({
-      element,
-      parentElement,
-    })
-
-    const affectedIds = [...newConnectedNodeIds, ...oldConnectedNodeIds]
-    yield* _await(this.updateAffectedElements(affectedIds))
-  })
-
-  @modelFlow
-  @transaction
   createElementAsFirstChild = _async(function* (
     this: ElementService,
     data: ICreateElementData,
@@ -519,10 +241,6 @@ export class ElementService
     }
 
     const element = yield* _await(this.create(data))
-
-    if (!element) {
-      throw new Error('Create element failed')
-    }
 
     const affectedNodeIds = this.attachElementAsFirstChild({
       element,
@@ -570,36 +288,86 @@ export class ElementService
     return element
   })
 
-  @modelAction
-  moveElementToAnotherTree = ({
-    dropPosition,
-    element,
-    targetElement,
-  }: {
-    dropPosition: number
-    element: IElementModel
-    targetElement: IElementModel
-  }) => {
-    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-    const insertAfterId = targetElement.children[dropPosition]?.id
-    let newConnectedNodeIds: Array<string> = []
+  /**
+   * Need to take care of reconnecting parent/sibling nodes
+   */
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: ElementService, subRoot: IElementModel) {
+    console.debug('deleteElementSubgraph', subRoot)
 
-    if (!insertAfterId || dropPosition === 0) {
-      newConnectedNodeIds = this.attachElementAsFirstChild({
-        element,
-        parentElement: targetElement,
-      })
-    } else {
-      newConnectedNodeIds = this.attachElementAsNextSibling({
-        element,
-        targetElement: { id: insertAfterId },
-      })
+    const subRootElement = this.element(subRoot.id)
+    const parentComponent = subRootElement.parentComponent?.current
+    const childrenContainer = parentComponent?.childrenContainerElement.current
+
+    // Check if the element is linked as a children container in parent component
+    // and replace this link to component root before element is deleted
+    if (parentComponent && childrenContainer?.id === subRootElement.id) {
+      yield* _await(
+        this.componentService.update({
+          childrenContainerElement: {
+            id: parentComponent.rootElement.current.id,
+          },
+          id: parentComponent.id,
+          name: parentComponent.name,
+        }),
+      )
     }
 
-    const affectedNodeIds = [...oldConnectedNodeIds, ...newConnectedNodeIds]
+    const affectedNodeIds = this.detachElementFromElementTree(subRootElement.id)
 
-    return affectedNodeIds
-  }
+    const allElementsToDelete = [
+      subRootElement,
+      ...subRootElement.descendantElements,
+    ]
+
+    this.elements.delete(subRootElement.id)
+    allElementsToDelete.reverse().forEach((element) => {
+      this.removeClones(element.id)
+      this.elements.delete(element.id)
+    })
+
+    yield* _await(this.updateAffectedElements(affectedNodeIds))
+    yield* _await(this.elementRepository.delete(allElementsToDelete))
+
+    return
+  })
+
+  /**
+   * If an element is created or updated with renderType atom or component
+   * that is not used yet anywhere in the current page,
+   * this will load its interface types and its fields
+   */
+  @modelFlow
+  @transaction
+  loadRenderType = _async(function* (
+    this: ElementService,
+    renderType: IElementDTO['renderType'],
+  ) {
+    let elementRenderType: IElementRenderTypeModel | undefined
+
+    if (renderType.__typename === 'Atom') {
+      const atom = throwIfUndefined(
+        yield* _await(this.atomService.getOne(renderType.id)),
+      )
+
+      elementRenderType = atomRef(atom)
+    }
+
+    if (renderType.__typename === 'Component') {
+      const component = throwIfUndefined(
+        yield* _await(this.componentService.getOne(renderType.id)),
+      )
+
+      elementRenderType = componentRef(component)
+    }
+
+    if (!elementRenderType) {
+      throw new Error('Invalid renderType')
+    }
+
+    return elementRenderType
+  })
 
   @modelFlow
   @transaction
@@ -683,6 +451,55 @@ export class ElementService
 
   @modelFlow
   @transaction
+  moveElementAsFirstChild = _async(function* (
+    this: ElementService,
+    {
+      element,
+      parentElement,
+    }: Parameters<IElementService['moveElementAsFirstChild']>[0],
+  ) {
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+
+    const newConnectedNodeIds = this.attachElementAsFirstChild({
+      element,
+      parentElement,
+    })
+
+    const affectedIds = [...newConnectedNodeIds, ...oldConnectedNodeIds]
+    yield* _await(this.updateAffectedElements(affectedIds))
+  })
+
+  /**
+   * Moves an element to the next position of target element
+   */
+  @modelFlow
+  @transaction
+  moveElementAsNextSibling = _async(function* (
+    this: ElementService,
+    {
+      element,
+      targetElement,
+    }: Parameters<IElementService['moveElementAsNextSibling']>[0],
+  ) {
+    const target = this.element(targetElement.id)
+
+    if (target.nextSibling?.getRefId() === element.id) {
+      return
+    }
+
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+
+    const newConnectedNodeIds = this.attachElementAsNextSibling({
+      element,
+      targetElement,
+    })
+
+    const affectedIds = [...newConnectedNodeIds, ...oldConnectedNodeIds]
+    yield* _await(this.updateAffectedElements(affectedIds))
+  })
+
+  @modelFlow
+  @transaction
   moveNodeToAnotherTree = _async(function* (
     this: ElementService,
     {
@@ -724,114 +541,212 @@ export class ElementService
     yield* _await(this.updateAffectedElements(affectedNodeIds))
   })
 
-  private async recursiveDuplicate(
-    element: IElementModel,
-    parentElement: IElementModel,
-  ) {
-    const duplicateName = makeAutoIncrementedName(
-      this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
-        [],
-      element.name,
-      true,
-    )
+  @modelFlow
+  @transaction
+  update = _async(function* (this: ElementService, data: IUpdateElementData) {
+    yield* _await(this.loadRenderType(data.renderType))
 
-    const props = this.propService.add({
-      data: element.props.current.jsonString,
-      id: v4(),
-    })
+    const { id, ...elementData } = data
+    const element = this.element(id)
+    const { id: newRenderTypeId } = elementData.renderType
+    const { id: oldRenderTypeId } = element.renderType
 
-    const cloneElementDto = {
-      childMapperComponent: element.childMapperComponent
-        ? { id: element.childMapperComponent.id }
-        : null,
-      childMapperPreviousSibling: element.childMapperPreviousSibling
-        ? { id: element.childMapperPreviousSibling.id }
-        : null,
-      childMapperPropKey: element.childMapperPropKey,
-      closestContainerNode: element.closestContainerNode,
-      id: v4(),
-      name: duplicateName,
-      page: element.page ? { id: element.page.id } : null,
-      parentComponent: element.parentComponent
-        ? { id: element.parentComponent.id }
-        : null,
-      props,
-      renderForEachPropKey: element.renderForEachPropKey,
-      renderIfExpression: element.renderIfExpression,
-      renderType: element.renderType,
-      style: element.style,
+    if (newRenderTypeId !== oldRenderTypeId) {
+      this.propService.reset(element.props.id)
     }
 
-    const elementCloneModel = this.add(cloneElementDto)
+    element.writeCache({ ...elementData })
+    this.writeCloneCache({ id, ...elementData })
 
-    await this.elementRepository.add(elementCloneModel)
+    yield* _await(this.elementRepository.update(element))
 
-    const lastChild = parentElement.children[parentElement.children.length - 1]
-    let affectedNodeIds: Array<string> = []
-
-    if (!lastChild) {
-      affectedNodeIds = this.attachElementAsFirstChild({
-        element: elementCloneModel,
-        parentElement,
-      })
-    } else {
-      affectedNodeIds = this.attachElementAsNextSibling({
-        element: elementCloneModel,
-        targetElement: lastChild,
-      })
-    }
-
-    await Promise.all(
-      affectedNodeIds.map((id) =>
-        this.elementRepository.updateNodes(this.element(id)),
-      ),
-    )
-
-    const children = await Promise.all(
-      element.children.map((child) =>
-        this.recursiveDuplicate(child, elementCloneModel),
-      ),
-    )
-
-    const oldToNewIdMap: Map<string, IElementModel> = children.reduce(
-      (acc, curElementModel) => new Map([...acc, ...curElementModel]),
-      new Map([[element.id, elementCloneModel]]),
-    )
-
-    return oldToNewIdMap
-  }
+    return element
+  })
 
   @modelFlow
   @transaction
-  cloneElement = _async(function* (
+  updateAffectedElements = _async(function* (
     this: ElementService,
-    targetElement: IElementModel,
-    targetParent: IElementModel,
+    elementIds: Array<string>,
   ) {
-    const oldToNewIdMap = yield* _await(
-      this.recursiveDuplicate(targetElement, targetParent),
+    yield* _await(
+      Promise.all(
+        uniq(elementIds).map((id) =>
+          this.elementRepository.updateNodes(this.element(id)),
+        ),
+      ),
     )
+  })
 
-    const createdElements = [...oldToNewIdMap.values()]
-    // re-attach the prop map bindings now that we have the new ids
-    const allInputs = [targetElement, ...targetElement.descendantElements]
+  @modelAction
+  add = (elementDTO: IElementDTO): IElementModel => {
+    console.debug('ElementService.add()', elementDTO)
 
-    for (const inputElement of allInputs) {
-      const newId = oldToNewIdMap.get(inputElement.id)?.id
+    let element = this.elements.get(elementDTO.id)
 
-      if (!newId) {
-        throw new Error(`Could not find new id for ${inputElement.id}`)
-      }
+    if (element) {
+      element.writeCache(elementDTO)
+    } else {
+      element = Element.create(elementDTO)
 
-      const duplicated = createdElements.find((element) => element.id === newId)
-
-      if (!duplicated) {
-        throw new Error(`Could not find duplicated element ${newId}`)
-      }
+      this.elements.set(elementDTO.id, element)
     }
 
-    return createdElements
-  })
+    return element
+  }
+
+  @modelAction
+  element(id: string) {
+    const element = this.maybeElement(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
+  }
+
+  @modelAction
+  loadComponentTree(component: RenderedComponentFragment) {
+    const elements = [
+      component.rootElement,
+      ...component.rootElement.descendantElements,
+    ]
+
+    const hydratedElements = elements.map((element) =>
+      this.add({
+        ...element,
+        closestContainerNode: {
+          id: component.id,
+        },
+      }),
+    )
+
+    const rootElement = this.element(component.rootElement.id)
+
+    return { hydratedElements, rootElement }
+  }
+
+  @modelAction
+  maybeElement(id: string) {
+    return this.elements.get(id) || this.clonedElements.get(id)
+  }
+
+  @modelAction
+  moveElementToAnotherTree = ({
+    dropPosition,
+    element,
+    targetElement,
+  }: {
+    dropPosition: number
+    element: IElementModel
+    targetElement: IElementModel
+  }) => {
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+    const insertAfterId = targetElement.children[dropPosition]?.id
+    let newConnectedNodeIds: Array<string> = []
+
+    if (!insertAfterId || dropPosition === 0) {
+      newConnectedNodeIds = this.attachElementAsFirstChild({
+        element,
+        parentElement: targetElement,
+      })
+    } else {
+      newConnectedNodeIds = this.attachElementAsNextSibling({
+        element,
+        targetElement: { id: insertAfterId },
+      })
+    }
+
+    const affectedNodeIds = [...oldConnectedNodeIds, ...newConnectedNodeIds]
+
+    return affectedNodeIds
+  }
+
+  @modelAction
+  removeClones(elementId: string) {
+    return [...this.clonedElements.entries()]
+      .filter(([id, component]) => component.sourceElement?.id === elementId)
+      .forEach(([id]) => {
+        this.detachElementFromElementTree(id)
+        this.clonedElements.delete(id)
+      })
+  }
+
+  /**
+   * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
+   *
+   * (parent)
+   * \
+   * (firstChild)
+   *
+   * (parent)
+   * \
+   * [element]-(firstChild)
+   */
+  @modelAction
+  private attachElementAsFirstChild(
+    this: ElementService,
+    {
+      element: existingElement,
+      parentElement: existingParentElement,
+    }: {
+      element: IEntity
+      parentElement: IEntity
+    },
+  ) {
+    const element = this.element(existingElement.id)
+    const parentElement = this.element(existingParentElement.id)
+    const affectedNodeIds: Array<string> = []
+
+    /**
+     * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
+     */
+    if (parentElement.firstChild) {
+      element.attachAsPrevSibling(parentElement.firstChild.current)
+      affectedNodeIds.push(parentElement.firstChild.current.id)
+    }
+
+    // attach to parent
+    element.attachToParentAsFirstChild(parentElement)
+    affectedNodeIds.push(parentElement.id)
+    affectedNodeIds.push(element.id)
+
+    return affectedNodeIds
+  }
+
+  /**
+   * Element appends as next sibling to target
+   *
+   * (target)-(nextSibling)
+   * (target)-[element]-(nextSibling)
+   */
+  @modelAction
+  private attachElementAsNextSibling(
+    this: ElementService,
+    {
+      element: existingElement,
+      targetElement: existingTargetElement,
+    }: {
+      element: IEntity
+      targetElement: IEntity
+    },
+  ) {
+    const element = this.element(existingElement.id)
+    const targetElement = this.element(existingTargetElement.id)
+    const affectedNodeIds: Array<string> = []
+
+    if (targetElement.nextSibling) {
+      element.attachAsPrevSibling(targetElement.nextSibling.current)
+      affectedNodeIds.push(targetElement.nextSibling.current.id)
+    }
+
+    element.attachAsNextSibling(targetElement)
+    affectedNodeIds.push(targetElement.id)
+    affectedNodeIds.push(element.id)
+
+    return affectedNodeIds
+  }
 
   /**
    * Creates a clone of the actions and state fields of the element
@@ -915,105 +830,171 @@ export class ElementService
     await this.storeService.getOne(componentStore.id)
   }
 
-  @modelFlow
-  @transaction
-  convertElementToComponent = _async(function* (
+  /**
+   * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
+   *
+   * There are 2 scenarios
+   *
+   * When element is firstChild, we'll need to re-add a first child
+   *
+   * (parent)
+   * \
+   * [element]-(sibling)
+   *
+   * When element is a sibling, we'll reconnect siblings
+   *
+   * (parent)
+   * \
+   * (firstChild)-[element]-(sibling)
+   *
+   * - Detach from parent
+   * - Detach from next sibling
+   * - Detach from prev sibling
+   * - Connect prev to next
+   */
+  @modelAction
+  private detachElementFromElementTree(
     this: ElementService,
-    element: IElementModel,
-    owner: IElementDTO,
+    elementId: string,
   ) {
-    if (!element.closestParent) {
-      throw new Error("Can't convert root element")
+    const element = this.element(elementId)
+
+    const affectedNodeIds = [
+      element.prevSibling?.current.id,
+      element.nextSibling?.current.id,
+    ]
+
+    if (element.parentElement?.current.firstChild?.id === element.id) {
+      affectedNodeIds.push(element.parentElement.current.id)
     }
 
-    const {
-      closestContainerNode,
-      closestParent: parentElement,
-      name,
-      prevSibling,
-    } = element
+    element.detachFromParent()
+    element.connectPrevToNextSibling()
 
-    // 1. deselect active element to avoid script errors if the selected element
-    // is a child of the element we are converting or the element itself
-    this.builderService.setSelectedNode(null)
+    return compact(affectedNodeIds)
+  }
 
-    // 2. create the component first before detaching the element from the element tree,
-    // this way in case if component creation fails, we avoid data loss
-    const createdComponent = yield* _await(
-      this.componentService.create({ id: v4(), name }),
+  private async recursiveDuplicate(
+    element: IElementModel,
+    parentElement: IElementModel,
+  ) {
+    const duplicateName = makeAutoIncrementedName(
+      this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
+        [],
+      element.name,
+      true,
     )
 
-    yield* _await(this.cloneElementStore(element, createdComponent))
-
-    // 3. detach the element from the element tree
-    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-
-    // 4. attach current element to the component
-    const affectedAttachedNodes = this.attachElementAsFirstChild({
-      element,
-      parentElement: createdComponent.rootElement,
+    const props = this.propService.add({
+      data: element.props.current.jsonString,
+      id: v4(),
     })
 
-    yield* _await(
-      this.updateAffectedElements([
-        ...oldConnectedNodeIds,
-        ...affectedAttachedNodes,
-      ]),
-    )
-
-    // 5. create a new element as an instance of the component
-    const componentId = createdComponent.id
-
-    const renderType = {
-      __typename: IElementRenderTypeKind.Component,
-      id: componentId,
-    }
-
-    const instanceElement = {
-      closestContainerNode,
+    const cloneElementDto = {
+      childMapperComponent: element.childMapperComponent
+        ? { id: element.childMapperComponent.id }
+        : null,
+      childMapperPreviousSibling: element.childMapperPreviousSibling
+        ? { id: element.childMapperPreviousSibling.id }
+        : null,
+      childMapperPropKey: element.childMapperPropKey,
+      closestContainerNode: element.closestContainerNode,
       id: v4(),
-      name,
-      parentElement,
-      renderType,
+      name: duplicateName,
+      page: element.page ? { id: element.page.id } : null,
+      parentComponent: element.parentComponent
+        ? { id: element.parentComponent.id }
+        : null,
+      props,
+      renderForEachPropKey: element.renderForEachPropKey,
+      renderIfExpression: element.renderIfExpression,
+      renderType: element.renderType,
+      style: element.style,
     }
 
-    const createdElement = yield* _await(
-      prevSibling
-        ? this.createElementAsNextSibling({
-            ...instanceElement,
-            prevSibling,
-          })
-        : this.createElementAsFirstChild(instanceElement),
-    )
+    const elementCloneModel = this.add(cloneElementDto)
 
-    // 6. set newly created element as selected element in builder tree
-    this.builderService.setSelectedNode(elementRef(createdElement))
+    await this.elementRepository.add(elementCloneModel)
 
-    return createdElement
-  })
+    const lastChild = parentElement.children[parentElement.children.length - 1]
+    let affectedNodeIds: Array<string> = []
 
-  @modelFlow
-  @transaction
-  updateAffectedElements = _async(function* (
-    this: ElementService,
-    elementIds: Array<string>,
-  ) {
-    yield* _await(
-      Promise.all(
-        uniq(elementIds).map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
+    if (!lastChild) {
+      affectedNodeIds = this.attachElementAsFirstChild({
+        element: elementCloneModel,
+        parentElement,
+      })
+    } else {
+      affectedNodeIds = this.attachElementAsNextSibling({
+        element: elementCloneModel,
+        targetElement: lastChild,
+      })
+    }
+
+    await Promise.all(
+      affectedNodeIds.map((id) =>
+        this.elementRepository.updateNodes(this.element(id)),
       ),
     )
-  })
+
+    const children = await Promise.all(
+      element.children.map((child) =>
+        this.recursiveDuplicate(child, elementCloneModel),
+      ),
+    )
+
+    const oldToNewIdMap: Map<string, IElementModel> = children.reduce(
+      (acc, curElementModel) => new Map([...acc, ...curElementModel]),
+      new Map([[element.id, elementCloneModel]]),
+    )
+
+    return oldToNewIdMap
+  }
 
   @modelAction
-  removeClones(elementId: string) {
-    return [...this.clonedElements.entries()]
-      .filter(([id, component]) => component.sourceElement?.id === elementId)
-      .forEach(([id]) => {
-        this.detachElementFromElementTree(id)
-        this.clonedElements.delete(id)
-      })
+  private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
+    return [...this.clonedElements.values()]
+      .filter((clonedElement) => clonedElement.sourceElement?.id === id)
+      .map((clone) => clone.writeCache({ ...elementData }))
+  }
+
+  @computed
+  private get actionService() {
+    return getActionService(this)
+  }
+
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
+  private get builderService() {
+    return getBuilderService(this)
+  }
+
+  @computed
+  private get componentService() {
+    return getComponentService(this)
+  }
+
+  @computed
+  private get fieldService() {
+    return getFieldService(this)
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
   }
 }

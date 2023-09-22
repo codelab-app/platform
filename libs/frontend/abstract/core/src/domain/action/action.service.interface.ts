@@ -12,12 +12,12 @@ import type {
   IEntityFormService,
   IQueryService,
 } from '../../service'
-import type { IStore } from '../store'
+import type { IStoreModel } from '../store'
 import type {
   ICreateActionData,
   IUpdateActionData,
 } from './action.dto.interface'
-import type { IAction } from './action.interface'
+import type { IActionModel } from './action.model.interface'
 import type { IActionWhere } from './action.where.interface'
 
 export interface IActionFactory {
@@ -25,19 +25,22 @@ export interface IActionFactory {
 }
 
 export interface IActionService
-  extends ICRUDService<IAction, ICreateActionData, IUpdateActionData>,
-    IQueryService<IAction, IActionWhere, ApiActionOptions>,
-    ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }>,
+  extends ICRUDService<IActionModel, ICreateActionData, IUpdateActionData>,
+    IQueryService<IActionModel, IActionWhere, ApiActionOptions>,
+    ICRUDModalService<Ref<IActionModel>, { action: Maybe<IActionModel> }>,
     Omit<
-      ICRUDFormService<Ref<IAction>, { action: Maybe<IAction> }>,
+      ICRUDFormService<Ref<IActionModel>, { action: Maybe<IActionModel> }>,
       'createForm'
     > {
   actionFactory: IActionFactory
-  actionsList: Array<IAction>
-  createForm: IEntityFormService<Ref<IStore>, { store: Maybe<IStore> }>
+  actionsList: Array<IActionModel>
+  createForm: IEntityFormService<
+    Ref<IStoreModel>,
+    { store: Maybe<IStoreModel> }
+  >
 
-  action(id: string): Maybe<IAction>
-  add<T extends IActionDTO>(action: T): IAction
-  cloneAction(action: IAction, storeId: string): Promise<IAction>
-  load(actions: Array<ActionFragment>): Array<IAction>
+  action(id: string): Maybe<IActionModel>
+  add<T extends IActionDTO>(action: T): IActionModel
+  cloneAction(action: IActionModel, storeId: string): Promise<IActionModel>
+  load(actions: Array<ActionFragment>): Array<IActionModel>
 }

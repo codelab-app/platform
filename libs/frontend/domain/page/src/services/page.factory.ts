@@ -29,41 +29,6 @@ import { getPageService } from '../store'
 
 @model('@codelab/PageFactory')
 export class PageFactory extends Model({}) implements IPageFactory {
-  @computed
-  get pageService() {
-    return getPageService(this)
-  }
-
-  @computed
-  get atomService() {
-    return getAtomService(this)
-  }
-
-  @computed
-  get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
-  }
-
   /**
    *
    * @param app
@@ -76,60 +41,6 @@ export class PageFactory extends Model({}) implements IPageFactory {
       this.addNotFoundPage(app, renderType),
       this.addInternalServerErrorPage(app, renderType),
     ]
-  }
-
-  @modelAction
-  private addProviderPage(
-    app: IPageAppFragment,
-    renderType: IElementRenderType,
-  ) {
-    return this.addDefaultPage(
-      {
-        app,
-        id: v4(),
-        kind: IPageKind.Provider,
-        name: IPageKindName.Provider,
-        url: `/${IPageKindName.Provider}`,
-      },
-      app.name,
-      renderType,
-    )
-  }
-
-  @modelAction
-  private addNotFoundPage(
-    app: IPageAppFragment,
-    renderType: IElementRenderType,
-  ) {
-    return this.addDefaultPage(
-      {
-        app,
-        id: v4(),
-        kind: IPageKind.NotFound,
-        name: IPageKindName.NotFound,
-        url: `/${IPageKindName.NotFound}`,
-      },
-      app.name,
-      renderType,
-    )
-  }
-
-  @modelAction
-  private addInternalServerErrorPage(
-    app: IPageAppFragment,
-    renderType: IElementRenderType,
-  ) {
-    return this.addDefaultPage(
-      {
-        app,
-        id: v4(),
-        kind: IPageKind.InternalServerError,
-        name: IPageKindName.InternalServerError,
-        url: `/${IPageKindName.InternalServerError}`,
-      },
-      app.name,
-      renderType,
-    )
   }
 
   @modelAction
@@ -181,5 +92,89 @@ export class PageFactory extends Model({}) implements IPageFactory {
       store,
       url,
     })
+  }
+
+  @modelAction
+  private addInternalServerErrorPage(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ) {
+    return this.addDefaultPage(
+      {
+        app,
+        id: v4(),
+        kind: IPageKind.InternalServerError,
+        name: IPageKindName.InternalServerError,
+        url: `/${IPageKindName.InternalServerError}`,
+      },
+      app.name,
+      renderType,
+    )
+  }
+
+  @modelAction
+  private addNotFoundPage(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ) {
+    return this.addDefaultPage(
+      {
+        app,
+        id: v4(),
+        kind: IPageKind.NotFound,
+        name: IPageKindName.NotFound,
+        url: `/${IPageKindName.NotFound}`,
+      },
+      app.name,
+      renderType,
+    )
+  }
+
+  @modelAction
+  private addProviderPage(
+    app: IPageAppFragment,
+    renderType: IElementRenderType,
+  ) {
+    return this.addDefaultPage(
+      {
+        app,
+        id: v4(),
+        kind: IPageKind.Provider,
+        name: IPageKindName.Provider,
+        url: `/${IPageKindName.Provider}`,
+      },
+      app.name,
+      renderType,
+    )
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  private get pageService() {
+    return getPageService(this)
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 }

@@ -48,29 +48,7 @@ export class Tag
   })
   implements ITagModel
 {
-  @computed
-  get label() {
-    return this.name
-  }
-
-  @computed
-  get userService() {
-    return getUserService(this)
-  }
-
   static create = create
-
-  @modelAction
-  writeCache({ children, descendants, isRoot, name }: Partial<ITagDTO>) {
-    this.name = name ?? this.name
-    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
-    this.descendants =
-      descendants?.map((descendant) => tagRef(descendant.id)) ??
-      this.descendants
-    this.isRoot = isRoot ?? this.isRoot
-
-    return this
-  }
 
   @computed
   get antdNode(): ITagsTreeDataNode {
@@ -84,6 +62,23 @@ export class Tag
       primaryTitle: this.name,
       title: this.name,
     }
+  }
+
+  @computed
+  get label() {
+    return this.name
+  }
+
+  @modelAction
+  writeCache({ children, descendants, isRoot, name }: Partial<ITagDTO>) {
+    this.name = name ?? this.name
+    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
+    this.descendants =
+      descendants?.map((descendant) => tagRef(descendant.id)) ??
+      this.descendants
+    this.isRoot = isRoot ?? this.isRoot
+
+    return this
   }
 
   toCreateInput(): TagCreateInput {
@@ -100,6 +95,11 @@ export class Tag
       name: this.name,
       parent: reconnectNodeId(this.parent?.current.id),
     }
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 }
 

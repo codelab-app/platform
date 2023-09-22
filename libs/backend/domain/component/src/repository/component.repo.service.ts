@@ -29,22 +29,6 @@ export class ComponentRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: ComponentWhere
-    options?: ComponentOptions
-  }) {
-    return await (
-      await this.ogmService.Component
-    ).find({
-      options,
-      selectionSet: componentSelectionSet,
-      where,
-    })
-  }
-
   async _add(components: Array<IComponentDTO>) {
     return (
       await (
@@ -77,7 +61,23 @@ export class ComponentRepository extends AbstractRepository<
     ).components
   }
 
-  async _update(
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: ComponentWhere
+    options?: ComponentOptions
+  }) {
+    return await (
+      await this.ogmService.Component
+    ).find({
+      options,
+      selectionSet: componentSelectionSet,
+      where,
+    })
+  }
+
+  protected async _update(
     {
       api,
       childrenContainerElement,
