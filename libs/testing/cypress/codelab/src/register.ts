@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { CypressCommand } from '@codelab/testing/cypress/command'
+import type {
+  CypressCommand,
+  OmitFirstArg,
+} from '@codelab/testing/cypress/command'
 import { getHeaderToolbarItem } from './header-toolbar/header-toolbar.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
@@ -10,7 +13,7 @@ import {
   getCuiSidebarViewHeader,
 } from './sidebar/sidebar.command'
 import { getCuiSkeleton } from './skeleton/skeleton.command'
-import { getToolbarItem } from './toolbar/toolbar.command'
+import { getCuiToolbarItem } from './toolbar/toolbar.command'
 import {
   getCuiTreeItem,
   getCuiTreeItemByPrimaryTitle,
@@ -49,7 +52,7 @@ export interface CypressCodelabUICommands {
   /**
    * toolbar
    */
-  getToolbarItem: typeof getToolbarItem
+  getCuiToolbarItem: OmitFirstArg<typeof getCuiToolbarItem>
   /**
    * tree
    */
@@ -108,8 +111,11 @@ export const codelabUICommands: Array<CypressCommand> = [
    * toolbar
    */
   {
-    fn: getToolbarItem,
-    name: 'getToolbarItem',
+    fn: getCuiToolbarItem,
+    name: 'getCuiToolbarItem',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   /**
    * tree

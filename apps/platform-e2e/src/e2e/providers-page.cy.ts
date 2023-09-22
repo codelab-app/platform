@@ -30,7 +30,7 @@ const openPageByName = (name: string) => {
     .should('exist', { timeout: 15000 })
     .click()
   cy.getCuiTreeItemByPrimaryTitle(name).within(() => {
-    cy.getToolbarItem('Open Builder').click()
+    cy.getCuiToolbarItem('Open Builder').click()
   })
 
   cy.getSpinner().should('not.exist')
@@ -96,11 +96,11 @@ describe('_app page', () => {
   })
 
   it('should be able to create simple page', () => {
-    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
+    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
 
     cy.getCuiPopover('Create Page').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     openPageByName(pageName)

@@ -35,7 +35,7 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
+    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
 
     cy.setFormFieldValue({ label: 'Name', value: resourceName })
     cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
@@ -47,7 +47,7 @@ describe('Running API action and setting state on element pre-render', () => {
     })
 
     cy.getCuiPopover('Create Resource').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
@@ -92,7 +92,7 @@ describe('Running API action and setting state on element pre-render', () => {
     })
 
     cy.getCuiPopover('Create Field').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
   })
 
@@ -120,7 +120,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
     cy.intercept('POST', `api/graphql`).as('createAction1')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
     cy.wait('@createAction1')
   })
@@ -166,7 +166,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
     cy.intercept('POST', `api/graphql`).as('createAction2')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
     cy.wait('@createAction2')
   })
@@ -175,7 +175,10 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.intercept(`${resourceUrl}${urlGetSegment}`, mockResponse)
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -198,7 +201,7 @@ describe('Running API action and setting state on element pre-render', () => {
     })
 
     cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.findByTestId('create-element-form').should('not.exist', {

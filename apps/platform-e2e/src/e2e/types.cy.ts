@@ -40,7 +40,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -61,7 +61,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
+        cy.getCuiToolbarItem('Create').click()
       })
       cy.wait('@action')
 
@@ -73,7 +73,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({ label: 'Name', value: enumTypeName })
 
@@ -93,7 +93,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
+        cy.getCuiToolbarItem('Create').click()
       })
       cy.wait('@action')
 
@@ -101,7 +101,7 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to create array', () => {
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -122,7 +122,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
+        cy.getCuiToolbarItem('Create').click()
       })
       cy.wait('@action')
 
@@ -134,7 +134,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -149,7 +149,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
+        cy.getCuiToolbarItem('Create').click()
       })
       cy.wait('@action')
 
@@ -161,7 +161,7 @@ describe('Types CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
         cy.getCuiTreeItemToolbar().within(() => {
-          cy.getToolbarItem('Add field').click()
+          cy.getCuiToolbarItem('Add field').click()
         })
       })
 
@@ -192,7 +192,7 @@ describe('Types CRUD', () => {
       cy.findByText(fieldDefaultValue).should('be.visible')
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
       cy.wait('@action')
       // its re-rendering after saving and is flaky when running in CI
       // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -250,7 +250,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
         cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
+          .getCuiToolbarItem('Delete type')
           .should('be.visible')
           .click()
       })
@@ -271,7 +271,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).within(() => {
         cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
+          .getCuiToolbarItem('Delete type')
           .should('be.visible')
           .click()
       })
@@ -292,7 +292,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(enumTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(enumTypeName).within(() => {
         cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
+          .getCuiToolbarItem('Delete type')
           .should('be.visible')
           .click()
       })
@@ -313,7 +313,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).within(() => {
         cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
+          .getCuiToolbarItem('Delete type')
           .should('be.visible')
           .click()
       })

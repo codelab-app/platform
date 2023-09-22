@@ -59,7 +59,7 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
+    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
 
     cy.setFormFieldValue({ label: 'Name', value: resourceName })
     cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
@@ -70,7 +70,7 @@ describe('Element Child Mapper', () => {
     })
 
     cy.getCuiPopover('Create Resource').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
@@ -92,7 +92,7 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     cy.getCuiSidebar('Components')
-      .getToolbarItem('Add Component')
+      .getCuiToolbarItem('Add Component')
       .first()
       .click()
     cy.findByTestId('create-component-form')
@@ -100,7 +100,7 @@ describe('Element Child Mapper', () => {
       .type(COMPONENT_NAME)
 
     cy.getCuiPopover('Create Component').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.findByTestId('create-component-form').should('not.exist', {
@@ -148,7 +148,7 @@ describe('Element Child Mapper', () => {
 
     cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.wait('@createAction').then(({ response }) => {
@@ -160,7 +160,7 @@ describe('Element Child Mapper', () => {
   it('should add button to the component and set the api action on the onClick', () => {
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-      cy.getToolbarItem('Add Child').click()
+      cy.getCuiToolbarItem('Add Child').click()
     })
 
     cy.findByTestId('create-element-form').setFormFieldValue({
@@ -191,7 +191,7 @@ describe('Element Child Mapper', () => {
     })
 
     cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.waitForApiCalls()

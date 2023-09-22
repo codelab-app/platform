@@ -18,7 +18,10 @@ export const createElementTree = (elements: Array<ElementData>) => {
     const { atom, name, parentElement, propsData } = element
 
     cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     /**
      * We skip this if parent element is root, since it is disabled and can't be accessed
@@ -70,7 +73,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
     })
 
     cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.findByTestId('create-element-form').should('not.exist', {
@@ -118,7 +121,7 @@ export const openBuilder = () => {
 export const createElementAndStoreId = () => {
   cy.intercept('POST', `api/graphql`).as('graphqlRequest')
   cy.getCuiPopover('Create Element').within(() => {
-    cy.getToolbarItem('Create').click()
+    cy.getCuiToolbarItem('Create').click()
   })
   cy.wait('@graphqlRequest').then(({ response }) => {
     cy.wrap(response?.body.data.createElements.elements[0].id).as(

@@ -25,11 +25,11 @@ describe('Pages CRUD', () => {
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
+      cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
       cy.getCuiPopover('Create Page').within(() => {
-        cy.getToolbarItem('Create').click()
+        cy.getCuiToolbarItem('Create').click()
       })
     })
 
@@ -37,7 +37,7 @@ describe('Pages CRUD', () => {
       cy.findByText(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
-        cy.getToolbarItem('Open Builder').click()
+        cy.getCuiToolbarItem('Open Builder').click()
       })
 
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
@@ -50,7 +50,7 @@ describe('Pages CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
-        cy.getToolbarItem('Edit').click()
+        cy.getCuiToolbarItem('Edit').click()
       })
 
       cy.getSpinner().should('not.exist')
@@ -60,7 +60,7 @@ describe('Pages CRUD', () => {
         .findByLabelText('Name')
         .type(updatedPageName)
       cy.getCuiPopover('Update Page').within(() => {
-        cy.getToolbarItem('Update').click()
+        cy.getCuiToolbarItem('Update').click()
       })
       cy.findByTestId('update-page-form').should('not.exist')
 
@@ -73,7 +73,7 @@ describe('Pages CRUD', () => {
     it('should be able to delete page', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).click()
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).within(() => {
-        cy.getToolbarItem('Delete').click()
+        cy.getCuiToolbarItem('Delete').click()
       })
 
       cy.getSpinner().should('not.exist')

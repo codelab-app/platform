@@ -130,7 +130,7 @@ describe('Testing the Form atom', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
+    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
 
     cy.setFormFieldValue({ label: 'Name', value: resourceName })
     cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
@@ -141,7 +141,7 @@ describe('Testing the Form atom', () => {
     })
 
     cy.getCuiPopover('Create Resource').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
@@ -209,7 +209,7 @@ describe('Testing the Form atom', () => {
 
     cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.wait('@createAction').then(({ response }) => {

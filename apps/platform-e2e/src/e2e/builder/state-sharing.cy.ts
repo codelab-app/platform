@@ -41,12 +41,12 @@ describe('State variables sharing between pages', () => {
     cy.waitForApiCalls()
     cy.getSpinner().should('not.exist')
 
-    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').first().click()
+    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
 
     cy.findByTestId('create-page-form').findByLabelText('Name').type('Testpage')
 
     cy.getCuiPopover('Create Page').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     // create a component
@@ -65,7 +65,7 @@ describe('State variables sharing between pages', () => {
     cy.getSpinner().should('not.exist')
 
     cy.getCuiSidebar('Components')
-      .getToolbarItem('Add Component')
+      .getCuiToolbarItem('Add Component')
       .first()
       .click()
     cy.findByTestId('create-component-form')
@@ -73,7 +73,7 @@ describe('State variables sharing between pages', () => {
       .type(COMPONENT_NAME)
 
     cy.getCuiPopover('Create Component').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
 
     cy.findByTestId('create-component-form').should('not.exist', {
@@ -86,7 +86,7 @@ describe('State variables sharing between pages', () => {
     cy.wrap(componentChildren).each((child: ComponentChildData) => {
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-        cy.getToolbarItem('Add Child').click()
+        cy.getCuiToolbarItem('Add Child').click()
       })
 
       cy.findByTestId('create-element-form').setFormFieldValue({
@@ -109,7 +109,7 @@ describe('State variables sharing between pages', () => {
       })
 
       cy.getCuiPopover('Create Element').within(() => {
-        cy.getToolbarItem('Create').click()
+        cy.getCuiToolbarItem('Create').click()
       })
 
       cy.findByTestId('create-element-form').should('not.exist', {
@@ -159,7 +159,7 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', `api/graphql`).as('action')
     cy.getCuiPopover('Create Field').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
     cy.wait('@action')
 
@@ -212,7 +212,7 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', `api/graphql`).as('createState')
     cy.getCuiPopover('Create Field').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
     cy.wait('@createState')
   })
@@ -228,7 +228,10 @@ describe('State variables sharing between pages', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -252,7 +255,7 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', `api/graphql`).as('createElement')
     cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
     })
     cy.wait('@createElement')
 

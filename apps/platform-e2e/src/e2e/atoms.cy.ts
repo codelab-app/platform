@@ -28,9 +28,7 @@ describe('Atoms CRUD', () => {
         value: atomType,
       })
 
-      cy.getCuiPopover('Create Atom').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Atom').getCuiToolbarItem('Create').click()
 
       cy.findByText(atomName).should('exist')
     })
@@ -54,7 +52,7 @@ describe('Atoms CRUD', () => {
     it('should be able to delete an atom', () => {
       cy.getCuiTreeItemBySecondaryTitle(updatedAtomName).within(() => {
         cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete atom')
+          .getCuiToolbarItem('Delete atom')
           .should('be.visible')
           .click()
       })

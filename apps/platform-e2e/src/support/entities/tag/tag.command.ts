@@ -3,7 +3,7 @@ import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
 const modalName = 'Create Tag'
 
 export const createTagByUI = (name: string, parentName?: string) => {
-  cy.getCuiSidebar('Tags').getToolbarItem(modalName).click()
+  cy.getCuiSidebar('Tags').getCuiToolbarItem(modalName).click()
 
   // wait for 100ms before typing into the input to avoid issue when first letters are skipped
   // https://github.com/cypress-io/cypress/issues/3817
@@ -19,7 +19,7 @@ export const createTagByUI = (name: string, parentName?: string) => {
   }
 
   cy.getCuiPopover('Create Tag').within(() => {
-    cy.getToolbarItem('Create').click()
+    cy.getCuiToolbarItem('Create').click()
   })
 }
 
