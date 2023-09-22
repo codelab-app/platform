@@ -1,10 +1,10 @@
 import type {
   ICreatePropData,
-  IProp,
   IPropData,
+  IPropModel,
   IPropService,
   IUpdatePropData,
-  IUpdatePropDataWithDefaulValues,
+  IUpdatePropDataWithDefaultValues,
 } from '@codelab/frontend/abstract/core'
 import { IPropDTO } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
@@ -29,30 +29,10 @@ export class PropService
   extends Model({
     id: idProp,
     propRepository: prop(() => new PropRepository({})),
-    props: prop(() => objectMap<IProp>()),
+    props: prop(() => objectMap<IPropModel>()),
   })
   implements IPropService
 {
-  prop(id: string) {
-    return this.props.get(id)
-  }
-
-  @modelAction
-  add({ api, data, id }: IPropDTO) {
-    console.debug('propService.add()', { api, data, id })
-
-    let props = this.prop(id)
-
-    if (props) {
-      props.writeCache({ api, data })
-    } else {
-      props = Prop.create({ api, data, id })
-      this.props.set(props.id, props)
-    }
-
-    return props
-  }
-
   @modelFlow
   @transaction
   create = _async(function* (
@@ -68,10 +48,28 @@ export class PropService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PropService, props: IProp) {
-    this.props.delete(props.id)
+  delete = _async(function* (this: PropService, props: Array<IPropModel>) {
+    const deleteProp = _async(function* (
+      this: PropService,
+      propModel: IPropModel,
+    ) {
+      this.props.delete(propModel.id)
+      yield* _await(Promise.resolve())
+    })
 
-    yield* _await(this.propRepository.delete([props]))
+    yield* _await(this.propRepository.delete(props))
+
+    return
+  })
+
+  @modelFlow
+  @transaction
+  reset = _async(function* (this: PropService, id: string) {
+    const props = this.props.get(id)!
+
+    props.writeCache({ data: '{}' })
+
+    yield* _await(this.propRepository.update(props))
 
     return props
   })
@@ -90,21 +88,9 @@ export class PropService
 
   @modelFlow
   @transaction
-  reset = _async(function* (this: PropService, id: string) {
-    const props = this.props.get(id)!
-
-    props.writeCache({ data: '{}' })
-
-    yield* _await(this.propRepository.update(props))
-
-    return props
-  })
-
-  @modelFlow
-  @transaction
   updateWithDefaultValuesApplied = _async(function* (
     this: PropService,
-    { data, defaultValues, id }: IUpdatePropDataWithDefaulValues,
+    { data, defaultValues, id }: IUpdatePropDataWithDefaultValues,
   ) {
     const filteredData = filterEmptyStrings(data) as IPropData
     const mergedWithDefaultValues = mergeProps(defaultValues, filteredData)
@@ -113,6 +99,26 @@ export class PropService
       this.update({ data: JSON.stringify(mergedWithDefaultValues), id }),
     )
   })
+
+  @modelAction
+  add({ api, data, id }: IPropDTO) {
+    console.debug('propService.add()', { api, data, id })
+
+    let props = this.prop(id)
+
+    if (props) {
+      props.writeCache({ api, data })
+    } else {
+      props = Prop.create({ api, data, id })
+      this.props.set(props.id, props)
+    }
+
+    return props
+  }
+
+  prop(id: string) {
+    return this.props.get(id)
+  }
 }
 
 export const propServiceContext = createContext<IPropService>()

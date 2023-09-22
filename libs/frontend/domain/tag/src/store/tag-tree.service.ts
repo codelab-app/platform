@@ -27,6 +27,11 @@ export class TagTreeService
 {
   static init = init
 
+  @computed
+  get antdTreeData() {
+    return [...this.roots.values()].map((root) => root.current.antdNode)
+  }
+
   @modelAction
   addRoots(tags: Array<ITagModel>) {
     tags.forEach((tag) => {
@@ -34,10 +39,5 @@ export class TagTreeService
         this.roots.set(tag.id, tagRef(tag.id))
       }
     })
-  }
-
-  @computed
-  get antdTreeData() {
-    return [...this.roots.values()].map((root) => root.current.antdNode)
   }
 }

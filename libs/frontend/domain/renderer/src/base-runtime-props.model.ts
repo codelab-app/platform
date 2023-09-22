@@ -25,22 +25,17 @@ export class BaseRuntimeProps<TNode extends IPageNode>
   implements
     Omit<IRuntimeProp<TNode>, 'evaluatedProps' | 'evaluatedPropsBeforeRender'>
 {
+  @computed
+  get node() {
+    return this.nodeRef.current
+  }
+
   /**
    * Mobx-keystone doesn't support abstract model class
    * a default implementation which will be overridden by child models
    */
   get props() {
     return this.node.props.current.values
-  }
-
-  @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  get node() {
-    return this.nodeRef.current
   }
 
   /**
@@ -65,5 +60,10 @@ export class BaseRuntimeProps<TNode extends IPageNode>
 
       return transformer.transform(value, this.node)
     })
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
   }
 }

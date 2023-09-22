@@ -55,33 +55,21 @@ export class App
   })
   implements IAppModel
 {
-  @computed
-  get slug() {
-    return slugify(this.name)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
-  }
-
-  @modelAction
-  static create = create
-
-  /**
-   * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
-   */
-  @modelAction
-  writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
-    this.id = id ?? this.id
-    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
-    this.name = name ?? this.name
-    this.domains = domains
-      ? domains.map((domain) => domainRef(domain.id))
-      : this.domains
-    this.owner = owner?.id ? userRef(owner.id) : this.owner
-
-    return this
+  static toDeleteInput(): AppDeleteInput {
+    return {
+      domains: [
+        {
+          delete: Domain.toDeleteInput(),
+          where: {},
+        },
+      ],
+      pages: [
+        {
+          delete: Page.toDeleteInput(),
+          where: {},
+        },
+      ],
+    }
   }
 
   @computed
@@ -103,6 +91,11 @@ export class App
   }
 
   @computed
+  get slug() {
+    return slugify(this.name)
+  }
+
+  @computed
   get toJson() {
     return {
       [this.slug]: {
@@ -112,6 +105,9 @@ export class App
       },
     }
   }
+
+  @modelAction
+  static create = create
 
   @modelAction
   page(id: string) {
@@ -124,6 +120,22 @@ export class App
     }
 
     return currentPage
+  }
+
+  /**
+   * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
+   */
+  @modelAction
+  writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
+    this.id = id ?? this.id
+    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+    this.name = name ?? this.name
+    this.domains = domains
+      ? domains.map((domain) => domainRef(domain.id))
+      : this.domains
+    this.owner = owner?.id ? userRef(owner.id) : this.owner
+
+    return this
   }
 
   toCreateInput(): AppCreateInput {
@@ -151,20 +163,8 @@ export class App
     }
   }
 
-  static toDeleteInput(): AppDeleteInput {
-    return {
-      domains: [
-        {
-          delete: Domain.toDeleteInput(),
-          where: {},
-        },
-      ],
-      pages: [
-        {
-          delete: Page.toDeleteInput(),
-          where: {},
-        },
-      ],
-    }
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 }

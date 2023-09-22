@@ -29,22 +29,6 @@ export class FieldRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: FieldWhere
-    options: FieldOptions
-  }) {
-    return await (
-      await this.ogmService.Field
-    ).find({
-      options,
-      selectionSet: fieldSelectionSet,
-      where,
-    })
-  }
-
   protected async _add(fields: Array<IFieldDTO>) {
     return (
       await (
@@ -59,6 +43,22 @@ export class FieldRepository extends AbstractRepository<
         })),
       })
     ).fields
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: FieldWhere
+    options: FieldOptions
+  }) {
+    return await (
+      await this.ogmService.Field
+    ).find({
+      options,
+      selectionSet: fieldSelectionSet,
+      where,
+    })
   }
 
   /**

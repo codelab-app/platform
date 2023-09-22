@@ -1,5 +1,5 @@
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import Head from 'next/head'
 import React from 'react'
 

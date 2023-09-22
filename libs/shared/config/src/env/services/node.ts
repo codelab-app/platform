@@ -11,15 +11,6 @@ export interface INodeEnvVars {
 }
 
 export class NodeEnvVars implements INodeEnvVars {
-  private _nodeEnv?: NodeEnv
-
-  get nodeEnv() {
-    return (this._nodeEnv ??= env
-      .get('NODE_ENV')
-      .default('development')
-      .asEnum(['development', 'production', 'test']))
-  }
-
   get isCi() {
     return env.get('CI').default('false').asBool()
   }
@@ -35,4 +26,13 @@ export class NodeEnvVars implements INodeEnvVars {
   get isTest() {
     return this.nodeEnv === 'test'
   }
+
+  get nodeEnv() {
+    return (this._nodeEnv ??= env
+      .get('NODE_ENV')
+      .default('development')
+      .asEnum(['development', 'production', 'test']))
+  }
+
+  private _nodeEnv?: NodeEnv
 }

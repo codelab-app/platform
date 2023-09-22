@@ -10,26 +10,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
-export const getRenderType = (
-  renderType: IElementRenderType,
-): IElementRenderTypeModel => {
-  console.log(renderType)
-
-  switch (renderType.__typename) {
-    case IElementRenderTypeKind.Atom: {
-      return atomRef(renderType.id)
-    }
-
-    case IElementRenderTypeKind.Component: {
-      return componentRef(renderType.id)
-    }
-
-    default: {
-      throw new Error('Missing __typename')
-    }
-  }
-}
-
 export const jsonStringToCss = (json: string | null | undefined) => {
   const jsonObject = JSON.parse(json ?? '{}')
   let css = ''

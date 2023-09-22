@@ -21,6 +21,30 @@ export class FieldRepository extends Model({}) implements IFieldRepository {
   })
 
   @modelFlow
+  delete = _async(function* (this: FieldRepository, fields: Array<IField>) {
+    const {
+      deleteFields: { nodesDeleted },
+    } = yield* _await(
+      fieldApi.DeleteFields({
+        where: {
+          id_IN: fields.map((field) => field.id),
+        },
+      }),
+    )
+
+    return nodesDeleted
+  })
+
+  @modelFlow
+  find = _async(function* (
+    this: FieldRepository,
+    where?: FieldWhere,
+    options?: FieldOptions,
+  ) {
+    return yield* _await(fieldApi.GetFields({ options, where }))
+  })
+
+  @modelFlow
   update = _async(function* (this: FieldRepository, field: IField) {
     const {
       updateFields: {
@@ -50,29 +74,5 @@ export class FieldRepository extends Model({}) implements IFieldRepository {
     )
 
     return fields[0]
-  })
-
-  @modelFlow
-  delete = _async(function* (this: FieldRepository, fields: Array<IField>) {
-    const {
-      deleteFields: { nodesDeleted },
-    } = yield* _await(
-      fieldApi.DeleteFields({
-        where: {
-          id_IN: fields.map((field) => field.id),
-        },
-      }),
-    )
-
-    return nodesDeleted
-  })
-
-  @modelFlow
-  find = _async(function* (
-    this: FieldRepository,
-    where?: FieldWhere,
-    options?: FieldOptions,
-  ) {
-    return yield* _await(fieldApi.GetFields({ options, where }))
   })
 }

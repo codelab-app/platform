@@ -24,6 +24,8 @@ export class PrimitiveType
   })
   implements IPrimitiveType
 {
+  public static create = create
+
   @modelAction
   writeCache(primitiveTypeDTO: Partial<IPrimitiveTypeDTO>) {
     super.writeCache(primitiveTypeDTO)
@@ -47,6 +49,4 @@ export class PrimitiveType
       },
     })
   }
-
-  public static create = create
 }

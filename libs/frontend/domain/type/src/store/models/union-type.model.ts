@@ -28,6 +28,8 @@ export class UnionType
   })
   implements IUnionType
 {
+  public static create = create
+
   @modelAction
   writeCache(unionTypeDTO: Partial<IUnionTypeDTO>) {
     super.writeCache(unionTypeDTO)
@@ -69,6 +71,4 @@ export class UnionType
       },
     })
   }
-
-  public static create = create
 }

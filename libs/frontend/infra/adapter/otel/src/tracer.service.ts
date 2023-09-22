@@ -6,22 +6,6 @@ import { PLATFORM_TRACER_NAME } from './tracer'
 
 @model('@codelab/TracerService')
 export class TracerService extends Model({}) {
-  public getTracer() {
-    return trace.getTracer(PLATFORM_TRACER_NAME)
-  }
-
-  public getSpan(): Span | undefined {
-    return trace.getSpan(context.active())
-  }
-
-  public startSpan(name: string): Span {
-    return this.getTracer().startSpan(name)
-  }
-
-  public endSpan() {
-    return this.getSpan()?.end()
-  }
-
   public addAttribute(key: string, value: AttributeValue) {
     const span = this.getSpan()
 
@@ -32,14 +16,6 @@ export class TracerService extends Model({}) {
     const span = this.getSpan()
 
     span?.setAttributes(flattenWithPrefix(object))
-  }
-
-  public addJsonAttributes(key: string, object?: object) {
-    const span = this.getSpan()
-
-    span?.setAttributes({
-      [key]: JSON.stringify(object),
-    })
   }
 
   public addEvent(name: string, data: unknown) {
@@ -55,5 +31,29 @@ export class TracerService extends Model({}) {
     }
 
     span?.addEvent(name, stringifiedData)
+  }
+
+  public addJsonAttributes(key: string, object?: object) {
+    const span = this.getSpan()
+
+    span?.setAttributes({
+      [key]: JSON.stringify(object),
+    })
+  }
+
+  public endSpan() {
+    return this.getSpan()?.end()
+  }
+
+  public getSpan(): Span | undefined {
+    return trace.getSpan(context.active())
+  }
+
+  public getTracer() {
+    return trace.getTracer(PLATFORM_TRACER_NAME)
+  }
+
+  public startSpan(name: string): Span {
+    return this.getTracer().startSpan(name)
   }
 }

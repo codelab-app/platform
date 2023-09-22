@@ -55,21 +55,6 @@ export class WriteAdminDataService {
     }
   }
 
-  private writeSystemTypesData(systemTypes: IAdminOutputDto['systemTypes']) {
-    const stringData = formatToPrettifiedJson(systemTypes)
-
-    writeFileSyncWithDirs(
-      this.migrationDataService.systemTypesFilePath,
-      stringData,
-    )
-  }
-
-  private writeTagsData(tags: IAdminOutputDto['tags']) {
-    const stringData = formatToPrettifiedJson(tags)
-
-    writeFileSyncWithDirs(this.migrationDataService.tagsFilePath, stringData)
-  }
-
   private writeComponentsData(components: IAdminOutputDto['components']) {
     for (const { api, component, descendantElements, store } of components) {
       // Component name can have spaces, which can cause issues with file names
@@ -89,5 +74,20 @@ export class WriteAdminDataService {
 
       writeFileSyncWithDirs(outputPath, stringData)
     }
+  }
+
+  private writeSystemTypesData(systemTypes: IAdminOutputDto['systemTypes']) {
+    const stringData = formatToPrettifiedJson(systemTypes)
+
+    writeFileSyncWithDirs(
+      this.migrationDataService.systemTypesFilePath,
+      stringData,
+    )
+  }
+
+  private writeTagsData(tags: IAdminOutputDto['tags']) {
+    const stringData = formatToPrettifiedJson(tags)
+
+    writeFileSyncWithDirs(this.migrationDataService.tagsFilePath, stringData)
   }
 }

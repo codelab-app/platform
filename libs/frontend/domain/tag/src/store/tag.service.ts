@@ -5,9 +5,12 @@ import type {
   ITagTreeService,
   IUpdateTagData,
 } from '@codelab/frontend/abstract/core'
-import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
+import {
+  InlineFormService,
+  ModalService,
+} from '@codelab/frontend/domain/shared'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
-import { ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -44,17 +47,17 @@ export class TagService
   })
   implements ITagService
 {
-  /**
-   * To load all tags & initialize the tree
-   */
-  @modelFlow
-  loadTagTree = _async(function* (this: TagService) {
-    const tags = yield* _await(this.getAll())
-    this.treeService = TagTreeService.init(tags)
-  })
+  @computed
+  get selectedOption() {
+    return {
+      label: this.selectedTag?.current.name ?? '',
+      value: this.selectedTag?.current.id ?? '',
+    }
+  }
 
-  tag(id: string) {
-    return this.tags.get(id)
+  @computed
+  get tagsList() {
+    return Array.from(this.tags.values())
   }
 
   @computed
@@ -63,14 +66,6 @@ export class TagService
       label: tag.name,
       value: tag.id,
     }))
-  }
-
-  @computed
-  get selectedOption() {
-    return {
-      label: this.selectedTag?.current.name ?? '',
-      value: this.selectedTag?.current.id ?? '',
-    }
   }
 
   @modelFlow
@@ -98,21 +93,6 @@ export class TagService
 
       this.treeService.addRoots([tag, parentTag])
     }
-
-    return tag
-  })
-
-  @modelFlow
-  @transaction
-  update = _async(function* (
-    this: TagService,
-    { id, name, parent }: IUpdateTagData,
-  ) {
-    const tag = this.tags.get(id)!
-
-    tag.writeCache({ name, parent })
-
-    yield* _await(this.tagRepository.update(tag))!
 
     return tag
   })
@@ -147,11 +127,6 @@ export class TagService
       (yield* _await(this.delete(checkedTags.map((tag) => tag.id))))
   })
 
-  @computed
-  get tagsList() {
-    return Array.from(this.tags.values())
-  }
-
   @modelFlow
   @transaction
   getAll = _async(function* (this: TagService, where?: TagWhere) {
@@ -160,8 +135,32 @@ export class TagService
     return tags.map((tag) => this.add(tag))
   })
 
+  /**
+   * To load all tags & initialize the tree
+   */
+  @modelFlow
+  loadTagTree = _async(function* (this: TagService) {
+    const tags = yield* _await(this.getAll())
+    this.treeService = TagTreeService.init(tags)
+  })
+
+  @modelFlow
+  @transaction
+  update = _async(function* (
+    this: TagService,
+    { id, name, parent }: IUpdateTagData,
+  ) {
+    const tag = this.tags.get(id)!
+
+    tag.writeCache({ name, parent })
+
+    yield* _await(this.tagRepository.update(tag))!
+
+    return tag
+  })
+
   @modelAction
-  add({ children, descendants, id, isRoot, name, parent }: ITagDTO) {
+  add = ({ children, descendants, id, isRoot, name, parent }: ITagDTO) => {
     const tag = new Tag({
       children: children?.map((child) => tagRef(child.id)),
       descendants: descendants?.map((child) => tagRef(child.id)),
@@ -174,5 +173,9 @@ export class TagService
     this.tags.set(tag.id, tag)
 
     return tag
+  }
+
+  tag(id: string) {
+    return this.tags.get(id)
   }
 }

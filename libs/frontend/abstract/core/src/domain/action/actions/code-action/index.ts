@@ -1,1 +1,1 @@
-export * from './code-action.interface'
+export * from './code-action.model.interface'

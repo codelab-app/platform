@@ -26,6 +26,8 @@ export class EnumType
   })
   implements IEnumType
 {
+  public static create = create
+
   @modelAction
   writeCache(enumTypeDTO: Partial<IEnumTypeDTO>) {
     super.writeCache(enumTypeDTO)
@@ -85,6 +87,4 @@ export class EnumType
       },
     })
   }
-
-  public static create = create
 }

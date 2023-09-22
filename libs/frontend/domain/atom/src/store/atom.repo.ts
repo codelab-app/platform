@@ -20,23 +20,6 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
   }
 
   @clearCacheForKey('atoms')
-  async update(this: AtomRepository, atom: IAtomModel) {
-    const {
-      updateAtoms: { atoms },
-    } = await atomApi.UpdateAtoms({
-      update: atom.toUpdateInput(),
-      where: { id: atom.id },
-    })
-
-    return atoms[0]!
-  }
-
-  @cachedWithTTL('atoms', Infinity)
-  async find(this: AtomRepository, where?: AtomWhere, options?: AtomOptions) {
-    return await atomApi.GetAtoms({ options, where })
-  }
-
-  @clearCacheForKey('atoms')
   async delete(this: AtomRepository, atoms: Array<IAtomModel>) {
     const {
       deleteAtoms: { nodesDeleted },
@@ -45,6 +28,11 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
     })
 
     return nodesDeleted
+  }
+
+  @cachedWithTTL('atoms', Infinity)
+  async find(this: AtomRepository, where?: AtomWhere, options?: AtomOptions) {
+    return await atomApi.GetAtoms({ options, where })
   }
 
   /**
@@ -59,5 +47,17 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
       atoms.filter(({ type }) => filterNotHookType(type)),
       'name',
     )
+  }
+
+  @clearCacheForKey('atoms')
+  async update(this: AtomRepository, atom: IAtomModel) {
+    const {
+      updateAtoms: { atoms },
+    } = await atomApi.UpdateAtoms({
+      update: atom.toUpdateInput(),
+      where: { id: atom.id },
+    })
+
+    return atoms[0]!
   }
 }

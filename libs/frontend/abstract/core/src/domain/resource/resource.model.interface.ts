@@ -6,7 +6,7 @@ import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
-import type { IProp } from '../prop'
+import type { IPropModel } from '../prop'
 
 export interface IResourceModel
   extends Omit<
@@ -15,7 +15,7 @@ export interface IResourceModel
     >,
     ICacheService<IResourceDTO, IResourceModel> {
   // TODO: should add typing to prop
-  config: Ref<IProp>
+  config: Ref<IPropModel>
   id: string
   name: string
   type: IResourceType

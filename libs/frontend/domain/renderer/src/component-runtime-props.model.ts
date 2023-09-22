@@ -33,23 +33,13 @@ export class ComponentRuntimeProps
   )
   implements IComponentRuntimeProp
 {
-  @computed
-  get instanceElementProps(): Maybe<IElementRuntimeProp> {
-    return this.node.instanceElement?.current.runtimeProp
-  }
+  static create = create
 
   @computed
-  get props() {
+  get componentEvaluatedProps() {
     return mergeProps(
-      this.node.api.current.defaultValues,
-      this.node.props.current.values,
-      /**
-       * Internal system props for meta data, use double underline for system-defined identifiers.
-       */
-      {
-        [DATA_COMPONENT_ID]: this.node.id,
-        key: this.node.id,
-      },
+      this.evaluatedProps,
+      this.instanceElementProps?.evaluatedProps,
     )
   }
 
@@ -84,12 +74,22 @@ export class ComponentRuntimeProps
   }
 
   @computed
-  get componentEvaluatedProps() {
-    return mergeProps(
-      this.evaluatedProps,
-      this.instanceElementProps?.evaluatedProps,
-    )
+  get instanceElementProps(): Maybe<IElementRuntimeProp> {
+    return this.node.instanceElement?.current.runtimeProp
   }
 
-  static create = create
+  @computed
+  get props() {
+    return mergeProps(
+      this.node.api.current.defaultValues,
+      this.node.props.current.values,
+      /**
+       * Internal system props for meta data, use double underline for system-defined identifiers.
+       */
+      {
+        [DATA_COMPONENT_ID]: this.node.id,
+        key: this.node.id,
+      },
+    )
+  }
 }

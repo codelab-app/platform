@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import type {
   ActionType,
   EnumType,
@@ -13,44 +12,21 @@ import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
  * Allows transformation of any framework types to the core types
  */
 export interface ITypeTransformer {
-  // atom: Pick<IAtomDTO, 'name'>
-  // field: Pick<IFieldDTO, 'key'>
-
-  isActionType(type: string): boolean
   actionType(type: string): Promise<ActionType>
-
-  isReactNodeType(type: string): boolean
-  reactNodeType(type: string): Promise<ReactNodeType>
-
-  isRenderPropType(type: string): boolean
-  renderPropType(type: string): Promise<RenderPropType>
-
-  isEnumType(type: string): boolean
+  booleanType(type: string): Promise<PrimitiveType>
   enumType(
     type: string,
     atom: Pick<IAtomDTO, 'name'>,
     field: Pick<IFieldDTO, 'key'>,
   ): Promise<EnumType>
-
-  isArrayType(type: string): boolean
-  // arrayType(type: string): Promise<ArrayType>
-
-  isUnionType(type: string): boolean
+  integerType(type: string): Promise<PrimitiveType>
+  numberType(type: string): Promise<PrimitiveType>
+  reactNodeType(type: string): Promise<ReactNodeType>
+  renderPropType(type: string): Promise<RenderPropType>
+  stringType(type: string): Promise<PrimitiveType>
   unionType(
     type: string,
     atom: Pick<IAtomDTO, 'name'>,
     field: Pick<IFieldDTO, 'key'>,
   ): Promise<UnionType>
-
-  isBooleanType(type: string): boolean
-  booleanType(type: string): Promise<PrimitiveType>
-
-  isStringType(type: string): boolean
-  stringType(type: string): Promise<PrimitiveType>
-
-  isNumberType(type: string): boolean
-  numberType(type: string): Promise<PrimitiveType>
-
-  isIntegerType(type: string): boolean
-  integerType(type: string): Promise<PrimitiveType>
 }

@@ -45,35 +45,12 @@ export const primitives = {
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: IType, context?: UiPropertiesContext) {
-    switch (type.kind) {
-      case ITypeKind.AppType:
-        return this.fromAppType(type, context)
-      case ITypeKind.ActionType:
-        return this.fromActionType(type, context)
-      case ITypeKind.LambdaType:
-        return this.fromLambdaType(type, context)
-      case ITypeKind.PageType:
-        return this.fromPageType(type, context)
-      case ITypeKind.RenderPropType:
-        return this.fromRenderPropType(type, context)
-      case ITypeKind.PrimitiveType:
-        return this.fromPrimitiveType(type, context)
-      case ITypeKind.ReactNodeType:
-        return this.fromReactNodeType(type, context)
-      case ITypeKind.CodeMirrorType:
-        return this.fromCodeMirrorType(type, context)
-      case ITypeKind.ElementType:
-        return this.fromElementType(type, context)
-      case ITypeKind.EnumType:
-        return this.fromEnumType(type, context)
-      case ITypeKind.UnionType:
-        return this.fromUnionType(type, context)
-      case ITypeKind.InterfaceType:
-        return this.fromInterfaceType(type, context)
-      case ITypeKind.ArrayType:
-        return this.fromArrayType(type, context)
-    }
+  fromActionType(type: IActionType, context?: UiPropertiesContext): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
+  fromAppType(type: IAppType, context?: UiPropertiesContext): JsonSchema {
+    return this.simpleReferenceType(type, context)
   }
 
   fromArrayType(type: IArrayType, context?: UiPropertiesContext): JsonSchema {
@@ -86,6 +63,34 @@ export class TypeSchemaFactory {
         : {},
       type: 'array',
     }
+  }
+
+  fromCodeMirrorType(
+    type: ICodeMirrorType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.simpleReferenceType(type, context)
+  }
+
+  fromElementType(
+    type: IElementType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+
+    const properties = TypeSchemaFactory.schemaForTypedProp(
+      type,
+      { label: '', type: 'string', ...extra },
+      '',
+    )
+
+    return { properties, type: 'object', uniforms: nullUniforms }
+  }
+
+  fromEnumType(type: IEnumType, context?: UiPropertiesContext): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+
+    return { type: 'string', ...extra } as const
   }
 
   fromInterfaceType(
@@ -132,87 +137,12 @@ export class TypeSchemaFactory {
     }
   }
 
-  fromUnionType(type: IUnionType, context?: UiPropertiesContext): JsonSchema {
-    // This is the extra for the union type. Not to be confused with the extra for the value type
-    const extra = this.getExtraProperties(type, context)
-    const label: string | undefined = extra?.label
-    const labelWithQuotes = label ? `"${label}" ` : ''
-    const typeLabel = `${labelWithQuotes}Type`
-
-    return {
-      ...extra,
-      oneOf: type.typesOfUnionType.map((innerType) => {
-        const valueSchema = this.transform(innerType.current)
-
-        const properties = TypeSchemaFactory.schemaForTypedProp(
-          innerType.current,
-          valueSchema,
-          typeLabel,
-        )
-
-        return {
-          label: '',
-          properties,
-          ...context?.validationRules?.general,
-          required: ['type'],
-          type: 'object',
-          // We use this as label of the select field item
-          typeName: innerType.current.name,
-        }
-      }),
-    }
-  }
-
-  fromAppType(type: IAppType, context?: UiPropertiesContext): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
-  fromActionType(type: IActionType, context?: UiPropertiesContext): JsonSchema {
-    return this.transformTypedPropType(type, context)
-  }
-
-  fromPageType(type: IPageType, context?: UiPropertiesContext): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
-  fromRenderPropType(
-    type: IRenderPropType,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.transformTypedPropType(type, context)
-  }
-
-  fromCodeMirrorType(
-    type: ICodeMirrorType,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
   fromLambdaType(type: ILambdaType, context?: UiPropertiesContext): JsonSchema {
     return this.simpleReferenceType(type, context)
   }
 
-  fromReactNodeType(
-    type: IReactNodeType,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.transformTypedPropType(type, context)
-  }
-
-  fromElementType(
-    type: IElementType,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    const properties = TypeSchemaFactory.schemaForTypedProp(
-      type,
-      { label: '', type: 'string', ...extra },
-      '',
-    )
-
-    return { properties, type: 'object', uniforms: nullUniforms }
+  fromPageType(type: IPageType, context?: UiPropertiesContext): JsonSchema {
+    return this.simpleReferenceType(type, context)
   }
 
   fromPrimitiveType(
@@ -266,23 +196,80 @@ export class TypeSchemaFactory {
     }
   }
 
-  fromEnumType(type: IEnumType, context?: UiPropertiesContext): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    return { type: 'string', ...extra } as const
-  }
-
-  /**
-   * Handles the reference types without any extra properties
-   * Produces a 'string' type
-   */
-  private simpleReferenceType(
-    type: IType,
+  fromReactNodeType(
+    type: IReactNodeType,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
+    return this.transformTypedPropType(type, context)
+  }
 
-    return { type: 'string', ...extra } as const
+  fromRenderPropType(
+    type: IRenderPropType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
+  fromUnionType(type: IUnionType, context?: UiPropertiesContext): JsonSchema {
+    // This is the extra for the union type. Not to be confused with the extra for the value type
+    const extra = this.getExtraProperties(type, context)
+    const label: string | undefined = extra?.label
+    const labelWithQuotes = label ? `"${label}" ` : ''
+    const typeLabel = `${labelWithQuotes}Type`
+
+    return {
+      ...extra,
+      oneOf: type.typesOfUnionType.map((innerType) => {
+        const valueSchema = this.transform(innerType.current)
+
+        const properties = TypeSchemaFactory.schemaForTypedProp(
+          innerType.current,
+          valueSchema,
+          typeLabel,
+        )
+
+        return {
+          label: '',
+          properties,
+          ...context?.validationRules?.general,
+          required: ['type'],
+          type: 'object',
+          // We use this as label of the select field item
+          typeName: innerType.current.name,
+        }
+      }),
+    }
+  }
+
+  transform(type: IType, context?: UiPropertiesContext) {
+    switch (type.kind) {
+      case ITypeKind.AppType:
+        return this.fromAppType(type, context)
+      case ITypeKind.ActionType:
+        return this.fromActionType(type, context)
+      case ITypeKind.LambdaType:
+        return this.fromLambdaType(type, context)
+      case ITypeKind.PageType:
+        return this.fromPageType(type, context)
+      case ITypeKind.RenderPropType:
+        return this.fromRenderPropType(type, context)
+      case ITypeKind.PrimitiveType:
+        return this.fromPrimitiveType(type, context)
+      case ITypeKind.ReactNodeType:
+        return this.fromReactNodeType(type, context)
+      case ITypeKind.CodeMirrorType:
+        return this.fromCodeMirrorType(type, context)
+      case ITypeKind.ElementType:
+        return this.fromElementType(type, context)
+      case ITypeKind.EnumType:
+        return this.fromEnumType(type, context)
+      case ITypeKind.UnionType:
+        return this.fromUnionType(type, context)
+      case ITypeKind.InterfaceType:
+        return this.fromInterfaceType(type, context)
+      case ITypeKind.ArrayType:
+        return this.fromArrayType(type, context)
+    }
   }
 
   /**
@@ -321,6 +308,23 @@ export class TypeSchemaFactory {
     }
   }
 
+  private getExtraProperties(type: IType, context?: UiPropertiesContext) {
+    return this.options?.extraProperties?.(type, context) || undefined
+  }
+
+  /**
+   * Handles the reference types without any extra properties
+   * Produces a 'string' type
+   */
+  private simpleReferenceType(
+    type: IType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+
+    return { type: 'string', ...extra } as const
+  }
+
   /**
    * Handles transformation of the React Element related types.
    * Produces a {@link TypedProp} shaped schema
@@ -345,10 +349,6 @@ export class TypeSchemaFactory {
       type: 'object',
       uniforms: nullUniforms,
     }
-  }
-
-  private getExtraProperties(type: IType, context?: UiPropertiesContext) {
-    return this.options?.extraProperties?.(type, context) || undefined
   }
 }
 

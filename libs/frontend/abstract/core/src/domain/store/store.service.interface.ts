@@ -11,18 +11,18 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import type { IStore } from './store.model.interface'
+import type { IStoreModel } from './store.model.interface'
 import type { IStoreRepository } from './store.repo.interface'
 
 export interface IStoreService
-  extends ICRUDService<IStore, IStoreDTO, IStoreDTO>,
-    IQueryService<IStore, StoreWhere, StoreOptions>,
-    ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
+  extends ICRUDService<IStoreModel, IStoreDTO, IStoreDTO>,
+    IQueryService<IStoreModel, StoreWhere, StoreOptions>,
+    ICRUDModalService<Ref<IStoreModel>, { store: Maybe<IStoreModel> }> {
   storeRepository: IStoreRepository
-  stores: ObjectMap<IStore>
-  storesList: Array<IStore>
+  stores: ObjectMap<IStoreModel>
+  storesList: Array<IStoreModel>
 
-  add(storeDTO: IStoreDTO): IStore
-  load(stores: Array<StoreFragment>): Array<IStore>
-  store(id: string): Maybe<IStore>
+  add(storeDTO: IStoreDTO): IStoreModel
+  load(stores: Array<StoreFragment>): Array<IStoreModel>
+  store(id: string): Maybe<IStoreModel>
 }

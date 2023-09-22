@@ -29,6 +29,8 @@ export class CodeMirrorType
   })
   implements ICodeMirrorType
 {
+  public static create = create
+
   @modelAction
   writeCache(codeMirrorTypeDTO: Partial<ICodeMirrorTypeDTO>) {
     super.writeCache(codeMirrorTypeDTO)
@@ -52,6 +54,4 @@ export class CodeMirrorType
       },
     })
   }
-
-  public static create = create
 }

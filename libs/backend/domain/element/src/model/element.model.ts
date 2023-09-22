@@ -12,7 +12,7 @@ export class Element implements IElementDTO {
 
   childMapperPropKey?: Nullable<string> | undefined
 
-  style?: Nullable<string> | undefined
+  closestContainerNode: IEntity
 
   firstChild?: IEntity | null | undefined
 
@@ -42,7 +42,7 @@ export class Element implements IElementDTO {
 
   renderType: IElementRenderType
 
-  closestContainerNode: IEntity
+  style?: Nullable<string> | undefined
 
   constructor({
     closestContainerNode,

@@ -33,22 +33,6 @@ export class ApiActionRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: ApiActionWhere
-    options?: ApiActionOptions
-  }) {
-    return await (
-      await this.ogmService.ApiAction
-    ).find({
-      options,
-      selectionSet: actionSelectionSet,
-      where,
-    })
-  }
-
   protected async _add(actions: Array<IApiActionDTO>) {
     return (
       await (
@@ -87,6 +71,22 @@ export class ApiActionRepository extends AbstractRepository<
         ),
       })
     ).apiActions
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: ApiActionWhere
+    options?: ApiActionOptions
+  }) {
+    return await (
+      await this.ogmService.ApiAction
+    ).find({
+      options,
+      selectionSet: actionSelectionSet,
+      where,
+    })
   }
 
   protected async _update(

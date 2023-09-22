@@ -31,13 +31,13 @@ describe('Component CRUD', () => {
     before(() => {
       loginAndSetupData()
 
-
-      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app')
-        .then((apps) => {
+      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+        (apps) => {
           testApp = apps
 
           app = apps.body
-        })
+        },
+      )
     })
     it('should be able to add a new component', () => {
       cy.visit(

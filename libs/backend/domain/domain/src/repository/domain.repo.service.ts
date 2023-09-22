@@ -28,6 +28,19 @@ export class DomainRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
+  protected async _add(domains: Array<IDomainDTO>) {
+    return (
+      await (
+        await this.ogmService.Domain
+      ).create({
+        input: domains.map(({ id, name }) => ({
+          id,
+          name,
+        })),
+      })
+    ).domains
+  }
+
   protected async _find({
     options,
     where,
@@ -42,19 +55,6 @@ export class DomainRepository extends AbstractRepository<
       selectionSet: domainSelectionSet,
       where,
     })
-  }
-
-  protected async _add(domains: Array<IDomainDTO>) {
-    return (
-      await (
-        await this.ogmService.Domain
-      ).create({
-        input: domains.map(({ id, name }) => ({
-          id,
-          name,
-        })),
-      })
-    ).domains
   }
 
   protected async _update({ id, name }: IDomainDTO, where: DomainWhere) {

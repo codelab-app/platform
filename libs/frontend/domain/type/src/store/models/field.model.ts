@@ -67,6 +67,8 @@ export class Field
   }))
   implements IField
 {
+  static create = create
+
   @modelAction
   add(fragment: IFieldDTO) {
     this.id = fragment.id
@@ -82,18 +84,16 @@ export class Field
     return this
   }
 
-  static create = create
+  @modelAction
+  attachAsNextSibling(sibling: IField) {
+    sibling.nextSibling = fieldRef(this)
+    this.prevSibling = fieldRef(sibling)
+  }
 
   @modelAction
   attachAsPrevSibling(sibling: IField) {
     sibling.prevSibling = fieldRef(this)
     this.nextSibling = fieldRef(sibling.id)
-  }
-
-  @modelAction
-  attachAsNextSibling(sibling: IField) {
-    sibling.nextSibling = fieldRef(this)
-    this.prevSibling = fieldRef(sibling)
   }
 
   @modelAction
@@ -186,7 +186,6 @@ export class Field
     }
   }
 
-  @modelAction
   toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'> {
     return {
       nextSibling: reconnectNodeId(this.nextSibling?.id),

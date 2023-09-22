@@ -1,5 +1,5 @@
 import type { IEntityFormService, IType } from '@codelab/frontend/abstract/core'
-import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
+import { InlineFormService } from '@codelab/frontend/domain/shared'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

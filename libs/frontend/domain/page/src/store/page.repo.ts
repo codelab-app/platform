@@ -20,21 +20,6 @@ export class PageRepository extends Model({}) implements IPageRepository {
     return pages[0]!
   }
 
-  async update(page: IPageModel) {
-    const {
-      updatePages: { pages },
-    } = await pageApi.UpdatePages({
-      update: page.toUpdateInput(),
-      where: { id: page.id },
-    })
-
-    return pages[0]!
-  }
-
-  async find(where?: PageWhere, options?: PageOptions) {
-    return pageApi.GetPages({ options, where })
-  }
-
   async delete(pages: Array<IPageModel>) {
     const {
       deletePages: { nodesDeleted },
@@ -44,5 +29,20 @@ export class PageRepository extends Model({}) implements IPageRepository {
     })
 
     return nodesDeleted
+  }
+
+  async find(where?: PageWhere, options?: PageOptions) {
+    return pageApi.GetPages({ options, where })
+  }
+
+  async update(page: IPageModel) {
+    const {
+      updatePages: { pages },
+    } = await pageApi.UpdatePages({
+      update: page.toUpdateInput(),
+      where: { id: page.id },
+    })
+
+    return pages[0]!
   }
 }

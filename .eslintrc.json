@@ -5,11 +5,8 @@
     "@nx",
     "import",
     "unused-imports",
-    "react",
     //    "react-hooks",
     "prettier",
-    "jest",
-    "jest-formatting",
     "simple-import-sort",
     "lodash",
     "prefer-arrow",
@@ -54,6 +51,7 @@
   },
   "overrides": [
     {
+      "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "sort-destructure-keys/sort-destructure-keys": [
@@ -486,6 +484,7 @@
       }
     },
     {
+      "plugins": ["react"],
       "files": ["*.tsx"],
       "rules": {
         "unicorn/filename-case": [
@@ -549,8 +548,9 @@
       }
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx"],
       // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
+      "plugins": ["jest", "jest-formatting"],
+      "files": ["*.spec.ts", "*.spec.tsx"],
       "rules": {
         "import/no-unresolved": "error",
         "import/named": "error"
@@ -568,7 +568,6 @@
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",
-
           {
             "default": {
               // "optionalityOrder": "required-first",
@@ -578,12 +577,32 @@
               "memberTypes": ["signature", "constructor", "field", "method"],
               // "optionalityOrder": "required-first",
               "order": "alphabetically"
+            },
+            "classes": {
+              // More important up front
+              "memberTypes": [
+                ["public-static-field", "public-static-method"],
+                "get",
+                "public-field",
+                // These are generally _async arrow syntax methods
+                "public-decorated-field",
+                "public-decorated-method",
+                "public-method",
+                [
+                  "protected-field",
+                  "protected-get",
+                  "protected-set",
+                  "protected-method"
+                ],
+                "private-static-method",
+                "private-static-field",
+                ["private-field", "private-method"],
+                // Private static used for data mapping internally
+                "private-get",
+                "private-set"
+              ],
+              "order": "alphabetically"
             }
-            // "interfaces": {
-            //   "memberTypes": ["field", "method"],
-            //   "optionalityOrder": "required-first",
-            //   "order": "alphabetically"
-            // }
           }
         ],
         "@typescript-eslint/method-signature-style": ["error", "method"],

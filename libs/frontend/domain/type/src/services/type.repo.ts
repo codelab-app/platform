@@ -26,12 +26,21 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: TypeRepository, type: IType) {
-    const updatedType = (yield* _await(
-      updateTypeApi[type.kind](type.toUpdateInput()),
-    ))[0]
+  delete = _async(function* (this: TypeRepository, types: Array<IType>) {
+    const results = yield* _await(
+      Promise.all(
+        types.map((type) =>
+          deleteTypeApi[type.kind]({ where: { id: type.id } }),
+        ),
+      ),
+    )
 
-    return updatedType!
+    const nodesDeleted = results.reduce(
+      (acc, result) => acc + result.nodesDeleted,
+      0,
+    )
+
+    return nodesDeleted
   })
 
   @modelFlow
@@ -40,6 +49,29 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
     const types = yield* _await(getAllTypes(ids))
 
     return { aggregate: { count: types.length }, items: types }
+  })
+
+  @modelFlow
+  findBaseTypes = _async(function* (
+    this: TypeRepository,
+    { limit, offset, where }: BaseTypesOptions,
+  ) {
+    const {
+      baseTypes: { items, totalCount },
+    } = yield* _await(
+      getTypeApi.GetBaseTypes({
+        options: {
+          limit,
+          offset,
+          where,
+        },
+      }),
+    )
+
+    return {
+      items,
+      totalCount,
+    }
   })
 
   @modelFlow
@@ -73,52 +105,20 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   })
 
   @modelFlow
-  findBaseTypes = _async(function* (
-    this: TypeRepository,
-    { limit, offset, where }: BaseTypesOptions,
-  ) {
-    const {
-      baseTypes: { items, totalCount },
-    } = yield* _await(
-      getTypeApi.GetBaseTypes({
-        options: {
-          limit,
-          offset,
-          where,
-        },
-      }),
-    )
-
-    return {
-      items,
-      totalCount,
-    }
-  })
-
-  @modelFlow
-  delete = _async(function* (this: TypeRepository, types: Array<IType>) {
-    const results = yield* _await(
-      Promise.all(
-        types.map((type) =>
-          deleteTypeApi[type.kind]({ where: { id: type.id } }),
-        ),
-      ),
-    )
-
-    const nodesDeleted = results.reduce(
-      (acc, result) => acc + result.nodesDeleted,
-      0,
-    )
-
-    return nodesDeleted
-  })
-
-  @modelFlow
   findOptions = _async(function* (this: TypeRepository) {
     const {
       baseTypes: { items },
     } = yield* _await(getTypeApi.GetTypeOptions())
 
     return sortBy(items, 'name')
+  })
+
+  @modelFlow
+  update = _async(function* (this: TypeRepository, type: IType) {
+    const updatedType = (yield* _await(
+      updateTypeApi[type.kind](type.toUpdateInput()),
+    ))[0]
+
+    return updatedType!
   })
 }

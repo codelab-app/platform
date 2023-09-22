@@ -1,5 +1,5 @@
 import type {
-  IAction,
+  IActionModel,
   IActionOptions,
   IActionRepository,
   IActionWhere,
@@ -7,6 +7,8 @@ import type {
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {
+  ApiAction,
+  CodeAction,
   createActionApi,
   deleteActionApi,
   getActionApi,
@@ -16,7 +18,7 @@ import {
 @model('@codelab/ActionRepository')
 export class ActionRepository extends Model({}) implements IActionRepository {
   @modelFlow
-  add = _async(function* (this: ActionRepository, action: IAction) {
+  add = _async(function* (this: ActionRepository, action: IActionModel) {
     switch (action.type) {
       case IActionKind.CodeAction: {
         const {
@@ -45,7 +47,68 @@ export class ActionRepository extends Model({}) implements IActionRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: ActionRepository, action: IAction) {
+  delete = _async(function* (
+    this: ActionRepository,
+    actions: Array<IActionModel>,
+  ) {
+    for (const action of actions) {
+      switch (action.type) {
+        case IActionKind.CodeAction: {
+          const {
+            deleteCodeActions: { nodesDeleted },
+          } = yield* _await(
+            deleteActionApi.DeleteCodeActions({
+              delete: CodeAction.toDeleteInput(),
+              where: { id: action.id },
+            }),
+          )
+
+          return nodesDeleted
+        }
+
+        case IActionKind.ApiAction: {
+          const {
+            deleteApiActions: { nodesDeleted },
+          } = yield* _await(
+            deleteActionApi.DeleteApiActions({
+              delete: ApiAction.toDeleteInput(),
+              where: { id: action.id },
+            }),
+          )
+
+          return nodesDeleted
+        }
+      }
+    }
+
+    return actions.length
+  })
+
+  @modelFlow
+  find = _async(function* (
+    this: ActionRepository,
+    where: IActionWhere = {},
+    options?: IActionOptions,
+  ) {
+    const { apiActions, codeActions } = yield* _await(
+      getActionApi.GetActions({
+        apiActionWhere: where,
+        codeActionWhere: where,
+      }),
+    )
+
+    const items = [...apiActions, ...codeActions]
+
+    return {
+      aggregate: {
+        count: items.length,
+      },
+      items,
+    }
+  })
+
+  @modelFlow
+  update = _async(function* (this: ActionRepository, action: IActionModel) {
     switch (action.type) {
       case IActionKind.CodeAction: {
         const {
@@ -73,63 +136,5 @@ export class ActionRepository extends Model({}) implements IActionRepository {
         return apiActions[0]
       }
     }
-  })
-
-  @modelFlow
-  find = _async(function* (
-    this: ActionRepository,
-    where: IActionWhere = {},
-    options?: IActionOptions,
-  ) {
-    const { apiActions, codeActions } = yield* _await(
-      getActionApi.GetActions({
-        apiActionWhere: where,
-        codeActionWhere: where,
-      }),
-    )
-
-    const items = [...apiActions, ...codeActions]
-
-    return {
-      aggregate: {
-        count: items.length,
-      },
-      items,
-    }
-  })
-
-  @modelFlow
-  delete = _async(function* (this: ActionRepository, actions: Array<IAction>) {
-    for (const action of actions) {
-      switch (action.type) {
-        case IActionKind.CodeAction: {
-          const {
-            deleteCodeActions: { nodesDeleted },
-          } = yield* _await(
-            deleteActionApi.DeleteCodeActions({
-              delete: action.toDeleteInput(),
-              where: { id: action.id },
-            }),
-          )
-
-          return nodesDeleted
-        }
-
-        case IActionKind.ApiAction: {
-          const {
-            deleteApiActions: { nodesDeleted },
-          } = yield* _await(
-            deleteActionApi.DeleteApiActions({
-              delete: action.toDeleteInput(),
-              where: { id: action.id },
-            }),
-          )
-
-          return nodesDeleted
-        }
-      }
-    }
-
-    return actions.length
   })
 }

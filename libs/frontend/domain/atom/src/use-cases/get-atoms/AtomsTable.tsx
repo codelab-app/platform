@@ -1,11 +1,11 @@
 import type { IAtomModel, ITagModel } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useTablePagination } from '@codelab/frontend/domain/shared'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
   headerCellProps,
   useColumnSearchProps,
 } from '@codelab/frontend/presentation/view'
-import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'
@@ -104,7 +104,7 @@ export const AtomsTable = observer(() => {
   ]
 
   const dataSource: Array<AtomRecord> | undefined = data.map((atom) => ({
-    api: atom.api?.current,
+    api: atom.api.current,
     id: atom.id,
     library: getLibrary(atom.type),
     name: atom.name,

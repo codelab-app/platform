@@ -45,7 +45,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   }
 
   const onAddField = () => {
-    const interfaceId = node.api?.id
+    const interfaceId = node.api.id
 
     const interfaceRef = interfaceId
       ? typeRef<IInterfaceType>(interfaceId)

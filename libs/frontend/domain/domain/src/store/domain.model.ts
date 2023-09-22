@@ -32,20 +32,6 @@ export class Domain
 {
   static create = create
 
-  toCreateInput() {
-    return {
-      app: connectNodeId(this.app.id),
-      id: this.id,
-      name: this.name,
-    }
-  }
-
-  toUpdateInput() {
-    return {
-      name: this.name,
-    }
-  }
-
   static toDeleteInput(): DomainDeleteInput {
     return {}
   }
@@ -64,5 +50,19 @@ export class Domain
     this.app = app ?? this.app
 
     return this
+  }
+
+  toCreateInput() {
+    return {
+      app: connectNodeId(this.app.id),
+      id: this.id,
+      name: this.name,
+    }
+  }
+
+  toUpdateInput() {
+    return {
+      name: this.name,
+    }
   }
 }

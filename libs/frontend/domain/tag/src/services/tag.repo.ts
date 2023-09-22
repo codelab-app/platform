@@ -19,17 +19,16 @@ export class TagRepository extends Model({}) implements ITagRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: TagRepository, tag: ITagModel) {
+  delete = _async(function* (this: TagRepository, tags: Array<ITagModel>) {
     const {
-      updateTags: { tags },
+      deleteTags: { nodesDeleted },
     } = yield* _await(
-      tagApi.UpdateTags({
-        update: tag.toUpdateInput(),
-        where: { id: tag.id },
+      tagApi.DeleteTags({
+        where: { id_IN: tags.map(({ id }) => id) },
       }),
     )
 
-    return tags[0]!
+    return nodesDeleted
   })
 
   @modelFlow
@@ -42,15 +41,16 @@ export class TagRepository extends Model({}) implements ITagRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: TagRepository, tags: Array<ITagModel>) {
+  update = _async(function* (this: TagRepository, tag: ITagModel) {
     const {
-      deleteTags: { nodesDeleted },
+      updateTags: { tags },
     } = yield* _await(
-      tagApi.DeleteTags({
-        where: { id_IN: tags.map(({ id }) => id) },
+      tagApi.UpdateTags({
+        update: tag.toUpdateInput(),
+        where: { id: tag.id },
       }),
     )
 
-    return nodesDeleted
+    return tags[0]!
   })
 }

@@ -3,9 +3,9 @@ import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 export abstract class BaseType implements IBaseTypeDTO {
   id: string
 
-  name: string
-
   kind: ITypeKind
+
+  name: string
 
   constructor({ id, kind, name }: IBaseTypeDTO) {
     this.id = id

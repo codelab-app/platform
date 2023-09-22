@@ -1,10 +1,10 @@
 import type { IRepository } from '../../service'
-import type { IAction } from './action.interface'
+import type { IActionModel } from './action.model.interface'
 import type { IActionOptions, IActionWhere } from './action.where.interface'
 import type { ActionFragment } from './fragments'
 
 export type IActionRepository = IRepository<
-  IAction,
+  IActionModel,
   ActionFragment,
   IActionWhere,
   IActionOptions

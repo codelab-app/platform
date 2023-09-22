@@ -26,6 +26,8 @@ export class ElementType
   })
   implements IElementType
 {
+  public static create = create
+
   @modelAction
   writeCache(elementTypeDTO: Partial<IElementTypeDTO>) {
     super.writeCache(elementTypeDTO)
@@ -50,6 +52,4 @@ export class ElementType
       },
     })
   }
-
-  public static create = create
 }

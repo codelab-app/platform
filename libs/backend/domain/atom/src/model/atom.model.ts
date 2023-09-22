@@ -4,29 +4,6 @@ import type { ValidationError } from 'class-validator'
 import { validateSync } from 'class-validator'
 
 export class Atom implements IAtomDTO {
-  icon?: string | null | undefined
-
-  id: string
-
-  name: string
-
-  externalCssSource: string | null | undefined
-
-  externalJsSource: string | null | undefined
-
-  externalSourceType: string | null | undefined
-
-  // Assuming this is a string, add validators as per actual type
-  type: IAtomType
-
-  api: IEntity
-
-  tags: Array<IEntity>
-
-  requiredParents: Array<IEntity>
-
-  suggestedChildren: Array<IEntity>
-
   static create(data: IAtomDTO): Atom {
     const atom = new Atom(data)
     const errors = validateSync(atom)
@@ -41,6 +18,29 @@ export class Atom implements IAtomDTO {
 
     return atom
   }
+
+  api: IEntity
+
+  externalCssSource: string | null | undefined
+
+  externalJsSource: string | null | undefined
+
+  externalSourceType: string | null | undefined
+
+  icon?: string | null | undefined
+
+  id: string
+
+  name: string
+
+  requiredParents: Array<IEntity>
+
+  suggestedChildren: Array<IEntity>
+
+  tags: Array<IEntity>
+
+  // Assuming this is a string, add validators as per actual type
+  type: IAtomType
 
   private constructor({
     api,

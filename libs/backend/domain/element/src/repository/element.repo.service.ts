@@ -42,19 +42,18 @@ export class ElementRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: ElementWhere
-    options?: ElementOptions
-  }) {
-    return await (
-      await this.ogmService.Element
-    ).find({
-      options,
-      selectionSet: elementSelectionSet,
-      where,
+  async getElementWithDescendants(rootId: string) {
+    return this.neo4jService.withReadTransaction(async (txn) => {
+      const { records } = await txn.run(getDescendantsCypher, { rootId })
+      const descendants = records[0]?.get(0)
+
+      const descendantIds = descendants.map(
+        ({ properties }: Node) => properties.id,
+      )
+
+      return await this.find({
+        where: { id_IN: [rootId, ...descendantIds] },
+      })
     })
   }
 
@@ -114,6 +113,22 @@ export class ElementRepository extends AbstractRepository<
     ).elements
   }
 
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: ElementWhere
+    options?: ElementOptions
+  }) {
+    return await (
+      await this.ogmService.Element
+    ).find({
+      options,
+      selectionSet: elementSelectionSet,
+      where,
+    })
+  }
+
   protected async _update(
     { closestContainerNode, id, name, props, renderType }: ICreateElementDTO,
     where: ElementWhere,
@@ -143,20 +158,5 @@ export class ElementRepository extends AbstractRepository<
         where,
       })
     ).elements[0]
-  }
-
-  async getElementWithDescendants(rootId: string) {
-    return this.neo4jService.withReadTransaction(async (txn) => {
-      const { records } = await txn.run(getDescendantsCypher, { rootId })
-      const descendants = records[0]?.get(0)
-
-      const descendantIds = descendants.map(
-        ({ properties }: Node) => properties.id,
-      )
-
-      return await this.find({
-        where: { id_IN: [rootId, ...descendantIds] },
-      })
-    })
   }
 }

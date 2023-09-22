@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IAction } from '@codelab/frontend/abstract/core'
+import type { IActionModel } from '@codelab/frontend/abstract/core'
 import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -20,8 +20,8 @@ export type SelectActionProps = Pick<
 }
 
 const getParentActions = (
-  actions: Array<IAction>,
-  action: IAction,
+  actions: Array<IActionModel>,
+  action: IActionModel,
 ): Array<string> => {
   const parents = actions.filter(
     (parent) =>

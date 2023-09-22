@@ -33,22 +33,6 @@ export class PageRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: PageWhere
-    options?: PageOptions
-  }) {
-    return await (
-      await this.ogmService.Page
-    ).find({
-      options,
-      selectionSet: pageSelectionSet,
-      where,
-    })
-  }
-
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
@@ -80,6 +64,22 @@ export class PageRepository extends AbstractRepository<
         ),
       })
     ).pages
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: PageWhere
+    options?: PageOptions
+  }) {
+    return await (
+      await this.ogmService.Page
+    ).find({
+      options,
+      selectionSet: pageSelectionSet,
+      where,
+    })
   }
 
   protected async _update(

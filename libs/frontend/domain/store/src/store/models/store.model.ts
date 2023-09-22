@@ -1,10 +1,10 @@
 import type {
-  IAction,
+  IActionModel,
   IComponentModel,
   IInterfaceType,
   IPageModel,
   IPropData,
-  IStore,
+  IStoreModel,
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
@@ -40,7 +40,7 @@ const create = ({
   id,
   name,
   page,
-}: IStoreDTO): IStore =>
+}: IStoreDTO): IStoreModel =>
   new Store({
     actions: actions.map((action) => actionRef(action.id)),
     api: typeRef(api.id) as Ref<IInterfaceType>,
@@ -57,71 +57,30 @@ const createName = (app: Pick<IAppDTO, 'name'>) => {
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
-    actions: prop<Array<Ref<IAction>>>(),
+    actions: prop<Array<Ref<IActionModel>>>(),
     api: prop<Ref<IInterfaceType>>(),
     component: prop<Nullable<Ref<IComponentModel>>>().withSetter(),
     id: idProp,
     name: prop<string>(),
     page: prop<Nullable<Ref<IPageModel>>>(),
     // if this is a duplicate, source store id else null
-    source: prop<Nullable<Ref<IStore>>>(null).withSetter(),
+    source: prop<Nullable<Ref<IStoreModel>>>(null).withSetter(),
   }))
-  implements IStore
+  implements IStoreModel
 {
-  refs = observable.object<IPropData>({})
+  static create = create
 
-  onAttachedToRootStore() {
-    this.createEmptyRefs(this.refKeys)
-    autorun(() => this.deleteUnusedRefs())
+  static createName = createName
+
+  static toDeleteInput(): StoreDeleteInput {
+    return {
+      actions: {
+        ApiAction: [{ where: {} }],
+        CodeAction: [{ where: {} }],
+      },
+      api: { delete: InterfaceType.toDeleteInput(), where: {} },
+    }
   }
-
-  @computed
-  get actionsTree() {
-    return this.actions
-      .map((action) => ({
-        extraData: {
-          node: action.current,
-          type: 'action' as const,
-        },
-        isLeaf: true,
-        key: action.id,
-        primaryTitle: action.current.name,
-        secondaryTitle: action.current.type,
-        selectable: true,
-        title: `${action.current.name} (${action.current.type})`,
-      }))
-      .filter((node) => Boolean(node))
-  }
-
-  @computed
-  get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  get refKeys(): Array<string> {
-    const elementTree = this.page?.current || this.component?.current
-    const elements = elementTree?.elements || []
-
-    return elements
-      .filter((element) => isAtomInstance(element.renderType))
-      .map(({ slug }) => slug)
-  }
-
-  @computed
-  get jsonString() {
-    return propSafeStringify({
-      refs: this.refs,
-      state: this.state,
-    })
-  }
-
-  @computed
-  get renderService() {
-    return getRenderService(this)
-  }
-
-  private cachedState: Nullable<object> = null
 
   @computed
   get actionRunners() {
@@ -149,6 +108,42 @@ export class Store
   }
 
   @computed
+  get actionsTree() {
+    return this.actions
+      .map((action) => ({
+        extraData: {
+          node: action.current,
+          type: 'action' as const,
+        },
+        isLeaf: true,
+        key: action.id,
+        primaryTitle: action.current.name,
+        secondaryTitle: action.current.type,
+        selectable: true,
+        title: `${action.current.name} (${action.current.type})`,
+      }))
+      .filter((node) => Boolean(node))
+  }
+
+  @computed
+  get jsonString() {
+    return propSafeStringify({
+      refs: this.refs,
+      state: this.state,
+    })
+  }
+
+  @computed
+  get refKeys(): Array<string> {
+    const elementTree = this.page?.current || this.component?.current
+    const elements = elementTree?.elements || []
+
+    return elements
+      .filter((element) => isAtomInstance(element.renderType))
+      .map(({ slug }) => slug)
+  }
+
+  @computed
   get state() {
     const { rendererType } = this.renderService.activeRenderer?.current ?? {}
 
@@ -165,35 +160,7 @@ export class Store
     return this.cachedState
   }
 
-  deleteUnusedRefs() {
-    keys(this.refs).forEach((key) => {
-      if (!this.refKeys.includes(key)) {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete this.refs[key]
-      }
-    })
-  }
-
-  createEmptyRefs(refKeys: Array<string>) {
-    refKeys.forEach((key: string) => {
-      this.registerRef(key, null)
-    })
-  }
-
-  @modelAction
-  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
-    this.id = id ? id : this.id
-    this.name = name ? name : this.name
-    this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
-    this.actions =
-      actions?.map((action) => actionRef(action.id)) ?? this.actions
-
-    return this
-  }
-
-  registerRef(key: string, current: Nullable<HTMLElement>) {
-    set(this.refs, { [key]: { current } })
-  }
+  refs = observable.object<IPropData>({})
 
   @modelAction
   clone(componentId: string) {
@@ -211,7 +178,40 @@ export class Store
     })
   }
 
-  static create = create
+  @modelAction
+  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
+    this.id = id ? id : this.id
+    this.name = name ? name : this.name
+    this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
+    this.actions =
+      actions?.map((action) => actionRef(action.id)) ?? this.actions
+
+    return this
+  }
+
+  createEmptyRefs(refKeys: Array<string>) {
+    refKeys.forEach((key: string) => {
+      this.registerRef(key, null)
+    })
+  }
+
+  deleteUnusedRefs() {
+    keys(this.refs).forEach((key) => {
+      if (!this.refKeys.includes(key)) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete this.refs[key]
+      }
+    })
+  }
+
+  onAttachedToRootStore() {
+    this.createEmptyRefs(this.refKeys)
+    autorun(() => this.deleteUnusedRefs())
+  }
+
+  registerRef(key: string, current: Nullable<HTMLElement>) {
+    set(this.refs, { [key]: { current } })
+  }
 
   toCreateInput(): StoreCreateInput {
     const api = this.api.current
@@ -227,15 +227,15 @@ export class Store
     return { name: this.name }
   }
 
-  static toDeleteInput(): StoreDeleteInput {
-    return {
-      actions: {
-        ApiAction: [{ where: {} }],
-        CodeAction: [{ where: {} }],
-      },
-      api: { delete: InterfaceType.toDeleteInput(), where: {} },
-    }
+  private cachedState: Nullable<object> = null
+
+  @computed
+  private get renderService() {
+    return getRenderService(this)
   }
 
-  static createName = createName
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
 }

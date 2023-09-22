@@ -17,11 +17,11 @@ export class EnumTypeValue
   })
   implements IEnumTypeValue
 {
+  static create = create
+
   get label() {
     return this.key
   }
-
-  static create = create
 }
 
 export const enumTypeValueRef = rootRef<IEnumTypeValue>(

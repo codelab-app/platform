@@ -6,21 +6,25 @@ import type {
 } from '@opentelemetry/sdk-trace-base'
 
 export class MultiSpanProcessor implements SpanProcessor {
-  private spanProcessors: Array<SpanProcessor>
-
   constructor(spanProcessors: Array<SpanProcessor>) {
     this.spanProcessors = spanProcessors
   }
 
-  onStart(span: Span, parentContext: Context): void {
-    for (const spanProcessor of this.spanProcessors) {
-      spanProcessor.onStart(span, parentContext)
-    }
+  forceFlush(): Promise<void> {
+    return Promise.all(
+      this.spanProcessors.map((spanProcessor) => spanProcessor.forceFlush()),
+    ).then()
   }
 
   onEnd(span: ReadableSpan): void {
     for (const spanProcessor of this.spanProcessors) {
       spanProcessor.onEnd(span)
+    }
+  }
+
+  onStart(span: Span, parentContext: Context): void {
+    for (const spanProcessor of this.spanProcessors) {
+      spanProcessor.onStart(span, parentContext)
     }
   }
 
@@ -30,9 +34,5 @@ export class MultiSpanProcessor implements SpanProcessor {
     ).then()
   }
 
-  forceFlush(): Promise<void> {
-    return Promise.all(
-      this.spanProcessors.map((spanProcessor) => spanProcessor.forceFlush()),
-    ).then()
-  }
+  private spanProcessors: Array<SpanProcessor>
 }

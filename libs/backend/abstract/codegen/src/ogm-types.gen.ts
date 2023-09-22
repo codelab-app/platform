@@ -1801,7 +1801,7 @@ export enum PrimitiveTypeKind {
 }
 
 export enum ResourceType {
-  GraphQl = 'GraphQL',
+  GraphQL = 'GraphQL',
   Rest = 'Rest',
 }
 

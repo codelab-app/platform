@@ -41,15 +41,6 @@ export class ElementTree
     ]
   }
 
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  element(id: string) {
-    return this.elements.find((element) => element.id === id)
-  }
-
   /**
    * Get all descendant elements of current subRoot
    */
@@ -69,6 +60,10 @@ export class ElementTree
     return descendants
   }
 
+  element(id: string) {
+    return this.elements.find((element) => element.id === id)
+  }
+
   getPathFromRoot(selectedElement: IPageNodeRef): Array<string> {
     const path = []
 
@@ -84,5 +79,10 @@ export class ElementTree
     }
 
     return path.reverse()
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
   }
 }

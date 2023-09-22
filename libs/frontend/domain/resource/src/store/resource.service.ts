@@ -5,7 +5,10 @@ import type {
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
+import {
+  InlineFormService,
+  ModalService,
+} from '@codelab/frontend/domain/shared'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import { IResourceDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -44,14 +47,45 @@ export class ResourceService
     return [...this.resources.values()]
   }
 
-  resource(id: string) {
-    return this.resources.get(id)
-  }
+  @modelFlow
+  @transaction
+  create = _async(function* (
+    this: ResourceService,
+    { config: configData, id, name, type }: ICreateResourceData,
+  ) {
+    const config = this.propService.add({
+      data: JSON.stringify(configData),
+      id: v4(),
+    })
 
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
+    const resource = this.add({
+      config,
+      id,
+      name,
+      type,
+    })
+
+    yield* _await(this.resourceRepository.add(resource))
+
+    return resource
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (
+    this: ResourceService,
+    resources: Array<IResourceModel>,
+  ) {
+    // const { id } = resource
+
+    resources.map((resource) => {
+      this.resources.delete(resource.id)
+    })
+
+    yield* _await(this.resourceRepository.delete(resources))
+
+    return
+  })
 
   @modelFlow
   @transaction
@@ -80,29 +114,6 @@ export class ResourceService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: ResourceService,
-    { config: configData, id, name, type }: ICreateResourceData,
-  ) {
-    const config = this.propService.add({
-      data: JSON.stringify(configData),
-      id: v4(),
-    })
-
-    const resource = this.add({
-      config,
-      id,
-      name,
-      type,
-    })
-
-    yield* _await(this.resourceRepository.add(resource))
-
-    return resource
-  })
-
-  @modelFlow
-  @transaction
   update = _async(function* (
     this: ResourceService,
     { config: configData, id, name, type }: IUpdateResourceData,
@@ -121,17 +132,19 @@ export class ResourceService
     return resource
   })
 
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: ResourceService, resource: IResourceModel) {
-    const { id } = resource
+  @modelAction
+  add({ config, id, name, type }: IResourceDTO) {
+    const resource = Resource.create({
+      config,
+      id,
+      name,
+      type,
+    })
 
-    this.resources.delete(id)
-
-    yield* _await(this.resourceRepository.delete([resource]))
+    this.resources.set(resource.id, resource)
 
     return resource
-  })
+  }
 
   @modelAction
   load(resources: Array<IResourceDTO>) {
@@ -145,17 +158,12 @@ export class ResourceService
     })
   }
 
-  @modelAction
-  add({ config, id, name, type }: IResourceDTO) {
-    const resource = Resource.create({
-      config,
-      id,
-      name,
-      type,
-    })
+  resource(id: string) {
+    return this.resources.get(id)
+  }
 
-    this.resources.set(resource.id, resource)
-
-    return resource
+  @computed
+  private get propService() {
+    return getPropService(this)
   }
 }

@@ -10,15 +10,15 @@ interface AppData {
 }
 
 export class AppProperties {
+  static appCompositeKey = (appName: string, user: IEntity) => {
+    return `${user.id}-${appName}`
+  }
+
   static appNameFromCompositeKey = (app: DeepPick<App, AppData>) => {
     return app.compositeKey.replace(`${app.owner.id}-`, '')
   }
 
   static appSlugFromCompositeKey = (app: DeepPick<App, AppData>) => {
     return slugify(AppProperties.appNameFromCompositeKey(app))
-  }
-
-  static appCompositeKey = (appName: string, user: IEntity) => {
-    return `${user.id}-${appName}`
   }
 }

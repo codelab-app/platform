@@ -9,14 +9,14 @@ interface PageData {
 }
 
 export class PageProperties {
+  static pageCompositeKey = (pageName: string, app: IEntity) => {
+    return `${app.id}-${pageName}`
+  }
+
   static pageNameFromCompositeKey = (page: DeepPick<Page, PageData>) =>
     page.compositeKey.replace(`${page.app.id}-`, '')
 
   static pageSlugFromCompositeKey = (page: DeepPick<Page, PageData>) => {
     return slugify(PageProperties.pageNameFromCompositeKey(page))
-  }
-
-  static pageCompositeKey = (pageName: string, app: IEntity) => {
-    return `${app.id}-${pageName}`
   }
 }

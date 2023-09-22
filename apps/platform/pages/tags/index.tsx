@@ -1,5 +1,6 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   CreateTagModal,
   DeleteTagsModal,
@@ -18,7 +19,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'

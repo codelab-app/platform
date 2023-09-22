@@ -23,12 +23,24 @@ export interface IEndpointEnvVars {
 }
 
 export class EndpointEnvVars implements IEndpointEnvVars {
-  private _platformHost?: string
-
-  private _platformApiHost?: string
+  /**
+   * URL is protocol + origin
+   *
+   * This uses the Next.js proxy middleware
+   */
+  get graphqlApiProxyUrl() {
+    return `${this.platformHost}/api/graphql`
+  }
 
   get isLocal() {
     return this.graphqlApiProxyUrl.includes('127.0.0.1')
+  }
+
+  /**
+   * http://127.0.0.1:4000/api/graphql
+   */
+  get platformApiGraphqlUrl(): string {
+    return new URL('api/graphql', this.platformApiHost).toString()
   }
 
   /**
@@ -41,13 +53,6 @@ export class EndpointEnvVars implements IEndpointEnvVars {
   }
 
   /**
-   * http://127.0.0.1:4000/api/graphql
-   */
-  get platformApiGraphqlUrl(): string {
-    return new URL('api/graphql', this.platformApiHost).toString()
-  }
-
-  /**
    * This is used before module is initialized, so we must access process.env
    */
   get platformHost(): string {
@@ -56,12 +61,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
       .asString())
   }
 
-  /**
-   * URL is protocol + origin
-   *
-   * This uses the Next.js proxy middleware
-   */
-  get graphqlApiProxyUrl() {
-    return `${this.platformHost}/api/graphql`
-  }
+  private _platformApiHost?: string
+
+  private _platformHost?: string
 }

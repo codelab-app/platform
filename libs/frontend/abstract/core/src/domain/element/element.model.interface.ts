@@ -12,15 +12,15 @@ import type {
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementTreeViewDataNode } from '../../ui'
-import type { IAction } from '../action'
+import type { IActionModel } from '../action'
 import type { BuilderWidthBreakPoint } from '../builder'
 import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
 import type { IPageModel } from '../page'
-import type { IProp, IPropData } from '../prop'
+import type { IPropData, IPropModel } from '../prop'
 import type { IElementRuntimeProp, RendererType } from '../render'
-import type { IStore } from '../store'
+import type { IStoreModel } from '../store'
 import type { IElementRenderTypeModel } from './render-type'
 
 /**
@@ -112,15 +112,15 @@ export interface IElementModel
   // component that this element belongs to
   parentComponent?: Nullable<Ref<IComponentModel>>
   parentElement?: Nullable<Ref<IElementModel>>
-  postRenderAction?: Nullable<Ref<IAction>>
-  preRenderAction?: Nullable<Ref<IAction>>
+  postRenderAction?: Nullable<Ref<IActionModel>>
+  preRenderAction?: Nullable<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
-  props: Ref<IProp>
+  props: Ref<IPropModel>
   // same as expressionEvaluationContext but without props
   propsEvaluationContext: IEvaluationContext
   propsHaveErrors: boolean | null
   // store attached to the provider page
-  providerStore?: Ref<IStore>
+  providerStore?: Ref<IStoreModel>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
   renderType: IElementRenderTypeModel
@@ -135,7 +135,7 @@ export interface IElementModel
    */
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
-  store: Ref<IStore>
+  store: Ref<IStoreModel>
   /**
    * stringified object, see @IElementStyle interface
    * to see what is the shape of parsed object
@@ -178,7 +178,7 @@ export interface IElementModel
   setParentComponent(component: Ref<IComponentModel>): void
   setParentElement(parent: Ref<IElementModel>): void
   setPrevSibling(prevSibling: Ref<IElementModel>): void
-  setProps(props: Nullable<Ref<IProp>>): void
+  setProps(props: Nullable<Ref<IPropModel>>): void
   setRenderForEachPropKey(key: string): void
   setRenderIfExpression(key: Nullish<string>): void
   setRenderType(renderType: IElementRenderTypeModel): void
