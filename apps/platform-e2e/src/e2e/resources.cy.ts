@@ -28,9 +28,7 @@ describe('Resource CRUD', () => {
       })
       cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 
-      cy.getCuiPopover('Create Resource').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
 
       cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
     })

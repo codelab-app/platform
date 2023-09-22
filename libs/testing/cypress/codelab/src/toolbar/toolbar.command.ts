@@ -8,11 +8,9 @@ export const getCuiToolbarItem = (
   cy.log('getCuiToolbarItem', title)
 
   // Check if a subject exists (i.e., the command is chained)
-  if (subject) {
-    return cy
-      .wrap(subject)
-      .find(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
-  } else {
-    return cy.get(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
-  }
+  return subject
+    ? cy
+        .wrap(subject)
+        .find(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
+    : cy.get(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
 }

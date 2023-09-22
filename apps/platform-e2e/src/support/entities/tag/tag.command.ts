@@ -18,9 +18,7 @@ export const createTagByUI = (name: string, parentName?: string) => {
     })
   }
 
-  cy.getCuiPopover('Create Tag').within(() => {
-    cy.getCuiToolbarItem('Create').click()
-  })
+  cy.getCuiPopover('Create Tag').getCuiToolbarItem('Create').click()
 }
 
 export const deleteTagInTableByUI = (name: string) => {

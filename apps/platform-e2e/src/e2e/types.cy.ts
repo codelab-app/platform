@@ -60,9 +60,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -92,9 +90,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -121,9 +117,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -148,9 +142,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(interfaceTypeName).should('exist')

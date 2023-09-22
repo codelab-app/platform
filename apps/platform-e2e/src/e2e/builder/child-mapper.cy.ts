@@ -55,9 +55,7 @@ describe('Element Child Mapper', () => {
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
 
-    cy.getCuiPopover('Create Component').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-component-form').should('not.exist', {
       timeout: 10000,
@@ -91,9 +89,7 @@ describe('Element Child Mapper', () => {
         value: child.name,
       })
 
-      cy.getCuiPopover('Create Element').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,

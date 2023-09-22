@@ -60,9 +60,7 @@ describe('Component CRUD', () => {
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
       cy.intercept('POST', `api/graphql`).as('createComponent')
-      cy.getCuiPopover('Create Component').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
       cy.wait('@createComponent')
       cy.findByTestId('create-component-form').should('not.exist', {
         timeout: 10000,
@@ -129,9 +127,7 @@ describe('Component CRUD', () => {
           value: child.name,
         })
 
-        cy.getCuiPopover('Create Element').within(() => {
-          cy.getCuiToolbarItem('Create').click()
-        })
+        cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
         })
@@ -204,9 +200,7 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_NAME,
       })
 
-      cy.getCuiPopover('Create Element').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,

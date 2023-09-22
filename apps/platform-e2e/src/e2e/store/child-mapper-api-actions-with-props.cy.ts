@@ -69,9 +69,7 @@ describe('Element Child Mapper', () => {
       value: ResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
   })
@@ -99,9 +97,7 @@ describe('Element Child Mapper', () => {
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
 
-    cy.getCuiPopover('Create Component').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-component-form').should('not.exist', {
       timeout: 10000,
@@ -114,7 +110,7 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -147,9 +143,7 @@ describe('Element Child Mapper', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
 
     cy.wait('@createAction').then(({ response }) => {
       apiGetActionId = response?.body.data.createApiActions.apiActions[0]
@@ -190,9 +184,7 @@ describe('Element Child Mapper', () => {
       value: ELEMENT_BUTTON,
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.waitForApiCalls()
 

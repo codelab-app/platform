@@ -1,7 +1,5 @@
-export const getHeaderToolbarItem = (title: string) => {
-  cy.log('getHeaderToolbarItem', title)
+export const getCuiHeaderToolbar = () => {
+  cy.log('getCuiHeaderToolbar')
 
-  return cy
-    .get('[data-cy="codelabui-header-toolbar"]', { log: false })
-    .get(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
+  return cy.get('[data-cy="codelabui-header-toolbar"]', { log: false })
 }

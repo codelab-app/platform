@@ -3,7 +3,7 @@ import type {
   CypressCommand,
   OmitFirstArg,
 } from '@codelab/testing/cypress/command'
-import { getHeaderToolbarItem } from './header-toolbar/header-toolbar.command'
+import { getCuiHeaderToolbar } from './header-toolbar/header-toolbar.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
 import {
@@ -33,7 +33,7 @@ export interface CypressCodelabUICommands {
   /**
    * header-toolbar
    */
-  getHeaderToolbarItem: typeof getHeaderToolbarItem
+  getCuiHeaderToolbar: typeof getCuiHeaderToolbar
   /**
    * navigation-bar
    */
@@ -71,8 +71,8 @@ export const codelabUICommands: Array<CypressCommand> = [
    * header-toolbar
    */
   {
-    fn: getHeaderToolbarItem,
-    name: 'getHeaderToolbarItem',
+    fn: getCuiHeaderToolbar,
+    name: 'getCuiHeaderToolbar',
   },
   /**
    * navigation-bar

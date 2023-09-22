@@ -47,9 +47,7 @@ describe('Routing between app pages within the builder', () => {
       .findByLabelText('Deployed Page URL')
       .type('/test-page')
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-page-form').should('not.exist')
   })
@@ -64,9 +62,7 @@ describe('Routing between app pages within the builder', () => {
       .findByLabelText('Deployed Page URL')
       .type('/tests/:testId/subtests/:subtestId')
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-page-form').should('not.exist')
   })
@@ -108,9 +104,7 @@ describe('Routing between app pages within the builder', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -172,9 +166,7 @@ describe('Routing between app pages within the builder', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,

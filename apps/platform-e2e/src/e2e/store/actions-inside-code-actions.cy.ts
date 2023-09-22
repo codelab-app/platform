@@ -57,9 +57,7 @@ describe('Running actions inside code action with arguments', () => {
       value: ResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
   })
@@ -80,7 +78,7 @@ describe('Running actions inside code action with arguments', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getHeaderToolbarItem('Add Field').click()
+    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -102,11 +100,9 @@ describe('Running actions inside code action with arguments', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
 
-    cy.getHeaderToolbarItem('Add Field').click()
+    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -128,16 +124,14 @@ describe('Running actions inside code action with arguments', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
   })
 
   it('should create two code action and one api action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
 
     // API action
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -182,13 +176,13 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction1')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getCuiToolbarItem('Create').click({ force: true })
-    })
+    cy.getCuiPopover('Create Action')
+      .getCuiToolbarItem('Create')
+      .click({ force: true })
     cy.wait('@createAction1')
 
     // first code action
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -209,13 +203,13 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction2')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getCuiToolbarItem('Create').click({ force: true })
-    })
+    cy.getCuiPopover('Create Action')
+      .getCuiToolbarItem('Create')
+      .click({ force: true })
     cy.wait('@createAction2')
 
     // second code action
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -236,9 +230,9 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction3')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getCuiToolbarItem('Create').click({ force: true })
-    })
+    cy.getCuiPopover('Create Action')
+      .getCuiToolbarItem('Create')
+      .click({ force: true })
 
     cy.wait('@createAction3').then(({ response }) => {
       codeActionId = response?.body.data.createCodeActions.codeActions[0]
@@ -281,9 +275,7 @@ describe('Running actions inside code action with arguments', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -334,9 +326,7 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createElement')
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
     cy.wait('@createElement')
 
     cy.findByTestId('create-element-form').should('not.exist', {

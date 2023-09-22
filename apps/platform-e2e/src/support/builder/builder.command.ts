@@ -72,9 +72,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
       value: name,
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -120,9 +118,7 @@ export const openBuilder = () => {
  */
 export const createElementAndStoreId = () => {
   cy.intercept('POST', `api/graphql`).as('graphqlRequest')
-  cy.getCuiPopover('Create Element').within(() => {
-    cy.getCuiToolbarItem('Create').click()
-  })
+  cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
   cy.wait('@graphqlRequest').then(({ response }) => {
     cy.wrap(response?.body.data.createElements.elements[0].id).as(
       NEW_ELEMENT_ID_NAME,

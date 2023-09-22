@@ -18,7 +18,7 @@ describe('Atoms CRUD', () => {
         'not.exist',
       )
 
-      cy.getHeaderToolbarItem('Create Atom').click()
+      cy.getCuiHeaderToolbar().getCuiToolbarItem('Create Atom').click()
 
       cy.setFormFieldValue({ label: 'Name', value: atomName })
 

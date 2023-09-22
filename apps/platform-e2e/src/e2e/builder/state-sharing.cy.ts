@@ -45,9 +45,7 @@ describe('State variables sharing between pages', () => {
 
     cy.findByTestId('create-page-form').findByLabelText('Name').type('Testpage')
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     // create a component
     cy.visit(
@@ -72,9 +70,7 @@ describe('State variables sharing between pages', () => {
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
 
-    cy.getCuiPopover('Create Component').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-component-form').should('not.exist', {
       timeout: 10000,
@@ -108,9 +104,7 @@ describe('State variables sharing between pages', () => {
         value: child.name,
       })
 
-      cy.getCuiPopover('Create Element').within(() => {
-        cy.getCuiToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
@@ -158,9 +152,7 @@ describe('State variables sharing between pages', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('action')
-    cy.getCuiPopover('Create Field').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
     cy.wait('@action')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
@@ -211,9 +203,7 @@ describe('State variables sharing between pages', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createState')
-    cy.getCuiPopover('Create Field').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
     cy.wait('@createState')
   })
 
@@ -254,9 +244,7 @@ describe('State variables sharing between pages', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createElement')
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getCuiToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
     cy.wait('@createElement')
 
     cy.findByTestId('create-element-form').should('not.exist', {
