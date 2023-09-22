@@ -7,11 +7,9 @@ export interface ICRUDService<
 > {
   create(data: CreateData): Promise<Entity>
   /**
-   * Array<Entity> makes the function more complicated, we can create a separate deleteMany() for services that require it
-   *
-   * We only accept id here, since we delete only on id's
+   * Delete many is used many places, so default to plural form. Also return type is rarely used
    */
-  delete(entity: Entity): Promise<Entity>
+  delete(items: Array<Entity>): Promise<void>
   update(data: UpdateData): Promise<Entity>
 }
 

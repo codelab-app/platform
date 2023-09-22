@@ -5,6 +5,7 @@ import type {
 import type { PageOptions, PageWhere } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'
+import { Page } from './page.model'
 
 @model('@codelab/PageRepository')
 export class PageRepository extends Model({}) implements IPageRepository {
@@ -38,7 +39,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     const {
       deletePages: { nodesDeleted },
     } = await pageApi.DeletePages({
-      delete: pages[0]?.toDeleteInput(),
+      delete: Page.toDeleteInput(),
       where: { id_IN: pages.map((page) => page.id) },
     })
 

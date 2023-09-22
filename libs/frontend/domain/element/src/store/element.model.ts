@@ -68,6 +68,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
+import { renderTypeTransform } from './element-render-type'
 import {
   getRenderType,
   jsonStringToCss,
@@ -94,8 +95,6 @@ const create = ({
   renderType,
   style,
 }: IElementDTO) => {
-  console.log(renderType)
-
   const elementRenderType = getRenderType(renderType)
 
   return new Element({
@@ -161,27 +160,8 @@ export class Element
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    renderType: prop<IElementRenderTypeModel>()
-      .withSetter()
-      .withSnapshotProcessor({
-        toSnapshot: (snapshot) => {
-          console.log(snapshot)
-
-          const containerNode = {
-            __typename:
-              snapshot.$modelType === '@codelab/AtomRef'
-                ? IElementRenderTypeKind.Atom
-                : snapshot.$modelType === '@codelab/ComponentRef'
-                ? IElementRenderTypeKind.Component
-                : (() => {
-                    throw new Error('Neither AtomRef nor ComponentRef')
-                  })(),
-            id: snapshot.id,
-          }
-
-          return containerNode
-        },
-      }),
+    _renderType: prop<IElementRenderTypeModel>().withSetter(),
+    // .withTransform(renderTypeTransform()),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
     style: prop<Nullable<string>>(null).withSetter(),
@@ -511,7 +491,6 @@ export class Element
   @computed
   get propsHaveErrors() {
     console.log(this, this.renderType)
-    console.log(this.renderType.current, this.renderType.current.api)
 
     const schema = schemaTransformer.transform(
       this.renderType.current.api.current,

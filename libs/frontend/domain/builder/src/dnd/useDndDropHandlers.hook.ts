@@ -63,7 +63,7 @@ export const useDndDropHandler = (
         ? targetElement.id
         : targetElement.parentElement?.id
 
-    if (!validateParentForCreate(createElementDTO.renderType?.id, parentId)) {
+    if (!validateParentForCreate(createElementDTO.renderType.id, parentId)) {
       return
     }
 

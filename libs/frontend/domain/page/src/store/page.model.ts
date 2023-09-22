@@ -8,6 +8,7 @@ import {
   ElementTree,
   storeRef,
 } from '@codelab/frontend/abstract/core'
+import { Store } from '@codelab/frontend/domain/store'
 import type {
   PageCreateInput,
   PageDeleteInput,
@@ -112,10 +113,14 @@ export class Page
     }
   }
 
-  toDeleteInput(): PageDeleteInput {
+  static toDeleteInput(): PageDeleteInput {
     return {
-      pageContentContainer: { delete: {}, where: {} },
+      // pageContentContainer: { delete: {}, where: {} },
       rootElement: {},
+      store: {
+        delete: Store.toDeleteInput(),
+        where: {},
+      },
     }
   }
 

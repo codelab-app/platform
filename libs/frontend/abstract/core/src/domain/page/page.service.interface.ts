@@ -4,6 +4,7 @@ import type {
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type {
+  IElementDTO,
   IElementRenderType,
   IPageDTO,
 } from '@codelab/shared/abstract/core'
@@ -41,6 +42,7 @@ export interface IPageService
 
   add(pageDTO: IPageDTO): IPageModel
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
+  loadElements(elements: Array<IElementDTO>): void
   page(id: string): Maybe<IPageModel>
   pagesByApp(appId: string): Array<IPageModel>
 }

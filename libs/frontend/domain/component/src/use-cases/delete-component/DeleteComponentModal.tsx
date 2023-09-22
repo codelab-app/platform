@@ -15,7 +15,7 @@ export const DeleteComponentModal = observer(() => {
       return Promise.reject()
     }
 
-    return componentService.delete(component)
+    return componentService.delete([component])
   }
 
   return (

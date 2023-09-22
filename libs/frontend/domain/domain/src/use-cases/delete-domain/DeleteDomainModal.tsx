@@ -15,12 +15,8 @@ export const DeleteDomainModal = observer(() => {
       return Promise.reject()
     }
 
-    return domainService.delete(domain)
+    return domainService.delete([domain])
   }
-
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while deleting domain',
-  })
 
   if (!domainService.deleteModal.domain) {
     return null
@@ -40,7 +36,9 @@ export const DeleteDomainModal = observer(() => {
       <ModalForm.Form
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while deleting domain',
+        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

@@ -7,11 +7,6 @@ import React from 'react'
 export const DeleteAppModal = observer(() => {
   const { appService, domainService } = useStore()
   const app = appService.deleteModal.app
-
-  const onSubmitError = createFormErrorNotificationHandler({
-    title: 'Error while deleting app',
-  })
-
   const closeModal = () => appService.deleteModal.close()
 
   const onSubmit = () => {
@@ -20,14 +15,14 @@ export const DeleteAppModal = observer(() => {
     }
 
     app.domains.forEach(async (domain) => {
-      const maybeDomain = domainService.domains.get(domain.id)
+      const existingDomain = domainService.domains.get(domain.id)
 
-      if (maybeDomain) {
-        await domainService.delete(maybeDomain)
+      if (existingDomain) {
+        await domainService.delete([existingDomain])
       }
     })
 
-    return appService.delete(app)
+    return appService.delete([app])
   }
 
   return (
@@ -39,7 +34,9 @@ export const DeleteAppModal = observer(() => {
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while deleting app',
+        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
       >

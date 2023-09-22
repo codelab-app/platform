@@ -5,3 +5,5 @@ export interface PromiseCallback<
 > {
   (...args: Param): Promise<Return> | Return
 }
+
+export type Callback<TIn, TOut = unknown> = (param: TIn) => TOut

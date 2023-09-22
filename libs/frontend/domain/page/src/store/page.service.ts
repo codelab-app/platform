@@ -14,13 +14,18 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import { Element } from '@codelab/frontend/domain/element'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
-import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  IPageKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -138,7 +143,26 @@ export class PageService
   getAll = _async(function* (this: PageService, where: PageWhere) {
     const { items: pages } = yield* _await(this.pageRepository.find(where))
 
-    return pages.map((page) => this.add(page))
+    /**
+     * Load elements so they can be referenced
+     */
+    return pages.map((page) => {
+      const elements = [
+        page.rootElement,
+        ...page.rootElement.descendantElements,
+      ]
+
+      elements.forEach((element) =>
+        this.elementService.add({
+          ...element,
+          closestContainerNode: {
+            id: page.id,
+          },
+        }),
+      )
+
+      return this.add(page)
+    })
   })
 
   @modelFlow
@@ -219,18 +243,79 @@ export class PageService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PageService, page: IPageModel) {
-    const { rootElement, store } = page
-    const pageStore = store.current
+  delete = _async(function* (this: PageService, pages: Array<IPageModel>) {
+    const deletePage = _async(function* (this: PageService, page: IPageModel) {
+      //
+    })
+    // const operations = pages.map((page) =>
+    //   _async(function* (this: PageService) {
+    //     this.pages.delete(page.id)
+    //   }),
+    // )
 
-    this.pages.delete(page.id)
+    const existingPages = (yield* _await(
+      this.pageRepository.find({
+        id_IN: pages.map((page) => page.id),
+      }),
+    )).items
 
-    yield* _await(this.elementService.delete(rootElement))
-    yield* _await(this.storeService.delete(pageStore))
-    yield* _await(this.pageRepository.delete([page]))
+    /**
+     * Need to fetch and delete all elements, since page only has references to the rootElement
+     */
+    const elements = existingPages.flatMap((page) =>
+      [page.rootElement, ...page.rootElement.descendantElements].map(
+        (element) =>
+          this.elementService.add({
+            ...element,
+            closestContainerNode: {
+              id: page.id,
+            },
+          }),
+      ),
+    )
 
-    return page!
+    yield* _await(this.elementService.elementRepository.delete(elements))
+
+    // yield*
+    /**
+     * Page can delete all other info
+     */
+    yield* _await(this.pageRepository.delete(pages))
   })
+
+  /**
+   * Since elements are
+   */
+  @modelAction
+  loadElements = (elements: Array<IElementDTO>) => {
+    elements.forEach((element) => {
+      this.propService.add(element.props)
+
+      /**
+       * Element comes with `component` or `atom` data that we need to load as well
+       *
+       * TODO: Need to handle component case
+       */
+      if (element.renderType.__typename === IElementRenderTypeKind.Atom) {
+        this.typeService.loadTypes({
+          interfaceTypes: [element.renderType.api],
+        })
+
+        // element.renderType.tags.forEach((tag) => this.tagService.add(tag))
+
+        this.atomService.add(element.renderType)
+      }
+
+      const elementDto = {
+        ...element,
+        closestContainerNode: { id },
+      }
+
+      console.log('AppService.loadPages() elementDto', elementDto)
+
+      this.elementService.add(elementDto)
+    })
+  }
 
   @modelAction
   add = (pageDTO: IPageDTO) => {
