@@ -15,6 +15,16 @@ const testCreate = (name: string, parentName?: string) => {
   cy.getTree().findByText(name).should('exist')
 }
 
+const testCreate = (name: string, parentName?: string) => {
+  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
+
+  if (parentName) {
+    cy.toggleTreeNodeSwitcher(parentName)
+  }
+
+  cy.getTree().findByText(name).should('exist')
+}
+
 describe('Tag CRUD', () => {
   before(() => {
     loginAndSetupData()

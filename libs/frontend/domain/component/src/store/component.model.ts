@@ -107,6 +107,11 @@ export class Component
   }
 
   @computed
+  get userService() {
+    return getUserService(this)
+  }
+
+  @computed
   get runtimeProp(): Maybe<IComponentRuntimeProp> {
     return this.renderService.activeRenderer?.current.runtimeProps.get(
       this.id,
