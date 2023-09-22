@@ -5,15 +5,20 @@ import { slugify } from '@codelab/shared/utils'
 import { Expose } from 'class-transformer'
 
 export class App implements IApp {
+  @Expose()
+  get slug() {
+    return slugify(this.name)
+  }
+
   domains?: Array<IEntity> | undefined
 
   id: string
 
   name: string
 
-  pages?: Array<IEntity> | undefined
-
   owner: IEntity
+
+  pages?: Array<IEntity> | undefined
 
   constructor({ domains, id, name, owner, pages }: IAppDTO) {
     this.id = id
@@ -21,10 +26,5 @@ export class App implements IApp {
     this.domains = domains
     this.pages = pages
     this.owner = owner
-  }
-
-  @Expose()
-  get slug() {
-    return slugify(this.name)
   }
 }

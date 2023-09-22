@@ -1,7 +1,7 @@
-import type { IAction } from '../domain'
+import type { IActionModel } from '../domain'
 import type { ITreeDataNode } from './tree-data-node.interface'
 
 export type IActionsTreeDataNode = ITreeDataNode<{
-  node: IAction
+  node: IActionModel
   type: 'action'
 }>

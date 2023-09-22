@@ -1,4 +1,7 @@
-import type { IProp, IResourceModel } from '@codelab/frontend/abstract/core'
+import type {
+  IPropModel,
+  IResourceModel,
+} from '@codelab/frontend/abstract/core'
 import { getUserService, propRef } from '@codelab/frontend/abstract/core'
 import type {
   ResourceCreateInput,
@@ -21,7 +24,7 @@ const create = ({ config, id, name, type }: IResourceDTO) =>
 @model('@codelab/ResourceModel')
 export class Resource
   extends Model(() => ({
-    config: prop<Ref<IProp>>(),
+    config: prop<Ref<IPropModel>>(),
     id: idProp,
     name: prop<string>(),
     type: prop<IResourceType>(),
@@ -30,9 +33,13 @@ export class Resource
 {
   static create = create
 
-  @computed
-  private get userService() {
-    return getUserService(this)
+  @modelAction
+  writeCache({ config, name, type }: Partial<IResourceDTO>) {
+    this.name = name ?? this.name
+    this.type = type ?? this.type
+    this.config = config?.id ? propRef(config.id) : this.config
+
+    return this
   }
 
   toCreateInput(): ResourceCreateInput {
@@ -59,12 +66,8 @@ export class Resource
     }
   }
 
-  @modelAction
-  writeCache({ config, name, type }: Partial<IResourceDTO>) {
-    this.name = name ?? this.name
-    this.type = type ?? this.type
-    this.config = config?.id ? propRef(config.id) : this.config
-
-    return this
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 }

@@ -12,7 +12,7 @@ import {
   InlineFormService,
   ModalService,
   PaginationService,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend/domain/shared'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
@@ -65,27 +65,6 @@ export class TypeService
   implements ITypeService
 {
   @computed
-  private get fieldService() {
-    return getFieldService(this)
-  }
-
-  onAttachedToRootStore() {
-    this.paginationService.getDataFn = async (page, pageSize, filter) => {
-      const { items: baseTypes, totalCount: totalItems } =
-        await this.typeRepository.findBaseTypes({
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-          where: filter,
-        })
-
-      const typeIds = baseTypes.map(({ id }) => id)
-      const items = await this.getAll(typeIds)
-
-      return { items, totalItems }
-    }
-  }
-
-  @computed
   get typesList() {
     // loading sub types messes up the order of the next page
     // we need to sort here to make sure the types on the
@@ -95,87 +74,31 @@ export class TypeService
     )
   }
 
-  @modelAction
-  addInterface(data: ICreateTypeData) {
-    const interfaceType = new InterfaceType({
-      id: data.id,
-      name: data.name,
-    })
+  @modelFlow
+  @transaction
+  create = _async(function* (this: TypeService, data: ICreateTypeData) {
+    const type = this.add(TypeFactory.mapDataToDTO(data))
 
-    this.types.set(interfaceType.id, interfaceType)
+    yield* _await(this.typeRepository.add(type))
 
-    return interfaceType
-  }
-
-  @modelAction
-  type(id: string) {
-    return this.types.get(id)
-  }
-
-  @modelAction
-  primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {
-    const type = this.type(id)
-
-    if (type?.kind === ITypeKind.PrimitiveType) {
-      return type.primitiveKind
-    }
-
-    return null
-  }
-
-  /**
-   * Caches all types into mobx
-   */
-  @modelAction
-  loadTypes = (types: Partial<GetTypesQuery>) => {
-    console.debug('TypeService.loadTypes()', types)
-
-    const flatTypes = Object.values(types).flat()
-    this.fieldService.load(
-      (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
-    )
-
-    const loadedTypes = flatTypes.map((fragment) =>
-      TypeFactory.create(fragment),
-    )
-
-    for (const type of loadedTypes) {
-      this.types.set(type.id, type)
-    }
-
-    return loadedTypes
-  }
-
-  @modelAction
-  addTypeLocal(type: IType) {
-    this.types.set(type.id, type)
-  }
-
-  @modelAction
-  add(typeDTO: ITypeDTO) {
-    const existingType = this.types.get(typeDTO.id)
-
-    if (existingType) {
-      return existingType
-    }
-
-    const type = TypeFactory.create(typeDTO)
-
-    this.types.set(type.id, type)
+    this.paginationService.dataRefs.set(type.id, typeRef(type))
 
     return type
-  }
+  })
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, data: IUpdateTypeData) {
-    const type = this.types.get(data.id)!
-    const typeDTO = TypeFactory.mapDataToDTO(data)
-    TypeFactory.writeCache(typeDTO, type)
+  delete = _async(function* (this: TypeService, types: Array<IType>) {
+    const deleteType = _async(function* (this: TypeService, type: IType) {
+      const { id } = type
+      this.types.delete(id)
 
-    yield* _await(this.typeRepository.update(type))
+      yield* _await(this.typeRepository.delete([type]))
+    })
 
-    return type
+    yield* _await(Promise.all(types.map((type) => deleteType(type))))
+
+    return
   })
 
   /**
@@ -253,29 +176,6 @@ export class TypeService
     return result
   })
 
-  getType(id: string) {
-    return this.types.get(id)
-  }
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: TypeService, id: string) {
-    if (!this.shouldLoadType(id)) {
-      return this.types.get(id)
-    }
-
-    const all = yield* _await(this.getAll([id]))
-
-    return all[0]
-  })
-
-  @modelFlow
-  getOptions = _async(function* (this: TypeService) {
-    const options = yield* _await(this.typeRepository.findOptions())
-
-    return options
-  })
-
   /**
    * A wrapper around getAll with some type checking.
    * Gets the interface while loading its descendant types
@@ -311,26 +211,125 @@ export class TypeService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: ICreateTypeData) {
-    const type = this.add(TypeFactory.mapDataToDTO(data))
+  getOne = _async(function* (this: TypeService, id: string) {
+    if (!this.shouldLoadType(id)) {
+      return this.types.get(id)
+    }
 
-    yield* _await(this.typeRepository.add(type))
+    const all = yield* _await(this.getAll([id]))
 
-    this.paginationService.dataRefs.set(type.id, typeRef(type))
+    return all[0]
+  })
 
-    return type
+  @modelFlow
+  getOptions = _async(function* (this: TypeService) {
+    const options = yield* _await(this.typeRepository.findOptions())
+
+    return options
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TypeService, type: IType) {
-    const { id } = type
-    this.types.delete(id)
+  update = _async(function* (this: TypeService, data: IUpdateTypeData) {
+    const type = this.types.get(data.id)!
+    const typeDTO = TypeFactory.mapDataToDTO(data)
+    TypeFactory.writeCache(typeDTO, type)
 
-    yield* _await(this.typeRepository.delete([type]))
+    yield* _await(this.typeRepository.update(type))
 
     return type
   })
+
+  @modelAction
+  add(typeDTO: ITypeDTO) {
+    const existingType = this.types.get(typeDTO.id)
+
+    if (existingType) {
+      return existingType
+    }
+
+    const type = TypeFactory.create(typeDTO)
+
+    this.types.set(type.id, type)
+
+    return type
+  }
+
+  @modelAction
+  addInterface(data: ICreateTypeData) {
+    const interfaceType = new InterfaceType({
+      id: data.id,
+      name: data.name,
+    })
+
+    this.types.set(interfaceType.id, interfaceType)
+
+    return interfaceType
+  }
+
+  @modelAction
+  addTypeLocal(type: IType) {
+    this.types.set(type.id, type)
+  }
+
+  /**
+   * Caches all types into mobx
+   */
+  @modelAction
+  loadTypes(types: Partial<GetTypesQuery>) {
+    console.debug('TypeService.loadTypes()', types)
+
+    const flatTypes = Object.values(types).flat()
+    this.fieldService.load(
+      (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
+    )
+
+    const loadedTypes = flatTypes.map((fragment) =>
+      TypeFactory.create(fragment),
+    )
+
+    for (const type of loadedTypes) {
+      this.types.set(type.id, type)
+    }
+
+    return loadedTypes
+  }
+
+  @modelAction
+  primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {
+    const type = this.type(id)
+
+    if (type?.kind === ITypeKind.PrimitiveType) {
+      return type.primitiveKind
+    }
+
+    return null
+  }
+
+  @modelAction
+  type(id: string) {
+    return this.types.get(id)
+  }
+
+  getType(id: string) {
+    return this.types.get(id)
+  }
+
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const { items: baseTypes, totalCount: totalItems } =
+        await this.typeRepository.findBaseTypes({
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+          where: filter,
+        })
+
+      const typeIds = baseTypes.map(({ id }) => id)
+      const items = await this.getAll(typeIds)
+
+      return { items, totalItems }
+    }
+  }
 
   /**
    * Decides whether loading the type is necessary or not.
@@ -376,5 +375,10 @@ export class TypeService
     }
 
     return false
+  }
+
+  @computed
+  private get fieldService() {
+    return getFieldService(this)
   }
 }

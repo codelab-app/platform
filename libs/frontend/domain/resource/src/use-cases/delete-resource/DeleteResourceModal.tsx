@@ -31,7 +31,7 @@ export const DeleteResourceModal = observer(() => {
       return Promise.reject()
     }
 
-    void resourceService.delete(resource)
+    void resourceService.delete([resource])
 
     closeModal()
 

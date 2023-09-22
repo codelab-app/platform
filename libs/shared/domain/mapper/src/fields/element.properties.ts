@@ -8,6 +8,13 @@ interface ElementData {
 }
 
 export class ElementProperties {
+  static elementCompositeKey = (
+    elementName: string,
+    closestContainerNode: IEntity,
+  ) => {
+    return `${closestContainerNode.id}-${elementName}`
+  }
+
   static elementNameFromCompositeKey = (
     element: DeepPick<Element, ElementData>,
   ) => {
@@ -22,12 +29,5 @@ export class ElementProperties {
     const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
 
     return element.compositeKey.replace(reg, '')
-  }
-
-  static elementCompositeKey = (
-    elementName: string,
-    closestContainerNode: IEntity,
-  ) => {
-    return `${closestContainerNode.id}-${elementName}`
   }
 }

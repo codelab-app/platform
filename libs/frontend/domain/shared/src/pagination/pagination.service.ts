@@ -36,14 +36,6 @@ export class PaginationService<
   }))<T1, U1>
   implements IPaginationService<T1, U1>
 {
-  /**
-   * This can't be passed as props when creating a PaginationService instance so this has to be initialized in the `onAttachedToRootStore` of the service using this
-   */
-  getDataFn = async (page: number, pageSize: number, filter: U1) => ({
-    items: [] as Array<T1>,
-    totalItems: 0,
-  })
-
   @computed
   get data() {
     return sortBy(Array.from(this.dataRefs.values()), (ref) =>
@@ -70,6 +62,14 @@ export class PaginationService<
     this.isLoading = false
 
     return items
+  })
+
+  /**
+   * This can't be passed as props when creating a PaginationService instance so this has to be initialized in the `onAttachedToRootStore` of the service using this
+   */
+  getDataFn = async (page: number, pageSize: number, filter: U1) => ({
+    items: [] as Array<T1>,
+    totalItems: 0,
   })
 }
 

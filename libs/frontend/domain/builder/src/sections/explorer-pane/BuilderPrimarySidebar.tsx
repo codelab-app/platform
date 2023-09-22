@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
+import type { IPageNode, IStoreModel } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   elementTreeRef,
@@ -81,8 +81,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const componentStore =
       isElementPageNodeRef(builderService.selectedNode) &&
-      isComponentModel(builderService.selectedNode.current.renderType?.current)
-        ? builderService.selectedNode.current.renderType?.current.store.current
+      isComponentModel(builderService.selectedNode.current.renderType.current)
+        ? builderService.selectedNode.current.renderType.current.store.current
         : undefined
 
     const selectTreeNode = (node: IPageNode) => {
@@ -183,7 +183,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                actionService.createForm.open(storeRef(store) as Ref<IStore>)
+                actionService.createForm.open(
+                  storeRef(store) as Ref<IStoreModel>,
+                )
                 popover.open(FormNames.CreateAction)
               },
               title: 'Add Action',

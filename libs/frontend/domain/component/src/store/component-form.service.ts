@@ -1,5 +1,5 @@
 import type { IEntityFormService } from '@codelab/frontend/abstract/core'
-import { InlineFormService } from '@codelab/frontend/shared/utils'
+import { InlineFormService } from '@codelab/frontend/domain/shared'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/ComponentFormService')

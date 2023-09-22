@@ -7,12 +7,6 @@ export interface INeo4jEnvVars {
 }
 
 export class Neo4jEnvVars implements INeo4jEnvVars {
-  private _password?: string
-
-  private _uri?: string
-
-  private _user?: string
-
   get password() {
     return (this._password ??= env.get('NEO4J_PASSWORD').required().asString())
   }
@@ -24,4 +18,10 @@ export class Neo4jEnvVars implements INeo4jEnvVars {
   get user() {
     return (this._user ??= env.get('NEO4J_USER').required().asString())
   }
+
+  private _password?: string
+
+  private _uri?: string
+
+  private _user?: string
 }

@@ -2,7 +2,7 @@ import type {
   IEntityModalService,
   ITagModel,
 } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService } from '@codelab/frontend/domain/shared'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

@@ -9,6 +9,7 @@ import {
   UpdateResourceForm,
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -19,7 +20,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

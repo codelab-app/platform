@@ -32,6 +32,20 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
+  protected async _add(primitiveTypes: Array<IPrimitiveTypeDTO>) {
+    return (
+      await (
+        await this.ogmService.PrimitiveType
+      ).create({
+        input: primitiveTypes.map(({ __typename, ...type }) => ({
+          ...type,
+          owner: connectOwner(this.authService.currentUser),
+        })),
+        selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
+      })
+    ).primitiveTypes
+  }
+
   protected async _find({
     options,
     where,
@@ -46,20 +60,6 @@ export class PrimitiveTypeRepository extends AbstractRepository<
       selectionSet: exportPrimitiveTypeSelectionSet,
       where,
     })
-  }
-
-  protected async _add(primitiveTypes: Array<IPrimitiveTypeDTO>) {
-    return (
-      await (
-        await this.ogmService.PrimitiveType
-      ).create({
-        input: primitiveTypes.map(({ __typename, ...type }) => ({
-          ...type,
-          owner: connectOwner(this.authService.currentUser),
-        })),
-        selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
-      })
-    ).primitiveTypes
   }
 
   protected async _update(

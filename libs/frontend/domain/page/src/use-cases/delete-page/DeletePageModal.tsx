@@ -15,7 +15,7 @@ export const DeletePageModal = observer(() => {
       return Promise.reject()
     }
 
-    return pageService.delete(page)
+    return pageService.delete([page])
   }
 
   return (

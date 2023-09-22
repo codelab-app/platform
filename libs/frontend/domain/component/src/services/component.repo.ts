@@ -30,6 +30,36 @@ export class ComponentRepository
   })
 
   @modelFlow
+  delete = _async(function* (
+    this: ComponentRepository,
+    components: Array<IComponentModel>,
+  ) {
+    const {
+      deleteComponents: { nodesDeleted },
+    } = yield* _await(
+      componentApi.DeleteComponents({
+        delete: {
+          api: {},
+          props: {},
+          store: {},
+        },
+        where: { id_IN: components.map((component) => component.id) },
+      }),
+    )
+
+    return nodesDeleted
+  })
+
+  @modelFlow
+  find = _async(function* (
+    this: ComponentRepository,
+    where: ComponentWhere,
+    options?: ComponentOptions,
+  ) {
+    return yield* _await(componentApi.GetComponents({ options, where }))
+  })
+
+  @modelFlow
   update = _async(function* (
     this: ComponentRepository,
     component: IComponentModel,
@@ -52,35 +82,5 @@ export class ComponentRepository
     )
 
     return components[0]!
-  })
-
-  @modelFlow
-  find = _async(function* (
-    this: ComponentRepository,
-    where: ComponentWhere,
-    options?: ComponentOptions,
-  ) {
-    return yield* _await(componentApi.GetComponents({ options, where }))
-  })
-
-  @modelFlow
-  delete = _async(function* (
-    this: ComponentRepository,
-    components: Array<IComponentModel>,
-  ) {
-    const {
-      deleteComponents: { nodesDeleted },
-    } = yield* _await(
-      componentApi.DeleteComponents({
-        delete: {
-          api: {},
-          props: {},
-          store: {},
-        },
-        where: { id_IN: components.map((component) => component.id) },
-      }),
-    )
-
-    return nodesDeleted
   })
 }

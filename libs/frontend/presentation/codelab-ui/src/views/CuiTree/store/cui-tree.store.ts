@@ -44,80 +44,8 @@ const getParentKey = (
 }
 
 export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
-  @observable
-  private expandedKeys_: Array<Key>
-
-  @observable
-  private filterOptions_: FilterOptions | undefined
-
-  @observable
-  private treeData_: Array<WithChildren<T>>
-
-  @observable
-  private useFilterExpandedKeys_ = false
-
-  @observable
-  private autoExpandParent_ = true
-
-  constructor({
-    expandedKeys,
-    filterOptions,
-    treeData,
-  }: ICuiTreeStoreDefaults<T>) {
-    makeObservable(this)
-    this.expandedKeys_ = expandedKeys
-    this.filterOptions_ = filterOptions
-    this.treeData_ = treeData
-  }
-
-  @action
-  setExpandedKeys(newExpandedKeys: Array<Key>) {
-    this.expandedKeys_ = newExpandedKeys
-    this.useFilterExpandedKeys_ = false
-  }
-
-  @action
-  setAutoExpandParent(autoExpandParent: boolean) {
-    this.autoExpandParent_ = autoExpandParent
-  }
-
-  @action
-  updateFilterOptions(
-    searcheable: boolean | { primaryTitle?: boolean; secondaryTitle?: boolean },
-    searchKeyword: string,
-  ) {
-    this.filterOptions_ = {
-      primaryTitleFilter:
-        searcheable === true ||
-        (searcheable !== false && searcheable.primaryTitle)
-          ? searchKeyword
-          : undefined,
-      secondaryTitleFilter:
-        searcheable === true ||
-        (searcheable !== false && searcheable.secondaryTitle)
-          ? searchKeyword
-          : undefined,
-    }
-    this.useFilterExpandedKeys_ = true
-  }
-
-  @action
-  setTreeData(treeData: Array<WithChildren<T>>) {
-    this.treeData_ = treeData
-  }
-
-  @computed
-  get filteredData() {
-    const primaryFilter = this.filterOptions_?.primaryTitleFilter
-    const secondaryFilter = this.filterOptions_?.secondaryTitleFilter
-
-    return traverseTrees(this.treeData_, (item) => ({
-      ...item,
-      highlight: {
-        primaryTitle: primaryFilter,
-        secondaryTitle: secondaryFilter,
-      },
-    }))
+  get autoExpandParent() {
+    return this.autoExpandParent_
   }
 
   @computed
@@ -161,15 +89,87 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
     )
   }
 
-  get autoExpandParent() {
-    return this.autoExpandParent_
-  }
-
   get filterOptions() {
     return this.filterOptions_
+  }
+
+  @computed
+  get filteredData() {
+    const primaryFilter = this.filterOptions_?.primaryTitleFilter
+    const secondaryFilter = this.filterOptions_?.secondaryTitleFilter
+
+    return traverseTrees(this.treeData_, (item) => ({
+      ...item,
+      highlight: {
+        primaryTitle: primaryFilter,
+        secondaryTitle: secondaryFilter,
+      },
+    }))
   }
 
   get treeData() {
     return this.treeData_
   }
+
+  constructor({
+    expandedKeys,
+    filterOptions,
+    treeData,
+  }: ICuiTreeStoreDefaults<T>) {
+    makeObservable(this)
+    this.expandedKeys_ = expandedKeys
+    this.filterOptions_ = filterOptions
+    this.treeData_ = treeData
+  }
+
+  @action
+  setAutoExpandParent(autoExpandParent: boolean) {
+    this.autoExpandParent_ = autoExpandParent
+  }
+
+  @action
+  setExpandedKeys(newExpandedKeys: Array<Key>) {
+    this.expandedKeys_ = newExpandedKeys
+    this.useFilterExpandedKeys_ = false
+  }
+
+  @action
+  setTreeData(treeData: Array<WithChildren<T>>) {
+    this.treeData_ = treeData
+  }
+
+  @action
+  updateFilterOptions(
+    searcheable: boolean | { primaryTitle?: boolean; secondaryTitle?: boolean },
+    searchKeyword: string,
+  ) {
+    this.filterOptions_ = {
+      primaryTitleFilter:
+        searcheable === true ||
+        (searcheable !== false && searcheable.primaryTitle)
+          ? searchKeyword
+          : undefined,
+      secondaryTitleFilter:
+        searcheable === true ||
+        (searcheable !== false && searcheable.secondaryTitle)
+          ? searchKeyword
+          : undefined,
+    }
+    this.useFilterExpandedKeys_ = true
+  }
+
+  @observable
+  private autoExpandParent_ = true
+
+  @observable
+  private expandedKeys_: Array<Key>
+
+  @observable
+  private filterOptions_: FilterOptions | undefined
+
+  @observable
+  private treeData_: Array<WithChildren<T>>
+
+  @observable
+  private useFilterExpandedKeys_ = false
 }

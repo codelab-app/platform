@@ -1,9 +1,9 @@
 import type {
-  IAction,
+  IActionModel,
   IEntityFormService,
-  IStore,
+  IStoreModel,
 } from '@codelab/frontend/abstract/core'
-import { InlineFormService } from '@codelab/frontend/shared/utils'
+import { InlineFormService } from '@codelab/frontend/domain/shared'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -12,10 +12,11 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/CreateActionFormService')
 export class CreateActionFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<Ref<IStore>>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IStoreModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<Ref<IStore>, { store: Maybe<IStore> }>
+  implements
+    IEntityFormService<Ref<IStoreModel>, { store: Maybe<IStoreModel> }>
 {
   @computed
   get store() {
@@ -26,10 +27,11 @@ export class CreateActionFormService
 @model('@codelab/ActionFormService')
 export class ActionFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<Ref<IAction>>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IActionModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<Ref<IAction>, { action: Maybe<IAction> }>
+  implements
+    IEntityFormService<Ref<IActionModel>, { action: Maybe<IActionModel> }>
 {
   @computed
   get action() {

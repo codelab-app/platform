@@ -26,7 +26,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       useStore()
 
     const currentElement = element.current
-    const apiId = currentElement.renderType?.current.api?.id
+    const apiId = currentElement.renderType.current.api.id
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(
       async () => {
@@ -49,7 +49,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
       return propService.updateWithDefaultValuesApplied({
         data,
-        defaultValues: getDefaultFieldProps(currentElement.renderType?.current),
+        defaultValues: getDefaultFieldProps(currentElement.renderType.current),
         id: props.id,
       })
     }

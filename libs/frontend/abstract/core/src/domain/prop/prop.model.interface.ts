@@ -10,23 +10,21 @@ import type { IElementModel } from '../element'
 import type { IModel } from '../model.interface'
 import type { IInterfaceType } from '../type'
 
-export interface IProp
-  extends Omit<IModel<PropCreateInput, PropUpdateInput, void>, 'toDeleteInput'>,
-    ICacheService<IPropDTO, IProp> {
+export interface IPropModel
+  extends IModel<PropCreateInput, PropUpdateInput, void>,
+    ICacheService<IPropDTO, IPropModel> {
   api?: Nullable<Ref<IInterfaceType>>
   data: Frozen<Nullable<IPropData>>
   id: string
   jsonString: string
   values: IPropData
 
-  clone(): IProp
+  clone(): IPropModel
   delete(key: string): void
   get(key: string): unknown
   set(key: string, value: boolean | object | string): void
   setMany(data: IPropData): void
   setSilently(key: string, value: object): void
-  toCreateInput(): PropCreateInput
-  toUpdateInput(): PropUpdateInput
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

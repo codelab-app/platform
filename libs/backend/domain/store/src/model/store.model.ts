@@ -5,20 +5,6 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
 export class Store implements IStoreDTO {
-  actions?: Array<IEntity> | undefined
-
-  api: IEntity
-
-  id: string
-
-  name: string
-
-  constructor({ api, id, name }: IStoreDTO) {
-    this.api = api
-    this.id = id
-    this.name = name
-  }
-
   static create(name: string) {
     const api = new InterfaceType({
       fields: [] as Array<IEntity>,
@@ -32,5 +18,19 @@ export class Store implements IStoreDTO {
       id: v4(),
       name,
     })
+  }
+
+  actions?: Array<IEntity> | undefined
+
+  api: IEntity
+
+  id: string
+
+  name: string
+
+  constructor({ api, id, name }: IStoreDTO) {
+    this.api = api
+    this.id = id
+    this.name = name
   }
 }

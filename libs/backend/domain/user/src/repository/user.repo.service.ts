@@ -28,22 +28,6 @@ export class UserRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    options?: UserOptions
-    where?: UserWhere
-  }) {
-    return await (
-      await this.ogmService.User
-    ).find({
-      options,
-      selectionSet: userSelectionSet,
-      where,
-    })
-  }
-
   protected async _add(users: Array<IUserDTO>) {
     return (
       await (
@@ -58,6 +42,22 @@ export class UserRepository extends AbstractRepository<
         })),
       })
     ).users
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    options?: UserOptions
+    where?: UserWhere
+  }) {
+    return await (
+      await this.ogmService.User
+    ).find({
+      options,
+      selectionSet: userSelectionSet,
+      where,
+    })
   }
 
   protected async _update(

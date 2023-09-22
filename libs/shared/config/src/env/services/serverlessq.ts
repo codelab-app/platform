@@ -6,6 +6,10 @@ export interface IServerlessqEnvVars {
 }
 
 export class ServerlessqEnvVars implements IServerlessqEnvVars {
+  get apiKey() {
+    return env.get('SERVERLESSQ_API_TOKEN').required().asString()
+  }
+
   get baseUrl() {
     const queryString = new URLSearchParams({
       // Queue ID
@@ -15,9 +19,5 @@ export class ServerlessqEnvVars implements IServerlessqEnvVars {
     })
 
     return `https://api.serverlessq.com?${queryString.toString()}`
-  }
-
-  get apiKey() {
-    return env.get('SERVERLESSQ_API_TOKEN').required().asString()
   }
 }

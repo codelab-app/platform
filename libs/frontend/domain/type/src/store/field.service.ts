@@ -47,30 +47,30 @@ export class FieldService
   })
   implements IFieldService
 {
-  @computed
-  get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  getField(id: string) {
-    return this.fields.get(id)
-  }
-
-  @modelAction
-  field(id: string) {
-    const element = this.getField(id)
-
-    if (!element) {
-      throw new Error('Missing element')
+  @modelFlow
+  @transaction
+  cloneField = _async(function* (
+    this: FieldService,
+    field: IField,
+    apiId: string,
+  ) {
+    const fieldDto = {
+      ...FieldService.mapFieldToDTO(field),
+      api: { id: apiId },
+      id: v4(),
     }
 
-    return element
-  }
+    const newField = this.add(fieldDto)
+    const interfaceType = this.typeService.type(apiId) as IInterfaceType
+
+    interfaceType.writeCache({
+      fields: [{ id: newField.id }],
+    })
+
+    yield* _await(this.fieldRepository.add(newField))
+
+    return newField
+  })
 
   // The field actions are here because if I put them in InterfaceType
   // some kind of circular dependency happens that breaks the actions in weird and unpredictable ways
@@ -99,21 +99,6 @@ export class FieldService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: FieldService,
-    updateFieldData: ICreateFieldData,
-  ) {
-    const field = this.getField(updateFieldData.id)!
-
-    field.writeCache(FieldService.mapDataToDTO(updateFieldData))
-
-    yield* _await(this.fieldRepository.update(field))
-
-    return field
-  })
-
-  @modelFlow
-  @transaction
   delete = _async(function* (this: FieldService, fields: Array<IField>) {
     // const input = { where: { id: fieldId }, interfaceId }
     fields.forEach((field) => this.fields.delete(field.id))
@@ -136,16 +121,82 @@ export class FieldService
     // interfaceType.deleteFieldLocal(field)
   })
 
-  @modelAction
-  load(fields: Array<FieldFragment>) {
-    const loadedFields = fields.map((fragment) => Field.create(fragment))
+  @modelFlow
+  @transaction
+  moveFieldAsNextSibling = _async(function* (
+    this: FieldService,
+    {
+      field,
+      targetField,
+    }: Parameters<IFieldService['moveFieldAsNextSibling']>[0],
+  ) {
+    const target = this.getField(targetField.id)
 
-    for (const field of loadedFields) {
-      this.fields.set(field.id, field)
+    if (target?.nextSibling?.getRefId() === field.id) {
+      return
     }
 
-    return loadedFields
-  }
+    const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
+
+    const newConnectedNodeIds = this.attachFieldAsNextSibling({
+      field,
+      targetField,
+    })
+
+    yield* _await(
+      Promise.all(
+        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
+          this.fieldRepository.updateNodes(this.field(id)),
+        ),
+      ),
+    )
+  })
+
+  @modelFlow
+  @transaction
+  moveFieldAsPrevSibling = _async(function* (
+    this: FieldService,
+    {
+      field,
+      targetField,
+    }: Parameters<IFieldService['moveFieldAsPrevSibling']>[0],
+  ) {
+    const target = this.getField(targetField.id)
+
+    if (target?.nextSibling?.getRefId() === field.id) {
+      return
+    }
+
+    const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
+
+    const newConnectedNodeIds = this.attachFieldAsPrevSibling({
+      field,
+      targetField,
+    })
+
+    yield* _await(
+      Promise.all(
+        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
+          this.fieldRepository.updateNodes(this.field(id)),
+        ),
+      ),
+    )
+  })
+
+  @modelFlow
+  @transaction
+  update = _async(function* (
+    this: FieldService,
+    updateFieldData: ICreateFieldData,
+  ) {
+    const field = this.getField(updateFieldData.id)!
+
+    field.writeCache(FieldService.mapDataToDTO(updateFieldData))
+
+    yield* _await(this.fieldRepository.update(field))
+
+    return field
+  })
 
   @modelAction
   add(fieldDTO: IFieldDTO) {
@@ -160,6 +211,63 @@ export class FieldService
     this.fields.set(field.id, field)
 
     return field
+  }
+
+  @modelAction
+  field(id: string) {
+    const element = this.getField(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
+  }
+
+  @modelAction
+  load(fields: Array<FieldFragment>) {
+    const loadedFields = fields.map((fragment) => Field.create(fragment))
+
+    for (const field of loadedFields) {
+      this.fields.set(field.id, field)
+    }
+
+    return loadedFields
+  }
+
+  getField(id: string) {
+    return this.fields.get(id)
+  }
+
+  private static mapDataToDTO(fieldData: ICreateFieldData) {
+    return {
+      ...fieldData,
+      api: { id: fieldData.interfaceTypeId },
+      defaultValues: fieldData.defaultValues
+        ? JSON.stringify(fieldData.defaultValues)
+        : null,
+      fieldType: { id: fieldData.fieldType },
+      validationRules: fieldData.validationRules
+        ? JSON.stringify(fieldData.validationRules)
+        : null,
+    }
+  }
+
+  private static mapFieldToDTO(field: IField): IFieldDTO {
+    return {
+      api: { id: field.api.id },
+      defaultValues: field.defaultValues
+        ? JSON.stringify(field.defaultValues)
+        : null,
+      description: field.description,
+      fieldType: { id: field.type.id },
+      id: field.id,
+      key: field.key,
+      name: field.name,
+      validationRules: field.validationRules
+        ? JSON.stringify(field.validationRules)
+        : null,
+    }
   }
 
   @modelAction
@@ -226,121 +334,13 @@ export class FieldService
     return compact(affectedNodeIds)
   }
 
-  @modelFlow
-  @transaction
-  moveFieldAsNextSibling = _async(function* (
-    this: FieldService,
-    {
-      field,
-      targetField,
-    }: Parameters<IFieldService['moveFieldAsNextSibling']>[0],
-  ) {
-    const target = this.getField(targetField.id)
-
-    if (target?.nextSibling?.getRefId() === field.id) {
-      return
-    }
-
-    const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
-
-    const newConnectedNodeIds = this.attachFieldAsNextSibling({
-      field,
-      targetField,
-    })
-
-    yield* _await(
-      Promise.all(
-        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
-          this.fieldRepository.updateNodes(this.field(id)),
-        ),
-      ),
-    )
-  })
-
-  @modelFlow
-  @transaction
-  moveFieldAsPrevSibling = _async(function* (
-    this: FieldService,
-    {
-      field,
-      targetField,
-    }: Parameters<IFieldService['moveFieldAsPrevSibling']>[0],
-  ) {
-    const target = this.getField(targetField.id)
-
-    if (target?.nextSibling?.getRefId() === field.id) {
-      return
-    }
-
-    const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
-
-    const newConnectedNodeIds = this.attachFieldAsPrevSibling({
-      field,
-      targetField,
-    })
-
-    yield* _await(
-      Promise.all(
-        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
-          this.fieldRepository.updateNodes(this.field(id)),
-        ),
-      ),
-    )
-  })
-
-  @modelFlow
-  @transaction
-  cloneField = _async(function* (
-    this: FieldService,
-    field: IField,
-    apiId: string,
-  ) {
-    const fieldDto = {
-      ...FieldService.mapFieldToDTO(field),
-      api: { id: apiId },
-      id: v4(),
-    }
-
-    const newField = this.add(fieldDto)
-    const interfaceType = this.typeService.type(apiId) as IInterfaceType
-
-    interfaceType.writeCache({
-      fields: [{ id: newField.id }],
-    })
-
-    yield* _await(this.fieldRepository.add(newField))
-
-    return newField
-  })
-
-  private static mapFieldToDTO(field: IField): IFieldDTO {
-    return {
-      api: { id: field.api.id },
-      defaultValues: field.defaultValues
-        ? JSON.stringify(field.defaultValues)
-        : null,
-      description: field.description,
-      fieldType: { id: field.type.id },
-      id: field.id,
-      key: field.key,
-      name: field.name,
-      validationRules: field.validationRules
-        ? JSON.stringify(field.validationRules)
-        : null,
-    }
+  @computed
+  private get elementService() {
+    return getElementService(this)
   }
 
-  private static mapDataToDTO(fieldData: ICreateFieldData) {
-    return {
-      ...fieldData,
-      api: { id: fieldData.interfaceTypeId },
-      defaultValues: fieldData.defaultValues
-        ? JSON.stringify(fieldData.defaultValues)
-        : null,
-      fieldType: { id: fieldData.fieldType },
-      validationRules: fieldData.validationRules
-        ? JSON.stringify(fieldData.validationRules)
-        : null,
-    }
+  @computed
+  private get typeService() {
+    return getTypeService(this)
   }
 }

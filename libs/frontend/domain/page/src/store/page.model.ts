@@ -1,7 +1,7 @@
 import type {
   IElementModel,
   IPageModel,
-  IStore,
+  IStoreModel,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -57,11 +57,24 @@ export class Page
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
-    store: prop<Ref<IStore>>(),
+    store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),
   })
   implements IPageModel
 {
+  static create = create
+
+  static toDeleteInput(): PageDeleteInput {
+    return {
+      // pageContentContainer: { delete: {}, where: {} },
+      rootElement: {},
+      store: {
+        delete: Store.toDeleteInput(),
+        where: {},
+      },
+    }
+  }
+
   @computed
   get slug() {
     return slugify(this.name)
@@ -77,6 +90,31 @@ export class Page
         url: `apps/${this.app.id}/pages/${this.id}`,
       },
     }
+  }
+
+  @modelAction
+  writeCache({
+    app,
+    kind,
+    name,
+    pageContentContainer,
+    rootElement,
+    store,
+    url,
+  }: Partial<IPageDTO>) {
+    this.name = name ?? this.name
+    this.rootElement = rootElement
+      ? elementRef(rootElement.id)
+      : this.rootElement
+    this.app = app ? app : this.app
+    this.pageContentContainer = pageContentContainer
+      ? elementRef(pageContentContainer.id)
+      : this.pageContentContainer
+    this.kind = kind ? kind : this.kind
+    this.store = store ? storeRef(store.id) : this.store
+    this.url = url ?? ''
+
+    return this
   }
 
   toCreateInput(): PageCreateInput {
@@ -112,42 +150,4 @@ export class Page
       url: this.url,
     }
   }
-
-  static toDeleteInput(): PageDeleteInput {
-    return {
-      // pageContentContainer: { delete: {}, where: {} },
-      rootElement: {},
-      store: {
-        delete: Store.toDeleteInput(),
-        where: {},
-      },
-    }
-  }
-
-  @modelAction
-  writeCache({
-    app,
-    kind,
-    name,
-    pageContentContainer,
-    rootElement,
-    store,
-    url,
-  }: Partial<IPageDTO>) {
-    this.name = name ?? this.name
-    this.rootElement = rootElement
-      ? elementRef(rootElement.id)
-      : this.rootElement
-    this.app = app ? app : this.app
-    this.pageContentContainer = pageContentContainer
-      ? elementRef(pageContentContainer.id)
-      : this.pageContentContainer
-    this.kind = kind ? kind : this.kind
-    this.store = store ? storeRef(store.id) : this.store
-    this.url = url ?? ''
-
-    return this
-  }
-
-  static create = create
 }

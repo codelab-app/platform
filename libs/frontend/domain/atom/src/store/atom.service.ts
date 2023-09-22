@@ -7,17 +7,16 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/core'
 import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
-import { getTagService } from '@codelab/frontend/domain/tag'
-import { getTypeService } from '@codelab/frontend/domain/type'
 import {
-  dynamicLoader,
   InlineFormService,
   ModalService,
   PaginationService,
-} from '@codelab/frontend/shared/utils'
+} from '@codelab/frontend/domain/shared'
+import { getTagService } from '@codelab/frontend/domain/tag'
+import { getTypeService } from '@codelab/frontend/domain/type'
+import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import { IAtomDTO, IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import isEmpty from 'lodash/isEmpty'
@@ -64,19 +63,165 @@ export class AtomService
   })
   implements IAtomService
 {
-  onAttachedToRootStore() {
-    this.paginationService.getDataFn = async (page, pageSize, filter) => {
-      const items = await this.getAll(
-        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
-        {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        },
-      )
-
-      return { items, totalItems: this.paginationService.totalItems }
-    }
+  @computed
+  get atomsList() {
+    return Array.from(this.atoms.values())
   }
+
+  /**
+   * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
+   */
+  @modelFlow
+  @transaction
+  create = _async(function* (
+    this: AtomService,
+    {
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      id,
+      name,
+      tags = [],
+      type,
+    }: ICreateAtomData,
+  ) {
+    const api = this.typeService.addInterface({
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: `${name} API`,
+    })
+
+    const atom = this.add({
+      api,
+      externalCssSource,
+      externalJsSource,
+      externalSourceType,
+      id,
+      name,
+      tags,
+      type,
+    })
+
+    yield* _await(this.atomRepository.add(atom))
+
+    this.paginationService.dataRefs.set(atom.id, atomRef(atom))
+
+    return atom
+  })
+
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: IAtomService, ids: Array<string>) {
+    const atomsToDelete: Array<IAtomModel> = []
+
+    ids.forEach((id) => {
+      const atom = this.atoms.get(id)
+
+      if (atom) {
+        atomsToDelete.push(atom)
+        this.atoms.delete(id)
+      }
+    })
+
+    const result = yield* _await(this.atomRepository.delete(atomsToDelete))
+
+    return result
+  })
+
+  @observable
+  dynamicComponents: Record<string, IComponentType> = {}
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (
+    this: AtomService,
+    where?: AtomWhere,
+    options?: AtomOptions,
+  ) {
+    const {
+      aggregate: { count },
+      items: atoms,
+    } = yield* _await(this.atomRepository.find(where, options))
+
+    this.paginationService.totalItems = count
+
+    if (!isEmpty(where) || options?.limit) {
+      this.typeService.loadTypes({
+        interfaceTypes: atoms.map((atom) => atom.api),
+      })
+    }
+
+    return atoms.map((atom) => this.add(atom))
+  })
+
+  /**
+   * `Element.renderType` is required now, so anytime we create an Element, we need to pass the default value, which is an `Atom.type === ReactFragment`
+   */
+  @modelFlow
+  getDefaultElementRenderType = _async(function* (this: IAtomService) {
+    if (this.defaultRenderType) {
+      return this.defaultRenderType.current
+    }
+
+    /**
+     * Only fetch if not exists
+     */
+    const atomReactFragment = (yield* _await(
+      this.atomRepository.find({
+        type: IAtomType.ReactFragment,
+      }),
+    )).items[0]
+
+    if (!atomReactFragment) {
+      throw new Error('Atom of type `ReactFragment` must be seeded first')
+    }
+
+    const atom = this.add(atomReactFragment)
+
+    this.setDefaultRenderType(atomRef(atom))
+
+    return atom
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: AtomService, id: string) {
+    if (this.atoms.has(id)) {
+      return this.atoms.get(id)
+    }
+
+    const all = yield* _await(this.getAll({ id }))
+
+    return all[0]
+  })
+
+  @modelFlow
+  getOptions = _async(function* (this: AtomService) {
+    const options = yield* _await(this.atomRepository.findOptions())
+
+    return options
+  })
+
+  @modelFlow
+  getSelectAtomOptions = _async(function* (
+    this: AtomService,
+    fieldProps: { value?: string },
+    parent?: IAtomModel,
+  ) {
+    const result = yield* _await(this.atomRepository.findOptions())
+
+    const currentAtom = fieldProps.value
+      ? this.atoms.get(fieldProps.value)
+      : undefined
+
+    const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
+
+    for (const atom of atoms) {
+      this.add(atom)
+    }
+
+    return parent ? filterAtoms(atoms, parent) : atoms.map(mapAtomOptions)
+  })
 
   @modelFlow
   @transaction
@@ -112,26 +257,8 @@ export class AtomService
     return atom!
   })
 
-  @computed
-  get tagService() {
-    return getTagService(this)
-  }
-
-  @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  @computed
-  get atomsList() {
-    return Array.from(this.atoms.values())
-  }
-
-  @observable
-  dynamicComponents: Record<string, IComponentType> = {}
-
   @modelAction
-  add = (atomDto: IAtomDTO) => {
+  add(atomDto: IAtomDTO) {
     console.debug('AtomService.add()', atomDto)
 
     let atom = this.atoms.get(atomDto.id)
@@ -202,155 +329,27 @@ export class AtomService
     return atom
   }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (
-    this: AtomService,
-    where?: AtomWhere,
-    options?: AtomOptions,
-  ) {
-    const {
-      aggregate: { count },
-      items: atoms,
-    } = yield* _await(this.atomRepository.find(where, options))
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const items = await this.getAll(
+        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
+      )
 
-    this.paginationService.totalItems = count
-
-    if (!isEmpty(where) || options?.limit) {
-      this.typeService.loadTypes({
-        interfaceTypes: atoms.map((atom) => atom.api),
-      })
+      return { items, totalItems: this.paginationService.totalItems }
     }
+  }
 
-    return atoms.map((atom) => this.add(atom))
-  })
+  @computed
+  private get tagService() {
+    return getTagService(this)
+  }
 
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: AtomService, id: string) {
-    if (this.atoms.has(id)) {
-      return this.atoms.get(id)
-    }
-
-    const all = yield* _await(this.getAll({ id }))
-
-    return all[0]
-  })
-
-  @modelFlow
-  getOptions = _async(function* (this: AtomService) {
-    const options = yield* _await(this.atomRepository.findOptions())
-
-    return options
-  })
-
-  /**
-   * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
-   */
-  @modelFlow
-  @transaction
-  create = _async(function* (
-    this: AtomService,
-    {
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      id,
-      name,
-      tags = [],
-      type,
-    }: ICreateAtomData,
-  ) {
-    const api = this.typeService.addInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: `${name} API`,
-    })
-
-    const atom = this.add({
-      api,
-      externalCssSource,
-      externalJsSource,
-      externalSourceType,
-      id,
-      name,
-      tags,
-      type,
-    })
-
-    yield* _await(this.atomRepository.add(atom))
-
-    this.paginationService.dataRefs.set(atom.id, atomRef(atom))
-
-    return atom
-  })
-
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: IAtomService, ids: Array<string>) {
-    const atomsToDelete: Array<IAtomModel> = []
-
-    ids.forEach((id) => {
-      const atom = this.atoms.get(id)
-
-      if (atom) {
-        atomsToDelete.push(atom)
-        this.atoms.delete(id)
-      }
-    })
-
-    const result = yield* _await(this.atomRepository.delete(atomsToDelete))
-
-    return result
-  })
-
-  /**
-   * `Element.renderType` is required now, so anytime we create an Element, we need to pass the default value, which is an `Atom.type === ReactFragment`
-   */
-  @modelFlow
-  getDefaultElementRenderType = _async(function* (this: IAtomService) {
-    if (this.defaultRenderType) {
-      return this.defaultRenderType.current
-    }
-
-    /**
-     * Only fetch if not exists
-     */
-    const atomReactFragment = (yield* _await(
-      this.atomRepository.find({
-        type: IAtomType.ReactFragment,
-      }),
-    )).items[0]
-
-    if (!atomReactFragment) {
-      throw new Error('Atom of type `ReactFragment` must be seeded first')
-    }
-
-    const atom = this.add(atomReactFragment)
-
-    this.setDefaultRenderType(atomRef(atom))
-
-    return atom
-  })
-
-  @modelFlow
-  getSelectAtomOptions = _async(function* (
-    this: AtomService,
-    fieldProps: { value?: string },
-    parent?: IAtomModel,
-  ) {
-    const result = yield* _await(this.atomRepository.findOptions())
-
-    const currentAtom = fieldProps.value
-      ? this.atoms.get(fieldProps.value)
-      : undefined
-
-    const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
-
-    for (const atom of atoms) {
-      this.add(atom)
-    }
-
-    return parent ? filterAtoms(atoms, parent) : atoms.map(mapAtomOptions)
-  })
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
 }

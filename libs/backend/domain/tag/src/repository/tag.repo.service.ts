@@ -35,22 +35,6 @@ export class TagRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: TagWhere
-    options?: TagOptions
-  }) {
-    return await (
-      await this.ogmService.Tag
-    ).find({
-      options,
-      selectionSet: tagSelectionSet,
-      where,
-    })
-  }
-
   /**
    * If parent or children exists, then we should connect them
    */
@@ -67,6 +51,22 @@ export class TagRepository extends AbstractRepository<
         })),
       })
     ).tags
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: TagWhere
+    options?: TagOptions
+  }) {
+    return await (
+      await this.ogmService.Tag
+    ).find({
+      options,
+      selectionSet: tagSelectionSet,
+      where,
+    })
   }
 
   protected async _update(

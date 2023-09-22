@@ -65,13 +65,13 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
   }
 
   const elementAtomRequiredParents = atomService.atoms
-    .get(element.renderType?.id || '')
+    .get(element.renderType.id || '')
     ?.requiredParents.map((parent) => parent.id)
 
   const elementOptions = elementAtomRequiredParents?.length
     ? elementTree?.elements
         .filter((el) =>
-          elementAtomRequiredParents.includes(el.renderType?.id || ''),
+          elementAtomRequiredParents.includes(el.renderType.id || ''),
         )
         .map(mapElementOption)
     : elementTree?.elements.map(mapElementOption)

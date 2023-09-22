@@ -22,23 +22,6 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return apps[0]!
   }
 
-  // @clearCacheForKey('apps')
-  async update(app: IAppModel) {
-    const {
-      updateApps: { apps },
-    } = await appApi.UpdateApps({
-      update: app.toUpdateInput(),
-      where: { id: app.id },
-    })
-
-    return apps[0]!
-  }
-
-  // @cachedWithTTL('apps')
-  async find(where?: AppWhere, options?: AppOptions) {
-    return await appApi.GetApps({ options, where })
-  }
-
   /**
    * We only want to load the _app page to constructor the URL from the app list item to navigate to
    */
@@ -61,7 +44,24 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return nodesDeleted
   }
 
+  // @cachedWithTTL('apps')
+  async find(where?: AppWhere, options?: AppOptions) {
+    return await appApi.GetApps({ options, where })
+  }
+
   async findOne(where: AppUniqueWhere): Promise<AppFragment | undefined> {
     return (await this.find(where)).items[0]
+  }
+
+  // @clearCacheForKey('apps')
+  async update(app: IAppModel) {
+    const {
+      updateApps: { apps },
+    } = await appApi.UpdateApps({
+      update: app.toUpdateInput(),
+      where: { id: app.id },
+    })
+
+    return apps[0]!
   }
 }

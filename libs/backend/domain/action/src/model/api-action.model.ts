@@ -8,17 +8,17 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 export class ApiAction implements IApiActionDTO {
   __typename: `${IActionKind.ApiAction}` = `${IActionKind.ApiAction}`
 
+  config: IEntity
+
+  errorAction?: IActionEntity | null
+
   id: string
 
   name: string
 
-  store: IEntity
-
-  config: IEntity
-
   resource: IEntity
 
-  errorAction?: IActionEntity | null
+  store: IEntity
 
   successAction?: IActionEntity | null
 

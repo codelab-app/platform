@@ -4,10 +4,10 @@ import type {
   PropWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IProp } from './prop.model.interface'
+import type { IPropModel } from './prop.model.interface'
 
 export type IPropRepository = IRepository<
-  IProp,
+  IPropModel,
   PropFragment,
   PropWhere,
   PropOptions

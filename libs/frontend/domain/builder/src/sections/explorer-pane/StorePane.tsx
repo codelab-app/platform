@@ -1,4 +1,4 @@
-import type { IStore } from '@codelab/frontend/abstract/core'
+import type { IStoreModel } from '@codelab/frontend/abstract/core'
 import {
   ActionsTreeView,
   CreateActionButton,
@@ -29,58 +29,57 @@ const StoreHeader = ({
   </div>
 )
 
-export const StorePane = observer<{ store: Maybe<IStore>; isLoading: boolean }>(
-  ({ isLoading, store }) => (
-    <SkeletonWrapper isLoading={isLoading}>
-      {store ? (
-        <>
-          <Collapse className="mb-2 w-full" defaultActiveKey={['1']} ghost>
-            <Collapse.Panel
-              header={
-                <StoreHeader
-                  extra={
-                    <CreateFieldButton
-                      interfaceId={store.api.id}
-                      useModal={false}
-                    />
-                  }
-                >
-                  State
-                </StoreHeader>
-              }
-              key="store-state"
-            >
-              <StateTreeView store={store} />
-            </Collapse.Panel>
-            <Collapse.Panel
-              header={
-                <StoreHeader extra={<CreateActionButton />}>
-                  Actions
-                </StoreHeader>
-              }
-              key="store-actions"
-            >
-              <ActionsTreeView store={store} />
-            </Collapse.Panel>
-            <Collapse.Panel
-              header={<StoreHeader>Inspector</StoreHeader>}
-              key="store-inspector"
-            >
-              <CodeMirrorEditor
-                className="mt-1"
-                language={CodeMirrorLanguage.Json}
-                onChange={() => undefined}
-                singleLine={false}
-                title="Current props"
-                value={store.jsonString}
-              />
-            </Collapse.Panel>
-          </Collapse>
-          <CreateActionModal store={store} />
-          <UpdateActionModal />
-          <DeleteActionModal />
-        </>
-      ) : null}
-    </SkeletonWrapper>
-  ),
-)
+export const StorePane = observer<{
+  store: Maybe<IStoreModel>
+  isLoading: boolean
+}>(({ isLoading, store }) => (
+  <SkeletonWrapper isLoading={isLoading}>
+    {store ? (
+      <>
+        <Collapse className="mb-2 w-full" defaultActiveKey={['1']} ghost>
+          <Collapse.Panel
+            header={
+              <StoreHeader
+                extra={
+                  <CreateFieldButton
+                    interfaceId={store.api.id}
+                    useModal={false}
+                  />
+                }
+              >
+                State
+              </StoreHeader>
+            }
+            key="store-state"
+          >
+            <StateTreeView store={store} />
+          </Collapse.Panel>
+          <Collapse.Panel
+            header={
+              <StoreHeader extra={<CreateActionButton />}>Actions</StoreHeader>
+            }
+            key="store-actions"
+          >
+            <ActionsTreeView store={store} />
+          </Collapse.Panel>
+          <Collapse.Panel
+            header={<StoreHeader>Inspector</StoreHeader>}
+            key="store-inspector"
+          >
+            <CodeMirrorEditor
+              className="mt-1"
+              language={CodeMirrorLanguage.Json}
+              onChange={() => undefined}
+              singleLine={false}
+              title="Current props"
+              value={store.jsonString}
+            />
+          </Collapse.Panel>
+        </Collapse>
+        <CreateActionModal store={store} />
+        <UpdateActionModal />
+        <DeleteActionModal />
+      </>
+    ) : null}
+  </SkeletonWrapper>
+))

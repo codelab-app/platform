@@ -74,6 +74,38 @@ export class TypeFactory {
     }
   }
 
+  static mapDataToDTO(data: ICreateTypeData | IUpdateTypeData): ITypeDTO {
+    switch (data.kind) {
+      case ITypeKind.InterfaceType:
+        return {
+          ...data,
+          __typename: data.kind,
+          fields: [],
+        } as IInterfaceTypeDTO
+
+      case ITypeKind.ArrayType:
+        return {
+          ...data,
+          __typename: data.kind,
+          itemType: {
+            id: data.arrayTypeId as string,
+          },
+        } as IArrayTypeDTO
+
+      case ITypeKind.UnionType:
+        return {
+          ...data,
+          __typename: data.kind,
+          typesOfUnionType: data.unionTypeIds?.map((id) => ({
+            id,
+          })),
+        } as IUnionTypeDTO
+
+      default:
+        return { ...data, __typename: data.kind } as ITypeDTO
+    }
+  }
+
   static writeCache(typeDTO: ITypeDTO, model: IType): IType {
     switch (typeDTO.__typename) {
       case ITypeKind.AppType:
@@ -143,38 +175,6 @@ export class TypeFactory {
 
       default:
         throw new Error(`Unknown type kind: ${typeDTO.kind}`)
-    }
-  }
-
-  static mapDataToDTO(data: ICreateTypeData | IUpdateTypeData): ITypeDTO {
-    switch (data.kind) {
-      case ITypeKind.InterfaceType:
-        return {
-          ...data,
-          __typename: data.kind,
-          fields: [],
-        } as IInterfaceTypeDTO
-
-      case ITypeKind.ArrayType:
-        return {
-          ...data,
-          __typename: data.kind,
-          itemType: {
-            id: data.arrayTypeId as string,
-          },
-        } as IArrayTypeDTO
-
-      case ITypeKind.UnionType:
-        return {
-          ...data,
-          __typename: data.kind,
-          typesOfUnionType: data.unionTypeIds?.map((id) => ({
-            id,
-          })),
-        } as IUnionTypeDTO
-
-      default:
-        return { ...data, __typename: data.kind } as ITypeDTO
     }
   }
 }

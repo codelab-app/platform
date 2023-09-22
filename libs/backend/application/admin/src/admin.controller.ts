@@ -18,6 +18,18 @@ export class AdminController {
     private authService: AuthService,
   ) {}
 
+  /**
+   * We want to keep the default atom
+   */
+  @Post('reset-database-except-user-and-atom')
+  async cypressReset() {
+    await this.adminRepository.resetDatabaseExceptUserAndAtom()
+
+    return {
+      message: 'Admin data reset success',
+    }
+  }
+
   @Post('export')
   async export(@Body() exportDto: ExportDto) {
     const { adminDataPath } = exportDto
@@ -30,6 +42,17 @@ export class AdminController {
     //   )
 
     //   await saveFormattedFile(`${user.auth0Id}-${Date.now()}.json`, userData)
+    // }
+  }
+
+  @Post('import')
+  async import(@Body() { adminDataPath }: ImportDto) {
+    await this.commandBus.execute(new ImportAdminDataCommand(adminDataPath))
+    // if (includeUserData) {
+    //   const json = fs.readFileSync(file.path, 'utf8')
+    //   const userData = JSON.parse(json)
+    //   console.log('import user data')
+    //   // await importUserData(userData, { auth0Id: selectedAuth0Id });
     // }
   }
 
@@ -49,28 +72,5 @@ export class AdminController {
     return {
       message: 'Admin data reset success',
     }
-  }
-
-  /**
-   * We want to keep the default atom
-   */
-  @Post('reset-database-except-user-and-atom')
-  async cypressReset() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
-
-    return {
-      message: 'Admin data reset success',
-    }
-  }
-
-  @Post('import')
-  async import(@Body() { adminDataPath }: ImportDto) {
-    await this.commandBus.execute(new ImportAdminDataCommand(adminDataPath))
-    // if (includeUserData) {
-    //   const json = fs.readFileSync(file.path, 'utf8')
-    //   const userData = JSON.parse(json)
-    //   console.log('import user data')
-    //   // await importUserData(userData, { auth0Id: selectedAuth0Id });
-    // }
   }
 }

@@ -6,9 +6,12 @@ export interface IVercelKVEnvVars {
 }
 
 export class VercelKVEnvVars implements IVercelKVEnvVars {
-  private _restApiUrl?: string
-
-  private _restApiToken?: string
+  get restApiToken(): string {
+    return (this._restApiToken ??= env
+      .get('KV_REST_API_TOKEN')
+      .required()
+      .asString())
+  }
 
   get restApiUrl(): string {
     return (this._restApiUrl ??= env
@@ -17,10 +20,7 @@ export class VercelKVEnvVars implements IVercelKVEnvVars {
       .asString())
   }
 
-  get restApiToken(): string {
-    return (this._restApiToken ??= env
-      .get('KV_REST_API_TOKEN')
-      .required()
-      .asString())
-  }
+  private _restApiToken?: string
+
+  private _restApiUrl?: string
 }

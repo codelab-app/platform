@@ -9,6 +9,13 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { BaseType } from './base-type.model'
 
 export class EnumType extends BaseType implements IEnumTypeDTO {
+  static compositeName(
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ) {
+    return `${atom.name} ${compoundCaseToTitleCase(field.key)} Enum`
+  }
+
   declare __typename: `${ITypeKind.EnumType}`
 
   allowedValues: Array<IEnumTypeValueDTO>
@@ -17,12 +24,5 @@ export class EnumType extends BaseType implements IEnumTypeDTO {
     super({ id, kind: ITypeKind.EnumType, name })
 
     this.allowedValues = allowedValues
-  }
-
-  static compositeName(
-    atom: Pick<IAtomDTO, 'name'>,
-    field: Pick<IFieldDTO, 'key'>,
-  ) {
-    return `${atom.name} ${compoundCaseToTitleCase(field.key)} Enum`
   }
 }

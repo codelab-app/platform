@@ -3,17 +3,17 @@ import type { ICRUDService } from '../../service'
 import type {
   ICreatePropData,
   IUpdatePropData,
-  IUpdatePropDataWithDefaulValues,
+  IUpdatePropDataWithDefaultValues,
 } from './prop.data.interface'
-import type { IProp } from './prop.model.interface'
+import type { IPropModel } from './prop.model.interface'
 import type { IPropRepository } from './prop.repo.interface'
 
 export interface IPropService
-  extends ICRUDService<IProp, ICreatePropData, IUpdatePropData> {
+  extends ICRUDService<IPropModel, ICreatePropData, IUpdatePropData> {
   propRepository: IPropRepository
-  add(propDTO: IPropDTO): IProp
+  add(propDTO: IPropDTO): IPropModel
   reset(id: string): void
   updateWithDefaultValuesApplied(
-    data: IUpdatePropDataWithDefaulValues,
-  ): Promise<IProp>
+    data: IUpdatePropDataWithDefaultValues,
+  ): Promise<IPropModel>
 }

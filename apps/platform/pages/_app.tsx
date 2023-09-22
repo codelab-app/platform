@@ -6,7 +6,6 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { StoreProvider } from '@codelab/frontend/presentation/container'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 

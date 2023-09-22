@@ -56,13 +56,11 @@ const getComponentIdsFromElements = (elements: Array<IElementModel>) =>
  */
 const getTypeIdsFromElements = (elements: Array<IElementModel>) => {
   return elements.reduce<Array<string>>((acc, element) => {
-    if (element.renderType?.current.api) {
-      acc.push(element.renderType.current.api.id)
+    acc.push(element.renderType.current.api.id)
 
-      element.renderType.current.api.current.fields.forEach((field) => {
-        acc.push(field.type.id)
-      })
-    }
+    element.renderType.current.api.current.fields.forEach((field) => {
+      acc.push(field.type.id)
+    })
 
     return acc
   }, [])

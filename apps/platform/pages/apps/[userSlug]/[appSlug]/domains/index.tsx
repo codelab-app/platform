@@ -6,6 +6,7 @@ import {
   GetDomainsList,
   UpdateDomainModal,
 } from '@codelab/frontend/domain/domain'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
@@ -21,7 +22,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image, Spin } from 'antd'

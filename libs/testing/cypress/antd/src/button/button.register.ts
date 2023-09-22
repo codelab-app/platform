@@ -1,4 +1,7 @@
-import { CypressCommand, OmitFirstArg } from '@codelab/testing/cypress/command'
+import type {
+  CypressCommand,
+  OmitFirstArg,
+} from '@codelab/testing/cypress/command'
 import { getButton } from './button.command'
 
 export interface AntButtonCommands {

@@ -37,6 +37,8 @@ export class UserService
   })
   implements IUserService
 {
+  static init = init
+
   @computed
   get auth0Id() {
     return throwIfUndefined(this.user.auth0Id)
@@ -61,6 +63,4 @@ export class UserService
   saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
     return yield* _await(restPlatformClient.post('/user/save', data))
   })
-
-  static init = init
 }

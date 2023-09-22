@@ -16,7 +16,13 @@ export class InlineFormService<
   }))<TMetadata>
   implements IModalService<TMetadata>
 {
-  closeOnRouteChange = () => this.close()
+  @modelAction
+  close() {
+    this.isOpen = false
+    this.metadata = null
+
+    Router.events.off('routeChangeStart', this.closeOnRouteChange)
+  }
 
   @modelAction
   open(...args: TMetadata extends undefined ? [] : [TMetadata]) {
@@ -29,11 +35,5 @@ export class InlineFormService<
     Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
-  @modelAction
-  close() {
-    this.isOpen = false
-    this.metadata = null
-
-    Router.events.off('routeChangeStart', this.closeOnRouteChange)
-  }
+  closeOnRouteChange = () => this.close()
 }

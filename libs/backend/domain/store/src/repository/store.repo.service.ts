@@ -29,22 +29,6 @@ export class StoreRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: StoreWhere
-    options?: StoreOptions
-  }) {
-    return await (
-      await this.ogmService.Store
-    ).find({
-      options,
-      selectionSet: storeSelectionSet,
-      where,
-    })
-  }
-
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
@@ -60,6 +44,22 @@ export class StoreRepository extends AbstractRepository<
         })),
       })
     ).stores
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: StoreWhere
+    options?: StoreOptions
+  }) {
+    return await (
+      await this.ogmService.Store
+    ).find({
+      options,
+      selectionSet: storeSelectionSet,
+      where,
+    })
   }
 
   protected async _update({ api, id, name }: IStoreDTO, where: StoreWhere) {

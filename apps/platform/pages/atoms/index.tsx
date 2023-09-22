@@ -5,6 +5,7 @@ import {
   CreateAtomModal,
   DeleteAtomsModal,
 } from '@codelab/frontend/domain/atom'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   CreateFieldModal,
   DeleteFieldModal,
@@ -16,7 +17,6 @@ import {
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

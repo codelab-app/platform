@@ -4,8 +4,8 @@ import type {
   IDomainService,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/core'
+import { ModalService } from '@codelab/frontend/domain/shared'
 import { VercelService } from '@codelab/frontend/domain/vercel'
-import { ModalService } from '@codelab/frontend/shared/utils'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -36,27 +36,6 @@ export class DomainService
   })
   implements IDomainService
 {
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: DomainService, where?: DomainWhere) {
-    const { items: domains } = yield* _await(this.domainRepository.find(where))
-
-    return domains.map((domain) => this.add(domain))
-  })
-
-  @modelAction
-  add = (domain: IDomainDTO) => {
-    let domainModel = this.domains.get(domain.id)
-
-    domainModel = domainModel
-      ? domainModel.writeCache(domain)
-      : Domain.create(domain)
-
-    this.domains.set(domain.id, domainModel)
-
-    return domainModel
-  }
-
   @computed
   get domainsList() {
     return [...this.domains.values()]
@@ -109,6 +88,14 @@ export class DomainService
 
   @modelFlow
   @transaction
+  getAll = _async(function* (this: DomainService, where?: DomainWhere) {
+    const { items: domains } = yield* _await(this.domainRepository.find(where))
+
+    return domains.map((domain) => this.add(domain))
+  })
+
+  @modelFlow
+  @transaction
   update = _async(function* (
     this: DomainService,
     { id, name }: IUpdateDomainData,
@@ -125,4 +112,17 @@ export class DomainService
     // domainConfig and projectDomain
     return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
+
+  @modelAction
+  add = (domain: IDomainDTO) => {
+    let domainModel = this.domains.get(domain.id)
+
+    domainModel = domainModel
+      ? domainModel.writeCache(domain)
+      : Domain.create(domain)
+
+    this.domains.set(domain.id, domainModel)
+
+    return domainModel
+  }
 }

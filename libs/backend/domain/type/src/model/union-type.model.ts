@@ -9,6 +9,13 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { BaseType } from './base-type.model'
 
 export class UnionType extends BaseType implements IUnionTypeDTO {
+  static compositeName(
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ) {
+    return `${atom.name} ${compoundCaseToTitleCase(field.key)} Union API`
+  }
+
   declare __typename: `${ITypeKind.UnionType}`
 
   typesOfUnionType: Array<ITypeEntity>
@@ -17,12 +24,5 @@ export class UnionType extends BaseType implements IUnionTypeDTO {
     super({ id, kind: ITypeKind.UnionType, name })
 
     this.typesOfUnionType = typesOfUnionType
-  }
-
-  static compositeName(
-    atom: Pick<IAtomDTO, 'name'>,
-    field: Pick<IFieldDTO, 'key'>,
-  ) {
-    return `${atom.name} ${compoundCaseToTitleCase(field.key)} Union API`
   }
 }

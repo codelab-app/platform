@@ -28,22 +28,6 @@ export class PropRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: PropWhere
-    options?: PropOptions
-  }) {
-    return await (
-      await this.ogmService.Prop
-    ).find({
-      options,
-      selectionSet: propSelectionSet,
-      where,
-    })
-  }
-
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
@@ -58,6 +42,22 @@ export class PropRepository extends AbstractRepository<
         })),
       })
     ).props
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: PropWhere
+    options?: PropOptions
+  }) {
+    return await (
+      await this.ogmService.Prop
+    ).find({
+      options,
+      selectionSet: propSelectionSet,
+      where,
+    })
   }
 
   protected async _update({ data, id }: IPropDTO, where: PropWhere) {

@@ -1,14 +1,14 @@
 import {
   actionRef,
-  type IAction,
+  type IActionModel,
   type IActionService,
   type IActionWhere,
   type ICreateActionData,
   type IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import { ModalService } from '@codelab/frontend/domain/shared'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
 import type { IActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -39,7 +39,7 @@ export class ActionService
   extends Model({
     actionFactory: prop(() => new ActionFactory({})),
     actionRepository: prop(() => new ActionRepository({})),
-    actions: prop(() => objectMap<IAction>()),
+    actions: prop(() => objectMap<IActionModel>()),
     createForm: prop(() => new CreateActionFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
@@ -53,63 +53,14 @@ export class ActionService
     return [...this.actions.values()]
   }
 
-  @computed
-  get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  get typeService() {
-    return getTypeService(this)
-  }
-
-  action(id: string) {
-    return this.actions.get(id)
-  }
-
-  @modelAction
-  add<T extends IActionDTO>(actionDTO: T) {
-    let action: IAction
-
-    switch (actionDTO.__typename) {
-      case IActionKind.CodeAction:
-        action = CodeAction.create(actionDTO)
-        break
-      case IActionKind.ApiAction:
-        action = ApiAction.create(actionDTO)
-        break
-      default:
-        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
-    }
-
-    this.actions.set(action.id, action)
-
-    return action
-  }
-
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ActionService, where: IActionWhere) {
-    const { items: actionFragments } = yield* _await(
-      this.actionRepository.find(where),
-    )
-
-    return this.load(actionFragments)
-  })
-
-  @modelAction
-  load(actions: Array<ActionFragment>) {
-    return actions.map((action) =>
-      this.add(this.actionFactory.fromActionFragment(action)),
-    )
-  }
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: ActionService, id: string) {
-    return this.actions.has(id)
-      ? this.actions.get(id)
-      : (yield* _await(this.getAll({ id })))[0]
+  cloneAction = _async(function* (
+    this: ActionService,
+    action: IActionModel,
+    storeId: string,
+  ) {
+    return yield* _await(this.recursiveClone(action, storeId))
   })
 
   @modelFlow
@@ -134,15 +85,95 @@ export class ActionService
 
   @modelFlow
   @transaction
-  cloneAction = _async(function* (
+  delete = _async(function* (
     this: ActionService,
-    action: IAction,
-    storeId: string,
+    actions: Array<IActionModel>,
   ) {
-    return yield* _await(this.recursiveClone(action, storeId))
+    const deleteAction = _async(function* (
+      this: ActionService,
+      action: IActionModel,
+    ) {
+      const { id } = action
+
+      this.actions.delete(id)
+
+      yield* _await(Promise.resolve())
+    })
+
+    yield* _await(this.actionRepository.delete(actions))
+
+    return
   })
 
-  private async recursiveClone(action: IAction, storeId: string) {
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: ActionService, where: IActionWhere) {
+    const { items: actionFragments } = yield* _await(
+      this.actionRepository.find(where),
+    )
+
+    return this.load(actionFragments)
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: ActionService, id: string) {
+    return this.actions.has(id)
+      ? this.actions.get(id)
+      : (yield* _await(this.getAll({ id })))[0]
+  })
+
+  @modelFlow
+  @transaction
+  update = _async(function* (this: ActionService, data: IUpdateActionData) {
+    const action = this.actions.get(data.id)!
+    const actionDTO = ActionFactory.mapDataToDTO(data)
+
+    if (action.type === IActionKind.ApiAction) {
+      action.config.current.writeCache({
+        data: JSON.stringify(data.config.data),
+      })
+    }
+
+    ActionFactory.writeCache(actionDTO, action)
+
+    yield* _await(this.actionRepository.update(action))
+
+    return action
+  })
+
+  @modelAction
+  add<T extends IActionDTO>(actionDTO: T) {
+    let action: IActionModel
+
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction:
+        action = CodeAction.create(actionDTO)
+        break
+      case IActionKind.ApiAction:
+        action = ApiAction.create(actionDTO)
+        break
+      default:
+        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
+    }
+
+    this.actions.set(action.id, action)
+
+    return action
+  }
+
+  @modelAction
+  load(actions: Array<ActionFragment>) {
+    return actions.map((action) =>
+      this.add(this.actionFactory.fromActionFragment(action)),
+    )
+  }
+
+  action(id: string) {
+    return this.actions.get(id)
+  }
+
+  private async recursiveClone(action: IActionModel, storeId: string) {
     const actionDto = ActionFactory.mapActionToDTO(action)
 
     let newActionDto: IActionDTO = {
@@ -183,34 +214,13 @@ export class ActionService
     return newAction
   }
 
-  @modelFlow
-  @transaction
-  update = _async(function* (this: ActionService, data: IUpdateActionData) {
-    const action = this.actions.get(data.id)!
-    const actionDTO = ActionFactory.mapDataToDTO(data)
+  @computed
+  private get propService() {
+    return getPropService(this)
+  }
 
-    if (action.type === IActionKind.ApiAction) {
-      action.config.current.writeCache({
-        data: JSON.stringify(data.config.data),
-      })
-    }
-
-    ActionFactory.writeCache(actionDTO, action)
-
-    yield* _await(this.actionRepository.update(action))
-
-    return action
-  })
-
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: ActionService, action: IAction) {
-    const { id } = action
-
-    this.actions.delete(id)
-
-    yield* _await(this.actionRepository.delete([action]))
-
-    return action
-  })
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
 }

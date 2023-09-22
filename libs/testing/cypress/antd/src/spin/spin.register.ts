@@ -1,5 +1,5 @@
-import type { OmitFirstArg } from '../../deprecated/types'
 import type { CypressCommand } from '@codelab/testing/cypress/command'
+import type { OmitFirstArg } from '../../deprecated/types'
 import { getSpinner } from './spin.command'
 
 export interface AntSpinCommands {

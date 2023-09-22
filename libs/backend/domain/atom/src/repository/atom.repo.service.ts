@@ -39,22 +39,6 @@ export class AtomRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _find({
-    options,
-    where,
-  }: {
-    where?: AtomWhere
-    options?: AtomOptions
-  }) {
-    return await (
-      await this.ogmService.Atom
-    ).find({
-      options,
-      selectionSet: atomSelectionSet,
-      where,
-    })
-  }
-
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
@@ -89,6 +73,22 @@ export class AtomRepository extends AbstractRepository<
         ),
       })
     ).atoms
+  }
+
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: AtomWhere
+    options?: AtomOptions
+  }) {
+    return await (
+      await this.ogmService.Atom
+    ).find({
+      options,
+      selectionSet: atomSelectionSet,
+      where,
+    })
   }
 
   protected async _update(

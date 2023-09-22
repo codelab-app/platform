@@ -27,6 +27,8 @@ export class ArrayType
   })
   implements IArrayType
 {
+  static create = create
+
   @modelAction
   writeCache(arrayTypeDTO: Partial<IArrayTypeDTO>) {
     super.writeCache(arrayTypeDTO)
@@ -67,6 +69,4 @@ export class ArrayType
         : undefined,
     })
   }
-
-  static create = create
 }

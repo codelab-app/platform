@@ -3,9 +3,9 @@ import type {
   IAtomsTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useTablePagination } from '@codelab/frontend/domain/shared'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AtomsTreeItem } from './AtomsTreeItem'
@@ -30,7 +30,7 @@ export const AtomsTreeView = observer(
     })
 
     const treeData: Array<IAtomsTreeDataNode> = data.map((atom) => ({
-      children: atom.api?.current.fieldsTree,
+      children: atom.api.current.fieldsTree,
       extraData: { node: atom, type: 'atom' },
       key: atom.id,
       primaryTitle: getLibrary(atom.type).name,

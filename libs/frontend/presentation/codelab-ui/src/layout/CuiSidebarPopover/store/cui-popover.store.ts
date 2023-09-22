@@ -3,20 +3,8 @@ import { Router } from 'next/router'
 import type { IPopoverStore } from './cui-popover.store.interface'
 
 export class CuiPopoverStore implements IPopoverStore {
-  @observable
-  private openPopoverId: string | undefined
-
   constructor() {
     makeAutoObservable(this)
-  }
-
-  private closeOnRouteChange = () => this.close()
-
-  @action
-  open(id: string) {
-    this.openPopoverId = id
-
-    Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
   @action
@@ -27,14 +15,26 @@ export class CuiPopoverStore implements IPopoverStore {
   }
 
   @computed
+  isAnyPopoverOpen() {
+    return Boolean(this.openPopoverId)
+  }
+
+  @computed
   isOpen(id: string) {
     const val = this.openPopoverId === id
 
     return val
   }
 
-  @computed
-  isAnyPopoverOpen() {
-    return Boolean(this.openPopoverId)
+  @action
+  open(id: string) {
+    this.openPopoverId = id
+
+    Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
+
+  private closeOnRouteChange = () => this.close()
+
+  @observable
+  private openPopoverId: string | undefined
 }

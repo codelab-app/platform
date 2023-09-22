@@ -48,27 +48,13 @@ export class ImportAdminDataHandler
     // await this.importComponents(owner)
   }
 
-  private async importComponents() {
-    for (const component of this.readAdminDataService.components) {
-      await this.commandBus.execute(new ImportComponentsCommand(component))
-    }
-  }
-
   @Span()
-  private async importTags() {
-    const { tags } = this.readAdminDataService
+  private async importAtom(atomOutput: IAtomOutputDto) {
+    const span = this.traceService.getSpan()
+    span?.setAttributes(flattenWithPrefix(atomOutput))
 
-    return this.commandBus.execute<ImportTagsCommand, void>(
-      new ImportTagsCommand(tags),
-    )
-  }
-
-  @Span()
-  private async importSystemTypes() {
-    const types = this.readAdminDataService.systemTypes
-
-    return this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(types),
+    await this.commandBus.execute<ImportAtomCommand>(
+      new ImportAtomCommand(atomOutput),
     )
   }
 
@@ -82,13 +68,27 @@ export class ImportAdminDataHandler
     }
   }
 
-  @Span()
-  private async importAtom(atomOutput: IAtomOutputDto) {
-    const span = this.traceService.getSpan()
-    span?.setAttributes(flattenWithPrefix(atomOutput))
+  private async importComponents() {
+    for (const component of this.readAdminDataService.components) {
+      await this.commandBus.execute(new ImportComponentsCommand(component))
+    }
+  }
 
-    await this.commandBus.execute<ImportAtomCommand>(
-      new ImportAtomCommand(atomOutput),
+  @Span()
+  private async importSystemTypes() {
+    const types = this.readAdminDataService.systemTypes
+
+    return this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(types),
+    )
+  }
+
+  @Span()
+  private async importTags() {
+    const { tags } = this.readAdminDataService
+
+    return this.commandBus.execute<ImportTagsCommand, void>(
+      new ImportTagsCommand(tags),
     )
   }
 }

@@ -13,28 +13,11 @@ export class ResourceRepository
   extends Model({})
   implements IResourceRepository
 {
-  @cachedWithTTL('resources')
-  async find(where?: ResourceWhere, options?: ResourceOptions) {
-    return await resourceApi.GetResources({ options, where })
-  }
-
   @clearCacheForKey('resources')
   async add(resource: IResourceModel) {
     const {
       createResources: { resources },
     } = await resourceApi.CreateResources({ input: [resource.toCreateInput()] })
-
-    return resources[0]!
-  }
-
-  @clearCacheForKey('resources')
-  async update(resource: IResourceModel) {
-    const {
-      updateResources: { resources },
-    } = await resourceApi.UpdateResource({
-      update: resource.toUpdateInput(),
-      where: { id: resource.id },
-    })
 
     return resources[0]!
   }
@@ -48,5 +31,22 @@ export class ResourceRepository
     })
 
     return nodesDeleted
+  }
+
+  @cachedWithTTL('resources')
+  async find(where?: ResourceWhere, options?: ResourceOptions) {
+    return await resourceApi.GetResources({ options, where })
+  }
+
+  @clearCacheForKey('resources')
+  async update(resource: IResourceModel) {
+    const {
+      updateResources: { resources },
+    } = await resourceApi.UpdateResource({
+      update: resource.toUpdateInput(),
+      where: { id: resource.id },
+    })
+
+    return resources[0]!
   }
 }

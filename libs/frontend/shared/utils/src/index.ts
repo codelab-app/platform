@@ -1,7 +1,3 @@
-export * from '../../../domain/shared/src/authorization/with-page-auth-redirect'
-export * from '../../../domain/shared/src/inline-form.service'
-export * from '../../../domain/shared/src/modal.service'
-export * from '../../../domain/shared/src/pagination'
 export * from './builder-url'
 export * from './callback-with-params'
 export * from './client-cache'

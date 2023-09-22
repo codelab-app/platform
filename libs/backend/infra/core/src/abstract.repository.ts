@@ -22,43 +22,25 @@ export abstract class AbstractRepository<
     protected validationService: ValidationService,
   ) {}
 
-  async findOne(where: Where): Promise<ModelData | undefined>
+  public async add(data: Array<Model>): Promise<Array<ModelData>> {
+    const span = this.traceService.getSpan()
+    const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
+    span?.setAttributes(attributes)
 
-  async findOne<T extends TAnySchema>(
-    where: Where,
-    schema?: T,
-  ): Promise<Static<T> | undefined>
+    return this._add(data)
+  }
 
-  /**
-   *
-   * @param where
-   * @param schema optional schema to validate the return data
-   * @returns
-   */
-  async findOne<T extends TAnySchema>(
-    where: Where,
-    schema?: T,
-  ): Promise<ModelData | Static<T> | undefined> {
-    // Don't use decorator since it doesn't give us the right name
-    return withActiveSpan(`${this.constructor.name}.findOne`, async (span) => {
-      this.traceService.addJsonAttributes('where', where)
+  async exists(data: Model, where: Where) {
+    return withActiveSpan(`${this.constructor.name}.exists`, async (span) => {
+      const results = await this.findOne(where)
+      const exists = Boolean(results)
 
-      // So overload works
-      const results = schema
-        ? (await this.find({ where }, schema))[0]
-        : (await this.find({ where }))[0]
+      // Spans
+      span.setAttributes(flattenWithPrefix(where, 'where'))
+      span.setAttributes(flattenWithPrefix(data, 'data'))
+      span.addEvent('Exists', { exists })
 
-      if (!results) {
-        return undefined
-      }
-
-      this.traceService.addJsonAttributes('results', results)
-
-      if (schema) {
-        return this.validationService.validateAndClean(schema, results)
-      }
-
-      return results
+      return exists
     })
   }
 
@@ -107,50 +89,45 @@ export abstract class AbstractRepository<
     })
   }
 
-  protected abstract _find({
-    options,
-    where,
-  }: {
-    where?: Where
-    options?: Options
-  }): Promise<Array<ModelData>>
+  async findOne(where: Where): Promise<ModelData | undefined>
 
-  public async add(data: Array<Model>): Promise<Array<ModelData>> {
-    const span = this.traceService.getSpan()
-    const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
-    span?.setAttributes(attributes)
-
-    return this._add(data)
-  }
-
-  protected abstract _add(data: Array<Model>): Promise<Array<ModelData>>
+  async findOne<T extends TAnySchema>(
+    where: Where,
+    schema?: T,
+  ): Promise<Static<T> | undefined>
 
   /**
-   * We disallow updating of ID, since it disallows us from keying a where search by name, and having consistent ID.
    *
-   * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
+   * @param where
+   * @param schema optional schema to validate the return data
+   * @returns
    */
-  async update(data: Model, where?: Where): Promise<ModelData> {
-    return withActiveSpan(`${this.constructor.name}.update`, async (span) => {
-      const dataAttributes = flattenWithPrefix(data, 'data')
-      const whereAttributes = flattenWithPrefix(data, 'where')
-      span.setAttributes(dataAttributes)
-      span.setAttributes(whereAttributes)
+  async findOne<T extends TAnySchema>(
+    where: Where,
+    schema?: T,
+  ): Promise<ModelData | Static<T> | undefined> {
+    // Don't use decorator since it doesn't give us the right name
+    return withActiveSpan(`${this.constructor.name}.findOne`, async (span) => {
+      this.traceService.addJsonAttributes('where', where)
 
-      const model = await this._update(data, where)
+      // So overload works
+      const results = schema
+        ? (await this.find({ where }, schema))[0]
+        : (await this.find({ where }))[0]
 
-      if (!model) {
-        throw new Error('Model not updated')
+      if (!results) {
+        return undefined
       }
 
-      return model
+      this.traceService.addJsonAttributes('results', results)
+
+      if (schema) {
+        return this.validationService.validateAndClean(schema, results)
+      }
+
+      return results
     })
   }
-
-  protected abstract _update(
-    data: Model,
-    where?: Where,
-  ): Promise<ModelData | undefined>
 
   /**
    * Upsert behavior, uses data id by default for upsert. If `where` clause is specified, then it overrides id
@@ -179,19 +156,42 @@ export abstract class AbstractRepository<
     )
   }
 
-  async exists(data: Model, where: Where) {
-    return withActiveSpan(`${this.constructor.name}.exists`, async (span) => {
-      const results = await this.findOne(where)
-      const exists = Boolean(results)
+  /**
+   * We disallow updating of ID, since it disallows us from keying a where search by name, and having consistent ID.
+   *
+   * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
+   */
+  async update(data: Model, where?: Where): Promise<ModelData> {
+    return withActiveSpan(`${this.constructor.name}.update`, async (span) => {
+      const dataAttributes = flattenWithPrefix(data, 'data')
+      const whereAttributes = flattenWithPrefix(data, 'where')
+      span.setAttributes(dataAttributes)
+      span.setAttributes(whereAttributes)
 
-      // Spans
-      span.setAttributes(flattenWithPrefix(where, 'where'))
-      span.setAttributes(flattenWithPrefix(data, 'data'))
-      span.addEvent('Exists', { exists })
+      const model = await this._update(data, where)
 
-      return exists
+      if (!model) {
+        throw new Error('Model not updated')
+      }
+
+      return model
     })
   }
+
+  protected abstract _add(data: Array<Model>): Promise<Array<ModelData>>
+
+  protected abstract _find({
+    options,
+    where,
+  }: {
+    where?: Where
+    options?: Options
+  }): Promise<Array<ModelData>>
+
+  protected abstract _update(
+    data: Model,
+    where?: Where,
+  ): Promise<ModelData | undefined>
 
   /**
    * Specifying a `where` clause overrides the  id

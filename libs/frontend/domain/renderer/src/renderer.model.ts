@@ -130,170 +130,7 @@ export class Renderer
   })
   implements IRenderer
 {
-  renderRoot() {
-    const root = this.elementTree.maybeCurrent?.rootElement.current
-    const providerRoot = this.providerTree?.current.rootElement.current
-
-    if (!root) {
-      console.warn('Renderer: No root element found')
-
-      return null
-    }
-
-    return providerRoot && root.page?.current.kind === IPageKind.Regular
-      ? this.renderElement(providerRoot)
-      : this.renderElement(root)
-  }
-
-  @modelAction
-  addActionRunners(element: IElementModel) {
-    if (!element.isRoot) {
-      return []
-    }
-
-    const storeActions = element.store.current.actions
-
-    const allActionsStored = storeActions.every((action) =>
-      this.actionRunners.get(getRunnerId(element.store.id, action.id)),
-    )
-
-    // Prevents re-creating of runners which causes unnecessary re-renders
-    // when renderIntermediateElement is called again due to some re-render
-    if (allActionsStored) {
-      return storeActions.map(
-        (action) =>
-          this.actionRunners.get(
-            getRunnerId(element.store.id, action.id),
-          ) as IActionRunner,
-      )
-    }
-
-    const runners = ActionRunner.create(element)
-    runners.forEach((runner) => this.actionRunners.set(runner.id, runner))
-
-    return runners
-  }
-
-  @modelAction
-  addRuntimeProps(nodeRef: IPageNodeRef) {
-    const existingRuntimeProps = this.runtimeProps.get(nodeRef.id)
-
-    if (existingRuntimeProps) {
-      return existingRuntimeProps
-    }
-
-    const runtimeProps = isElementPageNodeRef(nodeRef)
-      ? ElementRuntimeProps.create(nodeRef)
-      : ComponentRuntimeProps.create(nodeRef)
-
-    this.runtimeProps.set(nodeRef.id, runtimeProps)
-
-    return runtimeProps
-  }
-
-  /**
-   * Renders a single Element using the provided RenderAdapter
-   */
-  renderElement = (element: IElementModel): ReactElement => {
-    const wrapperProps: ElementWrapperProps = {
-      element,
-      key: element.id,
-      renderer: this,
-    }
-
-    const { preRenderAction, providerStore, store } = element
-
-    if (preRenderAction) {
-      const { runner: preRenderActionRunner } = getRunner(
-        this,
-        preRenderAction.id,
-        store.id,
-        providerStore?.id,
-      )
-
-      if (preRenderActionRunner) {
-        const runner = preRenderActionRunner.runner.bind(
-          element.expressionEvaluationContext,
-        )
-
-        runner()
-      }
-    }
-
-    return React.createElement(ElementWrapper, wrapperProps)
-  }
-
-  /**
-   * Renders a single element (without its children) to an intermediate RenderOutput
-   *
-   */
-  renderIntermediateElement = (element: IElementModel): IRenderOutput => {
-    this.addActionRunners(element)
-
-    const runtimeProps = this.addRuntimeProps(elementRef(element.id))
-
-    return this.renderPipe.render(element, runtimeProps.evaluatedProps)
-  }
-
-  getComponentInstanceChildren(element: IElementModel) {
-    const parentComponent = element.parentComponent?.current
-
-    const isContainer =
-      element.id === parentComponent?.childrenContainerElement.id
-
-    if (!isContainer || !parentComponent.instanceElement?.current) {
-      return []
-    }
-
-    return parentComponent.instanceElement.current.children
-  }
-
-  getChildMapperChildren(element: IElementModel) {
-    const { childMapperComponent } = element
-
-    if (!childMapperComponent) {
-      return []
-    }
-
-    return (
-      element.runtimeProp?.evaluatedChildMapperProp.map((propValue, i) => {
-        const clonedComponent = childMapperComponent.current.clone(
-          `${element.id}-${i}`,
-        )
-
-        const rootElement = clonedComponent.rootElement.current
-
-        clonedComponent.props.current.setMany(
-          isObject(propValue) ? propValue : { value: propValue },
-        )
-
-        if (!this.runtimeProps.get(clonedComponent.id)) {
-          this.addRuntimeProps(componentRef(clonedComponent.id))
-        }
-
-        return rootElement
-      }) ?? []
-    )
-  }
-
-  getChildPageChildren(element: IElementModel) {
-    const providerTreeRoot = this.providerTree?.current.rootElement.current
-    const providerPage = providerTreeRoot?.page?.current
-    const pageContentContainer = providerPage?.pageContentContainer?.current
-    const pageRoot = this.elementTree.current.rootElement.current
-    const pageKind = pageRoot.page?.current.kind
-
-    // 1. check if this is the element in _app page where child page needs to be rendered
-    // 2. do not self-wrap _app page, and do not wrap 404 and 500
-    if (
-      pageContentContainer?.id === element.id &&
-      pageKind === IPageKind.Regular
-    ) {
-      return [this.elementTree.current.rootElement.current]
-    }
-
-    return []
-  }
+  static create = create
 
   /**
    * Renders the elements children, createTransformer memoizes the function
@@ -362,6 +199,112 @@ export class Renderer
     },
   )
 
+  @modelAction
+  addActionRunners(element: IElementModel) {
+    if (!element.isRoot) {
+      return []
+    }
+
+    const storeActions = element.store.current.actions
+
+    const allActionsStored = storeActions.every((action) =>
+      this.actionRunners.get(getRunnerId(element.store.id, action.id)),
+    )
+
+    // Prevents re-creating of runners which causes unnecessary re-renders
+    // when renderIntermediateElement is called again due to some re-render
+    if (allActionsStored) {
+      return storeActions.map(
+        (action) =>
+          this.actionRunners.get(
+            getRunnerId(element.store.id, action.id),
+          ) as IActionRunner,
+      )
+    }
+
+    const runners = ActionRunner.create(element)
+    runners.forEach((runner) => this.actionRunners.set(runner.id, runner))
+
+    return runners
+  }
+
+  @modelAction
+  addRuntimeProps(nodeRef: IPageNodeRef) {
+    const existingRuntimeProps = this.runtimeProps.get(nodeRef.id)
+
+    if (existingRuntimeProps) {
+      return existingRuntimeProps
+    }
+
+    const runtimeProps = isElementPageNodeRef(nodeRef)
+      ? ElementRuntimeProps.create(nodeRef)
+      : ComponentRuntimeProps.create(nodeRef)
+
+    this.runtimeProps.set(nodeRef.id, runtimeProps)
+
+    return runtimeProps
+  }
+
+  getChildMapperChildren(element: IElementModel) {
+    const { childMapperComponent } = element
+
+    if (!childMapperComponent) {
+      return []
+    }
+
+    return (
+      element.runtimeProp?.evaluatedChildMapperProp.map((propValue, i) => {
+        const clonedComponent = childMapperComponent.current.clone(
+          `${element.id}-${i}`,
+        )
+
+        const rootElement = clonedComponent.rootElement.current
+
+        clonedComponent.props.current.setMany(
+          isObject(propValue) ? propValue : { value: propValue },
+        )
+
+        if (!this.runtimeProps.get(clonedComponent.id)) {
+          this.addRuntimeProps(componentRef(clonedComponent.id))
+        }
+
+        return rootElement
+      }) ?? []
+    )
+  }
+
+  getChildPageChildren(element: IElementModel) {
+    const providerTreeRoot = this.providerTree?.current.rootElement.current
+    const providerPage = providerTreeRoot?.page?.current
+    const pageContentContainer = providerPage?.pageContentContainer?.current
+    const pageRoot = this.elementTree.current.rootElement.current
+    const pageKind = pageRoot.page?.current.kind
+
+    // 1. check if this is the element in _app page where child page needs to be rendered
+    // 2. do not self-wrap _app page, and do not wrap 404 and 500
+    if (
+      pageContentContainer?.id === element.id &&
+      pageKind === IPageKind.Regular
+    ) {
+      return [this.elementTree.current.rootElement.current]
+    }
+
+    return []
+  }
+
+  getComponentInstanceChildren(element: IElementModel) {
+    const parentComponent = element.parentComponent?.current
+
+    const isContainer =
+      element.id === parentComponent?.childrenContainerElement.id
+
+    if (!isContainer || !parentComponent.instanceElement?.current) {
+      return []
+    }
+
+    return parentComponent.instanceElement.current.children
+  }
+
   logRendered = (
     element: IElementModel,
     rendered: ArrayOrSingle<IRenderOutput>,
@@ -371,5 +314,62 @@ export class Renderer
     }
   }
 
-  static create = create
+  /**
+   * Renders a single Element using the provided RenderAdapter
+   */
+  renderElement = (element: IElementModel): ReactElement => {
+    const wrapperProps: ElementWrapperProps = {
+      element,
+      key: element.id,
+      renderer: this,
+    }
+
+    const { preRenderAction, providerStore, store } = element
+
+    if (preRenderAction) {
+      const { runner: preRenderActionRunner } = getRunner(
+        this,
+        preRenderAction.id,
+        store.id,
+        providerStore?.id,
+      )
+
+      if (preRenderActionRunner) {
+        const runner = preRenderActionRunner.runner.bind(
+          element.expressionEvaluationContext,
+        )
+
+        runner()
+      }
+    }
+
+    return React.createElement(ElementWrapper, wrapperProps)
+  }
+
+  /**
+   * Renders a single element (without its children) to an intermediate RenderOutput
+   *
+   */
+  renderIntermediateElement = (element: IElementModel): IRenderOutput => {
+    this.addActionRunners(element)
+
+    const runtimeProps = this.addRuntimeProps(elementRef(element.id))
+
+    return this.renderPipe.render(element, runtimeProps.evaluatedProps)
+  }
+
+  renderRoot() {
+    const root = this.elementTree.maybeCurrent?.rootElement.current
+    const providerRoot = this.providerTree?.current.rootElement.current
+
+    if (!root) {
+      console.warn('Renderer: No root element found')
+
+      return null
+    }
+
+    return providerRoot && root.page?.current.kind === IPageKind.Regular
+      ? this.renderElement(providerRoot)
+      : this.renderElement(root)
+  }
 }

@@ -6,15 +6,11 @@ export class AdminRepository {
   constructor(private readonly neo4jService: Neo4jService) {}
 
   /**
-   * Keep the default renderType
+   * Deletes everything in database
    */
-  async resetDatabaseExceptUserAndAtom(close = false) {
+  async resetDatabase(close = false) {
     const query = `
       MATCH (n)
-      WHERE NOT (n:User
-        OR (n:Atom AND n.name = 'ReactFragment')
-        OR (n:InterfaceType AND n.name = 'ReactFragment API')
-      )
       DETACH DELETE n
     `
 
@@ -32,11 +28,15 @@ export class AdminRepository {
   }
 
   /**
-   * Deletes everything in database
+   * Keep the default renderType
    */
-  async resetDatabase(close = false) {
+  async resetDatabaseExceptUserAndAtom(close = false) {
     const query = `
       MATCH (n)
+      WHERE NOT (n:User
+        OR (n:Atom AND n.name = 'ReactFragment')
+        OR (n:InterfaceType AND n.name = 'ReactFragment API')
+      )
       DETACH DELETE n
     `
 

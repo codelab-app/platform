@@ -7,12 +7,12 @@ import {
   GetLambdasTable,
   UpdateLambdaModal,
 } from '@codelab/frontend/domain/lambda'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import Head from 'next/head'
 import React from 'react'
 

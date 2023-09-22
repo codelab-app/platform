@@ -30,11 +30,11 @@ export class RepositoryService<
     throw new Error('Must implement `find` method')
   }
 
-  update(item: IModel, where: Where): Promise<IEntity | undefined> {
-    throw new Error('Must implement `update` method')
-  }
-
   async findOne(where: Where): Promise<ModelFragment | undefined> {
     return (await this.find(where)).items[0]
+  }
+
+  update(item: IModel, where: Where): Promise<IEntity | undefined> {
+    throw new Error('Must implement `update` method')
   }
 }

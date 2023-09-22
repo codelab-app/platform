@@ -26,11 +26,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       return this
     }
 
-    @computed
-    private get userService() {
-      return getUserService(this)
-    }
-
     toCreateInput() {
       return {
         id: this.id,
@@ -49,9 +44,10 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       }
     }
 
-    // toString() {
-    //   return `{ ${this.name}: ${this.kind} }`
-    // }
+    @computed
+    private get userService() {
+      return getUserService(this)
+    }
   }
 
   return BaseType

@@ -1,4 +1,7 @@
-import type { IProp, IPropRepository } from '@codelab/frontend/abstract/core'
+import type {
+  IPropModel,
+  IPropRepository,
+} from '@codelab/frontend/abstract/core'
 import type { PropOptions, PropWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { propApi } from './prop.api'
@@ -6,7 +9,7 @@ import { propApi } from './prop.api'
 @model('@codelab/PropRepository')
 export class PropRepository extends Model({}) implements IPropRepository {
   @modelFlow
-  add = _async(function* (this: PropRepository, prop: IProp) {
+  add = _async(function* (this: PropRepository, prop: IPropModel) {
     const {
       createProps: { props },
     } = yield* _await(
@@ -19,17 +22,16 @@ export class PropRepository extends Model({}) implements IPropRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: PropRepository, prop: IProp) {
+  delete = _async(function* (this: PropRepository, props: Array<IPropModel>) {
     const {
-      updateProps: { props },
+      deleteProps: { nodesDeleted },
     } = yield* _await(
-      propApi.UpdateProps({
-        update: prop.toUpdateInput(),
-        where: { id: prop.id },
+      propApi.DeleteProps({
+        where: { id_IN: props.map((prop) => prop.id) },
       }),
     )
 
-    return props[0]!
+    return nodesDeleted
   })
 
   @modelFlow
@@ -42,15 +44,16 @@ export class PropRepository extends Model({}) implements IPropRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: PropRepository, props: Array<IProp>) {
+  update = _async(function* (this: PropRepository, prop: IPropModel) {
     const {
-      deleteProps: { nodesDeleted },
+      updateProps: { props },
     } = yield* _await(
-      propApi.DeleteProps({
-        where: { id_IN: props.map((prop) => prop.id) },
+      propApi.UpdateProps({
+        update: prop.toUpdateInput(),
+        where: { id: prop.id },
       }),
     )
 
-    return nodesDeleted
+    return props[0]!
   })
 }
