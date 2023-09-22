@@ -1,4 +1,4 @@
-import type { CypressCommand } from '../../types'
+import type { CypressCommand } from '@codelab/testing/cypress/command'
 import { getSider } from './layout.command'
 
 export interface AntLayoutCommands {

@@ -25,9 +25,11 @@ import {
 import { nextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
 import { builderCommands } from './builder'
 import { UICommands } from './entities'
+import { textEditorCommands } from './text-editor/text-editor.register'
 
 registerCommands([
   ...apiCommands,
+  ...textEditorCommands,
   ...graphQLCommands,
   ...userCommands,
   ...antCommands,
