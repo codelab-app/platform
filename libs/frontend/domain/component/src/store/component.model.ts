@@ -12,6 +12,7 @@ import {
   ElementTree,
   getComponentService,
   getRenderService,
+  getUserService,
   IComponentModel,
   isComponentInstance,
   propRef,
@@ -25,7 +26,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -81,6 +82,11 @@ export class Component
   @computed
   get renderService() {
     return getRenderService(this)
+  }
+
+  @computed
+  get userService() {
+    return getUserService(this)
   }
 
   @computed
@@ -239,6 +245,7 @@ export class Component
         create: { node: this.rootElement.current.toCreateInput() },
       },
       store: { create: { node: this.store.current.toCreateInput() } },
+      owner: connectOwner(this.userService.user),
     }
   }
 

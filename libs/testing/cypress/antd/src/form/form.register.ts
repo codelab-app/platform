@@ -1,5 +1,5 @@
 import type { OmitFirstArg } from '../../deprecated/types'
-import type { CypressCommand } from '../../types'
+import type { CypressCommand } from '@codelab/testing/cypress/command'
 import {
   chooseSelectDropdownOption,
   clearMultiselect,
