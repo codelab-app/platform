@@ -14,8 +14,12 @@ import {
   pageRef,
   RendererType,
   typeRef,
+<<<<<<< HEAD:libs/frontend/domain/store/src/store/store.model.ts
 } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
+=======
+} from '@codelab/frontend/abstract/core'
+>>>>>>> aac8ffbb6 (wip: renderType getter):libs/frontend/domain/store/src/store/models/store.model.ts
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
@@ -245,11 +249,22 @@ export class Store
     return { name: this.name }
   }
 
+<<<<<<< HEAD:libs/frontend/domain/store/src/store/store.model.ts
   private cachedState: Nullable<object> = null
 
   @computed
   private get renderService() {
     return getRenderService(this)
+=======
+  static toDeleteInput(): StoreDeleteInput {
+    return {
+      actions: {
+        ApiAction: [{ where: {} }],
+        CodeAction: [{ where: {} }],
+      },
+      api: { delete: InterfaceType.toDeleteInput(), where: {} },
+    }
+>>>>>>> aac8ffbb6 (wip: renderType getter):libs/frontend/domain/store/src/store/models/store.model.ts
   }
 
   @computed

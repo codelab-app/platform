@@ -7,7 +7,11 @@ import {
   elementRef,
   ElementTree,
   storeRef,
+<<<<<<< HEAD
 } from '@codelab/frontend/abstract/domain'
+=======
+} from '@codelab/frontend/abstract/core'
+>>>>>>> aac8ffbb6 (wip: renderType getter)
 import { Store } from '@codelab/frontend/domain/store'
 import type {
   PageCreateInput,
@@ -154,4 +158,45 @@ export class Page
       url: this.url,
     }
   }
+<<<<<<< HEAD
+=======
+
+  static toDeleteInput(): PageDeleteInput {
+    return {
+      // pageContentContainer: { delete: {}, where: {} },
+      rootElement: {},
+      store: {
+        delete: Store.toDeleteInput(),
+        where: {},
+      },
+    }
+  }
+
+  @modelAction
+  writeCache({
+    app,
+    kind,
+    name,
+    pageContentContainer,
+    rootElement,
+    store,
+    url,
+  }: Partial<IPageDTO>) {
+    this.name = name ?? this.name
+    this.rootElement = rootElement
+      ? elementRef(rootElement.id)
+      : this.rootElement
+    this.app = app ? app : this.app
+    this.pageContentContainer = pageContentContainer
+      ? elementRef(pageContentContainer.id)
+      : this.pageContentContainer
+    this.kind = kind ? kind : this.kind
+    this.store = store ? storeRef(store.id) : this.store
+    this.url = url ?? ''
+
+    return this
+  }
+
+  static create = create
+>>>>>>> aac8ffbb6 (wip: renderType getter)
 }
