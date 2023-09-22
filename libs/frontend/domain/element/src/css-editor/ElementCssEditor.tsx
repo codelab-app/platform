@@ -6,15 +6,14 @@ import type {
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
-import { Col, Collapse, Row } from 'antd'
+import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Element } from '../store'
 import { InheritedStyles } from './inherited-styles/InheritedStyles'
-import { StylesEditor } from './new-editor/StylesEditor'
+import { StylesEditor } from './StylesEditor'
 
-const { Panel } = Collapse
 const autosaveTimeout = 1000
 
 const Label = styled.span`
@@ -35,7 +34,6 @@ export interface ElementCssEditorInternalProps {
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
-    const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap
     const lastStateRef = useRef(element.style)
 
     const cssChangeHandler = useDebouncedCallback(

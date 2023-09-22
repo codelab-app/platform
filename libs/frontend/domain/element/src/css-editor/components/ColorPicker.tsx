@@ -1,46 +1,39 @@
-import { Input } from 'antd'
-import { useState } from 'react'
-import { CssPropEditorItem } from './CssPropEditorItem'
+import { Col, ColorPicker as AntdColorPicker, Row } from 'antd'
+import { ResetLabel } from './ResetLabel'
 
-interface PropValueSelectorProps {
-  checked?: boolean
-  currentValue: string
-  disabled?: boolean
-  enableCheckbox?: boolean
-  name: string
-
-  onChange(val: string): undefined | void
-  onCheck?(checked: boolean): void
+interface ColorPickerProps {
+  canReset?: boolean
+  label?: string
+  size?: 'large' | 'middle' | 'small'
+  value?: string
+  onChange?(value: string): void
+  onReset?(): unknown
 }
 
 export const ColorPicker = ({
-  checked,
-  currentValue,
-  disabled,
-  enableCheckbox,
-  name,
+  canReset,
+  label = 'Color',
   onChange,
-  onCheck,
-}: PropValueSelectorProps) => {
-  const [color, setColor] = useState<string>(currentValue)
-
+  onReset,
+  size,
+  value,
+}: ColorPickerProps) => {
   return (
-    <CssPropEditorItem
-      checked={checked}
-      enableCheckbox={enableCheckbox}
-      onCheck={onCheck}
-      title={name}
-    >
-      <Input
-        defaultValue={color}
-        disabled={disabled}
-        onChange={(event) => {
-          onChange(event.target.value)
-          setColor(event.target.value)
-        }}
-        type="color"
-        value={disabled ? '#D1D1D1' : color}
-      />
-    </CssPropEditorItem>
+    <Row align="middle" justify="space-between" wrap={false}>
+      <Col span={6}>
+        <ResetLabel canReset={canReset} label={label} onReset={onReset} />
+      </Col>
+      <Col className="w-full">
+        <AntdColorPicker
+          allowClear={true}
+          className="w-full justify-start"
+          onChange={(color) => onChange?.(color.toHexString())}
+          onClear={() => onChange?.('transparent')}
+          showText={(color) => <span>{color.toHexString()}</span>}
+          size={size}
+          value={value}
+        />
+      </Col>
+    </Row>
   )
 }
