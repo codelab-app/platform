@@ -6,6 +6,16 @@ import {
 } from '@codelab/shared/data/test'
 import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
+const testCreate = (name: string, parentName?: string) => {
+  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
+
+  if (parentName) {
+    cy.toggleTreeNodeSwitcher(parentName)
+  }
+
+  cy.getTree().findByText(name).should('exist')
+}
+
 describe('Tag CRUD', () => {
   before(() => {
     loginAndSetupData()
