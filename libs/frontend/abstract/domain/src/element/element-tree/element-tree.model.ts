@@ -79,4 +79,9 @@ export class ElementTree
 
     return path.reverse()
   }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
 }

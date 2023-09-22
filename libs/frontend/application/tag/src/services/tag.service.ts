@@ -141,7 +141,6 @@ export class TagService
   @modelFlow
   loadTagTree = _async(function* (this: TagService) {
     const tags = yield* _await(this.getAll())
-
     this.treeService = TagTreeService.init(tags)
   })
 

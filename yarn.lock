@@ -17933,6 +17933,7 @@ __metadata:
     eslint-plugin-react: 7.32.2
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 10.0.0
+    eslint-plugin-sort-class-members: ^1.18.0
     eslint-plugin-sort-destructure-keys: ^1.5.0
     eslint-plugin-sort-exports: 0.8.0
     eslint-plugin-tailwindcss: ^3.13.0
@@ -21703,6 +21704,15 @@ __metadata:
   peerDependencies:
     eslint: ">=5.0.0"
   checksum: 23221ff63f80f9c52da807d388ee8a51bc36a3b73345f60ec886e7973c28d75eb1d1e47f7f2916a7c1f94a1b5037b1450356a64a8fbd58096fd6bee57c6e3e48
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-sort-class-members@npm:^1.18.0":
+  version: 1.18.0
+  resolution: "eslint-plugin-sort-class-members@npm:1.18.0"
+  peerDependencies:
+    eslint: ">=0.8.0"
+  checksum: aeeccef0c7c68936225558258a3270cafecad9fbed01551d7140bf725512b98dddf881824693457ca602ada07697307de66e63b851aebdc9709c19a721449403
   languageName: node
   linkType: hard
 

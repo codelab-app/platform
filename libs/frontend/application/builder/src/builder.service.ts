@@ -261,4 +261,52 @@ export class BuilderService
   private get tagService() {
     return getTagService(this)
   }
+
+  @modelAction
+  updateExpandedNodes = () => {
+    if (!this.selectedNode) {
+      return
+    }
+
+    const newNodesToExpand = this.findNodesToExpand(
+      this.selectedNode,
+      this.expandedComponentTreeNodeIds,
+    )
+
+    if (this.activeTab === RendererTab.Page) {
+      this.expandedPageElementTreeNodeIds = [
+        ...this.expandedPageElementTreeNodeIds,
+        ...newNodesToExpand,
+      ]
+    } else {
+      this.expandedComponentTreeNodeIds = [
+        ...this.expandedComponentTreeNodeIds,
+        ...newNodesToExpand,
+      ]
+    }
+  }
+
+  findNodesToExpand = (
+    selectedNode: IPageNodeRef,
+    alreadyExpandedNodeIds: Array<string>,
+  ): Array<string> => {
+    /**
+     * If we delete an element, the whole tree collapses. Instead,
+     * we want to show the sibling or parent as selected.
+     */
+    const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
+    const expandedSet = new Set(alreadyExpandedNodeIds)
+
+    return pathResult?.filter((el) => !expandedSet.has(el)) ?? []
+  }
+
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
+  private get tagService() {
+    return getTagService(this)
+  }
 }

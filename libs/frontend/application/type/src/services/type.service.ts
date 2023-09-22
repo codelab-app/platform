@@ -228,6 +228,97 @@ export class TypeService
     return type
   })
 
+  @modelAction
+  add(typeDTO: ITypeDTO) {
+    const existingType = this.types.get(typeDTO.id)
+
+    if (existingType) {
+      return existingType
+    }
+
+    const type = TypeFactory.create(typeDTO)
+
+    this.types.set(type.id, type)
+
+    return type
+  }
+
+  @modelAction
+  addInterface(data: ICreateTypeData) {
+    const interfaceType = new InterfaceType({
+      id: data.id,
+      name: data.name,
+    })
+
+    this.types.set(interfaceType.id, interfaceType)
+
+    return interfaceType
+  }
+
+  @modelAction
+  addTypeLocal(type: IType) {
+    this.types.set(type.id, type)
+  }
+
+  /**
+   * Caches all types into mobx
+   */
+  @modelAction
+  loadTypes(types: Partial<GetTypesQuery>) {
+    console.debug('TypeService.loadTypes()', types)
+
+    const flatTypes = Object.values(types).flat()
+    this.fieldService.load(
+      (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
+    )
+
+    const loadedTypes = flatTypes.map((fragment) =>
+      TypeFactory.create(fragment),
+    )
+
+    for (const type of loadedTypes) {
+      this.types.set(type.id, type)
+    }
+
+    return loadedTypes
+  }
+
+  @modelAction
+  primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {
+    const type = this.type(id)
+
+    if (type?.kind === ITypeKind.PrimitiveType) {
+      return type.primitiveKind
+    }
+
+    return null
+  }
+
+  @modelAction
+  type(id: string) {
+    return this.types.get(id)
+  }
+
+  getType(id: string) {
+    return this.types.get(id)
+  }
+
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const { items: baseTypes, totalCount: totalItems } =
+        await this.typeRepository.findBaseTypes({
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+          where: filter,
+        })
+
+      const typeIds = baseTypes.map(({ id }) => id)
+      const items = await this.getAll(typeIds)
+
+      return { items, totalItems }
+    }
+  }
+
   /**
    * Caches all types into mobx
    */

@@ -1,24 +1,14 @@
 import type {
   IAppModel,
-<<<<<<< HEAD:libs/frontend/domain/type/src/models/interface-type.model.ts
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
-=======
-  IField,
-  IInterfaceType,
-} from '@codelab/frontend/abstract/core'
-import { fieldRef, IPropData } from '@codelab/frontend/abstract/core'
->>>>>>> aac8ffbb6 (wip: renderType getter):libs/frontend/domain/type/src/store/models/interface-type.model.ts
 import type {
   InterfaceTypeCreateInput,
   InterfaceTypeDeleteInput,
 } from '@codelab/shared/abstract/codegen'
-<<<<<<< HEAD:libs/frontend/domain/type/src/models/interface-type.model.ts
 import type { IRef } from '@codelab/shared/abstract/core'
-=======
->>>>>>> aac8ffbb6 (wip: renderType getter):libs/frontend/domain/type/src/store/models/interface-type.model.ts
 import {
   assertIsTypeKind,
   IInterfaceTypeDTO,
@@ -143,6 +133,7 @@ export class InterfaceType
   }
 
 <<<<<<< HEAD:libs/frontend/domain/type/src/models/interface-type.model.ts
+<<<<<<< HEAD:libs/frontend/domain/type/src/models/interface-type.model.ts
   @modelAction
   writeFieldCache(fields: Array<IRef>) {
     for (const field of fields) {
@@ -163,6 +154,12 @@ export class InterfaceType
         },
       ],
 >>>>>>> aac8ffbb6 (wip: renderType getter):libs/frontend/domain/type/src/store/models/interface-type.model.ts
+=======
+  @modelAction
+  writeFieldCache(fields: Array<IEntity>) {
+    for (const field of fields) {
+      this._fields.set(field.id, fieldRef(field.id))
+>>>>>>> 93aae9492 (wip: class member ordering):libs/frontend/domain/type/src/store/models/interface-type.model.ts
     }
   }
 }

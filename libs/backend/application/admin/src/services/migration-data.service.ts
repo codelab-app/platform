@@ -13,6 +13,25 @@ export interface IBaseDataPaths {
   scope: Scope.TRANSIENT,
 })
 export class MigrationDataService implements IBaseDataPaths {
+  get atomsPath() {
+    return path.resolve(this.baseDataPaths, './admin/atoms')
+  }
+
+  get componentsPath() {
+    return path.resolve(this.baseDataPaths, './admin/components')
+  }
+
+  /**
+   * File paths
+   */
+  get systemTypesFilePath() {
+    return path.resolve(this.baseDataPaths, './system/types/system-types.json')
+  }
+
+  get tagsFilePath() {
+    return path.resolve(this.baseDataPaths, './admin/tags/tags.json')
+  }
+
   /**
    * process.cwd() doesn't work since run-commands may set app dir as cwd
    */
@@ -23,24 +42,5 @@ export class MigrationDataService implements IBaseDataPaths {
    */
   set basePaths(basePath: string) {
     this.baseDataPaths = resolveWorkspaceRoot(basePath)
-  }
-
-  /**
-   * File paths
-   */
-  get systemTypesFilePath() {
-    return path.resolve(this.baseDataPaths, './system/types/system-types.json')
-  }
-
-  get atomsPath() {
-    return path.resolve(this.baseDataPaths, './admin/atoms')
-  }
-
-  get tagsFilePath() {
-    return path.resolve(this.baseDataPaths, './admin/tags/tags.json')
-  }
-
-  get componentsPath() {
-    return path.resolve(this.baseDataPaths, './admin/components')
   }
 }

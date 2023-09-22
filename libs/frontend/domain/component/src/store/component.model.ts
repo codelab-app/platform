@@ -106,9 +106,21 @@ export class Component
     return Array.from(descendants)
   }
 
-  @computed
-  get userService() {
-    return getUserService(this)
+    this.elements.forEach((element) => {
+      if (isComponentInstance(element.renderType)) {
+        const component = element.renderType.current
+
+        // Add the component as it was referenced by this element
+        descendants.add(component)
+
+        // Now start at this component and get its descendants
+        component.descendantComponents.forEach((descendantComponent) => {
+          descendants.add(descendantComponent)
+        })
+      }
+    })
+
+    return Array.from(descendants)
   }
 
   @computed
@@ -150,7 +162,6 @@ export class Component
     }
 
     const clonedComponent: IComponentModel = clone<IComponentModel>(this)
-
     componentService.clonedComponents.set(key, clonedComponent)
 
     const clonesList = [...componentService.clonedComponents.values()].filter(
@@ -214,6 +225,21 @@ export class Component
       : this.childrenContainerElement
 
     return this
+  }
+
+  toCreateInput(): ComponentCreateInput {
+    return {
+      api: { create: { node: this.api.current.toCreateInput() } },
+      childrenContainerElement: connectNodeId(this.rootElement.id),
+      id: this.id,
+      keyGenerator: this.keyGenerator,
+      name: this.name,
+      props: { create: { node: this.props.current.toCreateInput() } },
+      rootElement: {
+        create: { node: this.rootElement.current.toCreateInput() },
+      },
+      store: { create: { node: this.store.current.toCreateInput() } },
+    }
   }
 
   @modelAction

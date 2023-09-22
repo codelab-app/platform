@@ -93,23 +93,25 @@ export const CreateActionForm = observer(
         schema={actionSchema}
         submitRef={submitRef}
       >
-        <AutoFields
-          omitFields={[
-            'code',
-            'resourceId',
-            'config',
-            'successActionId',
-            'errorActionId',
-            'actionsIds',
-          ]}
-        />
-
-        {/** Code Action */}
-        <DisplayIfField<ICreateActionData>
-          condition={(context) => context.model.type === IActionKind.CodeAction}
+        <ModalForm.Form<ICreateActionData>
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={createFormErrorNotificationHandler({
+            title: 'Error while creating action',
+          })}
+          onSubmitSuccess={closeModal}
+          schema={createActionSchema}
         >
-          <AutoField label="Action code" name="code" />
-        </DisplayIfField>
+          <AutoFields
+            omitFields={[
+              'code',
+              'resourceId',
+              'config',
+              'successActionId',
+              'errorActionId',
+              'actionsIds',
+            ]}
+          />
 
         {/** Api Action */}
         <DisplayIfField<ICreateActionData>
@@ -125,23 +127,46 @@ export const CreateActionForm = observer(
               getResourceType(context) === ResourceType.GraphQl
             }
           >
-            <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-            <AutoField name="config.data.variables" />
-            <AutoField name="config.data.headers" />
+            <AutoField label="Action code" name="code" />
           </DisplayIfField>
 
-          {/** Rest Config Form */}
+          {/** Api Action */}
           <DisplayIfField<ICreateActionData>
             condition={(context) =>
-              getResourceType(context) === ResourceType.Rest
+              context.model.type === IActionKind.ApiAction
             }
           >
-            <AutoField name="config.data.urlSegment" />
-            <AutoField name="config.data.method" />
-            <AutoField name="config.data.body" />
-            <AutoField name="config.data.queryParams" />
-            <AutoField name="config.data.headers" />
-            <AutoField name="config.data.responseType" />
+            <SelectResource
+              name="resourceId"
+              resourceService={resourceService}
+            />
+            <AutoField component={SelectAction} name="successActionId" />
+            <AutoField component={SelectAction} name="errorActionId" />
+
+            {/** GraphQL Config Form */}
+            <DisplayIfField<ICreateActionData>
+              condition={(context) =>
+                getResourceType(context) === ResourceType.GraphQL
+              }
+            >
+              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
+              <AutoField name="config.data.variables" />
+              <AutoField name="config.data.headers" />
+            </DisplayIfField>
+
+            {/** Rest Config Form */}
+            <DisplayIfField<ICreateActionData>
+              condition={(context) =>
+                getResourceType(context) === ResourceType.Rest
+              }
+            >
+              <AutoField name="config.data.urlSegment" />
+              <AutoField name="config.data.method" />
+              <AutoField name="config.data.body" />
+              <AutoField name="config.data.queryParams" />
+              <AutoField name="config.data.headers" />
+              <AutoField name="config.data.responseType" />
+            </DisplayIfField>
           </DisplayIfField>
         </DisplayIfField>
 

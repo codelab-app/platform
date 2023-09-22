@@ -51,10 +51,12 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
+import { visitResult } from '@graphql-tools/utils'
 import isNil from 'lodash/isNil'
-import { computed } from 'mobx'
+import { computed, reaction } from 'mobx'
 import {
   clone,
+  getSnapshot,
   idProp,
   Model,
   model,

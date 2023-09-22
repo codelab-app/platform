@@ -7,11 +7,7 @@ import {
   elementRef,
   ElementTree,
   storeRef,
-<<<<<<< HEAD
 } from '@codelab/frontend/abstract/domain'
-=======
-} from '@codelab/frontend/abstract/core'
->>>>>>> aac8ffbb6 (wip: renderType getter)
 import { Store } from '@codelab/frontend/domain/store'
 import type {
   PageCreateInput,
@@ -159,6 +155,7 @@ export class Page
     }
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
   static toDeleteInput(): PageDeleteInput {
@@ -199,4 +196,6 @@ export class Page
 
   static create = create
 >>>>>>> aac8ffbb6 (wip: renderType getter)
+=======
+>>>>>>> 93aae9492 (wip: class member ordering)
 }
