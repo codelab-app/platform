@@ -1,7 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
@@ -21,7 +21,8 @@ const clickEditor = () => {
 
 describe('CSS CRUD', () => {
   before(() => {
-    loginAndSetupData()
+    loginSession()
+    cy.resetDatabaseExceptForUserAndAtom()
 
     cy.request('/api/data/atom/seed-cypress-atom')
       .then(() => cy.request('/api/data/app/seed-cypress-app'))
@@ -114,11 +115,6 @@ describe('CSS CRUD', () => {
     it('should persist styles after reload', () => {
       cy.reload()
       cy.getSpinner().should('not.exist')
-
-      // wait for multiple api calls that could occur
-      // this is the simplest way for now
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
       cy.findByText(elementName).click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(

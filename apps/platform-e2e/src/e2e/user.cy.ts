@@ -1,8 +1,9 @@
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('UserController', () => {
   before(() => {
-    loginAndSetupData()
+    loginSession()
+    cy.resetDatabaseExceptForUserAndAtom()
   })
 
   it('should save a user', () => {

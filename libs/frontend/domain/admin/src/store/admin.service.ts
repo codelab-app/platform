@@ -4,7 +4,7 @@ import {
   type IAdminService,
 } from '@codelab/frontend/abstract/core'
 import { restPlatformClient } from '@codelab/frontend/config'
-import { ModalService } from '@codelab/frontend/domain/shared'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -26,9 +26,27 @@ export class AdminService
   implements IAdminService
 {
   @modelFlow
+  @transaction
+  resetData = _async(function* (this: AdminService) {
+    return yield* _await(
+      restPlatformClient.post('/admin/reset-database-except-user-and-atom'),
+    )
+  })
+
+  @modelFlow
   exportData = _async(function* (this: AdminService, data: ExportDto) {
     return yield* _await(restPlatformClient.post('/admin/export', data))
   })
+
+  @modelFlow
+  importData = _async(function* (this: AdminService, data: ImportDto) {
+    return yield* _await(restPlatformClient.post('/admin/import', data))
+  })
+
+  @computed
+  private get appService() {
+    return getAppService(this)
+  }
 
   @modelFlow
   importApp = _async(function* (this: AdminService, appData: string) {
@@ -42,22 +60,4 @@ export class AdminService
         }),
     )
   })
-
-  @modelFlow
-  importData = _async(function* (this: AdminService, data: ImportDto) {
-    return yield* _await(restPlatformClient.post('/admin/import', data))
-  })
-
-  @modelFlow
-  @transaction
-  resetData = _async(function* (this: AdminService) {
-    return yield* _await(
-      restPlatformClient.post('/admin/reset-database-except-user-and-atom'),
-    )
-  })
-
-  @computed
-  private get appService() {
-    return getAppService(this)
-  }
 }

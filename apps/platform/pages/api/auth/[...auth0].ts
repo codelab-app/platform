@@ -1,5 +1,13 @@
-import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
-import { restPlatformApiClient } from '@codelab/frontend/config'
+import {
+  getSession,
+  handleAuth,
+  handleCallback,
+  handleLogin,
+} from '@auth0/nextjs-auth0'
+import {
+  restPlatformApiClient,
+  restPlatformClient,
+} from '@codelab/frontend/config'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 
 export default handleAuth({
@@ -16,7 +24,7 @@ export default handleAuth({
           /**
            * Cannot call frontend proxy here, since it would end the current call
            */
-          await restPlatformApiClient.post('user/setup-dev', user, {
+          await restPlatformApiClient.post('user/setup', user, {
             headers: {
               Authorization: `Bearer ${session.accessToken}`,
               'X-ID-TOKEN': session.idToken,

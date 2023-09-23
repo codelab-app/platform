@@ -1,7 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import { appName, pageName } from './apps/app.data'
 
 const CARD_COMPONENT_NAME = 'Card Component'
@@ -41,28 +41,21 @@ const openPageByName = (name: string) => {
 
 describe('_app page', () => {
   before(() => {
-    loginAndSetupData()
+    loginSession()
+    cy.resetDatabaseExceptForUserAndAtom()
 
     cy.request('/api/data/atom/seed-cypress-atom')
     cy.visit('/apps')
   })
 
   it('should create _app page when app is created', () => {
-    cy.visit('/apps')
-    cy.intercept('GET', '/api/upsert-user').as('upsertUser')
-    cy.getSpinner().should('not.exist')
-    cy.wait('@upsertUser')
     cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
     cy.getButton({ label: /Create Now/ }).click()
     cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
-
-    cy.intercept('POST', `api/graphql`).as('createApp')
     cy.getModal()
       .getModalAction(/Create App/)
       .click()
-    cy.wait('@createApp')
-
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
