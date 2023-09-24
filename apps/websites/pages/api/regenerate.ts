@@ -1,4 +1,4 @@
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 import type { NextApiHandler } from 'next'
 
 const regenerate: NextApiHandler = async (req, res) => {

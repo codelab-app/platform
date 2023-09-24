@@ -842,6 +842,7 @@ export type MutationUpdateFieldsArgs = {
   disconnect?: InputMaybe<FieldDisconnectInput>
   create?: InputMaybe<FieldRelationInput>
   delete?: InputMaybe<FieldDeleteInput>
+  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
 }
 
 export type MutationCreateAtomsArgs = {
@@ -9524,6 +9525,7 @@ export type ArrayTypeConnectInput = {
 export type ArrayTypeConnectOrCreateInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
 }
 
 export type ArrayTypeConnectWhere = {
@@ -18893,6 +18895,7 @@ export type EnumTypeConnectInput = {
 export type EnumTypeConnectOrCreateInput = {
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
 }
 
 export type EnumTypeConnectWhere = {
@@ -20409,6 +20412,15 @@ export type FieldNextSiblingUpdateFieldInput = {
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
   update?: InputMaybe<FieldNextSiblingUpdateConnectionInput>
   delete?: InputMaybe<FieldNextSiblingDeleteFieldInput>
+}
+
+export type FieldOnCreateInput = {
+  id: Scalars['ID']['input']
+  key: Scalars['String']['input']
+  name?: InputMaybe<Scalars['String']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  validationRules?: InputMaybe<Scalars['String']['input']>
+  defaultValues?: InputMaybe<Scalars['String']['input']>
 }
 
 export type FieldOnCreateInput = {
@@ -31371,7 +31383,7 @@ export declare class FieldModel {
     connect?: FieldConnectInput
     disconnect?: FieldDisconnectInput
     create?: FieldCreateInput
-
+    connectOrCreate?: FieldConnectOrCreateInput
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
