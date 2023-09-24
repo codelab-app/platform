@@ -1,5 +1,4 @@
 import type {
-  ICreateElementDTO,
   IElementDTO,
   IElementRenderType,
 } from '@codelab/shared/abstract/core'

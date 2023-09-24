@@ -1,5 +1,5 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 import type { NextApiHandler } from 'next'
 
 const exportApp: NextApiHandler = async (req, res) => {

@@ -1,5 +1,0 @@
-# Used for IDE only for linting
-schema:
-  - 'schema.graphql'
-  - '**/*.directive.graphql'
-documents: '**/*.graphql'

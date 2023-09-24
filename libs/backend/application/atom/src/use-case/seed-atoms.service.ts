@@ -1,9 +1,5 @@
 import type { IAtomRecords } from '@codelab/backend/abstract/core'
-import {
-  AuthService,
-  CurrentUser,
-  UseCase,
-} from '@codelab/backend/application/shared'
+import { AuthService, UseCase } from '@codelab/backend/application/shared'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import {

@@ -89,12 +89,12 @@ export class TypeService
   @modelFlow
   @transaction
   delete = _async(function* (this: TypeService, types: Array<IType>) {
-    const deleteType = _async(function* (this: TypeService, type: IType) {
+    const deleteType = async (type: IType) => {
       const { id } = type
       this.types.delete(id)
 
-      yield* _await(this.typeRepository.delete([type]))
-    })
+      await this.typeRepository.delete([type])
+    }
 
     yield* _await(Promise.all(types.map((type) => deleteType(type))))
 

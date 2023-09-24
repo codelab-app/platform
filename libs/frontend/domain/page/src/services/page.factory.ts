@@ -10,14 +10,11 @@ import {
   ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
-import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import {
-  IAtomType,
   IElementRenderType,
-  IElementRenderTypeKind,
   IPageKind,
   IPageKindName,
   ITypeKind,

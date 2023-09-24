@@ -1,5 +1,4 @@
 import { LogoutOutlined, PlusOutlined } from '@ant-design/icons'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
@@ -22,10 +21,7 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { getEnv } from '@codelab/shared/config'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'

@@ -105,6 +105,11 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   })
 
   @modelFlow
+  findOne = _async(function* (this: TypeRepository, where: IBaseTypeWhere) {
+    return (yield* _await(this.find(where))).items[0]
+  })
+
+  @modelFlow
   findOptions = _async(function* (this: TypeRepository) {
     const {
       baseTypes: { items },

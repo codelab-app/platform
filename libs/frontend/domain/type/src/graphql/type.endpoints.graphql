@@ -7,7 +7,7 @@ query IsTypeDescendantOf($descendantTypeId: ID!, $parentTypeId: ID!) {
 
 query GetTypeReferences($typeId: ID!) {
   getTypeReferences(typeId: $typeId) {
-    name
     label
+    name
   }
 }

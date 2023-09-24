@@ -1,4 +1,4 @@
-import { getAccessToken, getSession } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 import type { NextApiHandler } from 'next'
 
 export const authMiddleware: NextApiHandler = async (req, res) => {

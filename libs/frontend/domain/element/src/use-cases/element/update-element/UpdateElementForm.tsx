@@ -20,7 +20,6 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import ChildMapperCompositeField from '../../../components/ChildMapperCompositeField'
 import { RenderTypeCompositeField } from '../../../components/RenderTypeCompositeField'
-import { Element } from '../../../store'
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {

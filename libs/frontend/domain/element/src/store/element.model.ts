@@ -43,12 +43,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import {
-  type IElementDTO,
-  IElementRenderType,
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { type IElementDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -58,12 +53,10 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
-import { visitResult } from '@graphql-tools/utils'
 import isNil from 'lodash/isNil'
 import { computed, reaction } from 'mobx'
 import {
   clone,
-  getSnapshot,
   idProp,
   Model,
   model,
@@ -71,7 +64,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { getRenderType, renderTypeTransform } from './element-render-type.field'
+import { getRenderType } from './element-render-type.field'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
 
 const create = ({

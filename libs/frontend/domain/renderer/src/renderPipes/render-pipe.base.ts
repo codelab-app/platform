@@ -1,7 +1,6 @@
 import type { IBaseRenderPipe } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
-  getElementService,
   getRenderService,
 } from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
@@ -26,6 +25,12 @@ export class BaseRenderPipe
     }
 
     return renderer
+  }
+
+  // Used by inherited classes
+  @computed
+  protected get componentService() {
+    return getComponentService(this)
   }
 
   @computed

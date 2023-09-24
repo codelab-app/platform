@@ -1,18 +1,18 @@
 fragment Tag on Tag {
-  id
-  name
-  parent {
-    id
-  }
   children {
     id
   }
-  isRoot
   descendants {
     id
   }
+  id
+  isRoot
+  name
   owner {
     ...Owner
+  }
+  parent {
+    id
   }
 }
 

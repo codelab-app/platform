@@ -1,4 +1,3 @@
-import { IElementRenderType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { detach, rootRef } from 'mobx-keystone'
 import type { IElementRenderTypeModel } from '../element'

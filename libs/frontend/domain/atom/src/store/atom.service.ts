@@ -166,11 +166,11 @@ export class AtomService
     /**
      * Only fetch if not exists
      */
-    const atomReactFragment = (yield* _await(
-      this.atomRepository.find({
+    const atomReactFragment = yield* _await(
+      this.atomRepository.findOne({
         type: IAtomType.ReactFragment,
       }),
-    )).items[0]
+    )
 
     if (!atomReactFragment) {
       throw new Error('Atom of type `ReactFragment` must be seeded first')

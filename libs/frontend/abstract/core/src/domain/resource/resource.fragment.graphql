@@ -1,8 +1,8 @@
 fragment Resource on Resource {
-  id
-  name
-  type
   config {
     ...Prop
   }
+  id
+  name
+  type
 }

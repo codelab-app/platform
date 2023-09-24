@@ -4,8 +4,8 @@ import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
   PagePreviewFragment,
   PageFragment,
-  BuilderPageFragment,
-  ProductionPageFragment,
+  PageDevelopmentFragment,
+  PageProductionFragment,
 } from '../page/page.fragment.graphql.gen'
 import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
@@ -15,8 +15,8 @@ import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
   PagePreviewFragmentDoc,
   PageFragmentDoc,
-  BuilderPageFragmentDoc,
-  ProductionPageFragmentDoc,
+  PageDevelopmentFragmentDoc,
+  PageProductionFragmentDoc,
 } from '../page/page.fragment.graphql.gen'
 import { DomainFragmentDoc } from '../domain/domain.fragment.graphql.gen'
 export type AppPreviewFragment = {
@@ -31,73 +31,72 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
+  domains: Array<DomainFragment>
   owner: OwnerFragment
   pages: Array<PageFragment>
-  domains: Array<DomainFragment>
 }
 
-export type PageBuilderAppFragment = {
+export type AppDevelopmentFragment = {
   id: string
   name: string
   slug: string
   owner: OwnerFragment
-  pages: Array<BuilderPageFragment>
+  pages: Array<PageDevelopmentFragment>
 }
 
-export type PageAppFragment = {
+export type AppProductionFragment = {
   id: string
   name: string
   slug: string
   owner: OwnerFragment
-  pages: Array<ProductionPageFragment>
+  pages: Array<PageProductionFragment>
 }
 
 export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
     id
     name
-    slug
     owner {
       ...Owner
     }
     pages(where: { kind: Provider }) {
       ...PagePreview
     }
+    slug
   }
   ${OwnerFragmentDoc}
   ${PagePreviewFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
+    domains {
+      ...Domain
+    }
     id
     name
-    slug
     owner {
       ...Owner
     }
     pages {
       ...Page
     }
-    domains {
-      ...Domain
-    }
+    slug
   }
+  ${DomainFragmentDoc}
   ${OwnerFragmentDoc}
   ${PageFragmentDoc}
-  ${DomainFragmentDoc}
 `
-export const PageBuilderAppFragmentDoc = gql`
-  fragment PageBuilderApp on App {
+export const AppDevelopmentFragmentDoc = gql`
+  fragment AppDevelopment on App {
     id
     name
-    slug
     owner {
       ...Owner
     }
     pages(
       where: {
         OR: [
-          { compositeKey: $pageCompositeKey }
+          { compositeKey_ENDS_WITH: $pageName }
           { kind: Provider }
           { kind: NotFound }
           { kind: InternalServerError }
@@ -105,28 +104,29 @@ export const PageBuilderAppFragmentDoc = gql`
         ]
       }
     ) {
-      ...BuilderPage
+      ...PageDevelopment
     }
+    slug
   }
   ${OwnerFragmentDoc}
-  ${BuilderPageFragmentDoc}
+  ${PageDevelopmentFragmentDoc}
 `
-export const PageAppFragmentDoc = gql`
-  fragment PageApp on App {
+export const AppProductionFragmentDoc = gql`
+  fragment AppProduction on App {
     id
     name
-    slug
     owner {
       ...Owner
     }
     pages(
       where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
     ) {
-      ...ProductionPage
+      ...PageProduction
     }
+    slug
   }
   ${OwnerFragmentDoc}
-  ${ProductionPageFragmentDoc}
+  ${PageProductionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

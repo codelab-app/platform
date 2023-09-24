@@ -11,11 +11,10 @@ import type {
   ReactNodeTypeCreateInput,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity, UnboxArray } from '@codelab/shared/abstract/types'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from '../../graphql/create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from '../../graphql/delete-type.endpoints.graphql.gen'
-import type { GetTypesQuery } from '../../graphql/get-type.endpoints.graphql.gen'
 import { getSdk as getGetSdk } from '../../graphql/get-type.endpoints.graphql.gen'
 import { getSdk } from '../../graphql/type.endpoints.graphql.gen'
 import { getSdk as getUpdateSdk } from '../../graphql/update-type.endpoints.graphql.gen'
@@ -89,7 +88,7 @@ export const getTypeApi = getGetSdk(client)
 export const getAllTypes = async (
   // where?: BaseTypeWhere
   ids?: Array<number | string>,
-): Promise<Array<UnboxArray<GetTypesQuery[keyof GetTypesQuery]>>> => {
+) => {
   const {
     actionTypes,
     appTypes,

@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-export type HookPropFragment = { id: string; data: string }
+export type HookPropFragment = { data: string; id: string }
 
 export type HookFragment = {
   id: string
@@ -14,14 +14,12 @@ export type HookFragment = {
 
 export const HookPropFragmentDoc = gql`
   fragment HookProp on Prop {
-    id
     data
+    id
   }
 `
 export const HookFragmentDoc = gql`
   fragment Hook on Hook {
-    id
-    type
     config {
       ...HookProp
     }
@@ -29,6 +27,8 @@ export const HookFragmentDoc = gql`
       id
       name
     }
+    id
+    type
   }
   ${HookPropFragmentDoc}
 `

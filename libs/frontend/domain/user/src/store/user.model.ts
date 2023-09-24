@@ -3,7 +3,6 @@ import type { IUser } from '@codelab/frontend/abstract/core'
 import {
   type Auth0IdToken,
   IRole,
-  type IUserDTO,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'

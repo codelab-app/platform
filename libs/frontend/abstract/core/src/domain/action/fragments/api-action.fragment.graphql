@@ -1,7 +1,8 @@
 fragment ApiAction on ApiAction {
   ...BaseAction
-  successAction {
-    ...BaseAction
+  config {
+    data
+    id
   }
   errorAction {
     ...BaseAction
@@ -9,8 +10,7 @@ fragment ApiAction on ApiAction {
   resource {
     ...Resource
   }
-  config {
-    id
-    data
+  successAction {
+    ...BaseAction
   }
 }

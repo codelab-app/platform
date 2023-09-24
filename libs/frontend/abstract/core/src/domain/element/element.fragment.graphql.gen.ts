@@ -1,195 +1,195 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  AtomFragment,
-  ProductionAtomFragment,
-} from '../atom/atom.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
+import {
+  AtomDevelopmentFragment,
+  AtomProductionFragment,
+} from '../atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import {
-  AtomFragmentDoc,
-  ProductionAtomFragmentDoc,
-} from '../atom/atom.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
+import {
+  AtomDevelopmentFragmentDoc,
+  AtomProductionFragmentDoc,
+} from '../atom/atom.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
+  childMapperPropKey?: string | null
   id: string
   name: string
-  style?: string | null
-  childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  page?: { id: string } | null
-  renderType:
-    | ({ __typename: 'Atom' } & AtomFragment)
-    | { __typename: 'Component'; id: string }
-  prevSibling?: { id: string } | null
-  nextSibling?: { id: string } | null
-  parentComponent?: { id: string } | null
-  parent?: { id: string } | null
-  firstChild?: { id: string } | null
-  props: PropFragment
-  childMapperPreviousSibling?: { id: string } | null
+  style?: string | null
   childMapperComponent?: { id: string; name: string } | null
-  preRenderAction?:
-    | { id: string; type: Types.ActionKind }
-    | { id: string; type: Types.ActionKind }
-    | null
+  childMapperPreviousSibling?: { id: string } | null
+  firstChild?: { id: string } | null
+  nextSibling?: { id: string } | null
+  page?: { id: string } | null
+  parent?: { id: string } | null
+  parentComponent?: { id: string } | null
   postRenderAction?:
     | { id: string; type: Types.ActionKind }
     | { id: string; type: Types.ActionKind }
     | null
+  preRenderAction?:
+    | { id: string; type: Types.ActionKind }
+    | { id: string; type: Types.ActionKind }
+    | null
+  prevSibling?: { id: string } | null
+  props: PropFragment
+  renderType:
+    | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
+    | { __typename: 'Component'; id: string }
 }
 
-export type ProductionElementFragment = {
+export type ElementProductionFragment = {
   __typename: 'Element'
+  childMapperPropKey?: string | null
   id: string
   name: string
-  style?: string | null
-  childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  page?: { id: string } | null
-  renderType:
-    | ({ __typename: 'Atom' } & ProductionAtomFragment)
-    | { __typename: 'Component'; id: string }
-  prevSibling?: { id: string } | null
-  nextSibling?: { id: string } | null
-  parentComponent?: { id: string } | null
-  parent?: { id: string } | null
-  firstChild?: { id: string } | null
-  props: PropFragment
-  childMapperPreviousSibling?: { id: string } | null
+  style?: string | null
   childMapperComponent?: { id: string; name: string } | null
-  preRenderAction?:
-    | { id: string; type: Types.ActionKind }
-    | { id: string; type: Types.ActionKind }
-    | null
+  childMapperPreviousSibling?: { id: string } | null
+  firstChild?: { id: string } | null
+  nextSibling?: { id: string } | null
+  page?: { id: string } | null
+  parent?: { id: string } | null
+  parentComponent?: { id: string } | null
   postRenderAction?:
     | { id: string; type: Types.ActionKind }
     | { id: string; type: Types.ActionKind }
     | null
+  preRenderAction?:
+    | { id: string; type: Types.ActionKind }
+    | { id: string; type: Types.ActionKind }
+    | null
+  prevSibling?: { id: string } | null
+  props: PropFragment
+  renderType:
+    | ({ __typename: 'Atom' } & AtomProductionFragment)
+    | { __typename: 'Component'; id: string }
 }
 
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
+    childMapperComponent {
+      id
+      name
+    }
+    childMapperPreviousSibling {
+      id
+    }
+    childMapperPropKey
+    firstChild {
+      id
+    }
     id
     name
-    style
+    nextSibling {
+      id
+    }
     page {
       id
     }
+    parent {
+      id
+    }
+    parentComponent {
+      id
+    }
+    postRenderAction {
+      id
+      type
+    }
+    preRenderAction {
+      id
+      type
+    }
+    prevSibling {
+      id
+    }
+    props {
+      ...Prop
+    }
+    renderForEachPropKey
+    renderIfExpression
     renderType {
       ... on Atom {
         __typename
-        ...Atom
+        ...AtomDevelopment
       }
       ... on Component {
         __typename
         id
       }
     }
-    prevSibling {
-      id
-    }
-    nextSibling {
-      id
-    }
-    parentComponent {
-      id
-    }
-    parent {
-      id
-    }
-    firstChild {
-      id
-    }
-    props {
-      ...Prop
-    }
-    childMapperPreviousSibling {
-      id
-    }
-    childMapperPropKey
-    childMapperComponent {
-      id
-      name
-    }
-    renderForEachPropKey
-    renderIfExpression
-    preRenderAction {
-      id
-      type
-    }
-    postRenderAction {
-      id
-      type
-    }
+    style
   }
-  ${AtomFragmentDoc}
   ${PropFragmentDoc}
+  ${AtomDevelopmentFragmentDoc}
 `
-export const ProductionElementFragmentDoc = gql`
-  fragment ProductionElement on Element {
+export const ElementProductionFragmentDoc = gql`
+  fragment ElementProduction on Element {
     __typename
+    childMapperComponent {
+      id
+      name
+    }
+    childMapperPreviousSibling {
+      id
+    }
+    childMapperPropKey
+    firstChild {
+      id
+    }
     id
     name
-    style
+    nextSibling {
+      id
+    }
     page {
       id
     }
+    parent {
+      id
+    }
+    parentComponent {
+      id
+    }
+    postRenderAction {
+      id
+      type
+    }
+    preRenderAction {
+      id
+      type
+    }
+    prevSibling {
+      id
+    }
+    props {
+      ...Prop
+    }
+    renderForEachPropKey
+    renderIfExpression
     renderType {
       ... on Atom {
         __typename
-        ...ProductionAtom
+        ...AtomProduction
       }
       ... on Component {
         __typename
         id
       }
     }
-    prevSibling {
-      id
-    }
-    nextSibling {
-      id
-    }
-    parentComponent {
-      id
-    }
-    parent {
-      id
-    }
-    firstChild {
-      id
-    }
-    props {
-      ...Prop
-    }
-    childMapperPreviousSibling {
-      id
-    }
-    childMapperPropKey
-    childMapperComponent {
-      id
-      name
-    }
-    renderForEachPropKey
-    renderIfExpression
-    preRenderAction {
-      id
-      type
-    }
-    postRenderAction {
-      id
-      type
-    }
+    style
   }
-  ${ProductionAtomFragmentDoc}
   ${PropFragmentDoc}
+  ${AtomProductionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

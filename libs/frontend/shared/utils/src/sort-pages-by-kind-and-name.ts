@@ -1,4 +1,4 @@
-import type { BuilderPageFragment } from '@codelab/shared/abstract/codegen'
+import type { PageDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 
 /**
@@ -8,7 +8,9 @@ import { IPageKind } from '@codelab/shared/abstract/core'
  * - `404` always comes last but one
  * - `500` always comes last
  */
-export const sortPagesByKindAndName = (pages: Array<BuilderPageFragment>) => {
+export const sortPagesByKindAndName = (
+  pages: Array<PageDevelopmentFragment>,
+) => {
   return pages.sort((a, b) => {
     // '_app' should always be first
     if (a.kind === IPageKind.Provider) {

@@ -1,6 +1,7 @@
 import type { IResourceRepository } from '@codelab/frontend/abstract/core'
 import { IResourceModel } from '@codelab/frontend/abstract/core'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
+import type { ResourceUniqueWhere } from '@codelab/shared/abstract/codegen'
 import {
   ResourceOptions,
   ResourceWhere,
@@ -38,7 +39,11 @@ export class ResourceRepository
     return await resourceApi.GetResources({ options, where })
   }
 
-  @clearCacheForKey('resources')
+  async findOne(where: ResourceUniqueWhere) {
+    return (await this.find(where)).items[0]
+  }
+
+  // @clearCacheForKey('resources')
   async update(resource: IResourceModel) {
     const {
       updateResources: { resources },

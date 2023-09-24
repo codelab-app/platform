@@ -2,86 +2,86 @@
 # app.id is required to compute name
 #
 fragment PagePreview on Page {
-  id
-  name
-  kind
-  url
   app {
     id
   }
+  id
+  kind
+  name
   rootElement {
     id
   }
   store {
     id
   }
+  url
 }
 
 fragment Page on Page {
-  id
-  name
   # slug
   app {
     id
   }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
   rootElement {
-    ...Element
     descendantElements {
       ...Element
     }
-  }
-  pageContentContainer {
-    id
+    ...Element
   }
   store {
     ...Store
   }
-  kind
   url
 }
 
-fragment BuilderPage on Page {
-  id
-  name
-  # slug
-  rootElement {
-    ...Element
-    descendantElements {
-      ...Element
-    }
-  }
+fragment PageDevelopment on Page {
   app {
     id
   }
-  store {
-    ...Store
-  }
+  id
+  kind
+  name
   pageContentContainer {
     id
   }
-  kind
+  # slug
+  rootElement {
+    descendantElements {
+      ...Element
+    }
+    ...Element
+  }
+  store {
+    ...Store
+  }
   url
 }
 
-fragment ProductionPage on Page {
+fragment PageProduction on Page {
+  app {
+    id
+  }
   id
+  kind
   name
+  pageContentContainer {
+    id
+  }
+  rootElement {
+    descendantElements {
+      ...ElementProduction
+    }
+    ...ElementProduction
+  }
   slug
-  rootElement {
-    ...ProductionElement
-    descendantElements {
-      ...ProductionElement
-    }
-  }
-  app {
-    id
-  }
   store {
     ...Store
   }
-  pageContentContainer {
-    id
-  }
-  kind
   url
 }

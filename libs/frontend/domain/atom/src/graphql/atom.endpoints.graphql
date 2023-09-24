@@ -1,11 +1,11 @@
 mutation CreateAtoms($input: [AtomCreateInput!]!) {
   createAtoms(input: $input) {
+    atoms {
+      id
+    }
     info {
       nodesCreated
       relationshipsCreated
-    }
-    atoms {
-      id
     }
   }
 }
@@ -28,17 +28,17 @@ query GetAtoms($where: AtomWhere, $options: AtomOptions) {
 
 query GetAtomOptions {
   atoms {
-    id
-    name
-    type
-    requiredParents {
-      id
-      type
-    }
     # To satisfy interface
     api {
       id
     }
+    id
+    name
+    requiredParents {
+      id
+      type
+    }
+    type
   }
 }
 

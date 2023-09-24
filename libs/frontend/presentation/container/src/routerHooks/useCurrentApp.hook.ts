@@ -1,4 +1,3 @@
-import { AppProperties } from '@codelab/shared/domain/mapper'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'

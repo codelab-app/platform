@@ -1,9 +1,7 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import { context, trace } from '@opentelemetry/api'
-import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const HomePage: CodelabPage<DashboardTemplateProps> = () => {
   return (

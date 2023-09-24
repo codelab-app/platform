@@ -1,4 +1,3 @@
-import { Role } from '@codelab/backend/abstract/codegen'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'

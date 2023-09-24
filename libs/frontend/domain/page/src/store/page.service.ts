@@ -14,7 +14,6 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import { Element } from '@codelab/frontend/domain/element'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   InlineFormService,
@@ -140,9 +139,6 @@ export class PageService
   @modelFlow
   @transaction
   delete = _async(function* (this: PageService, pages: Array<IPageModel>) {
-    const deletePage = _async(function* (this: PageService, page: IPageModel) {
-      //
-    })
     // const operations = pages.map((page) =>
     //   _async(function* (this: PageService) {
     //     this.pages.delete(page.id)

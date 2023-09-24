@@ -2,7 +2,11 @@ import type {
   IStoreModel,
   IStoreRepository,
 } from '@codelab/frontend/abstract/core'
-import type { StoreOptions, StoreWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  StoreOptions,
+  StoreUniqueWhere,
+  StoreWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { Store, storeApi } from '../store'
 
@@ -45,6 +49,11 @@ export class StoreRepository extends Model({}) implements IStoreRepository {
     options?: StoreOptions,
   ) {
     return yield* _await(storeApi.GetStores({ options, where }))
+  })
+
+  @modelFlow
+  findOne = _async(function* (this: StoreRepository, where: StoreUniqueWhere) {
+    return (yield* _await(this.find(where))).items[0]
   })
 
   @modelFlow

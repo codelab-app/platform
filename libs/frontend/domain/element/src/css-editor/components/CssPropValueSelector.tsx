@@ -1,7 +1,7 @@
 import { DownOutlined } from '@ant-design/icons'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
-import type { ReactElement, ReactNode } from 'react'
+import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 import { MakeMenu } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'

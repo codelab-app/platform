@@ -644,11 +644,17 @@
       "plugins": ["@graphql-eslint"],
       "extends": ["plugin:@graphql-eslint/schema-all"],
       "parserOptions": {
-        // "skipGraphQLConfig": true
-        // "schema": "./schema.graphql"
+        "skipGraphQLConfig": true,
+        "schema": "./schema.graphql"
       },
       "rules": {
-        "@graphql-eslint/known-type-names": "error"
+        "@graphql-eslint/alphabetize": [
+          "error",
+          {
+            "fields": ["ObjectTypeDefinition"],
+            "selections": ["OperationDefinition", "FragmentDefinition"]
+          }
+        ]
       }
     }
   ]

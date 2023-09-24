@@ -1,15 +1,15 @@
 fragment Type on IBaseType {
+  ...ActionType
+  ...AppType
   ...ArrayType
-  ...UnionType
+  ...CodeMirrorType
+  ...ElementType
   ...EnumType
   ...InterfaceType
-  ...PrimitiveType
-  ...ElementType
   ...LambdaType
-  ...RenderPropType
-  ...ReactNodeType
-  ...CodeMirrorType
   ...PageType
-  ...AppType
-  ...ActionType
+  ...PrimitiveType
+  ...ReactNodeType
+  ...RenderPropType
+  ...UnionType
 }

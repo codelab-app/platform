@@ -1,6 +1,5 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { AuthModule } from '@codelab/backend/application/shared'
-import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { AdminDomainModule } from '@codelab/backend/domain/admin'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { TypeDomainModule } from '@codelab/backend/domain/type'

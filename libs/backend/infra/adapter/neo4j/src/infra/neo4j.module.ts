@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { neo4jConfig } from '../neo4j.config'
 import { NEO4J_DRIVER_PROVIDER } from './neo4j.constant'

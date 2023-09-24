@@ -8,7 +8,6 @@ import {
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import {
   useAppQuery,
-  useCurrentApp,
   useStore,
   useUserQuery,
 } from '@codelab/frontend/presentation/container'

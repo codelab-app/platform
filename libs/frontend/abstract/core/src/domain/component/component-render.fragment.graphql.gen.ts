@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { ComponentFragment } from './component.fragment.graphql.gen'
 import {
   ElementFragment,
-  ProductionElementFragment,
+  ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
@@ -11,7 +11,7 @@ import { gql } from 'graphql-tag'
 import { ComponentFragmentDoc } from './component.fragment.graphql.gen'
 import {
   ElementFragmentDoc,
-  ProductionElementFragmentDoc,
+  ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 export type RenderedComponentFragment = {
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
