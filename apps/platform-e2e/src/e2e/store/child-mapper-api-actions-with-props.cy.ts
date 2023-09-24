@@ -110,7 +110,9 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',

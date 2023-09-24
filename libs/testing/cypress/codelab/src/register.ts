@@ -3,12 +3,12 @@ import type {
   CypressCommand,
   OmitFirstArg,
 } from '@codelab/testing/cypress/command'
-import { getCuiHeaderToolbar } from './header-toolbar/header-toolbar.command'
+import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
 import {
   getCuiSidebar,
-  getCuiSidebarToolbarItem,
+  getCuiSidebarHeader,
   getCuiSidebarViewContent,
   getCuiSidebarViewHeader,
 } from './sidebar/sidebar.command'
@@ -33,7 +33,7 @@ export interface CypressCodelabUICommands {
   /**
    * header-toolbar
    */
-  getCuiHeaderToolbar: typeof getCuiHeaderToolbar
+  getCuiHeader: typeof getCuiHeader
   /**
    * navigation-bar
    */
@@ -42,7 +42,7 @@ export interface CypressCodelabUICommands {
    * sidebar
    */
   getCuiSidebar: typeof getCuiSidebar
-  getCuiSidebarToolbarItem: typeof getCuiSidebarToolbarItem
+  getCuiSidebarHeader: OmitFirstArg<typeof getCuiSidebarHeader>
   getCuiSidebarViewContent: typeof getCuiSidebarViewContent
   getCuiSidebarViewHeader: typeof getCuiSidebarViewHeader
   /**
@@ -68,11 +68,11 @@ export interface CypressCodelabUICommands {
 
 export const codelabUICommands: Array<CypressCommand> = [
   /**
-   * header-toolbar
+   * header
    */
   {
-    fn: getCuiHeaderToolbar,
-    name: 'getCuiHeaderToolbar',
+    fn: getCuiHeader,
+    name: 'getCuiHeader',
   },
   /**
    * navigation-bar
@@ -85,6 +85,13 @@ export const codelabUICommands: Array<CypressCommand> = [
    * sidebar
    */
   {
+    fn: getCuiSidebarHeader,
+    name: 'getCuiSidebarHeader',
+    options: {
+      prevSubject: 'optional',
+    },
+  },
+  {
     fn: getCuiSidebar,
     name: 'getCuiSidebar',
   },
@@ -95,10 +102,6 @@ export const codelabUICommands: Array<CypressCommand> = [
   {
     fn: getCuiSidebarViewHeader,
     name: 'getCuiSidebarViewHeader',
-  },
-  {
-    fn: getCuiSidebarToolbarItem,
-    name: 'getCuiSidebarToolbarItem',
   },
   /**
    * skeleton

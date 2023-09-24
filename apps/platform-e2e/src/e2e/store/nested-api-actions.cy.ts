@@ -78,7 +78,7 @@ describe('Running nested API and code actions', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -105,7 +105,9 @@ describe('Running nested API and code actions', () => {
 
   it('should create a code action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -131,7 +133,9 @@ describe('Running nested API and code actions', () => {
   })
 
   it('should create a GET api action and set code action as success action', () => {
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -175,7 +179,9 @@ describe('Running nested API and code actions', () => {
   })
 
   it('should create a POST api action and set the GET api action as success action', () => {
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',

@@ -1,3 +1,6 @@
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { CypressElement } from '@codelab/testing/cypress/command'
+
 export const getCuiSidebar = (label: string) => {
   cy.log('getCuiSidebar', label)
 
@@ -20,10 +23,14 @@ export const getCuiSidebarViewContent = (label: string) => {
   })
 }
 
-export const getCuiSidebarToolbarItem = (label: string) => {
-  cy.log('getCuiSidebarToolbarItem', label)
+export const getCuiSidebarHeader = (subject: Maybe<CypressElement>) => {
+  cy.log('getCuiSidebarHeader')
 
-  return cy.get(`[data-cy="codelabui-sidebar-toolbar-item-${label}"]`, {
-    log: false,
-  })
+  return subject
+    ? cy.wrap(subject).find(`[data-cy="codelabui-sidebar-header"]`, {
+        log: false,
+      })
+    : cy.get(`[data-cy="codelabui-sidebar-header"]`, {
+        log: false,
+      })
 }

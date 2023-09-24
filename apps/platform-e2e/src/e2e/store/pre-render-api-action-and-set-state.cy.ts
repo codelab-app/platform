@@ -67,7 +67,7 @@ describe('Running API action and setting state on element pre-render', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -94,7 +94,9 @@ describe('Running API action and setting state on element pre-render', () => {
 
   it('should create a code action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -120,7 +122,9 @@ describe('Running API action and setting state on element pre-render', () => {
   })
 
   it('should create an api action and set code action as success action', () => {
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',

@@ -160,7 +160,9 @@ describe('Testing the Form atom', () => {
       .should('be.visible')
       .click({ force: true })
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',

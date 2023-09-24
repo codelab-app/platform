@@ -96,6 +96,7 @@ export const CuiSidebar = ({
           border-gray-300
           bg-neutral-100
           "
+            data-cy="codelabui-sidebar-header"
           >
             <Typography className="pl-4">
               {views?.length !== 1 ? label : views[0]?.label}

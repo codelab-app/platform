@@ -78,7 +78,7 @@ describe('Running actions inside code action with arguments', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -102,7 +102,7 @@ describe('Running actions inside code action with arguments', () => {
 
     cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
 
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -131,7 +131,9 @@ describe('Running actions inside code action with arguments', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
 
     // API action
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -182,7 +184,9 @@ describe('Running actions inside code action with arguments', () => {
     cy.wait('@createAction1')
 
     // first code action
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -209,7 +213,9 @@ describe('Running actions inside code action with arguments', () => {
     cy.wait('@createAction2')
 
     // second code action
-    cy.getCuiHeaderToolbar().getCuiToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
