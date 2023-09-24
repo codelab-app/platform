@@ -3,12 +3,12 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-export type PropFragment = { id: string; data: string }
+export type PropFragment = { data: string; id: string }
 
 export const PropFragmentDoc = gql`
   fragment Prop on Prop {
-    id
     data
+    id
   }
 `
 

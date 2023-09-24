@@ -11,11 +11,7 @@ import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
-import type {
-  GraphQLError,
-  GraphQLFormattedError,
-  GraphQLSchema,
-} from 'graphql'
+import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import { endpointConfig } from './endpoint.config'
 
 export interface GqlContextPayload {

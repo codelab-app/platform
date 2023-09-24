@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client'
-import { getClosestContainerNodeCypher } from '../../cypher'
 
 export const elementSchema = gql`
   union ElementRenderType = Atom | Component

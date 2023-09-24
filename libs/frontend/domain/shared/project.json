@@ -9,7 +9,16 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/frontend/domain/shared/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/frontend/domain/shared/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-shared.xml",
+          "quiet": true
+        }
       }
     }
   }

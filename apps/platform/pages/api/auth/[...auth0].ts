@@ -1,13 +1,5 @@
-import {
-  getSession,
-  handleAuth,
-  handleCallback,
-  handleLogin,
-} from '@auth0/nextjs-auth0'
-import {
-  restPlatformApiClient,
-  restPlatformClient,
-} from '@codelab/frontend/config'
+import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
+import { restPlatformApiClient } from '@codelab/frontend/config'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 
 export default handleAuth({

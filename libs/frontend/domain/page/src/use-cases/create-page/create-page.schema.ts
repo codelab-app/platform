@@ -3,7 +3,6 @@ import {
   appSchema,
   idSchema,
   nonEmptyString,
-  ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'

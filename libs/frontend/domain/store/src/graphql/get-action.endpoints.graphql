@@ -2,10 +2,10 @@ query GetActions(
   $codeActionWhere: CodeActionWhere
   $apiActionWhere: ApiActionWhere
 ) {
-  codeActions(where: $codeActionWhere) {
+  apiActions(where: $apiActionWhere) {
     ...Action
   }
-  apiActions(where: $apiActionWhere) {
+  codeActions(where: $codeActionWhere) {
     ...Action
   }
 }

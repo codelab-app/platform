@@ -1,48 +1,30 @@
 import type {
+  IAppDevelopmentDto,
   IAppModel,
   IAppService,
   ICreateAppData,
-  IPageBuilderAppProps,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
   getUserService,
-  IAppRepository,
   pageRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
-import { getPageService, pageApi } from '@codelab/frontend/domain/page'
-import { getPropService } from '@codelab/frontend/domain/prop'
+import { getPageService } from '@codelab/frontend/domain/page'
 import { getResourceService } from '@codelab/frontend/domain/resource'
 import { ModalService } from '@codelab/frontend/domain/shared'
-import {
-  getActionService,
-  getStoreService,
-} from '@codelab/frontend/domain/store'
-import { getTagService } from '@codelab/frontend/domain/tag'
-import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
+import { getStoreService } from '@codelab/frontend/domain/store'
 import { VercelService } from '@codelab/frontend/domain/vercel'
-import { getTracerService, Span } from '@codelab/frontend/infra/adapter/otel'
 import { sortPagesByKindAndName } from '@codelab/frontend/shared/utils'
 import type {
-  AppUniqueWhere,
   AppWhere,
-  BuilderPageFragment,
   GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IDomainDTO } from '@codelab/shared/abstract/core'
-import {
-  IAtomType,
-  IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
-import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
-import { context, trace } from '@opentelemetry/api'
-import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
@@ -57,12 +39,14 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { AppRepository } from '../services/app.repo'
+import { AppDevelopmentService } from '../use-cases'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
 
 @model('@codelab/AppService')
 export class AppService
   extends Model({
+    appDevelopmentService: prop(() => new AppDevelopmentService({})),
     appRepository: prop(() => new AppRepository({})),
     apps: prop(() => objectMap<IAppModel>()),
     buildModal: prop(() => new AppModalService({})),
@@ -113,7 +97,7 @@ export class AppService
   @modelFlow
   @transaction
   delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
-    const deleteApp = _async(function* (this: AppService, app: IAppModel) {
+    const deleteApp = async (app: IAppModel) => {
       /**
        * Optimistic update
        */
@@ -122,26 +106,26 @@ export class AppService
       /**
        * Get all pages to delete
        */
-      const pages = yield* _await(
-        this.pageService.getAll({
-          appConnection: { node: { id: app.id } },
-        }),
-      )
+      const pages = await this.pageService.getAll({
+        appConnection: { node: { id: app.id } },
+      })
 
       // Need to load elements as well
       const elements = pages.flatMap((page) => page.elements)
 
-      yield* _await(this.elementService.elementRepository.delete(elements))
-      yield* _await(this.appRepository.delete([app]))
+      await this.elementService.elementRepository.delete(elements)
+      await this.appRepository.delete([app])
 
       for (const domain of app.domains) {
-        yield* _await(this.vercelService.delete(domain.current.name))
+        await this.vercelService.delete(domain.current.name)
       }
 
       return app
-    })
+    }
 
     yield* _await(Promise.all(apps.map((app) => deleteApp(app))))
+
+    return
   })
 
   @modelFlow
@@ -165,7 +149,7 @@ export class AppService
       }),
     )
 
-    this.loadPages({ pages })
+    // this.loadPages({ pages })
 
     const app = this.app(appId)
     pages.forEach(({ id }) => {
@@ -218,26 +202,6 @@ export class AppService
     return apps
   })
 
-  @modelFlow
-  loadDevelopmentApp = _async(function* (
-    this: AppService,
-    where: AppUniqueWhere,
-  ) {
-    console.debug('AppService.loadDevelopmentApp()', { where })
-
-    const appData = yield* _await(this.appRepository.findOne(where))
-
-    if (!appData) {
-      throw new Error('App data not found')
-    }
-
-    console.debug('appData', appData)
-
-    this.loadPages(appData)
-
-    return this.add(appData)
-  })
-
   /**
    This function fetches the initial page and all the common data shared across all pages in the application:
    - app data
@@ -247,55 +211,55 @@ export class AppService
    - resources
    - types
    */
-  @modelFlow
-  loadDevelopmentPage = _async(function* (
-    this: AppService,
-    appName: string,
-    pageName: string,
-  ) {
-    console.debug('AppService.loadDevelopmentPage()')
+  // @modelFlow
+  // loadDevelopmentPage = _async(function* (
+  //   this: AppService,
+  //   appName: string,
+  //   pageName: string,
+  // ) {
+  //   console.debug('AppService.loadDevelopmentPage()')
 
-    const user = this.userService.user
-    const appCompositeKey = AppProperties.appCompositeKey(appName, user)
+  //   const user = this.userService.user
+  //   const appCompositeKey = AppProperties.appCompositeKey(appName, user)
 
-    /**
-     * Fetch app first, since app could be not loaded
-     */
-    const app = yield* _await(
-      this.loadDevelopmentApp({
-        compositeKey: AppProperties.appCompositeKey(appName, user),
-      }),
-    )
+  //   /**
+  //    * Fetch app first, since app could be not loaded
+  //    */
+  //   const app = yield* _await(
+  //     this.loadAppsPreview({
+  //       compositeKey: AppProperties.appCompositeKey(appName, user),
+  //     }),
+  //   )
 
-    console.debug('loaded app', app)
+  //   console.debug('loaded app', app)
 
-    const pageCompositeKey = PageProperties.pageCompositeKey(pageName, app)
+  //   const pageCompositeKey = PageProperties.pageCompositeKey(pageName, app)
 
-    const pageData = yield* _await(
-      pageApi.GetDevelopmentPage({ appCompositeKey, pageCompositeKey }),
-    )
+  //   const pageData = yield* _await(
+  //     pageApi.GetDevelopmentPage({ appCompositeKey, pageCompositeKey }),
+  //   )
 
-    console.debug('pageApi.GetDevelopmentPage()', pageData)
+  //   console.debug('pageApi.GetDevelopmentPage()', pageData)
 
-    const {
-      apps: [appData],
-      resources,
-    } = pageData
+  //   const {
+  //     apps: [appData],
+  //     resources,
+  //   } = pageData
 
-    if (!appData) {
-      return null
-    }
+  //   if (!appData) {
+  //     return null
+  //   }
 
-    /**
-     * Load app, pages, elements
-     */
-    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
+  //   /**
+  //    * Load app, pages, elements
+  //    */
+  //   this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
 
-    // write cache for resources
-    this.resourceService.load(resources)
+  //   // write cache for resources
+  //   this.resourceService.load(resources)
 
-    return this.add(appData)
-  })
+  //   return this.add(appData)
+  // })
 
   @modelFlow
   @transaction
@@ -344,7 +308,7 @@ export class AppService
    * - Hydrate element
    */
   @modelAction
-  loadPages = ({ pages }: IPageBuilderAppProps) => {
+  loadPages = ({ pages }: IAppDevelopmentDto) => {
     console.debug('AppService.loadPages()', pages)
     sortPagesByKindAndName(pages)
 
@@ -377,7 +341,7 @@ export class AppService
       return undefined
     }
 
-    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
+    // this.loadPages({ pages: appData.pages })
 
     this.resourceService.load(resources)
 

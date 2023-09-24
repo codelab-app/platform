@@ -1,10 +1,9 @@
 import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
 import {
   type Auth0IdToken,
-  JWT_CLAIMS,
   type JwtPayload,
 } from '@codelab/shared/abstract/core'
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import type * as express from 'express'

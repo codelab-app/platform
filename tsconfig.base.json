@@ -202,6 +202,9 @@
       "@codelab/frontend/domain/resource": [
         "libs/frontend/domain/resource/src/index.ts"
       ],
+      "@codelab/frontend/domain/shared": [
+        "libs/frontend/domain/shared/src/index.ts"
+      ],
       "@codelab/frontend/domain/store": [
         "libs/frontend/domain/store/src/index.ts"
       ],
@@ -279,10 +282,7 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "@codelab/frontend/domain/shared": [
-        "libs/frontend/domain/shared/src/index.ts"
-      ]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

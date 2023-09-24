@@ -1,4 +1,4 @@
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AxiosResponse } from 'axios'
 import type { ObjectMap } from 'mobx-keystone'

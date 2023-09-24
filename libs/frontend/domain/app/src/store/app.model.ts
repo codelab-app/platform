@@ -12,8 +12,6 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { Domain } from '@codelab/frontend/domain/domain'
 import { Page } from '@codelab/frontend/domain/page'
-import { Store } from '@codelab/frontend/domain/store'
-import { useCurrentInterfaceId } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
   AppDeleteInput,
@@ -21,11 +19,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import {
-  AppProperties,
-  connectNodeId,
-  connectOwner,
-} from '@codelab/shared/domain/mapper'
+import { AppProperties, connectOwner } from '@codelab/shared/domain/mapper'
 import { slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -111,9 +105,8 @@ export class App
 
   @modelAction
   page(id: string) {
-    const currentPage = this.pages.find(
-      (page) => page.current.id === id,
-    )?.maybeCurrent
+    const currentPage = this.pages.find((page) => page.current.id === id)
+      ?.maybeCurrent
 
     if (!currentPage) {
       throw new Error('Missing page')

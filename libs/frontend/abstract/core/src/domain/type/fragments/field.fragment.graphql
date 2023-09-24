@@ -1,15 +1,11 @@
 fragment Field on Field {
-  id
-  key
-  name
+  api {
+    ... on InterfaceType {
+      id
+    }
+  }
+  defaultValues
   description
-  validationRules
-  prevSibling {
-    id
-  }
-  nextSibling {
-    id
-  }
   fieldType {
     ... on IBaseType {
       __typename
@@ -18,10 +14,14 @@ fragment Field on Field {
       name
     }
   }
-  api {
-    ... on InterfaceType {
-      id
-    }
+  id
+  key
+  name
+  nextSibling {
+    id
   }
-  defaultValues
+  prevSibling {
+    id
+  }
+  validationRules
 }

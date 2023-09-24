@@ -3,7 +3,7 @@ import type {
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'

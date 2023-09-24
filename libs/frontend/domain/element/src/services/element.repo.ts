@@ -4,6 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import type {
   ElementOptions,
+  ElementUniqueWhere,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
@@ -52,6 +53,14 @@ export class ElementRepository extends Model({}) implements IElementRepository {
     options?: ElementOptions,
   ) {
     return yield* _await(elementApi.GetElements({ options, where }))
+  })
+
+  @modelFlow
+  findOne = _async(function* (
+    this: ElementRepository,
+    where: ElementUniqueWhere,
+  ) {
+    return (yield* _await(this.find(where))).items[0]
   })
 
   @modelFlow

@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
+import { ComponentDevelopmentFragment } from '../../../../abstract/core/src/domain/component/component-development.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
+import { ComponentDevelopmentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-development.fragment.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
@@ -38,7 +38,7 @@ export type GetComponentsQueryVariables = Types.Exact<{
 
 export type GetComponentsQuery = {
   aggregate: { count: number }
-  items: Array<RenderedComponentFragment>
+  items: Array<ComponentDevelopmentFragment>
 }
 
 export const CreateComponentsDocument = gql`
@@ -78,10 +78,10 @@ export const GetComponentsDocument = gql`
       count
     }
     items: components(options: $options, where: $where) {
-      ...RenderedComponent
+      ...ComponentDevelopment
     }
   }
-  ${RenderedComponentFragmentDoc}
+  ${ComponentDevelopmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -3,12 +3,11 @@
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "redhat.vscode-yaml",
-    "q.typescript-mono-repo-import-helper",
     "wayou.vscode-todo-highlight",
     "graphql.vscode-graphql",
     "dbaeumer.vscode-eslint",
     "mikestead.dotenv",
-    "firsttris.vscode-jest-runner",
-    "hashicorp.terraform"
+    "firsttris.vscode-jest-runner"
+    // "hashicorp.terraform"
   ]
 }

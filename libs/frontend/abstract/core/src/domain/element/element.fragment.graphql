@@ -1,111 +1,111 @@
 fragment Element on Element {
   __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  firstChild {
+    id
+  }
   id
   name
-  style
+  nextSibling {
+    id
+  }
   page {
     id
   }
+  parent {
+    id
+  }
+  parentComponent {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
   renderType {
     ... on Atom {
       __typename
-      ...Atom
+      ...AtomDevelopment
     }
     ... on Component {
       __typename
       id
     }
   }
-  prevSibling {
-    id
-  }
-  nextSibling {
-    id
-  }
-  parentComponent {
-    id
-  }
-  parent {
-    id
-  }
-  firstChild {
-    id
-  }
-  props {
-    ...Prop
-  }
-  childMapperPreviousSibling {
-    id
-  }
-  childMapperPropKey
-  childMapperComponent {
-    id
-    name
-  }
-  renderForEachPropKey
-  renderIfExpression
-  preRenderAction {
-    id
-    type
-  }
-  postRenderAction {
-    id
-    type
-  }
+  style
 }
 
-fragment ProductionElement on Element {
+fragment ElementProduction on Element {
   __typename
+  childMapperComponent {
+    id
+    name
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  firstChild {
+    id
+  }
   id
   name
-  style
+  nextSibling {
+    id
+  }
   page {
     id
   }
+  parent {
+    id
+  }
+  parentComponent {
+    id
+  }
+  postRenderAction {
+    id
+    type
+  }
+  preRenderAction {
+    id
+    type
+  }
+  prevSibling {
+    id
+  }
+  props {
+    ...Prop
+  }
+  renderForEachPropKey
+  renderIfExpression
   renderType {
     ... on Atom {
       __typename
-      ...ProductionAtom
+      ...AtomProduction
     }
     ... on Component {
       __typename
       id
     }
   }
-  prevSibling {
-    id
-  }
-  nextSibling {
-    id
-  }
-  parentComponent {
-    id
-  }
-  parent {
-    id
-  }
-  firstChild {
-    id
-  }
-  props {
-    ...Prop
-  }
-  childMapperPreviousSibling {
-    id
-  }
-  childMapperPropKey
-  childMapperComponent {
-    id
-    name
-  }
-  renderForEachPropKey
-  renderIfExpression
-  preRenderAction {
-    id
-    type
-  }
-  postRenderAction {
-    id
-    type
-  }
+  style
 }

@@ -13,9 +13,10 @@ const addGraphqlEslintConfig = (tree, projectConfig) => {
         const relativeSchemaPath = (0, path_1.join)((0, devkit_1.offsetFromRoot)(projectConfig.root), 'schema.graphql');
         const graphqlConfig = {
             files: ['*.graphql'],
-            parserOptions: {
-                schema: relativeSchemaPath,
-            },
+            rules: {},
+            // parserOptions: {
+            //   schema: relativeSchemaPath,
+            // },
         };
         if (json.overrides) {
             // Find the index of existing GraphQL config

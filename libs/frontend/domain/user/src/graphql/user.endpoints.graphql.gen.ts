@@ -16,7 +16,7 @@ export type CreateUserMutationVariables = Types.Exact<{
 }>
 
 export type CreateUserMutation = {
-  createUsers: { users: Array<{ id: string; email: string }> }
+  createUsers: { users: Array<{ email: string; id: string }> }
 }
 
 export const GetUsersDocument = gql`
@@ -31,8 +31,8 @@ export const CreateUserDocument = gql`
   mutation CreateUser($input: [UserCreateInput!]!) {
     createUsers(input: $input) {
       users {
-        id
         email
+        id
       }
     }
   }

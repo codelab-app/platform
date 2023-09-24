@@ -1,86 +1,88 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
+import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
+import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type ComponentFragment = {
+  __typename: 'Component'
   id: string
-  name: string
   keyGenerator?: string | null
-  rootElement: { id: string; name: string }
-  owner: OwnerFragment
+  name: string
   api: InterfaceTypeFragment
-  props: PropFragment
   childrenContainerElement: { id: string }
+  owner: OwnerFragment
+  props: PropFragment
+  rootElement: { id: string; name: string }
   store: StoreFragment
 }
 
-export type ProductionComponentFragment = {
+export type ComponentProductionFragment = {
   id: string
-  name: string
   keyGenerator?: string | null
-  rootElement: { id: string; name: string }
+  name: string
+  childrenContainerElement: { id: string }
   owner: OwnerFragment
   props: PropFragment
-  childrenContainerElement: { id: string }
+  rootElement: { id: string; name: string }
   store: StoreFragment
 }
 
 export const ComponentFragmentDoc = gql`
   fragment Component on Component {
-    id
-    name
-    keyGenerator
-    rootElement {
-      id
-      name
-    }
-    owner {
-      ...Owner
-    }
+    __typename
     api {
       ...InterfaceType
+    }
+    childrenContainerElement {
+      id
+    }
+    id
+    keyGenerator
+    name
+    owner {
+      ...Owner
     }
     props {
       ...Prop
     }
-    childrenContainerElement {
+    rootElement {
       id
+      name
     }
     store {
       ...Store
     }
   }
-  ${OwnerFragmentDoc}
   ${InterfaceTypeFragmentDoc}
+  ${OwnerFragmentDoc}
   ${PropFragmentDoc}
   ${StoreFragmentDoc}
 `
-export const ProductionComponentFragmentDoc = gql`
-  fragment ProductionComponent on Component {
-    id
-    name
-    keyGenerator
-    rootElement {
+export const ComponentProductionFragmentDoc = gql`
+  fragment ComponentProduction on Component {
+    childrenContainerElement {
       id
-      name
     }
+    id
+    keyGenerator
+    name
     owner {
       ...Owner
     }
     props {
       ...Prop
     }
-    childrenContainerElement {
+    rootElement {
       id
+      name
     }
     store {
       ...Store

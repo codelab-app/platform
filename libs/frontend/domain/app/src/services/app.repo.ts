@@ -1,13 +1,10 @@
 import type { IAppModel, IAppRepository } from '@codelab/frontend/abstract/core'
-import { RepositoryService } from '@codelab/frontend/domain/shared'
-import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type {
-  AppFragment,
   AppOptions,
   AppUniqueWhere,
   AppWhere,
 } from '@codelab/shared/abstract/codegen'
-import { ExtendedModel, Model, model, modelClass } from 'mobx-keystone'
+import { Model, model } from 'mobx-keystone'
 import { App, appApi } from '../store'
 
 @model('@codelab/AppRepository')
@@ -49,7 +46,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return await appApi.GetApps({ options, where })
   }
 
-  async findOne(where: AppUniqueWhere): Promise<AppFragment | undefined> {
+  async findOne(where: AppUniqueWhere) {
     return (await this.find(where)).items[0]
   }
 

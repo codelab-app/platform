@@ -15,11 +15,9 @@ import {
   IAtomType,
   IElementRenderTypeKind,
   IPageKindName,
-  JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
 import {
   appData,
-  createAtomsData,
   internalServerErrorElementData,
   internalServerErrorPageData,
   internalServerErrorPropsData,

@@ -3,8 +3,8 @@ fragment ArrayType on ArrayType {
   itemType {
     ... on IBaseType {
       id
-      name
       kind
+      name
     }
   }
 }

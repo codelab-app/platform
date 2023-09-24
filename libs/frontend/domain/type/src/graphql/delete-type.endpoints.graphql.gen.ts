@@ -9,7 +9,7 @@ export type DeletePrimitiveTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeletePrimitiveTypesMutation = {
-  deletePrimitiveTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deletePrimitiveTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteArrayTypesMutationVariables = Types.Exact<{
@@ -18,7 +18,7 @@ export type DeleteArrayTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteArrayTypesMutation = {
-  deleteArrayTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteArrayTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteReactNodeTypesMutationVariables = Types.Exact<{
@@ -27,7 +27,7 @@ export type DeleteReactNodeTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteReactNodeTypesMutation = {
-  deleteReactNodeTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteReactNodeTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteUnionTypesMutationVariables = Types.Exact<{
@@ -36,7 +36,7 @@ export type DeleteUnionTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteUnionTypesMutation = {
-  deleteUnionTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteUnionTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteInterfaceTypesMutationVariables = Types.Exact<{
@@ -45,7 +45,7 @@ export type DeleteInterfaceTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteInterfaceTypesMutation = {
-  deleteInterfaceTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteInterfaceTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteElementTypesMutationVariables = Types.Exact<{
@@ -54,7 +54,7 @@ export type DeleteElementTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteElementTypesMutation = {
-  deleteElementTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteElementTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteRenderPropTypesMutationVariables = Types.Exact<{
@@ -63,7 +63,7 @@ export type DeleteRenderPropTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteRenderPropTypesMutation = {
-  deleteRenderPropTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteRenderPropTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteEnumTypesMutationVariables = Types.Exact<{
@@ -72,7 +72,7 @@ export type DeleteEnumTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteEnumTypesMutation = {
-  deleteEnumTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteEnumTypes: { nodesDeleted: number; relationshipsDeleted: number }
   deleteEnumTypeValues: { nodesDeleted: number }
 }
 
@@ -82,7 +82,7 @@ export type DeleteLambdaTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteLambdaTypesMutation = {
-  deleteLambdaTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteLambdaTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeletePageTypesMutationVariables = Types.Exact<{
@@ -91,7 +91,7 @@ export type DeletePageTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeletePageTypesMutation = {
-  deletePageTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deletePageTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteAppTypesMutationVariables = Types.Exact<{
@@ -100,7 +100,7 @@ export type DeleteAppTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteAppTypesMutation = {
-  deleteAppTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteAppTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteActionTypesMutationVariables = Types.Exact<{
@@ -109,7 +109,7 @@ export type DeleteActionTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteActionTypesMutation = {
-  deleteActionTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteActionTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export type DeleteCodeMirrorTypesMutationVariables = Types.Exact<{
@@ -118,7 +118,7 @@ export type DeleteCodeMirrorTypesMutationVariables = Types.Exact<{
 }>
 
 export type DeleteCodeMirrorTypesMutation = {
-  deleteCodeMirrorTypes: { relationshipsDeleted: number; nodesDeleted: number }
+  deleteCodeMirrorTypes: { nodesDeleted: number; relationshipsDeleted: number }
 }
 
 export const DeletePrimitiveTypesDocument = gql`
@@ -127,8 +127,8 @@ export const DeletePrimitiveTypesDocument = gql`
     $where: PrimitiveTypeWhere
   ) {
     deletePrimitiveTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -138,8 +138,8 @@ export const DeleteArrayTypesDocument = gql`
     $where: ArrayTypeWhere
   ) {
     deleteArrayTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -149,8 +149,8 @@ export const DeleteReactNodeTypesDocument = gql`
     $where: ReactNodeTypeWhere
   ) {
     deleteReactNodeTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -160,8 +160,8 @@ export const DeleteUnionTypesDocument = gql`
     $where: UnionTypeWhere
   ) {
     deleteUnionTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -171,8 +171,8 @@ export const DeleteInterfaceTypesDocument = gql`
     $where: InterfaceTypeWhere
   ) {
     deleteInterfaceTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -182,8 +182,8 @@ export const DeleteElementTypesDocument = gql`
     $where: ElementTypeWhere
   ) {
     deleteElementTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -193,8 +193,8 @@ export const DeleteRenderPropTypesDocument = gql`
     $where: RenderPropTypeWhere
   ) {
     deleteRenderPropTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -204,8 +204,8 @@ export const DeleteEnumTypesDocument = gql`
     $where: EnumTypeWhere
   ) {
     deleteEnumTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
     deleteEnumTypeValues(where: { enumTypeConnection: { node: $where } }) {
       nodesDeleted
@@ -218,8 +218,8 @@ export const DeleteLambdaTypesDocument = gql`
     $where: LambdaTypeWhere
   ) {
     deleteLambdaTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -229,16 +229,16 @@ export const DeletePageTypesDocument = gql`
     $where: PageTypeWhere
   ) {
     deletePageTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
 export const DeleteAppTypesDocument = gql`
   mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {
     deleteAppTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -248,8 +248,8 @@ export const DeleteActionTypesDocument = gql`
     $where: ActionTypeWhere
   ) {
     deleteActionTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `
@@ -259,8 +259,8 @@ export const DeleteCodeMirrorTypesDocument = gql`
     $where: CodeMirrorTypeWhere
   ) {
     deleteCodeMirrorTypes(delete: $delete, where: $where) {
-      relationshipsDeleted
       nodesDeleted
+      relationshipsDeleted
     }
   }
 `

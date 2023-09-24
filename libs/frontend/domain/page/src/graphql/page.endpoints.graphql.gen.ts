@@ -2,25 +2,19 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   PageFragment,
-  BuilderPageFragment,
+  PageDevelopmentFragment,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
-import {
-  PageBuilderAppFragment,
-  PageAppFragment,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppProductionFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
-  BuilderPageFragmentDoc,
+  PageDevelopmentFragmentDoc,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
-import {
-  PageBuilderAppFragmentDoc,
-  PageAppFragmentDoc,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppProductionFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
@@ -55,23 +49,13 @@ export type GetPagesQuery = {
   items: Array<PageFragment>
 }
 
-export type GetDevelopmentPageQueryVariables = Types.Exact<{
-  appCompositeKey: Types.Scalars['String']['input']
-  pageCompositeKey: Types.Scalars['String']['input']
-}>
-
-export type GetDevelopmentPageQuery = {
-  apps: Array<PageBuilderAppFragment>
-  resources: Array<ResourceFragment>
-}
-
 export type GetProductionPageQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageCompositeKey: Types.Scalars['String']['input']
 }>
 
 export type GetProductionPageQuery = {
-  apps: Array<PageAppFragment>
+  apps: Array<AppProductionFragment>
   resources: Array<ResourceFragment>
 }
 
@@ -79,7 +63,7 @@ export type GetRenderedPageQueryVariables = Types.Exact<{
   pageId: Types.Scalars['ID']['input']
 }>
 
-export type GetRenderedPageQuery = { pages: Array<BuilderPageFragment> }
+export type GetRenderedPageQuery = { pages: Array<PageDevelopmentFragment> }
 
 export const CreatePagesDocument = gql`
   mutation CreatePages($input: [PageCreateInput!]!) {
@@ -117,43 +101,28 @@ export const GetPagesDocument = gql`
   }
   ${PageFragmentDoc}
 `
-export const GetDevelopmentPageDocument = gql`
-  query GetDevelopmentPage(
-    $appCompositeKey: String!
-    $pageCompositeKey: String!
-  ) {
-    apps(where: { compositeKey: $appCompositeKey }) {
-      ...PageBuilderApp
-    }
-    resources {
-      ...Resource
-    }
-  }
-  ${PageBuilderAppFragmentDoc}
-  ${ResourceFragmentDoc}
-`
 export const GetProductionPageDocument = gql`
   query GetProductionPage(
     $appCompositeKey: String!
     $pageCompositeKey: String!
   ) {
     apps(where: { compositeKey: $appCompositeKey }) {
-      ...PageApp
+      ...AppProduction
     }
     resources {
       ...Resource
     }
   }
-  ${PageAppFragmentDoc}
+  ${AppProductionFragmentDoc}
   ${ResourceFragmentDoc}
 `
 export const GetRenderedPageDocument = gql`
   query GetRenderedPage($pageId: ID!) {
     pages(where: { id: $pageId }) {
-      ...BuilderPage
+      ...PageDevelopment
     }
   }
-  ${BuilderPageFragmentDoc}
+  ${PageDevelopmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -226,21 +195,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetPages',
-        'query',
-      )
-    },
-    GetDevelopmentPage(
-      variables: GetDevelopmentPageQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<GetDevelopmentPageQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetDevelopmentPageQuery>(
-            GetDevelopmentPageDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetDevelopmentPage',
         'query',
       )
     },

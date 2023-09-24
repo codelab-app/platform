@@ -4,14 +4,13 @@ import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type FieldFragment = {
+  defaultValues?: string | null
+  description?: string | null
   id: string
   key: string
   name?: string | null
-  description?: string | null
   validationRules?: string | null
-  defaultValues?: string | null
-  prevSibling?: { id: string } | null
-  nextSibling?: { id: string } | null
+  api: { id: string }
   fieldType:
     | {
         __typename: 'ActionType'
@@ -76,22 +75,19 @@ export type FieldFragment = {
         kind: Types.TypeKind
         name: string
       }
-  api: { id: string }
+  nextSibling?: { id: string } | null
+  prevSibling?: { id: string } | null
 }
 
 export const FieldFragmentDoc = gql`
   fragment Field on Field {
-    id
-    key
-    name
+    api {
+      ... on InterfaceType {
+        id
+      }
+    }
+    defaultValues
     description
-    validationRules
-    prevSibling {
-      id
-    }
-    nextSibling {
-      id
-    }
     fieldType {
       ... on IBaseType {
         __typename
@@ -100,12 +96,16 @@ export const FieldFragmentDoc = gql`
         name
       }
     }
-    api {
-      ... on InterfaceType {
-        id
-      }
+    id
+    key
+    name
+    nextSibling {
+      id
     }
-    defaultValues
+    prevSibling {
+      id
+    }
+    validationRules
   }
 `
 

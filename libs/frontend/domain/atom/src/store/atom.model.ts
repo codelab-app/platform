@@ -19,7 +19,6 @@ import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   connectNodeIds,

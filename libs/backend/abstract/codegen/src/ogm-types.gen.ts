@@ -842,6 +842,7 @@ export type MutationUpdateFieldsArgs = {
   disconnect?: InputMaybe<FieldDisconnectInput>
   create?: InputMaybe<FieldRelationInput>
   delete?: InputMaybe<FieldDeleteInput>
+  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
 }
 
 export type MutationCreateAtomsArgs = {
@@ -1801,7 +1802,7 @@ export enum PrimitiveTypeKind {
 }
 
 export enum ResourceType {
-  GraphQL = 'GraphQL',
+  GraphQl = 'GraphQL',
   Rest = 'Rest',
 }
 
@@ -9483,6 +9484,7 @@ export type ArrayTypeConnectInput = {
 
 export type ArrayTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
 }
 
 export type ArrayTypeConnectWhere = {
@@ -9542,6 +9544,15 @@ export type ArrayTypeFieldRefsConnectionWhere = {
   node_NOT?: InputMaybe<FieldWhere>
 }
 
+export type ArrayTypeFieldRefsConnectOrCreateFieldInput = {
+  where: FieldConnectOrCreateWhere
+  onCreate: ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate
+}
+
+export type ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type ArrayTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
@@ -9557,6 +9568,9 @@ export type ArrayTypeFieldRefsDisconnectFieldInput = {
 }
 
 export type ArrayTypeFieldRefsFieldInput = {
+  connectOrCreate?: InputMaybe<
+    Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
   connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
 }
@@ -9850,6 +9864,9 @@ export type ArrayTypeFieldRefsUpdateConnectionInput = {
 
 export type ArrayTypeFieldRefsUpdateFieldInput = {
   where?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+  connectOrCreate?: InputMaybe<
+    Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
   connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
   update?: InputMaybe<ArrayTypeFieldRefsUpdateConnectionInput>
@@ -18552,6 +18569,7 @@ export type EnumTypeConnectInput = {
 
 export type EnumTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
 }
 
 export type EnumTypeConnectWhere = {
@@ -18611,6 +18629,15 @@ export type EnumTypeFieldRefsConnectionWhere = {
   node_NOT?: InputMaybe<FieldWhere>
 }
 
+export type EnumTypeFieldRefsConnectOrCreateFieldInput = {
+  where: FieldConnectOrCreateWhere
+  onCreate: EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate
+}
+
+export type EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type EnumTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
@@ -18626,6 +18653,9 @@ export type EnumTypeFieldRefsDisconnectFieldInput = {
 }
 
 export type EnumTypeFieldRefsFieldInput = {
+  connectOrCreate?: InputMaybe<
+    Array<EnumTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
   connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
 }
@@ -18919,6 +18949,9 @@ export type EnumTypeFieldRefsUpdateConnectionInput = {
 
 export type EnumTypeFieldRefsUpdateFieldInput = {
   where?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+  connectOrCreate?: InputMaybe<
+    Array<EnumTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
   connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
   update?: InputMaybe<EnumTypeFieldRefsUpdateConnectionInput>
@@ -19607,6 +19640,15 @@ export type FieldConnectInput = {
   api?: InputMaybe<FieldApiConnectFieldInput>
 }
 
+export type FieldConnectOrCreateInput = {
+  nextSibling?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
+}
+
+export type FieldConnectOrCreateWhere = {
+  node: FieldUniqueWhere
+}
+
 export type FieldConnectWhere = {
   node: FieldWhere
 }
@@ -19720,6 +19762,15 @@ export type FieldNextSiblingConnectionWhere = {
   node_NOT?: InputMaybe<FieldWhere>
 }
 
+export type FieldNextSiblingConnectOrCreateFieldInput = {
+  where: FieldConnectOrCreateWhere
+  onCreate: FieldNextSiblingConnectOrCreateFieldInputOnCreate
+}
+
+export type FieldNextSiblingConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type FieldNextSiblingCreateFieldInput = {
   node: FieldCreateInput
 }
@@ -19735,6 +19786,7 @@ export type FieldNextSiblingDisconnectFieldInput = {
 }
 
 export type FieldNextSiblingFieldInput = {
+  connectOrCreate?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
   connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
 }
@@ -20028,11 +20080,21 @@ export type FieldNextSiblingUpdateConnectionInput = {
 
 export type FieldNextSiblingUpdateFieldInput = {
   where?: InputMaybe<FieldNextSiblingConnectionWhere>
+  connectOrCreate?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
   connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
   update?: InputMaybe<FieldNextSiblingUpdateConnectionInput>
   delete?: InputMaybe<FieldNextSiblingDeleteFieldInput>
   disconnect?: InputMaybe<FieldNextSiblingDisconnectFieldInput>
+}
+
+export type FieldOnCreateInput = {
+  id: Scalars['ID']['input']
+  key: Scalars['String']['input']
+  name?: InputMaybe<Scalars['String']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  validationRules?: InputMaybe<Scalars['String']['input']>
+  defaultValues?: InputMaybe<Scalars['String']['input']>
 }
 
 export type FieldOptions = {
@@ -20074,6 +20136,15 @@ export type FieldPrevSiblingConnectionWhere = {
   node_NOT?: InputMaybe<FieldWhere>
 }
 
+export type FieldPrevSiblingConnectOrCreateFieldInput = {
+  where: FieldConnectOrCreateWhere
+  onCreate: FieldPrevSiblingConnectOrCreateFieldInputOnCreate
+}
+
+export type FieldPrevSiblingConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type FieldPrevSiblingCreateFieldInput = {
   node: FieldCreateInput
 }
@@ -20089,6 +20160,7 @@ export type FieldPrevSiblingDisconnectFieldInput = {
 }
 
 export type FieldPrevSiblingFieldInput = {
+  connectOrCreate?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
   connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
 }
@@ -20382,6 +20454,7 @@ export type FieldPrevSiblingUpdateConnectionInput = {
 
 export type FieldPrevSiblingUpdateFieldInput = {
   where?: InputMaybe<FieldPrevSiblingConnectionWhere>
+  connectOrCreate?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
   connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
   update?: InputMaybe<FieldPrevSiblingUpdateConnectionInput>
@@ -20404,6 +20477,10 @@ export type FieldSort = {
   description?: InputMaybe<SortDirection>
   validationRules?: InputMaybe<SortDirection>
   defaultValues?: InputMaybe<SortDirection>
+}
+
+export type FieldUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type FieldUpdateInput = {
@@ -21988,9 +22065,11 @@ export type InterfaceTypeConnectInput = {
 
 export type InterfaceTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>>
   apiOfAtoms?: InputMaybe<
     Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
+  fields?: InputMaybe<Array<InterfaceTypeFieldsConnectOrCreateFieldInput>>
 }
 
 export type InterfaceTypeConnectWhere = {
@@ -22053,6 +22132,15 @@ export type InterfaceTypeFieldRefsConnectionWhere = {
   node_NOT?: InputMaybe<FieldWhere>
 }
 
+export type InterfaceTypeFieldRefsConnectOrCreateFieldInput = {
+  where: FieldConnectOrCreateWhere
+  onCreate: InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate
+}
+
+export type InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type InterfaceTypeFieldRefsCreateFieldInput = {
   node: FieldCreateInput
 }
@@ -22068,6 +22156,9 @@ export type InterfaceTypeFieldRefsDisconnectFieldInput = {
 }
 
 export type InterfaceTypeFieldRefsFieldInput = {
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
   connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
 }
@@ -22361,6 +22452,9 @@ export type InterfaceTypeFieldRefsUpdateConnectionInput = {
 
 export type InterfaceTypeFieldRefsUpdateFieldInput = {
   where?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
   connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
   update?: InputMaybe<InterfaceTypeFieldRefsUpdateConnectionInput>
@@ -22400,6 +22494,15 @@ export type InterfaceTypeFieldsConnectionWhere = {
   node_NOT?: InputMaybe<FieldWhere>
 }
 
+export type InterfaceTypeFieldsConnectOrCreateFieldInput = {
+  where: FieldConnectOrCreateWhere
+  onCreate: InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate
+}
+
+export type InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type InterfaceTypeFieldsCreateFieldInput = {
   node: FieldCreateInput
 }
@@ -22415,6 +22518,9 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 }
 
 export type InterfaceTypeFieldsFieldInput = {
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
@@ -22708,6 +22814,9 @@ export type InterfaceTypeFieldsUpdateConnectionInput = {
 
 export type InterfaceTypeFieldsUpdateFieldInput = {
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
   update?: InputMaybe<InterfaceTypeFieldsUpdateConnectionInput>
@@ -30798,7 +30907,7 @@ export declare class FieldModel {
     connect?: FieldConnectInput
     disconnect?: FieldDisconnectInput
     create?: FieldCreateInput
-
+    connectOrCreate?: FieldConnectOrCreateInput
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any

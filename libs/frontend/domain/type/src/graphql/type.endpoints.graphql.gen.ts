@@ -15,7 +15,7 @@ export type GetTypeReferencesQueryVariables = Types.Exact<{
 }>
 
 export type GetTypeReferencesQuery = {
-  getTypeReferences?: Array<{ name: string; label: string }> | null
+  getTypeReferences?: Array<{ label: string; name: string }> | null
 }
 
 export const IsTypeDescendantOfDocument = gql`
@@ -29,8 +29,8 @@ export const IsTypeDescendantOfDocument = gql`
 export const GetTypeReferencesDocument = gql`
   query GetTypeReferences($typeId: ID!) {
     getTypeReferences(typeId: $typeId) {
-      name
       label
+      name
     }
   }
 `

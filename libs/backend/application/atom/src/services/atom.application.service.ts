@@ -56,9 +56,8 @@ export class AtomApplicationService {
       IAtomType.ReactFragment,
     )
 
-    const interfaceType = await this.interfaceTypeRepository.save(
-      newInterfaceType,
-    )
+    const interfaceType =
+      await this.interfaceTypeRepository.save(newInterfaceType)
 
     const atom = Atom.create({
       api: interfaceType,

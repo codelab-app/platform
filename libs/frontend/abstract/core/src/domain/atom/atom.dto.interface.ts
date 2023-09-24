@@ -1,7 +1,7 @@
 import { IAtomDTO } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import type { RenderAtomFragment } from './atom.fragment.graphql.gen'
+import type { AtomDevelopmentFragment } from './atom.fragment.graphql.gen'
 
 export const ICreateAtomData = Type.Pick(IAtomDTO, [
   'externalCssSource',
@@ -19,4 +19,4 @@ export type ICreateAtomData = Static<typeof ICreateAtomData>
 
 export type IUpdateAtomData = ICreateAtomData
 
-export type IRenderAtomDTO = RenderAtomFragment
+export type IRenderAtomDTO = AtomDevelopmentFragment

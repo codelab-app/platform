@@ -1,6 +1,6 @@
 import type { IResolvers } from '@graphql-tools/utils'
 import { OGM } from '@neo4j/graphql-ogm'
-import type { FactoryProvider, Provider } from '@nestjs/common'
+import type { FactoryProvider } from '@nestjs/common'
 import type { Driver } from 'neo4j-driver'
 import { PURE_RESOLVER_PROVIDER } from '../resolver'
 import { typeDefs } from '../schema'

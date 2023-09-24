@@ -67,19 +67,16 @@ export class DomainService
     this: DomainService,
     domains: Array<IDomainModel>,
   ) {
-    const deleteDomain = _async(function* (
-      this: DomainService,
-      domain: IDomainModel,
-    ) {
+    const deleteDomain = async (domain: IDomainModel) => {
       const { id } = domain
 
       this.domains.delete(id)
 
-      yield* _await(this.vercelService.delete(domain.name))
-      yield* _await(this.domainRepository.delete([domain]))
+      await this.vercelService.delete(domain.name)
+      await this.domainRepository.delete([domain])
 
       return domain
-    })
+    }
 
     yield* _await(Promise.all(domains.map((domain) => deleteDomain(domain))))
 

@@ -7,7 +7,7 @@ import { DisplayIfField } from '@codelab/frontend/presentation/view'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { SelectField } from 'uniforms-antd'
 
 const RenderTypeFields = ({
   error,

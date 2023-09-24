@@ -2112,6 +2112,7 @@ export type ArrayTypeConnectInput = {
 }
 
 export type ArrayTypeConnectOrCreateInput = {
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
@@ -2181,6 +2182,15 @@ export type ArrayTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
+export type ArrayTypeFieldRefsConnectOrCreateFieldInput = {
+  onCreate: ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate
+  where: FieldConnectOrCreateWhere
+}
+
+export type ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type ArrayTypeFieldRefsConnection = {
   __typename?: 'ArrayTypeFieldRefsConnection'
   edges: Array<ArrayTypeFieldRefsRelationship>
@@ -2215,6 +2225,9 @@ export type ArrayTypeFieldRefsDisconnectFieldInput = {
 
 export type ArrayTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
 }
 
@@ -2311,6 +2324,9 @@ export type ArrayTypeFieldRefsUpdateConnectionInput = {
 
 export type ArrayTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<ArrayTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<ArrayTypeFieldRefsDisconnectFieldInput>>
@@ -9394,6 +9410,7 @@ export type EnumTypeConnectInput = {
 }
 
 export type EnumTypeConnectOrCreateInput = {
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
@@ -9476,6 +9493,15 @@ export type EnumTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
+export type EnumTypeFieldRefsConnectOrCreateFieldInput = {
+  onCreate: EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate
+  where: FieldConnectOrCreateWhere
+}
+
+export type EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type EnumTypeFieldRefsConnection = {
   __typename?: 'EnumTypeFieldRefsConnection'
   edges: Array<EnumTypeFieldRefsRelationship>
@@ -9510,6 +9536,9 @@ export type EnumTypeFieldRefsDisconnectFieldInput = {
 
 export type EnumTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<EnumTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
 }
 
@@ -9606,6 +9635,9 @@ export type EnumTypeFieldRefsUpdateConnectionInput = {
 
 export type EnumTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<EnumTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<EnumTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<EnumTypeFieldRefsDisconnectFieldInput>>
@@ -10225,6 +10257,15 @@ export type FieldConnectInput = {
   prevSibling?: InputMaybe<FieldPrevSiblingConnectFieldInput>
 }
 
+export type FieldConnectOrCreateInput = {
+  nextSibling?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
+}
+
+export type FieldConnectOrCreateWhere = {
+  node: FieldUniqueWhere
+}
+
 export type FieldConnectWhere = {
   node: FieldWhere
 }
@@ -10386,6 +10427,15 @@ export type FieldNextSiblingConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
+export type FieldNextSiblingConnectOrCreateFieldInput = {
+  onCreate: FieldNextSiblingConnectOrCreateFieldInputOnCreate
+  where: FieldConnectOrCreateWhere
+}
+
+export type FieldNextSiblingConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type FieldNextSiblingConnection = {
   __typename?: 'FieldNextSiblingConnection'
   edges: Array<FieldNextSiblingRelationship>
@@ -10420,6 +10470,7 @@ export type FieldNextSiblingDisconnectFieldInput = {
 
 export type FieldNextSiblingFieldInput = {
   connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
+  connectOrCreate?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
 }
 
@@ -10516,11 +10567,21 @@ export type FieldNextSiblingUpdateConnectionInput = {
 
 export type FieldNextSiblingUpdateFieldInput = {
   connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
+  connectOrCreate?: InputMaybe<FieldNextSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
   delete?: InputMaybe<FieldNextSiblingDeleteFieldInput>
   disconnect?: InputMaybe<FieldNextSiblingDisconnectFieldInput>
   update?: InputMaybe<FieldNextSiblingUpdateConnectionInput>
   where?: InputMaybe<FieldNextSiblingConnectionWhere>
+}
+
+export type FieldOnCreateInput = {
+  defaultValues?: InputMaybe<Scalars['String']['input']>
+  description?: InputMaybe<Scalars['String']['input']>
+  id: Scalars['ID']['input']
+  key: Scalars['String']['input']
+  name?: InputMaybe<Scalars['String']['input']>
+  validationRules?: InputMaybe<Scalars['String']['input']>
 }
 
 export type FieldOptions = {
@@ -10547,6 +10608,15 @@ export type FieldPrevSiblingConnectFieldInput = {
   /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
+}
+
+export type FieldPrevSiblingConnectOrCreateFieldInput = {
+  onCreate: FieldPrevSiblingConnectOrCreateFieldInputOnCreate
+  where: FieldConnectOrCreateWhere
+}
+
+export type FieldPrevSiblingConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
 }
 
 export type FieldPrevSiblingConnection = {
@@ -10583,6 +10653,7 @@ export type FieldPrevSiblingDisconnectFieldInput = {
 
 export type FieldPrevSiblingFieldInput = {
   connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
+  connectOrCreate?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
 }
 
@@ -10679,6 +10750,7 @@ export type FieldPrevSiblingUpdateConnectionInput = {
 
 export type FieldPrevSiblingUpdateFieldInput = {
   connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
+  connectOrCreate?: InputMaybe<FieldPrevSiblingConnectOrCreateFieldInput>
   create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
   delete?: InputMaybe<FieldPrevSiblingDeleteFieldInput>
   disconnect?: InputMaybe<FieldPrevSiblingDisconnectFieldInput>
@@ -10701,6 +10773,10 @@ export type FieldSort = {
   key?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   validationRules?: InputMaybe<SortDirection>
+}
+
+export type FieldUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type FieldUpdateInput = {
@@ -11954,6 +12030,8 @@ export type InterfaceTypeConnectOrCreateInput = {
   apiOfAtoms?: InputMaybe<
     Array<InterfaceTypeApiOfAtomsConnectOrCreateFieldInput>
   >
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>>
+  fields?: InputMaybe<Array<InterfaceTypeFieldsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
@@ -12042,6 +12120,15 @@ export type InterfaceTypeFieldRefsConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
 }
 
+export type InterfaceTypeFieldRefsConnectOrCreateFieldInput = {
+  onCreate: InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate
+  where: FieldConnectOrCreateWhere
+}
+
+export type InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
+}
+
 export type InterfaceTypeFieldRefsConnection = {
   __typename?: 'InterfaceTypeFieldRefsConnection'
   edges: Array<InterfaceTypeFieldRefsRelationship>
@@ -12076,6 +12163,9 @@ export type InterfaceTypeFieldRefsDisconnectFieldInput = {
 
 export type InterfaceTypeFieldRefsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
 }
 
@@ -12172,6 +12262,9 @@ export type InterfaceTypeFieldRefsUpdateConnectionInput = {
 
 export type InterfaceTypeFieldRefsUpdateFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldRefsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
   delete?: InputMaybe<Array<InterfaceTypeFieldRefsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<InterfaceTypeFieldRefsDisconnectFieldInput>>
@@ -12196,6 +12289,15 @@ export type InterfaceTypeFieldsConnectFieldInput = {
   /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
+}
+
+export type InterfaceTypeFieldsConnectOrCreateFieldInput = {
+  onCreate: InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate
+  where: FieldConnectOrCreateWhere
+}
+
+export type InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate = {
+  node: FieldOnCreateInput
 }
 
 export type InterfaceTypeFieldsConnection = {
@@ -12232,6 +12334,9 @@ export type InterfaceTypeFieldsDisconnectFieldInput = {
 
 export type InterfaceTypeFieldsFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
 }
 
@@ -12328,6 +12433,9 @@ export type InterfaceTypeFieldsUpdateConnectionInput = {
 
 export type InterfaceTypeFieldsUpdateFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<InterfaceTypeFieldsConnectOrCreateFieldInput>
+  >
   create?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   delete?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
   disconnect?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
@@ -13241,6 +13349,7 @@ export type MutationUpdateEnumTypesArgs = {
 
 export type MutationUpdateFieldsArgs = {
   connect?: InputMaybe<FieldConnectInput>
+  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
   create?: InputMaybe<FieldRelationInput>
   delete?: InputMaybe<FieldDeleteInput>
   disconnect?: InputMaybe<FieldDisconnectInput>
@@ -20350,16 +20459,16 @@ export type ActionFragment =
 
 export type ApiActionFragment = {
   __typename?: 'ApiAction'
-  successAction?:
-    | ({ __typename?: 'ApiAction' } & BaseAction_ApiAction_Fragment)
-    | ({ __typename?: 'CodeAction' } & BaseAction_CodeAction_Fragment)
-    | null
+  config: { __typename?: 'Prop'; data: string; id: string }
   errorAction?:
     | ({ __typename?: 'ApiAction' } & BaseAction_ApiAction_Fragment)
     | ({ __typename?: 'CodeAction' } & BaseAction_CodeAction_Fragment)
     | null
   resource: { __typename?: 'Resource' } & ResourceFragment
-  config: { __typename?: 'Prop'; id: string; data: string }
+  successAction?:
+    | ({ __typename?: 'ApiAction' } & BaseAction_ApiAction_Fragment)
+    | ({ __typename?: 'CodeAction' } & BaseAction_CodeAction_Fragment)
+    | null
 } & BaseAction_ApiAction_Fragment
 
 export type CodeActionFragment = {
@@ -20381,87 +20490,101 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
+  domains: Array<{ __typename?: 'Domain' } & DomainFragment>
   owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & PageFragment>
-  domains: Array<{ __typename?: 'Domain' } & DomainFragment>
 }
 
-export type PageBuilderAppFragment = {
+export type AppDevelopmentFragment = {
   __typename?: 'App'
   id: string
   name: string
   slug: string
   owner: { __typename?: 'User' } & OwnerFragment
-  pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
+  pages: Array<{ __typename?: 'Page' } & PageDevelopmentFragment>
 }
 
-export type PageAppFragment = {
+export type AppProductionFragment = {
   __typename?: 'App'
   id: string
   name: string
   slug: string
   owner: { __typename?: 'User' } & OwnerFragment
-  pages: Array<{ __typename?: 'Page' } & ProductionPageFragment>
+  pages: Array<{ __typename?: 'Page' } & PageProductionFragment>
 }
 
 export type AtomFragment = {
   __typename?: 'Atom'
+  externalCssSource?: string | null
+  externalJsSource?: string | null
+  externalSourceType?: string | null
   icon?: string | null
   id: string
   name: string
   type: AtomType
-  externalCssSource?: string | null
-  externalJsSource?: string | null
-  externalSourceType?: string | null
-  owner: { __typename?: 'User' } & OwnerFragment
-  tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-  suggestedChildren: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-  }>
+  owner: { __typename?: 'User' } & OwnerFragment
   requiredParents: Array<{
     __typename?: 'Atom'
     id: string
     name: string
     type: AtomType
   }>
+  suggestedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+  tags: Array<{ __typename?: 'Tag' } & TagFragment>
 }
 
-export type ProductionAtomFragment = {
-  __typename?: 'Atom'
+export type AtomDevelopmentFragment = {
+  __typename: 'Atom'
   icon?: string | null
   id: string
   name: string
   type: AtomType
+  api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+  requiredParents: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+  suggestedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+  tags: Array<{ __typename?: 'Tag' } & TagFragment>
+}
+
+export type AtomProductionFragment = {
+  __typename?: 'Atom'
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
-  suggestedChildren: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-  }>
+  icon?: string | null
+  id: string
+  name: string
+  type: AtomType
   requiredParents: Array<{
     __typename?: 'Atom'
     id: string
     name: string
     type: AtomType
   }>
+  suggestedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
 }
 
-export type RenderAtomFragment = {
-  __typename?: 'Atom'
-  icon?: string | null
-  id: string
-  name: string
-  type: AtomType
-}
-
-export type RenderedComponentFragment = {
+export type ComponentDevelopmentFragment = {
   __typename?: 'Component'
   rootElement: {
     __typename?: 'Element'
@@ -20470,27 +20593,27 @@ export type RenderedComponentFragment = {
 } & ComponentFragment
 
 export type ComponentFragment = {
-  __typename?: 'Component'
+  __typename: 'Component'
   id: string
-  name: string
   keyGenerator?: string | null
-  rootElement: { __typename?: 'Element'; id: string; name: string }
-  owner: { __typename?: 'User' } & OwnerFragment
+  name: string
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-  props: { __typename?: 'Prop' } & PropFragment
   childrenContainerElement: { __typename?: 'Element'; id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
+  props: { __typename?: 'Prop' } & PropFragment
+  rootElement: { __typename?: 'Element'; id: string; name: string }
   store: { __typename?: 'Store' } & StoreFragment
 }
 
-export type ProductionComponentFragment = {
+export type ComponentProductionFragment = {
   __typename?: 'Component'
   id: string
-  name: string
   keyGenerator?: string | null
-  rootElement: { __typename?: 'Element'; id: string; name: string }
+  name: string
+  childrenContainerElement: { __typename?: 'Element'; id: string }
   owner: { __typename?: 'User' } & OwnerFragment
   props: { __typename?: 'Prop' } & PropFragment
-  childrenContainerElement: { __typename?: 'Element'; id: string }
+  rootElement: { __typename?: 'Element'; id: string; name: string }
   store: { __typename?: 'Store' } & StoreFragment
 }
 
@@ -20505,73 +20628,73 @@ export type DomainFragment = {
 
 export type ElementFragment = {
   __typename: 'Element'
+  childMapperPropKey?: string | null
   id: string
   name: string
-  style?: string | null
-  childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  page?: { __typename?: 'Page'; id: string } | null
-  renderType:
-    | ({ __typename: 'Atom' } & AtomFragment)
-    | { __typename: 'Component'; id: string }
-  prevSibling?: { __typename?: 'Element'; id: string } | null
-  nextSibling?: { __typename?: 'Element'; id: string } | null
-  parentComponent?: { __typename?: 'Component'; id: string } | null
-  parent?: { __typename?: 'Element'; id: string } | null
-  firstChild?: { __typename?: 'Element'; id: string } | null
-  props: { __typename?: 'Prop' } & PropFragment
-  childMapperPreviousSibling?: { __typename?: 'Element'; id: string } | null
+  style?: string | null
   childMapperComponent?: {
     __typename?: 'Component'
     id: string
     name: string
   } | null
-  preRenderAction?:
-    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
-    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
-    | null
+  childMapperPreviousSibling?: { __typename?: 'Element'; id: string } | null
+  firstChild?: { __typename?: 'Element'; id: string } | null
+  nextSibling?: { __typename?: 'Element'; id: string } | null
+  page?: { __typename?: 'Page'; id: string } | null
+  parent?: { __typename?: 'Element'; id: string } | null
+  parentComponent?: { __typename?: 'Component'; id: string } | null
   postRenderAction?:
     | { __typename?: 'ApiAction'; id: string; type: ActionKind }
     | { __typename?: 'CodeAction'; id: string; type: ActionKind }
     | null
+  preRenderAction?:
+    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
+    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
+    | null
+  prevSibling?: { __typename?: 'Element'; id: string } | null
+  props: { __typename?: 'Prop' } & PropFragment
+  renderType:
+    | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
+    | { __typename: 'Component'; id: string }
 }
 
-export type ProductionElementFragment = {
+export type ElementProductionFragment = {
   __typename: 'Element'
+  childMapperPropKey?: string | null
   id: string
   name: string
-  style?: string | null
-  childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  page?: { __typename?: 'Page'; id: string } | null
-  renderType:
-    | ({ __typename: 'Atom' } & ProductionAtomFragment)
-    | { __typename: 'Component'; id: string }
-  prevSibling?: { __typename?: 'Element'; id: string } | null
-  nextSibling?: { __typename?: 'Element'; id: string } | null
-  parentComponent?: { __typename?: 'Component'; id: string } | null
-  parent?: { __typename?: 'Element'; id: string } | null
-  firstChild?: { __typename?: 'Element'; id: string } | null
-  props: { __typename?: 'Prop' } & PropFragment
-  childMapperPreviousSibling?: { __typename?: 'Element'; id: string } | null
+  style?: string | null
   childMapperComponent?: {
     __typename?: 'Component'
     id: string
     name: string
   } | null
-  preRenderAction?:
-    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
-    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
-    | null
+  childMapperPreviousSibling?: { __typename?: 'Element'; id: string } | null
+  firstChild?: { __typename?: 'Element'; id: string } | null
+  nextSibling?: { __typename?: 'Element'; id: string } | null
+  page?: { __typename?: 'Page'; id: string } | null
+  parent?: { __typename?: 'Element'; id: string } | null
+  parentComponent?: { __typename?: 'Component'; id: string } | null
   postRenderAction?:
     | { __typename?: 'ApiAction'; id: string; type: ActionKind }
     | { __typename?: 'CodeAction'; id: string; type: ActionKind }
     | null
+  preRenderAction?:
+    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
+    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
+    | null
+  prevSibling?: { __typename?: 'Element'; id: string } | null
+  props: { __typename?: 'Prop' } & PropFragment
+  renderType:
+    | ({ __typename: 'Atom' } & AtomProductionFragment)
+    | { __typename: 'Component'; id: string }
 }
 
-export type HookPropFragment = { __typename?: 'Prop'; id: string; data: string }
+export type HookPropFragment = { __typename?: 'Prop'; data: string; id: string }
 
 export type HookFragment = {
   __typename?: 'Hook'
@@ -20584,8 +20707,8 @@ export type HookFragment = {
 export type PagePreviewFragment = {
   __typename?: 'Page'
   id: string
-  name: string
   kind: PageKind
+  name: string
   url: string
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string }
@@ -20595,52 +20718,52 @@ export type PagePreviewFragment = {
 export type PageFragment = {
   __typename?: 'Page'
   id: string
-  name: string
   kind: PageKind
+  name: string
   url: string
   app: { __typename?: 'App'; id: string }
+  pageContentContainer?: { __typename?: 'Element'; id: string } | null
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
-  pageContentContainer?: { __typename?: 'Element'; id: string } | null
   store: { __typename?: 'Store' } & StoreFragment
 }
 
-export type BuilderPageFragment = {
+export type PageDevelopmentFragment = {
   __typename?: 'Page'
   id: string
-  name: string
   kind: PageKind
+  name: string
   url: string
+  app: { __typename?: 'App'; id: string }
+  pageContentContainer?: { __typename?: 'Element'; id: string } | null
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
-  app: { __typename?: 'App'; id: string }
   store: { __typename?: 'Store' } & StoreFragment
-  pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
-export type ProductionPageFragment = {
+export type PageProductionFragment = {
   __typename?: 'Page'
   id: string
+  kind: PageKind
   name: string
   slug: string
-  kind: PageKind
   url: string
+  app: { __typename?: 'App'; id: string }
+  pageContentContainer?: { __typename?: 'Element'; id: string } | null
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<
-      { __typename?: 'Element' } & ProductionElementFragment
+      { __typename?: 'Element' } & ElementProductionFragment
     >
-  } & ProductionElementFragment
-  app: { __typename?: 'App'; id: string }
+  } & ElementProductionFragment
   store: { __typename?: 'Store' } & StoreFragment
-  pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
-export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
+export type PropFragment = { __typename?: 'Prop'; data: string; id: string }
 
 export type ResourceFragment = {
   __typename?: 'Resource'
@@ -20654,38 +20777,38 @@ export type StoreFragment = {
   __typename?: 'Store'
   id: string
   name: string
-  api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-  container:
-    | { __typename?: 'Component'; id: string }
-    | { __typename?: 'Page'; id: string }
   actions: Array<
     | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
     | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)
   >
+  api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+  container:
+    | { __typename?: 'Component'; id: string }
+    | { __typename?: 'Page'; id: string }
 }
 
 export type ProductionStoreFragment = {
   __typename?: 'Store'
   id: string
   name: string
-  container:
-    | { __typename?: 'Component'; id: string }
-    | { __typename?: 'Page'; id: string }
   actions: Array<
     | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
     | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)
   >
+  container:
+    | { __typename?: 'Component'; id: string }
+    | { __typename?: 'Page'; id: string }
 }
 
 export type TagFragment = {
   __typename?: 'Tag'
   id: string
-  name: string
   isRoot: boolean
-  parent?: { __typename?: 'Tag'; id: string } | null
+  name: string
   children: Array<{ __typename?: 'Tag'; id: string }>
   descendants: Array<{ __typename?: 'Tag'; id: string }>
   owner: { __typename?: 'User' } & OwnerFragment
+  parent?: { __typename?: 'Tag'; id: string } | null
 }
 
 export type TagPreviewFragment = {
@@ -20705,119 +20828,119 @@ export type AppTypeFragment = {
 export type ArrayTypeFragment = {
   __typename?: 'ArrayType'
   itemType:
-    | { __typename?: 'ActionType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'AppType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'ArrayType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'ActionType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'AppType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'ArrayType'; id: string; kind: TypeKind; name: string }
     | {
         __typename?: 'CodeMirrorType'
         id: string
-        name: string
         kind: TypeKind
+        name: string
       }
-    | { __typename?: 'ElementType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'EnumType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'InterfaceType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'LambdaType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'PageType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'PrimitiveType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'ReactNodeType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'ElementType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'EnumType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'InterfaceType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'LambdaType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'PageType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; kind: TypeKind; name: string }
     | {
         __typename?: 'RenderPropType'
         id: string
-        name: string
         kind: TypeKind
+        name: string
       }
-    | { __typename?: 'UnionType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'UnionType'; id: string; kind: TypeKind; name: string }
 } & BaseType_ArrayType_Fragment
 
 type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_AppType_Fragment = {
   __typename: 'AppType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_ArrayType_Fragment = {
   __typename: 'ArrayType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_ElementType_Fragment = {
   __typename: 'ElementType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_EnumType_Fragment = {
   __typename: 'EnumType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_InterfaceType_Fragment = {
   __typename: 'InterfaceType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_LambdaType_Fragment = {
   __typename: 'LambdaType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_PageType_Fragment = {
   __typename: 'PageType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_ReactNodeType_Fragment = {
   __typename: 'ReactNodeType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_RenderPropType_Fragment = {
   __typename: 'RenderPropType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
 type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
-  kind: TypeKind
   id: string
+  kind: TypeKind
   name: string
 }
 
@@ -20860,14 +20983,13 @@ export type EnumTypeFragment = {
 
 export type FieldFragment = {
   __typename?: 'Field'
+  defaultValues?: string | null
+  description?: string | null
   id: string
   key: string
   name?: string | null
-  description?: string | null
   validationRules?: string | null
-  defaultValues?: string | null
-  prevSibling?: { __typename?: 'Field'; id: string } | null
-  nextSibling?: { __typename?: 'Field'; id: string } | null
+  api: { __typename?: 'InterfaceType'; id: string }
   fieldType:
     | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
@@ -20882,7 +21004,8 @@ export type FieldFragment = {
     | { __typename: 'ReactNodeType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'RenderPropType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'UnionType'; id: string; kind: TypeKind; name: string }
-  api: { __typename?: 'InterfaceType'; id: string }
+  nextSibling?: { __typename?: 'Field'; id: string } | null
+  prevSibling?: { __typename?: 'Field'; id: string } | null
 }
 
 export type InterfaceTypeFragment = {
@@ -20991,11 +21114,11 @@ export type OwnerFragment = { __typename?: 'User'; id: string }
 
 export type UserFragment = {
   __typename?: 'User'
-  id: string
-  username: string
-  email: string
   auth0Id: string
+  email: string
+  id: string
   roles?: Array<Role> | null
+  username: string
   apps: Array<{ __typename?: 'App' } & AppFragment>
 }
 
@@ -21055,6 +21178,17 @@ export type GetAppsListQuery = {
   apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
 }
 
+export type GetAppDevelopmentQueryVariables = Exact<{
+  appCompositeKey: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
+
+export type GetAppDevelopmentQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
 export type CreateAtomsMutationVariables = Exact<{
   input: Array<AtomCreateInput> | AtomCreateInput
 }>
@@ -21063,12 +21197,12 @@ export type CreateAtomsMutation = {
   __typename?: 'Mutation'
   createAtoms: {
     __typename?: 'CreateAtomsMutationResponse'
+    atoms: Array<{ __typename?: 'Atom'; id: string }>
     info: {
       __typename?: 'CreateInfo'
       nodesCreated: number
       relationshipsCreated: number
     }
-    atoms: Array<{ __typename?: 'Atom'; id: string }>
   }
 }
 
@@ -21105,8 +21239,8 @@ export type GetAtomOptionsQuery = {
     id: string
     name: string
     type: AtomType
-    requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
     api: { __typename?: 'InterfaceType'; id: string }
+    requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
   }>
 }
 
@@ -21166,7 +21300,7 @@ export type GetComponentsQueryVariables = Exact<{
 export type GetComponentsQuery = {
   __typename?: 'Query'
   aggregate: { __typename?: 'ComponentAggregateSelection'; count: number }
-  items: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
+  items: Array<{ __typename?: 'Component' } & ComponentDevelopmentFragment>
 }
 
 export type GetDomainsQueryVariables = Exact<{
@@ -21327,17 +21461,6 @@ export type GetPagesQuery = {
   items: Array<{ __typename?: 'Page' } & PageFragment>
 }
 
-export type GetDevelopmentPageQueryVariables = Exact<{
-  appCompositeKey: Scalars['String']['input']
-  pageCompositeKey: Scalars['String']['input']
-}>
-
-export type GetDevelopmentPageQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-}
-
 export type GetProductionPageQueryVariables = Exact<{
   appCompositeKey: Scalars['String']['input']
   pageCompositeKey: Scalars['String']['input']
@@ -21345,7 +21468,7 @@ export type GetProductionPageQueryVariables = Exact<{
 
 export type GetProductionPageQuery = {
   __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & PageAppFragment>
+  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
@@ -21355,7 +21478,7 @@ export type GetRenderedPageQueryVariables = Exact<{
 
 export type GetRenderedPageQuery = {
   __typename?: 'Query'
-  pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
+  pages: Array<{ __typename?: 'Page' } & PageDevelopmentFragment>
 }
 
 export type CreatePropsMutationVariables = Exact<{
@@ -21507,8 +21630,8 @@ export type GetActionsQueryVariables = Exact<{
 
 export type GetActionsQuery = {
   __typename?: 'Query'
-  codeActions: Array<{ __typename?: 'CodeAction' } & Action_CodeAction_Fragment>
   apiActions: Array<{ __typename?: 'ApiAction' } & Action_ApiAction_Fragment>
+  codeActions: Array<{ __typename?: 'CodeAction' } & Action_CodeAction_Fragment>
 }
 
 export type CreateStoresMutationVariables = Exact<{
@@ -21806,8 +21929,8 @@ export type DeletePrimitiveTypesMutation = {
   __typename?: 'Mutation'
   deletePrimitiveTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21820,8 +21943,8 @@ export type DeleteArrayTypesMutation = {
   __typename?: 'Mutation'
   deleteArrayTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21834,8 +21957,8 @@ export type DeleteReactNodeTypesMutation = {
   __typename?: 'Mutation'
   deleteReactNodeTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21848,8 +21971,8 @@ export type DeleteUnionTypesMutation = {
   __typename?: 'Mutation'
   deleteUnionTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21862,8 +21985,8 @@ export type DeleteInterfaceTypesMutation = {
   __typename?: 'Mutation'
   deleteInterfaceTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21876,8 +21999,8 @@ export type DeleteElementTypesMutation = {
   __typename?: 'Mutation'
   deleteElementTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21890,8 +22013,8 @@ export type DeleteRenderPropTypesMutation = {
   __typename?: 'Mutation'
   deleteRenderPropTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21904,8 +22027,8 @@ export type DeleteEnumTypesMutation = {
   __typename?: 'Mutation'
   deleteEnumTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
   deleteEnumTypeValues: { __typename?: 'DeleteInfo'; nodesDeleted: number }
 }
@@ -21919,8 +22042,8 @@ export type DeleteLambdaTypesMutation = {
   __typename?: 'Mutation'
   deleteLambdaTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21933,8 +22056,8 @@ export type DeletePageTypesMutation = {
   __typename?: 'Mutation'
   deletePageTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21947,8 +22070,8 @@ export type DeleteAppTypesMutation = {
   __typename?: 'Mutation'
   deleteAppTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21961,8 +22084,8 @@ export type DeleteActionTypesMutation = {
   __typename?: 'Mutation'
   deleteActionTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -21975,8 +22098,8 @@ export type DeleteCodeMirrorTypesMutation = {
   __typename?: 'Mutation'
   deleteCodeMirrorTypes: {
     __typename?: 'DeleteInfo'
-    relationshipsDeleted: number
     nodesDeleted: number
+    relationshipsDeleted: number
   }
 }
 
@@ -22058,31 +22181,31 @@ export type GetTypesQueryVariables = Exact<{
 
 export type GetTypesQuery = {
   __typename?: 'Query'
-  primitiveTypes: Array<
-    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
-  >
   arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
-  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  elementTypes: Array<
+    { __typename?: 'ElementType' } & Type_ElementType_Fragment
+  >
+  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  codeMirrorTypes: Array<
+    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
+  >
   interfaceTypes: Array<
     { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
   >
-  elementTypes: Array<
-    { __typename?: 'ElementType' } & Type_ElementType_Fragment
+  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  primitiveTypes: Array<
+    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
+  >
+  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+  reactNodeTypes: Array<
+    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
   >
   renderPropTypes: Array<
     { __typename?: 'RenderPropType' } & Type_RenderPropType_Fragment
   >
-  reactNodeTypes: Array<
-    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
-  >
-  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
-  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
-  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
-  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
-  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
-  codeMirrorTypes: Array<
-    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
-  >
+  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
 }
 
 export type GetDescendantsQueryVariables = Exact<{
@@ -22095,12 +22218,12 @@ export type GetDescendantsQuery = {
     __typename?: 'ArrayType'
     descendantTypesIds: Array<string>
   }>
-  unionTypes: Array<{
-    __typename?: 'UnionType'
-    descendantTypesIds: Array<string>
-  }>
   interfaceTypes: Array<{
     __typename?: 'InterfaceType'
+    descendantTypesIds: Array<string>
+  }>
+  unionTypes: Array<{
+    __typename?: 'UnionType'
     descendantTypesIds: Array<string>
   }>
 }
@@ -22242,44 +22365,44 @@ export type GetTypeOptionsQuery = {
   baseTypes: {
     __typename?: 'GetBaseTypesReturn'
     items: Array<
-      | { __typename?: 'ActionType'; id: string; name: string; kind: TypeKind }
-      | { __typename?: 'AppType'; id: string; name: string; kind: TypeKind }
-      | { __typename?: 'ArrayType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'ActionType'; id: string; kind: TypeKind; name: string }
+      | { __typename?: 'AppType'; id: string; kind: TypeKind; name: string }
+      | { __typename?: 'ArrayType'; id: string; kind: TypeKind; name: string }
       | {
           __typename?: 'CodeMirrorType'
           id: string
-          name: string
           kind: TypeKind
+          name: string
         }
-      | { __typename?: 'ElementType'; id: string; name: string; kind: TypeKind }
-      | { __typename?: 'EnumType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'ElementType'; id: string; kind: TypeKind; name: string }
+      | { __typename?: 'EnumType'; id: string; kind: TypeKind; name: string }
       | {
           __typename?: 'InterfaceType'
           id: string
-          name: string
           kind: TypeKind
+          name: string
         }
-      | { __typename?: 'LambdaType'; id: string; name: string; kind: TypeKind }
-      | { __typename?: 'PageType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'LambdaType'; id: string; kind: TypeKind; name: string }
+      | { __typename?: 'PageType'; id: string; kind: TypeKind; name: string }
       | {
           __typename?: 'PrimitiveType'
           id: string
-          name: string
           kind: TypeKind
+          name: string
         }
       | {
           __typename?: 'ReactNodeType'
           id: string
-          name: string
           kind: TypeKind
+          name: string
         }
       | {
           __typename?: 'RenderPropType'
           id: string
-          name: string
           kind: TypeKind
+          name: string
         }
-      | { __typename?: 'UnionType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'UnionType'; id: string; kind: TypeKind; name: string }
     >
   }
 }
@@ -22315,8 +22438,8 @@ export type InterfaceForm_GetActionsQueryVariables = Exact<{
 
 export type InterfaceForm_GetActionsQuery = {
   __typename?: 'Query'
-  codeActions: Array<{ __typename?: 'CodeAction'; id: string; name: string }>
   apiActions: Array<{ __typename?: 'ApiAction'; id: string; name: string }>
+  codeActions: Array<{ __typename?: 'CodeAction'; id: string; name: string }>
 }
 
 export type InterfaceForm_GetStoresQueryVariables = Exact<{
@@ -22367,8 +22490,8 @@ export type GetTypeReferencesQuery = {
   __typename?: 'Query'
   getTypeReferences?: Array<{
     __typename?: 'TypeReference'
-    name: string
     label: string
+    name: string
   }> | null
 }
 
@@ -22610,6 +22733,6 @@ export type CreateUserMutation = {
   __typename?: 'Mutation'
   createUsers: {
     __typename?: 'CreateUsersMutationResponse'
-    users: Array<{ __typename?: 'User'; id: string; email: string }>
+    users: Array<{ __typename?: 'User'; email: string; id: string }>
   }
 }

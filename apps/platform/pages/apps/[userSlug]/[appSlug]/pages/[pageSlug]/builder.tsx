@@ -1,7 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
   BuilderPrimarySidebar,
@@ -13,9 +13,7 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
-import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
 import {
-  useCurrentPage,
   useDevelopmentPage,
   usePageQuery,
   useStore,
@@ -24,12 +22,6 @@ import {
   DashboardTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
-import { builderRouteChangeHandler } from '@codelab/frontend/shared/utils'
-import { withBoundContext } from '@codelab/shared/infra/otel'
-import { context, trace } from '@opentelemetry/api'
-import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
-import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
-import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -37,48 +29,51 @@ import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
   const router = useRouter()
-  const { pageService } = useStore()
+  const { appService, pageService } = useStore()
   const { pageName } = usePageQuery()
 
-  const [{ error, result }, loadDevelopmentPage] = useDevelopmentPage({
+  const [{ error, result, status }, loadDevelopmentPage] = useDevelopmentPage({
     rendererType: RendererType.PageBuilder,
   })
 
-  const routeChangeHandler = React.useMemo(
-    () => async (url: string) => {
-      if (isNil(result)) {
-        return
-      }
+  // const routeChangeHandler = React.useMemo(
+  //   () => async (url: string) => {
+  //     if (isBoolean(result) && !result) {
+  //       return
+  //     }
 
-      const pages = pageService.pagesByApp(result.app.id)
-      await builderRouteChangeHandler(
-        router,
-        result.app,
-        pages,
-        url,
-        PageType.PageBuilder,
-      )
-    },
-    [result],
-  )
+  //     const pages = pageService.pagesByApp(result.app.id)
+  //     await builderRouteChangeHandler(
+  //       router,
+  //       result.app,
+  //       pages,
+  //       url,
+  //       PageType.PageBuilder,
+  //     )
+  //   },
+  //   [result],
+  // )
 
-  useUpdateEffect(() => {
-    if (!isNil(result)) {
-      router.events.on('routeChangeStart', routeChangeHandler)
-    }
-  }, [result])
+  // useUpdateEffect(() => {
+  //   if (!isNil(result)) {
+  //     router.events.on('routeChangeStart', routeChangeHandler)
+  //   }
+  // }, [result])
 
-  useUnmountEffect(() => {
-    router.events.off('routeChangeStart', routeChangeHandler)
-  })
-
+  /**
+   * Only enable `routeChangeStart` after data is loaded & before unmount
+   */
   useEffect(() => {
-    router.events.off('routeChangeStart', routeChangeHandler)
+    // router.events.off('routeChangeStart', routeChangeHandler)
     void loadDevelopmentPage.execute()
-    console.debug('after useDevelopmentPage()')
+
+    // Unmount
+    return () => {
+      // router.events.off('routeChangeStart', routeChangeHandler)
+    }
   }, [pageName])
 
-  const isLoading = isNil(result?.app)
+  const isLoading = status === 'loading'
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   return (

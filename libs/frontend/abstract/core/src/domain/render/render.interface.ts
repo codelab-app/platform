@@ -1,6 +1,5 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { IComponentService } from '../component'
-import type { IElementModel, IElementService } from '../element'
+import type { IElementModel } from '../element'
 import type { IPropData, IPropDataByElementId } from '../prop'
 import type { IRenderer } from './renderer.model.interface'
 

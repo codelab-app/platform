@@ -2,7 +2,11 @@ import type {
   IPageModel,
   IPageRepository,
 } from '@codelab/frontend/abstract/core'
-import type { PageOptions, PageWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  PageOptions,
+  PageUniqueWhere,
+  PageWhere,
+} from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
@@ -33,6 +37,10 @@ export class PageRepository extends Model({}) implements IPageRepository {
 
   async find(where?: PageWhere, options?: PageOptions) {
     return pageApi.GetPages({ options, where })
+  }
+
+  async findOne(where: PageUniqueWhere) {
+    return (await this.find(where)).items[0]
   }
 
   async update(page: IPageModel) {
