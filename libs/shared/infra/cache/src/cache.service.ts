@@ -1,5 +1,4 @@
 import { getEnv } from '@codelab/shared/config'
-import { Type } from '@sinclair/typebox'
 import type { VercelKV } from '@vercel/kv'
 import { createClient } from '@vercel/kv'
 import { z } from 'zod'

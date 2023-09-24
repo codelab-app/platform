@@ -32,7 +32,10 @@ export const whereNode = (key: string, value: string) => ({
   },
 })
 
-export const whereMaybeNode = (key: string, value: string | null | undefined) =>
+export const whereMaybeNode = (
+  key: string,
+  value: string | null | undefined,
+) =>
   value
     ? {
         where: {

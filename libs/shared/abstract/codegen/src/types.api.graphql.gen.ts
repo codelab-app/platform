@@ -13292,6 +13292,7 @@ export type MutationUpdateEnumTypesArgs = {
 
 export type MutationUpdateFieldsArgs = {
   connect?: InputMaybe<FieldConnectInput>
+  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
   create?: InputMaybe<FieldRelationInput>
   delete?: InputMaybe<FieldDeleteInput>
   disconnect?: InputMaybe<FieldDisconnectInput>
@@ -20439,8 +20440,8 @@ export type PagePreviewFragment = {
 export type PagePreviewFragment = {
   __typename?: 'Page'
   id: string
-  name: string
   kind: PageKind
+  name: string
   url: string
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string }
@@ -20839,6 +20840,17 @@ export type GetAppsListQueryVariables = Exact<{
 export type GetAppsListQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+}
+
+export type GetAppDevelopmentQueryVariables = Exact<{
+  appCompositeKey: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
+
+export type GetAppDevelopmentQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
 export type CreateAtomsMutationVariables = Exact<{

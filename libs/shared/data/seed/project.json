@@ -22,11 +22,15 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "libs/shared/data/seed/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"]
+        "reporters": [
+          "default"
+        ]
       },
       "configurations": {
         "ci": {
@@ -40,16 +44,22 @@
       "options": {
         "memoryLimit": 8192,
         "color": true,
-        "testPathPattern": ["[i].spec.ts"],
+        "testPathPattern": [
+          "[i].spec.ts"
+        ],
         "jestConfig": "libs/shared/data/seed/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
         "dev": {
-          "reporters": ["default"]
+          "reporters": [
+            "default"
+          ]
         },
         "test": {
-          "reporters": ["default"]
+          "reporters": [
+            "default"
+          ]
         },
         "ci": {
           "parallel": 3,
@@ -58,7 +68,9 @@
         }
       },
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ]
     },
     "test:unit": {
       "defaultConfiguration": "dev",
@@ -66,16 +78,22 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathPattern": [
+          "[^i].spec.ts"
+        ],
         "jestConfig": "libs/shared/data/seed/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
         "dev": {
-          "reporters": ["default"]
+          "reporters": [
+            "default"
+          ]
         },
         "test": {
-          "reporters": ["default"]
+          "reporters": [
+            "default"
+          ]
         },
         "ci": {
           "ci": true,
@@ -83,7 +101,9 @@
         }
       },
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ]
     }
   },
   "tags": ["projectType:library", "type:concrete", "scope:shared"]

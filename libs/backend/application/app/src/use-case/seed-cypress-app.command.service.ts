@@ -18,7 +18,6 @@ import {
 } from '@codelab/shared/abstract/core'
 import {
   appData,
-  createAtomsData,
   internalServerErrorElementData,
   internalServerErrorPageData,
   internalServerErrorPropsData,

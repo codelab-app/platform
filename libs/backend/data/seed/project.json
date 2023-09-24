@@ -1,25 +1,30 @@
 {
-  "name": "backend-data-seed",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/data/seed/src",
+  "name": "backend-data-seed",
   "projectType": "library",
+  "sourceRoot": "libs/backend/data/seed/src",
+  "tags": [
+    "type:data",
+    "projectType:library",
+    "type:concrete",
+    "scope:backend"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/backend-data-seed.xml",
           "quiet": true
         }
-      }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": ["type:data", "projectType:library", "type:concrete", "scope:backend"]
+  }
 }

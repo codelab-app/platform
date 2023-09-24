@@ -1,11 +1,6 @@
 import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
-import type {
-  Auth0IdToken,
-  IOwner,
-  IUserDTO,
-} from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 
 interface AuthenticatedRequest extends Request {

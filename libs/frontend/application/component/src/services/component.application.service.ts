@@ -239,12 +239,12 @@ export class ComponentApplicationService
          * Element comes with `component` or `atom` data that we need to load as well
          * TODO: Need to handle component case, refactor reuse
          */
-        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
-          this.typeService.loadTypes({
-            interfaceTypes: [elementData.renderType.api],
-          })
+        // if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
+        //   this.typeService.loadTypes({
+        //     interfaceTypes: [elementData.renderType.api],
+        //   })
 
-          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
+        //   elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
 
           this.atomService.atomDomainService.add(elementData.renderType)
         }
