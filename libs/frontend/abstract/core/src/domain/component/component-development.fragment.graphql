@@ -1,9 +1,9 @@
-fragment RenderedComponent on Component {
+fragment ComponentDevelopment on Component {
   ...Component
   rootElement {
-    ...Element
     descendantElements {
       ...Element
     }
+    ...Element
   }
 }

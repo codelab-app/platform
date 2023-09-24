@@ -1,23 +1,12 @@
 import { AtomApplicationService } from '@codelab/backend/application/atom'
-import { AuthService, CurrentUser } from '@codelab/backend/application/shared'
 import { AdminRepository } from '@codelab/backend/domain/admin'
-import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
-import {
-  InterfaceType,
-  InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { AUTH0_MANAGEMENT_CLIENT_TOKEN } from '@codelab/backend/infra/adapter/auth0'
 import {
   type Auth0IdToken,
-  IAtomType,
   IRole,
-  IUserDTO,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
-import { Body, Controller, Inject, Post } from '@nestjs/common'
-import { ManagementClient } from 'auth0'
-import { v4 } from 'uuid'
+import { Body, Controller, Post } from '@nestjs/common'
 import { UserApplicationService } from './user.application.service'
 
 @Controller('user')

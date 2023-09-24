@@ -1,17 +1,13 @@
 import type { RendererType } from '@codelab/frontend/abstract/core'
 import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
-import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
-import { trace } from '@opentelemetry/api'
 import { useAsync } from '@react-hookz/web'
+import find from 'lodash/find'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
 import { useAppQuery } from './useAppQuery.hook'
 import { usePageQuery } from './usePageQuery.hook'
-import { loadAllTypesForElements } from './utils'
 
 interface DevelopmentPageProps {
   rendererType: RendererType
@@ -29,80 +25,93 @@ export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
     pageService,
     renderService,
     typeService,
+    userService,
   } = useStore()
 
   const router = useRouter()
   const { appName } = useAppQuery()
   const { pageName } = usePageQuery()
+  const userId = userService.user.id
 
   return useAsync(async () => {
     console.debug('useDevelopmentPage', { appName, pageName })
-    await appService.loadDevelopmentPage(appName, pageName)
 
-    const app = appService.appsList.find((_app) => _app.name === appName)
-    const page = pageService.pagesList.find((_page) => _page.name === pageName)
+    try {
+      const appDevelopmentData =
+        await appService.appDevelopmentService.getAppDevelopmentData({
+          appName,
+          pageName,
+          userId,
+        })
 
-    console.debug(app, page)
+      const app =
+        await appService.appDevelopmentService.hydrateAppDevelopmentData(
+          appDevelopmentData,
+        )
 
-    if (!app || !page) {
-      await router.push({ pathname: PageType.AppList, query: {} })
+      const page = find(
+        Array.from(pageService.pages.values()),
+        (_page) => _page.name === pageName,
+      )
 
-      return null
-    }
+      if (!page) {
+        throw new Error('Missing page')
+      }
 
-    const roots = [
-      // This will load the custom components in the _app (provider page) for the regular pages since we also
-      // render the elements of the provider page as part of the regular page
-      ...(page.kind === PageKind.Regular
-        ? [app.providerPage.rootElement.current]
-        : []),
-      page.rootElement.current,
-    ]
+      builderService.selectElementNode(page.rootElement.current)
 
-    await loadAllTypesForElements(componentService, typeService, roots)
+      // const roots = [
+      //   // This will load the custom components in the _app (provider page) for the regular pages since we also
+      //   // render the elements of the provider page as part of the regular page
+      //   ...(page.kind === PageKind.Regular
+      //     ? [app.providerPage.rootElement.current]
+      //     : []),
+      //   page.rootElement.current,
+      // ]
 
-    const pageRootElement = elementService.maybeElement(page.rootElement.id)
+      // await loadAllTypesForElements(componentService, typeService, roots)
 
-    if (pageRootElement) {
-      builderService.selectElementNode(pageRootElement)
-    }
+      // const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
-    // extract the dynamic segments from the url query params for the page url
-    // build complains with the return type `RegExpMatchArray` of `match`
-    const extractedUrlSegments =
-      (page.url.match(/:\w+/g) as Nullable<Array<string>>) ?? []
+      // extract the dynamic segments from the url query params for the page url
+      // build complains with the return type `RegExpMatchArray` of `match`
+      const extractedUrlSegments =
+        (page.url.match(/:\w+/g) as Nullable<Array<string>>) ?? []
 
-    const urlSegments = extractedUrlSegments.reduce<Record<string, string>>(
-      (acc, segment) => {
-        const segmentName = segment.substring(1)
+      const urlSegments = extractedUrlSegments.reduce<Record<string, string>>(
+        (acc, segment) => {
+          const segmentName = segment.substring(1)
 
-        if (router.query[segmentName]) {
-          acc[segmentName] = router.query[segmentName] as string
-        }
+          if (router.query[segmentName]) {
+            acc[segmentName] = router.query[segmentName] as string
+          }
 
-        return acc
-      },
-      {},
-    )
+          return acc
+        },
+        {},
+      )
 
-    const renderer = renderService.addRenderer({
-      elementTree: page,
-      id: page.id,
-      providerTree: app.providerPage,
-      rendererType,
-      urlSegments,
-    })
+      const renderer = renderService.addRenderer({
+        elementTree: page,
+        id: page.id,
+        providerTree: app.providerPage,
+        rendererType,
+        urlSegments,
+      })
 
-    console.debug(renderer)
+      console.debug(renderer)
 
-    renderService.setActiveRenderer(rendererRef(renderer.id))
-    await renderer.expressionTransformer.init()
+      renderService.setActiveRenderer(rendererRef(renderer.id))
+      await renderer.expressionTransformer.init()
 
-    return {
-      app,
-      elementTree: page,
-      page,
-      renderer,
+      return {
+        app,
+        elementTree: page,
+        page,
+        renderer,
+      }
+    } catch (error) {
+      return await router.push({ pathname: PageType.AppList, query: {} })
     }
   })
 }

@@ -1,7 +1,6 @@
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { slugify } from '@codelab/shared/utils'
-import type { IFieldResolver } from '@graphql-tools/utils'
 import type { DeepPick } from 'ts-essentials'
 
 interface AppData {

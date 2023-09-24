@@ -5,7 +5,7 @@ import { AppProperties } from '@codelab/shared/domain/mapper'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
-import { useCurrentApp, useCurrentComponent } from '../routerHooks'
+import { useCurrentComponent } from '../routerHooks'
 import { useAppQuery } from './useAppQuery.hook'
 import { loadAllTypesForElements } from './utils'
 

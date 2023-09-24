@@ -108,6 +108,13 @@ export class ActionRepository extends Model({}) implements IActionRepository {
   })
 
   @modelFlow
+  findOne = _async(function* (this: ActionRepository, where: IActionWhere) {
+    const result = yield* _await(this.find(where))
+
+    return result.items[0]
+  })
+
+  @modelFlow
   update = _async(function* (this: ActionRepository, action: IActionModel) {
     switch (action.type) {
       case IActionKind.CodeAction: {

@@ -7,8 +7,8 @@ query GetUsers($where: UserWhere) {
 mutation CreateUser($input: [UserCreateInput!]!) {
   createUsers(input: $input) {
     users {
-      id
       email
+      id
     }
   }
 }

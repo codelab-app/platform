@@ -1,107 +1,131 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { TagFragment } from '../tag/tag.fragment.graphql.gen'
-import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
+import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { TagFragmentDoc } from '../tag/tag.fragment.graphql.gen'
-import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 export type AtomFragment = {
+  externalCssSource?: string | null
+  externalJsSource?: string | null
+  externalSourceType?: string | null
   icon?: string | null
   id: string
   name: string
   type: Types.AtomType
-  externalCssSource?: string | null
-  externalJsSource?: string | null
-  externalSourceType?: string | null
-  owner: OwnerFragment
-  tags: Array<TagFragment>
   api: InterfaceTypeFragment
-  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
+  owner: OwnerFragment
   requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
+  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
+  tags: Array<TagFragment>
 }
 
-export type ProductionAtomFragment = {
+export type AtomDevelopmentFragment = {
+  __typename: 'Atom'
   icon?: string | null
   id: string
   name: string
   type: Types.AtomType
+  api: InterfaceTypeFragment
+  requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
+  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
+  tags: Array<TagFragment>
+}
+
+export type AtomProductionFragment = {
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
-  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
-  requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
-}
-
-export type RenderAtomFragment = {
   icon?: string | null
   id: string
   name: string
   type: Types.AtomType
+  requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
+  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
 export const AtomFragmentDoc = gql`
   fragment Atom on Atom {
+    api {
+      ...InterfaceType
+    }
+    externalCssSource
+    externalJsSource
+    externalSourceType
     icon
     id
     name
-    type
     owner {
       ...Owner
+    }
+    requiredParents {
+      id
+      name
+      type
+    }
+    suggestedChildren {
+      id
+      name
+      type
     }
     tags {
       ...Tag
     }
+    type
+  }
+  ${InterfaceTypeFragmentDoc}
+  ${OwnerFragmentDoc}
+  ${TagFragmentDoc}
+`
+export const AtomDevelopmentFragmentDoc = gql`
+  fragment AtomDevelopment on Atom {
+    __typename
     api {
       ...InterfaceType
     }
-    suggestedChildren {
-      id
-      name
-      type
-    }
+    icon
+    id
+    name
     requiredParents {
       id
       name
       type
     }
-    externalCssSource
-    externalJsSource
-    externalSourceType
-  }
-  ${OwnerFragmentDoc}
-  ${TagFragmentDoc}
-  ${InterfaceTypeFragmentDoc}
-`
-export const ProductionAtomFragmentDoc = gql`
-  fragment ProductionAtom on Atom {
-    icon
-    id
-    name
+    suggestedChildren {
+      id
+      name
+      type
+    }
+    tags {
+      ...Tag
+    }
     type
-    suggestedChildren {
-      id
-      name
-      type
-    }
+  }
+  ${InterfaceTypeFragmentDoc}
+  ${TagFragmentDoc}
+`
+export const AtomProductionFragmentDoc = gql`
+  fragment AtomProduction on Atom {
+    externalCssSource
+    externalJsSource
+    externalSourceType
+    icon
+    id
+    name
     requiredParents {
       id
       name
       type
     }
-    externalCssSource
-    externalJsSource
-    externalSourceType
-  }
-`
-export const RenderAtomFragmentDoc = gql`
-  fragment RenderAtom on Atom {
-    icon
-    id
-    name
+    suggestedChildren {
+      id
+      name
+      type
+    }
     type
   }
 `

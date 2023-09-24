@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   ElementFragment,
-  ProductionElementFragment,
+  ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
@@ -10,13 +10,13 @@ import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   ElementFragmentDoc,
-  ProductionElementFragmentDoc,
+  ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type PagePreviewFragment = {
   id: string
-  name: string
   kind: Types.PageKind
+  name: string
   url: string
   app: { id: string }
   rootElement: { id: string }
@@ -25,131 +25,131 @@ export type PagePreviewFragment = {
 
 export type PageFragment = {
   id: string
-  name: string
   kind: Types.PageKind
+  name: string
   url: string
   app: { id: string }
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   pageContentContainer?: { id: string } | null
+  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
 }
 
-export type BuilderPageFragment = {
+export type PageDevelopmentFragment = {
   id: string
-  name: string
   kind: Types.PageKind
+  name: string
   url: string
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string }
-  store: StoreFragment
   pageContentContainer?: { id: string } | null
+  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  store: StoreFragment
 }
 
-export type ProductionPageFragment = {
+export type PageProductionFragment = {
   id: string
+  kind: Types.PageKind
   name: string
   slug: string
-  kind: Types.PageKind
   url: string
-  rootElement: {
-    descendantElements: Array<ProductionElementFragment>
-  } & ProductionElementFragment
   app: { id: string }
-  store: StoreFragment
   pageContentContainer?: { id: string } | null
+  rootElement: {
+    descendantElements: Array<ElementProductionFragment>
+  } & ElementProductionFragment
+  store: StoreFragment
 }
 
 export const PagePreviewFragmentDoc = gql`
   fragment PagePreview on Page {
-    id
-    name
-    kind
-    url
     app {
       id
     }
+    id
+    kind
+    name
     rootElement {
       id
     }
     store {
       id
     }
+    url
   }
 `
 export const PageFragmentDoc = gql`
   fragment Page on Page {
-    id
-    name
     app {
       id
     }
+    id
+    kind
+    name
+    pageContentContainer {
+      id
+    }
     rootElement {
-      ...Element
       descendantElements {
         ...Element
       }
-    }
-    pageContentContainer {
-      id
+      ...Element
     }
     store {
       ...Store
     }
-    kind
     url
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
 `
-export const BuilderPageFragmentDoc = gql`
-  fragment BuilderPage on Page {
+export const PageDevelopmentFragmentDoc = gql`
+  fragment PageDevelopment on Page {
+    app {
+      id
+    }
     id
+    kind
     name
+    pageContentContainer {
+      id
+    }
     rootElement {
-      ...Element
       descendantElements {
         ...Element
       }
-    }
-    app {
-      id
+      ...Element
     }
     store {
       ...Store
     }
-    pageContentContainer {
-      id
-    }
-    kind
     url
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
 `
-export const ProductionPageFragmentDoc = gql`
-  fragment ProductionPage on Page {
+export const PageProductionFragmentDoc = gql`
+  fragment PageProduction on Page {
+    app {
+      id
+    }
     id
+    kind
     name
+    pageContentContainer {
+      id
+    }
+    rootElement {
+      descendantElements {
+        ...ElementProduction
+      }
+      ...ElementProduction
+    }
     slug
-    rootElement {
-      ...ProductionElement
-      descendantElements {
-        ...ProductionElement
-      }
-    }
-    app {
-      id
-    }
     store {
       ...Store
     }
-    pageContentContainer {
-      id
-    }
-    kind
     url
   }
-  ${ProductionElementFragmentDoc}
+  ${ElementProductionFragmentDoc}
   ${StoreFragmentDoc}
 `
 

@@ -1,55 +1,72 @@
 fragment Atom on Atom {
+  api {
+    ...InterfaceType
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
   icon
   id
   name
-  type
   owner {
     ...Owner
+  }
+  requiredParents {
+    id
+    name
+    type
+  }
+  suggestedChildren {
+    id
+    name
+    type
   }
   tags {
     ...Tag
   }
+  type
+}
+
+fragment AtomDevelopment on Atom {
+  __typename
   api {
     ...InterfaceType
   }
-  suggestedChildren {
-    id
-    name
-    type
-  }
+  icon
+  id
+  name
   requiredParents {
     id
     name
     type
   }
-  externalCssSource
-  externalJsSource
-  externalSourceType
-}
-
-fragment ProductionAtom on Atom {
-  icon
-  id
-  name
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  tags {
+    ...Tag
+  }
   type
-  suggestedChildren {
-    id
-    name
-    type
-  }
+}
+
+fragment AtomProduction on Atom {
+  externalCssSource
+  externalJsSource
+  externalSourceType
+  icon
+  id
+  name
   requiredParents {
     id
     name
     type
   }
-  externalCssSource
-  externalJsSource
-  externalSourceType
-}
-
-fragment RenderAtom on Atom {
-  icon
-  id
-  name
+  suggestedChildren {
+    id
+    name
+    type
+  }
   type
 }

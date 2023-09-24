@@ -1,6 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type {
-  ICreateElementDTO,
   IElementDTO,
   IElementRenderType,
   IPropDTO,

@@ -7,32 +7,32 @@ import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 export type TagFragment = {
   id: string
-  name: string
   isRoot: boolean
-  parent?: { id: string } | null
+  name: string
   children: Array<{ id: string }>
   descendants: Array<{ id: string }>
   owner: OwnerFragment
+  parent?: { id: string } | null
 }
 
 export type TagPreviewFragment = { id: string; name: string }
 
 export const TagFragmentDoc = gql`
   fragment Tag on Tag {
-    id
-    name
-    parent {
-      id
-    }
     children {
       id
     }
-    isRoot
     descendants {
       id
     }
+    id
+    isRoot
+    name
     owner {
       ...Owner
+    }
+    parent {
+      id
     }
   }
   ${OwnerFragmentDoc}

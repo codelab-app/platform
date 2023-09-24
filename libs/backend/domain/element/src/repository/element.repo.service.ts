@@ -22,7 +22,6 @@ import {
   ElementProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
-import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 

@@ -1,7 +1,6 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import type { IApp, IAppDTO } from '@codelab/shared/abstract/core'
+import type { IApp } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
 import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 import { pageName, updatedPageName } from './apps/app.data'
 

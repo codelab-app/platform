@@ -13,14 +13,14 @@ export type DomainFragment = {
 
 export const DomainFragmentDoc = gql`
   fragment Domain on Domain {
-    id
-    name
     app {
       id
     }
     domainConfig {
       misconfigured
     }
+    id
+    name
     projectDomain {
       verified
     }

@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
 import {
   BaseType_ActionType_Fragment,
   BaseType_AppType_Fragment,
@@ -15,25 +16,24 @@ import {
   BaseType_RenderPropType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
-import { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 import { EnumTypeValueFragmentDoc } from './enum-type-value.fragment.graphql.gen'
+import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 export type EnumTypeFragment = {
   allowedValues: Array<EnumTypeValueFragment>
 } & BaseType_EnumType_Fragment
 
 export const EnumTypeFragmentDoc = gql`
   fragment EnumType on EnumType {
-    ...BaseType
     allowedValues {
       ...EnumTypeValue
     }
+    ...BaseType
   }
-  ${BaseTypeFragmentDoc}
   ${EnumTypeValueFragmentDoc}
+  ${BaseTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -20,9 +20,7 @@
     },
     {
       "files": ["*.graphql"],
-      "parserOptions": {
-        "schema": "../../schema.graphql"
-      }
+      "rules": {}
     }
   ]
 }

@@ -1,4 +1,3 @@
-import type { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDTO,
   IElementRenderType,
@@ -12,7 +11,7 @@ import type {
   IEntityFormService,
   IEntityModalService,
 } from '../../service'
-import type { IInterfaceType } from '../type'
+import type { ComponentDevelopmentFragment } from '../component/component-development.fragment.graphql.gen'
 import type {
   ICreateElementData,
   IUpdateElementData,
@@ -81,7 +80,7 @@ export interface IElementService
   createElementAsNextSibling(data: ICreateElementData): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
-  loadComponentTree(component: RenderedComponentFragment): {
+  loadComponentTree(component: ComponentDevelopmentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }

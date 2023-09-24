@@ -1,15 +1,3 @@
-import type {
-  IAtomModel,
-  IComponentModel,
-  IElementRenderTypeModel,
-} from '@codelab/frontend/abstract/core'
-import { atomRef, componentRef } from '@codelab/frontend/abstract/core'
-import {
-  type IElementRenderType,
-  IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
-
 export const jsonStringToCss = (json: string | null | undefined) => {
   const jsonObject = JSON.parse(json ?? '{}')
   let css = ''

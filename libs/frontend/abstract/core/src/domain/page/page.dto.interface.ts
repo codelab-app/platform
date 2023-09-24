@@ -1,4 +1,4 @@
-import type { IPage, IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPage } from '@codelab/shared/abstract/core'
 
 /**
  * IOwnerSchema is required for store api

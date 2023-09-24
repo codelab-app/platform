@@ -1,4 +1,3 @@
-import type { IApp } from '@codelab/shared/abstract/core'
 import {
   ClassSerializerInterceptor,
   Controller,

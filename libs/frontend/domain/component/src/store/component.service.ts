@@ -147,10 +147,7 @@ export class ComponentService
     this: ComponentService,
     components: Array<IComponentModel>,
   ) {
-    const deleteComponent = _async(function* (
-      this: ComponentService,
-      component: IComponentModel,
-    ) {
+    const deleteComponent = async (component: IComponentModel) => {
       const { id } = component
       const store = component.store.current
       const rootElement = component.rootElement.current
@@ -158,12 +155,12 @@ export class ComponentService
       this.components.delete(id)
       this.removeClones(id)
 
-      yield* _await(this.storeService.delete([store]))
-      yield* _await(this.elementService.delete(rootElement))
-      yield* _await(this.componentRepository.delete([component]))
+      await this.storeService.delete([store])
+      await this.elementService.delete(rootElement)
+      await this.componentRepository.delete([component])
 
       return component
-    })
+    }
 
     yield* _await(
       Promise.all(components.map((component) => deleteComponent(component))),
@@ -210,15 +207,15 @@ export class ComponentService
          * Element comes with `component` or `atom` data that we need to load as well
          * TODO: Need to handle component case, refactor reuse
          */
-        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
-          this.typeService.loadTypes({
-            interfaceTypes: [elementData.renderType.api],
-          })
+        // if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
+        //   this.typeService.loadTypes({
+        //     interfaceTypes: [elementData.renderType.api],
+        //   })
 
-          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
+        //   elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
 
-          this.atomService.add(elementData.renderType)
-        }
+        //   this.atomService.add(elementData.renderType)
+        // }
 
         this.elementService.add({
           ...elementData,

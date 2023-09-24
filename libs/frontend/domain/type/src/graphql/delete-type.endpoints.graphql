@@ -3,8 +3,8 @@ mutation DeletePrimitiveTypes(
   $where: PrimitiveTypeWhere
 ) {
   deletePrimitiveTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -13,8 +13,8 @@ mutation DeleteArrayTypes(
   $where: ArrayTypeWhere
 ) {
   deleteArrayTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -23,8 +23,8 @@ mutation DeleteReactNodeTypes(
   $where: ReactNodeTypeWhere
 ) {
   deleteReactNodeTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -33,8 +33,8 @@ mutation DeleteUnionTypes(
   $where: UnionTypeWhere
 ) {
   deleteUnionTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -43,8 +43,8 @@ mutation DeleteInterfaceTypes(
   $where: InterfaceTypeWhere
 ) {
   deleteInterfaceTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -53,8 +53,8 @@ mutation DeleteElementTypes(
   $where: ElementTypeWhere
 ) {
   deleteElementTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -63,15 +63,15 @@ mutation DeleteRenderPropTypes(
   $where: RenderPropTypeWhere
 ) {
   deleteRenderPropTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
 mutation DeleteEnumTypes($delete: EnumTypeDeleteInput, $where: EnumTypeWhere) {
   deleteEnumTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 
   # When deleting the enum we must clean up the enum type values too
@@ -85,22 +85,22 @@ mutation DeleteLambdaTypes(
   $where: LambdaTypeWhere
 ) {
   deleteLambdaTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
 mutation DeletePageTypes($delete: PageTypeDeleteInput, $where: PageTypeWhere) {
   deletePageTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
 mutation DeleteAppTypes($delete: AppTypeDeleteInput, $where: AppTypeWhere) {
   deleteAppTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 mutation DeleteActionTypes(
@@ -108,8 +108,8 @@ mutation DeleteActionTypes(
   $where: ActionTypeWhere
 ) {
   deleteActionTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }
 
@@ -118,7 +118,7 @@ mutation DeleteCodeMirrorTypes(
   $where: CodeMirrorTypeWhere
 ) {
   deleteCodeMirrorTypes(delete: $delete, where: $where) {
-    relationshipsDeleted
     nodesDeleted
+    relationshipsDeleted
   }
 }

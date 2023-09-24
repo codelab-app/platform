@@ -4,6 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import type {
   DomainOptions,
+  DomainUniqueWhere,
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
@@ -49,6 +50,14 @@ export class DomainRepository extends Model({}) implements IDomainRepository {
     options?: DomainOptions,
   ) {
     return yield* _await(domainApis.GetDomains({ options, where }))
+  })
+
+  @modelFlow
+  findOne = _async(function* (
+    this: DomainRepository,
+    where: DomainUniqueWhere,
+  ) {
+    return (yield* _await(this.find(where))).items[0]
   })
 
   @modelFlow

@@ -1,7 +1,4 @@
-import {
-  AtomApplicationModule,
-  SeedCypressAtomsHandler,
-} from '@codelab/backend/application/atom'
+import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { AuthModule } from '@codelab/backend/application/shared'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'

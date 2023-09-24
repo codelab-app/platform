@@ -3,7 +3,6 @@ import {
   type IElementRenderType,
   IPropDTO,
 } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import type { Overwrite } from 'utility-types'

@@ -14,12 +14,12 @@ export type ResourceFragment = {
 
 export const ResourceFragmentDoc = gql`
   fragment Resource on Resource {
-    id
-    name
-    type
     config {
       ...Prop
     }
+    id
+    name
+    type
   }
   ${PropFragmentDoc}
 `

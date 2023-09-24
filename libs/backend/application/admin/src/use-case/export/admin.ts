@@ -1,6 +1,6 @@
 /* eslint-disable canonical/sort-keys */
 /* eslint-disable @nx/enforce-module-boundaries */
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 import AdmZip from 'adm-zip'
 import type { NextApiHandler } from 'next'
 import path from 'path'

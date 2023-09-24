@@ -1,11 +1,8 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
-import type { AtomType } from '@codelab/shared/abstract/codegen'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
-import compact from 'lodash/compact'
-import uniqBy from 'lodash/uniqBy'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 

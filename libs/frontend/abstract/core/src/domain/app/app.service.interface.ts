@@ -1,6 +1,5 @@
 import type {
   AppOptions,
-  AppUniqueWhere,
   AppWhere,
   GetProductionPageQuery,
   PageWhere,
@@ -15,19 +14,16 @@ import type {
   IQueryService,
 } from '../../service'
 import type { IPropData } from '../prop'
-import type { RendererType } from '../render'
-import type {
-  ICreateAppData,
-  IPageBuilderAppProps,
-  IUpdateAppData,
-} from './app.dto.interface'
+import type { ICreateAppData, IUpdateAppData } from './app.dto.interface'
 import type { IAppModel } from './app.model.interface'
 import type { IAppRepository } from './app.repo.interface'
+import type { IAppDevelopmentService } from './app-development.service.interface'
 
 export interface IAppService
   extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
     IQueryService<IAppModel, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IAppModel>, { app: Maybe<IAppModel> }> {
+  appDevelopmentService: IAppDevelopmentService
   appRepository: IAppRepository
   apps: ObjectMap<IAppModel>
   appsJson: IPropData
@@ -38,11 +34,11 @@ export interface IAppService
   app(id: string): Maybe<IAppModel>
   getAppPages(appId: string, where: PageWhere): Promise<void>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
-  loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
-  loadDevelopmentPage(
-    appName: string,
-    pageName: string,
-  ): Promise<IAppModel | null>
-  loadPages(data: IPageBuilderAppProps): void
+  // loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
+  // loadDevelopmentPage(
+  //   appName: string,
+  //   pageName: string,
+  // ): Promise<IAppModel | null>
+  // loadPages(data: IAppDevelopmentDto): void
   loadProductionPage(initialData: GetProductionPageQuery): IAppModel | undefined
 }

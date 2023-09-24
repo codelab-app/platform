@@ -12,11 +12,7 @@ import {
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useAppQuery,
-  useCurrentApp,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useAppQuery, useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,

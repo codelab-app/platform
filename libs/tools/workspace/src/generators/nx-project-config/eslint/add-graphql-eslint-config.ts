@@ -5,8 +5,6 @@ import {
   updateJson,
 } from '@nx/devkit'
 import type { Linter } from 'eslint'
-import merge from 'lodash/merge'
-import type { ESLintConfig } from 'next/dist/server/config-shared'
 import { join } from 'path'
 
 /**
@@ -28,9 +26,10 @@ export const addGraphqlEslintConfig = (
 
     const graphqlConfig = {
       files: ['*.graphql'],
-      parserOptions: {
-        schema: relativeSchemaPath,
-      },
+      rules: {},
+      // parserOptions: {
+      //   schema: relativeSchemaPath,
+      // },
     }
 
     if (json.overrides) {

@@ -96,7 +96,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
               process.exit(0)
             }
 
-            execCommand('yarn graphql-codegen')
+            execCommand(
+              'yarn graphql-codegen --config ./scripts/codegen/codegen.ts',
+            )
             await this.ogmService.generate()
 
             process.exit(0)
@@ -104,7 +106,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             const startServer = `nx serve platform-api -c ci`
-            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen && exit 0`
+            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,

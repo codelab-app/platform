@@ -14,11 +14,11 @@ query InterfaceForm_GetAtoms($options: AtomOptions, $where: AtomWhere) {
 }
 
 query InterfaceForm_GetActions($appId: ID) {
-  codeActions {
+  apiActions {
     id
     name
   }
-  apiActions {
+  codeActions {
     id
     name
   }

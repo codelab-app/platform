@@ -3,7 +3,6 @@ import {
   CodeMirrorField,
   idSchema,
   nonEmptyString,
-  ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'

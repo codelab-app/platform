@@ -5,92 +5,92 @@ import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type BaseType_ActionType_Fragment = {
   __typename: 'ActionType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_AppType_Fragment = {
   __typename: 'AppType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_ArrayType_Fragment = {
   __typename: 'ArrayType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_ElementType_Fragment = {
   __typename: 'ElementType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_EnumType_Fragment = {
   __typename: 'EnumType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_InterfaceType_Fragment = {
   __typename: 'InterfaceType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_LambdaType_Fragment = {
   __typename: 'LambdaType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_PageType_Fragment = {
   __typename: 'PageType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_PrimitiveType_Fragment = {
   __typename: 'PrimitiveType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_ReactNodeType_Fragment = {
   __typename: 'ReactNodeType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_RenderPropType_Fragment = {
   __typename: 'RenderPropType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
 export type BaseType_UnionType_Fragment = {
   __typename: 'UnionType'
-  kind: Types.TypeKind
   id: string
+  kind: Types.TypeKind
   name: string
 }
 
@@ -112,8 +112,8 @@ export type BaseTypeFragment =
 export const BaseTypeFragmentDoc = gql`
   fragment BaseType on IBaseType {
     __typename
-    kind
     id
+    kind
     name
   }
 `

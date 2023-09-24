@@ -1,17 +1,14 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import type { Atom as IAtom } from '@codelab/backend/abstract/codegen'
 import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
 import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { type IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
-import { Interface } from 'readline'
 
 export class SeedCypressAtomsCommand {}
 

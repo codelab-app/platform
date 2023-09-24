@@ -1982,6 +1982,7 @@ input ArrayTypeConnectInput {
 }
 
 input ArrayTypeConnectOrCreateInput {
+  fieldRefs: [ArrayTypeFieldRefsConnectOrCreateFieldInput!]
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -2051,6 +2052,15 @@ input ArrayTypeFieldRefsConnectFieldInput {
   where: FieldConnectWhere
 }
 
+input ArrayTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input ArrayTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
 type ArrayTypeFieldRefsConnection {
   edges: [ArrayTypeFieldRefsRelationship!]!
   pageInfo: PageInfo!
@@ -2084,6 +2094,7 @@ input ArrayTypeFieldRefsDisconnectFieldInput {
 
 input ArrayTypeFieldRefsFieldInput {
   connect: [ArrayTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ArrayTypeFieldRefsConnectOrCreateFieldInput!]
   create: [ArrayTypeFieldRefsCreateFieldInput!]
 }
 
@@ -2179,6 +2190,7 @@ input ArrayTypeFieldRefsUpdateConnectionInput {
 
 input ArrayTypeFieldRefsUpdateFieldInput {
   connect: [ArrayTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [ArrayTypeFieldRefsConnectOrCreateFieldInput!]
   create: [ArrayTypeFieldRefsCreateFieldInput!]
   delete: [ArrayTypeFieldRefsDeleteFieldInput!]
   disconnect: [ArrayTypeFieldRefsDisconnectFieldInput!]
@@ -8837,6 +8849,7 @@ input EnumTypeConnectInput {
 }
 
 input EnumTypeConnectOrCreateInput {
+  fieldRefs: [EnumTypeFieldRefsConnectOrCreateFieldInput!]
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -8917,6 +8930,15 @@ input EnumTypeFieldRefsConnectFieldInput {
   where: FieldConnectWhere
 }
 
+input EnumTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input EnumTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
 type EnumTypeFieldRefsConnection {
   edges: [EnumTypeFieldRefsRelationship!]!
   pageInfo: PageInfo!
@@ -8950,6 +8972,7 @@ input EnumTypeFieldRefsDisconnectFieldInput {
 
 input EnumTypeFieldRefsFieldInput {
   connect: [EnumTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [EnumTypeFieldRefsConnectOrCreateFieldInput!]
   create: [EnumTypeFieldRefsCreateFieldInput!]
 }
 
@@ -9045,6 +9068,7 @@ input EnumTypeFieldRefsUpdateConnectionInput {
 
 input EnumTypeFieldRefsUpdateFieldInput {
   connect: [EnumTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [EnumTypeFieldRefsConnectOrCreateFieldInput!]
   create: [EnumTypeFieldRefsCreateFieldInput!]
   delete: [EnumTypeFieldRefsDeleteFieldInput!]
   disconnect: [EnumTypeFieldRefsDisconnectFieldInput!]
@@ -9685,6 +9709,15 @@ input FieldConnectInput {
   prevSibling: FieldPrevSiblingConnectFieldInput
 }
 
+input FieldConnectOrCreateInput {
+  nextSibling: FieldNextSiblingConnectOrCreateFieldInput
+  prevSibling: FieldPrevSiblingConnectOrCreateFieldInput
+}
+
+input FieldConnectOrCreateWhere {
+  node: FieldUniqueWhere!
+}
+
 input FieldConnectWhere {
   node: FieldWhere!
 }
@@ -9840,6 +9873,15 @@ input FieldNextSiblingConnectFieldInput {
   where: FieldConnectWhere
 }
 
+input FieldNextSiblingConnectOrCreateFieldInput {
+  onCreate: FieldNextSiblingConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input FieldNextSiblingConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
 type FieldNextSiblingConnection {
   edges: [FieldNextSiblingRelationship!]!
   pageInfo: PageInfo!
@@ -9873,6 +9915,7 @@ input FieldNextSiblingDisconnectFieldInput {
 
 input FieldNextSiblingFieldInput {
   connect: FieldNextSiblingConnectFieldInput
+  connectOrCreate: FieldNextSiblingConnectOrCreateFieldInput
   create: FieldNextSiblingCreateFieldInput
 }
 
@@ -9968,11 +10011,21 @@ input FieldNextSiblingUpdateConnectionInput {
 
 input FieldNextSiblingUpdateFieldInput {
   connect: FieldNextSiblingConnectFieldInput
+  connectOrCreate: FieldNextSiblingConnectOrCreateFieldInput
   create: FieldNextSiblingCreateFieldInput
   delete: FieldNextSiblingDeleteFieldInput
   disconnect: FieldNextSiblingDisconnectFieldInput
   update: FieldNextSiblingUpdateConnectionInput
   where: FieldNextSiblingConnectionWhere
+}
+
+input FieldOnCreateInput {
+  defaultValues: String
+  description: String
+  id: ID!
+  key: String!
+  name: String
+  validationRules: String
 }
 
 input FieldOptions {
@@ -10005,6 +10058,15 @@ input FieldPrevSiblingConnectFieldInput {
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
+}
+
+input FieldPrevSiblingConnectOrCreateFieldInput {
+  onCreate: FieldPrevSiblingConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input FieldPrevSiblingConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
 }
 
 type FieldPrevSiblingConnection {
@@ -10040,6 +10102,7 @@ input FieldPrevSiblingDisconnectFieldInput {
 
 input FieldPrevSiblingFieldInput {
   connect: FieldPrevSiblingConnectFieldInput
+  connectOrCreate: FieldPrevSiblingConnectOrCreateFieldInput
   create: FieldPrevSiblingCreateFieldInput
 }
 
@@ -10135,6 +10198,7 @@ input FieldPrevSiblingUpdateConnectionInput {
 
 input FieldPrevSiblingUpdateFieldInput {
   connect: FieldPrevSiblingConnectFieldInput
+  connectOrCreate: FieldPrevSiblingConnectOrCreateFieldInput
   create: FieldPrevSiblingCreateFieldInput
   delete: FieldPrevSiblingDeleteFieldInput
   disconnect: FieldPrevSiblingDisconnectFieldInput
@@ -10159,6 +10223,10 @@ input FieldSort {
   key: SortDirection
   name: SortDirection
   validationRules: SortDirection
+}
+
+input FieldUniqueWhere {
+  id: ID
 }
 
 input FieldUpdateInput {
@@ -11330,6 +11398,8 @@ input InterfaceTypeConnectInput {
 
 input InterfaceTypeConnectOrCreateInput {
   apiOfAtoms: [InterfaceTypeApiOfAtomsConnectOrCreateFieldInput!]
+  fieldRefs: [InterfaceTypeFieldRefsConnectOrCreateFieldInput!]
+  fields: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -11416,6 +11486,15 @@ input InterfaceTypeFieldRefsConnectFieldInput {
   where: FieldConnectWhere
 }
 
+input InterfaceTypeFieldRefsConnectOrCreateFieldInput {
+  onCreate: InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input InterfaceTypeFieldRefsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
+}
+
 type InterfaceTypeFieldRefsConnection {
   edges: [InterfaceTypeFieldRefsRelationship!]!
   pageInfo: PageInfo!
@@ -11449,6 +11528,7 @@ input InterfaceTypeFieldRefsDisconnectFieldInput {
 
 input InterfaceTypeFieldRefsFieldInput {
   connect: [InterfaceTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeFieldRefsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldRefsCreateFieldInput!]
 }
 
@@ -11544,6 +11624,7 @@ input InterfaceTypeFieldRefsUpdateConnectionInput {
 
 input InterfaceTypeFieldRefsUpdateFieldInput {
   connect: [InterfaceTypeFieldRefsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeFieldRefsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldRefsCreateFieldInput!]
   delete: [InterfaceTypeFieldRefsDeleteFieldInput!]
   disconnect: [InterfaceTypeFieldRefsDisconnectFieldInput!]
@@ -11571,6 +11652,15 @@ input InterfaceTypeFieldsConnectFieldInput {
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
+}
+
+input InterfaceTypeFieldsConnectOrCreateFieldInput {
+  onCreate: InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate!
+  where: FieldConnectOrCreateWhere!
+}
+
+input InterfaceTypeFieldsConnectOrCreateFieldInputOnCreate {
+  node: FieldOnCreateInput!
 }
 
 type InterfaceTypeFieldsConnection {
@@ -11606,6 +11696,7 @@ input InterfaceTypeFieldsDisconnectFieldInput {
 
 input InterfaceTypeFieldsFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
 }
 
@@ -11701,6 +11792,7 @@ input InterfaceTypeFieldsUpdateConnectionInput {
 
 input InterfaceTypeFieldsUpdateFieldInput {
   connect: [InterfaceTypeFieldsConnectFieldInput!]
+  connectOrCreate: [InterfaceTypeFieldsConnectOrCreateFieldInput!]
   create: [InterfaceTypeFieldsCreateFieldInput!]
   delete: [InterfaceTypeFieldsDeleteFieldInput!]
   disconnect: [InterfaceTypeFieldsDisconnectFieldInput!]
@@ -12441,6 +12533,7 @@ type Mutation {
   ): UpdateEnumTypesMutationResponse!
   updateFields(
     connect: FieldConnectInput
+    connectOrCreate: FieldConnectOrCreateInput
     create: FieldRelationInput
     delete: FieldDeleteInput
     disconnect: FieldDisconnectInput

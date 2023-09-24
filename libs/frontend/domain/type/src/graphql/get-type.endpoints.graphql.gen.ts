@@ -69,19 +69,19 @@ export type GetTypesQueryVariables = Types.Exact<{
 }>
 
 export type GetTypesQuery = {
-  primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
-  unionTypes: Array<Type_UnionType_Fragment>
-  interfaceTypes: Array<Type_InterfaceType_Fragment>
-  elementTypes: Array<Type_ElementType_Fragment>
-  renderPropTypes: Array<Type_RenderPropType_Fragment>
-  reactNodeTypes: Array<Type_ReactNodeType_Fragment>
-  enumTypes: Array<Type_EnumType_Fragment>
-  lambdaTypes: Array<Type_LambdaType_Fragment>
-  pageTypes: Array<Type_PageType_Fragment>
   appTypes: Array<Type_AppType_Fragment>
+  elementTypes: Array<Type_ElementType_Fragment>
   actionTypes: Array<Type_ActionType_Fragment>
+  enumTypes: Array<Type_EnumType_Fragment>
   codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
+  interfaceTypes: Array<Type_InterfaceType_Fragment>
+  lambdaTypes: Array<Type_LambdaType_Fragment>
+  primitiveTypes: Array<Type_PrimitiveType_Fragment>
+  pageTypes: Array<Type_PageType_Fragment>
+  reactNodeTypes: Array<Type_ReactNodeType_Fragment>
+  renderPropTypes: Array<Type_RenderPropType_Fragment>
+  unionTypes: Array<Type_UnionType_Fragment>
 }
 
 export type GetDescendantsQueryVariables = Types.Exact<{
@@ -92,8 +92,8 @@ export type GetDescendantsQueryVariables = Types.Exact<{
 
 export type GetDescendantsQuery = {
   arrayTypes: Array<{ descendantTypesIds: Array<string> }>
-  unionTypes: Array<{ descendantTypesIds: Array<string> }>
   interfaceTypes: Array<{ descendantTypesIds: Array<string> }>
+  unionTypes: Array<{ descendantTypesIds: Array<string> }>
 }
 
 export type GetPrimitiveTypesQueryVariables = Types.Exact<{
@@ -200,19 +200,19 @@ export type GetTypeOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetTypeOptionsQuery = {
   baseTypes: {
     items: Array<
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
-      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
+      | { id: string; kind: Types.TypeKind; name: string }
     >
   }
 }
@@ -220,53 +220,53 @@ export type GetTypeOptionsQuery = {
 export const GetBaseTypesDocument = gql`
   query GetBaseTypes($options: GetBaseTypesOptions) {
     baseTypes(options: $options) {
-      totalCount
       items {
         ...BaseType
       }
+      totalCount
     }
   }
   ${BaseTypeFragmentDoc}
 `
 export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
-    primitiveTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
     arrayTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    unionTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    interfaceTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    elementTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    renderPropTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    reactNodeTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    enumTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    lambdaTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    pageTypes(where: { id_IN: $ids }) {
       ...Type
     }
     appTypes(where: { id_IN: $ids }) {
       ...Type
     }
+    elementTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
     actionTypes(where: { id_IN: $ids }) {
       ...Type
     }
+    enumTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
     codeMirrorTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    interfaceTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    lambdaTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    primitiveTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    pageTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    reactNodeTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    renderPropTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    unionTypes(where: { id_IN: $ids }) {
       ...Type
     }
   }
@@ -277,10 +277,10 @@ export const GetDescendantsDocument = gql`
     arrayTypes(where: { id_IN: $ids }) {
       descendantTypesIds
     }
-    unionTypes(where: { id_IN: $ids }) {
+    interfaceTypes(where: { id_IN: $ids }) {
       descendantTypesIds
     }
-    interfaceTypes(where: { id_IN: $ids }) {
+    unionTypes(where: { id_IN: $ids }) {
       descendantTypesIds
     }
   }
@@ -412,8 +412,8 @@ export const GetTypeOptionsDocument = gql`
     baseTypes {
       items {
         id
-        name
         kind
+        name
       }
     }
   }

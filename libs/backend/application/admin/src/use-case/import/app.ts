@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { getSession, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { getSession } from '@auth0/nextjs-auth0'
 import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 import { importUserData } from '@codelab/backend/application/user'
 import type { NextApiHandler } from 'next'

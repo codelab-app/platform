@@ -1,5 +1,9 @@
 import type { ITagModel, ITagRepository } from '@codelab/frontend/abstract/core'
-import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  TagOptions,
+  TagUniqueWhere,
+  TagWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { tagApi } from '../store/tag.api'
 
@@ -38,6 +42,11 @@ export class TagRepository extends Model({}) implements ITagRepository {
     options?: TagOptions,
   ) {
     return yield* _await(tagApi.GetTags({ options, where }))
+  })
+
+  @modelFlow
+  findOne = _async(function* (this: TagRepository, where: TagUniqueWhere) {
+    return (yield* _await(this.find(where))).items[0]
   })
 
   @modelFlow

@@ -1,9 +1,7 @@
 import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useAppQuery,
-  useCurrentApp,
   useCurrentComponent,
-  useCurrentPage,
   usePageQuery,
   useUserQuery,
 } from '@codelab/frontend/presentation/container'

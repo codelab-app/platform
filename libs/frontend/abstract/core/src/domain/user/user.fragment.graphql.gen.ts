@@ -12,24 +12,24 @@ import {
   AppPreviewFragmentDoc,
 } from '../app/app.fragment.graphql.gen'
 export type UserFragment = {
-  id: string
-  username: string
-  email: string
   auth0Id: string
+  email: string
+  id: string
   roles?: Array<Types.Role> | null
+  username: string
   apps: Array<AppFragment>
 }
 
 export const UserFragmentDoc = gql`
   fragment User on User {
-    id
-    username
-    email
-    auth0Id
-    roles
     apps {
       ...App
     }
+    auth0Id
+    email
+    id
+    roles
+    username
   }
   ${AppFragmentDoc}
 `

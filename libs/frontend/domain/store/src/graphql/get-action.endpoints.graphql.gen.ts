@@ -14,8 +14,8 @@ export type GetActionsQueryVariables = Types.Exact<{
 }>
 
 export type GetActionsQuery = {
-  codeActions: Array<Action_CodeAction_Fragment>
   apiActions: Array<Action_ApiAction_Fragment>
+  codeActions: Array<Action_CodeAction_Fragment>
 }
 
 export const GetActionsDocument = gql`
@@ -23,10 +23,10 @@ export const GetActionsDocument = gql`
     $codeActionWhere: CodeActionWhere
     $apiActionWhere: ApiActionWhere
   ) {
-    codeActions(where: $codeActionWhere) {
+    apiActions(where: $apiActionWhere) {
       ...Action
     }
-    apiActions(where: $apiActionWhere) {
+    codeActions(where: $codeActionWhere) {
       ...Action
     }
   }

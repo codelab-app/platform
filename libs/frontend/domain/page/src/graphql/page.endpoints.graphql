@@ -29,21 +29,9 @@ query GetPages($options: PageOptions, $where: PageWhere) {
   }
 }
 
-query GetDevelopmentPage(
-  $appCompositeKey: String!
-  $pageCompositeKey: String!
-) {
-  apps(where: { compositeKey: $appCompositeKey }) {
-    ...PageBuilderApp
-  }
-  resources {
-    ...Resource
-  }
-}
-
 query GetProductionPage($appCompositeKey: String!, $pageCompositeKey: String!) {
   apps(where: { compositeKey: $appCompositeKey }) {
-    ...PageApp
+    ...AppProduction
   }
   resources {
     ...Resource
@@ -52,6 +40,6 @@ query GetProductionPage($appCompositeKey: String!, $pageCompositeKey: String!) {
 
 query GetRenderedPage($pageId: ID!) {
   pages(where: { id: $pageId }) {
-    ...BuilderPage
+    ...PageDevelopment
   }
 }

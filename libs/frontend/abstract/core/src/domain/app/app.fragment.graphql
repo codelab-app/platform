@@ -4,7 +4,6 @@
 fragment AppPreview on App {
   id
   name
-  slug
   # Required to compute name
   owner {
     ...Owner
@@ -13,34 +12,34 @@ fragment AppPreview on App {
   pages(where: { kind: Provider }) {
     ...PagePreview
   }
+  slug
 }
 
 fragment App on App {
+  domains {
+    ...Domain
+  }
   id
   name
-  slug
   owner {
     ...Owner
   }
   pages {
     ...Page
   }
-  domains {
-    ...Domain
-  }
+  slug
 }
 
-fragment PageBuilderApp on App {
+fragment AppDevelopment on App {
   id
   name
-  slug
   owner {
     ...Owner
   }
   pages(
     where: {
       OR: [
-        { compositeKey: $pageCompositeKey }
+        { compositeKey_ENDS_WITH: $pageName }
         { kind: Provider }
         { kind: NotFound }
         { kind: InternalServerError }
@@ -48,20 +47,21 @@ fragment PageBuilderApp on App {
       ]
     }
   ) {
-    ...BuilderPage
+    ...PageDevelopment
   }
+  slug
 }
 
-fragment PageApp on App {
+fragment AppProduction on App {
   id
   name
-  slug
   owner {
     ...Owner
   }
   pages(
     where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
   ) {
-    ...ProductionPage
+    ...PageProduction
   }
+  slug
 }

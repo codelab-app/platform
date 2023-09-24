@@ -26,8 +26,8 @@ export type InterfaceForm_GetActionsQueryVariables = Types.Exact<{
 }>
 
 export type InterfaceForm_GetActionsQuery = {
-  codeActions: Array<{ id: string; name: string }>
   apiActions: Array<{ id: string; name: string }>
+  codeActions: Array<{ id: string; name: string }>
 }
 
 export type InterfaceForm_GetStoresQueryVariables = Types.Exact<{
@@ -76,11 +76,11 @@ export const InterfaceForm_GetAtomsDocument = gql`
 `
 export const InterfaceForm_GetActionsDocument = gql`
   query InterfaceForm_GetActions($appId: ID) {
-    codeActions {
+    apiActions {
       id
       name
     }
-    apiActions {
+    codeActions {
       id
       name
     }

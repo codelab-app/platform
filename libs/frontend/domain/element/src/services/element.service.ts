@@ -4,7 +4,6 @@ import type {
   IElementModel,
   IElementRenderTypeModel,
   IElementService,
-  IInterfaceType,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -13,7 +12,6 @@ import {
   elementRef,
   getBuilderService,
   getComponentService,
-  isComponentInstance,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
@@ -25,11 +23,8 @@ import {
 } from '@codelab/frontend/domain/store'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
-import type {
-  IElementDTO,
-  IElementRenderType,
-} from '@codelab/shared/abstract/core'
+import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -39,7 +34,6 @@ import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -607,7 +601,7 @@ export class ElementService
   }
 
   @modelAction
-  loadComponentTree(component: RenderedComponentFragment) {
+  loadComponentTree(component: ComponentDevelopmentFragment) {
     const elements = [
       component.rootElement,
       ...component.rootElement.descendantElements,

@@ -1,6 +1,7 @@
 fragment Store on Store {
-  id
-  name
+  actions {
+    ...Action
+  }
   api {
     ...InterfaceType
   }
@@ -12,14 +13,14 @@ fragment Store on Store {
       id
     }
   }
-  actions {
-    ...Action
-  }
+  id
+  name
 }
 
 fragment ProductionStore on Store {
-  id
-  name
+  actions {
+    ...Action
+  }
   container {
     ... on Page {
       id
@@ -28,7 +29,6 @@ fragment ProductionStore on Store {
       id
     }
   }
-  actions {
-    ...Action
-  }
+  id
+  name
 }
