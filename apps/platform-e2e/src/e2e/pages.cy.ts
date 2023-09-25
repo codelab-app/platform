@@ -34,9 +34,9 @@ describe('Pages CRUD', () => {
     it('should have accessible page link on sidebar', () => {
       cy.findByText(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
-      cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
-        cy.getCuiToolbarItem('Open Builder').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(pageName)
+        .getCuiToolbarItem('Open Builder')
+        .click()
 
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
       cy.getCuiNavigationBarItem('Pages').click()
@@ -47,9 +47,9 @@ describe('Pages CRUD', () => {
     it('should be able to update page name', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
-      cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
-        cy.getCuiToolbarItem('Edit').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(pageName)
+        .getCuiToolbarItem('Edit')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
@@ -68,9 +68,9 @@ describe('Pages CRUD', () => {
   describe('delete', () => {
     it('should be able to delete page', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).click()
-      cy.getCuiTreeItemByPrimaryTitle(updatedPageName).within(() => {
-        cy.getCuiToolbarItem('Delete').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(updatedPageName)
+        .getCuiToolbarItem('Delete')
+        .click()
 
       cy.getSpinner().should('not.exist')
 

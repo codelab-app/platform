@@ -53,12 +53,11 @@ describe('Atoms CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete an atom', () => {
-      cy.getCuiTreeItemBySecondaryTitle(updatedAtomName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getCuiToolbarItem('Delete atom')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemBySecondaryTitle(updatedAtomName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete atom')
+        .should('be.visible')
+        .click()
       cy.getSpinner().should('not.exist')
 
       cy.getModal()

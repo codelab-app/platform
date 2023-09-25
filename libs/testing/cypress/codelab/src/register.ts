@@ -57,9 +57,13 @@ export interface CypressCodelabUICommands {
    * tree
    */
   getCuiTreeItem: typeof getCuiTreeItem
-  getCuiTreeItemByPrimaryTitle: typeof getCuiTreeItemByPrimaryTitle
-  getCuiTreeItemBySecondaryTitle: typeof getCuiTreeItemBySecondaryTitle
-  getCuiTreeItemToolbar: typeof getCuiTreeItemToolbar
+  getCuiTreeItemByPrimaryTitle: OmitFirstArg<
+    typeof getCuiTreeItemByPrimaryTitle
+  >
+  getCuiTreeItemBySecondaryTitle: OmitFirstArg<
+    typeof getCuiTreeItemBySecondaryTitle
+  >
+  getCuiTreeItemToolbar: OmitFirstArg<typeof getCuiTreeItemToolbar>
   /**
    * popover
    */
@@ -130,14 +134,23 @@ export const codelabUICommands: Array<CypressCommand> = [
   {
     fn: getCuiTreeItemByPrimaryTitle,
     name: 'getCuiTreeItemByPrimaryTitle',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     fn: getCuiTreeItemBySecondaryTitle,
     name: 'getCuiTreeItemBySecondaryTitle',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     fn: getCuiTreeItemToolbar,
     name: 'getCuiTreeItemToolbar',
+    options: {
+      prevSubject: true,
+    },
   },
   /**
    * Popover

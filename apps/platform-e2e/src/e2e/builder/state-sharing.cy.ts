@@ -81,9 +81,9 @@ describe('State variables sharing between pages', () => {
     cy.getSider().getButton({ icon: 'edit' }).click()
     cy.wrap(componentChildren).each((child: ComponentChildData) => {
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
-      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-        cy.getCuiToolbarItem('Add Child').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
+        .getCuiToolbarItem('Add Child')
+        .click()
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Render Type',

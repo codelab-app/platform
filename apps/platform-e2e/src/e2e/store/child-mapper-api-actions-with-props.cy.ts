@@ -155,9 +155,9 @@ describe('Element Child Mapper', () => {
 
   it('should add button to the component and set the api action on the onClick', () => {
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
-    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-      cy.getCuiToolbarItem('Add Child').click()
-    })
+    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
+      .getCuiToolbarItem('Add Child')
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
