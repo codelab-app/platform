@@ -1,4 +1,7 @@
-import type { IBuilderService, IElement } from '@codelab/frontend/abstract/core'
+import type {
+  IBuilderService,
+  IElementModel,
+} from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { type MouseEvent, useCallback } from 'react'
 
@@ -7,7 +10,7 @@ import { type MouseEvent, useCallback } from 'react'
  */
 export const useSelectionHandlers = (
   builderService: IBuilderService,
-  element: IElement,
+  element: IElementModel,
   rendererType: RendererType,
 ) => {
   const handleClick = useCallback(
