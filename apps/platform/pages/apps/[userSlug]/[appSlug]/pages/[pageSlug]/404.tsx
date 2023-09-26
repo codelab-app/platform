@@ -16,6 +16,6 @@ const Page404: CodelabPage = () => {
 
 export default Page404
 
-export const getServerSideProps = withPageAuthRedirect({})
+export const getServerSideProps = withPageAuthRedirect()
 
 Page404.displayName = 'Page404'

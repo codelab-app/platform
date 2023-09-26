@@ -8,6 +8,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
 import { Model, model } from 'mobx-keystone'
+import { getSelectAtomOptionsApi } from '../use-cases/get-select-atom-options'
 import { atomApi } from './atom.api'
 
 // atoms are part of the system and they unlikely to change often,
@@ -48,8 +49,8 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
    */
 
   // @cachedWithTTL('atoms', Infinity)
-  async findOptions(this: AtomRepository) {
-    const { atoms } = await atomApi.GetAtomOptions()
+  async getSelectAtomOptions(this: AtomRepository) {
+    const { atoms } = await getSelectAtomOptionsApi.GetSelectAtomOptions()
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),

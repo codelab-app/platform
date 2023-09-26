@@ -40,7 +40,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = withPageAuthRedirect({})
+export const getServerSideProps = withPageAuthRedirect()
 
 ComponentRenderer.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>

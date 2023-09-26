@@ -16,6 +16,6 @@ const Page500: CodelabPage = () => {
 
 export default Page500
 
-export const getServerSideProps = withPageAuthRedirect({})
+export const getServerSideProps = withPageAuthRedirect()
 
 Page500.displayName = 'Page500'
