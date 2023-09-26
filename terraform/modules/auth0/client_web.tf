@@ -17,6 +17,8 @@ resource "auth0_client" "web_client" {
   "https://*.vercel.app"]
   grant_types = ["authorization_code", "implicit", "password", "refresh_token"]
 
+  cross_origin_auth = true
+
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds
     secret_encoded      = true

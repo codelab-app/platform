@@ -14,16 +14,17 @@ const dynamicUrlSegment2 = 'second-url-segment'
 
 describe('Routing between app pages within the builder', () => {
   let app: IAppDTO
+
   before(() => {
     loginAndSetupData()
 
-    cy.request('/api/data/type/seed-cypress-type')
-
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
+    cy.postApiRequest('/api/data/type/seed-cypress-type')
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
+        cy.log('Seed app', apps)
         app = apps.body
-      })
+      },
+    )
   })
 
   it('should create a page with a static url - /test-page', () => {

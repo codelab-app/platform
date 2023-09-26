@@ -1,4 +1,4 @@
-import { getSession } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/frontend/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 export const authMiddleware: NextApiHandler = async (req, res) => {
@@ -6,7 +6,9 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    const session = await getSession(req, res)
+    const session = await auth0Instance().getSession(req, res)
+
+    // console.log('session', session)
 
     if (session?.user) {
       Object.assign(req, { user: session.user })
@@ -30,7 +32,7 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
       req.headers['X-ID-TOKEN'] = idToken
     }
   } catch (error) {
-    // console.log('error when get access token', error)
+    console.log('error when getting session', error)
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     // if (
     //   !getEnv().graphql.isLocal ||

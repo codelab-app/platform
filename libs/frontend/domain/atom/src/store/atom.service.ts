@@ -217,6 +217,7 @@ export class AtomService
     const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
 
     for (const atom of atoms) {
+      console.debug('AtomService.getSelectAtomOptions()', atom)
       this.add(atom)
     }
 
@@ -264,8 +265,11 @@ export class AtomService
     let atom = this.atoms.get(atomDto.id)
 
     if (atom) {
+      console.debug('found cache, updating...')
       atom.writeCache(atomDto)
     } else {
+      console.debug('no found cache, creating...')
+
       const apiRef = typeRef<IInterfaceType>(atomDto.api.id)
 
       atom = Atom.create({

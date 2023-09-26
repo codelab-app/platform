@@ -282,7 +282,10 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/frontend/infra/auth0": [
+        "libs/frontend/infra/auth0/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

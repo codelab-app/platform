@@ -31,8 +31,6 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
       loading={status === 'loading'}
       name={name}
       onDropdownVisibleChange={async (open) => {
-        console.log(open, status)
-
         if (open && status === 'not-executed') {
           await getSelectAtomOptions.execute()
         }

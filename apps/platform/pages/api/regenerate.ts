@@ -1,10 +1,10 @@
-import { getSession } from '@auth0/nextjs-auth0'
+import { auth0Instance } from '@codelab/frontend/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 // endpoint to securely redirect request to a user domain
 const regenerate: NextApiHandler = async (req, res) => {
   try {
-    const session = await getSession(req, res)
+    const session = await auth0Instance().getSession(req, res)
 
     if (!session?.user) {
       res.status(403).send('Not Authenticated')

@@ -1,11 +1,11 @@
 import type { IPageProps } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
+import { useAppDevelopment } from '@codelab/frontend/domain/app'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
-  useDevelopmentPage,
   usePageQuery,
   useStore,
 } from '@codelab/frontend/presentation/container'
@@ -27,7 +27,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   const router = useRouter()
   const { pageService } = useStore()
 
-  const [{ error, result, status }, loadDevelopmentPage] = useDevelopmentPage({
+  const [{ error, result, status }, loadDevelopmentPage] = useAppDevelopment({
     rendererType: RendererType.Preview,
   })
 

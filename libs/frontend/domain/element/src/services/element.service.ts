@@ -37,6 +37,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  getSnapshot,
   idProp,
   Model,
   model,
@@ -203,17 +204,16 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    const renderType = yield* _await(this.loadRenderType(data.renderType))
+    // const renderType = yield* _await(this.loadRenderType(data.renderType))
 
     const elementProps = this.propService.add({
-      data:
-        data.props?.data ?? makeDefaultProps(renderType.current.api.current),
+      data: data.props?.data,
+      // data.props?.data ?? makeDefaultProps(renderType.current.api.current),
       id: v4(),
     })
 
     const element = this.add({
       ...data,
-      // initial link to resolve closestContainerNode
       props: elementProps,
     })
 
@@ -228,7 +228,7 @@ export class ElementService
     this: ElementService,
     data: ICreateElementData,
   ) {
-    console.debug('createElementAsFirstChild', data)
+    console.debug('createElementAsFirstChild()', data)
 
     if (!data.parentElement?.id) {
       throw new Error("Parent element id doesn't exist")
@@ -265,6 +265,8 @@ export class ElementService
     this: ElementService,
     data: ICreateElementData,
   ) {
+    console.debug('ElementService.createElementAsNextSibling()', data)
+
     if (!data.prevSibling) {
       throw new Error('Missing previous sibling')
     }

@@ -1,11 +1,12 @@
-import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
 import { restPlatformApiClient } from '@codelab/frontend/config'
+import { auth0Instance } from '@codelab/frontend/infra/auth0'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
-export default handleAuth({
-  callback: async (req, res) => {
+export default auth0Instance().handleAuth({
+  callback: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      await handleCallback(req, res, {
+      await auth0Instance().handleCallback(req, res, {
         afterCallback: async (_req, _res, session, state) => {
           const user = session.user as Auth0IdToken
 

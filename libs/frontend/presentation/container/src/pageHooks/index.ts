@@ -1,5 +1,4 @@
 export * from './useAppQuery.hook'
-export * from './useDevelopmentPage.hook'
 export * from './usePageQuery.hook'
 export * from './useProductionPage.hook'
 export * from './useRemainingPages.hook'
