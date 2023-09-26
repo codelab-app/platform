@@ -3,6 +3,7 @@ import { interfaceTypeSelectionSet } from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
 export const atomSelectionSet = `{
+  __typename
   id
   name
   type
@@ -28,6 +29,7 @@ export const atomSelectionSet = `{
 }`
 
 export const exportAtomSelectionSet = `{
+  __typename
   id
   name
   type
