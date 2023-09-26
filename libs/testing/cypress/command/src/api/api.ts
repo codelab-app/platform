@@ -2,8 +2,6 @@
 
 export const postApiRequest = <T>(url: string) => {
   return cy.getAllCookies().then((cookie) => {
-    cy.log('cookie', cookie)
-
     return cy.request<T>({
       // headers: {
       // cookie,

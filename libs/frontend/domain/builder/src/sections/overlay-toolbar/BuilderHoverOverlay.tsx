@@ -1,60 +1,39 @@
-// import type { IBuilderService } from '@codelab/frontend/abstract/core'
-// import { isElementRef } from '@codelab/frontend/abstract/core'
-// import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
-// import { HoverOverlay } from '@codelab/frontend/presentation/view'
-// import { observer } from 'mobx-react-lite'
-// import React from 'react'
-// import styled from 'styled-components'
+import type {
+  IBuilderService,
+  IElementService,
+} from '@codelab/frontend/abstract/core'
+import { isElementRef } from '@codelab/frontend/abstract/core'
+import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
+import { HoverOverlay } from '@codelab/frontend/presentation/view'
+import { isServer } from '@codelab/shared/utils'
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import { createPortal } from 'react-dom'
 
-// export const BuilderHoverOverlay = observer<{
-//   builderService: IBuilderService
-// }>(({ builderService }) => {
-//   const hoveredNode = builderService.hoveredNode
+export const BuilderHoverOverlay = observer<{
+  builderService: IBuilderService
+  elementService: IElementService
+  renderContainerRef: React.MutableRefObject<HTMLElement | null>
+}>(({ builderService, elementService, renderContainerRef }) => {
+  const hoveredNode = builderService.hoveredNode
 
-//   if (!hoveredNode || !isElementRef(hoveredNode)) {
-//     return null
-//   }
+  if (isServer || !hoveredNode || !isElementRef(hoveredNode)) {
+    return null
+  }
 
-//   if (hoveredNode.current.id === builderService.selectedNode?.current.id) {
-//     return null
-//   }
+  const element = queryRenderedElementById(hoveredNode.id)
 
-//   const StyledOverlayContainer = styled.div`
-//     display: flex;
-//     flex-direction: row;
-//     align-items: center;
-//     max-height: 20px;
-//     justify-content: space-between;
-//     & > *:not(:last-child) {
-//       margin-right: 0.3rem;
-//     }
+  if (!element || !renderContainerRef.current) {
+    return null
+  }
 
-//     .click-overlay-toolbar--button-group {
-//     }
-//   `
+  return createPortal(
+    <HoverOverlay
+      element={element}
+      renderContainer={renderContainerRef.current}
+    />,
+    renderContainerRef.current,
+  )
+})
 
-//   const StyledSpan = styled.p`
-//     height: 20px;
-//     min-width: 50px;
-//     margin: 0;
-//     font-size: 15px;
-//     overflow: hidden;
-//     white-space: nowrap;
-//   `
-
-//   const content = (
-//     <StyledOverlayContainer className="click-overlay-toolbar">
-//       <StyledSpan>{hoveredNode.current.name}</StyledSpan>
-//     </StyledOverlayContainer>
-//   )
-
-//   return (
-//     <HoverOverlay
-//       content={content}
-//       getOverlayElement={queryRenderedElementById}
-//       nodeId={hoveredNode.id}
-//     />
-//   )
-// })
-
-// BuilderHoverOverlay.displayName = 'ElementBuilderHoverOverlay'
+BuilderHoverOverlay.displayName = 'BuilderClickOverlay'
