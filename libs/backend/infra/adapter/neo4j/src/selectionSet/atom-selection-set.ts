@@ -2,7 +2,7 @@ import { exportTagSelectionSet, tagSelectionSet } from './tag-selection-set'
 import { interfaceTypeSelectionSet } from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
-export const atomSelectionSet = `{
+export const atomSelectionSet = `
   __typename
   id
   name
@@ -26,9 +26,9 @@ export const atomSelectionSet = `{
   externalCssSource
   externalJsSource
   externalSourceType
-}`
+`
 
-export const exportAtomSelectionSet = `{
+export const exportAtomSelectionSet = `
   __typename
   id
   name
@@ -52,4 +52,4 @@ export const exportAtomSelectionSet = `{
   externalCssSource
   externalJsSource
   externalSourceType
-}`
+`
