@@ -50,6 +50,120 @@ export class BuilderDomainService
   })
   implements IBuilderDomainService
 {
+  @computed
+  private get atomService() {
+    return getAtomService(this)
+  }
+
+  @computed
+  private get tagService() {
+    return getTagService(this)
+  }
+
+  /**
+   * Get all components that have `Component` tag
+   */
+  @computed
+  get componentTagNames() {
+    // all component tags are marked under the component tag
+    return Array.from(this.tagService.tags.values())
+      .filter((tag) => tag.name === COMPONENT_TAG_NAME)
+      .flatMap((tag) => tag.children.map(({ id }) => this.tagService.tag(id)))
+      .map((tag) => tag?.name)
+      .filter(isNonNullable)
+  }
+
+  /**
+   * Each component has a category tag
+   */
+  get componentsGroupedByCategory() {
+    // atoms are internal components while components are created by users
+    const components = [...this.atomService.atoms.values()].filter(
+      (component) => Boolean(component.tags),
+    )
+
+    return groupBy(
+      components,
+      (component) =>
+        // Here we assume each atom only has one category tag
+        component.tags.filter(
+          (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
+        )[0]?.maybeCurrent?.name ?? '',
+    )
+  }
+
+  findNodesToExpand = (
+    selectedNode: IPageNodeRef,
+    alreadyExpandedNodeIds: Array<string>,
+  ): Array<string> => {
+    /**
+     * If we delete an element, the whole tree collapses. Instead,
+     * we want to show the sibling or parent as selected.
+     */
+    const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
+    const expandedSet = new Set(alreadyExpandedNodeIds)
+
+    return pathResult?.filter((el) => !expandedSet.has(el)) ?? []
+  }
+
+  @modelAction
+  updateExpandedNodes = () => {
+    if (!this.selectedNode) {
+      return
+    }
+
+    const newNodesToExpand = this.findNodesToExpand(
+      this.selectedNode,
+      this.expandedComponentTreeNodeIds,
+    )
+
+    if (this.activeTab === RendererTab.Page) {
+      this.expandedPageElementTreeNodeIds = [
+        ...this.expandedPageElementTreeNodeIds,
+        ...newNodesToExpand,
+      ]
+    } else {
+      this.expandedComponentTreeNodeIds = [
+        ...this.expandedComponentTreeNodeIds,
+        ...newNodesToExpand,
+      ]
+    }
+  }
+
+  @modelAction
+  selectComponentNode(node: Nullable<IComponent>) {
+    if (!node) {
+      return
+    }
+
+    this.selectedNode = componentRef(node)
+    this.updateExpandedNodes()
+  }
+
+  @modelAction
+  selectElementNode(node: Nullable<IElement>) {
+    if (!node) {
+      return
+    }
+
+    this.selectedNode = elementRef(node)
+
+    this.updateExpandedNodes()
+  }
+
+  @modelAction
+  hoverElementNode(node: Nullable<IElement>) {
+    if (!node) {
+      this.hoveredNode = null
+
+      return
+    }
+
+    this.hoveredNode = elementRef(node)
+
+    // this.updateExpandedNodes()
+  }
+
   /**
    * When we select an element within a component tree, we need to know which component we're in. This allows us to find the component and return it
    */
