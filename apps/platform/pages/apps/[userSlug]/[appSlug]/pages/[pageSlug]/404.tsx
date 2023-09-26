@@ -1,5 +1,5 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import Head from 'next/head'
 import React from 'react'
 
@@ -16,6 +16,6 @@ const Page404: CodelabPage = () => {
 
 export default Page404
 
-export const getServerSideProps = withPageAuthRequired({})
+export const getServerSideProps = withPageAuthRedirect({})
 
 Page404.displayName = 'Page404'

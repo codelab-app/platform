@@ -1,4 +1,3 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
@@ -14,6 +13,7 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   usePageQuery,
   useStore,
@@ -113,7 +113,7 @@ const PageBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = withPageAuthRequired({})
+export const getServerSideProps = withPageAuthRedirect()
 
 PageBuilder.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>
