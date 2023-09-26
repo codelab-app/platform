@@ -1,3 +1,4 @@
+import { atomSelectionSet } from './atom-selection-set'
 import { propSelectionSet } from './prop-selection-set'
 
 const renderElementType = `
