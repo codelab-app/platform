@@ -1,0 +1,16 @@
+{
+  "name": "auth0",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/auth0/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/frontend/infra/auth0/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

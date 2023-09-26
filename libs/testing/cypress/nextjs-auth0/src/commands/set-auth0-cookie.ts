@@ -52,7 +52,7 @@ const SESSION_COOKIE_NAME = Cypress.env('auth0SessionCookieName')
  * @see https://github.com/auth0/nextjs-auth0/issues/335#issuecomment-799401740
  */
 export const _setAuth0Cookie = (encryptedSession: string) => {
-  cy.log('Encrypted Session', encryptedSession)
+  cy.log('Encrypted Session', SESSION_COOKIE_NAME, encryptedSession)
 
   const emptyCookie = serialize(`${SESSION_COOKIE_NAME}.0`, '', COOKIE_OPTIONS)
   const chunkSize = MAX_COOKIE_SIZE - emptyCookie.length
