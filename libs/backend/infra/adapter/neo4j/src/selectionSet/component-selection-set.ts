@@ -14,6 +14,7 @@ import {
 import { ownerFieldSelectionSet } from './user-selection-set'
 
 export const componentSelectionSet = `{
+  __typename
   id
   name
   ${ownerFieldSelectionSet}
@@ -32,6 +33,7 @@ export const componentSelectionSet = `{
 }`
 
 export const exportComponentSelectionSet = `{
+  __typename
   id
   name
   rootElement

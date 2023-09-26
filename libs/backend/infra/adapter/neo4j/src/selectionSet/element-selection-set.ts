@@ -1,5 +1,18 @@
 import { propSelectionSet } from './prop-selection-set'
 
+const renderElementType = `
+  renderType {
+    ... on Atom {
+      id
+      __typename
+    }
+    ... on Component {
+      id
+      __typename
+    }
+}
+`
+
 const baseElementSelectionSet = `
   id
   name
@@ -10,10 +23,7 @@ const baseElementSelectionSet = `
     id
     name
   }
-  renderType {
-    id
-    kind
-  }
+  ${renderElementType}
   parent {
     id
   }
@@ -50,17 +60,12 @@ const baseElementSelectionSet = `
 
 export const elementSelectionSet = `{
   ${baseElementSelectionSet}
-  renderAtomType {
-    id
-  }
+  ${renderElementType}
 }`
 
 // ${atomSelectionSet}
 
 export const exportElementSelectionSet = `{
   ${baseElementSelectionSet}
-  renderAtomType {
-    id
-    name
-  }
+  ${renderElementType}
 }`
