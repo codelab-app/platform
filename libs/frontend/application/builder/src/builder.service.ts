@@ -58,29 +58,6 @@ export class BuilderService
   })
   implements IBuilderService
 {
-  @computed
-  private get atomService() {
-    return getAtomService(this)
-  }
-
-  @computed
-  private get tagService() {
-    return getTagService(this)
-  }
-
-  /**
-   * Get all components that have `Component` tag
-   */
-  @computed
-  get componentTagNames() {
-    // all component tags are marked under the component tag
-    return Array.from(this.tagService.tags.values())
-      .filter((tag) => tag.name === COMPONENT_TAG_NAME)
-      .flatMap((tag) => tag.children.map(({ id }) => this.tagService.tag(id)))
-      .map((tag) => tag?.name)
-      .filter(isNonNullable)
-  }
-
   /**
    * Each component has a category tag
    */
@@ -100,46 +77,8 @@ export class BuilderService
     )
   }
 
-  findNodesToExpand = (
-    selectedNode: IPageNodeRef,
-    alreadyExpandedNodeIds: Array<string>,
-  ): Array<string> => {
-    /**
-     * If we delete an element, the whole tree collapses. Instead,
-     * we want to show the sibling or parent as selected.
-     */
-    const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
-    const expandedSet = new Set(alreadyExpandedNodeIds)
-
-    return pathResult?.filter((el) => !expandedSet.has(el)) ?? []
-  }
-
   @modelAction
-  updateExpandedNodes = () => {
-    if (!this.selectedNode) {
-      return
-    }
-
-    const newNodesToExpand = this.findNodesToExpand(
-      this.selectedNode,
-      this.expandedComponentTreeNodeIds,
-    )
-
-    if (this.activeTab === RendererTab.Page) {
-      this.expandedPageElementTreeNodeIds = [
-        ...this.expandedPageElementTreeNodeIds,
-        ...newNodesToExpand,
-      ]
-    } else {
-      this.expandedComponentTreeNodeIds = [
-        ...this.expandedComponentTreeNodeIds,
-        ...newNodesToExpand,
-      ]
-    }
-  }
-
-  @modelAction
-  selectComponentNode(node: Nullable<IComponent>) {
+  selectComponentNode(node: Nullable<IComponentModel>) {
     if (!node) {
       return
     }
@@ -149,7 +88,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectElementNode(node: Nullable<IElement>) {
+  selectElementNode(node: Nullable<IElementModel>) {
     if (!node) {
       return
     }
@@ -160,7 +99,7 @@ export class BuilderService
   }
 
   @modelAction
-  hoverElementNode(node: Nullable<IElement>) {
+  hoverElementNode(node: Nullable<IElementModel>) {
     if (!node) {
       this.hoveredNode = null
 
