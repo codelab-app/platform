@@ -9,11 +9,11 @@ const updatedAtomName = 'Updated Button'
 describe('Atoms CRUD', () => {
   before(() => {
     loginAndSetupData()
-    cy.visit('/atoms')
   })
 
   describe('create', () => {
     it('should be able to create atom', () => {
+      cy.visit('/atoms')
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )

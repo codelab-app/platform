@@ -17,9 +17,9 @@ const testCreate = (name: string, parentName?: string) => {
 
 describe('Tag CRUD', () => {
   before(() => {
-    loginAndSetupData()
-
-    cy.postApiRequest('/api/data/tag/seed-cypress-tag')
+    loginAndSetupData().then(() => {
+      cy.postApiRequest('/api/data/tag/seed-cypress-tag')
+    })
   })
 
   describe('create', () => {

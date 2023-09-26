@@ -16,15 +16,13 @@ describe('Routing between app pages within the builder', () => {
   let app: IAppDTO
 
   before(() => {
-    loginAndSetupData()
-
-    cy.postApiRequest('/api/data/type/seed-cypress-type')
-    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-      (apps) => {
-        cy.log('Seed app', apps)
-        app = apps.body
-      },
-    )
+    loginAndSetupData().then(() => {
+      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+        (apps) => {
+          app = apps.body
+        },
+      )
+    })
   })
 
   it('should create a page with a static url - /test-page', () => {

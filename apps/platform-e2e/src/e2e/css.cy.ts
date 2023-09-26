@@ -1,4 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
@@ -20,33 +21,33 @@ const clickEditor = () => {
 }
 
 describe('CSS CRUD', () => {
+  let app: IAppDTO
   before(() => {
-    loginAndSetupData()
-
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
-        const app = apps.body
-
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-        cy.createElementTree([
-          {
-            atom: IAtomType.AntDesignButton,
-            name: elementName,
-            parentElement: ROOT_ELEMENT_NAME,
-          },
-        ])
-      })
+    loginAndSetupData().then(() => {
+      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+        (apps) => {
+          app = apps.body
+        },
+      )
+    })
   })
 
-  //
   describe('Add css string', () => {
     it('should be able to add styling through css string', () => {
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          IPageKindName.Provider,
+        )}/builder`,
+      )
+      cy.getSpinner().should('not.exist')
+      cy.createElementTree([
+        {
+          atom: IAtomType.AntDesignButton,
+          name: elementName,
+          parentElement: ROOT_ELEMENT_NAME,
+        },
+      ])
+
       cy.getSpinner().should('not.exist')
 
       clickEditor()

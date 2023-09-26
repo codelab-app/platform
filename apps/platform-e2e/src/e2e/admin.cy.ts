@@ -6,9 +6,10 @@ describe('Admin', () => {
   let user: IUserDTO
 
   before(() => {
-    loginAndSetupData()
-    cy.getCurrentUser().then((results) => {
-      user = results
+    loginAndSetupData().then(() => {
+      cy.getCurrentUser().then((results) => {
+        user = results
+      })
     })
   })
 
