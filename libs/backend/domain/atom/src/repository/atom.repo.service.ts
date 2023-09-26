@@ -86,7 +86,7 @@ export class AtomRepository extends AbstractRepository<
       await this.ogmService.Atom
     ).find({
       options,
-      selectionSet: atomSelectionSet,
+      selectionSet: `{ ${atomSelectionSet} }`,
       where,
     })
   }
