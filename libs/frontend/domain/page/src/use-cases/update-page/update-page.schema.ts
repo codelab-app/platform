@@ -1,11 +1,13 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import {
+  CodeMirrorField,
   appSchema,
   idSchema,
   nonEmptyString,
   pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContentContainer'>
@@ -18,6 +20,15 @@ export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
+    },
+    getServerSideProps: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: CodeMirrorField({
+          language: ICodeMirrorLanguage.Typescript,
+        }),
+      },
     },
     ...pageUrlSchema,
   },

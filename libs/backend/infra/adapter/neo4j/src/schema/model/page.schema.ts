@@ -19,7 +19,7 @@ export const pageSchema = gql`
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     app: App! @relationship(type: "PAGES", direction: IN)
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
-    #getServerSideProps: String
+    getServerSideProps: String
     # this is an element on _app page tree inside of which child pages content is rendered
     # default is root "Body" element, but can be changed using dropdown on Page Inspector tab
     pageContentContainer: Element

@@ -47,6 +47,7 @@ export class PageRepository extends AbstractRepository<
             id,
             kind,
             name,
+            getServerSideProps,
             pageContentContainer,
             rootElement,
             store,
@@ -56,6 +57,7 @@ export class PageRepository extends AbstractRepository<
             compositeKey: PageProperties.pageCompositeKey(name, app),
             id,
             kind,
+            getServerSideProps,
             pageContentContainer: connectNodeId(pageContentContainer?.id),
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),
@@ -83,7 +85,14 @@ export class PageRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { app, name, pageContentContainer, rootElement, url }: IPageDTO,
+    {
+      app,
+      name,
+      pageContentContainer,
+      getServerSideProps,
+      rootElement,
+      url,
+    }: IPageDTO,
     where: PageWhere,
   ) {
     return (
@@ -93,6 +102,7 @@ export class PageRepository extends AbstractRepository<
         update: {
           app: reconnectNodeId(app.id),
           compositeKey: PageProperties.pageCompositeKey(name, app),
+          getServerSideProps,
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
           rootElement: reconnectNodeId(rootElement.id),
           url,

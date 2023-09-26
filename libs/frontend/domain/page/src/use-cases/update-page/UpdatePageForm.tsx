@@ -42,6 +42,7 @@ export const UpdatePageForm = observer(
       id: pageToUpdate?.id,
       name: pageToUpdate?.name,
       url: pageToUpdate?.url,
+      getServerSideProps: pageToUpdate?.getServerSideProps,
     }
 
     return (

@@ -15,7 +15,11 @@ import type {
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import {
+  Nullish,
+  type IEntity,
+  type Maybe,
+} from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   PageProperties,
@@ -31,6 +35,7 @@ const create = ({
   id,
   kind,
   name,
+  getServerSideProps,
   pageContentContainer,
   rootElement,
   store,
@@ -41,6 +46,7 @@ const create = ({
     id,
     kind,
     name,
+    getServerSideProps,
     pageContentContainer: pageContentContainer?.id
       ? elementRef(pageContentContainer.id)
       : undefined,
@@ -56,6 +62,7 @@ export class Page
     app: prop<IEntity>(),
     kind: prop<IPageKind>(),
     name: prop<string>(),
+    getServerSideProps: prop<Maybe<string>>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
     store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),
@@ -97,6 +104,7 @@ export class Page
     app,
     kind,
     name,
+    getServerSideProps,
     pageContentContainer,
     rootElement,
     store,
@@ -107,6 +115,7 @@ export class Page
       ? elementRef(rootElement.id)
       : this.rootElement
     this.app = app ? app : this.app
+    this.getServerSideProps = getServerSideProps ?? this.getServerSideProps
     this.pageContentContainer = pageContentContainer
       ? elementRef(pageContentContainer.id)
       : this.pageContentContainer
@@ -123,6 +132,7 @@ export class Page
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       id: this.id,
       kind: this.kind,
+      getServerSideProps: this.getServerSideProps,
       pageContentContainer: connectNodeId(
         this.pageContentContainer?.current.id,
       ),
@@ -144,6 +154,7 @@ export class Page
     return {
       app: connectNodeId(this.app.id),
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
+      getServerSideProps: this.getServerSideProps,
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,
       ),

@@ -23,6 +23,10 @@ interface CreatePageFormProps {
   onSubmitSuccess?(): void
 }
 
+const GET_SERVER_SIDE_CODE = `function run() {
+    // insert your code here
+}`
+
 export const CreatePageForm = observer(
   ({
     onSubmitSuccess,
@@ -35,6 +39,7 @@ export const CreatePageForm = observer(
     const model = {
       app: { id: app?.id },
       id: v4(),
+      getServerSideProps: GET_SERVER_SIDE_CODE,
       // required for store api
       owner: {
         auth0Id: userService.auth0Id,

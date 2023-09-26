@@ -17,6 +17,7 @@ export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
   name: string
+  getServerSideProps?: string | null
   url: string
   app: { id: string }
   rootElement: { id: string }
@@ -26,6 +27,7 @@ export type PagePreviewFragment = {
 export type PageFragment = {
   id: string
   kind: Types.PageKind
+  getServerSideProps?: string | null
   name: string
   url: string
   app: { id: string }
@@ -36,6 +38,7 @@ export type PageFragment = {
 
 export type PageDevelopmentFragment = {
   id: string
+  getServerSideProps?: string | null
   kind: Types.PageKind
   name: string
   url: string
@@ -48,6 +51,7 @@ export type PageDevelopmentFragment = {
 export type PageProductionFragment = {
   id: string
   kind: Types.PageKind
+  getServerSideProps?: string | null
   name: string
   slug: string
   url: string
@@ -67,6 +71,7 @@ export const PagePreviewFragmentDoc = gql`
     id
     kind
     name
+    getServerSideProps
     rootElement {
       id
     }
@@ -83,6 +88,7 @@ export const PageFragmentDoc = gql`
     }
     id
     kind
+    getServerSideProps
     name
     pageContentContainer {
       id
@@ -107,6 +113,7 @@ export const PageDevelopmentFragmentDoc = gql`
       id
     }
     id
+    getServerSideProps
     kind
     name
     pageContentContainer {
@@ -133,6 +140,7 @@ export const PageProductionFragmentDoc = gql`
     }
     id
     kind
+    getServerSideProps
     name
     pageContentContainer {
       id

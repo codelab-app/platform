@@ -16,6 +16,10 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
       ...idSchema(),
       ...appSchema,
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
+      getServerSideProps: {
+        type: 'string',
+        nullable: true,
+      },
       pageContentContainer: {
         label: '',
         nullable: true,
@@ -32,4 +36,4 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
     },
     required: ['name', 'app'],
     type: 'object',
-  }) as const
+  } as const)

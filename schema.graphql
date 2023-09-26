@@ -1451,6 +1451,7 @@ type AppPagePagesAggregationSelection {
 
 type AppPagePagesNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
+  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
 }
@@ -1542,6 +1543,21 @@ input AppPagesNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
+  getServerSideProps_AVERAGE_LENGTH_EQUAL: Float
+  getServerSideProps_AVERAGE_LENGTH_GT: Float
+  getServerSideProps_AVERAGE_LENGTH_GTE: Float
+  getServerSideProps_AVERAGE_LENGTH_LT: Float
+  getServerSideProps_AVERAGE_LENGTH_LTE: Float
+  getServerSideProps_LONGEST_LENGTH_EQUAL: Int
+  getServerSideProps_LONGEST_LENGTH_GT: Int
+  getServerSideProps_LONGEST_LENGTH_GTE: Int
+  getServerSideProps_LONGEST_LENGTH_LT: Int
+  getServerSideProps_LONGEST_LENGTH_LTE: Int
+  getServerSideProps_SHORTEST_LENGTH_EQUAL: Int
+  getServerSideProps_SHORTEST_LENGTH_GT: Int
+  getServerSideProps_SHORTEST_LENGTH_GTE: Int
+  getServerSideProps_SHORTEST_LENGTH_LT: Int
+  getServerSideProps_SHORTEST_LENGTH_LTE: Int
   url_AVERAGE_LENGTH_EQUAL: Float
   url_AVERAGE_LENGTH_GT: Float
   url_AVERAGE_LENGTH_GTE: Float
@@ -7398,6 +7414,21 @@ input ElementPageNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
+  getServerSideProps_AVERAGE_LENGTH_EQUAL: Float
+  getServerSideProps_AVERAGE_LENGTH_GT: Float
+  getServerSideProps_AVERAGE_LENGTH_GTE: Float
+  getServerSideProps_AVERAGE_LENGTH_LT: Float
+  getServerSideProps_AVERAGE_LENGTH_LTE: Float
+  getServerSideProps_LONGEST_LENGTH_EQUAL: Int
+  getServerSideProps_LONGEST_LENGTH_GT: Int
+  getServerSideProps_LONGEST_LENGTH_GTE: Int
+  getServerSideProps_LONGEST_LENGTH_LT: Int
+  getServerSideProps_LONGEST_LENGTH_LTE: Int
+  getServerSideProps_SHORTEST_LENGTH_EQUAL: Int
+  getServerSideProps_SHORTEST_LENGTH_GT: Int
+  getServerSideProps_SHORTEST_LENGTH_GTE: Int
+  getServerSideProps_SHORTEST_LENGTH_LT: Int
+  getServerSideProps_SHORTEST_LENGTH_LTE: Int
   url_AVERAGE_LENGTH_EQUAL: Float
   url_AVERAGE_LENGTH_GT: Float
   url_AVERAGE_LENGTH_GTE: Float
@@ -7422,6 +7453,7 @@ type ElementPagePageAggregationSelection {
 
 type ElementPagePageNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
+  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
 }
@@ -12685,6 +12717,7 @@ type Page {
     where: PageAppConnectionWhere
   ): PageAppConnection!
   compositeKey: String!
+  getServerSideProps: String
   id: ID!
   kind: PageKind!
   name: String!
@@ -12743,6 +12776,7 @@ type Page {
 type PageAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
+  getServerSideProps: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   url: StringAggregateSelectionNonNullable!
 }
@@ -12890,6 +12924,7 @@ input PageConnectWhere {
 input PageCreateInput {
   app: PageAppFieldInput
   compositeKey: String!
+  getServerSideProps: String
   id: ID!
   kind: PageKind!
   pageContentContainer: PagePageContentContainerFieldInput
@@ -12964,6 +12999,7 @@ enum PageKind {
 
 input PageOnCreateInput {
   compositeKey: String!
+  getServerSideProps: String
   id: ID!
   kind: PageKind!
   url: String!
@@ -13327,6 +13363,7 @@ Fields to sort Pages by. The order in which sorts are applied is not guaranteed 
 """
 input PageSort {
   compositeKey: SortDirection
+  getServerSideProps: SortDirection
   id: SortDirection
   kind: SortDirection
   url: SortDirection
@@ -13648,6 +13685,7 @@ input PageUniqueWhere {
 input PageUpdateInput {
   app: PageAppUpdateFieldInput
   compositeKey: String
+  getServerSideProps: String
   id: ID
   kind: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
@@ -13671,6 +13709,12 @@ input PageWhere {
   compositeKey_IN: [String!]
   compositeKey_MATCHES: String
   compositeKey_STARTS_WITH: String
+  getServerSideProps: String
+  getServerSideProps_CONTAINS: String
+  getServerSideProps_ENDS_WITH: String
+  getServerSideProps_IN: [String]
+  getServerSideProps_MATCHES: String
+  getServerSideProps_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

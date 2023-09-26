@@ -7,6 +7,7 @@ import { IPageKind } from './page-kind.enum'
 export const IPageDTO = Type.Object({
   app: IEntity,
   id: Type.String(),
+  getServerSideProps: Typebox.Nullish(Type.String()),
   kind: Type.Enum(IPageKind),
   name: Type.String(),
   // The container element of the page

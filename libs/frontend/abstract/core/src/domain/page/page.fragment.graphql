@@ -8,6 +8,7 @@ fragment PagePreview on Page {
   id
   kind
   name
+  getServerSideProps
   rootElement {
     id
   }
@@ -24,6 +25,7 @@ fragment Page on Page {
   }
   id
   kind
+  getServerSideProps
   name
   pageContentContainer {
     id
@@ -45,6 +47,7 @@ fragment PageDevelopment on Page {
     id
   }
   id
+  getServerSideProps
   kind
   name
   pageContentContainer {
@@ -69,6 +72,7 @@ fragment PageProduction on Page {
   }
   id
   kind
+  getServerSideProps
   name
   pageContentContainer {
     id

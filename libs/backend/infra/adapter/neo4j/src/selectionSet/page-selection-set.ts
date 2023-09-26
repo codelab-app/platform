@@ -20,6 +20,7 @@ export const basePageSelectionSet = `
     id
     name
   }
+  getServerSideProps
   pageContentContainer {
     id
     name

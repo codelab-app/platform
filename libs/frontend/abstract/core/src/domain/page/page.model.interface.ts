@@ -24,6 +24,7 @@ export interface IPageModel
   /**
    * A pointer to tell us where to render from app
    */
+  getServerSideProps?: Nullish<string>
   pageContentContainer?: Nullish<Ref<IElementModel>>
   rootElement: Ref<IElementModel>
   store: Ref<IStoreModel>

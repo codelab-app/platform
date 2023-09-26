@@ -15,6 +15,8 @@ export class Page implements IPageDTO {
 
   pageContentContainer?: Nullish<IEntity>
 
+  getServerSideProps?: Nullish<string>
+
   rootElement: IEntity
 
   store: IEntity
@@ -28,6 +30,7 @@ export class Page implements IPageDTO {
     kind,
     name,
     pageContentContainer,
+    getServerSideProps,
     rootElement,
     store,
     url,
@@ -38,6 +41,7 @@ export class Page implements IPageDTO {
     this.kind = kind
     this.name = name
     this.pageContentContainer = pageContentContainer
+    this.getServerSideProps = getServerSideProps
     this.rootElement = rootElement
     this.store = store
     this.url = url

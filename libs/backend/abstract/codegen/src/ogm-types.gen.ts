@@ -2359,6 +2359,7 @@ export type AppPagePagesNodeAggregateSelection = {
   __typename?: 'AppPagePagesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
+  getServerSideProps: StringAggregateSelectionNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -4154,6 +4155,7 @@ export type ElementPagePageNodeAggregateSelection = {
   __typename?: 'ElementPagePageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
+  getServerSideProps: StringAggregateSelectionNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -5354,6 +5356,7 @@ export type Page = {
   __typename?: 'Page'
   id: Scalars['ID']['output']
   compositeKey: Scalars['String']['output']
+  getServerSideProps?: Maybe<Scalars['String']['output']>
   url: Scalars['String']['output']
   kind: PageKind
   name: Scalars['String']['output']
@@ -5453,6 +5456,7 @@ export type PageAggregateSelection = {
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
+  getServerSideProps: StringAggregateSelectionNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -9005,6 +9009,63 @@ export type AppPagesNodeAggregationWhereInput = {
   compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
   compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  getServerSideProps_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   url_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16471,6 +16532,63 @@ export type ElementPageNodeAggregationWhereInput = {
   compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  getServerSideProps_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  getServerSideProps_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  getServerSideProps_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  getServerSideProps_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  getServerSideProps_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   url_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   url_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
@@ -23609,6 +23727,7 @@ export type PageConnectWhere = {
 export type PageCreateInput = {
   id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
+  getServerSideProps?: InputMaybe<Scalars['String']['input']>
   url: Scalars['String']['input']
   kind: PageKind
   rootElement?: InputMaybe<PageRootElementFieldInput>
@@ -23634,6 +23753,7 @@ export type PageDisconnectInput = {
 export type PageOnCreateInput = {
   id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
+  getServerSideProps?: InputMaybe<Scalars['String']['input']>
   url: Scalars['String']['input']
   kind: PageKind
 }
@@ -24400,6 +24520,7 @@ export type PageRootElementUpdateFieldInput = {
 export type PageSort = {
   id?: InputMaybe<SortDirection>
   compositeKey?: InputMaybe<SortDirection>
+  getServerSideProps?: InputMaybe<SortDirection>
   url?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
 }
@@ -24832,6 +24953,7 @@ export type PageUniqueWhere = {
 export type PageUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
+  getServerSideProps?: InputMaybe<Scalars['String']['input']>
   url?: InputMaybe<Scalars['String']['input']>
   kind?: InputMaybe<PageKind>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
@@ -24876,6 +24998,26 @@ export type PageWhere = {
   compositeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   compositeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  getServerSideProps?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  getServerSideProps_NOT?: InputMaybe<Scalars['String']['input']>
+  getServerSideProps_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  getServerSideProps_NOT_IN?: InputMaybe<
+    Array<InputMaybe<Scalars['String']['input']>>
+  >
+  getServerSideProps_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  getServerSideProps_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  getServerSideProps_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  getServerSideProps_MATCHES?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  getServerSideProps_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  getServerSideProps_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  getServerSideProps_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   url?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   url_NOT?: InputMaybe<Scalars['String']['input']>
@@ -31010,6 +31152,7 @@ export interface PageAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   compositeKey?: StringAggregateInputNonNullable
+  getServerSideProps?: StringAggregateInputNullable
   url?: StringAggregateInputNonNullable
 }
 
