@@ -8,8 +8,6 @@ import { getEnv } from '@codelab/shared/config'
  * Cypress manages env differently
  */
 export const auth0Instance = (baseConfig: Partial<BaseConfig> = {}) => {
-  console.debug('Creating auth0Instance...')
-
   const { baseURL, clientID, clientSecret, issuerBaseURL, secret } = baseConfig
 
   return initAuth0({
