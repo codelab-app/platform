@@ -126,15 +126,12 @@ export class Element
     _page: prop<Nullable<Ref<IPageModel>>>(null),
     // component which has this element as rootElement
     _parentComponent: prop<Nullable<Ref<IComponentModel>>>(null),
-    // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     childMapperComponent:
       prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
-    // Marks the element as an instance of a specific component
-    // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
     name: prop<string>().withSetter(),
