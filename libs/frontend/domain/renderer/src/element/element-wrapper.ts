@@ -1,6 +1,7 @@
 import type {
   IComponentType,
   IElementModel,
+  IPageNode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
@@ -11,6 +12,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
+import { useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -49,7 +51,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       }
     }, [])
 
-    const { atomService } = useStore()
+    const { atomService, builderService } = useStore()
     // Render the element to an intermediate output
     const renderOutput = renderer.renderIntermediateElement(element)
 
@@ -74,8 +76,15 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         : getReactComponent(renderOutput)
 
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
+
+    const selectionHandlers = useSelectionHandlers(
+      builderService,
+      element,
+      renderer.rendererType,
+    )
+
     // leave ElementWrapper pass-through so refs are attached to correct element
-    const mergedProps = mergeProps(extractedProps, rest)
+    const mergedProps = mergeProps(extractedProps, rest, selectionHandlers)
 
     const renderedElement = renderComponentWithStyles(
       ReactComponent,

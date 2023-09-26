@@ -6,3 +6,8 @@ export interface OverlayProps {
   element: HTMLElement
   renderContainer: HTMLElement
 }
+
+export interface HoverOverlayProps {
+  element: HTMLElement
+  renderContainer: HTMLElement
+}
