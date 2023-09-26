@@ -12,10 +12,11 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   defaultCommandTimeout: 10000,
   env: {
     auth0Audience: getEnv().auth0.audience,
+    auth0BaseUrl: getEnv().endpoint.platformHost,
     auth0ClientId: getEnv().auth0.clientId,
     auth0ClientSecret: getEnv().auth0.clientSecret,
     auth0CookieSecret: getEnv().auth0.secret,
-    auth0Domain: getEnv().auth0.issuerBaseUrl,
+    auth0IssuerBaseUrl: getEnv().auth0.issuerBaseUrl,
     auth0LogoutUrl: '/api/auth/logout',
     auth0Password: getEnv().auth0.cypressPassword,
     auth0ReturnToUrl: '/',

@@ -2,6 +2,7 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
+import { useAppDevelopment } from '@codelab/frontend/domain/app'
 import {
   BuilderContext,
   BuilderPrimarySidebar,
@@ -14,7 +15,6 @@ import {
   PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
 import {
-  useDevelopmentPage,
   usePageQuery,
   useStore,
 } from '@codelab/frontend/presentation/container'
@@ -32,7 +32,7 @@ const PageBuilder: CodelabPage = observer(() => {
   const { appService, pageService } = useStore()
   const { pageName } = usePageQuery()
 
-  const [{ error, result, status }, loadDevelopmentPage] = useDevelopmentPage({
+  const [{ error, result, status }, loadDevelopmentPage] = useAppDevelopment({
     rendererType: RendererType.PageBuilder,
   })
 

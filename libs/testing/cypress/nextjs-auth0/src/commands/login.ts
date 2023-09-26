@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+import type { Session } from '@auth0/nextjs-auth0'
+import { generateSessionCookie } from '@auth0/nextjs-auth0/testing'
+import { auth0Instance } from '@codelab/frontend/infra/auth0'
 
 interface LoginCredentials {
   password?: string
@@ -7,7 +10,7 @@ interface LoginCredentials {
 
 export const loginAndSetupData = () => {
   cy.session(
-    ['auth0-session'],
+    ['auth0-session-1'],
     () => {
       login()
     },
@@ -40,7 +43,7 @@ export const login = ({
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L47 */
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L57 */
 
-        const payload = {
+        const payload: Session = {
           accessToken,
           accessTokenExpiresAt: Date.now() + expiresIn,
           accessTokenScope: scope,
@@ -51,14 +54,24 @@ export const login = ({
         }
 
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L73 */
-        cy.task('encrypt', payload).then((encryptedSession) => {
-          cy.setCookie('access_token', accessToken)
-          cy.setCookie('id_token', idToken)
-          cy.setCookie('user', JSON.stringify(user))
-          cy._setAuth0Cookie(encryptedSession as string)
-        })
 
-        return Promise.resolve({ accessToken, user })
+        cy.setCookie('access_token', accessToken)
+        cy.setCookie('id_token', idToken)
+        // cy.setCookie('payload', JSON.stringify(payload))
+
+        // return generateSessionCookie(payload, {
+        //   secret: Cypress.env('auth0CookieSecret'),
+        // }).then((appSession) => {
+        //   console.log(appSession)
+        //   cy.setCookie('appSession', appSession)
+
+        //   return Promise.resolve(payload)
+        // })
+
+        cy.task('encrypt', payload).then((encryptedSession) => {
+          cy._setAuth0Cookie(encryptedSession as string)
+          console.log(encryptedSession)
+        })
       })
     })
   } catch (error) {

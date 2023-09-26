@@ -14,7 +14,7 @@ export class AppApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-cypress-app')
-  seedApp() {
+  async seedApp() {
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new SeedCypressAppCommand(),
     )
