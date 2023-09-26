@@ -15,7 +15,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     auth0ClientId: getEnv().auth0.clientId,
     auth0ClientSecret: getEnv().auth0.clientSecret,
     auth0CookieSecret: getEnv().auth0.secret,
-    auth0Domain: getEnv().auth0.issuerBaseUrl,
+    auth0IssuerBaseUrl: getEnv().auth0.issuerBaseUrl,
     auth0LogoutUrl: '/api/auth/logout',
     auth0Password: getEnv().auth0.cypressPassword,
     auth0ReturnToUrl: '/',

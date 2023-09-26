@@ -1,12 +1,13 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { getSession } from '@auth0/nextjs-auth0'
+
 import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 import { importUserData } from '@codelab/backend/application/user'
+import { auth0Instance } from '@codelab/frontend/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const importApp: NextApiHandler = async (req, res) => {
   try {
-    const session = await getSession(req, res)
+    const session = await auth0Instance().getSession(req, res)
 
     if (!session?.user) {
       return res.status(403).send('Not Authenticated')

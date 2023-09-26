@@ -1,13 +1,15 @@
 import type { RendererType } from '@codelab/frontend/abstract/core'
 import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import {
+  useAppQuery,
+  usePageQuery,
+  useStore,
+} from '@codelab/frontend/presentation/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import find from 'lodash/find'
 import { useRouter } from 'next/router'
-import { useStore } from '../providers'
-import { useAppQuery } from './useAppQuery.hook'
-import { usePageQuery } from './usePageQuery.hook'
 
 interface DevelopmentPageProps {
   rendererType: RendererType
@@ -16,15 +18,12 @@ interface DevelopmentPageProps {
 /**
  * Fetch related data for rendering page, and load them into store
  */
-export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
+export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
   const {
     appService,
     builderService,
-    componentService,
-    elementService,
     pageService,
     renderService,
-    typeService,
     userService,
   } = useStore()
 
