@@ -1,9 +1,9 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { BuilderContext } from '@codelab/frontend/domain/builder'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
+import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
 import {
   useCurrentComponent,
   useRenderedComponent,
@@ -40,7 +40,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = withPageAuthRequired({})
+export const getServerSideProps = withPageAuthRedirect({})
 
 ComponentRenderer.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>
