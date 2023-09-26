@@ -21063,6 +21063,20 @@ export type GetSelectAtomOptionsQuery = {
   }>
 }
 
+export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSelectAtomOptionsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+    api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+    requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
+  }>
+}
+
 export type CreateComponentsMutationVariables = Exact<{
   input: Array<ComponentCreateInput> | ComponentCreateInput
 }>
