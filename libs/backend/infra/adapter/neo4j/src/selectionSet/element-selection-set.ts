@@ -10,10 +10,6 @@ const baseElementSelectionSet = `
     id
     name
   }
-  renderComponentType {
-    id
-    name
-  }
   renderType {
     id
     kind

@@ -40,10 +40,6 @@ export const elementSchema = gql`
       # There is bug for union type, need to use custom query
       # https://github.com/neo4j/graphql/issues/487
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
-    # renderComponentType: Component
-    #   @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
-    # renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
-
     # This is a custom field resolver
     descendantElements: [Element!]!
     closestContainerNode: ContainerNode!
