@@ -64,7 +64,7 @@ export class TagRepository extends AbstractRepository<
       await this.ogmService.Tag
     ).find({
       options,
-      selectionSet: tagSelectionSet,
+      selectionSet: `{ ${tagSelectionSet} }`,
       where,
     })
   }

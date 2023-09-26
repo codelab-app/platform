@@ -1,4 +1,4 @@
-export const fieldSelectionSet = `{
+export const fieldSelectionSet = `
   id
   key
   name
@@ -20,9 +20,9 @@ export const fieldSelectionSet = `{
   api {
     id
   }
-}`
+`
 
-export const exportFieldSelectionSet = `{
+export const exportFieldSelectionSet = `
   id
   key
   name
@@ -38,4 +38,4 @@ export const exportFieldSelectionSet = `{
   api {
     id
   }
-}`
+`

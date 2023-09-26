@@ -3,7 +3,7 @@ import { ownerFieldSelectionSet } from './user-selection-set'
 /**
  * Need `name` for `parent` & `children` as lookup key, since id can change during import/export
  */
-export const tagSelectionSet = `{
+export const tagSelectionSet = `
   id
   name
   parent {
@@ -15,9 +15,9 @@ export const tagSelectionSet = `{
     name
   }
   ${ownerFieldSelectionSet}
-}`
+`
 
-export const exportTagSelectionSet = `{
+export const exportTagSelectionSet = `
   id
   name
   parent {
@@ -28,4 +28,4 @@ export const exportTagSelectionSet = `{
     id
     name
   }
-}`
+`

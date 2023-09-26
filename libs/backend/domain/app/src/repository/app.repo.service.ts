@@ -68,7 +68,7 @@ export class AppRepository extends AbstractRepository<
       await this.ogmService.App
     ).find({
       options,
-      selectionSet: appSelectionSet,
+      selectionSet: `{ ${appSelectionSet} }`,
       where,
     })
   }

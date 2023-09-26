@@ -56,7 +56,7 @@ export class FieldRepository extends AbstractRepository<
       await this.ogmService.Field
     ).find({
       options,
-      selectionSet: fieldSelectionSet,
+      selectionSet: `{ ${fieldSelectionSet} }`,
       where,
     })
   }

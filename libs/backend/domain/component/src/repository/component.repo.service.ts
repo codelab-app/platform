@@ -72,7 +72,7 @@ export class ComponentRepository extends AbstractRepository<
       await this.ogmService.Component
     ).find({
       options,
-      selectionSet: componentSelectionSet,
+      selectionSet: `{ ${componentSelectionSet} }`,
       where,
     })
   }

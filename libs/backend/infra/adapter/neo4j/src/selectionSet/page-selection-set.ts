@@ -28,16 +28,16 @@ export const basePageSelectionSet = `
   _compoundName
 `
 
-export const pageSelectionSet = `{
+export const pageSelectionSet = `
   ${basePageSelectionSet}
   store {
     ${storeSelectionSet}
   }
-}`
+`
 
-export const exportPageSelectionSet = `{
+export const exportPageSelectionSet = `
   ${basePageSelectionSet}
   store {
      ${exportStoreSelectionSet}
   }
-}`
+`

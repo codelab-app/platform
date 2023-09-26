@@ -85,7 +85,6 @@ export class UnionTypeRepository extends AbstractRepository<
             }
           },
         ),
-        selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
       })
     ).unionTypes
   }
@@ -101,7 +100,7 @@ export class UnionTypeRepository extends AbstractRepository<
       await this.ogmService.UnionType
     ).find({
       options,
-      selectionSet: exportUnionTypeSelectionSet,
+      selectionSet: `{ ${exportUnionTypeSelectionSet} }`,
       where,
     })
   }
@@ -123,7 +122,6 @@ export class UnionTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.UnionType
       ).update({
-        selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
         update: {
           id,
           name,

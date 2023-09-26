@@ -25,8 +25,6 @@ export const elementResolver: IResolvers = {
         throw new Error('Missing __resolveType')
       }
 
-      console.log(node)
-
       return resolveType
     },
   },
