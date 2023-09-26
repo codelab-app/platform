@@ -48,14 +48,14 @@ export interface IAtomService
   add(atomDTO: IAtomDTO): IAtomModel
   delete(ids: Array<string>): Promise<number>
   getDefaultElementRenderType(): Promise<IAtomModel>
-  getOptions(): Promise<
-    Array<{
-      id: string
-      name: string
-      type: AtomType
-      requiredParents: Array<{ id: string; type: AtomType }>
-    }>
-  >
+  // getOptions(): Promise<
+  //   Array<{
+  //     id: string
+  //     name: string
+  //     type: AtomType
+  //     requiredParents: Array<{ id: string; type: AtomType }>
+  //   }>
+  // >
   getSelectAtomOptions(
     fieldProps: GuaranteedProps<string | undefined>,
     parent: IAtomModel | undefined,

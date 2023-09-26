@@ -3,6 +3,7 @@ import type {
   AtomOptions,
   AtomType,
   AtomWhere,
+  GetSelectAtomOptionsQuery,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
 import type { IAtomModel } from './atom.model.interface'
@@ -13,12 +14,5 @@ export type IAtomRepository = IRepository<
   AtomWhere,
   AtomOptions
 > & {
-  findOptions(): Promise<
-    Array<{
-      id: string
-      name: string
-      type: AtomType
-      requiredParents: Array<{ id: string; type: AtomType }>
-    }>
-  >
+  getSelectAtomOptions(): Promise<GetSelectAtomOptionsQuery['atoms']>
 }

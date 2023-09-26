@@ -195,12 +195,17 @@ export class AtomService
     return all[0]
   })
 
-  @modelFlow
-  getOptions = _async(function* (this: AtomService) {
-    const options = yield* _await(this.atomRepository.findOptions())
+  // @modelFlow
+  // getOptions = _async(function* (this: AtomService) {
+  //   const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
 
-    return options
-  })
+  //   atoms
+  //     .flatMap((atom) => atom.api)
+  //     .forEach((type) => this.typeService.addInterface(type))
+  //   atoms.forEach((atom) => this.add(atom))
+
+  //   return atoms
+  // })
 
   @modelFlow
   getSelectAtomOptions = _async(function* (
@@ -208,18 +213,24 @@ export class AtomService
     fieldProps: { value?: string },
     parent?: IAtomModel,
   ) {
-    const result = yield* _await(this.atomRepository.findOptions())
+    const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
 
-    const currentAtom = fieldProps.value
-      ? this.atoms.get(fieldProps.value)
-      : undefined
+    atoms
+      .flatMap((atom) => atom.api)
+      .forEach((type) => this.typeService.addInterface(type))
+    atoms.forEach((atom) => this.add(atom))
 
-    const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
+    // const currentAtom = fieldProps.value
+    //   ? this.atoms.get(fieldProps.value)
+    //   : undefined
 
-    for (const atom of atoms) {
-      console.debug('AtomService.getSelectAtomOptions()', atom)
-      this.add(atom)
-    }
+    // So we don't modify the current atom, and the select won't flash
+    // const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
+
+    // for (const atom of atoms) {
+    //   console.debug('AtomService.getSelectAtomOptions()', atom)
+    //   this.add(atom)
+    // }
 
     return parent ? filterAtoms(atoms, parent) : atoms.map(mapAtomOptions)
   })
