@@ -36,7 +36,6 @@ export class ResourceRepository extends AbstractRepository<
           id,
           name,
           owner: connectOwner(this.authService.currentUser),
-          type,
         })),
       })
     ).resources
