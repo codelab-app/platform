@@ -57,7 +57,7 @@ export class StoreRepository extends AbstractRepository<
       await this.ogmService.Store
     ).find({
       options,
-      selectionSet: storeSelectionSet,
+      selectionSet: `{ ${storeSelectionSet} }`,
       where,
     })
   }

@@ -78,7 +78,6 @@ export class InterfaceTypeRepository extends AbstractRepository<
             owner: connectOwner(this.authService.currentUser),
           }),
         ),
-        selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
       })
     ).interfaceTypes
   }
@@ -94,7 +93,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
       await this.ogmService.InterfaceType
     ).find({
       options,
-      selectionSet: interfaceTypeSelectionSet,
+      selectionSet: `{ ${interfaceTypeSelectionSet} }`,
       where,
     })
   }
@@ -112,7 +111,6 @@ export class InterfaceTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.InterfaceType
       ).update({
-        selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
         update: {
           name,
           // fields: this.mapUpdateFields(fields),

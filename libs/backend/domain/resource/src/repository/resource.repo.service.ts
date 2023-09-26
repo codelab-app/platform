@@ -36,7 +36,6 @@ export class ResourceRepository extends AbstractRepository<
           id,
           name,
           owner: connectOwner(this.authService.currentUser),
-          type,
         })),
       })
     ).resources
@@ -53,7 +52,7 @@ export class ResourceRepository extends AbstractRepository<
       await this.ogmService.Resource
     ).find({
       options,
-      selectionSet: resourceSelectionSet,
+      selectionSet: `{ ${resourceSelectionSet} }`,
       where,
     })
   }
@@ -63,10 +62,8 @@ export class ResourceRepository extends AbstractRepository<
       await (
         await this.ogmService.Resource
       ).update({
-        selectionSet: resourceSelectionSet,
         update: {
           name,
-          type,
         },
       })
     ).resources[0]

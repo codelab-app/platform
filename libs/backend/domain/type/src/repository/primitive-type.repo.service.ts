@@ -41,7 +41,6 @@ export class PrimitiveTypeRepository extends AbstractRepository<
           ...type,
           owner: connectOwner(this.authService.currentUser),
         })),
-        selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
       })
     ).primitiveTypes
   }
@@ -57,7 +56,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
       await this.ogmService.PrimitiveType
     ).find({
       options,
-      selectionSet: exportPrimitiveTypeSelectionSet,
+      selectionSet: `{ ${exportPrimitiveTypeSelectionSet} }`,
       where,
     })
   }
@@ -70,7 +69,6 @@ export class PrimitiveTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.PrimitiveType
       ).update({
-        selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
         update: { name },
         where,
       })

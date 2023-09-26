@@ -40,7 +40,6 @@ export class RenderPropTypeRepository extends AbstractRepository<
           ...renderPropType,
           owner: connectOwner(this.authService.currentUser),
         })),
-        selectionSet: `{ renderPropTypes ${exportRenderPropTypeSelectionSet} }`,
       })
     ).renderPropTypes
   }
@@ -56,7 +55,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
       await this.ogmService.RenderPropType
     ).find({
       options,
-      selectionSet: exportRenderPropTypeSelectionSet,
+      selectionSet: `{ ${exportRenderPropTypeSelectionSet} }`,
       where,
     })
   }
@@ -69,7 +68,6 @@ export class RenderPropTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.RenderPropType
       ).update({
-        selectionSet: `{ renderPropTypes ${exportRenderPropTypeSelectionSet} }`,
         update: { name },
         where,
       })

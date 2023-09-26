@@ -55,7 +55,7 @@ export class UserRepository extends AbstractRepository<
       await this.ogmService.User
     ).find({
       options,
-      selectionSet: userSelectionSet,
+      selectionSet: `{ ${userSelectionSet} }`,
       where,
     })
   }

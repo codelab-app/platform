@@ -13,39 +13,47 @@ import {
 } from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
-export const componentSelectionSet = `{
+export const componentSelectionSet = `
   __typename
   id
   name
   ${ownerFieldSelectionSet}
-  rootElement
+  rootElement {
     ${elementSelectionSet}
-  props
+  }
+  props {
     ${propSelectionSet}
-  store
+  }
+  store {
     ${storeSelectionSet}
-  api
+  }
+  api {
     ${interfaceTypeSelectionSet}
+  }
   childrenContainerElement {
     id
   }
   keyGenerator
-}`
+`
 
-export const exportComponentSelectionSet = `{
+export const exportComponentSelectionSet = `
   __typename
   id
   name
-  rootElement
+  rootElement {
     ${exportElementSelectionSet}
-  props
+  }
+  props {
     ${propSelectionSet}
-  store
+  }
+  store {
     ${exportStoreSelectionSet}
-  api
+  }
+  api {
     ${exportInterfaceTypeWithFieldsSelectionSet}
+  }
   childrenContainerElement {
     id
   }
   keyGenerator
-}`
+`

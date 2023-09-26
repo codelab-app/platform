@@ -42,7 +42,7 @@ export class ActionTypeRepository extends AbstractRepository<
       await this.ogmService.ActionType
     ).find({
       options,
-      selectionSet: exportActionTypeSelectionSet,
+      selectionSet: `{ ${exportActionTypeSelectionSet} }`,
       where,
     })
   }
@@ -56,7 +56,6 @@ export class ActionTypeRepository extends AbstractRepository<
           ...actionType,
           owner: connectOwner(this.authService.currentUser),
         })),
-        selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
       })
     ).actionTypes
   }
@@ -69,7 +68,6 @@ export class ActionTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ActionType
       ).update({
-        selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
         update: { name },
         where,
       })

@@ -39,8 +39,9 @@ const baseElementSelectionSet = `
   childMapperPreviousSibling {
     id
   }
-  props
+  props {
     ${propSelectionSet}
+  }
   renderForEachPropKey
   childMapperPropKey
   childMapperComponent {
@@ -58,14 +59,12 @@ const baseElementSelectionSet = `
   }
 `
 
-export const elementSelectionSet = `{
+export const elementSelectionSet = `
   ${baseElementSelectionSet}
   ${renderElementType}
-}`
+`
 
-// ${atomSelectionSet}
-
-export const exportElementSelectionSet = `{
+export const exportElementSelectionSet = `
   ${baseElementSelectionSet}
   ${renderElementType}
-}`
+`
