@@ -26,7 +26,7 @@ export const TagResolverProvider: FactoryProvider<
               const id = descendant.properties.id
 
               const tag = await ogmService.Tag.find({
-                selectionSet: tagSelectionSet,
+                selectionSet: `{ ${tagSelectionSet} }`,
                 where: { id },
               })
 

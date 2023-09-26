@@ -14,11 +14,11 @@ export const baseAppSelectionSet = `
   }
 `
 
-export const appSelectionSet = `{
+export const appSelectionSet = `
   ${baseAppSelectionSet}
   ${ownerFieldSelectionSet}
-}`
+`
 
-export const exportAppSelectionSet = `{
+export const exportAppSelectionSet = `
   ${baseAppSelectionSet}
-}`
+`

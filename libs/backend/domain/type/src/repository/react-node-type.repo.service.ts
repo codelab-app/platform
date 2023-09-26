@@ -40,7 +40,6 @@ export class ReactNodeTypeRepository extends AbstractRepository<
           ...reactNodeType,
           owner: connectOwner(this.authService.currentUser),
         })),
-        selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
       })
     ).reactNodeTypes
   }
@@ -56,7 +55,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       await this.ogmService.ReactNodeType
     ).find({
       options,
-      selectionSet: exportReactNodeTypeSelectionSet,
+      selectionSet: `{ ${exportReactNodeTypeSelectionSet} }`,
       where,
     })
   }
@@ -69,7 +68,6 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ReactNodeType
       ).update({
-        selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
         update: { name },
         where,
       })

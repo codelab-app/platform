@@ -46,7 +46,7 @@ export class ArrayTypeRepository extends AbstractRepository<
       await this.ogmService.ArrayType
     ).find({
       options,
-      selectionSet: exportArrayTypeSelectionSet,
+      selectionSet: `{ ${exportArrayTypeSelectionSet} }`,
       where,
     })
   }
@@ -61,7 +61,6 @@ export class ArrayTypeRepository extends AbstractRepository<
           itemType: connectNodeId(itemType?.id),
           owner: connectOwner(this.authService.currentUser),
         })),
-        selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
       })
     ).arrayTypes
   }
@@ -74,7 +73,6 @@ export class ArrayTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ArrayType
       ).update({
-        selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
         update: {
           itemType: reconnectNodeId(itemType?.id),
           name,

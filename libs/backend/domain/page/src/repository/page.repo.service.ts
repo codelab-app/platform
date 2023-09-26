@@ -77,7 +77,7 @@ export class PageRepository extends AbstractRepository<
       await this.ogmService.Page
     ).find({
       options,
-      selectionSet: pageSelectionSet,
+      selectionSet: `{ ${pageSelectionSet} }`,
       where,
     })
   }

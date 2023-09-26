@@ -123,7 +123,7 @@ export class ElementRepository extends AbstractRepository<
       await this.ogmService.Element
     ).find({
       options,
-      selectionSet: elementSelectionSet,
+      selectionSet: `{ ${elementSelectionSet} }`,
       where,
     })
   }

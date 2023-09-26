@@ -29,7 +29,7 @@ export const ElementResolverProvider: FactoryProvider<
               const id = descendant.properties.id
 
               const element = ogmService.Element.find({
-                selectionSet: elementSelectionSet,
+                selectionSet: `{ ${elementSelectionSet} }`,
                 where: { id },
               })
 

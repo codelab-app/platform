@@ -4,20 +4,24 @@ import {
   interfaceTypeSelectionSet,
 } from './type-selection-set'
 
-export const storeSelectionSet = `{
+export const storeSelectionSet = `
   id
   name
-  api
+  api {
     ${interfaceTypeSelectionSet}
-  actions
+  }
+  actions {
     ${actionSelectionSet}
-}`
+  }
+`
 
-export const exportStoreSelectionSet = `{
+export const exportStoreSelectionSet = `
   id
   name
-  api
+  api {
     ${exportInterfaceTypeWithFieldsSelectionSet}
-  actions
+  }
+  actions {
     ${actionSelectionSet}
-}`
+  }
+`

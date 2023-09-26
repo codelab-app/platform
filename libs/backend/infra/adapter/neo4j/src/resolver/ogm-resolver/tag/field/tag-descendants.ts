@@ -19,7 +19,7 @@ export const descendants: IFieldResolver<Tag, unknown> = (parent) =>
           const id = descendant.properties.id
 
           const tag = await Tag.find({
-            selectionSet: tagSelectionSet,
+            selectionSet: `{ ${tagSelectionSet} }`,
             where: { id },
           })
 

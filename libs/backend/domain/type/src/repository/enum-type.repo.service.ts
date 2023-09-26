@@ -46,7 +46,6 @@ export class EnumTypeRepository extends AbstractRepository<
           allowedValues: this.mapCreateEnumTypeValues(allowedValues),
           owner: connectOwner(this.authService.currentUser),
         })),
-        selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
       })
     ).enumTypes
   }
@@ -62,7 +61,7 @@ export class EnumTypeRepository extends AbstractRepository<
       await this.ogmService.EnumType
     ).find({
       options,
-      selectionSet: exportEnumTypeSelectionSet,
+      selectionSet: `{ ${exportEnumTypeSelectionSet} }`,
       where,
     })
   }
@@ -75,7 +74,6 @@ export class EnumTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.EnumType
       ).update({
-        selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
         update: {
           allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
           name,

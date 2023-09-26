@@ -6,13 +6,15 @@ export const atomSelectionSet = `
   __typename
   id
   name
+  ${ownerFieldSelectionSet}
   type
-  api
+  api {
     ${interfaceTypeSelectionSet}
+  }
   icon
-    ${ownerFieldSelectionSet}
-  tags
+  tags {
     ${tagSelectionSet}
+  }
   suggestedChildren {
     id
     name
@@ -37,8 +39,9 @@ export const exportAtomSelectionSet = `
     id
   }
   icon
-  tags
+  tags {
     ${exportTagSelectionSet}
+  }
   suggestedChildren {
     id
     name
