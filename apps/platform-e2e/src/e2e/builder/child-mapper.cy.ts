@@ -125,14 +125,17 @@ describe('Element Child Mapper', () => {
   it('should create the element tree where we will insert the component as a child mapper component', () => {
     cy.createElementTree([
       {
+        atom: IAtomType.AntDesignGridRow,
         name: ELEMENT_ROW,
         parentElement: ROOT_ELEMENT_NAME,
       },
       {
+        atom: IAtomType.ReactFragment,
         name: 'Child 1',
         parentElement: ELEMENT_ROW,
       },
       {
+        atom: IAtomType.ReactFragment,
         name: 'Child 2',
         parentElement: ELEMENT_ROW,
       },

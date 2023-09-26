@@ -106,6 +106,17 @@ export class ComponentService
     const rootElementExists =
       rootElement && this.elementService.elements.has(rootElement.id)
 
+    // There must be a better way to do this, this is just temp to make things work for now
+    const fragmentAtom = yield* _await(
+      this.atomService.atomRepository.findOne({ name: 'ReactFragment' }),
+    )
+
+    if (!fragmentAtom) {
+      throw new Error('Cannot get ReactFragment')
+    }
+
+    this.atomService.add(fragmentAtom)
+
     const rootElementModel: IElementModel = rootElementExists
       ? this.elementService.element(rootElement.id)
       : yield* _await(
@@ -120,8 +131,8 @@ export class ComponentService
               data: '{}',
             },
             renderType: {
-              __typename: IElementRenderTypeKind.Component,
-              id,
+              __typename: IElementRenderTypeKind.Atom,
+              id: fragmentAtom.id,
             },
           }),
         )
