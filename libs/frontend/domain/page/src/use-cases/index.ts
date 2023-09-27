@@ -1,6 +1,6 @@
 export * from './create-page'
 export * from './delete-page'
-export * from './get-page-server-side-props'
 export * from './get-pages'
+export * from './run-page-server-side-props'
 export * from './update-page'
 export * from './update-page-tab'

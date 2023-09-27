@@ -1,5 +1,5 @@
 import { client } from '@codelab/frontend/presentation/client/graphql'
-import { getSdk } from './get-page-server-side-props.endpoints.graphql.gen'
+import { getSdk } from './page-server-side-props.endpoints.graphql.gen'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import { getNameFromSlug } from '@codelab/shared/utils'
