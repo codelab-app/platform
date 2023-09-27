@@ -62,7 +62,7 @@ export class Page
     app: prop<IEntity>(),
     kind: prop<IPageKind>(),
     name: prop<string>(),
-    getServerSideProps: prop<Maybe<string>>(),
+    getServerSideProps: prop<Nullish<string>>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
     store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),

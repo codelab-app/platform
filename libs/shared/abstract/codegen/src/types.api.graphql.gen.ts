@@ -21535,6 +21535,21 @@ export type GetRenderedPageQuery = {
   pages: Array<{ __typename?: 'Page' } & PageDevelopmentFragment>
 }
 
+export type GetPageServerSidePropsQueryVariables = Exact<{
+  appCompositeKey?: InputMaybe<Scalars['String']['input']>
+  pageName?: InputMaybe<Scalars['String']['input']>
+}>
+
+export type GetPageServerSidePropsQuery = {
+  __typename?: 'Query'
+  pages: Array<{
+    __typename?: 'Page'
+    id: string
+    slug: string
+    getServerSideProps?: string | null
+  }>
+}
+
 export type CreatePropsMutationVariables = Exact<{
   input: Array<PropCreateInput> | PropCreateInput
 }>

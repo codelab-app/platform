@@ -1,0 +1,11 @@
+query GetPageServerSideProps($appCompositeKey: String, $pageName: String) {
+  pages(
+    where: {
+      app: { compositeKey: $appCompositeKey, compositeKey_ENDS_WITH: $pageName }
+    }
+  ) {
+    id
+    slug
+    getServerSideProps
+  }
+}
