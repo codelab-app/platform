@@ -42,7 +42,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
   @modelAction
   private addDefaultPage(
-    { app, id, kind, name, url, getServerSideProps }: ICreatePageData,
+    { app, id, kind, name, url }: ICreatePageData,
     appName: string,
     renderType: IElementRenderType,
   ) {
@@ -84,7 +84,6 @@ export class PageFactory extends Model({}) implements IPageFactory {
       id,
       kind,
       name,
-      getServerSideProps,
       pageContentContainer,
       rootElement,
       store,
