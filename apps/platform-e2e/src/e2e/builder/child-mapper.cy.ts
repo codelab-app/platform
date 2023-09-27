@@ -155,11 +155,13 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "test 1" }, { name: "test 2" }]}}',
     })
+    cy.intercept('POST', `api/graphql`).as('action')
     cy.get('.ant-collapse').setFormFieldValue({
       label: 'Component',
       type: FIELD_TYPE.SELECT,
       value: COMPONENT_NAME,
     })
+    cy.wait('@action')
   })
 
   it('should render the component instances with props values from array', () => {
