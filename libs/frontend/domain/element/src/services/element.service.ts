@@ -1,43 +1,25 @@
 import type {
-  IComponentModel,
   ICreateElementData,
   IElementModel,
   IElementRenderTypeModel,
   IElementService,
-  IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
   atomRef,
   componentRef,
-  elementRef,
-  getBuilderService,
   getComponentService,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import {
-  getActionService,
-  getStoreService,
-} from '@codelab/frontend/domain/store'
-import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
-import {
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
-import { mapDeep } from '@codelab/shared/utils'
-import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
-  getSnapshot,
   idProp,
   Model,
   model,
@@ -48,9 +30,10 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { makeDefaultProps } from '../store/api.utils'
 import { Element } from '../store/element.model'
-import { makeAutoIncrementedName } from '../utils'
+import { CloneElementService } from '../use-cases/element/clone-element/clone-element.service'
+import { CreateElementService } from '../use-cases/element/create-element/create-element.service'
+import { MoveElementService } from '../use-cases/element/move-element/move-element.service'
 import { ElementRepository } from './element.repo'
 import {
   CreateElementFormService,
@@ -61,9 +44,6 @@ import {
   ElementModalService,
   UpdateElementModalService,
 } from './element-modal.service'
-import { MoveElementService } from '../use-cases/element/move-element/move-element.service'
-import { CloneElementService } from '../use-cases/element/clone-element/clone-element.service'
-import { CreateElementService } from '../use-cases/element/convert-to-component/create-element.service'
 
 /**
  * We will have a single ElementService that contains all elements from
@@ -75,12 +55,12 @@ import { CreateElementService } from '../use-cases/element/convert-to-component/
 export class ElementService
   extends Model({
     clonedElements: prop(() => objectMap<IElementModel>()),
+    cloneElementService: prop(() => new CloneElementService({})),
+    createElementService: prop(() => new CreateElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
     createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
     elementRepository: prop(() => new ElementRepository({})),
-    cloneElementService: prop(() => new CloneElementService({})),
-    createElementService: prop(() => new CreateElementService({})),
     /**
      * Contains all elements
      *
@@ -89,9 +69,9 @@ export class ElementService
      */
     elements: prop(() => objectMap<IElementModel>()),
     id: idProp,
+    moveElementService: prop(() => new MoveElementService({})),
     updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
-    moveElementService: prop(() => new MoveElementService({})),
   })
   implements IElementService
 {

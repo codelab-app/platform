@@ -86,7 +86,11 @@ export const Builder = observer(() => {
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
         >
-          <RootRenderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
+          <RootRenderer
+            ref={setNodeRef}
+            renderer={renderer}
+            style={rootStyle}
+          />
           <BuilderClickOverlay
             builderService={builderService}
             elementService={elementService}

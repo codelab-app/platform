@@ -17,18 +17,12 @@ import { getTypeService } from '@codelab/frontend/domain/type'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import { IAtomDTO, IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import compact from 'lodash/compact'
 import isEmpty from 'lodash/isEmpty'
-import uniqBy from 'lodash/uniqBy'
 import { computed, observable } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
   arraySet,
-  frozen,
-  getSnapshot,
   idProp,
   Model,
   model,
@@ -71,11 +65,7 @@ export class AtomService
 
   @computed
   get defaultRenderType() {
-    const atom = this.atomsList.find(
-      (atom) => atom.type === IAtomType.ReactFragment,
-    )
-
-    return atom
+    return this.atomsList.find((atom) => atom.type === IAtomType.ReactFragment)
   }
 
   /**

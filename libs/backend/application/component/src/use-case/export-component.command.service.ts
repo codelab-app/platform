@@ -47,8 +47,8 @@ export class ExportComponentHandler
     ).map((element) => ({
       ...element,
       renderType: {
-        id: element.id,
         __typename: throwIfUndefined(element.renderType.__typename),
+        id: element.id,
       },
     }))
 

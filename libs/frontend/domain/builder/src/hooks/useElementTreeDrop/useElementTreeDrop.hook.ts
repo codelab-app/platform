@@ -4,13 +4,13 @@ import type {
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/core'
 import { useRequiredParentValidator } from '@codelab/frontend/domain/element'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
 } from './utils.hook'
-import { useStore } from '@codelab/frontend/presentation/container'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService
@@ -25,6 +25,7 @@ export const useElementTreeDrop = () => {
   const {
     elementService: { moveElementService },
   } = useStore()
+
   const { validateParentForMove } = useRequiredParentValidator()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (

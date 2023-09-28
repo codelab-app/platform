@@ -1,7 +1,6 @@
 import type {
   AtomFragment,
   AtomOptions,
-  AtomType,
   AtomWhere,
   GetSelectAtomOptionsQuery,
 } from '@codelab/shared/abstract/codegen'

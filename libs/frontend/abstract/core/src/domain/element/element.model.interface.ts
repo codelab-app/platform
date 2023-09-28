@@ -2,10 +2,7 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IElementDTO,
-  IElementRenderTypeDto,
-} from '@codelab/shared/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,

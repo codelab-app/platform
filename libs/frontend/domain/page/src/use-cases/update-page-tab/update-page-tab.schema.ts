@@ -32,4 +32,4 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
     },
     required: ['name', 'app'],
     type: 'object',
-  }) as const
+  } as const)

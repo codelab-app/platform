@@ -54,59 +54,6 @@ export class BuilderService
   implements IBuilderService
 {
   /**
-   * Each component has a category tag
-   */
-  get componentsGroupedByCategory() {
-    // atoms are internal components while components are created by users
-    const components = [...this.atomService.atoms.values()].filter(
-      (component) => Boolean(component.tags),
-    )
-
-    return groupBy(
-      components,
-      (component) =>
-        // Here we assume each atom only has one category tag
-        component.tags.filter(
-          (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
-        )[0]?.maybeCurrent?.name ?? '',
-    )
-  }
-
-  @modelAction
-  selectComponentNode(node: Nullable<IComponentModel>) {
-    if (!node) {
-      return
-    }
-
-    this.selectedNode = componentRef(node)
-    this.updateExpandedNodes()
-  }
-
-  @modelAction
-  selectElementNode(node: Nullable<IElementModel>) {
-    if (!node) {
-      return
-    }
-
-    this.selectedNode = elementRef(node)
-
-    this.updateExpandedNodes()
-  }
-
-  @modelAction
-  hoverElementNode(node: Nullable<IElementModel>) {
-    if (!node) {
-      this.hoveredNode = null
-
-      return
-    }
-
-    this.hoveredNode = elementRef(node)
-
-    // this.updateExpandedNodes()
-  }
-
-  /**
    * When we select an element within a component tree, we need to know which component we're in. This allows us to find the component and return it
    */
   @computed
@@ -164,6 +111,59 @@ export class BuilderService
       .flatMap((tag) => tag.children.map(({ id }) => this.tagService.tag(id)))
       .map((tag) => tag?.name)
       .filter(isNonNullable)
+  }
+
+  /**
+   * Each component has a category tag
+   */
+  get componentsGroupedByCategory() {
+    // atoms are internal components while components are created by users
+    const components = [...this.atomService.atoms.values()].filter(
+      (component) => Boolean(component.tags),
+    )
+
+    return groupBy(
+      components,
+      (component) =>
+        // Here we assume each atom only has one category tag
+        component.tags.filter(
+          (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
+        )[0]?.maybeCurrent?.name ?? '',
+    )
+  }
+
+  @modelAction
+  hoverElementNode(node: Nullable<IElementModel>) {
+    if (!node) {
+      this.hoveredNode = null
+
+      return
+    }
+
+    this.hoveredNode = elementRef(node)
+
+    // this.updateExpandedNodes()
+  }
+
+  @modelAction
+  selectComponentNode(node: Nullable<IComponentModel>) {
+    if (!node) {
+      return
+    }
+
+    this.selectedNode = componentRef(node)
+    this.updateExpandedNodes()
+  }
+
+  @modelAction
+  selectElementNode(node: Nullable<IElementModel>) {
+    if (!node) {
+      return
+    }
+
+    this.selectedNode = elementRef(node)
+
+    this.updateExpandedNodes()
   }
 
   @modelAction

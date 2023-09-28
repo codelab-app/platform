@@ -1,11 +1,6 @@
 import type { IUser } from '@codelab/frontend/abstract/core'
-// import { appRef } from '@codelab/frontend/domain/app'
-import {
-  type Auth0IdToken,
-  IRole,
-  JWT_CLAIMS,
-  IUserDTO,
-} from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
@@ -45,7 +40,7 @@ export class User
   })
   implements IUser
 {
-  static fromSession = fromSession
-
   static create = create
+
+  static fromSession = fromSession
 }

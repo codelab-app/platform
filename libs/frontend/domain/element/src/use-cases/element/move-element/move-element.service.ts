@@ -1,147 +1,35 @@
-import {
+import type {
   IComponentModel,
-  IElementModel,
   ICreateElementData,
-  IElementService,
-  getElementService,
-  getComponentService,
-  IMoveFirstChildProps,
-  IMoveNextSiblingProps,
+  IElementModel,
   IMoveElementService,
 } from '@codelab/frontend/abstract/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import {
-  Model,
+  getComponentService,
+  getElementService,
+  IMoveFirstChildProps,
+  IMoveNextSiblingProps,
+} from '@codelab/frontend/abstract/core'
+import { Component } from '@codelab/frontend/domain/component'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import compact from 'lodash/compact'
+import { computed } from 'mobx'
+import {
   _async,
   _await,
+  Model,
   model,
   modelAction,
   modelFlow,
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { Component } from '@codelab/frontend/domain/component'
-import { IEntity } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
-import uniq from 'lodash/uniq'
-import { makeAutoIncrementedName } from '../../../utils'
-import compact from 'lodash/compact'
 
 @model('@codelab/MoveElementService')
 export class MoveElementService
   extends Model({})
   implements IMoveElementService
 {
-  /**
-   * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
-   *
-   * (parent)
-   * \
-   * (firstChild)
-   *
-   * (parent)
-   * \
-   * [element]-(firstChild)
-   */
-  @modelAction
-  attachElementAsFirstChild(
-    this: MoveElementService,
-    {
-      element: existingElement,
-      parentElement: existingParentElement,
-    }: IMoveFirstChildProps,
-  ) {
-    const element = this.elementService.element(existingElement.id)
-    const parentElement = this.elementService.element(existingParentElement.id)
-    const affectedNodeIds: Array<string> = []
-
-    /**
-     * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
-     */
-    if (parentElement.firstChild) {
-      element.attachAsPrevSibling(parentElement.firstChild.current)
-      affectedNodeIds.push(parentElement.firstChild.current.id)
-    }
-
-    // attach to parent
-    element.attachToParentAsFirstChild(parentElement)
-    affectedNodeIds.push(parentElement.id)
-    affectedNodeIds.push(element.id)
-
-    return affectedNodeIds
-  }
-
-  /**
-   * Element appends as next sibling to target
-   *
-   * (target)-(nextSibling)
-   * (target)-[element]-(nextSibling)
-   */
-  @modelAction
-  attachElementAsNextSibling(
-    this: MoveElementService,
-    {
-      element: existingElement,
-      targetElement: existingTargetElement,
-    }: IMoveNextSiblingProps,
-  ) {
-    const element = this.elementService.element(existingElement.id)
-    const targetElement = this.elementService.element(existingTargetElement.id)
-    const affectedNodeIds: Array<string> = []
-
-    if (targetElement.nextSibling) {
-      element.attachAsPrevSibling(targetElement.nextSibling.current)
-      affectedNodeIds.push(targetElement.nextSibling.current.id)
-    }
-
-    element.attachAsNextSibling(targetElement)
-    affectedNodeIds.push(targetElement.id)
-    affectedNodeIds.push(element.id)
-
-    return affectedNodeIds
-  }
-
-  /**
-   * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
-   *
-   * There are 2 scenarios
-   *
-   * When element is firstChild, we'll need to re-add a first child
-   *
-   * (parent)
-   * \
-   * [element]-(sibling)
-   *
-   * When element is a sibling, we'll reconnect siblings
-   *
-   * (parent)
-   * \
-   * (firstChild)-[element]-(sibling)
-   *
-   * - Detach from parent
-   * - Detach from next sibling
-   * - Detach from prev sibling
-   * - Connect prev to next
-   */
-  @modelAction
-  detachElementFromElementTree(this: MoveElementService, elementId: string) {
-    const element = this.elementService.element(elementId)
-
-    const affectedNodeIds = [
-      element.prevSibling?.current.id,
-      element.nextSibling?.current.id,
-    ]
-
-    if (element.parentElement?.current.firstChild?.id === element.id) {
-      affectedNodeIds.push(element.parentElement.current.id)
-    }
-
-    element.detachFromParent()
-    element.connectPrevToNextSibling()
-
-    return compact(affectedNodeIds)
-  }
-
   @modelFlow
   @transaction
   moveComponentToAnotherTree = _async(function* (
@@ -314,6 +202,116 @@ export class MoveElementService
     yield* _await(this.elementService.updateAffectedElements(affectedNodeIds))
   })
 
+  /**
+   * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
+   *
+   * (parent)
+   * \
+   * (firstChild)
+   *
+   * (parent)
+   * \
+   * [element]-(firstChild)
+   */
+  @modelAction
+  attachElementAsFirstChild(
+    this: MoveElementService,
+    {
+      element: existingElement,
+      parentElement: existingParentElement,
+    }: IMoveFirstChildProps,
+  ) {
+    const element = this.elementService.element(existingElement.id)
+    const parentElement = this.elementService.element(existingParentElement.id)
+    const affectedNodeIds: Array<string> = []
+
+    /**
+     * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
+     */
+    if (parentElement.firstChild) {
+      element.attachAsPrevSibling(parentElement.firstChild.current)
+      affectedNodeIds.push(parentElement.firstChild.current.id)
+    }
+
+    // attach to parent
+    element.attachToParentAsFirstChild(parentElement)
+    affectedNodeIds.push(parentElement.id)
+    affectedNodeIds.push(element.id)
+
+    return affectedNodeIds
+  }
+
+  /**
+   * Element appends as next sibling to target
+   *
+   * (target)-(nextSibling)
+   * (target)-[element]-(nextSibling)
+   */
+  @modelAction
+  attachElementAsNextSibling(
+    this: MoveElementService,
+    {
+      element: existingElement,
+      targetElement: existingTargetElement,
+    }: IMoveNextSiblingProps,
+  ) {
+    const element = this.elementService.element(existingElement.id)
+    const targetElement = this.elementService.element(existingTargetElement.id)
+    const affectedNodeIds: Array<string> = []
+
+    if (targetElement.nextSibling) {
+      element.attachAsPrevSibling(targetElement.nextSibling.current)
+      affectedNodeIds.push(targetElement.nextSibling.current.id)
+    }
+
+    element.attachAsNextSibling(targetElement)
+    affectedNodeIds.push(targetElement.id)
+    affectedNodeIds.push(element.id)
+
+    return affectedNodeIds
+  }
+
+  /**
+   * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
+   *
+   * There are 2 scenarios
+   *
+   * When element is firstChild, we'll need to re-add a first child
+   *
+   * (parent)
+   * \
+   * [element]-(sibling)
+   *
+   * When element is a sibling, we'll reconnect siblings
+   *
+   * (parent)
+   * \
+   * (firstChild)-[element]-(sibling)
+   *
+   * - Detach from parent
+   * - Detach from next sibling
+   * - Detach from prev sibling
+   * - Connect prev to next
+   */
+  @modelAction
+  detachElementFromElementTree(this: MoveElementService, elementId: string) {
+    const element = this.elementService.element(elementId)
+
+    const affectedNodeIds = [
+      element.prevSibling?.current.id,
+      element.nextSibling?.current.id,
+    ]
+
+    if (element.parentElement?.current.firstChild?.id === element.id) {
+      affectedNodeIds.push(element.parentElement.current.id)
+    }
+
+    element.detachFromParent()
+    element.connectPrevToNextSibling()
+
+    return compact(affectedNodeIds)
+  }
+
   @modelAction
   moveElementToAnotherTree = ({
     dropPosition,
@@ -346,12 +344,12 @@ export class MoveElementService
   }
 
   @computed
-  private get elementService() {
-    return getElementService(this)
+  private get componentService() {
+    return getComponentService(this)
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get elementService() {
+    return getElementService(this)
   }
 }

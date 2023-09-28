@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import type { Session } from '@auth0/nextjs-auth0'
-import { generateSessionCookie } from '@auth0/nextjs-auth0/testing'
-import { auth0Instance } from '@codelab/frontend/infra/auth0'
 
 interface LoginCredentials {
   password?: string

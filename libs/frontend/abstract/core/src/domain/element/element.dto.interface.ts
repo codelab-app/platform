@@ -1,11 +1,8 @@
-import {
-  IElementDTO,
-  IPropDTO,
-  IElementRenderTypeDto,
-} from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { Static, Type } from '@sinclair/typebox'
-import { Overwrite } from 'utility-types'
+import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
+import { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import type { Overwrite } from 'utility-types'
 
 export const ICreateElementData = Type.Composite([
   Type.Pick(IElementDTO, [

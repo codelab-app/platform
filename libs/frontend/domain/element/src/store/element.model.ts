@@ -43,11 +43,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import {
-  type IElementDTO,
-  ITypeKind,
-  IElementRenderTypeDto,
-} from '@codelab/shared/abstract/core'
+import { type IElementDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -58,7 +54,7 @@ import {
 } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'
-import { computed, reaction } from 'mobx'
+import { computed } from 'mobx'
 import {
   clone,
   idProp,
@@ -68,10 +64,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import {
-  elementTypeTransform,
-  getRenderType,
-} from './element-render-type.field'
+import { getRenderType } from './element-render-type.field'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
 
 const create = ({

@@ -12,14 +12,13 @@ import {
   ElementTree,
   getComponentService,
   getRenderService,
-  getUserService,
   IComponentModel,
   isComponentInstance,
   propRef,
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
-import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import {
   type IComponentDTO,
   IElementRenderTypeKind,
@@ -112,9 +111,60 @@ export class Component
     ) as Maybe<IComponentRuntimeProp>
   }
 
-  @computed
-  get userService() {
-    return getUserService(this)
+  /**
+   * @param key a unique identifier to avoid repeating clone
+   * @param instanceId instance element id
+   * Typed values doesn't have an instance element
+   * therefore the key can't be the same as instanceId
+   */
+  @modelAction
+  clone(key: string, instanceId?: string) {
+    const componentService = getComponentService(this)
+
+    // if instance already created
+    if (componentService.clonedComponents.has(key)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return componentService.clonedComponents.get(key)!
+    }
+
+    const clonedComponent: IComponentModel = clone<IComponentModel>(this)
+    componentService.clonedComponents.set(key, clonedComponent)
+
+    const clonesList = [...componentService.clonedComponents.values()].filter(
+      (component) => component.sourceComponent?.id === this.id,
+    )
+
+    this.cloneTree(clonedComponent, clonesList.length)
+
+    const clonedStore = this.store.current.clone(clonedComponent.id)
+
+    clonedComponent.setProps(propRef(this.props.current.clone()))
+    clonedComponent.setSourceComponent({ id: this.id })
+    clonedComponent.setStore(storeRef(clonedStore))
+
+    clonedComponent.elements.forEach((childElement) => {
+      childElement.props.current.set(DATA_COMPONENT_ID, clonedComponent.id)
+    })
+
+    if (instanceId) {
+      clonedComponent.setInstanceElement(elementRef(instanceId))
+    }
+
+    return clonedComponent
+  }
+
+  @modelAction
+  toCreateInput(): ComponentCreateInput {
+    return {
+      api: { create: { node: this.api.current.toCreateInput() } },
+      childrenContainerElement: connectNodeId(this.rootElement.id),
+      id: this.id,
+      keyGenerator: this.keyGenerator,
+      name: this.name,
+      props: { create: { node: this.props.current.toCreateInput() } },
+      rootElement: connectNodeId(this.rootElement.id),
+      store: { create: { node: this.store.current.toCreateInput() } },
+    }
   }
 
   @modelAction
@@ -209,62 +259,6 @@ export class Component
     }
 
     clonedComponent.setRootElement(elementRef(rootElement.id))
-  }
-
-  /**
-   * @param key a unique identifier to avoid repeating clone
-   * @param instanceId instance element id
-   * Typed values doesn't have an instance element
-   * therefore the key can't be the same as instanceId
-   */
-  @modelAction
-  clone(key: string, instanceId?: string) {
-    const componentService = getComponentService(this)
-
-    // if instance already created
-    if (componentService.clonedComponents.has(key)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return componentService.clonedComponents.get(key)!
-    }
-
-    const clonedComponent: IComponentModel = clone<IComponentModel>(this)
-    componentService.clonedComponents.set(key, clonedComponent)
-
-    const clonesList = [...componentService.clonedComponents.values()].filter(
-      (component) => component.sourceComponent?.id === this.id,
-    )
-
-    this.cloneTree(clonedComponent, clonesList.length)
-
-    const clonedStore = this.store.current.clone(clonedComponent.id)
-
-    clonedComponent.setProps(propRef(this.props.current.clone()))
-    clonedComponent.setSourceComponent({ id: this.id })
-    clonedComponent.setStore(storeRef(clonedStore))
-
-    clonedComponent.elements.forEach((childElement) => {
-      childElement.props.current.set(DATA_COMPONENT_ID, clonedComponent.id)
-    })
-
-    if (instanceId) {
-      clonedComponent.setInstanceElement(elementRef(instanceId))
-    }
-
-    return clonedComponent
-  }
-
-  @modelAction
-  toCreateInput(): ComponentCreateInput {
-    return {
-      api: { create: { node: this.api.current.toCreateInput() } },
-      childrenContainerElement: connectNodeId(this.rootElement.id),
-      id: this.id,
-      keyGenerator: this.keyGenerator,
-      name: this.name,
-      props: { create: { node: this.props.current.toCreateInput() } },
-      rootElement: connectNodeId(this.rootElement.id),
-      store: { create: { node: this.store.current.toCreateInput() } },
-    }
   }
 
   /**
