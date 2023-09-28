@@ -1,4 +1,5 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   ExportAdminDataButton,
   ExportAdminDataModal,

@@ -1,18 +1,13 @@
-import { ICreateAppData, IUser } from '@codelab/frontend/abstract/core'
-import { User } from '@codelab/frontend/domain/user'
-import { atomReactFragmentDto } from '@codelab/frontend/testing/data'
-import { createTestRootStore } from '@codelab/frontend/testing/store'
-import {
-  IAtomType,
-  IPageKindName,
-  IUserDTO,
-} from '@codelab/shared/abstract/core'
+import type { ICreateAppData } from '@codelab/frontend/abstract/core'
+import { atomReactFragmentDto, userDto } from '@codelab/frontend/testing/data'
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { createTestRootStore } from './root-store'
 
 describe('App domain', () => {
-  const rootStore = createTestRootStore()
-  const { appService, userService, atomService } = rootStore
+  const rootStore = createTestRootStore(userDto)
+  const { appService, atomService, userService } = rootStore
 
   it('can add an app', async () => {
     const appData: ICreateAppData = {
@@ -54,7 +49,7 @@ describe('App domain', () => {
     )
 
     // Store
-    app?.pages?.forEach((page) => {
+    app?.pages.forEach((page) => {
       const store = page.current.store.current
 
       expect(store.name).toBe(store.name)

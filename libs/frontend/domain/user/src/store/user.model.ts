@@ -45,4 +45,6 @@ export class User
   static fromSession = fromSession
 
   static create = create
+
+  static fromSession = fromSession
 }

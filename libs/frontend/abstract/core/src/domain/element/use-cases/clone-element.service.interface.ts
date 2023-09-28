@@ -1,4 +1,4 @@
-import { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { IElementModel } from '../element.model.interface'
 
 export interface ICloneElementService {

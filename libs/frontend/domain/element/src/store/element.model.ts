@@ -52,7 +52,7 @@ import {
 } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'
-import { computed, reaction } from 'mobx'
+import { computed } from 'mobx'
 import {
   clone,
   idProp,

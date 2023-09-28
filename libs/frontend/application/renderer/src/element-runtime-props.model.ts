@@ -32,57 +32,7 @@ export class ElementRuntimeProps
   )
   implements IElementRuntimeProp
 {
-  @computed
-  get props() {
-    // memorize values or else it will be lost inside callback
-    const registerReference = isAtomInstance(this.node.renderType)
-    const slug = this.node.slug
-    const store = this.node.store.current
-
-    return {
-      ...(this.node.renderType
-        ? getDefaultFieldProps(this.node.renderType.current)
-        : {}),
-      ...this.node.props.current.values,
-      /**
-       * Internal system props for meta data, use double underline for system-defined identifiers.
-       */
-      [DATA_ELEMENT_ID]: this.node.id,
-      key: this.node.id,
-      ref: registerReference
-        ? (node: HTMLElement) => store.registerRef(slug, node)
-        : undefined,
-    }
-  }
-
-  @computed
-  get evaluatedProps() {
-    const { rendererType } = this.node.propsEvaluationContext
-
-    // Evaluate customText prop only in preview and production modes
-    if (
-      rendererType === RendererType.Preview ||
-      rendererType === RendererType.Production
-    ) {
-      return evaluateObject(
-        this.renderedTypedProps,
-        this.node.propsEvaluationContext,
-      )
-    }
-
-    const customTextProp =
-      this.nodeRef.current.props.current.values[CUSTOM_TEXT_PROP_KEY]
-
-    const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
-    const evaluated = evaluateObject(props, this.node.propsEvaluationContext)
-
-    return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
-  }
-
-  @computed
-  get evaluatedPropsBeforeRender() {
-    return evaluateObject(this.props, this.node.propsEvaluationContext)
-  }
+  static create = create
 
   @computed
   get evaluatedChildMapperProp() {

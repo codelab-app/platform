@@ -22,7 +22,7 @@ export const useDndDropHandler = (
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
-  const { moveElementService, createElementService } = elementService
+  const { createElementService, moveElementService } = elementService
 
   const handleCreateElement = async (event: DragEndEvent) => {
     const targetElementId = event.over?.id.toString()

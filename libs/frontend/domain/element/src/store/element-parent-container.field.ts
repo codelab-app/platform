@@ -13,6 +13,7 @@ export const getParentContainer = (
     case IElementParentContainerKind.Component: {
       return componentRef(parentContainer.id)
     }
+
     case IElementParentContainerKind.Page: {
       return pageRef(parentContainer.id)
     }
