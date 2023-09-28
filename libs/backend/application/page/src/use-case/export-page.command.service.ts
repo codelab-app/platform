@@ -4,6 +4,7 @@ import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -50,7 +51,14 @@ export class ExportPageHandler
       await this.elementRepository.getElementWithDescendants(
         page.rootElement.id,
       )
-    ).map((element) => ({ ...element, closestContainerNode: { id: page.id } }))
+    ).map((element) => ({
+      ...element,
+      closestContainerNode: { id: page.id },
+      renderType: {
+        __typename: throwIfUndefined(element.renderType.__typename),
+        id: element.renderType.id,
+      },
+    }))
 
     const componentIds = flatMap(elements, (element) => [
       element.parentComponent?.id,
@@ -68,7 +76,14 @@ export class ExportPageHandler
     for (const { id, rootElement } of components) {
       const componentDescendants = (
         await this.elementRepository.getElementWithDescendants(rootElement.id)
-      ).map((element) => ({ ...element, closestContainerNode: { id } }))
+      ).map((element) => ({
+        ...element,
+        closestContainerNode: { id },
+        renderType: {
+          __typename: throwIfUndefined(element.renderType.__typename),
+          id: element.renderType.id,
+        },
+      }))
 
       elements.push(...componentDescendants)
     }

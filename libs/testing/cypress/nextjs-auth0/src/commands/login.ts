@@ -8,7 +8,7 @@ interface LoginCredentials {
 
 export const loginAndSetupData = () => {
   cy.session(
-    ['auth0-session'],
+    ['auth0-session-1'],
     () => {
       login()
     },
@@ -54,8 +54,8 @@ export const login = ({
 
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L73 */
 
-        cy.setCookie('access_token', accessToken)
-        cy.setCookie('id_token', idToken)
+        // cy.setCookie('access_token', accessToken)
+        // cy.setCookie('id_token', idToken)
         // cy.setCookie('payload', JSON.stringify(payload))
 
         // return generateSessionCookie(payload, {
@@ -68,11 +68,10 @@ export const login = ({
         // })
 
         cy.task('encrypt', payload).then((encryptedSession) => {
-          cy.setCookie('access_token', accessToken)
-          cy.setCookie('id_token', idToken)
-          cy.setCookie('user', JSON.stringify(user))
+          // cy.setCookie('access_token', accessToken)
+          // cy.setCookie('id_token', idToken)
+          // cy.setCookie('user', JSON.stringify(user))
           cy._setAuth0Cookie(encryptedSession as string)
-          console.log(encryptedSession)
         })
       })
     })
