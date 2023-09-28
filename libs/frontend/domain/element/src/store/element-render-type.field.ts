@@ -5,26 +5,30 @@ import {
 } from '@codelab/frontend/abstract/core'
 import type {
   IElementDTO,
-  IElementRenderType,
+  IElementRenderTypeDto,
 } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { getEnumValue } from '@codelab/shared/utils'
 import type { ModelPropTransform } from 'mobx-keystone'
 
-const _renderTypeTransform: ModelPropTransform<
-  IElementRenderTypeModel,
-  IElementRenderType
+/**
+ * Doesn't work for refs, guessing it doesn't attach ref to root tree, so it can't resolve
+ */
+const _elementTypeTransform: ModelPropTransform<
+  IElementRenderTypeDto,
+  IElementRenderTypeModel
 > = {
-  transform: ({ cachedTransformedValue, originalValue, setOriginalValue }) => {
+  untransform({ transformedValue, cacheTransformedValue }) {
+    console.log('originalValue', transformedValue)
     const typename = getEnumValue(
       IElementRenderTypeKind,
-      originalValue.$modelType,
+      transformedValue.$modelType,
       (type) => {
         if (type === '@codelab/AtomRef') {
           return IElementRenderTypeKind.Atom
         }
 
-        if (type === '@codelab/ComponeontRef') {
+        if (type === '@codelab/ComponentRef') {
           return IElementRenderTypeKind.Component
         }
 
@@ -32,25 +36,27 @@ const _renderTypeTransform: ModelPropTransform<
       },
     )
 
+    console.log(typename)
+
     return {
       __typename: typename,
-      id: originalValue.id,
+      id: transformedValue.id,
     }
   },
-  untransform: ({ cacheTransformedValue, transformedValue }) => {
-    if (transformedValue.__typename === 'Atom') {
-      return atomRef(transformedValue.id)
+  transform({ originalValue, cachedTransformedValue, setOriginalValue }) {
+    console.log('transformedValue', originalValue)
+    if (originalValue.__typename === 'Atom') {
+      return atomRef(originalValue.id)
     }
 
-    if (transformedValue.__typename === 'Component') {
-      return componentRef(transformedValue.id)
+    if (originalValue.__typename === 'Component') {
+      return componentRef(originalValue.id)
     }
-
-    throw new Error('__typename not valid')
+    throw new Error('Incorrect __typename')
   },
 }
 
-export const renderTypeTransform = () => _renderTypeTransform
+export const elementTypeTransform = () => _elementTypeTransform
 
 export const getRenderType = (
   renderType: IElementDTO['renderType'],

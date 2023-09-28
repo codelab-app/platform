@@ -1,6 +1,6 @@
 import type {
   IElementDTO,
-  IElementRenderType,
+  IElementRenderTypeDto,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 

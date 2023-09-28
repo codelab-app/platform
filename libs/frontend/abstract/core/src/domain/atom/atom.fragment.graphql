@@ -8,9 +8,6 @@ fragment Atom on Atom {
   icon
   id
   name
-  owner {
-    ...Owner
-  }
   requiredParents {
     id
     name

@@ -70,16 +70,21 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const atomReactFragment = yield* _await(
-      this.atomService.getDefaultElementRenderType(),
-    )
+    // const atomReactFragment = yield* _await(
+    //   this.atomService.getDefaultElementRenderType(),
+    // )
+    const defaultRenderType = this.atomService.defaultRenderType
+
+    if (!defaultRenderType) {
+      throw new Error('Default atom renderType must be loaded first')
+    }
 
     const pages = this.pageService.pageFactory.addSystemPages(
       {
         id,
         name,
       },
-      atomReactFragment,
+      defaultRenderType,
     )
 
     const app = this.add({

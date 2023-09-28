@@ -12,7 +12,7 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   useCurrentComponent,
   useRenderedComponent,

@@ -1,5 +1,8 @@
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
+import type {
+  IComponentDTO,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -17,6 +20,7 @@ import type { IInterfaceType } from '../type'
 export interface IComponentModel
   extends ICacheService<IComponentDTO, IComponentModel>,
     IElementTree {
+  __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElementModel>
   descendantComponents: Array<IComponentModel>

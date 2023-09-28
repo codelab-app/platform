@@ -17493,10 +17493,10 @@ __metadata:
     madge: 5.0.1
     memfs: ^4.2.0
     micro: ^10.0.1
-    mobx: 6.9.0
-    mobx-keystone: 1.6.3
-    mobx-react-lite: 3.4.3
-    mobx-utils: 6.0.6
+    mobx: 6.10.2
+    mobx-keystone: 1.6.5
+    mobx-react-lite: 4.0.5
+    mobx-utils: 6.0.8
     moment: 2.29.4
     morphext: 2.4.7
     multer: ^1.4.5-lts.1
@@ -28903,47 +28903,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx-keystone@npm:1.6.3":
-  version: 1.6.3
-  resolution: "mobx-keystone@npm:1.6.3"
+"mobx-keystone@npm:1.6.5":
+  version: 1.6.5
+  resolution: "mobx-keystone@npm:1.6.5"
   dependencies:
     fast-deep-equal: ^3.1.3
     ts-toolbelt: ^9.6.0
-    tslib: ^2.6.0
+    tslib: ^2.6.1
   peerDependencies:
     mobx: ^6.0.0 || ^5.0.0 || ^4.0.0
-  checksum: c1661533cee5bfce2b516cc99413f71526eb7e0a120656339f38a9db090d3f0fa5e7de63f465852637d3efef40922aa7003addd9cc13a63389d01d79ffea10d4
+  checksum: 5c31ebb00290576ea81fa1f6bba6b8c89ce406a0e36fd3b2b0287210b8548fc88848a103ef696eeeee9c1d10afe975e1e95b91eb27e695aa7f987673c35e68bb
   languageName: node
   linkType: hard
 
-"mobx-react-lite@npm:3.4.3":
-  version: 3.4.3
-  resolution: "mobx-react-lite@npm:3.4.3"
+"mobx-react-lite@npm:4.0.5":
+  version: 4.0.5
+  resolution: "mobx-react-lite@npm:4.0.5"
+  dependencies:
+    use-sync-external-store: ^1.2.0
   peerDependencies:
-    mobx: ^6.1.0
+    mobx: ^6.9.0
     react: ^16.8.0 || ^17 || ^18
   peerDependenciesMeta:
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: 60a2580eb9a0b9988fc76959d7299f018733dc33cacaa73c45500953006d4d45e738d9ae39ccfc767ac19a75656dbc028d833282c848fbc67d8d18a2bcb5c262
+  checksum: b0a3e4345c1449eee7c0a6aa2369475024a0c8227e11305cc965229527e3ddede4ca7b8337912a7fe396e24bd83986f2a88a21813c51cabdc18330fa484023b5
   languageName: node
   linkType: hard
 
-"mobx-utils@npm:6.0.6":
-  version: 6.0.6
-  resolution: "mobx-utils@npm:6.0.6"
+"mobx-utils@npm:6.0.8":
+  version: 6.0.8
+  resolution: "mobx-utils@npm:6.0.8"
   peerDependencies:
     mobx: ^6.0.0
-  checksum: 10d1dc8612143a49bc33380532615e052ecf68cbca20c354d5b8adcafc3a7e5181ec9bbb2360181ce7f8a191297b2d86a1bd177191fbab463c9120401b93598c
+  checksum: 3cab9a858d6b19b2f5c4d5c39fcef7c171fe37c2b5e9f899e0988b475521e0ad0d52af290c04bcb694d8974f8bfac3ca6ee3340a0aeadd9efd770cfee3f44e4e
   languageName: node
   linkType: hard
 
-"mobx@npm:6.9.0":
-  version: 6.9.0
-  resolution: "mobx@npm:6.9.0"
-  checksum: ae03e95334887305c49d3e63e54f5e5e571b21f6a649fc0b7f6f1afd83470db63d8ab3e7c4b9e6ace2aaf6eded5255878c5f69d293efa9fd35af3d640b4a4756
+"mobx@npm:6.10.2":
+  version: 6.10.2
+  resolution: "mobx@npm:6.10.2"
+  checksum: 14d6f1db4e3a61c823510ea130229c96bd4958b77d81057ac1abc6a439703eaf3ea2289192ef205b4250d3adb1d83a439ad56d5e53f2b967c6e62a6bccc23d8a
   languageName: node
   linkType: hard
 

@@ -1,5 +1,5 @@
 import { useStore } from '@codelab/frontend/presentation/container'
-import type { IElementRenderType } from '@codelab/shared/abstract/core'
+import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -27,10 +27,9 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
     const { atomService, builderService, componentService } = useStore()
     const { name, onChange, value } = props
 
-    const [renderTypeField] = useField<{ value?: Partial<IElementRenderType> }>(
-      'renderType',
-      {},
-    )
+    const [renderTypeField] = useField<{
+      value?: Partial<IElementRenderTypeDto>
+    }>('renderType', {})
 
     // Used to check if the previous selected atom/component name
     // is different from the current value to determine if the user
@@ -38,7 +37,7 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
     const currentRenderTypeName = useRef<string>()
 
     const changedRenderTypeHandler = async (
-      renderType?: Partial<IElementRenderType>,
+      renderType?: Partial<IElementRenderTypeDto>,
     ) => {
       let renderTypeName: Maybe<string>
 

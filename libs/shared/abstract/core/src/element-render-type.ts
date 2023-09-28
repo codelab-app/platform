@@ -1,4 +1,7 @@
-import { IMaybeDiscriminatedEntity } from '@codelab/shared/abstract/types'
+import {
+  IDiscriminatedEntity,
+  IMaybeDiscriminatedEntity,
+} from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
@@ -11,9 +14,9 @@ export const IComponentID = Type.String()
 
 export const IAtomID = Type.String()
 
-export const IElementRenderType = Type.Union([
-  IMaybeDiscriminatedEntity(`${IElementRenderTypeKind.Atom}`),
-  IMaybeDiscriminatedEntity(`${IElementRenderTypeKind.Component}`),
+export const IElementRenderTypeDto = Type.Union([
+  IDiscriminatedEntity(`${IElementRenderTypeKind.Atom}`),
+  IDiscriminatedEntity(`${IElementRenderTypeKind.Component}`),
 ])
 
-export type IElementRenderType = Static<typeof IElementRenderType>
+export type IElementRenderTypeDto = Static<typeof IElementRenderTypeDto>

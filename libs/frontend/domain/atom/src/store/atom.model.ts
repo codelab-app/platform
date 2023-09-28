@@ -80,7 +80,7 @@ export class Atom
    */
   @computed
   get __typename() {
-    return IElementRenderTypeKind.Atom
+    return IElementRenderTypeKind.Atom as const
   }
 
   /**

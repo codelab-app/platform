@@ -27,6 +27,8 @@ import {
   _async,
   _await,
   arraySet,
+  frozen,
+  getSnapshot,
   idProp,
   Model,
   model,
@@ -50,7 +52,6 @@ export class AtomService
     atoms: prop(() => objectMap<IAtomModel>()),
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
-    defaultRenderType: prop<Nullable<Ref<IAtomModel>>>(null).withSetter(),
     deleteManyModal: prop(() => new AtomsModalService({})),
     id: idProp,
     loadedExternalCssSources: prop(() => arraySet<string>()),
@@ -66,6 +67,20 @@ export class AtomService
   @computed
   get atomsList() {
     return Array.from(this.atoms.values())
+  }
+
+  @computed
+  get defaultRenderType() {
+    const atom = this.atomsList.find(
+      (atom) => atom.type === IAtomType.ReactFragment,
+    )
+
+    return atom
+      ? ({
+          ...getSnapshot(atom),
+          __typename: `Atom`,
+        } as const)
+      : undefined
   }
 
   /**
@@ -160,7 +175,7 @@ export class AtomService
   @modelFlow
   getDefaultElementRenderType = _async(function* (this: IAtomService) {
     if (this.defaultRenderType) {
-      return this.defaultRenderType.current
+      return this.defaultRenderType
     }
 
     /**
@@ -177,8 +192,6 @@ export class AtomService
     }
 
     const atom = this.add(atomReactFragment)
-
-    this.setDefaultRenderType(atomRef(atom))
 
     return atom
   })

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
-import { Renderer } from '@codelab/frontend/domain/renderer'
+import { RootRenderer } from '@codelab/frontend/domain/renderer'
 import { useProductionPage } from '@codelab/frontend/presentation/container'
 import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'
@@ -18,7 +18,7 @@ const Index = (props: ProductionWebsiteProps) => {
         <title>{result?.page.name ?? 'Loading...'}</title>
       </Head>
 
-      {result?.renderer && <Renderer renderer={result.renderer} />}
+      {result?.renderer && <RootRenderer renderer={result.renderer} />}
     </>
   )
 }

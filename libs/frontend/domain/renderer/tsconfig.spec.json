@@ -6,7 +6,6 @@
     "noPropertyAccessFromIndexSignature": false,
     "outDir": "../../../../dist/out-tsc",
     "jsx": "react-jsx",
-
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true

@@ -13,6 +13,10 @@ import type { IModel } from '../model.interface'
 import type { IPageModel } from '../page'
 import type { IPropData } from '../prop'
 
+/**
+ * IModelData
+ */
+
 export interface IAppModel
   extends IModel<AppCreateInput, AppUpdateInput, AppDeleteInput>,
     ICacheService<IAppDTO, IAppModel>,
