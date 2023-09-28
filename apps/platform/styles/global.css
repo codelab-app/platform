@@ -3,7 +3,6 @@
 @import './tailwind.css';
 @import './slick.css';
 @import './tailwind-fix.css';
-@import './editorjs.overrides.css';
 
 @import 'react-quill/dist/quill.snow.css';
 @import 'react-grid-layout/css/styles.css';

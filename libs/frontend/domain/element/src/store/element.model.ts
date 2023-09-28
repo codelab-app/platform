@@ -422,7 +422,11 @@ export class Element
     const parsedCss = this.styleParsed
     const activeRenderer = this.renderService.activeRenderer?.current
     const rendererType = activeRenderer?.rendererType
-    const isProduction = rendererType === RendererType.Production
+
+    const isProduction =
+      rendererType === RendererType.Production ||
+      rendererType === RendererType.Preview
+
     const mediaQueryString = isProduction ? '@media' : '@container root'
     const breakpointStyles = []
 
