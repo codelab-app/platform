@@ -240,20 +240,6 @@ export class FieldService
     return this.fields.get(id)
   }
 
-  private static mapDataToDTO(fieldData: ICreateFieldData) {
-    return {
-      ...fieldData,
-      api: { id: fieldData.interfaceTypeId },
-      defaultValues: fieldData.defaultValues
-        ? JSON.stringify(fieldData.defaultValues)
-        : null,
-      fieldType: { id: fieldData.fieldType },
-      validationRules: fieldData.validationRules
-        ? JSON.stringify(fieldData.validationRules)
-        : null,
-    }
-  }
-
   private static mapFieldToDTO(field: IField): IFieldDTO {
     return {
       api: { id: field.api.id },
@@ -282,6 +268,9 @@ export class FieldService
       validationRules: fieldData.validationRules
         ? JSON.stringify(fieldData.validationRules)
         : null,
+    }
+  }
+
   @modelAction
   private attachFieldAsNextSibling(
     this: FieldService,
