@@ -11,11 +11,9 @@ import type { Callback } from '@codelab/shared/abstract/types'
           return IElementRenderTypeKind.Atom
         }
 
-<<<<<<< HEAD
         if (type === '@codelab/ComponentRef') {
-=======
         if (type === '@codelab/ComponeontRef') {
->>>>>>> aac8ffbb6 (wip: renderType getter)
+        if (type === '@codelab/ComponentRef') {
           return IElementRenderTypeKind.Component
         }
 
