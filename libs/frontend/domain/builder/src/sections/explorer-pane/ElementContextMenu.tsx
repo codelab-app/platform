@@ -1,8 +1,11 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
 import type {
+  ICloneElementService,
+  ICreateElementService,
   IElementModel,
   IElementService,
   IElementTreeViewDataNode,
+  IMoveElementService,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -25,14 +28,16 @@ export interface ContextMenuProps {
   onClick?(): unknown
 }
 
-export type ElementContextMenuProps = ContextMenuProps &
-  Pick<
-    IElementService,
-    'cloneElement' | 'convertElementToComponent' | 'createForm' | 'deleteModal'
-  > & {
-    element: IElementModel
-    treeNode?: IElementTreeViewDataNode
-  }
+interface ElementContextMenu {
+  createForm: IElementService['createForm']
+  deleteModal: IElementService['deleteModal']
+  cloneElement: ICloneElementService['cloneElement']
+  convertElementToComponent: ICloneElementService['convertElementToComponent']
+  element: IElementModel
+  treeNode?: IElementTreeViewDataNode
+}
+
+export type ElementContextMenuProps = ContextMenuProps & ElementContextMenu
 
 /**
  * The right-click menu in the element tree

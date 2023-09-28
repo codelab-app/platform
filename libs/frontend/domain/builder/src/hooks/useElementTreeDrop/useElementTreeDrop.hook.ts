@@ -10,6 +10,7 @@ import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
 } from './utils.hook'
+import { useStore } from '@codelab/frontend/presentation/container'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService
@@ -20,7 +21,10 @@ export interface UseElementTreeDropProps {
  * Provides a handler for Antd tree onDrop for moving elements
  * This can be optimized by batching data changes in the API
  */
-export const useElementTreeDrop = (elementService: IElementService) => {
+export const useElementTreeDrop = () => {
+  const {
+    elementService: { moveElementService },
+  } = useStore()
   const { validateParentForMove } = useRequiredParentValidator()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (
@@ -40,7 +44,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
         return
       }
 
-      void elementService.moveNodeToAnotherTree({
+      void moveElementService.moveNodeToAnotherTree({
         dropPosition: info.dropPosition,
         object: dragElement,
         targetElement: dropElement,
@@ -54,7 +58,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
     }
 
     if (shouldMoveElementAsFirstChild(info)) {
-      void elementService.moveElementAsFirstChild({
+      void moveElementService.moveElementAsFirstChild({
         element: dragElement,
         parentElement: dropElement,
       })
@@ -63,7 +67,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
     }
 
     if (shouldMoveElementAsNextSibling(info)) {
-      void elementService.moveElementAsNextSibling({
+      void moveElementService.moveElementAsNextSibling({
         element: dragElement,
         targetElement: dropElement,
       })
