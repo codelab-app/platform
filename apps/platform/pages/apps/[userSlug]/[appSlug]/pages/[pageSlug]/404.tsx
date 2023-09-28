@@ -1,5 +1,5 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import Head from 'next/head'
 import React from 'react'
 

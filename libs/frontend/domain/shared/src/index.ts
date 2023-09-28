@@ -1,4 +1,3 @@
-export * from './authorization/with-page-auth-redirect'
 export * from './inline-form.service'
 export * from './modal.service'
 export * from './pagination'

@@ -76,7 +76,7 @@ export class Component
 
   @computed
   get __typename() {
-    return IElementRenderTypeKind.Component
+    return IElementRenderTypeKind.Component as const
   }
 
   /**

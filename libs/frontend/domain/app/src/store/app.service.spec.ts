@@ -1,3 +1,7 @@
+import {
+  TestRootStore,
+  createTestRootStore,
+} from '@codelab/frontend/testing/store'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import {
   appData,
@@ -8,12 +12,11 @@ import {
   storeData,
 } from '@codelab/shared/data/test'
 import { getSnapshot, unregisterRootStore } from 'mobx-keystone'
-import { TestRootStore } from '../test/test-root-store'
 
 let rootStore: TestRootStore
 
 beforeAll(() => {
-  rootStore = new TestRootStore({})
+  rootStore = createTestRootStore()
 })
 
 afterAll(() => {

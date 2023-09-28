@@ -1,13 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
-import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { TagFragment } from '../tag/tag.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
-import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { TagFragmentDoc } from '../tag/tag.fragment.graphql.gen'
 export type AtomFragment = {
   externalCssSource?: string | null
@@ -18,7 +16,6 @@ export type AtomFragment = {
   name: string
   type: Types.AtomType
   api: InterfaceTypeFragment
-  owner: OwnerFragment
   requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
   suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
   tags: Array<TagFragment>
@@ -59,9 +56,6 @@ export const AtomFragmentDoc = gql`
     icon
     id
     name
-    owner {
-      ...Owner
-    }
     requiredParents {
       id
       name
@@ -78,7 +72,6 @@ export const AtomFragmentDoc = gql`
     type
   }
   ${InterfaceTypeFragmentDoc}
-  ${OwnerFragmentDoc}
   ${TagFragmentDoc}
 `
 export const AtomDevelopmentFragmentDoc = gql`

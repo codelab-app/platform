@@ -10,15 +10,15 @@ import React, { useMemo } from 'react'
  *
  * For children of more than 1 we wrap with fragment, for children of size 1, we destructure the array to a single element.
  *
- * 1. {@link Renderer#renderRoot}
+ * 1. {@link RootRenderer#renderRoot}
  *
  * - Render providers and tree separately
- * - Calls {@link Renderer#renderElement}
+ * - Calls {@link RootRenderer#renderElement}
  *
  * 2. {@link ElementWrapper}
  *
- * - Here is where the children are rendered using {@link Renderer#renderChildren}
- * - Inside this function, we recursively call {@link Renderer#renderElement}
+ * - Here is where the children are rendered using {@link RootRenderer#renderChildren}
+ * - Inside this function, we recursively call {@link RootRenderer#renderElement}
  *
  * For props, there are many different kinds. Props mapping only happen inside ElementWrapper
  *
@@ -29,7 +29,7 @@ import React, { useMemo } from 'react'
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 
-export const Renderer = observer<
+export const RootRenderer = observer<
   WithStyleProp<{ renderer: IRenderer }>,
   HTMLDivElement
 >(
@@ -53,4 +53,4 @@ export const Renderer = observer<
   }),
 )
 
-Renderer.displayName = 'Renderer'
+RootRenderer.displayName = 'Renderer'

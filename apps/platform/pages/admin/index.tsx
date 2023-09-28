@@ -6,7 +6,7 @@ import {
   ImportAdminDataModal,
   ResetDataButton,
 } from '@codelab/frontend/domain/admin'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

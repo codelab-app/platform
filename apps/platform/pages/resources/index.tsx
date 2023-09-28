@@ -9,7 +9,7 @@ import {
   UpdateResourceForm,
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

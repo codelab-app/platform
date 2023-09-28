@@ -5,7 +5,7 @@ import {
   CreateAtomModal,
   DeleteAtomsModal,
 } from '@codelab/frontend/domain/atom'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CreateFieldModal,
   DeleteFieldModal,

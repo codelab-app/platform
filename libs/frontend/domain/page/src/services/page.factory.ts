@@ -14,7 +14,7 @@ import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import {
-  IElementRenderType,
+  IElementRenderTypeDto,
   IPageKind,
   IPageKindName,
   ITypeKind,
