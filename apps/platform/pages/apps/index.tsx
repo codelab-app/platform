@@ -8,7 +8,7 @@ import {
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/domain/app'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,

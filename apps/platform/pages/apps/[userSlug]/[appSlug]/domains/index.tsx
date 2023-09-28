@@ -6,7 +6,7 @@ import {
   GetDomainsList,
   UpdateDomainModal,
 } from '@codelab/frontend/domain/domain'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

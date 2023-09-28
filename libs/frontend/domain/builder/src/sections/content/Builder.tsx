@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import {
   makeDropIndicatorStyle,
-  Renderer,
+  RootRenderer,
 } from '@codelab/frontend/domain/renderer'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
@@ -86,7 +86,7 @@ export const Builder = observer(() => {
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
         >
-          <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
+          <RootRenderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
           <BuilderClickOverlay
             builderService={builderService}
             elementService={elementService}

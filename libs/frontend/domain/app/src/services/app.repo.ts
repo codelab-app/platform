@@ -10,6 +10,7 @@ import { App, appApi } from '../store'
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
   async add(app: IAppModel) {
+    console.log('add', app)
     const {
       createApps: { apps },
     } = await appApi.CreateApps({

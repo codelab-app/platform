@@ -4,6 +4,7 @@ import {
   type Auth0IdToken,
   IRole,
   JWT_CLAIMS,
+  IUserDTO,
 } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
@@ -15,6 +16,16 @@ const fromSession = (user: Auth0IdToken) => {
     id: user[JWT_CLAIMS].neo4j_user_id,
     roles: user[JWT_CLAIMS].roles.map((role) => IRole[role]),
     username: user.nickname,
+  })
+}
+
+const create = (user: IUserDTO) => {
+  return new User({
+    auth0Id: user.auth0Id,
+    email: user.email,
+    id: user.id,
+    roles: user.roles,
+    username: user.username,
   })
 }
 
@@ -35,4 +46,6 @@ export class User
   implements IUser
 {
   static fromSession = fromSession
+
+  static create = create
 }

@@ -20523,7 +20523,6 @@ export type AtomFragment = {
   name: string
   type: AtomType
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-  owner: { __typename?: 'User' } & OwnerFragment
   requiredParents: Array<{
     __typename?: 'Atom'
     id: string

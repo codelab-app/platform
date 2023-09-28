@@ -43,7 +43,11 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { type IElementDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  type IElementDTO,
+  ITypeKind,
+  IElementRenderTypeDto,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -64,7 +68,10 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { getRenderType } from './element-render-type.field'
+import {
+  elementTypeTransform,
+  getRenderType,
+} from './element-render-type.field'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
 
 const create = ({
@@ -896,32 +903,32 @@ export class Element
     return this
   }
 
-  onAttachedToRootStore() {
-    /**
-     * When renderType ref is set, we want to fetch the data
-     */
-    const reactionDisposer = reaction(
-      () => this.renderType,
-      (cur, prev, react) => {
-        if (cur.maybeCurrent) {
-          return
-        }
+  // onAttachedToRootStore() {
+  //   /**
+  //    * When renderType ref is set, we want to fetch the data
+  //    */
+  //   const reactionDisposer = reaction(
+  //     () => this.renderType,
+  //     (cur, prev, react) => {
+  //       if (cur.maybeCurrent) {
+  //         return
+  //       }
 
-        if (cur.$modelType === '@codelab/AtomRef') {
-          console.debug('Element.onAttachedToRootStore()', 'fetching atom')
-          void this.atomService.getOne(cur.current.id)
-        }
-      },
-      {
-        fireImmediately: true,
-      },
-    )
+  //       if (cur.$modelType === '@codelab/AtomRef') {
+  //         console.debug('Element.onAttachedToRootStore()', 'fetching atom')
+  //         void this.atomService.getOne(cur.current.id)
+  //       }
+  //     },
+  //     {
+  //       fireImmediately: true,
+  //     },
+  //   )
 
-    // when the model is no longer part of the root store stop saving
-    return () => {
-      reactionDisposer()
-    }
-  }
+  //   // when the model is no longer part of the root store stop saving
+  //   return () => {
+  //     reactionDisposer()
+  //   }
+  // }
 
   @computed
   private get atomService() {

@@ -1,6 +1,6 @@
 import type {
   IElementDTO,
-  IElementRenderType,
+  IElementRenderTypeDto,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -85,7 +85,7 @@ export interface IElementService
     rootElement: IElementModel
   }
   loadRenderType(
-    renderType: IElementRenderType,
+    renderType: IElementRenderTypeDto,
   ): Promise<IElementRenderTypeModel>
   // loadElement(element: IElementDTO): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>

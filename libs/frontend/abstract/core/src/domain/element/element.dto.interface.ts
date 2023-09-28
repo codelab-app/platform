@@ -1,7 +1,7 @@
 import {
   IElementDTO,
   IPropDTO,
-  type IElementRenderType,
+  IElementRenderTypeDto,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Static, Type } from '@sinclair/typebox'
@@ -28,7 +28,7 @@ export type ICreateElementData = Static<typeof ICreateElementData>
 
 export type ICreateElementSchema = Overwrite<
   ICreateElementData,
-  { renderType: IElementRenderType | null }
+  { renderType: IElementRenderTypeDto | null }
 >
 
 export const IUpdateElementData = Type.Pick(IElementDTO, [

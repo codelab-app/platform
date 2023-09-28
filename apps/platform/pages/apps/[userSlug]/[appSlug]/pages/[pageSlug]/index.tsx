@@ -3,8 +3,8 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/domain/app'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
-import { Renderer } from '@codelab/frontend/domain/renderer'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { RootRenderer } from '@codelab/frontend/domain/renderer'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   usePageQuery,
   useStore,
@@ -78,7 +78,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {status === 'not-executed' && <Spin />}
-      {result?.elementTree && <Renderer renderer={result.renderer} />}
+      {result?.elementTree && <RootRenderer renderer={result.renderer} />}
     </>
   )
 })

@@ -7,7 +7,7 @@ import {
   GetLambdasTable,
   UpdateLambdaModal,
 } from '@codelab/frontend/domain/lambda'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,

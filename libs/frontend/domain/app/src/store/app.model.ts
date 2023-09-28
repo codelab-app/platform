@@ -92,11 +92,9 @@ export class App
   @computed
   get toJson() {
     return {
-      [this.slug]: {
-        id: this.id,
-        name: this.name,
-        pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
-      },
+      id: this.id,
+      name: this.name,
+      pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
     }
   }
 
@@ -105,8 +103,9 @@ export class App
 
   @modelAction
   page(id: string) {
-    const currentPage = this.pages.find((page) => page.current.id === id)
-      ?.maybeCurrent
+    const currentPage = this.pages.find(
+      (page) => page.current.id === id,
+    )?.maybeCurrent
 
     if (!currentPage) {
       throw new Error('Missing page')

@@ -2,8 +2,8 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { BuilderContext } from '@codelab/frontend/domain/builder'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
-import { Renderer } from '@codelab/frontend/domain/renderer'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { RootRenderer } from '@codelab/frontend/domain/renderer'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   useCurrentComponent,
   useRenderedComponent,
@@ -35,7 +35,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
 
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
-      {result?.elementTree && <Renderer renderer={result.renderer} />}
+      {result?.elementTree && <RootRenderer renderer={result.renderer} />}
     </DashboardTemplate>
   )
 })

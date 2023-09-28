@@ -167,6 +167,9 @@
       "@codelab/frontend/application/atoms": [
         "libs/frontend/application/atoms/src/index.ts"
       ],
+      "@codelab/frontend/application/shared": [
+        "libs/frontend/application/shared/src/index.ts"
+      ],
       "@codelab/frontend/config": ["libs/frontend/config/src/index.ts"],
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
@@ -247,6 +250,12 @@
       ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
+      ],
+      "@codelab/frontend/testing/data": [
+        "libs/frontend/testing/data/src/index.ts"
+      ],
+      "@codelab/frontend/testing/store": [
+        "libs/frontend/testing/store/src/index.ts"
       ],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"

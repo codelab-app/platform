@@ -1,5 +1,5 @@
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/domain/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CreateFieldModal,
   CreateTypeModal,

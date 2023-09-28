@@ -1,7 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type {
   IElementDTO,
-  IElementRenderType,
+  IElementRenderTypeDto,
   IPropDTO,
 } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'

@@ -5,7 +5,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDTO,
-  IElementRenderType,
+  IElementRenderTypeDto,
   IPageDTO,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -26,7 +26,7 @@ export type IPageAppFragment = Pick<IAppModel, 'id' | 'name'>
 export interface IPageFactory {
   addSystemPages(
     app: IPageAppFragment,
-    renderType: IElementRenderType,
+    renderType: IElementRenderTypeDto,
   ): Array<IPageModel>
 }
 
