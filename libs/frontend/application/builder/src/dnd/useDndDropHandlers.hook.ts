@@ -24,6 +24,8 @@ export const useDndDropHandler = (
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
+  const { moveElementService, createElementService } = elementService
+
   const handleCreateElement = async (event: DragEndEvent) => {
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
     const data = event.active.data.current as Maybe<BuilderDragData>
