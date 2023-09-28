@@ -1,9 +1,9 @@
 import type {
-  IAtom,
+  IAtomModel,
   IAtomService,
   IBuilderService,
   IDropPosition,
-  IElement,
+  IElementModel,
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
@@ -11,15 +11,15 @@ import { createDragImage } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { queryRenderedElementById } from './query-rendered-element-by-id'
 
-let dropTargetElement: IElement | null
-let draggedElement: IElement | null
+let dropTargetElement: IElementModel | null
+let draggedElement: IElementModel | null
 let dropPosition: IDropPosition | 'forbidden'
 
 export const useDragDropHandlers = (
   builderService: IBuilderService,
   elementService: IElementService,
   atomService: IAtomService,
-  currentElement: IElement,
+  currentElement: IElementModel,
   rendererType: RendererType,
 ) => {
   const dragStartHandler = useCallback(
@@ -216,8 +216,8 @@ const isDescendantOfCurrentlyDraggedElement = (element: HTMLElement) => {
 }
 
 const isDroppable = (
-  dropTargetAtom: IAtom | undefined,
-  draggedAtom: IAtom | undefined,
+  dropTargetAtom: IAtomModel | undefined,
+  draggedAtom: IAtomModel | undefined,
 ) => {
   return true
   /**  

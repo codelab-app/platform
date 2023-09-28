@@ -2,8 +2,8 @@ import type {
   BuilderDragData,
   IBuilderService,
   IComponentModel,
-  IElementModel,
   IDragDropData,
+  IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -136,6 +136,26 @@ export class BuilderService
   }
 
   @modelAction
+  dragOverElementNode(
+    node: Nullable<IElementModel>,
+    dropPosition: IDropPosition,
+  ) {
+    if (!node) {
+      this.dragDropData = {
+        dropPosition,
+        node: null,
+      }
+
+      return
+    }
+
+    this.dragDropData = {
+      dropPosition,
+      node: elementRef(node),
+    }
+  }
+
+  @modelAction
   hoverElementNode(node: Nullable<IElementModel>) {
     if (!node) {
       this.hoveredNode = null
@@ -167,23 +187,6 @@ export class BuilderService
     this.selectedNode = elementRef(node)
 
     this.updateExpandedNodes()
-  }
-
-  @modelAction
-  dragOverElementNode(node: Nullable<IElement>, dropPosition: IDropPosition) {
-    if (!node) {
-      this.dragDropData = {
-        dropPosition,
-        node: null,
-      }
-
-      return
-    }
-
-    this.dragDropData = {
-      dropPosition,
-      node: elementRef(node),
-    }
   }
 
   @modelAction

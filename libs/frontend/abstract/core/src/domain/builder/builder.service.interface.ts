@@ -44,13 +44,13 @@ export interface IBuilderService {
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
+  dragOverElementNode(
+    node: Nullable<IElementModel>,
+    dropPosition: IDropPosition,
+  ): void
   hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
-  dragOverElementNode(
-    node: Nullable<IElementModel>,
-    dropPosition: 'bottom' | 'inside' | 'left' | 'right' | 'top',
-  ): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
