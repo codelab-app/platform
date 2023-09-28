@@ -110,7 +110,7 @@
     "amqp-connection-manager": "^4.1.13",
     "amqplib": "^0.10.3",
     "animate.css": "4.1.1",
-    "antd": "5.4.2",
+    "antd": "^5.9.0",
     "auth0": "4.0.1",
     "aws-lambda": "^1.0.7",
     "axios": "^1.5.0",
