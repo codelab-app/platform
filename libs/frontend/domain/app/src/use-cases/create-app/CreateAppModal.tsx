@@ -9,10 +9,11 @@ import { v4 } from 'uuid'
 import { createAppSchema } from './create-app.schema'
 
 export const CreateAppModal = observer(() => {
-  const { appService, userService } = useStore()
+  const { appService, atomService, userService } = useStore()
 
-  const onSubmit = (appDTO: ICreateAppData) => {
-    void appService.create(appDTO)
+  const onSubmit = async (appDTO: ICreateAppData) => {
+    await atomService.getDefaultElementRenderType()
+    await appService.create(appDTO)
 
     closeModal()
 

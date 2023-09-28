@@ -70,9 +70,6 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    // const atomReactFragment = yield* _await(
-    //   this.atomService.getDefaultElementRenderType(),
-    // )
     const defaultRenderType = this.atomService.defaultRenderType
 
     if (!defaultRenderType) {
