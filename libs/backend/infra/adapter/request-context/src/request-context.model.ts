@@ -7,8 +7,5 @@ export class RequestContext<TRequest = unknown, TResponse = unknown> {
     return this.cls.getStore()
   }
 
-  constructor(
-    public readonly req: TRequest,
-    public readonly res: TResponse,
-  ) {}
+  constructor(public readonly req: TRequest, public readonly res: TResponse) {}
 }

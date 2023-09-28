@@ -2,6 +2,7 @@ import {
   type CodelabPage,
   ExplorerPaneType,
 } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CreateResourceModal,
   DeleteResourceModal,
@@ -9,7 +10,6 @@ import {
   UpdateResourceForm,
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

@@ -8,22 +8,22 @@ query GetBaseTypes($options: GetBaseTypesOptions) {
 }
 
 query GetTypes($ids: [ID!]) {
-  arrayTypes(where: { id_IN: $ids }) {
+  actionTypes(where: { id_IN: $ids }) {
     ...Type
   }
   appTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  elementTypes(where: { id_IN: $ids }) {
-    ...Type
-  }
-  actionTypes(where: { id_IN: $ids }) {
-    ...Type
-  }
-  enumTypes(where: { id_IN: $ids }) {
+  arrayTypes(where: { id_IN: $ids }) {
     ...Type
   }
   codeMirrorTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  elementTypes(where: { id_IN: $ids }) {
+    ...Type
+  }
+  enumTypes(where: { id_IN: $ids }) {
     ...Type
   }
   interfaceTypes(where: { id_IN: $ids }) {
@@ -32,10 +32,10 @@ query GetTypes($ids: [ID!]) {
   lambdaTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  primitiveTypes(where: { id_IN: $ids }) {
+  pageTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  pageTypes(where: { id_IN: $ids }) {
+  primitiveTypes(where: { id_IN: $ids }) {
     ...Type
   }
   reactNodeTypes(where: { id_IN: $ids }) {

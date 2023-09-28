@@ -1,11 +1,9 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
 import type {
   ICloneElementService,
-  ICreateElementService,
   IElementModel,
   IElementService,
   IElementTreeViewDataNode,
-  IMoveElementService,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -29,10 +27,10 @@ export interface ContextMenuProps {
 }
 
 interface ElementContextMenu {
-  createForm: IElementService['createForm']
-  deleteModal: IElementService['deleteModal']
   cloneElement: ICloneElementService['cloneElement']
   convertElementToComponent: ICloneElementService['convertElementToComponent']
+  createForm: IElementService['createForm']
+  deleteModal: IElementService['deleteModal']
   element: IElementModel
   treeNode?: IElementTreeViewDataNode
 }

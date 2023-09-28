@@ -20,9 +20,9 @@ import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
 import type { IElementRenderTypeModel } from './render-type'
-import { IMoveElementService } from './use-cases/move-element.service.interface'
-import { ICloneElementService } from './use-cases/clone-element.service.interface'
-import { ICreateElementService } from './use-cases/create-element.service.interface'
+import type { ICloneElementService } from './use-cases/clone-element.service.interface'
+import type { ICreateElementService } from './use-cases/create-element.service.interface'
+import type { IMoveElementService } from './use-cases/move-element.service.interface'
 
 /**
  * Used for modal input
@@ -59,16 +59,16 @@ export interface IElementService
       ICRUDFormService<Ref<IElementModel>, { element?: IElementModel }>,
       'createForm'
     > {
+  cloneElementService: ICloneElementService
   clonedElements: ObjectMap<IElementModel>
+  createElementService: ICreateElementService
   createForm: IEntityFormService<CreateElementData, CreateElementProperties>
   createModal: IEntityModalService<CreateElementData, CreateElementProperties>
   elementRepository: IElementRepository
   elements: ObjectMap<IElementModel>
+  moveElementService: IMoveElementService
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
-  cloneElementService: ICloneElementService
-  moveElementService: IMoveElementService
-  createElementService: ICreateElementService
 
   add(elementDTO: IElementDTO): IElementModel
 

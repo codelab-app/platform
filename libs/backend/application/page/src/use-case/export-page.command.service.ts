@@ -30,7 +30,7 @@ export class ExportPageHandler
       where: { app: { id: where.id } },
     })
 
-    const pagesExport: Array<any> = await Promise.all(
+    const pagesExport: Array<IPageOutputDto> = await Promise.all(
       pages.map(async (page) => {
         const { components, elements, store } = await this.getPageData(page)
 

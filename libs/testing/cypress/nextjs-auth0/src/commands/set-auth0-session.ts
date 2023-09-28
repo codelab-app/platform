@@ -6,7 +6,6 @@ import { StatelessSession } from '@auth0/nextjs-auth0/dist/auth0-session'
 import { getConfig } from '@auth0/nextjs-auth0/dist/config'
 import type { Session } from '@auth0/nextjs-auth0/dist/session'
 import { SessionCache } from '@auth0/nextjs-auth0/dist/session'
-import type * as jose from 'jose'
 
 const setAuth0Session = (tokenSet: TokenEndpointResponse) => {
   const { baseConfig, nextConfig } = getConfig()

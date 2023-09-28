@@ -1,9 +1,9 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import { BuilderContext } from '@codelab/frontend/domain/builder'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { RootRenderer } from '@codelab/frontend/domain/renderer'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   useCurrentComponent,
   useRenderedComponent,

@@ -15,7 +15,7 @@ export class InlineFormService<
     metadata: prop<TMetadata | null>(null),
   }))<TMetadata>
   implements IModalService<TMetadata>
-{  
+{
   @modelAction
   close() {
     this.isOpen = false

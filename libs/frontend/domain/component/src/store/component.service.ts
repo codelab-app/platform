@@ -2,7 +2,6 @@ import type {
   IComponentModel,
   IComponentService,
   ICreateComponentData,
-  ICreateElementData,
   IElementModel,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'

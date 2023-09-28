@@ -1,36 +1,38 @@
-import {
+import type {
   ICloneElementService,
   IComponentModel,
   IElementModel,
   IPropData,
+} from '@codelab/frontend/abstract/core'
+import {
   elementRef,
   getBuilderService,
   getComponentService,
   getElementService,
 } from '@codelab/frontend/abstract/core'
-import {
-  Model,
-  _async,
-  _await,
-  model,
-  modelFlow,
-  transaction,
-} from 'mobx-keystone'
-import { makeAutoIncrementedName } from '../../../utils'
-import { computed } from 'mobx'
-import { v4 } from 'uuid'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import {
-  IElementDTO,
-  IElementRenderTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
 import {
   getActionService,
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getFieldService } from '@codelab/frontend/domain/type'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
+import { computed } from 'mobx'
+import {
+  _async,
+  _await,
+  Model,
+  model,
+  modelFlow,
+  transaction,
+} from 'mobx-keystone'
+import { v4 } from 'uuid'
+import { makeAutoIncrementedName } from '../../../utils'
 
 @model('@codelab/CloneElementService')
 export class CloneElementService
@@ -314,18 +316,8 @@ export class CloneElementService
   }
 
   @computed
-  private get createElementService() {
-    return this.elementService.createElementService
-  }
-
-  @computed
-  private get moveElementService() {
-    return this.elementService.moveElementService
-  }
-
-  @computed
-  private get elementService() {
-    return getElementService(this)
+  private get actionService() {
+    return getActionService(this)
   }
 
   @computed
@@ -334,23 +326,33 @@ export class CloneElementService
   }
 
   @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
   private get componentService() {
     return getComponentService(this)
   }
 
   @computed
-  private get actionService() {
-    return getActionService(this)
+  private get createElementService() {
+    return this.elementService.createElementService
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
   }
 
   @computed
   private get fieldService() {
     return getFieldService(this)
+  }
+
+  @computed
+  private get moveElementService() {
+    return this.elementService.moveElementService
+  }
+
+  @computed
+  private get propService() {
+    return getPropService(this)
   }
 
   @computed

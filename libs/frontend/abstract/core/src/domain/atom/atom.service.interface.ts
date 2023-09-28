@@ -1,10 +1,6 @@
-import type {
-  AtomOptions,
-  AtomType,
-  AtomWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import type { GuaranteedProps } from 'uniforms'

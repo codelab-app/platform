@@ -1,5 +1,4 @@
-import { IResolvers } from '@graphql-tools/utils'
-import { typename } from './atom-typename'
+import type { IResolvers } from '@graphql-tools/utils'
 
 export const atomResolver: IResolvers = {
   Atom: {

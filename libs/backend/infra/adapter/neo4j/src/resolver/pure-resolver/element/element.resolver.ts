@@ -1,9 +1,7 @@
+import type { ContainerNode } from '@codelab/shared/abstract/codegen'
 import type { IResolvers } from '@graphql-tools/utils'
 import { name } from './field/element-name'
 import { slug } from './field/element-slug'
-import { renderType } from './field/render-type'
-import { ContainerNode, Element } from '@codelab/shared/abstract/codegen'
-import has from 'lodash/has'
 
 export const elementResolver: IResolvers = {
   Element: {
@@ -17,6 +15,7 @@ export const elementResolver: IResolvers = {
        * `__resolveType` is there by default, for ones that don't exist, we have __typename
        */
       const resolveType =
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (node as any).__resolveType ?? (node as any).__typename
 
       if (!resolveType) {
