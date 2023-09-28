@@ -7,6 +7,9 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
 import React, { Fragment } from 'react'
+import defaultConfig from 'tailwindcss/defaultConfig'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import { tw } from 'twind'
 import { getAtom } from '../atoms'
 
 const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {

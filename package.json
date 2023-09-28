@@ -199,6 +199,7 @@
     "ts-json-schema-generator": "^1.2.0",
     "tslib": "2.3.1",
     "typebox-validators": "0.3.5",
+    "twind": "^0.16.19",
     "typescript-json-schema": "^0.55.0",
     "uniforms": "3.10.2",
     "uniforms-antd": "3.10.2",

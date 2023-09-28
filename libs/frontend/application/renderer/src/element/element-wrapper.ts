@@ -13,7 +13,11 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
 import { useDragDropHandlers, useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
-import { extractValidProps, getReactComponent } from './wrapper.utils'
+import {
+  extractValidProps,
+  generateTailwindClasses,
+  getReactComponent,
+} from './wrapper.utils'
 
 export interface ElementWrapperProps {
   element: IElementModel
@@ -74,6 +78,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       atomService.dynamicComponents[renderOutput.atomType]
         ? atomService.dynamicComponents[renderOutput.atomType] ?? React.Fragment
         : getReactComponent(renderOutput)
+
+    if (renderOutput.props?.['className']) {
+      renderOutput.props['className'] =
+        renderOutput.props['className'] + ' ' + element.classNames?.join(' ')
+      generateTailwindClasses(element.classNames ?? [])
+    }
 
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 

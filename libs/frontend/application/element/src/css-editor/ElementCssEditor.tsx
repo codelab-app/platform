@@ -11,6 +11,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { InheritedStyles } from './inherited-styles/InheritedStyles'
 import { StylesEditor } from './StylesEditor'
+import { TailwindClassEditor } from './tailwind-class-editor/TailwindClassEditor'
 
 const autosaveTimeout = 1000
 
@@ -92,6 +93,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
         </Col>
         <Col span={24}>
           <StylesEditor />
+          <TailwindClassEditor element={element} />
         </Col>
       </Row>
     )

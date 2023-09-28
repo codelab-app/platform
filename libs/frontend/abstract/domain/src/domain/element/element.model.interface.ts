@@ -175,6 +175,7 @@ export interface IElementModel
   deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void
   detachFromParent(): void
+  setClassNames(classNames: Array<string>): void
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void

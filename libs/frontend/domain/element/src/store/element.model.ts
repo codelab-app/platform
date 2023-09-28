@@ -92,6 +92,7 @@ const create = ({
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
+    className: '',
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
     isTextContentEditable: false,
