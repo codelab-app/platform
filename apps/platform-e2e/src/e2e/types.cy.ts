@@ -40,7 +40,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -60,9 +60,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -73,7 +71,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({ label: 'Name', value: enumTypeName })
 
@@ -92,16 +90,14 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
 
     it('should be able to create array', () => {
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -121,9 +117,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -134,7 +128,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -148,9 +142,7 @@ describe('Types CRUD', () => {
       })
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
       cy.wait('@action')
 
       cy.findByText(interfaceTypeName).should('exist')
@@ -159,11 +151,10 @@ describe('Types CRUD', () => {
     it('should be able to add fields', () => {
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
 
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
-        cy.getCuiTreeItemToolbar().within(() => {
-          cy.getToolbarItem('Add field').click()
-        })
-      })
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Add field')
+        .click()
 
       cy.setFormFieldValue({
         label: 'Key',
@@ -192,7 +183,7 @@ describe('Types CRUD', () => {
       cy.findByText(fieldDefaultValue).should('be.visible')
 
       cy.intercept('POST', `api/graphql`).as('action')
-      cy.getToolbarItem('Create').click()
+      cy.getCuiToolbarItem('Create').click()
       cy.wait('@action')
       // its re-rendering after saving and is flaky when running in CI
       // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -248,12 +239,11 @@ describe('Types CRUD', () => {
   describe('delete type', () => {
     it('should be able to delete interface', () => {
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
@@ -269,12 +259,11 @@ describe('Types CRUD', () => {
 
     it('should be able to delete array', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
@@ -290,12 +279,11 @@ describe('Types CRUD', () => {
 
     it('should be able to delete enum', () => {
       cy.getCuiTreeItemByPrimaryTitle(enumTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(enumTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(enumTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
@@ -311,12 +299,11 @@ describe('Types CRUD', () => {
 
     it('should be able to delete primitive', () => {
       cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 

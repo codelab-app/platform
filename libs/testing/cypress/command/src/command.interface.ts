@@ -2,5 +2,5 @@
 export interface CypressCommand {
   fn: any
   name: keyof Cypress.Chainable<any>
-  options?: Cypress.CommandOptions & { prevSubject: false }
+  options?: Cypress.CommandOptions
 }
