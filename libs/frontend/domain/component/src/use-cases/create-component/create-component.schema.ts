@@ -7,7 +7,9 @@ import {
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
-export const createComponentSchema: JSONSchemaType<ICreateComponentData> = {
+export const createComponentSchema: JSONSchemaType<
+  Omit<ICreateComponentData, 'rootElement'>
+> = {
   properties: {
     ...idSchema(),
     name: {

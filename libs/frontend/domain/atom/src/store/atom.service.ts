@@ -76,11 +76,6 @@ export class AtomService
     )
 
     return atom
-      ? ({
-          ...getSnapshot(atom),
-          __typename: `Atom`,
-        } as const)
-      : undefined
   }
 
   /**
@@ -191,9 +186,7 @@ export class AtomService
       throw new Error('Atom of type `ReactFragment` must be seeded first')
     }
 
-    const atom = this.add(atomReactFragment)
-
-    return atom
+    return this.add(atomReactFragment)
   })
 
   @modelFlow

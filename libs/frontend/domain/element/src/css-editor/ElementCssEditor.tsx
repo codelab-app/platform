@@ -51,8 +51,12 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     )
 
     const updateElementStyles = useCallback(
+      // TODO: Make this ito IElementDto
       (updatedElement: IElementModel) => {
-        const elementModel = Element.create(updatedElement)
+        const elementModel = Element.create({
+          ...updatedElement,
+          renderType: updatedElement.renderType.current,
+        })
         const oldStyle = lastStateRef.current
         const { style } = updatedElement
 
@@ -60,7 +64,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
         if (oldStyle !== style) {
           lastStateRef.current = style
 
-          void elementService.update({ ...elementModel, style })
+          void elementService.update({
+            ...elementModel,
+            renderType: elementModel.renderType.current,
+            style,
+          })
         }
       },
       [elementService],

@@ -32,7 +32,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
    * @returns
    */
   @modelAction
-  addSystemPages(app: IPageAppFragment, renderType: IElementRenderType) {
+  addSystemPages(app: IPageAppFragment, renderType: IElementRenderTypeDto) {
     return [
       this.addProviderPage(app, renderType),
       this.addNotFoundPage(app, renderType),
@@ -44,7 +44,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   private addDefaultPage(
     { app, id, kind, name, url }: ICreatePageData,
     appName: string,
-    renderType: IElementRenderType,
+    renderType: IElementRenderTypeDto,
   ) {
     const rootElementProps = this.propService.add({
       id: v4(),
@@ -94,7 +94,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   @modelAction
   private addInternalServerErrorPage(
     app: IPageAppFragment,
-    renderType: IElementRenderType,
+    renderType: IElementRenderTypeDto,
   ) {
     return this.addDefaultPage(
       {
@@ -112,7 +112,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   @modelAction
   private addNotFoundPage(
     app: IPageAppFragment,
-    renderType: IElementRenderType,
+    renderType: IElementRenderTypeDto,
   ) {
     return this.addDefaultPage(
       {
@@ -130,7 +130,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   @modelAction
   private addProviderPage(
     app: IPageAppFragment,
-    renderType: IElementRenderType,
+    renderType: IElementRenderTypeDto,
   ) {
     return this.addDefaultPage(
       {
