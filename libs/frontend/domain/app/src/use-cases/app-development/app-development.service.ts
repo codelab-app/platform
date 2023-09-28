@@ -14,7 +14,10 @@ import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
-import { getStoreService } from '@codelab/frontend/domain/store'
+import {
+  getActionService,
+  getStoreService,
+} from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { client } from '@codelab/frontend/presentation/client/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
@@ -73,6 +76,7 @@ export class AppDevelopmentService
 
     const props = elements.flatMap((element) => element.props)
     const stores = pages.flatMap((page) => page.store)
+    const actions = stores.flatMap((store) => store.actions)
 
     const atoms = elements
       .flatMap((element) => element.renderType)
@@ -85,6 +89,7 @@ export class AppDevelopmentService
     return {
       app,
       atoms,
+      actions,
       components: [],
       elements,
       fields: [],
@@ -113,6 +118,8 @@ export class AppDevelopmentService
 
     data.stores.forEach((store) => this.storeService.add(store))
 
+    data.actions.forEach((action) => this.actionService.add(action))
+
     return this.appService.add(data.app)
   }
 
@@ -124,6 +131,11 @@ export class AppDevelopmentService
   @computed
   private get atomService() {
     return getAtomService(this)
+  }
+
+  @computed
+  private get actionService() {
+    return getActionService(this)
   }
 
   @computed
