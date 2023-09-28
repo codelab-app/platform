@@ -871,15 +871,16 @@ export class ElementService
     return compact(affectedNodeIds)
   }
 
-  private async recursiveDuplicate(
-    element: IElementModel,
-    parentElement: IElementModel,
-  ) {
-    const duplicateName = makeAutoIncrementedName(
-      this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
-        [],
-      element.name,
-      true,
+    // 2. detach the element from the element tree
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+
+    // 3. create the component and pass element as rootElement for component,
+    const createdComponent: IComponentModel = yield* _await(
+      this.componentService.create({
+        id: v4(),
+        name,
+        rootElement: { id: element.id },
+      }),
     )
 
     const props = this.propService.add({
@@ -887,31 +888,18 @@ export class ElementService
       id: v4(),
     })
 
-    const cloneElementDto = {
-      childMapperComponent: element.childMapperComponent
-        ? { id: element.childMapperComponent.id }
-        : null,
-      childMapperPreviousSibling: element.childMapperPreviousSibling
-        ? { id: element.childMapperPreviousSibling.id }
-        : null,
-      childMapperPropKey: element.childMapperPropKey,
-      closestContainerNode: element.closestContainerNode,
-      id: v4(),
-      name: duplicateName,
-      page: element.page ? { id: element.page.id } : null,
-      parentComponent: element.parentComponent
-        ? { id: element.parentComponent.id }
-        : null,
-      props,
-      renderForEachPropKey: element.renderForEachPropKey,
-      renderIfExpression: element.renderIfExpression,
-      renderType: element.renderType,
-      style: element.style,
-    }
+    const affectedAttachedNodes = [
+      element.id,
+      // all descendant elements will require composite key to be changed
+      ...element.descendantElements.map((descendant) => descendant.id),
+    ]
 
-    const elementCloneModel = this.add(cloneElementDto)
-
-    await this.elementRepository.add(elementCloneModel)
+    yield* _await(
+      this.updateAffectedElements([
+        ...oldConnectedNodeIds,
+        ...affectedAttachedNodes,
+      ]),
+    )
 
     const lastChild = parentElement.children[parentElement.children.length - 1]
     let affectedNodeIds: Array<string> = []

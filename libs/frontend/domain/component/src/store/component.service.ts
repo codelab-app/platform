@@ -2,6 +2,8 @@ import type {
   IComponentModel,
   IComponentService,
   ICreateComponentData,
+  ICreateElementData,
+  IElementModel,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -82,7 +84,7 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    { id, keyGenerator, name }: ICreateComponentData,
+    { id, keyGenerator, name, rootElement }: ICreateComponentData,
   ) {
     const storeApi = this.typeService.addInterface({
       id: v4(),
@@ -98,19 +100,34 @@ export class ComponentService
 
     const rootElementProps = this.propService.add({ data: '{}', id: v4() })
 
-    const rootElement = this.elementService.add({
-      closestContainerNode: {
-        id,
-      },
-      id: v4(),
-      name: `${name} Root`,
-      parentComponent: { id },
-      props: rootElementProps,
-      renderType: {
-        __typename: IElementRenderTypeKind.Component,
-        id,
-      },
-    })
+    /**
+     * create rootElement in case it doesn't already exist
+     * Unlike other models such rootElement could exist before component (convertElementToComponent)
+     * connectOrCreate can't handle sub-models like props for element
+     * the only choice left is to create rootElement here if it is not provided
+     * */
+    const rootElementExists =
+      rootElement && this.elementService.elements.has(rootElement.id)
+
+    const rootElementModel: IElementModel = rootElementExists
+      ? this.elementService.element(rootElement.id)
+      : yield* _await(
+          this.elementService.create({
+            closestContainerNode: {
+              id,
+            },
+            id: v4(),
+            name,
+            parentComponent: { id },
+            props: rootElementProps,
+            renderType: {
+              __typename: IElementRenderTypeKind.Component,
+              id,
+            },
+          }),
+        )
+
+    rootElementModel.setParentComponent(componentRef(id))
 
     const api = this.typeService.addInterface({
       id: v4(),
@@ -125,12 +142,12 @@ export class ComponentService
 
     const component = this.add({
       api,
-      childrenContainerElement: { id: rootElement.id },
+      childrenContainerElement: { id: rootElementModel.id },
       id,
       keyGenerator,
       name,
       props: componentProps,
-      rootElement,
+      rootElement: rootElementModel,
       store,
     })
 
