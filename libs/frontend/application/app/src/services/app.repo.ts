@@ -13,6 +13,7 @@ import { appApi } from '../graphql/app.api'
 export class AppRepository extends Model({}) implements IAppRepository {
   async add(app: IAppModel) {
     console.log('add', app)
+
     const {
       createApps: { apps },
     } = await appApi.CreateApps({

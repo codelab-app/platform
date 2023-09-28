@@ -1,5 +1,4 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
-import type { BaseConfig } from '@auth0/nextjs-auth0/dist/config'
 import { getEnv } from '@codelab/shared/config'
 
 /**
