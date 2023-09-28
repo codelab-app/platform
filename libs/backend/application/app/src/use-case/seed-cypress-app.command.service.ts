@@ -137,6 +137,8 @@ export class SeedCypressAppHandler
 
     await this.appRepository.add([app])
 
+    console.log('app')
+
     /**
      * Create pages
      */
@@ -146,6 +148,8 @@ export class SeedCypressAppHandler
     const internalServerErrorPageStore = Store.create(
       IPageKindName.InternalServerError,
     )
+
+    console.log('api')
 
     await this.interfaceTypeRepository.add([
       providerPageStore.api as InterfaceType,

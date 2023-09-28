@@ -227,21 +227,6 @@ export class Component
     return this
   }
 
-  toCreateInput(): ComponentCreateInput {
-    return {
-      api: { create: { node: this.api.current.toCreateInput() } },
-      childrenContainerElement: connectNodeId(this.rootElement.id),
-      id: this.id,
-      keyGenerator: this.keyGenerator,
-      name: this.name,
-      props: { create: { node: this.props.current.toCreateInput() } },
-      rootElement: {
-        create: { node: this.rootElement.current.toCreateInput() },
-      },
-      store: { create: { node: this.store.current.toCreateInput() } },
-    }
-  }
-
   @modelAction
   private cloneTree(clonedComponent: IComponentModel, cloneIndex: number) {
     console.debug('ElementTreeService.cloneTree', this.elements)
