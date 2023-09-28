@@ -35,7 +35,7 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
+    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
 
     cy.setFormFieldValue({ label: 'Name', value: resourceName })
     cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
@@ -46,9 +46,7 @@ describe('Running API action and setting state on element pre-render', () => {
       value: ResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
   })
@@ -69,7 +67,7 @@ describe('Running API action and setting state on element pre-render', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getHeaderToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -91,14 +89,14 @@ describe('Running API action and setting state on element pre-render', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
   })
 
   it('should create a code action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -119,14 +117,14 @@ describe('Running API action and setting state on element pre-render', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction1')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
     cy.wait('@createAction1')
   })
 
   it('should create an api action and set code action as success action', () => {
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -165,9 +163,7 @@ describe('Running API action and setting state on element pre-render', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction2')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
     cy.wait('@createAction2')
   })
 
@@ -175,7 +171,10 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.intercept(`${resourceUrl}${urlGetSegment}`, mockResponse)
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -197,9 +196,7 @@ describe('Running API action and setting state on element pre-render', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,

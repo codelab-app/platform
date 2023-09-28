@@ -25,20 +25,19 @@ describe('Pages CRUD', () => {
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
+      cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
-      cy.getCuiPopover('Create Page').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
     })
 
     it('should have accessible page link on sidebar', () => {
       cy.findByText(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
-      cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
-        cy.getToolbarItem('Open Builder').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(pageName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Open Builder')
+        .click()
 
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
       cy.getCuiNavigationBarItem('Pages').click()
@@ -49,9 +48,10 @@ describe('Pages CRUD', () => {
     it('should be able to update page name', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
-      cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
-        cy.getToolbarItem('Edit').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(pageName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Edit')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
@@ -59,9 +59,7 @@ describe('Pages CRUD', () => {
       cy.findByTestId('update-page-form')
         .findByLabelText('Name')
         .type(updatedPageName)
-      cy.getCuiPopover('Update Page').within(() => {
-        cy.getToolbarItem('Update').click()
-      })
+      cy.getCuiPopover('Update Page').getCuiToolbarItem('Update').click()
       cy.findByTestId('update-page-form').should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('not.exist')
@@ -72,9 +70,10 @@ describe('Pages CRUD', () => {
   describe('delete', () => {
     it('should be able to delete page', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).click()
-      cy.getCuiTreeItemByPrimaryTitle(updatedPageName).within(() => {
-        cy.getToolbarItem('Delete').click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(updatedPageName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete')
+        .click()
 
       cy.getSpinner().should('not.exist')
 

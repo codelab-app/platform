@@ -38,7 +38,7 @@ describe('Routing between app pages within the builder', () => {
     cy.waitForApiCalls()
     cy.getSpinner().should('not.exist')
 
-    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').first().click()
+    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
 
     cy.findByTestId('create-page-form')
       .findByLabelText('Name')
@@ -47,15 +47,13 @@ describe('Routing between app pages within the builder', () => {
       .findByLabelText('Deployed Page URL')
       .type('/test-page')
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-page-form').should('not.exist')
   })
 
   it('should create a page with a dynamic url - /tests/:testId/subtests/:subtestId', () => {
-    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').first().click()
+    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
 
     cy.findByTestId('create-page-form')
       .findByLabelText('Name')
@@ -64,9 +62,7 @@ describe('Routing between app pages within the builder', () => {
       .findByLabelText('Deployed Page URL')
       .type('/tests/:testId/subtests/:subtestId')
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-page-form').should('not.exist')
   })
@@ -82,7 +78,10 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -105,9 +104,7 @@ describe('Routing between app pages within the builder', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -144,7 +141,10 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -166,9 +166,7 @@ describe('Routing between app pages within the builder', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -190,7 +188,10 @@ describe('Routing between app pages within the builder', () => {
   it('should create a NextLink in the test-page to go to the dynamic page', () => {
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -258,7 +259,10 @@ describe('Routing between app pages within the builder', () => {
       .should('be.visible')
       .click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',

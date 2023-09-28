@@ -55,14 +55,12 @@ describe('Component CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.log('my app', JSON.stringify(testApp, null, 2))
-      cy.getCuiSidebar('Components').getToolbarItem('Add Component').click()
+      cy.getCuiSidebar('Components').getCuiToolbarItem('Add Component').click()
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
       cy.intercept('POST', `api/graphql`).as('createComponent')
-      cy.getCuiPopover('Create Component').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
       cy.wait('@createComponent')
       cy.findByTestId('create-component-form').should('not.exist', {
         timeout: 10000,
@@ -106,9 +104,10 @@ describe('Component CRUD', () => {
        * */
       cy.wrap(componentChildren).each((child: ComponentChildData) => {
         cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
-        cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-          cy.getToolbarItem('Add Child').click()
-        })
+        cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
+          .getCuiTreeItemToolbar()
+          .getCuiToolbarItem('Add Child')
+          .click()
 
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Render Type',
@@ -129,9 +128,7 @@ describe('Component CRUD', () => {
           value: child.name,
         })
 
-        cy.getCuiPopover('Create Element').within(() => {
-          cy.getToolbarItem('Create').click()
-        })
+        cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
         })
@@ -182,7 +179,7 @@ describe('Component CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-      cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
+      cy.getCuiSidebar('Explorer').getCuiToolbarItem('Add Element').click()
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Render Type',
@@ -204,9 +201,7 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_NAME,
       })
 
-      cy.getCuiPopover('Create Element').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
@@ -230,7 +225,7 @@ describe('Component CRUD', () => {
     })
 
     it('should be able to add children to component instance', () => {
-      cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
+      cy.getCuiSidebar('Explorer').getCuiToolbarItem('Add Element').click()
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Render Type',
