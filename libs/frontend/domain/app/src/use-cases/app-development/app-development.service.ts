@@ -63,7 +63,11 @@ export class AppDevelopmentService
 
     const elements = pages.flatMap((page) =>
       [page.rootElement, ...page.rootElement.descendantElements].map(
-        (element) => ({ ...element, closestContainerNode: { id: page.id } }),
+        (element) => ({
+          ...element,
+          closestContainerNode: { id: page.id },
+          page: { id: page.id },
+        }),
       ),
     )
 
