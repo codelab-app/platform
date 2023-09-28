@@ -247,6 +247,20 @@ export class FieldService
     }
   }
 
+  private static mapDataToDTO(fieldData: ICreateFieldData) {
+    return {
+      ...fieldData,
+      api: { id: fieldData.interfaceTypeId },
+      defaultValues: !isUndefined(fieldData.defaultValues)
+        ? JSON.stringify(fieldData.defaultValues)
+        : null,
+      fieldType: { id: fieldData.fieldType },
+      validationRules: fieldData.validationRules
+        ? JSON.stringify(fieldData.validationRules)
+        : null,
+    }
+  }
+
   @modelAction
   private attachFieldAsNextSibling(
     this: FieldService,
