@@ -1,5 +1,4 @@
 import type {
-  CssMap,
   IElementModel,
   IElementService,
 } from '@codelab/frontend/abstract/core'
@@ -49,6 +48,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           ...updatedElement,
           renderType: updatedElement.renderType.current,
         })
+
         const oldStyle = lastStateRef.current
         const { style } = updatedElement
 

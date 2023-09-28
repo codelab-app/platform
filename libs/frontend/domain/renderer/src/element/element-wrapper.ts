@@ -1,7 +1,6 @@
 import type {
   IComponentType,
   IElementModel,
-  IPageNode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'

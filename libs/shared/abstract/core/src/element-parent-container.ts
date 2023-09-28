@@ -1,8 +1,6 @@
-import {
-  IDiscriminatedEntity,
-  IMaybeDiscriminatedEntity,
-} from '@codelab/shared/abstract/types'
-import { Static, Type } from '@sinclair/typebox'
+import { IMaybeDiscriminatedEntity } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
 export enum IElementParentContainerKind {
   Component = 'Component',

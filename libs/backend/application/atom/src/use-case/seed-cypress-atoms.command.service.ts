@@ -9,7 +9,6 @@ import { type IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
-import { Interface } from 'readline'
 
 export class SeedCypressAtomsCommand {}
 

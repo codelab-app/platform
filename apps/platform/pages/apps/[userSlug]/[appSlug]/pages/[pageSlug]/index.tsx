@@ -1,23 +1,18 @@
 import type { IPageProps } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
-import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
+import { type CodelabPage } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import { useAppDevelopment } from '@codelab/frontend/domain/app'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { RootRenderer } from '@codelab/frontend/domain/renderer'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   usePageQuery,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
-import {
-  builderRouteChangeHandler,
-  extractErrorMessage,
-} from '@codelab/frontend/shared/utils'
-import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
+import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import isBoolean from 'lodash/isBoolean'
-import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

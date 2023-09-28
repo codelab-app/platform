@@ -1,16 +1,16 @@
-import { AtomFragment } from '@codelab/shared/abstract/codegen'
-import { IAtomDTO, IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const atomReactFragmentDto: IAtomDTO = {
+  api: {
+    __typename: 'InterfaceType',
+    id: v4(),
+  },
   id: v4(),
   name: IAtomType.ReactFragment,
-  type: IAtomType.ReactFragment,
-  api: {
-    id: v4(),
-    __typename: 'InterfaceType',
-  },
   requiredParents: [],
   suggestedChildren: [],
   tags: [],
+  type: IAtomType.ReactFragment,
 }

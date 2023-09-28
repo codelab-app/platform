@@ -1,13 +1,6 @@
-import {
-  atomRef,
-  componentRef,
-  elementRef,
-  pageRef,
-} from '@codelab/frontend/abstract/core'
-import {
-  IElementDTO,
-  IElementParentContainerKind,
-} from '@codelab/shared/abstract/core'
+import { componentRef, pageRef } from '@codelab/frontend/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
+import { IElementParentContainerKind } from '@codelab/shared/abstract/core'
 
 export const getParentContainer = (
   parentContainer: IElementDTO['parentContainer'],
@@ -20,6 +13,7 @@ export const getParentContainer = (
     case IElementParentContainerKind.Component: {
       return componentRef(parentContainer.id)
     }
+
     case IElementParentContainerKind.Page: {
       return pageRef(parentContainer.id)
     }

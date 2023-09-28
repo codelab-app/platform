@@ -1,14 +1,14 @@
-import { createTestRootStore } from '@codelab/frontend/testing/store'
-import { Element } from '../store'
+import { atomRef } from '@codelab/frontend/abstract/core'
 import {
   atomReactFragmentDto,
   elementDto,
+  userDto,
 } from '@codelab/frontend/testing/data'
-import { getSnapshot, isRefOfType } from 'mobx-keystone'
-import { atomRef } from '@codelab/frontend/abstract/core'
+import { isRefOfType } from 'mobx-keystone'
+import { createTestRootStore } from './root-store'
 
 describe('Element domain', () => {
-  const { elementService, atomService } = createTestRootStore()
+  const { atomService, elementService } = createTestRootStore(userDto)
 
   it('should add a render type to element', () => {
     elementDto.renderType.id = atomReactFragmentDto.id
@@ -17,7 +17,6 @@ describe('Element domain', () => {
     atomService.add(atomReactFragmentDto)
 
     const element = elementService.elements.get(elementDto.id)
-
     const renderType = element?.renderType
 
     expect(renderType?.id).toBe(atomReactFragmentDto.id)

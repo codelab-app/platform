@@ -1,11 +1,11 @@
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   AtomForm,
   AtomsPrimarySidebar,
   CreateAtomModal,
   DeleteAtomsModal,
 } from '@codelab/frontend/domain/atom'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
 import {
   CreateFieldModal,
   DeleteFieldModal,
