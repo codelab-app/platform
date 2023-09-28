@@ -20,6 +20,9 @@ import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
 import type { IElementRenderTypeModel } from './render-type'
+import { IMoveElementService } from './use-cases/move-element.service.interface'
+import { ICloneElementService } from './use-cases/clone-element.service.interface'
+import { ICreateElementService } from './use-cases/create-element.service.interface'
 
 /**
  * Used for modal input
@@ -63,21 +66,16 @@ export interface IElementService
   elements: ObjectMap<IElementModel>
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
+  cloneElementService: ICloneElementService
+  moveElementService: IMoveElementService
+  createElementService: ICreateElementService
+
   add(elementDTO: IElementDTO): IElementModel
-  cloneElement(
-    target: IElementModel,
-    targetParent: IElementModel,
-  ): Promise<Array<IElementModel>>
-  convertElementToComponent(
-    element: IElementModel,
-    owner: IEntity,
-  ): Promise<Maybe<IElementModel>>
+
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  createElementAsFirstChild(data: ICreateElementData): Promise<IElementModel>
-  createElementAsNextSibling(data: ICreateElementData): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
   loadComponentTree(component: ComponentDevelopmentFragment): {
@@ -89,20 +87,6 @@ export interface IElementService
   ): Promise<IElementRenderTypeModel>
   // loadElement(element: IElementDTO): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
-  moveElementAsFirstChild(props: {
-    element: IEntity
-    parentElement: IEntity
-  }): Promise<void>
-  moveElementAsNextSibling(props: {
-    element: IEntity
-    targetElement: IEntity
-  }): Promise<void>
-  /**
-   * @param props.object an element or a component
-   */
-  moveNodeToAnotherTree(props: {
-    dropPosition: number
-    object: IEntity
-    targetElement: IEntity
-  }): Promise<void>
+
+  updateAffectedElements(elementIds: Array<string>): Promise<void>
 }
