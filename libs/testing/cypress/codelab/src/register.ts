@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { CypressCommand } from '@codelab/testing/cypress/command'
-import { getHeaderToolbarItem } from './header-toolbar/header-toolbar.command'
+import type {
+  CypressCommand,
+  OmitFirstArg,
+} from '@codelab/testing/cypress/command'
+import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
 import {
   getCuiSidebar,
-  getCuiSidebarToolbarItem,
+  getCuiSidebarHeader,
   getCuiSidebarViewContent,
   getCuiSidebarViewHeader,
 } from './sidebar/sidebar.command'
 import { getCuiSkeleton } from './skeleton/skeleton.command'
-import { getToolbarItem } from './toolbar/toolbar.command'
+import { getCuiToolbarItem } from './toolbar/toolbar.command'
 import {
   getCuiTreeItem,
   getCuiTreeItemByPrimaryTitle,
@@ -30,7 +33,7 @@ export interface CypressCodelabUICommands {
   /**
    * header-toolbar
    */
-  getHeaderToolbarItem: typeof getHeaderToolbarItem
+  getCuiHeader: typeof getCuiHeader
   /**
    * navigation-bar
    */
@@ -39,7 +42,7 @@ export interface CypressCodelabUICommands {
    * sidebar
    */
   getCuiSidebar: typeof getCuiSidebar
-  getCuiSidebarToolbarItem: typeof getCuiSidebarToolbarItem
+  getCuiSidebarHeader: OmitFirstArg<typeof getCuiSidebarHeader>
   getCuiSidebarViewContent: typeof getCuiSidebarViewContent
   getCuiSidebarViewHeader: typeof getCuiSidebarViewHeader
   /**
@@ -49,14 +52,18 @@ export interface CypressCodelabUICommands {
   /**
    * toolbar
    */
-  getToolbarItem: typeof getToolbarItem
+  getCuiToolbarItem: OmitFirstArg<typeof getCuiToolbarItem>
   /**
    * tree
    */
   getCuiTreeItem: typeof getCuiTreeItem
-  getCuiTreeItemByPrimaryTitle: typeof getCuiTreeItemByPrimaryTitle
-  getCuiTreeItemBySecondaryTitle: typeof getCuiTreeItemBySecondaryTitle
-  getCuiTreeItemToolbar: typeof getCuiTreeItemToolbar
+  getCuiTreeItemByPrimaryTitle: OmitFirstArg<
+    typeof getCuiTreeItemByPrimaryTitle
+  >
+  getCuiTreeItemBySecondaryTitle: OmitFirstArg<
+    typeof getCuiTreeItemBySecondaryTitle
+  >
+  getCuiTreeItemToolbar: OmitFirstArg<typeof getCuiTreeItemToolbar>
   /**
    * popover
    */
@@ -65,11 +72,11 @@ export interface CypressCodelabUICommands {
 
 export const codelabUICommands: Array<CypressCommand> = [
   /**
-   * header-toolbar
+   * header
    */
   {
-    fn: getHeaderToolbarItem,
-    name: 'getHeaderToolbarItem',
+    fn: getCuiHeader,
+    name: 'getCuiHeader',
   },
   /**
    * navigation-bar
@@ -82,6 +89,13 @@ export const codelabUICommands: Array<CypressCommand> = [
    * sidebar
    */
   {
+    fn: getCuiSidebarHeader,
+    name: 'getCuiSidebarHeader',
+    options: {
+      prevSubject: 'optional',
+    },
+  },
+  {
     fn: getCuiSidebar,
     name: 'getCuiSidebar',
   },
@@ -92,10 +106,6 @@ export const codelabUICommands: Array<CypressCommand> = [
   {
     fn: getCuiSidebarViewHeader,
     name: 'getCuiSidebarViewHeader',
-  },
-  {
-    fn: getCuiSidebarToolbarItem,
-    name: 'getCuiSidebarToolbarItem',
   },
   /**
    * skeleton
@@ -108,8 +118,11 @@ export const codelabUICommands: Array<CypressCommand> = [
    * toolbar
    */
   {
-    fn: getToolbarItem,
-    name: 'getToolbarItem',
+    fn: getCuiToolbarItem,
+    name: 'getCuiToolbarItem',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   /**
    * tree
@@ -121,14 +134,23 @@ export const codelabUICommands: Array<CypressCommand> = [
   {
     fn: getCuiTreeItemByPrimaryTitle,
     name: 'getCuiTreeItemByPrimaryTitle',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     fn: getCuiTreeItemBySecondaryTitle,
     name: 'getCuiTreeItemBySecondaryTitle',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     fn: getCuiTreeItemToolbar,
     name: 'getCuiTreeItemToolbar',
+    options: {
+      prevSubject: true,
+    },
   },
   /**
    * Popover

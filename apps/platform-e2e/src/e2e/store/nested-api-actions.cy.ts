@@ -46,7 +46,7 @@ describe('Running nested API and code actions', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
+    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
 
     cy.setFormFieldValue({ label: 'Name', value: resourceName })
     cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
@@ -57,9 +57,7 @@ describe('Running nested API and code actions', () => {
       value: ResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
   })
@@ -80,7 +78,7 @@ describe('Running nested API and code actions', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getHeaderToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -102,14 +100,14 @@ describe('Running nested API and code actions', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
   })
 
   it('should create a code action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -130,14 +128,14 @@ describe('Running nested API and code actions', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
     cy.wait('@createAction')
   })
 
   it('should create a GET api action and set code action as success action', () => {
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -176,14 +174,14 @@ describe('Running nested API and code actions', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
     cy.wait('@createAction')
   })
 
   it('should create a POST api action and set the GET api action as success action', () => {
-    cy.getHeaderToolbarItem('Add Action').click()
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -228,9 +226,7 @@ describe('Running nested API and code actions', () => {
     })
 
     cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
 
     cy.wait('@createAction').then(({ response }) => {
       apiPostActionId = response?.body.data.createApiActions.apiActions[0]
@@ -241,7 +237,10 @@ describe('Running nested API and code actions', () => {
   it('should create a button element and set the POST api action as the click handler', () => {
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -263,9 +262,7 @@ describe('Running nested API and code actions', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -287,7 +284,10 @@ describe('Running nested API and code actions', () => {
     cy.openBuilder()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+    cy.getCuiSidebar('Explorer')
+      .getCuiToolbarItem('Add Element')
+      .first()
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -317,9 +317,7 @@ describe('Running nested API and code actions', () => {
       value: 'Post Button',
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,

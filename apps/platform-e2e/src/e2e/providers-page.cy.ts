@@ -29,9 +29,10 @@ const openPageByName = (name: string) => {
   cy.getCuiTreeItemByPrimaryTitle(name)
     .should('exist', { timeout: 15000 })
     .click()
-  cy.getCuiTreeItemByPrimaryTitle(name).within(() => {
-    cy.getToolbarItem('Open Builder').click()
-  })
+  cy.getCuiTreeItemByPrimaryTitle(name)
+    .getCuiTreeItemToolbar()
+    .getCuiToolbarItem('Open Builder')
+    .click()
 
   cy.getSpinner().should('not.exist')
   cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 15000 }).should(
@@ -96,12 +97,10 @@ describe('_app page', () => {
   })
 
   it('should be able to create simple page', () => {
-    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
+    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     openPageByName(pageName)
   })
