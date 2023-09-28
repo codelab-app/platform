@@ -20,8 +20,10 @@ export class ImportApiHandler
       apiOutput: { fields, types, ...api },
     } = command
 
-    for (const type of types) {
-      await this.typeFactory.save(type)
+    const descendantTypesWithApiType = [...types, { ...api, fields: [] }]
+
+    for (const type of descendantTypesWithApiType) {
+      await this.typeFactory.save(type, { name: type.name })
     }
 
     for (const field of fields) {
