@@ -115,13 +115,12 @@ describe('Testing the Form atom', () => {
   const urlPostSegment = '/data'
 
   before(() => {
-    loginAndSetupData().then(() => {
-      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-        (apps) => {
-          app = apps.body
-        },
-      )
-    })
+    loginAndSetupData()
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
+        app = apps.body
+      },
+    )
   })
 
   it('should create the resource that will be used upon submission of the form', () => {

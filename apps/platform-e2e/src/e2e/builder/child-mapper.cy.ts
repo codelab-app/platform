@@ -21,13 +21,12 @@ const componentChildren = [
 describe('Element Child Mapper', () => {
   let app: IAppDTO
   before(() => {
-    loginAndSetupData().then(() => {
-      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-        (apps) => {
-          app = apps.body
-        },
-      )
-    })
+    loginAndSetupData()
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
+        app = apps.body
+      },
+    )
   })
   it('should create the component that will be used for the child mapper', () => {
     // create a component

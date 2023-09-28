@@ -97,16 +97,8 @@ export class ComponentService
       name: Store.createName({ name }),
     })
 
-    /**
-     * create rootElement in case it doesn't already exist
-     * Unlike other models such rootElement could exist before component (convertElementToComponent)
-     * connectOrCreate can't handle sub-models like props for element
-     * the only choice left is to create rootElement here if it is not provided
-     * */
-    const rootElementExists =
-      rootElement && this.elementService.elements.has(rootElement.id)
-
     // There must be a better way to do this, this is just temp to make things work for now
+    // The root element of a component must have a renderType of ReactFragment atom
     const fragmentAtom = yield* _await(
       this.atomService.atomRepository.findOne({ name: 'ReactFragment' }),
     )
@@ -116,28 +108,6 @@ export class ComponentService
     }
 
     this.atomService.add(fragmentAtom)
-
-    const rootElementModel: IElementModel = rootElementExists
-      ? this.elementService.element(rootElement.id)
-      : yield* _await(
-          this.elementService.create({
-            closestContainerNode: {
-              id,
-            },
-            id: v4(),
-            name,
-            parentComponent: { id },
-            props: {
-              data: '{}',
-            },
-            renderType: {
-              __typename: IElementRenderTypeKind.Atom,
-              id: fragmentAtom.id,
-            },
-          }),
-        )
-
-    rootElementModel.setParentComponent(componentRef(id))
 
     const api = this.typeService.addInterface({
       id: v4(),
@@ -150,6 +120,39 @@ export class ComponentService
       id: v4(),
     })
 
+    /**
+     * create rootElement in case it doesn't already exist
+     * Unlike other models such rootElement could exist before component (convertElementToComponent)
+     * connectOrCreate can't handle sub-models like props for element
+     * the only choice left is to create rootElement here if it is not provided
+     * */
+    const rootElementExists =
+      rootElement && this.elementService.elements.has(rootElement.id)
+
+    let rootElementModel: IElementModel | null = rootElementExists
+      ? this.elementService.element(rootElement.id)
+      : null
+
+    const elementData = {
+      closestContainerNode: {
+        id,
+      },
+      id: v4(),
+      name: `${name} Root`,
+      parentComponent: { id },
+      props: {
+        id: 'willbeoverridenanyway',
+      },
+      renderType: {
+        __typename: IElementRenderTypeKind.Atom,
+        id: fragmentAtom.id,
+      },
+    }
+
+    if (!rootElementModel) {
+      rootElementModel = this.elementService.add(elementData)
+    }
+
     const component = this.add({
       api,
       childrenContainerElement: { id: rootElementModel.id },
@@ -160,6 +163,8 @@ export class ComponentService
       rootElement: rootElementModel,
       store,
     })
+
+    yield* _await(this.elementService.create(elementData))
 
     yield* _await(this.componentRepository.add(component))
 

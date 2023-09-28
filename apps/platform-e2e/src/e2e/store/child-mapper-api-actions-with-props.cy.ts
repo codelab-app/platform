@@ -44,13 +44,12 @@ describe('Element Child Mapper', () => {
   ]
 
   before(() => {
-    loginAndSetupData().then(() => {
-      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-        (apps) => {
-          app = apps.body
-        },
-      )
-    })
+    loginAndSetupData()
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
+        app = apps.body
+      },
+    )
   })
 
   it('should create the resouce that will be used for the api actions', () => {

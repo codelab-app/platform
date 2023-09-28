@@ -20,13 +20,13 @@ const componentChildren = [
 describe('State variables sharing between pages', () => {
   let app: IAppDTO
   before(() => {
-    loginAndSetupData().then(() => {
-      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-        (apps) => {
-          app = apps.body
-        },
-      )
-    })
+    loginAndSetupData()
+    cy.postApiRequest('/api/data/type/seed-cypress-type')
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
+        app = apps.body
+      },
+    )
   })
   it('should setup the pages that will share states', () => {
     // create regular page where we will test the shared state
@@ -64,6 +64,8 @@ describe('State variables sharing between pages', () => {
       .getCuiToolbarItem('Add Component')
       .first()
       .click()
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-component-form')
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
@@ -156,7 +158,7 @@ describe('State variables sharing between pages', () => {
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
-    cy.reload()
+    // cy.reload()
     cy.openPreview()
     cy.get('#render-root')
       .contains('text component state value')

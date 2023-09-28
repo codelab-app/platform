@@ -7,10 +7,9 @@ import { pageName, updatedPageName } from './apps/app.data'
 describe('Pages CRUD', () => {
   let app: IApp
   before(() => {
-    loginAndSetupData().then(() => {
-      cy.postApiRequest<IApp>('/api/data/app/seed-cypress-app').then((apps) => {
-        app = apps.body
-      })
+    loginAndSetupData()
+    cy.postApiRequest<IApp>('/api/data/app/seed-cypress-app').then((apps) => {
+      app = apps.body
     })
   })
   describe('create', () => {

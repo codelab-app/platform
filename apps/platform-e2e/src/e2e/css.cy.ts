@@ -23,13 +23,12 @@ const clickEditor = () => {
 describe('CSS CRUD', () => {
   let app: IAppDTO
   before(() => {
-    loginAndSetupData().then(() => {
-      cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-        (apps) => {
-          app = apps.body
-        },
-      )
-    })
+    loginAndSetupData()
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
+        app = apps.body
+      },
+    )
   })
 
   describe('Add css string', () => {
