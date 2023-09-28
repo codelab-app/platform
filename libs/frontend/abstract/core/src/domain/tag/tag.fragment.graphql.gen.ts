@@ -7,7 +7,6 @@ import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 export type TagFragment = {
   id: string
-  isRoot: boolean
   name: string
   children: Array<{ id: string }>
   descendants: Array<{ id: string }>
@@ -26,7 +25,6 @@ export const TagFragmentDoc = gql`
       id
     }
     id
-    isRoot
     name
     owner {
       ...Owner
