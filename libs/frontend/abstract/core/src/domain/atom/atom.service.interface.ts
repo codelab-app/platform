@@ -36,7 +36,7 @@ export interface IAtomService
   atomRepository: IAtomRepository
   atoms: ObjectMap<IAtomModel>
   atomsList: Array<IAtomModel>
-  defaultRenderType: (IAtomDTO & { __typename: 'Atom' }) | undefined
+  defaultRenderType: IAtomModel | undefined
   deleteManyModal: IEntityModalService<
     Array<Ref<IAtomModel>>,
     { atoms: Array<IAtomModel> }
@@ -47,7 +47,7 @@ export interface IAtomService
 
   add(atomDTO: IAtomDTO): IAtomModel
   delete(ids: Array<string>): Promise<number>
-  getDefaultElementRenderType(): Promise<IAtomDTO>
+  getDefaultElementRenderType(): Promise<IAtomModel>
   getSelectAtomOptions(
     fieldProps: GuaranteedProps<string | undefined>,
     parent: IAtomModel | undefined,

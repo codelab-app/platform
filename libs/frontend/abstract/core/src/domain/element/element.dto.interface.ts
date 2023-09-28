@@ -11,6 +11,7 @@ export const ICreateElementData = Type.Composite([
   Type.Pick(IElementDTO, [
     'id',
     'name',
+    'parentComponent',
     'parentElement',
     'postRenderAction',
     'preRenderAction',
