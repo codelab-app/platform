@@ -65,7 +65,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         element.renderType.current.type === IAtomType.GridLayout
       ) {
         renderOutput.props['static'] =
-          renderer.rendererType === RendererType.Preview
+          renderer.rendererType === RendererType.Preview ||
+          renderer.rendererType === RendererType.Production
       }
     }
 
