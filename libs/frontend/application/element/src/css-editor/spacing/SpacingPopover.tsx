@@ -1,7 +1,6 @@
 import { UndoOutlined } from '@ant-design/icons'
 import { Button, Col, Row, Slider } from 'antd'
 import clsx from 'clsx'
-import React from 'react'
 import { ValuePicker } from '../components'
 import { CssUnit, parseCssValue } from '../utils'
 

@@ -5,7 +5,6 @@ import {
   SmallDashOutlined,
 } from '@ant-design/icons'
 import { Col } from 'antd'
-import React from 'react'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
