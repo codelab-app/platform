@@ -43,6 +43,7 @@ export const CreateElementForm = observer(
     submitRef,
   }: CreateElementFormProps) => {
     const { elementService, userService } = useStore()
+    const { createElementService } = elementService
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
@@ -64,8 +65,8 @@ export const CreateElementForm = observer(
       }
 
       void (prevSibling
-        ? elementService.createElementAsNextSibling(data)
-        : elementService.createElementAsFirstChild(data))
+        ? createElementService.createElementAsNextSibling(data)
+        : createElementService.createElementAsFirstChild(data))
 
       closeForm()
       onSubmitSuccess?.()

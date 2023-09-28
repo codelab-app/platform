@@ -40,14 +40,18 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
     treeData,
   }) => {
     const { builderService, elementService } = useStore()
+    const { cloneElementService } = elementService
     const selectedNode = builderService.selectedNode
-    const { handleDrop, isMoving } = useElementTreeDrop(elementService)
+    const { handleDrop, isMoving } = useElementTreeDrop()
 
     const elementContextMenuProps = useMemo(
       () => ({
-        cloneElement: elementService.cloneElement.bind(elementService),
+        cloneElement:
+          cloneElementService.cloneElement.bind(cloneElementService),
         convertElementToComponent:
-          elementService.convertElementToComponent.bind(elementService),
+          cloneElementService.convertElementToComponent.bind(
+            cloneElementService,
+          ),
         createForm: elementService.createForm,
         deleteModal: elementService.deleteModal,
       }),

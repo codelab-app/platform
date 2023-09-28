@@ -13,7 +13,7 @@ export interface UseBuilderPageDndProps {
   elementService: IElementService
 }
 
-export const useBuilderPageDnd = (elementService: IElementService) => {
+export const useBuilderPageDnd = () => {
   const [draggedElement, setDraggedElement] = useState<Nullable<Active>>(null)
 
   const sensors = useSensors(
