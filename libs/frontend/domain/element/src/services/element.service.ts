@@ -143,22 +143,25 @@ export class ElementService
     // is a child of the element we are converting or the element itself
     this.builderService.setSelectedNode(null)
 
-    // 2. create the component first before detaching the element from the element tree,
-    // this way in case if component creation fails, we avoid data loss
-    const createdComponent = yield* _await(
-      this.componentService.create({ id: v4(), name }),
+    // 2. detach the element from the element tree
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+
+    // 3. create the component and pass element as rootElement for component,
+    const createdComponent: IComponentModel = yield* _await(
+      this.componentService.create({
+        id: v4(),
+        name,
+        rootElement: { id: element.id },
+      }),
     )
 
     yield* _await(this.cloneElementStore(element, createdComponent))
 
-    // 3. detach the element from the element tree
-    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-
-    // 4. attach current element to the component
-    const affectedAttachedNodes = this.attachElementAsFirstChild({
-      element,
-      parentElement: createdComponent.rootElement,
-    })
+    const affectedAttachedNodes = [
+      element.id,
+      // all descendant elements will require composite key to be changed
+      ...element.descendantElements.map((descendant) => descendant.id),
+    ]
 
     yield* _await(
       this.updateAffectedElements([
@@ -905,7 +908,7 @@ export class ElementService
       props,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
-      renderType: element.renderType,
+      renderType: element.renderType.current,
       style: element.style,
     }
 

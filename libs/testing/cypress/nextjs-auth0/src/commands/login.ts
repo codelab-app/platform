@@ -70,6 +70,9 @@ export const login = ({
         // })
 
         cy.task('encrypt', payload).then((encryptedSession) => {
+          cy.setCookie('access_token', accessToken)
+          cy.setCookie('id_token', idToken)
+          cy.setCookie('user', JSON.stringify(user))
           cy._setAuth0Cookie(encryptedSession as string)
           console.log(encryptedSession)
         })
