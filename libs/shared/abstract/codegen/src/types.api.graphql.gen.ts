@@ -20803,7 +20803,6 @@ export type ProductionStoreFragment = {
 export type TagFragment = {
   __typename?: 'Tag'
   id: string
-  isRoot: boolean
   name: string
   children: Array<{ __typename?: 'Tag'; id: string }>
   descendants: Array<{ __typename?: 'Tag'; id: string }>

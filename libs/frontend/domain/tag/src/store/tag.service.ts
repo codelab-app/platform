@@ -165,7 +165,7 @@ export class TagService
       children: children?.map((child) => tagRef(child.id)),
       descendants: descendants?.map((child) => tagRef(child.id)),
       id,
-      isRoot,
+      isRoot: isRoot === undefined ? !parent?.id : isRoot,
       name,
       parent: parent?.id ? tagRef(parent.id) : null,
     })
