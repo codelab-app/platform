@@ -53,7 +53,6 @@ export const useStyle = () => {
 
   const resetStyle = (property: CssProperty) => {
     const { defaultValue } = DefaultCssProperties[property]
-
     setStyle(property, defaultValue)
   }
 

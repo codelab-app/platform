@@ -157,7 +157,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     <FormContextProvider value={{ elementTree, selectedNode }}>
       <TabContainer>
         <Tabs
-          defaultActiveKey={TAB_NAMES.Node}
+          defaultActiveKey={TAB_NAMES.CSS}
           destroyInactiveTabPane
           items={tabItems}
           size="small"

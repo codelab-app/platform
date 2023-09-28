@@ -1,4 +1,3 @@
-import React from 'react'
 import { Reset } from './Reset'
 
 interface ResetLabelProps {
