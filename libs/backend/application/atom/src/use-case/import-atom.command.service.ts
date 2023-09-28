@@ -29,14 +29,19 @@ export class ImportAtomHandler
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
+    const whereCondition = { name: atom.name }
+
     /**
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
      */
-    await this.atomRepository.save(omit(atom, ['suggestedChildren']))
+    await this.atomRepository.save(
+      omit(atom, ['suggestedChildren']),
+      whereCondition,
+    )
 
     /**
      * Here we assign suggestedChildren, since all atoms must be created first
      */
-    await this.atomRepository.save(atom)
+    await this.atomRepository.save(atom, whereCondition)
   }
 }
