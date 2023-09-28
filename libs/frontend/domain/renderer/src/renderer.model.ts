@@ -44,7 +44,7 @@ import { ActionRunner, getRunner } from './action-runner.model'
 import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
-import { createTextEditor } from './element/wrapper.utils'
+import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 import { ElementRuntimeProps } from './element-runtime-props.model'
 import { ExpressionTransformer } from './expresssion-transformer.service'
 import {
@@ -174,10 +174,13 @@ export class Renderer
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText) {
-          // TODO: what to do for production?
-          const readOnly = this.rendererType === RendererType.Preview
+          const readOnly =
+            this.rendererType === RendererType.Preview ||
+            this.rendererType === RendererType.Production
 
-          return createTextEditor(injectedText, element.id, readOnly)
+          return readOnly
+            ? createTextRenderer(injectedText)
+            : createTextEditor(injectedText, element.id, readOnly)
         }
 
         /*
