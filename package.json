@@ -417,11 +417,6 @@
     "utility-types": "3.10.0",
     "wait-on": "6.0.1"
   },
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
-  },
   "resolutions": {
     "@types/react": "18.2.24",
     "@types/react-dom": "18.2.9",
