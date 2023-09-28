@@ -12,6 +12,7 @@ import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
 } from './utils.hook'
+import { useStore } from '@codelab/frontend/presentation/container'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService

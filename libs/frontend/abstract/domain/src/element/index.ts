@@ -1,5 +1,6 @@
 export * from './element.domain.service.interface'
 export * from './element.dto.interface'
+export * from './element.dto.interface'
 export * from './element.model.interface'
 export * from './element.ref'
 export * from './element-graph.interface'
