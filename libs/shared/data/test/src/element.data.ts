@@ -17,7 +17,7 @@ export const providerElementPropsData: IPropDTO = {
 
 export const providerElementData = (
   closestContainerNode: IEntity,
-  renderType: IElementRenderType,
+  renderType: IElementRenderTypeDto,
 ): IElementDTO => ({
   closestContainerNode,
   id: v4(),
@@ -36,7 +36,7 @@ export const notFoundElementPropsData: IPropDTO = {
 
 export const notFoundElementData = (
   closestContainerNode: IEntity,
-  renderType: IElementRenderType,
+  renderType: IElementRenderTypeDto,
 ): IElementDTO => ({
   closestContainerNode,
   id: v4(),
@@ -55,7 +55,7 @@ export const internalServerErrorPropsData: IPropDTO = {
 
 export const internalServerErrorElementData = (
   closestContainerNode: IEntity,
-  renderType: IElementRenderType,
+  renderType: IElementRenderTypeDto,
 ): IElementDTO => ({
   closestContainerNode,
   id: v4(),

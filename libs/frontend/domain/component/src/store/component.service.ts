@@ -98,8 +98,6 @@ export class ComponentService
       name: Store.createName({ name }),
     })
 
-    const rootElementProps = this.propService.add({ data: '{}', id: v4() })
-
     /**
      * create rootElement in case it doesn't already exist
      * Unlike other models such rootElement could exist before component (convertElementToComponent)
@@ -119,7 +117,9 @@ export class ComponentService
             id: v4(),
             name,
             parentComponent: { id },
-            props: rootElementProps,
+            props: {
+              data: '{}',
+            },
             renderType: {
               __typename: IElementRenderTypeKind.Component,
               id,

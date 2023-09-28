@@ -1,4 +1,5 @@
 import type {
+  IAtomModel,
   ICreatePageData,
   IInterfaceType,
   IPageModel,

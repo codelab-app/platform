@@ -40,10 +40,17 @@ export class ExportComponentHandler
       }),
     )
 
-    const descendantElements: Array<IElementOutputDto> =
+    const descendantElements: Array<IElementOutputDto> = (
       await this.elementRepository.getElementWithDescendants(
         component.rootElement.id,
       )
+    ).map((element) => ({
+      ...element,
+      renderType: {
+        id: element.id,
+        __typename: throwIfUndefined(element.renderType.__typename),
+      },
+    }))
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
       new ExportApiCommand(component.api),

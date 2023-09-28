@@ -39,7 +39,7 @@ export class Element implements IElementDTO {
 
   renderIfExpression?: Nullable<string> | undefined
 
-  renderType: IElementRenderType
+  renderType: IElementRenderTypeDto
 
   style?: Nullable<string> | undefined
 
