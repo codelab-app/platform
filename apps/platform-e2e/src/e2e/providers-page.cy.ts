@@ -30,6 +30,7 @@ const openPageByName = (name: string) => {
     .should('exist', { timeout: 15000 })
     .click()
   cy.getCuiTreeItemByPrimaryTitle(name)
+    .getCuiTreeItemToolbar()
     .getCuiToolbarItem('Open Builder')
     .click()
 

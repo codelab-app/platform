@@ -82,6 +82,7 @@ describe('State variables sharing between pages', () => {
     cy.wrap(componentChildren).each((child: ComponentChildData) => {
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
+        .getCuiTreeItemToolbar()
         .getCuiToolbarItem('Add Child')
         .click()
 

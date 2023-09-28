@@ -1,3 +1,4 @@
+import { CY_DATA_SELECTOR } from '@codelab/frontend/abstract/testing'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { CypressElement } from '@codelab/testing/cypress/command'
 
@@ -11,6 +12,6 @@ export const getCuiToolbarItem = (
   return subject
     ? cy
         .wrap(subject)
-        .find(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
-    : cy.get(`[data-cy="codelabui-toolbar-item-${title}"]`, { log: false })
+        .find(CY_DATA_SELECTOR.cuiToolbarItem(title), { log: false })
+    : cy.get(CY_DATA_SELECTOR.cuiToolbarItem(title), { log: false })
 }

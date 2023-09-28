@@ -35,6 +35,7 @@ describe('Pages CRUD', () => {
       cy.findByText(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName)
+        .getCuiTreeItemToolbar()
         .getCuiToolbarItem('Open Builder')
         .click()
 
@@ -48,6 +49,7 @@ describe('Pages CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName)
+        .getCuiTreeItemToolbar()
         .getCuiToolbarItem('Edit')
         .click()
 
@@ -69,6 +71,7 @@ describe('Pages CRUD', () => {
     it('should be able to delete page', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).click()
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName)
+        .getCuiTreeItemToolbar()
         .getCuiToolbarItem('Delete')
         .click()
 

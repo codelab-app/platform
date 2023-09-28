@@ -1,4 +1,5 @@
 import { DownOutlined, RightOutlined } from '@ant-design/icons'
+import { CY_DATA } from '@codelab/frontend/abstract/testing'
 import { Typography } from 'antd'
 import React, { useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
@@ -38,7 +39,7 @@ export const CuiCollapsePanelHeader = ({
         border-gray-300
         px-3
       `}
-      data-cy={`codelabui-sidebar-view-header-${label}`}
+      data-cy={CY_DATA.cuiSidebarViewHeader(label)}
       onClick={updateExpand}
     >
       <div

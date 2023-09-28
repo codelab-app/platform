@@ -156,6 +156,7 @@ describe('Element Child Mapper', () => {
   it('should add button to the component and set the api action on the onClick', () => {
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
+      .getCuiTreeItemToolbar()
       .getCuiToolbarItem('Add Child')
       .click()
 

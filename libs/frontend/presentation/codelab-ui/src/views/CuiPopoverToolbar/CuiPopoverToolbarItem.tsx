@@ -1,3 +1,4 @@
+import { CY_DATA } from '@codelab/frontend/abstract/testing'
 import { Tooltip } from 'antd'
 import type { ReactNode } from 'react'
 import React from 'react'
@@ -20,7 +21,7 @@ export const CuiPopoverToolbarItem = ({
         w-full
         cursor-pointer
       "
-      data-cy={`codelabui-toolbar-item-${title}`}
+      data-cy={CY_DATA.cuiToolbarItem(title)}
       onClick={onClick}
     >
       <Tooltip title={title}>

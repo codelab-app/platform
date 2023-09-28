@@ -1,16 +1,17 @@
+import { CY_DATA_SELECTOR } from '@codelab/frontend/abstract/testing'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { CypressElement } from '@codelab/testing/cypress/command'
 
 export const getCuiSidebar = (label: string) => {
   cy.log('getCuiSidebar', label)
 
-  return cy.get(`[data-cy="codelabui-sidebar-${label}"]`, { log: false })
+  return cy.get(CY_DATA_SELECTOR.cuiSidebar(label), { log: false })
 }
 
 export const getCuiSidebarViewHeader = (label: string) => {
   cy.log('getCuiSidebarViewHeader', label)
 
-  return cy.get(`[data-cy="codelabui-sidebar-view-header-${label}"]`, {
+  return cy.get(CY_DATA_SELECTOR.cuiSidebarViewHeader(label), {
     log: false,
   })
 }
@@ -18,7 +19,7 @@ export const getCuiSidebarViewHeader = (label: string) => {
 export const getCuiSidebarViewContent = (label: string) => {
   cy.log('getCuiSidebarViewContent', label)
 
-  return cy.get(`[data-cy="codelabui-sidebar-view-content-${label}"]`, {
+  return cy.get(CY_DATA_SELECTOR.cuiSidebarViewContent(label), {
     log: false,
   })
 }
@@ -27,10 +28,10 @@ export const getCuiSidebarHeader = (subject: Maybe<CypressElement>) => {
   cy.log('getCuiSidebarHeader')
 
   return subject
-    ? cy.wrap(subject).find(`[data-cy="codelabui-sidebar-header"]`, {
+    ? cy.wrap(subject).find(CY_DATA_SELECTOR.cuiSidebarHeader(), {
         log: false,
       })
-    : cy.get(`[data-cy="codelabui-sidebar-header"]`, {
+    : cy.get(CY_DATA_SELECTOR.cuiSidebarHeader(), {
         log: false,
       })
 }
