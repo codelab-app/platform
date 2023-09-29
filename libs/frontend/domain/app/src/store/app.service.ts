@@ -70,9 +70,9 @@ export class AppService
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
     const defaultRenderType = this.atomService.defaultRenderType
 
-    if (!defaultRenderType) {
-      throw new Error('Default atom renderType must be loaded first')
-    }
+    // if (!defaultRenderType) {
+    //   throw new Error('Default atom renderType must be loaded first')
+    // }
 
     const pages = this.pageService.pageFactory.addSystemPages(
       {
@@ -178,7 +178,9 @@ export class AppService
    */
   @modelFlow
   loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
-    const { apps } = yield* _await(this.appRepository.appsList(where))
+    const { apps, atoms } = yield* _await(this.appRepository.appsList(where))
+
+    atoms.forEach((atom) => this.atomService.add(atom))
 
     return apps.map((app) => {
       /**

@@ -14,7 +14,7 @@ import {
 } from '@codelab/frontend/domain/shared'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { dynamicLoader } from '@codelab/frontend/shared/utils'
+import { dynamicLoader, throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import { IAtomDTO, IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import isEmpty from 'lodash/isEmpty'
@@ -65,8 +65,10 @@ export class AtomService
 
   @computed
   get defaultRenderType() {
-    return this.atomsList.find((atom) => atom.type === IAtomType.ReactFragment)
-      ?.toJson
+    return throwIfUndefined(
+      this.atomsList.find((atom) => atom.type === IAtomType.ReactFragment)
+        ?.toJson,
+    )
   }
 
   /**
@@ -155,31 +157,6 @@ export class AtomService
     return atoms.map((atom) => this.add(atom))
   })
 
-  /**
-   * `Element.renderType` is required now, so anytime we create an Element, we need to pass the default value, which is an `Atom.type === ReactFragment`
-   */
-  @modelFlow
-  getDefaultElementRenderType = _async(function* (this: IAtomService) {
-    if (this.defaultRenderType) {
-      return this.defaultRenderType
-    }
-
-    /**
-     * Only fetch if not exists
-     */
-    const atomReactFragment = yield* _await(
-      this.atomRepository.findOne({
-        type: IAtomType.ReactFragment,
-      }),
-    )
-
-    if (!atomReactFragment) {
-      throw new Error('Atom of type `ReactFragment` must be seeded first')
-    }
-
-    return this.add(atomReactFragment).toJson
-  })
-
   @modelFlow
   @transaction
   getOne = _async(function* (this: AtomService, id: string) {
@@ -191,18 +168,6 @@ export class AtomService
 
     return all[0]
   })
-
-  // @modelFlow
-  // getOptions = _async(function* (this: AtomService) {
-  //   const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
-
-  //   atoms
-  //     .flatMap((atom) => atom.api)
-  //     .forEach((type) => this.typeService.addInterface(type))
-  //   atoms.forEach((atom) => this.add(atom))
-
-  //   return atoms
-  // })
 
   @modelFlow
   getSelectAtomOptions = _async(function* (

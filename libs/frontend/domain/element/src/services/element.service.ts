@@ -81,6 +81,7 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
+    // TODO: Remove this
     yield* _await(this.loadRenderType(data.renderType))
 
     const elementProps = this.propService.add({

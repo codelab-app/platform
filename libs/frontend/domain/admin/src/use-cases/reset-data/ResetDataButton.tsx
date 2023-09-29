@@ -10,7 +10,9 @@ import React from 'react'
 
 export const ResetDataButton = observer(() => {
   const { adminService } = useStore()
-  const [{ status }, resetData] = useAsync(adminService.resetData)
+  const [{ status }, resetData] = useAsync(
+    adminService.resetDatabaseExceptUserAndAtom,
+  )
 
   const onError = useErrorNotify({
     description: '',

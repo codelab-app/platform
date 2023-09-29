@@ -21174,6 +21174,7 @@ export type GetAppsListQueryVariables = Exact<{
 export type GetAppsListQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
 }
 
 export type GetAppDevelopmentQueryVariables = Exact<{
@@ -21184,6 +21185,7 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 export type GetAppDevelopmentQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
@@ -22179,24 +22181,24 @@ export type GetTypesQueryVariables = Exact<{
 
 export type GetTypesQuery = {
   __typename?: 'Query'
-  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
-  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
-  elementTypes: Array<
-    { __typename?: 'ElementType' } & Type_ElementType_Fragment
-  >
   actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
-  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
   codeMirrorTypes: Array<
     { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
   >
+  elementTypes: Array<
+    { __typename?: 'ElementType' } & Type_ElementType_Fragment
+  >
+  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
   interfaceTypes: Array<
     { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
   >
   lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
   primitiveTypes: Array<
     { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
   >
-  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
   reactNodeTypes: Array<
     { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
   >

@@ -22,6 +22,7 @@ import { getTypeService } from '@codelab/frontend/domain/type'
 import { client } from '@codelab/frontend/presentation/client/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
+import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import {
   _async,
@@ -78,11 +79,21 @@ export class AppDevelopmentService
     const stores = pages.flatMap((page) => page.store)
     const actions = stores.flatMap((store) => store.actions)
 
-    const atoms = elements
-      .flatMap((element) => element.renderType)
-      .filter(
-        (item): item is AtomDevelopmentFragment => item.__typename === 'Atom',
-      )
+    const atoms = uniqBy(
+      [
+        // Load all the atoms used by elements
+        ...elements
+          .flatMap((element) => element.renderType)
+          .filter(
+            (item): item is AtomDevelopmentFragment =>
+              item.__typename === 'Atom',
+          ),
+        // Also load the default atoms, here is just type `ReactFragment`
+        ...data.atoms,
+      ],
+      // Filter by id in case `ReactFragment` already exists
+      (atom) => atom.id,
+    )
 
     const types = atoms.flatMap((type) => type.api)
 
