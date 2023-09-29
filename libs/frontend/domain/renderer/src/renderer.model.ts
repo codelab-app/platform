@@ -167,7 +167,7 @@ export class Renderer
 
       if (!hasChildren) {
         // Inject text, but only if we have no regular children
-        const injectedText = props?.[CUSTOM_TEXT_PROP_KEY]
+        const injectedText = props?.[CUSTOM_TEXT_PROP_KEY] || '""'
 
         const shouldInjectText =
           isAtomInstance(element.renderType) &&
