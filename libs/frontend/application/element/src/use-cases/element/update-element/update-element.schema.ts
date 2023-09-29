@@ -48,9 +48,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperComponent: {
       nullable: true,
       properties: {
-        ...idSchema({
+        id: {
           label: 'Child Mapper Component',
-        }),
+          type: 'string',
+        },
       },
       required: [],
       type: 'object',

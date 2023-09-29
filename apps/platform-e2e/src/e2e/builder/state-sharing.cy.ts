@@ -209,6 +209,8 @@ describe('State variables sharing between pages', () => {
       .getCuiToolbarItem('Add Component')
       .first()
       .click()
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-component-form')
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
@@ -272,8 +274,8 @@ describe('State variables sharing between pages', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
-    cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
+    cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
+    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -301,7 +303,7 @@ describe('State variables sharing between pages', () => {
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
-    cy.reload()
+    // cy.reload()
     cy.openPreview()
     cy.get('#render-root')
       .contains('text component state value')

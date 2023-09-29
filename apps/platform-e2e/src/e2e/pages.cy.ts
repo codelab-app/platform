@@ -4,11 +4,16 @@ import { IPageKindName } from '@codelab/shared/abstract/core'
 import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 import { pageName, updatedPageName } from './apps/app.data'
 
-before(() => {
-  loginAndSetupData()
-
-  cy.request<IApp>('POST', '/api/data/app/seed-cypress-app').then(
-    ({ body: app }) => {
+describe('Pages CRUD', () => {
+  let app: IApp
+  before(() => {
+    loginAndSetupData()
+    cy.postApiRequest<IApp>('/api/data/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
+  })
+  describe('create', () => {
+    it('should be able to create page', () => {
       cy.visit(
         `/apps/cypress/${app.slug}/pages/404/builder?primarySidebarKey=pageList`,
       )
@@ -16,9 +21,6 @@ before(() => {
       cy.findAllByText(IPageKindName.Provider).should('exist')
       cy.findAllByText(IPageKindName.NotFound).should('exist')
       cy.findAllByText(IPageKindName.InternalServerError).should('exist')
-    },
-  )
-})
 
 describe('Pages CRUD', () => {
   let app: IApp
