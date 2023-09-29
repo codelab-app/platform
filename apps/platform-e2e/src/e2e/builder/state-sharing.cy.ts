@@ -129,8 +129,8 @@ describe('State variables sharing between pages', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
-    cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
+    cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
+    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -180,8 +180,8 @@ describe('State variables sharing between pages', () => {
   })
 
   it('should create a state variable in the provider page', () => {
-    cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
+    cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
+    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
 
     cy.setFormFieldValue({
       label: 'Key',
