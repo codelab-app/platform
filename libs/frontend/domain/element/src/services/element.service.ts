@@ -81,7 +81,7 @@ export class ElementService
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    // const renderType = yield* _await(this.loadRenderType(data.renderType))
+    yield* _await(this.loadRenderType(data.renderType))
 
     const elementProps = this.propService.add({
       data: data.props?.data,

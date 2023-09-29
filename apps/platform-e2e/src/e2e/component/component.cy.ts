@@ -30,11 +30,8 @@ describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
       loginAndSetupData()
-
       cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
         (apps) => {
-          testApp = apps
-
           app = apps.body
         },
       )

@@ -10,12 +10,12 @@ import {
 describe('Resource CRUD', () => {
   before(() => {
     loginAndSetupData()
-    cy.visit('/resources')
-    cy.getSpinner().should('not.exist')
   })
 
   describe('create', () => {
     it('should be able to create resource', () => {
+      cy.visit('/resources')
+      cy.getSpinner().should('not.exist')
       cy.findAllByText(resourceName).should('not.exist')
 
       cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
