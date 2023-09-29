@@ -78,18 +78,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
     const selectionHandlers = useSelectionHandlers(
-      builderService,
       element,
       renderer.rendererType,
     )
 
-    const dragDropHandlers = useDragDropHandlers(
-      builderService,
-      elementService,
-      atomService,
-      element,
-      renderer.rendererType,
-    )
+    const dragDropHandlers = useDragDropHandlers(element, renderer.rendererType)
 
     // leave ElementWrapper pass-through so refs are attached to correct element
     const mergedProps = mergeProps(

@@ -7,6 +7,7 @@ import type {
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { createDragImage } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { queryRenderedElementById } from './query-rendered-element-by-id'
@@ -16,12 +17,11 @@ let draggedElement: IElementModel | null
 let dropPosition: IDropPosition | 'forbidden'
 
 export const useDragDropHandlers = (
-  builderService: IBuilderService,
-  elementService: IElementService,
-  atomService: IAtomService,
   currentElement: IElementModel,
   rendererType: RendererType,
 ) => {
+  const { atomService, builderService, elementService } = useStore()
+
   const dragStartHandler = useCallback(
     (event: React.DragEvent<HTMLElement>) => {
       // we stop propogation because we only want the event to be triggered on currenty dragged element and not the parents

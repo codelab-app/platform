@@ -3,6 +3,7 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { type MouseEvent, useCallback } from 'react'
 
 /**
@@ -11,10 +12,11 @@ import { type MouseEvent, useCallback } from 'react'
 let lastEditedElemet: IElementModel | undefined
 
 export const useSelectionHandlers = (
-  builderService: IBuilderService,
   element: IElementModel,
   rendererType: RendererType,
 ) => {
+  const { builderService } = useStore()
+
   const handleClick = useCallback(
     (event: MouseEvent) => {
       event.stopPropagation()
