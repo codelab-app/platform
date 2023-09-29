@@ -14,6 +14,7 @@ export class ComponentRepository
   extends Model({})
   implements IComponentRepository
 {
+  @modelFlow
   add = _async(function* (
     this: ComponentRepository,
     component: IComponentModel,
@@ -27,6 +28,7 @@ export class ComponentRepository
     return components[0]!
   })
 
+  @modelFlow
   delete = _async(function* (
     this: ComponentRepository,
     components: Array<IComponentModel>,
@@ -47,6 +49,7 @@ export class ComponentRepository
     return nodesDeleted
   })
 
+  @modelFlow
   find = _async(function* (
     this: ComponentRepository,
     where: ComponentWhere,

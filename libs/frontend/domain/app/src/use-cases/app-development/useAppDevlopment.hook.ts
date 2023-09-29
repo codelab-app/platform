@@ -2,10 +2,12 @@ import type { RendererType } from '@codelab/frontend/abstract/core'
 import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
+  loadAllTypesForElements,
   useAppQuery,
   usePageQuery,
   useStore,
 } from '@codelab/frontend/presentation/container'
+import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import find from 'lodash/find'
@@ -22,8 +24,10 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
   const {
     appService,
     builderService,
+    componentService,
     pageService,
     renderService,
+    typeService,
     userService,
   } = useStore()
 
@@ -59,16 +63,16 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
 
       builderService.selectElementNode(page.rootElement.current)
 
-      // const roots = [
-      //   // This will load the custom components in the _app (provider page) for the regular pages since we also
-      //   // render the elements of the provider page as part of the regular page
-      //   ...(page.kind === PageKind.Regular
-      //     ? [app.providerPage.rootElement.current]
-      //     : []),
-      //   page.rootElement.current,
-      // ]
+      const roots = [
+        // This will load the custom components in the _app (provider page) for the regular pages since we also
+        // render the elements of the provider page as part of the regular page
+        ...(page.kind === PageKind.Regular
+          ? [app.providerPage.rootElement.current]
+          : []),
+        page.rootElement.current,
+      ]
 
-      // await loadAllTypesForElements(componentService, typeService, roots)
+      await loadAllTypesForElements(componentService, typeService, roots)
 
       // const pageRootElement = elementService.maybeElement(page.rootElement.id)
 

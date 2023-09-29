@@ -12,6 +12,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { IElementRenderType } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
 import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
@@ -30,10 +31,18 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
     const { elementService } = useStore()
-    console.log(element)
+    const modelSnapshot = getSnapshot(element)
 
-    const model = getSnapshot(element)
-    console.log(model)
+    const renderType: IElementRenderType = {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      __typename:
+        modelSnapshot.renderType.$modelType === '@codelab/AtomRef'
+          ? 'Atom'
+          : 'Component',
+      id: modelSnapshot.renderType.id,
+    }
+
+    const model = { ...modelSnapshot, renderType }
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)

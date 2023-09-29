@@ -155,6 +155,39 @@ export class ComponentApplicationService
         this.elementService.elementDomainService.hydrate(elementData)
     }
 
+    /**
+     * create rootElement in case it doesn't already exist
+     * Unlike other models such rootElement could exist before component (convertElementToComponent)
+     * connectOrCreate can't handle sub-models like props for element
+     * the only choice left is to create rootElement here if it is not provided
+     * */
+    const rootElementExists =
+      rootElement && this.elementService.elements.has(rootElement.id)
+
+    let rootElementModel: IElementModel | null = rootElementExists
+      ? this.elementService.element(rootElement.id)
+      : null
+
+    const elementData = {
+      closestContainerNode: {
+        id,
+      },
+      id: v4(),
+      name: `${name} Root`,
+      parentComponent: { id },
+      props: {
+        id: 'willbeoverridenanyway',
+      },
+      renderType: {
+        __typename: IElementRenderTypeKind.Atom,
+        id: fragmentAtom.id,
+      },
+    }
+
+    if (!rootElementModel) {
+      rootElementModel = this.elementService.add(elementData)
+    }
+
     const component = this.add({
       api,
       childrenContainerElement: { id: rootElementModel.id },
@@ -239,12 +272,12 @@ export class ComponentApplicationService
          * Element comes with `component` or `atom` data that we need to load as well
          * TODO: Need to handle component case, refactor reuse
          */
-        // if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
-        //   this.typeService.loadTypes({
-        //     interfaceTypes: [elementData.renderType.api],
-        //   })
+        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
+          this.typeService.loadTypes({
+            interfaceTypes: [elementData.renderType.api],
+          })
 
-        //   elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
+          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
 
           this.atomService.atomDomainService.add(elementData.renderType)
         }
