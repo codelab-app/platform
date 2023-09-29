@@ -250,7 +250,7 @@ export class CloneElementService
       id: v4(),
     })
 
-    const cloneElementDto = {
+    const cloneElementDto: IElementDTO = {
       childMapperComponent: element.childMapperComponent
         ? { id: element.childMapperComponent.id }
         : null,
@@ -268,7 +268,7 @@ export class CloneElementService
       props,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
-      renderType: element.renderType.current,
+      renderType: element.renderType.current.toJson,
       style: element.style,
     }
 

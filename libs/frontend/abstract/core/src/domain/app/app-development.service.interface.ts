@@ -19,9 +19,9 @@ export interface IAppDevelopmentArgs {
 }
 
 export interface IAppDevelopmentDto {
+  actions: StoreFragment['actions']
   app: AppDevelopmentFragment
   atoms: Array<AtomDevelopmentFragment>
-  actions: StoreFragment['actions']
   components: Array<ComponentDevelopmentFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>

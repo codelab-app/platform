@@ -66,6 +66,7 @@ export class AtomService
   @computed
   get defaultRenderType() {
     return this.atomsList.find((atom) => atom.type === IAtomType.ReactFragment)
+      ?.toJson
   }
 
   /**
@@ -176,7 +177,7 @@ export class AtomService
       throw new Error('Atom of type `ReactFragment` must be seeded first')
     }
 
-    return this.add(atomReactFragment)
+    return this.add(atomReactFragment).toJson
   })
 
   @modelFlow

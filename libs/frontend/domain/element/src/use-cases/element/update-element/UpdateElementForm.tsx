@@ -14,7 +14,6 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { IElementRenderType } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
-import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -31,50 +30,44 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
     const { elementService } = useStore()
-    const modelSnapshot = getSnapshot(element)
-
-    const renderType: IElementRenderType = {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      __typename:
-        modelSnapshot.renderType.$modelType === '@codelab/AtomRef'
-          ? 'Atom'
-          : 'Component',
-      id: modelSnapshot.renderType.id,
-    }
-
-    const model = { ...modelSnapshot, renderType }
 
     const onSubmit = async (data: IUpdateElementData) => {
+      console.log(data)
+
+      return
+
       return elementService.update(data)
     }
 
     const expandedFields: Array<string> = []
 
-    if (model.renderType.id) {
+    if (element.renderType.id) {
       expandedFields.push('renderer')
     }
 
-    if (model.postRenderAction ?? model.preRenderAction) {
+    if (element.postRenderAction ?? element.preRenderAction) {
       expandedFields.push('actions')
     }
 
-    if (model.renderIfExpression) {
+    if (element.renderIfExpression) {
       expandedFields.push('renderCondition')
     }
 
     if (
-      model.childMapperPropKey ??
-      model.childMapperPreviousSibling ??
-      model.childMapperComponent
+      element.childMapperPropKey ??
+      element.childMapperPreviousSibling ??
+      element.childMapperComponent
     ) {
       expandedFields.push('childMapper')
     }
 
+    console.log(element.toJson)
+
     return (
       <Form<IUpdateBaseElementData>
         autosave
-        key={model.id}
-        model={model}
+        key={element.id}
+        model={element.toJson}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while updating element',

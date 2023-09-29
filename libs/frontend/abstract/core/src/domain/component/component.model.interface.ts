@@ -1,6 +1,7 @@
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type {
   IComponentDTO,
+  IComponentSerialized,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import type {
@@ -19,14 +20,14 @@ import type { IInterfaceType } from '../type'
 
 export interface IComponentModel
   extends ICacheService<IComponentDTO, IComponentModel>,
-    IElementTree {
+    IElementTree,
+    Omit<IComponentDTO, 'rootElement'> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElementModel>
   descendantComponents: Array<IComponentModel>
   instanceElement: Nullable<Ref<IElementModel>>
   keyGenerator: Nullish<string>
-  name: string
   props: Ref<IPropModel>
   runtimeProp: Maybe<IComponentRuntimeProp>
   /**
@@ -35,6 +36,7 @@ export interface IComponentModel
    */
   sourceComponent?: Nullable<IEntity>
   store: Ref<IStoreModel>
+  toJson: IComponentSerialized
 
   clone(key: string, instanceId?: string): IComponentModel
   setChildrenContainerElement(element: Ref<IElementModel>): void

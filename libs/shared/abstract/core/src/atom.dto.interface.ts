@@ -6,6 +6,7 @@ import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IAtomType } from './atom-type.enum'
+import { IElementRenderTypeKind } from './element-render-type'
 import { ITypeKind } from './type-kind.enum'
 
 export const IAtomDTO = Type.Object({
@@ -23,6 +24,15 @@ export const IAtomDTO = Type.Object({
 })
 
 export type IAtomDTO = Static<typeof IAtomDTO>
+
+export const IAtomSerialized = Type.Composite([
+  Type.Object({
+    __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),
+  }),
+  IAtomDTO,
+])
+
+export type IAtomSerialized = Static<typeof IAtomSerialized>
 
 export const IAtomProductionDto = Type.Composite([
   IAtomDTO,

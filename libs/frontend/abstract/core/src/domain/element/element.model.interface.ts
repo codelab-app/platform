@@ -2,7 +2,10 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  IElementSerialized,
+} from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -157,6 +160,7 @@ export interface IElementModel
     currentStyles: ElementCssRules
     inheritedStyles: ElementCssRules
   }
+  toJson: IElementSerialized
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 

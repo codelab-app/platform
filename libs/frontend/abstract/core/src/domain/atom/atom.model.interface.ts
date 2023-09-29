@@ -4,8 +4,8 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IAtomDTO,
+  IAtomSerialized,
   IAtomType,
-  IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
@@ -19,12 +19,13 @@ export interface IAtomModel
   extends ICacheService<IAtomDTO, IAtomModel>,
     Omit<IModel<AtomCreateInput, AtomUpdateInput, void>, 'toDeleteInput'>,
     IAtomDTO {
-  __typename: IElementRenderTypeKind.Atom
+  // __typename: IElementRenderTypeKind.Atom
   allowCustomTextInjection: boolean
   api: Ref<IInterfaceType>
   requiredParents: Array<Ref<IAtomModel>>
   suggestedChildren: Array<Ref<IAtomModel>>
   tags: Array<Ref<ITagModel>>
+  toJson: IAtomSerialized
   type: IAtomType
 }
 
