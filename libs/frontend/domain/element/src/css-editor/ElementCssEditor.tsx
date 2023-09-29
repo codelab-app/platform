@@ -52,8 +52,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           lastStateRef.current = style
 
           void elementService.update({
-            ...updatedElement,
-            renderType: updatedElement.renderType.current,
+            ...updatedElement.toJson,
             style,
           })
         }

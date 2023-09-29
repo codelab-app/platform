@@ -112,6 +112,21 @@ export class Component
     ) as Maybe<IComponentRuntimeProp>
   }
 
+  @computed
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      api: this.api,
+      childrenContainerElement: this.childrenContainerElement,
+      id: this.id,
+      keyGenerator: this.keyGenerator,
+      name: this.name,
+      props: this.props,
+      rootElement: this.rootElement,
+      store: this.store,
+    }
+  }
+
   /**
    * @param key a unique identifier to avoid repeating clone
    * @param instanceId instance element id

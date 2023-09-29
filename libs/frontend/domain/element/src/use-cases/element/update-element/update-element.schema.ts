@@ -84,7 +84,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
             },
             __typename: {
               enum: [IElementRenderTypeKind.Component],
-              label: 'Render Type',
+              // label: 'Render Type',
               type: 'string',
             },
           },
@@ -98,7 +98,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
             },
             __typename: {
               enum: [IElementRenderTypeKind.Atom],
-              label: 'Render Type',
+              // label: 'Render Type',
               type: 'string',
             },
           },

@@ -2,6 +2,8 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IAtomDTO } from './atom.dto.interface'
+import { IComponentDTO } from './component.dto.interface'
 import { IElementRenderTypeDto } from './element-render-type'
 
 export const IElementDTO = Type.Object({
@@ -23,7 +25,6 @@ export const IElementDTO = Type.Object({
   preRenderAction: Typebox.Nullish(IEntity),
   prevSibling: Typebox.Nullish(IEntity),
   props: IEntity,
-  refKey: Typebox.Nullish(Type.String()),
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
   renderType: IElementRenderTypeDto,
@@ -31,6 +32,17 @@ export const IElementDTO = Type.Object({
 })
 
 export type IElementDTO = Static<typeof IElementDTO>
+
+export const IElementSerialized = IElementDTO
+
+// export const IElementSerialized = Typebox.Overwrite(
+//   IElementDTO,
+//   Type.Object({
+//     renderType: Type.Union([IAtomDTO, IComponentDTO]),
+//   }),
+// )
+
+export type IElementSerialized = Static<typeof IElementSerialized>
 
 export const ICreateElementDTO = Type.Composite([
   IElementDTO,
