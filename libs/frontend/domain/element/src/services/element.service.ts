@@ -184,9 +184,7 @@ export class ElementService
   @modelFlow
   @transaction
   update = _async(function* (this: ElementService, data: IUpdateElementData) {
-    console.log(data)
-    yield* _await(this.loadRenderType(data.renderType))
-
+    // yield* _await(this.loadRenderType(data.renderType))
     const { id, ...elementData } = data
     const element = this.element(id)
     const { id: newRenderTypeId } = elementData.renderType
