@@ -3,6 +3,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   apps(where: { compositeKey: $appCompositeKey }) {
     ...AppDevelopment
   }
+  atoms(where: { type: ReactFragment }) {
+    ...AtomDevelopment
+  }
   resources {
     ...Resource
   }

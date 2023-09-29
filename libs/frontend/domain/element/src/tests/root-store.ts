@@ -25,6 +25,9 @@ export const createTestRootStore = () => {
   }
 
   const rootStore = new TestRootStore({})
+  const { atomService, elementService } = rootStore
+  const { elementRepository } = elementService
+  const { atomRepository } = atomService
 
   return rootStore
 }

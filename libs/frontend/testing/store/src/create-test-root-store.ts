@@ -9,7 +9,12 @@ export const mockRepository = (
 ) => {
   jest.spyOn(repository, 'add').mockImplementation()
   jest.spyOn(repository, 'delete').mockImplementation()
-  jest.spyOn(repository, 'find').mockImplementation()
+  jest.spyOn(repository, 'find').mockImplementation(() =>
+    Promise.resolve({
+      aggregate: { count: 0 },
+      items: [],
+    }),
+  )
   jest.spyOn(repository, 'findOne').mockImplementation()
   jest.spyOn(repository, 'update').mockImplementation()
 }
