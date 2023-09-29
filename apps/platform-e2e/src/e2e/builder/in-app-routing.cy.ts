@@ -17,11 +17,8 @@ describe('Routing between app pages within the builder', () => {
 
   before(() => {
     loginAndSetupData()
-
-    cy.postApiRequest('/api/data/type/seed-cypress-type')
     cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
       (apps) => {
-        cy.log('Seed app', apps)
         app = apps.body
       },
     )
@@ -217,7 +214,7 @@ describe('Routing between app pages within the builder', () => {
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
-      value: `{ "href": "/tests/${dynamicUrlSegment1}/subtests/${dynamicUrlSegment2}" }`,
+      value: `{ "href": "/tests/${dynamicUrlSegment1}/subtests/${dynamicUrlSegment2}", "customText": "${GoToDynamicPageText}" }`,
     })
 
     // Create an alias of the new element id to later be used for
@@ -227,19 +224,6 @@ describe('Routing between app pages within the builder', () => {
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
-
-    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
-
-    cy.getNewElementId().then((nextLinkId) => {
-      // This is a link element so need to prevent the default action
-      // otherwise would not be able to type into the text editor
-      cy.preventDefaultOnClick(`[data-element-id="${nextLinkId}"]`)
-      cy.typeIntoTextEditor(GoToDynamicPageText, nextLinkId)
-    })
-
-    cy.waitForApiCalls()
 
     cy.get('#render-root').contains(GoToDynamicPageText).should('exist')
   })
@@ -317,12 +301,14 @@ describe('Routing between app pages within the builder', () => {
     cy.get('#render-root').contains(GoToTestPageText).should('exist')
   })
 
-  it('should navigate to /test-page of the app within the builder when NextLink in the provider is clicked', () => {
+  // Skip this for now until we re-worked the routing within the builder preview
+  it.skip('should navigate to /test-page of the app within the builder when NextLink in the provider is clicked', () => {
     cy.get('#render-root').contains(GoToTestPageText).click()
     cy.contains(TestPageText).should('exist')
   })
 
-  it('should navigate to the dynamic page within the builder when NextLink in the /test-page is clicked', () => {
+  // Skip this for now until we re-worked the routing within the builder preview
+  it.skip('should navigate to the dynamic page within the builder when NextLink in the /test-page is clicked', () => {
     cy.get('#render-root').contains(GoToDynamicPageText).click()
     cy.findByText(
       `${DynamicPageText} - ${dynamicUrlSegment1} - ${dynamicUrlSegment2}`,

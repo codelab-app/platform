@@ -19,7 +19,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     postRenderAction: {
       nullable: true,
       properties: {
-        ...idSchema({ label: 'Post render action' }),
+        id: {
+          label: 'Post render action',
+          type: 'string',
+        },
       },
       required: [],
       type: 'object',
@@ -27,9 +30,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     preRenderAction: {
       nullable: true,
       properties: {
-        ...idSchema({
-          label: 'Pre Render action',
-        }),
+        id: {
+          label: 'Pre render action',
+          type: 'string',
+        },
       },
       required: [],
       type: 'object',
@@ -37,9 +41,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperComponent: {
       nullable: true,
       properties: {
-        ...idSchema({
+        id: {
           label: 'Child Mapper Component',
-        }),
+          type: 'string',
+        },
       },
       required: [],
       type: 'object',

@@ -31,11 +31,11 @@ const fieldDefaultValue = 'something default'
 describe('Types CRUD', () => {
   before(() => {
     loginAndSetupData()
-    cy.visit(`/types`)
   })
 
   describe('create type', () => {
     it('should be able to create primitive', () => {
+      cy.visit(`/types`)
       cy.findAllByText(primitiveTypeName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )

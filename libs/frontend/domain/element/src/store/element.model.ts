@@ -371,8 +371,6 @@ export class Element
 
   @computed
   get propsHaveErrors() {
-    console.log(this, this.renderType)
-
     const schema = schemaTransformer.transform(
       this.renderType.current.api.current,
     )
