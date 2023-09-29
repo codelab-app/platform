@@ -31,10 +31,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const { elementService, rendererService } = useStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
-      console.log(data)
-
-      return
-
       return elementService.update(data)
     }
 
