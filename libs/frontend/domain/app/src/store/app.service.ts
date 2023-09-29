@@ -1,5 +1,4 @@
 import type {
-  IAppDevelopmentDto,
   IAppModel,
   IAppService,
   ICreateAppData,
@@ -18,7 +17,6 @@ import { getResourceService } from '@codelab/frontend/domain/resource'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { getStoreService } from '@codelab/frontend/domain/store'
 import { VercelService } from '@codelab/frontend/domain/vercel'
-import { sortPagesByKindAndName } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
   GetProductionPageQuery,
@@ -180,13 +178,13 @@ export class AppService
    */
   @modelFlow
   loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
-    const { apps: appsData } = yield* _await(this.appRepository.appsList(where))
+    const { apps } = yield* _await(this.appRepository.appsList(where))
 
-    const apps = appsData.map((appData) => {
+    return apps.map((app) => {
       /**
        * Pages
        */
-      appData.pages.forEach((page) => {
+      app.pages.forEach((page) => {
         this.pageService.add(page)
       })
       // this.loadPages(appData)
@@ -198,70 +196,9 @@ export class AppService
       //   this.domainService.add(domain)
       // })
 
-      return this.add(appData)
+      return this.add(app)
     })
-
-    return apps
   })
-
-  /**
-   This function fetches the initial page and all the common data shared across all pages in the application:
-   - app data
-   - current page
-   - providers page (_app)
-   - components
-   - resources
-   - types
-   */
-  // @modelFlow
-  // loadDevelopmentPage = _async(function* (
-  //   this: AppService,
-  //   appName: string,
-  //   pageName: string,
-  // ) {
-  //   console.debug('AppService.loadDevelopmentPage()')
-
-  //   const user = this.userService.user
-  //   const appCompositeKey = AppProperties.appCompositeKey(appName, user)
-
-  //   /**
-  //    * Fetch app first, since app could be not loaded
-  //    */
-  //   const app = yield* _await(
-  //     this.loadAppsPreview({
-  //       compositeKey: AppProperties.appCompositeKey(appName, user),
-  //     }),
-  //   )
-
-  //   console.debug('loaded app', app)
-
-  //   const pageCompositeKey = PageProperties.pageCompositeKey(pageName, app)
-
-  //   const pageData = yield* _await(
-  //     pageApi.GetDevelopmentPage({ appCompositeKey, pageCompositeKey }),
-  //   )
-
-  //   console.debug('pageApi.GetDevelopmentPage()', pageData)
-
-  //   const {
-  //     apps: [appData],
-  //     resources,
-  //   } = pageData
-
-  //   if (!appData) {
-  //     return null
-  //   }
-
-  //   /**
-  //    * Load app, pages, elements
-  //    */
-  //   this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
-
-  //   // write cache for resources
-  //   this.resourceService.load(resources)
-
-  //   return this.add(appData)
-  // })
 
   @modelFlow
   @transaction
@@ -300,33 +237,6 @@ export class AppService
     this.apps.set(app.id, app)
 
     return app
-  }
-
-  /**
-   * Aggregate root method to setup all data invariants
-   *
-   * - Hydrate app
-   * - Hydrate page
-   * - Hydrate element
-   */
-  @modelAction
-  loadPages = ({ pages }: IAppDevelopmentDto) => {
-    console.debug('AppService.loadPages()', pages)
-    sortPagesByKindAndName(pages)
-
-    const allElements = pages.map((page) => {
-      const { id, rootElement } = page
-
-      const elements = [rootElement, ...rootElement.descendantElements].map(
-        (element) => ({ ...element, closestContainerNode: { id: page.id } }),
-      )
-
-      this.pageService.loadElements(elements)
-      this.pageService.add(page)
-      this.storeService.load([page.store])
-    })
-
-    return allElements
   }
 
   /**

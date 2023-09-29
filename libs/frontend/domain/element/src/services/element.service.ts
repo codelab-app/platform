@@ -229,9 +229,9 @@ export class ElementService
       element.writeCache(elementDTO)
     } else {
       element = Element.create(elementDTO)
-
-      this.elements.set(elementDTO.id, element)
     }
+
+    this.elements.set(elementDTO.id, element)
 
     return element
   }
