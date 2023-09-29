@@ -79,10 +79,6 @@ export class PageService
       id: v4(),
     })
 
-    const atomReactFragment = yield* _await(
-      this.atomService.getDefaultElementRenderType(),
-    )
-
     const rootElement = this.elementService.add({
       closestContainerNode: {
         id,
@@ -91,7 +87,7 @@ export class PageService
       name: ROOT_ELEMENT_NAME,
       page: { id },
       props: rootElementProps,
-      renderType: atomReactFragment,
+      renderType: this.atomService.defaultRenderType,
     })
 
     const appModel = this.appService.apps.get(app.id)

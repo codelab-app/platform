@@ -87,6 +87,5 @@ export interface IElementService
   ): Promise<IElementRenderTypeModel>
   // loadElement(element: IElementDTO): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
-
   updateAffectedElements(elementIds: Array<string>): Promise<void>
 }

@@ -2,7 +2,8 @@ import type {
   IAtomModel,
   ICreateElementData,
 } from '@codelab/frontend/abstract/core'
-import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
+import { SelectAtom } from '@codelab/frontend/domain/atom'
+import { SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { GuaranteedProps } from 'uniforms'

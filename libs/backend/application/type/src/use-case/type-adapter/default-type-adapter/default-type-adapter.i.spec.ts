@@ -1,36 +1,13 @@
-import { AdminService } from '@codelab/backend/domain/admin'
 import {
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
 } from '@codelab/backend/domain/type'
 import { User, UserRepository } from '@codelab/backend/domain/user'
-import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { resetDatabase } from '@codelab/backend/test'
 import type { IUnionTypeDTO, IUserDTO } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'
 
-const primitiveTypeRepository = new PrimitiveTypeRepository()
-const interfaceTypeRepository = new InterfaceTypeRepository()
-let user: IUserDTO
-const driver = getDriver()
-
-beforeAll(async () => {
-  user = await resetDatabase({
-    AdminService,
-    driver,
-    User,
-    UserRepository,
-  })
-
-  console.log('Before all', user)
-})
-
-afterAll(async () => {
-  await driver.close()
-})
-
-describe('DefaultTypeAdapterService', () => {
+describe.skip('DefaultTypeAdapterService', () => {
   const type = 'boolean | { delay: number }'
   let service: DefaultTypeAdapterService
 
@@ -50,13 +27,13 @@ describe('DefaultTypeAdapterService', () => {
     })
   })
 
-  it.skip('should be an interfaceType', async () => {
+  it('should be an interfaceType', async () => {
     const isInterfaceType = service.isInterfaceType(type)
 
     expect(isInterfaceType).toBeTruthy()
   })
 
-  it.skip('should create a union type with boolean and interface type for given input', async () => {
+  it('should create a union type with boolean and interface type for given input', async () => {
     const result = (await service.execute({ type })) as IUnionTypeDTO
 
     expect(result).toBeDefined()
