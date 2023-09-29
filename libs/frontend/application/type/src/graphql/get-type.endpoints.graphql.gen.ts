@@ -269,16 +269,22 @@ export const GetTypesDocument = gql`
     unionTypes(where: { id_IN: $ids }) {
       ...Type
     }
+    elementTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    enumTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
     interfaceTypes(where: { id_IN: $ids }) {
       ...Type
     }
     lambdaTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    primitiveTypes(where: { id_IN: $ids }) {
+    pageTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    pageTypes(where: { id_IN: $ids }) {
+    primitiveTypes(where: { id_IN: $ids }) {
       ...Type
     }
     reactNodeTypes(where: { id_IN: $ids }) {

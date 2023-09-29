@@ -6,6 +6,7 @@ import { useAsync } from '@react-hookz/web'
 import React from 'react'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
+import { mapAtomOptions } from '../../store'
 
 export type SelectAtomProps = Pick<
   UniformSelectFieldProps,
@@ -27,8 +28,6 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const [{ error: queryError, result, status }, getSelectAtomOptions] =
     useAsync(() => atomService.getSelectAtomOptions(fieldProps, parent))
 
-  console.log(fieldProps)
-
   return (
     <SelectField
       error={error || queryError}
@@ -43,7 +42,11 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
       }}
       optionFilterProp="label"
       optionLabelProp="label"
+<<<<<<<< HEAD:libs/frontend/application/atom/src/use-cases/select-atom/SelectAtom.tsx
       options={result ?? fallbackAtomOptions}
+========
+      options={result ?? [mapAtomOptions(atomService.defaultRenderType)]}
+>>>>>>>> 658e349b5 (refactor: load required data on page load):libs/frontend/domain/atom/src/use-cases/select-atom/SelectAtom.tsx
       showSearch
     />
   )

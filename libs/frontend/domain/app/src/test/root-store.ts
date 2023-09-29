@@ -86,9 +86,5 @@ export const createTestRootStore = (user: IUserDTO) => {
 
   mockRepository(rootStore.appService.appRepository)
 
-  jest
-    .spyOn(rootStore.atomService, 'getDefaultElementRenderType')
-    .mockImplementation()
-
   return rootStore
 }

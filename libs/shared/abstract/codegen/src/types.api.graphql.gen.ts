@@ -20999,6 +20999,7 @@ export type GetAppsListQueryVariables = Exact<{
 export type GetAppsListQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
 }
 
 export type GetAppDevelopmentQueryVariables = Exact<{
@@ -21009,6 +21010,7 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 export type GetAppDevelopmentQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
