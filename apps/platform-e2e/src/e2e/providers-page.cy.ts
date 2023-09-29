@@ -43,9 +43,7 @@ const openPageByName = (name: string) => {
 describe('_app page', () => {
   before(() => {
     loginAndSetupData()
-
     cy.request('/api/data/atom/seed-cypress-atom')
-    cy.visit('/apps')
   })
 
   it('should create _app page when app is created', () => {

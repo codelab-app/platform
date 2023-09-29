@@ -22,14 +22,11 @@ describe('Element Child Mapper', () => {
   let app: IAppDTO
   before(() => {
     loginAndSetupData()
-
-    cy.postApiRequest('/api/data/type/seed-cypress-type')
-
-    cy.postApiRequest('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
         app = apps.body
-      })
+      },
+    )
   })
   it('should create the component that will be used for the child mapper', () => {
     // create a component
@@ -127,14 +124,17 @@ describe('Element Child Mapper', () => {
   it('should create the element tree where we will insert the component as a child mapper component', () => {
     cy.createElementTree([
       {
+        atom: IAtomType.AntDesignGridRow,
         name: ELEMENT_ROW,
         parentElement: ROOT_ELEMENT_NAME,
       },
       {
+        atom: IAtomType.ReactFragment,
         name: 'Child 1',
         parentElement: ELEMENT_ROW,
       },
       {
+        atom: IAtomType.ReactFragment,
         name: 'Child 2',
         parentElement: ELEMENT_ROW,
       },
@@ -154,11 +154,13 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "test 1" }, { name: "test 2" }]}}',
     })
+    cy.intercept('POST', `api/graphql`).as('action')
     cy.get('.ant-collapse').setFormFieldValue({
       label: 'Component',
       type: FIELD_TYPE.SELECT,
       value: COMPONENT_NAME,
     })
+    cy.wait('@action')
   })
 
   it('should render the component instances with props values from array', () => {

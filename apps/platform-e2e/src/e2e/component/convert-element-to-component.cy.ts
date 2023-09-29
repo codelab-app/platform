@@ -36,12 +36,11 @@ describe('Converting an element to a component', () => {
 
   before(() => {
     loginAndSetupData()
-
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
+    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
+      (apps) => {
         app = apps.body
-      })
+      },
+    )
   })
   it('should convert the element into a component and create an instance of it', () => {
     cy.visit(

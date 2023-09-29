@@ -8,7 +8,7 @@ import type {
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import { reconnectNodeId } from '@codelab/shared/domain/mapper'
-import { _async, _await, Model, model } from 'mobx-keystone'
+import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { componentApi } from '../store/component.api'
 
 @model('@codelab/ComponentRepository')
@@ -16,6 +16,7 @@ export class ComponentRepository
   extends Model({})
   implements IComponentRepository
 {
+  @modelFlow
   add = _async(function* (
     this: ComponentRepository,
     component: IComponentModel,
@@ -29,6 +30,7 @@ export class ComponentRepository
     return components[0]!
   })
 
+  @modelFlow
   delete = _async(function* (
     this: ComponentRepository,
     components: Array<IComponentModel>,
@@ -49,6 +51,7 @@ export class ComponentRepository
     return nodesDeleted
   })
 
+  @modelFlow
   find = _async(function* (
     this: ComponentRepository,
     where: ComponentWhere,
@@ -57,6 +60,7 @@ export class ComponentRepository
     return yield* _await(componentApi.GetComponents({ options, where }))
   })
 
+  @modelFlow
   findOne = _async(function* (
     this: ComponentRepository,
     where: ComponentUniqueWhere,
@@ -64,6 +68,7 @@ export class ComponentRepository
     return (yield* _await(this.find(where))).items[0]
   })
 
+  @modelFlow
   update = _async(function* (
     this: ComponentRepository,
     component: IComponentModel,

@@ -94,7 +94,7 @@ export const openPreview = () => {
   // this is just the simplest way, we should improve this
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
-  cy.get('[data-cy="codelabui-toolbar-item-Preview"] button').click()
+  cy.get('[data-cy="cui-toolbar-item-Preview"] button').click()
   // wait for the multiple api calls
   // this is just the simplest way, we should improve this
   // eslint-disable-next-line cypress/no-unnecessary-waiting
@@ -104,7 +104,7 @@ export const openPreview = () => {
 }
 
 export const openBuilder = () => {
-  cy.get('[data-cy="codelabui-toolbar-item-Builder"] button').click()
+  cy.get('[data-cy="cui-toolbar-item-Builder"] button').click()
   // wait for the multiple api calls
   // eslint-disable-next-line cypress/no-unnecessary-waiting
   cy.wait(1000)
