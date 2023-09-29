@@ -69,16 +69,16 @@ export type GetTypesQueryVariables = Types.Exact<{
 }>
 
 export type GetTypesQuery = {
-  arrayTypes: Array<Type_ArrayType_Fragment>
-  appTypes: Array<Type_AppType_Fragment>
-  elementTypes: Array<Type_ElementType_Fragment>
   actionTypes: Array<Type_ActionType_Fragment>
-  enumTypes: Array<Type_EnumType_Fragment>
+  appTypes: Array<Type_AppType_Fragment>
+  arrayTypes: Array<Type_ArrayType_Fragment>
   codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
+  elementTypes: Array<Type_ElementType_Fragment>
+  enumTypes: Array<Type_EnumType_Fragment>
   interfaceTypes: Array<Type_InterfaceType_Fragment>
   lambdaTypes: Array<Type_LambdaType_Fragment>
-  primitiveTypes: Array<Type_PrimitiveType_Fragment>
   pageTypes: Array<Type_PageType_Fragment>
+  primitiveTypes: Array<Type_PrimitiveType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
   renderPropTypes: Array<Type_RenderPropType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
@@ -230,22 +230,22 @@ export const GetBaseTypesDocument = gql`
 `
 export const GetTypesDocument = gql`
   query GetTypes($ids: [ID!]) {
-    arrayTypes(where: { id_IN: $ids }) {
+    actionTypes(where: { id_IN: $ids }) {
       ...Type
     }
     appTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    elementTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    actionTypes(where: { id_IN: $ids }) {
-      ...Type
-    }
-    enumTypes(where: { id_IN: $ids }) {
+    arrayTypes(where: { id_IN: $ids }) {
       ...Type
     }
     codeMirrorTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    elementTypes(where: { id_IN: $ids }) {
+      ...Type
+    }
+    enumTypes(where: { id_IN: $ids }) {
       ...Type
     }
     interfaceTypes(where: { id_IN: $ids }) {
@@ -254,10 +254,10 @@ export const GetTypesDocument = gql`
     lambdaTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    primitiveTypes(where: { id_IN: $ids }) {
+    pageTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    pageTypes(where: { id_IN: $ids }) {
+    primitiveTypes(where: { id_IN: $ids }) {
       ...Type
     }
     reactNodeTypes(where: { id_IN: $ids }) {

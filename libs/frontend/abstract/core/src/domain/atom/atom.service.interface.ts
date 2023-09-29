@@ -32,7 +32,7 @@ export interface IAtomService
   atomRepository: IAtomRepository
   atoms: ObjectMap<IAtomModel>
   atomsList: Array<IAtomModel>
-  defaultRenderType: IAtomSerialized | undefined
+  defaultRenderType: IAtomSerialized
   deleteManyModal: IEntityModalService<
     Array<Ref<IAtomModel>>,
     { atoms: Array<IAtomModel> }
@@ -43,7 +43,6 @@ export interface IAtomService
 
   add(atomDTO: IAtomDTO): IAtomModel
   delete(ids: Array<string>): Promise<number>
-  getDefaultElementRenderType(): Promise<IAtomSerialized>
   getSelectAtomOptions(
     fieldProps: GuaranteedProps<string | undefined>,
     parent: IAtomModel | undefined,

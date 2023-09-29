@@ -34,6 +34,8 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
 import { User, UserService } from '@codelab/frontend/domain/user'
+import { atomReactFragmentDto } from '@codelab/frontend/testing/data'
+import { mockRepository } from '@codelab/frontend/testing/store'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { ElementService } from '../store'
@@ -74,12 +76,16 @@ export const createTestRootStore = (user: IUserDTO) => {
   }
 
   const rootStore = new TestRootStore({})
+  const { atomService, elementService } = rootStore
+  const { elementRepository } = elementService
+  const { atomRepository } = atomService
 
-  // mockRepository(rootStore.appService.appRepository)
+  atomService.add(atomReactFragmentDto)
 
-  jest
-    .spyOn(rootStore.atomService, 'getDefaultElementRenderType')
-    .mockImplementation()
+  mockRepository(elementRepository)
+  jest.spyOn(elementRepository, 'updateNodes').mockImplementation()
+
+  mockRepository(atomRepository)
 
   return rootStore
 }

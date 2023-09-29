@@ -50,7 +50,7 @@ export class AdminService
 
   @modelFlow
   @transaction
-  resetData = _async(function* (this: AdminService) {
+  resetDatabaseExceptUserAndAtom = _async(function* (this: AdminService) {
     return yield* _await(
       restPlatformClient.post('/admin/reset-database-except-user-and-atom'),
     )

@@ -18,18 +18,6 @@ export class AdminController {
     private authService: AuthService,
   ) {}
 
-  /**
-   * We want to keep the default atom
-   */
-  @Post('reset-database-except-user-and-atom')
-  async cypressReset() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
-
-    return {
-      message: 'Admin data reset success',
-    }
-  }
-
   @Post('export')
   async export(@Body() exportDto: ExportDto) {
     const { adminDataPath } = exportDto
@@ -68,6 +56,18 @@ export class AdminController {
   @Post('reset-database-except-user')
   async resetDatabaseExceptUser() {
     await this.adminRepository.resetDatabaseExceptUser()
+
+    return {
+      message: 'Admin data reset success',
+    }
+  }
+
+  /**
+   * We want to keep the default atom
+   */
+  @Post('reset-database-except-user-and-atom')
+  async resetDatabaseExceptUserAndAtom() {
+    await this.adminRepository.resetDatabaseExceptUserAndAtom()
 
     return {
       message: 'Admin data reset success',
