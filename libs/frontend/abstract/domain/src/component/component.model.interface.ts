@@ -5,6 +5,7 @@ import type {
 import type {
   IComponent,
   IComponentDTO,
+  IComponentSerialized,
   IElementRenderTypeKind,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -36,6 +37,7 @@ export interface IComponentModel
    */
   sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
+  toJson: IComponentSerialized
 
   clone(key: string, instanceId?: string): IComponentModel
   setChildrenContainerElement(element: Ref<IElementModel>): void
