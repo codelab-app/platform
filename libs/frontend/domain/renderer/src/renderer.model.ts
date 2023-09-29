@@ -175,7 +175,7 @@ export class Renderer
 
         if (shouldInjectText) {
           const readOnly =
-           !element.isTextContentEditable ||
+            !element.isTextContentEditable ||
             this.rendererType === RendererType.Preview ||
             this.rendererType === RendererType.Production
 

@@ -74,11 +74,11 @@ export const useDragDropHandlers = (
       }
 
       const dropTargetAtom = atomService.atoms.get(
-        dropTargetElement.renderType?.id ?? '',
+        dropTargetElement.renderType.id,
       )
 
       const draggedAtom = atomService.atoms.get(
-        draggedElement?.renderType?.id ?? '',
+        draggedElement?.renderType.id ?? '',
       )
 
       dropPosition = detectDropPosition(
@@ -97,6 +97,7 @@ export const useDragDropHandlers = (
       event.preventDefault()
       event.stopPropagation()
 
+      const { moveElementService } = elementService
       const target = event.target as HTMLElement
       target.classList.remove('currently-dragged')
       target.style.opacity = '1'
@@ -108,7 +109,7 @@ export const useDragDropHandlers = (
       }
 
       if (dropPosition === 'right' || dropPosition === 'bottom') {
-        void elementService.moveElementAsNextSibling({
+        void moveElementService.moveElementAsNextSibling({
           element: { id: draggedElement?.id ?? '' },
           targetElement: { id: dropTargetElement?.id ?? '' },
         })
@@ -119,20 +120,22 @@ export const useDragDropHandlers = (
         (dropPosition === 'left' || dropPosition === 'top')
       ) {
         if (dropTargetElement?.prevSibling?.current.id) {
-          void elementService.moveElementAsNextSibling({
+          void moveElementService.moveElementAsNextSibling({
             element: { id: draggedElement?.id ?? '' },
             targetElement: { id: dropTargetElement.prevSibling.current.id },
           })
         } else {
-          void elementService.moveElementAsFirstChild({
+          void moveElementService.moveElementAsFirstChild({
             element: { id: draggedElement?.id ?? '' },
-            parentElement: { id: dropTargetElement?.parent?.current.id ?? '' },
+            parentElement: {
+              id: dropTargetElement?.parentElement?.current.id ?? '',
+            },
           })
         }
       }
 
       if (dropPosition === 'inside') {
-        void elementService.moveElementAsFirstChild({
+        void moveElementService.moveElementAsFirstChild({
           element: { id: draggedElement?.id ?? '' },
           parentElement: { id: dropTargetElement?.id ?? '' },
         })

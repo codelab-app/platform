@@ -8,7 +8,7 @@ import { type MouseEvent, useCallback } from 'react'
 /**
  * Provides interactions handlers for builder elements like selecting and hovering.
  */
-let lastEditedElemet: IElement | undefined
+let lastEditedElemet: IElementModel | undefined
 
 export const useSelectionHandlers = (
   builderService: IBuilderService,
