@@ -87,9 +87,9 @@ export class AppDevelopmentService
     const types = atoms.flatMap((type) => type.api)
 
     return {
+      actions,
       app,
       atoms,
-      actions,
       components: [],
       elements,
       fields: [],
@@ -124,6 +124,11 @@ export class AppDevelopmentService
   }
 
   @computed
+  private get actionService() {
+    return getActionService(this)
+  }
+
+  @computed
   private get appService() {
     return getAppService(this)
   }
@@ -131,11 +136,6 @@ export class AppDevelopmentService
   @computed
   private get atomService() {
     return getAtomService(this)
-  }
-
-  @computed
-  private get actionService() {
-    return getActionService(this)
   }
 
   @computed
