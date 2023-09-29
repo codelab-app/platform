@@ -12,7 +12,6 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import type { IElementRenderType } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -32,10 +31,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const { elementService } = useStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
-      console.log(data)
-
-      return
-
       return elementService.update(data)
     }
 
@@ -60,8 +55,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     ) {
       expandedFields.push('childMapper')
     }
-
-    console.log(element.toJson)
 
     return (
       <Form<IUpdateBaseElementData>
