@@ -75,6 +75,9 @@ export class Atom
   })
   implements IAtomModel
 {
+  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
+  static create = create
+
   /**
    * Make it so we can match the interface
    */
@@ -92,13 +95,22 @@ export class Atom
   }
 
   @computed
-  get userService() {
-    return getUserService(this)
+  get toJson() {
+    return {
+      __typename: this.__typename,
+      api: this.api,
+      externalCssSource: this.externalCssSource,
+      externalJsSource: this.externalJsSource,
+      externalSourceType: this.externalSourceType,
+      icon: this.icon,
+      id: this.id,
+      name: this.name,
+      requiredParents: this.requiredParents,
+      suggestedChildren: this.suggestedChildren,
+      tags: this.tags,
+      type: this.type,
+    }
   }
-
-  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  @modelAction
-  static create = create
 
   @modelAction
   toCreateInput(): AtomCreateInput {
@@ -172,5 +184,10 @@ export class Atom
     this.requiredParents = requiredParents.map((child) => atomRef(child.id))
 
     return this
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 }
