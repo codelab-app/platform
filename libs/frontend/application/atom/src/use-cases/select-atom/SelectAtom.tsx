@@ -27,6 +27,8 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const [{ error: queryError, result, status }, getSelectAtomOptions] =
     useAsync(() => atomService.getSelectAtomOptions(fieldProps, parent))
 
+  console.log(fieldProps)
+
   return (
     <SelectField
       error={error || queryError}
