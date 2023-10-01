@@ -4,7 +4,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { isElementRef } from '@codelab/frontend/abstract/core'
 import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
-import { HoverOverlay } from '@codelab/frontend/presentation/view'
+import {
+  HoverOverlay,
+  MarginPaddingOverlay,
+} from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -14,7 +17,7 @@ export const BuilderHoverOverlay = observer<{
   builderService: IBuilderService
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
-}>(({ builderService, elementService, renderContainerRef }) => {
+}>(({ builderService, renderContainerRef }) => {
   const hoveredNode = builderService.hoveredNode
   const selectedNode = builderService.selectedNode
 
@@ -33,10 +36,18 @@ export const BuilderHoverOverlay = observer<{
   }
 
   return createPortal(
-    <HoverOverlay
-      element={element}
-      renderContainer={renderContainerRef.current}
-    />,
+    <>
+      {hoveredNode.id !== selectedNode?.id && (
+        <HoverOverlay
+          element={element}
+          renderContainer={renderContainerRef.current}
+        />
+      )}
+      <MarginPaddingOverlay
+        element={element}
+        renderContainer={renderContainerRef.current}
+      />
+    </>,
     renderContainerRef.current,
   )
 })

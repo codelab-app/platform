@@ -114,8 +114,6 @@ export class Atom
 
   @modelAction
   toCreateInput(): AtomCreateInput {
-    console.log(this.userService.user)
-
     return {
       api: {
         create: {

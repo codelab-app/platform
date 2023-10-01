@@ -1,7 +1,4 @@
-import type {
-  IBuilderService,
-  IElementModel,
-} from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { type MouseEvent, useCallback } from 'react'
@@ -9,7 +6,7 @@ import { type MouseEvent, useCallback } from 'react'
 /**
  * Provides interactions handlers for builder elements like selecting and hovering.
  */
-let lastEditedElemet: IElementModel | undefined
+let lastEditedElement: IElementModel | undefined
 
 export const useSelectionHandlers = (
   element: IElementModel,
@@ -21,8 +18,8 @@ export const useSelectionHandlers = (
     (event: MouseEvent) => {
       event.stopPropagation()
 
-      if (lastEditedElemet && lastEditedElemet.id !== element.id) {
-        lastEditedElemet.setIsTextContentEditable(false)
+      if (lastEditedElement && lastEditedElement.id !== element.id) {
+        lastEditedElement.setIsTextContentEditable(false)
       }
 
       builderService.selectElementNode(element)
@@ -35,7 +32,7 @@ export const useSelectionHandlers = (
       event.stopPropagation()
 
       element.setIsTextContentEditable(true)
-      lastEditedElemet = element
+      lastEditedElement = element
     },
     [element],
   )
