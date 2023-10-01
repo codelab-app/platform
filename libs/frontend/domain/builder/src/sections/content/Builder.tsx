@@ -14,6 +14,7 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks'
 import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
+import { BuilderDragDropOverlay } from '../overlay-toolbar/BuilderDragDropOverlay'
 import { BuilderHoverOverlay } from '../overlay-toolbar/BuilderHoverOverlay'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
 
@@ -97,6 +98,11 @@ export const Builder = observer(() => {
             renderContainerRef={node}
           />
           <BuilderHoverOverlay
+            builderService={builderService}
+            elementService={elementService}
+            renderContainerRef={node}
+          />
+          <BuilderDragDropOverlay
             builderService={builderService}
             elementService={elementService}
             renderContainerRef={node}

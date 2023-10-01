@@ -99,6 +99,7 @@ const create = ({
     childMapperPropKey,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
+    isTextContentEditable: false,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
     // parent of first child
@@ -134,6 +135,7 @@ export class Element
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
+    isTextContentEditable: prop<boolean>(false).withSetter(),
     name: prop<string>().withSetter(),
     nextSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
