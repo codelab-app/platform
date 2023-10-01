@@ -1,6 +1,7 @@
 import type {
   IElementDTO,
   IElementRenderTypeDto,
+  IPropDTO,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
@@ -33,7 +34,7 @@ export class Element implements IElementDTO {
 
   prevSibling?: IEntity | null | undefined
 
-  props: IEntity
+  props: IPropDTO
 
   renderForEachPropKey?: Nullable<string> | undefined
 

@@ -223,6 +223,7 @@ export const setupTestForRenderer = (
       api: {
         id: v4(),
       },
+      childrenContainerElement,
       id: v4(),
       keyGenerator: `function run(props) {
         // props are of type component api
@@ -232,7 +233,6 @@ export const setupTestForRenderer = (
       props: {
         id: v4(),
       },
-      childrenContainerElement,
       rootElement,
       store,
     })

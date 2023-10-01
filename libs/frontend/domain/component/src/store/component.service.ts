@@ -26,6 +26,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import {
   IComponentDTO,
   IElementRenderTypeKind,
@@ -115,10 +116,12 @@ export class ComponentService
       name: InterfaceType.createName(name),
     })
 
-    const componentProps = this.propService.add({
+    const componentProps: IPropDTO = {
       data: '{}',
       id: v4(),
-    })
+    }
+
+    this.propService.add(componentProps)
 
     /**
      * create rootElement in case it doesn't already exist

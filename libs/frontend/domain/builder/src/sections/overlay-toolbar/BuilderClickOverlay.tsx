@@ -78,6 +78,7 @@ export const BuilderClickOverlay = observer<{
 
   const { closestParentElement, customCss, guiCss, nextSibling } =
     selectedNode.current
+
   const breakpoint = builderService.selectedBuilderBreakpoint
   const props = selectedNode.current.props.current.values
   const parentId = closestParentElement?.id

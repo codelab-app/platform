@@ -121,7 +121,7 @@ export class Component
       id: this.id,
       keyGenerator: this.keyGenerator,
       name: this.name,
-      props: this.props,
+      props: this.props.current.toJson,
       rootElement: this.rootElement,
       store: this.store,
     }
