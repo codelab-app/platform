@@ -1,13 +1,26 @@
-import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import {
+  hideField,
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
-  Omit<ICreateElementData, 'closestContainerNode' | 'page' | 'parentComponent'>
+  Omit<
+    IElementDTO,
+    | 'childMapperComponent'
+    | 'childMapperPreviousSibling'
+    | 'childMapperPropKey'
+    | 'closestContainerNode'
+    | 'firstChild'
+    | 'nextSibling'
+    | 'page'
+    | 'parentComponent'
+    | 'renderForEachPropKey'
+    | 'renderIfExpression'
+  >
 > = {
   properties: {
     ...idSchema(),
@@ -61,15 +74,25 @@ export const createElementSchema: JSONSchemaType<
     },
     props: {
       label: '',
-      nullable: true,
       properties: {
+        ...idSchema(),
+        api: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+            },
+          },
+          required: ['id'],
+          nullable: true,
+        },
         data: {
           label: 'Props Data',
-          nullable: true,
           type: 'string',
         },
       },
       type: 'object',
+      required: ['id'],
     },
     renderType: {
       oneOf: [

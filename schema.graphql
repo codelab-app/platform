@@ -2456,6 +2456,22 @@ type Atom implements WithOwner {
     sort: [AtomApiConnectionSort!]
     where: AtomApiConnectionWhere
   ): AtomApiConnection!
+  elements(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): [Element!]!
+  elementsAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): AtomElementElementsAggregationSelection
+  elementsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AtomElementsConnectionSort!]
+    where: AtomElementsConnectionWhere
+  ): AtomElementsConnection!
   externalCssSource: String
   externalJsSource: String
   externalSourceType: String
@@ -2658,6 +2674,7 @@ type AtomAtomSuggestedChildrenNodeAggregateSelection {
 
 input AtomConnectInput {
   api: AtomApiConnectFieldInput
+  elements: [AtomElementsConnectFieldInput!]
   owner: WithOwnerOwnerConnectFieldInput
   requiredParents: [AtomRequiredParentsConnectFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenConnectFieldInput!]
@@ -2665,6 +2682,7 @@ input AtomConnectInput {
 }
 
 input AtomConnectOrCreateInput {
+  elements: [AtomElementsConnectOrCreateFieldInput!]
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   requiredParents: [AtomRequiredParentsConnectOrCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
@@ -2681,6 +2699,7 @@ input AtomConnectWhere {
 
 input AtomCreateInput {
   api: AtomApiFieldInput
+  elements: AtomElementsFieldInput
   externalCssSource: String
   externalJsSource: String
   externalSourceType: String
@@ -2696,6 +2715,7 @@ input AtomCreateInput {
 
 input AtomDeleteInput {
   api: AtomApiDeleteFieldInput
+  elements: [AtomElementsDeleteFieldInput!]
   owner: WithOwnerOwnerDeleteFieldInput
   requiredParents: [AtomRequiredParentsDeleteFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenDeleteFieldInput!]
@@ -2704,6 +2724,7 @@ input AtomDeleteInput {
 
 input AtomDisconnectInput {
   api: AtomApiDisconnectFieldInput
+  elements: [AtomElementsDisconnectFieldInput!]
   owner: WithOwnerOwnerDisconnectFieldInput
   requiredParents: [AtomRequiredParentsDisconnectFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenDisconnectFieldInput!]
@@ -2713,6 +2734,188 @@ input AtomDisconnectInput {
 type AtomEdge {
   cursor: String!
   node: Atom!
+}
+
+type AtomElementElementsAggregationSelection {
+  count: Int!
+  node: AtomElementElementsNodeAggregateSelection
+}
+
+type AtomElementElementsNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
+}
+
+input AtomElementsAggregateInput {
+  AND: [AtomElementsAggregateInput!]
+  NOT: AtomElementsAggregateInput
+  OR: [AtomElementsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AtomElementsNodeAggregationWhereInput
+}
+
+input AtomElementsConnectFieldInput {
+  connect: [ElementConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input AtomElementsConnectOrCreateFieldInput {
+  onCreate: AtomElementsConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input AtomElementsConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type AtomElementsConnection {
+  edges: [AtomElementsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AtomElementsConnectionSort {
+  node: ElementSort
+}
+
+input AtomElementsConnectionWhere {
+  AND: [AtomElementsConnectionWhere!]
+  NOT: AtomElementsConnectionWhere
+  OR: [AtomElementsConnectionWhere!]
+  node: ElementWhere
+}
+
+input AtomElementsCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input AtomElementsDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: AtomElementsConnectionWhere
+}
+
+input AtomElementsDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: AtomElementsConnectionWhere
+}
+
+input AtomElementsFieldInput {
+  connect: [AtomElementsConnectFieldInput!]
+  connectOrCreate: [AtomElementsConnectOrCreateFieldInput!]
+  create: [AtomElementsCreateFieldInput!]
+}
+
+input AtomElementsNodeAggregationWhereInput {
+  AND: [AtomElementsNodeAggregationWhereInput!]
+  NOT: AtomElementsNodeAggregationWhereInput
+  OR: [AtomElementsNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
+}
+
+type AtomElementsRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input AtomElementsUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input AtomElementsUpdateFieldInput {
+  connect: [AtomElementsConnectFieldInput!]
+  connectOrCreate: [AtomElementsConnectOrCreateFieldInput!]
+  create: [AtomElementsCreateFieldInput!]
+  delete: [AtomElementsDeleteFieldInput!]
+  disconnect: [AtomElementsDisconnectFieldInput!]
+  update: AtomElementsUpdateConnectionInput
+  where: AtomElementsConnectionWhere
 }
 
 type AtomInterfaceTypeApiAggregationSelection {
@@ -2810,6 +3013,7 @@ input AtomOwnerNodeAggregationWhereInput {
 
 input AtomRelationInput {
   api: AtomApiCreateFieldInput
+  elements: [AtomElementsCreateFieldInput!]
   owner: WithOwnerOwnerCreateFieldInput
   requiredParents: [AtomRequiredParentsCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenCreateFieldInput!]
@@ -3672,6 +3876,7 @@ input AtomUniqueWhere {
 
 input AtomUpdateInput {
   api: AtomApiUpdateFieldInput
+  elements: [AtomElementsUpdateFieldInput!]
   externalCssSource: String
   externalJsSource: String
   externalSourceType: String
@@ -3706,6 +3911,47 @@ input AtomWhere {
   apiConnection: AtomApiConnectionWhere
   apiConnection_NOT: AtomApiConnectionWhere
   api_NOT: InterfaceTypeWhere
+  elementsAggregate: AtomElementsAggregateInput
+
+  """
+  Return Atoms where all of the related AtomElementsConnections match this filter
+  """
+  elementsConnection_ALL: AtomElementsConnectionWhere
+
+  """
+  Return Atoms where none of the related AtomElementsConnections match this filter
+  """
+  elementsConnection_NONE: AtomElementsConnectionWhere
+
+  """
+  Return Atoms where one of the related AtomElementsConnections match this filter
+  """
+  elementsConnection_SINGLE: AtomElementsConnectionWhere
+
+  """
+  Return Atoms where some of the related AtomElementsConnections match this filter
+  """
+  elementsConnection_SOME: AtomElementsConnectionWhere
+
+  """
+  Return Atoms where all of the related Elements match this filter
+  """
+  elements_ALL: ElementWhere
+
+  """
+  Return Atoms where none of the related Elements match this filter
+  """
+  elements_NONE: ElementWhere
+
+  """
+  Return Atoms where one of the related Elements match this filter
+  """
+  elements_SINGLE: ElementWhere
+
+  """
+  Return Atoms where some of the related Elements match this filter
+  """
+  elements_SOME: ElementWhere
   externalCssSource: String
   externalCssSource_CONTAINS: String
   externalCssSource_ENDS_WITH: String

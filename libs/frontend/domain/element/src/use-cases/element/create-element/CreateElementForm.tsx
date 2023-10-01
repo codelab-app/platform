@@ -1,7 +1,4 @@
-import type {
-  ICreateElementData,
-  ICreateElementSchema,
-} from '@codelab/frontend/abstract/core'
+import type {} from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import {
@@ -15,6 +12,7 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type {
   Maybe,
   UniformSelectFieldProps,
@@ -52,7 +50,7 @@ export const CreateElementForm = observer(
       return null
     }
 
-    const onSubmit = async (data: ICreateElementData) => {
+    const onSubmit = async (data: IElementDTO) => {
       const { prevSibling } = data
 
       const isValidParent = validateParentForCreate(
@@ -82,9 +80,10 @@ export const CreateElementForm = observer(
       parentElement: {
         id: parentElement.id,
       },
+      // TODO: Couldn't we only validate when field is changed or submitted?
       // Needs to be null initially so that required sub-fields
       // are not validated when nothing is selected yet
-      renderType: null,
+      // renderType: null,
     }
 
     const parentAtom = isAtomInstance(parentElement.renderType)
@@ -92,7 +91,7 @@ export const CreateElementForm = observer(
       : undefined
 
     return (
-      <Form<ICreateElementSchema>
+      <Form<IElementDTO>
         data-testid="create-element-form"
         model={model}
         onSubmit={onSubmit}

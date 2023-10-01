@@ -22,7 +22,11 @@ import {
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  IPageDTO,
+  IPropDTO,
+} from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   IPageKind,
@@ -74,10 +78,12 @@ export class PageService
     this: PageService,
     { app, id, name, url }: ICreatePageData,
   ) {
-    const rootElementProps = this.propService.add({
+    const rootElementProps: IPropDTO = {
       data: '{}',
       id: v4(),
-    })
+    }
+
+    this.propService.add(rootElementProps)
 
     const rootElement = this.elementService.add({
       closestContainerNode: {

@@ -54,6 +54,15 @@ export class Prop
   }
 
   @computed
+  get toJson() {
+    return {
+      apI: this.api?.current,
+      data: JSON.stringify(this.data.data),
+      id: this.id,
+    }
+  }
+
+  @computed
   get values() {
     if (this.api?.maybeCurrent) {
       const apiPropsMap = this.api.current.fields

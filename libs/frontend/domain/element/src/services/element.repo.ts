@@ -30,6 +30,8 @@ export class ElementRepository extends Model({}) implements IElementRepository {
     this: ElementRepository,
     elements: Array<IElementModel>,
   ) {
+    console.debug('ElementRepository.delete()', elements)
+
     const {
       deleteElements: { nodesDeleted },
     } = yield* _await(
@@ -83,6 +85,8 @@ export class ElementRepository extends Model({}) implements IElementRepository {
     this: ElementRepository,
     element: IElementModel,
   ) {
+    console.log(element.toJson)
+
     const {
       updateElements: { elements },
     } = yield* _await(
