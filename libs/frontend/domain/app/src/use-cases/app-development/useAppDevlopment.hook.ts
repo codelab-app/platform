@@ -114,6 +114,8 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         renderer,
       }
     } catch (error) {
+      console.log(error)
+
       return await router.push({ pathname: PageType.AppList, query: {} })
     }
   })

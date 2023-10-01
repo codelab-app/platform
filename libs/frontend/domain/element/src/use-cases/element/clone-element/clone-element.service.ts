@@ -16,7 +16,7 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getFieldService } from '@codelab/frontend/domain/type'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -78,13 +78,13 @@ export class CloneElementService
     element: IElementModel,
     owner: IElementDTO,
   ) {
-    if (!element.closestParent) {
+    if (!element.closestParentElement) {
       throw new Error("Can't convert root element")
     }
 
     const {
       closestContainerNode,
-      closestParent: parentElement,
+      closestParentElement: parentElement,
       name,
       prevSibling,
     } = element
@@ -129,11 +129,17 @@ export class CloneElementService
       id: componentId,
     }
 
+    const props: IPropDTO = {
+      data: '{}',
+      id: v4(),
+    }
+
     const instanceElement = {
       closestContainerNode,
       id: v4(),
       name,
       parentElement,
+      props,
       renderType,
     }
 
@@ -245,10 +251,12 @@ export class CloneElementService
       true,
     )
 
-    const props = this.propService.add({
+    const propsDto: IPropDTO = {
       data: element.props.current.jsonString,
       id: v4(),
-    })
+    }
+
+    this.propService.add(propsDto)
 
     const cloneElementDto: IElementDTO = {
       childMapperComponent: element.childMapperComponent
@@ -265,7 +273,7 @@ export class CloneElementService
       parentComponent: element.parentComponent
         ? { id: element.parentComponent.id }
         : null,
-      props,
+      props: propsDto,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
       renderType: element.renderType.current.toJson,

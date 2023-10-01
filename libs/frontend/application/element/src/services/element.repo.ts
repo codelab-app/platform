@@ -83,6 +83,8 @@ export class ElementRepository extends Model({}) implements IElementRepository {
     this: ElementRepository,
     element: IElementModel,
   ) {
+    console.log(element.toJson)
+
     const {
       updateElements: { elements },
     } = yield* _await(

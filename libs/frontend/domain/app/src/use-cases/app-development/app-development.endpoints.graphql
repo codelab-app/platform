@@ -3,6 +3,7 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   apps(where: { compositeKey: $appCompositeKey }) {
     ...AppDevelopment
   }
+  # Need to load all dependent types
   atoms(where: { type: ReactFragment }) {
     ...AtomDevelopment
   }
