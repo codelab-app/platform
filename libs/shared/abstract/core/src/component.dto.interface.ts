@@ -3,6 +3,7 @@ import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeKind } from './element-render-type'
+import { IPropDTO } from './prop.dto.interface'
 
 export const IComponentDTO = Type.Object({
   api: IEntity,
@@ -10,7 +11,7 @@ export const IComponentDTO = Type.Object({
   id: Type.String(),
   keyGenerator: Typebox.Nullish(Type.String()),
   name: Type.String(),
-  props: IEntity,
+  props: IPropDTO,
   rootElement: IEntity,
   store: IEntity,
 })
