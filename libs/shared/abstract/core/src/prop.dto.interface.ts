@@ -5,7 +5,7 @@ import { Type } from '@sinclair/typebox'
 
 export const IPropDTO = Type.Object({
   api: Typebox.Nullish(IEntity),
-  data: Type.Optional(Type.String()),
+  data: Type.String(),
   id: Type.String(),
 })
 

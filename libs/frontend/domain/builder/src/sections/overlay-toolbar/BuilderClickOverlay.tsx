@@ -76,10 +76,11 @@ export const BuilderClickOverlay = observer<{
     </StyledOverlayContainer>
   )
 
-  const { closestParent, customCss, guiCss, nextSibling } = selectedNode.current
+  const { closestParentElement, customCss, guiCss, nextSibling } =
+    selectedNode.current
   const breakpoint = builderService.selectedBuilderBreakpoint
   const props = selectedNode.current.props.current.values
-  const parentId = closestParent?.id
+  const parentId = closestParentElement?.id
   const nextSiblingId = nextSibling?.id
 
   const dependencies = [

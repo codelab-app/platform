@@ -94,7 +94,8 @@ export interface IElementModel
   children: Array<IElementModel>
   // the closest container node that element belongs to
   closestContainerNode: IComponentModel | IPageModel
-  closestParent: IElementModel | null
+  // closestPage: Nullable<Ref<IPageModel>>
+  closestParentElement: Ref<IElementModel> | null
   // the closest rootElement of node (page/component) that element belongs to
   closestRootElement: IElementModel
   customCss?: Nullable<string>
@@ -111,8 +112,8 @@ export interface IElementModel
   label: string
   nextSibling?: Nullable<Ref<IElementModel>>
   owner: Nullable<IEntity>
-  // page that this element belongs to
   page: Nullable<Ref<IPageModel>>
+  // page that this element belongs to
   // component that this element belongs to
   parentComponent?: Nullable<Ref<IComponentModel>>
   parentElement?: Nullable<Ref<IElementModel>>
@@ -180,7 +181,6 @@ export interface IElementModel
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void
-  setPage(page: Ref<IPageModel>): void
   setParentComponent(component: Ref<IComponentModel>): void
   setParentElement(parent: Ref<IElementModel>): void
   setPrevSibling(prevSibling: Ref<IElementModel>): void

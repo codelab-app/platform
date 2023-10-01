@@ -1,5 +1,6 @@
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { atomReactFragmentDto } from './atom.data'
 
 export const elementDto: IElementDTO = {
   closestContainerNode: {
@@ -12,6 +13,6 @@ export const elementDto: IElementDTO = {
   },
   renderType: {
     __typename: 'Atom',
-    id: v4(),
+    id: atomReactFragmentDto.id,
   },
 }

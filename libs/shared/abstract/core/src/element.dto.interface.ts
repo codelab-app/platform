@@ -5,6 +5,7 @@ import { Type } from '@sinclair/typebox'
 import { IAtomDTO } from './atom.dto.interface'
 import { IComponentDTO } from './component.dto.interface'
 import { IElementRenderTypeDto } from './element-render-type'
+import { IPropDTO } from './prop.dto.interface'
 
 export const IElementDTO = Type.Object({
   childMapperComponent: Typebox.Nullish(IEntity),
@@ -24,7 +25,9 @@ export const IElementDTO = Type.Object({
   postRenderAction: Typebox.Nullish(IEntity),
   preRenderAction: Typebox.Nullish(IEntity),
   prevSibling: Typebox.Nullish(IEntity),
-  props: IEntity,
+  // Treat element as aggregate, so we include prop data here
+  props: IPropDTO,
+  // props: IEntity,
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
   renderType: IElementRenderTypeDto,
@@ -38,7 +41,7 @@ export const IElementSerialized = IElementDTO
 // export const IElementSerialized = Typebox.Overwrite(
 //   IElementDTO,
 //   Type.Object({
-//     renderType: Type.Union([IAtomDTO, IComponentDTO]),
+//     props: Type.Union([IAtomDTO, IComponentDTO]),
 //   }),
 // )
 

@@ -23,6 +23,8 @@ export const atomSchema = gql`
       @relationship(type: "REQUIRED_PARRENTS", direction: OUT)
     suggestedChildren: [Atom!]!
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
+    elements: [Element!]!
+      @relationship(type: "ELEMENT_RENDER_TYPE", direction: IN)
   }
 
   # extend type Atom

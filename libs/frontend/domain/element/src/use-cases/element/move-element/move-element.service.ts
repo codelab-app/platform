@@ -1,6 +1,5 @@
 import type {
   IComponentModel,
-  ICreateElementData,
   IElementModel,
   IMoveElementService,
 } from '@codelab/frontend/abstract/core'
@@ -11,6 +10,7 @@ import {
   IMoveNextSiblingProps,
 } from '@codelab/frontend/abstract/core'
 import { Component } from '@codelab/frontend/domain/component'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
@@ -75,13 +75,17 @@ export class MoveElementService
     const name = `${component.name}${componentInstanceCounter}`
     const parentElement = { id: targetElement.id }
 
-    const data: ICreateElementData = {
+    const data: IElementDTO = {
       closestContainerNode: {
         id: component.id,
       },
       id: v4(),
       name,
       parentElement,
+      props: {
+        data: '{}',
+        id: v4(),
+      },
       renderType: {
         __typename: IElementRenderTypeKind.Component,
         id: component.id,
@@ -295,6 +299,11 @@ export class MoveElementService
    */
   @modelAction
   detachElementFromElementTree(this: MoveElementService, elementId: string) {
+    console.debug(
+      'MoveElementService.detachElementFragmentFromElementTree()',
+      elementId,
+    )
+
     const element = this.elementService.element(elementId)
 
     const affectedNodeIds = [

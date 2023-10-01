@@ -2556,6 +2556,9 @@ export type Atom = WithOwner & {
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
   apiConnection: AtomApiConnection
+  elements: Array<Element>
+  elementsAggregate?: Maybe<AtomElementElementsAggregationSelection>
+  elementsConnection: AtomElementsConnection
   externalCssSource?: Maybe<Scalars['String']['output']>
   externalJsSource?: Maybe<Scalars['String']['output']>
   externalSourceType?: Maybe<Scalars['String']['output']>
@@ -2594,6 +2597,25 @@ export type AtomApiConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
   where?: InputMaybe<AtomApiConnectionWhere>
+}
+
+export type AtomElementsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+}
+
+export type AtomElementsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<ElementWhere>
+}
+
+export type AtomElementsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<AtomElementsConnectionSort>>
+  where?: InputMaybe<AtomElementsConnectionWhere>
 }
 
 export type AtomOwnerArgs = {
@@ -2813,6 +2835,7 @@ export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
 
 export type AtomConnectInput = {
   api?: InputMaybe<AtomApiConnectFieldInput>
+  elements?: InputMaybe<Array<AtomElementsConnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   requiredParents?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
@@ -2820,6 +2843,7 @@ export type AtomConnectInput = {
 }
 
 export type AtomConnectOrCreateInput = {
+  elements?: InputMaybe<Array<AtomElementsConnectOrCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   requiredParents?: InputMaybe<
     Array<AtomRequiredParentsConnectOrCreateFieldInput>
@@ -2840,6 +2864,7 @@ export type AtomConnectWhere = {
 
 export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
+  elements?: InputMaybe<AtomElementsFieldInput>
   externalCssSource?: InputMaybe<Scalars['String']['input']>
   externalJsSource?: InputMaybe<Scalars['String']['input']>
   externalSourceType?: InputMaybe<Scalars['String']['input']>
@@ -2855,6 +2880,7 @@ export type AtomCreateInput = {
 
 export type AtomDeleteInput = {
   api?: InputMaybe<AtomApiDeleteFieldInput>
+  elements?: InputMaybe<Array<AtomElementsDeleteFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   requiredParents?: InputMaybe<Array<AtomRequiredParentsDeleteFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
@@ -2863,6 +2889,7 @@ export type AtomDeleteInput = {
 
 export type AtomDisconnectInput = {
   api?: InputMaybe<AtomApiDisconnectFieldInput>
+  elements?: InputMaybe<Array<AtomElementsDisconnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   requiredParents?: InputMaybe<Array<AtomRequiredParentsDisconnectFieldInput>>
   suggestedChildren?: InputMaybe<
@@ -2875,6 +2902,203 @@ export type AtomEdge = {
   __typename?: 'AtomEdge'
   cursor: Scalars['String']['output']
   node: Atom
+}
+
+export type AtomElementElementsAggregationSelection = {
+  __typename?: 'AtomElementElementsAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<AtomElementElementsNodeAggregateSelection>
+}
+
+export type AtomElementElementsNodeAggregateSelection = {
+  __typename?: 'AtomElementElementsNodeAggregateSelection'
+  childMapperPropKey: StringAggregateSelectionNullable
+  compositeKey: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  renderForEachPropKey: StringAggregateSelectionNullable
+  renderIfExpression: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
+}
+
+export type AtomElementsAggregateInput = {
+  AND?: InputMaybe<Array<AtomElementsAggregateInput>>
+  NOT?: InputMaybe<AtomElementsAggregateInput>
+  OR?: InputMaybe<Array<AtomElementsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<AtomElementsNodeAggregationWhereInput>
+}
+
+export type AtomElementsConnectFieldInput = {
+  connect?: InputMaybe<Array<ElementConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<ElementConnectWhere>
+}
+
+export type AtomElementsConnectOrCreateFieldInput = {
+  onCreate: AtomElementsConnectOrCreateFieldInputOnCreate
+  where: ElementConnectOrCreateWhere
+}
+
+export type AtomElementsConnectOrCreateFieldInputOnCreate = {
+  node: ElementOnCreateInput
+}
+
+export type AtomElementsConnection = {
+  __typename?: 'AtomElementsConnection'
+  edges: Array<AtomElementsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type AtomElementsConnectionSort = {
+  node?: InputMaybe<ElementSort>
+}
+
+export type AtomElementsConnectionWhere = {
+  AND?: InputMaybe<Array<AtomElementsConnectionWhere>>
+  NOT?: InputMaybe<AtomElementsConnectionWhere>
+  OR?: InputMaybe<Array<AtomElementsConnectionWhere>>
+  node?: InputMaybe<ElementWhere>
+}
+
+export type AtomElementsCreateFieldInput = {
+  node: ElementCreateInput
+}
+
+export type AtomElementsDeleteFieldInput = {
+  delete?: InputMaybe<ElementDeleteInput>
+  where?: InputMaybe<AtomElementsConnectionWhere>
+}
+
+export type AtomElementsDisconnectFieldInput = {
+  disconnect?: InputMaybe<ElementDisconnectInput>
+  where?: InputMaybe<AtomElementsConnectionWhere>
+}
+
+export type AtomElementsFieldInput = {
+  connect?: InputMaybe<Array<AtomElementsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AtomElementsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AtomElementsCreateFieldInput>>
+}
+
+export type AtomElementsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomElementsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AtomElementsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AtomElementsNodeAggregationWhereInput>>
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  childMapperPropKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  childMapperPropKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  childMapperPropKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  childMapperPropKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  childMapperPropKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  renderForEachPropKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  renderForEachPropKey_AVERAGE_LENGTH_GTE?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  renderForEachPropKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  renderForEachPropKey_AVERAGE_LENGTH_LTE?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Int']['input']
+  >
+  renderForEachPropKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Int']['input']
+  >
+  renderForEachPropKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  renderForEachPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  renderIfExpression_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  renderIfExpression_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  renderIfExpression_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  renderIfExpression_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  renderIfExpression_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  renderIfExpression_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AtomElementsRelationship = {
+  __typename?: 'AtomElementsRelationship'
+  cursor: Scalars['String']['output']
+  node: Element
+}
+
+export type AtomElementsUpdateConnectionInput = {
+  node?: InputMaybe<ElementUpdateInput>
+}
+
+export type AtomElementsUpdateFieldInput = {
+  connect?: InputMaybe<Array<AtomElementsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<Array<AtomElementsConnectOrCreateFieldInput>>
+  create?: InputMaybe<Array<AtomElementsCreateFieldInput>>
+  delete?: InputMaybe<Array<AtomElementsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<AtomElementsDisconnectFieldInput>>
+  update?: InputMaybe<AtomElementsUpdateConnectionInput>
+  where?: InputMaybe<AtomElementsConnectionWhere>
 }
 
 export type AtomInterfaceTypeApiAggregationSelection = {
@@ -2971,6 +3195,7 @@ export type AtomOwnerNodeAggregationWhereInput = {
 
 export type AtomRelationInput = {
   api?: InputMaybe<AtomApiCreateFieldInput>
+  elements?: InputMaybe<Array<AtomElementsCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   requiredParents?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
@@ -3842,6 +4067,7 @@ export type AtomUniqueWhere = {
 
 export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
+  elements?: InputMaybe<Array<AtomElementsUpdateFieldInput>>
   externalCssSource?: InputMaybe<Scalars['String']['input']>
   externalJsSource?: InputMaybe<Scalars['String']['input']>
   externalSourceType?: InputMaybe<Scalars['String']['input']>
@@ -3878,6 +4104,23 @@ export type AtomWhere = {
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
+  elementsAggregate?: InputMaybe<AtomElementsAggregateInput>
+  /** Return Atoms where all of the related AtomElementsConnections match this filter */
+  elementsConnection_ALL?: InputMaybe<AtomElementsConnectionWhere>
+  /** Return Atoms where none of the related AtomElementsConnections match this filter */
+  elementsConnection_NONE?: InputMaybe<AtomElementsConnectionWhere>
+  /** Return Atoms where one of the related AtomElementsConnections match this filter */
+  elementsConnection_SINGLE?: InputMaybe<AtomElementsConnectionWhere>
+  /** Return Atoms where some of the related AtomElementsConnections match this filter */
+  elementsConnection_SOME?: InputMaybe<AtomElementsConnectionWhere>
+  /** Return Atoms where all of the related Elements match this filter */
+  elements_ALL?: InputMaybe<ElementWhere>
+  /** Return Atoms where none of the related Elements match this filter */
+  elements_NONE?: InputMaybe<ElementWhere>
+  /** Return Atoms where one of the related Elements match this filter */
+  elements_SINGLE?: InputMaybe<ElementWhere>
+  /** Return Atoms where some of the related Elements match this filter */
+  elements_SOME?: InputMaybe<ElementWhere>
   externalCssSource?: InputMaybe<Scalars['String']['input']>
   externalCssSource_CONTAINS?: InputMaybe<Scalars['String']['input']>
   externalCssSource_ENDS_WITH?: InputMaybe<Scalars['String']['input']>

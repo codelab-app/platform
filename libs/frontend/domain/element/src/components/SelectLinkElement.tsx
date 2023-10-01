@@ -1,6 +1,6 @@
-import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import type { SelectElementProps } from '@codelab/frontend/domain/type'
 import { SelectChildElement } from '@codelab/frontend/domain/type'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
 import type { SelectFieldProps } from 'uniforms-antd'
@@ -23,7 +23,7 @@ export const SelectLinkElement = observer(
     required,
     targetElementId,
   }: SelectLinkElementProps) => {
-    const form = useForm<ICreateElementData>()
+    const form = useForm<IElementDTO>()
     const parentElementId = targetElementId ?? form.model.parentElement?.id
 
     if (!parentElementId) {

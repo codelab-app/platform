@@ -12,10 +12,7 @@ import type {
   IEntityModalService,
 } from '../../service'
 import type { ComponentDevelopmentFragment } from '../component/component-development.fragment.graphql.gen'
-import type {
-  ICreateElementData,
-  IUpdateElementData,
-} from './element.dto.interface'
+import type { IUpdateElementData } from './element.dto.interface'
 import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
@@ -48,7 +45,7 @@ export interface UpdateElementProperties {
 
 export interface IElementService
   extends Omit<
-      ICRUDService<IElementModel, ICreateElementData, IUpdateElementData>,
+      ICRUDService<IElementModel, IElementDTO, IUpdateElementData>,
       'delete'
     >,
     Omit<

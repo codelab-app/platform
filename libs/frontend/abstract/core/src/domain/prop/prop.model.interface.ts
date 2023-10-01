@@ -17,6 +17,7 @@ export interface IPropModel
   data: Frozen<Nullable<IPropData>>
   id: string
   jsonString: string
+  toJson: IPropDTO
   values: IPropData
 
   clone(): IPropModel

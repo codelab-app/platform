@@ -1,5 +1,4 @@
 import type {
-  ICreateElementData,
   IElementModel,
   IElementRenderTypeModel,
   IElementService,
@@ -35,6 +34,7 @@ import { CloneElementService } from '../use-cases/element/clone-element/clone-el
 import { CreateElementService } from '../use-cases/element/create-element/create-element.service'
 import { MoveElementService } from '../use-cases/element/move-element/move-element.service'
 import { ElementRepository } from './element.repo'
+import { elementValidate } from './element.validate'
 import {
   CreateElementFormService,
   UpdateElementFormService,
@@ -82,20 +82,20 @@ export class ElementService
   @transaction
   create = _async(function* (
     this: ElementService,
-    createElementData: ICreateElementData,
+    createElementData: IElementDTO,
   ) {
     // TODO: Remove this
     yield* _await(this.loadRenderType(createElementData.renderType))
 
     const props = {
-      data: createElementData.props?.data ?? '{}',
+      data: createElementData.props.data,
       // makeDefaultProps(renderType.current.api.current),
-      id: v4(),
+      id: createElementData.props.id,
     }
 
     this.propService.add(props)
 
-    const element = this.add({ ...createElementData, props })
+    const element = this.add(createElementData)
 
     yield* _await(this.elementRepository.add(element))
 
@@ -108,7 +108,7 @@ export class ElementService
   @modelFlow
   @transaction
   delete = _async(function* (this: ElementService, subRoot: IElementModel) {
-    console.debug('deleteElementSubgraph', subRoot)
+    console.debug('ElementService.delete', subRoot)
 
     const subRootElement = this.element(subRoot.id)
     const parentComponent = subRootElement.parentComponent?.current
@@ -128,6 +128,8 @@ export class ElementService
       )
     }
 
+    console.log(subRootElement)
+
     const affectedNodeIds =
       this.moveElementService.detachElementFromElementTree(subRootElement.id)
 
@@ -140,6 +142,9 @@ export class ElementService
       this.removeClones(element.id)
       this.elements.delete(element.id)
     })
+
+    const target = this.element(affectedNodeIds[0]!)
+    console.log(target.toJson)
 
     yield* _await(this.updateAffectedElements(affectedNodeIds))
     yield* _await(this.elementRepository.delete(allElementsToDelete))
@@ -210,6 +215,7 @@ export class ElementService
     this: ElementService,
     elementIds: Array<string>,
   ) {
+    console.debug('ElementService.updateAffectedElements()', elementIds)
     yield* _await(
       Promise.all(
         uniq(elementIds).map((id) =>
@@ -223,13 +229,9 @@ export class ElementService
   add = (elementDTO: IElementDTO): IElementModel => {
     console.debug('ElementService.add()', elementDTO)
 
-    let element = this.elements.get(elementDTO.id)
+    const element: IElementModel = Element.create(elementDTO)
 
-    if (element) {
-      element.writeCache(elementDTO)
-    } else {
-      element = Element.create(elementDTO)
-    }
+    elementValidate(element)
 
     this.elements.set(elementDTO.id, element)
 
