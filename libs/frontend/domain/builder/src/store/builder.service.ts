@@ -164,8 +164,6 @@ export class BuilderService
     }
 
     this.hoveredNode = elementRef(node)
-
-    // this.updateExpandedNodes()
   }
 
   @modelAction

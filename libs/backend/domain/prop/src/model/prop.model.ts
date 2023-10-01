@@ -4,7 +4,7 @@ import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 export class Prop implements IPropDTO {
   api?: Nullable<IEntity> | undefined
 
-  data?: string | undefined
+  data: string
 
   id: string
 
