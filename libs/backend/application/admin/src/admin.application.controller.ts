@@ -1,8 +1,12 @@
-import { AuthService } from '@codelab/backend/application/shared'
+import { ImportAtomCommand } from '@codelab/backend/application/atom'
+import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import { UserApplicationService } from '@codelab/backend/application/user'
 import { AdminRepository } from '@codelab/backend/domain/admin'
-import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
+import { ExportDto, IAtomType, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
+import { SeedCypressDataService } from './use-case'
 import { ExportAdminDataCommand } from './use-case/export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from './use-case/import/import-admin-data.command.service'
 
@@ -15,7 +19,9 @@ export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly adminRepository: AdminRepository,
-    private authService: AuthService,
+    private userService: UserApplicationService,
+    // private seedCypressDataService: SeedCypressDataService,
+    private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
   @Post('export')
@@ -72,5 +78,30 @@ export class AdminController {
     return {
       message: 'Admin data reset success',
     }
+  }
+
+  /**
+   * For dev we don't clear any data
+   */
+  @Post('setup-dev')
+  async setup() {
+    await this.userService.seedUserFromRequest()
+
+    const atoms = this.readAdminDataService.atoms.filter(
+      ({ atom }) => atom.type === IAtomType.ReactFragment,
+    )
+
+    for (const atom of atoms) {
+      await this.commandBus.execute<ImportAtomCommand>(
+        new ImportAtomCommand(atom),
+      )
+    }
+  }
+
+  @Post('setup-e2e')
+  async setupE2e() {
+    await this.adminRepository.resetDatabase()
+
+    await this.userService.seedUserFromRequest()
   }
 }

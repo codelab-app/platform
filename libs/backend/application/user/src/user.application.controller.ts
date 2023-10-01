@@ -15,7 +15,6 @@ export class UserApplicationController {
     private userRepository: UserRepository,
     private atomService: AtomApplicationService,
     private adminRepository: AdminRepository,
-    private userService: UserApplicationService,
   ) {}
 
   /**
@@ -43,24 +42,5 @@ export class UserApplicationController {
     )
 
     return user
-  }
-
-  /**
-   * For dev we don't clear any data
-   */
-  @Post('setup-dev')
-  async setup() {
-    await this.userService.seedUserFromRequest()
-
-    await this.atomService.seedReactFragment()
-  }
-
-  @Post('setup-e2e')
-  async setupE2e() {
-    await this.adminRepository.resetDatabase()
-
-    await this.userService.seedUserFromRequest()
-
-    await this.atomService.seedReactFragment()
   }
 }

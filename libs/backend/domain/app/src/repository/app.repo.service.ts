@@ -3,7 +3,7 @@ import type {
   AppOptions,
   AppWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import {
   appSelectionSet,
   OgmService,
@@ -31,7 +31,7 @@ export class AppRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }

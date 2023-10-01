@@ -3,7 +3,7 @@ import type {
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import {
   exportPrimitiveTypeSelectionSet,
   OgmService,
@@ -27,7 +27,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
-    protected authService: AuthService,
+    protected authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }

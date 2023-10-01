@@ -1,6 +1,8 @@
 import { type IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
+import type { IBaseDataPaths } from '@codelab/backend/application/shared'
+import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import {
@@ -10,8 +12,6 @@ import {
 } from '@codelab/backend/infra/adapter/otel'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-import type { IBaseDataPaths } from '../../services/migration-data.service'
-import { ReadAdminDataService } from './read-admin-data.service'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
   constructor(public baseDataPaths?: string) {}

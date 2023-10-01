@@ -2,6 +2,7 @@ import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { AuthModule } from '@codelab/backend/application/shared'
 import { AdminDomainModule } from '@codelab/backend/domain/admin'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
+import { AuthDomainModule } from '@codelab/backend/domain/shared'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Auth0Module } from '@codelab/backend/infra/adapter/auth0'
@@ -13,9 +14,10 @@ import { UserApplicationService } from './user.application.service'
 
 @Module({
   controllers: [UserApplicationController],
-  exports: [ExportUserDataHandler],
+  exports: [ExportUserDataHandler, UserApplicationService],
   imports: [
     UserDomainModule,
+    AuthDomainModule,
     TypeDomainModule,
     AtomDomainModule,
     AdminDomainModule,

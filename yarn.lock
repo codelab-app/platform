@@ -13309,13 +13309,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.17.5":
-  version: 18.18.0
-  resolution: "@types/node@npm:18.18.0"
-  checksum: 61bcffa28eb713e7a4c66fd369df603369c3f834a783faeced95fe3e78903faa25f1a704d49e054f41d71b7915eeb066d10a37cc699421fcf5dd267f96ad5808
-  languageName: node
-  linkType: hard
-
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
@@ -17468,7 +17461,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: 13.3.0
+    cypress: 13.0.0
     cypress-jest-adapter: ^0.1.1
     cypress-log-to-output: ^1.1.2
     cypress-multi-reporters: ^1.6.3
@@ -19002,13 +18995,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.3.0":
-  version: 13.3.0
-  resolution: "cypress@npm:13.3.0"
+"cypress@npm:13.0.0":
+  version: 13.0.0
+  resolution: "cypress@npm:13.0.0"
   dependencies:
     "@cypress/request": ^3.0.0
     "@cypress/xvfb": ^1.2.4
-    "@types/node": ^18.17.5
+    "@types/node": ^16.18.39
     "@types/sinonjs__fake-timers": 8.1.1
     "@types/sizzle": ^2.3.2
     arch: ^2.2.0
@@ -19051,7 +19044,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 6ad11bd6aabccfaf8be78afff0e854c9c8ccc935704c41efe4d8e9412ccfcb652f23791931c3aa26fc41068eeeb739a51563308670c9dada91cb272d08227caf
+  checksum: 223dddfd85dbde5e3a915e87b6cb176b99a9e5bcc24baa40cd5b9ca4a93315a95cf53c5c6ac3a6984f59be55ffc8b58b93a713c0ddcb63a5f4996229cce70329
   languageName: node
   linkType: hard
 

@@ -37,8 +37,8 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAtomType,
+  IElementRenderTypeKind,
   IPageKind,
-  IRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { objectMap, unregisterRootStore } from 'mobx-keystone'
@@ -76,16 +76,14 @@ export const setupTestForRenderer = (
   const data: TestServices = {} as TestServices
 
   beforeEach(async () => {
-    const owner = { auth0Id: v4() }
     const pageId = v4()
     const pageStoreId = v4()
     const compRootElementId = v4()
-    const emptyInterface = new InterfaceType({ name: 'Empty interface', owner })
+    const emptyInterface = new InterfaceType({ name: 'Empty interface' })
 
     const divAtom = new Atom({
       api: typeRef(emptyInterface),
       name: 'Html Div',
-      owner,
       tags: [],
       type: IAtomType.HtmlDiv,
     })
@@ -93,20 +91,17 @@ export const setupTestForRenderer = (
     const textAtom = new Atom({
       api: typeRef(emptyInterface),
       name: 'Text',
-      owner,
       tags: [],
       type: IAtomType.Text,
     })
 
     const integerType = new PrimitiveType({
       name: 'primitiveType',
-      owner,
       primitiveKind: PrimitiveTypeKind.Integer,
     })
 
     const stringType = new PrimitiveType({
       name: 'primitiveType',
-      owner,
       primitiveKind: PrimitiveTypeKind.String,
     })
 
@@ -130,12 +125,10 @@ export const setupTestForRenderer = (
 
     data.renderPropType = new RenderPropType({
       name: 'renderPropType',
-      owner,
     })
 
     data.reactNodeType = new ReactNodeType({
       name: 'reactNodeType',
-      owner,
     })
 
     data.rootStore = new TestRootStore({
@@ -183,13 +176,17 @@ export const setupTestForRenderer = (
           value: 'prop03Value',
         },
       }),
+      id: v4(),
     }
 
-    data.element = await data.rootStore.elementService.create({
+    data.element = await data.rootStore.elementService.add({
+      closestContainerNode: {
+        id: pageId,
+      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       props: elementToRenderProp,
-      renderType: { id: divAtom.id, kind: IRenderTypeKind.Atom },
+      renderType: { __typename: IElementRenderTypeKind.Atom, id: divAtom.id },
     })
 
     data.element.setPage(pageRef(pageId))
@@ -213,7 +210,7 @@ export const setupTestForRenderer = (
       page: pageRef(pageId),
     })
 
-    const componentRootElementProps = await data.rootStore.propService.create({
+    const componentRootElementProps = await data.rootStore.propService.add({
       data: JSON.stringify({
         componentProp: 'original',
         [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
@@ -222,14 +219,22 @@ export const setupTestForRenderer = (
       id: v4(),
     })
 
-    data.component = await data.rootStore.componentService.create({
+    data.component = await data.rootStore.componentService.add({
+      api: {
+        id: v4(),
+      },
       id: v4(),
       keyGenerator: `function run(props) {
         // props are of type component api
           return props.id
       }`,
       name: 'My Component',
-      owner,
+      props: {
+        id: v4(),
+      },
+      childrenContainerElement,
+      rootElement,
+      store,
     })
 
     data.component.api.current.writeCache({
@@ -243,21 +248,26 @@ export const setupTestForRenderer = (
     )
 
     data.componentInstance =
-      await data.rootStore.elementService.createElementAsFirstChild({
-        id: v4(),
-        name: '01',
-        parentElement: { id: data.element.id },
-        props: {
-          data: JSON.stringify({
-            componentProp: 'instance',
-            [data.componentField.key]: 'component instance prop',
-          }),
+      await data.rootStore.elementService.createElementService.createElementAsFirstChild(
+        {
+          closestContainerNode: {
+            id: data.component.id,
+          },
+          id: v4(),
+          name: '01',
+          parentElement: { id: data.element.id },
+          props: {
+            data: JSON.stringify({
+              componentProp: 'instance',
+              [data.componentField.key]: 'component instance prop',
+            }),
+          },
+          renderType: {
+            __typename: IElementRenderTypeKind.Component,
+            id: data.component.id,
+          },
         },
-        renderType: {
-          id: data.component.id,
-          kind: IRenderTypeKind.Component,
-        },
-      })
+      )
 
     const renderer = new Renderer({
       debugMode: false,

@@ -1,5 +1,5 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { AuthService, UseCase } from '@codelab/backend/application/shared'
+import { UseCase } from '@codelab/backend/application/shared'
 import {
   Field,
   FieldRepository,
@@ -27,7 +27,6 @@ export class ExtractAntDesignFieldsService extends UseCase<
     private fieldRepository: FieldRepository,
     private typeFactory: TypeFactory,
     private antTypeAdapterService: AntdTypeAdapterService,
-    private authService: AuthService,
   ) {
     super()
   }

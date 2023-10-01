@@ -5,14 +5,14 @@ import type {
 } from '@codelab/backend/abstract/core'
 import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { ComponentApplicationService } from '@codelab/backend/application/component'
+import type { IBaseDataPaths } from '@codelab/backend/application/shared'
+import { WriteAdminDataService } from '@codelab/backend/application/shared'
 import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import type { IBaseDataPaths } from '../../services/migration-data.service'
-import { WriteAdminDataService } from './write-admin-data.service'
 
 export class ExportAdminDataCommand implements IBaseDataPaths {
   constructor(public baseDataPaths?: string) {}

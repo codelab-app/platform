@@ -80,20 +80,22 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: ElementService, data: ICreateElementData) {
+  create = _async(function* (
+    this: ElementService,
+    createElementData: ICreateElementData,
+  ) {
     // TODO: Remove this
-    yield* _await(this.loadRenderType(data.renderType))
+    yield* _await(this.loadRenderType(createElementData.renderType))
 
-    const elementProps = this.propService.add({
-      data: data.props?.data,
-      // data.props?.data ?? makeDefaultProps(renderType.current.api.current),
+    const props = {
+      data: createElementData.props?.data ?? '{}',
+      // makeDefaultProps(renderType.current.api.current),
       id: v4(),
-    })
+    }
 
-    const element = this.add({
-      ...data,
-      props: elementProps,
-    })
+    this.propService.add(props)
+
+    const element = this.add({ ...createElementData, props })
 
     yield* _await(this.elementRepository.add(element))
 
@@ -134,7 +136,6 @@ export class ElementService
       ...subRootElement.descendantElements,
     ]
 
-    this.elements.delete(subRootElement.id)
     allElementsToDelete.reverse().forEach((element) => {
       this.removeClones(element.id)
       this.elements.delete(element.id)
