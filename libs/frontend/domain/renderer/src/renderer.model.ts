@@ -174,11 +174,10 @@ export class Renderer
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText) {
-          const readOnly =
-            this.rendererType === RendererType.Preview ||
-            this.rendererType === RendererType.Production
+          const readOnly = !element.isTextContentEditable
 
-          return readOnly
+          return this.rendererType === RendererType.Preview ||
+            this.rendererType === RendererType.Production
             ? createTextRenderer(injectedText)
             : createTextEditor(injectedText, element.id, readOnly)
         }

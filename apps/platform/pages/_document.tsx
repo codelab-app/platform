@@ -49,6 +49,18 @@ export default class MyDocument extends Document {
           {/*  data-emotion-css={this.props.ids.join(' ')} */}
           {/*  dangerouslySetInnerHTML={{ __html: this.props.css }} */}
           {/*/ > */}
+          <script
+            dangerouslySetInnerHTML={{
+              // eslint-disable-next-line @typescript-eslint/naming-convention
+              __html: `
+            window.addEventListener('error', event => {
+              if(event.filename.includes('editorjs')) {
+                event.stopImmediatePropagation()
+              }
+            })
+          `,
+            }}
+          ></script>
         </Head>
         <body>
           <Main />
