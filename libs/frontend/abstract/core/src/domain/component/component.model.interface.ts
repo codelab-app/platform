@@ -21,7 +21,7 @@ import type { IInterfaceType } from '../type'
 export interface IComponentModel
   extends ICacheService<IComponentDTO, IComponentModel>,
     IElementTree,
-    Omit<IComponentDTO, 'rootElement'> {
+    Omit<IComponentDTO, 'props' | 'rootElement'> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElementModel>
