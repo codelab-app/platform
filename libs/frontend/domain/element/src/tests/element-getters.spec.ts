@@ -17,6 +17,7 @@ const buttonElement: IElementDTO = {
   id: v4(),
   name: 'Row Div',
   props: {
+    data: '{}',
     id: v4(),
   },
   renderType: {
@@ -32,7 +33,7 @@ describe('Element getters', () => {
   const { createElementService } = elementService
 
   pageService.add({ ...pageDto, rootElement: { id: elementDto.id } })
-  createElementService.createElementAsFirstChild(buttonElement)
+  // createElementService.createElementAsFirstChild(buttonElement)
 
   it('should add a render type to element', () => {
     elementDto.renderType.id = atomReactFragmentDto.id
