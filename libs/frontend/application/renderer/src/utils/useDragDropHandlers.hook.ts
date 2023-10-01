@@ -26,7 +26,6 @@ export const useDragDropHandlers = (
       draggedElement = currentElement
 
       const target = event.target as HTMLElement
-
       // assign a specific class to the DOM element that is currently being dragged
       // so we can easily identify it later on
       target.classList.add('currently-dragged')

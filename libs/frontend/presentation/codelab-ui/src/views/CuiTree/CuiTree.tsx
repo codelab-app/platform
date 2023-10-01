@@ -154,7 +154,6 @@ export const CuiTree = observer(
               expandedKeys={cuiTreeStore.expandedKeys}
               onDragStart={(info) => {
                 const transparentDragImage = createTransparentDragImage()
-
                 info.event.dataTransfer.setDragImage(transparentDragImage, 5, 5)
               }}
               onExpand={handleExpand}

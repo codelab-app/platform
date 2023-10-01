@@ -6,6 +6,7 @@ import { IDropPosition } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
   IComponentModel,
+  IDragDropData,
   IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/domain'
