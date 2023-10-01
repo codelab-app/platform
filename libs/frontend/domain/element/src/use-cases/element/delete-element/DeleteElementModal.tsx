@@ -22,14 +22,14 @@ export const DeleteElementModal = observer(() => {
   const onSubmit = ({ element }: DeleteElementData) => {
     // Get parent before we delete the current element
     const newSelectedNode =
-      elementToDelete.prevSibling?.current ?? elementToDelete.closestParent
+      elementToDelete.prevSibling ?? elementToDelete.closestParentElement
 
     // Don't wait so we don't block the UI
     void elementService.delete(element)
 
+    // Need to create new ref since prev ref already has a parent
     newSelectedNode &&
-      // Need to create new ref since prev ref already has a parent
-      builderService.setSelectedNode(elementRef(newSelectedNode))
+      builderService.setSelectedNode(elementRef(newSelectedNode.current))
 
     return Promise.resolve()
   }

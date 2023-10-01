@@ -1,5 +1,5 @@
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import type { ICreateElementData } from '../element'
 
 export interface MoveData {
   parentElement: IEntity
@@ -7,7 +7,7 @@ export interface MoveData {
 }
 
 export interface BuilderDragData {
-  createElementInput?: ICreateElementData
+  createElementInput?: IElementDTO
   icon?: string
   name?: string
   type: BuilderDndType

@@ -77,11 +77,11 @@ export const ElementContextMenu = observer<
     }
 
     const onDuplicate = async () => {
-      if (!user?.sub || !element.closestParent) {
+      if (!user?.sub || !element.closestParentElement) {
         return
       }
 
-      return cloneElement(element, element.closestParent)
+      return cloneElement(element, element.closestParentElement.current)
     }
 
     const onConvert = async () => {

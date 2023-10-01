@@ -1,12 +1,12 @@
-import type { ICreateElementData } from '@codelab/frontend/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (
   { id }: IEntity,
   input: Omit<
-    ICreateElementData,
-    'closestContainerNode' | 'id' | 'name' | 'renderType'
+    IElementDTO,
+    'closestContainerNode' | 'id' | 'name' | 'props' | 'renderType'
   >,
 ) => {
   return useDroppable({

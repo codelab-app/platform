@@ -10,6 +10,7 @@ import {
   ModalService,
 } from '@codelab/frontend/domain/shared'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import { IResourceDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -53,13 +54,15 @@ export class ResourceService
     this: ResourceService,
     { config: configData, id, name, type }: ICreateResourceData,
   ) {
-    const config = this.propService.add({
+    const configProps: IPropDTO = {
       data: JSON.stringify(configData),
       id: v4(),
-    })
+    }
+
+    this.propService.add(configProps)
 
     const resource = this.add({
-      config,
+      config: configProps,
       id,
       name,
       type,

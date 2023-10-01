@@ -1,8 +1,6 @@
-import type {
-  ICreateElementData,
-  ICreateElementService,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateElementService } from '@codelab/frontend/abstract/core'
 import { getElementService } from '@codelab/frontend/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -22,7 +20,7 @@ export class CreateElementService
   @transaction
   createElementAsFirstChild = _async(function* (
     this: CreateElementService,
-    data: ICreateElementData,
+    data: IElementDTO,
   ) {
     console.debug('createElementAsFirstChild()', data)
 
@@ -37,6 +35,9 @@ export class CreateElementService
       parentElement: data.parentElement,
     })
 
+    /**
+     * Syncs all components to the current element tree
+     */
     const parentElementClone = [
       ...this.elementService.clonedElements.values(),
     ].find(({ sourceElement }) => sourceElement?.id === data.parentElement?.id)
@@ -59,7 +60,7 @@ export class CreateElementService
   @transaction
   createElementAsNextSibling = _async(function* (
     this: CreateElementService,
-    data: ICreateElementData,
+    data: IElementDTO,
   ) {
     console.debug('ElementService.createElementAsNextSibling()', data)
 

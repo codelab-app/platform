@@ -4,30 +4,28 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import type { Overwrite } from 'utility-types'
 
-export const ICreateElementData = Type.Composite([
-  Type.Pick(IElementDTO, [
-    'id',
-    'name',
-    'parentComponent',
-    'parentElement',
-    'postRenderAction',
-    'preRenderAction',
-    'prevSibling',
-    'renderType',
-    'style',
-    'closestContainerNode',
-  ]),
-  Type.Object({
-    props: Type.Optional(Type.Pick(IPropDTO, ['data'])),
-  }),
-])
+// export const ICreateElementData = Type.Composite([
+//   Type.Pick(IElementDTO, [
+//     'id',
+//     'name',
+//     'parentComponent',
+//     'parentElement',
+//     'postRenderAction',
+//     'preRenderAction',
+//     'prevSibling',
+//     'renderType',
+//     'style',
+//     'closestContainerNode',
+//     'props',
+//   ]),
+// ])
 
-export type ICreateElementData = Static<typeof ICreateElementData>
+// export type ICreateElementData = Static<typeof ICreateElementData>
 
-export type ICreateElementSchema = Overwrite<
-  ICreateElementData,
-  { renderType: IElementRenderTypeDto | null }
->
+// export type ICreateElementSchema = Overwrite<
+//   ICreateElementData,
+//   { renderType: IElementRenderTypeDto | null }
+// >
 
 export const IUpdateElementData = Type.Pick(IElementDTO, [
   'childMapperComponent',

@@ -13,6 +13,7 @@ import {
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeDto,
   IPageKind,
@@ -46,9 +47,12 @@ export class PageFactory extends Model({}) implements IPageFactory {
     appName: string,
     renderType: IElementRenderTypeDto,
   ) {
-    const rootElementProps = this.propService.add({
+    const rootElementProps: IPropDTO = {
+      data: '{}',
       id: v4(),
-    })
+    }
+
+    this.propService.add(rootElementProps)
 
     const { user } = this.userService
     const userName = user.username

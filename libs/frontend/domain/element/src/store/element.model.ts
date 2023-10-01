@@ -44,8 +44,8 @@ import {
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import { type IElementDTO, ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   disconnectNodeId,
@@ -86,10 +86,8 @@ const create = ({
   renderIfExpression,
   renderType,
   style,
-}: IElementDTO) => {
+}: IElementDTO): IElementModel => {
   return new Element({
-    _page: page ? pageRef(page.id) : null,
-    _parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     childMapperComponent: childMapperComponent
       ? componentRef(childMapperComponent.id)
       : null,
@@ -102,6 +100,8 @@ const create = ({
     isTextContentEditable: false,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
+    page: page ? pageRef(page.id) : null,
+    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     // parent of first child
     parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
     postRenderAction: postRenderAction?.id
@@ -123,10 +123,6 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // page which has this element as rootElement
-    _page: prop<Nullable<Ref<IPageModel>>>(null),
-    // component which has this element as rootElement
-    _parentComponent: prop<Nullable<Ref<IComponentModel>>>(null),
     childMapperComponent:
       prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
@@ -140,6 +136,10 @@ export class Element
     nextSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
     owner: prop<Nullable<IEntity>>(null),
+    // page which has this element as rootElement
+    page: prop<Nullable<Ref<IPageModel>>>(null),
+    // component which has this element as rootElement
+    parentComponent: prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     // Data used for tree initializing, before our Element model is ready
     parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     postRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
@@ -169,7 +169,7 @@ export class Element
 
   @computed
   get ancestorError() {
-    const parent = this.closestParent
+    const parent = this.closestParentElement?.current
 
     if (!parent) {
       return null
@@ -224,14 +224,18 @@ export class Element
   }
 
   @computed
-  get closestContainerNode(): IComponentModel | IPageModel {
-    const closestNode = this.page || this.parentComponent
+  get closestContainerNode() {
+    const { closestParentElement } = this
 
-    if (!closestNode) {
+    const closestContainerNode =
+      closestParentElement?.current.parentComponent?.current ||
+      closestParentElement?.current.page?.current
+
+    if (!closestContainerNode) {
       throw new Error('Element has no node attached to')
     }
 
-    return closestNode.current
+    return closestContainerNode
   }
 
   /**
@@ -248,11 +252,11 @@ export class Element
    * `nextSibling` has no `parent`, but has a `closestParent` of `parentA`
    */
   @computed
-  get closestParent(): IElementModel | null {
+  get closestParentElement() {
     const parent = this.parentElement
 
     if (parent) {
-      return parent.current
+      return parent
     }
 
     let traveledNode = this.prevSibling?.maybeCurrent
@@ -261,7 +265,7 @@ export class Element
       const currentParent = traveledNode.parentElement
 
       if (currentParent) {
-        return currentParent.current
+        return currentParent
       }
 
       /**
@@ -275,8 +279,8 @@ export class Element
 
   @computed
   get closestRootElement(): IElementModel {
-    return this.closestParent
-      ? this.closestParent.closestRootElement
+    return this.closestParentElement
+      ? this.closestParentElement.current.closestRootElement
       : (this as IElementModel)
   }
 
@@ -326,7 +330,7 @@ export class Element
    */
   @computed
   get isRoot() {
-    return !this.closestParent?.id
+    return !this.closestParentElement?.id
   }
 
   @computed
@@ -340,16 +344,6 @@ export class Element
       this.parentComponent?.maybeCurrent?.name ||
       ''
     )
-  }
-
-  @computed
-  get page(): Nullable<Ref<IPageModel>> {
-    return this.closestParent?.page ?? this._page
-  }
-
-  @computed
-  get parentComponent(): Nullable<Ref<IComponentModel>> {
-    return this.closestParent?.parentComponent ?? this._parentComponent
   }
 
   @computed
@@ -373,6 +367,8 @@ export class Element
 
   @computed
   get propsHaveErrors() {
+    console.log(this.toJson)
+
     const schema = schemaTransformer.transform(
       this.renderType.current.api.current,
     )
@@ -491,7 +487,7 @@ export class Element
       postRenderAction: this.postRenderAction,
       preRenderAction: this.preRenderAction,
       prevSibling: this.prevSibling,
-      props: this.props,
+      props: this.props.current.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: this.renderType.current.toJson,
@@ -759,16 +755,6 @@ export class Element
   }
 
   @modelAction
-  setPage(page: Ref<IPageModel>) {
-    this._page = page
-  }
-
-  @modelAction
-  setParentComponent(component: Ref<IComponentModel>) {
-    this._parentComponent = component
-  }
-
-  @modelAction
   setRenderingError(error: Nullish<RenderingError>) {
     this.renderingMetadata = {
       error,
@@ -907,9 +893,9 @@ export class Element
     this.firstChild = firstChild?.id
       ? elementRef(firstChild.id)
       : this.firstChild
-    this._parentComponent = parentComponent
+    this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
-      : this._parentComponent
+      : this.parentComponent
     this.preRenderAction = preRenderAction
       ? actionRef(preRenderAction.id)
       : null
@@ -926,38 +912,6 @@ export class Element
     return this
   }
 
-  // onAttachedToRootStore() {
-  //   /**
-  //    * When renderType ref is set, we want to fetch the data
-  //    */
-  //   const reactionDisposer = reaction(
-  //     () => this.renderType,
-  //     (cur, prev, react) => {
-  //       if (cur.maybeCurrent) {
-  //         return
-  //       }
-
-  //       if (cur.$modelType === '@codelab/AtomRef') {
-  //         console.debug('Element.onAttachedToRootStore()', 'fetching atom')
-  //         void this.atomService.getOne(cur.current.id)
-  //       }
-  //     },
-  //     {
-  //       fireImmediately: true,
-  //     },
-  //   )
-
-  //   // when the model is no longer part of the root store stop saving
-  //   return () => {
-  //     reactionDisposer()
-  //   }
-  // }
-
-  @computed
-  private get atomService() {
-    return getAtomService(this)
-  }
-
   @computed
   private get builderService() {
     return getBuilderService(this)
@@ -971,11 +925,6 @@ export class Element
   @computed
   private get elementService() {
     return getElementService(this)
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
   }
 
   @computed

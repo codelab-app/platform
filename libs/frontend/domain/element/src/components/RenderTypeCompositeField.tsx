@@ -1,10 +1,8 @@
-import type {
-  IAtomModel,
-  ICreateElementData,
-} from '@codelab/frontend/abstract/core'
+import type { IAtomModel } from '@codelab/frontend/abstract/core'
 import { SelectAtom } from '@codelab/frontend/domain/atom'
 import { SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
@@ -14,7 +12,7 @@ const RenderTypeFields = ({
   error,
   onChange,
   parentAtom,
-}: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
+}: GuaranteedProps<Partial<IElementDTO['renderType']>> & {
   parentAtom?: IAtomModel
 }) => {
   return (
@@ -43,7 +41,7 @@ const RenderTypeFields = ({
         ]}
         required={false}
       />
-      <DisplayIfField<ICreateElementData>
+      <DisplayIfField<IElementDTO>
         condition={(context) =>
           context.model.renderType?.__typename === IElementRenderTypeKind.Atom
         }
@@ -54,7 +52,7 @@ const RenderTypeFields = ({
          */}
         <SelectAtom error={error} label="Atom" name="id" parent={parentAtom} />
       </DisplayIfField>
-      <DisplayIfField<ICreateElementData>
+      <DisplayIfField<IElementDTO>
         condition={(context) =>
           context.model.renderType?.__typename ===
           IElementRenderTypeKind.Component
