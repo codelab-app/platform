@@ -451,7 +451,7 @@ export class Element
       postRenderAction: this.postRenderAction,
       preRenderAction: this.preRenderAction,
       prevSibling: this.prevSibling,
-      props: this.props,
+      props: this.props.current.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: this.renderType.current.toJson,
