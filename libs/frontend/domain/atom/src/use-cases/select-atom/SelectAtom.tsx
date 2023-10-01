@@ -36,8 +36,9 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
           await getSelectAtomOptions.execute()
         }
       }}
+      optionFilterProp="label"
       optionLabelProp="label"
-      options={result ?? [mapAtomOptions(atomService.defaultRenderType)]}
+      options={result}
       showSearch
     />
   )

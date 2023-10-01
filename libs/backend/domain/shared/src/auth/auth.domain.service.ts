@@ -7,8 +7,11 @@ interface AuthenticatedRequest extends Request {
   user?: Auth0IdToken
 }
 
+/**
+ * `AuthService` should be in application layer, but since we tied our repositories to this service, we moved it to domain.
+ */
 @Injectable()
-export class AuthService {
+export class AuthDomainService {
   get currentUser(): IUserDTO {
     const req = RequestContext.currentContext?.req as AuthenticatedRequest
     const user = req['user']

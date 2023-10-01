@@ -14,29 +14,25 @@ export const filterAtoms = (
   >,
   parent: IAtomModel,
 ) => {
-  const atomsRequiringCurrentParent = allAtoms
-    .filter((atom) => {
-      return atom.requiredParents.length
-        ? atom.requiredParents.some(
-            (requiredParent) => requiredParent.id === parent.id,
-          )
-        : false
-    })
-    .map(mapAtomOptions)
+  const atomsRequiringCurrentParent = allAtoms.filter((atom) => {
+    return atom.requiredParents.length
+      ? atom.requiredParents.some(
+          (requiredParent) => requiredParent.id === parent.id,
+        )
+      : false
+  })
 
-  const atomsExcludingSelfAndRequiredParents = allAtoms
-    .filter((atom) => {
-      return parent.requiredParents.length
-        ? parent.requiredParents.every(
-            (requiredParent) => requiredParent.id !== atom.id,
-          ) && parent.id !== atom.id
-        : false
-    })
-    .map(mapAtomOptions)
+  const atomsExcludingSelfAndRequiredParents = allAtoms.filter((atom) => {
+    return parent.requiredParents.length
+      ? parent.requiredParents.every(
+          (requiredParent) => requiredParent.id !== atom.id,
+        ) && parent.id !== atom.id
+      : false
+  })
 
-  const atomsWithNoRequiredParents = allAtoms
-    .filter((atom) => atom.requiredParents.length === 0)
-    .map(mapAtomOptions)
+  const atomsWithNoRequiredParents = allAtoms.filter(
+    (atom) => atom.requiredParents.length === 0,
+  )
 
   if (atomsRequiringCurrentParent.length) {
     // only get atoms if their required parents include the parent

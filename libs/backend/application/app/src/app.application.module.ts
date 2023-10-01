@@ -6,6 +6,7 @@ import { DomainDomainModule } from '@codelab/backend/domain/domain'
 import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PageDomainModule } from '@codelab/backend/domain/page'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
+import { AuthDomainModule } from '@codelab/backend/domain/shared'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
@@ -22,6 +23,7 @@ import {
   exports: [SeedCypressAppHandler, ExportAppsHandler, ImportAppHandler],
   imports: [
     AtomDomainModule,
+    AuthDomainModule,
     AppDomainModule,
     PageDomainModule,
     AtomApplicationModule,

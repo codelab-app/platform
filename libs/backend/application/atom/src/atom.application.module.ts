@@ -1,3 +1,4 @@
+import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
@@ -19,7 +20,13 @@ import {
     ImportAtomHandler,
     AtomApplicationService,
   ],
-  imports: [CqrsModule, TypeDomainModule, AtomDomainModule, ValidationModule],
+  imports: [
+    CqrsModule,
+    TypeDomainModule,
+    AtomDomainModule,
+    ValidationModule,
+    SharedApplicationModule,
+  ],
   providers: [
     SeedCypressAtomsHandler,
     ExportAtomHandler,

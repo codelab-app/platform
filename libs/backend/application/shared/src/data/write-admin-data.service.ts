@@ -7,7 +7,7 @@ import {
 import { deepSortKeys } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import path from 'path'
-import { MigrationDataService } from '../../services/migration-data.service'
+import { MigrationDataService } from './migration-data.service'
 
 @Injectable()
 export class WriteAdminDataService {

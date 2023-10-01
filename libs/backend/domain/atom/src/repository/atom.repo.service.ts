@@ -3,7 +3,7 @@ import type {
   AtomOptions,
   AtomWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import {
   atomSelectionSet,
   OgmService,
@@ -34,7 +34,7 @@ export class AtomRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }
@@ -95,15 +95,15 @@ export class AtomRepository extends AbstractRepository<
     { api, id, requiredParents = [], suggestedChildren = [], tags }: IAtomDTO,
     where: AtomWhere,
   ) {
-    console.log(where)
-    cLog({
-      api: reconnectNodeId(api.id),
-      requiredParents: whereNodeIds(requiredParents.map((parent) => parent.id)),
-      suggestedChildren: whereNodeIds(
-        suggestedChildren.map((child) => child.id),
-      ),
-      tags: reconnectNodeIds(tags?.map((tag) => tag.id)),
-    })
+    // console.log(where)
+    // cLog({
+    //   api: reconnectNodeId(api.id),
+    //   requiredParents: whereNodeIds(requiredParents.map((parent) => parent.id)),
+    //   suggestedChildren: whereNodeIds(
+    //     suggestedChildren.map((child) => child.id),
+    //   ),
+    //   tags: reconnectNodeIds(tags?.map((tag) => tag.id)),
+    // })
 
     return (
       await (

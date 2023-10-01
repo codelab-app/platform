@@ -3,7 +3,7 @@ import type {
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import {
   getDependentTypes,
   interfaceTypeSelectionSet,
@@ -33,7 +33,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
     protected traceService: TraceService,
     private neo4jService: Neo4jService,
     protected validationService: ValidationService,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }

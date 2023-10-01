@@ -1,5 +1,5 @@
 import { ExportAppsCommand } from '@codelab/backend/application/app'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import { UserRepository } from '@codelab/backend/domain/user'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -32,7 +32,7 @@ export class ExportUserDataHandler
   constructor(
     private readonly commandBus: CommandBus,
     private readonly userRepository: UserRepository,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {}
 
   async execute() {

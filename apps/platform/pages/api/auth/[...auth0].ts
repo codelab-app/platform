@@ -17,7 +17,7 @@ export default auth0Instance().handleAuth({
           /**
            * Cannot call frontend proxy here, since it would end the current call
            */
-          await restPlatformApiClient.post('user/setup-dev', user, {
+          await restPlatformApiClient.post('admin/setup-dev', user, {
             headers: {
               Authorization: `Bearer ${session.accessToken}`,
               'X-ID-TOKEN': session.idToken,

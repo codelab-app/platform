@@ -1,11 +1,11 @@
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserApplicationService {
   constructor(
-    private authService: AuthService,
+    private authService: AuthDomainService,
     private userRepository: UserRepository,
   ) {}
 
