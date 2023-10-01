@@ -1,6 +1,7 @@
 import type {
   IBuilderDomainService,
   IComponentModel,
+  IDragDropData,
   IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/domain'
