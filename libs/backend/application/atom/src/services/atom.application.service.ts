@@ -36,32 +36,4 @@ export class AtomApplicationService {
       ),
     )
   }
-
-  async seedReactFragment() {
-    const reactFragmentExists = await this.atomRepository.findOne({
-      type: IAtomType.ReactFragment,
-    })
-
-    if (reactFragmentExists) {
-      return
-    }
-
-    // Seed atom manually for now, in future we will import
-    const newInterfaceType = InterfaceType.createFromAtomName(
-      IAtomType.ReactFragment,
-    )
-
-    const interfaceType = await this.interfaceTypeRepository.save(
-      newInterfaceType,
-    )
-
-    const atom = Atom.create({
-      api: interfaceType,
-      id: v4(),
-      name: IAtomType.ReactFragment,
-      type: IAtomType.ReactFragment,
-    })
-
-    await this.atomRepository.save(atom)
-  }
 }

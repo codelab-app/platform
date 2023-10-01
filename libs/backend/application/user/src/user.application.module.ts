@@ -13,7 +13,7 @@ import { UserApplicationController } from './user.application.controller'
 
 @Module({
   controllers: [UserApplicationController],
-  exports: [ExportUserDataHandler],
+  exports: [ExportUserDataHandler, UserApplicationService],
   imports: [
     UserDomainModule,
     AuthDomainModule,
