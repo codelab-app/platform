@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
-import { useSelectionHandlers } from '../utils'
+import { useDragDropHandlers, useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -50,7 +50,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       }
     }, [])
 
-    const { atomService, builderService } = useStore()
+    const { atomService, builderService, elementService } = useStore()
     // Render the element to an intermediate output
     const renderOutput = renderer.renderIntermediateElement(element)
 
@@ -78,13 +78,19 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
     const selectionHandlers = useSelectionHandlers(
-      builderService,
       element,
       renderer.rendererType,
     )
 
+    const dragDropHandlers = useDragDropHandlers(element, renderer.rendererType)
+
     // leave ElementWrapper pass-through so refs are attached to correct element
-    const mergedProps = mergeProps(extractedProps, rest, selectionHandlers)
+    const mergedProps = mergeProps(
+      extractedProps,
+      rest,
+      selectionHandlers,
+      dragDropHandlers,
+    )
 
     const renderedElement = renderComponentWithStyles(
       ReactComponent,

@@ -107,6 +107,7 @@ export interface IElementModel
   hooks: Array<IHook>
   id: string
   isRoot: boolean
+  isTextContentEditable: boolean
   label: string
   nextSibling?: Nullable<Ref<IElementModel>>
   owner: Nullable<IEntity>
@@ -175,6 +176,7 @@ export interface IElementModel
   detachFromParent(): void
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void
+  setIsTextContentEditable(value: boolean): void
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void

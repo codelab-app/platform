@@ -4,36 +4,32 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { isElementRef } from '@codelab/frontend/abstract/core'
 import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
-import { HoverOverlay } from '@codelab/frontend/presentation/view'
+import { DragDropOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
-export const BuilderHoverOverlay = observer<{
+export const BuilderDragDropOverlay = observer<{
   builderService: IBuilderService
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
-}>(({ builderService, elementService, renderContainerRef }) => {
-  const hoveredNode = builderService.hoveredNode
-  const selectedNode = builderService.selectedNode
+}>(({ builderService, renderContainerRef }) => {
+  const dragDropData = builderService.dragDropData
 
-  if (isServer || !hoveredNode || !isElementRef(hoveredNode)) {
+  if (isServer || !dragDropData?.node || !isElementRef(dragDropData.node)) {
     return null
   }
 
-  const element = queryRenderedElementById(hoveredNode.id)
+  const element = queryRenderedElementById(dragDropData.node.id)
 
-  if (
-    !element ||
-    !renderContainerRef.current ||
-    hoveredNode.id === selectedNode?.id
-  ) {
+  if (!element || !renderContainerRef.current) {
     return null
   }
 
   return createPortal(
-    <HoverOverlay
+    <DragDropOverlay
+      dropPosition={dragDropData.dropPosition}
       element={element}
       renderContainer={renderContainerRef.current}
     />,
@@ -41,4 +37,4 @@ export const BuilderHoverOverlay = observer<{
   )
 })
 
-BuilderHoverOverlay.displayName = 'BuilderHoverOverlay'
+BuilderDragDropOverlay.displayName = 'BuilderDragDropOverlay'
