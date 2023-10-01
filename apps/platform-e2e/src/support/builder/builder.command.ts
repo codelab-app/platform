@@ -79,7 +79,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
     })
 
     if (atom && customTextInjectionWhiteList.includes(atom)) {
-      // editorjs fails internally without this, maybe some kind of initialisation
+      // editorjs fails internally without this, maybe some kind of initialization
       // fails mostly on elements that can have text editor like typography text
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000)

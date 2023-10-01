@@ -141,7 +141,8 @@ export class ComponentService
       name: `${name} Root`,
       parentComponent: { id },
       props: {
-        id: 'willbeoverridenanyway',
+        data: '{}',
+        id: v4(),
       },
       renderType: {
         __typename: IElementRenderTypeKind.Atom,

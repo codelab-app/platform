@@ -1,1 +1,1 @@
-export * from './ResetDataButton'
+export * from './ResetDataButtons'

@@ -10,5 +10,7 @@ export interface IAdminService {
   exportData(data: ExportDto): Promise<unknown>
   importApp(appData: string): Promise<Array<IAppModel>>
   importData(data: ImportDto): Promise<unknown>
+  resetDatabase(): Promise<AxiosResponse>
+  resetDatabaseExceptUser(): Promise<AxiosResponse>
   resetDatabaseExceptUserAndAtom(): Promise<AxiosResponse>
 }

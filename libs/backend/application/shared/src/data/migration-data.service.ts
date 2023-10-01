@@ -35,7 +35,7 @@ export class MigrationDataService implements IBaseDataPaths {
   /**
    * process.cwd() doesn't work since run-commands may set app dir as cwd
    */
-  baseDataPaths = resolveWorkspaceRoot('./data/export')
+  baseDataPaths = resolveWorkspaceRoot('./data/export-v2')
 
   /**
    * Allows override by setting at runtime, base path relative to workspace root

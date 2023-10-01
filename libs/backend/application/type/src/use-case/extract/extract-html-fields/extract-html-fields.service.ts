@@ -1,6 +1,6 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
 import type { IUseCase } from '@codelab/backend/abstract/types'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import {
   Field,
   FieldRepository,
@@ -24,7 +24,7 @@ export class ExtractHtmlFieldsService
     private typeFactory: TypeFactory,
     private htmlTypeAdapterService: HtmlTypeAdapterService,
     private readonly fieldRepository: FieldRepository,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {}
 
   async execute(atoms: Array<IAtomDTO>) {

@@ -1,6 +1,7 @@
 import type { IAtomRecords } from '@codelab/backend/abstract/core'
-import { AuthService, UseCase } from '@codelab/backend/application/shared'
+import { UseCase } from '@codelab/backend/application/shared'
 import { AtomRepository } from '@codelab/backend/domain/atom'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import {
   InterfaceType,
@@ -20,7 +21,7 @@ export class SeedAtomsService extends UseCase<
     private atomRepository: AtomRepository,
     private interfaceTypeRepository: InterfaceTypeRepository,
     private tagRepository: TagRepository,
-    private authService: AuthService,
+    private authDomainService: AuthDomainService,
   ) {
     super()
   }
@@ -88,7 +89,7 @@ export class SeedAtomsService extends UseCase<
           icon: atomData.icon,
           id: v4(),
           name: atomType,
-          owner: this.authService.currentUser,
+          owner: this.authDomainService.currentUser,
           tags: [existingTag],
           type: IAtomType[atomType],
         }

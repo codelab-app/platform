@@ -1,5 +1,4 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
-import { SelectAtom } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -7,6 +6,7 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField, TextField } from 'uniforms-antd'
+import { SelectAtom } from '../select-atom'
 import { updateAtomSchema } from './update-atom.schema'
 
 export const UpdateAtomModal = observer(() => {

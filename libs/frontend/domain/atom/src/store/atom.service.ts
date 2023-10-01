@@ -194,7 +194,9 @@ export class AtomService
     //   this.add(atom)
     // }
 
-    return parent ? filterAtoms(atoms, parent) : atoms.map(mapAtomOptions)
+    const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
+
+    return atomOptions.map(mapAtomOptions)
   })
 
   @modelFlow

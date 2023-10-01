@@ -9,7 +9,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
-import { MigrationDataService } from '../../services/migration-data.service'
+import { MigrationDataService } from './migration-data.service'
 
 @Injectable({
   scope: Scope.TRANSIENT,

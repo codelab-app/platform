@@ -1,11 +1,11 @@
 import type { Atom as IAtom } from '@codelab/backend/abstract/codegen'
 import { SeedCypressAtomsCommand } from '@codelab/backend/application/atom'
-import { AuthService } from '@codelab/backend/application/shared'
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { Page, PageRepository } from '@codelab/backend/domain/page'
 import { Prop, PropRepository } from '@codelab/backend/domain/prop'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
@@ -49,7 +49,7 @@ export class SeedCypressAppHandler
     private commandBus: CommandBus,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
-    private authService: AuthService,
+    private authDomainService: AuthDomainService,
   ) {}
 
   @Span()
@@ -133,7 +133,7 @@ export class SeedCypressAppHandler
     /**
      * Create app
      */
-    const app = new App(appData(this.authService.currentUser))
+    const app = new App(appData(this.authDomainService.currentUser))
 
     await this.appRepository.add([app])
 

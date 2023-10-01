@@ -5,7 +5,7 @@ import type {
   EnumTypeOptions,
   EnumTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared'
 import {
   exportEnumTypeSelectionSet,
   OgmService,
@@ -31,7 +31,7 @@ export class EnumTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }
