@@ -13,9 +13,11 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks'
-import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
-import { BuilderDragDropOverlay } from '../overlay-toolbar/BuilderDragDropOverlay'
-import { BuilderHoverOverlay } from '../overlay-toolbar/BuilderHoverOverlay'
+import {
+  BuilderClickOverlay,
+  BuilderDragDropOverlay,
+  BuilderHoverOverlay,
+} from '../overlay-toolbar'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
 
 /**
