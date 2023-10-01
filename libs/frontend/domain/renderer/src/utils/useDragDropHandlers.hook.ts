@@ -1,10 +1,7 @@
 import type {
   IAtomModel,
-  IAtomService,
-  IBuilderService,
   IDropPosition,
   IElementModel,
-  IElementService,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -21,10 +18,11 @@ export const useDragDropHandlers = (
   rendererType: RendererType,
 ) => {
   const { atomService, builderService, elementService } = useStore()
+  const { moveElementService } = elementService
 
   const dragStartHandler = useCallback(
     (event: React.DragEvent<HTMLElement>) => {
-      // we stop propogation because we only want the event to be triggered on currenty dragged element and not the parents
+      // we stop propagation because we only want the event to be triggered on currently dragged element and not the parents
       event.stopPropagation()
       draggedElement = currentElement
 
@@ -36,7 +34,7 @@ export const useDragDropHandlers = (
       target.style.opacity = '0.2'
 
       // set drag image
-      // drag image is something you see attaced to the pointer while dragging
+      // drag image is something you see attached to the pointer while dragging
       event.dataTransfer.setDragImage(
         createDragImage(currentElement.name),
         5,
@@ -50,14 +48,15 @@ export const useDragDropHandlers = (
   const dragOverHandler = useCallback(
     (event: React.DragEvent<HTMLElement>) => {
       event.preventDefault()
-      // we stop propogation because we only want the event to be triggered on currenty dragged element and not the parents
+      // we stop propagation because we only want the event to be triggered on currently dragged element and not the parents
       event.stopPropagation()
 
       dropTargetElement = currentElement
 
       const parentElement =
-        queryRenderedElementById(currentElement.closestParent?.id ?? '') ??
-        document.getElementById('render-root')
+        queryRenderedElementById(
+          currentElement.closestParentElement?.id ?? '',
+        ) ?? document.getElementById('render-root')
 
       if (!parentElement) {
         return
@@ -97,7 +96,6 @@ export const useDragDropHandlers = (
       event.preventDefault()
       event.stopPropagation()
 
-      const { moveElementService } = elementService
       const target = event.target as HTMLElement
       target.classList.remove('currently-dragged')
       target.style.opacity = '1'
@@ -223,7 +221,7 @@ const isDroppable = (
   draggedAtom: IAtomModel | undefined,
 ) => {
   return true
-  /**  
+  /**
    For now, all atoms are droppable.
    Basically, we will add a new field called "allowedChildren" to the atom schema.
    If the allowedChildren is empty, then any atoms can be dropped.

@@ -18,3 +18,8 @@ export interface DragDropOverlayProps {
   element: HTMLElement
   renderContainer: HTMLElement
 }
+
+export interface MarginPaddingOverlayProps {
+  element: HTMLElement
+  renderContainer: HTMLElement
+}
