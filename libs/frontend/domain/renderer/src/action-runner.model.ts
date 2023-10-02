@@ -7,7 +7,6 @@ import type {
   IElementModel,
   IEvaluationContext,
   IGraphQLActionConfig,
-  IPropData,
   IRenderer,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
@@ -19,6 +18,7 @@ import {
   IPropModel,
 } from '@codelab/frontend/abstract/core'
 import { evaluateObject, tryParse } from '@codelab/frontend/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'

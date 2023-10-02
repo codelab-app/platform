@@ -1,4 +1,5 @@
-import type { IComponentType, IPropData } from '@codelab/frontend/abstract/core'
+import type { IComponentType } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { camelCaseToKebabCaseOnlyKeys } from '@codelab/shared/utils'
 import React from 'react'
 import styled from 'styled-components'

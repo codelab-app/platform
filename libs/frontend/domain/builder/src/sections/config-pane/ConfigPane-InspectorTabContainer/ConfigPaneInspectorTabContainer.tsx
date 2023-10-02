@@ -10,6 +10,7 @@ import {
   isComponentPageNodeRef,
   isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   UpdateComponentForm,
   UpdateComponentPropsForm,
@@ -22,7 +23,6 @@ import {
   UpdateElementPropsForm,
 } from '@codelab/frontend/domain/element'
 import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { FormContextProvider } from '@codelab/frontend/presentation/view'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'

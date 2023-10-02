@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef } from 'react'
 import type { Side } from './builder-resize-controller'

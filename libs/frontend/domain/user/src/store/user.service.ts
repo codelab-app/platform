@@ -1,8 +1,8 @@
 import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
 import { restPlatformClient } from '@codelab/frontend/config'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,

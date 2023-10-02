@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IActionModel } from '@codelab/frontend/abstract/core'
 import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type {
   IEntity,

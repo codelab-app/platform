@@ -4,9 +4,9 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'

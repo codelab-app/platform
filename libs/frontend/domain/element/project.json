@@ -3,7 +3,12 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/frontend/domain/element/src",
-  "tags": ["scope:frontend", "layer:domain"],
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ],
   "targets": {
     "lint": {
       "configurations": {
@@ -40,8 +45,57 @@
         "parallel": 3,
         "passWithNoTests": true,
         "runInBand": true,
-        "testPathPattern": ["[^i].spec.ts"]
+        "testPathPattern": ["[^i].spec.ts"],
+        "reporters": ["default"]
       },
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]
+    },
+    "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/frontend/domain/element/jest.config.ts",
+        "parallel": 3,
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]
+    },
+    "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/frontend/domain/element/jest.config.ts",
+        "passWithNoTests": true,
+        "runInBand": true
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {}
+      },
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]
     }
   }

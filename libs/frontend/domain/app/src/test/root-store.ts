@@ -39,7 +39,7 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
 import { User, UserService } from '@codelab/frontend/domain/user'
-import { mockRepository } from '@codelab/frontend/testing/store'
+import { mockRepository } from '@codelab/frontend/test/store'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { AppService } from '../store'

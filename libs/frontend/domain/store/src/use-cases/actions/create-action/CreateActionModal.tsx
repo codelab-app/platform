@@ -3,8 +3,8 @@ import type {
   IStoreModel,
 } from '@codelab/frontend/abstract/core'
 import { HttpMethod } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceType } from '@codelab/shared/abstract/codegen'

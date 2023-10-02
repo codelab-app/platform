@@ -2,7 +2,6 @@ import type {
   ICloneElementService,
   IComponentModel,
   IElementModel,
-  IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -16,7 +15,11 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getFieldService } from '@codelab/frontend/domain/type'
-import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  IPropData,
+  IPropDTO,
+} from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,

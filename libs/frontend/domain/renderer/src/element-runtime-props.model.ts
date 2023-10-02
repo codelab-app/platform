@@ -8,12 +8,12 @@ import {
   isAtomInstance,
   RendererType,
 } from '@codelab/frontend/abstract/core'
+import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
 import {
   evaluateExpression,
   evaluateObject,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
-import { getDefaultFieldProps } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'

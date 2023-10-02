@@ -1,5 +1,5 @@
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'

@@ -7,7 +7,6 @@ import {
   getUserService,
   ICreatePageData,
   IPageAppFragment,
-  ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -20,6 +19,7 @@ import {
   IPageKindName,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'

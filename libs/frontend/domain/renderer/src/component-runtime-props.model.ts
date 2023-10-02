@@ -4,9 +4,9 @@ import type {
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { mergeProps } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'

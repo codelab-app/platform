@@ -68,6 +68,6 @@
       }
     }
   },
-  "tags": ["scope:frontend"],
+  "tags": ["projectType:application", "type:concrete"],
   "implicitDependencies": []
 }

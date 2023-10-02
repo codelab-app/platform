@@ -10,7 +10,6 @@ import {
   getAppService,
   getElementService,
   getUserService,
-  ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
@@ -32,6 +31,7 @@ import {
   IPageKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {

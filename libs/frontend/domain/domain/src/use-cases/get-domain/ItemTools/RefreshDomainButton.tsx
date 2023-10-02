@@ -1,9 +1,7 @@
 import { SyncOutlined } from '@ant-design/icons'
 import type { IDomainModel } from '@codelab/frontend/abstract/core'
-import {
-  useCurrentApp,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import { useAsync } from '@react-hookz/web'
 import { Button, Tooltip } from 'antd'

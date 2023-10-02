@@ -1,11 +1,11 @@
 import type {} from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectActionField,
   SelectAnyElement,
 } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
 import {
   DisplayIf,
   Form,

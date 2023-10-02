@@ -6,9 +6,9 @@ import {
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   useAppQuery,
-  useStore,
   useUserQuery,
 } from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'

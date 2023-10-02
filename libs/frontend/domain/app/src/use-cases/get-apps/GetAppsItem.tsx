@@ -1,6 +1,6 @@
 import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

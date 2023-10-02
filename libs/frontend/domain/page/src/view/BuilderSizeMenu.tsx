@@ -7,7 +7,7 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
 } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'

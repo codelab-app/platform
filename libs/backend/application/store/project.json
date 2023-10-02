@@ -86,5 +86,10 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
-  "tags": ["scope:backend", "layer:application"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ]
 }

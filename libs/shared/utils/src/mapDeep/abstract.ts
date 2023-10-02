@@ -1,4 +1,4 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Key } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 

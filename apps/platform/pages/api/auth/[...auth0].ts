@@ -1,6 +1,6 @@
 import { restPlatformApiClient } from '@codelab/frontend/config'
-import { auth0Instance } from '@codelab/frontend/infra/auth0'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default auth0Instance().handleAuth({

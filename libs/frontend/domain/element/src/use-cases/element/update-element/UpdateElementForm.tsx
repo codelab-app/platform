@@ -3,8 +3,8 @@ import type {
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectActionField } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,

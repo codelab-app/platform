@@ -1,11 +1,11 @@
 import type {
   IPrimitiveType,
-  IPropData,
   ITypeService,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import { Form } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { useAsync, useMountEffect } from '@react-hookz/web'

@@ -1,8 +1,8 @@
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
-import type { IPropData } from '../../prop'
 
 /**
  * Used to represent a value that has a specific type.

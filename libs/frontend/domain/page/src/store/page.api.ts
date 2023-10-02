@@ -1,4 +1,4 @@
-import { client } from '@codelab/frontend/presentation/client/graphql'
+import { client } from '@codelab/frontend/infra/graphql'
 import { getSdk } from '../graphql'
 
 export const pageApi = getSdk(client)

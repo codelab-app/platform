@@ -2,7 +2,7 @@ import type {
   IComponentModel,
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'

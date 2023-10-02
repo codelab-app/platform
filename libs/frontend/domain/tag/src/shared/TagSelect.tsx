@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'

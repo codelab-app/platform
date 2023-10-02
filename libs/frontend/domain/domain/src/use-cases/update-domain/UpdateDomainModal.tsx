@@ -1,9 +1,7 @@
 import type { ApolloError } from '@apollo/client'
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/core'
-import {
-  useCurrentApp,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'

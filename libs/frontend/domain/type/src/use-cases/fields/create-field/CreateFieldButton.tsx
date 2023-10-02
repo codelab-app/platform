@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { typeRef } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'

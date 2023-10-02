@@ -75,5 +75,10 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/page"]
     }
   },
-  "tags": ["scope:frontend", "layer:domain"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ]
 }

@@ -4,10 +4,10 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IInterfaceTypeDTO,
+  IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IStateTreeDataNode } from '../../../ui'
-import type { IPropData } from '../../prop'
 import type { IField } from '../field'
 import type { IBaseType } from './base-type.interface'
 

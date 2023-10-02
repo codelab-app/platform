@@ -3,7 +3,7 @@ import {
   atomReactFragmentDto,
   elementDto,
   userDto,
-} from '@codelab/frontend/testing/data'
+} from '@codelab/frontend/test/data'
 import { isRefOfType } from 'mobx-keystone'
 import { createTestRootStore } from './root-store'
 

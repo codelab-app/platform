@@ -1,6 +1,6 @@
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
 import type { IElementModel } from '../element'
-import type { IPropData, IPropDataByElementId } from '../prop'
+import type { IPropDataByElementId } from '../prop'
 import type { IRenderer } from './renderer.model.interface'
 
 export enum RendererTab {

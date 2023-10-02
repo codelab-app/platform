@@ -21,5 +21,10 @@
       }
     }
   },
-  "tags": ["scope:backend"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ]
 }

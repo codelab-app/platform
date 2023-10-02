@@ -4,7 +4,7 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { createDragImage } from '@codelab/frontend/shared/utils'
 import { useCallback } from 'react'
 import { queryRenderedElementById } from './query-rendered-element-by-id'

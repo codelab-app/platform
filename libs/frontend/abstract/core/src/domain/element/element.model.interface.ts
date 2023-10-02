@@ -5,6 +5,7 @@ import type {
 import type {
   IElementDTO,
   IElementSerialized,
+  IPropData,
 } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
@@ -21,7 +22,7 @@ import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
 import type { IPageModel } from '../page'
-import type { IPropData, IPropModel } from '../prop'
+import type { IPropModel } from '../prop'
 import type { IElementRuntimeProp, RendererType } from '../render'
 import type { IStoreModel } from '../store'
 import type { IElementRenderTypeModel } from './render-type'

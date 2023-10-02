@@ -1,4 +1,4 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 

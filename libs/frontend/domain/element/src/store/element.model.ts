@@ -7,7 +7,6 @@ import type {
   IElementRuntimeProp,
   IHook,
   IPageModel,
-  IPropData,
   IPropModel,
   IStoreModel,
   RenderingError,
@@ -43,7 +42,8 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { type IElementDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IElementDTO, IPropData } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {

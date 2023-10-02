@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ExportDto, exportDtoDefault } from '@codelab/shared/abstract/core'

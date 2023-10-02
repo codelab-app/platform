@@ -3,7 +3,7 @@ import type {
   IField,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
-import { fieldRef, IPropData } from '@codelab/frontend/abstract/core'
+import { fieldRef } from '@codelab/frontend/abstract/core'
 import type {
   InterfaceTypeCreateInput,
   InterfaceTypeDeleteInput,
@@ -11,6 +11,7 @@ import type {
 import {
   assertIsTypeKind,
   IInterfaceTypeDTO,
+  IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'

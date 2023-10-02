@@ -1,5 +1,5 @@
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { Typebox } from '@codelab/shared/infra/validation'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'

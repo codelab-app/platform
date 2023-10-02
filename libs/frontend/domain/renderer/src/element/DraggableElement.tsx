@@ -1,9 +1,9 @@
 import type {
   BuilderDropData,
   IElementModel,
-  IPropData,
 } from '@codelab/frontend/abstract/core'
 import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React, { useEffect } from 'react'

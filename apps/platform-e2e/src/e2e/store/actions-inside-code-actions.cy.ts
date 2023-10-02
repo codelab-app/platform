@@ -2,8 +2,9 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   HttpMethod,
   HttpResponseType,
-  ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
+import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import {
   ActionKind,
   ResourceType,
@@ -11,9 +12,8 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running actions inside code action with arguments', () => {
   let app: IAppDTO
