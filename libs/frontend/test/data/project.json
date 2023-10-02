@@ -24,7 +24,17 @@
   "tags": [
     "projectType:library",
     "type:concrete",
+<<<<<<< HEAD
+<<<<<<<< HEAD:libs/frontend/test/data/project.json
     "type:test",
     "scope:frontend"
+========
+    "scope:frontend",
+    "layer:domain"
+>>>>>>>> e4701781d (wip: update project tags):libs/frontend/application/atoms/project.json
+=======
+    "type:test",
+    "scope:frontend"
+>>>>>>> e4701781d (wip: update project tags)
   ]
 }

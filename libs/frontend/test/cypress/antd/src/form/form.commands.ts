@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:libs/frontend/test/cypress/antd/src/form/form.commands.ts
 import { wrapSubject } from '@codelab/frontend/test/cypress/utils'
-========
-import { wrapSubject } from '@codelab/testing/cypress/command'
->>>>>>>> da3909c80 (test: use cli for testing import export):libs/testing/cypress/antd/src/form/form.commands.ts
 import { EditorView } from '@codemirror/view'
 import { absoluteRoot } from '@hon2a/cypress-without'
 import escapeRegExp from 'lodash/escapeRegExp'

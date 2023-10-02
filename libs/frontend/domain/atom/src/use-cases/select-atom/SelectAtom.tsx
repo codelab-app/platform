@@ -1,6 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { mapAtomOptions } from '@codelab/frontend/domain/atom'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import React from 'react'
@@ -42,15 +41,8 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
       }}
       optionFilterProp="label"
       optionLabelProp="label"
-<<<<<<< HEAD
-<<<<<<<< HEAD:libs/frontend/application/atom/src/use-cases/select-atom/SelectAtom.tsx
       options={result ?? fallbackAtomOptions}
-========
       options={result ?? [mapAtomOptions(atomService.defaultRenderType)]}
->>>>>>>> 658e349b5 (refactor: load required data on page load):libs/frontend/domain/atom/src/use-cases/select-atom/SelectAtom.tsx
-=======
-      options={result}
->>>>>>> 7233bdd47 (wip: modify seeder for cypress)
       showSearch
     />
   )

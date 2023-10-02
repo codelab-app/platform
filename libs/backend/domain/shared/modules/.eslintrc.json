@@ -1,11 +1,15 @@
 {
-  "extends": ["../../../../../.eslintrc.json"],
+  "extends": ["plugin:@nx/react", "../../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
+<<<<<<<< HEAD:libs/backend/domain/shared/modules/.eslintrc.json
         "project": ["libs/backend/domain/shared/modules/tsconfig.*?.json"]
+========
+        "project": ["libs/frontend/application/shared/auth/tsconfig.*?.json"]
+>>>>>>>> e4701781d (wip: update project tags):libs/frontend/application/shared/auth/.eslintrc.json
       },
       "rules": {}
     },

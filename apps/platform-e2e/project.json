@@ -18,10 +18,10 @@
           "baseUrl": "http://127.0.0.1:3000",
           "cypressConfig": "apps/platform-e2e/cypress.ci.config.ts",
           "devServerTarget": "platform-e2e:serve:ci",
-          // "reporter": "../../node_modules/cypress-multi-reporters",
-          // "reporterOptions": {
-          //   "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
-          // },
+          "reporter": "../../node_modules/cypress-multi-reporters",
+          "reporterOptions": {
+            "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
+          },
           "record": true,
           "parallel": true,
           "verbose": true

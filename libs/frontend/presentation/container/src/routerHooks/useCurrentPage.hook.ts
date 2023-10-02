@@ -1,3 +1,4 @@
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'

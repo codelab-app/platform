@@ -132,34 +132,10 @@ export class InterfaceType
     return this
   }
 
-<<<<<<< HEAD:libs/frontend/domain/type/src/models/interface-type.model.ts
-<<<<<<< HEAD:libs/frontend/domain/type/src/models/interface-type.model.ts
   @modelAction
   writeFieldCache(fields: Array<IRef>) {
     for (const field of fields) {
       this._fields.set(field.id, fieldRef(field.id))
-=======
-  static createName = createName
-
-  static create = create
-
-  static createApiNode = createApiNode
-
-  static toDeleteInput(): InterfaceTypeDeleteInput {
-    return {
-      fields: [
-        {
-          delete: {},
-          where: {},
-        },
-      ],
->>>>>>> aac8ffbb6 (wip: renderType getter):libs/frontend/domain/type/src/store/models/interface-type.model.ts
-=======
-  @modelAction
-  writeFieldCache(fields: Array<IEntity>) {
-    for (const field of fields) {
-      this._fields.set(field.id, fieldRef(field.id))
->>>>>>> 93aae9492 (wip: class member ordering):libs/frontend/domain/type/src/store/models/interface-type.model.ts
     }
   }
 }

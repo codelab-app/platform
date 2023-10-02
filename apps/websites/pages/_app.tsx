@@ -7,10 +7,16 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
+<<<<<<< HEAD
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+=======
+import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
+import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import { initializeStore } from '@codelab/frontend/infra/mobx'
+>>>>>>> e4701781d (wip: update project tags)
 import { Analytics } from '@vercel/analytics/react'
 import React, { useMemo } from 'react'
 import { v4 } from 'uuid'

@@ -19,7 +19,7 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { client } from '@codelab/frontend/presentation/client/graphql'
+import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'

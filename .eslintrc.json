@@ -50,6 +50,10 @@
       "node": {
         "project": ["(apps|libs)/**/tsconfig.lib.json"]
       }
+      // "node": {
+      //   "extensions": [".js", ".jsx", ".ts", ".tsx"],
+      //   "project": ["(apps|libs)/**/tsconfig.lib.json"]
+      // }
     }
   },
   "overrides": [

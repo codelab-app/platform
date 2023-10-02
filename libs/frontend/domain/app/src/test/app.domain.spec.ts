@@ -1,5 +1,5 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/core'
-import { atomReactFragmentDto, userDto } from '@codelab/frontend/testing/data'
+import { atomReactFragmentDto, userDto } from '@codelab/frontend/test/data'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'

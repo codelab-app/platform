@@ -1,6 +1,5 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { getEnv } from '@codelab/shared/config'
-import { Typebox } from '@codelab/shared/infra/validation'
 import client from '@mailchimp/mailchimp_marketing'
 import { Type } from '@sinclair/typebox'
 import type { NextApiRequest, NextApiResponse } from 'next'

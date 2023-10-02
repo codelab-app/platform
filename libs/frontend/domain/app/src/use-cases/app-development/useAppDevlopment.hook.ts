@@ -1,11 +1,11 @@
 import type { RendererType } from '@codelab/frontend/abstract/core'
 import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   loadAllTypesForElements,
   useAppQuery,
   usePageQuery,
-  useStore,
 } from '@codelab/frontend/presentation/container'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'

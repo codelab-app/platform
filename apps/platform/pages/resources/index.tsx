@@ -2,7 +2,8 @@ import {
   type CodelabPage,
   ExplorerPaneType,
 } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateResourceModal,
   DeleteResourceModal,
