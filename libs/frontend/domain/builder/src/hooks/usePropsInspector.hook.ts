@@ -1,9 +1,10 @@
-import type { IPageNodeRef, IPropData } from '@codelab/frontend/abstract/core'
+import type { IPageNodeRef } from '@codelab/frontend/abstract/core'
 import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { schemaTransformer } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { createValidator } from '@codelab/frontend/presentation/view'
 import { notify } from '@codelab/frontend/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useState } from 'react'
 

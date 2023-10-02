@@ -1,5 +1,5 @@
 import { IAtomDTO } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/infra/validation'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IApiOutputDto } from './api.output.dto'
@@ -9,7 +9,7 @@ import { IApiOutputDto } from './api.output.dto'
  */
 export const IAtomOutputDto = Type.Object({
   api: IApiOutputDto,
-  atom: Typebox.OmitOwner(IAtomDTO),
+  atom: IAtomDTO,
 })
 
 export type IAtomOutputDto = Static<typeof IAtomOutputDto>

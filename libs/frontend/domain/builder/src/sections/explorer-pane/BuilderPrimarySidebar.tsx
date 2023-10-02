@@ -12,6 +12,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { FormNames } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { DeleteComponentModal } from '@codelab/frontend/domain/component'
 import {
   CreateElementPopover,
@@ -38,7 +39,6 @@ import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useCurrentComponent,
   useCurrentPage,
-  useStore,
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'

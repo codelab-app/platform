@@ -3,8 +3,8 @@ import type {
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'

@@ -345,11 +345,11 @@
     "eslint-config-next": "13.4.6",
     "eslint-config-prettier": "8.8.0",
     "eslint-import-resolver-node": "0.3.7",
-    "eslint-import-resolver-typescript": "3.5.5",
+    "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-canonical": "^4.2.2",
     "eslint-plugin-cypress": "2.13.3",
     "eslint-plugin-deprecate-import": "2.0.0",
-    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-import": "2.28.1",
     "eslint-plugin-jest": "27.2.2",
     "eslint-plugin-jest-formatting": "3.1.0",
     "eslint-plugin-jsdoc": "46.2.6",
@@ -403,6 +403,8 @@
     "@codemirror/state": "^6.2.1",
     "antd@5.4.2": "patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch",
     "@neo4j/graphql@3.23.1": "patch:@neo4j/graphql@npm%3A3.23.1#./.yarn/patches/@neo4j-graphql-npm-3.23.1-0ed397fa2a.patch",
-    "@neo4j/graphql@^3.23.1": "patch:@neo4j/graphql@npm%3A3.23.1#./.yarn/patches/@neo4j-graphql-npm-3.23.1-0ed397fa2a.patch"
+    "@neo4j/graphql@^3.23.1": "patch:@neo4j/graphql@npm%3A3.23.1#./.yarn/patches/@neo4j-graphql-npm-3.23.1-0ed397fa2a.patch",
+    "cypress@13.0.0": "patch:cypress@npm%3A13.0.0#./.yarn/patches/cypress-npm-13.0.0-56445e7e75.patch",
+    "cypress@*": "patch:cypress@npm%3A13.0.0#./.yarn/patches/cypress-npm-13.0.0-56445e7e75.patch"
   }
 }

@@ -1,15 +1,14 @@
-import type { IElementModel, IPropData } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
+import { getDefaultFieldProps, mergeProps } from '@codelab/frontend/domain/prop'
 import { PropsForm } from '@codelab/frontend/domain/type'
-import {
-  loadAllTypesForElements,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { loadAllTypesForElements } from '@codelab/frontend/presentation/container'
 import { Spinner } from '@codelab/frontend/presentation/view'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import type { Ref } from 'mobx-keystone'

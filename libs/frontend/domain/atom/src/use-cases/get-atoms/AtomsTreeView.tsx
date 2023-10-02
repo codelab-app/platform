@@ -3,9 +3,9 @@ import type {
   IAtomsTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useTablePagination } from '@codelab/frontend/domain/shared'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AtomsTreeItem } from './AtomsTreeItem'

@@ -119,5 +119,5 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
-  "tags": ["scope:backend"]
+  "tags": ["projectType:application", "type:concrete"]
 }

@@ -1,9 +1,9 @@
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
 import type { IComponentModel } from '../component'
 import type { IElementModel } from '../element'
 import type { IPageNode } from '../page'
-import type { IPropData } from '../prop/prop.model.interface'
 import type { TypedProp } from '../type'
 import type { IBaseRenderPipe } from '.'
 

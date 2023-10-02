@@ -4,7 +4,7 @@ import type {
   IType,
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

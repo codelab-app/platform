@@ -170,8 +170,11 @@
       "@codelab/frontend/application/atoms": [
         "libs/frontend/application/atoms/src/index.ts"
       ],
-      "@codelab/frontend/application/shared": [
-        "libs/frontend/application/shared/src/index.ts"
+      "@codelab/frontend/application/shared/auth": [
+        "libs/frontend/application/shared/auth/src/index.ts"
+      ],
+      "@codelab/frontend/application/shared/store": [
+        "libs/frontend/application/shared/store/src/index.ts"
       ],
       "@codelab/frontend/config": ["libs/frontend/config/src/index.ts"],
       "@codelab/frontend/domain/admin": [
@@ -227,18 +230,11 @@
       "@codelab/frontend/domain/vercel": [
         "libs/frontend/domain/vercel/src/index.ts"
       ],
-      "@codelab/frontend/infra/adapter/otel": [
-        "libs/frontend/infra/adapter/otel/src/index.ts"
+      "@codelab/frontend/infra/graphql": [
+        "libs/frontend/infra/graphql/src/index.ts"
       ],
-      "@codelab/frontend/infra/auth0": [
-        "libs/frontend/infra/auth0/src/index.ts"
-      ],
-      "@codelab/frontend/presentation/client/graphql": [
-        "libs/frontend/presentation/client/graphql/src/index.ts"
-      ],
-      "@codelab/frontend/presentation/client/mobx": [
-        "libs/frontend/presentation/client/mobx/src/index.ts"
-      ],
+      "@codelab/frontend/infra/mobx": ["libs/frontend/infra/mobx/src/index.ts"],
+      "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],
@@ -254,17 +250,28 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
-      "@codelab/frontend/testing/data": [
-        "libs/frontend/testing/data/src/index.ts"
+      "@codelab/frontend/test/cypress/antd": [
+        "libs/frontend/test/cypress/antd/src/index.ts"
       ],
-      "@codelab/frontend/testing/store": [
-        "libs/frontend/testing/store/src/index.ts"
+      "@codelab/frontend/test/cypress/codelab": [
+        "libs/frontend/test/cypress/codelab/src/index.ts"
       ],
+      "@codelab/frontend/test/cypress/command": [
+        "libs/frontend/test/cypress/command/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/nextjs-auth0": [
+        "libs/frontend/test/cypress/nextjs-auth0/src/index.ts"
+      ],
+      "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
+      "@codelab/frontend/test/store": ["libs/frontend/test/store/src/index.ts"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
+      ],
+      "@codelab/shared/abstract/typebox": [
+        "libs/shared/abstract/typebox/src/index.ts"
       ],
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
@@ -281,22 +288,7 @@
         "libs/shared/infra/logging/src/index.ts"
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
-      "@codelab/shared/infra/validation": [
-        "libs/shared/infra/validation/src/index.ts"
-      ],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/testing/cypress/antd": [
-        "libs/testing/cypress/antd/src/index.ts"
-      ],
-      "@codelab/testing/cypress/codelab": [
-        "libs/testing/cypress/codelab/src/index.ts"
-      ],
-      "@codelab/testing/cypress/command": [
-        "libs/testing/cypress/command/src/index.ts"
-      ],
-      "@codelab/testing/cypress/nextjs-auth0": [
-        "libs/testing/cypress/nextjs-auth0/src/index.ts"
-      ],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },

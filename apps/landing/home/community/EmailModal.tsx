@@ -1,4 +1,4 @@
-import { Typebox } from '@codelab/shared/infra/validation'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Type } from '@sinclair/typebox'
 import type { ModalProps } from 'antd'
 import { Button, Input, Modal } from 'antd'

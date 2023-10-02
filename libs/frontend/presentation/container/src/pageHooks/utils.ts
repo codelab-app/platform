@@ -1,7 +1,6 @@
 import type {
   IComponentService,
   IElementModel,
-  IPropData,
   ITypeService,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
@@ -11,6 +10,7 @@ import {
   isTypedProp,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isObject from 'lodash/isObject'

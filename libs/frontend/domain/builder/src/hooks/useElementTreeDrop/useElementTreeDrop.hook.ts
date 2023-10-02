@@ -3,8 +3,8 @@ import type {
   IElementTree,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useRequiredParentValidator } from '@codelab/frontend/domain/element'
-import { useStore } from '@codelab/frontend/presentation/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
 import {

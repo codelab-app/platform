@@ -1,11 +1,11 @@
 import { rendererRef, RendererType } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
-import { useStore } from '../providers'
 import { loadAllTypesForElements } from './utils'
 
 /**

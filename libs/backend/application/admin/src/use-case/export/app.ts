@@ -1,6 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 
-import { auth0Instance } from '@codelab/frontend/infra/auth0'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const exportApp: NextApiHandler = async (req, res) => {

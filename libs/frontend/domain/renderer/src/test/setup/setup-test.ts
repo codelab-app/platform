@@ -11,7 +11,6 @@ import {
   propRef,
   rendererRef,
   RendererType,
-  ROOT_ELEMENT_NAME,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { Atom, AtomService } from '@codelab/frontend/domain/atom'
@@ -40,6 +39,7 @@ import {
   IElementRenderTypeKind,
   IPageKind,
 } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import type { Ref } from 'mobx-keystone'
 import { objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'

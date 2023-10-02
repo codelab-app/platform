@@ -1,0 +1,81 @@
+{
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@typescript-eslint/padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": ["interface", "type"]
+          }
+        ],
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": "return"
+          },
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": [
+              "const",
+              "let",
+              "var",
+              "block",
+              "if",
+              "block-like",
+              "return"
+            ]
+          },
+          {
+            "blankLine": "always",
+            "prev": ["const", "let", "var", "if", "block-like"],
+            "next": "*"
+          },
+          {
+            "blankLine": "any",
+            "prev": ["const", "let", "var"],
+            "next": ["const", "let", "var", "expression"]
+          },
+          {
+            "blankLine": "never",
+            "prev": ["singleline-const", "singleline-let", "singleline-var"],
+            "next": ["singleline-const", "singleline-let", "singleline-var"]
+          },
+          {
+            "blankLine": "always",
+            "prev": ["*"],
+            "next": ["multiline-const", "multiline-let", "multiline-var"]
+          },
+          {
+            "blankLine": "always",
+            "prev": ["multiline-const", "multiline-let", "multiline-var"],
+            "next": ["*"]
+          },
+          {
+            "blankLine": "any",
+            "prev": ["cjs-import"],
+            "next": ["const", "let", "var"]
+          }
+        ],
+        "lines-between-class-members": ["error", "always"],
+        // https://github.com/microsoft/TypeScript/issues/14306
+        "spaced-comment": [
+          "error",
+          "always",
+          {
+            "markers": ["/"],
+            "block": {
+              "balanced": true
+            }
+          }
+        ],
+        "no-inline-comments": "error"
+      }
+    }
+  ]
+}

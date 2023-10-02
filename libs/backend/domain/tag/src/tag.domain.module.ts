@@ -1,4 +1,3 @@
-import { AuthModule } from '@codelab/backend/application/shared'
 import {
   AuthDomainModule,
   SharedDomainModule,

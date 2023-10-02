@@ -83,10 +83,11 @@
         "unitTestRunner": "none",
         "compiler": "swc",
         "component": false,
-        "directory": "libs/frontend",
+        "name": "frontend-",
+        "directory": "libs/frontend/",
         "setParserOptionsProject": true,
         "strict": true,
-        "importPath": "@codelab/frontend",
+        "importPath": "@codelab/frontend/",
         "tags": "scope:frontend"
       },
       "storybook-configuration": {

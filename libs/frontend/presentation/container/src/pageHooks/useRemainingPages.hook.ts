@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAsync } from '@react-hookz/web'
-import { useStore } from '../providers'
 import { useCurrentApp } from '../routerHooks'
 
 /**

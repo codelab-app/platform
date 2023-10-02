@@ -1,12 +1,12 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { FormNames, PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { CreateFieldPopover } from '@codelab/frontend/domain/type'
 import {
   CuiSidebar,
   useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateAtomPopover } from '../create-atom'

@@ -1,10 +1,10 @@
-import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 import {
   getAppService,
   type IAdminService,
 } from '@codelab/frontend/abstract/core'
 import { restPlatformClient } from '@codelab/frontend/config'
 import { ModalService } from '@codelab/frontend/domain/shared'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -16,6 +16,10 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+
+interface ImportAppResponse {
+  apps: Array<{ app: App }>
+}
 
 @model('@codelab/AdminService')
 export class AdminService
@@ -34,7 +38,7 @@ export class AdminService
   importApp = _async(function* (this: AdminService, appData: string) {
     return yield* _await(
       restPlatformClient
-        .post<IUserOutputDto>('/import/app', appData)
+        .post<ImportAppResponse>('/import/app', appData)
         .then(({ data }) => {
           const appId = data.apps[0]?.app.id
 

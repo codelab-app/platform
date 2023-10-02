@@ -1,13 +1,13 @@
 import type {
   ICreatePropData,
-  IPropData,
   IPropModel,
   IPropService,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { IPropDTO } from '@codelab/shared/abstract/core'
-import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
+import { filterEmptyStrings } from '@codelab/shared/utils'
 import {
   _async,
   _await,
@@ -21,6 +21,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { mergeProps } from '../utils'
 import { Prop } from './prop.model'
 import { PropRepository } from './prop.repo'
 

@@ -1,7 +1,12 @@
 {
   "name": "frontend-domain-domain",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "tags": ["scope:frontend"],
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ],
   "sourceRoot": "libs/frontend/domain/domain/src",
   "projectType": "library",
   "targets": {

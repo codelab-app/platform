@@ -1,11 +1,11 @@
 import type {
   IEvaluationContext,
   IInterfaceType,
-  IPropData,
 } from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import { handleFormSubmit } from '@codelab/frontend/presentation/view'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { DeepPartial } from 'utility-types'

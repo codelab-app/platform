@@ -4,7 +4,7 @@ import type {
   GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDTO, IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -13,7 +13,6 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type { IPropData } from '../prop'
 import type { ICreateAppData, IUpdateAppData } from './app.dto.interface'
 import type { IAppModel } from './app.model.interface'
 import type { IAppRepository } from './app.repo.interface'

@@ -17,9 +17,9 @@
     ]
   },
   "include": [
-    "cypress.ci.config.ts",
-    "cypress.test.config.ts",
     "src/**/*.ts",
-    "src/**/*.js"
+    "src/**/*.js",
+    "cypress.ci.config.ts",
+    "cypress.test.config.ts"
   ]
 }

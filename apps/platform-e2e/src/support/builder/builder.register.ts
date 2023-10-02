@@ -1,4 +1,4 @@
-import type { CypressCommand } from '@codelab/testing/cypress/command'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/command'
 import {
   createElementAndStoreId,
   createElementTree,

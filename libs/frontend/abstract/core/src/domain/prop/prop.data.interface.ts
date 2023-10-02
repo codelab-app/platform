@@ -1,5 +1,4 @@
-import type { IPropDTO } from '@codelab/shared/abstract/core'
-import type { IPropData } from './prop.model.interface'
+import type { IPropData, IPropDTO } from '@codelab/shared/abstract/core'
 
 export type ICreatePropData = IPropDTO
 

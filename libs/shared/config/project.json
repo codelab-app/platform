@@ -19,5 +19,5 @@
       }
     }
   },
-  "tags": ["scope:shared"]
+  "tags": ["projectType:library", "type:concrete", "scope:shared"]
 }

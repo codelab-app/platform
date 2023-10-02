@@ -3,11 +3,11 @@ import {
   DATA_ELEMENT_ID,
   DragPosition,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   makeDropIndicatorStyle,
   RootRenderer,
 } from '@codelab/frontend/domain/renderer'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useMemo, useRef } from 'react'

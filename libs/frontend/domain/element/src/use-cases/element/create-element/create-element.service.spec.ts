@@ -2,7 +2,7 @@ import {
   atomReactFragmentDto,
   elementDto,
   userDto,
-} from '@codelab/frontend/testing/data'
+} from '@codelab/frontend/test/data'
 import { v4 } from 'uuid'
 import { createTestRootStore } from '../../../tests/root-store'
 

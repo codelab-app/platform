@@ -16,7 +16,6 @@ import {
   TypeFactory,
   UnionType,
 } from '@codelab/backend/domain/type'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   IAtomDTO,
   IEnumTypeDTO,
@@ -25,6 +24,7 @@ import type {
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import {

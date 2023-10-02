@@ -12,7 +12,7 @@ import {
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ExportComponentCommand {

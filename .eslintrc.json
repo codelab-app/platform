@@ -26,7 +26,12 @@
   "extends": [
     "plugin:prettier/recommended",
     "plugin:canonical/recommended",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    // "./scripts/eslint/.eslintrc.nx.json",
+    "./scripts/eslint/.eslintrc.globals.json",
+    "./scripts/eslint/.eslintrc.spacing.json",
+    "./scripts/eslint/.eslintrc.naming.json",
+    "./scripts/eslint/.eslintrc.cypress.json"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
     // "plugin:import/recommended"
@@ -40,13 +45,13 @@
     },
     "import/resolver": {
       "typescript": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "project": ["(apps|libs)/**/tsconfig.lib.json"]
-      },
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "alwaysTryTypes": true,
         "project": ["(apps|libs)/**/tsconfig.lib.json"]
       }
+      // "node": {
+      //   "extensions": [".js", ".jsx", ".ts", ".tsx"],
+      //   "project": ["(apps|libs)/**/tsconfig.lib.json"]
+      // }
     }
   },
   "overrides": [
@@ -61,22 +66,6 @@
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",
-        // "max-params": [
-        //   "error",
-        //   {
-        //     "max": 6
-        //   }
-        // ],
-        // "prefer-destructuring": [
-        //   "error",
-        //   {
-        //     "array": true,
-        //     "object": true
-        //   },
-        //   {
-        //     "enforceForRenamedProperties": false
-        //   }
-        // ],
         // "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
@@ -109,192 +98,6 @@
           }
         ],
         "react/jsx-curly-brace-presence": "error",
-        // https://github.com/microsoft/TypeScript/issues/14306
-        "no-restricted-globals": [
-          "error",
-          "postMessage",
-          "blur",
-          "focus",
-          "close",
-          "frames",
-          "self",
-          "parent",
-          "opener",
-          "top",
-          "length",
-          "closed",
-          "location",
-          "origin",
-          "name",
-          "locationbar",
-          "menubar",
-          "personalbar",
-          "scrollbars",
-          "statusbar",
-          "toolbar",
-          "status",
-          "frameElement",
-          "navigator",
-          "customElements",
-          "external",
-          "screen",
-          "innerWidth",
-          "innerHeight",
-          "scrollX",
-          "pageXOffset",
-          "scrollY",
-          "pageYOffset",
-          "screenX",
-          "screenY",
-          "outerWidth",
-          "outerHeight",
-          "devicePixelRatio",
-          "clientInformation",
-          "screenLeft",
-          "screenTop",
-          "defaultStatus",
-          "defaultstatus",
-          "styleMedia",
-          "onanimationend",
-          "onanimationiteration",
-          "onanimationstart",
-          "onsearch",
-          "ontransitionend",
-          "onwebkitanimationend",
-          "onwebkitanimationiteration",
-          "onwebkitanimationstart",
-          "onwebkittransitionend",
-          "isSecureContext",
-          "onabort",
-          "onblur",
-          "oncancel",
-          "oncanplay",
-          "oncanplaythrough",
-          "onchange",
-          "onclick",
-          "onclose",
-          "oncontextmenu",
-          "oncuechange",
-          "ondblclick",
-          "ondrag",
-          "ondragend",
-          "ondragenter",
-          "ondragleave",
-          "ondragover",
-          "ondragstart",
-          "ondrop",
-          "ondurationchange",
-          "onemptied",
-          "onended",
-          "onerror",
-          "onfocus",
-          "oninput",
-          "oninvalid",
-          "onkeydown",
-          "onkeypress",
-          "onkeyup",
-          "onload",
-          "onloadeddata",
-          "onloadedmetadata",
-          "onloadstart",
-          "onmousedown",
-          "onmouseenter",
-          "onmouseleave",
-          "onmousemove",
-          "onmouseout",
-          "onmouseover",
-          "onmouseup",
-          "onmousewheel",
-          "onpause",
-          "onplay",
-          "onplaying",
-          "onprogress",
-          "onratechange",
-          "onreset",
-          "onresize",
-          "onscroll",
-          "onseeked",
-          "onseeking",
-          "onselect",
-          "onstalled",
-          "onsubmit",
-          "onsuspend",
-          "ontimeupdate",
-          "ontoggle",
-          "onvolumechange",
-          "onwaiting",
-          "onwheel",
-          "onauxclick",
-          "ongotpointercapture",
-          "onlostpointercapture",
-          "onpointerdown",
-          "onpointermove",
-          "onpointerup",
-          "onpointercancel",
-          "onpointerover",
-          "onpointerout",
-          "onpointerenter",
-          "onpointerleave",
-          "onafterprint",
-          "onbeforeprint",
-          "onbeforeunload",
-          "onhashchange",
-          "onlanguagechange",
-          "onmessage",
-          "onmessageerror",
-          "onoffline",
-          "ononline",
-          "onpagehide",
-          "onpageshow",
-          "onpopstate",
-          "onrejectionhandled",
-          "onstorage",
-          "onunhandledrejection",
-          "onunload",
-          "performance",
-          "stop",
-          "open",
-          "print",
-          "captureEvents",
-          "releaseEvents",
-          "getComputedStyle",
-          "matchMedia",
-          "moveTo",
-          "moveBy",
-          "resizeTo",
-          "resizeBy",
-          "getSelection",
-          "find",
-          "createImageBitmap",
-          "scroll",
-          "scrollTo",
-          "scrollBy",
-          "onappinstalled",
-          "onbeforeinstallprompt",
-          "crypto",
-          "ondevicemotion",
-          "ondeviceorientation",
-          "ondeviceorientationabsolute",
-          "indexedDB",
-          "webkitStorageInfo",
-          "chrome",
-          "visualViewport",
-          "speechSynthesis",
-          "webkitRequestFileSystem",
-          "webkitResolveLocalFileSystemURL",
-          "openDatabase"
-        ],
-        "spaced-comment": [
-          "error",
-          "always",
-          {
-            "markers": ["/"],
-            "block": {
-              "balanced": true
-            }
-          }
-        ],
-        "no-inline-comments": "error",
         "simple-import-sort/imports": [
           "error",
           {
@@ -316,165 +119,7 @@
             "endOfLine": "auto"
           }
         ],
-        "func-style": "error",
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              //
-              // This is a map of key & their possible values
-              //
-              // "scope": ["frontend", "backend", "shared", "codegen"]
-              // "layer": ["domain", "application", "infra", "presentation"]
-              // "type": ["abstract", "test"]
-              {
-                "sourceTag": "type:abstract",
-                "onlyDependOnLibsWithTags": ["type:abstract"]
-              },
-              {
-                "sourceTag": "scope:frontend",
-                "onlyDependOnLibsWithTags": [
-                  "scope:frontend",
-                  "scope:shared",
-                  "scope:codegen",
-                  "type:abstract"
-                ]
-              },
-              {
-                "sourceTag": "scope:backend",
-                "onlyDependOnLibsWithTags": [
-                  "scope:backend",
-                  "scope:shared",
-                  "scope:codegen"
-                ]
-              },
-              {
-                "sourceTag": "layer:domain",
-                "onlyDependOnLibsWithTags": [
-                  "layer:domain",
-                  "type:abstract",
-                  "*"
-                ]
-              },
-              {
-                "sourceTag": "layer:application",
-                "onlyDependOnLibsWithTags": [
-                  "layer:domain",
-                  "layer:application",
-                  "*"
-                ]
-              },
-              // {
-              //   "sourceTag": "layer:domain:frontend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "scope:shared",
-              //     "layer:domain:frontend",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
-              {
-                "sourceTag": "scope:shared",
-                "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
-              },
-              // {
-              //   "sourceTag": "layer:domain:backend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "layer:domain:backend",
-              //     "layer:application:backend",
-              //     "scope:shared",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
-              {
-                "sourceTag": "scope:publishable",
-                "onlyDependOnLibsWithTags": ["scope:publishable"]
-              }
-            ]
-          }
-        ],
-        "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            "selector": ["classProperty"],
-            "format": ["camelCase"]
-          },
-          {
-            "selector": ["objectLiteralProperty"],
-            "format": ["camelCase", "PascalCase"],
-            "filter": {
-              "regex": "_CONTAINS$|_ENDS_WITH$|_IN$|_STARTS_WITH$|_NOT$|_ALL$|_NONE$|_SINGLE$|_SOME$|^[#.].*|^[0-9]*$",
-              "match": false
-            }
-          },
-          {
-            "selector": ["interface"],
-            "format": ["PascalCase"]
-          }
-        ],
-        "@typescript-eslint/padding-line-between-statements": [
-          "error",
-          {
-            "blankLine": "always",
-            "prev": "*",
-            "next": ["interface", "type"]
-          }
-        ],
-        "padding-line-between-statements": [
-          "error",
-          {
-            "blankLine": "always",
-            "prev": "*",
-            "next": "return"
-          },
-          {
-            "blankLine": "always",
-            "prev": "*",
-            "next": [
-              "const",
-              "let",
-              "var",
-              "block",
-              "if",
-              "block-like",
-              "return"
-            ]
-          },
-          {
-            "blankLine": "always",
-            "prev": ["const", "let", "var", "if", "block-like"],
-            "next": "*"
-          },
-          {
-            "blankLine": "any",
-            "prev": ["const", "let", "var"],
-            "next": ["const", "let", "var", "expression"]
-          },
-          {
-            "blankLine": "never",
-            "prev": ["singleline-const", "singleline-let", "singleline-var"],
-            "next": ["singleline-const", "singleline-let", "singleline-var"]
-          },
-          {
-            "blankLine": "always",
-            "prev": ["*"],
-            "next": ["multiline-const", "multiline-let", "multiline-var"]
-          },
-          {
-            "blankLine": "always",
-            "prev": ["multiline-const", "multiline-let", "multiline-var"],
-            "next": ["*"]
-          },
-          {
-            "blankLine": "any",
-            "prev": ["cjs-import"],
-            "next": ["const", "let", "var"]
-          }
-        ],
-        "lines-between-class-members": ["error", "always"]
+        "func-style": "error"
       }
     },
     {
@@ -483,64 +128,7 @@
         "canonical/sort-keys": "off"
       }
     },
-    {
-      "plugins": ["react"],
-      "files": ["*.tsx"],
-      "rules": {
-        "unicorn/filename-case": [
-          "error",
-          {
-            "cases": {
-              "camelCase": false,
-              "pascalCase": true
-            },
-            "ignore": [".*\\.hook\\.tsx?$"]
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.hook.ts", "*.hook.tsx"],
-      "rules": {
-        "unicorn/filename-case": [
-          "error",
-          {
-            "cases": {
-              "camelCase": true,
-              "pascalCase": false
-            }
-          }
-        ]
-      }
-    },
-    {
-      "files": ["*.ts"],
-      "rules": {
-        "unicorn/filename-case": [
-          "error",
-          {
-            "cases": {
-              "camelCase": false,
-              "pascalCase": false,
-              "kebabCase": true
-            },
-            "ignore": [".*\\.hook\\.tsx?$"]
-          }
-        ],
-        "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            "selector": ["typeProperty"],
-            "format": ["camelCase", "PascalCase"],
-            "filter": {
-              "regex": "^data-",
-              "match": false
-            },
-            "leadingUnderscore": "allowDouble"
-          }
-        ]
-      }
-    },
+
     {
       "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
       "rules": {
@@ -634,10 +222,6 @@
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
-    // {
-    //   "files": ["*.ts"],
-    //   "processor": "@graphql-eslint/graphql"
-    // },
     {
       "files": ["*.graphql"],
       "parser": "@graphql-eslint/eslint-plugin",
@@ -645,7 +229,7 @@
       "extends": ["plugin:@graphql-eslint/schema-all"],
       "parserOptions": {
         "skipGraphQLConfig": true,
-        "schema": "./schema.graphql"
+        "schema": "schema.graphql"
       },
       "rules": {
         "@graphql-eslint/alphabetize": [
@@ -655,6 +239,13 @@
             "selections": ["OperationDefinition", "FragmentDefinition"]
           }
         ]
+      }
+    },
+    {
+      "files": ["*.cypress.ts"],
+      "rules": {
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off"
       }
     }
   ]

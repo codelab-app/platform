@@ -1,6 +1,6 @@
 import type { IElementModel } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { type MouseEvent, useCallback } from 'react'
 
 /**

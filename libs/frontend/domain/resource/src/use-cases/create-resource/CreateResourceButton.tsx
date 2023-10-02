@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { Button, Dropdown } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'

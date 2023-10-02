@@ -144,6 +144,6 @@
       "outputs": ["{workspaceRoot}/coverage/apps/platform"]
     }
   },
-  "tags": ["scope:frontend"],
+  "tags": ["projectType:application", "type:concrete"],
   "implicitDependencies": []
 }

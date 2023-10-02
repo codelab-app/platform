@@ -1,14 +1,12 @@
 import type { IPageProps } from '@codelab/frontend/abstract/core'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { type CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAppDevelopment } from '@codelab/frontend/domain/app'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { RootRenderer } from '@codelab/frontend/domain/renderer'
-import {
-  usePageQuery,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { usePageQuery } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
