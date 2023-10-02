@@ -17,6 +17,7 @@ export type ITestRootStore = Pick<
   | 'propService'
   | 'renderService'
   | 'storeService'
+  | 'typeService'
 > & {
   /**
    * We only use a single renderer for testing

@@ -227,8 +227,8 @@ export class Element
   get closestContainerNode() {
     const { closestParentElement } = this
 
-    const closestContainerNode =
-      closestParentElement?.current.parentComponent?.current ||
+    const closestContainerNode = this.parentComponent?.current ?? this.page?.current ??
+      closestParentElement?.current.parentComponent?.current ??
       closestParentElement?.current.page?.current
 
     if (!closestContainerNode) {
