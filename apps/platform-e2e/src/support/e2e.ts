@@ -13,40 +13,24 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
-import { antCommands } from '@codelab/testing/cypress/antd'
-import { codelabUICommands } from '@codelab/testing/cypress/codelab'
+import { antCommands } from '@codelab/frontend/test/cypress/antd'
+import { codelabCommands } from '@codelab/frontend/test/cypress/codelab'
 import {
-  apiCommands,
-  databaseCommands,
-  graphQLCommands,
+  helperCommands,
   registerCommands,
-  userCommands,
-} from '@codelab/testing/cypress/command'
-import { nextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
-import { builderCommands } from './builder'
-import { UICommands } from './entities'
+} from '@codelab/frontend/test/cypress/command'
+import { nextjsAuth0Commands } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import { builderCommands } from './builder/builder.register'
 import { textEditorCommands } from './text-editor/text-editor.register'
 
+/**
+ * When we register, the global Cypress types are loaded in the command files
+ */
 registerCommands([
-  ...apiCommands,
   ...textEditorCommands,
-  ...graphQLCommands,
-  ...userCommands,
   ...antCommands,
-  ...codelabUICommands,
-  ...databaseCommands,
-  ...UICommands,
+  ...codelabCommands,
+  ...helperCommands,
   ...nextjsAuth0Commands,
   ...builderCommands,
 ])
-
-// afterEach(stopOnFirstError)
-
-// This actually make some tests get skipped even if it seems the e2e
-// tests are passing, so it could skip testing breaking changes
-// Lets comment this out for now
-// Cypress.on('test:after:run', (test) => {
-//   if (test.state !== 'passed' && test.retries > 0) {
-//     ;(Cypress as any).runner.stop()
-//   }
-// })

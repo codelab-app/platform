@@ -7,6 +7,7 @@ import {
 import { addGraphqlEslintConfig } from './eslint/add-graphql-eslint-config'
 import { addGraphqlExtension } from './lint/add-graphql-extension'
 import { addCiLintConfig } from './lint/ci-lint-config'
+import { addProjectTags } from './project-tags/add-project-tags'
 import { updateTestConfig } from './test/test-config'
 
 /**
@@ -26,6 +27,7 @@ export const updateProjectConfig = (tree: Tree, projectName: string) => {
   addGraphqlEslintConfig(tree, projectConfig)
   addGraphqlExtension(tree, projectConfig)
   updateTestConfig(tree, projectConfig)
+  addProjectTags(tree, projectConfig)
 
   updateProjectConfiguration(tree, projectName, projectConfig)
 }

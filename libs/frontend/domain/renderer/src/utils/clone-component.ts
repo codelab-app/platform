@@ -1,8 +1,8 @@
 import type {
   IComponentModel,
   IPageNode,
-  IPropData,
 } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 
 /**
  * Clones component by generating a unique key from props

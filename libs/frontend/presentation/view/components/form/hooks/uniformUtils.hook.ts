@@ -1,6 +1,6 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'

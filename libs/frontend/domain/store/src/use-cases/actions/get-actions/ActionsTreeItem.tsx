@@ -9,12 +9,12 @@ import {
   type IActionsTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { FormNames } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 

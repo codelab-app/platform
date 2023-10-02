@@ -9,11 +9,17 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/abstract/testing/**/*.ts",
-          "libs/frontend/abstract/testing/package.json"
+          "libs/frontend/abstract/testing/**/*.{ts,tsx,js,jsx,graphql}"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/testing.xml",
+          "quiet": true
+        }
       }
     }
   },
-  "tags": ["scope:shared"]
+  "tags": ["projectType:library", "type:abstract", "scope:frontend"]
 }

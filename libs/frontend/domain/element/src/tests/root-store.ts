@@ -34,8 +34,8 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
 import { User, UserService } from '@codelab/frontend/domain/user'
-import { atomReactFragmentDto } from '@codelab/frontend/testing/data'
-import { mockRepository } from '@codelab/frontend/testing/store'
+import { atomReactFragmentDto } from '@codelab/frontend/test/data'
+import { mockRepository } from '@codelab/frontend/test/store'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import { ElementService } from '../store'

@@ -2,18 +2,14 @@ import type {
   IInterfaceType,
   IPropModel,
 } from '@codelab/frontend/abstract/core'
-import {
-  CUSTOM_TEXT_PROP_KEY,
-  IPropData,
-  typeRef,
-} from '@codelab/frontend/abstract/core'
+import { CUSTOM_TEXT_PROP_KEY, typeRef } from '@codelab/frontend/abstract/core'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import isMatch from 'lodash/isMatch'
 import isNil from 'lodash/isNil'
@@ -27,6 +23,7 @@ import type { Ref } from 'mobx-keystone'
 import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
+import { mergeProps, propSafeStringify } from '../utils'
 import { getPropService } from './prop.service'
 
 const create = ({ api, data = '{}', id }: IPropDTO) => {

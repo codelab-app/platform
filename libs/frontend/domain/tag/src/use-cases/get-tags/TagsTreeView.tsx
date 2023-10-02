@@ -1,10 +1,10 @@
 import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
 import type { CheckedKeys } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { useAsync } from '@react-hookz/web'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'

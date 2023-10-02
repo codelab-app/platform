@@ -2,7 +2,7 @@ import type {
   ICreateFieldData,
   IUpdateFieldData,
 } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { JSONSchemaType } from 'ajv'
 import { useMemo } from 'react'
 

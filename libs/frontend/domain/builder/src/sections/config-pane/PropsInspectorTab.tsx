@@ -1,7 +1,7 @@
 import type { IPageNodeRef } from '@codelab/frontend/abstract/core'
+import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
-import { propSafeStringify } from '@codelab/shared/utils'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'

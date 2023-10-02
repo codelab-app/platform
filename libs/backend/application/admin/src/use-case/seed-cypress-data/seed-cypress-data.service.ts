@@ -1,8 +1,8 @@
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
+import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import { ReadAdminDataService } from '../../../../shared/src/data/read-admin-data.service'
 
 @Injectable()
 export class SeedCypressDataService {

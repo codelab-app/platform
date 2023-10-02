@@ -1,5 +1,5 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Active, DragStartEvent } from '@dnd-kit/core'
 import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'

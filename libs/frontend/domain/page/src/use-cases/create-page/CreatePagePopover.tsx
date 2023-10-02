@@ -1,11 +1,11 @@
 import { CloseOutlined, SaveOutlined } from '@ant-design/icons'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { FormNames } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSidebarPopover,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'

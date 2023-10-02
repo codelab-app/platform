@@ -1,7 +1,7 @@
 /* eslint-disable canonical/sort-keys */
 /* eslint-disable @nx/enforce-module-boundaries */
 
-import { auth0Instance } from '@codelab/frontend/infra/auth0'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import AdmZip from 'adm-zip'
 import type { NextApiHandler } from 'next'
 import path from 'path'

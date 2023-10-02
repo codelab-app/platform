@@ -1,7 +1,8 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAppDevelopment } from '@codelab/frontend/domain/app'
 import {
   BuilderContext,
@@ -14,10 +15,7 @@ import {
   PageDetailHeader,
   PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
-import {
-  usePageQuery,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { usePageQuery } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   SkeletonWrapper,

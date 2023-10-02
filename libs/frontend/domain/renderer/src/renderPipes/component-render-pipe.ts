@@ -1,6 +1,5 @@
 import type {
   IElementModel,
-  IPropData,
   IRenderer,
   IRenderOutput,
   IRenderPipe,
@@ -9,6 +8,7 @@ import {
   componentRef,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './render-pipe.base'
 

@@ -1,5 +1,5 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import {
   createListAtomInput,
   createListItemAtomInput,

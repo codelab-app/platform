@@ -1,10 +1,10 @@
 import type {
   IElementModel,
-  IPropData,
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { RenderOutput } from '../utils'

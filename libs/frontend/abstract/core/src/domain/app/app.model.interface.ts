@@ -3,7 +3,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IApp, IAppDTO } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDTO, IPropData } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
@@ -11,7 +11,6 @@ import type { IDomainModel } from '../domain'
 import type { IElementModel } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPageModel } from '../page'
-import type { IPropData } from '../prop'
 
 /**
  * IModelData

@@ -1,0 +1,27 @@
+{
+  "extends": ["plugin:cypress/recommended", "../../../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["libs/frontend/test/cypress/nextjs-auth0/tsconfig.*?.json"]
+      },
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
+      "rules": {}
+    }
+  ]
+}

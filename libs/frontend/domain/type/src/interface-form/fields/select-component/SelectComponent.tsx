@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAsync } from '@react-hookz/web'
 import sortBy from 'lodash/sortBy'
 import React from 'react'

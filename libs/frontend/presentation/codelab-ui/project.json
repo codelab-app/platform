@@ -3,7 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/presentation/codelab-ui/src",
   "projectType": "library",
-  "tags": ["scope:frontend"],
+  "tags": ["projectType:library", "type:concrete", "scope:frontend"],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",

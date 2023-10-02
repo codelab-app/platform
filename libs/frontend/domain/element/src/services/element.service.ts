@@ -11,9 +11,9 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {

@@ -3,7 +3,7 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IPropData, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
@@ -12,7 +12,6 @@ import type { IActionModel } from '../action'
 import type { IComponentModel } from '../component'
 import type { IModel } from '../model.interface'
 import type { IPageModel } from '../page'
-import type { IPropData } from '../prop'
 import type { IInterfaceType } from '../type'
 
 export interface IStoreModel

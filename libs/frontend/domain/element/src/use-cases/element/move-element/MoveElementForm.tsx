@@ -1,6 +1,6 @@
 import type { IElementModel, MoveData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'

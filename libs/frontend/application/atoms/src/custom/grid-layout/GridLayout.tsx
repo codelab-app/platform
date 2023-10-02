@@ -1,5 +1,5 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { ObjectTyped } from 'object-typed'
 import React, { useMemo } from 'react'
 import type { Layout, Layouts, ResponsiveProps } from 'react-grid-layout'

@@ -1,5 +1,5 @@
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 import path from 'path'
 
 describe('Admin', () => {

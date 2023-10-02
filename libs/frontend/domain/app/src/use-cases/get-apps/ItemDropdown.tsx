@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons'
 import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'

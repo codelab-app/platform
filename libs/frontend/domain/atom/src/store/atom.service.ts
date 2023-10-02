@@ -14,9 +14,10 @@ import {
 } from '@codelab/frontend/domain/shared'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { dynamicLoader, throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import { IAtomDTO, IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import isEmpty from 'lodash/isEmpty'
 import { computed, observable } from 'mobx'
 import {

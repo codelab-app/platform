@@ -75,5 +75,10 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/shared/utils"]
     }
   },
-  "tags": ["scope:frontend", "scope:shared"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "scope:shared"
+  ]
 }

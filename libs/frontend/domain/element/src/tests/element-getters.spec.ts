@@ -4,7 +4,7 @@ import {
   elementDto,
   pageDto,
   userDto,
-} from '@codelab/frontend/testing/data'
+} from '@codelab/frontend/test/data'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'

@@ -1,4 +1,4 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import isObjectLike from 'lodash/isObjectLike'
 import { modelTypeKey } from 'mobx-keystone'
 import { isServer } from '../env/is-server'

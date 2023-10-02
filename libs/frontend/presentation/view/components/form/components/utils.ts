@@ -1,10 +1,10 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
 import { isTypedProp } from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import {
   callbackWithParams,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { ErrorObject } from 'ajv'
 import get from 'lodash/get'

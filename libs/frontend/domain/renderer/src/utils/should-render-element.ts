@@ -1,8 +1,9 @@
-import type { IElementModel, IPropData } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
 
 export const shouldRenderElement = (
   element: IElementModel,

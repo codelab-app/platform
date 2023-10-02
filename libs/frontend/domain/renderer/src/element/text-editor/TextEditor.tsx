@@ -1,6 +1,6 @@
 import './editorjs.overrides.css'
-import { useStore } from '@codelab/frontend/presentation/container'
-import { getDefaultFieldProps } from '@codelab/shared/utils'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
 import type { OutputData } from '@editorjs/editorjs'
 import EditorJS from '@editorjs/editorjs'
 import React, { memo, useEffect } from 'react'

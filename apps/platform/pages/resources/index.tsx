@@ -2,7 +2,8 @@ import {
   type CodelabPage,
   ExplorerPaneType,
 } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateResourceModal,
   DeleteResourceModal,
@@ -14,7 +15,6 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation/codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,

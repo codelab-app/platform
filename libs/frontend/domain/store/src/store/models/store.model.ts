@@ -3,7 +3,6 @@ import type {
   IComponentModel,
   IInterfaceType,
   IPageModel,
-  IPropData,
   IStoreModel,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -16,15 +15,19 @@ import {
   RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
+import type {
+  IAppDTO,
+  IPropData,
+  IStoreDTO,
+} from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { propSafeStringify } from '@codelab/shared/utils'
 import keys from 'lodash/keys'
 import merge from 'lodash/merge'
 import { autorun, computed, observable, set } from 'mobx'

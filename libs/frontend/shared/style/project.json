@@ -21,5 +21,10 @@
       }
     }
   },
-  "tags": ["scope:frontend"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "scope:shared"
+  ]
 }

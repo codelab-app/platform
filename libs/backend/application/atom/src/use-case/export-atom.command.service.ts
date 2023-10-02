@@ -6,7 +6,7 @@ import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { IAtomDTO } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/infra/validation'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -28,11 +28,7 @@ export class ExportAtomHandler
   @Span()
   async execute(command: ExportAtomCommand): Promise<IAtomOutputDto> {
     const { where } = command
-
-    const atom = await this.atomRepository.findOne(
-      where,
-      Typebox.OmitOwner(IAtomDTO),
-    )
+    const atom = await this.atomRepository.findOne(where, IAtomDTO)
 
     if (!atom) {
       throw new Error('Atom not found')

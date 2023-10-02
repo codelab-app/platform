@@ -1,5 +1,5 @@
-import type { TestRootStore } from '@codelab/frontend/testing/store'
-import { createTestRootStore } from '@codelab/frontend/testing/store'
+import type { TestRootStore } from '@codelab/frontend/test/store'
+import { createTestRootStore } from '@codelab/frontend/test/store'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import {
   appData,

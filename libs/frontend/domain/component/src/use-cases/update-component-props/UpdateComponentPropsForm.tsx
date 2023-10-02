@@ -1,16 +1,11 @@
-import type {
-  IComponentModel,
-  IPropData,
-} from '@codelab/frontend/abstract/core'
+import type { IComponentModel } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
+import { getDefaultFieldProps, mergeProps } from '@codelab/frontend/domain/prop'
 import { PropsForm } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { Spinner } from '@codelab/frontend/presentation/view'
-import {
-  filterEmptyStrings,
-  getDefaultFieldProps,
-  mergeProps,
-} from '@codelab/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
+import { filterEmptyStrings } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

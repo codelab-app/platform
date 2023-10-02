@@ -1,6 +1,6 @@
 import type { IUpdateFieldData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
   DisplayIfField,

@@ -1,9 +1,7 @@
 import type { ICreatePageData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import {
-  useCurrentApp,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import {
   DisplayIf,
   Form,

@@ -21,5 +21,5 @@
       }
     }
   },
-  "tags": ["type:abstract", "scope:frontend"]
+  "tags": ["projectType:library", "type:abstract", "scope:frontend"]
 }
