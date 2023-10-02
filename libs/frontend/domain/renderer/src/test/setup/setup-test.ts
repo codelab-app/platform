@@ -38,6 +38,7 @@ import {
   IAtomType,
   IElementRenderTypeKind,
   IPageKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import type { Ref } from 'mobx-keystone'
@@ -80,6 +81,7 @@ export const setupTestForRenderer = (
     const pageStoreId = v4()
     const compRootElementId = v4()
     const emptyInterface = new InterfaceType({ name: 'Empty interface' })
+    const componentName = 'My Component'
 
     const divAtom = new Atom({
       api: typeRef(emptyInterface),
@@ -93,6 +95,13 @@ export const setupTestForRenderer = (
       name: 'Text',
       tags: [],
       type: IAtomType.Text,
+    })
+
+    const fragmentAtom = new Atom({
+      api: typeRef(emptyInterface),
+      name: 'React Fragment',
+      tags: [],
+      type: IAtomType.ReactFragment,
     })
 
     const integerType = new PrimitiveType({
@@ -185,11 +194,12 @@ export const setupTestForRenderer = (
       },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
+      page: {
+        id: pageId,
+      },
       props: elementToRenderProp,
       renderType: { __typename: IElementRenderTypeKind.Atom, id: divAtom.id },
     })
-
-    data.element.setPage(pageRef(pageId))
 
     data.rootStore.pageService.add({
       app: { id: v4() },
@@ -219,19 +229,64 @@ export const setupTestForRenderer = (
       id: v4(),
     })
 
-    data.component = await data.rootStore.componentService.add({
-      api: {
+    const storeApi = data.rootStore.typeService.addInterface({
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.createName(`${componentName} Store`),
+    })
+
+    const store = data.rootStore.storeService.add({
+      api: typeRef<IInterfaceType>(storeApi.id),
+      id: v4(),
+      name: Store.createName({ name: componentName }),
+    })
+
+    const componentId = v4()
+
+    const elementData = {
+      closestContainerNode: {
+        id: componentId,
+      },
+      id: v4(),
+      name: `${componentName} Root`,
+      parentComponent: { id: componentId },
+      props: {
+        data: '{}',
         id: v4(),
       },
-      childrenContainerElement,
+      renderType: {
+        __typename: IElementRenderTypeKind.Atom,
+        id: fragmentAtom.id,
+      },
+    }
+
+    const rootElement = data.rootStore.elementService.add(elementData)
+
+    const api = data.rootStore.typeService.addInterface({
       id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.createName(componentName),
+    })
+
+    const componentProps = data.rootStore.propService.add({
+      data: '{}',
+      id: v4(),
+    })
+
+    data.component = await data.rootStore.componentService.add({
+      api: {
+        id: api.id,
+      },
+      childrenContainerElement: elementRef(compRootElementId),
+      id: componentId,
       keyGenerator: `function run(props) {
         // props are of type component api
           return props.id
       }`,
-      name: 'My Component',
+      name: componentName,
       props: {
-        id: v4(),
+        data: '{}',
+        id: componentProps.id,
       },
       rootElement,
       store,
@@ -255,12 +310,14 @@ export const setupTestForRenderer = (
           },
           id: v4(),
           name: '01',
+          parentComponent: { id: data.component.id },
           parentElement: { id: data.element.id },
           props: {
             data: JSON.stringify({
               componentProp: 'instance',
               [data.componentField.key]: 'component instance prop',
             }),
+            id: v4(),
           },
           renderType: {
             __typename: IElementRenderTypeKind.Component,
