@@ -24,7 +24,6 @@ export const validateAndClean = <T extends TAnySchema>(
     return validator.validateAndCleanCopy(values as Readonly<unknown>)
   } catch (error) {
     console.error(schema, values, error)
-
     throw error
   }
 }

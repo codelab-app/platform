@@ -1,30 +1,30 @@
 {
-  "name": "frontend-test-cypress-utils",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/test/cypress/utils/src",
+  "name": "frontend-test-cypress-utils",
   "projectType": "library",
+  "sourceRoot": "libs/frontend/test/cypress/utils/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "type:test",
+    "scope:frontend"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/test/cypress/utils/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-test-cypress-utils.xml",
           "quiet": true
         }
-      }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/utils/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "type:test",
-    "scope:frontend"
-  ]
+  }
 }

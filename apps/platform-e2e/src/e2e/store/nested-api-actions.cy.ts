@@ -10,8 +10,6 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDTO

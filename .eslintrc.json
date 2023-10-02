@@ -50,6 +50,10 @@
       "node": {
         "project": ["(apps|libs)/**/tsconfig.lib.json"]
       }
+      // "node": {
+      //   "extensions": [".js", ".jsx", ".ts", ".tsx"],
+      //   "project": ["(apps|libs)/**/tsconfig.lib.json"]
+      // }
     }
   },
   "overrides": [
@@ -242,7 +246,7 @@
       "extends": ["plugin:@graphql-eslint/schema-all"],
       "parserOptions": {
         "skipGraphQLConfig": true,
-        "schema": "./schema.graphql"
+        "schema": "schema.graphql"
       },
       "rules": {
         "@graphql-eslint/alphabetize": [
@@ -252,6 +256,13 @@
             "selections": ["OperationDefinition", "FragmentDefinition"]
           }
         ]
+      }
+    },
+    {
+      "files": ["*.cypress.ts"],
+      "rules": {
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-empty-interface": "off"
       }
     }
   ]

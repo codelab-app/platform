@@ -1,6 +1,7 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateDomainModal,
   DeleteDomainModal,

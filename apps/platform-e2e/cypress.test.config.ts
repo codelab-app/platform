@@ -4,7 +4,7 @@ import { defineConfig } from 'cypress'
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { areDirectoriesIdentical } from 'libs/backend/shared/util/src/file/directory-compare'
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { encrypt } from 'libs/testing/cypress/nextjs-auth0/src/utils/encrypt'
+import { encrypt } from 'libs/frontend/test/cypress/nextjs-auth0/src/utils/encrypt'
 import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {

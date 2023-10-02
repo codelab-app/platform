@@ -4,7 +4,6 @@ import {
   DeleteTreeData,
   UpdateData,
 } from '@codelab/shared/data/test'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 
 const testCreate = (name: string, parentName?: string) => {
   cy.getCuiTreeItemByPrimaryTitle(name).should('exist')

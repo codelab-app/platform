@@ -1,8 +1,6 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
 import type { EditorView } from '@codemirror/view'
 
 // Primitive Type use case

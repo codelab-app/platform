@@ -5,7 +5,11 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
+<<<<<<<< HEAD:libs/frontend/application/domain/.eslintrc.json
         "project": ["libs/frontend/application/domain/tsconfig.*?.json"]
+========
+        "project": ["libs/frontend/test/store/tsconfig.*?.json"]
+>>>>>>>> e4701781d (wip: update project tags):libs/frontend/test/store/.eslintrc.json
       },
       "rules": {}
     },

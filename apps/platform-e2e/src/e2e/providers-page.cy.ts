@@ -1,8 +1,7 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { appName, pageName } from './apps/app.data'
 
 const CARD_COMPONENT_NAME = 'Card Component'

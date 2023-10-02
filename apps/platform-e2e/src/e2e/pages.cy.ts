@@ -1,7 +1,7 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IApp } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { loginAndSetupData } from '@codelab/testing/cypress/nextjs-auth0'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { pageName, updatedPageName } from './apps/app.data'
 
 describe('Pages CRUD', () => {
