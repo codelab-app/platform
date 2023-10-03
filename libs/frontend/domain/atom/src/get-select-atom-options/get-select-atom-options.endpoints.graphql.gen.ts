@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { InterfaceTypeFragment } from '../../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
+import { InterfaceTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { InterfaceTypeFragmentDoc } from '../../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
+import { InterfaceTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/interface.fragment.graphql.gen'
 export type GetSelectAtomOptionsQueryVariables = Types.Exact<{
   [key: string]: never
 }>

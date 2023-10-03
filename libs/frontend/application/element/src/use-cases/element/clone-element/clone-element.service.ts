@@ -35,7 +35,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { makeAutoIncrementedName } from '../../../utils'
+import { makeAutoIncrementedName } from '../../../../../../domain/element/src/utils'
 
 @model('@codelab/CloneElementService')
 export class CloneElementService

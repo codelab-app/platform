@@ -1,3 +1,4 @@
+import React from 'react'
 import { SegmentedSelect } from '../components'
 import { CssProperty, Display } from '../css'
 import { useStyle } from '../style.hook'

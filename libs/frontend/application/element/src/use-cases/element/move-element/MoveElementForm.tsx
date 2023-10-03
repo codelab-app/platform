@@ -9,6 +9,7 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { mapElementOption } from '../../../../../../domain/element/src/utils'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'

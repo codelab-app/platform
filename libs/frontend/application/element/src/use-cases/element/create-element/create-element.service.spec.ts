@@ -4,7 +4,7 @@ import {
   userDto,
 } from '@codelab/frontend/test/data'
 import { v4 } from 'uuid'
-import { createTestRootStore } from '../../../tests/root-store'
+import { createTestRootStore } from '../../../../../../domain/element/src/tests/root-store'
 
 describe('CreateElementService', () => {
   const { atomService, elementService } = createTestRootStore(userDto)

@@ -1,6 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { FormNames } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateComponentPopover,
   DeleteComponentModal,

@@ -1,5 +1,6 @@
 import { Popover, Row } from 'antd'
 import clsx from 'clsx'
+import React from 'react'
 import { LabeledSelect } from '../components'
 import { CssProperty } from '../css'
 import { SpacingPopover } from '../spacing/SpacingPopover'

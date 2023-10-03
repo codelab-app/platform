@@ -1,6 +1,4 @@
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   AtomForm,
   AtomsPrimarySidebar,
