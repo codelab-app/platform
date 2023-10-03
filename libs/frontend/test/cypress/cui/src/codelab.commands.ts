@@ -1,11 +1,4 @@
-<<<<<<<< HEAD:libs/frontend/test/cypress/cui/src/codelab.commands.ts
 import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
-========
-import type {
-  CypressCommand,
-  OmitFirstArg,
-} from '@codelab/frontend/test/cypress/command'
->>>>>>>> e4701781d (wip: update project tags):libs/frontend/test/cypress/codelab/src/codelab.commands.ts
 import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'

@@ -1,30 +1,31 @@
 {
-  "name": "frontend-abstract-domain",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/abstract/domain/src",
+  "name": "frontend-abstract-domain",
   "projectType": "library",
+  "sourceRoot": "libs/frontend/abstract/domain/src",
+  "tags": ["projectType:library", "type:abstract", "scope:frontend"],
+  "tags": [
+    "projectType:library",
+    "type:abstract",
+    "scope:frontend",
+    "layer:domain"
+  ],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/abstract/domain/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-abstract-domain.xml",
           "quiet": true
         }
-      }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/abstract/domain/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
     }
-  },
-  "tags": [
-    "projectType:library",
-    "type:abstract",
-    "scope:frontend",
-    "layer:domain"
-  ]
+  }
 }

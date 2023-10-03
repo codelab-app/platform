@@ -1,5 +1,4 @@
 import {
-  hideField,
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'

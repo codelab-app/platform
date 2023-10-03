@@ -1,8 +1,4 @@
-import {
-  IComponentDTO,
-  IElementDTO,
-  IPropDTO,
-} from '@codelab/shared/abstract/core'
+import { IComponentDTO, IElementDTO } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IApiOutputDto } from './api.output.dto'

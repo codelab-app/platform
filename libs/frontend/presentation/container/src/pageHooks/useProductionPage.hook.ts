@@ -1,4 +1,4 @@
-import { rendererRef, RendererType } from '@codelab/frontend/abstract/core'
+import { rendererRef, RendererType } from '@codelab/frontend/abstract/domain'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'

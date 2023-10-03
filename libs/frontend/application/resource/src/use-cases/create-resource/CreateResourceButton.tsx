@@ -5,7 +5,7 @@ import { Button, Dropdown } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ResourceIcon } from '../../../../../domain/resource/src/view'
+import { ResourceIcon } from '../../view'
 
 export const CreateResourceButton = observer(() => {
   const { resourceService } = useStore()
