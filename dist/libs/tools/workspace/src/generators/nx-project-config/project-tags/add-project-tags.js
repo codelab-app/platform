@@ -5,6 +5,28 @@ const tslib_1 = require("tslib");
 const set_1 = tslib_1.__importDefault(require("lodash/set"));
 const uniq_1 = tslib_1.__importDefault(require("lodash/uniq"));
 /**
+ *
+ * This process appends tags
+ *
+ * @param projectConfig
+ * @param tag The tags to append
+ * @param libPathsMatch An array of lib paths to match for, if any matches, we apply the tags
+ *
+ * @returns returns whether any tag has been appended
+ */
+const appendTagsToProjectConfig = (libPathsMatch, tag, projectConfig) => {
+    const { sourceRoot } = projectConfig;
+    const matches = libPathsMatch.some((lib) => sourceRoot?.startsWith(lib));
+    if (matches) {
+        appendTags(tag, projectConfig);
+    }
+    return matches;
+};
+const appendTags = (tag, projectConfig) => {
+    const updatedTags = (0, uniq_1.default)([...(projectConfig.tags ?? []), tag]);
+    (0, set_1.default)(projectConfig, 'tags', updatedTags);
+};
+/**
  * Add tags based on project directory structure
  *
  *  "scope": ["frontend", "backend", "shared", "codegen"]
@@ -17,94 +39,53 @@ const addProjectTags = (tree, projectConfig) => {
     // We want to re-construct the tags each time
     projectConfig.tags = [];
     /**
+     * Add `layer:presentation`
+     */
+    appendTagsToProjectConfig(['libs/frontend/presentation'], 'layer:presentation', projectConfig);
+    /**
      * Add `projectType:application`
      */
-    if (sourceRoot?.startsWith('apps')) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'projectType:application']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['apps'], 'projectType:application', projectConfig);
     /**
      * Add `projectType:library`
      */
-    if (sourceRoot?.startsWith('libs')) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'projectType:library']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs'], 'projectType:library', projectConfig);
     /**
      * Add `type:abstract`
      */
-    if ([
-        'libs/shared/abstract',
-        'libs/frontend/abstract',
-        'libs/backend/abstract',
-    ].some((lib) => sourceRoot?.startsWith(lib))) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'type:abstract']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
+    const isAbstract = appendTagsToProjectConfig(['libs/shared/abstract', 'libs/frontend/abstract', 'libs/backend/abstract'], 'type:abstract', projectConfig);
+    if (!isAbstract) {
+        appendTags('type:concrete', projectConfig);
     }
-    else {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'type:concrete']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
-    if (['libs/backend/test', 'libs/frontend/test'].some((lib) => sourceRoot?.startsWith(lib))) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'type:test']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/backend/test', 'libs/frontend/test'], 'type:test', projectConfig);
     /**
      * Add `layer:infra` tag
      */
-    if (['libs/backend/infra', 'libs/frontend/infra', 'libs/shared/infra'].some((lib) => sourceRoot?.startsWith(lib))) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'layer:infra']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/backend/infra', 'libs/frontend/infra', 'libs/shared/infra'], 'layer:infra', projectConfig);
     /**
      * Add `scope:codegen` tag
      */
-    if (['libs/backend/infra', 'libs/frontend/infra'].some((lib) => sourceRoot?.startsWith(lib))) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'scope:codegen']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/backend/infra', 'libs/frontend/infra'], 'scope:codegen', projectConfig);
     /**
      * Add `scope:backend` tag
      */
-    if (sourceRoot?.startsWith('libs/backend')) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'scope:backend']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/backend'], 'scope:backend', projectConfig);
     /**
      * Add `scope:frontend` tag
      */
-    if (sourceRoot?.startsWith('libs/frontend')) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'scope:frontend']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/frontend'], 'scope:frontend', projectConfig);
     /**
      * Add `scope:shared` tag
      */
-    if (['libs/shared', 'libs/backend/shared', 'libs/frontend/shared'].some((lib) => sourceRoot?.startsWith(lib))) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'scope:shared']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/shared', 'libs/backend/shared', 'libs/frontend/shared'], 'scope:shared', projectConfig);
     /**
      * Add `layer:domain` tag
      */
-    if (['libs/backend/domain', 'libs/frontend/domain'].some((lib) => sourceRoot?.startsWith(lib))) {
-        const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'layer:domain']);
-        (0, set_1.default)(projectConfig, 'tags', updatedTags);
-    }
+    appendTagsToProjectConfig(['libs/backend/domain', 'libs/frontend/domain'], 'layer:domain', projectConfig);
     /**
      * Add `layer:application` tag
      */
-    if (['libs/backend/application', 'libs/frontend/application'].some((lib) => sourceRoot?.startsWith(lib))) {
-        // Temporarily treat as domain
-        if (sourceRoot?.startsWith('libs/frontend/application/atoms')) {
-            const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'layer:domain']);
-            (0, set_1.default)(projectConfig, 'tags', updatedTags);
-        }
-        else {
-            const updatedTags = (0, uniq_1.default)([...projectConfig.tags, 'layer:application']);
-            (0, set_1.default)(projectConfig, 'tags', updatedTags);
-        }
-    }
+    appendTagsToProjectConfig(['libs/backend/application', 'libs/frontend/application'], 'layer:application', projectConfig);
 };
 exports.addProjectTags = addProjectTags;
 //# sourceMappingURL=add-project-tags.js.map

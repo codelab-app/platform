@@ -1,20 +1,20 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { useAppDevelopment } from '@codelab/frontend/domain/app'
+import { useAppDevelopment } from '@codelab/frontend/application/app'
 import {
   BuilderContext,
   BuilderPrimarySidebar,
   BuilderTabs,
   ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
-} from '@codelab/frontend/domain/builder'
+} from '@codelab/frontend/application/builder'
 import {
   PageDetailHeader,
   PagesPrimarySidebar,
-} from '@codelab/frontend/domain/page'
+} from '@codelab/frontend/application/page'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { usePageQuery } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,

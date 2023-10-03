@@ -2,15 +2,15 @@ import {
   type CodelabPage,
   ExplorerPaneType,
 } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateResourceModal,
   DeleteResourceModal,
   ResourcesPrimarySidebar,
   UpdateResourceForm,
   UpdateResourceModal,
-} from '@codelab/frontend/domain/resource'
+} from '@codelab/frontend/application/resource'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
