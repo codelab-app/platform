@@ -1,7 +1,7 @@
 import type {
   IInterfaceType,
   ITypeService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'

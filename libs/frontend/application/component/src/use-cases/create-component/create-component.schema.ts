@@ -1,4 +1,4 @@
-import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
+import type { ICreateComponentData } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   idSchema,

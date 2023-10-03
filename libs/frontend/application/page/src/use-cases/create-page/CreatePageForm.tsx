@@ -1,4 +1,4 @@
-import type { ICreatePageData } from '@codelab/frontend/abstract/core'
+import type { ICreatePageData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'

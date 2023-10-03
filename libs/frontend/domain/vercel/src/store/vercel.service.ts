@@ -1,4 +1,4 @@
-import type { IVercelService } from '@codelab/frontend/abstract/core'
+import type { IVercelService } from '@codelab/frontend/abstract/domain'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 
 @model('@codelab/VercelService')

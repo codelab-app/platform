@@ -1,5 +1,5 @@
-import type { BuilderDragData } from '@codelab/frontend/abstract/core'
-import { BuilderDndType } from '@codelab/frontend/abstract/core'
+import type { BuilderDragData } from '@codelab/frontend/abstract/domain'
+import { BuilderDndType } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type {
   CollisionDetection,

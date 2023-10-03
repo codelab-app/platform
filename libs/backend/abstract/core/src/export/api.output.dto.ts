@@ -1,5 +1,4 @@
 import { IFieldDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeOutputDto } from './type.output.dto'

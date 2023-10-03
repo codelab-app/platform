@@ -1,7 +1,7 @@
 import type {
   ElementCssRules,
   IElementModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { Card, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

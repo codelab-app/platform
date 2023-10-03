@@ -1,4 +1,4 @@
-import type { Filterables } from '@codelab/frontend/abstract/core'
+import type { Filterables } from '@codelab/frontend/abstract/domain'
 import type { NextRouter } from 'next/router'
 
 /**

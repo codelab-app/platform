@@ -1,8 +1,8 @@
 import type {
   IComponentModel,
   IComponentService,
-} from '@codelab/frontend/abstract/core'
-import { componentRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { componentRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Key } from '@codelab/frontend/presentation/view'
 import type { Nullable } from '@codelab/shared/abstract/types'

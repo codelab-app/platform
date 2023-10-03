@@ -1,4 +1,4 @@
-import type { IDomainModel } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import type {
   DomainDeleteInput,
   VercelDomainConfig,

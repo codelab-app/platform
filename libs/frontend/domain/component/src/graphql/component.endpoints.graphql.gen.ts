@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ComponentDevelopmentFragment } from '../../../../abstract/core/src/domain/component/component-development.fragment.graphql.gen'
+import { ComponentDevelopmentFragment } from '../../../../abstract/domain/src/domain/component/component-development.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { ComponentDevelopmentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-development.fragment.graphql.gen'
+import { ComponentDevelopmentFragmentDoc } from '../../../../abstract/domain/src/domain/component/component-development.fragment.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>

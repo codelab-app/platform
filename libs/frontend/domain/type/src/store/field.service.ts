@@ -3,8 +3,8 @@ import type {
   IField,
   IFieldService,
   IInterfaceType,
-} from '@codelab/frontend/abstract/core'
-import { getElementService } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { getElementService } from '@codelab/frontend/abstract/domain'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'

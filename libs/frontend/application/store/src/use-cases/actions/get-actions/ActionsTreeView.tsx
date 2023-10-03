@@ -1,4 +1,4 @@
-import type { IStoreModel } from '@codelab/frontend/abstract/core'
+import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { CuiEmpty, CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

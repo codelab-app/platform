@@ -1,7 +1,7 @@
 import type {
   IElementModel,
   IElementRepository,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   ElementOptions,
   ElementUniqueWhere,

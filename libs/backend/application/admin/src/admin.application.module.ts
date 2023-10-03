@@ -1,9 +1,6 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { ComponentApplicationModule } from '@codelab/backend/application/component'
-import {
-  AuthModule,
-  SharedApplicationModule,
-} from '@codelab/backend/application/shared'
+import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { StoreApplicationModule } from '@codelab/backend/application/store'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { TypeApplicationModule } from '@codelab/backend/application/type'

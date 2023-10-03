@@ -1,4 +1,4 @@
-import { isTypedProp } from '@codelab/frontend/abstract/core'
+import { isTypedProp } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import {
   callbackWithParams,

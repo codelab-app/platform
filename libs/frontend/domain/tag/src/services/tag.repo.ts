@@ -1,4 +1,7 @@
-import type { ITagModel, ITagRepository } from '@codelab/frontend/abstract/core'
+import type {
+  ITagModel,
+  ITagRepository,
+} from '@codelab/frontend/abstract/domain'
 import type {
   TagOptions,
   TagUniqueWhere,

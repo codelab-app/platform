@@ -1,4 +1,4 @@
-import type { IUpdateTagData } from '@codelab/frontend/abstract/core'
+import type { IUpdateTagData } from '@codelab/frontend/abstract/domain'
 import { idSchema } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 

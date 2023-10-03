@@ -2,12 +2,12 @@ import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
 import type {
   IAtomModel,
   IComponentModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   BuilderDndType,
   isComponentModel,
   isComponentPageNode,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Button, Card } from 'antd'

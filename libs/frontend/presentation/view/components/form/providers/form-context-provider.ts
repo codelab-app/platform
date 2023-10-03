@@ -1,7 +1,7 @@
 import type {
   IElementTree,
   IPageNodeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { createContext, useContext } from 'react'
 

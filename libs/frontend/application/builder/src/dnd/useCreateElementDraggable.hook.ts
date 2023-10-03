@@ -2,7 +2,7 @@ import type {
   BuilderDndType,
   IBuilderComponent,
   IElementRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { useDraggable } from '@dnd-kit/core'
 

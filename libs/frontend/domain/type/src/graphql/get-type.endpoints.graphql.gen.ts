@@ -14,7 +14,7 @@ import {
   BaseType_ReactNodeType_Fragment,
   BaseType_RenderPropType_Fragment,
   BaseType_UnionType_Fragment,
-} from '../../../../abstract/core/src/domain/type/fragments/base-type.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/type/fragments/base-type.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -29,14 +29,14 @@ import {
   Type_ReactNodeType_Fragment,
   Type_RenderPropType_Fragment,
   Type_UnionType_Fragment,
-} from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-import { ReactNodeTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/type/fragments/type.fragment.graphql.gen'
+import { ReactNodeTypeFragment } from '../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { BaseTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/base-type.fragment.graphql.gen'
-import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
-import { ReactNodeTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
+import { BaseTypeFragmentDoc } from '../../../../abstract/domain/src/domain/type/fragments/base-type.fragment.graphql.gen'
+import { TypeFragmentDoc } from '../../../../abstract/domain/src/domain/type/fragments/type.fragment.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from '../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 export type GetBaseTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.GetBaseTypesOptions>
 }>

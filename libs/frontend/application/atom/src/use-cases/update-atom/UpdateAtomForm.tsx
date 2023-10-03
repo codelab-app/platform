@@ -1,4 +1,4 @@
-import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
+import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIfField,

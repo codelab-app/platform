@@ -38,17 +38,24 @@ const appendTags = (tag: string, projectConfig: ProjectConfiguration) => {
  *
  *  "scope": ["frontend", "backend", "shared", "codegen"]
  *  "layer": ["domain", "application", "infra", "presentation"]
- *  "type": ["abstract", "test"]
+ *  "type": ["abstract", "concrete", "data", "test"]
  *  "projectType": ["application", "library"]
  */
 export const addProjectTags = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {
-  const { sourceRoot } = projectConfig
-
   // We want to re-construct the tags each time
   projectConfig.tags = []
+
+  /**
+   * Add `type:data`
+   */
+  appendTagsToProjectConfig(
+    ['libs/backend/data', 'libs/frontend/application/shared/data'],
+    'type:data',
+    projectConfig,
+  )
 
   /**
    * Add `layer:presentation`
@@ -101,7 +108,7 @@ export const addProjectTags = (
    * Add `scope:codegen` tag
    */
   appendTagsToProjectConfig(
-    ['libs/backend/infra', 'libs/frontend/infra'],
+    ['libs/backend/abstract/codegen', 'libs/shared/abstract/codegen'],
     'scope:codegen',
     projectConfig,
   )

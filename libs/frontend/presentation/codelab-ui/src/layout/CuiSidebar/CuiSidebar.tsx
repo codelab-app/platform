@@ -1,5 +1,5 @@
 import { MoreOutlined } from '@ant-design/icons'
-import { CY_DATA } from '@codelab/frontend/abstract/testing'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'

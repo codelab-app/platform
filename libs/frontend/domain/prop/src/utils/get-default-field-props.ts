@@ -1,7 +1,7 @@
 import type {
   IAtomModel,
   IComponentModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import isNil from 'lodash/isNil'
 

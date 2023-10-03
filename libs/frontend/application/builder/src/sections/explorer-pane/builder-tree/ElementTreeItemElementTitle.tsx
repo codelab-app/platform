@@ -8,12 +8,12 @@ import {
 import type {
   IElementModel,
   IElementTreeViewDataNode,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
   isComponentInstance,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mapElementOption } from '@codelab/frontend/domain/element'
@@ -33,7 +33,7 @@ interface ElementTreeItemElementTitleProps {
 
 export const ElementTreeItemElementTitle = observer(
   ({ element, treeNode }: ElementTreeItemElementTitleProps) => {
-    const { elementService } = useStore()
+    const { elementApplicationService, elementService } = useStore()
     const { popover } = useCui()
     const atomName = element.atomName
 
@@ -55,7 +55,7 @@ export const ElementTreeItemElementTitle = observer(
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? `Something went wrong in a parent element`
-      : element.propsHaveErrors
+      : elementApplicationService.validationService.propsHaveErrors(element)
       ? `Some props are not correctly set`
       : undefined
 

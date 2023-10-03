@@ -1,4 +1,4 @@
-import type { IFieldService } from '@codelab/frontend/abstract/core'
+import type { IFieldService } from '@codelab/frontend/abstract/domain'
 import { createContext } from 'mobx-keystone'
 
 export const fieldServiceContext = createContext<IFieldService>()

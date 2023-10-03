@@ -9,8 +9,10 @@ formatted_args=$(echo $args | tr ' ' ',')
 # Run the nx serve command with the formatted arguments
 nx serve cli --watch false --args="$formatted_args"
 
-# # Capture the exit code of the last command
-# exit_code=$?
+echo 'DONE'
 
-# # Exit this script with the same code
-# echo $exit_code
+# Capture the exit code of the last command
+exit_code=$?
+
+# Exit this script with the same code
+exit $exit_code

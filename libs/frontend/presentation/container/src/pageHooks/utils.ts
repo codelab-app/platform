@@ -3,12 +3,12 @@ import type {
   IElementModel,
   ITypeService,
   TypedProp,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
   isComponentInstance,
   isTypedProp,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'

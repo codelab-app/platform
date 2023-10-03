@@ -1,4 +1,7 @@
-import type { IEnumType, IEnumTypeValue } from '@codelab/frontend/abstract/core'
+import type {
+  IEnumType,
+  IEnumTypeValue,
+} from '@codelab/frontend/abstract/domain'
 import type { IEnumTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'

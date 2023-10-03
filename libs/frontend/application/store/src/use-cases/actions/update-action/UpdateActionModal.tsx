@@ -1,4 +1,4 @@
-import type { IUpdateActionData } from '@codelab/frontend/abstract/core'
+import type { IUpdateActionData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,

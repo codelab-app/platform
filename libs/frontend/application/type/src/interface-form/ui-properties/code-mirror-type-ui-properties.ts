@@ -1,4 +1,4 @@
-import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
+import type { ICodeMirrorType } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,

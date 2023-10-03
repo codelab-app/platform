@@ -1,4 +1,7 @@
-import type { IEntityFormService, IType } from '@codelab/frontend/abstract/core'
+import type {
+  IEntityFormService,
+  IType,
+} from '@codelab/frontend/abstract/domain'
 import { InlineFormService } from '@codelab/frontend/domain/shared'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'

@@ -2,12 +2,12 @@ import type {
   IElementModel,
   IPageModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   ElementTree,
   storeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
 import type {
   PageCreateInput,

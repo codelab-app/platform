@@ -2,8 +2,8 @@ import type {
   IAppModel,
   IField,
   IInterfaceType,
-} from '@codelab/frontend/abstract/core'
-import { fieldRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { fieldRef } from '@codelab/frontend/abstract/domain'
 import type {
   InterfaceTypeCreateInput,
   InterfaceTypeDeleteInput,

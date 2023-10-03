@@ -7,7 +7,6 @@ import {
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
-import { UserApplicationService } from './user.application.service'
 
 @Controller('user')
 export class UserApplicationController {

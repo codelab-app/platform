@@ -1,4 +1,4 @@
-import type { IModalService } from '@codelab/frontend/abstract/core'
+import type { IModalService } from '@codelab/frontend/abstract/domain'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { Router } from 'next/router'
 

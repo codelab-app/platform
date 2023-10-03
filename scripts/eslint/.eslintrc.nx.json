@@ -69,7 +69,11 @@
               },
               {
                 "sourceTag": "type:test",
-                "onlyDependOnLibsWithTags": ["type:test", "type:abstract"]
+                "onlyDependOnLibsWithTags": [
+                  "type:test",
+                  "type:abstract",
+                  "type:data"
+                ]
               },
               // Domain layer cannot depend on application
               {
@@ -82,7 +86,9 @@
                   "layer:domain",
                   "type:abstract",
                   "layer:infra",
-                  "scope:shared"
+                  "scope:shared",
+                  "type:data",
+                  "type:test"
                 ]
               },
               {
@@ -91,7 +97,8 @@
                   "layer:domain",
                   "type:abstract",
                   "layer:infra",
-                  "scope:shared"
+                  "scope:shared",
+                  "type:data"
                 ]
               },
               {
@@ -102,7 +109,9 @@
                   "layer:infra",
                   "layer:presentation",
                   "type:abstract",
-                  "scope:shared"
+                  "scope:shared",
+                  "type:data",
+                  "type:test"
                 ]
               },
               {
@@ -112,7 +121,8 @@
                   "layer:application",
                   "layer:infra",
                   "type:abstract",
-                  "scope:shared"
+                  "scope:shared",
+                  "type:data"
                 ]
               },
               {

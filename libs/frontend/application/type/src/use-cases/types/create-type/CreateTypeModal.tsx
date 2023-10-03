@@ -1,4 +1,4 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { typeSelectOptions } from '@codelab/frontend/domain/type'
 import { ModalForm } from '@codelab/frontend/presentation/view'

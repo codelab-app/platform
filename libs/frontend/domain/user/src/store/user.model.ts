@@ -1,4 +1,4 @@
-import type { IUser } from '@codelab/frontend/abstract/core'
+import type { IUser } from '@codelab/frontend/abstract/domain'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'

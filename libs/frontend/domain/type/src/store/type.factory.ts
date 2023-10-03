@@ -2,7 +2,7 @@ import type {
   ICreateTypeData,
   IType,
   IUpdateTypeData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   IArrayTypeDTO,

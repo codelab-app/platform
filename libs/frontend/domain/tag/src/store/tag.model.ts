@@ -1,8 +1,8 @@
-import type { ITagModel } from '@codelab/frontend/abstract/core'
+import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import {
   getUserService,
   ITagsTreeDataNode,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   TagCreateInput,
   TagUpdateInput,

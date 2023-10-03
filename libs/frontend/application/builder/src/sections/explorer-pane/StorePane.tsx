@@ -1,4 +1,4 @@
-import type { IStoreModel } from '@codelab/frontend/abstract/core'
+import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import {
   ActionsTreeView,
   CreateActionButton,

@@ -1,4 +1,4 @@
-import type { IUpdateDomainData } from '@codelab/frontend/abstract/core'
+import type { IUpdateDomainData } from '@codelab/frontend/abstract/domain'
 import {
   appSchema,
   idSchema,

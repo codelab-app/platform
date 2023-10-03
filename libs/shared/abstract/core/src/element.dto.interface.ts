@@ -2,8 +2,6 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IAtomDTO } from './atom.dto.interface'
-import { IComponentDTO } from './component.dto.interface'
 import { IElementRenderTypeDto } from './element-render-type'
 import { IPropDTO } from './prop.dto.interface'
 

@@ -21,5 +21,10 @@
       }
     }
   },
-  "tags": ["projectType:library", "type:abstract", "scope:shared"]
+  "tags": [
+    "projectType:library",
+    "type:abstract",
+    "scope:codegen",
+    "scope:shared"
+  ]
 }

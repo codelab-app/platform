@@ -1,5 +1,6 @@
-import type { IElementModel } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { SelectComponent } from '@codelab/frontend/application/type'
+import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
   AutoCompleteField,
   ToggleExpressionField,
@@ -7,7 +8,6 @@ import {
 import type { IEntity } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { useField } from 'uniforms'
-import { mapElementOption } from '../../../../domain/element/src/utils'
 import { SelectLinkElement } from './SelectLinkElement'
 
 interface ChildMapperFieldsProps {

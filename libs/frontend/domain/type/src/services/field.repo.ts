@@ -1,4 +1,7 @@
-import type { IField, IFieldRepository } from '@codelab/frontend/abstract/core'
+import type {
+  IField,
+  IFieldRepository,
+} from '@codelab/frontend/abstract/domain'
 import type {
   FieldOptions,
   FieldUniqueWhere,

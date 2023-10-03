@@ -2,7 +2,7 @@ import type {
   Filterables,
   IPaginationService,
   SupportedPaginationModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

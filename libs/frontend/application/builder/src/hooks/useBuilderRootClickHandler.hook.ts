@@ -2,7 +2,7 @@ import {
   BUILDER_CONTAINER_ID,
   DATASET_COMPONENT_ID,
   DATASET_ELEMENT_ID,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { MouseEventHandler } from 'react'
 
 export const useBuilderRootClickHandler = () => {

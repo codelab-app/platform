@@ -1,4 +1,4 @@
-import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
+import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import {
   appSchema,
   idSchema,

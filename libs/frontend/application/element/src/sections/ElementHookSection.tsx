@@ -1,7 +1,7 @@
 import type {
   IAtomService,
   ITypeService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { observer } from 'mobx-react-lite'
 
 export interface ElementHookSectionProps {

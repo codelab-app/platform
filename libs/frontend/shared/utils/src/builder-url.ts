@@ -1,4 +1,4 @@
-import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
 import isNil from 'lodash/isNil'
 import type { NextRouter } from 'next/router'

@@ -1,4 +1,4 @@
-import { componentRef, pageRef } from '@codelab/frontend/abstract/core'
+import { componentRef, pageRef } from '@codelab/frontend/abstract/domain'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementParentContainerKind } from '@codelab/shared/abstract/core'
 

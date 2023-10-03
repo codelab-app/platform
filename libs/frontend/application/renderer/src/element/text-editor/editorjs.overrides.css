@@ -1,0 +1,41 @@
+/** This is to avoid two editors to be rendered on top of each other */
+.codex-editor {
+  z-index: unset;
+}
+
+/** For some reason the editor has a default padding-bottom: 300px */
+.codex-editor__redactor {
+  padding: 0 !important;
+}
+
+/** There are unnecessary default margins and paddings in the editor content */
+.ce-block__content {
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/** No need for the extra default padding around the editor */
+.cdx-block {
+  padding: 0 !important;
+}
+
+/** There's a right margin (probably to accommodate for the add/tunes buttons) but we don't use them) */
+.codex-editor--narrow .codex-editor__redactor {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/** Let the empty editor have a minimum width (this is needed small elements like atoms are added) */
+.codex-editor.codex-editor--narrow.codex-editor--empty {
+  min-width: 10px !important;
+}
+
+/** We don't use the add/tunes buttons */
+.ce-toolbar,
+.ce-toolbar__actions {
+  display: none !important;
+}
+
+.ce-inline-tool {
+  padding: 0 3px 0 3px !important;
+}

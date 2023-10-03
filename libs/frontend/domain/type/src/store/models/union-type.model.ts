@@ -1,5 +1,5 @@
-import type { IType, IUnionType } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/abstract/core'
+import type { IType, IUnionType } from '@codelab/frontend/abstract/domain'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain/mapper'

@@ -1,7 +1,7 @@
 import type {
   IElementModel,
   IElementService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
@@ -9,7 +9,6 @@ import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { Element } from '../../../../domain/element/src/store'
 import { InheritedStyles } from './inherited-styles/InheritedStyles'
 import { StylesEditor } from './StylesEditor'
 

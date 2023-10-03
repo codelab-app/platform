@@ -1,4 +1,4 @@
-import type { IEntityModalService } from '@codelab/frontend/abstract/core'
+import type { IEntityModalService } from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'

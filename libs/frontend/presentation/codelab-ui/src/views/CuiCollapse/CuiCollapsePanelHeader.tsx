@@ -1,5 +1,5 @@
 import { DownOutlined, RightOutlined } from '@ant-design/icons'
-import { CY_DATA } from '@codelab/frontend/abstract/testing'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Typography } from 'antd'
 import React, { useState } from 'react'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'

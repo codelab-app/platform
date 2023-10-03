@@ -4,14 +4,14 @@ import type {
   IPageModel,
   IPageService,
   IUpdatePageData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   getAppService,
   getElementService,
   getUserService,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {

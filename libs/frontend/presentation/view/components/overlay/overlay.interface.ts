@@ -1,4 +1,4 @@
-import type { IDropPosition } from '@codelab/frontend/abstract/core'
+import type { IDropPosition } from '@codelab/frontend/abstract/domain'
 import type React from 'react'
 
 export interface OverlayProps {

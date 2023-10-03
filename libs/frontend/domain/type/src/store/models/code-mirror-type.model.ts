@@ -1,4 +1,4 @@
-import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
+import type { ICodeMirrorType } from '@codelab/frontend/abstract/domain'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { ICodeMirrorTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'

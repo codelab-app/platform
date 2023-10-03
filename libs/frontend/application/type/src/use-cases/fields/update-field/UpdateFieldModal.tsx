@@ -1,4 +1,4 @@
-import type { IUpdateFieldData } from '@codelab/frontend/abstract/core'
+import type { IUpdateFieldData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

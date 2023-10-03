@@ -5,8 +5,8 @@ import type {
   ICreateAtomData,
   IInterfaceType,
   IUpdateAtomData,
-} from '@codelab/frontend/abstract/core'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,

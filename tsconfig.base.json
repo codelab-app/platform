@@ -158,11 +158,11 @@
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
-      "@codelab/frontend/abstract/core": [
-        "libs/frontend/abstract/core/src/index.ts"
+      "@codelab/frontend/abstract/application": [
+        "libs/frontend/abstract/application/src/index.ts"
       ],
-      "@codelab/frontend/abstract/testing": [
-        "libs/frontend/abstract/testing/src/index.ts"
+      "@codelab/frontend/abstract/domain": [
+        "libs/frontend/abstract/domain/src/index.ts"
       ],
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
@@ -176,6 +176,9 @@
       "@codelab/frontend/application/atom": [
         "libs/frontend/application/atom/src/index.ts"
       ],
+      "@codelab/frontend/application/axios": [
+        "libs/frontend/infra/axios/src/index.ts"
+      ],
       "@codelab/frontend/application/builder": [
         "libs/frontend/application/builder/src/index.ts"
       ],
@@ -187,6 +190,9 @@
       ],
       "@codelab/frontend/application/element": [
         "libs/frontend/application/element/src/index.ts"
+      ],
+      "@codelab/frontend/application/lambda": [
+        "libs/frontend/application/lambda/src/index.ts"
       ],
       "@codelab/frontend/application/page": [
         "libs/frontend/application/page/src/index.ts"
@@ -202,6 +208,9 @@
       ],
       "@codelab/frontend/application/shared/auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
+      ],
+      "@codelab/frontend/application/shared/data": [
+        "libs/frontend/application/shared/data/src/index.ts"
       ],
       "@codelab/frontend/application/shared/store": [
         "libs/frontend/application/shared/store/src/index.ts"
@@ -224,7 +233,6 @@
       "@codelab/frontend/application/vercel": [
         "libs/frontend/application/vercel/src/index.ts"
       ],
-      "@codelab/frontend/config": ["libs/frontend/config/src/index.ts"],
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
       ],

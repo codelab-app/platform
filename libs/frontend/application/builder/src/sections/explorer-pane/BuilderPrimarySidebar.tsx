@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IPageNode, IStoreModel } from '@codelab/frontend/abstract/core'
+import type { IPageNode, IStoreModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
@@ -10,7 +10,7 @@ import {
   RendererTab,
   storeRef,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/application/component'
 import {

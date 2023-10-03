@@ -10,12 +10,12 @@ import type {
   ITagService,
   ITypeService,
   IUserService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   componentServiceContext,
   elementServiceContext,
   userServiceContext,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { ComponentService } from '@codelab/frontend/domain/component'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'

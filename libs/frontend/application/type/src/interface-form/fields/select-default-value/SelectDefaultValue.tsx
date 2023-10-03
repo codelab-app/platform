@@ -2,7 +2,7 @@ import type {
   IPrimitiveType,
   ITypeService,
   IValidationRules,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { Form } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPropData } from '@codelab/shared/abstract/core'

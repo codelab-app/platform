@@ -1,5 +1,5 @@
-import type { IResourceRepository } from '@codelab/frontend/abstract/core'
-import { IResourceModel } from '@codelab/frontend/abstract/core'
+import type { IResourceRepository } from '@codelab/frontend/abstract/domain'
+import { IResourceModel } from '@codelab/frontend/abstract/domain'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { ResourceUniqueWhere } from '@codelab/shared/abstract/codegen'
 import {

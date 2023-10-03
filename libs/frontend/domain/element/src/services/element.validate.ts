@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 
 export const elementValidate = (element: IElementModel) => {
   const hasParentComponent = Boolean(element.parentComponent)

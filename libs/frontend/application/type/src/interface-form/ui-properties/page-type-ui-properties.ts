@@ -1,4 +1,4 @@
-import type { IPageType } from '@codelab/frontend/abstract/core'
+import type { IPageType } from '@codelab/frontend/abstract/domain'
 import { SelectPage } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

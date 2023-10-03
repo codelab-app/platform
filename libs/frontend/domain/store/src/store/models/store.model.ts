@@ -4,7 +4,7 @@ import type {
   IInterfaceType,
   IPageModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
   componentRef,
@@ -14,7 +14,7 @@ import {
   pageRef,
   RendererType,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {

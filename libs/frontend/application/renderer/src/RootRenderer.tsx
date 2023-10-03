@@ -1,5 +1,5 @@
-import type { IRenderer } from '@codelab/frontend/abstract/core'
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import type { IRenderer } from '@codelab/frontend/abstract/domain'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'

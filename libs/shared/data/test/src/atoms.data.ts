@@ -1,6 +1,4 @@
-import type { IAtomDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
-import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
+import { IAtomType } from '@codelab/shared/abstract/core'
 
 /**
  * Types we wan't to seed

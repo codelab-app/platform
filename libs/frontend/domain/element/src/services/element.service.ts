@@ -2,13 +2,13 @@ import type {
   IElementModel,
   IElementRenderTypeModel,
   IElementService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   atomRef,
   componentRef,
   getComponentService,
   IUpdateElementData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
@@ -28,11 +28,9 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
-import { CloneElementService } from '../../../../application/element/src/use-cases/element/clone-element/clone-element.service'
-import { CreateElementService } from '../../../../application/element/src/use-cases/element/create-element/create-element.service'
-import { MoveElementService } from '../../../../application/element/src/use-cases/element/move-element/move-element.service'
 import { Element } from '../store/element.model'
+import { CloneElementService } from './clone-element.service'
+import { CreateElementService } from './create-element.service'
 import { ElementRepository } from './element.repo'
 import { elementValidate } from './element.validate'
 import {
@@ -44,6 +42,7 @@ import {
   ElementModalService,
   UpdateElementModalService,
 } from './element-modal.service'
+import { MoveElementService } from './move-element.service'
 
 /**
  * We will have a single ElementService that contains all elements from

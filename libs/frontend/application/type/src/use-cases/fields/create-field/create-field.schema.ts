@@ -1,9 +1,9 @@
-import type { ICreateFieldData } from '@codelab/frontend/abstract/core'
+import type { ICreateFieldData } from '@codelab/frontend/abstract/domain'
 import {
   GeneralValidationRules,
   NumberValidationRules,
   StringValidationRules,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'

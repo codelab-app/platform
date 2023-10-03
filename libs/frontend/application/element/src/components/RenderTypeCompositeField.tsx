@@ -1,4 +1,4 @@
-import type { IAtomModel } from '@codelab/frontend/abstract/core'
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { SelectAtom } from '@codelab/frontend/application/atom'
 import { SelectComponent } from '@codelab/frontend/application/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'

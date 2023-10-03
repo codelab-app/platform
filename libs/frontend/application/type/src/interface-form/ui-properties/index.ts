@@ -1,4 +1,4 @@
-import type { IType, ITypeOf } from '@codelab/frontend/abstract/core'
+import type { IType, ITypeOf } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesContext, UiPropertiesFn } from '../types'
 import { actionTypeUiProperties } from './action-type-ui-properties'

@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { typeRef } from '@codelab/frontend/abstract/core'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { Button } from 'antd'

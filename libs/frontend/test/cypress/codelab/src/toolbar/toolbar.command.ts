@@ -1,4 +1,4 @@
-import { CY_DATA_SELECTOR } from '@codelab/frontend/abstract/testing'
+import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
 import type { CypressElement } from '@codelab/frontend/test/cypress/command'
 import type { Maybe } from '@codelab/shared/abstract/types'
 

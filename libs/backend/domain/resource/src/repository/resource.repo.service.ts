@@ -1,9 +1,9 @@
-import type {
-  Resource,
-  ResourceOptions,
-  ResourceWhere,
+import {
+  type Resource,
+  type ResourceOptions,
+  type ResourceWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { AuthService } from '@codelab/backend/application/shared'
+import type { AuthDomainService } from '@codelab/backend/domain/shared'
 import type { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
 import type { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -22,7 +22,7 @@ export class ResourceRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
-    private authService: AuthService,
+    private authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }
@@ -36,6 +36,7 @@ export class ResourceRepository extends AbstractRepository<
           id,
           name,
           owner: connectOwner(this.authService.currentUser),
+          type,
         })),
       })
     ).resources

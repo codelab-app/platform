@@ -1,12 +1,7 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
-import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
-import {
-  InterfaceType,
-  InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import { type IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import { type IAtomDTO } from '@codelab/shared/abstract/core'
 import { atomTypes } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'

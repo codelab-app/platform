@@ -1,20 +1,20 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AppDevelopmentFragment } from '../../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppDevelopmentFragment } from '../../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 import {
   AtomDevelopmentFragment,
   AtomProductionFragment,
-} from '../../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
-import { ResourceFragment } from '../../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+} from '../../../../../abstract/domain/src/domain/atom/atom.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { AppDevelopmentFragmentDoc } from '../../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
-} from '../../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
-import { ResourceFragmentDoc } from '../../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+} from '../../../../../abstract/domain/src/domain/atom/atom.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageName: Types.Scalars['String']['input']

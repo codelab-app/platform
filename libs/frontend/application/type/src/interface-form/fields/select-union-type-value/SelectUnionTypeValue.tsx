@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { IFieldDefaultValue } from '@codelab/frontend/abstract/core'
+import type { IFieldDefaultValue } from '@codelab/frontend/abstract/domain'
 import { createValidator, Form } from '@codelab/frontend/presentation/view'
 import { usePrevious } from '@codelab/frontend/shared/utils'
 import { Form as AntdForm } from 'antd'

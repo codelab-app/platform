@@ -28,17 +28,14 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/frontend/application/renderer"
+      ],
       "options": {
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
         "passWithNoTests": true,
+        "runInBand": true,
         "reporters": ["default"]
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
       }
     },
     "test:integration": {
@@ -48,7 +45,8 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "runInBand": true
       },
       "configurations": {
         "dev": {
@@ -58,13 +56,11 @@
           "reporters": ["default"]
         },
         "ci": {
-          "parallel": 3,
-          "ci": true,
-          "codeCoverage": true
+          "parallel": 3
         }
       },
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/application/renderer"]
     },
     "test:unit": {
       "defaultConfiguration": "dev",
@@ -74,7 +70,8 @@
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "runInBand": true
       },
       "configurations": {
         "dev": {
@@ -83,13 +80,10 @@
         "test": {
           "reporters": ["default"]
         },
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/application/renderer"]
     }
   }
 }
