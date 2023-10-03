@@ -11,7 +11,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
 import { Model, model } from 'mobx-keystone'
-import { getSelectAtomOptionsApi } from '../use-cases/get-select-atom-options'
+import { getSelectAtomOptionsApi } from '../get-select-atom-options'
 import { atomApi } from './atom.api'
 
 // atoms are part of the system and they unlikely to change often,

@@ -5,6 +5,7 @@ import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { InterfaceTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/interface.fragment.graphql.gen'
+
 export type GetSelectAtomOptionsQueryVariables = Types.Exact<{
   [key: string]: never
 }>

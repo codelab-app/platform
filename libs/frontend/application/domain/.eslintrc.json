@@ -1,29 +1,30 @@
 {
-  "extends": ["plugin:@nx/react", "../../../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "parserOptions": {
-<<<<<<<< HEAD:libs/frontend/application/domain/.eslintrc.json
-        "project": ["libs/frontend/application/domain/tsconfig.*?.json"]
-========
-        "project": ["libs/frontend/test/store/tsconfig.*?.json"]
->>>>>>>> e4701781d (wip: update project tags):libs/frontend/test/store/.eslintrc.json
+  "name": "frontend-infra-mobx",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/mobx/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/infra/mobx/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
-      "rules": {}
-    },
-    {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
-    },
-    {
-      "files": ["*.graphql"],
-      "rules": {}
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-infra-mobx.xml",
+          "quiet": true
+        }
+      }
     }
+  },
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:frontend"
   ]
 }

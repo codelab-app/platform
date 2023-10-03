@@ -1,7 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   BuilderDndContext,
   BuilderPrimarySidebar,
