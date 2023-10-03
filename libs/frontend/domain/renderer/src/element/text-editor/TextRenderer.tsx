@@ -6,7 +6,13 @@ interface Props {
 }
 
 const TextRenderer = ({ data }: Props) => {
-  const parsedData = useMemo(() => JSON.parse(data || '{}'), [data])
+  const parsedData = useMemo(() => {
+    try {
+      return JSON.parse(data || '{}')
+    } catch (err) {
+      return { blocks: [{ data: { text: data }, type: 'paragraph' }] }
+    }
+  }, [data])
 
   return <Output data={parsedData} />
 }

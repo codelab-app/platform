@@ -2,13 +2,11 @@
 
 import type { IInterfaceType, IType } from '@codelab/frontend/abstract/core'
 import {
-  atomRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
   fieldRef,
   pageRef,
-  propRef,
   rendererRef,
   RendererType,
   typeRef,
@@ -97,13 +95,6 @@ export const setupTestForRenderer = (
       type: IAtomType.Text,
     })
 
-    const fragmentAtom = new Atom({
-      api: typeRef(emptyInterface),
-      name: 'React Fragment',
-      tags: [],
-      type: IAtomType.ReactFragment,
-    })
-
     const integerType = new PrimitiveType({
       name: 'primitiveType',
       primitiveKind: PrimitiveTypeKind.Integer,
@@ -175,7 +166,7 @@ export const setupTestForRenderer = (
 
     stubServiceRepositories(data.rootStore)
 
-    const elementToRenderProp = {
+    const elementToRenderProp = data.rootStore.propService.add({
       data: JSON.stringify({
         prop01: 'prop01Value',
         prop02: 'prop02Value',
@@ -186,7 +177,7 @@ export const setupTestForRenderer = (
         },
       }),
       id: v4(),
-    }
+    })
 
     data.element = await data.rootStore.elementService.add({
       closestContainerNode: {
@@ -197,7 +188,10 @@ export const setupTestForRenderer = (
       page: {
         id: pageId,
       },
-      props: elementToRenderProp,
+      props: {
+        data: '{}',
+        id: elementToRenderProp.id,
+      },
       renderType: { __typename: IElementRenderTypeKind.Atom, id: divAtom.id },
     })
 
@@ -243,7 +237,7 @@ export const setupTestForRenderer = (
 
     const componentId = v4()
 
-    const elementData = {
+    const rootElement = data.rootStore.elementService.add({
       closestContainerNode: {
         id: componentId,
       },
@@ -251,16 +245,14 @@ export const setupTestForRenderer = (
       name: `${componentName} Root`,
       parentComponent: { id: componentId },
       props: {
-        data: '{}',
-        id: v4(),
+        data: componentRootElementProps.jsonString,
+        id: componentRootElementProps.id,
       },
       renderType: {
         __typename: IElementRenderTypeKind.Atom,
-        id: fragmentAtom.id,
+        id: textAtom.id,
       },
-    }
-
-    const rootElement = data.rootStore.elementService.add(elementData)
+    })
 
     const api = data.rootStore.typeService.addInterface({
       id: v4(),
@@ -295,12 +287,6 @@ export const setupTestForRenderer = (
     data.component.api.current.writeCache({
       fields: [{ id: data.textField.id }, { id: data.componentField.id }],
     })
-
-    data.component.setChildrenContainerElement(elementRef(compRootElementId))
-    data.component.rootElement.current.setRenderType(atomRef(textAtom))
-    data.component.rootElement.current.setProps(
-      propRef(componentRootElementProps),
-    )
 
     data.componentInstance =
       await data.rootStore.elementService.createElementService.createElementAsFirstChild(
