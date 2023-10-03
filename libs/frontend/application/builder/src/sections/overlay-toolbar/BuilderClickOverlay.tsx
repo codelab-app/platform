@@ -99,6 +99,7 @@ export const BuilderClickOverlay = observer<{
       dependencies={[
         selectedNode.current.guiCss,
         selectedNode.current.customCss,
+        selectedNode.current.classNames,
         selectedNode.current.props.current.values,
         selectedNode.current.nextSibling?.id,
         selectedNode.current.parentElement?.id,

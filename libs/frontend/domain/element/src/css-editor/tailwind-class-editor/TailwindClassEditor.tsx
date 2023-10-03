@@ -1,9 +1,14 @@
+import { CloseOutlined } from '@ant-design/icons'
 import type { IElement } from '@codelab/frontend/abstract/core'
-import type { SelectProps } from 'antd'
 import { Select, Space } from 'antd'
-import { getPossibleTailwindClasses } from 'libs/frontend/domain/renderer/src/element/wrapper.utils'
+import type { CustomTagProps } from 'rc-select/lib/BaseSelect'
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import {
+  getOnlyColorValue,
+  getValidTailwindClasses,
+  isColorClass,
+} from './tailwind-utils'
 
 const Label = styled.span`
   display: inline-flex;
@@ -11,50 +16,53 @@ const Label = styled.span`
   height: 32px;
 `
 
-const getOptions = (value: string) => {
-  console.log(getPossibleTailwindClasses(value))
-
-  const allOptions = [
-    {
-      label: 'bg-red-100',
-      value: 'bg-red-100',
-    },
-    {
-      label: 'bg-red-200',
-      value: 'bg-red-200',
-    },
-    {
-      label: 'bg-red-300',
-      value: 'bg-red-300',
-    },
-    {
-      label: 'bg-red-400',
-      value: 'bg-red-400',
-    },
-    {
-      label: 'bg-red-500',
-      value: 'bg-red-500',
-    },
-    {
-      label: 'bg-red-600',
-      value: 'bg-red-600',
-    },
-  ]
-
-  return allOptions.filter((option) => option.label.startsWith(value))
+const getInitialTailwindClasses = () => {
+  return getValidTailwindClasses('').map((className) => ({
+    label: className,
+    value: className,
+  }))
 }
 
 export const TailwindClassEditor = ({ element }: { element: IElement }) => {
   const [options, setOptions] = useState<
     Array<{ value: string; label: string }>
-  >([])
+  >(getInitialTailwindClasses())
+
+  const [selectedOptions, setSelectedOptions] = useState<Array<string>>([])
 
   const handleChange = (values: Array<string>) => {
     element.setClassNames(values)
+    setSelectedOptions(values)
+  }
+
+  const appendClassName = (value: string) => {
+    if (!selectedOptions.includes(value)) {
+      element.setClassNames([...selectedOptions, value])
+    }
+  }
+
+  const previewClassName = () => {
+    const activeOption = document.getElementsByClassName(
+      'ant-select-item-option-active',
+    )[0]
+
+    if (activeOption) {
+      const label = activeOption.getAttribute('label') ?? ''
+      appendClassName(label)
+    }
   }
 
   const handleSearch = (query: string) => {
-    setOptions(getOptions(query))
+    const foundClassNames = getValidTailwindClasses(query).map((className) => {
+      const variant = query.includes('hover') ? 'hover:' : ''
+
+      return {
+        label: `${variant}${className}`,
+        value: `${variant}${className}`,
+      }
+    })
+
+    setOptions(foundClassNames)
   }
 
   return (
@@ -65,11 +73,89 @@ export const TailwindClassEditor = ({ element }: { element: IElement }) => {
         defaultValue={element.classNames ?? []}
         mode="multiple"
         onChange={handleChange}
+        onDropdownVisibleChange={() => {
+          element.setClassNames(selectedOptions)
+        }}
+        onKeyUp={(event: React.KeyboardEvent<HTMLDivElement>) => {
+          if (event.key !== 'Enter' && event.key !== 'Escape') {
+            previewClassName()
+          }
+        }}
         onSearch={handleSearch}
-        options={options}
         placeholder="Please select"
         style={{ width: '100%' }}
-      />
+        tagRender={TagRender}
+      >
+        {options.map((option) => {
+          return (
+            <Select.Option label={option.label} value={option.value}>
+              <Space onMouseMove={previewClassName}>
+                <span aria-label={option.label} role="img">
+                  <ColorBox color={option.value} />
+                </span>
+                {option.label}
+              </Space>
+            </Select.Option>
+          )
+        })}
+      </Select>
     </>
   )
+}
+
+const CustomOption = styled.div`
+  padding: 0px 6px;
+  background-color: #edebeb;
+  border: 1px solid #d9d8d8;
+  border-radius: 12px;
+  margin: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  span {
+    font-size: 12px;
+  }
+`
+
+const TagRender = (props: CustomTagProps) => {
+  const { onClose, value } = props
+
+  return (
+    <CustomOption>
+      <ColorBox color={value} withPlaceholder={false} />
+      {value}
+      <CloseOutlined onClick={onClose} />
+    </CustomOption>
+  )
+}
+
+const StyledColorBox = styled.div`
+  width: 10px;
+  height: 10px;
+  border: 0.3px solid lightgray;
+`
+
+const StyledBlankColorBox = styled.div`
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+`
+
+const ColorBox = ({
+  color,
+  withPlaceholder = true,
+}: {
+  color: string
+  withPlaceholder?: boolean
+}) => {
+  if (!isColorClass(color)) {
+    return withPlaceholder ? <StyledBlankColorBox /> : null
+  }
+
+  const backgroundClassName = `bg-${getOnlyColorValue(color)}`
+
+  return <StyledColorBox className={backgroundClassName} />
 }

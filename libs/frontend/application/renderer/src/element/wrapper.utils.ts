@@ -7,8 +7,6 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
 import React, { Fragment } from 'react'
-import defaultConfig from 'tailwindcss/defaultConfig'
-import resolveConfig from 'tailwindcss/resolveConfig'
 import { tw } from 'twind'
 import { getAtom } from '../atoms'
 
@@ -63,6 +61,11 @@ export const createTextRenderer = (customText: string) =>
   React.createElement(TextRenderer, { data: customText })
 
 let dragImage: HTMLElement | undefined
+export const generateTailwindClasses = (classNames: Array<string>) => {
+  if (classNames.length) {
+    tw(classNames)
+  }
+}
 
 export const createDragImage = (name: string) => {
   if (dragImage) {
