@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import type { Filterables } from '@codelab/frontend/abstract/application'
+=======
+import type { Filterables } from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import type { NextRouter } from 'next/router'
 
 /**

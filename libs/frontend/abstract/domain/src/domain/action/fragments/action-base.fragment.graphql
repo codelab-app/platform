@@ -1,0 +1,10 @@
+fragment BaseAction on BaseAction {
+  __typename
+  id
+  name
+  store {
+    id
+    name
+  }
+  type
+}

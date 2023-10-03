@@ -8,12 +8,16 @@ import 'react-grid-layout/css/styles.css'
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 =======
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
+=======
+import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 >>>>>>> e4701781d (wip: update project tags)

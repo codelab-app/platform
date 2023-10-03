@@ -3,7 +3,11 @@ import type {
   IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
+<<<<<<< HEAD
 import { Prop } from '@codelab/frontend/domain/prop'
+=======
+import { getUserService, propRef } from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,

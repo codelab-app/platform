@@ -5,7 +5,15 @@ import type {
   IInterfaceTypeModel,
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
+<<<<<<< HEAD
 import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
+=======
+import {
+  atomRef,
+  getUserService,
+  typeRef,
+} from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import {

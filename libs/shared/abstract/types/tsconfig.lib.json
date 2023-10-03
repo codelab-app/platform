@@ -4,5 +4,5 @@
     "outDir": "../../../../dist/out-tsc"
   },
   "exclude": ["**/*.spec.ts"],
-  "include": ["**/*.ts", "../../infra/validation/src/types/nullish.ts"]
+  "include": ["**/*.ts"]
 }

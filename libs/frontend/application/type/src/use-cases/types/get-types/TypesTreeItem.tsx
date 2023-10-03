@@ -1,10 +1,18 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
+<<<<<<< HEAD
 import {
   fieldRef,
   type IInterfaceTypeModel,
   type ITypesTreeDataNode,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
+=======
+import type {
+  IInterfaceType,
+  ITypesTreeDataNode,
+} from '@codelab/frontend/abstract/domain'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {

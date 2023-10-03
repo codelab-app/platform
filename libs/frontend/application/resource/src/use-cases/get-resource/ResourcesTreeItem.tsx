@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ResourceIcon } from '../../../../../domain/resource/src/view'
+import { ResourceIcon } from '../../view'
 
 interface ResourcesTreeItemProps {
   data: IResourcesTreeDataNode

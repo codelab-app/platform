@@ -1,0 +1,10 @@
+fragment ArrayType on ArrayType {
+  ...BaseType
+  itemType {
+    ... on IBaseType {
+      id
+      kind
+      name
+    }
+  }
+}

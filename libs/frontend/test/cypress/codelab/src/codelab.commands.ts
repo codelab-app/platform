@@ -1,7 +1,4 @@
-import type {
-  CypressCommand,
-  OmitFirstArg,
-} from '@codelab/frontend/test/cypress/command'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/command'
 import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'

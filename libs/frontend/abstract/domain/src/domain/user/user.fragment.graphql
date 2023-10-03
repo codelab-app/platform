@@ -1,0 +1,10 @@
+fragment User on User {
+  apps {
+    ...App
+  }
+  auth0Id
+  email
+  id
+  roles
+  username
+}

@@ -1,10 +1,18 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+<<<<<<< HEAD:libs/frontend/application/user/src/graphql/user.endpoints.graphql.gen.ts
 import { UserFragment } from '../../../../abstract/domain/src/user/user.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { UserFragmentDoc } from '../../../../abstract/domain/src/user/user.fragment.graphql.gen'
+=======
+import { UserFragment } from '../../../../abstract/domain/src/domain/user/user.fragment.graphql.gen'
+import { GraphQLClient } from 'graphql-request'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { gql } from 'graphql-tag'
+import { UserFragmentDoc } from '../../../../abstract/domain/src/domain/user/user.fragment.graphql.gen'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer):libs/frontend/domain/user/src/graphql/user.endpoints.graphql.gen.ts
 export type GetUsersQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.UserWhere>
 }>

@@ -1,0 +1,22 @@
+fragment Tag on Tag {
+  children {
+    id
+  }
+  descendants {
+    id
+  }
+  id
+  #isRoot
+  name
+  owner {
+    ...Owner
+  }
+  parent {
+    id
+  }
+}
+
+fragment TagPreview on Tag {
+  id
+  name
+}

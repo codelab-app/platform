@@ -5,7 +5,16 @@ import type {
   IPageModel,
   IUser,
 } from '@codelab/frontend/abstract/domain'
+<<<<<<< HEAD
 import { userRef } from '@codelab/frontend/abstract/domain'
+=======
+import {
+  domainRef,
+  getUserService,
+  pageRef,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { Domain } from '@codelab/frontend/domain/domain'
 import { Page } from '@codelab/frontend/domain/page'
 import type {

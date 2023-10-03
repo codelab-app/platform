@@ -1,0 +1,8 @@
+fragment UnionType on UnionType {
+  ...BaseType
+  typesOfUnionType {
+    ... on IBaseType {
+      ...BaseType
+    }
+  }
+}

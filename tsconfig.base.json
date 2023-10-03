@@ -171,8 +171,8 @@
       "@codelab/frontend/abstract/domain": [
         "libs/frontend/abstract/domain/src/index.ts"
       ],
-      "@codelab/frontend/abstract/testing": [
-        "libs/frontend/abstract/testing/src/index.ts"
+      "@codelab/frontend/abstract/domain": [
+        "libs/frontend/abstract/domain/src/index.ts"
       ],
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"

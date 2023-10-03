@@ -1,10 +1,10 @@
+import { createTestRootStore } from '@codelab/frontend/domain/element'
 import {
   atomReactFragmentDto,
   elementDto,
   userDto,
 } from '@codelab/frontend/test/data'
 import { v4 } from 'uuid'
-import { createTestRootStore } from '../../../../../../domain/element/src/tests/root-store'
 
 describe('CreateElementService', () => {
   const { atomService, elementService } = createTestRootStore(userDto)

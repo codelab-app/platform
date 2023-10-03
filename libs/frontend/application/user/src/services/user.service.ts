@@ -1,8 +1,14 @@
+<<<<<<< HEAD:libs/frontend/application/user/src/services/user.service.ts
 import type { IUserService } from '@codelab/frontend/abstract/application'
 import type { IUser } from '@codelab/frontend/abstract/domain'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { User } from '@codelab/frontend/domain/user'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+=======
+import type { IUser, IUserService } from '@codelab/frontend/abstract/domain'
+import { restPlatformClient } from '@codelab/frontend/application/axios'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer):libs/frontend/domain/user/src/store/user.service.ts
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'

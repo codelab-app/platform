@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
+=======
+import type {
+  IInterfaceType,
+  ITypeService,
+} from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'

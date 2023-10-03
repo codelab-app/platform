@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import type { IRepository } from '@codelab/frontend/abstract/application'
 import type { IRef } from '@codelab/shared/abstract/core'
+=======
+import type { IRepository } from '@codelab/frontend/abstract/domain'
+import type { IEntity } from '@codelab/shared/abstract/types'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { Model, model } from 'mobx-keystone'
 
 /**

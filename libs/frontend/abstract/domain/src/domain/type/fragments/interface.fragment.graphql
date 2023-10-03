@@ -1,0 +1,6 @@
+fragment InterfaceType on InterfaceType {
+  ...BaseType
+  fields {
+    ...Field
+  }
+}

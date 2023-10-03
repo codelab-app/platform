@@ -1,0 +1,4 @@
+fragment CodeAction on CodeAction {
+  ...BaseAction
+  code
+}

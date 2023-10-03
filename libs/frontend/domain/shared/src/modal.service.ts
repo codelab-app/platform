@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import type { IModalService } from '@codelab/frontend/abstract/application'
+=======
+import type { IModalService } from '@codelab/frontend/abstract/domain'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { Router } from 'next/router'
 

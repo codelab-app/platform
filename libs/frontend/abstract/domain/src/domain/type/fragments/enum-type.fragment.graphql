@@ -1,0 +1,6 @@
+fragment EnumType on EnumType {
+  allowedValues {
+    ...EnumTypeValue
+  }
+  ...BaseType
+}

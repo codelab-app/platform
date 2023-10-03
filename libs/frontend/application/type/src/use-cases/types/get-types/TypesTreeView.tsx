@@ -1,5 +1,9 @@
 import type {
+<<<<<<< HEAD
   ITypeModel,
+=======
+  IType,
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
   ITypesTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'

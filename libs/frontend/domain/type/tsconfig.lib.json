@@ -19,13 +19,5 @@
     "**/*.test.tsx",
     "jest.config.ts"
   ],
-  "include": [
-    "**/*.js",
-    "**/*.jsx",
-    "**/*.ts",
-    "**/*.tsx",
-    "../../application/type/src/use-cases/types/TypeSelect.tsx",
-    "../../application/type/src/interface-form/type-schema.factory.ts",
-    "../../presentation/view/components/form/schema/field-description.ts"
-  ]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

@@ -1,0 +1,8 @@
+fragment Resource on Resource {
+  config {
+    ...Prop
+  }
+  id
+  name
+  type
+}
