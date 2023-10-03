@@ -1,4 +1,4 @@
-import type { IPageNodeRef } from '@codelab/frontend/abstract/core'
+import type { IPageNodeRef } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'

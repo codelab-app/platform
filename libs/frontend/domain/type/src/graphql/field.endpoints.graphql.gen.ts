@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { FieldFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { FieldFragment } from '../../../../abstract/domain/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { FieldFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
+import { FieldFragmentDoc } from '../../../../abstract/domain/src/domain/type/fragments/field.fragment.graphql.gen'
 export type CreateFieldsMutationVariables = Types.Exact<{
   input: Array<Types.FieldCreateInput> | Types.FieldCreateInput
 }>

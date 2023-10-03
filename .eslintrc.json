@@ -27,7 +27,7 @@
     "plugin:prettier/recommended",
     "plugin:canonical/recommended",
     "plugin:tailwindcss/recommended",
-    // "./scripts/eslint/.eslintrc.nx.json",
+    "./scripts/eslint/.eslintrc.nx.json",
     "./scripts/eslint/.eslintrc.globals.json",
     "./scripts/eslint/.eslintrc.spacing.json",
     "./scripts/eslint/.eslintrc.naming.json",
@@ -66,7 +66,7 @@
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",
-        // "unused-imports/no-unused-imports-ts": "error",
+        "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
           {

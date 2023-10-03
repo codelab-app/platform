@@ -1,4 +1,4 @@
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Active, DragStartEvent } from '@dnd-kit/core'
 import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'

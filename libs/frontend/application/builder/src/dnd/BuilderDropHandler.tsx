@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { useDndContext } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'

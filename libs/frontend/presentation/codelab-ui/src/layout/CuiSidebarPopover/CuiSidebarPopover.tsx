@@ -1,4 +1,4 @@
-import { CY_DATA } from '@codelab/frontend/abstract/testing'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'

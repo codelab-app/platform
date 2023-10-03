@@ -1,6 +1,5 @@
 import type { Tree } from '@nx/devkit'
 import { formatFiles, getProjects } from '@nx/devkit'
-import type { EslintGeneratorSchema } from './schema'
 import { updateProjectConfig } from './update-project-config'
 
 /**

@@ -1,6 +1,7 @@
-import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
+import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import type { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { tagRef } from '@codelab/frontend/domain/tag'
 import {
   CuiSkeletonWrapper,
   CuiTree,
@@ -9,7 +10,6 @@ import { useAsync } from '@react-hookz/web'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { tagRef } from '../../../../../domain/tag/src/store'
 import { TagsTreeItem } from './TagsTreeItem'
 
 export const TagsTreeView = observer(() => {

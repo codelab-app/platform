@@ -9,7 +9,7 @@ import {
   isAtomInstance,
   isComponentPageNodeRef,
   isElementPageNodeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   UpdateComponentForm,
   UpdateComponentPropsForm,
@@ -56,7 +56,13 @@ const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { builderService, elementService, pageService } = useStore()
+  const {
+    builderService,
+    elementApplicationService,
+    elementService,
+    pageService,
+  } = useStore()
+
   const elementTree = builderService.activeElementTree
   const selectedNode = builderService.selectedNode
 
@@ -109,7 +115,13 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         <TooltipIcon
           icon={
             <SettingOutlined
-              style={element?.propsHaveErrors ? { color: 'red' } : {}}
+              style={
+                elementApplicationService.validationService.propsHaveErrors(
+                  element,
+                )
+                  ? { color: 'red' }
+                  : {}
+              }
             />
           }
           title={TAB_NAMES.Props}

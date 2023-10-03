@@ -1,10 +1,10 @@
-import type { IPageNode } from '@codelab/frontend/abstract/core'
+import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   isComponentPageNode,
   isElementPageNode,
   RendererTab,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {

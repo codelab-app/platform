@@ -1,4 +1,4 @@
-import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
+import type { IUpdateComponentData } from '@codelab/frontend/abstract/domain'
 import { getSelectElementComponent } from '@codelab/frontend/application/type'
 import {
   CodeMirrorField,

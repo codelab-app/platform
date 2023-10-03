@@ -1,7 +1,7 @@
 import type {
   ITagModel,
   ITagTreeService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'

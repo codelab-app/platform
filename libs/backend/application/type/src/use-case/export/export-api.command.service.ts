@@ -11,7 +11,6 @@ import {
   IInterfaceTypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 

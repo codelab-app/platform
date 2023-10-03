@@ -3,13 +3,13 @@ import type {
   IDomainModel,
   IPageModel,
   IUser,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   domainRef,
   getUserService,
   pageRef,
   userRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend/domain/domain'
 import { Page } from '@codelab/frontend/domain/page'
 import type {

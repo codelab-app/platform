@@ -1,13 +1,13 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
+import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { tagRef } from '@codelab/frontend/domain/tag'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { tagRef } from '../../../../../domain/tag/src/store'
 
 interface TagsTreeItemProps {
   data: ITagsTreeDataNode

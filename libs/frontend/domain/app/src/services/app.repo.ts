@@ -1,4 +1,7 @@
-import type { IAppModel, IAppRepository } from '@codelab/frontend/abstract/core'
+import type {
+  IAppModel,
+  IAppRepository,
+} from '@codelab/frontend/abstract/domain'
 import type {
   AppOptions,
   AppUniqueWhere,

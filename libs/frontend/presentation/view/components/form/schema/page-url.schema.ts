@@ -1,4 +1,4 @@
-import type { IPageModel } from '@codelab/frontend/abstract/core'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 import { nonEmptyString } from './non-empty-string'
 

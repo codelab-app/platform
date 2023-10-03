@@ -6,7 +6,6 @@ import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { IAtomDTO } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 

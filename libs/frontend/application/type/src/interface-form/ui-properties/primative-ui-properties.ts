@@ -1,4 +1,4 @@
-import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
+import type { IPrimitiveType } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,

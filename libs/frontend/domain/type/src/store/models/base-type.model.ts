@@ -3,7 +3,7 @@ import {
   type IBaseType,
   type ICreateTypeInput,
   type IUpdateTypeVars,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'

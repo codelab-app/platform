@@ -1,4 +1,4 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {

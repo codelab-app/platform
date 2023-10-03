@@ -4,7 +4,7 @@ import type {
   IPaginateable,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { useTablePagination } from '@codelab/frontend/domain/shared'
 import React, { useEffect, useState } from 'react'
 import { CuiInput } from '../../components'

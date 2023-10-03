@@ -1,14 +1,14 @@
 import type {
   IAppDevelopmentArgs,
   IAppDevelopmentService,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   getAppService,
   getComponentService,
   getElementService,
   getUserService,
   IAppDevelopmentDto,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService } from '@codelab/frontend/domain/page'

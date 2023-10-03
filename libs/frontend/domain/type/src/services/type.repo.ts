@@ -2,7 +2,7 @@ import type {
   BaseTypesOptions,
   IType,
   ITypeRepository,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IBaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'

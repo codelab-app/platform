@@ -4,7 +4,7 @@ import type {
   IInterfaceType,
   IPropModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   DATA_COMPONENT_ID,
@@ -18,7 +18,7 @@ import {
   propRef,
   storeRef,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import {
   type IComponentDTO,

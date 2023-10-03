@@ -1,4 +1,4 @@
-import { type IField } from '@codelab/frontend/abstract/core'
+import { type IField } from '@codelab/frontend/abstract/domain'
 import sortBy from 'lodash/sortBy'
 
 export const sortFieldsArray = (fields: Array<IField>) => {

@@ -1,4 +1,7 @@
-import type { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
+import type {
+  IRootStore,
+  RootStoreData,
+} from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
   builderServiceContext,
@@ -6,9 +9,11 @@ import {
   elementServiceContext,
   renderServiceContext,
   userServiceContext,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { AppService } from '@codelab/frontend/application/app'
+import { ElementApplicationService } from '@codelab/frontend/application/element'
+import { RenderService } from '@codelab/frontend/application/renderer'
 import { AdminService } from '@codelab/frontend/domain/admin'
-import { AppService } from '@codelab/frontend/domain/app'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
 import { ComponentService } from '@codelab/frontend/domain/component'
@@ -19,7 +24,6 @@ import {
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
 import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
-import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ResourceService,
   resourceServiceContext,
@@ -46,26 +50,30 @@ import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {
   @model('@codelab/RootStore')
-  class RootStore extends Model({
-    actionService: prop(() => new ActionService({})),
-    adminService: prop(() => new AdminService({})),
-    appService: prop(() => new AppService({})),
-    atomService: prop(() => new AtomService({})),
-    builderService: prop(() => new BuilderService({})),
-    componentService: prop(() => new ComponentService({})),
-    domainService: prop(() => new DomainService({})),
-    elementService: prop(() => new ElementService({})),
-    fieldService: prop(() => new FieldService({})),
-    pageService: prop(() => new PageService({})),
-    propService: prop(() => new PropService({})),
-    renderService: prop(() => new RenderService({})),
-    resourceService: prop(() => new ResourceService({})),
-    storeService: prop(() => new StoreService({})),
-    tagService: prop(() => new TagService({})),
-    tracerService: prop(() => new TracerService({})),
-    typeService: prop(() => new TypeService({})),
-    userService: prop(() => UserService.init(user)),
-  }) {
+  class RootStore
+    extends Model({
+      actionService: prop(() => new ActionService({})),
+      adminService: prop(() => new AdminService({})),
+      appService: prop(() => new AppService({})),
+      atomService: prop(() => new AtomService({})),
+      builderService: prop(() => new BuilderService({})),
+      componentService: prop(() => new ComponentService({})),
+      domainService: prop(() => new DomainService({})),
+      elementApplicationService: prop(() => new ElementApplicationService({})),
+      elementService: prop(() => new ElementService({})),
+      fieldService: prop(() => new FieldService({})),
+      pageService: prop(() => new PageService({})),
+      propService: prop(() => new PropService({})),
+      renderService: prop(() => new RenderService({})),
+      resourceService: prop(() => new ResourceService({})),
+      storeService: prop(() => new StoreService({})),
+      tagService: prop(() => new TagService({})),
+      tracerService: prop(() => new TracerService({})),
+      typeService: prop(() => new TypeService({})),
+      userService: prop(() => UserService.init(user)),
+    })
+    implements IRootStore
+  {
     protected onInit() {
       appServiceContext.set(this, this.appService)
       domainServiceContext.set(this, this.domainService)

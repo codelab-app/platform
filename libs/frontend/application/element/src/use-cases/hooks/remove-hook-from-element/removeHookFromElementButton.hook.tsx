@@ -1,4 +1,4 @@
-import type { IHook } from '@codelab/frontend/abstract/core'
+import type { IHook } from '@codelab/frontend/abstract/domain'
 import { ListItemDeleteButton } from '@codelab/frontend/presentation/view'
 import type { ButtonProps } from 'antd'
 import type { PropsWithChildren } from 'react'

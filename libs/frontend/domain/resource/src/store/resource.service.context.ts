@@ -1,4 +1,4 @@
-import type { IResourceService } from '@codelab/frontend/abstract/core'
+import type { IResourceService } from '@codelab/frontend/abstract/domain'
 import { createContext } from 'mobx-keystone'
 
 export const resourceServiceContext = createContext<IResourceService>()

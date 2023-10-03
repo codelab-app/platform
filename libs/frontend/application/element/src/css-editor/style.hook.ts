@@ -1,4 +1,4 @@
-import { isElementRef } from '@codelab/frontend/abstract/core'
+import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'

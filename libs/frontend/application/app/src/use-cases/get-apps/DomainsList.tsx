@@ -3,7 +3,7 @@ import {
   CloseCircleOutlined,
   LinkOutlined,
 } from '@ant-design/icons'
-import type { IDomainModel } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import Link from 'next/link'
 import React from 'react'
 

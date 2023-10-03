@@ -1,7 +1,7 @@
 import type {
   IPageModel,
   IPageRepository,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   PageOptions,
   PageUniqueWhere,

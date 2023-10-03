@@ -1,15 +1,8 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-domain-renderer',
+  displayName: 'renderer',
   preset: '../../../../jest.preset.js',
-  // globals: {
-  //   'ts-jest': {
-  //     tsconfig: '<rootDir>/tsconfig.spec.json',
-  //     babelConfig: '<rootDir>/.babelrc',
-  //     // https://github.com/kentcdodds/babel-plugin-macros/issues/160
-  //     useESM: true,
-  //   },
-  // },
+  testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',
@@ -24,7 +17,7 @@ export default {
       },
     ],
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../../coverage/libs/frontend/domain/renderer',
   reporters: [
     'default',

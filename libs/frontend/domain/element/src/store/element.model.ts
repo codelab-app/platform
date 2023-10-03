@@ -11,7 +11,7 @@ import type {
   IStoreModel,
   RenderingError,
   RenderingMetadata,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
   BuilderWidthBreakPoint,
@@ -33,11 +33,7 @@ import {
   pageRef,
   propRef,
   RendererType,
-} from '@codelab/frontend/abstract/core'
-import { schemaTransformer } from '@codelab/frontend/application/type'
-import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getPropService } from '@codelab/frontend/domain/prop'
-import { createValidator } from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend/abstract/domain'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -365,20 +361,6 @@ export class Element
       state: this.store.current.state,
       url: this.urlProps ?? {},
     }
-  }
-
-  @computed
-  get propsHaveErrors() {
-    console.log(this.toJson)
-
-    const schema = schemaTransformer.transform(
-      this.renderType.current.api.current,
-    )
-
-    const validate = createValidator(schema)
-    const result = validate(this.props.current.values)
-
-    return result ? result.details.length > 0 : false
   }
 
   @computed

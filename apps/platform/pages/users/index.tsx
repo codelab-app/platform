@@ -1,4 +1,4 @@
-import type { IUser } from '@codelab/frontend/abstract/core'
+import type { IUser } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'

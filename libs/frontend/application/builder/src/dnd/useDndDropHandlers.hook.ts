@@ -3,12 +3,10 @@ import type {
   BuilderDropData,
   IElementService,
   IElementTree,
-} from '@codelab/frontend/abstract/core'
-import { DragPosition } from '@codelab/frontend/abstract/core'
-import {
-  makeAutoIncrementedName,
-  useRequiredParentValidator,
-} from '@codelab/frontend/domain/element'
+} from '@codelab/frontend/abstract/domain'
+import { DragPosition } from '@codelab/frontend/abstract/domain'
+import { useRequiredParentValidator } from '@codelab/frontend/application/element'
+import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 

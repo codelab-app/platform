@@ -9,6 +9,7 @@ export const elementDto: IElementDTO = {
   id: v4(),
   name: 'Body',
   props: {
+    data: '{}',
     id: v4(),
   },
   renderType: {

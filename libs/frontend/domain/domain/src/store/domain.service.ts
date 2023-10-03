@@ -3,7 +3,7 @@ import type {
   IDomainModel,
   IDomainService,
   IUpdateDomainData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'

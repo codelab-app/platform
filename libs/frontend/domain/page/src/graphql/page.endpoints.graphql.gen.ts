@@ -3,18 +3,18 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   PageFragment,
   PageDevelopmentFragment,
-} from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
-import { AppProductionFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/page/page.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
+import { AppProductionFragment } from '../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
   PageDevelopmentFragmentDoc,
-} from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
-import { AppProductionFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/page/page.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
+import { AppProductionFragmentDoc } from '../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>

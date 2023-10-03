@@ -1,8 +1,8 @@
 import type {
   IElementTreeViewDataNode,
   IPageNode,
-} from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { elementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import type { Nullable } from '@codelab/shared/abstract/types'

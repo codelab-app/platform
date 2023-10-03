@@ -1,4 +1,4 @@
-import type { IAppType } from '@codelab/frontend/abstract/core'
+import type { IAppType } from '@codelab/frontend/abstract/domain'
 import { SelectApp } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

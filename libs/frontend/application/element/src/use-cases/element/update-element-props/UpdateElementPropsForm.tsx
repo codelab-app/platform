@@ -1,5 +1,5 @@
-import type { IElementModel } from '@codelab/frontend/abstract/core'
-import { isComponentInstance } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import { isComponentInstance } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'

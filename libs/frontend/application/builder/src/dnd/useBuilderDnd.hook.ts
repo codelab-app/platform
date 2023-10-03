@@ -3,8 +3,8 @@ import type {
   IBuilderService,
   IElementService,
   IElementTree,
-} from '@codelab/frontend/abstract/core'
-import { BuilderDndType } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { BuilderDndType } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'

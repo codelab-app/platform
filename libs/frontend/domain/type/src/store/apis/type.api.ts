@@ -2,7 +2,7 @@ import type {
   ICreateTypeInput,
   ITypeWhere,
   IUpdateTypeVars,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { client } from '@codelab/frontend/infra/graphql'
 import type {
   CodeMirrorTypeCreateInput,

@@ -1,4 +1,4 @@
-import type { IActionType } from '@codelab/frontend/abstract/core'
+import type { IActionType } from '@codelab/frontend/abstract/domain'
 import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'

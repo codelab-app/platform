@@ -1,4 +1,4 @@
-import type { IHook } from '@codelab/frontend/abstract/core'
+import type { IHook } from '@codelab/frontend/abstract/domain'
 import { List } from 'antd'
 import type { ReactNode } from 'react'
 import React from 'react'

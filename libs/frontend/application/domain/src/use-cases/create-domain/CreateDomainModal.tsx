@@ -1,6 +1,10 @@
 import type { ApolloError } from '@apollo/client'
-import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
+import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import {
+  checkDomainExists,
+  DOMAIN_EXISTS_ERROR,
+} from '@codelab/frontend/domain/domain'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { useErrorNotify } from '@codelab/frontend/shared/utils'
@@ -8,10 +12,6 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import {
-  checkDomainExists,
-  DOMAIN_EXISTS_ERROR,
-} from '../../../../../domain/domain/src/errors'
 import { createDomainSchema } from './create-domain.schema'
 
 export const CreateDomainModal = observer(() => {

@@ -5,7 +5,7 @@ import type {
   IDragDropData,
   IElementModel,
   IPageNodeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   BuilderWidth,
   BuilderWidthBreakPoint,
@@ -16,7 +16,7 @@ import {
   isComponentPageNodeRef,
   isElementPageNodeRef,
   RendererTab,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { Nullable } from '@codelab/shared/abstract/types'

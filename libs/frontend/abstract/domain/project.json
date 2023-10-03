@@ -1,0 +1,25 @@
+{
+  "name": "frontend-abstract-domain",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/abstract/domain/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/abstract/domain/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-abstract-domain.xml",
+          "quiet": true
+        }
+      }
+    }
+  },
+  "tags": ["projectType:library", "type:abstract", "scope:frontend"]
+}

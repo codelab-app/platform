@@ -1,7 +1,7 @@
 import type {
   IPageService,
   IUpdatePageData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend/presentation/view'
 import { IPageKind } from '@codelab/shared/abstract/core'

@@ -1,7 +1,7 @@
 import type {
   IAppModel,
   IPagesTreeDataNode,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

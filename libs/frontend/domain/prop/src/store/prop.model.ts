@@ -1,8 +1,11 @@
 import type {
   IInterfaceType,
   IPropModel,
-} from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY, typeRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  typeRef,
+} from '@codelab/frontend/abstract/domain'
 import type {
   PropCreateInput,
   PropUpdateInput,

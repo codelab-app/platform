@@ -1,4 +1,4 @@
-import type { IArrayType } from '@codelab/frontend/abstract/core'
+import type { IArrayType } from '@codelab/frontend/abstract/domain'
 import {
   createAutoCompleteOptions,
   ToggleExpressionField,

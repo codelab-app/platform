@@ -1,4 +1,4 @@
-import type { ICreateResourceData } from '@codelab/frontend/abstract/core'
+import type { ICreateResourceData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {

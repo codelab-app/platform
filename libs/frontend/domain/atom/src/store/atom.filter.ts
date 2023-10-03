@@ -1,4 +1,4 @@
-import type { IAtomModel } from '@codelab/frontend/abstract/core'
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { AtomType } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 

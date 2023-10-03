@@ -2,7 +2,7 @@ import {
   atomRef,
   componentRef,
   type IElementRenderTypeModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 

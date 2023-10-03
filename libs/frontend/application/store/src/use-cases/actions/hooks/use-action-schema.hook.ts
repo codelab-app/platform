@@ -1,7 +1,7 @@
 import type {
   ICreateActionData,
   IUpdateActionData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { JSONSchemaType } from 'ajv'
 import { useMemo } from 'react'

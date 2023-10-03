@@ -1,4 +1,4 @@
-import type { ILambdaType } from '@codelab/frontend/abstract/core'
+import type { ILambdaType } from '@codelab/frontend/abstract/domain'
 import { SelectLambda } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

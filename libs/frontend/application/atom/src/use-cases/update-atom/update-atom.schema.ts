@@ -1,5 +1,5 @@
-import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
-import { filterNotHookType } from '@codelab/frontend/abstract/core'
+import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
+import { filterNotHookType } from '@codelab/frontend/abstract/domain'
 import {
   cdnEsmValidation,
   idSchema,

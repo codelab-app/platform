@@ -3,8 +3,8 @@ import type {
   IField,
   IInterfaceType,
   IType,
-} from '@codelab/frontend/abstract/core'
-import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

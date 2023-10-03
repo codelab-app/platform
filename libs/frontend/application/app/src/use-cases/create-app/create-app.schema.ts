@@ -1,4 +1,4 @@
-import type { ICreateAppData } from '@codelab/frontend/abstract/core'
+import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import {
   idSchema,
   nonEmptyString,

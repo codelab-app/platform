@@ -1,5 +1,5 @@
-import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
-import { restPlatformClient } from '@codelab/frontend/config'
+import type { IUser, IUserService } from '@codelab/frontend/abstract/domain'
+import { restPlatformClient } from '@codelab/frontend/application/axios'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { throwIfUndefined } from '@codelab/shared/utils'

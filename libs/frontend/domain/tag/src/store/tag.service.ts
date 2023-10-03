@@ -4,7 +4,7 @@ import type {
   ITagService,
   ITagTreeService,
   IUpdateTagData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,

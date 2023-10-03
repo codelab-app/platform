@@ -1,4 +1,4 @@
-import type { IActionService } from '@codelab/frontend/abstract/core'
+import type { IActionService } from '@codelab/frontend/abstract/domain'
 import { createContext } from 'mobx-keystone'
 
 export const actionServiceContext = createContext<IActionService>()

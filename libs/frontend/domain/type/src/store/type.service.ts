@@ -2,12 +2,12 @@ import type {
   IInterfaceTypeRef,
   ITypeService,
   IUpdateTypeData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   ICreateTypeData,
   IType,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,

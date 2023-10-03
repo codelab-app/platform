@@ -1,4 +1,4 @@
-import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
+import type { IUpdateTypeData } from '@codelab/frontend/abstract/domain'
 import {
   hideField,
   idSchema,

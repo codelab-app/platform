@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IActionType } from '@codelab/frontend/abstract/core'
+import type { IActionType } from '@codelab/frontend/abstract/domain'
 import {
   createAutoCompleteOptions,
   ToggleExpressionField,

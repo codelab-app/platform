@@ -1,4 +1,4 @@
-import { isAtomInstance } from '@codelab/frontend/abstract/core'
+import { isAtomInstance } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -21,10 +21,10 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { useRequiredParentValidator } from '../../../../../../domain/element/src/utils'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import { RenderTypeCompositeField } from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
+import { useRequiredParentValidator } from '../../../validation/useRequiredParentValidator.hook'
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementFormProps {

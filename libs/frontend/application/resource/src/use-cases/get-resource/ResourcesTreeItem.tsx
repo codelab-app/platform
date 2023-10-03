@@ -2,7 +2,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 import {
   type IResourcesTreeDataNode,
   resourceRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ResourceIcon } from '../../../../../domain/resource/src/view'
+import { ResourceIcon } from '../../view'
 
 interface ResourcesTreeItemProps {
   data: IResourcesTreeDataNode

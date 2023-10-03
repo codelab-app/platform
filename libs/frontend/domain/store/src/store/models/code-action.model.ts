@@ -1,5 +1,5 @@
-import type { ICodeActionModel } from '@codelab/frontend/abstract/core'
-import { storeRef } from '@codelab/frontend/abstract/core'
+import type { ICodeActionModel } from '@codelab/frontend/abstract/domain'
+import { storeRef } from '@codelab/frontend/abstract/domain'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,

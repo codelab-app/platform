@@ -1,4 +1,4 @@
-import type { IComponentService } from '@codelab/frontend/abstract/core'
+import type { IComponentService } from '@codelab/frontend/abstract/domain'
 import { detach, rootRef } from 'mobx-keystone'
 
 export const componentServiceRef = rootRef<IComponentService>(

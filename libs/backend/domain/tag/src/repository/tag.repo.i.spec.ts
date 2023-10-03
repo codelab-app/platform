@@ -1,5 +1,4 @@
 import { AdminRepository } from '@codelab/backend/domain/admin'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'

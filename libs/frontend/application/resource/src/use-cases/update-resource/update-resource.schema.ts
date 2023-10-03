@@ -1,4 +1,4 @@
-import type { IUpdateResourceData } from '@codelab/frontend/abstract/core'
+import type { IUpdateResourceData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 import { createResourceSchema } from '../create-resource'
 

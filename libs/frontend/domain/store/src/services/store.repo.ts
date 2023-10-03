@@ -1,7 +1,7 @@
 import type {
   IStoreModel,
   IStoreRepository,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   StoreOptions,
   StoreUniqueWhere,

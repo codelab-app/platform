@@ -90,7 +90,6 @@
     "projectType:library",
     "type:concrete",
     "layer:infra",
-    "scope:codegen",
     "scope:backend"
   ]
 }

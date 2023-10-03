@@ -7,7 +7,7 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
-import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
+import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { Analytics } from '@vercel/analytics/react'

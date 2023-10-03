@@ -3,13 +3,13 @@ import type {
   IApiActionModel,
   IPropModel,
   IResourceModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
   propRef,
   resourceRef,
   storeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   ApiActionCreateInput,
   ApiActionDeleteInput,

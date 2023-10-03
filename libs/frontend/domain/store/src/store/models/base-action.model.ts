@@ -2,7 +2,7 @@ import type {
   IBaseAction,
   IElementModel,
   IStoreModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'

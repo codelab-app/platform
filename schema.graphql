@@ -15302,7 +15302,7 @@ input ResourceSort {
 }
 
 enum ResourceType {
-  GraphQL
+  GraphQl
   Rest
 }
 

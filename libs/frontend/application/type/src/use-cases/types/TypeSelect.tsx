@@ -1,6 +1,5 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { CreateTypeOptions } from '@codelab/frontend/domain/type'
-import type { IBaseType } from '@codelab/shared/abstract/codegen'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'

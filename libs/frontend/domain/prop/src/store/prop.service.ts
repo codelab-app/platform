@@ -4,7 +4,7 @@ import type {
   IPropService,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IPropDTO } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'

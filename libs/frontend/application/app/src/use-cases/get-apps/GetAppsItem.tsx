@@ -1,4 +1,4 @@
-import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Card } from 'antd'

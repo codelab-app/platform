@@ -1,15 +1,10 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { IAtomOutputDto } from '@codelab/backend/abstract/core'
-import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
-import {
-  InterfaceType,
-  InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
+import { AtomRepository } from '@codelab/backend/domain/atom'
+import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import { v4 } from 'uuid'
 import { ExportAtomCommand } from '../use-case'
 
 @Injectable()

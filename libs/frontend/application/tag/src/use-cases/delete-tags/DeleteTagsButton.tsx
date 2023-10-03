@@ -1,10 +1,10 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import type { ITagService } from '@codelab/frontend/abstract/core'
+import type { ITagService } from '@codelab/frontend/abstract/domain'
 import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
+import { tagRef } from '@codelab/frontend/domain/tag'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { tagRef } from '../../../../../domain/tag/src/store'
 
 export const DeleteTagsButton = observer<
   Omit<DeleteButtonProps, 'ids'> & { tagService: ITagService }

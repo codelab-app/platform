@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { PropFragment } from '../../../../abstract/core/src/domain/prop/prop.fragment.graphql.gen'
+import { PropFragment } from '../../../../abstract/domain/src/domain/prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { PropFragmentDoc } from '../../../../abstract/core/src/domain/prop/prop.fragment.graphql.gen'
+import { PropFragmentDoc } from '../../../../abstract/domain/src/domain/prop/prop.fragment.graphql.gen'
 export type CreatePropsMutationVariables = Types.Exact<{
   input: Array<Types.PropCreateInput> | Types.PropCreateInput
 }>

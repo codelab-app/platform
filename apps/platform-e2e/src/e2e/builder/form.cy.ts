@@ -1,4 +1,4 @@
-import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
+import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/domain'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import {

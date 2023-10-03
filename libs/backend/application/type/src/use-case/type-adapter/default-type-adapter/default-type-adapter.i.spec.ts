@@ -1,9 +1,4 @@
-import {
-  InterfaceTypeRepository,
-  PrimitiveTypeRepository,
-} from '@codelab/backend/domain/type'
-import { User, UserRepository } from '@codelab/backend/domain/user'
-import type { IUnionTypeDTO, IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'
 

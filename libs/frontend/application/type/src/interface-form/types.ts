@@ -4,7 +4,7 @@ import type {
   IInterfaceType,
   IType,
   IValidationRules,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import type { Assign } from 'utility-types'

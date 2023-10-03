@@ -1,5 +1,5 @@
-import type { IArrayType, IType } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/abstract/core'
+import type { IArrayType, IType } from '@codelab/frontend/abstract/domain'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

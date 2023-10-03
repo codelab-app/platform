@@ -1,4 +1,4 @@
-import type { IElementService } from '@codelab/frontend/abstract/core'
+import type { IElementService } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type {
   Active,

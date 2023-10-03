@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { ResourceFragment } from '../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { ResourceFragmentDoc } from '../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
 export type GetResourcesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.ResourceOptions>
   where?: Types.InputMaybe<Types.ResourceWhere>

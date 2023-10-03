@@ -3,7 +3,7 @@ import {
   STATE_PATH_TEMPLATE_START_OPEN_REGEX,
   STATE_PATH_TEMPLATE_START_REGEX,
   WORD_BEFORE_DOT_REGEX,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   Completion,
   CompletionContext,

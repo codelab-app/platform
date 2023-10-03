@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { DomainFragment } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
+import { DomainFragment } from '../../../../abstract/domain/src/domain/domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { DomainFragmentDoc } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
+import { DomainFragmentDoc } from '../../../../abstract/domain/src/domain/domain/domain.fragment.graphql.gen'
 export type GetDomainsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.DomainOptions>
   where?: Types.InputMaybe<Types.DomainWhere>

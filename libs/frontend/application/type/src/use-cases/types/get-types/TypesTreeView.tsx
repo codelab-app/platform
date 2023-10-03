@@ -1,4 +1,7 @@
-import type { IType, ITypesTreeDataNode } from '@codelab/frontend/abstract/core'
+import type {
+  IType,
+  ITypesTreeDataNode,
+} from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useTablePagination } from '@codelab/frontend/domain/shared'

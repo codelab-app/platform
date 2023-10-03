@@ -3,7 +3,7 @@ import type {
   IActionOptions,
   IActionRepository,
   IActionWhere,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {

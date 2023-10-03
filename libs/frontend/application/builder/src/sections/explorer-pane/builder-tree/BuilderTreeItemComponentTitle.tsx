@@ -2,8 +2,8 @@ import type {
   IBuilderService,
   IComponentModel,
   IElementService,
-} from '@codelab/frontend/abstract/core'
-import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { isElementPageNodeRef } from '@codelab/frontend/abstract/domain'
 import { CreateElementButton } from '@codelab/frontend/domain/element'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

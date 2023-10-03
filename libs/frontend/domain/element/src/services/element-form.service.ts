@@ -4,7 +4,7 @@ import type {
   IElementModel,
   IEntityFormService,
   UpdateElementProperties,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { InlineFormService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

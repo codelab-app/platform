@@ -2,8 +2,8 @@ import type {
   IField,
   IInterfaceType,
   IType,
-} from '@codelab/frontend/abstract/core'
-import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

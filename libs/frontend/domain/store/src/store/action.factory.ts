@@ -3,7 +3,7 @@ import type {
   IActionModel,
   ICreateActionData,
   IUpdateActionData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   ActionFragment,

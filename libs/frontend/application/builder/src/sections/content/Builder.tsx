@@ -2,12 +2,12 @@ import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
   DragPosition,
-} from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/frontend/abstract/domain'
 import {
   makeDropIndicatorStyle,
   RootRenderer,
-} from '@codelab/frontend/domain/renderer'
+} from '@codelab/frontend/application/renderer'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useDroppable } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useMemo, useRef } from 'react'

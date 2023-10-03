@@ -1,7 +1,7 @@
 import type {
   IValidationRules,
   ValidationRuleTag,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { Nullish } from '@codelab/shared/abstract/types'
 
 export const getValidationRuleTagsArray = (

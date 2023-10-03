@@ -1,4 +1,4 @@
-import { CY_DATA_SELECTOR } from '@codelab/frontend/abstract/testing'
+import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
 
 export const getCuiSkeleton = () => {
   cy.log('getCuiSkeleton')

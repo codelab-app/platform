@@ -1,5 +1,5 @@
 import { ImportOutlined } from '@ant-design/icons'
-import type { IAppModel } from '@codelab/frontend/abstract/core'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   useErrorNotify,

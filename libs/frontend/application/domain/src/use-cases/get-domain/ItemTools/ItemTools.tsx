@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import type { IDomainModel } from '@codelab/frontend/abstract/core'
-import { domainRef } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import { domainRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

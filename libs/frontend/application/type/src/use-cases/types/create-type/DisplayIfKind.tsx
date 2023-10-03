@@ -1,4 +1,4 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'

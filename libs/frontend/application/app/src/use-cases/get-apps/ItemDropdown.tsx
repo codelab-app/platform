@@ -6,8 +6,8 @@ import {
   GlobalOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
-import { appRef } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/domain'
+import { appRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'

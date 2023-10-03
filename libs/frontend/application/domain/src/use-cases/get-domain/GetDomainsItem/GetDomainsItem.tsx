@@ -1,5 +1,5 @@
 import { LinkOutlined } from '@ant-design/icons'
-import type { IDomainModel } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import { Alert, Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'

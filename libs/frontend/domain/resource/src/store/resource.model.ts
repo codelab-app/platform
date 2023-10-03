@@ -1,8 +1,8 @@
 import type {
   IPropModel,
   IResourceModel,
-} from '@codelab/frontend/abstract/core'
-import { getUserService, propRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { getUserService, propRef } from '@codelab/frontend/abstract/domain'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,

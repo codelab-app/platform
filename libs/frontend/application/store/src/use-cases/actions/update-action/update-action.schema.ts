@@ -1,4 +1,4 @@
-import type { IUpdateActionData } from '@codelab/frontend/abstract/core'
+import type { IUpdateActionData } from '@codelab/frontend/abstract/domain'
 import type { JSONSchemaType } from 'ajv'
 import { createActionSchema } from '../create-action'
 

@@ -5,7 +5,7 @@ import {
   type IActionWhere,
   type ICreateActionData,
   type IUpdateActionData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { getTypeService } from '@codelab/frontend/domain/type'

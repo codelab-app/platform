@@ -1,6 +1,6 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
-import { RootRenderer } from '@codelab/frontend/domain/renderer'
+import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { useProductionPage } from '@codelab/frontend/presentation/container'
 import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'

@@ -1,4 +1,5 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
 import type { IElementRenderTypeDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -9,7 +10,6 @@ import React, { useEffect, useRef } from 'react'
 import type { FieldProps } from 'uniforms'
 import { connectField, useField } from 'uniforms'
 import { TextField } from 'uniforms-antd'
-import { makeAutoIncrementedName } from '../../../../../domain/element/src/utils'
 
 type AutoComputedElementNameProps = FieldProps<
   string,

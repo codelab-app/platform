@@ -1,4 +1,4 @@
-import type { ICreateTagData } from '@codelab/frontend/abstract/core'
+import type { ICreateTagData } from '@codelab/frontend/abstract/domain'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
 import React from 'react'
 

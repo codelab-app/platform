@@ -3,11 +3,11 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   Action_ApiAction_Fragment,
   Action_CodeAction_Fragment,
-} from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/action/fragments/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { ActionFragmentDoc } from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
+import { ActionFragmentDoc } from '../../../../abstract/domain/src/domain/action/fragments/action.fragment.graphql.gen'
 export type GetActionsQueryVariables = Types.Exact<{
   codeActionWhere?: Types.InputMaybe<Types.CodeActionWhere>
   apiActionWhere?: Types.InputMaybe<Types.ApiActionWhere>

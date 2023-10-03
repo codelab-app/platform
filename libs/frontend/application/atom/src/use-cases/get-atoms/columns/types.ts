@@ -3,7 +3,7 @@ import type {
   IFieldService,
   IInterfaceType,
   ITagModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import type { ReactNode } from 'react'
 

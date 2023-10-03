@@ -4,7 +4,7 @@ import type {
   ICreateComponentData,
   IElementModel,
   IInterfaceType,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   getElementService,
@@ -12,7 +12,7 @@ import {
   IUpdateComponentData,
   RendererType,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {

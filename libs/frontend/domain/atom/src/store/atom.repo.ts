@@ -1,5 +1,8 @@
-import type { IAtomRepository } from '@codelab/frontend/abstract/core'
-import { filterNotHookType, IAtomModel } from '@codelab/frontend/abstract/core'
+import type { IAtomRepository } from '@codelab/frontend/abstract/domain'
+import {
+  filterNotHookType,
+  IAtomModel,
+} from '@codelab/frontend/abstract/domain'
 import { clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type {
   AtomOptions,

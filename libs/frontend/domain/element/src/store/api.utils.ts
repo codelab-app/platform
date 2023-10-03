@@ -2,7 +2,7 @@ import type {
   IElementModel,
   IFieldDefaultValue,
   IInterfaceType,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { isNil } from 'ramda'

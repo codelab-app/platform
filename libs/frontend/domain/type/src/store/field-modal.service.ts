@@ -2,7 +2,7 @@ import type {
   IEntityModalService,
   IField,
   IInterfaceType,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'

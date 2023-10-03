@@ -1,7 +1,7 @@
 import type {
   IAtomModel,
   IComponentModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { ErrorBoundary } from '@codelab/frontend/presentation/view'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'

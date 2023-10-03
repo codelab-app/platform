@@ -1,4 +1,4 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/core'
+import type { IEvaluationContext } from '@codelab/frontend/abstract/domain'
 import {
   isTypedProp,
   STATE_PATH_TEMPLATE_END,
@@ -6,7 +6,7 @@ import {
   STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START,
   STATE_PATH_TEMPLATE_START_REGEX,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'

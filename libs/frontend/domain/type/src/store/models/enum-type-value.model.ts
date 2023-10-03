@@ -1,4 +1,4 @@
-import type { IEnumTypeValue } from '@codelab/frontend/abstract/core'
+import type { IEnumTypeValue } from '@codelab/frontend/abstract/domain'
 import type { IEnumTypeValueDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 

@@ -1,7 +1,7 @@
 import type {
   IComponentModel,
   IComponentRepository,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   ComponentOptions,
   ComponentUniqueWhere,

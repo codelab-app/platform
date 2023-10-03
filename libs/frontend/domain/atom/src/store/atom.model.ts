@@ -2,12 +2,12 @@ import type {
   IAtomModel,
   IInterfaceType,
   ITagModel,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import {
   atomRef,
   getUserService,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import {

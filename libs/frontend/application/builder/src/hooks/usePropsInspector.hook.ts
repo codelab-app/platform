@@ -1,5 +1,5 @@
-import type { IPageNodeRef } from '@codelab/frontend/abstract/core'
-import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
+import type { IPageNodeRef } from '@codelab/frontend/abstract/domain'
+import { isElementPageNodeRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { schemaTransformer } from '@codelab/frontend/application/type'
 import { createValidator } from '@codelab/frontend/presentation/view'

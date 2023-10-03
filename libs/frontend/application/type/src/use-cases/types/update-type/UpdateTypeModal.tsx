@@ -1,4 +1,4 @@
-import type { IUpdateTypeData } from '@codelab/frontend/abstract/core'
+import type { IUpdateTypeData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'

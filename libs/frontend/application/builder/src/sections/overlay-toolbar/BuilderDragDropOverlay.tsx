@@ -1,9 +1,9 @@
 import type {
   IBuilderService,
   IElementService,
-} from '@codelab/frontend/abstract/core'
-import { isElementRef } from '@codelab/frontend/abstract/core'
-import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
+} from '@codelab/frontend/abstract/domain'
+import { isElementRef } from '@codelab/frontend/abstract/domain'
+import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { DragDropOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'

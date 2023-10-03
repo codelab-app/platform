@@ -3,22 +3,22 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   AppFragment,
   AppPreviewFragment,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 import {
   AtomDevelopmentFragment,
   AtomProductionFragment,
-} from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   AppFragmentDoc,
   AppPreviewFragmentDoc,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
-} from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
+} from '../../../../abstract/domain/src/domain/atom/atom.fragment.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>

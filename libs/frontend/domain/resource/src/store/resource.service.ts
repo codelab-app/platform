@@ -3,7 +3,7 @@ import type {
   IResourceModel,
   IResourceService,
   IUpdateResourceData,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   InlineFormService,

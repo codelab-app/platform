@@ -1,4 +1,4 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/core'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { PropsForm } from '@codelab/frontend/application/type'

@@ -1,8 +1,8 @@
 import type {
   IElementTreeViewDataNode,
   IPageNode,
-} from '@codelab/frontend/abstract/core'
-import { isElementPageNode } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { isElementPageNode } from '@codelab/frontend/abstract/domain'
 import { CuiTreeItem } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -10,8 +10,8 @@ import {
 import type {
   IAppModel,
   IPagesTreeDataNode,
-} from '@codelab/frontend/abstract/core'
-import { pageRef } from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
   FormNames,

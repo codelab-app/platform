@@ -1,4 +1,4 @@
-import type { ICreateResourceData } from '@codelab/frontend/abstract/core'
+import type { ICreateResourceData } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   idSchema,

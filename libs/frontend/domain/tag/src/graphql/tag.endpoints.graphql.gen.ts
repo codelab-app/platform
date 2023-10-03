@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { TagFragment } from '../../../../abstract/core/src/domain/tag/tag.fragment.graphql.gen'
+import { TagFragment } from '../../../../abstract/domain/src/domain/tag/tag.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { TagFragmentDoc } from '../../../../abstract/core/src/domain/tag/tag.fragment.graphql.gen'
+import { TagFragmentDoc } from '../../../../abstract/domain/src/domain/tag/tag.fragment.graphql.gen'
 export type CreateTagsMutationVariables = Types.Exact<{
   input: Array<Types.TagCreateInput> | Types.TagCreateInput
 }>

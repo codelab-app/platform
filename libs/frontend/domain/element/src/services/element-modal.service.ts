@@ -4,7 +4,7 @@ import type {
   IElementModel,
   IEntityModalService,
   UpdateElementProperties,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
