@@ -1,12 +1,12 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   ExportAdminDataButton,
   ExportAdminDataModal,
   ImportAdminDataButton,
   ImportAdminDataModal,
   ResetDataButtons,
-} from '@codelab/frontend/domain/admin'
+} from '@codelab/frontend/application/admin'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

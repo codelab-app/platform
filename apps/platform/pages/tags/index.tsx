@@ -8,7 +8,7 @@ import {
   TagsPrimarySidebar,
   UpdateTagForm,
   UpdateTagModal,
-} from '@codelab/frontend/domain/tag'
+} from '@codelab/frontend/application/tag'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

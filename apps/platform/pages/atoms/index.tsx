@@ -1,16 +1,16 @@
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   AtomForm,
   AtomsPrimarySidebar,
   CreateAtomModal,
   DeleteAtomsModal,
-} from '@codelab/frontend/domain/atom'
+} from '@codelab/frontend/application/atom'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateFieldModal,
   DeleteFieldModal,
-} from '@codelab/frontend/domain/type'
+} from '@codelab/frontend/application/type'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

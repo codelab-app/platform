@@ -167,14 +167,62 @@
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
-      "@codelab/frontend/application/atoms": [
-        "libs/frontend/application/atoms/src/index.ts"
+      "@codelab/frontend/application/admin": [
+        "libs/frontend/application/admin/src/index.ts"
+      ],
+      "@codelab/frontend/application/app": [
+        "libs/frontend/application/app/src/index.ts"
+      ],
+      "@codelab/frontend/application/atom": [
+        "libs/frontend/application/atom/src/index.ts"
+      ],
+      "@codelab/frontend/application/builder": [
+        "libs/frontend/application/builder/src/index.ts"
+      ],
+      "@codelab/frontend/application/component": [
+        "libs/frontend/application/component/src/index.ts"
+      ],
+      "@codelab/frontend/application/domain": [
+        "libs/frontend/application/domain/src/index.ts"
+      ],
+      "@codelab/frontend/application/element": [
+        "libs/frontend/application/element/src/index.ts"
+      ],
+      "@codelab/frontend/application/page": [
+        "libs/frontend/application/page/src/index.ts"
+      ],
+      "@codelab/frontend/application/prop": [
+        "libs/frontend/application/prop/src/index.ts"
+      ],
+      "@codelab/frontend/application/renderer": [
+        "libs/frontend/application/renderer/src/index.ts"
+      ],
+      "@codelab/frontend/application/resource": [
+        "libs/frontend/application/resource/src/index.ts"
       ],
       "@codelab/frontend/application/shared/auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
       ],
       "@codelab/frontend/application/shared/store": [
         "libs/frontend/application/shared/store/src/index.ts"
+      ],
+      "@codelab/frontend/application/store": [
+        "libs/frontend/application/store/src/index.ts"
+      ],
+      "@codelab/frontend/application/style": [
+        "libs/frontend/application/style/src/index.ts"
+      ],
+      "@codelab/frontend/application/tag": [
+        "libs/frontend/application/tag/src/index.ts"
+      ],
+      "@codelab/frontend/application/type": [
+        "libs/frontend/application/type/src/index.ts"
+      ],
+      "@codelab/frontend/application/user": [
+        "libs/frontend/application/user/src/index.ts"
+      ],
+      "@codelab/frontend/application/vercel": [
+        "libs/frontend/application/vercel/src/index.ts"
       ],
       "@codelab/frontend/config": ["libs/frontend/config/src/index.ts"],
       "@codelab/frontend/domain/admin": [

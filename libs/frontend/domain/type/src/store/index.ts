@@ -1,4 +1,3 @@
-export * from '../interface-form/type-schema.factory'
 export * from './apis/field.api'
 export * from './apis/interface-form.api'
 export * from './apis/type.api'

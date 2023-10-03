@@ -79,7 +79,7 @@ export const htmlAtoms: IAtomRendererRecord = {
   [IAtomType.HtmlSub]: 'sub',
   [IAtomType.HtmlSup]: 'sup',
   [IAtomType.HtmlScript]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atoms').then(
+    import('libs/frontend/application/atom/src').then(
       (mod) => mod.CodelabScript,
     ),
   ),
