@@ -10,7 +10,7 @@ import {
   TypesPrimarySidebar,
   UpdateFieldModal,
   UpdateTypeModal,
-} from '@codelab/frontend/domain/type'
+} from '@codelab/frontend/application/type'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,

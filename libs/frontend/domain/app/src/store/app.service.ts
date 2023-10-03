@@ -36,8 +36,8 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { AppDevelopmentService } from '../../../../application/app/src/use-cases'
 import { AppRepository } from '../services/app.repo'
-import { AppDevelopmentService } from '../use-cases'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
 

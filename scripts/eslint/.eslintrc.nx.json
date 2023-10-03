@@ -71,7 +71,6 @@
                 "sourceTag": "type:test",
                 "onlyDependOnLibsWithTags": ["type:test", "type:abstract"]
               },
-
               // Domain layer cannot depend on application
               {
                 "sourceTag": "layer:domain",
@@ -96,7 +95,18 @@
                 ]
               },
               {
-                "sourceTag": "layer:application",
+                "allSourceTags": ["layer:application", "scope:frontend"],
+                "onlyDependOnLibsWithTags": [
+                  "layer:domain",
+                  "layer:application",
+                  "layer:infra",
+                  "layer:presentation",
+                  "type:abstract",
+                  "scope:shared"
+                ]
+              },
+              {
+                "allSourceTags": ["layer:application", "scope:backend"],
                 "onlyDependOnLibsWithTags": [
                   "layer:domain",
                   "layer:application",
@@ -108,29 +118,6 @@
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
-              },
-              // {
-              //   "sourceTag": "layer:domain:frontend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "scope:shared",
-              //     "layer:domain:frontend",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
-              // {
-              //   "sourceTag": "layer:domain:backend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "layer:domain:backend",
-              //     "layer:application:backend",
-              //     "scope:shared",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
-              {
-                "sourceTag": "scope:publishable",
-                "onlyDependOnLibsWithTags": ["scope:publishable"]
               }
             ]
           }

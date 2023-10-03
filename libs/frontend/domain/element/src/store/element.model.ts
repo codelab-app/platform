@@ -34,9 +34,9 @@ import {
   propRef,
   RendererType,
 } from '@codelab/frontend/abstract/core'
+import { schemaTransformer } from '@codelab/frontend/application/type'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { schemaTransformer } from '@codelab/frontend/domain/type'
 import { createValidator } from '@codelab/frontend/presentation/view'
 import {
   ElementCreateInput,
@@ -227,7 +227,9 @@ export class Element
   get closestContainerNode() {
     const { closestParentElement } = this
 
-    const closestContainerNode = this.parentComponent?.current ?? this.page?.current ??
+    const closestContainerNode =
+      this.parentComponent?.current ??
+      this.page?.current ??
       closestParentElement?.current.parentComponent?.current ??
       closestParentElement?.current.page?.current
 

@@ -1,7 +1,5 @@
 import { LogoutOutlined, PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   BuildAppModal,
   CreateAppModal,
@@ -9,7 +7,9 @@ import {
   GetAppsList,
   ImportAppDialog,
   UpdateAppModal,
-} from '@codelab/frontend/domain/app'
+} from '@codelab/frontend/application/app'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,

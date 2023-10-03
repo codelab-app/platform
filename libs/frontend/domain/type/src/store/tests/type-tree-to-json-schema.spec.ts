@@ -1,5 +1,4 @@
 import Ajv from 'ajv'
-import { TypeSchemaFactory } from '../../interface-form/type-schema.factory'
 import {
   interfaceWithUnionExpectedSchema,
   unionTypeExpectedSchema,

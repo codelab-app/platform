@@ -21363,63 +21363,6 @@ export type UserFragment = {
   apps: Array<{ __typename?: 'App' } & AppFragment>
 }
 
-export type CreateAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
-}>
-
-export type CreateAppsMutation = {
-  __typename?: 'Mutation'
-  createApps: {
-    __typename?: 'CreateAppsMutationResponse'
-    apps: Array<{ __typename?: 'App'; id: string }>
-  }
-}
-
-export type UpdateAppsMutationVariables = Exact<{
-  where: AppWhere
-  update: AppUpdateInput
-}>
-
-export type UpdateAppsMutation = {
-  __typename?: 'Mutation'
-  updateApps: {
-    __typename?: 'UpdateAppsMutationResponse'
-    apps: Array<{ __typename?: 'App'; id: string }>
-  }
-}
-
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = {
-  __typename?: 'Mutation'
-  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
-
-export type GetAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsQuery = {
-  __typename?: 'Query'
-  aggregate: { __typename?: 'AppAggregateSelection'; count: number }
-  items: Array<{ __typename?: 'App' } & AppFragment>
-}
-
-export type GetAppsListQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsListQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
-}
-
 export type GetAppDevelopmentQueryVariables = Exact<{
   appCompositeKey: Scalars['String']['input']
   pageName: Scalars['String']['input']
@@ -21960,6 +21903,63 @@ export type UpdateApiActionsMutation = {
     __typename?: 'UpdateApiActionsMutationResponse'
     apiActions: Array<{ __typename?: 'ApiAction'; id: string }>
   }
+}
+
+export type CreateAppsMutationVariables = Exact<{
+  input: Array<AppCreateInput> | AppCreateInput
+}>
+
+export type CreateAppsMutation = {
+  __typename?: 'Mutation'
+  createApps: {
+    __typename?: 'CreateAppsMutationResponse'
+    apps: Array<{ __typename?: 'App'; id: string }>
+  }
+}
+
+export type UpdateAppsMutationVariables = Exact<{
+  where: AppWhere
+  update: AppUpdateInput
+}>
+
+export type UpdateAppsMutation = {
+  __typename?: 'Mutation'
+  updateApps: {
+    __typename?: 'UpdateAppsMutationResponse'
+    apps: Array<{ __typename?: 'App'; id: string }>
+  }
+}
+
+export type DeleteAppsMutationVariables = Exact<{
+  where: AppWhere
+  delete?: InputMaybe<AppDeleteInput>
+}>
+
+export type DeleteAppsMutation = {
+  __typename?: 'Mutation'
+  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetAppsQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsQuery = {
+  __typename?: 'Query'
+  aggregate: { __typename?: 'AppAggregateSelection'; count: number }
+  items: Array<{ __typename?: 'App' } & AppFragment>
+}
+
+export type GetAppsListQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsListQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
 }
 
 export type CreateTagsMutationVariables = Exact<{

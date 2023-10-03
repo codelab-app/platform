@@ -1,5 +1,13 @@
+import type { IBaseType } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { CreateTypeOptions } from './TypeSelect'
+
+interface Option {
+  label: string
+  value: string
+}
+export type CreateTypeOptions = (
+  types?: Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>,
+) => Array<Option>
 
 /**
  * Non-union type select

@@ -83,7 +83,7 @@
         "unitTestRunner": "none",
         "compiler": "swc",
         "component": false,
-        "name": "frontend-",
+        "name": "",
         "directory": "libs/frontend/",
         "setParserOptionsProject": true,
         "strict": true,

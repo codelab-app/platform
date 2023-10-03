@@ -6,16 +6,16 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)
 export const codelabAtoms: IAtomRendererRecord = {
   [IAtomType.GridLayout]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atoms').then((mod) => mod.GridLayout),
+    import('libs/frontend/application/atom/src').then((mod) => mod.GridLayout),
   ),
   [IAtomType.TextList]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atoms').then((mod) => mod.TextList),
+    import('libs/frontend/application/atom/src').then((mod) => mod.TextList),
   ),
   [IAtomType.Text]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atoms').then((mod) => mod.Text),
+    import('libs/frontend/application/atom/src').then((mod) => mod.Text),
   ),
   [IAtomType.Script]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atoms').then(
+    import('libs/frontend/application/atom/src').then(
       (mod) => mod.CodelabScript,
     ),
   ),
