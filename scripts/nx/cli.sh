@@ -1,18 +1,17 @@
 #!/bin/bash
 
+set -x
+
 # Extract the arguments after "yarn cli"
 args=${@#yarn cli}
 
-# Convert the arguments into the desired format
-formatted_args=$(echo $args | tr ' ' ',')
-
 # Run the nx serve command with the formatted arguments
-nx serve cli --watch false --args="$formatted_args"
+nx build cli && node dist/apps/cli/main.js $args
 
-echo 'DONE'
+# # Capture the exit code of the last command
+# exit_code=$?
 
-# Capture the exit code of the last command
-exit_code=$?
+# echo $exit_code
 
-# Exit this script with the same code
-exit $exit_code
+# # Exit this script with the same code
+# exit $exit_code

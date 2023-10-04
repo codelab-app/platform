@@ -24,7 +24,7 @@ describe('Resource CRUD', () => {
       cy.setFormFieldValue({
         label: 'Type',
         type: FIELD_TYPE.SELECT,
-        value: ResourceType.GraphQL,
+        value: ResourceType.GraphQl,
       })
       cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 

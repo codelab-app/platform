@@ -5,10 +5,10 @@ import { ReactComponent as GraphQlSvg } from './graphql.svg'
 import { ReactComponent as RestSvg } from './rest.svg'
 
 export const icons = {
-  [IResourceType.GraphQL]: GraphQlSvg,
+  [IResourceType.GraphQl]: GraphQlSvg,
   [IResourceType.Rest]: RestSvg,
   add: {
-    [IResourceType.GraphQL]: GraphQlPlusSvg,
+    [IResourceType.GraphQl]: GraphQlPlusSvg,
     [IResourceType.Rest]: RestPlusSvg,
   },
 }

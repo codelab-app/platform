@@ -120,7 +120,7 @@ export const UpdateActionForm = observer(
             {/** GraphQL Config Form */}
             <DisplayIfField<IUpdateActionData>
               condition={(context) =>
-                getResourceType(context) === IResourceType.GraphQL
+                getResourceType(context) === IResourceType.GraphQl
               }
             >
               <AutoField getUrl={getResourceApiUrl} name="config.data.query" />

@@ -9,11 +9,16 @@ export const execCommand = (command: string) => {
 
     execa.commandSync(command, {
       // shell,
-      shell: true,
+      // shell: true,
       stdio: 'inherit',
     })
   } catch (error) {
     console.error(error)
+    /**
+     * Serve doesn't detect exit code
+     *
+     *  https://github.com/nrwl/nx/issues/9239
+     */
     process.exit(1)
   }
 }

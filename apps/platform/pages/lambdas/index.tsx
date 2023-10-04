@@ -1,13 +1,13 @@
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   CreateLambdaButton,
   CreateLambdaModal,
   DeleteLambdaModal,
   GetLambdasTable,
   UpdateLambdaModal,
-} from '@codelab/frontend/domain/lambda'
+} from '@codelab/frontend/application/lambda'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
