@@ -6,7 +6,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons'
 import {
-  isAtomInstance,
+  isAtomRef,
   isComponentPageNodeRef,
   isElementPageNodeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -131,7 +131,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     {
       children:
         isElementPageNodeRef(selectedNode) &&
-        isAtomInstance(selectedNode.current.renderType) ? (
+        isAtomRef(selectedNode.current.renderType) ? (
           <ElementCssEditor
             element={selectedNode.current}
             elementService={elementService}

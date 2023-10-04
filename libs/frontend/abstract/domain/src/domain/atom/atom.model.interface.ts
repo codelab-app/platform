@@ -8,7 +8,7 @@ import type {
   IAtomType,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
 import type { ITagModel } from '../tag'
@@ -18,7 +18,8 @@ import type { IRenderAtomDTO } from './atom.dto.interface'
 export interface IAtomModel
   extends ICacheService<IAtomDTO, IAtomModel>,
     Omit<IModel<AtomCreateInput, AtomUpdateInput, void>, 'toDeleteInput'>,
-    IAtomDTO {
+    IAtomDTO,
+    AnyModel {
   // __typename: IElementRenderTypeKind.Atom
   allowCustomTextInjection: boolean
   api: Ref<IInterfaceType>

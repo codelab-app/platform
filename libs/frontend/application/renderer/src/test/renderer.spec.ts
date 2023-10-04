@@ -1,8 +1,5 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
-import {
-  DATA_COMPONENT_ID,
-  isAtomInstance,
-} from '@codelab/frontend/abstract/domain'
+import { DATA_COMPONENT_ID, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { ComponentRenderPipe } from '../renderPipes/component-render-pipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
@@ -32,7 +29,7 @@ describe('Renderer', () => {
     })
 
     const componentAtomType =
-      rootElement && isAtomInstance(rootElement.renderType)
+      rootElement && isAtomRef(rootElement.renderType)
         ? rootElement.renderType.current.type
         : null
 

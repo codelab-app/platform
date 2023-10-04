@@ -35,9 +35,8 @@ export const useProductionPage = (productionProps: ProductionWebsiteProps) => {
       return null
     }
 
-    const page = app.pages.find(
-      (_page) => _page.current.name === pageName,
-    )?.current
+    const page = app.pages.find((_page) => _page.current.name === pageName)
+      ?.current
 
     if (!page) {
       await router.push({ pathname: PageType.AppList, query: {} })

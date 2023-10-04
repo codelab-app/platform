@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
-  isComponentInstance,
+  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
@@ -35,7 +35,7 @@ const getComponentIdsFromElements = (elements: Array<IElementModel>) =>
   elements
     .reduce<Array<string>>((acc, element) => {
       // Component as an element
-      if (isComponentInstance(element.renderType)) {
+      if (isComponent(element.renderType)) {
         acc.push(element.renderType.id)
       }
 

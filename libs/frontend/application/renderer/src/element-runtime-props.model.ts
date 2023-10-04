@@ -5,7 +5,7 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
-  isAtomInstance,
+  isAtomRef,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
@@ -101,7 +101,7 @@ export class ElementRuntimeProps
   @computed
   get props() {
     // memorize values or else it will be lost inside callback
-    const registerReference = isAtomInstance(this.node.renderType)
+    const registerReference = isAtomRef(this.node.renderType)
     const slug = this.node.slug
     const store = this.node.store.current
 

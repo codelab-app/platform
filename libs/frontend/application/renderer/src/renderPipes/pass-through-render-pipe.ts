@@ -3,7 +3,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/domain'
-import { isAtomInstance } from '@codelab/frontend/abstract/domain'
+import { isAtom } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -28,7 +28,7 @@ export class PassThroughRenderPipe
     }
 
     return RenderOutput.withAtom({
-      atomType: isAtomInstance(element.renderType)
+      atomType: isAtom(element.renderType.current)
         ? element.renderType.current.type
         : IAtomType.ReactFragment,
       element,

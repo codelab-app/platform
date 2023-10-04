@@ -70,7 +70,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
   }
 
   const elementAtomRequiredParents = atomService.atoms
-    .get(element.renderType.id || '')
+    .get(element.renderType.id)
     ?.requiredParents.map((parent) => parent.id)
 
   const elementOptions = elementAtomRequiredParents?.length

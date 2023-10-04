@@ -1,7 +1,4 @@
-import {
-  DATA_ELEMENT_ID,
-  isAtomInstance,
-} from '@codelab/frontend/abstract/domain'
+import { DATA_ELEMENT_ID, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { ConditionalRenderPipe } from '../renderPipes/conditional-render-pipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
@@ -15,7 +12,7 @@ describe('ConditionalRenderPipe', () => {
       data.element,
     )
 
-    const atomType = isAtomInstance(data.element.renderType)
+    const atomType = isAtomRef(data.element.renderType)
       ? data.element.renderType.current.type
       : null
 
@@ -49,7 +46,7 @@ describe('ConditionalRenderPipe', () => {
       data.element,
     )
 
-    const atomType = isAtomInstance(data.element.renderType)
+    const atomType = isAtomRef(data.element.renderType)
       ? data.element.renderType.current.type
       : null
 

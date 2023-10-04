@@ -3,7 +3,7 @@ import type { IPageNode, IStoreModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
-  isComponentModel,
+  isComponent,
   isComponentPageNode,
   isElementPageNode,
   isElementPageNodeRef,
@@ -81,7 +81,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const componentStore =
       isElementPageNodeRef(builderService.selectedNode) &&
-      isComponentModel(builderService.selectedNode.current.renderType.current)
+      isComponent(builderService.selectedNode.current.renderType.current)
         ? builderService.selectedNode.current.renderType.current.store.current
         : undefined
 

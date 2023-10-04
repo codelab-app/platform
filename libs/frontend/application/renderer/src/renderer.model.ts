@@ -19,7 +19,7 @@ import {
   getRunnerId,
   IElementModel,
   IPageNodeRef,
-  isAtomInstance,
+  isAtom,
   isElementPageNodeRef,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
@@ -170,7 +170,7 @@ export class Renderer
         const injectedText = props?.[CUSTOM_TEXT_PROP_KEY] || '""'
 
         const shouldInjectText =
-          isAtomInstance(element.renderType) &&
+          isAtom(element.renderType.current) &&
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText) {

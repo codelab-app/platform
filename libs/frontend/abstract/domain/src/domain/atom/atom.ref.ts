@@ -1,6 +1,5 @@
-import type { Ref } from 'mobx-keystone'
-import { detach, rootRef } from 'mobx-keystone'
-import type { IElementRenderTypeModel } from '../element'
+import type { AnyModel, Ref } from 'mobx-keystone'
+import { detach, isRefOfType, rootRef } from 'mobx-keystone'
 import type { IAtomModel } from './atom.model.interface'
 
 export const atomRef = rootRef<IAtomModel>('@codelab/AtomRef', {
@@ -11,11 +10,8 @@ export const atomRef = rootRef<IAtomModel>('@codelab/AtomRef', {
   },
 })
 
-/**
- * used for determining the renderType of an element
- */
-export const isAtomInstance = (
-  atom: IElementRenderTypeModel | null,
-): atom is Ref<IAtomModel> => {
-  return atom?.$modelType === '@codelab/AtomRef'
+export const isAtomRef = (ref: Ref<object>) => isRefOfType(ref, atomRef)
+
+export const isAtom = (instance: AnyModel): instance is IAtomModel => {
+  return instance.$modelType === '@codelab/Atom'
 }

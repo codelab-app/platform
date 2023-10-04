@@ -324,8 +324,8 @@ export const scrollSelectDropdown = (
   cy.wait(100)
   getSelectDropdown(options)
     .find('.rc-virtual-list-holder', options)
-    .then(($el) =>
-      $el[0]?.scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
+    .then(
+      ($el) => $el[0]?.scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
     )
 }
 

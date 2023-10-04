@@ -10,7 +10,7 @@ import type {
   Nullable,
   Nullish,
 } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPropModel } from '../prop'
@@ -21,7 +21,8 @@ import type { IInterfaceType } from '../type'
 export interface IComponentModel
   extends ICacheService<IComponentDTO, IComponentModel>,
     IElementTree,
-    Omit<IComponentDTO, 'props' | 'rootElement'> {
+    Omit<IComponentDTO, 'props' | 'rootElement'>,
+    AnyModel {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElementModel>

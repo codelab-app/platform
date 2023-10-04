@@ -8,7 +8,7 @@ import type {
 import {
   elementRef,
   elementTreeRef,
-  isComponentInstance,
+  isComponent,
   RendererTab,
 } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
@@ -55,7 +55,7 @@ export const ElementContextMenu = observer<
     const { builderService, componentService } = useStore()
     const { user } = useUser()
     const { popover } = useCui()
-    const componentInstance = isComponentInstance(element.renderType)
+    const componentInstance = isComponent(element.renderType)
 
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
@@ -95,7 +95,7 @@ export const ElementContextMenu = observer<
     }
 
     const onEditComponent = () => {
-      if (!isComponentInstance(element.renderType)) {
+      if (!isComponent(element.renderType)) {
         return
       }
 

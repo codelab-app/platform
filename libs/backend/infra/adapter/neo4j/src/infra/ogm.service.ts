@@ -177,7 +177,7 @@ export class OgmService {
     const options = await prettier.resolveConfig(outFile)
 
     // Format
-    const formatted = prettier.format(`${output}`, {
+    const formatted = await prettier.format(`${output}`, {
       ...options,
       filepath: outFile,
     })

@@ -1,5 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { isComponentInstance } from '@codelab/frontend/abstract/domain'
+import { isComponent } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -60,8 +60,8 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const propsModel = React.useMemo(
       () =>
         mergeProps(
-          isComponentInstance(currentElement.renderType)
-            ? currentElement.renderType.maybeCurrent?.props.current.values
+          isComponent(currentElement.renderType.current)
+            ? currentElement.renderType.current.props.current.values
             : {},
           currentElement.props.current.values,
         ),
