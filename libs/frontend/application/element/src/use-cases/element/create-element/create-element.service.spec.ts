@@ -2,37 +2,59 @@ import { createTestRootStore } from '@codelab/frontend/domain/element'
 import {
   atomReactFragmentDto,
   elementDto,
+  pageDto,
   userDto,
 } from '@codelab/frontend/test/data'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 describe('CreateElementService', () => {
-  const { atomService, elementService } = createTestRootStore(userDto)
+  const { elementService, pageService } = createTestRootStore(userDto)
   const { createElementService } = elementService
 
-  it('can create element as first child', async () => {
-    const rootElementDto = elementDto
+  const rootElementDto: IElementDTO = {
+    ...elementDto,
+    page: { id: pageDto.id },
+  }
 
-    const firstChildDto = {
-      closestContainerNode: {
-        id: v4(),
-      },
+  const firstChildDto = {
+    closestContainerNode: {
       id: v4(),
-      name: 'Body',
-      parentElement: {
-        id: rootElementDto.id,
-      },
-      props: {
-        data: '{}',
-      },
-      renderType: {
-        __typename: 'Atom',
-        id: atomReactFragmentDto.id,
-      },
-    } as const
+    },
+    id: v4(),
+    name: 'Body',
+    parentElement: {
+      id: rootElementDto.id,
+    },
+    props: {
+      data: '{}',
+      id: v4(),
+    },
+    renderType: {
+      __typename: 'Atom',
+      id: atomReactFragmentDto.id,
+    },
+  } as const
 
-    elementService.add(rootElementDto)
+  pageService.add(pageDto)
 
-    await createElementService.createElementAsFirstChild(firstChildDto)
+  const rootElement = elementService.add(rootElementDto)
+
+  it('can create element as first child', async () => {
+    const firstChild = await createElementService.createElementAsFirstChild(
+      firstChildDto,
+    )
+
+    expect(firstChild.parentElement?.maybeCurrent).toBe(rootElement)
+  })
+
+  it('should compute isRoot', async () => {
+    const firstChild = await createElementService.createElementAsFirstChild(
+      firstChildDto,
+    )
+
+    expect(rootElement.isRoot).toBeTruthy()
+
+    expect(firstChild.isRoot).toBeFalsy()
   })
 })
