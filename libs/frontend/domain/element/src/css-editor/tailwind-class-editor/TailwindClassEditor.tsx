@@ -31,13 +31,13 @@ export const TailwindClassEditor = ({ element }: { element: IElement }) => {
   const [selectedOptions, setSelectedOptions] = useState<Array<string>>([])
 
   const handleChange = (values: Array<string>) => {
-    element.setClassNames(values)
+    element.setTailwindClassNames(values)
     setSelectedOptions(values)
   }
 
   const appendClassName = (value: string) => {
     if (!selectedOptions.includes(value)) {
-      element.setClassNames([...selectedOptions, value])
+      element.setTailwindClassNames([...selectedOptions, value])
     }
   }
 
@@ -72,11 +72,11 @@ export const TailwindClassEditor = ({ element }: { element: IElement }) => {
       <Label>Tailwind Classes :</Label>
       <Select
         allowClear
-        defaultValue={element.classNames ?? []}
+        defaultValue={element.tailwindClassNames ?? []}
         mode="multiple"
         onChange={handleChange}
         onDropdownVisibleChange={() => {
-          element.setClassNames(selectedOptions)
+          element.setTailwindClassNames(selectedOptions)
         }}
         onKeyUp={(event: React.KeyboardEvent<HTMLDivElement>) => {
           if (event.key !== 'Enter' && event.key !== 'Escape') {

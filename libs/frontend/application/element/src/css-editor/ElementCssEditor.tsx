@@ -34,6 +34,7 @@ export interface ElementCssEditorInternalProps {
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
     const lastStateRef = useRef(element.style)
+    const lastTailwindClassNames = useRef(element.tailwindClassNames)
 
     const cssChangeHandler = useDebouncedCallback(
       (value: string) => element.setCustomCss(value),
@@ -45,15 +46,21 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       // TODO: Make this ito IElementDto
       (updatedElement: IElementModel) => {
         const oldStyle = lastStateRef.current
-        const { style } = updatedElement
+        const oldTailwindClassNames = lastTailwindClassNames.current
+        const { style, tailwindClassNames } = updatedElement
 
         // do not send request if value was not changed
-        if (oldStyle !== style) {
+        if (
+          oldStyle !== style ||
+          oldTailwindClassNames !== tailwindClassNames
+        ) {
           lastStateRef.current = style
+          lastTailwindClassNames.current = tailwindClassNames
 
           void elementService.update({
-            ...updatedElement.toJson,
+            ...elementModel,
             style,
+            tailwindClassNames,
           })
         }
       },
@@ -62,7 +69,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     useDebouncedEffect(
       () => updateElementStyles(element),
-      [element.style],
+      [element.style, element.tailwindClassNames],
       autosaveTimeout,
     )
 

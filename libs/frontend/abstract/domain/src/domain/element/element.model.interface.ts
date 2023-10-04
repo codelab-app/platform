@@ -163,6 +163,7 @@ export interface IElementModel
     inheritedStyles: ElementCssRules
   }
   toJson: IElementSerialized
+  tailwindClassNames?: Nullable<Array<string>>
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
@@ -175,7 +176,6 @@ export interface IElementModel
   deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void
   detachFromParent(): void
-  setClassNames(classNames: Array<string>): void
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void
@@ -191,6 +191,7 @@ export interface IElementModel
   setRenderType(renderType: IElementRenderTypeModel): void
   setRenderingError(error: Nullish<RenderingError>): void
   setSourceElement(element: Ref<IElementModel>): void
+  setTailwindClassNames(tailwindClassNames: Array<string>): void
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'

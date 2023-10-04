@@ -30,6 +30,7 @@ export const IElementDTO = Type.Object({
   renderIfExpression: Typebox.Nullish(Type.String()),
   renderType: IElementRenderTypeDto,
   style: Typebox.Nullish(Type.String()),
+  tailwindClassNames?: Nullable<Array<string>>
 })
 
 export type IElementDTO = Static<typeof IElementDTO>

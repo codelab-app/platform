@@ -19,6 +19,7 @@ const baseElementSelectionSet = `
   slug
   compositeKey
   style
+  tailwindClassNames
   parentComponent {
     id
     name

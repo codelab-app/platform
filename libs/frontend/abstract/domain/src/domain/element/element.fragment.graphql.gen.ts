@@ -18,6 +18,7 @@ export type ElementFragment = {
   childMapperPropKey?: string | null
   id: string
   name: string
+  tailwindClassNames?: Array<string> | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
@@ -48,6 +49,7 @@ export type ElementProductionFragment = {
   childMapperPropKey?: string | null
   id: string
   name: string
+  tailwindClassNames?: Array<string> | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
@@ -76,6 +78,7 @@ export type ElementProductionFragment = {
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
+    tailwindClassNames
     childMapperComponent {
       id
       name
@@ -135,6 +138,7 @@ export const ElementFragmentDoc = gql`
 export const ElementProductionFragmentDoc = gql`
   fragment ElementProduction on Element {
     __typename
+    tailwindClassNames
     childMapperComponent {
       id
       name

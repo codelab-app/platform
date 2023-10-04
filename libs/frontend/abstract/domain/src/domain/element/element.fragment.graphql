@@ -1,5 +1,6 @@
 fragment Element on Element {
   __typename
+  tailwindClassNames
   childMapperComponent {
     id
     name
@@ -69,6 +70,7 @@ fragment ElementProduction on Element {
   }
   id
   name
+  tailwindClassNames
   nextSibling {
     id
   }

@@ -24,6 +24,7 @@ export const elementSchema = gql`
     # that contains styles for different screen size breakpoints.
     # See interface for more details: IElementStyle
     style: String
+    tailwindClassNames: [String!]
     childMapperPropKey: String
     childMapperComponent: Component
       @relationship(type: "CHILD_MAPPER_COMPONENT", direction: OUT)
