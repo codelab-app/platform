@@ -53,12 +53,14 @@ export const TailwindClassEditor = ({ element }: { element: IElement }) => {
   }
 
   const handleSearch = (query: string) => {
-    const foundClassNames = getValidTailwindClasses(query).map((className) => {
-      const variant = query.includes('hover') ? 'hover:' : ''
+    const extractedVariant = extractVariant(query)
 
+    const foundClassNames = getValidTailwindClasses(
+      extractedVariant.className,
+    ).map((className) => {
       return {
-        label: `${variant}${className}`,
-        value: `${variant}${className}`,
+        label: `${extractedVariant.variant}${className}`,
+        value: `${extractedVariant.variant}${className}`,
       }
     })
 
@@ -158,4 +160,29 @@ const ColorBox = ({
   const backgroundClassName = `bg-${getOnlyColorValue(color)}`
 
   return <StyledColorBox className={backgroundClassName} />
+}
+
+interface VariantResult {
+  className: string
+  variant: string
+}
+
+const extractVariant = (input: string): VariantResult => {
+  // Trim the input string
+  const trimmedInput = input.trim()
+  // Match the pattern and extract the required portion
+  // Modified regex to capture up to the last colon
+  const match = trimmedInput.match(/^(.*?):(?=[^:]+$)/)
+
+  if (match) {
+    return {
+      className: trimmedInput.slice(match[0].length),
+      variant: match[1] + ':',
+    }
+  }
+
+  return {
+    className: trimmedInput,
+    variant: '',
+  }
 }

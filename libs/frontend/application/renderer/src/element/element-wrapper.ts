@@ -79,10 +79,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         ? atomService.dynamicComponents[renderOutput.atomType] ?? React.Fragment
         : getReactComponent(renderOutput)
 
-    if (renderOutput.props?.['className']) {
-      renderOutput.props['className'] =
-        renderOutput.props['className'] + ' ' + element.classNames?.join(' ')
-      generateTailwindClasses(element.classNames ?? [])
+    const tailwindClasses = {
+      className: generateTailwindClasses(
+        element.classNames,
+        renderer.rendererType,
+      ),
     }
 
     const extractedProps = extractValidProps(ReactComponent, renderOutput)

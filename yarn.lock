@@ -12489,6 +12489,48 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@twind/core@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@twind/core@npm:1.1.3"
+  dependencies:
+    csstype: ^3.1.1
+  peerDependencies:
+    typescript: ^4.8.4
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 18ad6fc44795209147dec1518778307b99d6ee339f2f4d2a981056d986ea1905817ea3d1c3f3c274cee79e65b70f1ee427a88a63dd943e613fb047f943454523
+  languageName: node
+  linkType: hard
+
+"@twind/preset-tailwind@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@twind/preset-tailwind@npm:1.1.4"
+  peerDependencies:
+    "@twind/core": ^1.1.0
+    typescript: ^4.8.4
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 06cca73fcc2877efdfce4eba0f6e53ea754cb04e0943a87c35e77f87e519f2b6dc4b000413b862db4a9ded2282a5eee9d891d3951c2fb550191a764ff8f6c992
+  languageName: node
+  linkType: hard
+
+"@twind/with-next@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "@twind/with-next@npm:1.2.2"
+  peerDependencies:
+    "@twind/core": ^1.1.0
+    next: 12.x || 13.x
+    react: ^16.6.0 || 17.x || 18.x
+    typescript: ^4.8.4
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 1c1567dff7e6a00bae8de16a71200316ac910e0f654da51ee90dfaddaeeb39fa602fd683ac6a4ea0319a15b4d4ba4d93257dbf5d0e6731a5f05a5489edd9a959
+  languageName: node
+  linkType: hard
+
 "@types/accepts@npm:*":
   version: 1.3.5
   resolution: "@types/accepts@npm:1.3.5"
@@ -17397,6 +17439,9 @@ __metadata:
     "@testing-library/react": 14.0.0
     "@testing-library/react-hooks": 8.0.1
     "@testing-library/user-event": 14.4.3
+    "@twind/core": ^1.1.3
+    "@twind/preset-tailwind": ^1.1.4
+    "@twind/with-next": ^1.2.2
     "@types/adm-zip": ^0.5.0
     "@types/auth0": 3.3.6
     "@types/auth0-js": ^9.21.1
@@ -18863,7 +18908,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.10, csstype@npm:^3.0.5, csstype@npm:^3.1.2":
+"csstype@npm:^3.0.10, csstype@npm:^3.1.1, csstype@npm:^3.1.2":
   version: 3.1.2
   resolution: "csstype@npm:3.1.2"
   checksum: e1a52e6c25c1314d6beef5168da704ab29c5186b877c07d822bd0806717d9a265e8493a2e35ca7e68d0f5d472d43fac1cdce70fd79fd0853dff81f3028d857b5
@@ -24118,7 +24163,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^6.0.0, htmlparser2@npm:^6.1.0":
+"htmlparser2@npm:^6.1.0":
   version: 6.1.0
   resolution: "htmlparser2@npm:6.1.0"
   dependencies:
@@ -36261,13 +36306,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-vendorizer@npm:^2.0.0":
-  version: 2.2.3
-  resolution: "style-vendorizer@npm:2.2.3"
-  checksum: b840d19aae468278d742f1de2925dd265611b73c35818fb315bfb96100f192e579e183c7aae26dc4d4d078c971a87d61b34cb3c123ff7ba41063cc5fdc0e9866
-  languageName: node
-  linkType: hard
-
 "styled-components@npm:^6.0.7":
   version: 6.0.7
   resolution: "styled-components@npm:6.0.7"
@@ -37477,22 +37515,6 @@ __metadata:
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 6061daba1724f59473d99a7bb82e13f211cdf6e31315510ae9656fefd4779851cb927adad90f3b488c8ed77c106adc0421ea8055f6f976ff21b27c5c4e918487
-  languageName: node
-  linkType: hard
-
-"twind@npm:^0.16.19":
-  version: 0.16.19
-  resolution: "twind@npm:0.16.19"
-  dependencies:
-    csstype: ^3.0.5
-    htmlparser2: ^6.0.0
-    style-vendorizer: ^2.0.0
-  peerDependencies:
-    typescript: ^4.1.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: f61c9f30931e47b0b4eb1946c99a0ebca81b9fabf450cf965213b9923e2801d490b48bab53e436fc589a8828c793ed93b7d72df796f8a9e1a4cd096caa5ecf80
   languageName: node
   linkType: hard
 

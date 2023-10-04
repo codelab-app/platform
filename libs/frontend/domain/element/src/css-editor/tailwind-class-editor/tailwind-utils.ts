@@ -1,8 +1,6 @@
 import { tailwindClasses, tailwindColors } from './tailwind-classes'
 
 export const getValidTailwindClasses = (prefix: string): Array<string> => {
-  prefix = prefix.replace('hover', '').replace(':', '')
-
   if (!prefix) {
     return tailwindClasses.slice(20)
   }

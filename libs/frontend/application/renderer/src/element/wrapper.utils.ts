@@ -2,12 +2,14 @@ import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
+  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { tx } from '@twind/core'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
 import React, { Fragment } from 'react'
-import { tw } from 'twind'
 import { getAtom } from '../atoms'
 
 const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
@@ -61,10 +63,24 @@ export const createTextRenderer = (customText: string) =>
   React.createElement(TextRenderer, { data: customText })
 
 let dragImage: HTMLElement | undefined
-export const generateTailwindClasses = (classNames: Array<string>) => {
-  if (classNames.length) {
-    tw(classNames)
+export const generateTailwindClasses = (
+  classNames: Nullable<Array<string>> | undefined,
+  rendererType: RendererType,
+) => {
+  let replacedClassNames: Array<string> = []
+
+  if (
+    rendererType === RendererType.PageBuilder ||
+    rendererType === RendererType.ComponentBuilder
+  ) {
+    replacedClassNames = replaceVariants(classNames ?? [])
   }
+
+  if (classNames?.length) {
+    return tx(`${replacedClassNames.join(' ')}`)
+  }
+
+  return ''
 }
 
 export const createDragImage = (name: string) => {
@@ -107,4 +123,15 @@ export const createTransparentDragImage = () => {
   document.body.appendChild(transparentDragImage)
 
   return transparentDragImage
+}
+
+const replaceVariants = (classNames: Array<string>) => {
+  /**
+   * This function will append 'c' to all responsive variants like lg, sm, md, etc
+   * We have custom responsive variants that goes by lgc, smc, mdc, etc
+   * These custom variants use container query to simulate responsive css in builder mode
+   */
+  return classNames.map((className) => {
+    return className.replace(/(lg|sm|md|xl|2xl):/g, '$1c:')
+  })
 }
