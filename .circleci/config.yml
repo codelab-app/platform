@@ -134,10 +134,10 @@ jobs:
     steps:
       - restore-infra-workspace
       - run:
-          command: yarn cli terraform --stage=prod init
+          command: yarn cli terraform --stage prod init
           name: Terraform Init
       - run:
-          command: yarn cli terraform --stage=prod apply
+          command: yarn cli terraform --stage prod apply
           name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
@@ -331,13 +331,13 @@ jobs:
           command: terraform -chdir=terraform fmt
           name: Terraform Format
       - run:
-          command: yarn cli terraform --stage=prod init
+          command: yarn cli terraform --stage prod init
           name: Terraform Init
       - run:
-          command: yarn cli terraform --stage=prod validate
+          command: yarn cli terraform --stage prod validate
           name: Terraform Validate
       - run:
-          command: yarn cli terraform --stage=prod plan
+          command: yarn cli terraform --stage prod plan
           name: Terraform Plan
       - persist_to_workspace:
           paths:
