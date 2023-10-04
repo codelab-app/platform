@@ -9,7 +9,7 @@ export const execCommand = (command: string) => {
 
     execa.commandSync(command, {
       // shell,
-      shell: true,
+      // shell: true,
       stdio: 'inherit',
     })
   } catch (error) {
