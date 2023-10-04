@@ -4,5 +4,8 @@
   "type": "commonjs",
   "generators": "./generators.json",
   "executors": "./executors.json",
+  "dependencies": {
+    "@nx/devkit": "16.7.4"
+  },
   "main": "./src/index.js"
 }

@@ -8,7 +8,8 @@ args=${@#yarn cli}
 # Run the nx serve command with the formatted arguments
 nx build cli && node dist/apps/cli/main.js $args
 
-echo 'DONE'
+# # Capture the exit code of the last command
+# exit_code=$?
 
 # echo $exit_code
 
