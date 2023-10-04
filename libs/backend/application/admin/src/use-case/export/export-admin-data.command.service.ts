@@ -68,6 +68,6 @@ export class ExportAdminDataHandler
       tags,
     }
 
-    return this.writeAdminDataService.saveData(data)
+    return await this.writeAdminDataService.saveData(data)
   }
 }

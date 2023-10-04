@@ -14,7 +14,7 @@ import {
   getRenderService,
   getUserService,
   IComponentModel,
-  isComponentInstance,
+  isComponent,
   propRef,
   storeRef,
   typeRef,
@@ -89,7 +89,7 @@ export class Component
     const descendants = new Set<IComponentModel>()
 
     this.elements.forEach((element) => {
-      if (isComponentInstance(element.renderType)) {
+      if (isComponent(element.renderType.current)) {
         const component = element.renderType.current
 
         // Add the component as it was referenced by this element
@@ -219,7 +219,7 @@ export class Component
       const clonedElement = element.clone(cloneIndex)
 
       // don't move it to element model to avoid dependency issues
-      if (isComponentInstance(element.renderType)) {
+      if (isComponent(element.renderType.current)) {
         const componentClone = element.renderType.current.clone(
           clonedElement.id,
           clonedElement.id,

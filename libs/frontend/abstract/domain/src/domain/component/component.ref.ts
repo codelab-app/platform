@@ -1,13 +1,5 @@
-import isNil from 'lodash/isNil'
 import type { AnyModel, Ref } from 'mobx-keystone'
-import {
-  createContext,
-  detach,
-  isRefOfType,
-  modelTypeKey,
-  rootRef,
-} from 'mobx-keystone'
-import type { IElementRenderTypeModel } from '../element'
+import { createContext, detach, isRefOfType, rootRef } from 'mobx-keystone'
 import type { IComponentModel } from './component.model.interface'
 import type { IComponentService } from './component.service.interface'
 
@@ -38,19 +30,11 @@ export const getComponentService = (self: object) => {
   return componentService
 }
 
-/**
- * Used for determining the RenderType of an element
- */
-export const isComponentInstance = (
-  node: IElementRenderTypeModel | null,
-): node is Ref<IComponentModel> => {
-  return !isNil(node) && isRefOfType(node, componentRef)
-}
+export const isComponentRef = (ref: Ref<object>): ref is Ref<IComponentModel> =>
+  isRefOfType(ref, componentRef)
 
-export const isComponentModel = (model?: object): model is IComponentModel => {
-  return (
-    !isNil(model) &&
-    // `IComponent` is mobx model type
-    (model as unknown as AnyModel)[modelTypeKey] === '@codelab/Component'
-  )
+export const isComponent = (
+  instance: AnyModel,
+): instance is IComponentModel => {
+  return instance.$modelType === '@codelab/Component'
 }

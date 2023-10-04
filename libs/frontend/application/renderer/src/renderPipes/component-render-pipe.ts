@@ -4,10 +4,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/domain'
-import {
-  componentRef,
-  isComponentInstance,
-} from '@codelab/frontend/abstract/domain'
+import { componentRef, isComponent } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './render-pipe.base'
@@ -20,7 +17,7 @@ export class ComponentRenderPipe
   implements IRenderPipe
 {
   render(element: IElementModel, props: IPropData): IRenderOutput {
-    if (!isComponentInstance(element.renderType)) {
+    if (!isComponent(element.renderType.current)) {
       return this.next.render(element, props)
     }
 

@@ -3,7 +3,7 @@ import type {
   IElementModel,
   IRenderer,
 } from '@codelab/frontend/abstract/domain'
-import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/domain'
+import { isAtom, RendererType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -60,7 +60,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     if (renderOutput.props) {
       if (
-        isAtomInstance(element.renderType) &&
+        isAtom(element.renderType.current) &&
         element.renderType.current.type === IAtomType.GridLayout
       ) {
         renderOutput.props['static'] =

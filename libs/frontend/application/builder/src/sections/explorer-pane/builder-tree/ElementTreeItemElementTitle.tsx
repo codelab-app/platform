@@ -12,7 +12,7 @@ import type {
 import {
   elementRef,
   elementTreeRef,
-  isComponentInstance,
+  isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -39,7 +39,7 @@ export const ElementTreeItemElementTitle = observer(
 
     const componentInstanceName = treeNode.isChildMapperComponentInstance
       ? element.parentComponent?.maybeCurrent?.name
-      : isComponentInstance(element.renderType)
+      : isComponent(element.renderType)
       ? element.renderType.maybeCurrent?.name
       : null
 

@@ -1,4 +1,4 @@
-import { isAtomInstance } from '@codelab/frontend/abstract/domain'
+import { isAtom } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -85,7 +85,7 @@ export const CreateElementForm = observer(
       // renderType: null,
     }
 
-    const parentAtom = isAtomInstance(parentElement.renderType)
+    const parentAtom = isAtom(parentElement.renderType.current)
       ? parentElement.renderType.current
       : undefined
 

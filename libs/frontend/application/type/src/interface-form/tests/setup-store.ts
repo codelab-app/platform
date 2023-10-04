@@ -1,6 +1,13 @@
 import type { IType } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
-import { PrimitiveType } from '@codelab/frontend/domain/type'
+import {
+  Field,
+  FieldService,
+  InterfaceType,
+  PrimitiveType,
+  TypeService,
+  UnionType,
+} from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
@@ -27,18 +34,12 @@ export const unionType = new UnionType({
   id: v4(),
   kind: ITypeKind.UnionType,
   name: 'Union type',
-  owner: {
-    auth0Id: '',
-  },
   typesOfUnionType: [typeRef(stringType), typeRef(intType)],
 })
 
 const emptyInterface = new InterfaceType({
   id: v4(),
   name: 'Empty Interface Type',
-  owner: {
-    auth0Id: '',
-  },
 })
 
 const stringField = new Field({
@@ -65,9 +66,6 @@ export const interfaceWithUnionField = new InterfaceType({
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with union field',
-  owner: {
-    auth0Id: '',
-  },
 })
 
 export const rootStore = new TestRootStore({

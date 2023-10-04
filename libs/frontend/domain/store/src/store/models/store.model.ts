@@ -10,7 +10,7 @@ import {
   componentRef,
   getRenderService,
   getRunnerId,
-  isAtomInstance,
+  isAtomRef,
   pageRef,
   RendererType,
   typeRef,
@@ -142,7 +142,7 @@ export class Store
     const elements = elementTree?.elements || []
 
     return elements
-      .filter((element) => isAtomInstance(element.renderType))
+      .filter((element) => isAtomRef(element.renderType))
       .map(({ slug }) => slug)
   }
 

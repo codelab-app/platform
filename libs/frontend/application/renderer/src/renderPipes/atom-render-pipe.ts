@@ -2,7 +2,7 @@ import {
   type IElementModel,
   type IRenderOutput,
   type IRenderPipe,
-  isAtomInstance,
+  isAtom,
 } from '@codelab/frontend/abstract/domain'
 import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
@@ -18,7 +18,7 @@ export class AtomRenderPipe
   implements IRenderPipe
 {
   render(element: IElementModel, props: IPropData): IRenderOutput {
-    if (!isAtomInstance(element.renderType)) {
+    if (!isAtom(element.renderType.current)) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }

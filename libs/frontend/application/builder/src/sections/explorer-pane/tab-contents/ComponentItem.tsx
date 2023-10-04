@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   BuilderDndType,
-  isComponentModel,
+  isComponent,
   isComponentPageNode,
 } from '@codelab/frontend/abstract/domain'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
@@ -110,7 +110,7 @@ const ComponentItem = ({
   )
 
   // TODO: update this once we show snapshots for custom components as well
-  const isCustomComponent = isComponentModel(component)
+  const isCustomComponent = isComponent(component)
 
   const src =
     !isCustomComponent && component.icon

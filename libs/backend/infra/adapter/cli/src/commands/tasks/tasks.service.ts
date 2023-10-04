@@ -184,6 +184,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
             execCommand(
               `npx nx affected --target=lint --parallel=3 --verbose -c ci`,
             )
+            execCommand('echo $PWD')
+
             // https://github.com/nrwl/nx/discussions/8769
             execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)
             // execCommand(

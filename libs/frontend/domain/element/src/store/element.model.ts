@@ -28,8 +28,9 @@ import {
   IElementStyle,
   IElementTreeViewDataNode,
   IEvaluationContext,
-  isAtomInstance,
-  isComponentInstance,
+  isAtom,
+  isAtomRef,
+  isComponent,
   pageRef,
   propRef,
   RendererType,
@@ -180,7 +181,7 @@ export class Element
 
   @computed
   get atomName() {
-    if (isAtomInstance(this.renderType)) {
+    if (isAtom(this.renderType.current)) {
       return this.renderType.current.name || this.renderType.current.type
     }
 
@@ -336,7 +337,7 @@ export class Element
     return (
       this.name ||
       this.renderType.maybeCurrent?.name ||
-      (isAtomInstance(this.renderType)
+      (isAtomRef(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtomModel).type)
         : undefined) ||
       this.parentComponent?.maybeCurrent?.name ||
@@ -485,7 +486,7 @@ export class Element
       primary: this.label,
       secondary:
         this.renderType.maybeCurrent?.name ||
-        (isAtomInstance(this.renderType)
+        (isAtom(this.renderType.current)
           ? compoundCaseToTitleCase(this.renderType.current.type)
           : undefined),
     }
@@ -759,10 +760,10 @@ export class Element
         },
       },
       renderType: {
-        Atom: isAtomInstance(this.renderType)
+        Atom: isAtomRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
-        Component: isComponentInstance(this.renderType)
+        Component: isComponent(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
@@ -773,12 +774,12 @@ export class Element
   @modelAction
   toUpdateInput(): ElementUpdateInput {
     // We need to disconnect the atom if render type changed to component or empty
-    const renderAtomType = isAtomInstance(this.renderType)
+    const renderAtomType = isAtomRef(this.renderType)
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 
     // We need to disconnect the component if render type changed to atom or empty
-    const renderComponentType = isComponentInstance(this.renderType)
+    const renderComponentType = isComponent(this.renderType)
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 
@@ -811,10 +812,10 @@ export class Element
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: {
-        Atom: isAtomInstance(this.renderType)
+        Atom: isAtomRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
-        Component: isComponentInstance(this.renderType)
+        Component: isComponent(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
