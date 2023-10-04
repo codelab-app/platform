@@ -5,6 +5,11 @@ export const getValidTailwindClasses = (prefix: string): Array<string> => {
     return tailwindClasses.slice(20)
   }
 
+  // to support arbitrary value like "p-[10px]"
+  if (/\[.*\]/.test(prefix)) {
+    return [prefix]
+  }
+
   return tailwindClasses.filter((className) => className.startsWith(prefix))
 }
 
