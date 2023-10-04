@@ -1,25 +1,50 @@
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { otelSDK } from '@codelab/backend/infra/adapter/otel'
-import { BullModule } from '@nestjs/bull'
+import { Stage } from '@codelab/shared/abstract/core'
 import type { OnApplicationShutdown } from '@nestjs/common'
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import path from 'path'
 import { CommandModule } from './commands/command.module'
+
+const getEnvFilePath = () => {
+  // const stage = process.argv
+  //   .find((arg) => arg.startsWith('--stage='))
+  //   ?.replace('--stage=', '')
+
+  const stageFlagIndex = process.argv.findIndex((arg) => arg === '--stage')
+  const stage = process.argv[stageFlagIndex + 1]
+
+  if (!stage) {
+    throw new Error('Missing or incorrect --stage flag')
+  }
+
+  const envFilePath = (file: string) =>
+    path.resolve(process.cwd(), 'apps/cli', file)
+
+  if (stage === Stage.Dev) {
+    return envFilePath('.env')
+  }
+
+  if (stage === Stage.Test) {
+    return envFilePath('.env.test')
+  }
+
+  if (stage === Stage.CI) {
+    return ''
+  }
+}
+
+console.log(getEnvFilePath())
 
 @Module({
   controllers: [],
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: getEnvFilePath(),
+    }),
     CommandModule,
     CodelabLoggerModule,
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 6379,
-      },
-    }),
-    // Need to import in module that uses the queue
-    // BullModule.registerQueue({
-    //   name: 'import-admin-data',
-    // }),
   ],
   providers: [],
 })

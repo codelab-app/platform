@@ -14,11 +14,11 @@ export const CreateResourceButton = observer(() => {
     {
       children: [
         {
-          icon: <ResourceIcon type={IResourceType.GraphQL} />,
+          icon: <ResourceIcon type={IResourceType.GraphQl} />,
           key: 'graphql',
           label: 'GraphQL API',
           onClick: () =>
-            resourceService.createModal.open({ type: IResourceType.GraphQL }),
+            resourceService.createModal.open({ type: IResourceType.GraphQl }),
         },
         {
           icon: <ResourceIcon type={IResourceType.Rest} />,

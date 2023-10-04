@@ -178,7 +178,7 @@ export class ActionRunner
       const evaluatedConfig = evaluateObject(config, { ..._this, args })
 
       const fetchPromise =
-        resource.type === IResourceType.GraphQL
+        resource.type === IResourceType.GraphQl
           ? graphqlFetch(
               graphQLClient,
               evaluatedConfig as IGraphQLActionConfig,

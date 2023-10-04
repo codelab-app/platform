@@ -10,7 +10,11 @@ import {
   getUserService,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
-import { AppModalService, AppRepository } from '@codelab/frontend/domain/app'
+import {
+  App,
+  AppModalService,
+  AppRepository,
+} from '@codelab/frontend/domain/app'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService } from '@codelab/frontend/domain/page'

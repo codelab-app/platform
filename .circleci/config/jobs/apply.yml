@@ -3,7 +3,7 @@ steps:
   - restore-infra-workspace
   - run:
       name: 'Terraform Init'
-      command: yarn cli terraform --stage=prod init
+      command: yarn cli terraform --stage prod init
   - run:
       name: 'Terraform Apply'
-      command: yarn cli terraform --stage=prod apply
+      command: yarn cli terraform --stage prod apply
