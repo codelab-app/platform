@@ -76,13 +76,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "14de3027-6031-40eb-8c35-64e615905f8f",
-        "name": "React.Fragment",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": null
+        "id": "14de3027-6031-40eb-8c35-64e615905f8f"
       }
     ],
     "type": "ReactFragment"

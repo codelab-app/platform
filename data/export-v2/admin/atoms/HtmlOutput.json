@@ -1,146 +1,74 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "a140e45f-4514-46f5-9593-28729855a0d2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "9bf12b9e-19bd-40b0-a6d9-e61d0d1731e0",
+        "key": "name",
+        "name": "Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "a140e45f-4514-46f5-9593-28729855a0d2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "3841aae5-d08b-4016-9b9f-3adea55bd046",
+        "key": "form",
+        "name": "Form",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "a140e45f-4514-46f5-9593-28729855a0d2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "51d78139-64c6-48ae-bd58-8f3673a127ab",
+        "key": "for",
+        "name": "For",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "a140e45f-4514-46f5-9593-28729855a0d2",
     "kind": "InterfaceType",
     "name": "HtmlOutput API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "api": {
-              "id": "a140e45f-4514-46f5-9593-28729855a0d2"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "9bf12b9e-19bd-40b0-a6d9-e61d0d1731e0",
-            "key": "name",
-            "name": "Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "a140e45f-4514-46f5-9593-28729855a0d2"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "3841aae5-d08b-4016-9b9f-3adea55bd046",
-            "key": "form",
-            "name": "Form",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "a140e45f-4514-46f5-9593-28729855a0d2"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "51d78139-64c6-48ae-bd58-8f3673a127ab",
-            "key": "for",
-            "name": "For",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          }
-        ],
-        "id": "a140e45f-4514-46f5-9593-28729855a0d2",
-        "kind": "InterfaceType",
-        "name": "HtmlOutput API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "a140e45f-4514-46f5-9593-28729855a0d2"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "9bf12b9e-19bd-40b0-a6d9-e61d0d1731e0",
-          "key": "name",
-          "name": "Name",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "a140e45f-4514-46f5-9593-28729855a0d2"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "3841aae5-d08b-4016-9b9f-3adea55bd046",
-          "key": "form",
-          "name": "Form",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "a140e45f-4514-46f5-9593-28729855a0d2"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "51d78139-64c6-48ae-bd58-8f3673a127ab",
-          "key": "for",
-          "name": "For",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "a140e45f-4514-46f5-9593-28729855a0d2",
-      "kind": "InterfaceType",
-      "name": "HtmlOutput API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "a140e45f-4514-46f5-9593-28729855a0d2"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -152,16 +80,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "e393a1a0-ac24-4861-a9f5-881e053d7b8c",
-        "name": "HtmlOutput",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-          "name": "Phrasing"
-        }
+        "id": "e393a1a0-ac24-4861-a9f5-881e053d7b8c"
       }
     ],
     "type": "HtmlOutput"

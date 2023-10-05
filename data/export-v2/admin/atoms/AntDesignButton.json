@@ -1,526 +1,329 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "2e90b76a-aa1b-4bb6-b61b-aa35fe2b851b",
+        "key": "target",
+        "name": "Target",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "524f4893-995b-4065-b779-949850487db6",
+        "key": "ghost",
+        "name": "Ghost",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "e584f054-f519-4f5f-9e1a-73cacc99cdc9",
+        "key": "block",
+        "name": "Block",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "1485c723-ae29-45d6-8902-daf4553d88e1",
+          "kind": "EnumType",
+          "name": "AntDesignButton Loading Enum"
+        },
+        "id": "66754b97-6870-479f-ab83-0c0a22764f29",
+        "key": "loading",
+        "name": "Loading",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "1f6981a4-c4ec-4020-8e28-05e0300aa6b7",
+        "key": "type",
+        "name": "Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "a1f3c9ff-d49d-48bc-b3f3-7abbf66f57c0",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "6269734f-6580-447c-9dfb-7ea79a72283c",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "129ba112-bd1a-4e39-a6a8-cbf849e0ebd5",
+        "key": "onClick",
+        "name": "On Click",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "76016df0-9d18-4922-946a-0108aaba5234",
+          "kind": "EnumType",
+          "name": "AntDesignButton Shape Enum"
+        },
+        "id": "dc6c0605-1861-48ae-9233-66981c489a28",
+        "key": "shape",
+        "name": "Shape",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "1e7c052e-14b7-4611-844b-9b0ad773a0de",
+        "key": "danger",
+        "name": "Danger",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "62aa8197-739f-428c-ae0c-3e35531d752e",
+          "kind": "EnumType",
+          "name": "AntDesignButton Size Enum"
+        },
+        "id": "54f438ef-adf5-4e65-815b-a3184403a6da",
+        "key": "size",
+        "name": "Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "0e25bc33-8fe3-4e76-abb8-c98157c3bd9d",
+        "key": "htmlType",
+        "name": "Html Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "de51895d-f5b5-4bcf-8f5e-ffbeef0eca82",
+        "key": "href",
+        "name": "Href",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f",
     "kind": "InterfaceType",
     "name": "AntDesignButton API",
     "types": [
       {
-        "__typename": "InterfaceType",
-        "fields": [
+        "__typename": "EnumType",
+        "allowedValues": [
           {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "1f6981a4-c4ec-4020-8e28-05e0300aa6b7",
-            "key": "type",
-            "name": "Type",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "9b7bcef4-18dd-4053-9854-29f95c43f0d2",
+            "key": "boolean",
+            "value": "boolean"
           },
           {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "2e90b76a-aa1b-4bb6-b61b-aa35fe2b851b",
-            "key": "target",
-            "name": "Target",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "62aa8197-739f-428c-ae0c-3e35531d752e",
-              "kind": "EnumType",
-              "name": "AntDesignButton Size Enum"
-            },
-            "id": "54f438ef-adf5-4e65-815b-a3184403a6da",
-            "key": "size",
-            "name": "Size",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "76016df0-9d18-4922-946a-0108aaba5234",
-              "kind": "EnumType",
-              "name": "AntDesignButton Shape Enum"
-            },
-            "id": "dc6c0605-1861-48ae-9233-66981c489a28",
-            "key": "shape",
-            "name": "Shape",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ActionType",
-              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-              "kind": "ActionType",
-              "name": "ActionType"
-            },
-            "id": "129ba112-bd1a-4e39-a6a8-cbf849e0ebd5",
-            "key": "onClick",
-            "name": "On Click",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "1485c723-ae29-45d6-8902-daf4553d88e1",
-              "kind": "EnumType",
-              "name": "AntDesignButton Loading Enum"
-            },
-            "id": "66754b97-6870-479f-ab83-0c0a22764f29",
-            "key": "loading",
-            "name": "Loading",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ReactNodeType",
-              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-              "kind": "ReactNodeType",
-              "name": "ReactNodeType"
-            },
-            "id": "6269734f-6580-447c-9dfb-7ea79a72283c",
-            "key": "icon",
-            "name": "Icon",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "0e25bc33-8fe3-4e76-abb8-c98157c3bd9d",
-            "key": "htmlType",
-            "name": "Html Type",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "de51895d-f5b5-4bcf-8f5e-ffbeef0eca82",
-            "key": "href",
-            "name": "Href",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "524f4893-995b-4065-b779-949850487db6",
-            "key": "ghost",
-            "name": "Ghost",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "a1f3c9ff-d49d-48bc-b3f3-7abbf66f57c0",
-            "key": "disabled",
-            "name": "Disabled",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "1e7c052e-14b7-4611-844b-9b0ad773a0de",
-            "key": "danger",
-            "name": "Danger",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "e584f054-f519-4f5f-9e1a-73cacc99cdc9",
-            "key": "block",
-            "name": "Block",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "6d484915-679e-462e-9035-1cc266410043",
+            "key": "{ delay: number }",
+            "value": "{ delay: number }"
           }
         ],
-        "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f",
-        "kind": "InterfaceType",
-        "name": "AntDesignButton API"
+        "id": "1485c723-ae29-45d6-8902-daf4553d88e1",
+        "kind": "EnumType",
+        "name": "AntDesignButton Loading Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "39126124-8bfa-4431-8604-258ee1d766bc",
+            "key": "circle",
+            "value": "circle"
+          },
+          {
+            "id": "eb9cfea5-b7e1-43fa-923f-b50e49607d82",
+            "key": "default",
+            "value": "default"
+          },
+          {
+            "id": "ae5c54c5-9a08-4256-bd08-9a036107f02d",
+            "key": "round",
+            "value": "round"
+          }
+        ],
+        "id": "76016df0-9d18-4922-946a-0108aaba5234",
+        "kind": "EnumType",
+        "name": "AntDesignButton Shape Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "478ad694-6bbb-4c87-bab0-6bac4a55d99f",
+            "key": "small",
+            "value": "small"
+          },
+          {
+            "id": "af20b7ea-7414-4cb2-87de-69dcb28b0bc5",
+            "key": "middle",
+            "value": "middle"
+          },
+          {
+            "id": "5869289c-3982-44b7-87e1-b65f8a4e451d",
+            "key": "large",
+            "value": "large"
+          }
+        ],
+        "id": "62aa8197-739f-428c-ae0c-3e35531d752e",
+        "kind": "EnumType",
+        "name": "AntDesignButton Size Enum"
       }
     ]
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "1f6981a4-c4ec-4020-8e28-05e0300aa6b7",
-          "key": "type",
-          "name": "Type",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "2e90b76a-aa1b-4bb6-b61b-aa35fe2b851b",
-          "key": "target",
-          "name": "Target",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "62aa8197-739f-428c-ae0c-3e35531d752e",
-            "kind": "EnumType",
-            "name": "AntDesignButton Size Enum"
-          },
-          "id": "54f438ef-adf5-4e65-815b-a3184403a6da",
-          "key": "size",
-          "name": "Size",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "76016df0-9d18-4922-946a-0108aaba5234",
-            "kind": "EnumType",
-            "name": "AntDesignButton Shape Enum"
-          },
-          "id": "dc6c0605-1861-48ae-9233-66981c489a28",
-          "key": "shape",
-          "name": "Shape",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ActionType",
-            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-            "kind": "ActionType",
-            "name": "ActionType"
-          },
-          "id": "129ba112-bd1a-4e39-a6a8-cbf849e0ebd5",
-          "key": "onClick",
-          "name": "On Click",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "1485c723-ae29-45d6-8902-daf4553d88e1",
-            "kind": "EnumType",
-            "name": "AntDesignButton Loading Enum"
-          },
-          "id": "66754b97-6870-479f-ab83-0c0a22764f29",
-          "key": "loading",
-          "name": "Loading",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          },
-          "id": "6269734f-6580-447c-9dfb-7ea79a72283c",
-          "key": "icon",
-          "name": "Icon",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "0e25bc33-8fe3-4e76-abb8-c98157c3bd9d",
-          "key": "htmlType",
-          "name": "Html Type",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "de51895d-f5b5-4bcf-8f5e-ffbeef0eca82",
-          "key": "href",
-          "name": "Href",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "524f4893-995b-4065-b779-949850487db6",
-          "key": "ghost",
-          "name": "Ghost",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "a1f3c9ff-d49d-48bc-b3f3-7abbf66f57c0",
-          "key": "disabled",
-          "name": "Disabled",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "1e7c052e-14b7-4611-844b-9b0ad773a0de",
-          "key": "danger",
-          "name": "Danger",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "e584f054-f519-4f5f-9e1a-73cacc99cdc9",
-          "key": "block",
-          "name": "Block",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f",
-      "kind": "InterfaceType",
-      "name": "AntDesignButton API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "1d814a13-c7e7-45b9-8e30-36b6a939142f"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -532,16 +335,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "854388d1-a9ed-409d-b11a-da40a2d003dc",
-        "name": "Button",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "69b1a56f-70b4-4a6e-a399-0c1a79b59146",
-          "name": "General"
-        }
+        "id": "854388d1-a9ed-409d-b11a-da40a2d003dc"
       }
     ],
     "type": "AntDesignButton"

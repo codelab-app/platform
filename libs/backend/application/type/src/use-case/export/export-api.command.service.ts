@@ -1,8 +1,11 @@
-import type { IApiOutputDto } from '@codelab/backend/abstract/core'
-import { ITypeOutputDto } from '@codelab/backend/abstract/core'
+import type {
+  IApiOutputDto,
+  ITypeOutputDto,
+} from '@codelab/backend/abstract/core'
 import {
   FieldRepository,
   InterfaceTypeRepository,
+  TypeFactory,
 } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IInterfaceTypeEntity } from '@codelab/shared/abstract/core'
@@ -28,6 +31,7 @@ export class ExportApiHandler
   constructor(
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly fieldRepository: FieldRepository,
+    private readonly typeFactory: TypeFactory,
   ) {}
 
   @Span()
@@ -56,10 +60,17 @@ export class ExportApiHandler
     /**
      * (2) Get all dependent types first
      */
-    const dependentTypes = await this.interfaceTypeRepository.getDependentTypes(
-      api,
-      ITypeOutputDto,
-    )
+    const dependentTypesIds =
+      await this.interfaceTypeRepository.getDependentTypes(api)
+
+    const dependentTypes: Array<ITypeOutputDto> = []
+
+    for (const dependentType of dependentTypesIds) {
+      if (Object.values(ITypeKind).includes(dependentType.__typename)) {
+        const type = await this.typeFactory.findOne(dependentType)
+        type && dependentTypes.push(type as ITypeOutputDto)
+      }
+    }
 
     const dependentInterfaceTypes = dependentTypes.filter(
       (type) => type.__typename === `${ITypeKind.InterfaceType}`,
