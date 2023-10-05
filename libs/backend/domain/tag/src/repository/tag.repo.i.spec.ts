@@ -11,6 +11,15 @@ import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo.service'
+import {
+  AuthDomainService,
+  SharedDomainModule,
+} from '@codelab/backend/domain/shared'
+import {
+  UserApplicationModule,
+  UserApplicationService,
+} from '@codelab/backend/application/user'
+import { UserDomainModule } from '@codelab/backend/domain/user'
 
 describe('Tag repository.', () => {
   let tagRepository: TagRepository
@@ -34,6 +43,7 @@ describe('Tag repository.', () => {
       })
       .compile()
 
+    userService = module.get<UserApplicationService>(UserApplicationService)
     adminRepository = module.get<AdminRepository>(AdminRepository)
     tagRepository = module.get<TagRepository>(TagRepository)
     seederService = module.get<SeederDomainService>(SeederDomainService)
