@@ -1,28 +1,49 @@
 import { AdminRepository } from '@codelab/backend/domain/admin'
+import { OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo.service'
+import {
+  AuthDomainService,
+  SharedDomainModule,
+} from '@codelab/backend/domain/shared'
+import {
+  UserApplicationModule,
+  UserApplicationService,
+} from '@codelab/backend/application/user'
+import { UserDomainModule } from '@codelab/backend/domain/user'
 
 describe('Tag repository.', () => {
   let tagRepository: TagRepository
   let adminRepository: AdminRepository
+  let userService: UserApplicationService
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [SharedDomainModule, UserApplicationModule, UserDomainModule],
       providers: [TagRepository, AdminRepository],
-    }).compile()
+    })
+      .overrideProvider(AuthDomainService)
+      .useValue({
+        currentUser: {
+          auth0Id: v4(),
+          email: 'admin@codelab.app',
+          id: v4(),
+          roles: [],
+          username: 'Codelab',
+        },
+      })
+      .compile()
 
+    userService = module.get<UserApplicationService>(UserApplicationService)
     adminRepository = module.get<AdminRepository>(AdminRepository)
     tagRepository = module.get<TagRepository>(TagRepository)
 
-    await adminRepository.resetDatabaseExceptUser()
+    await adminRepository.resetDatabase(false)
+    await userService.seedUserFromRequest()
   })
-
-  // afterAll(async () => {
-  //   await adminRepository.closeDriver()
-  // })
 
   it('can create a tag', async () => {
     // Parent

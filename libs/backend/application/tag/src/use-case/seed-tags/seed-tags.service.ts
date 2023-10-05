@@ -7,16 +7,16 @@ import uniqBy from 'lodash/uniqBy'
 import { v4 } from 'uuid'
 import { ImportTagsCommand } from '../import-tags.command.service'
 import { TagTreeUtils } from './seed-tags.util'
+import { Injectable } from '@nestjs/common'
 
-export class SeedTagsService extends UseCase<TagNode, void> {
+@Injectable()
+export class SeedTagsService {
   constructor(
     private tagRepository: TagRepository,
     private commandBus: CommandBus,
-  ) {
-    super()
-  }
+  ) {}
 
-  async _execute(tagTree: TagNode) {
+  async execute(tagTree: TagNode) {
     const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
 
     await this.commandBus.execute<ImportTagsCommand>(
@@ -28,6 +28,8 @@ export class SeedTagsService extends UseCase<TagNode, void> {
    * Here we want to flatten the hierarchical data
    */
   async createTagsData(tagTree: TagNode): Promise<Array<ITagDTO>> {
+    console.log(this)
+
     const existingTags = new Map(
       (await this.tagRepository.find()).map((tag) => [tag.name, tag]),
     )
