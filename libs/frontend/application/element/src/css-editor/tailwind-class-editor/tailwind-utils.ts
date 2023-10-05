@@ -34,3 +34,28 @@ export const getOnlyColorValue = (value: string) => {
 
   return ''
 }
+
+interface IVariantResult {
+  className: string
+  variant: string
+}
+
+export const extractVariant = (input: string): IVariantResult => {
+  // Trim the input string
+  const trimmedInput = input.trim()
+  // Match the pattern and extract the required portion
+  // Modified regex to capture up to the last colon
+  const match = trimmedInput.match(/^(.*?):(?=[^:]+$)/)
+
+  if (match) {
+    return {
+      className: trimmedInput.slice(match[0].length),
+      variant: match[1] + ':',
+    }
+  }
+
+  return {
+    className: trimmedInput,
+    variant: '',
+  }
+}
