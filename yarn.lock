@@ -17665,9 +17665,9 @@ __metadata:
     ts-morph: ^19.0.0
     ts-node: 10.9.1
     tslib: 2.3.1
-    typebox-validators: 0.3.5
     twind: ^0.16.19
-    typescript: 5.1.6
+    typebox-validators: 0.3.5
+    typescript: 5.1.5
     typescript-json-schema: ^0.55.0
     uniforms: 3.10.2
     uniforms-antd: 3.10.2
@@ -18908,7 +18908,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.10, csstype@npm:^3.1.1, csstype@npm:^3.1.2":
+"csstype@npm:^3.0.10, csstype@npm:^3.0.2, csstype@npm:^3.0.5, csstype@npm:^3.1.1, csstype@npm:^3.1.2":
   version: 3.1.2
   resolution: "csstype@npm:3.1.2"
   checksum: e1a52e6c25c1314d6beef5168da704ab29c5186b877c07d822bd0806717d9a265e8493a2e35ca7e68d0f5d472d43fac1cdce70fd79fd0853dff81f3028d857b5
@@ -24163,7 +24163,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^6.1.0":
+"htmlparser2@npm:^6.0.0, htmlparser2@npm:^6.1.0":
   version: 6.1.0
   resolution: "htmlparser2@npm:6.1.0"
   dependencies:
@@ -36306,6 +36306,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"style-vendorizer@npm:^2.0.0":
+  version: 2.2.3
+  resolution: "style-vendorizer@npm:2.2.3"
+  checksum: b840d19aae468278d742f1de2925dd265611b73c35818fb315bfb96100f192e579e183c7aae26dc4d4d078c971a87d61b34cb3c123ff7ba41063cc5fdc0e9866
+  languageName: node
+  linkType: hard
+
 "styled-components@npm:^6.0.7":
   version: 6.0.7
   resolution: "styled-components@npm:6.0.7"
@@ -37515,6 +37522,22 @@ __metadata:
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 6061daba1724f59473d99a7bb82e13f211cdf6e31315510ae9656fefd4779851cb927adad90f3b488c8ed77c106adc0421ea8055f6f976ff21b27c5c4e918487
+  languageName: node
+  linkType: hard
+
+"twind@npm:^0.16.19":
+  version: 0.16.19
+  resolution: "twind@npm:0.16.19"
+  dependencies:
+    csstype: ^3.0.5
+    htmlparser2: ^6.0.0
+    style-vendorizer: ^2.0.0
+  peerDependencies:
+    typescript: ^4.1.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: f61c9f30931e47b0b4eb1946c99a0ebca81b9fabf450cf965213b9923e2801d490b48bab53e436fc589a8828c793ed93b7d72df796f8a9e1a4cd096caa5ecf80
   languageName: node
   linkType: hard
 
