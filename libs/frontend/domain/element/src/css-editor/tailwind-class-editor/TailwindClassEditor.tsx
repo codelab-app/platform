@@ -28,7 +28,9 @@ export const TailwindClassEditor = ({ element }: { element: IElement }) => {
     Array<{ value: string; label: string }>
   >(getInitialTailwindClasses())
 
-  const [selectedOptions, setSelectedOptions] = useState<Array<string>>([])
+  const [selectedOptions, setSelectedOptions] = useState<Array<string>>(
+    element.tailwindClassNames ?? [],
+  )
 
   const handleChange = (values: Array<string>) => {
     element.setTailwindClassNames(values)
