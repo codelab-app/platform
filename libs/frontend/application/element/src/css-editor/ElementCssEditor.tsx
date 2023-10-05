@@ -58,7 +58,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           lastTailwindClassNames.current = tailwindClassNames
 
           void elementService.update({
-            ...elementModel,
+            ...updatedElement.toJson,
             style,
             tailwindClassNames,
           })
@@ -99,8 +99,8 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           />
         </Col>
         <Col span={24}>
-          <StylesEditor />
           <TailwindClassEditor element={element} />
+          <StylesEditor />
         </Col>
       </Row>
     )

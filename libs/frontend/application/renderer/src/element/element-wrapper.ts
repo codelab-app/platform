@@ -101,6 +101,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       rest,
       selectionHandlers,
       dragDropHandlers,
+      tailwindClassNames,
     )
 
     const renderedElement = renderComponentWithStyles(

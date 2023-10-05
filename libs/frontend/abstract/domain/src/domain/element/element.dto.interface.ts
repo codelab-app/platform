@@ -37,6 +37,7 @@ export const IUpdateElementData = Type.Pick(IElementDTO, [
   'renderIfExpression',
   'renderType',
   'style',
+  'tailwindClassNames',
 ])
 
 export type IUpdateElementData = Static<typeof IUpdateElementData>

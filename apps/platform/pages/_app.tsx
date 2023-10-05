@@ -3,13 +3,15 @@ import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { CuiProvider } from '@codelab/frontend/presentation//codelab-ui'
-import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
-import { StoreProvider } from '@codelab/frontend/presentation/container'
+import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import { initializeStore } from '@codelab/frontend/infra/mobx'
+import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import install from '@twind/with-next/app'
 import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 import config from '../twind.config'
+
+install(config)
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const store = useMemo(() => {
@@ -17,10 +19,8 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
       return null
     }
 
-install(config)
-
-const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
-  const store = useMemo(() => initializeStore(pageProps), [])
+    return initializeStore({ user })
+  }, [user])
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
