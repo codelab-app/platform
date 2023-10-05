@@ -22,7 +22,6 @@ export class AtomApplicationService {
      */
     const atoms = await this.atomRepository.find({
       options: {
-        limit: 1,
         sort: [{ name: SortDirection.Asc }],
       },
     })
