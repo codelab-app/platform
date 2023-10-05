@@ -67,17 +67,17 @@ export const generateTailwindClasses = (
   classNames: Nullable<Array<string>> | undefined,
   rendererType: RendererType,
 ) => {
-  let replacedClassNames: Array<string> = []
+  let classNamesToUse: Array<string> = classNames ?? []
 
   if (
     rendererType === RendererType.PageBuilder ||
     rendererType === RendererType.ComponentBuilder
   ) {
-    replacedClassNames = replaceVariants(classNames ?? [])
+    classNamesToUse = replaceWithCustomResponsiveVariants(classNames ?? [])
   }
 
-  if (classNames?.length) {
-    return tx(`${replacedClassNames.join(' ')}`)
+  if (classNamesToUse.length) {
+    return tx(`${classNamesToUse.join(' ')}`)
   }
 
   return ''
@@ -125,7 +125,7 @@ export const createTransparentDragImage = () => {
   return transparentDragImage
 }
 
-const replaceVariants = (classNames: Array<string>) => {
+const replaceWithCustomResponsiveVariants = (classNames: Array<string>) => {
   /**
    * This function will append 'c' to all responsive variants like lg, sm, md, etc
    * We have custom responsive variants that goes by lgc, smc, mdc, etc
