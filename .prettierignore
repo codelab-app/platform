@@ -1,2 +1,9 @@
 /data
 /examples
+
+.terraform
+.next
+dist
+.idea
+.vscode
+

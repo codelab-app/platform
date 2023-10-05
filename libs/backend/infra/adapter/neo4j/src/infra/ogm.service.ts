@@ -33,7 +33,7 @@ import { generate, OGM } from '@neo4j/graphql-ogm'
 import { Inject, Injectable } from '@nestjs/common'
 import * as fs from 'fs'
 import path from 'path'
-import * as prettier from 'prettier'
+import prettier from 'prettier'
 import { OGM_PROVIDER } from './ogm.constant'
 
 @Injectable()
