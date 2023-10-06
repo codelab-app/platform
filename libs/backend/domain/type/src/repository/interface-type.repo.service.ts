@@ -48,7 +48,9 @@ export class InterfaceTypeRepository extends AbstractRepository<
 
       this.traceService.addAttributes({ id, records })
 
-      const types = records[0]?.get(0) ?? []
+      const types = [...records.values()].flatMap((record) => [
+        ...record.values(),
+      ])
 
       if (schema) {
         for (const type of types) {

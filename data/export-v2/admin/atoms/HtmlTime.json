@@ -1,70 +1,36 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "3701658f-170b-40a1-a4d7-d88802392090"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
+        "key": "datetime",
+        "name": "Datetime",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "3701658f-170b-40a1-a4d7-d88802392090",
     "kind": "InterfaceType",
     "name": "HtmlTime API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "api": {
-              "id": "3701658f-170b-40a1-a4d7-d88802392090"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
-            "key": "datetime",
-            "name": "Datetime",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          }
-        ],
-        "id": "3701658f-170b-40a1-a4d7-d88802392090",
-        "kind": "InterfaceType",
-        "name": "HtmlTime API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "3701658f-170b-40a1-a4d7-d88802392090"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
-          "key": "datetime",
-          "name": "Datetime",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "3701658f-170b-40a1-a4d7-d88802392090",
-      "kind": "InterfaceType",
-      "name": "HtmlTime API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "3701658f-170b-40a1-a4d7-d88802392090"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -76,16 +42,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "a5dd7e43-87a3-479e-980c-c4b5d8636c8a",
-        "name": "HtmlTime",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-          "name": "Phrasing"
-        }
+        "id": "a5dd7e43-87a3-479e-980c-c4b5d8636c8a"
       }
     ],
     "type": "HtmlTime"

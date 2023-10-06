@@ -1,412 +1,249 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6",
+        "key": "autoplay",
+        "name": "Autoplay",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04",
+        "key": "loop",
+        "name": "Loop",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f4970aa6-8b62-44b4-89f0-699113335bcf",
+        "key": "poster",
+        "name": "Poster",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+          "kind": "PrimitiveType",
+          "name": "Integer"
+        },
+        "id": "40c0aaee-db84-4f39-8fd8-01b86006becf",
+        "key": "width",
+        "name": "Width",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "182f9fca-780b-4867-85ed-1cae2770de50",
+        "key": "controls",
+        "name": "Controls",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1",
+        "key": "src",
+        "name": "Src",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "609faa51-7adf-40a6-9e73-dadbbeaa8822",
+          "kind": "EnumType",
+          "name": "HtmlVideo Crossorigin Enum"
+        },
+        "id": "bc8ae731-7e81-4209-8782-5fd956df662e",
+        "key": "crossorigin",
+        "name": "Crossorigin",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+          "kind": "PrimitiveType",
+          "name": "Integer"
+        },
+        "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198",
+        "key": "height",
+        "name": "Height",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ab292cbd-e1a4-456d-8575-2f25db338d45",
+          "kind": "EnumType",
+          "name": "HtmlVideo Preload Enum"
+        },
+        "id": "f1232711-81f6-40e8-bdcf-d345268978a5",
+        "key": "preload",
+        "name": "Preload",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5446dfa9-df30-4075-b414-984048da43c3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "7c258021-e6e3-4211-8380-cb24c7441b76",
+        "key": "muted",
+        "name": "Muted",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "5446dfa9-df30-4075-b414-984048da43c3",
     "kind": "InterfaceType",
     "name": "HtmlVideo API",
     "types": [
       {
-        "__typename": "InterfaceType",
-        "fields": [
+        "__typename": "EnumType",
+        "allowedValues": [
           {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-              "kind": "PrimitiveType",
-              "name": "Integer"
-            },
-            "id": "40c0aaee-db84-4f39-8fd8-01b86006becf",
-            "key": "width",
-            "name": "Width",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "d329c3b6-c39e-4fc8-aaa3-2bf187219b47",
+            "key": "use-credentials",
+            "value": "use-credentials"
           },
           {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1",
-            "key": "src",
-            "name": "Src",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "ab292cbd-e1a4-456d-8575-2f25db338d45",
-              "kind": "EnumType",
-              "name": "HtmlVideo Preload Enum"
-            },
-            "id": "f1232711-81f6-40e8-bdcf-d345268978a5",
-            "key": "preload",
-            "name": "Preload",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "f4970aa6-8b62-44b4-89f0-699113335bcf",
-            "key": "poster",
-            "name": "Poster",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "7c258021-e6e3-4211-8380-cb24c7441b76",
-            "key": "muted",
-            "name": "Muted",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04",
-            "key": "loop",
-            "name": "Loop",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-              "kind": "PrimitiveType",
-              "name": "Integer"
-            },
-            "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198",
-            "key": "height",
-            "name": "Height",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "609faa51-7adf-40a6-9e73-dadbbeaa8822",
-              "kind": "EnumType",
-              "name": "HtmlVideo Crossorigin Enum"
-            },
-            "id": "bc8ae731-7e81-4209-8782-5fd956df662e",
-            "key": "crossorigin",
-            "name": "Crossorigin",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "182f9fca-780b-4867-85ed-1cae2770de50",
-            "key": "controls",
-            "name": "Controls",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "5446dfa9-df30-4075-b414-984048da43c3"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6",
-            "key": "autoplay",
-            "name": "Autoplay",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "c4de2521-0336-4a0c-8d60-6a0592709fa8",
+            "key": "anonymous",
+            "value": "anonymous"
           }
         ],
-        "id": "5446dfa9-df30-4075-b414-984048da43c3",
-        "kind": "InterfaceType",
-        "name": "HtmlVideo API"
+        "id": "609faa51-7adf-40a6-9e73-dadbbeaa8822",
+        "kind": "EnumType",
+        "name": "HtmlVideo Crossorigin Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "ddaba7bf-72dd-49bb-9315-f921bf85158e",
+            "key": "none",
+            "value": "none"
+          },
+          {
+            "id": "c119e4f0-5a22-4ce1-86a0-8e67c05bf887",
+            "key": "auto",
+            "value": "auto"
+          },
+          {
+            "id": "fcd019f1-6bb0-4a21-96e4-b280577485cb",
+            "key": "metadata",
+            "value": "metadata"
+          }
+        ],
+        "id": "ab292cbd-e1a4-456d-8575-2f25db338d45",
+        "kind": "EnumType",
+        "name": "HtmlVideo Preload Enum"
       }
     ]
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-            "kind": "PrimitiveType",
-            "name": "Integer"
-          },
-          "id": "40c0aaee-db84-4f39-8fd8-01b86006becf",
-          "key": "width",
-          "name": "Width",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1",
-          "key": "src",
-          "name": "Src",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "ab292cbd-e1a4-456d-8575-2f25db338d45",
-            "kind": "EnumType",
-            "name": "HtmlVideo Preload Enum"
-          },
-          "id": "f1232711-81f6-40e8-bdcf-d345268978a5",
-          "key": "preload",
-          "name": "Preload",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "f4970aa6-8b62-44b4-89f0-699113335bcf",
-          "key": "poster",
-          "name": "Poster",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "7c258021-e6e3-4211-8380-cb24c7441b76",
-          "key": "muted",
-          "name": "Muted",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04",
-          "key": "loop",
-          "name": "Loop",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-            "kind": "PrimitiveType",
-            "name": "Integer"
-          },
-          "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198",
-          "key": "height",
-          "name": "Height",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "609faa51-7adf-40a6-9e73-dadbbeaa8822",
-            "kind": "EnumType",
-            "name": "HtmlVideo Crossorigin Enum"
-          },
-          "id": "bc8ae731-7e81-4209-8782-5fd956df662e",
-          "key": "crossorigin",
-          "name": "Crossorigin",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "182f9fca-780b-4867-85ed-1cae2770de50",
-          "key": "controls",
-          "name": "Controls",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "5446dfa9-df30-4075-b414-984048da43c3"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6",
-          "key": "autoplay",
-          "name": "Autoplay",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "5446dfa9-df30-4075-b414-984048da43c3",
-      "kind": "InterfaceType",
-      "name": "HtmlVideo API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "5446dfa9-df30-4075-b414-984048da43c3"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -418,16 +255,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "957c26dc-59e3-4147-acf5-6bc9cb9b947f",
-        "name": "HtmlVideo",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-          "name": "Phrasing"
-        }
+        "id": "957c26dc-59e3-4147-acf5-6bc9cb9b947f"
       }
     ],
     "type": "HtmlVideo"

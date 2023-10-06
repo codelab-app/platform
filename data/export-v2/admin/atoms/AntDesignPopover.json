@@ -5,26 +5,12 @@
     "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e",
     "kind": "InterfaceType",
     "name": "AntDesignPopover API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e",
-        "kind": "InterfaceType",
-        "name": "AntDesignPopover API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e",
-      "kind": "InterfaceType",
-      "name": "AntDesignPopover API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "aa3e5009-7524-479b-9316-537df0b276e4",
-        "name": "Popover",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
-          "name": "Data Display"
-        }
+        "id": "aa3e5009-7524-479b-9316-537df0b276e4"
       }
     ],
     "type": "AntDesignPopover"

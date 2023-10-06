@@ -5,26 +5,12 @@
     "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2",
     "kind": "InterfaceType",
     "name": "HtmlSection API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2",
-        "kind": "InterfaceType",
-        "name": "HtmlSection API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2",
-      "kind": "InterfaceType",
-      "name": "HtmlSection API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "7e80685d-a5df-4497-90e1-290383e39149",
-        "name": "HtmlSection",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "7770d516-4052-4392-abf5-6fba7be6950d",
-          "name": "Sectioning"
-        }
+        "id": "7e80685d-a5df-4497-90e1-290383e39149"
       }
     ],
     "type": "HtmlSection"

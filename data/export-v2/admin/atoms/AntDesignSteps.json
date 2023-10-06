@@ -1,19 +1,296 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "73d4eaaa-9063-47cc-8d0d-3301cd8065fe",
+        "key": "labelPlacement",
+        "name": "Label Placement",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "138af95e-bb24-4002-97f2-c795a5a82018",
+        "key": "current",
+        "name": "Current",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "6610e637-d9e2-4ad6-bd5d-63f9d7537161",
+          "kind": "EnumType",
+          "name": "AntDesignSteps Progress Dot Enum"
+        },
+        "id": "1ba8deaa-458c-40ca-ac13-4de2973c5cd9",
+        "key": "progressDot",
+        "name": "Progress Dot",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "4ebd447c-2a2a-48b2-93dc-c51714153d31",
+        "key": "type",
+        "name": "Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "87fdcfad-f614-4a43-80b4-334c8d9fc3e6",
+        "key": "size",
+        "name": "Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "b31e0e98-eae3-4d6c-a781-3be44e8cb093",
+        "key": "onChange",
+        "name": "On Change",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "268bb160-9f7a-4bc6-b0f4-1d264c8a29a5",
+        "key": "direction",
+        "name": "Direction",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "b221b178-fcb3-4f11-b1c9-c15922c1565f",
+        "key": "initial",
+        "name": "Initial",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "bf23c9a1-4fbd-4814-8b6b-44cd17d116e7",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "0dca41db-8006-441a-8016-620744b60eb9",
+        "key": "status",
+        "name": "Status",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "34b76125-a19c-478a-ae76-68e3303a8734",
+        "key": "percent",
+        "name": "Percent",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "6dfc9268-9f98-4c73-92a3-402922c43b4c",
+        "key": "responsive",
+        "name": "Responsive",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+        },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "__typename": "ArrayType",
+          "id": "7154aa9d-27e2-4b43-8a09-789467206389",
+          "kind": "ArrayType",
+          "name": "AntDesignSteps Items"
+        },
+        "id": "57b3fb67-3490-4c82-8f8f-b7b7e3d090b0",
+        "key": "items",
+        "name": "Items",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      }
+    ],
     "id": "0ecfb984-557f-45ec-ad14-836808b85d9a",
     "kind": "InterfaceType",
     "name": "AntDesignSteps API",
     "types": [
       {
+        "__typename": "ArrayType",
+        "id": "7154aa9d-27e2-4b43-8a09-789467206389",
+        "itemType": {
+          "id": "c83e828d-c476-4921-84b4-014147462750",
+          "kind": "InterfaceType"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignSteps Items"
+      },
+      {
         "__typename": "InterfaceType",
         "fields": [
           {
             "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+              "id": "c83e828d-c476-4921-84b4-014147462750"
             },
-            "defaultValues": null,
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "id": "0a9aeb4a-c535-4433-90ae-dfa8c50d9ce6",
+            "key": "title",
+            "name": "Title",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "c83e828d-c476-4921-84b4-014147462750"
+            },
+            "defaultValues": "null",
             "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
@@ -21,506 +298,45 @@
               "kind": "PrimitiveType",
               "name": "String"
             },
-            "id": "4ebd447c-2a2a-48b2-93dc-c51714153d31",
-            "key": "type",
-            "name": "Type",
+            "id": "05884e66-b9ef-43da-8700-dcdde900ae2c",
+            "key": "key",
+            "name": "Key",
             "nextSibling": null,
             "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "0dca41db-8006-441a-8016-620744b60eb9",
-            "key": "status",
-            "name": "Status",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "87fdcfad-f614-4a43-80b4-334c8d9fc3e6",
-            "key": "size",
-            "name": "Size",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "6dfc9268-9f98-4c73-92a3-402922c43b4c",
-            "key": "responsive",
-            "name": "Responsive",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "6610e637-d9e2-4ad6-bd5d-63f9d7537161",
-              "kind": "EnumType",
-              "name": "AntDesignSteps Progress Dot Enum"
-            },
-            "id": "1ba8deaa-458c-40ca-ac13-4de2973c5cd9",
-            "key": "progressDot",
-            "name": "Progress Dot",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-              "kind": "PrimitiveType",
-              "name": "Number"
-            },
-            "id": "34b76125-a19c-478a-ae76-68e3303a8734",
-            "key": "percent",
-            "name": "Percent",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ActionType",
-              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-              "kind": "ActionType",
-              "name": "ActionType"
-            },
-            "id": "b31e0e98-eae3-4d6c-a781-3be44e8cb093",
-            "key": "onChange",
-            "name": "On Change",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "73d4eaaa-9063-47cc-8d0d-3301cd8065fe",
-            "key": "labelPlacement",
-            "name": "Label Placement",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": "[]",
-            "description": null,
-            "fieldType": {
-              "__typename": "ArrayType",
-              "id": "7154aa9d-27e2-4b43-8a09-789467206389",
-              "kind": "ArrayType",
-              "name": "AntDesignSteps Items"
-            },
-            "id": "57b3fb67-3490-4c82-8f8f-b7b7e3d090b0",
-            "key": "items",
-            "name": "Items",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}"
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-              "kind": "PrimitiveType",
-              "name": "Number"
-            },
-            "id": "b221b178-fcb3-4f11-b1c9-c15922c1565f",
-            "key": "initial",
-            "name": "Initial",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "268bb160-9f7a-4bc6-b0f4-1d264c8a29a5",
-            "key": "direction",
-            "name": "Direction",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-              "kind": "PrimitiveType",
-              "name": "Number"
-            },
-            "id": "138af95e-bb24-4002-97f2-c795a5a82018",
-            "key": "current",
-            "name": "Current",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "bf23c9a1-4fbd-4814-8b6b-44cd17d116e7",
-            "key": "className",
-            "name": "Class Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "validationRules": "{}"
           }
         ],
-        "id": "0ecfb984-557f-45ec-ad14-836808b85d9a",
+        "id": "c83e828d-c476-4921-84b4-014147462750",
         "kind": "InterfaceType",
-        "name": "AntDesignSteps API"
+        "name": "AntDesignSteps Item",
+        "owner": {
+          "id": "6c257a86-622d-4bcf-8b67-005dd0e7eb30"
+        }
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "c015c4ed-5131-4192-b950-4f2daec00ec1",
+            "key": "boolean",
+            "value": "boolean"
+          },
+          {
+            "id": "93f51d0b-4641-4675-b3b4-9f628edcd0cb",
+            "key": "(iconDot, {index, status, title, description}) => ReactNode",
+            "value": "(iconDot, {index, status, title, description}) => ReactNode"
+          }
+        ],
+        "id": "6610e637-d9e2-4ad6-bd5d-63f9d7537161",
+        "kind": "EnumType",
+        "name": "AntDesignSteps Progress Dot Enum"
       }
     ]
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "4ebd447c-2a2a-48b2-93dc-c51714153d31",
-          "key": "type",
-          "name": "Type",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "0dca41db-8006-441a-8016-620744b60eb9",
-          "key": "status",
-          "name": "Status",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "87fdcfad-f614-4a43-80b4-334c8d9fc3e6",
-          "key": "size",
-          "name": "Size",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "6dfc9268-9f98-4c73-92a3-402922c43b4c",
-          "key": "responsive",
-          "name": "Responsive",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "6610e637-d9e2-4ad6-bd5d-63f9d7537161",
-            "kind": "EnumType",
-            "name": "AntDesignSteps Progress Dot Enum"
-          },
-          "id": "1ba8deaa-458c-40ca-ac13-4de2973c5cd9",
-          "key": "progressDot",
-          "name": "Progress Dot",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-            "kind": "PrimitiveType",
-            "name": "Number"
-          },
-          "id": "34b76125-a19c-478a-ae76-68e3303a8734",
-          "key": "percent",
-          "name": "Percent",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ActionType",
-            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-            "kind": "ActionType",
-            "name": "ActionType"
-          },
-          "id": "b31e0e98-eae3-4d6c-a781-3be44e8cb093",
-          "key": "onChange",
-          "name": "On Change",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "73d4eaaa-9063-47cc-8d0d-3301cd8065fe",
-          "key": "labelPlacement",
-          "name": "Label Placement",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": "[]",
-          "description": null,
-          "fieldType": {
-            "__typename": "ArrayType",
-            "id": "7154aa9d-27e2-4b43-8a09-789467206389",
-            "kind": "ArrayType",
-            "name": "AntDesignSteps Items"
-          },
-          "id": "57b3fb67-3490-4c82-8f8f-b7b7e3d090b0",
-          "key": "items",
-          "name": "Items",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": "{\"general\":{\"nullable\":true}}"
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-            "kind": "PrimitiveType",
-            "name": "Number"
-          },
-          "id": "b221b178-fcb3-4f11-b1c9-c15922c1565f",
-          "key": "initial",
-          "name": "Initial",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "268bb160-9f7a-4bc6-b0f4-1d264c8a29a5",
-          "key": "direction",
-          "name": "Direction",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-            "kind": "PrimitiveType",
-            "name": "Number"
-          },
-          "id": "138af95e-bb24-4002-97f2-c795a5a82018",
-          "key": "current",
-          "name": "Current",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "bf23c9a1-4fbd-4814-8b6b-44cd17d116e7",
-          "key": "className",
-          "name": "Class Name",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "0ecfb984-557f-45ec-ad14-836808b85d9a",
-      "kind": "InterfaceType",
-      "name": "AntDesignSteps API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -532,21 +348,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [
-          {
-            "id": "075edb93-9b21-4494-92de-e510043bcf71",
-            "name": "Steps.Step"
-          }
-        ],
-        "id": "b53e39d1-e88c-476b-b302-903704a9091b",
-        "name": "Steps",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "7c2474e2-f8ab-4cd2-98b7-252a0c8f3c8f",
-          "name": "Navigation"
-        }
+        "id": "b53e39d1-e88c-476b-b302-903704a9091b"
       }
     ],
     "type": "AntDesignSteps"

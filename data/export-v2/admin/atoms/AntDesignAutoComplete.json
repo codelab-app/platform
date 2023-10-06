@@ -5,26 +5,12 @@
     "id": "832a516f-46fc-46ce-814b-d641cc51b302",
     "kind": "InterfaceType",
     "name": "AntDesignAutoComplete API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "832a516f-46fc-46ce-814b-d641cc51b302",
-        "kind": "InterfaceType",
-        "name": "AntDesignAutoComplete API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "832a516f-46fc-46ce-814b-d641cc51b302",
-      "kind": "InterfaceType",
-      "name": "AntDesignAutoComplete API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "832a516f-46fc-46ce-814b-d641cc51b302"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "a0d6489b-0703-4e4f-8319-98147b38ebcd",
-        "name": "AutoComplete",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
-          "name": "Data Entry"
-        }
+        "id": "a0d6489b-0703-4e4f-8319-98147b38ebcd"
       }
     ],
     "type": "AntDesignAutoComplete"

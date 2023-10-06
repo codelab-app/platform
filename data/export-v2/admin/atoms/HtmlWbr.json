@@ -5,26 +5,12 @@
     "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf",
     "kind": "InterfaceType",
     "name": "HtmlWbr API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf",
-        "kind": "InterfaceType",
-        "name": "HtmlWbr API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf",
-      "kind": "InterfaceType",
-      "name": "HtmlWbr API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "ab84b7ea-1965-44d1-aa3d-9c225465bf28",
-        "name": "HtmlWbr",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-          "name": "Phrasing"
-        }
+        "id": "ab84b7ea-1965-44d1-aa3d-9c225465bf28"
       }
     ],
     "type": "HtmlWbr"

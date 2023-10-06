@@ -1,184 +1,93 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e",
+        "key": "spin",
+        "name": "Spin",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
+        "key": "rotate",
+        "name": "Rotate",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+        },
+        "defaultValues": "\"PictureOutlined\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86",
+        "key": "name",
+        "name": "Icon Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":false}}"
+      },
+      {
+        "api": {
+          "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4",
     "kind": "InterfaceType",
     "name": "AntDesignIcon API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "api": {
-              "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e",
-            "key": "spin",
-            "name": "Spin",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-              "kind": "PrimitiveType",
-              "name": "Number"
-            },
-            "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
-            "key": "rotate",
-            "name": "Rotate",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-            },
-            "defaultValues": "\"PictureOutlined\"",
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86",
-            "key": "name",
-            "name": "Icon Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": "{\"general\":{\"nullable\":false}}"
-          },
-          {
-            "api": {
-              "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
-            "key": "className",
-            "name": "Class Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          }
-        ],
-        "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4",
-        "kind": "InterfaceType",
-        "name": "AntDesignIcon API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e",
-          "key": "spin",
-          "name": "Spin",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-            "kind": "PrimitiveType",
-            "name": "Number"
-          },
-          "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
-          "key": "rotate",
-          "name": "Rotate",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-          },
-          "defaultValues": "\"PictureOutlined\"",
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86",
-          "key": "name",
-          "name": "Icon Name",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": "{\"general\":{\"nullable\":false}}"
-        },
-        {
-          "api": {
-            "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
-          "key": "className",
-          "name": "Class Name",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4",
-      "kind": "InterfaceType",
-      "name": "AntDesignIcon API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -190,16 +99,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "e7848328-f5c2-47fe-a470-464a7e4d8259",
-        "name": "Icon",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "69b1a56f-70b4-4a6e-a399-0c1a79b59146",
-          "name": "General"
-        }
+        "id": "e7848328-f5c2-47fe-a470-464a7e4d8259"
       }
     ],
     "type": "AntDesignIcon"

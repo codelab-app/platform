@@ -5,26 +5,12 @@
     "id": "6002e02c-bc1d-4128-8944-65d4a3202262",
     "kind": "InterfaceType",
     "name": "HtmlArticle API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "6002e02c-bc1d-4128-8944-65d4a3202262",
-        "kind": "InterfaceType",
-        "name": "HtmlArticle API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "6002e02c-bc1d-4128-8944-65d4a3202262",
-      "kind": "InterfaceType",
-      "name": "HtmlArticle API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "6002e02c-bc1d-4128-8944-65d4a3202262"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "421d68e3-fe05-4037-956e-d24d70bfdbc9",
-        "name": "HtmlArticle",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "7770d516-4052-4392-abf5-6fba7be6950d",
-          "name": "Sectioning"
-        }
+        "id": "421d68e3-fe05-4037-956e-d24d70bfdbc9"
       }
     ],
     "type": "HtmlArticle"

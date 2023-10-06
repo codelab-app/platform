@@ -1,8 +1,7 @@
-// Get all types that the current type id depends on
-// Includes fields, array/union types etc
-//
+// Get all the types that the current type depend on, excluding system types
+// The query will explore specific relationships that are no more than 3 levels deep from current type
 // Does not include itself
 MATCH (this {id: $id})
-<-[:ARRAY_ITEM_TYPE|INTERFACE_FIELD|UNION_TYPE_CHILD*1..3]-(t)
-WHERE NOT t.id = $id
-RETURN {id: t.id, label: labels(t)[0]}
+-[:ARRAY_ITEM_TYPE|INTERFACE_FIELD|FIELD_TYPE|UNION_TYPE_CHILD*1..3]->(t)
+WHERE NOT t.id = $id AND NOT (t:PrimitiveType OR t:ReactNodeType OR t:ActionType OR t:RenderPropType)
+RETURN {id: t.id, __typename: LAST(labels(t))}
