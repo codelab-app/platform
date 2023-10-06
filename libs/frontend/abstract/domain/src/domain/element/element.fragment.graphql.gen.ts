@@ -18,10 +18,10 @@ export type ElementFragment = {
   childMapperPropKey?: string | null
   id: string
   name: string
-  tailwindClassNames?: Array<string> | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   firstChild?: { id: string } | null
@@ -49,10 +49,10 @@ export type ElementProductionFragment = {
   childMapperPropKey?: string | null
   id: string
   name: string
-  tailwindClassNames?: Array<string> | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   firstChild?: { id: string } | null
@@ -78,7 +78,6 @@ export type ElementProductionFragment = {
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
-    tailwindClassNames
     childMapperComponent {
       id
       name
@@ -131,6 +130,7 @@ export const ElementFragmentDoc = gql`
       }
     }
     style
+    tailwindClassNames
   }
   ${PropFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
@@ -138,7 +138,6 @@ export const ElementFragmentDoc = gql`
 export const ElementProductionFragmentDoc = gql`
   fragment ElementProduction on Element {
     __typename
-    tailwindClassNames
     childMapperComponent {
       id
       name
@@ -191,6 +190,7 @@ export const ElementProductionFragmentDoc = gql`
       }
     }
     style
+    tailwindClassNames
   }
   ${PropFragmentDoc}
   ${AtomProductionFragmentDoc}

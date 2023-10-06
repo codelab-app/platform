@@ -63,6 +63,7 @@ export const createTextRenderer = (customText: string) =>
   React.createElement(TextRenderer, { data: customText })
 
 let dragImage: HTMLElement | undefined
+
 export const generateTailwindClasses = (
   classNames: Nullable<Array<string>> | undefined,
   rendererType: RendererType,
@@ -82,6 +83,8 @@ export const generateTailwindClasses = (
 
   return ''
 }
+
+let dragImage: HTMLElement | undefined
 
 export const createDragImage = (name: string) => {
   if (dragImage) {

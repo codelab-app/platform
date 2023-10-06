@@ -27,6 +27,13 @@ export const createElementSchema: JSONSchemaType<
       nullable: true,
       type: 'string',
     },
+    tailwindClassNames: {
+      nullable: true,
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
     name: {
       type: 'string',
       ...titleCaseValidation,

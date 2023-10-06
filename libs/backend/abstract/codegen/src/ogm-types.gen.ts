@@ -3759,10 +3759,10 @@ export type Element = {
   id: Scalars['ID']['output']
   compositeKey: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
+  tailwindClassNames?: Maybe<Array<Scalars['String']['output']>>
   childMapperPropKey?: Maybe<Scalars['String']['output']>
   renderForEachPropKey?: Maybe<Scalars['String']['output']>
   renderIfExpression?: Maybe<Scalars['String']['output']>
-  tailwindClassNames?: Maybe<Array<Scalars['String']>>
   descendantElements: Array<Element>
   closestContainerNode: ContainerNode
   name: Scalars['String']['output']
@@ -15997,10 +15997,10 @@ export type ElementCreateInput = {
   id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   style?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  tailwindClassNames?: InputMaybe<Array<Scalars['String']>>
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
@@ -16793,10 +16793,10 @@ export type ElementOnCreateInput = {
   id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   style?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  tailwindClassNames?: InputMaybe<Array<Scalars['String']>>
 }
 
 export type ElementOptions = {
@@ -18655,10 +18655,12 @@ export type ElementUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  tailwindClassNames?: InputMaybe<Array<Scalars['String']>>
+  tailwindClassNames_POP?: InputMaybe<Scalars['Int']['input']>
+  tailwindClassNames_PUSH?: InputMaybe<Array<Scalars['String']['input']>>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
@@ -18725,14 +18727,13 @@ export type ElementWhere = {
   style_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   style_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  tailwindClassNames_NOT?: InputMaybe<Array<Scalars['String']['input']>>
+  tailwindClassNames_INCLUDES?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  tailwindClassNames_NOT_INCLUDES?: InputMaybe<Scalars['String']['input']>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
-  tailwindClassNames?: InputMaybe<Array<Scalars['String']>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  tailwindClassNames_NOT?: InputMaybe<Array<Scalars['String']>>
-  tailwindClassNames_INCLUDES?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  tailwindClassNames_NOT_INCLUDES?: InputMaybe<Scalars['String']>
-  childMapperPropKey?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   childMapperPropKey_NOT?: InputMaybe<Scalars['String']['input']>
   childMapperPropKey_IN?: InputMaybe<

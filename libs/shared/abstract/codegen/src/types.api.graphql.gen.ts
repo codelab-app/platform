@@ -20881,10 +20881,10 @@ export type ElementFragment = {
   childMapperPropKey?: string | null
   id: string
   name: string
-  tailwindClassNames?: Array<string> | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: {
     __typename?: 'Component'
     id: string
@@ -20916,10 +20916,10 @@ export type ElementProductionFragment = {
   childMapperPropKey?: string | null
   id: string
   name: string
-  tailwindClassNames?: Array<string> | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: {
     __typename?: 'Component'
     id: string

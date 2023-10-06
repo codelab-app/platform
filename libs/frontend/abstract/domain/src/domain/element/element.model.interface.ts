@@ -162,8 +162,8 @@ export interface IElementModel
     currentStyles: ElementCssRules
     inheritedStyles: ElementCssRules
   }
-  toJson: IElementSerialized
   tailwindClassNames?: Nullable<Array<string>>
+  toJson: IElementSerialized
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
