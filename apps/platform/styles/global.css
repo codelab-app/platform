@@ -1,6 +1,6 @@
 @import './quill.snow.override.css';
 @import './antd.global.fix.css';
-/* @import './tailwind.css'; */
+@import './tailwind.css';
 @import './slick.css';
 @import './tailwind-fix.css';
 
