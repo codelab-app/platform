@@ -69,7 +69,7 @@ export const TailwindClassEditor = ({
   }
 
   return (
-    <>
+    <div className="mb-4">
       <Styled.Label>Tailwind Classes :</Styled.Label>
       <Select
         allowClear
@@ -102,7 +102,7 @@ export const TailwindClassEditor = ({
           )
         })}
       </Select>
-    </>
+    </div>
   )
 }
 

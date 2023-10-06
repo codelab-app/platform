@@ -100,6 +100,8 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
         </Col>
         <Col span={24}>
           <TailwindClassEditor element={element} />
+        </Col>
+        <Col span={24}>
           <StylesEditor />
         </Col>
       </Row>
