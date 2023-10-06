@@ -824,6 +824,7 @@ export class Element
           : undefined,
       },
       style: this.style,
+      tailwindClassNames: this.tailwindClassNames,
     }
   }
 
