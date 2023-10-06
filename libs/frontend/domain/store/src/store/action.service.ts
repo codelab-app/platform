@@ -1,9 +1,11 @@
 import {
   actionRef,
+  getBuilderService,
   type IActionModel,
   type IActionService,
   type IActionWhere,
   type ICreateActionData,
+  isElementPageNodeRef,
   type IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -12,6 +14,8 @@ import { getTypeService } from '@codelab/frontend/domain/type'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
 import type { IActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
@@ -51,6 +55,11 @@ export class ActionService
   @computed
   get actionsList() {
     return [...this.actions.values()]
+  }
+
+  @computed
+  get builderService() {
+    return getBuilderService(this)
   }
 
   @modelFlow
@@ -168,6 +177,57 @@ export class ActionService
 
   action(id: string) {
     return this.actions.get(id)
+  }
+
+  getSelectActions(actionEntity?: IEntity) {
+    const { selectedNode } = this.builderService
+    const selectedNodeStore = selectedNode?.current.store.current
+
+    const providerStore = isElementPageNodeRef(selectedNode)
+      ? selectedNode.current.providerStore?.current
+      : undefined
+
+    const updatedAction = actionEntity
+      ? this.action(actionEntity.id)
+      : undefined
+
+    const parentActions = this.getParentActions(updatedAction)
+
+    return this.actionsList.filter((action) => {
+      const belongsToStore =
+        action.store.id === selectedNodeStore?.id ||
+        action.store.id === providerStore?.id
+
+      // when selecting success,error actions for an apiAction
+      // it should not appear in selection
+      const actionBeingUpdated = action.id === updatedAction?.id
+      // calling parent actions will cause infinite loop
+      const parentAction = parentActions.includes(action.id)
+
+      return belongsToStore && !actionBeingUpdated && !parentAction
+    })
+  }
+
+  private getParentActions(action?: IActionModel): Array<string> {
+    if (!action) {
+      return []
+    }
+
+    const parents = this.actionsList.filter(
+      (parent) =>
+        parent.type === IActionKind.ApiAction &&
+        (parent.successAction?.id === action.id ||
+          parent.errorAction?.id === action.id),
+    )
+
+    return (
+      parents
+        .map((parent) => parent.id)
+        // get parents of parents
+        .concat(
+          uniq(parents.flatMap((parent) => this.getParentActions(parent))),
+        )
+    )
   }
 
   private async recursiveClone(action: IActionModel, storeId: string) {
