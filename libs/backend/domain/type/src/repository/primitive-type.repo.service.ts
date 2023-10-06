@@ -3,7 +3,7 @@ import type {
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthDomainService } from '@codelab/backend/domain/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   exportPrimitiveTypeSelectionSet,
   OgmService,

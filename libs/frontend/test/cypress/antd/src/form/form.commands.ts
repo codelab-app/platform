@@ -1,4 +1,4 @@
-import { wrapSubject } from '@codelab/frontend/test/cypress/command'
+import { wrapSubject } from '@codelab/frontend/test/cypress/utils'
 import { EditorView } from '@codemirror/view'
 import { absoluteRoot } from '@hon2a/cypress-without'
 import escapeRegExp from 'lodash/escapeRegExp'
@@ -324,8 +324,8 @@ export const scrollSelectDropdown = (
   cy.wait(100)
   getSelectDropdown(options)
     .find('.rc-virtual-list-holder', options)
-    .then(
-      ($el) => $el[0]?.scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
+    .then(($el) =>
+      $el[0]?.scrollTo({ top: scrollToToVerticalPosition(scrollTo) }),
     )
 }
 

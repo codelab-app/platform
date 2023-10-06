@@ -3,7 +3,7 @@ import type {
   TagOptions,
   TagWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthDomainService } from '@codelab/backend/domain/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   OgmService,
   tagSelectionSet,
@@ -17,7 +17,6 @@ import {
   connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

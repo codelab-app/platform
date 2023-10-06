@@ -1,7 +1,7 @@
 import {
   type CypressElement,
   wrapSubject,
-} from '@codelab/frontend/test/cypress/command'
+} from '@codelab/frontend/test/cypress/utils'
 
 export const getIcon = (
   subject: any,

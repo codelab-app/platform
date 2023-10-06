@@ -1,7 +1,7 @@
 import type {
   CypressCommand,
   OmitFirstArg,
-} from '@codelab/frontend/test/cypress/command'
+} from '@codelab/frontend/test/cypress/shared'
 import { getButton } from './button.command'
 
 export interface AntButtonCommands {

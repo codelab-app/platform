@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { JwtAuthGuard } from '@codelab/backend/application/shared'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { UserApplicationModule } from '@codelab/backend/application/user'
-import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
@@ -19,7 +17,6 @@ import { endpointConfig } from '../platform/endpoint.config'
     //   port: 8000,
     // }),
     RequestContextModule,
-    OtelModule,
     AdminApplicationModule,
     UserApplicationModule,
     TagApplicationModule,

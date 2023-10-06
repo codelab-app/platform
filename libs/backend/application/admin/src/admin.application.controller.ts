@@ -1,7 +1,7 @@
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
-import { UserApplicationService } from '@codelab/backend/application/user'
 import { AdminRepository } from '@codelab/backend/domain/admin'
+import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { ExportDto, IAtomType, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -17,7 +17,7 @@ export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly adminRepository: AdminRepository,
-    private userService: UserApplicationService,
+    private seederService: SeederDomainService,
     // private seedCypressDataService: SeedCypressDataService,
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
@@ -83,7 +83,7 @@ export class AdminController {
    */
   @Post('setup-dev')
   async setup() {
-    await this.userService.seedUserFromRequest()
+    await this.seederService.seedUserFromRequest()
 
     const atoms = this.readAdminDataService.atoms.filter(
       ({ atom }) => atom.type === IAtomType.ReactFragment,
@@ -100,6 +100,6 @@ export class AdminController {
   async setupE2e() {
     await this.adminRepository.resetDatabase()
 
-    await this.userService.seedUserFromRequest()
+    await this.seederService.seedUserFromRequest()
   }
 }

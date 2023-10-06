@@ -1,0 +1,30 @@
+{
+  "name": "frontend-test-cypress-shared",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/test/cypress/shared/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/shared/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-test-cypress-shared.xml",
+          "quiet": true
+        }
+      }
+    }
+  },
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "type:test",
+    "scope:frontend"
+  ]
+}

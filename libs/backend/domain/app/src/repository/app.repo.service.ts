@@ -3,7 +3,7 @@ import type {
   AppOptions,
   AppWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthDomainService } from '@codelab/backend/domain/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   appSelectionSet,
   OgmService,

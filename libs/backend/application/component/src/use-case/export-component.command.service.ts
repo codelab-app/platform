@@ -11,7 +11,7 @@ import {
   FieldRepository,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
@@ -29,7 +29,6 @@ export class ExportComponentHandler
     private fieldRepository: FieldRepository,
     private elementRepository: ElementRepository,
     private commandBus: CommandBus,
-    private traceService: TraceService,
   ) {}
 
   @Span()

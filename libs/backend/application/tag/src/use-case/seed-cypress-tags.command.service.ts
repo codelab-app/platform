@@ -1,4 +1,3 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 import { Tag, TagRepository } from '@codelab/backend/domain/tag'
 import { createTagsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'

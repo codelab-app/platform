@@ -1,7 +1,7 @@
 import {
   type CypressElement,
   domClasses,
-} from '@codelab/frontend/test/cypress/command'
+} from '@codelab/frontend/test/cypress/utils'
 
 export const getSpinner = (subject: any): CypressElement =>
   subject

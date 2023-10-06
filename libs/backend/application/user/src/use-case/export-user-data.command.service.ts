@@ -1,5 +1,5 @@
 import { ExportAppsCommand } from '@codelab/backend/application/app'
-import { AuthDomainService } from '@codelab/backend/domain/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { UserRepository } from '@codelab/backend/domain/user'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
