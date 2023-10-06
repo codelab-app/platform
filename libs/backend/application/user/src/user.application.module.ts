@@ -12,7 +12,7 @@ import { UserApplicationController } from './user.application.controller'
 
 @Module({
   controllers: [UserApplicationController],
-  exports: [ExportUserDataHandler, UserApplicationService],
+  exports: [ExportUserDataHandler],
   imports: [
     UserDomainModule,
     AuthDomainModule,
@@ -23,6 +23,6 @@ import { UserApplicationController } from './user.application.controller'
     CqrsModule,
     AuthModule,
   ],
-  providers: [ExportUserDataHandler, UserApplicationService],
+  providers: [ExportUserDataHandler],
 })
 export class UserApplicationModule {}
