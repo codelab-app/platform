@@ -1,70 +1,55 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "5bae1642-a40f-45e5-b928-3787e996a4d2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "1086700e-7290-4fee-b80b-f7e2fcd6ffc3",
+          "kind": "EnumType",
+          "name": "HtmlBdo Dir Enum"
+        },
+        "id": "3c7480d8-906b-4fbd-be2e-a7a16de26bc4",
+        "key": "dir",
+        "name": "Dir",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "5bae1642-a40f-45e5-b928-3787e996a4d2",
     "kind": "InterfaceType",
     "name": "HtmlBdo API",
     "types": [
       {
-        "__typename": "InterfaceType",
-        "fields": [
+        "__typename": "EnumType",
+        "allowedValues": [
           {
-            "api": {
-              "id": "5bae1642-a40f-45e5-b928-3787e996a4d2"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "EnumType",
-              "id": "1086700e-7290-4fee-b80b-f7e2fcd6ffc3",
-              "kind": "EnumType",
-              "name": "HtmlBdo Dir Enum"
-            },
-            "id": "3c7480d8-906b-4fbd-be2e-a7a16de26bc4",
-            "key": "dir",
-            "name": "Dir",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
+            "id": "f2352d81-3bdb-415e-ad02-46bfb15d3c17",
+            "key": "rtl",
+            "value": "rtl"
+          },
+          {
+            "id": "24c94ec0-aa28-4896-a2a5-98427bee5a58",
+            "key": "ltr",
+            "value": "ltr"
           }
         ],
-        "id": "5bae1642-a40f-45e5-b928-3787e996a4d2",
-        "kind": "InterfaceType",
-        "name": "HtmlBdo API"
+        "id": "1086700e-7290-4fee-b80b-f7e2fcd6ffc3",
+        "kind": "EnumType",
+        "name": "HtmlBdo Dir Enum"
       }
     ]
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "5bae1642-a40f-45e5-b928-3787e996a4d2"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "EnumType",
-            "id": "1086700e-7290-4fee-b80b-f7e2fcd6ffc3",
-            "kind": "EnumType",
-            "name": "HtmlBdo Dir Enum"
-          },
-          "id": "3c7480d8-906b-4fbd-be2e-a7a16de26bc4",
-          "key": "dir",
-          "name": "Dir",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "5bae1642-a40f-45e5-b928-3787e996a4d2",
-      "kind": "InterfaceType",
-      "name": "HtmlBdo API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "5bae1642-a40f-45e5-b928-3787e996a4d2"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -76,16 +61,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "4328dbef-3804-4ec1-980a-aea611c4e6a0",
-        "name": "HtmlBdo",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-          "name": "Phrasing"
-        }
+        "id": "4328dbef-3804-4ec1-980a-aea611c4e6a0"
       }
     ],
     "type": "HtmlBdo"

@@ -1,184 +1,93 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "10c60780-305b-4e26-ac26-e25054ae7bb3",
+        "key": "title",
+        "name": "Title",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "68cea946-dff1-49e8-bd87-81a64f7019da",
+        "key": "description",
+        "name": "Description",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "8f5d3e9d-b47d-4a16-be8e-1b3ff84983f4",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7",
+        "key": "avatar",
+        "name": "Avatar",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac",
     "kind": "InterfaceType",
     "name": "AntDesignCardMeta API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "api": {
-              "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ReactNodeType",
-              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-              "kind": "ReactNodeType",
-              "name": "ReactNodeType"
-            },
-            "id": "10c60780-305b-4e26-ac26-e25054ae7bb3",
-            "key": "title",
-            "name": "Title",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ReactNodeType",
-              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-              "kind": "ReactNodeType",
-              "name": "ReactNodeType"
-            },
-            "id": "68cea946-dff1-49e8-bd87-81a64f7019da",
-            "key": "description",
-            "name": "Description",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "8f5d3e9d-b47d-4a16-be8e-1b3ff84983f4",
-            "key": "className",
-            "name": "Class Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ReactNodeType",
-              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-              "kind": "ReactNodeType",
-              "name": "ReactNodeType"
-            },
-            "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7",
-            "key": "avatar",
-            "name": "Avatar",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          }
-        ],
-        "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac",
-        "kind": "InterfaceType",
-        "name": "AntDesignCardMeta API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          },
-          "id": "10c60780-305b-4e26-ac26-e25054ae7bb3",
-          "key": "title",
-          "name": "Title",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          },
-          "id": "68cea946-dff1-49e8-bd87-81a64f7019da",
-          "key": "description",
-          "name": "Description",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "8f5d3e9d-b47d-4a16-be8e-1b3ff84983f4",
-          "key": "className",
-          "name": "Class Name",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          },
-          "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7",
-          "key": "avatar",
-          "name": "Avatar",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac",
-      "kind": "InterfaceType",
-      "name": "AntDesignCardMeta API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -190,16 +99,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "c87c84c4-be7e-4a71-b02d-77fb8a52bb1b",
-        "name": "Card.Meta",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "169331a2-19af-4404-981c-d44c03fef081",
-          "name": "Card"
-        }
+        "id": "c87c84c4-be7e-4a71-b02d-77fb8a52bb1b"
       }
     ],
     "type": "AntDesignCardMeta"

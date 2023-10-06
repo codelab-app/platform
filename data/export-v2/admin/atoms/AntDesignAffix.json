@@ -9,33 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-          "kind": "PrimitiveType",
-          "name": "Number"
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
         },
-        "id": "e504abbc-b42c-4f3d-a27d-aa721a54f90e",
-        "key": "offsetBottom",
-        "name": "Offset Bottom",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "f41f997d-a854-42fe-9b77-a98ea48fb94e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "id": "a66e843c-334d-4b31-900d-40816d16b26b",
-        "key": "offsetTop",
-        "name": "Offset Top",
+        "id": "02746390-9b61-4728-8ffb-b085b8442b09",
+        "key": "target",
+        "name": "Target",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -66,14 +47,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
         },
-        "id": "02746390-9b61-4728-8ffb-b085b8442b09",
-        "key": "target",
-        "name": "Target",
+        "id": "a66e843c-334d-4b31-900d-40816d16b26b",
+        "key": "offsetTop",
+        "name": "Offset Top",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "f41f997d-a854-42fe-9b77-a98ea48fb94e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "e504abbc-b42c-4f3d-a27d-aa721a54f90e",
+        "key": "offsetBottom",
+        "name": "Offset Bottom",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

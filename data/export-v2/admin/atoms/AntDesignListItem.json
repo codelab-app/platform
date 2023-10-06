@@ -1,108 +1,55 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "a8e4ae82-6107-4f64-acfd-d0bc7a18e391",
+        "key": "extra",
+        "name": "Extra",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "29e15b1b-5bee-496f-868e-05c6dbf7ce9a",
+        "key": "actions",
+        "name": "Actions",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0",
     "kind": "InterfaceType",
     "name": "AntDesignListItem API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "api": {
-              "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ReactNodeType",
-              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-              "kind": "ReactNodeType",
-              "name": "ReactNodeType"
-            },
-            "id": "a8e4ae82-6107-4f64-acfd-d0bc7a18e391",
-            "key": "extra",
-            "name": "Extra",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "ReactNodeType",
-              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-              "kind": "ReactNodeType",
-              "name": "ReactNodeType"
-            },
-            "id": "29e15b1b-5bee-496f-868e-05c6dbf7ce9a",
-            "key": "actions",
-            "name": "Actions",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          }
-        ],
-        "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0",
-        "kind": "InterfaceType",
-        "name": "AntDesignListItem API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          },
-          "id": "a8e4ae82-6107-4f64-acfd-d0bc7a18e391",
-          "key": "extra",
-          "name": "Extra",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "ReactNodeType",
-            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-            "kind": "ReactNodeType",
-            "name": "ReactNodeType"
-          },
-          "id": "29e15b1b-5bee-496f-868e-05c6dbf7ce9a",
-          "key": "actions",
-          "name": "Actions",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0",
-      "kind": "InterfaceType",
-      "name": "AntDesignListItem API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "fb08f3f9-ab4d-406f-b6a1-3fb8d97989b0"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -114,21 +61,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [
-          {
-            "id": "b7c0f897-e8dd-45df-b55f-1e67945736e3",
-            "name": "List.Item.Meta"
-          }
-        ],
-        "id": "229c5292-f6d2-4010-bb1a-c1d71e9a5f54",
-        "name": "List.Item",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "7ea2c791-fcd7-4138-af24-5eaad57db36e",
-          "name": "List"
-        }
+        "id": "229c5292-f6d2-4010-bb1a-c1d71e9a5f54"
       }
     ],
     "type": "AntDesignListItem"

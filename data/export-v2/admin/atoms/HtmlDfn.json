@@ -5,26 +5,12 @@
     "id": "f1e20a4e-f06a-40c0-a5a5-8e166762f77d",
     "kind": "InterfaceType",
     "name": "HtmlDfn API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "f1e20a4e-f06a-40c0-a5a5-8e166762f77d",
-        "kind": "InterfaceType",
-        "name": "HtmlDfn API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "f1e20a4e-f06a-40c0-a5a5-8e166762f77d",
-      "kind": "InterfaceType",
-      "name": "HtmlDfn API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "f1e20a4e-f06a-40c0-a5a5-8e166762f77d"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "e25eae2b-c789-4018-9377-723aec789003",
-        "name": "HtmlDfn",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
-          "name": "Phrasing"
-        }
+        "id": "e25eae2b-c789-4018-9377-723aec789003"
       }
     ],
     "type": "HtmlDfn"

@@ -1,108 +1,55 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
+        "key": "hoverable",
+        "name": "Hoverable",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
     "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
     "kind": "InterfaceType",
     "name": "AntDesignCardGrid API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "api": {
-              "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-              "kind": "PrimitiveType",
-              "name": "Boolean"
-            },
-            "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
-            "key": "hoverable",
-            "name": "Hoverable",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          },
-          {
-            "api": {
-              "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
-            },
-            "defaultValues": null,
-            "description": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
-            "key": "className",
-            "name": "Class Name",
-            "nextSibling": null,
-            "prevSibling": null,
-            "validationRules": null
-          }
-        ],
-        "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
-        "kind": "InterfaceType",
-        "name": "AntDesignCardGrid API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [
-        {
-          "api": {
-            "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-            "kind": "PrimitiveType",
-            "name": "Boolean"
-          },
-          "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
-          "key": "hoverable",
-          "name": "Hoverable",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        },
-        {
-          "api": {
-            "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
-          },
-          "defaultValues": null,
-          "description": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
-          "key": "className",
-          "name": "Class Name",
-          "nextSibling": null,
-          "prevSibling": null,
-          "validationRules": null
-        }
-      ],
-      "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
-      "kind": "InterfaceType",
-      "name": "AntDesignCardGrid API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -114,16 +61,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "70f2f0df-0905-4f21-846b-d3984e650469",
-        "name": "Card.Grid",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "169331a2-19af-4404-981c-d44c03fef081",
-          "name": "Card"
-        }
+        "id": "70f2f0df-0905-4f21-846b-d3984e650469"
       }
     ],
     "type": "AntDesignCardGrid"

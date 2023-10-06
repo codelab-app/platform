@@ -5,26 +5,12 @@
     "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc",
     "kind": "InterfaceType",
     "name": "HtmlP API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc",
-        "kind": "InterfaceType",
-        "name": "HtmlP API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc",
-      "kind": "InterfaceType",
-      "name": "HtmlP API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "62de7e55-660f-465b-9b04-5bbd2937a206",
-        "name": "HtmlP",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
-          "name": "Flow"
-        }
+        "id": "62de7e55-660f-465b-9b04-5bbd2937a206"
       }
     ],
     "type": "HtmlP"

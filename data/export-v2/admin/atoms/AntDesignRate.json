@@ -5,26 +5,12 @@
     "id": "47250e07-adcf-4e44-8528-93d903799b06",
     "kind": "InterfaceType",
     "name": "AntDesignRate API",
-    "types": [
-      {
-        "__typename": "InterfaceType",
-        "fields": [],
-        "id": "47250e07-adcf-4e44-8528-93d903799b06",
-        "kind": "InterfaceType",
-        "name": "AntDesignRate API"
-      }
-    ]
+    "types": []
   },
   "atom": {
     "api": {
       "__typename": "InterfaceType",
-      "fields": [],
-      "id": "47250e07-adcf-4e44-8528-93d903799b06",
-      "kind": "InterfaceType",
-      "name": "AntDesignRate API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      }
+      "id": "47250e07-adcf-4e44-8528-93d903799b06"
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -36,16 +22,7 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "children": [],
-        "id": "6966c0d3-fbaa-452c-a7ba-1149ffb9aa73",
-        "name": "Rate",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
-        "parent": {
-          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
-          "name": "Data Entry"
-        }
+        "id": "6966c0d3-fbaa-452c-a7ba-1149ffb9aa73"
       }
     ],
     "type": "AntDesignRate"
