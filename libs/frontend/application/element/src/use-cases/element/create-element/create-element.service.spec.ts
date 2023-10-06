@@ -41,15 +41,17 @@ describe('CreateElementService', () => {
   const rootElement = elementService.add(rootElementDto)
 
   it('can create element as first child', async () => {
-    const firstChild =
-      await createElementService.createElementAsFirstChild(firstChildDto)
+    const firstChild = await createElementService.createElementAsFirstChild(
+      firstChildDto,
+    )
 
     expect(firstChild.parentElement?.maybeCurrent).toBe(rootElement)
   })
 
   it('should compute isRoot', async () => {
-    const firstChild =
-      await createElementService.createElementAsFirstChild(firstChildDto)
+    const firstChild = await createElementService.createElementAsFirstChild(
+      firstChildDto,
+    )
 
     expect(rootElement.isRoot).toBeTruthy()
 

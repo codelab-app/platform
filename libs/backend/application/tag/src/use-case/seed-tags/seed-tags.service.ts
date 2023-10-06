@@ -1,13 +1,12 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import { UseCase } from '@codelab/backend/application/shared'
-import type { TagRepository } from '@codelab/backend/domain/tag'
-import { type ITagDTO } from '@codelab/shared/abstract/core'
-import type { CommandBus } from '@nestjs/cqrs'
+import { TagRepository } from '@codelab/backend/domain/tag'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
+import { Injectable } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
 import uniqBy from 'lodash/uniqBy'
 import { v4 } from 'uuid'
 import { ImportTagsCommand } from '../import-tags.command.service'
 import { TagTreeUtils } from './seed-tags.util'
-import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class SeedTagsService {
@@ -16,20 +15,10 @@ export class SeedTagsService {
     private commandBus: CommandBus,
   ) {}
 
-  async execute(tagTree: TagNode) {
-    const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
-
-    await this.commandBus.execute<ImportTagsCommand>(
-      new ImportTagsCommand(tags),
-    )
-  }
-
   /* *
    * Here we want to flatten the hierarchical data
    */
   async createTagsData(tagTree: TagNode): Promise<Array<ITagDTO>> {
-    console.log(this)
-
     const existingTags = new Map(
       (await this.tagRepository.find()).map((tag) => [tag.name, tag]),
     )
@@ -68,5 +57,13 @@ export class SeedTagsService {
         parent: parent ? { id: parent.id, name: parent.name } : undefined,
       }
     })
+  }
+
+  async execute(tagTree: TagNode) {
+    const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
+
+    await this.commandBus.execute<ImportTagsCommand>(
+      new ImportTagsCommand(tags),
+    )
   }
 }

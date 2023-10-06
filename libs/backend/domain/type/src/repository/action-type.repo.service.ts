@@ -3,7 +3,7 @@ import type {
   ActionTypeOptions,
   ActionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthDomainService } from '@codelab/backend/domain/shared'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   exportActionTypeSelectionSet,
   OgmService,

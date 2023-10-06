@@ -107,8 +107,14 @@
       "@codelab/backend/domain/resource": [
         "libs/backend/domain/resource/src/index.ts"
       ],
-      "@codelab/backend/domain/shared": [
-        "libs/backend/domain/shared/src/index.ts"
+      "@codelab/backend/domain/shared/auth": [
+        "libs/backend/domain/shared/auth/src/index.ts"
+      ],
+      "@codelab/backend/domain/shared/modules": [
+        "libs/backend/domain/shared/modules/src/index.ts"
+      ],
+      "@codelab/backend/domain/shared/seeder": [
+        "libs/backend/domain/shared/seeder/src/index.ts"
       ],
       "@codelab/backend/domain/store": [
         "libs/backend/domain/store/src/index.ts"
@@ -309,14 +315,17 @@
       "@codelab/frontend/test/cypress/antd": [
         "libs/frontend/test/cypress/antd/src/index.ts"
       ],
-      "@codelab/frontend/test/cypress/codelab": [
-        "libs/frontend/test/cypress/codelab/src/index.ts"
-      ],
-      "@codelab/frontend/test/cypress/command": [
-        "libs/frontend/test/cypress/command/src/index.ts"
+      "@codelab/frontend/test/cypress/cui": [
+        "libs/frontend/test/cypress/cui/src/index.ts"
       ],
       "@codelab/frontend/test/cypress/nextjs-auth0": [
         "libs/frontend/test/cypress/nextjs-auth0/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/shared": [
+        "libs/frontend/test/cypress/shared/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/utils": [
+        "libs/frontend/test/cypress/utils/src/index.ts"
       ],
       "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
       "@codelab/frontend/test/store": ["libs/frontend/test/store/src/index.ts"],

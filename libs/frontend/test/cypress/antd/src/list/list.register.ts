@@ -1,4 +1,4 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/command'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
 import { getListItem } from './list.command'
 
 export interface AntListCommands {

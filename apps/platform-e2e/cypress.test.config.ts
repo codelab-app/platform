@@ -1,10 +1,10 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { areDirectoriesIdentical } from 'libs/backend/shared/util/src/file/directory-compare'
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { encrypt } from 'libs/frontend/test/cypress/nextjs-auth0/src/utils/encrypt'
+import { sessionFromToken } from 'libs/frontend/test/cypress/nextjs-auth0/src/utils/session'
 import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
@@ -44,6 +44,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     on('task', {
       areDirectoriesIdentical,
       encrypt,
+      sessionFromToken,
     })
   },
   testIsolation: false,

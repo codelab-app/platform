@@ -1,4 +1,4 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/command'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
 import {
   _clearAuth0Cookie,
   _clearAuth0SplittedCookies,
@@ -9,6 +9,7 @@ import { getUserTokens } from './commands/get-user-tokens'
 import { login } from './commands/login'
 import { logout } from './commands/logout'
 import { _setAuth0Cookie } from './commands/set-auth0-cookie'
+import { loginToAuth0 } from './official/login-vai-auth0-ui'
 
 export const nextjsAuth0Commands: Array<CypressCommand> = [
   {
@@ -50,5 +51,9 @@ export const nextjsAuth0Commands: Array<CypressCommand> = [
   {
     fn: _setAuth0Cookie,
     name: '_setAuth0Cookie',
+  },
+  {
+    fn: loginToAuth0,
+    name: 'loginToAuth0',
   },
 ]

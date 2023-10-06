@@ -1,4 +1,5 @@
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import { cLog } from '@codelab/shared/utils'
 import { appName, updatedAppName } from './apps/app.data'
 
 describe('Apps CRUD', () => {

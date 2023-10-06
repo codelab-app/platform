@@ -14,23 +14,22 @@
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
 import { antCommands } from '@codelab/frontend/test/cypress/antd'
-import { codelabCommands } from '@codelab/frontend/test/cypress/codelab'
-import {
-  helperCommands,
-  registerCommands,
-} from '@codelab/frontend/test/cypress/command'
+import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
 import { nextjsAuth0Commands } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import { builderCommands } from './builder/builder.register'
-import { textEditorCommands } from './text-editor/text-editor.register'
+import { registerCommands } from '@codelab/frontend/test/cypress/shared'
+import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
+import { commands } from './commands'
 
 /**
  * When we register, the global Cypress types are loaded in the command files
  */
 registerCommands([
-  ...textEditorCommands,
   ...antCommands,
   ...codelabCommands,
-  ...helperCommands,
+  ...utilsCommands,
   ...nextjsAuth0Commands,
-  ...builderCommands,
+  /**
+   * These commands depend on the previous
+   */
+  ...commands,
 ])

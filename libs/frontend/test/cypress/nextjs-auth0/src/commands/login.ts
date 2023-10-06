@@ -1,4 +1,5 @@
 import type { Session } from '@auth0/nextjs-auth0'
+import type { TokenEndpointResponse } from '@auth0/nextjs-auth0/dist/auth0-session'
 
 interface LoginCredentials {
   password?: string
@@ -7,9 +8,13 @@ interface LoginCredentials {
 
 export const loginAndSetupData = () => {
   cy.session(
-    ['auth0-session-1'],
+    ['auth0-session'],
     () => {
-      login()
+      cy.loginToAuth0(
+        Cypress.env('auth0Username'),
+        Cypress.env('auth0Password'),
+      )
+      // login()
     },
     {
       cacheAcrossSpecs: true,
@@ -23,7 +28,11 @@ export const loginAndSetupData = () => {
    * Reset database, seed user & react fragment
    */
   //
-  return cy.postApiRequest('/api/data/admin/setup-e2e')
+  // return cy.postApiRequest('/api/data/admin/setup-e2e')
+  // return cy.postApiRequest('/api/login-session', {
+  //   password: Cypress.env('auth0Password'),
+  //   username: Cypress.env('auth0Username'),
+  // })
 }
 
 export const login = ({
@@ -34,7 +43,14 @@ export const login = ({
 
   try {
     return cy.getUserTokens({ password, username }).then((response: any) => {
-      const { accessToken, expiresIn, idToken, scope } = response
+      const {
+        accessToken,
+        expiresIn,
+        idToken,
+        refreshToken,
+        scope,
+        tokenType,
+      } = response
 
       return cy.getUserInfo(accessToken).then((user) => {
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L44 */
@@ -48,6 +64,17 @@ export const login = ({
           createdAt: Date.now(),
           idToken,
           secret: Cypress.env('auth0CookieSecret'),
+          user,
+        }
+
+        const tokenEndpointResponse: TokenEndpointResponse = {
+          access_token: accessToken,
+          expires_in: expiresIn,
+          id_token: idToken,
+          refresh_token: refreshToken,
+          scope,
+          secret: Cypress.env('auth0CookieSecret'),
+          token_type: tokenType,
           user,
         }
 
@@ -65,13 +92,19 @@ export const login = ({
 
         //   return Promise.resolve(payload)
         // })
-
-        cy.task('encrypt', payload).then((encryptedSession) => {
+        // sessionCache.create(req, res, mySession)
+        cy.task('sessionFromToken', tokenEndpointResponse).then((session) => {
+          console.log('session', session)
+          cy.setCookie('app_session', JSON.stringify(session))
           // cy.setCookie('access_token', accessToken)
           // cy.setCookie('id_token', idToken)
-          // cy.setCookie('user', JSON.stringify(user))
-          cy._setAuth0Cookie(encryptedSession as string)
         })
+
+        // cy.task('encrypt', payload).then((encryptedSession) => {
+        //   // cy.setCookie('access_token', accessToken)
+        //   // cy.setCookie('id_token', idToken)
+        //   // cy._setAuth0Cookie(encryptedSession as string)
+        // })
       })
     })
   } catch (error) {

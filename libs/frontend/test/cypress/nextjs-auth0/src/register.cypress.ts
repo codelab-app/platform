@@ -9,6 +9,7 @@ import type { getUserTokens } from './commands/get-user-tokens'
 import type { login } from './commands/login'
 import type { logout } from './commands/logout'
 import type { _setAuth0Cookie } from './commands/set-auth0-cookie'
+import type { loginToAuth0 } from './official/login-vai-auth0-ui'
 
 declare global {
   namespace Cypress {
@@ -25,18 +26,14 @@ export interface CypressNextjsAuth0Commands {
   // encrypt: typeof encrypt
   // set-auth0-cookie
   _setAuth0Cookie: typeof _setAuth0Cookie
-
   clearAuth0Cookies: typeof clearAuth0Cookies
-
   // get-user-info
   getUserInfo: typeof getUserInfo
-
   // get-user-token
   getUserTokens: typeof getUserTokens
-
   // login
   login: typeof login
-
+  loginToAuth0: typeof loginToAuth0
   // logout
   logout: typeof logout
 }

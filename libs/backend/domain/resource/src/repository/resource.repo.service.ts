@@ -3,7 +3,7 @@ import {
   type ResourceOptions,
   type ResourceWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { AuthDomainService } from '@codelab/backend/domain/shared'
+import type { AuthDomainService } from '@codelab/backend/domain/user'
 import type { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
 import type { TraceService } from '@codelab/backend/infra/adapter/otel'

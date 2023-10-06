@@ -2,12 +2,11 @@ import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { ComponentApplicationModule } from '@codelab/backend/application/component'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { StoreApplicationModule } from '@codelab/backend/application/store'
-import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { AdminDomainModule } from '@codelab/backend/domain/admin'
-import { AuthDomainModule } from '@codelab/backend/domain/shared'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
+import { SeederDomainModule } from '@codelab/backend/domain/shared/seeder'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { AdminController } from './admin.application.controller'
@@ -17,17 +16,19 @@ import { ImportAdminDataHandler } from './use-case/import/import-admin-data.comm
 @Module({
   controllers: [AdminController],
   imports: [
+    /**
+     * Domain
+     */
+    SeederDomainModule,
     CqrsModule,
+    SharedDomainModule,
     SharedApplicationModule,
-    ValidationModule,
-    AuthDomainModule,
+    AdminDomainModule,
     /**
      * Application
      */
-    AdminDomainModule,
     AtomApplicationModule,
     StoreApplicationModule,
-    TagApplicationModule,
     ComponentApplicationModule,
     TypeApplicationModule,
     UserApplicationModule,

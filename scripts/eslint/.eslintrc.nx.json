@@ -72,7 +72,8 @@
                 "onlyDependOnLibsWithTags": [
                   "type:test",
                   "type:abstract",
-                  "type:data"
+                  "type:data",
+                  "scope:shared"
                 ]
               },
               // Domain layer cannot depend on application

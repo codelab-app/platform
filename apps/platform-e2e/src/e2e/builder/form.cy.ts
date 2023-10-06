@@ -10,7 +10,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import type { ElementData } from '../../support/builder/builder.command'
+import type { ElementData } from '../../../../../libs/frontend/test/cypress/helper/src/builder/builder.command'
 
 const ELEMENT_FORM = 'Element Form'
 const ELEMENT_FORM_ITEM_INPUT = 'Element Form Item Input'

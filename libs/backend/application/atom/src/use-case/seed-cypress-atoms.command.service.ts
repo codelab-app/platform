@@ -1,4 +1,3 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import { type IAtomDTO } from '@codelab/shared/abstract/core'

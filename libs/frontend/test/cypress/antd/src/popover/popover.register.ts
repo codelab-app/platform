@@ -1,4 +1,4 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/command'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
 import { getPopover, hidePopover, showPopover } from './popover.command'
 
 export interface AntPopoverCommands {

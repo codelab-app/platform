@@ -1,4 +1,3 @@
-/* eslint-disable @nx/enforce-module-boundaries */
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { CommandHandler } from '@nestjs/cqrs'
 

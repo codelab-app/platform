@@ -1,28 +1,20 @@
 import { AdminRepository } from '@codelab/backend/domain/admin'
-import { OgmModule } from '@codelab/backend/infra/adapter/neo4j'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
+import { UserDomainModule } from '@codelab/backend/domain/user'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo.service'
-import {
-  AuthDomainService,
-  SharedDomainModule,
-} from '@codelab/backend/domain/shared'
-import {
-  UserApplicationModule,
-  UserApplicationService,
-} from '@codelab/backend/application/user'
-import { UserDomainModule } from '@codelab/backend/domain/user'
 
 describe('Tag repository.', () => {
   let tagRepository: TagRepository
   let adminRepository: AdminRepository
-  let userService: UserApplicationService
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [SharedDomainModule, UserApplicationModule, UserDomainModule],
+      imports: [SharedDomainModule, UserDomainModule],
       providers: [TagRepository, AdminRepository],
     })
       .overrideProvider(AuthDomainService)
@@ -37,12 +29,11 @@ describe('Tag repository.', () => {
       })
       .compile()
 
-    userService = module.get<UserApplicationService>(UserApplicationService)
     adminRepository = module.get<AdminRepository>(AdminRepository)
     tagRepository = module.get<TagRepository>(TagRepository)
 
     await adminRepository.resetDatabase(false)
-    await userService.seedUserFromRequest()
+    // await userService.seedUserFromRequest()
   })
 
   it('can create a tag', async () => {
