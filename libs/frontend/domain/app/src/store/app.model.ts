@@ -99,8 +99,15 @@ export class App
   static create = create
 
   @modelAction
+<<<<<<< HEAD
   addPageInCache(pageDto: IPageDTO) {
     const existingPage = this.page(pageDto.id)
+=======
+  page(id: string) {
+    const currentPage = this.pages.find(
+      (page) => page.current.id === id,
+    )?.maybeCurrent
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
 
     if (existingPage) {
       return existingPage.writeCache(pageDto)

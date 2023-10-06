@@ -7,7 +7,6 @@ import uniqBy from 'lodash/uniqBy'
 import { v4 } from 'uuid'
 import { ImportTagsCommand } from '../import-tags.command.service'
 import { TagTreeUtils } from './seed-tags.util'
-import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class SeedTagsService {
@@ -20,8 +19,6 @@ export class SeedTagsService {
    * Here we want to flatten the hierarchical data
    */
   async createTagsData(tagTree: TagNode): Promise<Array<ITagDTO>> {
-    console.log(this)
-
     const existingTags = new Map(
       (await this.tagRepository.find()).map((tag) => [tag.name, tag]),
     )

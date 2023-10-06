@@ -5,11 +5,15 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
+<<<<<<< HEAD
 <<<<<<<< HEAD:libs/backend/domain/shared/auth/.eslintrc.json
         "project": ["libs/backend/domain/shared/auth/tsconfig.*?.json"]
 ========
         "project": ["libs/frontend/application/shared/store/tsconfig.*?.json"]
 >>>>>>>> e4701781d (wip: update project tags):libs/frontend/application/shared/store/.eslintrc.json
+=======
+        "project": ["libs/backend/domain/shared/auth/tsconfig.*?.json"]
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
       },
       "rules": {}
     },

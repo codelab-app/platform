@@ -1,6 +1,9 @@
 import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
 import { wrapSubject } from '@codelab/frontend/test/cypress/utils'
+<<<<<<< HEAD
 import type { CypressElement } from '@codelab/testing/cypress/command'
+=======
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
 import type { Label } from '../types'
 
 interface ButtonSelector {

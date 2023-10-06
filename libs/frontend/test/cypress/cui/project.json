@@ -1,7 +1,14 @@
 {
+<<<<<<< HEAD
+<<<<<<<< HEAD:libs/frontend/test/cypress/cui/project.json
   "name": "frontend-test-cypress-codelab",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/test/cypress/cui/src",
+========
+  "name": "frontend-test-cypress-utils",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/test/cypress/utils/src",
+>>>>>>>> eb2460d7a (ci: fix cypress after upgrade):libs/frontend/test/cypress/utils/project.json
   "projectType": "library",
   "targets": {
     "lint": {
@@ -9,13 +16,38 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
+<<<<<<<< HEAD:libs/frontend/test/cypress/cui/project.json
           "libs/frontend/test/cypress/cui/**/*.{ts,tsx,js,jsx,graphql}"
+========
+          "libs/frontend/test/cypress/utils/**/*.{ts,tsx,js,jsx,graphql}"
+>>>>>>>> eb2460d7a (ci: fix cypress after upgrade):libs/frontend/test/cypress/utils/project.json
+=======
+  "name": "frontend-test-cypress-codelab",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/test/cypress/cui/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/cui/**/*.{ts,tsx,js,jsx,graphql}"
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
         ]
       },
       "configurations": {
         "ci": {
           "format": "junit",
+<<<<<<< HEAD
+<<<<<<<< HEAD:libs/frontend/test/cypress/cui/project.json
           "outputFile": "tmp/reports/lint/frontend-test-cypress-codelab.xml",
+========
+          "outputFile": "tmp/reports/lint/frontend-test-cypress-utils.xml",
+>>>>>>>> eb2460d7a (ci: fix cypress after upgrade):libs/frontend/test/cypress/utils/project.json
+=======
+          "outputFile": "tmp/reports/lint/frontend-test-cypress-codelab.xml",
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
           "quiet": true
         }
       }

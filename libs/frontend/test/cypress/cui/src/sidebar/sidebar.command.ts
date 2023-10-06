@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<<< HEAD:libs/frontend/test/cypress/cui/src/sidebar/sidebar.command.ts
 import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
 import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
@@ -5,6 +6,22 @@ import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
 import { CY_DATA_SELECTOR } from '@codelab/frontend/abstract/testing'
 import type { CypressElement } from '@codelab/frontend/test/cypress/command'
 >>>>>>>> e4701781d (wip: update project tags):libs/frontend/test/cypress/codelab/src/sidebar/sidebar.command.ts
+=======
+<<<<<<< HEAD
+<<<<<<<< HEAD:libs/frontend/test/cypress/cui/src/sidebar/sidebar.command.ts
+import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
+import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
+<<<<<<<< HEAD:libs/frontend/test/cypress/codelab/src/sidebar/sidebar.command.ts
+========
+import { CY_DATA_SELECTOR } from '@codelab/frontend/abstract/testing'
+=======
+import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
+>>>>>>> 6a8128374 (wip: separate interface to application & domain layer)
+import type { CypressElement } from '@codelab/frontend/test/cypress/command'
+>>>>>>>> e4701781d (wip: update project tags):libs/frontend/test/cypress/codelab/src/sidebar/sidebar.command.ts
+========
+>>>>>>>> eb2460d7a (ci: fix cypress after upgrade):libs/frontend/test/cypress/cui/src/sidebar/sidebar.command.ts
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 export const getCuiSidebar = (label: string) => {

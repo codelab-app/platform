@@ -26,12 +26,64 @@ export const SelectElement = ({
   const { elementTree } = useFormContext()
   const { elementService } = useStore()
 
+<<<<<<< HEAD
   const selectOptions = elementService.getSelectElementOptions({
     allElementOptions,
     elementTree,
     kind,
     targetElementId,
   })
+=======
+  allElementOptions ??=
+    elementTree?.elements.map(({ children, id, label }) => ({
+      childrenIds: children.map((child) => child.id),
+      label: label,
+      value: id,
+    })) ?? []
+
+  const targetElement = allElementOptions.find(
+    (element) => element.value === targetElementId,
+  )
+
+  const elementMap = allElementOptions.reduce((acc, element) => {
+    acc[element.value] = element
+
+    return acc
+  }, {} as Record<string, SelectElementOption>)
+
+  if (!targetElement) {
+    elements = allElementOptions
+  } else {
+    switch (kind) {
+      case IElementTypeKind.AllElements:
+        elements = allElementOptions
+        break
+
+      case IElementTypeKind.ChildrenOnly: {
+        elements = getElementChildren(targetElement, elementMap)
+
+        break
+      }
+
+      case IElementTypeKind.DescendantsOnly: {
+        elements = getDescendants(targetElement, elementMap)
+
+        break
+      }
+
+      case IElementTypeKind.ExcludeDescendantsElements:
+        elements = difference(
+          allElementOptions,
+          getDescendants(targetElement, elementMap),
+        )
+          // remove the ele ment itself
+          .filter(({ value }) => value !== targetElement.value)
+        break
+      default:
+        elements = []
+    }
+  }
+>>>>>>> eb2460d7a (ci: fix cypress after upgrade)
 
   return (
     <SelectField
