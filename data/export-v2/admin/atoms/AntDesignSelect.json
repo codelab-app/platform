@@ -882,6 +882,198 @@
     "name": "AntDesignSelect API",
     "types": [
       {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "a590221a-42bf-4c5d-bd3b-0e9d7d46261c",
+            "key": "string",
+            "value": "string"
+          },
+          {
+            "id": "1171e193-98ae-4a65-b7d5-44d2bc8b6886",
+            "key": "number[]\nLabeledValue",
+            "value": "number[]\nLabeledValue"
+          },
+          {
+            "id": "d2d848b4-f71a-445b-8b56-25ae27d9cb9c",
+            "key": "string[]\nnumber",
+            "value": "string[]\nnumber"
+          },
+          {
+            "id": "5623b3b5-8592-499b-ae65-d3c4c99f12ed",
+            "key": "LabeledValue[]",
+            "value": "LabeledValue[]"
+          }
+        ],
+        "id": "01bdee13-ca65-4ede-99bf-3497f6cc3c62",
+        "kind": "EnumType",
+        "name": "AntDesignSelect Default Value Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "2b43ea60-f36c-4145-b3f2-9731cdf0a8e9",
+            "key": "boolean",
+            "value": "boolean"
+          },
+          {
+            "id": "cd25da41-ae73-4238-b8c8-83e70ec54d20",
+            "key": "number",
+            "value": "number"
+          }
+        ],
+        "id": "c422630c-e2e3-4ee2-b1bf-fc39ab032060",
+        "kind": "EnumType",
+        "name": "AntDesignSelect Dropdown Match Select Width Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "9d80e305-df77-44e2-8279-164127f3c7d8",
+            "key": "boolean",
+            "value": "boolean"
+          },
+          {
+            "id": "04da7757-b089-4f72-bb04-2a950391cb3d",
+            "key": "function(inputValue, option)",
+            "value": "function(inputValue, option)"
+          }
+        ],
+        "id": "5858db57-3699-4bc2-9e9e-5d7d357248ca",
+        "kind": "EnumType",
+        "name": "AntDesignSelect Filter Option Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "0069b31b-7c17-472a-9907-8e7b635c0818",
+            "key": "responsive",
+            "value": "responsive"
+          },
+          {
+            "id": "478569ad-b71b-487c-941a-ae96bf65b12f",
+            "key": "number",
+            "value": "number"
+          }
+        ],
+        "id": "896c91c5-e7bd-48d2-85af-3cb030d09865",
+        "kind": "EnumType",
+        "name": "AntDesignSelect Max Tag Count Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "dae150e1-608a-41b3-93f3-9ead1b4b286f",
+            "key": "ReactNode",
+            "value": "ReactNode"
+          },
+          {
+            "id": "882e60f7-95f6-4c02-97b2-15f0b305fce7",
+            "key": "function(omittedValues)",
+            "value": "function(omittedValues)"
+          }
+        ],
+        "id": "9c795564-4748-4062-9687-b70ab2498f9e",
+        "kind": "EnumType",
+        "name": "AntDesignSelect Max Tag Placeholder Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "5f3f6049-ca91-42a9-b16c-fa55fe07d353",
+            "key": "tags",
+            "value": "tags"
+          },
+          {
+            "id": "d223ddd3-aa03-433d-a772-54c99a03054c",
+            "key": "multiple",
+            "value": "multiple"
+          }
+        ],
+        "id": "7e445e6c-a01b-4077-8ee5-c570f9ba7d46",
+        "kind": "EnumType",
+        "name": "AntDesignSelect Mode Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "edebda51-2cae-4c23-a38b-034b30bd7939",
+            "key": "function(value, option:Option",
+            "value": "function(value, option:Option"
+          },
+          {
+            "id": "f3e426e9-86c8-4db1-b7ab-7ba9c8335f94",
+            "key": "Array<Option>)",
+            "value": "Array<Option>)"
+          }
+        ],
+        "id": "dca60c97-3dc8-440c-9b58-ea776e836f7c",
+        "kind": "EnumType",
+        "name": "AntDesignSelect On Change Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "7b74d69e-ae6c-4037-9ac3-f348845f9e3e",
+            "key": "LabeledValue)",
+            "value": "LabeledValue)"
+          },
+          {
+            "id": "2211cc5e-5adc-4a14-91d4-ffc330516048",
+            "key": "function(string",
+            "value": "function(string"
+          },
+          {
+            "id": "9e8fc0cb-6810-4803-a238-f1aa293209bb",
+            "key": "number",
+            "value": "number"
+          }
+        ],
+        "id": "0a2a332d-410d-4827-b823-00dee4c7f6c2",
+        "kind": "EnumType",
+        "name": "AntDesignSelect On Deselect Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "37c0aece-6a37-465e-8ddd-0e6dbf5a156f",
+            "key": "LabeledValue, option: Option)",
+            "value": "LabeledValue, option: Option)"
+          },
+          {
+            "id": "8dd0633a-68e0-444f-beb6-c44ded7ed61d",
+            "key": "number",
+            "value": "number"
+          },
+          {
+            "id": "9b3e4ce9-6225-441e-9688-e84b02a875a5",
+            "key": "function(string",
+            "value": "function(string"
+          }
+        ],
+        "id": "8306dde3-afe3-49ac-8e79-6acb979a28aa",
+        "kind": "EnumType",
+        "name": "AntDesignSelect On Select Enum"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
+        "itemType": {
+          "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+          "kind": "InterfaceType"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignSelect Options"
+      },
+      {
         "__typename": "InterfaceType",
         "fields": [
           {
