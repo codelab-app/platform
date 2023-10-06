@@ -6,11 +6,8 @@ import {
 import { IAtomType } from '@codelab/shared/abstract/core'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
-import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
-import type { DraggableElementProps } from './DraggableElement'
-import { DraggableElementWrapper } from './DraggableElementWrapper'
 
 const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
   ssr: false,
@@ -47,14 +44,6 @@ export const getReactComponent = (renderOutput: IRenderOutput) => {
   return atomType ? getAtom(atomType) ?? Fragment : Fragment
 }
 
-export const makeCustomTextContainer = (customText: string) =>
-  React.createElement('div', {
-    className: 'ql-container override-ql-container ql-snow',
-    dangerouslySetInnerHTML: {
-      __html: `<div class="ql-editor override-ql-editor">${customText}</div>`,
-    },
-  })
-
 export const createTextEditor = (
   customText: string,
   elementId: string,
@@ -69,18 +58,6 @@ export const createTextEditor = (
 
 export const createTextRenderer = (customText: string) =>
   React.createElement(TextRenderer, { data: customText })
-
-export const noWrapper = () => (children: ReactElement) => children
-
-export const makeDraggableElement = ({
-  element,
-  makeRenderedElements,
-}: DraggableElementProps) => {
-  return React.createElement(DraggableElementWrapper, {
-    element,
-    makeRenderedElements,
-  })
-}
 
 let dragImage: HTMLElement | undefined
 

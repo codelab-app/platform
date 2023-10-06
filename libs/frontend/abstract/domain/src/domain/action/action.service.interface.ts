@@ -4,7 +4,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IActionDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -33,6 +33,7 @@ export interface IActionService
       'createForm'
     > {
   actionFactory: IActionFactory
+  actions: ObjectMap<IActionModel>
   actionsList: Array<IActionModel>
   createForm: IEntityFormService<
     Ref<IStoreModel>,

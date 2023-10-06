@@ -12639,6 +12639,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chance@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@types/chance@npm:1.1.4"
+  checksum: 0ce6a654e6702237800b01ae7889209a98752ed4792d810b5007c27c046972988ac6fcc36063bdc7ede37d3ab1d0fd0a7bb3e405d4566c80debd9e663a90bbb0
+  languageName: node
+  linkType: hard
+
 "@types/concurrently@npm:6.4.0":
   version: 6.4.0
   resolution: "@types/concurrently@npm:6.4.0"
@@ -17395,6 +17402,7 @@ __metadata:
     "@types/auth0-js": ^9.21.1
     "@types/aws-lambda": ^8.10.116
     "@types/buble": ^0.20.1
+    "@types/chance": ^1.1.4
     "@types/concurrently": 6.4.0
     "@types/cookie": ^0.5.1
     "@types/diff": ^5.0.3
@@ -17456,6 +17464,7 @@ __metadata:
     aws-lambda: ^1.0.7
     axios: ^1.5.0
     chalk: 4.1.2
+    chance: ^1.1.11
     class-transformer: ^0.5.1
     class-validator: ^0.14.0
     classnames: ^2.3.2
@@ -17515,6 +17524,7 @@ __metadata:
     eslint-plugin-unused-imports: 2.0.0
     execa: 5.1.1
     find-up: ^5.0.0
+    fishery: ^2.2.2
     flat: ^5.0.2
     framer-motion: 6.3.3
     futoin-hkdf: ^1.4.3
@@ -22380,6 +22390,15 @@ __metadata:
     micromatch: ^4.0.2
     resolve-dir: ^1.0.1
   checksum: 94131e1107ad63790ed00c4c39ca131a93ea602607bd97afeffd92b69a9a63cf2c6f57d6db88cb753fe748ac7fde79e1e76768ff784247026b7c5ebf23ede3a0
+  languageName: node
+  linkType: hard
+
+"fishery@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "fishery@npm:2.2.2"
+  dependencies:
+    lodash.mergewith: ^4.6.2
+  checksum: 270a90bb69c16b73e4dc3df20e0c9d7f54feed3658114c0fcdeda726634b624b89cfa39d3858170db85d9f5ef6fe130ffb16b0056e3dbe6a1473629e754f14cb
   languageName: node
   linkType: hard
 

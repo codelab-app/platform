@@ -6,7 +6,7 @@ import type { IExpressionTransformer } from '../builder'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPageNode, IPageNodeRef } from '../page'
 import type { IActionRunner } from './action.runner.model.interface'
-import type { IRenderOutput } from './render.interface'
+import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type {
   IRuntimeProp,
   ITypedPropTransformer,
@@ -25,6 +25,7 @@ export interface IRenderer {
   expressionTransformer: IExpressionTransformer
   id: string
   providerTree: Nullable<Ref<IElementTree>>
+  renderPipe: IRenderPipe
   rendererType: RendererType
   runtimeProps: ObjectMap<IRuntimeProp<IPageNode>>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
