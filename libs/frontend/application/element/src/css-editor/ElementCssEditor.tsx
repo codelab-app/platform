@@ -11,6 +11,7 @@ import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { InheritedStyles } from './inherited-styles/InheritedStyles'
 import { StylesEditor } from './StylesEditor'
+import { TailwindClassEditor } from './tailwind-class-editor/TailwindClassEditor'
 
 const autosaveTimeout = 1000
 
@@ -33,6 +34,7 @@ export interface ElementCssEditorInternalProps {
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
     const lastStateRef = useRef(element.style)
+    const lastTailwindClassNames = useRef(element.tailwindClassNames)
 
     const cssChangeHandler = useDebouncedCallback(
       (value: string) => element.setCustomCss(value),
@@ -44,15 +46,21 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       // TODO: Make this ito IElementDto
       (updatedElement: IElementModel) => {
         const oldStyle = lastStateRef.current
-        const { style } = updatedElement
+        const oldTailwindClassNames = lastTailwindClassNames.current
+        const { style, tailwindClassNames } = updatedElement
 
         // do not send request if value was not changed
-        if (oldStyle !== style) {
+        if (
+          oldStyle !== style ||
+          oldTailwindClassNames !== tailwindClassNames
+        ) {
           lastStateRef.current = style
+          lastTailwindClassNames.current = tailwindClassNames
 
           void elementService.update({
             ...updatedElement.toJson,
             style,
+            tailwindClassNames,
           })
         }
       },
@@ -61,7 +69,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     useDebouncedEffect(
       () => updateElementStyles(element),
-      [element.style],
+      [element.style, element.tailwindClassNames],
       autosaveTimeout,
     )
 
@@ -89,6 +97,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             title="CSS Editor"
             value={element.customCss ?? ''}
           />
+        </Col>
+        <Col span={24}>
+          <TailwindClassEditor element={element} />
         </Col>
         <Col span={24}>
           <StylesEditor />

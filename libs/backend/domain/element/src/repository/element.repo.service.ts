@@ -80,6 +80,7 @@ export class ElementRepository extends AbstractRepository<
             renderIfExpression,
             renderType,
             style,
+            tailwindClassNames,
           }) => ({
             compositeKey: ElementProperties.elementCompositeKey(
               name,
@@ -106,6 +107,7 @@ export class ElementRepository extends AbstractRepository<
                   : undefined,
             },
             style,
+            tailwindClassNames,
           }),
         ),
       })

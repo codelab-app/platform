@@ -21,6 +21,7 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   firstChild?: { id: string } | null
@@ -51,6 +52,7 @@ export type ElementProductionFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
   firstChild?: { id: string } | null
@@ -128,6 +130,7 @@ export const ElementFragmentDoc = gql`
       }
     }
     style
+    tailwindClassNames
   }
   ${PropFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
@@ -187,6 +190,7 @@ export const ElementProductionFragmentDoc = gql`
       }
     }
     style
+    tailwindClassNames
   }
   ${PropFragmentDoc}
   ${AtomProductionFragmentDoc}

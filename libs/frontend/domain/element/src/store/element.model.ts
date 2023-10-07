@@ -83,6 +83,7 @@ const create = ({
   renderIfExpression,
   renderType,
   style,
+  tailwindClassNames,
 }: IElementDTO): IElementModel => {
   return new Element({
     childMapperComponent: childMapperComponent
@@ -114,6 +115,7 @@ const create = ({
     renderingMetadata: null,
     renderType: getRenderType(renderType),
     style,
+    tailwindClassNames,
   })
 }
 
@@ -127,6 +129,7 @@ export class Element
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
+
     id: idProp.withSetter(),
     isTextContentEditable: prop<boolean>(false).withSetter(),
     name: prop<string>().withSetter(),
@@ -151,6 +154,7 @@ export class Element
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
     style: prop<Nullable<string>>(null).withSetter(),
+    tailwindClassNames: prop<Nullable<Array<string>>>(null).withSetter(),
   })
   implements IElementModel
 {
@@ -820,6 +824,7 @@ export class Element
           : undefined,
       },
       style: this.style,
+      tailwindClassNames: this.tailwindClassNames,
     }
   }
 

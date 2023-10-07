@@ -6715,6 +6715,7 @@ type Element {
   ): ElementRenderTypeConnection!
   slug: String!
   style: String
+  tailwindClassNames: [String!]
 }
 
 type ElementAggregateSelection {
@@ -7095,6 +7096,7 @@ input ElementCreateInput {
   renderIfExpression: String
   renderType: ElementRenderTypeCreateInput
   style: String
+  tailwindClassNames: [String!]
 }
 
 input ElementDeleteInput {
@@ -7545,6 +7547,7 @@ input ElementOnCreateInput {
   renderForEachPropKey: String
   renderIfExpression: String
   style: String
+  tailwindClassNames: [String!]
 }
 
 input ElementOptions {
@@ -8814,6 +8817,9 @@ input ElementUpdateInput {
   renderIfExpression: String
   renderType: ElementRenderTypeUpdateInput
   style: String
+  tailwindClassNames: [String!]
+  tailwindClassNames_POP: Int
+  tailwindClassNames_PUSH: [String!]
 }
 
 input ElementWhere {
@@ -8907,6 +8913,8 @@ input ElementWhere {
   style_IN: [String]
   style_MATCHES: String
   style_STARTS_WITH: String
+  tailwindClassNames: [String!]
+  tailwindClassNames_INCLUDES: String
 }
 
 type ElementsConnection {

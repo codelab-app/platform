@@ -162,6 +162,7 @@ export interface IElementModel
     currentStyles: ElementCssRules
     inheritedStyles: ElementCssRules
   }
+  tailwindClassNames?: Nullable<Array<string>>
   toJson: IElementSerialized
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
@@ -190,6 +191,7 @@ export interface IElementModel
   setRenderType(renderType: IElementRenderTypeModel): void
   setRenderingError(error: Nullish<RenderingError>): void
   setSourceElement(element: Ref<IElementModel>): void
+  setTailwindClassNames(tailwindClassNames: Array<string>): void
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
