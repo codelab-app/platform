@@ -33,6 +33,11 @@ export default {
       {
         outputName: 'frontend-application-renderer.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-application-renderer > ${vars.classname}`
+        },
       },
     ],
   ],

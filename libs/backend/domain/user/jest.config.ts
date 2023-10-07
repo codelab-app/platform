@@ -27,6 +27,11 @@ export default {
       {
         outputName: 'backend-domain-user.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `backend-domain-user > ${vars.classname}`
+        },
       },
     ],
   ],

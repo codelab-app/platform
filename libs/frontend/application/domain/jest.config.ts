@@ -25,6 +25,11 @@ export default {
       {
         outputName: 'frontend-application-domain.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-application-domain > ${vars.classname}`
+        },
       },
     ],
   ],

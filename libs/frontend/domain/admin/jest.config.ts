@@ -26,6 +26,11 @@ export default {
       {
         outputName: 'frontend-domain-admin.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-domain-admin > ${vars.classname}`
+        },
       },
     ],
   ],

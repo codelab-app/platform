@@ -13,6 +13,11 @@ const addReportersToJestConfig = (configObject, projectConfig) => {
       {
         outputName: '${projectConfig.name}.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return \`${projectConfig.name} > \${vars.classname}\`
+        },
       }
     ]
   ]`;

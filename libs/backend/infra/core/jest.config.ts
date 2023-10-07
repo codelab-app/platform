@@ -26,6 +26,11 @@ export default {
       {
         outputName: 'backend-infra-core.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `backend-infra-core > ${vars.classname}`
+        },
       },
     ],
   ],

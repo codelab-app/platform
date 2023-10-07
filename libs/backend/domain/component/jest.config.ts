@@ -27,6 +27,11 @@ export default {
       {
         outputName: 'backend-domain-component.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `backend-domain-component > ${vars.classname}`
+        },
       },
     ],
   ],
