@@ -28,6 +28,11 @@ export default {
       {
         outputName: 'platform.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `platform > ${vars.classname}`
+        },
       },
     ],
   ],

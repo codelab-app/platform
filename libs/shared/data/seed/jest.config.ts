@@ -25,6 +25,11 @@ export default {
       {
         outputName: 'shared-data-seed.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `shared-data-seed > ${vars.classname}`
+        },
       },
     ],
   ],

@@ -31,6 +31,11 @@ export default {
       {
         outputName: 'backend-application-admin.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `backend-application-admin > ${vars.classname}`
+        },
       },
     ],
   ],

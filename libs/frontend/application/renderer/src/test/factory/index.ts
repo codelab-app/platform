@@ -33,7 +33,7 @@ export const factoryBuild = <
   factoryType: T,
   params?: U,
 ) => {
-  // typecasting for infering the factory type in the return
+  // typecasting for inferring the factory type in the return
   // there might be a better way than this
   return FactoryBuildTypeMap[factoryType](
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

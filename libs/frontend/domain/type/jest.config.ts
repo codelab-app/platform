@@ -32,6 +32,11 @@ export default {
       {
         outputName: 'frontend-domain-type.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-domain-type > ${vars.classname}`
+        },
       },
     ],
   ],

@@ -27,6 +27,11 @@ export default {
       {
         outputName: 'shared-utils.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `shared-utils > ${vars.classname}`
+        },
       },
     ],
   ],

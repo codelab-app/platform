@@ -25,6 +25,11 @@ export default {
       {
         outputName: 'frontend-application-vercel.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-application-vercel > ${vars.classname}`
+        },
       },
     ],
   ],

@@ -109,10 +109,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:18.17.0
+      - image: cimg/node:18.16.0-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:18.17.0
+      - image: cimg/node:18.16.0-browsers
       - command:
           - neo4j
           - start
@@ -141,7 +141,7 @@ jobs:
           name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
-    resource_class: arm.medium
+    resource_class: medium
     steps:
       - restore-workspace
       - run:
@@ -149,7 +149,7 @@ jobs:
           name: GraphQL Codegen
   deploy-preview:
     executor: docker-node-neo4j
-    resource_class: arm.large
+    resource_class: large
     steps:
       - checkout
       - add_ssh_keys-f:
@@ -163,7 +163,7 @@ jobs:
           name: Trigger Vercel Deploy
   deploy-production:
     executor: docker-node-neo4j
-    resource_class: arm.large
+    resource_class: large
     steps:
       - restore-workspace
       - run:
@@ -181,7 +181,7 @@ jobs:
   e2e:
     executor: docker-node-neo4j
     parallelism: 4
-    resource_class: arm.large
+    resource_class: large
     steps:
       - restore-workspace
       - setup_remote_docker:
@@ -204,7 +204,7 @@ jobs:
           path: ./tmp/reports/e2e
   integration:
     executor: docker-node-neo4j
-    resource_class: arm.large
+    resource_class: large
     steps:
       - restore-workspace
       - run:
@@ -220,7 +220,7 @@ jobs:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
     executor: docker-node
-    resource_class: arm.large
+    resource_class: large
     steps:
       - restore-workspace
       - run:
@@ -346,7 +346,7 @@ jobs:
           root: ~/
   setup-infra-workspace:
     executor: docker-node
-    resource_class: arm.large
+    resource_class: large
     steps:
       - restore-workspace
       - install-terraform
@@ -359,7 +359,7 @@ jobs:
           root: ~/
   setup-workspace:
     executor: docker-node
-    resource_class: arm.large
+    resource_class: large
     steps:
       - checkout
       - setup-env
@@ -372,7 +372,7 @@ jobs:
           root: ~/
   unit:
     executor: docker-node
-    resource_class: arm.large
+    resource_class: large
     steps:
       - restore-workspace
       - run:

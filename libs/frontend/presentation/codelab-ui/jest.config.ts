@@ -26,6 +26,11 @@ export default {
       {
         outputName: 'frontend-presentation--codelab-ui.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-presentation--codelab-ui > ${vars.classname}`
+        },
       },
     ],
   ],

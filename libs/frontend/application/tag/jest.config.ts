@@ -25,6 +25,11 @@ export default {
       {
         outputName: 'frontend-application-tag.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-application-tag > ${vars.classname}`
+        },
       },
     ],
   ],

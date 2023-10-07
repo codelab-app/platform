@@ -27,6 +27,11 @@ export default {
       {
         outputName: 'frontend-domain-resource.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-domain-resource > ${vars.classname}`
+        },
       },
     ],
   ],

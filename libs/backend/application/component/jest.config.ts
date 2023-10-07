@@ -30,6 +30,11 @@ export default {
       {
         outputName: 'backend-application-component.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `backend-application-component > ${vars.classname}`
+        },
       },
     ],
   ],

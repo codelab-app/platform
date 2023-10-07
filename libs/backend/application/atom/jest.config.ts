@@ -27,6 +27,11 @@ export default {
       {
         outputName: 'backend-application-atom.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `backend-application-atom > ${vars.classname}`
+        },
       },
     ],
   ],

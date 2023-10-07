@@ -27,6 +27,11 @@ export default {
       {
         outputName: 'frontend-domain-tag.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-domain-tag > ${vars.classname}`
+        },
       },
     ],
   ],

@@ -26,6 +26,11 @@ export default {
       {
         outputName: 'frontend-shared-utils.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: (vars: any) => {
+          return `frontend-shared-utils > ${vars.classname}`
+        },
       },
     ],
   ],
