@@ -26,11 +26,9 @@ export default {
       {
         outputName: 'backend-domain-store.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
-        classNameTemplate: (vars: any) => {
-          return `backend-domain-store > ${vars.classname}`
-        },
+        classNameTemplate: '{displayName} - {filename}',
       },
     ],
   ],

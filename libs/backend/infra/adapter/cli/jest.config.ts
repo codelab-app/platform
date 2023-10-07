@@ -26,11 +26,9 @@ export default {
       {
         outputName: 'backend-infra-adapter-cli.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
-        classNameTemplate: (vars: any) => {
-          return `backend-infra-adapter-cli > ${vars.classname}`
-        },
+        classNameTemplate: '{displayName} - {filename}',
       },
     ],
   ],

@@ -30,11 +30,9 @@ export default {
       {
         outputName: 'backend-application-store.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
-        classNameTemplate: (vars: any) => {
-          return `backend-application-store > ${vars.classname}`
-        },
+        classNameTemplate: '{displayName} - {filename}',
       },
     ],
   ],

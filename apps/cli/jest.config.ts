@@ -26,11 +26,9 @@ export default {
       {
         outputName: 'cli.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
-        classNameTemplate: (vars: any) => {
-          return `cli > ${vars.classname}`
-        },
+        classNameTemplate: '{displayName} - {filename}',
       },
     ],
   ],
