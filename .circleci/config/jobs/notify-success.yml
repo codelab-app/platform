@@ -1,5 +1,5 @@
 executor: docker-node
-# resource_class: medium
+# resource_class: arm.medium
 steps:
   - slack/notify:
       event: pass

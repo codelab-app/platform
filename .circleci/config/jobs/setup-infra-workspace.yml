@@ -1,5 +1,5 @@
 executor: docker-node
-resource_class: large
+resource_class: arm.large
 steps:
   - restore-workspace
   - install-terraform
