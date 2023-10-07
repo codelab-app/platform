@@ -101,5 +101,15 @@ export class AdminController {
     await this.adminRepository.resetDatabase()
 
     await this.seederService.seedUserFromRequest()
+
+    const atoms = this.readAdminDataService.atoms.filter(
+      ({ atom }) => atom.type === IAtomType.ReactFragment,
+    )
+
+    for (const atom of atoms) {
+      await this.commandBus.execute<ImportAtomCommand>(
+        new ImportAtomCommand(atom),
+      )
+    }
   }
 }
