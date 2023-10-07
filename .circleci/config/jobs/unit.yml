@@ -1,5 +1,5 @@
 executor: docker-node
-resource_class: arm.large
+resource_class: large
 steps:
   - restore-workspace
   - run:
