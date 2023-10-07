@@ -1,2 +1,2 @@
 docker:
-  - image: cimg/node:18.16.0-browsers
+  - image: cimg/node:18.17.0
