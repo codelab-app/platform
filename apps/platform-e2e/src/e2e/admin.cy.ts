@@ -30,7 +30,7 @@ describe('Admin', () => {
       },
       method: 'POST',
       timeout: TIMEOUT,
-      url: '/api/data/migration/import',
+      url: '/api/data/admin/import',
     })
 
     cy.request({
@@ -40,7 +40,7 @@ describe('Admin', () => {
       },
       method: 'POST',
       timeout: TIMEOUT,
-      url: '/api/data/migration/export',
+      url: '/api/data/admin/export',
     }).as('export')
 
     cy.task(
