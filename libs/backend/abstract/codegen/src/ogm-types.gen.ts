@@ -18519,6 +18519,8 @@ export type ElementUpdateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames_POP?: InputMaybe<Scalars['Int']['input']>
+  tailwindClassNames_PUSH?: InputMaybe<Array<Scalars['String']['input']>>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
