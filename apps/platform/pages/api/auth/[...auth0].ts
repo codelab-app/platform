@@ -3,8 +3,6 @@ import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-console.log(process.env)
-
 export default auth0Instance().handleAuth({
   callback: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
