@@ -26,7 +26,7 @@ export default {
       {
         outputName: 'backend-application-migration.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
         classNameTemplate: '{displayName} > {filename}',
       },

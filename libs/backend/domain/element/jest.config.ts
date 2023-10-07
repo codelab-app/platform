@@ -27,7 +27,7 @@ export default {
       {
         outputName: 'backend-domain-element.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
         classNameTemplate: '{displayName} > {filename}',
       },

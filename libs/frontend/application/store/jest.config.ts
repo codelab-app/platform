@@ -25,7 +25,7 @@ export default {
       {
         outputName: 'frontend-application-store.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{classname} > {title}',
+        titleTemplate: '{suitename} > {classname} > {title}',
         ancestorSeparator: ' › ',
         classNameTemplate: '{displayName} > {filename}',
       },
