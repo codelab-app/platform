@@ -132,7 +132,6 @@
     "editorjs-react-renderer": "^3.5.1",
     "editorjs-text-color-plugin": "^2.0.4",
     "env-var": "7.4.1",
-    "find-up": "^5.0.0",
     "flat": "^5.0.2",
     "framer-motion": "6.3.3",
     "graphql": "16.6.0",
