@@ -1,6 +1,6 @@
 # Can't build with machine image, causes build issues
 executor: docker-node
-resource_class: large
+resource_class: arm.large
 steps:
   - checkout
   - setup-env
