@@ -16,7 +16,8 @@ export default auth0Instance().handleAuth({
             throw new Error('Missing access token')
           }
 
-          if (window.Cypress) {
+          // Can't find other way to see if we're running in Cypress
+          if (process.env['NX_CYPRESS_TARGET_CONFIGURATION']) {
             await restPlatformApiClient.post('admin/setup-e2e', user, {
               headers: {
                 Authorization: `Bearer ${session.accessToken}`,
@@ -41,7 +42,7 @@ export default auth0Instance().handleAuth({
         },
       })
     } catch (error) {
-      // console.error(error)
+      console.error(error)
     }
   },
 })
