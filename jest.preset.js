@@ -1,6 +1,6 @@
 const nxPreset = require('@nx/jest/preset').default
 
-const testTimeout = process.env.CI ? 15000 : 20000
+const testTimeout = process.env.CI ? 30000 : 20000
 
 const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
 
