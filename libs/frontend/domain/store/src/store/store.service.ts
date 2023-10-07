@@ -75,9 +75,13 @@ export class StoreService
   @modelFlow
   @transaction
   getOne = _async(function* (this: StoreService, id: string) {
-    const [store] = yield* _await(this.getAll({ id }))
+    if (this.stores.has(id)) {
+      return this.stores.get(id)
+    }
 
-    return store
+    const all = yield* _await(this.getAll({ id }))
+
+    return all[0]
   })
 
   @modelFlow

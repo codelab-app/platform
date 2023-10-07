@@ -1,5 +1,5 @@
 executor: docker-node-neo4j
-resource_class: medium
+resource_class: arm.medium
 steps:
   - restore-workspace
   - run:

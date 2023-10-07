@@ -1,59 +1,153 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
-import { DATA_COMPONENT_ID, isAtomRef } from '@codelab/frontend/abstract/domain'
-import { ComponentRenderPipe } from '../renderPipes/component-render-pipe'
-import { setupTestForRenderer } from './setup/setup-test'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  rendererRef,
+} from '@codelab/frontend/abstract/domain'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import {
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
+import { factoryBuild } from './factory'
+import { rootStore, setupPage } from './setup'
 
 describe('Renderer', () => {
-  /**
-   * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
-   */
-  const data = setupTestForRenderer([ComponentRenderPipe])
+  const componentId = 'component-id'
+  const componentName = 'The Component'
+  const testPropKey = 'testPropKey'
+  const componentPropValue = 'from component prop'
+  const componentStorePropValue = 'from component store prop'
+  const componentInstancePropValue = 'from component instance prop'
+  const componentRootElementAtomType = IAtomType.Text
 
-  it('should render component instance', () => {
-    const { atomType, props } =
-      data.rootStore.renderer.renderIntermediateElement(
-        data.componentInstance,
-      ) as IRenderOutput
+  const componentRootElementPropData = {
+    componentProp: 'original',
+    [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
+    expressionProp: `expression value - {{componentProps.${testPropKey} ?? state.${testPropKey}}}`,
+  }
 
-    const clonedComponent =
-      data.rootStore.componentService.clonedComponents.get(
-        data.componentInstance.id,
-      )
-
-    const rootElement = clonedComponent?.rootElement.current
-    const rootElementProps = rootElement?.runtimeProp?.evaluatedProps || {}
-
-    expect(props).toMatchObject({
-      ...rootElementProps,
-      ref: expect.any(Function),
-    })
-
-    const componentAtomType =
-      rootElement && isAtomRef(rootElement.renderType)
-        ? rootElement.renderType.current.type
-        : null
-
-    expect(atomType).toBe(componentAtomType)
+  beforeEach(() => {
+    rootStore.clear()
   })
 
-  it('should have props with a replaced expression using the instance prop value', () => {
-    const { props } = data.rootStore.renderer.renderIntermediateElement(
-      data.componentInstance,
-    ) as IRenderOutput
+  it.each([
+    // where the prop value will come from : expected evaluated value
+    ['component', componentPropValue],
+    ['store', componentStorePropValue],
+    ['instance', componentInstancePropValue],
+    ['all', componentInstancePropValue],
+  ])(
+    'should render component instance with prop expression evaluated with %s props',
+    async (propSource, expectedEvaluatedValue) => {
+      // mock these to skip API calls with `createElementAsFirstChild`
+      jest
+        .spyOn(rootStore.elementService.elementRepository, 'add')
+        .mockImplementation()
 
-    const clonedComponent =
-      data.rootStore.componentService.clonedComponents.get(
-        data.componentInstance.id,
+      jest
+        .spyOn(rootStore.elementService.elementRepository, 'updateNodes')
+        .mockImplementation()
+
+      const { rootElement: pageRootElement } = setupPage()
+
+      const componentRootElement = factoryBuild('element', {
+        closestContainerNode: {
+          id: componentId,
+        },
+        name: `${componentName} Root`,
+        parentComponent: { id: componentId },
+        props: factoryBuild('props', {
+          data: JSON.stringify(componentRootElementPropData),
+        }),
+        renderType: factoryBuild('atom', {
+          api: factoryBuild('typeInterface'),
+          type: componentRootElementAtomType,
+        }),
+      })
+
+      const componentStoreApi = factoryBuild('typeInterface')
+
+      const component = factoryBuild('component', {
+        api: factoryBuild('typeInterface'),
+        childrenContainerElement: componentRootElement,
+        id: componentId,
+        name: componentName,
+        props: factoryBuild('props', {
+          data: JSON.stringify({
+            [testPropKey]:
+              propSource === 'component' || propSource === 'all'
+                ? componentPropValue
+                : undefined,
+          }),
+        }),
+        rootElement: componentRootElement,
+        store: factoryBuild('store', {
+          api: componentStoreApi,
+        }),
+      })
+
+      const componentStore = await rootStore.storeService.getOne(
+        component.store.id,
       )
 
-    const rootElement = clonedComponent?.rootElement.current
-    const rootElementProps = rootElement?.runtimeProp?.evaluatedProps || {}
+      componentStore?.api.current.writeCache({
+        fields: [
+          factoryBuild('field', {
+            api: componentStoreApi,
+            defaultValues:
+              propSource === 'store' || propSource === 'all'
+                ? componentStorePropValue
+                : undefined,
+            key: testPropKey,
+            type: factoryBuild('typePrimitive', {
+              name: PrimitiveTypeKind.String,
+              primitiveKind: PrimitiveTypeKind.String,
+            }),
+          }),
+        ],
+      })
 
-    expect(props).toMatchObject({
-      ...rootElementProps,
-      [DATA_COMPONENT_ID]: clonedComponent?.id,
-      expressionProp: 'expression value - component instance prop',
-      ref: expect.any(Function),
-    })
-  })
+      const componentElement = factoryBuild('element', {
+        closestContainerNode: component,
+        parentComponent: component,
+        parentElement: pageRootElement,
+        props: factoryBuild('props', {
+          data: JSON.stringify({
+            [testPropKey]:
+              propSource === 'instance' || propSource === 'all'
+                ? componentInstancePropValue
+                : undefined,
+          }),
+        }),
+        renderType: {
+          __typename: IElementRenderTypeKind.Component,
+          id: component.id,
+        },
+      })
+
+      const componentInstance =
+        await rootStore.elementService.createElementService.createElementAsFirstChild(
+          componentElement,
+        )
+
+      // The renderer for the component is already added as part of the componentService.add logic
+      // so we just need to get that here, and it should already exist
+      rootStore.renderService.setActiveRenderer(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        rendererRef(rootStore.renderService.renderers.get(component.id)!),
+      )
+
+      const { atomType, element, props } =
+        rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+          componentInstance,
+        ) as IRenderOutput
+
+      expect(atomType).toBe(componentRootElementAtomType)
+      expect(element.renderType.id).toBe(componentRootElement.renderType.id)
+      expect(props).toMatchObject({
+        ...componentRootElementPropData,
+        expressionProp: `expression value - ${expectedEvaluatedValue}`,
+      })
+    },
+  )
 })

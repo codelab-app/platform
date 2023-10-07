@@ -10,7 +10,8 @@ export const atomRef = rootRef<IAtomModel>('@codelab/AtomRef', {
   },
 })
 
-export const isAtomRef = (ref: Ref<object>) => isRefOfType(ref, atomRef)
+export const isAtomRef = (ref: Ref<object>): ref is Ref<IAtomModel> =>
+  isRefOfType(ref, atomRef)
 
 export const isAtom = (instance: AnyModel): instance is IAtomModel => {
   return instance.$modelType === '@codelab/Atom'

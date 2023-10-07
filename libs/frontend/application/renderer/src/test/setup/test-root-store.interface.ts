@@ -11,6 +11,7 @@ import type {
 export type ITestRootStore = Pick<
   IRootStore,
   | 'atomService'
+  | 'builderService'
   | 'componentService'
   | 'elementService'
   | 'pageService'
@@ -18,13 +19,8 @@ export type ITestRootStore = Pick<
   | 'renderService'
   | 'storeService'
   | 'typeService'
-> & {
-  /**
-   * We only use a single renderer for testing
-   */
-  renderer: IRenderer
-  setRenderer(renderer: IRenderer): void
-}
+  | 'userService'
+>
 
 export interface TestServices {
   component: IComponentModel

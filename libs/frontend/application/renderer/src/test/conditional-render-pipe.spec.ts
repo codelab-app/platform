@@ -1,61 +1,75 @@
-import { DATA_ELEMENT_ID, isAtomRef } from '@codelab/frontend/abstract/domain'
+import {
+  DATA_ELEMENT_ID,
+  elementTreeRef,
+  isAtomRef,
+  rendererRef,
+} from '@codelab/frontend/abstract/domain'
 import { ConditionalRenderPipe } from '../renderPipes/conditional-render-pipe'
-import { setupTestForRenderer } from './setup/setup-test'
+import { PassThroughRenderPipe } from '../renderPipes/pass-through-render-pipe'
+import { renderPipeFactory } from '../renderPipes/render-pipe.factory'
+import { factoryBuild } from './factory'
+import { rootStore, setupPage } from './setup'
 
 describe('ConditionalRenderPipe', () => {
-  const data = setupTestForRenderer([ConditionalRenderPipe])
-
-  it('should render normally if no expression is set', async () => {
-    data.element.setRenderIfExpression(undefined)
-
-    const output = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-    )
-
-    const atomType = isAtomRef(data.element.renderType)
-      ? data.element.renderType.current.type
-      : null
-
-    expect(output).toEqual({
-      atomType,
-      element: data.element,
-      props: expect.objectContaining({
-        [DATA_ELEMENT_ID]: data.element.id,
-      }),
-    })
+  beforeEach(() => {
+    rootStore.clear()
   })
 
-  it('should stop rendering by returning an empty output', async () => {
-    data.element.setRenderIfExpression('{{props.shouldRender}}')
-    // changing state is bit tricky so, just use props
-    data.element.props.current.set('shouldRender', false)
+  it.each([
+    [undefined, true],
+    ['{{props.testPropTrue}}', true],
+    ['{{props.testPropFalse}}', false],
+    ['{{true}}', true],
+    ['{{false}}', false],
+  ])(
+    'should render conditionally with renderIfExpression - expression: %s, should render: %s',
+    async (expression, shouldRender) => {
+      const { page, rootElement: pageRootElement } = setupPage()
 
-    const output = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-    )
+      const element = factoryBuild('element', {
+        page,
+        parentElement: pageRootElement,
+        props: factoryBuild('props', {
+          data: '{ "testPropTrue": true, "testPropFalse": false }',
+        }),
+        renderIfExpression: expression,
+        renderType: factoryBuild('atom', {
+          api: factoryBuild('typeInterface'),
+        }),
+      })
 
-    expect(output).toEqual({ element: data.element })
-  })
+      const elementModel = rootStore.elementService.element(element.id)
 
-  it('should continue rendering', async () => {
-    data.element.setRenderIfExpression('{{props.shouldRender}}')
-    // changing state is bit tricky so, just use props
-    data.element.props.current.set('shouldRender', true)
+      const renderer = factoryBuild('renderer', {
+        elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
+        renderPipe: renderPipeFactory([
+          PassThroughRenderPipe,
+          ConditionalRenderPipe,
+        ]),
+      })
 
-    const output = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-    )
+      rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
-    const atomType = isAtomRef(data.element.renderType)
-      ? data.element.renderType.current.type
-      : null
+      const output =
+        rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+          elementModel,
+        )
 
-    expect(output).toEqual({
-      atomType,
-      element: data.element,
-      props: expect.objectContaining({
-        [DATA_ELEMENT_ID]: data.element.id,
-      }),
-    })
-  })
+      const atomType = isAtomRef(elementModel.renderType)
+        ? elementModel.renderType.current.type
+        : null
+
+      if (shouldRender) {
+        expect(output).toEqual({
+          atomType,
+          element: elementModel,
+          props: expect.objectContaining({
+            [DATA_ELEMENT_ID]: elementModel.id,
+          }),
+        })
+      } else {
+        expect(output).toEqual({ element: elementModel })
+      }
+    },
+  )
 })
