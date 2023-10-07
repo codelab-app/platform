@@ -27,7 +27,7 @@ export default {
       {
         outputName: 'backend-infra-adapter-typebox.xml',
         reportTestSuiteErrors: true,
-        titleTemplate: '{suitename} > {classname} > {title}',
+        titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',
         classNameTemplate: '{displayName} > {filename}',
       },
