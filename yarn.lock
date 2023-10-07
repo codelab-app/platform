@@ -17568,7 +17568,6 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     eslint-plugin-unused-imports: 2.0.0
     execa: 5.1.1
-    find-up: ^5.0.0
     fishery: ^2.2.2
     flat: ^5.0.2
     framer-motion: 6.3.3
