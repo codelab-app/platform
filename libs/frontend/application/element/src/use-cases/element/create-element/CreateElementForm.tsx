@@ -111,6 +111,7 @@ export const CreateElementForm = observer(
             'postRenderAction',
             'renderType',
             'name',
+            'tailwindClassNames',
           ]}
         />
         <AutoField

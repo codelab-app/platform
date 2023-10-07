@@ -77,6 +77,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'renderForEachPropKey',
             // We edit it in the css tab
             'style',
+            'tailwindClassNames',
             'preRenderAction',
             'postRenderAction',
             'renderType',

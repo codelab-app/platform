@@ -16,6 +16,13 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       type: 'string',
       ...titleCaseValidation,
     },
+    tailwindClassNames: {
+      nullable: true,
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
     postRenderAction: {
       nullable: true,
       properties: {

@@ -52,6 +52,7 @@ fragment Element on Element {
     }
   }
   style
+  tailwindClassNames
 }
 
 fragment ElementProduction on Element {
@@ -108,4 +109,5 @@ fragment ElementProduction on Element {
     }
   }
   style
+  tailwindClassNames
 }

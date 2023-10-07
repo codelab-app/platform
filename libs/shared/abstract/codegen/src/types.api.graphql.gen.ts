@@ -6859,6 +6859,7 @@ export type Element = {
   renderTypeConnection: ElementRenderTypeConnection
   slug: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
+  tailwindClassNames?: Maybe<Array<Scalars['String']['output']>>
 }
 
 export type ElementChildMapperComponentArgs = {
@@ -7473,6 +7474,7 @@ export type ElementCreateInput = {
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
   renderType?: InputMaybe<ElementRenderTypeCreateInput>
   style?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
 export type ElementDeleteInput = {
@@ -7960,6 +7962,7 @@ export type ElementOnCreateInput = {
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
 export type ElementOptions = {
@@ -9297,6 +9300,9 @@ export type ElementUpdateInput = {
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
   renderType?: InputMaybe<ElementRenderTypeUpdateInput>
   style?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
+  tailwindClassNames_POP?: InputMaybe<Scalars['Int']['input']>
+  tailwindClassNames_PUSH?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
 export type ElementWhere = {
@@ -9396,6 +9402,8 @@ export type ElementWhere = {
   style_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
   style_MATCHES?: InputMaybe<Scalars['String']['input']>
   style_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  tailwindClassNames?: InputMaybe<Array<Scalars['String']['input']>>
+  tailwindClassNames_INCLUDES?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ElementsConnection = {
@@ -20876,6 +20884,7 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: {
     __typename?: 'Component'
     id: string
@@ -20910,6 +20919,7 @@ export type ElementProductionFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   style?: string | null
+  tailwindClassNames?: Array<string> | null
   childMapperComponent?: {
     __typename?: 'Component'
     id: string
