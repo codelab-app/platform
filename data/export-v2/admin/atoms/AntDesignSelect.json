@@ -1026,16 +1026,6 @@
         "name": "AntDesignSelect On Select Enum"
       },
       {
-        "__typename": "ArrayType",
-        "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
-        "itemType": {
-          "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
-          "kind": "InterfaceType"
-        },
-        "kind": "ArrayType",
-        "name": "AntDesignSelect Options"
-      },
-      {
         "__typename": "InterfaceType",
         "fields": [
           {
@@ -1083,6 +1073,16 @@
         "owner": {
           "id": "6c257a86-622d-4bcf-8b67-005dd0e7eb30"
         }
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
+        "itemType": {
+          "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+          "kind": "InterfaceType"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignSelect Options"
       },
       {
         "__typename": "EnumType",

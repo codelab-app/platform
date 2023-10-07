@@ -255,16 +255,6 @@
     "name": "AntDesignSteps API",
     "types": [
       {
-        "__typename": "ArrayType",
-        "id": "7154aa9d-27e2-4b43-8a09-789467206389",
-        "itemType": {
-          "id": "c83e828d-c476-4921-84b4-014147462750",
-          "kind": "InterfaceType"
-        },
-        "kind": "ArrayType",
-        "name": "AntDesignSteps Items"
-      },
-      {
         "__typename": "InterfaceType",
         "fields": [
           {
@@ -312,6 +302,16 @@
         "owner": {
           "id": "6c257a86-622d-4bcf-8b67-005dd0e7eb30"
         }
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "7154aa9d-27e2-4b43-8a09-789467206389",
+        "itemType": {
+          "id": "c83e828d-c476-4921-84b4-014147462750",
+          "kind": "InterfaceType"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignSteps Items"
       },
       {
         "__typename": "EnumType",

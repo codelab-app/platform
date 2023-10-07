@@ -331,34 +331,6 @@
     "name": "AntDesignMenu API",
     "types": [
       {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "afc53482-37d4-4d7a-8481-2e8c91efbe70",
-            "key": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode",
-            "value": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode"
-          },
-          {
-            "id": "dab49cd8-6029-4114-9f13-adf60fbc14a0",
-            "key": "ReactNode",
-            "value": "ReactNode"
-          }
-        ],
-        "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
-        "kind": "EnumType",
-        "name": "AntDesignMenu Expand Icon Enum"
-      },
-      {
-        "__typename": "ArrayType",
-        "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
-        "itemType": {
-          "id": "8baae515-020d-422e-a1bc-340c20490dd2",
-          "kind": "InterfaceType"
-        },
-        "kind": "ArrayType",
-        "name": "AntDesignMenuItemTypeArray"
-      },
-      {
         "__typename": "InterfaceType",
         "fields": [
           {
@@ -425,6 +397,34 @@
         "owner": {
           "id": "6c257a86-622d-4bcf-8b67-005dd0e7eb30"
         }
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "afc53482-37d4-4d7a-8481-2e8c91efbe70",
+            "key": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode",
+            "value": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode"
+          },
+          {
+            "id": "dab49cd8-6029-4114-9f13-adf60fbc14a0",
+            "key": "ReactNode",
+            "value": "ReactNode"
+          }
+        ],
+        "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
+        "kind": "EnumType",
+        "name": "AntDesignMenu Expand Icon Enum"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+        "itemType": {
+          "id": "8baae515-020d-422e-a1bc-340c20490dd2",
+          "kind": "InterfaceType"
+        },
+        "kind": "ArrayType",
+        "name": "AntDesignMenuItemTypeArray"
       },
       {
         "__typename": "EnumType",
