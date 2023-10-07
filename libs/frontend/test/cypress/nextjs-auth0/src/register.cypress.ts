@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 /* eslint-disable @typescript-eslint/naming-convention */
 import type {
@@ -12,6 +13,8 @@ import type { login } from './commands/login'
 import type { logout } from './commands/logout'
 import type { _setAuth0Cookie } from './commands/set-auth0-cookie'
 >>>>>>> eb2460d7a (ci: fix cypress after upgrade)
+=======
+>>>>>>> 9419b16fe (ci: change cypress auth0)
 import type { loginToAuth0 } from './official/login-vai-auth0-ui'
 
 declare global {
@@ -21,6 +24,7 @@ declare global {
 }
 
 export interface CypressNextjsAuth0Commands {
+<<<<<<< HEAD
 <<<<<<< HEAD
   loginToAuth0: typeof loginToAuth0
 =======
@@ -43,4 +47,7 @@ export interface CypressNextjsAuth0Commands {
   // logout
   logout: typeof logout
 >>>>>>> eb2460d7a (ci: fix cypress after upgrade)
+=======
+  loginToAuth0: typeof loginToAuth0
+>>>>>>> 9419b16fe (ci: change cypress auth0)
 }
