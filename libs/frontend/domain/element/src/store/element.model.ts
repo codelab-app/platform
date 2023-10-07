@@ -136,6 +136,7 @@ export class Element
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
+
     id: idProp.withSetter(),
     isTextContentEditable: prop<boolean>(false).withSetter(),
     name: prop<string>().withSetter(),

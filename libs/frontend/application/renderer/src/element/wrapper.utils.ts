@@ -84,6 +84,28 @@ export const generateTailwindClasses = (
 
 let dragImage: HTMLElement | undefined
 
+export const generateTailwindClasses = (
+  classNames: Nullable<Array<string>> | undefined,
+  rendererType: RendererType,
+) => {
+  let classNamesToUse: Array<string> = classNames ?? []
+
+  if (
+    rendererType === RendererType.PageBuilder ||
+    rendererType === RendererType.ComponentBuilder
+  ) {
+    classNamesToUse = replaceWithCustomResponsiveVariants(classNames ?? [])
+  }
+
+  if (classNamesToUse.length) {
+    return tx(`${classNamesToUse.join(' ')}`)
+  }
+
+  return ''
+}
+
+let dragImage: HTMLElement | undefined
+
 export const createDragImage = (name: string) => {
   if (dragImage) {
     dragImage.innerText = name
