@@ -1,5 +1,5 @@
 export * from './auth'
 export * from './data'
-export * from './shared-application.module'
+export * from './shared.application.module'
 export * from './use-cases'
 export * from './user.decorator'

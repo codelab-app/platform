@@ -31,12 +31,17 @@ export class SeedCypressAtomsHandler
       atomTypes.includes(atom.type),
     )
 
-    return Promise.all(
-      atoms.map((atom) =>
-        this.commandBus.execute<ImportAtomCommand, IAtomDTO>(
-          new ImportAtomCommand(atom),
-        ),
-      ),
-    )
+    const atomDtos = []
+
+    for (const atom of atoms) {
+      const atomDto = await this.commandBus.execute<
+        ImportAtomCommand,
+        IAtomDTO
+      >(new ImportAtomCommand(atom))
+
+      atomDtos.push(atomDto)
+    }
+
+    return atomDtos
   }
 }

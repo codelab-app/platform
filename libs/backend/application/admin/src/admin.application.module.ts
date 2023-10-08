@@ -10,6 +10,7 @@ import { SeederDomainModule } from '@codelab/backend/domain/shared/seeder'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { AdminController } from './admin.application.controller'
+import { SeederApplicationService } from './use-case'
 import { ExportAdminDataHandler } from './use-case/export/export-admin-data.command.service'
 import { ImportAdminDataHandler } from './use-case/import/import-admin-data.command.service'
 
@@ -33,6 +34,10 @@ import { ImportAdminDataHandler } from './use-case/import/import-admin-data.comm
     TypeApplicationModule,
     UserApplicationModule,
   ],
-  providers: [ImportAdminDataHandler, ExportAdminDataHandler],
+  providers: [
+    SeederApplicationService,
+    ImportAdminDataHandler,
+    ExportAdminDataHandler,
+  ],
 })
 export class AdminApplicationModule {}

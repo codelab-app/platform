@@ -1,19 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common'
-import type { Transaction } from 'neo4j-driver'
+import type { ManagedTransaction, Transaction } from 'neo4j-driver'
 import { Driver } from 'neo4j-driver'
 import { NEO4J_DRIVER_PROVIDER } from './neo4j.constant'
 
-type TransactionWork<T> = (txn: Transaction) => Promise<T> | T
+type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 
 @Injectable()
 export class Neo4jService {
   constructor(@Inject(NEO4J_DRIVER_PROVIDER) public driver: Driver) {}
 
-  async withReadTransaction<T>(readTransaction: TransactionWork<T>) {
+  async withReadTransaction<T>(readTransaction: ManagedTransactionWork<T>) {
     const session = this.driver.session()
 
     return session
-      .readTransaction((txn) => readTransaction(txn))
+      .executeWrite((txn) => readTransaction(txn))
       .catch((error) => {
         console.error(error)
         throw error
@@ -21,11 +21,11 @@ export class Neo4jService {
       .finally(() => session.close())
   }
 
-  async withWriteTransaction<T>(writeTransaction: TransactionWork<T>) {
+  async withWriteTransaction<T>(writeTransaction: ManagedTransactionWork<T>) {
     const session = this.driver.session()
 
     return session
-      .writeTransaction((txn) => writeTransaction(txn))
+      .executeWrite((txn) => writeTransaction(txn))
       .catch((error) => {
         console.error(error)
         throw error

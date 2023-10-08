@@ -40,7 +40,7 @@ export class AdminRepository {
       DETACH DELETE n
     `
 
-    return this.runCypherQuery(close, query)
+    return await this.runCypherQuery(close, query)
   }
 
   private async runCypherQuery(close = false, cypherQuery: string) {
@@ -51,7 +51,7 @@ export class AdminRepository {
       /**
        * https://aura.support.neo4j.com/hc/en-us/articles/4412131924883-How-to-wipe-out-delete-all-the-content-in-a-Neo4j-AuraDB-Instance-
        */
-      .writeTransaction((txn) => txn.run(cypherQuery))
+      .executeWrite((txn) => txn.run(cypherQuery))
       .catch((error) => {
         console.error(error)
         throw error

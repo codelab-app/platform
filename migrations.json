@@ -17,19 +17,19 @@
       "name": "update-16-8-0-cypress-13"
     },
     {
-      "version": "16.8.0",
-      "description": "update-16-8-0-add-ignored-files",
-      "implementation": "./src/migrations/update-16-8-0-add-ignored-files/update-16-8-0-add-ignored-files",
-      "package": "@nx/linter",
-      "name": "update-16-8-0-add-ignored-files"
-    },
-    {
       "cli": "nx",
       "version": "16.8.2-beta.0",
       "description": "Remove invalid options (strict, noInterop) for ES6 type modules.",
       "factory": "./src/migrations/update-16-8-2/update-swcrc",
       "package": "@nx/js",
       "name": "16-8-2-update-swcrc"
+    },
+    {
+      "version": "16.8.0",
+      "description": "update-16-8-0-add-ignored-files",
+      "implementation": "./src/migrations/update-16-8-0-add-ignored-files/update-16-8-0-add-ignored-files",
+      "package": "@nx/linter",
+      "name": "update-16-8-0-add-ignored-files"
     },
     {
       "cli": "nx",

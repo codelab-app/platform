@@ -5,7 +5,9 @@ import { DemoShoppingCard } from './DemoShoppingCard'
 import { DOMTree } from './DomTree'
 import { DOMTreeCode } from './DomTreeCode'
 
-const onChange = (key: string) => {}
+const onChange = (key: string) => {
+  //
+}
 
 export const BuilderDemo = () => {
   const tabItems = [
