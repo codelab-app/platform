@@ -8,33 +8,28 @@ export default auth0Instance().handleAuth({
     try {
       await auth0Instance().handleCallback(req, res, {
         afterCallback: async (_req, _res, session, state) => {
-          const user = session.user as Auth0IdToken
-
           if (!session.accessToken) {
             throw new Error('Missing access token')
           }
 
           // Can't find other way to see if we're running in Cypress
           if (process.env['NX_CYPRESS_TARGET_CONFIGURATION']) {
-            await restPlatformApiClient.post('admin/setup-e2e', user, {
-              headers: {
-                Authorization: `Bearer ${session.accessToken}`,
-                'X-ID-TOKEN': session.idToken,
-              },
-            })
-
             return session
           }
 
           /**
-           * Cannot call frontend proxy here, since it would end the current call
+           * Cannot call frontend proxy here, since session is not created yet
            */
-          await restPlatformApiClient.post('admin/setup-dev', user, {
-            headers: {
-              Authorization: `Bearer ${session.accessToken}`,
-              'X-ID-TOKEN': session.idToken,
+          await restPlatformApiClient.post(
+            'admin/setup-dev',
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${session.accessToken}`,
+                'X-ID-TOKEN': session.idToken,
+              },
             },
-          })
+          )
 
           return session
         },

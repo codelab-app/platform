@@ -8,10 +8,6 @@ import path from 'path'
 import { CommandModule } from './commands/command.module'
 
 const getEnvFilePath = () => {
-  // const stage = process.argv
-  //   .find((arg) => arg.startsWith('--stage='))
-  //   ?.replace('--stage=', '')
-
   const stageFlagIndex = process.argv.findIndex((arg) => arg === '--stage')
   const stage = process.argv[stageFlagIndex + 1]
 
@@ -34,8 +30,6 @@ const getEnvFilePath = () => {
     return ''
   }
 }
-
-console.log(getEnvFilePath())
 
 @Module({
   controllers: [],

@@ -98,7 +98,7 @@ export class AdminController {
 
   @Post('setup-e2e')
   async setupE2e() {
-    await this.adminRepository.resetDatabase()
+    await this.adminRepository.resetDatabaseExceptUserAndAtom()
 
     await this.seederService.seedUserFromRequest()
 

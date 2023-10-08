@@ -235,6 +235,7 @@ export class Element
       closestParentElement?.current.page?.current
 
     if (!closestContainerNode) {
+      console.log(this)
       throw new Error('Element has no node attached to')
     }
 

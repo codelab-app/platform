@@ -8,8 +8,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   override canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest<Request>()
 
-    // console.debug(request.headers)
-
     return super.canActivate(context)
   }
 

@@ -1,3 +1,4 @@
+import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
@@ -19,7 +20,7 @@ import { ImportSystemTypesHandler } from './use-case/import/import-system-types.
     ExportSystemTypesHandler,
     ImportSystemTypesHandler,
   ],
-  imports: [CqrsModule, TypeDomainModule],
+  imports: [CqrsModule, TypeDomainModule, SharedApplicationModule],
   providers: [
     SeedCypressTypesHandler,
     ImportApiHandler,

@@ -94,16 +94,6 @@ export class AtomRepository extends AbstractRepository<
     { api, id, requiredParents = [], suggestedChildren = [], tags }: IAtomDTO,
     where: AtomWhere,
   ) {
-    // console.log(where)
-    // cLog({
-    //   api: reconnectNodeId(api.id),
-    //   requiredParents: whereNodeIds(requiredParents.map((parent) => parent.id)),
-    //   suggestedChildren: whereNodeIds(
-    //     suggestedChildren.map((child) => child.id),
-    //   ),
-    //   tags: reconnectNodeIds(tags?.map((tag) => tag.id)),
-    // })
-
     return (
       await (
         await this.ogmService.Atom

@@ -10,7 +10,7 @@ echo $local_branch_name
 # e.g. prod-0.0.1
 # (3) master, for pushing tags
 
-valid_branch_regex="^(([0-9]+)(-[a-z][a-z0-9]*)+)|((stag|prod)-(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)|master)$"
+valid_branch_regex="^(([0-9]+)(-[a-z][a-z0-9]*)+)|((stag|prod)-(\d|[1-9]\d*)\.(\d|[1-9]\d*)\.(\d|[1-9]\d*)|master|dev)$"
 
 message="
 Branch names must be lower kebab case starting with the issue number:\n

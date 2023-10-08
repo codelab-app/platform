@@ -1,4 +1,5 @@
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import { type IAtomDTO } from '@codelab/shared/abstract/core'
 import { atomTypes } from '@codelab/shared/data/test'
@@ -22,6 +23,10 @@ export class SeedCypressAtomsHandler
    */
   @Span()
   async execute() {
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
+
     const atoms = this.readAdminDataService.atoms.filter(({ atom }) =>
       atomTypes.includes(atom.type),
     )

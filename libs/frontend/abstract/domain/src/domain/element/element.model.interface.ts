@@ -3,8 +3,8 @@ import type {
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type {
+  IElement,
   IElementDTO,
-  IElementSerialized,
   IPropData,
 } from '@codelab/shared/abstract/core'
 import type {
@@ -163,7 +163,7 @@ export interface IElementModel
     inheritedStyles: ElementCssRules
   }
   tailwindClassNames?: Nullable<Array<string>>
-  toJson: IElementSerialized
+  toJson: IElement
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 

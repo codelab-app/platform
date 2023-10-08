@@ -11,4 +11,6 @@ export const loginAndSetupData = () => {
       cacheAcrossSpecs: true,
     },
   )
+
+  cy.postApiRequest('/api/data/admin/setup-e2e')
 }
