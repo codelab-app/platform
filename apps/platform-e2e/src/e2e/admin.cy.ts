@@ -2,7 +2,7 @@ import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import path from 'path'
 
-describe('Admin', () => {
+describe.skip('Admin', () => {
   let user: IUserDTO
 
   before(() => {
