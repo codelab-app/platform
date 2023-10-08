@@ -17,9 +17,6 @@ export class ValidationService {
     anySchema: T,
     values: unknown,
   ): Static<T> => {
-    // TODO: disable for now
-    return values
-
     const validator = new Typebox.NestedValidator(anySchema)
 
     try {
@@ -38,10 +35,6 @@ export class ValidationService {
 
       return validator.validateAndCleanCopy(values as Readonly<unknown>)
     } catch (error) {
-      // console.log(error, values)
-
-      cLog(error as object)
-
       const validationException = error as ValidationException
 
       /**
@@ -53,6 +46,9 @@ export class ValidationService {
           ({ schema, ...detail }) => detail,
         ),
       }
+
+      console.log('-------------------')
+      console.log(values, cleanedErrors)
 
       /**
        * Remove schema as it can get very long

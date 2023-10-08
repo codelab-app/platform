@@ -7,7 +7,7 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "dev",
+      "defaultConfiguration": "prod",
       "options": {
         "target": "node",
         "compiler": "tsc",

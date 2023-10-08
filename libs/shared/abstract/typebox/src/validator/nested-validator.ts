@@ -16,8 +16,6 @@ export class NestedValidator<S extends TSchema> extends StandardValidator<S> {
     value: Readonly<unknown>,
   ): Static<VS> {
     if (schema['type'] === 'object' && typeof value === 'object') {
-      console.log(schema, value)
-
       if (!schema['properties']) {
         return value as Static<VS>
       }

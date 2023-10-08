@@ -4,7 +4,7 @@ docker:
   - image: cimg/node:18.16.0-browsers
   # https://circleci.com/docs/using-docker#using-multiple-docker-images
   # The `command` key is the command issued to the image
-  - image: neo4j:5.4.0
+  - image: neo4j:5.11.0
     environment:
       NEO4J_AUTH: neo4j/password
       NEO4J_PLUGINS: '["apoc"]'

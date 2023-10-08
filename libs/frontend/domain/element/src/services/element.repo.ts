@@ -7,6 +7,8 @@ import type {
   ElementUniqueWhere,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IElement } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { elementApi } from '../store'
 

@@ -7,6 +7,7 @@ import type {
   PageUniqueWhere,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IPage } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
@@ -24,7 +25,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     return pages[0]!
   }
 
-  async delete(pages: Array<IPageModel>) {
+  async delete(pages: Array<IPage>) {
     const {
       deletePages: { nodesDeleted },
     } = await pageApi.DeletePages({

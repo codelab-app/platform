@@ -98,6 +98,6 @@ export class TerraformService implements CommandModule<unknown, unknown> {
   }
 
   handler(args: ArgumentsCamelCase) {
-    // console.log(args)
+    //
   }
 }

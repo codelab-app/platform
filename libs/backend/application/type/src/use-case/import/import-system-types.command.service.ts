@@ -1,21 +1,25 @@
+import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class ImportSystemTypesCommand {
-  constructor(public types: Array<ITypeDTO>) {}
-}
+export class ImportSystemTypesCommand {}
 
 @CommandHandler(ImportSystemTypesCommand)
 export class ImportSystemTypesHandler
   implements ICommandHandler<ImportSystemTypesCommand>
 {
-  constructor(private readonly typeFactory: TypeFactory) {}
+  constructor(
+    private readonly typeFactory: TypeFactory,
+    private readonly readAdminDataService: ReadAdminDataService,
+  ) {}
 
   @Span()
-  async execute({ types }: ImportSystemTypesCommand) {
+  async execute() {
+    const types = this.readAdminDataService.systemTypes
+
     /**
      * Must do sequentially due to type dependency
      */

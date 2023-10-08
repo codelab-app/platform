@@ -6,16 +6,18 @@ import { pageName, updatedPageName } from './apps/app.data'
 
 describe('Pages CRUD', () => {
   let app: IApp
+
   before(() => {
     loginAndSetupData()
     cy.postApiRequest<IApp>('/api/data/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })
+
   describe('create', () => {
     it('should be able to create page', () => {
       cy.visit(
-        `/apps/cypress/${app.slug}/pages/404/builder?primarySidebarKey=pageList`,
+        `/apps/cypress/${app.slug}/pages/_app/builder?primarySidebarKey=pageList`,
       )
       cy.getSpinner().should('not.exist')
       cy.findAllByText(IPageKindName.Provider).should('exist')

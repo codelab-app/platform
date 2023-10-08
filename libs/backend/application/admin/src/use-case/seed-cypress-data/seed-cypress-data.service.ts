@@ -12,10 +12,8 @@ export class SeedCypressDataService {
   ) {}
 
   async execute() {
-    const types = this.readAdminDataService.systemTypes
-
     await this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(types),
+      new ImportSystemTypesCommand(),
     )
 
     for (const atom of this.readAdminDataService.atoms) {

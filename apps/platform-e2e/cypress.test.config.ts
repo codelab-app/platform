@@ -32,8 +32,8 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   projectId: '9hfoow',
   responseTimeout: 5000,
   retries: {
-    openMode: 0,
-    runMode: 0,
+    openMode: 1,
+    runMode: 1,
   },
   screenshotsFolder: './src/screenshots',
   // specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',

@@ -127,8 +127,6 @@ export class ElementService
       )
     }
 
-    console.log(subRootElement)
-
     const affectedNodeIds =
       this.moveElementService.detachElementFromElementTree(subRootElement.id)
 
@@ -143,7 +141,6 @@ export class ElementService
     })
 
     const target = this.element(affectedNodeIds[0]!)
-    console.log(target.toJson)
 
     yield* _await(this.updateAffectedElements(affectedNodeIds))
     yield* _await(this.elementRepository.delete(allElementsToDelete))

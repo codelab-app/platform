@@ -76,10 +76,8 @@ export class ImportAdminDataHandler
 
   @Span()
   private async importSystemTypes() {
-    const types = this.readAdminDataService.systemTypes
-
     return this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(types),
+      new ImportSystemTypesCommand(),
     )
   }
 

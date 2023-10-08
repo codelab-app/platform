@@ -37,6 +37,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  clone,
   Model,
   model,
   modelAction,
@@ -140,41 +141,33 @@ export class PageService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PageService, pages: Array<IPageModel>) {
-    // const operations = pages.map((page) =>
-    //   _async(function* (this: PageService) {
-    //     this.pages.delete(page.id)
-    //   }),
-    // )
-
+  delete = _async(function* (this: PageService, pagesModel: Array<IPageModel>) {
     const existingPages = (yield* _await(
       this.pageRepository.find({
-        id_IN: pages.map((page) => page.id),
+        id_IN: pagesModel.map((page) => page.id),
       }),
     )).items
 
     /**
      * Need to fetch and delete all elements, since page only has references to the rootElement
      */
-    const elements = existingPages.flatMap((page) =>
-      [page.rootElement, ...page.rootElement.descendantElements].map(
-        (element) =>
-          this.elementService.add({
-            ...element,
-            closestContainerNode: {
-              id: page.id,
-            },
-          }),
-      ),
+    const elements = existingPages.flatMap((page) => [
+      page.rootElement,
+      ...page.rootElement.descendantElements,
+    ])
+
+    elements.forEach((element) =>
+      this.elementService.elements.delete(element.id),
     )
 
     yield* _await(this.elementService.elementRepository.delete(elements))
 
-    // yield*
+    pagesModel.forEach((page) => this.pages.delete(page.id))
+
     /**
      * Page can delete all other info
      */
-    yield* _await(this.pageRepository.delete(pages))
+    yield* _await(this.pageRepository.delete(pagesModel))
   })
 
   @modelFlow

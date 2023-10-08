@@ -35,16 +35,16 @@ export const IElementDTO = Type.Object({
 
 export type IElementDTO = Static<typeof IElementDTO>
 
-export const IElementSerialized = IElementDTO
+export const IElement = IElementDTO
 
-// export const IElementSerialized = Typebox.Overwrite(
+// export const IElement = Typebox.Overwrite(
 //   IElementDTO,
 //   Type.Object({
 //     props: Type.Union([IAtomDTO, IComponentDTO]),
 //   }),
 // )
 
-export type IElementSerialized = Static<typeof IElementSerialized>
+export type IElement = Static<typeof IElement>
 
 export const ICreateElementDTO = Type.Composite([
   IElementDTO,

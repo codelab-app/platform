@@ -15,6 +15,7 @@ import type {
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
+import { IPage } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -81,14 +82,17 @@ export class Page
   }
 
   @computed
-  get toJson() {
+  get toJson(): IPage {
     return {
-      [this.slug]: {
-        id: this.id,
-        name: this.name,
-        slug: this.slug,
-        url: `apps/${this.app.id}/pages/${this.id}`,
-      },
+      app: this.app,
+      id: this.id,
+      kind: this.kind,
+      name: this.name,
+      pageContentContainer: this.pageContentContainer,
+      rootElement: this.rootElement,
+      slug: this.slug,
+      store: this.store,
+      url: `apps/${this.app.id}/pages/${this.id}`,
     }
   }
 

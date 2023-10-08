@@ -9,6 +9,7 @@ export const getCuiToolbarItem = (
   cy.log('getCuiToolbarItem', title)
 
   // Check if a subject exists (i.e., the command is chained)
+  // https://stackoverflow.com/questions/58833459/cypresserror-timed-out-retrying-cy-click-failed-because-this-element-is-deta
   return subject
     ? cy
         .wrap(subject)

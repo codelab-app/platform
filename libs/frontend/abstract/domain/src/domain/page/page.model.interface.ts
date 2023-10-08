@@ -26,5 +26,5 @@ export interface IPageModel
   pageContentContainer?: Nullish<Ref<IElementModel>>
   rootElement: Ref<IElementModel>
   store: Ref<IStoreModel>
-  toJson: IPropData
+  toJson: IPage
 }
