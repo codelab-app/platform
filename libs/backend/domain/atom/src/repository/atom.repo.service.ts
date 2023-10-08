@@ -49,6 +49,7 @@ export class AtomRepository extends AbstractRepository<
         input: atoms.map(
           ({
             api,
+            icon,
             id,
             name,
             requiredParents = [],
@@ -57,6 +58,7 @@ export class AtomRepository extends AbstractRepository<
             type,
           }) => ({
             api: connectNodeId(api.id),
+            icon,
             id,
             name,
             owner: connectOwner(this.authService.currentUser),
@@ -91,7 +93,7 @@ export class AtomRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { api, id, requiredParents = [], suggestedChildren = [], tags }: IAtomDTO,
+    { api, requiredParents = [], suggestedChildren = [], tags }: IAtomDTO,
     where: AtomWhere,
   ) {
     return (
