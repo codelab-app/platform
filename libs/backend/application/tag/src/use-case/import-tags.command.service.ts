@@ -22,7 +22,7 @@ export class ImportTagsHandler
      */
     for (const tag of tags) {
       const { children, isRoot, parent, ...createTagData } = tag
-      await this.tagRepository.save(createTagData, { name: tag.name })
+      await this.tagRepository.save(createTagData)
     }
 
     /**
@@ -30,7 +30,7 @@ export class ImportTagsHandler
      */
     for (const tag of tags) {
       const { isRoot, ...updateTagData } = tag
-      await this.tagRepository.save(updateTagData, { name: tag.name })
+      await this.tagRepository.save(updateTagData)
     }
   }
 }
