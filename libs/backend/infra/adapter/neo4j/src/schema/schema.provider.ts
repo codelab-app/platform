@@ -12,12 +12,6 @@ import { OGM_RESOLVER_PROVIDER } from '../resolver/ogm-resolver/ogm-resolver.con
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
 
-const appCompoundName: Neo4jGraphQLCallback = async (parent, args, context) => {
-  console.log(parent, args, context)
-
-  return `${parent.name}`
-}
-
 /**
  * Your web app has a session (that’s the cookie) used to verify the user.
  *
@@ -68,11 +62,6 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
             },
             String: {
               MATCHES: true,
-            },
-          },
-          populatedBy: {
-            callbacks: {
-              appCompoundName,
             },
           },
         },

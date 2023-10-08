@@ -1,4 +1,3 @@
-import { DatabaseService } from '@codelab/backend/application/shared'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
@@ -24,7 +23,7 @@ describe.skip('Seed, import, & export data', () => {
     beforeAll(async () => {
       const module: TestingModule = await Test.createTestingModule({
         imports: [AdminApplicationModule],
-        providers: [DatabaseService],
+        providers: [],
       }).compile()
     })
 

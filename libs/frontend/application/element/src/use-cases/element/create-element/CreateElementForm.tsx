@@ -79,6 +79,10 @@ export const CreateElementForm = observer(
       parentElement: {
         id: parentElement.id,
       },
+      props: {
+        api: { id: v4() },
+        id: v4(),
+      },
       // TODO: Couldn't we only validate when field is changed or submitted?
       // Needs to be null initially so that required sub-fields
       // are not validated when nothing is selected yet

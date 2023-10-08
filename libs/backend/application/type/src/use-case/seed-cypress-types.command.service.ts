@@ -14,10 +14,6 @@ export class SeedCypressTypesHandler {
     /**
      * Create the types
      */
-    const types = await Promise.all(
-      [].map((typeData) => {
-        return this.typeFactory.save(typeData)
-      }),
-    )
+    // return this.typeFactory.save(type)
   }
 }
