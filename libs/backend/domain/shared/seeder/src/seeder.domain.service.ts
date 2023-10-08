@@ -1,6 +1,7 @@
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { Injectable } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
 
 @Injectable()
 export class SeederDomainService {
