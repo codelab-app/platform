@@ -16,9 +16,6 @@ export class ValidationService {
     anySchema: T,
     values: unknown,
   ): Static<T> => {
-    // TODO: disable for now
-    return values
-
     const validator = new Typebox.NestedValidator(anySchema)
 
     try {
