@@ -1,5 +1,6 @@
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
+import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { JwtAuthGuard } from '@codelab/backend/application/shared'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { UserApplicationModule } from '@codelab/backend/application/user'
@@ -18,6 +19,7 @@ import { endpointConfig } from '../platform/endpoint.config'
     // }),
     RequestContextModule,
     AdminApplicationModule,
+    AtomApplicationModule,
     UserApplicationModule,
     TagApplicationModule,
     AppApplicationModule,

@@ -43,14 +43,11 @@ const openPageByName = (name: string) => {
 describe('_app page', () => {
   before(() => {
     loginAndSetupData()
-    cy.request('/atom/seed-cypress-atom')
+    cy.postApiRequest('/atom/seed-cypress-atom')
   })
 
   it('should create _app page when app is created', () => {
     cy.visit('/apps')
-    cy.intercept('GET', '/api/upsert-user').as('upsertUser')
-    cy.getSpinner().should('not.exist')
-    cy.wait('@upsertUser')
     cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
     cy.getButton({ label: /Create Now/ }).click()
