@@ -1,4 +1,4 @@
-import { interfaceFormApi } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { StoreWhere } from '@codelab/shared/abstract/codegen'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync, useMountEffect } from '@react-hookz/web'
@@ -10,13 +10,15 @@ export type SelectStoreProps = UniformSelectFieldProps & {
 }
 
 export const SelectStore = ({ error, name, where }: SelectStoreProps) => {
-  const [{ error: queryError, result, status }, getStores] = useAsync(() =>
-    interfaceFormApi.InterfaceForm_GetStores({ where }),
-  )
+  const { storeService } = useStore()
 
-  const options =
-    result?.stores.map((store) => ({ label: store.name, value: store.id })) ??
-    []
+  const [{ error: queryError, result: stores = [], status }, getStores] =
+    useAsync(() => storeService.getAll(where))
+
+  const options = stores.map((store) => ({
+    label: store.name,
+    value: store.id,
+  }))
 
   useMountEffect(getStores.execute)
 
