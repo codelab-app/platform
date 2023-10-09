@@ -9,7 +9,7 @@ describe('Pages CRUD', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IApp>('/api/data/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IApp>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })
