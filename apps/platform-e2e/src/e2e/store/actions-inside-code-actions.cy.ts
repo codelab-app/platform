@@ -32,11 +32,9 @@ describe('Running actions inside code action with arguments', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-      (apps) => {
-        app = apps.body
-      },
-    )
+    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
   })
 
   it('should create the resouce that will be used for the api actions', () => {

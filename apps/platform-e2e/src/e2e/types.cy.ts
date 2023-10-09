@@ -31,6 +31,8 @@ const fieldDefaultValue = 'something default'
 describe('Types CRUD', () => {
   before(() => {
     loginAndSetupData()
+    // Setup data creates types, so we need to clear that
+    cy.postApiRequest('/admin/reset-database-except-user')
   })
 
   describe('create type', () => {

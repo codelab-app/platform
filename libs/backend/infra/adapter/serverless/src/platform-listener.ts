@@ -13,7 +13,7 @@ export const getPlatformListener = async () => {
     })
     // This must match the nextjs api path
     app.setGlobalPrefix('api/graphql')
-    app.enableShutdownHooks()
+    // app.enableShutdownHooks()
 
     await app.init()
   }

@@ -21,12 +21,10 @@ describe('State variables sharing between pages', () => {
   let app: IAppDTO
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest('/api/data/type/seed-cypress-type')
-    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-      (apps) => {
-        app = apps.body
-      },
-    )
+    cy.postApiRequest('/type/seed-cypress-type')
+    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
   })
   it('should setup the pages that will share states', () => {
     // create regular page where we will test the shared state

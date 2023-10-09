@@ -1,3 +1,6 @@
+/**
+ * Login and seed user
+ */
 export const loginAndSetupData = () => {
   cy.session(
     ['auth0-session'],
@@ -12,5 +15,5 @@ export const loginAndSetupData = () => {
     },
   )
 
-  cy.postApiRequest('/api/data/admin/setup-e2e')
+  cy.postApiRequest('/admin/setup-e2e')
 }

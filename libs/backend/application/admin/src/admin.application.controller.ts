@@ -18,7 +18,7 @@ export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly adminRepository: AdminRepository,
-    private seederService: SeederApplicationService,
+    private seederApplicationService: SeederApplicationService,
   ) {}
 
   @Post('export')
@@ -82,13 +82,11 @@ export class AdminController {
    */
   @Post('setup-dev')
   async setup() {
-    await this.seederService.seedBootstrapData()
+    await this.seederApplicationService.seedDevBootstrapData()
   }
 
   @Post('setup-e2e')
   async setupE2e() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
-
-    await this.seederService.seedBootstrapData()
+    await this.seederApplicationService.seedE2eBootstrapData()
   }
 }

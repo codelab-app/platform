@@ -19,11 +19,9 @@ describe('Running API action and setting state on element pre-render', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/api/data/app/seed-cypress-app').then(
-      (apps) => {
-        app = apps.body
-      },
-    )
+    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
   })
 
   it('should create the resouce that will be used for the api actions', () => {
