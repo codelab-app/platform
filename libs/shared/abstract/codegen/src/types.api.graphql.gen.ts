@@ -20855,6 +20855,18 @@ export type GetAppDevelopmentQuery = {
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
+export type GetAppProductionQueryVariables = Exact<{
+  domain: Scalars['String']['input']
+  pageUrl: Scalars['String']['input']
+}>
+
+export type GetAppProductionQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomProductionFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
 export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
