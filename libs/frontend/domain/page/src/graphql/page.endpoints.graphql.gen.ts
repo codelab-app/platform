@@ -4,8 +4,6 @@ import {
   PageFragment,
   PageDevelopmentFragment,
 } from '../../../../abstract/domain/src/domain/page/page.fragment.graphql.gen'
-import { ResourceFragment } from '../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
-import { AppProductionFragment } from '../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -13,8 +11,6 @@ import {
   PageFragmentDoc,
   PageDevelopmentFragmentDoc,
 } from '../../../../abstract/domain/src/domain/page/page.fragment.graphql.gen'
-import { ResourceFragmentDoc } from '../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
-import { AppProductionFragmentDoc } from '../../../../abstract/domain/src/domain/app/app.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
@@ -47,16 +43,6 @@ export type GetPagesQueryVariables = Types.Exact<{
 export type GetPagesQuery = {
   aggregate: { count: number }
   items: Array<PageFragment>
-}
-
-export type GetProductionPageQueryVariables = Types.Exact<{
-  appCompositeKey: Types.Scalars['String']['input']
-  pageCompositeKey: Types.Scalars['String']['input']
-}>
-
-export type GetProductionPageQuery = {
-  apps: Array<AppProductionFragment>
-  resources: Array<ResourceFragment>
 }
 
 export type GetRenderedPageQueryVariables = Types.Exact<{
@@ -100,21 +86,6 @@ export const GetPagesDocument = gql`
     }
   }
   ${PageFragmentDoc}
-`
-export const GetProductionPageDocument = gql`
-  query GetProductionPage(
-    $appCompositeKey: String!
-    $pageCompositeKey: String!
-  ) {
-    apps(where: { compositeKey: $appCompositeKey }) {
-      ...AppProduction
-    }
-    resources {
-      ...Resource
-    }
-  }
-  ${AppProductionFragmentDoc}
-  ${ResourceFragmentDoc}
 `
 export const GetRenderedPageDocument = gql`
   query GetRenderedPage($pageId: ID!) {
@@ -195,21 +166,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetPages',
-        'query',
-      )
-    },
-    GetProductionPage(
-      variables: GetProductionPageQueryVariables,
-      requestHeaders?: GraphQLClientRequestHeaders,
-    ): Promise<GetProductionPageQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetProductionPageQuery>(
-            GetProductionPageDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetProductionPage',
         'query',
       )
     },

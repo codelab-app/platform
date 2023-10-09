@@ -49,6 +49,7 @@ fragment AtomDevelopment on Atom {
 }
 
 fragment AtomProduction on Atom {
+  __typename
   externalCssSource
   externalJsSource
   externalSourceType

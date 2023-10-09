@@ -1,6 +1,5 @@
 export * from './useAppQuery.hook'
 export * from './usePageQuery.hook'
-export * from './useProductionPage.hook'
 export * from './useRemainingPages.hook'
 export * from './useRenderedComponent.hook'
 export * from './useUserQuery.hook'

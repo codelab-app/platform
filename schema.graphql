@@ -4522,13 +4522,11 @@ input BaseActionWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
-  id_MATCHES: String
   id_STARTS_WITH: ID
   name: String
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
-  name_MATCHES: String
   name_STARTS_WITH: String
   store: StoreWhere
   storeAggregate: BaseActionStoreAggregateInput
@@ -6201,6 +6199,9 @@ type CreateHooksMutationResponse {
   info: CreateInfo!
 }
 
+"""
+Information about the number of nodes and relationships created during a create mutation
+"""
 type CreateInfo {
   bookmark: String
     @deprecated(
@@ -6280,6 +6281,9 @@ type CreateUsersMutationResponse {
   users: [User!]!
 }
 
+"""
+Information about the number of nodes and relationships deleted during a delete mutation
+"""
 type DeleteInfo {
   bookmark: String
     @deprecated(
@@ -11356,7 +11360,6 @@ input IBaseTypeWhere {
   id_CONTAINS: ID
   id_ENDS_WITH: ID
   id_IN: [ID!]
-  id_MATCHES: String
   id_STARTS_WITH: ID
   kind: TypeKind
   kind_IN: [TypeKind!]
@@ -11364,7 +11367,6 @@ input IBaseTypeWhere {
   name_CONTAINS: String
   name_ENDS_WITH: String
   name_IN: [String!]
-  name_MATCHES: String
   name_STARTS_WITH: String
   owner: UserWhere
   ownerAggregate: IBaseTypeOwnerAggregateInput
@@ -14585,6 +14587,9 @@ type Query {
   ): UsersConnection!
 }
 
+"""
+Input type for options that can be specified on a query operation.
+"""
 input QueryOptions {
   limit: Int
   offset: Int
@@ -15379,6 +15384,9 @@ enum Role {
   User
 }
 
+"""
+An enum for sorting in either ascending or descending order.
+"""
 enum SortDirection {
   """
   Sort by field values in ascending order.
@@ -17761,6 +17769,9 @@ type UpdateHooksMutationResponse {
   info: UpdateInfo!
 }
 
+"""
+Information about the number of nodes and relationships created and deleted during an update mutation
+"""
 type UpdateInfo {
   bookmark: String
     @deprecated(

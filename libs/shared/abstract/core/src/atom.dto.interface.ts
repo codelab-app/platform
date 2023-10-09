@@ -33,12 +33,3 @@ export const IAtomSerialized = Type.Composite([
 ])
 
 export type IAtomSerialized = Static<typeof IAtomSerialized>
-
-export const IAtomProductionDto = Type.Composite([
-  IAtomDTO,
-  Type.Object({
-    api: Type.Optional(IMaybeDiscriminatedEntity(`${ITypeKind.InterfaceType}`)),
-  }),
-])
-
-export type IAtomProductionDto = Static<typeof IAtomProductionDto>

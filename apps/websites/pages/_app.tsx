@@ -10,17 +10,31 @@ import 'antd/dist/reset.css'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Analytics } from '@vercel/analytics/react'
 import React, { useMemo } from 'react'
+import { v4 } from 'uuid'
+
+// because user is required we pass a guest user
+export const user: Auth0IdToken = {
+  email: '',
+  /* eslint-disable @typescript-eslint/naming-convention */
+  email_verified: false,
+  family_name: '',
+  given_name: '',
+  'https://api.codelab.app/jwt/claims': { neo4j_user_id: v4(), roles: [] },
+  locale: '',
+  name: '',
+  nickname: '',
+  picture: '',
+  sid: v4(),
+  sub: v4(),
+  updated_at: '',
+  /* eslint-enable @typescript-eslint/naming-convention */
+}
 
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
-  const { user } = pageProps
-
   const store = useMemo(() => {
-    if (!user) {
-      return null
-    }
-
     return initializeStore({ user })
   }, [user])
 

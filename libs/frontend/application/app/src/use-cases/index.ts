@@ -1,4 +1,5 @@
 export * from './app-development'
+export * from './app-production'
 export * from './build-app'
 export * from './create-app'
 export * from './delete-app'
