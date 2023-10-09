@@ -56,7 +56,5 @@ export const getStaticProps: GetStaticProps<IAppProductionDto> = async (
     pageUrl,
   })
 
-  console.log(domain, page, props)
-
   return { props }
 }
