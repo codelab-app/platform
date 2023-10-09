@@ -22,11 +22,7 @@ import { getResourceService } from '@codelab/frontend/domain/resource'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { getStoreService } from '@codelab/frontend/domain/store'
 import { VercelService } from '@codelab/frontend/domain/vercel'
-import type {
-  AppWhere,
-  GetProductionPageQuery,
-  PageWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { AppWhere, PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IDomainDTO } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -41,12 +37,14 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { AppProductionService } from '../use-cases'
 import { AppDevelopmentService } from '../use-cases/app-development'
 
 @model('@codelab/AppService')
 export class AppService
   extends Model({
     appDevelopmentService: prop(() => new AppDevelopmentService({})),
+    appProductionService: prop(() => new AppProductionService({})),
     appRepository: prop(() => new AppRepository({})),
     apps: prop(() => objectMap<IAppModel>()),
     buildModal: prop(() => new AppModalService({})),
@@ -241,27 +239,6 @@ export class AppService
     this.apps.set(app.id, app)
 
     return app
-  }
-
-  /**
-   * This is the 'production' version of `loadBuilderPage`. Already has initial data, just needs to hydrate the models
-   */
-  @modelFlow
-  loadProductionPage = (initialData: GetProductionPageQuery) => {
-    const {
-      apps: [appData],
-      resources,
-    } = initialData
-
-    if (!appData) {
-      return undefined
-    }
-
-    // this.loadPages({ pages: appData.pages })
-
-    this.resourceService.load(resources)
-
-    return this.add(appData)
   }
 
   app(id: string) {

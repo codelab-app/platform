@@ -58,9 +58,7 @@ fragment AppProduction on App {
   owner {
     ...Owner
   }
-  pages(
-    where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
-  ) {
+  pages(where: { OR: [{ url: $pageUrl }, { kind: Provider }] }) {
     ...PageProduction
   }
   slug

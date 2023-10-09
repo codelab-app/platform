@@ -118,9 +118,7 @@ export const AppProductionFragmentDoc = gql`
     owner {
       ...Owner
     }
-    pages(
-      where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
-    ) {
+    pages(where: { OR: [{ url: $pageUrl }, { kind: Provider }] }) {
       ...PageProduction
     }
     slug

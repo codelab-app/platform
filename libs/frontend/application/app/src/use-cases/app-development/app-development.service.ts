@@ -125,8 +125,6 @@ export class AppDevelopmentService
 
     data.pages.forEach((page) => this.pageService.add(page))
 
-    data.types.forEach((type) => this.typeService.add(type))
-
     data.stores.forEach((store) => this.storeService.add(store))
 
     data.actions.forEach((action) => this.actionService.add(action))

@@ -3,10 +3,9 @@ import type {
   IAtomService,
   IComponentType,
   ICreateAtomData,
-  IInterfaceType,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { atomRef } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
@@ -245,13 +244,7 @@ export class AtomService
       atom.writeCache(atomDto)
     } else {
       console.debug('no found cache, creating...')
-
-      const apiRef = typeRef<IInterfaceType>(atomDto.api.id)
-
-      atom = Atom.create({
-        ...atomDto,
-        api: apiRef,
-      })
+      atom = Atom.create(atomDto)
     }
 
     const { externalCssSource, externalJsSource, externalSourceType } = atomDto

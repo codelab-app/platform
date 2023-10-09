@@ -1,7 +1,6 @@
 import type {
   AppOptions,
   AppWhere,
-  GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IPropData } from '@codelab/shared/abstract/core'
@@ -17,12 +16,14 @@ import type { ICreateAppData, IUpdateAppData } from './app.dto.interface'
 import type { IAppModel } from './app.model.interface'
 import type { IAppRepository } from './app.repo.interface'
 import type { IAppDevelopmentService } from './app-development.service.interface'
+import type { IAppProductionService } from './app-production.service.interface'
 
 export interface IAppService
   extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
     IQueryService<IAppModel, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IAppModel>, { app: Maybe<IAppModel> }> {
   appDevelopmentService: IAppDevelopmentService
+  appProductionService: IAppProductionService
   appRepository: IAppRepository
   apps: ObjectMap<IAppModel>
   appsJson: IPropData
@@ -39,5 +40,4 @@ export interface IAppService
   //   pageName: string,
   // ): Promise<IAppModel | null>
   // loadPages(data: IAppDevelopmentDto): void
-  loadProductionPage(initialData: GetProductionPageQuery): IAppModel | undefined
 }
