@@ -9526,6 +9526,7 @@ export type ArrayTypeConnectOrCreateInput = {
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
+  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
 export type ArrayTypeConnectWhere = {
@@ -18519,8 +18520,6 @@ export type ElementUpdateInput = {
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
-  tailwindClassNames_POP?: InputMaybe<Scalars['Int']['input']>
-  tailwindClassNames_PUSH?: InputMaybe<Array<Scalars['String']['input']>>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
@@ -18898,6 +18897,7 @@ export type EnumTypeConnectOrCreateInput = {
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
+  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
 export type EnumTypeConnectWhere = {
@@ -30839,13 +30839,11 @@ export type UserTypesCreateFieldInput = {
 }
 
 export type UserTypesDeleteFieldInput = {
-  delete?: InputMaybe<IBaseTypeDeleteInput>
   where?: InputMaybe<UserTypesConnectionWhere>
   delete?: InputMaybe<IBaseTypeDeleteInput>
 }
 
 export type UserTypesDisconnectFieldInput = {
-  disconnect?: InputMaybe<IBaseTypeDisconnectInput>
   where?: InputMaybe<UserTypesConnectionWhere>
   disconnect?: InputMaybe<IBaseTypeDisconnectInput>
 }
