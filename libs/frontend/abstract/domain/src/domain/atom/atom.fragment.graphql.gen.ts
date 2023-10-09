@@ -34,6 +34,7 @@ export type AtomDevelopmentFragment = {
 }
 
 export type AtomProductionFragment = {
+  __typename: 'Atom'
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
@@ -103,6 +104,7 @@ export const AtomDevelopmentFragmentDoc = gql`
 `
 export const AtomProductionFragmentDoc = gql`
   fragment AtomProduction on Atom {
+    __typename
     externalCssSource
     externalJsSource
     externalSourceType

@@ -4641,13 +4641,11 @@ export type BaseActionWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   name_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  name_MATCHES?: InputMaybe<Scalars['String']['input']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   store?: InputMaybe<StoreWhere>
   storeAggregate?: InputMaybe<BaseActionStoreAggregateInput>
@@ -6460,6 +6458,7 @@ export type CreateHooksMutationResponse = {
   info: CreateInfo
 }
 
+/** Information about the number of nodes and relationships created during a create mutation */
 export type CreateInfo = {
   __typename?: 'CreateInfo'
   /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
@@ -6552,6 +6551,7 @@ export type CreateUsersMutationResponse = {
   users: Array<User>
 }
 
+/** Information about the number of nodes and relationships deleted during a delete mutation */
 export type DeleteInfo = {
   __typename?: 'DeleteInfo'
   /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
@@ -11933,7 +11933,6 @@ export type IBaseTypeWhere = {
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<TypeKind>
   kind_IN?: InputMaybe<Array<TypeKind>>
@@ -11941,7 +11940,6 @@ export type IBaseTypeWhere = {
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   name_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  name_MATCHES?: InputMaybe<Scalars['String']['input']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<IBaseTypeOwnerAggregateInput>
@@ -15793,6 +15791,7 @@ export type QueryUsersConnectionArgs = {
   where?: InputMaybe<UserWhere>
 }
 
+/** Input type for options that can be specified on a query operation. */
 export type QueryOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -16691,6 +16690,7 @@ export enum Role {
   User = 'User',
 }
 
+/** An enum for sorting in either ascending or descending order. */
 export enum SortDirection {
   /** Sort by field values in ascending order. */
   ASC = 'ASC',
@@ -19280,6 +19280,7 @@ export type UpdateHooksMutationResponse = {
   info: UpdateInfo
 }
 
+/** Information about the number of nodes and relationships created and deleted during an update mutation */
 export type UpdateInfo = {
   __typename?: 'UpdateInfo'
   /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
@@ -20812,7 +20813,7 @@ export type AtomDevelopmentFragment = {
 }
 
 export type AtomProductionFragment = {
-  __typename?: 'Atom'
+  __typename: 'Atom'
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
@@ -21385,6 +21386,18 @@ export type GetAppDevelopmentQuery = {
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
+export type GetAppProductionQueryVariables = Exact<{
+  domain: Scalars['String']['input']
+  pageUrl: Scalars['String']['input']
+}>
+
+export type GetAppProductionQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomProductionFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
 export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
@@ -21712,17 +21725,6 @@ export type GetPagesQuery = {
   __typename?: 'Query'
   aggregate: { __typename?: 'PageAggregateSelection'; count: number }
   items: Array<{ __typename?: 'Page' } & PageFragment>
-}
-
-export type GetProductionPageQueryVariables = Exact<{
-  appCompositeKey: Scalars['String']['input']
-  pageCompositeKey: Scalars['String']['input']
-}>
-
-export type GetProductionPageQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
 export type GetRenderedPageQueryVariables = Exact<{
