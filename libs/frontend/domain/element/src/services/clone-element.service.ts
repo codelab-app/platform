@@ -35,7 +35,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { makeAutoIncrementedName } from '../utils'
+import { makeAutoIncrementedName } from '../use-cases'
 
 @model('@codelab/CloneElementService')
 export class CloneElementService
@@ -287,7 +287,7 @@ export class CloneElementService
     await this.elementService.elementRepository.add(elementCloneModel)
 
     const lastChild = parentElement.children[parentElement.children.length - 1]
-    let affectedNodeIds: Array<string> = []
+    const affectedNodeIds: Array<string> = []
 
     // if (!lastChild) {
     //   affectedNodeIds =

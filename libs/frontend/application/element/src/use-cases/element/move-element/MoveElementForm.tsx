@@ -28,7 +28,6 @@ export interface MoveElementFormProps {
  */
 export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
   const { atomService, builderService, elementService } = useStore()
-
   const elementTree = builderService.activeElementTree
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
