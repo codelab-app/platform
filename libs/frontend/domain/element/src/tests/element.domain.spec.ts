@@ -73,7 +73,7 @@ describe('Element domain', () => {
   }
 
   describe('Next sibling', () => {
-    // (firstChild)-(nextSibling)
+    // (firstChild)-[nextSibling]
     it('should add element as next sibling', () => {
       elementDomainService.resetModifiedElements()
 
@@ -85,7 +85,7 @@ describe('Element domain', () => {
       expect(elementDomainService.modifiedElements).toHaveLength(2)
     })
 
-    // (firstChild)-(anotherNextSibling)-(nextSibling)
+    // (firstChild)-[anotherNextSibling]-(nextSibling)
     it('should insert next sibling between 2 nodes', () => {
       elementDomainService.resetModifiedElements()
 
@@ -103,16 +103,16 @@ describe('Element domain', () => {
     })
   })
 
-  describe('Prev sibling', () => {
-    const prevSiblingDto = {
-      ...rootElementDto,
-      id: v4(),
-      name: 'Prev Sibling',
-      // nextSibling is last at this point
-      nextSibling: nextSiblingDto,
-    }
+  const prevSiblingDto = {
+    ...rootElementDto,
+    id: v4(),
+    name: 'Prev Sibling',
+    // nextSibling is last at this point
+    nextSibling: nextSiblingDto,
+  }
 
-    // (firstChild)-(anotherNextSibling)-(prevSibling)-(nextSibling)
+  describe('Prev sibling', () => {
+    // (firstChild)-(anotherNextSibling)-[prevSibling]-(nextSibling)
     it('should add element as prev sibling', () => {
       elementDomainService.resetModifiedElements()
 
@@ -138,6 +138,44 @@ describe('Element domain', () => {
       expect(nextSiblingModel.prevSibling?.id).toBe(prevSibling.id)
 
       expect(elementDomainService.modifiedElements).toHaveLength(3)
+    })
+  })
+
+  describe('Remove', () => {
+    // (firstChild)-[anotherNextSibling]-(prevSibling)-(nextSibling)
+    // to
+    // (firstChild)-(prevSibling)-(nextSibling)
+    it('can detach from tree', () => {
+      const anotherNextSibling = elementService.element(
+        anotherNextSiblingDto.id,
+      )
+
+      anotherNextSibling.detachFromTree()
+
+      const prevSibling = elementService.element(prevSiblingDto.id)
+
+      expect(anotherNextSibling.parentElement).toBeNull()
+      expect(anotherNextSibling.prevSibling).toBeNull()
+      expect(anotherNextSibling.nextSibling).toBeNull()
+
+      expect(firstChild.nextSibling?.id).toBe(prevSibling.id)
+      expect(prevSibling.prevSibling?.id).toBe(firstChild.id)
+    })
+
+    // (rootElement)
+    //  /
+    // [firstChild]-(prevSibling)-(nextSibling)
+    //
+    // (rootElement)
+    //  /
+    // (prevSibling)-(nextSibling)
+    it('can detach first child', () => {
+      firstChild.detachFromTree()
+
+      const prevSibling = elementService.element(prevSiblingDto.id)
+
+      expect(rootElement?.firstChild?.id).toBe(prevSibling.id)
+      expect(prevSibling.parentElement?.id).toBe(rootElement?.id)
     })
   })
 })

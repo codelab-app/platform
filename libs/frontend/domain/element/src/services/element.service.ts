@@ -11,7 +11,6 @@ import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
-import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import {
@@ -64,9 +63,8 @@ export class ElementService
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
     const element = this.elementDomainService.add(data)
-    const modifiedElements = this.elementDomainService.modifiedElements
 
-    yield* _await(this.updateElements(modifiedElements))
+    yield* _await(this.syncModifiedElements())
 
     /**
      * Syncs all components to the current element tree
@@ -90,13 +88,27 @@ export class ElementService
   })
 
   /**
+   * Call this to update modified elements
+   */
+  @modelFlow
+  syncModifiedElements = _async(function* (this: ElementService) {
+    yield* _await(
+      this.updateElements(this.elementDomainService.modifiedElements),
+    )
+
+    this.elementDomainService.resetModifiedElements()
+  })
+
+  /**
    * We compare the prev and new state of the changes in the parent/sibling properties to see what operation we will perform
    */
   @modelFlow
   move = _async(function* (this: ElementService, context: IMoveElementContext) {
-    const { element, nextSibling, parentElement } = context
-
     this.elementDomainService.move(context)
+
+    yield* _await(
+      this.updateElements(this.elementDomainService.modifiedElements),
+    )
   })
 
   /**
@@ -125,8 +137,7 @@ export class ElementService
       )
     }
 
-    const affectedNodeIds: Array<string> = []
-    // this.moveElementService.detachElementFromElementTree(subRootElement.id)
+    subRootElement.detachFromTree()
 
     const allElementsToDelete = [
       subRootElement,
@@ -138,9 +149,7 @@ export class ElementService
       this.elementDomainService.elements.delete(element.id)
     })
 
-    const target = this.element(affectedNodeIds[0]!)
-
-    yield* _await(this.updateAffectedElements(affectedNodeIds))
+    yield* _await(this.syncModifiedElements())
     yield* _await(this.elementRepository.delete(allElementsToDelete))
 
     return
@@ -165,22 +174,6 @@ export class ElementService
     yield* _await(this.elementRepository.update(element))
 
     return element
-  })
-
-  @modelFlow
-  @transaction
-  updateAffectedElements = _async(function* (
-    this: ElementService,
-    elementIds: Array<string>,
-  ) {
-    console.debug('ElementService.updateAffectedElements()', elementIds)
-    yield* _await(
-      Promise.all(
-        uniq(elementIds).map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
   })
 
   @modelFlow
