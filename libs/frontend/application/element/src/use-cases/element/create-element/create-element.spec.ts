@@ -37,7 +37,7 @@ describe('Create element', () => {
 
   pageService.add(pageDto)
 
-  const rootElement = elementService.add(rootElementDto)
+  const rootElement = elementService.elementDomainService.add(rootElementDto)
 
   it('can create element as first child', async () => {
     const firstChild = await elementService.createElement(firstChildDto)

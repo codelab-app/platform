@@ -19,7 +19,7 @@ import { TestProviderWrapper } from './TestProviderWrapper'
 
 describe('TypedPropTransformers', () => {
   const testPropValue = 'some text'
-  const testOverridePropValue = 'overriden text'
+  const testOverridePropValue = 'overridden text'
   const componentId = 'component-id'
   let page: IPageDTO
   let pageRootElement: IElementDTO
