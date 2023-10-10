@@ -1,5 +1,5 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
-import { ValidationOptions } from './options'
+import type { ValidationOptions } from './options'
 
 export const containsExactlyOne = (items: Array<Nullish<object> | boolean>) => {
   const truthyCount = items.filter((item) => Boolean(item)).length

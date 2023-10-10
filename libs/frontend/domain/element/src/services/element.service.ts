@@ -1,12 +1,9 @@
 import type {
   IElementModel,
-  IElementRenderTypeModel,
   IElementService,
   IMoveElementContext,
 } from '@codelab/frontend/abstract/domain'
 import {
-  atomRef,
-  componentRef,
   getComponentService,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
@@ -14,7 +11,6 @@ import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
@@ -30,11 +26,9 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { Element } from '../store/element.model'
 import { CloneElementService } from './clone-element.service'
 import { ElementDomainService } from './element.domain.service'
 import { ElementRepository } from './element.repo'
-import { validateElement } from './element.validate'
 import {
   CreateElementFormService,
   UpdateElementFormService,
@@ -70,7 +64,6 @@ export class ElementService
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
     const element = this.elementDomainService.add(data)
-
     const modifiedElements = this.elementDomainService.modifiedElements
 
     yield* _await(this.updateElements(modifiedElements))

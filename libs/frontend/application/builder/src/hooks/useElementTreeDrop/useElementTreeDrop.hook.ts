@@ -5,13 +5,13 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { notify } from '@codelab/frontend/shared/utils'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
 } from './utils.hook'
-import { notify } from '@codelab/frontend/shared/utils'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService
@@ -24,7 +24,6 @@ export interface UseElementTreeDropProps {
  */
 export const useElementTreeDrop = () => {
   const { elementService } = useStore()
-
   const { validateParentForMove } = useRequiredParentValidator()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (
@@ -33,7 +32,6 @@ export const useElementTreeDrop = () => {
     const draggedElementId = info.dragNode.key.toString()
     const draggedElement = elementService.element(draggedElementId)
     const draggedRootId = info.dragNode.rootKey?.toString()
-
     const dropElementId = info.node.key.toString()
     const dropElement = elementService.element(dropElementId)
     const dropRootId = info.node.rootKey?.toString()
@@ -48,9 +46,9 @@ export const useElementTreeDrop = () => {
       }
 
       notify({
-        type: 'info',
-        title: 'Cannot move element',
         description: 'Element can only be moved within the same component',
+        title: 'Cannot move element',
+        type: 'info',
       })
 
       return
