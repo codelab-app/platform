@@ -9,44 +9,6 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "7770da9e-e245-47b7-9682-4fa2ee6ff17e",
-        "key": "status",
-        "name": "Status",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "id": "11d6b440-b533-4f8c-a77f-aaf6a18ff63e",
-        "key": "icon",
-        "name": "Icon",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "ReactNodeType",
           "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
           "kind": "ReactNodeType",
@@ -90,9 +52,28 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "53588781-5767-49c0-908f-820a4029fc1d",
-        "key": "title",
-        "name": "Title",
+        "id": "11d6b440-b533-4f8c-a77f-aaf6a18ff63e",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "7770da9e-e245-47b7-9682-4fa2ee6ff17e",
+        "key": "status",
+        "name": "Status",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -112,6 +93,25 @@
         "id": "eab13dff-d1da-4bee-bfee-fbd273debfb7",
         "key": "subTitle",
         "name": "Sub Title",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "53588781-5767-49c0-908f-820a4029fc1d",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

@@ -14,9 +14,28 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "934f7f93-5836-487e-ae88-12af4c85367b",
-        "key": "loading",
-        "name": "Loading",
+        "id": "ae6913a2-5b2f-450e-aab8-988e15957bcc",
+        "key": "active",
+        "name": "Active",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "cce7f225-1791-4604-aee9-0ea00ae58fd3",
+          "kind": "EnumType",
+          "name": "AntDesignSkeleton Avatar Enum"
+        },
+        "id": "708cae36-4ce2-4be4-ba36-78288f296854",
+        "key": "avatar",
+        "name": "Avatar",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -33,9 +52,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "ae6913a2-5b2f-450e-aab8-988e15957bcc",
-        "key": "active",
-        "name": "Active",
+        "id": "934f7f93-5836-487e-ae88-12af4c85367b",
+        "key": "loading",
+        "name": "Loading",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -96,25 +115,6 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
-      },
-      {
-        "api": {
-          "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "cce7f225-1791-4604-aee9-0ea00ae58fd3",
-          "kind": "EnumType",
-          "name": "AntDesignSkeleton Avatar Enum"
-        },
-        "id": "708cae36-4ce2-4be4-ba36-78288f296854",
-        "key": "avatar",
-        "name": "Avatar",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
       }
     ],
     "id": "d62ab39e-7549-41e2-a780-3b57eaff4330",
@@ -125,14 +125,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "44273bd2-2b7b-4905-af25-cbbec0327052",
-            "key": "SkeletonAvatarProps",
-            "value": "SkeletonAvatarProps"
-          },
-          {
             "id": "5a59cae4-a1a7-4cc2-a47a-6dadaf032cf2",
             "key": "boolean",
             "value": "boolean"
+          },
+          {
+            "id": "44273bd2-2b7b-4905-af25-cbbec0327052",
+            "key": "SkeletonAvatarProps",
+            "value": "SkeletonAvatarProps"
           }
         ],
         "id": "cce7f225-1791-4604-aee9-0ea00ae58fd3",

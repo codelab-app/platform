@@ -9,14 +9,71 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
         },
-        "id": "23f3769d-c9a2-47f9-a42a-ab4ed1571c3a",
-        "key": "onClick",
-        "name": "On Click",
+        "id": "3579e628-63d0-4798-8353-fa91428b5fa6",
+        "key": "code",
+        "name": "Code",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "c15fda9a-56ee-483a-9c66-402eedf71a6d",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyTitle Copyable Enum"
+        },
+        "id": "556f0593-f847-4983-8e0f-ef2c4b228136",
+        "key": "copyable",
+        "name": "Copyable",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "1b1e324d-0829-4c52-88ff-f0903eeab92f",
+        "key": "delete",
+        "name": "Delete",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "6bbbfa19-c3ad-41e8-9081-20e31ef95c94",
+        "key": "disabled",
+        "name": "Disabled",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -71,28 +128,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "6bbbfa19-c3ad-41e8-9081-20e31ef95c94",
-        "key": "disabled",
-        "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "3579e628-63d0-4798-8353-fa91428b5fa6",
-        "key": "code",
-        "name": "Code",
+        "id": "e75fc3be-6b91-4451-8056-b61f16b7b33a",
+        "key": "italic",
+        "name": "Italic",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -112,6 +150,25 @@
         "id": "d682c13e-c68b-4767-b5c0-2cd9260354f7",
         "key": "mark",
         "name": "Mark",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "23f3769d-c9a2-47f9-a42a-ab4ed1571c3a",
+        "key": "onClick",
+        "name": "On Click",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -147,66 +204,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "1b1e324d-0829-4c52-88ff-f0903eeab92f",
-        "key": "delete",
-        "name": "Delete",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "c15fda9a-56ee-483a-9c66-402eedf71a6d",
-          "kind": "EnumType",
-          "name": "AntDesignTypographyTitle Copyable Enum"
-        },
-        "id": "556f0593-f847-4983-8e0f-ef2c4b228136",
-        "key": "copyable",
-        "name": "Copyable",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
         "id": "20d3a9ae-2c4c-4983-b928-222b6aef2bb8",
         "key": "underline",
         "name": "Underline",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ed7d5c6c-f156-4cf4-a9a5-6634352fb73b"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "e75fc3be-6b91-4451-8056-b61f16b7b33a",
-        "key": "italic",
-        "name": "Italic",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -220,14 +220,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "fb6185f9-14da-40c8-9198-27e004af8031",
-            "key": "copyable",
-            "value": "copyable"
-          },
-          {
             "id": "3d2361fc-75c7-46c5-abeb-6a15ad212695",
             "key": "boolean",
             "value": "boolean"
+          },
+          {
+            "id": "fb6185f9-14da-40c8-9198-27e004af8031",
+            "key": "copyable",
+            "value": "copyable"
           }
         ],
         "id": "c15fda9a-56ee-483a-9c66-402eedf71a6d",
@@ -256,14 +256,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "cf61244b-2443-4cd8-bed7-c8053c1f28df",
-            "key": "ellipsis",
-            "value": "ellipsis"
-          },
-          {
             "id": "695512f7-4ff4-472f-8762-f3525e3c4b77",
             "key": "boolean",
             "value": "boolean"
+          },
+          {
+            "id": "cf61244b-2443-4cd8-bed7-c8053c1f28df",
+            "key": "ellipsis",
+            "value": "ellipsis"
           }
         ],
         "id": "b48c4c0e-7d8a-4c9e-b5b4-5c9b28ab774a",
@@ -274,9 +274,9 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "7c0e9020-e8a7-4607-8ba8-084ec4da8f6c",
-            "key": "success",
-            "value": "success"
+            "id": "00378061-57b3-46df-9560-94070fe54906",
+            "key": "danger",
+            "value": "danger"
           },
           {
             "id": "c212a36b-a957-414b-8a3e-5ee73a602ed2",
@@ -284,14 +284,14 @@
             "value": "secondary"
           },
           {
+            "id": "7c0e9020-e8a7-4607-8ba8-084ec4da8f6c",
+            "key": "success",
+            "value": "success"
+          },
+          {
             "id": "f0b2dfbe-1751-49c7-b4fc-52b7de99d45f",
             "key": "warning",
             "value": "warning"
-          },
-          {
-            "id": "00378061-57b3-46df-9560-94070fe54906",
-            "key": "danger",
-            "value": "danger"
           }
         ],
         "id": "70ecbef3-bd3e-4674-8deb-afb06fbda73c",

@@ -14,9 +14,28 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "b7deb7b7-8fa5-41f3-ae35-72596333553a",
-        "key": "datetime",
-        "name": "Datetime",
+        "id": "3b400863-14c8-4ee5-9f4f-02d596988c2a",
+        "key": "actions",
+        "name": "Actions",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7c8269e2-a804-4b80-a0c0-1b2c8fa08c5e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "48b2422a-3054-43ad-bc62-2e6491a9e47b",
+        "key": "author",
+        "name": "Author",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -52,44 +71,6 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "bb5b450f-8bb9-4f0b-8883-02ae2c0efd8a",
-        "key": "content",
-        "name": "Content",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7c8269e2-a804-4b80-a0c0-1b2c8fa08c5e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "id": "3b400863-14c8-4ee5-9f4f-02d596988c2a",
-        "key": "actions",
-        "name": "Actions",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7c8269e2-a804-4b80-a0c0-1b2c8fa08c5e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
         "id": "8340e518-04e1-498b-b938-ce7a991d0353",
         "key": "children",
         "name": "Children",
@@ -109,9 +90,28 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "48b2422a-3054-43ad-bc62-2e6491a9e47b",
-        "key": "author",
-        "name": "Author",
+        "id": "bb5b450f-8bb9-4f0b-8883-02ae2c0efd8a",
+        "key": "content",
+        "name": "Content",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7c8269e2-a804-4b80-a0c0-1b2c8fa08c5e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "b7deb7b7-8fa5-41f3-ae35-72596333553a",
+        "key": "datetime",
+        "name": "Datetime",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

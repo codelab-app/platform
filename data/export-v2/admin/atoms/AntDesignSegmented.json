@@ -10,13 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "f42b7423-0f13-4ed0-ae50-4d3a977976ff",
+          "id": "ef40f68d-131c-4b58-b296-57e40a6fd452",
           "kind": "EnumType",
-          "name": "AntDesignSegmented Title Enum"
+          "name": "AntDesignSegmented Content Enum"
         },
-        "id": "00513776-b92f-4b00-aa6b-17112b6c0865",
-        "key": "title",
-        "name": "Title",
+        "id": "a70e96bf-b37e-4de2-804f-5b897c8502f5",
+        "key": "content",
+        "name": "Content",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -29,13 +29,13 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "ef40f68d-131c-4b58-b296-57e40a6fd452",
+          "id": "f42b7423-0f13-4ed0-ae50-4d3a977976ff",
           "kind": "EnumType",
-          "name": "AntDesignSegmented Content Enum"
+          "name": "AntDesignSegmented Title Enum"
         },
-        "id": "a70e96bf-b37e-4de2-804f-5b897c8502f5",
-        "key": "content",
-        "name": "Content",
+        "id": "00513776-b92f-4b00-aa6b-17112b6c0865",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -49,14 +49,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "78577e6a-286c-424b-a206-84c2db25bef8",
-            "key": "ReactNode",
-            "value": "ReactNode"
-          },
-          {
             "id": "0f506602-ef1a-47df-830e-9925aa11aad9",
             "key": "() => ReactNode",
             "value": "() => ReactNode"
+          },
+          {
+            "id": "78577e6a-286c-424b-a206-84c2db25bef8",
+            "key": "ReactNode",
+            "value": "ReactNode"
           }
         ],
         "id": "ef40f68d-131c-4b58-b296-57e40a6fd452",
@@ -67,14 +67,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "953c376a-d221-4003-b2d3-8b34bf63af1a",
-            "key": "ReactNode",
-            "value": "ReactNode"
-          },
-          {
             "id": "24cd73d6-60c3-4cdc-8d48-a34c0165c0be",
             "key": "() => ReactNode",
             "value": "() => ReactNode"
+          },
+          {
+            "id": "953c376a-d221-4003-b2d3-8b34bf63af1a",
+            "key": "ReactNode",
+            "value": "ReactNode"
           }
         ],
         "id": "f42b7423-0f13-4ed0-ae50-4d3a977976ff",

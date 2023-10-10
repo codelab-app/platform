@@ -9,14 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "EnumType",
+          "id": "6a98a4d5-3b17-4b1e-bd6a-4343df4555f1",
+          "kind": "EnumType",
+          "name": "HtmlMath Display Enum"
         },
-        "id": "37d85426-dfda-4e52-945d-76ba4e4a1a3d",
-        "key": "xmlns",
-        "name": "Xmlns",
+        "id": "ad9a6cdb-f22e-45df-a7a8-81500fa32182",
+        "key": "display",
+        "name": "Display",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -28,14 +28,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "6a98a4d5-3b17-4b1e-bd6a-4343df4555f1",
-          "kind": "EnumType",
-          "name": "HtmlMath Display Enum"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
-        "id": "ad9a6cdb-f22e-45df-a7a8-81500fa32182",
-        "key": "display",
-        "name": "Display",
+        "id": "37d85426-dfda-4e52-945d-76ba4e4a1a3d",
+        "key": "xmlns",
+        "name": "Xmlns",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -49,14 +49,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "f82f5354-55b3-4e19-9b4a-3c2bfcf218f0",
-            "key": "inline",
-            "value": "inline"
-          },
-          {
             "id": "4e47f381-9ddc-447c-8605-ac0447170ceb",
             "key": "block",
             "value": "block"
+          },
+          {
+            "id": "f82f5354-55b3-4e19-9b4a-3c2bfcf218f0",
+            "key": "inline",
+            "value": "inline"
           }
         ],
         "id": "6a98a4d5-3b17-4b1e-bd6a-4343df4555f1",

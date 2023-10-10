@@ -14,9 +14,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "724ebf58-07c6-4fd1-8ca9-fadeca7279ac",
-        "key": "target",
-        "name": "Target",
+        "id": "8a166710-a0a1-4bb9-b041-604e9d42269d",
+        "key": "href",
+        "name": "Href",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -33,9 +33,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "8a166710-a0a1-4bb9-b041-604e9d42269d",
-        "key": "href",
-        "name": "Href",
+        "id": "724ebf58-07c6-4fd1-8ca9-fadeca7279ac",
+        "key": "target",
+        "name": "Target",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

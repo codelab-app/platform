@@ -28,25 +28,6 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "ad09d99a-de90-4016-ae1b-1391c6120156",
-          "kind": "EnumType",
-          "name": "HtmlTr Valign Enum"
-        },
-        "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1",
-        "key": "valign",
-        "name": "Valign",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
@@ -96,6 +77,25 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ad09d99a-de90-4016-ae1b-1391c6120156",
+          "kind": "EnumType",
+          "name": "HtmlTr Valign Enum"
+        },
+        "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1",
+        "key": "valign",
+        "name": "Valign",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
       }
     ],
     "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b",
@@ -106,14 +106,9 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "9a602bef-6546-459e-8b4a-f37bd1f5ded4",
-            "key": "justify",
-            "value": "justify"
-          },
-          {
-            "id": "6aa20999-2b63-41fe-9ac9-bf4dca6e1669",
-            "key": "right",
-            "value": "right"
+            "id": "934c6b5c-ed58-4a21-bf5f-b9cb92f25ead",
+            "key": "center",
+            "value": "center"
           },
           {
             "id": "1356e600-1bc7-458c-9cd6-2d299074fd1b",
@@ -121,14 +116,19 @@
             "value": "char"
           },
           {
-            "id": "934c6b5c-ed58-4a21-bf5f-b9cb92f25ead",
-            "key": "center",
-            "value": "center"
+            "id": "9a602bef-6546-459e-8b4a-f37bd1f5ded4",
+            "key": "justify",
+            "value": "justify"
           },
           {
             "id": "05d414d5-9977-4bb6-bd7f-db5a52e8d698",
             "key": "left",
             "value": "left"
+          },
+          {
+            "id": "6aa20999-2b63-41fe-9ac9-bf4dca6e1669",
+            "key": "right",
+            "value": "right"
           }
         ],
         "id": "b7d3776e-a1f2-4090-bef7-9865a4ee020b",
@@ -139,9 +139,9 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "446b21b8-37b7-4d3e-8180-d13bdd2a225a",
-            "key": "middle",
-            "value": "middle"
+            "id": "cfd76f8b-80b8-4e13-b64e-7710755b4f01",
+            "key": "baseline",
+            "value": "baseline"
           },
           {
             "id": "d51c57ea-cc49-49ec-87b4-26ca4acce3eb",
@@ -149,9 +149,9 @@
             "value": "bottom"
           },
           {
-            "id": "cfd76f8b-80b8-4e13-b64e-7710755b4f01",
-            "key": "baseline",
-            "value": "baseline"
+            "id": "446b21b8-37b7-4d3e-8180-d13bdd2a225a",
+            "key": "middle",
+            "value": "middle"
           },
           {
             "id": "22405228-a7d5-4fa5-8caa-26c5f78a618c",

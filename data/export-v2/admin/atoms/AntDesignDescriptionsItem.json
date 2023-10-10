@@ -9,14 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-          "kind": "PrimitiveType",
-          "name": "Number"
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
         },
-        "id": "788c5c29-0c4f-476f-8c7d-6e522ad99fa1",
-        "key": "span",
-        "name": "Span",
+        "id": "9568f082-b288-4272-98da-9fcf718beb3b",
+        "key": "label",
+        "name": "Label",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -28,14 +28,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
         },
-        "id": "9568f082-b288-4272-98da-9fcf718beb3b",
-        "key": "label",
-        "name": "Label",
+        "id": "788c5c29-0c4f-476f-8c7d-6e522ad99fa1",
+        "key": "span",
+        "name": "Span",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

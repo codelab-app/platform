@@ -10,13 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
-          "name": "String"
+          "name": "Boolean"
         },
-        "id": "d4a5276a-e941-4371-995a-c6181c75cb0b",
-        "key": "type",
-        "name": "Type",
+        "id": "44b4d07f-b0e4-405e-b8fb-8f12b0368a36",
+        "key": "reversed",
+        "name": "Reversed",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -48,13 +48,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
-          "name": "Boolean"
+          "name": "String"
         },
-        "id": "44b4d07f-b0e4-405e-b8fb-8f12b0368a36",
-        "key": "reversed",
-        "name": "Reversed",
+        "id": "d4a5276a-e941-4371-995a-c6181c75cb0b",
+        "key": "type",
+        "name": "Type",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

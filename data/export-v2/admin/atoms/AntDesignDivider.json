@@ -9,25 +9,6 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "0a55df84-e083-4f51-b637-c06026f0c676",
-        "key": "dashed",
-        "name": "Dashed",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "ReactNodeType",
           "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
           "kind": "ReactNodeType",
@@ -36,25 +17,6 @@
         "id": "4260c2c3-ef13-49b9-a73f-37b5a2b85872",
         "key": "children",
         "name": "Children",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "b7f87583-958d-4cdc-912e-f3863ab491a6",
-          "kind": "EnumType",
-          "name": "AntDesignDivider Orientation Margin Enum"
-        },
-        "id": "38fec1a0-8a8a-4841-aca7-a8bd87a9e670",
-        "key": "orientationMargin",
-        "name": "Orientation Margin",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -90,9 +52,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "5106e40c-0a01-4db6-85e5-808f92b66ee7",
-        "key": "plain",
-        "name": "Plain",
+        "id": "0a55df84-e083-4f51-b637-c06026f0c676",
+        "key": "dashed",
+        "name": "Dashed",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -112,6 +74,44 @@
         "id": "f0763fef-2e51-410d-b0a8-b64501211374",
         "key": "orientation",
         "name": "Orientation",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b7f87583-958d-4cdc-912e-f3863ab491a6",
+          "kind": "EnumType",
+          "name": "AntDesignDivider Orientation Margin Enum"
+        },
+        "id": "38fec1a0-8a8a-4841-aca7-a8bd87a9e670",
+        "key": "orientationMargin",
+        "name": "Orientation Margin",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ca29d4c1-1eb7-4420-9e01-639190728309"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "5106e40c-0a01-4db6-85e5-808f92b66ee7",
+        "key": "plain",
+        "name": "Plain",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -185,14 +185,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "f711da5b-d4a2-416c-8c36-dbc8e337901e",
-            "key": "vertical",
-            "value": "vertical"
-          },
-          {
             "id": "8dec89f7-f3b7-4050-aa2b-78f2d3cf3beb",
             "key": "horizontal",
             "value": "horizontal"
+          },
+          {
+            "id": "f711da5b-d4a2-416c-8c36-dbc8e337901e",
+            "key": "vertical",
+            "value": "vertical"
           }
         ],
         "id": "b4fc7518-fee1-4425-a6e8-bbb01215289b",

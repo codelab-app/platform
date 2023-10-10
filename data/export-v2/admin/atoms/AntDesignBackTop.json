@@ -14,9 +14,9 @@
           "kind": "PrimitiveType",
           "name": "Number"
         },
-        "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74",
-        "key": "visibilityHeight",
-        "name": "Visibility Height",
+        "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027",
+        "key": "duration",
+        "name": "Duration",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -52,9 +52,9 @@
           "kind": "PrimitiveType",
           "name": "Number"
         },
-        "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027",
-        "key": "duration",
-        "name": "Duration",
+        "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74",
+        "key": "visibilityHeight",
+        "name": "Visibility Height",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

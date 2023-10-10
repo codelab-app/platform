@@ -14,9 +14,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
-        "key": "separator",
-        "name": "Separator",
+        "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
+        "key": "itemRender",
+        "name": "Item Render",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -33,9 +33,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
-        "key": "itemRender",
-        "name": "Item Render",
+        "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
+        "key": "separator",
+        "name": "Separator",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

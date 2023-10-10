@@ -9,101 +9,6 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "9639fca6-1e12-44ab-ae0b-cbe7145bd0f4",
-          "kind": "EnumType",
-          "name": "AntDesignForm Layout Enum"
-        },
-        "id": "86a58ae5-1f61-4b8b-8986-7b13e112da37",
-        "key": "layout",
-        "name": "Layout",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "id": "f0df1b50-4ea4-415c-bf3b-a1df8aebf11c",
-        "key": "onFinishFailed",
-        "name": "On Finish Failed",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "4f2a09d2-dc5a-4189-80a5-d80c3f8103bf",
-          "kind": "EnumType",
-          "name": "AntDesignForm Validate Trigger Enum"
-        },
-        "id": "0e431954-def5-4a10-a73e-626b3b780e74",
-        "key": "validateTrigger",
-        "name": "Validate Trigger",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "2ff82e8e-b30b-4dc3-aa43-cf2be446724b",
-        "key": "name",
-        "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "fddef516-ff6a-4cd0-8196-db93c639f028",
-        "key": "labelWrap",
-        "name": "Label Wrap",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
@@ -124,13 +29,13 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "06349a10-4b57-4918-aaaf-d3fb1a536d7c",
+          "id": "e7cc8aad-9c9f-4efd-bf74-3a36eaee8ad6",
           "kind": "EnumType",
-          "name": "AntDesignForm Scroll To First Error Enum"
+          "name": "AntDesignForm Component Enum"
         },
-        "id": "6bdbd4b0-9941-4367-bd87-f43817b8ba0a",
-        "key": "scrollToFirstError",
-        "name": "Scroll To First Error",
+        "id": "2752d65b-8110-462c-a1a5-5c255305fdd9",
+        "key": "component",
+        "name": "Component",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -142,14 +47,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
         },
-        "id": "c74972b3-5ad4-40c9-995c-298acd56c3aa",
-        "key": "onValuesChange",
-        "name": "On Values Change",
+        "id": "d689ddf3-52de-47bd-aa84-f404eadf5467",
+        "key": "disabled",
+        "name": "Disabled",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -185,9 +90,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "6c5dc50e-fbfd-4552-a566-57ff40084d58",
-        "key": "preserve",
-        "name": "Preserve",
+        "id": "fddef516-ff6a-4cd0-8196-db93c639f028",
+        "key": "labelWrap",
+        "name": "Label Wrap",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -200,13 +105,13 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "e7cc8aad-9c9f-4efd-bf74-3a36eaee8ad6",
+          "id": "9639fca6-1e12-44ab-ae0b-cbe7145bd0f4",
           "kind": "EnumType",
-          "name": "AntDesignForm Component Enum"
+          "name": "AntDesignForm Layout Enum"
         },
-        "id": "2752d65b-8110-462c-a1a5-5c255305fdd9",
-        "key": "component",
-        "name": "Component",
+        "id": "86a58ae5-1f61-4b8b-8986-7b13e112da37",
+        "key": "layout",
+        "name": "Layout",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -218,14 +123,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "8572ab88-3899-42fa-a314-4cbe0308bdec",
-          "kind": "EnumType",
-          "name": "AntDesignForm Required Mark Enum"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
-        "id": "d56558af-ce45-4d3f-b5cc-dbc383358455",
-        "key": "requiredMark",
-        "name": "Required Mark",
+        "id": "2ff82e8e-b30b-4dc3-aa43-cf2be446724b",
+        "key": "name",
+        "name": "Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -275,6 +180,101 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "f0df1b50-4ea4-415c-bf3b-a1df8aebf11c",
+        "key": "onFinishFailed",
+        "name": "On Finish Failed",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "c74972b3-5ad4-40c9-995c-298acd56c3aa",
+        "key": "onValuesChange",
+        "name": "On Values Change",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "6c5dc50e-fbfd-4552-a566-57ff40084d58",
+        "key": "preserve",
+        "name": "Preserve",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8572ab88-3899-42fa-a314-4cbe0308bdec",
+          "kind": "EnumType",
+          "name": "AntDesignForm Required Mark Enum"
+        },
+        "id": "d56558af-ce45-4d3f-b5cc-dbc383358455",
+        "key": "requiredMark",
+        "name": "Required Mark",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "06349a10-4b57-4918-aaaf-d3fb1a536d7c",
+          "kind": "EnumType",
+          "name": "AntDesignForm Scroll To First Error Enum"
+        },
+        "id": "6bdbd4b0-9941-4367-bd87-f43817b8ba0a",
+        "key": "scrollToFirstError",
+        "name": "Scroll To First Error",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6088a513-3353-47ff-a9b8-ccaa329d62fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "__typename": "EnumType",
           "id": "c30f90a7-ed28-4d4d-85d9-e739a42b5ed0",
           "kind": "EnumType",
@@ -294,14 +294,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
+          "__typename": "EnumType",
+          "id": "4f2a09d2-dc5a-4189-80a5-d80c3f8103bf",
+          "kind": "EnumType",
+          "name": "AntDesignForm Validate Trigger Enum"
         },
-        "id": "d689ddf3-52de-47bd-aa84-f404eadf5467",
-        "key": "disabled",
-        "name": "Disabled",
+        "id": "0e431954-def5-4a10-a73e-626b3b780e74",
+        "key": "validateTrigger",
+        "name": "Validate Trigger",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -351,9 +351,9 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "9cb04faa-e048-47fe-9736-b31a66f00491",
-            "key": "vertical",
-            "value": "vertical"
+            "id": "717ff698-099b-4862-8435-0c7f7c273a14",
+            "key": "horizontal",
+            "value": "horizontal"
           },
           {
             "id": "705c0ee7-65d1-45eb-8763-7ec3a47c0ee1",
@@ -361,9 +361,9 @@
             "value": "inline"
           },
           {
-            "id": "717ff698-099b-4862-8435-0c7f7c273a14",
-            "key": "horizontal",
-            "value": "horizontal"
+            "id": "9cb04faa-e048-47fe-9736-b31a66f00491",
+            "key": "vertical",
+            "value": "vertical"
           }
         ],
         "id": "9639fca6-1e12-44ab-ae0b-cbe7145bd0f4",
@@ -392,14 +392,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "c5ab9043-599c-4d84-a08e-c678dbe5accb",
-            "key": "Options",
-            "value": "Options"
-          },
-          {
             "id": "1ac45757-3f68-4158-b778-57934fa3b0b3",
             "key": "boolean",
             "value": "boolean"
+          },
+          {
+            "id": "c5ab9043-599c-4d84-a08e-c678dbe5accb",
+            "key": "Options",
+            "value": "Options"
           }
         ],
         "id": "06349a10-4b57-4918-aaaf-d3fb1a536d7c",
@@ -410,14 +410,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "f7363c43-29b8-42f9-b493-5b992bf5830f",
-            "key": "middle",
-            "value": "middle"
-          },
-          {
             "id": "7982564d-5ba8-4729-96f8-b401c735922a",
             "key": "large",
             "value": "large"
+          },
+          {
+            "id": "f7363c43-29b8-42f9-b493-5b992bf5830f",
+            "key": "middle",
+            "value": "middle"
           },
           {
             "id": "c672daae-ec4a-44ad-971e-ce9d695b5582",

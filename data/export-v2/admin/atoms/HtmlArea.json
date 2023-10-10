@@ -14,25 +14,6 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "b5fded39-6321-4d97-826e-1cba0adaad53",
-        "key": "hreflang",
-        "name": "Hreflang",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
         "id": "3251ee24-fae7-4bd8-b672-406f65a043bf",
         "key": "alt",
         "name": "Alt",
@@ -47,52 +28,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "566a5574-c045-47d8-91f9-1488cbec1145",
-          "kind": "EnumType",
-          "name": "HtmlArea Shape Enum"
-        },
-        "id": "7cc21172-8457-478f-ac93-f588eb2f300c",
-        "key": "shape",
-        "name": "Shape",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "467dc1fa-222f-4dd2-9f9d-d1dfaeda3352",
-        "key": "target",
-        "name": "Target",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "528e523e-6d64-4b89-80bf-3fc40076fc4a",
-        "key": "media",
-        "name": "Media",
+        "id": "4fb9f4e7-3684-4df7-a061-00f75563d5d9",
+        "key": "coords",
+        "name": "Coords",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -112,6 +55,44 @@
         "id": "7125d220-5fa4-4a07-bfa7-73cd6b2edea1",
         "key": "href",
         "name": "Href",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "b5fded39-6321-4d97-826e-1cba0adaad53",
+        "key": "hreflang",
+        "name": "Hreflang",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "528e523e-6d64-4b89-80bf-3fc40076fc4a",
+        "key": "media",
+        "name": "Media",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -161,14 +142,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "__typename": "EnumType",
+          "id": "566a5574-c045-47d8-91f9-1488cbec1145",
+          "kind": "EnumType",
+          "name": "HtmlArea Shape Enum"
+        },
+        "id": "7cc21172-8457-478f-ac93-f588eb2f300c",
+        "key": "shape",
+        "name": "Shape",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "4fb9f4e7-3684-4df7-a061-00f75563d5d9",
-        "key": "coords",
-        "name": "Coords",
+        "id": "467dc1fa-222f-4dd2-9f9d-d1dfaeda3352",
+        "key": "target",
+        "name": "Target",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

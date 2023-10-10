@@ -14,9 +14,9 @@
           "kind": "PrimitiveType",
           "name": "Number"
         },
-        "id": "d9750b90-c565-405f-9c57-378d27d03d10",
-        "key": "value",
-        "name": "Value",
+        "id": "ac766de5-3e92-4560-b2fb-7e1bcd514fbf",
+        "key": "max",
+        "name": "Max",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -33,9 +33,9 @@
           "kind": "PrimitiveType",
           "name": "Number"
         },
-        "id": "ac766de5-3e92-4560-b2fb-7e1bcd514fbf",
-        "key": "max",
-        "name": "Max",
+        "id": "d9750b90-c565-405f-9c57-378d27d03d10",
+        "key": "value",
+        "name": "Value",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

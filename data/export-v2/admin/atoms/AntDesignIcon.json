@@ -10,32 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
-          "name": "Boolean"
+          "name": "String"
         },
-        "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e",
-        "key": "spin",
-        "name": "Spin",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
-        "key": "rotate",
-        "name": "Rotate",
+        "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
+        "key": "className",
+        "name": "Class Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -67,13 +48,32 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
           "kind": "PrimitiveType",
-          "name": "String"
+          "name": "Number"
         },
-        "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
-        "key": "className",
-        "name": "Class Name",
+        "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
+        "key": "rotate",
+        "name": "Rotate",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e",
+        "key": "spin",
+        "name": "Spin",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
