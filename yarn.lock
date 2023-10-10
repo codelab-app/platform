@@ -2427,12 +2427,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:7.16.3":
-  version: 7.16.3
-  resolution: "@babel/runtime@npm:7.16.3"
+"@babel/runtime@npm:7.22.6":
+  version: 7.22.6
+  resolution: "@babel/runtime@npm:7.22.6"
   dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: ab8ac887096d76185ddbf291d28fb976cd32473696dc497ad4905b784acbd5aa462533ad83a5c5104e10ead28c2e0e119840ee28ed8eff90dcdde9d57f916eda
+    regenerator-runtime: ^0.13.11
+  checksum: e585338287c4514a713babf4fdb8fc2a67adcebab3e7723a739fc62c79cfda875b314c90fd25f827afb150d781af97bc16c85bfdbfa2889f06053879a1ddb597
   languageName: node
   linkType: hard
 
@@ -4929,12 +4929,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hon2a/cypress-without@npm:1.1.8":
-  version: 1.1.8
-  resolution: "@hon2a/cypress-without@npm:1.1.8"
+"@hon2a/cypress-without@npm:2.1.0":
+  version: 2.1.0
+  resolution: "@hon2a/cypress-without@npm:2.1.0"
   dependencies:
-    "@babel/runtime": 7.16.3
-  checksum: 576b8b6136aaf4c8d0cf32c7d40a7bcb0f9c256bfdee4054acaf8f11694c75f3da00a9af49065ea2f1ac750e1497d4c0501fbf074a8148e96d6b54b9496b122d
+    "@babel/runtime": 7.22.6
+  checksum: 7ebc1fe9c2c8a5039baa7b4e2d43a04c524dba71dceaa08629d8d0db39818052f3bde6c3b9a412bd946446ae42513e6c6a312d612ffe758fadd22497521c58d7
   languageName: node
   linkType: hard
 
@@ -12283,15 +12283,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/cypress@npm:8.0.7":
-  version: 8.0.7
-  resolution: "@testing-library/cypress@npm:8.0.7"
+"@testing-library/cypress@npm:10.0.1":
+  version: 10.0.1
+  resolution: "@testing-library/cypress@npm:10.0.1"
   dependencies:
     "@babel/runtime": ^7.14.6
-    "@testing-library/dom": ^8.1.0
+    "@testing-library/dom": ^9.0.0
   peerDependencies:
-    cypress: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0
-  checksum: e005bc1a7ec808706c57e95ed312069fb5be39ea7362900dc2a32c09f124d478ade69ebcd7df88c076e3867ab328ae6e6ce13791bdf042621ff66b56552bf74b
+    cypress: ^12.0.0 || ^13.0.0
+  checksum: 737e16563844851e830786da1862ea2c29d9f67155d8d2ea4d5178c98b77621c67c89e47a91a633d36c0528adfff9592f7228a5f19666af9882c837eeacbd08e
   languageName: node
   linkType: hard
 
@@ -12324,22 +12324,6 @@ __metadata:
     lz-string: ^1.4.4
     pretty-format: ^26.6.2
   checksum: 54fbedd1ecdfe1d47be2e592b98d18b2ab9d7e731f57231caf9b152593fe7329fe5ebe219e0e5d1e0df5b1ab803121cb8acd8b73bd1fb292bfdc2c55663eb01d
-  languageName: node
-  linkType: hard
-
-"@testing-library/dom@npm:^8.1.0":
-  version: 8.20.1
-  resolution: "@testing-library/dom@npm:8.20.1"
-  dependencies:
-    "@babel/code-frame": ^7.10.4
-    "@babel/runtime": ^7.12.5
-    "@types/aria-query": ^5.0.1
-    aria-query: 5.1.3
-    chalk: ^4.1.0
-    dom-accessibility-api: ^0.5.9
-    lz-string: ^1.5.0
-    pretty-format: ^27.0.2
-  checksum: 06fc8dc67849aadb726cbbad0e7546afdf8923bd39acb64c576d706249bd7d0d05f08e08a31913fb621162e3b9c2bd0dce15964437f030f9fa4476326fdd3007
   languageName: node
   linkType: hard
 
@@ -17373,7 +17357,7 @@ __metadata:
     "@graphql-eslint/eslint-plugin": ^3.20.1
     "@graphql-tools/merge": 8.2.11
     "@graphql-tools/utils": 8.12.0
-    "@hon2a/cypress-without": 1.1.8
+    "@hon2a/cypress-without": 2.1.0
     "@ls-lint/ls-lint": 2.0.0
     "@mailchimp/mailchimp_marketing": 3.0.80
     "@neo4j/graphql": 4.3.0
@@ -17443,7 +17427,7 @@ __metadata:
     "@swc/core": 1.3.92
     "@swc/helpers": 0.5.3
     "@swc/jest": ^0.2.29
-    "@testing-library/cypress": 8.0.7
+    "@testing-library/cypress": 10.0.1
     "@testing-library/dom": 9.2.0
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 14.0.0
@@ -17534,7 +17518,7 @@ __metadata:
     cross-fetch: 3.1.4
     css-loader: 5.2.6
     csv-parser: 3.0.0
-    cypress: ^13.0.0
+    cypress: ^13.3.0
     cypress-jest-adapter: ^0.1.1
     cypress-log-to-output: ^1.1.2
     cypress-multi-reporters: ^1.6.3
@@ -19007,7 +18991,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.3.0, cypress@npm:^13.0.0":
+"cypress@npm:13.3.0":
   version: 13.3.0
   resolution: "cypress@npm:13.3.0"
   dependencies:
@@ -34259,7 +34243,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"regenerator-runtime@npm:^0.13.4":
+"regenerator-runtime@npm:^0.13.11":
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
   checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4

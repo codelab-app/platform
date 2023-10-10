@@ -86,7 +86,7 @@ export class PageService
 
     this.propService.add(rootElementProps)
 
-    const rootElement = this.elementService.add({
+    const rootElement = this.elementService.elementDomainService.add({
       closestContainerNode: {
         id,
       },
@@ -157,7 +157,7 @@ export class PageService
     ])
 
     elements.forEach((element) =>
-      this.elementService.elements.delete(element.id),
+      this.elementService.elementDomainService.elements.delete(element.id),
     )
 
     yield* _await(this.elementService.elementRepository.delete(elements))
@@ -185,7 +185,7 @@ export class PageService
       ]
 
       elements.forEach((element) =>
-        this.elementService.add({
+        this.elementService.elementDomainService.add({
           ...element,
           closestContainerNode: {
             id: page.id,
@@ -279,7 +279,7 @@ export class PageService
 
       console.log('AppService.loadPages() elementDto', elementDto)
 
-      this.elementService.add(elementDto)
+      this.elementService.elementDomainService.add(elementDto)
     })
   }
 

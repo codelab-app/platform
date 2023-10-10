@@ -44,14 +44,18 @@ export const ResetDataButtons = observer(() => {
       >
         Reset Database
       </Button>
-      <Button
+      {/* <Button
         disabled={resetDatabaseExceptUserStatus === 'loading'}
         onClick={() =>
-          resetDatabaseExceptUser.execute().then(onSuccess).catch(onError)
+          resetDatabaseExceptUser
+            .execute()
+            .then(onSuccess)
+            .catch(onError)
+            .then(() => router.push('/api/auth/logout'))
         }
       >
-        Reset Database Except user
-      </Button>
+        Reset Database Except User
+      </Button> */}
     </>
   )
 })

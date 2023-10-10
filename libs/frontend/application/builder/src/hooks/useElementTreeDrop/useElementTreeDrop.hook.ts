@@ -11,6 +11,7 @@ import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
 } from './utils.hook'
+import { notify } from '@codelab/frontend/shared/utils'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService
@@ -22,45 +23,46 @@ export interface UseElementTreeDropProps {
  * This can be optimized by batching data changes in the API
  */
 export const useElementTreeDrop = () => {
-  const {
-    elementService: { moveElementService },
-  } = useStore()
+  const { elementService } = useStore()
 
   const { validateParentForMove } = useRequiredParentValidator()
 
   const handleDrop: TreeProps<IElementTreeViewDataNode>['onDrop'] = async (
     info,
   ) => {
-    const dragElement = { id: info.dragNode.key.toString() }
-    const dropElement = { id: info.node.key.toString() }
-    const dragRootId = info.dragNode.rootKey?.toString()
+    const draggedElementId = info.dragNode.key.toString()
+    const draggedElement = elementService.element(draggedElementId)
+    const draggedRootId = info.dragNode.rootKey?.toString()
+
+    const dropElementId = info.node.key.toString()
+    const dropElement = elementService.element(dropElementId)
     const dropRootId = info.node.rootKey?.toString()
 
     // check if the dropNode lives in a different component
     // move the element into the other component
-    if (dragRootId !== dropRootId) {
-      if (dragElement.id === dragRootId) {
+    if (draggedRootId !== dropRootId) {
+      if (draggedElementId === draggedRootId) {
         // We can't move the root because the drag component
         // can't stay without a root element
         return
       }
 
-      void moveElementService.moveNodeToAnotherTree({
-        dropPosition: info.dropPosition,
-        object: dragElement,
-        targetElement: dropElement,
+      notify({
+        type: 'info',
+        title: 'Cannot move element',
+        description: 'Element can only be moved within the same component',
       })
 
       return
     }
 
-    if (!validateParentForMove(dragElement.id, dropElement.id)) {
+    if (!validateParentForMove(draggedElementId, dropElementId)) {
       return
     }
 
     if (shouldMoveElementAsFirstChild(info)) {
-      void moveElementService.moveElementAsFirstChild({
-        element: dragElement,
+      void elementService.move({
+        element: draggedElement,
         parentElement: dropElement,
       })
 
@@ -68,9 +70,9 @@ export const useElementTreeDrop = () => {
     }
 
     if (shouldMoveElementAsNextSibling(info)) {
-      void moveElementService.moveElementAsNextSibling({
-        element: dragElement,
-        targetElement: dropElement,
+      void elementService.move({
+        element: draggedElement,
+        prevSibling: dropElement,
       })
     }
 

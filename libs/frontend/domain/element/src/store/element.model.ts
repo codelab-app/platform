@@ -58,33 +58,42 @@ import {
   Model,
   model,
   modelAction,
+  onPatches,
   prop,
   Ref,
 } from 'mobx-keystone'
+import {
+  validateElement,
+  validateElementDto,
+} from '../services/element.validate'
 import { getRenderType } from './element-render-type.field'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
 
-const create = ({
-  childMapperComponent,
-  childMapperPreviousSibling,
-  childMapperPropKey,
-  firstChild,
-  id,
-  name,
-  nextSibling,
-  page,
-  parentComponent,
-  parentElement,
-  postRenderAction,
-  preRenderAction,
-  prevSibling,
-  props,
-  renderForEachPropKey,
-  renderIfExpression,
-  renderType,
-  style,
-  tailwindClassNames,
-}: IElementDTO): IElementModel => {
+const create = (element: IElementDTO): IElementModel => {
+  // validateElementDto(element)
+
+  const {
+    childMapperComponent,
+    childMapperPreviousSibling,
+    childMapperPropKey,
+    firstChild,
+    id,
+    name,
+    nextSibling,
+    page,
+    parentComponent,
+    parentElement,
+    postRenderAction,
+    preRenderAction,
+    prevSibling,
+    props,
+    renderForEachPropKey,
+    renderIfExpression,
+    renderType,
+    style,
+    tailwindClassNames,
+  } = element
+
   return new Element({
     childMapperComponent: childMapperComponent
       ? componentRef(childMapperComponent.id)
@@ -122,6 +131,7 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
+    _modified: prop(false).withSetter(),
     childMapperComponent:
       prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
@@ -159,6 +169,14 @@ export class Element
   implements IElementModel
 {
   static create = create
+
+  onAttachedToRootStore() {
+    const disposer = onPatches(this, (patches, inversePatches) => {
+      this.set_modified(true)
+    })
+
+    return () => disposer()
+  }
 
   /**
    * Internal system props for meta data, use double underline for system-defined identifiers.
@@ -226,16 +244,14 @@ export class Element
 
   @computed
   get closestContainerNode() {
-    const { closestParentElement } = this
-
     const closestContainerNode =
       this.parentComponent?.current ??
       this.page?.current ??
-      closestParentElement?.current.parentComponent?.current ??
-      closestParentElement?.current.page?.current
+      this.closestParentElement?.current.parentComponent?.current ??
+      this.closestParentElement?.current.page?.current
 
     if (!closestContainerNode) {
-      console.log(this)
+      console.log(this, this.closestParentElement?.maybeCurrent)
       throw new Error('Element has no node attached to')
     }
 
@@ -606,16 +622,29 @@ export class Element
    * Attach the new element as prevSibling. Leaves `prevSibling` still connected to `sibling`.
    *
    * (prevSibling)-(sibling)
-   * (prevSibling)-x-[element]-(sibling)
+   * (prevSibling)-[element]-(sibling)
    *
-   * @param sibling
-   * @returns
+   * There is a special case, if prevSibling is the firstChild, we need to connect the new element to the parent as well
    */
   @modelAction
-  attachAsPrevSibling(sibling: IElementModel) {
-    // Add element as as prevSibling
-    sibling.prevSibling = elementRef(this)
-    this.nextSibling = elementRef(sibling)
+  attachAsPrevSibling(nextSibling: IElementModel) {
+    const nextSiblingParentElement = nextSibling.parentElement?.current
+
+    if (nextSiblingParentElement) {
+      this.attachAsFirstChild(nextSiblingParentElement)
+
+      return
+    }
+
+    nextSibling.prevSibling = elementRef(this)
+
+    const oldPrevSibling = nextSibling.prevSibling.current
+
+    if (oldPrevSibling) {
+      oldPrevSibling.nextSibling = elementRef(this)
+    }
+
+    this.nextSibling = elementRef(nextSibling)
   }
 
   /**
@@ -632,10 +661,22 @@ export class Element
    *             (firstChild)
    */
   @modelAction
-  attachToParentAsFirstChild(parentElement: IElementModel) {
-    parentElement.firstChild?.current.detachAsFirstChild()
-    this.parentElement = elementRef(parentElement)
+  attachAsFirstChild(parentElement: IElementModel) {
+    /**
+     * If parent has existing first child, detach it
+     */
+    const parentElementsFirstChild = parentElement.firstChild?.current
+
+    if (parentElementsFirstChild) {
+      parentElementsFirstChild.parentElement = null
+    }
+
+    /**
+     * Add new first child
+     */
     parentElement.firstChild = elementRef(this.id)
+
+    this.parentElement = elementRef(parentElement)
   }
 
   @modelAction
@@ -698,11 +739,6 @@ export class Element
     this.style = JSON.stringify(styleObject)
   }
 
-  @modelAction
-  detachAsFirstChild() {
-    this.parentElement = null
-  }
-
   /**
    * This will connect any siblings to the current element's parent
    *
@@ -751,6 +787,7 @@ export class Element
     }
   }
 
+  //
   @modelAction
   toCreateInput(): ElementCreateInput {
     return {
@@ -758,7 +795,11 @@ export class Element
         this.name,
         this.closestContainerNode,
       ),
+      firstChild: connectNodeId(this.firstChild?.id),
       id: this.id,
+      nextSibling: connectNodeId(this.nextSibling?.id),
+      parent: connectNodeId(this.parentElement?.id),
+      prevSibling: connectNodeId(this.prevSibling?.id),
       props: {
         create: {
           node: this.props.current.toCreateInput(),
@@ -899,6 +940,8 @@ export class Element
     this.childMapperPreviousSibling = childMapperPreviousSibling
       ? elementRef(childMapperPreviousSibling.id)
       : null
+
+    validateElement(this)
 
     return this
   }

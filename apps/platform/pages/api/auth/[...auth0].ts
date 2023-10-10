@@ -1,5 +1,6 @@
 import { restPlatformApiClient } from '@codelab/frontend/application/axios'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
@@ -37,5 +38,10 @@ export default auth0Instance().handleAuth({
     } catch (error) {
       console.error(error)
     }
+  },
+  login: async (req: NextApiRequest, res: NextApiResponse) => {
+    await auth0Instance().handleLogin(req, res, {
+      returnTo: new URL('/apps', getEnv().auth0.baseUrl).toString(),
+    })
   },
 })

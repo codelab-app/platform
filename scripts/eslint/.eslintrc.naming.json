@@ -7,11 +7,13 @@
           "error",
           {
             "selector": ["classProperty"],
-            "format": ["camelCase"]
+            "format": ["camelCase"],
+            "leadingUnderscore": "allow"
           },
           {
             "selector": ["objectLiteralProperty"],
             "format": ["camelCase", "PascalCase"],
+            "leadingUnderscore": "allow",
             "filter": {
               "regex": "_CONTAINS$|_ENDS_WITH$|_IN$|_STARTS_WITH$|_NOT$|_ALL$|_NONE$|_SINGLE$|_SOME$|^[#.].*|^[0-9]*$",
               "match": false
@@ -19,7 +21,11 @@
           },
           {
             "selector": ["interface"],
-            "format": ["PascalCase"]
+            "format": ["PascalCase"],
+            "leadingUnderscore": "allow",
+            "filter": {
+              "match": false
+            }
           }
         ]
       }

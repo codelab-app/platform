@@ -87,6 +87,7 @@ export interface IElementModel
     >,
     ICacheService<IElementDTO, IElementModel>,
     Pick<IElementDTO, 'name'> {
+  _modified: boolean
   ancestorError: Nullish<RenderingError>
   atomName: string
   childMapperComponent?: Nullable<Ref<IComponentModel>>
@@ -170,11 +171,13 @@ export interface IElementModel
   appendToGuiCss(css: CssMap): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
-  attachToParentAsFirstChild(parentElement: IElementModel): void
+
+  attachAsFirstChild(parentElement: IElementModel): void
+
   clone(cloneIndex?: number): IElementModel
   connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
-  detachAsFirstChild(): void
+  // detachAsFirstChild(): void
   detachFromParent(): void
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void

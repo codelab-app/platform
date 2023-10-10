@@ -12,13 +12,16 @@ import type {
   IEntityModalService,
 } from '../../service'
 import type { ComponentDevelopmentFragment } from '../component/component-development.fragment.graphql.gen'
+import type {
+  IElementDomainService,
+  IMoveElementContext,
+} from './element.domain.service.interface'
 import type { IUpdateElementData } from './element.dto.interface'
 import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
 import type { IElementRenderTypeModel } from './render-type'
 import type { ICloneElementService } from './use-cases/clone-element.service.interface'
-import type { ICreateElementService } from './use-cases/create-element.service.interface'
 import type { IMoveElementService } from './use-cases/move-element.service.interface'
 
 /**
@@ -46,7 +49,7 @@ export interface UpdateElementProperties {
 export interface IElementService
   extends Omit<
       ICRUDService<IElementModel, IElementDTO, IUpdateElementData>,
-      'delete'
+      'delete' | 'create'
     >,
     Omit<
       ICRUDModalService<Ref<IElementModel>, { element?: IElementModel }>,
@@ -58,31 +61,22 @@ export interface IElementService
     > {
   cloneElementService: ICloneElementService
   clonedElements: ObjectMap<IElementModel>
-  createElementService: ICreateElementService
   createForm: IEntityFormService<CreateElementData, CreateElementProperties>
   createModal: IEntityModalService<CreateElementData, CreateElementProperties>
+  elementDomainService: IElementDomainService
   elementRepository: IElementRepository
-  elements: ObjectMap<IElementModel>
-  moveElementService: IMoveElementService
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 
-  add(elementDTO: IElementDTO): IElementModel
-
-  // moveElement(
-  //   targetElementId: IElementRef,
-  //   moveData: MoveData,
-  // ): Promise<IElement>
+  // add(elementDTO: IElementDTO): IElementModel
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
   loadComponentTree(component: ComponentDevelopmentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }
-  loadRenderType(
-    renderType: IElementRenderTypeDto,
-  ): Promise<IElementRenderTypeModel>
-  // loadElement(element: IElementDTO): void
+  createElement(data: IElementDTO): Promise<IElementModel>
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
   updateAffectedElements(elementIds: Array<string>): Promise<void>
+  move(context: IMoveElementContext): Promise<void>
 }

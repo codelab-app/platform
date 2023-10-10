@@ -18,7 +18,6 @@ export const useDragDropHandlers = (
   rendererType: RendererType,
 ) => {
   const { atomService, builderService, elementService } = useStore()
-  const { moveElementService } = elementService
 
   const dragStartHandler = useCallback(
     (event: React.DragEvent<HTMLElement>) => {
@@ -106,38 +105,38 @@ export const useDragDropHandlers = (
         return
       }
 
-      if (dropPosition === 'right' || dropPosition === 'bottom') {
-        void moveElementService.moveElementAsNextSibling({
-          element: { id: draggedElement?.id ?? '' },
-          targetElement: { id: dropTargetElement?.id ?? '' },
-        })
-      }
+      // if (dropPosition === 'right' || dropPosition === 'bottom') {
+      //   void moveElementService.moveElementAsNextSibling({
+      //     element: { id: draggedElement?.id ?? '' },
+      //     targetElement: { id: dropTargetElement?.id ?? '' },
+      //   })
+      // }
 
-      if (
-        dropTargetElement?.prevSibling?.current.id !== draggedElement?.id &&
-        (dropPosition === 'left' || dropPosition === 'top')
-      ) {
-        if (dropTargetElement?.prevSibling?.current.id) {
-          void moveElementService.moveElementAsNextSibling({
-            element: { id: draggedElement?.id ?? '' },
-            targetElement: { id: dropTargetElement.prevSibling.current.id },
-          })
-        } else {
-          void moveElementService.moveElementAsFirstChild({
-            element: { id: draggedElement?.id ?? '' },
-            parentElement: {
-              id: dropTargetElement?.parentElement?.current.id ?? '',
-            },
-          })
-        }
-      }
+      // if (
+      //   dropTargetElement?.prevSibling?.current.id !== draggedElement?.id &&
+      //   (dropPosition === 'left' || dropPosition === 'top')
+      // ) {
+      //   if (dropTargetElement?.prevSibling?.current.id) {
+      //     void moveElementService.moveElementAsNextSibling({
+      //       element: { id: draggedElement?.id ?? '' },
+      //       targetElement: { id: dropTargetElement.prevSibling.current.id },
+      //     })
+      //   } else {
+      //     void moveElementService.moveElementAsFirstChild({
+      //       element: { id: draggedElement?.id ?? '' },
+      //       parentElement: {
+      //         id: dropTargetElement?.parentElement?.current.id ?? '',
+      //       },
+      //     })
+      //   }
+      // }
 
-      if (dropPosition === 'inside') {
-        void moveElementService.moveElementAsFirstChild({
-          element: { id: draggedElement?.id ?? '' },
-          parentElement: { id: dropTargetElement?.id ?? '' },
-        })
-      }
+      // if (dropPosition === 'inside') {
+      //   void moveElementService.moveElementAsFirstChild({
+      //     element: { id: draggedElement?.id ?? '' },
+      //     parentElement: { id: dropTargetElement?.id ?? '' },
+      //   })
+      // }
     },
     [builderService, elementService],
   )
