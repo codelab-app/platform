@@ -79,7 +79,6 @@ export class CloneElementService
   convertElementToComponent = _async(function* (
     this: CloneElementService,
     element: IElementModel,
-    owner: IElementDTO,
   ) {
     if (!element.closestParentElement) {
       throw new Error("Can't convert root element")
