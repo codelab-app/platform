@@ -17742,7 +17742,7 @@ __metadata:
     cross-env: 7.0.3
     cross-fetch: 3.1.4
     csv-parser: 3.0.0
-    cypress: ^13.0.0
+    cypress: ^13.3.0
     cypress-jest-adapter: ^0.1.1
     cypress-log-to-output: ^1.1.2
     cypress-multi-reporters: ^1.6.3
@@ -19250,7 +19250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.3.0, cypress@npm:^13.0.0":
+"cypress@npm:13.3.0":
   version: 13.3.0
   resolution: "cypress@npm:13.3.0"
   dependencies:

@@ -1,4 +1,5 @@
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import type { IUserDTO } from '@codelab/shared/abstract/core'
 
 describe('UserController', () => {
   before(() => {
@@ -6,14 +7,12 @@ describe('UserController', () => {
   })
 
   it('should save a user', () => {
-    cy.request({ method: 'POST', url: '/api/data/user/save' }).then(
-      (response) => {
-        const { body } = response
+    cy.postApiRequest<IUserDTO>('/user/save').then((response) => {
+      const { body } = response
 
-        return cy.getCurrentUser().then((user) => {
-          expect(body).to.deep.include(user)
-        })
-      },
-    )
+      return cy.getCurrentUser().then((user) => {
+        expect(body).to.deep.include(user)
+      })
+    })
   })
 })
