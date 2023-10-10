@@ -1,5 +1,5 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
-import { ValidationOptions } from './options'
+import type { ValidationOptions } from './options'
 
 export const containsAtLeastOne = (items: Array<Nullish<object> | boolean>) => {
   return items.some((item) => Boolean(item))

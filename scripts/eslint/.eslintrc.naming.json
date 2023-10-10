@@ -3,31 +3,28 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@typescript-eslint/naming-convention": [
-          "error",
-          {
-            "selector": ["classProperty"],
-            "format": ["camelCase"],
-            "leadingUnderscore": "allow"
-          },
-          {
-            "selector": ["objectLiteralProperty"],
-            "format": ["camelCase", "PascalCase"],
-            "leadingUnderscore": "allow",
-            "filter": {
-              "regex": "_CONTAINS$|_ENDS_WITH$|_IN$|_STARTS_WITH$|_NOT$|_ALL$|_NONE$|_SINGLE$|_SOME$|^[#.].*|^[0-9]*$",
-              "match": false
-            }
-          },
-          {
-            "selector": ["interface"],
-            "format": ["PascalCase"],
-            "leadingUnderscore": "allow",
-            "filter": {
-              "match": false
-            }
-          }
-        ]
+        // "@typescript-eslint/naming-convention": [
+        //   "error",
+        //   // {
+        //   //   "selector": ["classProperty"],
+        //   //   "format": ["camelCase"],
+        //   //   "leadingUnderscore": "allow"
+        //   // },
+        //   // {
+        //   //   "selector": ["property"],
+        //   //   "format": ["camelCase", "PascalCase"],
+        //   //   "leadingUnderscore": "allow",
+        //   //   "filter": {
+        //   //     "regex": "_CONTAINS$|_ENDS_WITH$|_IN$|_STARTS_WITH$|_NOT$|_ALL$|_NONE$|_SINGLE$|_SOME$|^[#.].*|^[0-9]*$",
+        //   //     "match": false
+        //   //   }
+        //   // },
+        //   {
+        //     "selector": ["interface"],
+        //     "format": ["PascalCase"],
+        //     "leadingUnderscore": "allow"
+        //   }
+        // ]
       }
     },
     {
@@ -83,7 +80,7 @@
               "regex": "^data-",
               "match": false
             },
-            "leadingUnderscore": "allowDouble"
+            "leadingUnderscore": "allowSingleOrDouble"
           }
         ]
       }

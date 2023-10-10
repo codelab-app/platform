@@ -58,14 +58,11 @@ import {
   Model,
   model,
   modelAction,
-  onPatches,
+  patchRecorder,
   prop,
   Ref,
 } from 'mobx-keystone'
-import {
-  validateElement,
-  validateElementDto,
-} from '../services/element.validate'
+import { validateElement } from '../services/element.validate'
 import { getRenderType } from './element-render-type.field'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
 
@@ -131,7 +128,8 @@ const create = (element: IElementDTO): IElementModel => {
 @model('@codelab/Element')
 export class Element
   extends Model({
-    _modified: prop(false).withSetter(),
+    // The patches don't record until attached to root, so initial creation won't be tracked
+    _modified: prop(true).withSetter(),
     childMapperComponent:
       prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
@@ -139,7 +137,6 @@ export class Element
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
-
     id: idProp.withSetter(),
     isTextContentEditable: prop<boolean>(false).withSetter(),
     name: prop<string>().withSetter(),
@@ -171,11 +168,21 @@ export class Element
   static create = create
 
   onAttachedToRootStore() {
-    const disposer = onPatches(this, (patches, inversePatches) => {
-      this.set_modified(true)
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // Skip patches related to setting '_modified' to false
+
+        return !patches.some((patch) => {
+          return patch.path.includes('_modified')
+        })
+      },
+      onPatches: (patches, inversePatches) => {
+        this.set_modified(true)
+      },
+      recording: true,
     })
 
-    return () => disposer()
+    return () => recorder.dispose()
   }
 
   /**
@@ -502,6 +509,26 @@ export class Element
   }
 
   @computed
+  get toElementTree() {
+    return {
+      firstChild: this.firstChild?.current.toId,
+      id: this.id,
+      name: this.name,
+      nextSibling: this.nextSibling?.current.toId,
+      parentElement: this.parentElement?.current.toId,
+      prevSibling: this.prevSibling?.current.toId,
+    }
+  }
+
+  @computed
+  get toId() {
+    return {
+      id: this.id,
+      name: this.name,
+    }
+  }
+
+  @computed
   get treeTitle() {
     return {
       primary: this.label,
@@ -609,13 +636,23 @@ export class Element
    * (sibling)-(nextSibling)
    * (sibling)-[element]-x-(nextSibling)
    *
-   * @param sibling
+   * @param prevSibling
    * @returns
    */
   @modelAction
-  attachAsNextSibling(sibling: IElementModel) {
-    sibling.nextSibling = elementRef(this.id)
-    this.prevSibling = elementRef(sibling.id)
+  attachAsNextSibling(prevSibling: IElementModel) {
+    console.debug('Element.attachAsNextSibling()', prevSibling.toElementTree)
+
+    const oldNextSibling = prevSibling.nextSibling?.current
+
+    if (oldNextSibling) {
+      oldNextSibling.prevSibling = elementRef(this)
+      this.setNextSibling(elementRef(oldNextSibling))
+    }
+
+    this.prevSibling = elementRef(prevSibling.id)
+
+    prevSibling.nextSibling = elementRef(this.id)
   }
 
   /**
@@ -636,12 +673,15 @@ export class Element
       return
     }
 
-    nextSibling.prevSibling = elementRef(this)
+    const oldPrevSibling = nextSibling.prevSibling?.current
 
-    const oldPrevSibling = nextSibling.prevSibling.current
+    nextSibling.prevSibling = elementRef(this)
 
     if (oldPrevSibling) {
       oldPrevSibling.nextSibling = elementRef(this)
+      console.log(oldPrevSibling.toElementTree)
+
+      this.prevSibling = elementRef(oldPrevSibling)
     }
 
     this.nextSibling = elementRef(nextSibling)
@@ -695,31 +735,6 @@ export class Element
     this.elementService.clonedElements.set(clonedElement.id, clonedElement)
 
     return clonedElement
-  }
-
-  /**
-   * This removes the `element` and attaches the siblings together
-   *
-   * (prevSibling)-[element]-(nextSibling)
-   *
-   * (prevSibling)-(nextSibling)
-   */
-  @modelAction
-  connectPrevToNextSibling() {
-    if (this.nextSibling) {
-      this.nextSibling.current.prevSibling = this.prevSibling
-        ? elementRef(this.prevSibling.current)
-        : null
-    }
-
-    if (this.prevSibling) {
-      this.prevSibling.current.nextSibling = this.nextSibling
-        ? elementRef(this.nextSibling.current)
-        : null
-    }
-
-    this.nextSibling = null
-    this.prevSibling = null
   }
 
   @modelAction

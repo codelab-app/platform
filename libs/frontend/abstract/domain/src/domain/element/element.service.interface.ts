@@ -1,7 +1,4 @@
-import type {
-  IElementDTO,
-  IElementRenderTypeDto,
-} from '@codelab/shared/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -20,9 +17,7 @@ import type { IUpdateElementData } from './element.dto.interface'
 import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
-import type { IElementRenderTypeModel } from './render-type'
 import type { ICloneElementService } from './use-cases/clone-element.service.interface'
-import type { IMoveElementService } from './use-cases/move-element.service.interface'
 
 /**
  * Used for modal input
@@ -49,7 +44,7 @@ export interface UpdateElementProperties {
 export interface IElementService
   extends Omit<
       ICRUDService<IElementModel, IElementDTO, IUpdateElementData>,
-      'delete' | 'create'
+      'create' | 'delete'
     >,
     Omit<
       ICRUDModalService<Ref<IElementModel>, { element?: IElementModel }>,
@@ -68,15 +63,14 @@ export interface IElementService
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 
-  // add(elementDTO: IElementDTO): IElementModel
+  createElement(data: IElementDTO): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
   loadComponentTree(component: ComponentDevelopmentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }
-  createElement(data: IElementDTO): Promise<IElementModel>
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
-  updateAffectedElements(elementIds: Array<string>): Promise<void>
   move(context: IMoveElementContext): Promise<void>
+  updateAffectedElements(elementIds: Array<string>): Promise<void>
 }

@@ -164,20 +164,18 @@ export interface IElementModel
     inheritedStyles: ElementCssRules
   }
   tailwindClassNames?: Nullable<Array<string>>
+  toElementTree: object
+  toId: object
   toJson: IElement
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
   appendToGuiCss(css: CssMap): void
+  attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
-
-  attachAsFirstChild(parentElement: IElementModel): void
-
   clone(cloneIndex?: number): IElementModel
-  connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
-  // detachAsFirstChild(): void
   detachFromParent(): void
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void
@@ -195,6 +193,7 @@ export interface IElementModel
   setRenderingError(error: Nullish<RenderingError>): void
   setSourceElement(element: Ref<IElementModel>): void
   setTailwindClassNames(tailwindClassNames: Array<string>): void
+  set_modified(modified: boolean): void
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'

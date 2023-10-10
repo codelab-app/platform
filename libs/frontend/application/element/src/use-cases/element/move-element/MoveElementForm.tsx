@@ -1,5 +1,4 @@
 import {
-  elementRef,
   type IElementModel,
   type MoveData,
 } from '@codelab/frontend/abstract/domain'
@@ -29,7 +28,6 @@ export interface MoveElementFormProps {
  */
 export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
   const { atomService, builderService, elementService } = useStore()
-
   const elementTree = builderService.activeElementTree
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
@@ -46,7 +44,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
   /**
    * We either set the target parent, which adds as firstChild in move. Or we set the target sibling, which adds as sibling
    */
-  const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
+  const onSubmit = async ({ parentElement, prevSibling }: MoveData) => {
     /**
      * Create new model of desired state
      */
@@ -59,10 +57,10 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
       prevSibling.id,
     )
 
-    elementService.move({
+    await elementService.move({
       element,
-      parentElement: parentElementModel,
       nextSibling: prevSiblingModel,
+      parentElement: parentElementModel,
     })
 
     return Promise.resolve()

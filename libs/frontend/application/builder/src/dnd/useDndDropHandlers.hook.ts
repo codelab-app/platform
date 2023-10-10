@@ -89,13 +89,12 @@ export const useDndDropHandler = (
       createElementDTO.parentElement = targetElement
     }
 
-    elementService.createElement(createElementDTO)
+    await elementService.createElement(createElementDTO)
   }
 
   const handleMoveElement = async (event: DragEndEvent) => {
     const draggedElementId = event.active.id.toString()
     const draggedElement = elementService.element(draggedElementId)
-
     const dropElementId = event.over?.id.toString()
     const dragPosition = event.over?.data.current?.dragPosition
 

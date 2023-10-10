@@ -1,21 +1,15 @@
 import type {
   IElementDomainService,
   IElementModel,
-  IMoveFirstChildProps,
 } from '@codelab/frontend/abstract/domain'
-import {
-  elementRef,
-  IMoveElementContext,
-} from '@codelab/frontend/abstract/domain'
+import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Element } from '../store'
-import { isAddingAsFirstChild, validateElementDto } from './element.validate'
-import { validateMoveElement } from '@codelab/frontend/application/element'
+import { validateElementDto } from './element.validate'
+import { validateMoveElement } from './move-element.validation'
 
 @model('@codelab/ElementDomainService')
 export class ElementDomainService
@@ -36,7 +30,16 @@ export class ElementDomainService
   }
 
   @modelAction
+  resetModifiedElements() {
+    for (const element of this.elements.values()) {
+      element.set_modified(false)
+    }
+  }
+
+  @modelAction
   add = (elementDto: IElementDTO): IElementModel => {
+    console.debug('ElementDomainService.add()', elementDto)
+
     validateElementDto(elementDto)
 
     const props = {
@@ -46,58 +49,17 @@ export class ElementDomainService
     }
 
     this.propService.add(props)
-    console.debug('ElementService.add()', elementDto)
 
     const element: IElementModel = Element.create(elementDto)
 
     this.elements.set(elementDto.id, element)
 
-    /**
-     * Moves an element as a first child to a parent. Bumps the existing firstChild as nextSibling
-     *
-     * (parent)
-     * \
-     * (firstChild)
-     *
-     * (parent)
-     * \
-     * [element]-(firstChild)
-     */
-    if (isAddingAsFirstChild(element)) {
-      // TODO: Add type assertion
-      const parentElement = throwIfUndefined(element.parentElement?.current)
-
-      /**
-       * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
-       */
-      if (parentElement.firstChild) {
-        const currentFirstChild = parentElement.firstChild
-        element.attachAsPrevSibling(currentFirstChild.current)
-
-        // this.elementsToUpdate.set(currentFirstChild.id, currentFirstChild)
-      }
-
-      element.attachAsFirstChild(parentElement)
-
-      // this.elementsToUpdate.set(parentElement.id, elementRef(parentElement))
-      // this.elementsToUpdate.set(element.id, elementRef(element))
-    } else {
-      /**
-       * Element appends as next sibling to target
-       *
-       * (target)-(nextSibling)
-       * (target)-[element]-(nextSibling)
-       */
-      const prevSibling = throwIfUndefined(element.prevSibling?.current)
-
-      if (prevSibling.nextSibling) {
-        element.attachAsPrevSibling(prevSibling.nextSibling.current)
-
-        // this.elementsToUpdate.set(prevSibling.)
-      }
-
-      element.attachAsNextSibling(prevSibling)
-    }
+    this.move({
+      element,
+      nextSibling: element.nextSibling?.current,
+      parentElement: element.parentElement?.current,
+      prevSibling: element.prevSibling?.current,
+    })
 
     return element
   }
@@ -111,7 +73,7 @@ export class ElementDomainService
    */
   @modelAction
   move(context: IMoveElementContext) {
-    const { element, prevSibling, nextSibling, parentElement } = context
+    const { element, nextSibling, parentElement, prevSibling } = context
 
     validateMoveElement(context)
 
