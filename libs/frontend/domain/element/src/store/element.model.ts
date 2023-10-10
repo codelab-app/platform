@@ -67,8 +67,6 @@ import { getRenderType } from './element-render-type.field'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
 
 const create = (element: IElementDTO): IElementModel => {
-  // validateElementDto(element)
-
   const {
     childMapperComponent,
     childMapperPreviousSibling,
@@ -754,36 +752,32 @@ export class Element
     this.style = JSON.stringify(styleObject)
   }
 
-  /**
-   * This will connect any siblings to the current element's parent
-   *
-   * (parent)
-   * \
-   *  [element]-(nextSibling)
-   */
   @modelAction
-  detachFromParent() {
-    if (!this.parentElement) {
-      return
+  detachFromTree() {
+    const { nextSibling, parentElement, prevSibling } = this
+
+    /**
+     * If we are in the middle of a sibling chain
+     */
+    if (nextSibling && prevSibling) {
+      nextSibling.current.prevSibling = elementRef(prevSibling.current)
+      prevSibling.current.nextSibling = elementRef(nextSibling.current)
     }
 
     /**
-     * Connect nextSibling to the parent
+     * Move nextSibling to firstChild
      */
-    if (this.nextSibling) {
-      // Connect parent to nextSibling
-      this.parentElement.current.firstChild = elementRef(
-        this.nextSibling.current,
-      )
-
-      // Connect nextSibling to parent
-      this.nextSibling.current.setParentElement(
-        elementRef(this.parentElement.id),
-      )
-    } else {
-      this.parentElement.current.firstChild = null
+    if (parentElement) {
+      if (nextSibling) {
+        parentElement.current.firstChild = elementRef(nextSibling.current)
+        nextSibling.current.parentElement = elementRef(parentElement.current)
+      } else {
+        parentElement.current.firstChild = null
+      }
     }
 
+    this.nextSibling = null
+    this.prevSibling = null
     this.parentElement = null
   }
 

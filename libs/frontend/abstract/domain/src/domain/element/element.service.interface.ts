@@ -72,5 +72,5 @@ export interface IElementService
   }
   maybeElement(id: Maybe<string>): Maybe<IElementModel>
   move(context: IMoveElementContext): Promise<void>
-  updateAffectedElements(elementIds: Array<string>): Promise<void>
+  syncModifiedElements(): Promise<void>
 }

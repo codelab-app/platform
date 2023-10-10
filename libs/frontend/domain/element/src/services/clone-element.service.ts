@@ -96,9 +96,7 @@ export class CloneElementService
     // is a child of the element we are converting or the element itself
     this.builderService.setSelectedNode(null)
 
-    // 2. detach the element from the element tree
-    const oldConnectedNodeIds: Array<string> = []
-    // this.moveElementService.detachElementFromElementTree(element.id)
+    element.detachFromTree()
 
     // 3. create the component and pass element as rootElement for component,
     const createdComponent: IComponentModel = yield* _await(
@@ -110,19 +108,7 @@ export class CloneElementService
     )
 
     yield* _await(this.cloneElementStore(element, createdComponent))
-
-    const affectedAttachedNodes = [
-      element.id,
-      // all descendant elements will require composite key to be changed
-      ...element.descendantElements.map((descendant) => descendant.id),
-    ]
-
-    yield* _await(
-      this.elementService.updateAffectedElements([
-        ...oldConnectedNodeIds,
-        ...affectedAttachedNodes,
-      ]),
-    )
+    yield* _await(this.elementService.syncModifiedElements())
 
     // 5. create a new element as an instance of the component
     const componentId = createdComponent.id
