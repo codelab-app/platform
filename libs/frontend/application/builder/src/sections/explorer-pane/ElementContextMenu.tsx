@@ -89,9 +89,7 @@ export const ElementContextMenu = observer<
         return
       }
 
-      await convertElementToComponent(element, {
-        id: user.sub,
-      })
+      await convertElementToComponent(element)
     }
 
     const onEditComponent = () => {
