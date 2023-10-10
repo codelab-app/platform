@@ -882,12 +882,61 @@
     "name": "AntDesignSelect API",
     "types": [
       {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "874c97ee-b333-4519-bb60-fee49a12ff6b"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "b9852d21-bfab-43aa-870f-382f75ceb17e",
+            "key": "label",
+            "name": "Label",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "874c97ee-b333-4519-bb60-fee49a12ff6b"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc",
+            "key": "value",
+            "name": "Value",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+        "kind": "InterfaceType",
+        "name": "AntDesignSelect Option",
+        "owner": {
+          "id": "982650bc-fb74-4ca4-b2f2-3c1ee12e1e0b"
+        }
+      },
+      {
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "a590221a-42bf-4c5d-bd3b-0e9d7d46261c",
-            "key": "string",
-            "value": "string"
+            "id": "5623b3b5-8592-499b-ae65-d3c4c99f12ed",
+            "key": "LabeledValue[]",
+            "value": "LabeledValue[]"
           },
           {
             "id": "1171e193-98ae-4a65-b7d5-44d2bc8b6886",
@@ -895,14 +944,14 @@
             "value": "number[]\nLabeledValue"
           },
           {
+            "id": "a590221a-42bf-4c5d-bd3b-0e9d7d46261c",
+            "key": "string",
+            "value": "string"
+          },
+          {
             "id": "d2d848b4-f71a-445b-8b56-25ae27d9cb9c",
             "key": "string[]\nnumber",
             "value": "string[]\nnumber"
-          },
-          {
-            "id": "5623b3b5-8592-499b-ae65-d3c4c99f12ed",
-            "key": "LabeledValue[]",
-            "value": "LabeledValue[]"
           }
         ],
         "id": "01bdee13-ca65-4ede-99bf-3497f6cc3c62",
@@ -949,14 +998,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "0069b31b-7c17-472a-9907-8e7b635c0818",
-            "key": "responsive",
-            "value": "responsive"
-          },
-          {
             "id": "478569ad-b71b-487c-941a-ae96bf65b12f",
             "key": "number",
             "value": "number"
+          },
+          {
+            "id": "0069b31b-7c17-472a-9907-8e7b635c0818",
+            "key": "responsive",
+            "value": "responsive"
           }
         ],
         "id": "896c91c5-e7bd-48d2-85af-3cb030d09865",
@@ -967,14 +1016,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "dae150e1-608a-41b3-93f3-9ead1b4b286f",
-            "key": "ReactNode",
-            "value": "ReactNode"
-          },
-          {
             "id": "882e60f7-95f6-4c02-97b2-15f0b305fce7",
             "key": "function(omittedValues)",
             "value": "function(omittedValues)"
+          },
+          {
+            "id": "dae150e1-608a-41b3-93f3-9ead1b4b286f",
+            "key": "ReactNode",
+            "value": "ReactNode"
           }
         ],
         "id": "9c795564-4748-4062-9687-b70ab2498f9e",
@@ -985,14 +1034,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "5f3f6049-ca91-42a9-b16c-fa55fe07d353",
-            "key": "tags",
-            "value": "tags"
-          },
-          {
             "id": "d223ddd3-aa03-433d-a772-54c99a03054c",
             "key": "multiple",
             "value": "multiple"
+          },
+          {
+            "id": "5f3f6049-ca91-42a9-b16c-fa55fe07d353",
+            "key": "tags",
+            "value": "tags"
           }
         ],
         "id": "7e445e6c-a01b-4077-8ee5-c570f9ba7d46",
@@ -1003,14 +1052,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "edebda51-2cae-4c23-a38b-034b30bd7939",
-            "key": "function(value, option:Option",
-            "value": "function(value, option:Option"
-          },
-          {
             "id": "f3e426e9-86c8-4db1-b7ab-7ba9c8335f94",
             "key": "Array<Option>)",
             "value": "Array<Option>)"
+          },
+          {
+            "id": "edebda51-2cae-4c23-a38b-034b30bd7939",
+            "key": "function(value, option:Option",
+            "value": "function(value, option:Option"
           }
         ],
         "id": "dca60c97-3dc8-440c-9b58-ea776e836f7c",
@@ -1021,14 +1070,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "7b74d69e-ae6c-4037-9ac3-f348845f9e3e",
-            "key": "LabeledValue)",
-            "value": "LabeledValue)"
-          },
-          {
             "id": "2211cc5e-5adc-4a14-91d4-ffc330516048",
             "key": "function(string",
             "value": "function(string"
+          },
+          {
+            "id": "7b74d69e-ae6c-4037-9ac3-f348845f9e3e",
+            "key": "LabeledValue)",
+            "value": "LabeledValue)"
           },
           {
             "id": "9e8fc0cb-6810-4803-a238-f1aa293209bb",
@@ -1044,6 +1093,11 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
+            "id": "9b3e4ce9-6225-441e-9688-e84b02a875a5",
+            "key": "function(string",
+            "value": "function(string"
+          },
+          {
             "id": "37c0aece-6a37-465e-8ddd-0e6dbf5a156f",
             "key": "LabeledValue, option: Option)",
             "value": "LabeledValue, option: Option)"
@@ -1052,11 +1106,6 @@
             "id": "8dd0633a-68e0-444f-beb6-c44ded7ed61d",
             "key": "number",
             "value": "number"
-          },
-          {
-            "id": "9b3e4ce9-6225-441e-9688-e84b02a875a5",
-            "key": "function(string",
-            "value": "function(string"
           }
         ],
         "id": "8306dde3-afe3-49ac-8e79-6acb979a28aa",
