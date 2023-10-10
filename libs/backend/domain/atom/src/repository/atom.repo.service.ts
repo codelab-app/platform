@@ -49,6 +49,9 @@ export class AtomRepository extends AbstractRepository<
         input: atoms.map(
           ({
             api,
+            externalCssSource,
+            externalJsSource,
+            externalSourceType,
             icon,
             id,
             name,
@@ -58,6 +61,9 @@ export class AtomRepository extends AbstractRepository<
             type,
           }) => ({
             api: connectNodeId(api.id),
+            externalCssSource,
+            externalJsSource,
+            externalSourceType,
             icon,
             id,
             name,
