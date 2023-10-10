@@ -18,11 +18,16 @@ export const shouldMoveElementAsFirstChild = (
   const changeParent = currentParentElement.id !== newParentElement.id
   const changePrevSibling = currentPrevSibling.id !== newPrevSibling.id
 
+  /**
+   * If we have parent element, means we want to set as first child
+   */
   if (changeParent && currentParentElement.id) {
     return true
   }
 
-  // clear prevSibling, move to begin of the tree branch
+  /**
+   *
+   */
   if (changePrevSibling && !newPrevSibling.id) {
     return true
   }

@@ -62,7 +62,7 @@ export class TestRootStore
     this.typeService.types.clear()
     this.atomService.atoms.clear()
     this.componentService.components.clear()
-    this.elementService.elements.clear()
+    this.elementService.elementDomainService.elements.clear()
     this.fieldService.fields.clear()
     this.actionService.actions.clear()
     this.propService.props.clear()

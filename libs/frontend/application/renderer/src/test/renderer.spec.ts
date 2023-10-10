@@ -125,10 +125,9 @@ describe('Renderer', () => {
         },
       })
 
-      const componentInstance =
-        await rootStore.elementService.createElementService.createElementAsFirstChild(
-          componentElement,
-        )
+      const componentInstance = await rootStore.elementService.createElement(
+        componentElement,
+      )
 
       // The renderer for the component is already added as part of the componentService.add logic
       // so we just need to get that here, and it should already exist

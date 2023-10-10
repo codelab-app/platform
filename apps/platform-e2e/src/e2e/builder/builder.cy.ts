@@ -57,6 +57,7 @@ describe('Elements CRUD', () => {
 
   before(() => {
     loginAndSetupData()
+
     cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })

@@ -1,20 +1,18 @@
 import { AtomApplicationService } from '@codelab/backend/application/atom'
+import { CurrentUser } from '@codelab/backend/application/shared'
 import { AdminRepository } from '@codelab/backend/domain/admin'
 import { UserRepository } from '@codelab/backend/domain/user'
 import {
   type Auth0IdToken,
   IRole,
+  IUserDTO,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller('user')
 export class UserApplicationController {
-  constructor(
-    private userRepository: UserRepository,
-    private atomService: AtomApplicationService,
-    private adminRepository: AdminRepository,
-  ) {}
+  constructor(private userRepository: UserRepository) {}
 
   /**
    *
@@ -22,23 +20,10 @@ export class UserApplicationController {
    * @returns
    */
   @Post('save')
-  async save(@Body() auth0IdToken: Auth0IdToken) {
-    const { email, nickname: username, sub: auth0Id } = auth0IdToken
-    const id = auth0IdToken[JWT_CLAIMS].neo4j_user_id
-    const roles = auth0IdToken[JWT_CLAIMS].roles
-
-    const user = await this.userRepository.save(
-      {
-        auth0Id,
-        email,
-        id,
-        roles: roles.map((role) => IRole[role]),
-        username,
-      },
-      {
-        auth0Id,
-      },
-    )
+  async save(@CurrentUser() userDto: IUserDTO) {
+    const user = await this.userRepository.save(userDto, {
+      auth0Id: userDto.auth0Id,
+    })
 
     return user
   }

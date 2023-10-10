@@ -11,7 +11,10 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import {
+  type IElementDTO,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import type {
   Maybe,
   UniformSelectFieldProps,
@@ -40,7 +43,6 @@ export const CreateElementForm = observer(
     submitRef,
   }: CreateElementFormProps) => {
     const { elementService, userService } = useStore()
-    const { createElementService } = elementService
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
@@ -50,8 +52,6 @@ export const CreateElementForm = observer(
     }
 
     const onSubmit = async (data: IElementDTO) => {
-      const { prevSibling } = data
-
       const isValidParent = validateParentForCreate(
         data.renderType.id,
         data.parentElement?.id,
@@ -61,9 +61,7 @@ export const CreateElementForm = observer(
         return Promise.reject()
       }
 
-      void (prevSibling
-        ? createElementService.createElementAsNextSibling(data)
-        : createElementService.createElementAsFirstChild(data))
+      await elementService.createElement(data)
 
       closeForm()
       onSubmitSuccess?.()
@@ -82,6 +80,10 @@ export const CreateElementForm = observer(
       props: {
         api: { id: v4() },
         id: v4(),
+      },
+      renderType: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        __typename: IElementRenderTypeKind.Atom,
       },
       // TODO: Couldn't we only validate when field is changed or submitted?
       // Needs to be null initially so that required sub-fields

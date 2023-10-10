@@ -29,7 +29,7 @@ export const OgmProvider: FactoryProvider<OGM> = {
 
     await ogm.init()
 
-    await ogm.checkNeo4jCompat({ driver })
+    // await ogm.checkNeo4jCompat({ driver })
 
     await ogm.assertIndexesAndConstraints({
       driver,

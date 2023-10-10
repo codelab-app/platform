@@ -119,7 +119,9 @@ export class AppDevelopmentService
 
     data.components.forEach((component) => this.componentService.add(component))
 
-    data.elements.forEach((element) => this.elementService.add(element))
+    data.elements.forEach((element) =>
+      this.elementService.elementDomainService.add(element),
+    )
 
     data.props.forEach((prop) => this.propService.add(prop))
 

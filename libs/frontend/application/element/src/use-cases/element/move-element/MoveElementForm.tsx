@@ -1,4 +1,8 @@
-import type { IElementModel, MoveData } from '@codelab/frontend/abstract/domain'
+import {
+  elementRef,
+  type IElementModel,
+  type MoveData,
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/application/type'
 import { mapElementOption } from '@codelab/frontend/domain/element'
@@ -9,22 +13,22 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
-import {
-  shouldMoveElementAsFirstChild,
-  shouldMoveElementAsNextSibling,
-} from './utils'
 
 export interface MoveElementFormProps {
   element: IElementModel
 }
 
-/** Not intended to be used in a modal */
+/**
+ * When we move, we can change
+ *
+ * 1) parent
+ * 2) sibling
+ * 3) or both
+ *
+ * Not intended to be used in a modal
+ */
 export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
-  const {
-    atomService,
-    builderService,
-    elementService: { moveElementService },
-  } = useStore()
+  const { atomService, builderService, elementService } = useStore()
 
   const elementTree = builderService.activeElementTree
 
@@ -39,32 +43,27 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
     model.parentElement.id = element.parentElement?.id
   }, [element.parentElement, element.prevSibling])
 
+  /**
+   * We either set the target parent, which adds as firstChild in move. Or we set the target sibling, which adds as sibling
+   */
   const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
-    const {
-      parentElement: currentParentElement,
-      prevSibling: currentPrevSibling,
-    } = model
+    /**
+     * Create new model of desired state
+     */
 
-    if (
-      shouldMoveElementAsFirstChild(
-        currentParentElement,
-        parentElement,
-        currentPrevSibling,
-        prevSibling,
-      )
-    ) {
-      return moveElementService.moveElementAsFirstChild({
-        element,
-        parentElement,
-      })
-    }
+    const parentElementModel = elementService.elementDomainService.elements.get(
+      parentElement.id,
+    )
 
-    if (shouldMoveElementAsNextSibling(currentPrevSibling, prevSibling)) {
-      return moveElementService.moveElementAsNextSibling({
-        element,
-        targetElement: prevSibling,
-      })
-    }
+    const prevSiblingModel = elementService.elementDomainService.elements.get(
+      prevSibling.id,
+    )
+
+    elementService.move({
+      element,
+      parentElement: parentElementModel,
+      nextSibling: prevSiblingModel,
+    })
 
     return Promise.resolve()
   }

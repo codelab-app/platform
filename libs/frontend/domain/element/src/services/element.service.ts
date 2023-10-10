@@ -2,6 +2,7 @@ import type {
   IElementModel,
   IElementRenderTypeModel,
   IElementService,
+  IMoveElementContext,
 } from '@codelab/frontend/abstract/domain'
 import {
   atomRef,
@@ -15,6 +16,7 @@ import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import {
   _async,
@@ -30,9 +32,9 @@ import {
 } from 'mobx-keystone'
 import { Element } from '../store/element.model'
 import { CloneElementService } from './clone-element.service'
-import { CreateElementService } from './create-element.service'
+import { ElementDomainService } from './element.domain.service'
 import { ElementRepository } from './element.repo'
-import { elementValidate } from './element.validate'
+import { validateElement } from './element.validate'
 import {
   CreateElementFormService,
   UpdateElementFormService,
@@ -42,7 +44,6 @@ import {
   ElementModalService,
   UpdateElementModalService,
 } from './element-modal.service'
-import { MoveElementService } from './move-element.service'
 
 /**
  * We will have a single ElementService that contains all elements from
@@ -55,50 +56,54 @@ export class ElementService
   extends Model({
     clonedElements: prop(() => objectMap<IElementModel>()),
     cloneElementService: prop(() => new CloneElementService({})),
-    createElementService: prop(() => new CreateElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
     createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
+    elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),
-    /**
-     * Contains all elements
-     *
-     * - Elements part of rootTree
-     * - Elements that are detached
-     */
-    elements: prop(() => objectMap<IElementModel>()),
     id: idProp,
-    moveElementService: prop(() => new MoveElementService({})),
     updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
   })
   implements IElementService
 {
-  /**
-   * We need a separate create function for element trees
-   */
   @modelFlow
-  @transaction
-  create = _async(function* (
-    this: ElementService,
-    createElementData: IElementDTO,
-  ) {
-    // TODO: Remove this
-    yield* _await(this.loadRenderType(createElementData.renderType))
+  createElement = _async(function* (this: ElementService, data: IElementDTO) {
+    const element = this.elementDomainService.add(data)
 
-    const props = {
-      data: createElementData.props.data,
-      // makeDefaultProps(renderType.current.api.current),
-      id: createElementData.props.id,
-    }
+    const modifiedElements = this.elementDomainService.modifiedElements
 
-    this.propService.add(props)
+    yield* _await(this.updateElements(modifiedElements))
 
-    const element = this.add(createElementData)
+    /**
+     * Syncs all components to the current element tree
+     */
+    // const parentElementClone = [
+    //   ...this.elementService.clonedElements.values(),
+    // ].find(({ sourceElement }) => sourceElement?.id === data.parentElement?.id)
 
-    yield* _await(this.elementRepository.add(element))
+    // if (parentElementClone) {
+    //   const elementClone = element.clone()
+
+    //   this.moveElementService.attachElementAsFirstChild({
+    //     element: elementClone,
+    //     parentElement: parentElementClone,
+    //   })
+    // }
+
+    // yield* _await(this.elementService.updateAffectedElements(affectedNodeIds))
 
     return element
+  })
+
+  /**
+   * We compare the prev and new state of the changes in the parent/sibling properties to see what operation we will perform
+   */
+  @modelFlow
+  move = _async(function* (this: ElementService, context: IMoveElementContext) {
+    const { element, nextSibling, parentElement } = context
+
+    this.elementDomainService.move(context)
   })
 
   /**
@@ -127,8 +132,8 @@ export class ElementService
       )
     }
 
-    const affectedNodeIds =
-      this.moveElementService.detachElementFromElementTree(subRootElement.id)
+    const affectedNodeIds: Array<string> = []
+    // this.moveElementService.detachElementFromElementTree(subRootElement.id)
 
     const allElementsToDelete = [
       subRootElement,
@@ -137,7 +142,7 @@ export class ElementService
 
     allElementsToDelete.reverse().forEach((element) => {
       this.removeClones(element.id)
-      this.elements.delete(element.id)
+      this.elementDomainService.elements.delete(element.id)
     })
 
     const target = this.element(affectedNodeIds[0]!)
@@ -146,42 +151,6 @@ export class ElementService
     yield* _await(this.elementRepository.delete(allElementsToDelete))
 
     return
-  })
-
-  /**
-   * If an element is created or updated with renderType atom or component
-   * that is not used yet anywhere in the current page,
-   * this will load its interface types and its fields
-   */
-  @modelFlow
-  @transaction
-  loadRenderType = _async(function* (
-    this: ElementService,
-    renderType: IElementDTO['renderType'],
-  ) {
-    let elementRenderType: IElementRenderTypeModel | undefined
-
-    if (renderType.__typename === 'Atom') {
-      const atom = throwIfUndefined(
-        yield* _await(this.atomService.getOne(renderType.id)),
-      )
-
-      elementRenderType = atomRef(atom)
-    }
-
-    if (renderType.__typename === 'Component') {
-      const component = throwIfUndefined(
-        yield* _await(this.componentService.getOne(renderType.id)),
-      )
-
-      elementRenderType = componentRef(component)
-    }
-
-    if (!elementRenderType) {
-      throw new Error('Invalid renderType')
-    }
-
-    return elementRenderType
   })
 
   @modelFlow
@@ -221,18 +190,33 @@ export class ElementService
     )
   })
 
-  @modelAction
-  add = (elementDTO: IElementDTO): IElementModel => {
-    console.debug('ElementService.add()', elementDTO)
+  @modelFlow
+  @transaction
+  updateElements = _async(function* (
+    this: ElementService,
+    elements: Array<IElementModel>,
+  ) {
+    yield* _await(
+      Promise.all(
+        uniqBy(elements, (element) => element.id).map((element) =>
+          this.elementRepository.updateNodes(element),
+        ),
+      ),
+    )
+  })
 
-    const element: IElementModel = Element.create(elementDTO)
+  // @modelAction
+  // add = (elementDTO: IElementDTO): IElementModel => {
+  //   console.debug('ElementService.add()', elementDTO)
 
-    elementValidate(element)
+  //   const element: IElementModel = Element.create(elementDTO)
 
-    this.elements.set(elementDTO.id, element)
+  //   validateElement(element)
 
-    return element
-  }
+  //   this.elements.set(elementDTO.id, element)
+
+  //   return element
+  // }
 
   @modelAction
   element(id: string) {
@@ -253,7 +237,7 @@ export class ElementService
     ]
 
     const hydratedElements = elements.map((element) =>
-      this.add({
+      this.elementDomainService.add({
         ...element,
         closestContainerNode: {
           id: component.id,
@@ -268,7 +252,9 @@ export class ElementService
 
   @modelAction
   maybeElement(id: string) {
-    return this.elements.get(id) || this.clonedElements.get(id)
+    return (
+      this.elementDomainService.elements.get(id) || this.clonedElements.get(id)
+    )
   }
 
   @modelAction
@@ -276,7 +262,7 @@ export class ElementService
     return [...this.clonedElements.entries()]
       .filter(([id, component]) => component.sourceElement?.id === elementId)
       .forEach(([id]) => {
-        this.moveElementService.detachElementFromElementTree(id)
+        // this.moveElementService.detachElementFromElementTree(id)
         this.clonedElements.delete(id)
       })
   }

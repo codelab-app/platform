@@ -8,9 +8,8 @@ import {
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-describe('CreateElementService', () => {
+describe('Create element', () => {
   const { elementService, pageService } = createTestRootStore(userDto)
-  const { createElementService } = elementService
 
   const rootElementDto: IElementDTO = {
     ...elementDto,
@@ -41,17 +40,13 @@ describe('CreateElementService', () => {
   const rootElement = elementService.add(rootElementDto)
 
   it('can create element as first child', async () => {
-    const firstChild = await createElementService.createElementAsFirstChild(
-      firstChildDto,
-    )
+    const firstChild = await elementService.createElement(firstChildDto)
 
     expect(firstChild.parentElement?.maybeCurrent).toBe(rootElement)
   })
 
   it('should compute isRoot', async () => {
-    const firstChild = await createElementService.createElementAsFirstChild(
-      firstChildDto,
-    )
+    const firstChild = await elementService.createElement(firstChildDto)
 
     expect(rootElement.isRoot).toBeTruthy()
 

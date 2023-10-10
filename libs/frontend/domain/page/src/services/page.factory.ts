@@ -69,7 +69,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
       name: Store.createName({ name }),
     })
 
-    const rootElement = this.elementService.add({
+    const rootElement = this.elementService.elementDomainService.add({
       closestContainerNode: {
         id,
       },

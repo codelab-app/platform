@@ -130,7 +130,8 @@ export class ComponentService
      * the only choice left is to create rootElement here if it is not provided
      * */
     const rootElementExists =
-      rootElement && this.elementService.elements.has(rootElement.id)
+      rootElement &&
+      this.elementService.elementDomainService.elements.has(rootElement.id)
 
     let rootElementModel: IElementModel | null = rootElementExists
       ? this.elementService.element(rootElement.id)
@@ -154,7 +155,8 @@ export class ComponentService
     }
 
     if (!rootElementModel) {
-      rootElementModel = this.elementService.add(elementData)
+      rootElementModel =
+        this.elementService.elementDomainService.add(elementData)
     }
 
     const component = this.add({
@@ -168,7 +170,7 @@ export class ComponentService
       store,
     })
 
-    yield* _await(this.elementService.create(elementData))
+    yield* _await(this.elementService.createElement(elementData))
 
     yield* _await(this.componentRepository.add(component))
 
@@ -253,7 +255,7 @@ export class ComponentService
           this.atomService.add(elementData.renderType)
         }
 
-        this.elementService.add({
+        this.elementService.elementDomainService.add({
           ...elementData,
           closestContainerNode: { id },
           parentElement: elementData.parent,

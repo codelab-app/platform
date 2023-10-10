@@ -1,5 +1,7 @@
-export const throwIfUndefined = <T>(value: T | undefined) => {
-  if (value === undefined) {
+import isNil from 'lodash/isNil'
+
+export const throwIfUndefined = <T>(value: T | null | undefined) => {
+  if (!isNil(value)) {
     throw new Error('Value should not be undefined')
   }
 

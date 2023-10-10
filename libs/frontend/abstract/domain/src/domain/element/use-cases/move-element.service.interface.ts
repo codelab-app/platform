@@ -28,12 +28,4 @@ export interface IMoveElementService {
     element: IEntity
     targetElement: IEntity
   }): Promise<void>
-  /**
-   * @param props.object an element or a component
-   */
-  moveNodeToAnotherTree(props: {
-    dropPosition: number
-    object: IEntity
-    targetElement: IEntity
-  }): Promise<void>
 }
