@@ -102,10 +102,7 @@ export const UpdateActionForm = observer(
 
         {actionToUpdate?.type === IActionKind.ApiAction && (
           <>
-            <SelectResource
-              name="resourceId"
-              resourceService={resourceService}
-            />
+            <SelectResource name="resourceId" />
             <AutoField
               component={SelectAction}
               name="successActionId"
