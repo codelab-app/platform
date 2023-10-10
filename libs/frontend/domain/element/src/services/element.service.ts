@@ -7,7 +7,6 @@ import {
   getComponentService,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
@@ -157,25 +156,29 @@ export class ElementService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: ElementService, data: IUpdateElementData) {
-    // yield* _await(this.loadRenderType(data.renderType))
-    const { id, ...elementData } = data
-    const element = this.element(id)
-    const { id: newRenderTypeId } = elementData.renderType
-    const { id: oldRenderTypeId } = element.renderType
+  update = _async(function* (
+    this: ElementService,
+    newElement: IUpdateElementData,
+  ) {
+    const currentElement = this.element(newElement.id)
+    const newRenderTypeId = newElement.renderType.id
+    const oldRenderTypeId = currentElement.renderType.id
 
     if (newRenderTypeId !== oldRenderTypeId) {
-      this.propService.reset(element.props.id)
+      this.propService.reset(currentElement.props.id)
     }
 
-    element.writeCache({ ...elementData })
-    this.writeCloneCache({ id, ...elementData })
+    currentElement.writeCache(newElement)
+    this.writeCloneCache(newElement)
 
-    yield* _await(this.elementRepository.update(element))
+    yield* _await(this.elementRepository.update(currentElement))
 
-    return element
+    return currentElement
   })
 
+  /**
+   * This only updates the connections for the elementTree, not the actual data on the element
+   */
   @modelFlow
   @transaction
   updateElements = _async(function* (
@@ -190,19 +193,6 @@ export class ElementService
       ),
     )
   })
-
-  // @modelAction
-  // add = (elementDTO: IElementDTO): IElementModel => {
-  //   console.debug('ElementService.add()', elementDTO)
-
-  //   const element: IElementModel = Element.create(elementDTO)
-
-  //   validateElement(element)
-
-  //   this.elements.set(elementDTO.id, element)
-
-  //   return element
-  // }
 
   @modelAction
   element(id: string) {
@@ -258,11 +248,6 @@ export class ElementService
     return [...this.clonedElements.values()]
       .filter((clonedElement) => clonedElement.sourceElement?.id === id)
       .map((clone) => clone.writeCache({ ...elementData }))
-  }
-
-  @computed
-  private get atomService() {
-    return getAtomService(this)
   }
 
   @computed

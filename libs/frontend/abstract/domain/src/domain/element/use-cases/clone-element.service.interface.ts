@@ -1,4 +1,4 @@
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { IElementModel } from '../element.model.interface'
 
 export interface ICloneElementService {
@@ -8,6 +8,5 @@ export interface ICloneElementService {
   ): Promise<Array<IElementModel>>
   convertElementToComponent(
     element: IElementModel,
-    owner: IEntity,
   ): Promise<Maybe<IElementModel>>
 }
