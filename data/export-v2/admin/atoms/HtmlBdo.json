@@ -30,14 +30,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "f2352d81-3bdb-415e-ad02-46bfb15d3c17",
-            "key": "rtl",
-            "value": "rtl"
-          },
-          {
             "id": "24c94ec0-aa28-4896-a2a5-98427bee5a58",
             "key": "ltr",
             "value": "ltr"
+          },
+          {
+            "id": "f2352d81-3bdb-415e-ad02-46bfb15d3c17",
+            "key": "rtl",
+            "value": "rtl"
           }
         ],
         "id": "1086700e-7290-4fee-b80b-f7e2fcd6ffc3",

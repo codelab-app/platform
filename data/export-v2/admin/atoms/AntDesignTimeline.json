@@ -9,33 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
+          "__typename": "EnumType",
+          "id": "c336644b-5cc5-4232-9789-5c0df4564324",
+          "kind": "EnumType",
+          "name": "AntDesignTimeline Mode Enum"
         },
-        "id": "958f5ec1-4808-4e44-9674-dcc15db1cbaf",
-        "key": "reverse",
-        "name": "Reverse",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "id": "736c760a-5515-4523-8d15-eb6a44865079",
-        "key": "pendingDot",
-        "name": "Pending Dot",
+        "id": "72d9bbd2-382f-4273-801a-6814bdf73400",
+        "key": "mode",
+        "name": "Mode",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -66,14 +47,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "c336644b-5cc5-4232-9789-5c0df4564324",
-          "kind": "EnumType",
-          "name": "AntDesignTimeline Mode Enum"
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
         },
-        "id": "72d9bbd2-382f-4273-801a-6814bdf73400",
-        "key": "mode",
-        "name": "Mode",
+        "id": "736c760a-5515-4523-8d15-eb6a44865079",
+        "key": "pendingDot",
+        "name": "Pending Dot",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "958f5ec1-4808-4e44-9674-dcc15db1cbaf",
+        "key": "reverse",
+        "name": "Reverse",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -92,14 +92,14 @@
             "value": "alternate"
           },
           {
-            "id": "405bef50-93ea-4e05-8e44-7e628c793321",
-            "key": "right",
-            "value": "right"
-          },
-          {
             "id": "f086dcfe-08ff-4f53-8769-43680e5a09ca",
             "key": "left",
             "value": "left"
+          },
+          {
+            "id": "405bef50-93ea-4e05-8e44-7e628c793321",
+            "key": "right",
+            "value": "right"
           }
         ],
         "id": "c336644b-5cc5-4232-9789-5c0df4564324",

@@ -9,14 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
-        "id": "72a922f1-a34a-4f56-9d5d-4cb7c8c88ba0",
-        "key": "title",
-        "name": "Title",
+        "id": "dd5f9807-6858-4c04-bd53-402281307364",
+        "key": "href",
+        "name": "Href",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -47,14 +47,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
         },
-        "id": "dd5f9807-6858-4c04-bd53-402281307364",
-        "key": "href",
-        "name": "Href",
+        "id": "72a922f1-a34a-4f56-9d5d-4cb7c8c88ba0",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

@@ -33,25 +33,6 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a",
-        "key": "icon",
-        "name": "Icon",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
         "id": "b771805f-e086-4845-8052-7f8e69085fef",
         "key": "closeIcon",
         "name": "Close Icon",
@@ -74,6 +55,25 @@
         "id": "a8e8bea2-24d6-49e2-8388-d45924363580",
         "key": "color",
         "name": "Color",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a",
+        "key": "icon",
+        "name": "Icon",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

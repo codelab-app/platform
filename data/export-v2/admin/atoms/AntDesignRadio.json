@@ -14,9 +14,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "3f399ce8-3452-4e46-9b2c-e00c47fb3f4b",
-        "key": "checked",
-        "name": "Checked",
+        "id": "38d7316b-27a3-4c71-a57e-40d988ab78b2",
+        "key": "autoFocus",
+        "name": "Auto Focus",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -33,9 +33,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "ea5031fa-1e82-4002-a178-dc27cc3732f5",
-        "key": "disabled",
-        "name": "Disabled",
+        "id": "3f399ce8-3452-4e46-9b2c-e00c47fb3f4b",
+        "key": "checked",
+        "name": "Checked",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -71,9 +71,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "38d7316b-27a3-4c71-a57e-40d988ab78b2",
-        "key": "autoFocus",
-        "name": "Auto Focus",
+        "id": "ea5031fa-1e82-4002-a178-dc27cc3732f5",
+        "key": "disabled",
+        "name": "Disabled",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

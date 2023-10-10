@@ -9,14 +9,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "0da55cf1-817e-4254-82f8-2c724797fcc8",
-          "kind": "EnumType",
-          "name": "AntDesignFormItem Label Align Enum"
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
         },
-        "id": "ae8b6d54-8a3d-4e20-b1a9-18ae3ab80cbd",
-        "key": "labelAlign",
-        "name": "Label Align",
+        "id": "8599dae3-32d8-4435-9c8e-55d7b8ccd2dd",
+        "key": "colon",
+        "name": "Colon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "b20097e0-38e9-4007-93d7-593cdfeea552",
+        "key": "extra",
+        "name": "Extra",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -52,47 +71,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "8599dae3-32d8-4435-9c8e-55d7b8ccd2dd",
-        "key": "colon",
-        "name": "Colon",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "0074f385-30ba-4067-a785-4471620099e1",
-        "key": "label",
-        "name": "Label",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "9dbc141d-f068-404b-aa3f-5d1f47e38eb6",
-        "key": "name",
-        "name": "Name",
+        "id": "4de44ce0-f0ed-46f8-a5e1-69998dd8fe55",
+        "key": "hidden",
+        "name": "Hidden",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -139,7 +120,7 @@
         "api": {
           "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
         },
-        "defaultValues": "null",
+        "defaultValues": null,
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
@@ -147,12 +128,50 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "6d773ad5-ae53-4428-90ed-174d9459afac",
-        "key": "valuePropName",
-        "name": "Value Prop Name",
+        "id": "0074f385-30ba-4067-a785-4471620099e1",
+        "key": "label",
+        "name": "Label",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "0da55cf1-817e-4254-82f8-2c724797fcc8",
+          "kind": "EnumType",
+          "name": "AntDesignFormItem Label Align Enum"
+        },
+        "id": "ae8b6d54-8a3d-4e20-b1a9-18ae3ab80cbd",
+        "key": "labelAlign",
+        "name": "Label Align",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "9dbc141d-f068-404b-aa3f-5d1f47e38eb6",
+        "key": "name",
+        "name": "Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
       },
       {
         "api": {
@@ -185,25 +204,6 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "b20097e0-38e9-4007-93d7-593cdfeea552",
-        "key": "extra",
-        "name": "Extra",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
         "id": "fee3220c-f52c-4d70-8d7e-24e8843cdc8e",
         "key": "trigger",
         "name": "Trigger",
@@ -215,20 +215,20 @@
         "api": {
           "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
         },
-        "defaultValues": null,
+        "defaultValues": "null",
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
-          "name": "Boolean"
+          "name": "String"
         },
-        "id": "4de44ce0-f0ed-46f8-a5e1-69998dd8fe55",
-        "key": "hidden",
-        "name": "Hidden",
+        "id": "6d773ad5-ae53-4428-90ed-174d9459afac",
+        "key": "valuePropName",
+        "name": "Value Prop Name",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
     "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc",
@@ -239,14 +239,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "8329d20c-80b6-4eb0-8921-502d51e01580",
-            "key": "right",
-            "value": "right"
-          },
-          {
             "id": "d32885ee-1787-4ad2-a321-04325219455a",
             "key": "left",
             "value": "left"
+          },
+          {
+            "id": "8329d20c-80b6-4eb0-8921-502d51e01580",
+            "key": "right",
+            "value": "right"
           }
         ],
         "id": "0da55cf1-817e-4254-82f8-2c724797fcc8",

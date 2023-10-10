@@ -14,9 +14,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78",
-        "key": "tip",
-        "name": "Tip",
+        "id": "675d5c36-d2a4-4b3f-af65-bafac3de335a",
+        "key": "indicator",
+        "name": "Indicator",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -28,14 +28,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
-        "id": "675d5c36-d2a4-4b3f-af65-bafac3de335a",
-        "key": "indicator",
-        "name": "Indicator",
+        "id": "72d362f7-ee96-4a04-96b4-92946856de1a",
+        "key": "size",
+        "name": "Size",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -66,14 +66,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
         },
-        "id": "7be6305a-d7eb-4807-a704-edc78cf0986a",
-        "key": "wrapperClassName",
-        "name": "Wrapper Class Name",
+        "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78",
+        "key": "tip",
+        "name": "Tip",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -90,9 +90,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "72d362f7-ee96-4a04-96b4-92946856de1a",
-        "key": "size",
-        "name": "Size",
+        "id": "7be6305a-d7eb-4807-a704-edc78cf0986a",
+        "key": "wrapperClassName",
+        "name": "Wrapper Class Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

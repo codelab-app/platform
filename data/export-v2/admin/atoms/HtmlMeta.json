@@ -14,28 +14,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "4560797b-d640-4f31-9968-67bff2067412",
-        "key": "name",
-        "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "44c97269-ebae-4ad1-b8aa-058f50208d5a",
-        "key": "http-equiv",
-        "name": "Http-equiv",
+        "id": "bed45806-d09b-4b1c-9e0e-47bfdd88c203",
+        "key": "charset",
+        "name": "Charset",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -71,9 +52,28 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "bed45806-d09b-4b1c-9e0e-47bfdd88c203",
-        "key": "charset",
-        "name": "Charset",
+        "id": "44c97269-ebae-4ad1-b8aa-058f50208d5a",
+        "key": "http-equiv",
+        "name": "Http-equiv",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "4560797b-d640-4f31-9968-67bff2067412",
+        "key": "name",
+        "name": "Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

@@ -14,28 +14,9 @@
           "kind": "PrimitiveType",
           "name": "Integer"
         },
-        "id": "f66ebf37-fbd0-491b-bbee-2a63992a817d",
-        "key": "width",
-        "name": "Width",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "c7f1cd67-74ad-429a-bff3-6cb8b7d85969"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "7aa4a71e-3277-4302-982b-e516b18b7f71",
-        "key": "type",
-        "name": "Type",
+        "id": "a3c813a2-3d47-4b9c-832b-f7236d40ab9e",
+        "key": "height",
+        "name": "Height",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -67,13 +48,32 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "7aa4a71e-3277-4302-982b-e516b18b7f71",
+        "key": "type",
+        "name": "Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7f1cd67-74ad-429a-bff3-6cb8b7d85969"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
           "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
           "kind": "PrimitiveType",
           "name": "Integer"
         },
-        "id": "a3c813a2-3d47-4b9c-832b-f7236d40ab9e",
-        "key": "height",
-        "name": "Height",
+        "id": "f66ebf37-fbd0-491b-bbee-2a63992a817d",
+        "key": "width",
+        "name": "Width",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

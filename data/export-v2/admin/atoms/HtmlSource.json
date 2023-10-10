@@ -14,9 +14,47 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
+        "id": "9e04ac89-c126-4033-8926-5cfea22dd288",
+        "key": "media",
+        "name": "Media",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "31fc5679-a824-4cf2-b6b1-3a4a08c11187"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
         "id": "304357a7-e1e9-4f76-bb03-7d4ddcd749a2",
         "key": "sizes",
         "name": "Sizes",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "31fc5679-a824-4cf2-b6b1-3a4a08c11187"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "0e624107-4a31-4471-bff5-466d89ca5bba",
+        "key": "src",
+        "name": "Src",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -52,47 +90,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "9e04ac89-c126-4033-8926-5cfea22dd288",
-        "key": "media",
-        "name": "Media",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "31fc5679-a824-4cf2-b6b1-3a4a08c11187"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
         "id": "0a524865-cc54-4d43-ae7f-22fe9add2f82",
         "key": "type",
         "name": "Type",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "31fc5679-a824-4cf2-b6b1-3a4a08c11187"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "0e624107-4a31-4471-bff5-466d89ca5bba",
-        "key": "src",
-        "name": "Src",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

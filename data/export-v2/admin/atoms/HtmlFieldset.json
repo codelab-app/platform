@@ -10,13 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
-          "name": "String"
+          "name": "Boolean"
         },
-        "id": "4f7bef07-4b20-4bef-b345-ba0f30ff07b0",
-        "key": "name",
-        "name": "Name",
+        "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
+        "key": "disabled",
+        "name": "Disabled",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -48,13 +48,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
-          "name": "Boolean"
+          "name": "String"
         },
-        "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
-        "key": "disabled",
-        "name": "Disabled",
+        "id": "4f7bef07-4b20-4bef-b345-ba0f30ff07b0",
+        "key": "name",
+        "name": "Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
