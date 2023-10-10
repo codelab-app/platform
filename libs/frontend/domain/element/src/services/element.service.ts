@@ -1,16 +1,20 @@
 import type {
   IElementModel,
   IElementService,
-  IMoveElementContext,
+  SelectElementOption,
 } from '@codelab/frontend/abstract/domain'
 import {
   getComponentService,
   IUpdateElementData,
+  SelectElementOptions,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
-import uniqBy from 'lodash/uniqBy'
+import { IElementTypeKind } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/shared/utils'
+import difference from 'lodash/difference'
+import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
@@ -218,6 +222,65 @@ export class ElementService
   }
 
   @modelAction
+  getSelectElementOptions({
+    allElementOptions = [],
+    elementTree,
+    kind,
+    targetElementId,
+  }: SelectElementOptions) {
+    const targetElement = allElementOptions.find(
+      (element) => element.value === targetElementId,
+    )
+
+    const elementMap = allElementOptions.reduce(
+      (acc, element) => {
+        acc[element.value] = element
+
+        return acc
+      },
+      {} as Record<string, SelectElementOption>,
+    )
+
+    let selectOptions: Array<SelectElementOption>
+
+    if (!targetElement) {
+      selectOptions = allElementOptions
+    } else {
+      switch (kind) {
+        case IElementTypeKind.AllElements: {
+          selectOptions = allElementOptions
+          break
+        }
+
+        case IElementTypeKind.ChildrenOnly: {
+          selectOptions = this.getElementChildren(targetElement, elementMap)
+          break
+        }
+
+        case IElementTypeKind.DescendantsOnly: {
+          selectOptions = this.getDescendants(targetElement, elementMap)
+          break
+        }
+
+        case IElementTypeKind.ExcludeDescendantsElements: {
+          selectOptions = difference(
+            allElementOptions,
+            this.getDescendants(targetElement, elementMap),
+          )
+            // remove the element itself
+            .filter(({ value }) => value !== targetElement.value)
+          break
+        }
+
+        default:
+          selectOptions = []
+      }
+    }
+
+    return selectOptions
+  }
+
+  @modelAction
   loadComponentTree(component: ComponentDevelopmentFragment) {
     const elements = [
       component.rootElement,
@@ -253,6 +316,38 @@ export class ElementService
         // this.moveElementService.detachElementFromElementTree(id)
         this.clonedElements.delete(id)
       })
+  }
+
+  private getDescendants(
+    element: SelectElementOption,
+    elementMap: Record<string, SelectElementOption>,
+  ) {
+    const descendants: Array<SelectElementOption> = []
+
+    const _getDescendants = (el: SelectElementOption) => {
+      for (const child of this.getElementChildren(el, elementMap)) {
+        descendants.push(child)
+        _getDescendants(child)
+      }
+    }
+
+    _getDescendants(element)
+
+    return descendants
+  }
+
+  private getElementChildren(
+    element: SelectElementOption,
+    elementMap: Record<string, SelectElementOption>,
+  ) {
+    return (
+      element.childrenIds
+        ?.map((childId) => elementMap[childId])
+        .filter(
+          (selectElementOption): selectElementOption is SelectElementOption =>
+            Boolean(selectElementOption),
+        ) ?? []
+    )
   }
 
   @modelAction

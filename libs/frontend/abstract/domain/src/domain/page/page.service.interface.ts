@@ -9,6 +9,7 @@ import type {
   IPageDTO,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
@@ -42,6 +43,7 @@ export interface IPageService
 
   add(pageDTO: IPageDTO): IPageModel
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
+  getSelectPageOptions(appId?: string): Promise<Array<DefaultOptionType>>
   loadElements(elements: Array<IElementDTO>): void
   page(id: string): Maybe<IPageModel>
   pagesByApp(appId: string): Array<IPageModel>

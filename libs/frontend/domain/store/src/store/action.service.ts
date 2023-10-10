@@ -179,7 +179,7 @@ export class ActionService
     return this.actions.get(id)
   }
 
-  getSelectActions(actionEntity?: IEntity) {
+  getSelectActionOptions(actionEntity?: IEntity) {
     const { selectedNode } = this.builderService
     const selectedNodeStore = selectedNode?.current.store.current
 
@@ -193,7 +193,7 @@ export class ActionService
 
     const parentActions = this.getParentActions(updatedAction)
 
-    return this.actionsList.filter((action) => {
+    const filtered = this.actionsList.filter((action) => {
       const belongsToStore =
         action.store.id === selectedNodeStore?.id ||
         action.store.id === providerStore?.id
@@ -206,6 +206,11 @@ export class ActionService
 
       return belongsToStore && !actionBeingUpdated && !parentAction
     })
+
+    return filtered.map((action) => ({
+      label: action.name,
+      value: action.id,
+    }))
   }
 
   private getParentActions(action?: IActionModel): Array<string> {

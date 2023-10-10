@@ -1,7 +1,7 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
@@ -11,23 +11,16 @@ export const SelectPage = ({ error, name }: SelectPageProps) => {
   const app = useCurrentApp()
   const { pageService } = useStore()
 
-  const [{ error: queryError, result: pages = [], status }, getPages] =
-    useAsync(() =>
-      pageService.getAll({ appConnection: { node: { id: app?.id } } }),
-    )
-
-  useMountEffect(getPages.execute)
+  const [
+    { error: queryError, result: selectPageOptions = [], status },
+    getSelectPageOptions,
+  ] = useAsync(() => pageService.getSelectPageOptions(app?.id))
 
   if (!app?.id) {
     console.warn('SelectPage: appId is not defined')
 
     return null
   }
-
-  const pageOptions = pages.map((page) => ({
-    label: page.name,
-    value: page.id,
-  }))
 
   return (
     <SelectField
@@ -36,8 +29,13 @@ export const SelectPage = ({ error, name }: SelectPageProps) => {
       label="Page"
       loading={status === 'loading'}
       name={name}
+      onDropdownVisibleChange={async (open) => {
+        if (open && status === 'not-executed') {
+          await getSelectPageOptions.execute()
+        }
+      }}
       optionFilterProp="label"
-      options={pageOptions}
+      options={selectPageOptions}
       showSearch
     />
   )
