@@ -9,25 +9,6 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "id": "d403679b-6b20-45ac-95a4-5befad742013",
-        "key": "title",
-        "name": "Title",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
@@ -36,44 +17,6 @@
         "id": "071eb1f6-6e61-4a58-906d-cb434a9ad4fb",
         "key": "bordered",
         "name": "Bordered",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "589810d1-d1b1-4a02-9d40-88a69b36ea86",
-          "kind": "EnumType",
-          "name": "AntDesignDescriptions Layout Enum"
-        },
-        "id": "19f51f63-7ec5-4c79-8e3e-5c1d9833279c",
-        "key": "layout",
-        "name": "Layout",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "id": "4b942852-7dbc-4006-ba5e-1d6ebd65a21b",
-        "key": "extra",
-        "name": "Extra",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -123,6 +66,44 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "4b942852-7dbc-4006-ba5e-1d6ebd65a21b",
+        "key": "extra",
+        "name": "Extra",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "589810d1-d1b1-4a02-9d40-88a69b36ea86",
+          "kind": "EnumType",
+          "name": "AntDesignDescriptions Layout Enum"
+        },
+        "id": "19f51f63-7ec5-4c79-8e3e-5c1d9833279c",
+        "key": "layout",
+        "name": "Layout",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "__typename": "EnumType",
           "id": "78605498-854f-413e-9d5e-1125c5798ae6",
           "kind": "EnumType",
@@ -131,6 +112,25 @@
         "id": "11f5fa01-bca3-4814-95e7-18a781c2f6d6",
         "key": "size",
         "name": "Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "131e499e-02c7-46a8-8d09-3ee894dc32e3"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "d403679b-6b20-45ac-95a4-5befad742013",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -144,14 +144,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "0cf11c89-0165-4611-b7fb-5de99ef2d703",
-            "key": "vertical",
-            "value": "vertical"
-          },
-          {
             "id": "2452f202-6a30-41b9-a65e-fdc46f58f8dc",
             "key": "horizontal",
             "value": "horizontal"
+          },
+          {
+            "id": "0cf11c89-0165-4611-b7fb-5de99ef2d703",
+            "key": "vertical",
+            "value": "vertical"
           }
         ],
         "id": "589810d1-d1b1-4a02-9d40-88a69b36ea86",

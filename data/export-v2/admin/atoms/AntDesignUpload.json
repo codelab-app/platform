@@ -9,33 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "EnumType",
+          "id": "261be8d5-5256-4802-bb85-10ec54a3a715",
+          "kind": "EnumType",
+          "name": "AntDesignUpload Cross Origin Enum"
         },
-        "id": "b8e37d8d-fd2f-4a22-ba2f-46ccd420f8be",
-        "key": "thumbUrl",
-        "name": "Thumb Url",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "79c866cc-1cfa-4bbd-b94f-ed974ab734c4"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "id": "ddeb77f6-2a7c-4641-8a83-4b69951d1b41",
-        "key": "percent",
-        "name": "Percent",
+        "id": "ffa74cc0-a223-4599-8f37-e2a69edf1712",
+        "key": "crossOrigin",
+        "name": "Cross Origin",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -66,14 +47,52 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "261be8d5-5256-4802-bb85-10ec54a3a715",
-          "kind": "EnumType",
-          "name": "AntDesignUpload Cross Origin Enum"
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
         },
-        "id": "ffa74cc0-a223-4599-8f37-e2a69edf1712",
-        "key": "crossOrigin",
-        "name": "Cross Origin",
+        "id": "ddeb77f6-2a7c-4641-8a83-4b69951d1b41",
+        "key": "percent",
+        "name": "Percent",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "79c866cc-1cfa-4bbd-b94f-ed974ab734c4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "7f6e8551-b54a-400d-a373-efdeae65bf0c",
+          "kind": "EnumType",
+          "name": "AntDesignUpload Status Enum"
+        },
+        "id": "34e83690-39e6-46d3-90cd-30a69e65c9e2",
+        "key": "status",
+        "name": "Status",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "79c866cc-1cfa-4bbd-b94f-ed974ab734c4"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "b8e37d8d-fd2f-4a22-ba2f-46ccd420f8be",
+        "key": "thumbUrl",
+        "name": "Thumb Url",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -115,25 +134,6 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
-      },
-      {
-        "api": {
-          "id": "79c866cc-1cfa-4bbd-b94f-ed974ab734c4"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "7f6e8551-b54a-400d-a373-efdeae65bf0c",
-          "kind": "EnumType",
-          "name": "AntDesignUpload Status Enum"
-        },
-        "id": "34e83690-39e6-46d3-90cd-30a69e65c9e2",
-        "key": "status",
-        "name": "Status",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
       }
     ],
     "id": "79c866cc-1cfa-4bbd-b94f-ed974ab734c4",
@@ -149,14 +149,14 @@
             "value": ""
           },
           {
-            "id": "8af73e3c-fb41-402e-9e3a-1a9f5e18ef4e",
-            "key": "use-credentials",
-            "value": "use-credentials"
-          },
-          {
             "id": "0bb72093-1a9f-48ea-97f9-50e888c6d6fd",
             "key": "anonymous",
             "value": "anonymous"
+          },
+          {
+            "id": "8af73e3c-fb41-402e-9e3a-1a9f5e18ef4e",
+            "key": "use-credentials",
+            "value": "use-credentials"
           }
         ],
         "id": "261be8d5-5256-4802-bb85-10ec54a3a715",
@@ -166,16 +166,6 @@
       {
         "__typename": "EnumType",
         "allowedValues": [
-          {
-            "id": "53df46e7-01d6-4aba-b173-4270e378832e",
-            "key": "removed",
-            "value": "removed"
-          },
-          {
-            "id": "4d3ca529-536b-4db4-8e95-a2e610cb89f7",
-            "key": "uploading",
-            "value": "uploading"
-          },
           {
             "id": "af5a6c72-ab92-4e30-bfdf-bcc680efa317",
             "key": "done",
@@ -187,9 +177,19 @@
             "value": "error"
           },
           {
+            "id": "53df46e7-01d6-4aba-b173-4270e378832e",
+            "key": "removed",
+            "value": "removed"
+          },
+          {
             "id": "c93eef8b-3692-45fe-803a-f63f82b7ff60",
             "key": "success",
             "value": "success"
+          },
+          {
+            "id": "4d3ca529-536b-4db4-8e95-a2e610cb89f7",
+            "key": "uploading",
+            "value": "uploading"
           }
         ],
         "id": "7f6e8551-b54a-400d-a373-efdeae65bf0c",

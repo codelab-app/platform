@@ -9,25 +9,6 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "ec68e029-5793-4c58-a2be-b804f238a080",
-          "kind": "EnumType",
-          "name": "AntDesignPopconfirm Title Enum"
-        },
-        "id": "0be76646-5f9e-4179-85b1-f7a2f20d44c4",
-        "key": "title",
-        "name": "Title",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
@@ -47,6 +28,25 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "9bdceea6-6c90-4c4b-b930-2e6a6521ea70",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "__typename": "ReactNodeType",
           "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
           "kind": "ReactNodeType",
@@ -55,6 +55,44 @@
         "id": "077d729c-ce5b-42ec-95a6-dccdda93034c",
         "key": "icon",
         "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "e8f80b49-b9b3-4d4d-9b2d-27d0124fa736",
+        "key": "okText",
+        "name": "Ok Text",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "bec36ed2-1027-4046-812c-0196990fc22e",
+        "key": "okType",
+        "name": "Ok Type",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -109,44 +147,6 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "9bdceea6-6c90-4c4b-b930-2e6a6521ea70",
-        "key": "disabled",
-        "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "bec36ed2-1027-4046-812c-0196990fc22e",
-        "key": "okType",
-        "name": "Ok Type",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
         "id": "d22af9ca-d26b-4029-a33c-0f4102f0f52b",
         "key": "showCancel",
         "name": "Show Cancel",
@@ -161,14 +161,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "EnumType",
+          "id": "ec68e029-5793-4c58-a2be-b804f238a080",
+          "kind": "EnumType",
+          "name": "AntDesignPopconfirm Title Enum"
         },
-        "id": "e8f80b49-b9b3-4d4d-9b2d-27d0124fa736",
-        "key": "okText",
-        "name": "Ok Text",
+        "id": "0be76646-5f9e-4179-85b1-f7a2f20d44c4",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -182,14 +182,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "39b3d972-fdb2-46d2-a6b9-b1ebcabb17a7",
-            "key": "ReactNode",
-            "value": "ReactNode"
-          },
-          {
             "id": "3d4b0ef3-6bdf-4ef1-9258-35a26d88c959",
             "key": "() => ReactNode",
             "value": "() => ReactNode"
+          },
+          {
+            "id": "39b3d972-fdb2-46d2-a6b9-b1ebcabb17a7",
+            "key": "ReactNode",
+            "value": "ReactNode"
           }
         ],
         "id": "ec68e029-5793-4c58-a2be-b804f238a080",

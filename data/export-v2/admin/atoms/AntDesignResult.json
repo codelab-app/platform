@@ -14,9 +14,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "c07b026d-35bf-4c6b-b774-c667849f300f",
-        "key": "icon",
-        "name": "Icon",
+        "id": "67a0fcfd-111d-49aa-96a9-c89dd14daa3f",
+        "key": "extra",
+        "name": "Extra",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -33,9 +33,28 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "67a0fcfd-111d-49aa-96a9-c89dd14daa3f",
-        "key": "extra",
-        "name": "Extra",
+        "id": "c07b026d-35bf-4c6b-b774-c667849f300f",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "0b0f8951-bb2a-45b9-a947-76815e593fb7"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "682a3021-14b4-48c2-bf88-6b926c1c2992",
+          "kind": "EnumType",
+          "name": "AntDesignResult Status Enum"
+        },
+        "id": "206957a4-1583-40a1-a1f2-b4551096a9a2",
+        "key": "status",
+        "name": "Status",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -77,25 +96,6 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
-      },
-      {
-        "api": {
-          "id": "0b0f8951-bb2a-45b9-a947-76815e593fb7"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "682a3021-14b4-48c2-bf88-6b926c1c2992",
-          "kind": "EnumType",
-          "name": "AntDesignResult Status Enum"
-        },
-        "id": "206957a4-1583-40a1-a1f2-b4551096a9a2",
-        "key": "status",
-        "name": "Status",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
       }
     ],
     "id": "0b0f8951-bb2a-45b9-a947-76815e593fb7",
@@ -106,9 +106,9 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "0021e09f-c507-4f56-bd09-deb02e831954",
-            "key": "info",
-            "value": "info"
+            "id": "da7406b9-0912-441b-b09b-cee5f788cfc1",
+            "key": "403",
+            "value": "403"
           },
           {
             "id": "e164c937-72e6-42ba-b26e-cfb4d2906bb4",
@@ -116,9 +116,9 @@
             "value": "404"
           },
           {
-            "id": "213fc5ca-4dc9-4392-91bf-d82a1b06eae6",
-            "key": "warning",
-            "value": "warning"
+            "id": "4b9468df-ae28-4fc2-9ae1-8efc4009cc3f",
+            "key": "500",
+            "value": "500"
           },
           {
             "id": "c101e78c-68ad-42ff-8f43-ab22975b211e",
@@ -126,19 +126,19 @@
             "value": "error"
           },
           {
+            "id": "0021e09f-c507-4f56-bd09-deb02e831954",
+            "key": "info",
+            "value": "info"
+          },
+          {
             "id": "66df2229-b3c4-415e-97bd-16945bbc393c",
             "key": "success",
             "value": "success"
           },
           {
-            "id": "da7406b9-0912-441b-b09b-cee5f788cfc1",
-            "key": "403",
-            "value": "403"
-          },
-          {
-            "id": "4b9468df-ae28-4fc2-9ae1-8efc4009cc3f",
-            "key": "500",
-            "value": "500"
+            "id": "213fc5ca-4dc9-4392-91bf-d82a1b06eae6",
+            "key": "warning",
+            "value": "warning"
           }
         ],
         "id": "682a3021-14b4-48c2-bf88-6b926c1c2992",

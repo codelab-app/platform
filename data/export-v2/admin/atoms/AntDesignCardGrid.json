@@ -10,13 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
-          "name": "Boolean"
+          "name": "String"
         },
-        "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
-        "key": "hoverable",
-        "name": "Hoverable",
+        "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
+        "key": "className",
+        "name": "Class Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -29,13 +29,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
-          "name": "String"
+          "name": "Boolean"
         },
-        "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
-        "key": "className",
-        "name": "Class Name",
+        "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
+        "key": "hoverable",
+        "name": "Hoverable",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

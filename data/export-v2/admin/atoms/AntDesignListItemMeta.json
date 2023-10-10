@@ -14,9 +14,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "87d38aa7-1b33-4252-9f91-b11e680e0f13",
-        "key": "title",
-        "name": "Title",
+        "id": "b24602cc-cef1-42cf-9135-463f3117234a",
+        "key": "avatar",
+        "name": "Avatar",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -52,9 +52,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "b24602cc-cef1-42cf-9135-463f3117234a",
-        "key": "avatar",
-        "name": "Avatar",
+        "id": "87d38aa7-1b33-4252-9f91-b11e680e0f13",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

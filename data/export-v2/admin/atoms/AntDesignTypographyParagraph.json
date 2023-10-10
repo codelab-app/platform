@@ -9,71 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "1aadf00d-96c4-4fad-856f-63a7e930a72f",
-          "kind": "EnumType",
-          "name": "AntDesignTypographyParagraph Editable Enum"
-        },
-        "id": "83d2ec73-1975-48e6-a34b-dc7a8ddc2dce",
-        "key": "editable",
-        "name": "Editable",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "id": "c1c3a9c1-dca1-4bfe-9220-0f6a6c128059",
-        "key": "onClick",
-        "name": "On Click",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "7799cb38-f499-4fa1-a302-3468eda42d7b",
-        "key": "mark",
-        "name": "Mark",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "6ba9b64d-fd9b-4aed-9ad1-a420f4cb32f4",
-          "kind": "EnumType",
-          "name": "AntDesignTypographyParagraph Type Enum"
-        },
-        "id": "9aa9ea10-c632-42d5-a2a7-83622d9a85b3",
-        "key": "type",
-        "name": "Type",
+        "id": "4de8bcb3-ad34-4cb6-b13b-eef339d178e0",
+        "key": "code",
+        "name": "Code",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -109,25 +52,6 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "f3d41a3f-ab41-4e70-b243-cb5b23e9885d",
-        "key": "disabled",
-        "name": "Disabled",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
         "id": "6c55f37c-8c90-4475-a46e-53e03641622e",
         "key": "delete",
         "name": "Delete",
@@ -147,9 +71,28 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "1687f600-d588-4c8a-8de2-d6edba328db4",
-        "key": "underline",
-        "name": "Underline",
+        "id": "f3d41a3f-ab41-4e70-b243-cb5b23e9885d",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "1aadf00d-96c4-4fad-856f-63a7e930a72f",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyParagraph Editable Enum"
+        },
+        "id": "83d2ec73-1975-48e6-a34b-dc7a8ddc2dce",
+        "key": "editable",
+        "name": "Editable",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -185,9 +128,47 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "4de8bcb3-ad34-4cb6-b13b-eef339d178e0",
-        "key": "code",
-        "name": "Code",
+        "id": "84a18f5b-8ee2-4038-b4db-9317d38a10a2",
+        "key": "italic",
+        "name": "Italic",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "7799cb38-f499-4fa1-a302-3468eda42d7b",
+        "key": "mark",
+        "name": "Mark",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "c1c3a9c1-dca1-4bfe-9220-0f6a6c128059",
+        "key": "onClick",
+        "name": "On Click",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -218,14 +199,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
+          "__typename": "EnumType",
+          "id": "6ba9b64d-fd9b-4aed-9ad1-a420f4cb32f4",
+          "kind": "EnumType",
+          "name": "AntDesignTypographyParagraph Type Enum"
+        },
+        "id": "9aa9ea10-c632-42d5-a2a7-83622d9a85b3",
+        "key": "type",
+        "name": "Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60b68237-1d5a-41a3-b9e0-781310162570"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
           "__typename": "PrimitiveType",
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "84a18f5b-8ee2-4038-b4db-9317d38a10a2",
-        "key": "italic",
-        "name": "Italic",
+        "id": "1687f600-d588-4c8a-8de2-d6edba328db4",
+        "key": "underline",
+        "name": "Underline",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -303,14 +303,14 @@
             "value": "secondary"
           },
           {
-            "id": "943c08fb-5c35-49fa-9b2a-010981d4569a",
-            "key": "warning",
-            "value": "warning"
-          },
-          {
             "id": "a0f4dc4e-be46-4955-9feb-1521fd98948d",
             "key": "success",
             "value": "success"
+          },
+          {
+            "id": "943c08fb-5c35-49fa-9b2a-010981d4569a",
+            "key": "warning",
+            "value": "warning"
           }
         ],
         "id": "6ba9b64d-fd9b-4aed-9ad1-a420f4cb32f4",

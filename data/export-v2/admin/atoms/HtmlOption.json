@@ -10,32 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "4ce8ddad-49d6-441b-a114-ed72dd506bf4",
-        "key": "value",
-        "name": "Value",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
           "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "6ab21af8-5d4c-4039-aea0-890fb10e7fb6",
-        "key": "selected",
-        "name": "Selected",
+        "id": "76fc1bea-2e29-44a7-92c2-ad23351ec838",
+        "key": "disabled",
+        "name": "Disabled",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -71,9 +52,28 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "76fc1bea-2e29-44a7-92c2-ad23351ec838",
-        "key": "disabled",
-        "name": "Disabled",
+        "id": "6ab21af8-5d4c-4039-aea0-890fb10e7fb6",
+        "key": "selected",
+        "name": "Selected",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "4ce8ddad-49d6-441b-a114-ed72dd506bf4",
+        "key": "value",
+        "name": "Value",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

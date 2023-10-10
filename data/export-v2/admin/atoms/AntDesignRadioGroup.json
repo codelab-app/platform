@@ -9,52 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "EnumType",
+          "id": "fafe3bdf-56a7-4e73-aac8-980882d4f4aa",
+          "kind": "EnumType",
+          "name": "AntDesignRadioGroup Button Style Enum"
         },
-        "id": "64b40767-903d-4c83-b1af-7b582a6cdd53",
-        "key": "name",
-        "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
-        },
-        "defaultValues": "null",
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b",
-        "key": "value",
-        "name": "Value",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": "{\"general\":{\"nullable\":true}}"
-      },
-      {
-        "api": {
-          "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7",
-        "key": "onChange",
-        "name": "On Change",
+        "id": "34358b01-2609-4577-bcf3-d4e89d66b818",
+        "key": "buttonStyle",
+        "name": "Button Style",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -85,14 +47,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "80c4a122-a636-402e-a62b-c227f8b49266",
-          "kind": "EnumType",
-          "name": "AntDesignRadioGroup Size Enum"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
-        "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40",
-        "key": "size",
-        "name": "Size",
+        "id": "64b40767-903d-4c83-b1af-7b582a6cdd53",
+        "key": "name",
+        "name": "Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7",
+        "key": "onChange",
+        "name": "On Change",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -124,13 +105,13 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "fafe3bdf-56a7-4e73-aac8-980882d4f4aa",
+          "id": "2cd0802e-5189-418d-a4a8-ebe1a3ccbc59",
           "kind": "EnumType",
-          "name": "AntDesignRadioGroup Button Style Enum"
+          "name": "AntDesignRadioGroup Options Enum"
         },
-        "id": "34358b01-2609-4577-bcf3-d4e89d66b818",
-        "key": "buttonStyle",
-        "name": "Button Style",
+        "id": "777c8179-3aeb-4461-9297-e160d55383be",
+        "key": "options",
+        "name": "Options",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -143,16 +124,35 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "2cd0802e-5189-418d-a4a8-ebe1a3ccbc59",
+          "id": "80c4a122-a636-402e-a62b-c227f8b49266",
           "kind": "EnumType",
-          "name": "AntDesignRadioGroup Options Enum"
+          "name": "AntDesignRadioGroup Size Enum"
         },
-        "id": "777c8179-3aeb-4461-9297-e160d55383be",
-        "key": "options",
-        "name": "Options",
+        "id": "b280d41f-bd36-4feb-a8d7-62ead3ee8d40",
+        "key": "size",
+        "name": "Size",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
+      },
+      {
+        "api": {
+          "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b",
+        "key": "value",
+        "name": "Value",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
     "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
@@ -163,14 +163,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "0696c836-5369-4e59-a7af-b2adca62bc87",
-            "key": "solid",
-            "value": "solid"
-          },
-          {
             "id": "3365cfdd-87fb-4566-9024-212d394f8379",
             "key": "outline",
             "value": "outline"
+          },
+          {
+            "id": "0696c836-5369-4e59-a7af-b2adca62bc87",
+            "key": "solid",
+            "value": "solid"
           }
         ],
         "id": "fafe3bdf-56a7-4e73-aac8-980882d4f4aa",
@@ -199,11 +199,6 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "95795a9a-ccc0-4944-960d-1511d7ac589f",
-            "key": "string[]",
-            "value": "string[]"
-          },
-          {
             "id": "5e71c241-a2da-4241-864e-01a4c8c19a92",
             "key": "Array<{ label: string value: string disabled?: boolean }>",
             "value": "Array<{ label: string value: string disabled?: boolean }>"
@@ -212,6 +207,11 @@
             "id": "9ae1814d-ac84-4c0a-8c5c-bf63000cb424",
             "key": "number[]",
             "value": "number[]"
+          },
+          {
+            "id": "95795a9a-ccc0-4944-960d-1511d7ac589f",
+            "key": "string[]",
+            "value": "string[]"
           }
         ],
         "id": "2cd0802e-5189-418d-a4a8-ebe1a3ccbc59",

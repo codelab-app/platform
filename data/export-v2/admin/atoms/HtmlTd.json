@@ -14,9 +14,9 @@
           "kind": "PrimitiveType",
           "name": "Integer"
         },
-        "id": "a9ebb24a-4120-443d-8508-41bef7d7c3df",
-        "key": "rowspan",
-        "name": "Rowspan",
+        "id": "634ebf85-3e3a-48e8-8d6f-bc9149f190dc",
+        "key": "colspan",
+        "name": "Colspan",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -52,9 +52,9 @@
           "kind": "PrimitiveType",
           "name": "Integer"
         },
-        "id": "634ebf85-3e3a-48e8-8d6f-bc9149f190dc",
-        "key": "colspan",
-        "name": "Colspan",
+        "id": "a9ebb24a-4120-443d-8508-41bef7d7c3df",
+        "key": "rowspan",
+        "name": "Rowspan",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

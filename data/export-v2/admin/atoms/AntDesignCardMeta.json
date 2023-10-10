@@ -14,28 +14,9 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "10c60780-305b-4e26-ac26-e25054ae7bb3",
-        "key": "title",
-        "name": "Title",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "id": "68cea946-dff1-49e8-bd87-81a64f7019da",
-        "key": "description",
-        "name": "Description",
+        "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7",
+        "key": "avatar",
+        "name": "Avatar",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -71,9 +52,28 @@
           "kind": "ReactNodeType",
           "name": "ReactNodeType"
         },
-        "id": "838882ea-2f7c-4ad9-a585-f019dc2980f7",
-        "key": "avatar",
-        "name": "Avatar",
+        "id": "68cea946-dff1-49e8-bd87-81a64f7019da",
+        "key": "description",
+        "name": "Description",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "f76d1a9b-4678-4476-8191-1e34dc3429ac"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "10c60780-305b-4e26-ac26-e25054ae7bb3",
+        "key": "title",
+        "name": "Title",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

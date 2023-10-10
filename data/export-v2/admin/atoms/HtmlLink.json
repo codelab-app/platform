@@ -10,25 +10,6 @@
         "description": null,
         "fieldType": {
           "__typename": "EnumType",
-          "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
-          "kind": "EnumType",
-          "name": "HtmlLink Referrerpolicy Enum"
-        },
-        "id": "22221951-0725-49d2-b432-8b24e03352ba",
-        "key": "referrerpolicy",
-        "name": "Referrerpolicy",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
           "id": "1d557d56-c90c-481f-b17c-e80252360d65",
           "kind": "EnumType",
           "name": "HtmlLink Crossorigin Enum"
@@ -36,63 +17,6 @@
         "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0",
         "key": "crossorigin",
         "name": "Crossorigin",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "98a1cc5a-10ae-4907-b825-25c21290d145",
-        "key": "type",
-        "name": "Type",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "df57332d-8b01-4316-9f99-6c8f83075251",
-        "key": "hreflang",
-        "name": "Hreflang",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
-        "key": "media",
-        "name": "Media",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -128,9 +52,85 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
+        "id": "df57332d-8b01-4316-9f99-6c8f83075251",
+        "key": "hreflang",
+        "name": "Hreflang",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
         "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc",
         "key": "integrity",
         "name": "Integrity",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
+        "key": "media",
+        "name": "Media",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
+          "kind": "EnumType",
+          "name": "HtmlLink Referrerpolicy Enum"
+        },
+        "id": "22221951-0725-49d2-b432-8b24e03352ba",
+        "key": "referrerpolicy",
+        "name": "Referrerpolicy",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
+        "key": "rel",
+        "name": "Rel",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -166,9 +166,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
-        "key": "rel",
-        "name": "Rel",
+        "id": "98a1cc5a-10ae-4907-b825-25c21290d145",
+        "key": "type",
+        "name": "Type",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -182,14 +182,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "0785b781-4273-483d-b19c-0cf56c9844a3",
-            "key": "use-credentials",
-            "value": "use-credentials"
-          },
-          {
             "id": "17d75cae-9aec-4634-a85b-f2574f0d6b4e",
             "key": "anonymous",
             "value": "anonymous"
+          },
+          {
+            "id": "0785b781-4273-483d-b19c-0cf56c9844a3",
+            "key": "use-credentials",
+            "value": "use-credentials"
           }
         ],
         "id": "1d557d56-c90c-481f-b17c-e80252360d65",
@@ -200,19 +200,9 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "d5aa8ed0-057b-48f0-9133-4747c4f28a6c",
-            "key": "origin-when-cross-origin",
-            "value": "origin-when-cross-origin"
-          },
-          {
-            "id": "02049e48-0675-4cbd-824b-9e90f9b02461",
-            "key": "unsafe-url",
-            "value": "unsafe-url"
-          },
-          {
-            "id": "afbb967f-6d1e-4e7a-a02c-6710c4b7a6e4",
-            "key": "strict-origin-when-cross-origin",
-            "value": "strict-origin-when-cross-origin"
+            "id": "bb948efa-1e79-42be-b454-8543886bcca9",
+            "key": "no-referrer",
+            "value": "no-referrer"
           },
           {
             "id": "3b2099bf-08d3-404a-bdf0-1f7c5da1f8c7",
@@ -225,9 +215,19 @@
             "value": "origin"
           },
           {
-            "id": "bb948efa-1e79-42be-b454-8543886bcca9",
-            "key": "no-referrer",
-            "value": "no-referrer"
+            "id": "d5aa8ed0-057b-48f0-9133-4747c4f28a6c",
+            "key": "origin-when-cross-origin",
+            "value": "origin-when-cross-origin"
+          },
+          {
+            "id": "afbb967f-6d1e-4e7a-a02c-6710c4b7a6e4",
+            "key": "strict-origin-when-cross-origin",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "id": "02049e48-0675-4cbd-824b-9e90f9b02461",
+            "key": "unsafe-url",
+            "value": "unsafe-url"
           }
         ],
         "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",

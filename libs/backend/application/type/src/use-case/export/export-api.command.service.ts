@@ -1,3 +1,4 @@
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type {
   IApiOutputDto,
   ITypeOutputDto,
@@ -8,7 +9,11 @@ import {
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import type { IInterfaceTypeEntity } from '@codelab/shared/abstract/core'
+import type {
+  IEnumTypeDTO,
+  IInterfaceTypeEntity,
+  ITypeEntity,
+} from '@codelab/shared/abstract/core'
 import {
   IFieldDTO,
   IInterfaceTypeDTO,
@@ -52,6 +57,9 @@ export class ExportApiHandler
 
     const fields = await this.fieldRepository.find(
       {
+        options: {
+          sort: [{ key: SortDirection.Asc }],
+        },
         where: { id_IN: interfaceType.fields.map(({ id }) => id) },
       },
       IFieldDTO,
@@ -63,24 +71,21 @@ export class ExportApiHandler
     const dependentTypesIds =
       await this.interfaceTypeRepository.getDependentTypes(api)
 
-    const dependentTypes: Array<ITypeOutputDto> = []
-
-    for (const dependentType of dependentTypesIds) {
-      if (Object.values(ITypeKind).includes(dependentType.__typename)) {
-        const type = await this.typeFactory.findOne(dependentType)
-        type && dependentTypes.push(type as ITypeOutputDto)
-      }
-    }
+    const dependentTypes = await this.getTypeItemsFromIds(dependentTypesIds)
+    this.sortEnumValuesBeforeExport(dependentTypes)
+    this.sortTypesBeforeExport(dependentTypes)
 
     const dependentInterfaceTypes = dependentTypes.filter(
       (type) => type.__typename === `${ITypeKind.InterfaceType}`,
     )
 
+    const interfacesIds = dependentInterfaceTypes.map(({ id }) => id)
+
     const dependentFields = await this.fieldRepository.find({
       where: {
-        id_IN: dependentInterfaceTypes.map(
-          (dependentInterfaceType) => dependentInterfaceType.id,
-        ),
+        api: {
+          id_IN: interfacesIds,
+        },
       },
     })
 
@@ -89,5 +94,44 @@ export class ExportApiHandler
       fields: [...fields, ...dependentFields],
       types: dependentTypes,
     }
+  }
+
+  private async getTypeItemsFromIds(dependentTypesIds: Array<ITypeEntity>) {
+    const dependentTypes: Array<ITypeOutputDto> = []
+
+    for (const dependentType of dependentTypesIds) {
+      if (
+        Object.values(ITypeKind).includes(dependentType.__typename as ITypeKind)
+      ) {
+        const type = await this.typeFactory.findOne(dependentType)
+
+        type && dependentTypes.push(type as ITypeOutputDto)
+      }
+    }
+
+    return dependentTypes
+  }
+
+  private sortEnumValuesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
+    dependentTypes
+      .filter((type) => type.__typename === `${ITypeKind.EnumType}`)
+      .forEach((unionType) =>
+        (unionType as IEnumTypeDTO).allowedValues.sort((a, b) =>
+          a.key.localeCompare(b.key),
+        ),
+      )
+  }
+
+  private sortTypesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
+    dependentTypes.sort((a, b) => {
+      // If type is the same, compare by name
+      if (a.__typename === b.__typename) {
+        return a.name.localeCompare(b.name)
+      }
+
+      // place interface types at the beginning, since other types might depend on it
+      // for example Array type may reference the interface type, and if imported after the array type, it will fail
+      return a.__typename === `${ITypeKind.InterfaceType}` ? -1 : 1
+    })
   }
 }

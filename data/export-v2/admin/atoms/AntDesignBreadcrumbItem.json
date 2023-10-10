@@ -9,33 +9,14 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "EnumType",
-          "id": "8ef8f0b4-f9d3-4a89-807f-9e334c5bb493",
-          "kind": "EnumType",
-          "name": "AntDesignBreadcrumbItem Overlay Enum"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
-        "id": "2b5726e8-4f57-4d4f-9bb8-d25b3e222a6c",
-        "key": "overlay",
-        "name": "Overlay",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "id": "96a23f61-6652-4167-b252-426e2272cd10",
-        "key": "onClick",
-        "name": "On Click",
+        "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
+        "key": "className",
+        "name": "Class Name",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -66,14 +47,33 @@
         "defaultValues": null,
         "description": null,
         "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
         },
-        "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
-        "key": "className",
-        "name": "Class Name",
+        "id": "96a23f61-6652-4167-b252-426e2272cd10",
+        "key": "onClick",
+        "name": "On Click",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8ef8f0b4-f9d3-4a89-807f-9e334c5bb493",
+          "kind": "EnumType",
+          "name": "AntDesignBreadcrumbItem Overlay Enum"
+        },
+        "id": "2b5726e8-4f57-4d4f-9bb8-d25b3e222a6c",
+        "key": "overlay",
+        "name": "Overlay",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

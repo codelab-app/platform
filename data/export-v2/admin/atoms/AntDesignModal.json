@@ -6,6 +6,82 @@
         "api": {
           "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
         },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f50703a4-161f-463a-92b9-4431a1961e97",
+        "key": "cancelText",
+        "name": "Cancel Text",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "b15b98c3-7551-40a9-b04f-0f94c07d31c9",
+        "key": "centered",
+        "name": "Centered",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "fe85f97a-e25d-44eb-8941-762c35466de6",
+        "key": "closable",
+        "name": "Closable",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "1cb787fd-b8be-43e4-adc7-50c197f0b040",
+        "key": "destroyOnClose",
+        "name": "Destroy On Close",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
+        },
         "defaultValues": "true",
         "description": null,
         "fieldType": {
@@ -48,44 +124,6 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "fe85f97a-e25d-44eb-8941-762c35466de6",
-        "key": "closable",
-        "name": "Closable",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "f50703a4-161f-463a-92b9-4431a1961e97",
-        "key": "cancelText",
-        "name": "Cancel Text",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
           "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
           "name": "String"
@@ -93,44 +131,6 @@
         "id": "e6343721-b53b-4965-a724-280412d10192",
         "key": "okType",
         "name": "Ok Type",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "399e93d0-612b-4add-85b6-620f2b82ae4e",
-        "key": "visible",
-        "name": "Visible",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "b15b98c3-7551-40a9-b04f-0f94c07d31c9",
-        "key": "centered",
-        "name": "Centered",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -166,9 +166,9 @@
           "kind": "PrimitiveType",
           "name": "Boolean"
         },
-        "id": "1cb787fd-b8be-43e4-adc7-50c197f0b040",
-        "key": "destroyOnClose",
-        "name": "Destroy On Close",
+        "id": "399e93d0-612b-4add-85b6-620f2b82ae4e",
+        "key": "visible",
+        "name": "Visible",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

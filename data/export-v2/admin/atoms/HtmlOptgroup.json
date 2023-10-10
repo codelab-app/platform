@@ -10,13 +10,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
-          "name": "String"
+          "name": "Boolean"
         },
-        "id": "bb30bfba-a361-4458-94a9-48c34c3505ba",
-        "key": "label",
-        "name": "Label",
+        "id": "dfcdd018-6951-4911-95ea-32440afeeac4",
+        "key": "disabled",
+        "name": "Disabled",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -29,13 +29,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
           "kind": "PrimitiveType",
-          "name": "Boolean"
+          "name": "String"
         },
-        "id": "dfcdd018-6951-4911-95ea-32440afeeac4",
-        "key": "disabled",
-        "name": "Disabled",
+        "id": "bb30bfba-a361-4458-94a9-48c34c3505ba",
+        "key": "label",
+        "name": "Label",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null

@@ -14,47 +14,9 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "fa6d9cf0-bf4c-4814-9c19-5c41a07228df",
-        "key": "src",
-        "name": "Src",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "9c446e7f-7e22-4d57-baeb-32bc92c90cb1",
-          "kind": "EnumType",
-          "name": "HtmlIframe Referrerpolicy Enum"
-        },
-        "id": "844d089d-6c12-4663-a229-ec3ea9904785",
-        "key": "referrerpolicy",
-        "name": "Referrerpolicy",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "id": "664703c2-b7da-4d5f-bed6-00ea7841baec",
-        "key": "allowpaymentrequest",
-        "name": "Allowpaymentrequest",
+        "id": "d0cf2f24-9541-4736-980c-e47f6d379a47",
+        "key": "allow",
+        "name": "Allow",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -86,32 +48,13 @@
         "description": null,
         "fieldType": {
           "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
           "kind": "PrimitiveType",
-          "name": "String"
+          "name": "Boolean"
         },
-        "id": "53454f4c-75c5-4450-a4d4-66bf4cbd0345",
-        "key": "name",
-        "name": "Name",
-        "nextSibling": null,
-        "prevSibling": null,
-        "validationRules": null
-      },
-      {
-        "api": {
-          "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87"
-        },
-        "defaultValues": null,
-        "description": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "id": "d0cf2f24-9541-4736-980c-e47f6d379a47",
-        "key": "allow",
-        "name": "Allow",
+        "id": "664703c2-b7da-4d5f-bed6-00ea7841baec",
+        "key": "allowpaymentrequest",
+        "name": "Allowpaymentrequest",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -147,9 +90,28 @@
           "kind": "PrimitiveType",
           "name": "String"
         },
-        "id": "9bc22a4a-939f-4b29-ba29-b7a26773b949",
-        "key": "srcdoc",
-        "name": "Srcdoc",
+        "id": "53454f4c-75c5-4450-a4d4-66bf4cbd0345",
+        "key": "name",
+        "name": "Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "9c446e7f-7e22-4d57-baeb-32bc92c90cb1",
+          "kind": "EnumType",
+          "name": "HtmlIframe Referrerpolicy Enum"
+        },
+        "id": "844d089d-6c12-4663-a229-ec3ea9904785",
+        "key": "referrerpolicy",
+        "name": "Referrerpolicy",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -169,6 +131,44 @@
         "id": "a888712f-4889-4947-aa59-83ff7a7e9caa",
         "key": "sandbox",
         "name": "Sandbox",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "fa6d9cf0-bf4c-4814-9c19-5c41a07228df",
+        "key": "src",
+        "name": "Src",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "9bc22a4a-939f-4b29-ba29-b7a26773b949",
+        "key": "srcdoc",
+        "name": "Srcdoc",
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": null
@@ -201,19 +201,14 @@
         "__typename": "EnumType",
         "allowedValues": [
           {
-            "id": "a1fa0711-548c-4e86-9370-a13237b84181",
-            "key": "no-referrer-when-downgrade",
-            "value": "no-referrer-when-downgrade"
-          },
-          {
             "id": "a74368d1-99ff-49a4-9f8d-8c4cbfab6d00",
             "key": "no-referrer",
             "value": "no-referrer"
           },
           {
-            "id": "c3f10a38-8ce9-4a47-9a33-0e6b0eece23c",
-            "key": "origin-when-cross-origin",
-            "value": "origin-when-cross-origin"
+            "id": "a1fa0711-548c-4e86-9370-a13237b84181",
+            "key": "no-referrer-when-downgrade",
+            "value": "no-referrer-when-downgrade"
           },
           {
             "id": "ef4651df-5446-4700-b646-bfa965e175ec",
@@ -221,14 +216,19 @@
             "value": "origin"
           },
           {
-            "id": "fed2d67a-ab35-43f0-a7bd-77812d498860",
-            "key": "unsafe-url",
-            "value": "unsafe-url"
+            "id": "c3f10a38-8ce9-4a47-9a33-0e6b0eece23c",
+            "key": "origin-when-cross-origin",
+            "value": "origin-when-cross-origin"
           },
           {
             "id": "0d59173f-3bc2-440f-98ff-35e082104343",
             "key": "strict-origin-when-cross-origin",
             "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "id": "fed2d67a-ab35-43f0-a7bd-77812d498860",
+            "key": "unsafe-url",
+            "value": "unsafe-url"
           }
         ],
         "id": "9c446e7f-7e22-4d57-baeb-32bc92c90cb1",
