@@ -18,7 +18,6 @@ export const useDragDropHandlers = (
   rendererType: RendererType,
 ) => {
   const { atomService, builderService, elementService } = useStore()
-  const { moveElementService } = elementService
 
   const dragStartHandler = useCallback(
     (event: React.DragEvent<HTMLElement>) => {

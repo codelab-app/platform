@@ -97,8 +97,8 @@ export class CloneElementService
     this.builderService.setSelectedNode(null)
 
     // 2. detach the element from the element tree
-    const oldConnectedNodeIds =
-      this.moveElementService.detachElementFromElementTree(element.id)
+    const oldConnectedNodeIds: Array<string> = []
+    // this.moveElementService.detachElementFromElementTree(element.id)
 
     // 3. create the component and pass element as rootElement for component,
     const createdComponent: IComponentModel = yield* _await(
@@ -147,12 +147,10 @@ export class CloneElementService
     }
 
     const createdElement = yield* _await(
-      prevSibling
-        ? this.createElementService.createElementAsNextSibling({
-            ...instanceElement,
-            prevSibling,
-          })
-        : this.createElementService.createElementAsFirstChild(instanceElement),
+      this.elementService.createElement({
+        ...instanceElement,
+        prevSibling,
+      }),
     )
 
     // 6. set newly created element as selected element in builder tree
@@ -283,26 +281,27 @@ export class CloneElementService
       style: element.style,
     }
 
-    const elementCloneModel = this.elementService.add(cloneElementDto)
+    const elementCloneModel =
+      this.elementService.elementDomainService.add(cloneElementDto)
 
     await this.elementService.elementRepository.add(elementCloneModel)
 
     const lastChild = parentElement.children[parentElement.children.length - 1]
     let affectedNodeIds: Array<string> = []
 
-    if (!lastChild) {
-      affectedNodeIds =
-        this.elementService.moveElementService.attachElementAsFirstChild({
-          element: elementCloneModel,
-          parentElement,
-        })
-    } else {
-      affectedNodeIds =
-        this.elementService.moveElementService.attachElementAsNextSibling({
-          element: elementCloneModel,
-          targetElement: lastChild,
-        })
-    }
+    // if (!lastChild) {
+    //   affectedNodeIds =
+    //     this.elementService..attachElementAsFirstChild({
+    //       element: elementCloneModel,
+    //       parentElement,
+    //     })
+    // } else {
+    //   affectedNodeIds =
+    //     this.elementService.moveElementService.attachElementAsNextSibling({
+    //       element: elementCloneModel,
+    //       targetElement: lastChild,
+    //     })
+    // }
 
     await Promise.all(
       affectedNodeIds.map((id) =>
@@ -342,11 +341,6 @@ export class CloneElementService
   }
 
   @computed
-  private get createElementService() {
-    return this.elementService.createElementService
-  }
-
-  @computed
   private get elementService() {
     return getElementService(this)
   }
@@ -354,11 +348,6 @@ export class CloneElementService
   @computed
   private get fieldService() {
     return getFieldService(this)
-  }
-
-  @computed
-  private get moveElementService() {
-    return this.elementService.moveElementService
   }
 
   @computed

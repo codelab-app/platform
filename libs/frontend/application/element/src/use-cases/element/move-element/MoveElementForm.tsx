@@ -27,11 +27,7 @@ export interface MoveElementFormProps {
  * Not intended to be used in a modal
  */
 export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
-  const {
-    atomService,
-    builderService,
-    elementService: { moveElementService },
-  } = useStore()
+  const { atomService, builderService, elementService } = useStore()
 
   const elementTree = builderService.activeElementTree
 

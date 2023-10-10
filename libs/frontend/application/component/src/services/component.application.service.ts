@@ -162,7 +162,8 @@ export class ComponentApplicationService
      * the only choice left is to create rootElement here if it is not provided
      * */
     const rootElementExists =
-      rootElement && this.elementService.elements.has(rootElement.id)
+      rootElement &&
+      this.elementService.elementDomainService.elements.has(rootElement.id)
 
     let rootElementModel: IElementModel | null = rootElementExists
       ? this.elementService.element(rootElement.id)
@@ -186,7 +187,8 @@ export class ComponentApplicationService
     }
 
     if (!rootElementModel) {
-      rootElementModel = this.elementService.add(elementData)
+      rootElementModel =
+        this.elementService.elementDomainService.add(elementData)
     }
 
     const component = this.add({
