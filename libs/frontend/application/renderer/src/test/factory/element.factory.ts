@@ -30,7 +30,7 @@ export default Factory.define<IElementDTO>(({ params }) => {
     },
   }
 
-  testRootStore.elementService.add(dto)
+  testRootStore.elementService.elementDomainService.add(dto)
 
   return dto
 })

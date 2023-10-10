@@ -7,7 +7,7 @@ import { createTestRootStore } from './root-store'
 
 describe('App domain', () => {
   const rootStore = createTestRootStore(userDto)
-  const { appService, atomService, userService } = rootStore
+  const { appService, atomService } = rootStore
 
   it('can add an app', async () => {
     const appData: ICreateAppData = {

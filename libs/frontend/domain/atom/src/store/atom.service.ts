@@ -65,10 +65,11 @@ export class AtomService
 
   @computed
   get defaultRenderType() {
-    return throwIfUndefined(
-      this.atomsList.find((atom) => atom.type === IAtomType.ReactFragment)
-        ?.toJson,
-    )
+    const renderType = this.atomsList.find(
+      (atom) => atom.type === IAtomType.ReactFragment,
+    )?.toJson
+
+    return throwIfUndefined(renderType)
   }
 
   /**
