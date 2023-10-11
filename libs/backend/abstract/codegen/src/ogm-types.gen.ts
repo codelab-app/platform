@@ -135,6 +135,9 @@ export type Query = {
   domains: Array<Domain>
   domainsConnection: DomainsConnection
   domainsAggregate: DomainAggregateSelection
+  authGuards: Array<AuthGuard>
+  authGuardsConnection: AuthGuardsConnection
+  authGuardsAggregate: AuthGuardAggregateSelection
   /** Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion */
   isTypeDescendantOf?: Maybe<Scalars['Boolean']['output']>
   /**
@@ -676,6 +679,22 @@ export type QueryDomainsAggregateArgs = {
   where?: InputMaybe<DomainWhere>
 }
 
+export type QueryAuthGuardsArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+  options?: InputMaybe<AuthGuardOptions>
+}
+
+export type QueryAuthGuardsConnectionArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>
+  after?: InputMaybe<Scalars['String']['input']>
+  where?: InputMaybe<AuthGuardWhere>
+  sort?: InputMaybe<Array<InputMaybe<AuthGuardSort>>>
+}
+
+export type QueryAuthGuardsAggregateArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+}
+
 export type QueryIsTypeDescendantOfArgs = {
   parentTypeId: Scalars['ID']['input']
   descendantTypeId: Scalars['ID']['input']
@@ -786,6 +805,9 @@ export type Mutation = {
   createDomains: CreateDomainsMutationResponse
   deleteDomains: DeleteInfo
   updateDomains: UpdateDomainsMutationResponse
+  createAuthGuards: CreateAuthGuardsMutationResponse
+  deleteAuthGuards: DeleteInfo
+  updateAuthGuards: UpdateAuthGuardsMutationResponse
 }
 
 export type MutationCreateUsersArgs = {
@@ -1382,6 +1404,25 @@ export type MutationUpdateDomainsArgs = {
   create?: InputMaybe<DomainRelationInput>
   delete?: InputMaybe<DomainDeleteInput>
   connectOrCreate?: InputMaybe<DomainConnectOrCreateInput>
+}
+
+export type MutationCreateAuthGuardsArgs = {
+  input: Array<AuthGuardCreateInput>
+}
+
+export type MutationDeleteAuthGuardsArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+  delete?: InputMaybe<AuthGuardDeleteInput>
+}
+
+export type MutationUpdateAuthGuardsArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+  update?: InputMaybe<AuthGuardUpdateInput>
+  connect?: InputMaybe<AuthGuardConnectInput>
+  disconnect?: InputMaybe<AuthGuardDisconnectInput>
+  create?: InputMaybe<AuthGuardRelationInput>
+  delete?: InputMaybe<AuthGuardDeleteInput>
+  connectOrCreate?: InputMaybe<AuthGuardConnectOrCreateInput>
 }
 
 export enum ActionKind {
@@ -2963,6 +3004,79 @@ export type AtomUserOwnerNodeAggregateSelection = {
   username: StringAggregateSelectionNonNullable
 }
 
+export type AuthGuard = {
+  __typename?: 'AuthGuard'
+  id: Scalars['ID']['output']
+  canActivate: Scalars['String']['output']
+  resourceAggregate?: Maybe<AuthGuardResourceResourceAggregationSelection>
+  resource?: Maybe<Resource>
+  resourceConnection: AuthGuardResourceConnection
+}
+
+export type AuthGuardResourceAggregateArgs = {
+  where?: InputMaybe<ResourceWhere>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type AuthGuardResourceArgs = {
+  where?: InputMaybe<ResourceWhere>
+  options?: InputMaybe<ResourceOptions>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type AuthGuardResourceConnectionArgs = {
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+  first?: InputMaybe<Scalars['Int']['input']>
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  sort?: InputMaybe<Array<AuthGuardResourceConnectionSort>>
+}
+
+export type AuthGuardAggregateSelection = {
+  __typename?: 'AuthGuardAggregateSelection'
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+  canActivate: StringAggregateSelectionNonNullable
+}
+
+export type AuthGuardEdge = {
+  __typename?: 'AuthGuardEdge'
+  cursor: Scalars['String']['output']
+  node: AuthGuard
+}
+
+export type AuthGuardResourceConnection = {
+  __typename?: 'AuthGuardResourceConnection'
+  edges: Array<AuthGuardResourceRelationship>
+  totalCount: Scalars['Int']['output']
+  pageInfo: PageInfo
+}
+
+export type AuthGuardResourceRelationship = {
+  __typename?: 'AuthGuardResourceRelationship'
+  cursor: Scalars['String']['output']
+  node: Resource
+}
+
+export type AuthGuardResourceResourceAggregationSelection = {
+  __typename?: 'AuthGuardResourceResourceAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<AuthGuardResourceResourceNodeAggregateSelection>
+}
+
+export type AuthGuardResourceResourceNodeAggregateSelection = {
+  __typename?: 'AuthGuardResourceResourceNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type AuthGuardsConnection = {
+  __typename?: 'AuthGuardsConnection'
+  totalCount: Scalars['Int']['output']
+  pageInfo: PageInfo
+  edges: Array<AuthGuardEdge>
+}
+
 export type BaseActionElementConnection = {
   __typename?: 'BaseActionElementConnection'
   edges: Array<BaseActionElementRelationship>
@@ -3500,6 +3614,12 @@ export type CreateAtomsMutationResponse = {
   __typename?: 'CreateAtomsMutationResponse'
   info: CreateInfo
   atoms: Array<Atom>
+}
+
+export type CreateAuthGuardsMutationResponse = {
+  __typename?: 'CreateAuthGuardsMutationResponse'
+  info: CreateInfo
+  authGuards: Array<AuthGuard>
 }
 
 export type CreateCodeActionsMutationResponse = {
@@ -5421,10 +5541,13 @@ export type Page = {
   store: Store
   pageContentContainerAggregate?: Maybe<PageElementPageContentContainerAggregationSelection>
   pageContentContainer?: Maybe<Element>
+  authGuardAggregate?: Maybe<PageAuthGuardAuthGuardAggregationSelection>
+  authGuard: AuthGuard
   rootElementConnection: PageRootElementConnection
   appConnection: PageAppConnection
   storeConnection: PageStoreConnection
   pageContentContainerConnection: PagePageContentContainerConnection
+  authGuardConnection: PageAuthGuardConnection
 }
 
 export type PageRootElementAggregateArgs = {
@@ -5471,6 +5594,17 @@ export type PagePageContentContainerArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>
 }
 
+export type PageAuthGuardAggregateArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
+export type PageAuthGuardArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+  options?: InputMaybe<AuthGuardOptions>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export type PageRootElementConnectionArgs = {
   where?: InputMaybe<PageRootElementConnectionWhere>
   first?: InputMaybe<Scalars['Int']['input']>
@@ -5501,6 +5635,14 @@ export type PagePageContentContainerConnectionArgs = {
   after?: InputMaybe<Scalars['String']['input']>
   directed?: InputMaybe<Scalars['Boolean']['input']>
   sort?: InputMaybe<Array<PagePageContentContainerConnectionSort>>
+}
+
+export type PageAuthGuardConnectionArgs = {
+  where?: InputMaybe<PageAuthGuardConnectionWhere>
+  first?: InputMaybe<Scalars['Int']['input']>
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  sort?: InputMaybe<Array<PageAuthGuardConnectionSort>>
 }
 
 export type PageAggregateSelection = {
@@ -5534,6 +5676,31 @@ export type PageAppRelationship = {
   __typename?: 'PageAppRelationship'
   cursor: Scalars['String']['output']
   node: App
+}
+
+export type PageAuthGuardAuthGuardAggregationSelection = {
+  __typename?: 'PageAuthGuardAuthGuardAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<PageAuthGuardAuthGuardNodeAggregateSelection>
+}
+
+export type PageAuthGuardAuthGuardNodeAggregateSelection = {
+  __typename?: 'PageAuthGuardAuthGuardNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  canActivate: StringAggregateSelectionNonNullable
+}
+
+export type PageAuthGuardConnection = {
+  __typename?: 'PageAuthGuardConnection'
+  edges: Array<PageAuthGuardRelationship>
+  totalCount: Scalars['Int']['output']
+  pageInfo: PageInfo
+}
+
+export type PageAuthGuardRelationship = {
+  __typename?: 'PageAuthGuardRelationship'
+  cursor: Scalars['String']['output']
+  node: AuthGuard
 }
 
 export type PageEdge = {
@@ -6646,6 +6813,12 @@ export type UpdateAtomsMutationResponse = {
   __typename?: 'UpdateAtomsMutationResponse'
   info: UpdateInfo
   atoms: Array<Atom>
+}
+
+export type UpdateAuthGuardsMutationResponse = {
+  __typename?: 'UpdateAuthGuardsMutationResponse'
+  info: UpdateInfo
+  authGuards: Array<AuthGuard>
 }
 
 export type UpdateCodeActionsMutationResponse = {
@@ -12173,6 +12346,249 @@ export type AtomWhere = {
   elementsConnection_SOME?: InputMaybe<AtomElementsConnectionWhere>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type AuthGuardConnectInput = {
+  resource?: InputMaybe<AuthGuardResourceConnectFieldInput>
+}
+
+export type AuthGuardConnectOrCreateInput = {
+  resource?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
+}
+
+export type AuthGuardConnectOrCreateWhere = {
+  node: AuthGuardUniqueWhere
+}
+
+export type AuthGuardConnectWhere = {
+  node: AuthGuardWhere
+}
+
+export type AuthGuardCreateInput = {
+  id: Scalars['ID']['input']
+  canActivate: Scalars['String']['input']
+  resource?: InputMaybe<AuthGuardResourceFieldInput>
+}
+
+export type AuthGuardDeleteInput = {
+  resource?: InputMaybe<AuthGuardResourceDeleteFieldInput>
+}
+
+export type AuthGuardDisconnectInput = {
+  resource?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
+}
+
+export type AuthGuardOnCreateInput = {
+  id: Scalars['ID']['input']
+  canActivate: Scalars['String']['input']
+}
+
+export type AuthGuardOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more AuthGuardSort objects to sort AuthGuards by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<AuthGuardSort>>
+}
+
+export type AuthGuardRelationInput = {
+  resource?: InputMaybe<AuthGuardResourceCreateFieldInput>
+}
+
+export type AuthGuardResourceAggregateInput = {
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  AND?: InputMaybe<Array<AuthGuardResourceAggregateInput>>
+  OR?: InputMaybe<Array<AuthGuardResourceAggregateInput>>
+  NOT?: InputMaybe<AuthGuardResourceAggregateInput>
+  node?: InputMaybe<AuthGuardResourceNodeAggregationWhereInput>
+}
+
+export type AuthGuardResourceConnectFieldInput = {
+  where?: InputMaybe<ResourceConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  connect?: InputMaybe<ResourceConnectInput>
+}
+
+export type AuthGuardResourceConnectionSort = {
+  node?: InputMaybe<ResourceSort>
+}
+
+export type AuthGuardResourceConnectionWhere = {
+  OR?: InputMaybe<Array<AuthGuardResourceConnectionWhere>>
+  AND?: InputMaybe<Array<AuthGuardResourceConnectionWhere>>
+  NOT?: InputMaybe<AuthGuardResourceConnectionWhere>
+  node?: InputMaybe<ResourceWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<ResourceWhere>
+}
+
+export type AuthGuardResourceConnectOrCreateFieldInput = {
+  where: ResourceConnectOrCreateWhere
+  onCreate: AuthGuardResourceConnectOrCreateFieldInputOnCreate
+}
+
+export type AuthGuardResourceConnectOrCreateFieldInputOnCreate = {
+  node: ResourceOnCreateInput
+}
+
+export type AuthGuardResourceCreateFieldInput = {
+  node: ResourceCreateInput
+}
+
+export type AuthGuardResourceDeleteFieldInput = {
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+  delete?: InputMaybe<ResourceDeleteInput>
+}
+
+export type AuthGuardResourceDisconnectFieldInput = {
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+  disconnect?: InputMaybe<ResourceDisconnectInput>
+}
+
+export type AuthGuardResourceFieldInput = {
+  connectOrCreate?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
+  connect?: InputMaybe<AuthGuardResourceConnectFieldInput>
+  create?: InputMaybe<AuthGuardResourceCreateFieldInput>
+}
+
+export type AuthGuardResourceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AuthGuardResourceNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<AuthGuardResourceNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AuthGuardResourceNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AuthGuardResourceUpdateConnectionInput = {
+  node?: InputMaybe<ResourceUpdateInput>
+}
+
+export type AuthGuardResourceUpdateFieldInput = {
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+  connectOrCreate?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
+  connect?: InputMaybe<AuthGuardResourceConnectFieldInput>
+  disconnect?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
+  create?: InputMaybe<AuthGuardResourceCreateFieldInput>
+  update?: InputMaybe<AuthGuardResourceUpdateConnectionInput>
+  delete?: InputMaybe<AuthGuardResourceDeleteFieldInput>
+}
+
+/** Fields to sort AuthGuards by. The order in which sorts are applied is not guaranteed when specifying many fields in one AuthGuardSort object. */
+export type AuthGuardSort = {
+  id?: InputMaybe<SortDirection>
+  canActivate?: InputMaybe<SortDirection>
+}
+
+export type AuthGuardUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type AuthGuardUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
+  canActivate?: InputMaybe<Scalars['String']['input']>
+  resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
+}
+
+export type AuthGuardWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  canActivate?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  canActivate_NOT?: InputMaybe<Scalars['String']['input']>
+  canActivate_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  canActivate_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  canActivate_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  canActivate_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  canActivate_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  canActivate_MATCHES?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  canActivate_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  canActivate_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  canActivate_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  OR?: InputMaybe<Array<AuthGuardWhere>>
+  AND?: InputMaybe<Array<AuthGuardWhere>>
+  NOT?: InputMaybe<AuthGuardWhere>
+  resource?: InputMaybe<ResourceWhere>
+  resource_NOT?: InputMaybe<ResourceWhere>
+  resourceAggregate?: InputMaybe<AuthGuardResourceAggregateInput>
+  resourceConnection?: InputMaybe<AuthGuardResourceConnectionWhere>
+  resourceConnection_NOT?: InputMaybe<AuthGuardResourceConnectionWhere>
 }
 
 export type BaseActionConnectInput = {
@@ -24051,11 +24467,150 @@ export type PageAppUpdateFieldInput = {
   delete?: InputMaybe<PageAppDeleteFieldInput>
 }
 
+export type PageAuthGuardAggregateInput = {
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  AND?: InputMaybe<Array<PageAuthGuardAggregateInput>>
+  OR?: InputMaybe<Array<PageAuthGuardAggregateInput>>
+  NOT?: InputMaybe<PageAuthGuardAggregateInput>
+  node?: InputMaybe<PageAuthGuardNodeAggregationWhereInput>
+}
+
+export type PageAuthGuardConnectFieldInput = {
+  where?: InputMaybe<AuthGuardConnectWhere>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  connect?: InputMaybe<AuthGuardConnectInput>
+}
+
+export type PageAuthGuardConnectionSort = {
+  node?: InputMaybe<AuthGuardSort>
+}
+
+export type PageAuthGuardConnectionWhere = {
+  OR?: InputMaybe<Array<PageAuthGuardConnectionWhere>>
+  AND?: InputMaybe<Array<PageAuthGuardConnectionWhere>>
+  NOT?: InputMaybe<PageAuthGuardConnectionWhere>
+  node?: InputMaybe<AuthGuardWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<AuthGuardWhere>
+}
+
+export type PageAuthGuardConnectOrCreateFieldInput = {
+  where: AuthGuardConnectOrCreateWhere
+  onCreate: PageAuthGuardConnectOrCreateFieldInputOnCreate
+}
+
+export type PageAuthGuardConnectOrCreateFieldInputOnCreate = {
+  node: AuthGuardOnCreateInput
+}
+
+export type PageAuthGuardCreateFieldInput = {
+  node: AuthGuardCreateInput
+}
+
+export type PageAuthGuardDeleteFieldInput = {
+  where?: InputMaybe<PageAuthGuardConnectionWhere>
+  delete?: InputMaybe<AuthGuardDeleteInput>
+}
+
+export type PageAuthGuardDisconnectFieldInput = {
+  where?: InputMaybe<PageAuthGuardConnectionWhere>
+  disconnect?: InputMaybe<AuthGuardDisconnectInput>
+}
+
+export type PageAuthGuardFieldInput = {
+  connectOrCreate?: InputMaybe<PageAuthGuardConnectOrCreateFieldInput>
+  connect?: InputMaybe<PageAuthGuardConnectFieldInput>
+  create?: InputMaybe<PageAuthGuardCreateFieldInput>
+}
+
+export type PageAuthGuardNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PageAuthGuardNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<PageAuthGuardNodeAggregationWhereInput>>
+  NOT?: InputMaybe<PageAuthGuardNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  canActivate_EQUAL?: InputMaybe<Scalars['String']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  canActivate_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  canActivate_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  canActivate_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  canActivate_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  canActivate_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  canActivate_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  canActivate_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  canActivate_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  canActivate_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  canActivate_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  canActivate_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  canActivate_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  canActivate_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  canActivate_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  canActivate_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  canActivate_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  canActivate_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  canActivate_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  canActivate_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  canActivate_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type PageAuthGuardUpdateConnectionInput = {
+  node?: InputMaybe<AuthGuardUpdateInput>
+}
+
+export type PageAuthGuardUpdateFieldInput = {
+  where?: InputMaybe<PageAuthGuardConnectionWhere>
+  connectOrCreate?: InputMaybe<PageAuthGuardConnectOrCreateFieldInput>
+  connect?: InputMaybe<PageAuthGuardConnectFieldInput>
+  disconnect?: InputMaybe<PageAuthGuardDisconnectFieldInput>
+  create?: InputMaybe<PageAuthGuardCreateFieldInput>
+  update?: InputMaybe<PageAuthGuardUpdateConnectionInput>
+  delete?: InputMaybe<PageAuthGuardDeleteFieldInput>
+}
+
 export type PageConnectInput = {
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
   app?: InputMaybe<PageAppConnectFieldInput>
   store?: InputMaybe<PageStoreConnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardConnectFieldInput>
 }
 
 export type PageConnectOrCreateInput = {
@@ -24063,6 +24618,7 @@ export type PageConnectOrCreateInput = {
   app?: InputMaybe<PageAppConnectOrCreateFieldInput>
   store?: InputMaybe<PageStoreConnectOrCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectOrCreateFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardConnectOrCreateFieldInput>
 }
 
 export type PageConnectOrCreateWhere = {
@@ -24082,6 +24638,7 @@ export type PageCreateInput = {
   app?: InputMaybe<PageAppFieldInput>
   store?: InputMaybe<PageStoreFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardFieldInput>
 }
 
 export type PageDeleteInput = {
@@ -24089,6 +24646,7 @@ export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
   store?: InputMaybe<PageStoreDeleteFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDeleteFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardDeleteFieldInput>
 }
 
 export type PageDisconnectInput = {
@@ -24096,6 +24654,7 @@ export type PageDisconnectInput = {
   app?: InputMaybe<PageAppDisconnectFieldInput>
   store?: InputMaybe<PageStoreDisconnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDisconnectFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardDisconnectFieldInput>
 }
 
 export type PageOnCreateInput = {
@@ -24489,6 +25048,7 @@ export type PageRelationInput = {
   app?: InputMaybe<PageAppCreateFieldInput>
   store?: InputMaybe<PageStoreCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerCreateFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardCreateFieldInput>
 }
 
 export type PageRootElementAggregateInput = {
@@ -25305,6 +25865,7 @@ export type PageUpdateInput = {
   app?: InputMaybe<PageAppUpdateFieldInput>
   store?: InputMaybe<PageStoreUpdateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
+  authGuard?: InputMaybe<PageAuthGuardUpdateFieldInput>
 }
 
 export type PageWhere = {
@@ -25377,6 +25938,9 @@ export type PageWhere = {
   pageContentContainer?: InputMaybe<ElementWhere>
   pageContentContainer_NOT?: InputMaybe<ElementWhere>
   pageContentContainerAggregate?: InputMaybe<PagePageContentContainerAggregateInput>
+  authGuard?: InputMaybe<AuthGuardWhere>
+  authGuard_NOT?: InputMaybe<AuthGuardWhere>
+  authGuardAggregate?: InputMaybe<PageAuthGuardAggregateInput>
   rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
   rootElementConnection_NOT?: InputMaybe<PageRootElementConnectionWhere>
   appConnection?: InputMaybe<PageAppConnectionWhere>
@@ -25385,6 +25949,8 @@ export type PageWhere = {
   storeConnection_NOT?: InputMaybe<PageStoreConnectionWhere>
   pageContentContainerConnection?: InputMaybe<PagePageContentContainerConnectionWhere>
   pageContentContainerConnection_NOT?: InputMaybe<PagePageContentContainerConnectionWhere>
+  authGuardConnection?: InputMaybe<PageAuthGuardConnectionWhere>
+  authGuardConnection_NOT?: InputMaybe<PageAuthGuardConnectionWhere>
 }
 
 export type PrimitiveTypeConnectInput = {
@@ -33409,6 +33975,74 @@ export declare class DomainModel {
   }): Promise<DomainAggregateSelection>
 }
 
+export interface IdAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNonNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface StringAggregateInputNullable {
+  shortest?: boolean
+  longest?: boolean
+}
+export interface IntAggregateInputNonNullable {
+  max?: boolean
+  min?: boolean
+  average?: boolean
+  sum?: boolean
+}
+export interface AuthGuardAggregateSelectionInput {
+  count?: boolean
+  id?: IdAggregateInputNonNullable
+  canActivate?: StringAggregateInputNonNullable
+}
+
+export declare class AuthGuardModel {
+  public find(args?: {
+    where?: AuthGuardWhere
+
+    options?: AuthGuardOptions
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<AuthGuard[]>
+  public create(args: {
+    input: AuthGuardCreateInput[]
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<CreateAuthGuardsMutationResponse>
+  public update(args: {
+    where?: AuthGuardWhere
+    update?: AuthGuardUpdateInput
+    connect?: AuthGuardConnectInput
+    disconnect?: AuthGuardDisconnectInput
+    create?: AuthGuardCreateInput
+    connectOrCreate?: AuthGuardConnectOrCreateInput
+    selectionSet?: string | DocumentNode | SelectionSetNode
+    args?: any
+    context?: any
+    rootValue?: any
+  }): Promise<UpdateAuthGuardsMutationResponse>
+  public delete(args: {
+    where?: AuthGuardWhere
+    delete?: AuthGuardDeleteInput
+    context?: any
+    rootValue?: any
+  }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
+  public aggregate(args: {
+    where?: AuthGuardWhere
+
+    aggregate: AuthGuardAggregateSelectionInput
+    context?: any
+    rootValue?: any
+  }): Promise<AuthGuardAggregateSelection>
+}
+
 export interface ModelMap {
   User: UserModel
   App: AppModel
@@ -33443,4 +34077,5 @@ export interface ModelMap {
   VercelDomainConfig: VercelDomainConfigModel
   VercelProjectDomain: VercelProjectDomainModel
   Domain: DomainModel
+  AuthGuard: AuthGuardModel
 }
