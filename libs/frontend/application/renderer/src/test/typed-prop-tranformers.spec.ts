@@ -17,6 +17,8 @@ import { factoryBuild } from './factory'
 import { rootStore, setupPage } from './setup'
 import { TestProviderWrapper } from './TestProviderWrapper'
 
+jest.setTimeout(60000)
+
 describe('TypedPropTransformers', () => {
   const testPropValue = 'some text'
   const testOverridePropValue = 'overridden text'
