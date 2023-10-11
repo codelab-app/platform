@@ -390,6 +390,7 @@ export class Element
       closestContainerNode: this.closestContainerNode,
       firstChild: this.firstChild,
       id: this.id,
+      // isRoot: this.isRoot,
       name: this.name,
       nextSibling: this.nextSibling,
       page: this.page,
@@ -660,7 +661,6 @@ export class Element
     }
   }
 
-  //
   @modelAction
   toCreateInput(): ElementCreateInput {
     return {
