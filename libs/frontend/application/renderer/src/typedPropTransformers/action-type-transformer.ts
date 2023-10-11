@@ -5,7 +5,7 @@ import type {
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/application/shared/core'
+import { hasExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
 
@@ -30,7 +30,7 @@ export class ActionTypeTransformer
 {
   public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
     // unwrap custom action code so it is evaluated later
-    if (hasStateExpression(prop.value)) {
+    if (hasExpression(prop.value)) {
       return prop.value
     }
 

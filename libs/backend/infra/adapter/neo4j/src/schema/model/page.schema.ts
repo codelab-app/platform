@@ -21,12 +21,17 @@ export const pageSchema = gql`
     elements: [Element!]!
     app: App! @relationship(type: "PAGES", direction: IN)
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
-    #getServerSideProps: String
+    # getServerSideProps: String
     # this is an element on _app page tree inside of which child pages content is rendered
     # default is root "Body" element, but can be changed using dropdown on Page Inspector tab
     pageContentContainer: Element
       @relationship(type: "CHILD_PAGE_CONTAINER_ELEMENT", direction: OUT)
     kind: PageKind!
+
+    # To protect a page attach it to a redirect
+    redirect: Redirect
+      @relationship(type: "REDIRECT_FROM_PROTECTED_PAGE", direction: OUT)
+
     # when the app will be deployed - the page will be available on this URL
     url: String!
   }

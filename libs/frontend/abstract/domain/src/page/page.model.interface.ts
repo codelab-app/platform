@@ -8,6 +8,7 @@ import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'
+import type { IRedirectModel } from '../redirect'
 import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
@@ -25,6 +26,7 @@ export interface IPageModel
    */
   pageContentContainer?: Nullish<Ref<IElementModel>>
   providerPage: Maybe<IPageModel>
+  redirect: Nullish<Ref<IRedirectModel>>
   rootElement: Ref<IElementModel>
   slug: string
   store: Ref<IStoreModel>

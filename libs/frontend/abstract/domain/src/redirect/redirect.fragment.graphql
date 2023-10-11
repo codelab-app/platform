@@ -1,0 +1,14 @@
+fragment Redirect on Redirect {
+  id
+  source {
+    id
+  }
+  targetPage {
+    id
+  }
+  targetType
+  targetUrl
+  authGuard {
+    id
+  }
+}

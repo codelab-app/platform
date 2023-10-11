@@ -1,7 +1,7 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IActionKind } from '../action-kind.enum'
+import { IActionKind } from './action-kind.enum'
 import { IRef } from '../model/node-type.interface'
 import { IPropDTO } from '../prop.dto.interface'
 import { IActionRef } from './action-entity.dto.interface'

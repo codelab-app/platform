@@ -28,6 +28,7 @@ export class ResourceRepository
     const {
       deleteResources: { nodesDeleted },
     } = await resourceApi.DeleteResources({
+      delete: { config: { where: {} } },
       where: { id_IN: resources.map((resource) => resource.id) },
     })
 

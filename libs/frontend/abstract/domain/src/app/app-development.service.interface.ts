@@ -2,6 +2,7 @@ import type {
   AppDevelopmentFragment,
   AtomDevelopmentFragment,
   AtomFragment,
+  AuthGuardFragment,
   ComponentDevelopmentFragment,
   ElementFragment,
   FieldFragment,
@@ -24,6 +25,7 @@ export interface IAppDevelopmentDto {
   actions: StoreFragment['actions']
   app: AppDevelopmentFragment
   atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>

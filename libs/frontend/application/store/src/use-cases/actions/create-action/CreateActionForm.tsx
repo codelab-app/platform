@@ -1,5 +1,6 @@
 import type { ICreateActionData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -12,7 +13,6 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -55,13 +55,8 @@ export const CreateActionForm = observer(
 
     const closeForm = () => actionService.createForm.close()
 
-    const getResourceType = ({ model }: Context<ICreateActionData>) =>
-      model.resourceId ? resourceService.resource(model.resourceId)?.type : null
-
-    const getResourceApiUrl = ({ model }: Context<ICreateActionData>) =>
-      model.resourceId
-        ? resourceService.resource(model.resourceId)?.config.get('url')
-        : null
+    const getResource = ({ model }: Context<ICreateActionData>) =>
+      model.resourceId ? resourceService.resource(model.resourceId) : null
 
     const model = {
       code: CODE_ACTION,
@@ -92,25 +87,16 @@ export const CreateActionForm = observer(
         schema={actionSchema}
         submitRef={submitRef}
       >
-        <ModalForm.Form<ICreateActionData>
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while creating action',
-          })}
-          onSubmitSuccess={closeModal}
-          schema={createActionSchema}
-        >
-          <AutoFields
-            omitFields={[
-              'code',
-              'resourceId',
-              'config',
-              'successActionId',
-              'errorActionId',
-              'actionsIds',
-            ]}
-          />
+        <AutoFields
+          omitFields={[
+            'code',
+            'resourceId',
+            'config',
+            'successActionId',
+            'errorActionId',
+            'actionsIds',
+          ]}
+        />
 
         {/** Api Action */}
         <DisplayIfField<ICreateActionData>
@@ -119,54 +105,7 @@ export const CreateActionForm = observer(
           <SelectResource name="resourceId" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
-
-          {/** GraphQL Config Form */}
-          <DisplayIfField<ICreateActionData>
-            condition={(context) =>
-              getResourceType(context) === ResourceType.GraphQl
-            }
-          >
-            <AutoField label="Action code" name="code" />
-          </DisplayIfField>
-
-          {/** Api Action */}
-          <DisplayIfField<ICreateActionData>
-            condition={(context) =>
-              context.model.type === IActionKind.ApiAction
-            }
-          >
-            <SelectResource
-              name="resourceId"
-              resourceService={resourceService}
-            />
-            <AutoField component={SelectAction} name="successActionId" />
-            <AutoField component={SelectAction} name="errorActionId" />
-
-            {/** GraphQL Config Form */}
-            <DisplayIfField<ICreateActionData>
-              condition={(context) =>
-                getResourceType(context) === ResourceType.GraphQL
-              }
-            >
-              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-              <AutoField name="config.data.variables" />
-              <AutoField name="config.data.headers" />
-            </DisplayIfField>
-
-            {/** Rest Config Form */}
-            <DisplayIfField<ICreateActionData>
-              condition={(context) =>
-                getResourceType(context) === ResourceType.Rest
-              }
-            >
-              <AutoField name="config.data.urlSegment" />
-              <AutoField name="config.data.method" />
-              <AutoField name="config.data.body" />
-              <AutoField name="config.data.queryParams" />
-              <AutoField name="config.data.headers" />
-              <AutoField name="config.data.responseType" />
-            </DisplayIfField>
-          </DisplayIfField>
+          <ResourceFetchConfig<ICreateActionData> getResource={getResource} />
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>

@@ -1,7 +1,7 @@
-import {
-  type IRuntimeActionDTO,
-  type IRuntimeActionModel,
-  type IRuntimeStoreModel,
+import type {
+  IRuntimeActionDTO,
+  IRuntimeActionModel,
+  IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,

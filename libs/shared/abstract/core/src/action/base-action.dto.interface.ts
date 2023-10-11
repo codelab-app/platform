@@ -1,6 +1,6 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IActionKind } from '../action-kind.enum'
+import { IActionKind } from './action-kind.enum'
 import { IRef } from '../model/node-type.interface'
 
 export const IBaseActionDTO = Type.Object({

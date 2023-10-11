@@ -1,3 +1,7 @@
+import {
+  getAuthGuardService,
+  getRedirectService,
+} from '@codelab/frontend/abstract/application'
 import type {
   IAppDevelopmentArgs,
   IAppDevelopmentService,
@@ -77,7 +81,13 @@ export class AppDevelopmentService
     )
 
     const elements = [...pagesElements, ...componentsElements]
-    const props = elements.flatMap((element) => element.props)
+    const resources = data.resources
+    const authGuards = data.authGuards
+
+    const props = elements
+      .flatMap((element) => element.props)
+      .concat(resources.map((resource) => resource.config))
+      .concat(authGuards.map((authGuard) => authGuard.config))
 
     const pageStores = pages.map((page) => ({
       ...page.store,
@@ -132,6 +142,8 @@ export class AppDevelopmentService
       'fields' in type ? type.fields : [],
     )
 
+    const redirects = data.redirects
+
     return {
       actions,
       app,
@@ -141,6 +153,7 @@ export class AppDevelopmentService
       fields,
       pages,
       props,
+      redirects,
       resources: data.resources,
       stores,
       types: [...types, ...elementsDependantTypes, ...systemTypes],
@@ -173,6 +186,8 @@ export class AppDevelopmentService
       this.resourceDomainService.hydrate(resource),
     )
 
+    data.redirects.forEach((redirect) => this.redirectService.hydrate(redirect))
+
     this.elementDomainService.logElementTreeState()
 
     return this.appDomainService.hydrate(data.app)
@@ -199,6 +214,11 @@ export class AppDevelopmentService
   }
 
   @computed
+  private get authGuardService() {
+    return getAuthGuardService(this)
+  }
+
+  @computed
   private get componentDomainService() {
     return getComponentDomainService(this)
   }
@@ -221,6 +241,11 @@ export class AppDevelopmentService
   @computed
   private get typeDomainService() {
     return getTypeDomainService(this)
+  }
+
+  @computed
+  private get redirectDomainService() {
+    return getRedirectDomainService(this)
   }
 
   @computed

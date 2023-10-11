@@ -7,12 +7,11 @@ import {
 } from '@codelab/frontend/application/type'
 import {
   DisplayIf,
-  DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -20,6 +19,7 @@ import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useActionSchema } from '../hooks'
 import { updateActionSchema } from './update-action.schema'
+import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
 
 interface UpdateActionFormProps {
   showFormControl?: boolean
@@ -74,7 +74,7 @@ export const UpdateActionForm = observer(
             code: actionToUpdate?.code,
           }
 
-    const getResourceType = (context: Context<IUpdateActionData>) =>
+    const getResource = (context: Context<IUpdateActionData>) =>
       context.model.resourceId
         ? resourceService.resource(context.model.resourceId)?.type
         : null
@@ -113,30 +113,7 @@ export const UpdateActionForm = observer(
               updatedAction={{ id: actionToUpdate.id }}
             />
 
-            {/** GraphQL Config Form */}
-            <DisplayIfField<IUpdateActionData>
-              condition={(context) =>
-                getResourceType(context) === IResourceType.GraphQl
-              }
-            >
-              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-              <AutoField name="config.data.variables" />
-              <AutoField name="config.data.headers" />
-            </DisplayIfField>
-
-            {/** Rest Config Form */}
-            <DisplayIfField<IUpdateActionData>
-              condition={(context) =>
-                getResourceType(context) === IResourceType.Rest
-              }
-            >
-              <AutoField name="config.data.urlSegment" />
-              <AutoField name="config.data.method" />
-              <AutoField name="config.data.body" />
-              <AutoField name="config.data.queryParams" />
-              <AutoField name="config.data.headers" />
-              <AutoField name="config.data.responseType" />
-            </DisplayIfField>
+            <ResourceFetchConfig<IUpdateActionData> getResource={getResource} />
           </>
         )}
 

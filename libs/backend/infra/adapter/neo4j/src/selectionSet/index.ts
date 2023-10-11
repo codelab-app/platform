@@ -1,6 +1,7 @@
 export * from './action-selection-set'
 export * from './app-selection-set'
 export * from './atom-selection-set'
+export * from './auth-guard-selection-set'
 export * from './component-selection-set'
 export * from './domain-selection-set'
 export * from './element-selection-set'

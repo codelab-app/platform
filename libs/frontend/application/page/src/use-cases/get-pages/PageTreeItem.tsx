@@ -3,12 +3,15 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
 import FileTextOutlined from '@ant-design/icons/FileTextOutlined'
+import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
+import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import {
   type IAppModel,
   type IPagesTreeDataNode,
   pageRef,
+  redirectRef,
 } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
@@ -40,7 +43,9 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { domainService, pageService, userService } = useStore()
+    const { domainService, pageService, redirectService, userService } =
+      useStore()
+
     const { popover } = useCui()
     const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
     const router = useRouter()
@@ -71,6 +76,22 @@ export const PageTreeItem = observer(
         key: 'delete',
         onClick: () => pageService.deleteModal.open(pageRef(page)),
         title: 'Delete',
+      },
+      {
+        icon: <SafetyOutlined />,
+        key: 'auth-guard',
+        onClick: () => {
+          if (page.redirect) {
+            redirectService.updateForm.open(redirectRef(page.redirect.id))
+          } else {
+            redirectService.createForm.open(pageRef(page))
+          }
+
+          popover.open(
+            page.redirect ? FormNames.UpdateRedirect : FormNames.CreateRedirect,
+          )
+        },
+        title: 'Auth Guard',
       },
       {
         icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
@@ -116,7 +137,10 @@ export const PageTreeItem = observer(
       <CuiTreeItem
         icon={
           page.kind === IPageKind.Regular ? (
-            <FileTextOutlined style={{ color: 'blue' }} />
+            <>
+              {page.redirect?.id && <LockFilled style={{ color: 'green' }} />}
+              <FileTextOutlined style={{ color: 'blue' }} />
+            </>
           ) : (
             <FileOutlined style={{ color: 'black' }} />
           )

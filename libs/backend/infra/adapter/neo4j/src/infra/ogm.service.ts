@@ -5,6 +5,7 @@ import type {
   AppTypeModel,
   ArrayTypeModel,
   AtomModel,
+  AuthGuardModel,
   CodeActionModel,
   CodeMirrorTypeModel,
   ComponentModel,
@@ -136,6 +137,10 @@ export class OgmService {
     return (this.resource ??= this.ogm.model('Resource'))
   }
 
+  get AuthGuard() {
+    return (this.authGuard ??= this.ogm.model('AuthGuard'))
+  }
+
   get Store() {
     return (this.store ??= this.ogm.model('Store'))
   }
@@ -236,6 +241,8 @@ export class OgmService {
   private renderPropType: RenderPropTypeModel | undefined
 
   private resource: ResourceModel | undefined
+
+  private authGuard: AuthGuardModel | undefined
 
   private store: StoreModel | undefined
 
