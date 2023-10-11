@@ -26,6 +26,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  clone,
   idProp,
   Model,
   model,
