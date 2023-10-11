@@ -21,7 +21,7 @@ describe('Element domain', () => {
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
   pageService.add(pageDto)
-  elementDomainService.add({ ...rootElementDto, page: pageDto })
+  elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
   atomService.add(atomReactFragmentDto)
 
   const rootElement = elementService.element(rootElementDto.id)
@@ -58,7 +58,7 @@ describe('Element domain', () => {
     it('should add element as first child', () => {
       elementDomainService.resetModifiedElements()
 
-      firstChild = elementDomainService.add(firstChildDto)
+      firstChild = elementDomainService.addTreeNode(firstChildDto)
 
       expect(rootElement.firstChild?.id).toBe(firstChild.id)
       expect(firstChild.parentElement?.id).toBe(rootElement.id)
@@ -70,7 +70,7 @@ describe('Element domain', () => {
     //  /
     // [anotherFirstChild]-(firstChild)
     it('should replace as first child', () => {
-      anotherFirstChild = elementDomainService.add(anotherFirstChildDto)
+      anotherFirstChild = elementDomainService.addTreeNode(anotherFirstChildDto)
 
       expect(rootElement.firstChild?.id).toBe(anotherFirstChild.id)
       expect(anotherFirstChild.parentElement?.id).toBe(rootElement.id)
@@ -104,7 +104,7 @@ describe('Element domain', () => {
     it('should add element as next sibling', () => {
       elementDomainService.resetModifiedElements()
 
-      nextSibling = elementDomainService.add(nextSiblingDto)
+      nextSibling = elementDomainService.addTreeNode(nextSiblingDto)
 
       expect(anotherFirstChild.nextSibling?.id).toBe(firstChildDto.id)
       expect(nextSibling.prevSibling?.id).toBe(firstChildDto.id)
@@ -118,7 +118,9 @@ describe('Element domain', () => {
     it('should insert next sibling between 2 nodes', () => {
       elementDomainService.resetModifiedElements()
 
-      anotherNextSibling = elementDomainService.add(anotherNextSiblingDto)
+      anotherNextSibling = elementDomainService.addTreeNode(
+        anotherNextSiblingDto,
+      )
 
       expect(firstChild.nextSibling?.id).toBe(anotherNextSibling.id)
 
@@ -148,7 +150,7 @@ describe('Element domain', () => {
     it('should add element as prev sibling', () => {
       elementDomainService.resetModifiedElements()
 
-      prevSibling = elementDomainService.add(prevSiblingDto)
+      prevSibling = elementDomainService.addTreeNode(prevSiblingDto)
 
       expect(anotherNextSibling.nextSibling?.id).toBe(prevSibling.id)
 
@@ -177,7 +179,9 @@ describe('Element domain', () => {
         parentElement: nextSibling,
       }
 
-      secondLevelFirstChild = elementDomainService.add(secondLevelFirstChildDto)
+      secondLevelFirstChild = elementDomainService.addTreeNode(
+        secondLevelFirstChildDto,
+      )
 
       expect(nextSibling.closestParentElement?.current).toBe(rootElement)
       expect(anotherNextSibling.closestParentElement?.current).toBe(rootElement)

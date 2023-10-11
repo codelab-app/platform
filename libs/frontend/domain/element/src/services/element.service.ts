@@ -62,11 +62,15 @@ export class ElementService
 {
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
-    const element = this.elementDomainService.add(data)
+    this.elementDomainService.logElementTreeState()
+
+    const element = this.elementDomainService.hydrate(data)
 
     yield* _await(this.elementRepository.add(element))
 
     yield* _await(this.syncModifiedElements())
+
+    this.elementDomainService.logElementTreeState()
 
     /**
      * Syncs all components to the current element tree
@@ -221,7 +225,7 @@ export class ElementService
     ]
 
     const hydratedElements = elements.map((element) =>
-      this.elementDomainService.add({
+      this.elementDomainService.hydrate({
         ...element,
         closestContainerNode: {
           id: component.id,

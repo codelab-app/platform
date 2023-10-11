@@ -156,7 +156,7 @@ export class ComponentService
 
     if (!rootElementModel) {
       rootElementModel =
-        this.elementService.elementDomainService.add(elementData)
+        this.elementService.elementDomainService.hydrate(elementData)
     }
 
     const component = this.add({
@@ -255,7 +255,7 @@ export class ComponentService
           this.atomService.add(elementData.renderType)
         }
 
-        this.elementService.elementDomainService.add({
+        this.elementService.elementDomainService.hydrate({
           ...elementData,
           closestContainerNode: { id },
           parentElement: elementData.parentElement,

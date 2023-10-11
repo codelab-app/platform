@@ -267,7 +267,7 @@ export class CloneElementService
     }
 
     const elementCloneModel =
-      this.elementService.elementDomainService.add(cloneElementDto)
+      this.elementService.elementDomainService.hydrate(cloneElementDto)
 
     await this.elementService.elementRepository.add(elementCloneModel)
 

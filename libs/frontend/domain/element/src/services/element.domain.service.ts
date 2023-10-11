@@ -37,7 +37,26 @@ export class ElementDomainService
   }
 
   @modelAction
-  add = (elementDto: IElementDTO): IElementModel => {
+  addTreeNode = (elementDto: IElementDTO) => {
+    const element = this.hydrate(elementDto)
+
+    this.move({
+      element,
+      nextSibling: element.nextSibling?.current,
+      parentElement: element.parentElement?.current,
+      prevSibling: element.prevSibling?.current,
+    })
+
+    return element
+  }
+
+  /**
+   * This add can be used as is when we are hydrating element tree data that has the proper connections.
+   *
+   * But when we are adding a new node, it requires the move function to be called
+   */
+  @modelAction
+  hydrate = (elementDto: IElementDTO): IElementModel => {
     console.debug('ElementDomainService.add()', elementDto)
 
     validateElementDto(elementDto)
@@ -53,13 +72,6 @@ export class ElementDomainService
     const element: IElementModel = Element.create(elementDto)
 
     this.elements.set(elementDto.id, element)
-
-    this.move({
-      element,
-      nextSibling: element.nextSibling?.current,
-      parentElement: element.parentElement?.current,
-      prevSibling: element.prevSibling?.current,
-    })
 
     return element
   }

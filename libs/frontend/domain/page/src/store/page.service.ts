@@ -86,7 +86,7 @@ export class PageService
 
     this.propService.add(rootElementProps)
 
-    const rootElement = this.elementService.elementDomainService.add({
+    const rootElement = this.elementService.elementDomainService.hydrate({
       closestContainerNode: {
         id,
       },
@@ -185,7 +185,7 @@ export class PageService
       ]
 
       elements.forEach((element) =>
-        this.elementService.elementDomainService.add({
+        this.elementService.elementDomainService.hydrate({
           ...element,
           closestContainerNode: {
             id: page.id,
@@ -279,7 +279,7 @@ export class PageService
 
       console.log('AppService.loadPages() elementDto', elementDto)
 
-      this.elementService.elementDomainService.add(elementDto)
+      this.elementService.elementDomainService.hydrate(elementDto)
     })
   }
 
