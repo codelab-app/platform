@@ -100,7 +100,7 @@ export interface IElementModel
   // closestPage: Nullable<Ref<IPageModel>>
   closestParentElement: Ref<IElementModel> | null
   // the closest rootElement of node (page/component) that element belongs to
-  closestRootElement: IElementModel
+  closestSubTreeRootElement: IElementModel
   customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
@@ -165,7 +165,7 @@ export interface IElementModel
     inheritedStyles: ElementCssRules
   }
   tailwindClassNames?: Nullable<Array<string>>
-  toElementTree: object
+  toTreeNode: object
   toId: object
   toJson: IElement
   treeViewNode: IElementTreeViewDataNode

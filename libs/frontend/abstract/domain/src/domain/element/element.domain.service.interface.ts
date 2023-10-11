@@ -14,6 +14,7 @@ export interface IElementDomainService {
   modifiedElements: Array<IElementModel>
 
   add(elementDto: IElementDTO): IElementModel
+  logElementTreeState(): void
   move(context: IMoveElementContext): void
   resetModifiedElements(): void
 }

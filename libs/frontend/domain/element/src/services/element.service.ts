@@ -61,10 +61,17 @@ export class ElementService
 {
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
+    this.elementDomainService.logElementTreeState()
+
     const element = this.elementDomainService.add(data)
 
     yield* _await(this.elementRepository.add(element))
+
+    this.elementDomainService.logElementTreeState()
+
     yield* _await(this.syncModifiedElements())
+
+    this.elementDomainService.logElementTreeState()
 
     /**
      * Syncs all components to the current element tree
@@ -125,32 +132,33 @@ export class ElementService
 
     // Check if the element is linked as a children container in parent component
     // and replace this link to component root before element is deleted
-    if (parentComponent && childrenContainer?.id === subRootElement.id) {
-      yield* _await(
-        this.componentService.update({
-          childrenContainerElement: {
-            id: parentComponent.rootElement.current.id,
-          },
-          id: parentComponent.id,
-          name: parentComponent.name,
-        }),
-      )
-    }
+    // if (parentComponent && childrenContainer?.id === subRootElement.id) {
+    //   yield* _await(
+    //     this.componentService.update({
+    //       childrenContainerElement: {
+    //         id: parentComponent.rootElement.current.id,
+    //       },
+    //       id: parentComponent.id,
+    //       name: parentComponent.name,
+    //     }),
+    //   )
+    // }
 
-    subRootElement.detachFromTree()
-
+    // Get elements before detaching
     const allElementsToDelete = [
       subRootElement,
       ...subRootElement.descendantElements,
     ]
 
+    subRootElement.detachFromTree()
+
+    yield* _await(this.syncModifiedElements())
+    yield* _await(this.elementRepository.delete(allElementsToDelete))
+
     allElementsToDelete.reverse().forEach((element) => {
       this.removeClones(element.id)
       this.elementDomainService.elements.delete(element.id)
     })
-
-    yield* _await(this.syncModifiedElements())
-    yield* _await(this.elementRepository.delete(allElementsToDelete))
 
     return
   })
