@@ -90,6 +90,13 @@ export class ElementDomainService
     }
   }
 
+  logElementTreeState() {
+    ;[...this.elements.values()].forEach((element) => {
+      const node = element.toTreeNode
+      console.debug(node)
+    })
+  }
+
   @computed
   get propService() {
     return getPropService(this)

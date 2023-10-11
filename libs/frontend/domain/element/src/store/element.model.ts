@@ -250,13 +250,11 @@ export class Element
   @computed
   get closestContainerNode() {
     const closestContainerNode =
-      this.parentComponent?.current ??
-      this.page?.current ??
-      this.closestParentElement?.current.parentComponent?.current ??
-      this.closestParentElement?.current.page?.current
+      this.closestSubTreeRootElement.parentComponent?.current ??
+      this.closestSubTreeRootElement.page?.current
 
     if (!closestContainerNode) {
-      console.log(this, this.closestParentElement?.maybeCurrent)
+      console.log(this.toTreeNode, this.closestSubTreeRootElement.toTreeNode)
       throw new Error('Element has no node attached to')
     }
 
@@ -265,7 +263,7 @@ export class Element
 
   /**
    * We have the concept of `parent` and `closestParent`.
-   *
+   closestParentElement?.maybeCurrent?.toTreeNode,*
    * `parent` has an edge connection like `siblings` in the database.
    *
    * `closestParent` is a conceptual value, we traverse up the sibling chain until we find the first parent
@@ -302,11 +300,14 @@ export class Element
     return null
   }
 
+  /**
+   * The root element is the child of a container node, a tree could have many root elements
+   */
   @computed
-  get closestRootElement(): IElementModel {
+  get closestSubTreeRootElement(): IElementModel {
     return this.closestParentElement
-      ? this.closestParentElement.current.closestRootElement
-      : (this as IElementModel)
+      ? this.closestParentElement.current.closestSubTreeRootElement
+      : this
   }
 
   @computed
@@ -507,7 +508,7 @@ export class Element
   }
 
   @computed
-  get toElementTree() {
+  get toTreeNode() {
     return {
       firstChild: this.firstChild?.current.toId,
       id: this.id,
@@ -605,7 +606,7 @@ export class Element
       key: this.id,
       node: this,
       primaryTitle: this.treeTitle.primary,
-      rootKey: this.closestRootElement.id,
+      rootKey: this.closestSubTreeRootElement.id,
       secondaryTitle: this.treeTitle.secondary,
       title: `${this.treeTitle.primary} (${this.treeTitle.secondary})`,
     }
@@ -639,7 +640,7 @@ export class Element
    */
   @modelAction
   attachAsNextSibling(prevSibling: IElementModel) {
-    console.debug('Element.attachAsNextSibling()', prevSibling.toElementTree)
+    console.debug('Element.attachAsNextSibling()', prevSibling.toTreeNode)
 
     const oldNextSibling = prevSibling.nextSibling?.current
 
@@ -677,7 +678,7 @@ export class Element
 
     if (oldPrevSibling) {
       oldPrevSibling.nextSibling = elementRef(this)
-      console.log(oldPrevSibling.toElementTree)
+      console.log(oldPrevSibling.toTreeNode)
 
       this.prevSibling = elementRef(oldPrevSibling)
     }
