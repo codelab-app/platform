@@ -1,11 +1,12 @@
 import type { IPageNode, IRuntimeProp } from '@codelab/frontend/abstract/domain'
-import { isTypedProp } from '@codelab/frontend/abstract/domain'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import {
+  getRenderService,
+  isTypedProp,
+} from '@codelab/frontend/abstract/domain'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
-import { BaseRenderPipe } from './renderPipes/render-pipe.base'
+import { Model, model, prop } from 'mobx-keystone'
 
 /**
  * The pipeline is as follow
@@ -16,11 +17,8 @@ import { BaseRenderPipe } from './renderPipes/render-pipe.base'
  */
 @model('@codelab/BaseRuntimeProps')
 export class BaseRuntimeProps<TNode extends IPageNode>
-  extends ExtendedModel(<Node extends IPageNode>() => ({
-    baseModel: modelClass<BaseRenderPipe>(BaseRenderPipe),
-    props: {
-      nodeRef: prop<Ref<Node>>(),
-    },
+  extends Model(<Node extends IPageNode>() => ({
+    nodeRef: prop<Ref<Node>>(),
   }))<TNode>
   implements
     Omit<IRuntimeProp<TNode>, 'evaluatedProps' | 'evaluatedPropsBeforeRender'>
@@ -52,7 +50,10 @@ export class BaseRuntimeProps<TNode extends IPageNode>
         return undefined
       }
 
-      const transformer = this.renderer.typedPropTransformers.get(value.kind)
+      const transformer =
+        this.renderService.activeRenderer?.current.typedPropTransformers.get(
+          value.kind,
+        )
 
       if (!transformer) {
         return value.value
@@ -63,7 +64,7 @@ export class BaseRuntimeProps<TNode extends IPageNode>
   }
 
   @computed
-  private get typeService() {
-    return getTypeService(this)
+  private get renderService() {
+    return getRenderService(this)
   }
 }

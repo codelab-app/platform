@@ -23,6 +23,13 @@ import {
   isElementRef,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
+import {
+  ActionRunner,
+  ComponentRuntimeProps,
+  ElementRuntimeProps,
+  ExpressionTransformer,
+  getRunner,
+} from '@codelab/frontend/domain/renderer'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
@@ -40,13 +47,9 @@ import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { ActionRunner, getRunner } from './action-runner.model'
-import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
-import { ElementRuntimeProps } from './element-runtime-props.model'
-import { ExpressionTransformer } from './expression-transformer.service'
 import {
   defaultPipes,
   renderPipeFactory,

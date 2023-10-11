@@ -5,12 +5,11 @@ import type { IComponentModel } from '../component'
 import type { IElementModel } from '../element'
 import type { IPageNode } from '../page'
 import type { TypedProp } from '../type'
-import type { IBaseRenderPipe } from '.'
 
 /**
  * Transforms a typed prop to a specific value
  */
-export interface ITypedPropTransformer extends IBaseRenderPipe {
+export interface ITypedPropTransformer {
   transform(prop: TypedProp, node: IPageNode): unknown
 }
 
