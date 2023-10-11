@@ -29,12 +29,11 @@ describe('Element domain', () => {
   const { elementDomainService } = elementService
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
-
   pageService.add(pageDto)
   elementDomainService.add({ ...rootElementDto, page: pageDto })
   atomService.add(atomReactFragmentDto)
 
-  const rootElement = elementDomainService.elements.get(rootElementDto.id)
+  const rootElement = elementService.element(rootElementDto.id)
 
   it('should add a render type to element', () => {
     const renderType = rootElement.renderType
