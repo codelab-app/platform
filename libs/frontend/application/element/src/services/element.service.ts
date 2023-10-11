@@ -109,6 +109,8 @@ export class ElementService
    */
   @modelFlow
   syncModifiedElements = _async(function* (this: ElementService) {
+    this.elementDomainService.logElementTreeState()
+
     yield* _await(
       this.updateElements(this.elementDomainService.modifiedElements),
     )
