@@ -5,7 +5,7 @@ import {
   type IActionService,
   type IActionWhere,
   type ICreateActionData,
-  isElementPageNodeRef,
+  isElementRef,
   type IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -183,9 +183,10 @@ export class ActionService
     const { selectedNode } = this.builderService
     const selectedNodeStore = selectedNode?.current.store.current
 
-    const providerStore = isElementPageNodeRef(selectedNode)
-      ? selectedNode.current.providerStore?.current
-      : undefined
+    const providerStore =
+      selectedNode && isElementRef(selectedNode)
+        ? selectedNode.current.providerStore?.current
+        : undefined
 
     const updatedAction = actionEntity
       ? this.action(actionEntity.id)
