@@ -29,7 +29,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   execTimeout: 5000,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  pageLoadTimeout: 20000,
+  pageLoadTimeout: 15000,
   projectId: '9hfoow',
   responseTimeout: 5000,
   retries: {

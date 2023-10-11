@@ -74,6 +74,7 @@ export class ElementService
 
     yield* _await(this.elementRepository.add(element))
 
+    yield* _await(this.elementRepository.add(element))
     yield* _await(this.syncModifiedElements())
 
     /**
