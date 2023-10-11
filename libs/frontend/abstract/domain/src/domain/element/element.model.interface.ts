@@ -165,6 +165,7 @@ export interface IElementModel
     inheritedStyles: ElementCssRules
   }
   tailwindClassNames?: Nullable<Array<string>>
+  toTreeNode: object
   toId: object
   toJson: IElement
   toTreeNode: object

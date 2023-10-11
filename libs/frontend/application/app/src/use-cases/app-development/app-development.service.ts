@@ -130,7 +130,7 @@ export class AppDevelopmentService
     data.components.forEach((component) => this.componentService.add(component))
 
     data.elements.forEach((element) =>
-      this.elementService.elementDomainService.add(element),
+      this.elementService.elementDomainService.hydrate(element),
     )
 
     data.props.forEach((prop) => this.propService.add(prop))
@@ -140,6 +140,8 @@ export class AppDevelopmentService
     data.stores.forEach((store) => this.storeService.add(store))
 
     data.actions.forEach((action) => this.actionService.add(action))
+
+    this.elementService.elementDomainService.logElementTreeState()
 
     return this.appService.add(data.app)
   }

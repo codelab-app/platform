@@ -114,7 +114,7 @@ export class AppProductionService
 
     data.elements.forEach((element) =>
       // use a dummy closestContainerNode to avoid typing issues
-      this.elementService.elementDomainService.add({
+      this.elementService.elementDomainService.hydrate({
         ...element,
         closestContainerNode: entity,
       }),
