@@ -708,6 +708,10 @@ export class Element
 
     if (parentElementsFirstChild) {
       parentElementsFirstChild.parentElement = null
+
+      parentElementsFirstChild.prevSibling = elementRef(this)
+
+      this.nextSibling = elementRef(parentElementsFirstChild)
     }
 
     /**
