@@ -43,4 +43,7 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   renderPropTypes {
     ...RenderPropType
   }
+  resources {
+    ...Resource
+  }
 }
