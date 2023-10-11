@@ -13,7 +13,7 @@ import { parse, printSchema } from 'graphql'
  */
 export const graphqlCodegen = async (sourceRoot: string, libName: string) => {
   // Schema
-  const schema = await loadSchema('http://127.0.0.1:3000/api/graphql', {
+  const schema = await loadSchema('http://127.0.0.1:4000/api/graphql', {
     loaders: [new UrlLoader()],
   })
 
