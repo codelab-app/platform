@@ -116,6 +116,16 @@ export class ResourceService
   })
 
   @modelFlow
+  getSelectResourceOptions = _async(function* (this: ResourceService) {
+    const resources = yield* _await(this.getAll())
+
+    return resources.map((resource) => ({
+      label: resource.name,
+      value: resource.id,
+    }))
+  })
+
+  @modelFlow
   @transaction
   update = _async(function* (
     this: ResourceService,

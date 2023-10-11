@@ -4,6 +4,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
@@ -44,6 +45,7 @@ export interface IResourceService
   resourceList: Array<IResourceModel>
 
   add(resource: IResourceDTO): IResourceModel
+  getSelectResourceOptions(): Promise<Array<DefaultOptionType>>
   load(resources: Array<IResourceDTO>): void
   resource(resource: IResourceRef): Maybe<IResourceModel>
 }

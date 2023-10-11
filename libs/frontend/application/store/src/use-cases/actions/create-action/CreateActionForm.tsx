@@ -115,7 +115,7 @@ export const CreateActionForm = observer(
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <SelectResource name="resourceId" resourceService={resourceService} />
+          <SelectResource name="resourceId" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
 

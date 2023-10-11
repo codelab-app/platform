@@ -7,6 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
+  getBuilderService,
   getElementService,
   getRenderService,
   IUpdateComponentData,
@@ -34,6 +35,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
+import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
@@ -291,6 +293,30 @@ export class ComponentService
   })
 
   @modelFlow
+  getSelectComponentOptions = _async(function* (this: ComponentService) {
+    yield* _await(this.getAll())
+
+    const parentComponent = this.builderService.activeComponent?.current
+
+    const filtered = this.sortedComponentsList.filter((component) => {
+      if (component.id === parentComponent?.id) {
+        return false
+      }
+
+      const parentIsDescendant = component.descendantComponents.some(
+        ({ id }) => id === parentComponent?.id,
+      )
+
+      return !parentComponent?.id || !parentIsDescendant
+    })
+
+    return filtered.map((component) => ({
+      label: component.name,
+      value: component.id,
+    }))
+  })
+
+  @modelFlow
   @transaction
   update = _async(function* (
     this: ComponentService,
@@ -396,6 +422,11 @@ export class ComponentService
   }
 
   @computed
+  private get builderService() {
+    return getBuilderService(this)
+  }
+
+  @computed
   private get elementService() {
     return getElementService(this)
   }
@@ -408,6 +439,11 @@ export class ComponentService
   @computed
   private get renderService() {
     return getRenderService(this)
+  }
+
+  @computed
+  private get sortedComponentsList() {
+    return sortBy(this.componentList, 'name')
   }
 
   @computed

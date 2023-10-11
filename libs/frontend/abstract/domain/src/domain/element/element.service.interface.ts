@@ -1,4 +1,8 @@
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  IElementRenderTypeDto,
+  IElementTypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -41,6 +45,19 @@ export interface UpdateElementProperties {
   element: IElementModel
 }
 
+export interface SelectElementOption {
+  childrenIds?: Array<string>
+  label: string
+  value: string
+}
+
+export interface SelectElementOptions {
+  allElementOptions?: Array<SelectElementOption>
+  elementTree?: IElementTree
+  kind: IElementTypeKind
+  targetElementId?: string
+}
+
 export interface IElementService
   extends Omit<
       ICRUDService<IElementModel, IElementDTO, IUpdateElementData>,
@@ -66,6 +83,9 @@ export interface IElementService
   createElement(data: IElementDTO): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
+  getSelectElementOptions(
+    props: SelectElementOptions,
+  ): Array<SelectElementOption>
   loadComponentTree(component: ComponentDevelopmentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel

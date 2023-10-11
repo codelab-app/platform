@@ -4,6 +4,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
@@ -39,4 +40,5 @@ export interface IComponentService
 
   add(componentDTO: IComponentDTO): IComponentModel
   component(id: string): IComponentModel
+  getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
 }

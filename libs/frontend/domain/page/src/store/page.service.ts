@@ -215,6 +215,18 @@ export class PageService
   })
 
   @modelFlow
+  getSelectPageOptions = _async(function* (this: PageService, appId?: string) {
+    const pages = yield* _await(
+      this.getAll({ appConnection: { node: { id: appId } } }),
+    )
+
+    return pages.map((page) => ({
+      label: page.name,
+      value: page.id,
+    }))
+  })
+
+  @modelFlow
   @transaction
   update = _async(function* (
     this: PageService,
