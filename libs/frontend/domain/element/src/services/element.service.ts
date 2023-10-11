@@ -5,6 +5,8 @@ import type {
   SelectElementOption,
 } from '@codelab/frontend/abstract/domain'
 import {
+  elementRef,
+  getBuilderService,
   getComponentService,
   IUpdateElementData,
   SelectElementOptions,
@@ -68,15 +70,11 @@ export class ElementService
 {
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
-    this.elementDomainService.logElementTreeState()
-
     const element = this.elementDomainService.addTreeNode(data)
 
     yield* _await(this.elementRepository.add(element))
 
     yield* _await(this.syncModifiedElements())
-
-    this.elementDomainService.logElementTreeState()
 
     /**
      * Syncs all components to the current element tree
@@ -104,8 +102,6 @@ export class ElementService
    */
   @modelFlow
   syncModifiedElements = _async(function* (this: ElementService) {
-    this.elementDomainService.logElementTreeState()
-
     yield* _await(
       this.updateElements(this.elementDomainService.modifiedElements),
     )
@@ -161,13 +157,25 @@ export class ElementService
 
     subRootElement.detachFromTree()
 
-    yield* _await(this.syncModifiedElements())
-    // yield* _await(this.elementRepository.delete(elementsToDelete))
+    /**
+     * Set the new node before we delete
+     */
+    const selectedNode =
+      subRootElement.prevSibling?.current ??
+      subRootElement.closestParentElement?.current ??
+      subRootElement.closestSubTreeRootElement
 
-    // elementsToDelete.reverse().forEach((element) => {
-    //   // this.removeClones(element.id)
-    //   this.elementDomainService.elements.delete(element.id)
-    // })
+    this.builderService.setSelectedNode(elementRef(selectedNode))
+
+    yield* _await(this.syncModifiedElements())
+
+    // This must be placed after syncModifiedElements
+    elementsToDelete.reverse().forEach((element) => {
+      // this.removeClones(element.id)
+      this.elementDomainService.elements.delete(element.id)
+    })
+
+    yield* _await(this.elementRepository.delete(elementsToDelete))
 
     return
   })
@@ -354,6 +362,11 @@ export class ElementService
     return [...this.clonedElements.values()]
       .filter((clonedElement) => clonedElement.sourceElement?.id === id)
       .map((clonedElement) => clonedElement.writeCache({ ...elementData }))
+  }
+
+  @computed
+  private get builderService() {
+    return getBuilderService(this)
   }
 
   @computed
