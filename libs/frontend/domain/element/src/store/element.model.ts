@@ -758,6 +758,12 @@ export class Element
     this.style = JSON.stringify(styleObject)
   }
 
+  /**
+   * This function connects other elements together to form the new tree structure.
+   *
+   * This element will still reference others, we can only delete this model, not change its reference to others.
+   *
+   */
   @modelAction
   detachFromTree() {
     console.debug('Element.detachFromTree()', this.toTreeNode)
@@ -784,9 +790,12 @@ export class Element
       }
     }
 
-    this.nextSibling = null
-    this.prevSibling = null
-    this.parentElement = null
+    /**
+     * The element cannot exist below state, so we delete in calling function instead of changing the elementTree, since this would cause some invariants to break.
+     */
+    // this.nextSibling = null
+    // this.prevSibling = null
+    // this.parentElement = null
 
     return this
   }

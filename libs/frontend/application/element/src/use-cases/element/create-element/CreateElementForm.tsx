@@ -42,7 +42,7 @@ export const CreateElementForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateElementFormProps) => {
-    const { elementService, userService } = useStore()
+    const { atomService, elementService, userService } = useStore()
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
@@ -84,6 +84,7 @@ export const CreateElementForm = observer(
       renderType: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         __typename: IElementRenderTypeKind.Atom,
+        // id: atomService.defaultRenderType.id,
       },
       // TODO: Couldn't we only validate when field is changed or submitted?
       // Needs to be null initially so that required sub-fields

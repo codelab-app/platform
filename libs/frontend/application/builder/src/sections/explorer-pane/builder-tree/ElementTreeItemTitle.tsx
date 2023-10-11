@@ -24,6 +24,8 @@ export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
   ({ data, elementContextMenuProps, node }) => {
     // Add CSS to disable hover if node is un-selectable
     if (node && isElement(node)) {
+      console.log(node)
+
       return (
         <BuilderDropHandler element={node}>
           <ElementContextMenu
