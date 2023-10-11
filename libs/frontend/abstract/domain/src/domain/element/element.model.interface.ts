@@ -197,7 +197,7 @@ export interface IElementModel
   set_modified(modified: boolean): void
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
-    'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+    'firstChild' | 'nextSibling' | 'parentElement' | 'prevSibling'
   >
 }
 

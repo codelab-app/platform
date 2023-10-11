@@ -6620,15 +6620,6 @@ type Element {
     sort: [ElementPageConnectionSort!]
     where: ElementPageConnectionWhere
   ): ElementPageConnection!
-  parent(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
-  parentAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): ElementElementParentAggregationSelection
   parentComponent(
     directed: Boolean = true
     options: ComponentOptions
@@ -6645,13 +6636,22 @@ type Element {
     sort: [ElementParentComponentConnectionSort!]
     where: ElementParentComponentConnectionWhere
   ): ElementParentComponentConnection!
-  parentConnection(
+  parentElement(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  parentElementAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ElementElementParentElementAggregationSelection
+  parentElementConnection(
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ElementParentConnectionSort!]
-    where: ElementParentConnectionWhere
-  ): ElementParentConnection!
+    sort: [ElementParentElementConnectionSort!]
+    where: ElementParentElementConnectionWhere
+  ): ElementParentElementConnection!
   postRenderAction(
     directed: Boolean = true
     options: BaseActionOptions
@@ -7051,8 +7051,8 @@ input ElementConnectInput {
   firstChild: ElementFirstChildConnectFieldInput
   nextSibling: ElementNextSiblingConnectFieldInput
   page: ElementPageConnectFieldInput
-  parent: ElementParentConnectFieldInput
   parentComponent: ElementParentComponentConnectFieldInput
+  parentElement: ElementParentElementConnectFieldInput
   postRenderAction: ElementPostRenderActionConnectFieldInput
   preRenderAction: ElementPreRenderActionConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
@@ -7066,8 +7066,8 @@ input ElementConnectOrCreateInput {
   firstChild: ElementFirstChildConnectOrCreateFieldInput
   nextSibling: ElementNextSiblingConnectOrCreateFieldInput
   page: ElementPageConnectOrCreateFieldInput
-  parent: ElementParentConnectOrCreateFieldInput
   parentComponent: ElementParentComponentConnectOrCreateFieldInput
+  parentElement: ElementParentElementConnectOrCreateFieldInput
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
   props: ElementPropsConnectOrCreateFieldInput
   renderType: ElementRenderTypeConnectOrCreateInput
@@ -7090,8 +7090,8 @@ input ElementCreateInput {
   id: ID!
   nextSibling: ElementNextSiblingFieldInput
   page: ElementPageFieldInput
-  parent: ElementParentFieldInput
   parentComponent: ElementParentComponentFieldInput
+  parentElement: ElementParentElementFieldInput
   postRenderAction: ElementPostRenderActionFieldInput
   preRenderAction: ElementPreRenderActionFieldInput
   prevSibling: ElementPrevSiblingFieldInput
@@ -7109,8 +7109,8 @@ input ElementDeleteInput {
   firstChild: ElementFirstChildDeleteFieldInput
   nextSibling: ElementNextSiblingDeleteFieldInput
   page: ElementPageDeleteFieldInput
-  parent: ElementParentDeleteFieldInput
   parentComponent: ElementParentComponentDeleteFieldInput
+  parentElement: ElementParentElementDeleteFieldInput
   postRenderAction: ElementPostRenderActionDeleteFieldInput
   preRenderAction: ElementPreRenderActionDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
@@ -7124,8 +7124,8 @@ input ElementDisconnectInput {
   firstChild: ElementFirstChildDisconnectFieldInput
   nextSibling: ElementNextSiblingDisconnectFieldInput
   page: ElementPageDisconnectFieldInput
-  parent: ElementParentDisconnectFieldInput
   parentComponent: ElementParentComponentDisconnectFieldInput
+  parentElement: ElementParentElementDisconnectFieldInput
   postRenderAction: ElementPostRenderActionDisconnectFieldInput
   preRenderAction: ElementPreRenderActionDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
@@ -7180,12 +7180,12 @@ type ElementElementNextSiblingNodeAggregateSelection {
   style: StringAggregateSelectionNullable!
 }
 
-type ElementElementParentAggregationSelection {
+type ElementElementParentElementAggregationSelection {
   count: Int!
-  node: ElementElementParentNodeAggregateSelection
+  node: ElementElementParentElementNodeAggregateSelection
 }
 
-type ElementElementParentNodeAggregateSelection {
+type ElementElementParentElementNodeAggregateSelection {
   childMapperPropKey: StringAggregateSelectionNullable!
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
@@ -7698,18 +7698,6 @@ input ElementPageUpdateFieldInput {
   where: ElementPageConnectionWhere
 }
 
-input ElementParentAggregateInput {
-  AND: [ElementParentAggregateInput!]
-  NOT: ElementParentAggregateInput
-  OR: [ElementParentAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementParentNodeAggregationWhereInput
-}
-
 input ElementParentComponentAggregateInput {
   AND: [ElementParentComponentAggregateInput!]
   NOT: ElementParentComponentAggregateInput
@@ -7833,7 +7821,19 @@ input ElementParentComponentUpdateFieldInput {
   where: ElementParentComponentConnectionWhere
 }
 
-input ElementParentConnectFieldInput {
+input ElementParentElementAggregateInput {
+  AND: [ElementParentElementAggregateInput!]
+  NOT: ElementParentElementAggregateInput
+  OR: [ElementParentElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementParentElementNodeAggregationWhereInput
+}
+
+input ElementParentElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
@@ -7843,56 +7843,56 @@ input ElementParentConnectFieldInput {
   where: ElementConnectWhere
 }
 
-input ElementParentConnectOrCreateFieldInput {
-  onCreate: ElementParentConnectOrCreateFieldInputOnCreate!
+input ElementParentElementConnectOrCreateFieldInput {
+  onCreate: ElementParentElementConnectOrCreateFieldInputOnCreate!
   where: ElementConnectOrCreateWhere!
 }
 
-input ElementParentConnectOrCreateFieldInputOnCreate {
+input ElementParentElementConnectOrCreateFieldInputOnCreate {
   node: ElementOnCreateInput!
 }
 
-type ElementParentConnection {
-  edges: [ElementParentRelationship!]!
+type ElementParentElementConnection {
+  edges: [ElementParentElementRelationship!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
 
-input ElementParentConnectionSort {
+input ElementParentElementConnectionSort {
   node: ElementSort
 }
 
-input ElementParentConnectionWhere {
-  AND: [ElementParentConnectionWhere!]
-  NOT: ElementParentConnectionWhere
-  OR: [ElementParentConnectionWhere!]
+input ElementParentElementConnectionWhere {
+  AND: [ElementParentElementConnectionWhere!]
+  NOT: ElementParentElementConnectionWhere
+  OR: [ElementParentElementConnectionWhere!]
   node: ElementWhere
 }
 
-input ElementParentCreateFieldInput {
+input ElementParentElementCreateFieldInput {
   node: ElementCreateInput!
 }
 
-input ElementParentDeleteFieldInput {
+input ElementParentElementDeleteFieldInput {
   delete: ElementDeleteInput
-  where: ElementParentConnectionWhere
+  where: ElementParentElementConnectionWhere
 }
 
-input ElementParentDisconnectFieldInput {
+input ElementParentElementDisconnectFieldInput {
   disconnect: ElementDisconnectInput
-  where: ElementParentConnectionWhere
+  where: ElementParentElementConnectionWhere
 }
 
-input ElementParentFieldInput {
-  connect: ElementParentConnectFieldInput
-  connectOrCreate: ElementParentConnectOrCreateFieldInput
-  create: ElementParentCreateFieldInput
+input ElementParentElementFieldInput {
+  connect: ElementParentElementConnectFieldInput
+  connectOrCreate: ElementParentElementConnectOrCreateFieldInput
+  create: ElementParentElementCreateFieldInput
 }
 
-input ElementParentNodeAggregationWhereInput {
-  AND: [ElementParentNodeAggregationWhereInput!]
-  NOT: ElementParentNodeAggregationWhereInput
-  OR: [ElementParentNodeAggregationWhereInput!]
+input ElementParentElementNodeAggregationWhereInput {
+  AND: [ElementParentElementNodeAggregationWhereInput!]
+  NOT: ElementParentElementNodeAggregationWhereInput
+  OR: [ElementParentElementNodeAggregationWhereInput!]
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7970,23 +7970,23 @@ input ElementParentNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_LTE: Int
 }
 
-type ElementParentRelationship {
+type ElementParentElementRelationship {
   cursor: String!
   node: Element!
 }
 
-input ElementParentUpdateConnectionInput {
+input ElementParentElementUpdateConnectionInput {
   node: ElementUpdateInput
 }
 
-input ElementParentUpdateFieldInput {
-  connect: ElementParentConnectFieldInput
-  connectOrCreate: ElementParentConnectOrCreateFieldInput
-  create: ElementParentCreateFieldInput
-  delete: ElementParentDeleteFieldInput
-  disconnect: ElementParentDisconnectFieldInput
-  update: ElementParentUpdateConnectionInput
-  where: ElementParentConnectionWhere
+input ElementParentElementUpdateFieldInput {
+  connect: ElementParentElementConnectFieldInput
+  connectOrCreate: ElementParentElementConnectOrCreateFieldInput
+  create: ElementParentElementCreateFieldInput
+  delete: ElementParentElementDeleteFieldInput
+  disconnect: ElementParentElementDisconnectFieldInput
+  update: ElementParentElementUpdateConnectionInput
+  where: ElementParentElementConnectionWhere
 }
 
 input ElementPostRenderActionConnectFieldInput {
@@ -8395,8 +8395,8 @@ input ElementRelationInput {
   firstChild: ElementFirstChildCreateFieldInput
   nextSibling: ElementNextSiblingCreateFieldInput
   page: ElementPageCreateFieldInput
-  parent: ElementParentCreateFieldInput
   parentComponent: ElementParentComponentCreateFieldInput
+  parentElement: ElementParentElementCreateFieldInput
   postRenderAction: ElementPostRenderActionCreateFieldInput
   preRenderAction: ElementPreRenderActionCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
@@ -8811,8 +8811,8 @@ input ElementUpdateInput {
   id: ID
   nextSibling: ElementNextSiblingUpdateFieldInput
   page: ElementPageUpdateFieldInput
-  parent: ElementParentUpdateFieldInput
   parentComponent: ElementParentComponentUpdateFieldInput
+  parentElement: ElementParentElementUpdateFieldInput
   postRenderAction: ElementPostRenderActionUpdateFieldInput
   preRenderAction: ElementPreRenderActionUpdateFieldInput
   prevSibling: ElementPrevSiblingUpdateFieldInput
@@ -8873,16 +8873,16 @@ input ElementWhere {
   pageConnection: ElementPageConnectionWhere
   pageConnection_NOT: ElementPageConnectionWhere
   page_NOT: PageWhere
-  parent: ElementWhere
-  parentAggregate: ElementParentAggregateInput
   parentComponent: ComponentWhere
   parentComponentAggregate: ElementParentComponentAggregateInput
   parentComponentConnection: ElementParentComponentConnectionWhere
   parentComponentConnection_NOT: ElementParentComponentConnectionWhere
   parentComponent_NOT: ComponentWhere
-  parentConnection: ElementParentConnectionWhere
-  parentConnection_NOT: ElementParentConnectionWhere
-  parent_NOT: ElementWhere
+  parentElement: ElementWhere
+  parentElementAggregate: ElementParentElementAggregateInput
+  parentElementConnection: ElementParentElementConnectionWhere
+  parentElementConnection_NOT: ElementParentElementConnectionWhere
+  parentElement_NOT: ElementWhere
   postRenderActionConnection: ElementPostRenderActionConnectionWhere
   postRenderActionConnection_NOT: ElementPostRenderActionConnectionWhere
   preRenderActionConnection: ElementPreRenderActionConnectionWhere

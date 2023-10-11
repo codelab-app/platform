@@ -258,7 +258,7 @@ export class ComponentService
         this.elementService.elementDomainService.add({
           ...elementData,
           closestContainerNode: { id },
-          parentElement: elementData.parent,
+          parentElement: elementData.parentElement,
         })
       })
 

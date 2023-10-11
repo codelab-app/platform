@@ -25,7 +25,7 @@ const baseElementSelectionSet = `
     name
   }
   ${renderElementType}
-  parent {
+  parentElement {
     id
   }
   prevSibling {

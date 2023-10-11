@@ -491,6 +491,7 @@ export class Element
       closestContainerNode: this.closestContainerNode,
       firstChild: this.firstChild,
       id: this.id,
+      // isRoot: this.isRoot,
       name: this.name,
       nextSibling: this.nextSibling,
       page: this.page,
@@ -759,6 +760,8 @@ export class Element
 
   @modelAction
   detachFromTree() {
+    console.debug('Element.detachFromTree()', this)
+
     const { nextSibling, parentElement, prevSibling } = this
 
     /**
@@ -801,7 +804,6 @@ export class Element
     }
   }
 
-  //
   @modelAction
   toCreateInput(): ElementCreateInput {
     return {
@@ -812,7 +814,7 @@ export class Element
       firstChild: connectNodeId(this.firstChild?.id),
       id: this.id,
       nextSibling: connectNodeId(this.nextSibling?.id),
-      parent: connectNodeId(this.parentElement?.id),
+      parentElement: connectNodeId(this.parentElement?.id),
       prevSibling: connectNodeId(this.prevSibling?.id),
       props: {
         create: {
@@ -887,7 +889,11 @@ export class Element
   @modelAction
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
-    'compositeKey' | 'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+    | 'compositeKey'
+    | 'firstChild'
+    | 'nextSibling'
+    | 'parentElement'
+    | 'prevSibling'
   > {
     return {
       compositeKey: ElementProperties.elementCompositeKey(
@@ -896,7 +902,7 @@ export class Element
       ),
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
-      parent: reconnectNodeId(this.parentElement?.id),
+      parentElement: reconnectNodeId(this.parentElement?.id),
       prevSibling: reconnectNodeId(this.prevSibling?.id),
     }
   }

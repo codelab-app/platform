@@ -19,7 +19,7 @@ fragment Element on Element {
   page {
     id
   }
-  parent {
+  parentElement {
     id
   }
   parentComponent {
@@ -76,7 +76,7 @@ fragment ElementProduction on Element {
   page {
     id
   }
-  parent {
+  parentElement {
     id
   }
   parentComponent {

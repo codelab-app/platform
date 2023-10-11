@@ -27,7 +27,7 @@ export type ElementFragment = {
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
   page?: { id: string } | null
-  parent?: { id: string } | null
+  parentElement?: { id: string } | null
   parentComponent?: { id: string } | null
   postRenderAction?:
     | { id: string; type: Types.ActionKind }
@@ -58,7 +58,7 @@ export type ElementProductionFragment = {
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
   page?: { id: string } | null
-  parent?: { id: string } | null
+  parentElement?: { id: string } | null
   parentComponent?: { id: string } | null
   postRenderAction?:
     | { id: string; type: Types.ActionKind }
@@ -97,7 +97,7 @@ export const ElementFragmentDoc = gql`
     page {
       id
     }
-    parent {
+    parentElement {
       id
     }
     parentComponent {
@@ -157,7 +157,7 @@ export const ElementProductionFragmentDoc = gql`
     page {
       id
     }
-    parent {
+    parentElement {
       id
     }
     parentComponent {

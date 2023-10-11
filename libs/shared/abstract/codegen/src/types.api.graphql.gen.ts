@@ -6837,12 +6837,12 @@ export type Element = {
   page?: Maybe<Page>
   pageAggregate?: Maybe<ElementPagePageAggregationSelection>
   pageConnection: ElementPageConnection
-  parent?: Maybe<Element>
-  parentAggregate?: Maybe<ElementElementParentAggregationSelection>
   parentComponent?: Maybe<Component>
   parentComponentAggregate?: Maybe<ElementComponentParentComponentAggregationSelection>
   parentComponentConnection: ElementParentComponentConnection
-  parentConnection: ElementParentConnection
+  parentElement?: Maybe<Element>
+  parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>
+  parentElementConnection: ElementParentElementConnection
   postRenderAction?: Maybe<BaseAction>
   postRenderActionConnection: ElementPostRenderActionConnection
   preRenderAction?: Maybe<BaseAction>
@@ -6957,17 +6957,6 @@ export type ElementPageConnectionArgs = {
   where?: InputMaybe<ElementPageConnectionWhere>
 }
 
-export type ElementParentArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  options?: InputMaybe<ElementOptions>
-  where?: InputMaybe<ElementWhere>
-}
-
-export type ElementParentAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  where?: InputMaybe<ElementWhere>
-}
-
 export type ElementParentComponentArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>
   options?: InputMaybe<ComponentOptions>
@@ -6987,12 +6976,23 @@ export type ElementParentComponentConnectionArgs = {
   where?: InputMaybe<ElementParentComponentConnectionWhere>
 }
 
-export type ElementParentConnectionArgs = {
+export type ElementParentElementArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<ElementOptions>
+  where?: InputMaybe<ElementWhere>
+}
+
+export type ElementParentElementAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<ElementWhere>
+}
+
+export type ElementParentElementConnectionArgs = {
   after?: InputMaybe<Scalars['String']['input']>
   directed?: InputMaybe<Scalars['Boolean']['input']>
   first?: InputMaybe<Scalars['Int']['input']>
-  sort?: InputMaybe<Array<ElementParentConnectionSort>>
-  where?: InputMaybe<ElementParentConnectionWhere>
+  sort?: InputMaybe<Array<ElementParentElementConnectionSort>>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
 }
 
 export type ElementPostRenderActionArgs = {
@@ -7425,8 +7425,8 @@ export type ElementConnectInput = {
   firstChild?: InputMaybe<ElementFirstChildConnectFieldInput>
   nextSibling?: InputMaybe<ElementNextSiblingConnectFieldInput>
   page?: InputMaybe<ElementPageConnectFieldInput>
-  parent?: InputMaybe<ElementParentConnectFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentConnectFieldInput>
+  parentElement?: InputMaybe<ElementParentElementConnectFieldInput>
   postRenderAction?: InputMaybe<ElementPostRenderActionConnectFieldInput>
   preRenderAction?: InputMaybe<ElementPreRenderActionConnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>
@@ -7440,8 +7440,8 @@ export type ElementConnectOrCreateInput = {
   firstChild?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>
   nextSibling?: InputMaybe<ElementNextSiblingConnectOrCreateFieldInput>
   page?: InputMaybe<ElementPageConnectOrCreateFieldInput>
-  parent?: InputMaybe<ElementParentConnectOrCreateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>
   props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
   renderType?: InputMaybe<ElementRenderTypeConnectOrCreateInput>
@@ -7464,8 +7464,8 @@ export type ElementCreateInput = {
   id: Scalars['ID']['input']
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
   page?: InputMaybe<ElementPageFieldInput>
-  parent?: InputMaybe<ElementParentFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentFieldInput>
+  parentElement?: InputMaybe<ElementParentElementFieldInput>
   postRenderAction?: InputMaybe<ElementPostRenderActionFieldInput>
   preRenderAction?: InputMaybe<ElementPreRenderActionFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>
@@ -7483,8 +7483,8 @@ export type ElementDeleteInput = {
   firstChild?: InputMaybe<ElementFirstChildDeleteFieldInput>
   nextSibling?: InputMaybe<ElementNextSiblingDeleteFieldInput>
   page?: InputMaybe<ElementPageDeleteFieldInput>
-  parent?: InputMaybe<ElementParentDeleteFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentDeleteFieldInput>
+  parentElement?: InputMaybe<ElementParentElementDeleteFieldInput>
   postRenderAction?: InputMaybe<ElementPostRenderActionDeleteFieldInput>
   preRenderAction?: InputMaybe<ElementPreRenderActionDeleteFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
@@ -7498,8 +7498,8 @@ export type ElementDisconnectInput = {
   firstChild?: InputMaybe<ElementFirstChildDisconnectFieldInput>
   nextSibling?: InputMaybe<ElementNextSiblingDisconnectFieldInput>
   page?: InputMaybe<ElementPageDisconnectFieldInput>
-  parent?: InputMaybe<ElementParentDisconnectFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentDisconnectFieldInput>
+  parentElement?: InputMaybe<ElementParentElementDisconnectFieldInput>
   postRenderAction?: InputMaybe<ElementPostRenderActionDisconnectFieldInput>
   preRenderAction?: InputMaybe<ElementPreRenderActionDisconnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDisconnectFieldInput>
@@ -7561,14 +7561,14 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   style: StringAggregateSelectionNullable
 }
 
-export type ElementElementParentAggregationSelection = {
-  __typename?: 'ElementElementParentAggregationSelection'
+export type ElementElementParentElementAggregationSelection = {
+  __typename?: 'ElementElementParentElementAggregationSelection'
   count: Scalars['Int']['output']
-  node?: Maybe<ElementElementParentNodeAggregateSelection>
+  node?: Maybe<ElementElementParentElementNodeAggregateSelection>
 }
 
-export type ElementElementParentNodeAggregateSelection = {
-  __typename?: 'ElementElementParentNodeAggregateSelection'
+export type ElementElementParentElementNodeAggregateSelection = {
+  __typename?: 'ElementElementParentElementNodeAggregateSelection'
   childMapperPropKey: StringAggregateSelectionNullable
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
@@ -8107,18 +8107,6 @@ export type ElementPageUpdateFieldInput = {
   where?: InputMaybe<ElementPageConnectionWhere>
 }
 
-export type ElementParentAggregateInput = {
-  AND?: InputMaybe<Array<ElementParentAggregateInput>>
-  NOT?: InputMaybe<ElementParentAggregateInput>
-  OR?: InputMaybe<Array<ElementParentAggregateInput>>
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  node?: InputMaybe<ElementParentNodeAggregationWhereInput>
-}
-
 export type ElementParentComponentAggregateInput = {
   AND?: InputMaybe<Array<ElementParentComponentAggregateInput>>
   NOT?: InputMaybe<ElementParentComponentAggregateInput>
@@ -8241,64 +8229,76 @@ export type ElementParentComponentUpdateFieldInput = {
   where?: InputMaybe<ElementParentComponentConnectionWhere>
 }
 
-export type ElementParentConnectFieldInput = {
+export type ElementParentElementAggregateInput = {
+  AND?: InputMaybe<Array<ElementParentElementAggregateInput>>
+  NOT?: InputMaybe<ElementParentElementAggregateInput>
+  OR?: InputMaybe<Array<ElementParentElementAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<ElementParentElementNodeAggregationWhereInput>
+}
+
+export type ElementParentElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
   /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
 
-export type ElementParentConnectOrCreateFieldInput = {
-  onCreate: ElementParentConnectOrCreateFieldInputOnCreate
+export type ElementParentElementConnectOrCreateFieldInput = {
+  onCreate: ElementParentElementConnectOrCreateFieldInputOnCreate
   where: ElementConnectOrCreateWhere
 }
 
-export type ElementParentConnectOrCreateFieldInputOnCreate = {
+export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
 }
 
-export type ElementParentConnection = {
-  __typename?: 'ElementParentConnection'
-  edges: Array<ElementParentRelationship>
+export type ElementParentElementConnection = {
+  __typename?: 'ElementParentElementConnection'
+  edges: Array<ElementParentElementRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
 }
 
-export type ElementParentConnectionSort = {
+export type ElementParentElementConnectionSort = {
   node?: InputMaybe<ElementSort>
 }
 
-export type ElementParentConnectionWhere = {
-  AND?: InputMaybe<Array<ElementParentConnectionWhere>>
-  NOT?: InputMaybe<ElementParentConnectionWhere>
-  OR?: InputMaybe<Array<ElementParentConnectionWhere>>
+export type ElementParentElementConnectionWhere = {
+  AND?: InputMaybe<Array<ElementParentElementConnectionWhere>>
+  NOT?: InputMaybe<ElementParentElementConnectionWhere>
+  OR?: InputMaybe<Array<ElementParentElementConnectionWhere>>
   node?: InputMaybe<ElementWhere>
 }
 
-export type ElementParentCreateFieldInput = {
+export type ElementParentElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
-export type ElementParentDeleteFieldInput = {
+export type ElementParentElementDeleteFieldInput = {
   delete?: InputMaybe<ElementDeleteInput>
-  where?: InputMaybe<ElementParentConnectionWhere>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
 }
 
-export type ElementParentDisconnectFieldInput = {
+export type ElementParentElementDisconnectFieldInput = {
   disconnect?: InputMaybe<ElementDisconnectInput>
-  where?: InputMaybe<ElementParentConnectionWhere>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
 }
 
-export type ElementParentFieldInput = {
-  connect?: InputMaybe<ElementParentConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementParentConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementParentCreateFieldInput>
+export type ElementParentElementFieldInput = {
+  connect?: InputMaybe<ElementParentElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementParentElementCreateFieldInput>
 }
 
-export type ElementParentNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementParentNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementParentNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<ElementParentNodeAggregationWhereInput>>
+export type ElementParentElementNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ElementParentElementNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>
   childMapperPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -8390,24 +8390,24 @@ export type ElementParentNodeAggregationWhereInput = {
   style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type ElementParentRelationship = {
-  __typename?: 'ElementParentRelationship'
+export type ElementParentElementRelationship = {
+  __typename?: 'ElementParentElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
-export type ElementParentUpdateConnectionInput = {
+export type ElementParentElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
 
-export type ElementParentUpdateFieldInput = {
-  connect?: InputMaybe<ElementParentConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementParentConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementParentCreateFieldInput>
-  delete?: InputMaybe<ElementParentDeleteFieldInput>
-  disconnect?: InputMaybe<ElementParentDisconnectFieldInput>
-  update?: InputMaybe<ElementParentUpdateConnectionInput>
-  where?: InputMaybe<ElementParentConnectionWhere>
+export type ElementParentElementUpdateFieldInput = {
+  connect?: InputMaybe<ElementParentElementConnectFieldInput>
+  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
+  create?: InputMaybe<ElementParentElementCreateFieldInput>
+  delete?: InputMaybe<ElementParentElementDeleteFieldInput>
+  disconnect?: InputMaybe<ElementParentElementDisconnectFieldInput>
+  update?: InputMaybe<ElementParentElementUpdateConnectionInput>
+  where?: InputMaybe<ElementParentElementConnectionWhere>
 }
 
 export type ElementPostRenderActionConnectFieldInput = {
@@ -8835,8 +8835,8 @@ export type ElementRelationInput = {
   firstChild?: InputMaybe<ElementFirstChildCreateFieldInput>
   nextSibling?: InputMaybe<ElementNextSiblingCreateFieldInput>
   page?: InputMaybe<ElementPageCreateFieldInput>
-  parent?: InputMaybe<ElementParentCreateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentCreateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementCreateFieldInput>
   postRenderAction?: InputMaybe<ElementPostRenderActionCreateFieldInput>
   preRenderAction?: InputMaybe<ElementPreRenderActionCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>
@@ -9290,8 +9290,8 @@ export type ElementUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   page?: InputMaybe<ElementPageUpdateFieldInput>
-  parent?: InputMaybe<ElementParentUpdateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentUpdateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>
   postRenderAction?: InputMaybe<ElementPostRenderActionUpdateFieldInput>
   preRenderAction?: InputMaybe<ElementPreRenderActionUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
@@ -9354,16 +9354,16 @@ export type ElementWhere = {
   pageConnection?: InputMaybe<ElementPageConnectionWhere>
   pageConnection_NOT?: InputMaybe<ElementPageConnectionWhere>
   page_NOT?: InputMaybe<PageWhere>
-  parent?: InputMaybe<ElementWhere>
-  parentAggregate?: InputMaybe<ElementParentAggregateInput>
   parentComponent?: InputMaybe<ComponentWhere>
   parentComponentAggregate?: InputMaybe<ElementParentComponentAggregateInput>
   parentComponentConnection?: InputMaybe<ElementParentComponentConnectionWhere>
   parentComponentConnection_NOT?: InputMaybe<ElementParentComponentConnectionWhere>
   parentComponent_NOT?: InputMaybe<ComponentWhere>
-  parentConnection?: InputMaybe<ElementParentConnectionWhere>
-  parentConnection_NOT?: InputMaybe<ElementParentConnectionWhere>
-  parent_NOT?: InputMaybe<ElementWhere>
+  parentElement?: InputMaybe<ElementWhere>
+  parentElementAggregate?: InputMaybe<ElementParentElementAggregateInput>
+  parentElementConnection?: InputMaybe<ElementParentElementConnectionWhere>
+  parentElementConnection_NOT?: InputMaybe<ElementParentElementConnectionWhere>
+  parentElement_NOT?: InputMaybe<ElementWhere>
   postRenderActionConnection?: InputMaybe<ElementPostRenderActionConnectionWhere>
   postRenderActionConnection_NOT?: InputMaybe<ElementPostRenderActionConnectionWhere>
   preRenderActionConnection?: InputMaybe<ElementPreRenderActionConnectionWhere>
@@ -20895,7 +20895,7 @@ export type ElementFragment = {
   firstChild?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null
-  parent?: { __typename?: 'Element'; id: string } | null
+  parentElement?: { __typename?: 'Element'; id: string } | null
   parentComponent?: { __typename?: 'Component'; id: string } | null
   postRenderAction?:
     | { __typename?: 'ApiAction'; id: string; type: ActionKind }
@@ -20930,7 +20930,7 @@ export type ElementProductionFragment = {
   firstChild?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null
-  parent?: { __typename?: 'Element'; id: string } | null
+  parentElement?: { __typename?: 'Element'; id: string } | null
   parentComponent?: { __typename?: 'Component'; id: string } | null
   postRenderAction?:
     | { __typename?: 'ApiAction'; id: string; type: ActionKind }

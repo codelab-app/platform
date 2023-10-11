@@ -108,6 +108,8 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
         titleRender={(data) => {
+          console.log(data.node?.toJson)
+
           return (
             <ElementTreeItemTitle
               data={data}
