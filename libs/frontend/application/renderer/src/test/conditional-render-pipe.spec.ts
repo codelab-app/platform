@@ -68,7 +68,7 @@ describe('ConditionalRenderPipe', () => {
           }),
         })
       } else {
-        expect(output).toEqual({ element: elementModel })
+        expect(output).toEqual({ element: elementModel, shouldRender })
       }
     },
   )

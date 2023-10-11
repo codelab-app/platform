@@ -52,7 +52,6 @@ import {
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
-import { shouldRenderElement } from './utils'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -155,11 +154,7 @@ export class Renderer
 
       const renderedChildren = compact(
         children.map((child) => {
-          if (shouldRenderElement(child)) {
-            return this.renderElement(child)
-          }
-
-          return null
+          return this.renderElement(child)
         }),
       )
 
@@ -247,6 +242,38 @@ export class Renderer
     return runtimeProps
   }
 
+  /**
+   * Renders a single Element using the provided RenderAdapter
+   */
+  renderElement = (element: IElementModel): Nullable<ReactElement> => {
+    // Render the element to an intermediate output
+    const renderOutput = this.renderIntermediateElement(element)
+
+    if (renderOutput.shouldRender === false) {
+      return null
+    }
+
+    const wrapperProps: ElementWrapperProps = {
+      element,
+      errorBoundary: {
+        onError: ({ message, stack }) => {
+          element.setRenderingError({ message, stack })
+        },
+        onResetKeysChange: () => {
+          element.setRenderingError(null)
+        },
+      },
+      key: element.id,
+      onRendered: () => {
+        this.runPostRenderAction(element)
+      },
+      renderer: this,
+      renderOutput,
+    }
+
+    return React.createElement(ElementWrapper, wrapperProps)
+  }
+
   getChildMapperChildren(element: IElementModel) {
     const { childMapperComponent } = element
 
@@ -307,45 +334,10 @@ export class Renderer
     return parentComponent.instanceElement.current.children
   }
 
-  logRendered = (
-    element: IElementModel,
-    rendered: ArrayOrSingle<IRenderOutput>,
-  ) => {
+  logRendered = (rendered: IRenderOutput) => {
     if (this.debugMode) {
-      console.dir({ element: element, rendered })
+      console.dir({ element: rendered.element, rendered })
     }
-  }
-
-  /**
-   * Renders a single Element using the provided RenderAdapter
-   */
-  renderElement = (element: IElementModel): ReactElement => {
-    const wrapperProps: ElementWrapperProps = {
-      element,
-      key: element.id,
-      renderer: this,
-    }
-
-    const { preRenderAction, providerStore, store } = element
-
-    if (preRenderAction) {
-      const { runner: preRenderActionRunner } = getRunner(
-        this,
-        preRenderAction.id,
-        store.id,
-        providerStore?.id,
-      )
-
-      if (preRenderActionRunner) {
-        const runner = preRenderActionRunner.runner.bind(
-          element.expressionEvaluationContext,
-        )
-
-        runner()
-      }
-    }
-
-    return React.createElement(ElementWrapper, wrapperProps)
   }
 
   /**
@@ -373,5 +365,45 @@ export class Renderer
     return providerRoot && root.page?.current.kind === IPageKind.Regular
       ? this.renderElement(providerRoot)
       : this.renderElement(root)
+  }
+
+  runPostRenderAction = (element: IElementModel) => {
+    const { postRenderAction, providerStore, store } = element
+
+    const { runner: postRenderActionRunner } = getRunner(
+      this,
+      postRenderAction?.id,
+      store.id,
+      providerStore?.id,
+    )
+
+    if (postRenderActionRunner) {
+      const runner = postRenderActionRunner.runner.bind(
+        element.expressionEvaluationContext,
+      )
+
+      runner()
+    }
+  }
+
+  runPreRenderAction = (element: IElementModel) => {
+    const { preRenderAction, providerStore, store } = element
+
+    if (preRenderAction) {
+      const { runner: preRenderActionRunner } = getRunner(
+        this,
+        preRenderAction.id,
+        store.id,
+        providerStore?.id,
+      )
+
+      if (preRenderActionRunner) {
+        const runner = preRenderActionRunner.runner.bind(
+          element.expressionEvaluationContext,
+        )
+
+        runner()
+      }
+    }
   }
 }

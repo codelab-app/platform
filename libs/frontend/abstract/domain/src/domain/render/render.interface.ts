@@ -18,6 +18,7 @@ export interface IRenderOutput {
   /** Any props that should get passed to descendants of this element, mapped by id */
   globalProps?: IPropDataByElementId
   props?: IPropData
+  shouldRender?: boolean
 }
 
 export interface IBaseRenderPipe {

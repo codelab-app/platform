@@ -2,15 +2,16 @@ import type {
   IComponentType,
   IElementModel,
   IRenderer,
+  IRenderOutput,
 } from '@codelab/frontend/abstract/domain'
-import { isAtom, RendererType } from '@codelab/frontend/abstract/domain'
+import { RendererType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import type { ErrorBoundaryProps } from 'react-error-boundary'
 import { ErrorBoundary } from 'react-error-boundary'
-import { getRunner } from '../action-runner.model'
 import { useDragDropHandlers, useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import {
@@ -21,11 +22,14 @@ import {
 
 export interface ElementWrapperProps {
   element: IElementModel
+  errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
   key: string
   /**
    * Props passed in from outside the component
    */
+  renderOutput: IRenderOutput
   renderer: IRenderer
+  onRendered(): void
 }
 
 /**
@@ -34,43 +38,28 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ element, renderer, ...rest }) => {
+  ({
+    element,
+    errorBoundary: { onError, onResetKeysChange },
+    onRendered,
+    renderer,
+    renderOutput,
+    ...rest
+  }) => {
     useEffect(() => {
-      const { postRenderAction, providerStore, store } = element
-
-      const { runner: postRenderActionRunner } = getRunner(
-        renderer,
-        postRenderAction?.id,
-        store.id,
-        providerStore?.id,
-      )
-
-      if (postRenderActionRunner) {
-        const runner = postRenderActionRunner.runner.bind(
-          element.expressionEvaluationContext,
-        )
-
-        runner()
-      }
+      onRendered()
     }, [])
 
-    const { atomService, builderService, elementService } = useStore()
-    // Render the element to an intermediate output
-    const renderOutput = renderer.renderIntermediateElement(element)
+    const { atomService } = useStore()
 
-    renderer.logRendered(element, renderOutput)
+    renderer.logRendered(renderOutput)
 
     const children = renderer.renderChildren(renderOutput)
 
-    if (renderOutput.props) {
-      if (
-        isAtom(element.renderType.current) &&
-        element.renderType.current.type === IAtomType.GridLayout
-      ) {
-        renderOutput.props['static'] =
-          renderer.rendererType === RendererType.Preview ||
-          renderer.rendererType === RendererType.Production
-      }
+    if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
+      renderOutput.props['static'] =
+        renderer.rendererType === RendererType.Preview ||
+        renderer.rendererType === RendererType.Production
     }
 
     const ReactComponent: IComponentType =
@@ -114,12 +103,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       ErrorBoundary,
       {
         fallbackRender: () => null,
-        onError: ({ message, stack }) => {
-          element.setRenderingError({ message, stack })
-        },
-        onResetKeysChange: () => {
-          element.setRenderingError(null)
-        },
+        onError,
+        onResetKeysChange,
         resetKeys: [renderOutput],
       },
       renderedElement,

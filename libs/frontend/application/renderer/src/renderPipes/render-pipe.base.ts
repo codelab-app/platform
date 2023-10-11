@@ -34,7 +34,7 @@ export class BaseRenderPipe
   }
 
   @computed
-  private get renderService() {
+  protected get renderService() {
     return getRenderService(this)
   }
 }

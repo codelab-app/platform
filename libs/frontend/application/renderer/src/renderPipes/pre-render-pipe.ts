@@ -5,28 +5,19 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { RenderOutput, shouldRenderElement } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
-@model('@codelab/ConditionalRenderPipe')
-export class ConditionalRenderPipe
+@model('@codelab/PreRenderPipe')
+export class PreRenderPipe
   extends ExtendedModel(BaseRenderPipe, {
     next: prop<IRenderPipe>(),
   })
   implements IRenderPipe
 {
   render(element: IElementModel, props: IPropData): IRenderOutput {
-    if (shouldRenderElement(element, props)) {
-      return this.next.render(element, props)
-    }
+    const renderer = this.renderService.activeRenderer?.current
+    renderer?.runPreRenderAction(element)
 
-    if (this.renderer.debugMode) {
-      console.info('ConditionalRenderPipe: should stop rendering', {
-        element: element.name,
-        value: true,
-      })
-    }
-
-    return RenderOutput.notRenderable({ element })
+    return this.next.render(element, props)
   }
 }
