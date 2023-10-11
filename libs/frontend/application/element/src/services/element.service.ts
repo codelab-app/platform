@@ -87,6 +87,8 @@ export class ElementService
 
     yield* _await(this.syncModifiedElements())
 
+    this.elementDomainService.logElementTreeState()
+
     /**
      * Syncs all components to the current element tree
      */

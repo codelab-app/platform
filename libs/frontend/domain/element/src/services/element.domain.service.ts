@@ -55,13 +55,6 @@ export class ElementDomainService
   addTreeNode = (elementDto: IElementDTO) => {
     const element = this.hydrate(elementDto)
 
-    this.move({
-      element,
-      nextSibling: element.nextSibling?.current,
-      parentElement: element.parentElement?.current,
-      prevSibling: element.prevSibling?.current,
-    })
-
     return element
   }
 

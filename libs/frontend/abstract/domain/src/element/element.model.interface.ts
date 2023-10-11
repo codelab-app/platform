@@ -98,6 +98,7 @@ export interface IElementModel
   store: Ref<IStoreModel>
   style: IElementStyleModel
   tailwindClassNames?: Nullable<Array<string>>
+  toTreeNode: object
   toId: object
   toTreeNode: object
   treeViewNode: IElementTreeViewDataNode
