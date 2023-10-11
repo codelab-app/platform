@@ -137,4 +137,44 @@ export class Renderer
   get render() {
     return this.runtimeRootContainerNode.render
   }
+
+  runPostRenderAction = (element: IElementModel) => {
+    const { postRenderAction, providerStore, store } = element
+
+    const { runner: postRenderActionRunner } = getRunner(
+      this,
+      postRenderAction?.id,
+      store.id,
+      providerStore?.id,
+    )
+
+    if (postRenderActionRunner) {
+      const runner = postRenderActionRunner.runner.bind(
+        element.expressionEvaluationContext,
+      )
+
+      runner()
+    }
+  }
+
+  runPreRenderAction = (element: IElementModel) => {
+    const { preRenderAction, providerStore, store } = element
+
+    if (preRenderAction) {
+      const { runner: preRenderActionRunner } = getRunner(
+        this,
+        preRenderAction.id,
+        store.id,
+        providerStore?.id,
+      )
+
+      if (preRenderActionRunner) {
+        const runner = preRenderActionRunner.runner.bind(
+          element.expressionEvaluationContext,
+        )
+
+        runner()
+      }
+    }
+  }
 }
