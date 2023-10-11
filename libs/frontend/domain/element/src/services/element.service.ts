@@ -167,15 +167,14 @@ export class ElementService
 
     this.builderService.setSelectedNode(elementRef(selectedNode))
 
-    yield* _await(this.syncModifiedElements())
+    yield* _await(this.elementRepository.delete(elementsToDelete))
 
-    // This must be placed after syncModifiedElements
     elementsToDelete.reverse().forEach((element) => {
       // this.removeClones(element.id)
       this.elementDomainService.elements.delete(element.id)
     })
 
-    yield* _await(this.elementRepository.delete(elementsToDelete))
+    yield* _await(this.syncModifiedElements())
 
     return
   })
