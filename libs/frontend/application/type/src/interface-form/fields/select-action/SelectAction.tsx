@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IActionModel } from '@codelab/frontend/abstract/domain'
-import { isElementPageNodeRef } from '@codelab/frontend/abstract/domain'
+import {
+  type IActionModel,
+  isElementRef,
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type {
@@ -50,9 +52,10 @@ export const SelectAction = (fieldProps: SelectActionProps) => {
 
   const store = selectedNode?.current.store.current
 
-  const providerStore = isElementPageNodeRef(selectedNode)
-    ? selectedNode.current.providerStore?.current
-    : undefined
+  const providerStore =
+    selectedNode && isElementRef(selectedNode)
+      ? selectedNode.current.providerStore?.current
+      : undefined
 
   const parentActions = updatedAction
     ? getParentActions(actionService.actionsList, updatedAction)

@@ -10,8 +10,8 @@ import {
   WalkTreeMode,
 } from 'mobx-keystone'
 import type { IPageNodeRef } from '../../page'
-import { isElementPageNodeRef } from '../../page'
 import type { IElementModel } from '../element.model.interface'
+import { isElementRef } from '../element.ref'
 import { getElementService } from '../element.service.context'
 import type { IElementTree } from '../element-tree.interface.model'
 
@@ -67,7 +67,7 @@ export class ElementTree
   getPathFromRoot(selectedElement: IPageNodeRef): Array<string> {
     const path = []
 
-    if (!isElementPageNodeRef(selectedElement)) {
+    if (!isElementRef(selectedElement)) {
       return [selectedElement.current.id]
     }
 

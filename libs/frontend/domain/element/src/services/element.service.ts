@@ -63,6 +63,7 @@ export class ElementService
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
     const element = this.elementDomainService.add(data)
 
+    yield* _await(this.elementRepository.add(element))
     yield* _await(this.syncModifiedElements())
 
     /**

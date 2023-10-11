@@ -1,8 +1,8 @@
-import type {
-  IElementTreeViewDataNode,
-  IPageNode,
+import {
+  type IElementTreeViewDataNode,
+  type IPageNode,
+  isElement,
 } from '@codelab/frontend/abstract/domain'
-import { isElementPageNode } from '@codelab/frontend/abstract/domain'
 import { CuiTreeItem } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -23,7 +23,7 @@ interface ElementTreeItemTitleProps {
 export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
   ({ data, elementContextMenuProps, node }) => {
     // Add CSS to disable hover if node is un-selectable
-    if (isElementPageNode(node)) {
+    if (node && isElement(node)) {
       return (
         <BuilderDropHandler element={node}>
           <ElementContextMenu

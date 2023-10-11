@@ -13,8 +13,8 @@ import {
   defaultBuilderWidthBreakPoints,
   elementRef,
   IDropPosition,
-  isComponentPageNodeRef,
-  isElementPageNodeRef,
+  isComponentRef,
+  isElementRef,
   RendererTab,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
@@ -63,11 +63,15 @@ export class BuilderService
   get activeComponent() {
     const { selectedNode } = this
 
-    if (isComponentPageNodeRef(selectedNode)) {
+    if (!selectedNode) {
+      return null
+    }
+
+    if (isComponentRef(selectedNode)) {
       return selectedNode
     }
 
-    if (isElementPageNodeRef(selectedNode)) {
+    if (isElementRef(selectedNode)) {
       return selectedNode.current.parentComponent ?? null
     }
 
@@ -81,17 +85,21 @@ export class BuilderService
   get activeElementTree() {
     const selectedNode = this.selectedNode
 
+    if (!selectedNode) {
+      return undefined
+    }
+
     /**
      * If we're selecting the component
      */
-    if (isComponentPageNodeRef(selectedNode)) {
+    if (isComponentRef(selectedNode)) {
       return selectedNode.current
     }
 
     /**
      * If we're selecting an element within the component
      */
-    if (isElementPageNodeRef(selectedNode)) {
+    if (isElementRef(selectedNode)) {
       /**
        * Given the node, we want the reference that belongs to an ElementTree.
        */

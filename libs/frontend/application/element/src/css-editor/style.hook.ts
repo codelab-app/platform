@@ -12,7 +12,10 @@ export const useStyle = () => {
   }>({})
 
   useEffect(() => {
-    if (isElementRef(builderService.selectedNode)) {
+    if (
+      builderService.selectedNode &&
+      isElementRef(builderService.selectedNode)
+    ) {
       const newStyles = JSON.parse(
         builderService.selectedNode.current.guiCss || '{}',
       )
@@ -31,7 +34,7 @@ export const useStyle = () => {
   const setStyle = (key: CssProperty, value: string) => {
     const { selectedNode } = builderService
 
-    if (!isElementRef(selectedNode)) {
+    if (!selectedNode || !isElementRef(selectedNode)) {
       return
     }
 

@@ -7,7 +7,7 @@ import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
-  defaultCommandTimeout: 10000,
+  defaultCommandTimeout: 5000,
   env: {
     auth0Audience: getEnv().auth0.audience,
     auth0BaseUrl: getEnv().endpoint.platformHost,
@@ -28,11 +28,11 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   execTimeout: 5000,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  pageLoadTimeout: 20000,
+  pageLoadTimeout: 15000,
   projectId: '9hfoow',
   responseTimeout: 5000,
   retries: {
-    openMode: 1,
+    openMode: 0,
     runMode: 1,
   },
   screenshotsFolder: './src/screenshots',

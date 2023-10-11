@@ -13,7 +13,7 @@ import type {
   Nullable,
   Nullish,
 } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementTreeViewDataNode } from '../../ui'
 import type { IActionModel } from '../action'
@@ -86,7 +86,8 @@ export interface IElementModel
       'toDeleteInput'
     >,
     ICacheService<IElementDTO, IElementModel>,
-    Pick<IElementDTO, 'name'> {
+    Pick<IElementDTO, 'name'>,
+    AnyModel {
   _modified: boolean
   ancestorError: Nullish<RenderingError>
   atomName: string

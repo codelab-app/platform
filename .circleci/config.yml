@@ -228,6 +228,8 @@ jobs:
           name: Commitlint
       - store_test_results:
           path: ./tmp/reports/lint
+      - store_artifacts:
+          path: ./tmp/reports/lint
   notify-failure:
     executor: machine-ubuntu
     resource_class: small

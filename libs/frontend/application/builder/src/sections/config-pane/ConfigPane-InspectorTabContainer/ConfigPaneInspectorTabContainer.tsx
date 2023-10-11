@@ -7,8 +7,8 @@ import {
 } from '@ant-design/icons'
 import {
   isAtomRef,
-  isComponentPageNodeRef,
-  isElementPageNodeRef,
+  isComponentRef,
+  isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import {
   UpdateComponentForm,
@@ -74,7 +74,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
 
   const tabItems = [
     {
-      children: isElementPageNodeRef(selectedNode) ? (
+      children: isElementRef(selectedNode) ? (
         <>
           <UpdateElementForm
             element={selectedNode.current}
@@ -101,9 +101,9 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     {
       children: (
         <div key={selectedNode.id}>
-          {isElementPageNodeRef(selectedNode) ? (
+          {isElementRef(selectedNode) ? (
             <UpdateElementPropsForm element={selectedNode} />
-          ) : isComponentPageNodeRef(selectedNode) ? (
+          ) : isComponentRef(selectedNode) ? (
             <UpdateComponentPropsForm component={selectedNode.current} />
           ) : (
             `Add an atom or a component to this element to edit its props`
@@ -130,7 +130,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     },
     {
       children:
-        isElementPageNodeRef(selectedNode) &&
+        isElementRef(selectedNode) &&
         isAtomRef(selectedNode.current.renderType) ? (
           <ElementCssEditor
             element={selectedNode.current}

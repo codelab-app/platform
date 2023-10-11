@@ -3,11 +3,7 @@ import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  BuilderDndType,
-  isComponent,
-  isComponentPageNode,
-} from '@codelab/frontend/abstract/domain'
+import { BuilderDndType, isComponent } from '@codelab/frontend/abstract/domain'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Button, Card } from 'antd'
@@ -38,7 +34,7 @@ export const DraggableComponentItem = ({
       name: compoundCaseToTitleCase(component.name),
       renderType: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        __typename: isComponentPageNode(component as IComponentModel)
+        __typename: isComponent(component as IComponentModel)
           ? IElementRenderTypeKind.Component
           : IElementRenderTypeKind.Atom,
         id: component.id,
