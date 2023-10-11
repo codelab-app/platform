@@ -167,6 +167,16 @@ export class AppService
     return app
   })
 
+  @modelFlow
+  getSelectAppOptions = _async(function* (this: AppService) {
+    yield* _await(this.getAll({}))
+
+    return this.appsList.map((app) => ({
+      label: app.name,
+      value: app.id,
+    }))
+  })
+
   /**
    * This is used for the apps list preview
    *

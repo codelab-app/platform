@@ -3,7 +3,8 @@ import type {
   ApiActionOptions,
 } from '@codelab/shared/abstract/codegen'
 import type { IActionDTO } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
@@ -43,5 +44,6 @@ export interface IActionService
   action(id: string): Maybe<IActionModel>
   add<T extends IActionDTO>(action: T): IActionModel
   cloneAction(action: IActionModel, storeId: string): Promise<IActionModel>
+  getSelectActionOptions(actionEntity?: IEntity): Array<DefaultOptionType>
   load(actions: Array<ActionFragment>): Array<IActionModel>
 }

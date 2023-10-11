@@ -5,6 +5,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { DefaultOptionType } from 'antd/lib/select'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
@@ -33,6 +34,7 @@ export interface IAppService
   add(appDto: IAppDTO): IAppModel
   app(id: string): Maybe<IAppModel>
   getAppPages(appId: string, where: PageWhere): Promise<void>
+  getSelectAppOptions(): Promise<Array<DefaultOptionType>>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
   // loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
   // loadDevelopmentPage(

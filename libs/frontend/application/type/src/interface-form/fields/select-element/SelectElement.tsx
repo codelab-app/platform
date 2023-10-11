@@ -1,17 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import type { SelectElementOption } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { useFormContext } from '@codelab/frontend/presentation/view'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import difference from 'lodash/difference'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
-
-export interface SelectElementOption {
-  childrenIds?: Array<string>
-  label: string
-  value: string
-}
 
 export type SelectElementProps = UniformSelectFieldProps & {
   allElementOptions?: Array<SelectElementOption>
@@ -29,65 +24,20 @@ export const SelectElement = ({
   ...props
 }: SelectElementProps) => {
   const { elementTree } = useFormContext()
-  let elements: Array<SelectElementOption>
+  const { elementService } = useStore()
 
-  allElementOptions ??=
-    elementTree?.elements.map(({ children, id, label }) => ({
-      childrenIds: children.map((child) => child.id),
-      label: label,
-      value: id,
-    })) ?? []
-
-  const targetElement = allElementOptions.find(
-    (element) => element.value === targetElementId,
-  )
-
-  const elementMap = allElementOptions.reduce((acc, element) => {
-    acc[element.value] = element
-
-    return acc
-  }, {} as Record<string, SelectElementOption>)
-
-  if (!targetElement) {
-    elements = allElementOptions
-  } else {
-    switch (kind) {
-      case IElementTypeKind.AllElements:
-        elements = allElementOptions
-        break
-
-      case IElementTypeKind.ChildrenOnly: {
-        elements = getElementChildren(targetElement, elementMap)
-
-        break
-      }
-
-      case IElementTypeKind.DescendantsOnly: {
-        elements = getDescendants(targetElement, elementMap)
-
-        break
-      }
-
-      case IElementTypeKind.ExcludeDescendantsElements:
-        elements = difference(
-          allElementOptions,
-          getDescendants(targetElement, elementMap),
-        )
-          // remove the ele ment itself
-          .filter(({ value }) => value !== targetElement.value)
-        break
-      default:
-        elements = []
-    }
-  }
+  const selectOptions = elementService.getSelectElementOptions({
+    allElementOptions,
+    elementTree,
+    kind,
+    targetElementId,
+  })
 
   return (
     <SelectField
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       {...(props as SelectFieldProps)}
-      disabled={
-        disableWhenOneOpt && (elements.length === 1 || !elements.length)
-      }
+      disabled={disableWhenOneOpt && !selectOptions.length}
       name={name}
       /**
        * Prop seems to exist but not in interface
@@ -95,38 +45,10 @@ export const SelectElement = ({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       optionFilterProp="label"
-      options={elements}
+      options={selectOptions}
       showSearch
     />
   )
-}
-
-const getElementChildren = (
-  el: SelectElementOption,
-  elementMap: Record<string, SelectElementOption>,
-) =>
-  el.childrenIds
-    ?.map((childId) => elementMap[childId])
-    .filter((selectElementOption): selectElementOption is SelectElementOption =>
-      Boolean(selectElementOption),
-    ) ?? []
-
-const getDescendants = (
-  element: SelectElementOption,
-  elementMap: Record<string, SelectElementOption>,
-) => {
-  const descendants: Array<SelectElementOption> = []
-
-  const _getDescendants = (el: SelectElementOption) => {
-    for (const child of getElementChildren(el, elementMap)) {
-      descendants.push(child)
-      _getDescendants(child)
-    }
-  }
-
-  _getDescendants(element)
-
-  return descendants
 }
 
 export const SelectChildElement = (props: Omit<SelectElementProps, 'kind'>) => (
