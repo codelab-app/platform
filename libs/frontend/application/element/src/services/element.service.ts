@@ -81,8 +81,6 @@ export class ElementService
 
     yield* _await(this.syncModifiedElements())
 
-    this.elementDomainService.logElementTreeState()
-
     /**
      * Syncs all components to the current element tree
      */
@@ -109,8 +107,6 @@ export class ElementService
    */
   @modelFlow
   syncModifiedElements = _async(function* (this: ElementService) {
-    this.elementDomainService.logElementTreeState()
-
     yield* _await(
       this.updateElements(this.elementDomainService.modifiedElements),
     )
