@@ -355,11 +355,22 @@ export class Renderer
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.rootElement.current
     const providerRoot = this.providerTree?.current.rootElement.current
+    const parentComponent = root?.parentComponent
 
     if (!root) {
       console.warn('Renderer: No root element found')
 
       return null
+    }
+
+    if (parentComponent) {
+      /**
+       * setup runtime props for component builder
+       * this is different from the one created in component-render-pipe
+       * because the other one creates runtime props for component instances
+       * while this one doesn't pass by the component pipe at all
+       */
+      this.addRuntimeProps(componentRef(parentComponent.id))
     }
 
     return providerRoot && root.page?.current.kind === IPageKind.Regular
