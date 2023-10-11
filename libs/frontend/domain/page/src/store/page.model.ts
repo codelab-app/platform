@@ -1,9 +1,11 @@
 import type {
+  IAuthGuardModel,
   IElementModel,
   IPageModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
+  authGuardRef,
   elementRef,
   ElementTree,
   storeRef,
@@ -28,6 +30,7 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   app,
+  authGuard,
   id,
   kind,
   name,
@@ -38,6 +41,7 @@ const create = ({
 }: IPageDTO) => {
   return new Page({
     app: { id: app.id },
+    authGuard: authGuard?.id ? authGuardRef(authGuard.id) : undefined,
     id,
     kind,
     name,
@@ -99,6 +103,7 @@ export class Page
   @modelAction
   writeCache({
     app,
+    authGuard,
     kind,
     name,
     pageContentContainer,
@@ -116,6 +121,7 @@ export class Page
       : this.pageContentContainer
     this.kind = kind ? kind : this.kind
     this.store = store ? storeRef(store.id) : this.store
+    this.authGuard = authGuard ? authGuardRef(authGuard.id) : this.authGuard
     this.url = url ?? ''
 
     return this
@@ -124,6 +130,7 @@ export class Page
   toCreateInput(): PageCreateInput {
     return {
       app: connectNodeId(this.app.id),
+      authGuard: connectNodeId(this.authGuard?.id),
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       id: this.id,
       kind: this.kind,
@@ -147,6 +154,7 @@ export class Page
   toUpdateInput(): PageUpdateInput {
     return {
       app: connectNodeId(this.app.id),
+      authGuard: reconnectNodeId(this.authGuard?.id),
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,

@@ -1,5 +1,6 @@
 export * from './select-action'
 export * from './select-app'
+export * from './select-auth-guard'
 export * from './select-component/SelectComponent'
 export * from './select-default-value/SelectDefaultValue'
 export * from './select-element/SelectElement'

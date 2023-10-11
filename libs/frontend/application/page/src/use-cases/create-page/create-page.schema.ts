@@ -1,4 +1,5 @@
 import type { ICreatePageData } from '@codelab/frontend/abstract/domain'
+import { SelectAuthGuard } from '@codelab/frontend/application/type'
 import {
   appSchema,
   idSchema,
@@ -15,6 +16,20 @@ export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
+    },
+    authGuard: {
+      nullable: true,
+      properties: {
+        id: {
+          type: 'string',
+          label: '',
+          uniforms: {
+            component: SelectAuthGuard,
+          },
+        },
+      },
+      required: ['id'],
+      type: 'object',
     },
     url: {
       type: 'string',

@@ -26,7 +26,7 @@ export const CreateResourceForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateResourceFormProps) => {
-    const { resourceService, userService } = useStore()
+    const { resourceService } = useStore()
     const closeForm = () => resourceService.createModal.close()
 
     const onSubmit = (resourceDTO: ICreateResourceData) => {
@@ -40,9 +40,6 @@ export const CreateResourceForm = observer(
 
     const model = {
       id: v4(),
-      owner: {
-        auth0Id: userService.user.auth0Id,
-      },
       type: resourceService.createModal.metadata?.type,
     }
 

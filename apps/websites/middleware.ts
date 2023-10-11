@@ -1,3 +1,4 @@
+import { getEnv } from '@codelab/shared/config'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -15,13 +16,32 @@ export const config = {
   ],
 }
 
-const middleware = async (req: NextRequest) => {
-  const hostname = req.headers.get('host')
-  const url = req.nextUrl
+const middleware = async (request: NextRequest) => {
+  const hostname = request.headers.get('host')
+  const url = request.nextUrl
+  const domain = url.searchParams.get('domain')
+  const pageUrl = `/${url.searchParams.get('page')}`
+  const authorization = request.cookies.get('authorization')
 
-  url.pathname = `/${hostname}${url.pathname}`
+  if (domain && pageUrl) {
+    const endpoint = getEnv().endpoint.canActivateUrl
+
+    const response = await fetch(endpoint, {
+      body: JSON.stringify({
+        authorization: authorization?.value,
+        domain,
+        pageUrl,
+      }),
+      headers: { 'Content-Type': 'application/json' },
+
+      method: 'POST',
+    }).then((res) => res.json())
+
+    console.log(response)
+  }
 
   console.log('Redirecting...', url.toString())
+  url.pathname = `/${hostname}${url.pathname}`
 
   return NextResponse.rewrite(url)
 }

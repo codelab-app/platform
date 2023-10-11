@@ -14,6 +14,9 @@ fragment PagePreview on Page {
   store {
     id
   }
+  authGuard {
+    id
+  }
   url
 }
 
@@ -36,6 +39,9 @@ fragment Page on Page {
   }
   store {
     ...Store
+  }
+  authGuard {
+    id
   }
   url
 }
@@ -60,6 +66,9 @@ fragment PageDevelopment on Page {
   store {
     ...Store
   }
+  authGuard {
+    id
+  }
   url
 }
 
@@ -82,6 +91,9 @@ fragment PageProduction on Page {
   slug
   store {
     ...Store
+  }
+  authGuard {
+    id
   }
   url
 }

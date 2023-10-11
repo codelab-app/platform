@@ -5,10 +5,10 @@ import type { IPage } from '@codelab/shared/abstract/core'
  */
 export type ICreatePageData = Pick<
   IPage,
-  'app' | 'id' | 'kind' | 'name' | 'url'
+  'app' | 'authGuard' | 'id' | 'kind' | 'name' | 'url'
 >
 
 export type IUpdatePageData = Pick<
   IPage,
-  'app' | 'id' | 'name' | 'pageContentContainer' | 'url'
+  'app' | 'authGuard' | 'id' | 'name' | 'pageContentContainer' | 'url'
 >

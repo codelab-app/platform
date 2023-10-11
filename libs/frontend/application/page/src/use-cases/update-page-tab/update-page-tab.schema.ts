@@ -1,5 +1,8 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/domain'
-import { getSelectElementComponent } from '@codelab/frontend/application/type'
+import {
+  getSelectElementComponent,
+  SelectAuthGuard,
+} from '@codelab/frontend/application/type'
 import {
   appSchema,
   idSchema,
@@ -16,6 +19,20 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
       ...idSchema(),
       ...appSchema,
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
+      authGuard: {
+        nullable: true,
+        properties: {
+          id: {
+            type: 'string',
+            label: '',
+            uniforms: {
+              component: SelectAuthGuard,
+            },
+          },
+        },
+        required: ['id'],
+        type: 'object',
+      },
       pageContentContainer: {
         label: '',
         nullable: true,

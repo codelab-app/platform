@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "name": "backend-application-auth-guard",
+  "projectType": "library",
+  "sourceRoot": "libs/backend/application/auth-guard/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ],
+  "targets": {
+    "lint": {
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-application-auth-guard.xml",
+          "quiet": true
+        }
+      },
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/application/auth-guard/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  }
+}

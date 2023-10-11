@@ -10,6 +10,7 @@ import type {
   IRenderService,
   IStoreService,
   ITypeService,
+  IUrlService,
   IUserService,
 } from '@codelab/frontend/abstract/application'
 import {

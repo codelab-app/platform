@@ -12,7 +12,7 @@ export const SelectResource = observer<SelectResourcesProps>(({ name }) => {
   const { resourceService } = useStore()
 
   const [
-    { error: queryError, result: selectResourceOptions = [], status },
+    { error: queryError, result: selectResourceOptions, status },
     getSelectResourceOptions,
   ] = useAsync(() => resourceService.getSelectResourceOptions())
 

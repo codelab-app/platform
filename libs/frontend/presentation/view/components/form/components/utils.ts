@@ -2,7 +2,7 @@ import { isTypedProp } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import {
   callbackWithParams,
-  hasStateExpression,
+  hasExpression,
 } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -91,10 +91,10 @@ export const bypassExpressionErrors = (
       possiblyTypedPropValue.kind === ITypeKind.ReactNodeType &&
       isString(possiblyTypedPropValue.value)
     ) {
-      return hasStateExpression(possiblyTypedPropValue.value)
+      return hasExpression(possiblyTypedPropValue.value)
     }
 
-    return hasStateExpression(errorValue)
+    return hasExpression(errorValue)
   })
 
   if (allExpressionErrors) {

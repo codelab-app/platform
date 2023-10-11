@@ -1,0 +1,5 @@
+fragment Url on Url {
+  __typename
+  url
+  id
+}

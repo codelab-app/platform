@@ -26,6 +26,9 @@ export const basePageSelectionSet = `
   }
   url
   _compoundName
+  authGuard {
+    id
+  }
 `
 
 export const pageSelectionSet = `

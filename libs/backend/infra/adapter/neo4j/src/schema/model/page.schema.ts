@@ -27,6 +27,8 @@ export const pageSchema = gql`
     kind: PageKind!
     # when the app will be deployed - the page will be available on this URL
     url: String!
+
+    authGuard: AuthGuard @relationship(type: "PAGE_AUTH_GUARD", direction: OUT)
   }
 
   # extend type Page

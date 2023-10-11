@@ -8,7 +8,7 @@ import {
   componentRef,
   extractTypedPropValue,
 } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import { hasExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 import { cloneComponent } from '../utils'
@@ -53,7 +53,7 @@ export class RenderPropTypeTransformer
       return ''
     }
 
-    if (hasStateExpression(propValue) && expressionTransformer.initialized) {
+    if (hasExpression(propValue) && expressionTransformer.initialized) {
       return expressionTransformer.transpileAndEvaluateExpression(propValue)
     }
 

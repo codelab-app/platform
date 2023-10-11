@@ -71,6 +71,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       adminService: prop(() => new AdminService({})),
       appService: prop(() => new AppService({})),
       atomService: prop(() => new AtomService({})),
+      authGuardService: prop(() => new AuthGuardService({})),
       builderService: prop(() => new BuilderService({})),
       componentService: prop(() => new ComponentApplicationService({})),
       domainService: prop(() => new DomainService({})),
@@ -85,6 +86,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       tagService: prop(() => new TagService({})),
       tracerService: prop(() => new TracerService({})),
       typeService: prop(() => new TypeService({})),
+      urlService: prop(() => new UrlService({})),
       userService: prop(() => UserService.init(user)),
     })
     implements IRootStore
@@ -117,7 +119,9 @@ export const createRootStore = ({ user }: RootStoreData) => {
       storeServiceContext.set(this, this.storeService)
       storeDomainServiceContext.set(this, this.storeService.storeDomainService)
       resourceServiceContext.set(this, this.resourceService)
+      authGuardServiceContext.set(this, this.authGuardService)
       propServiceContext.set(this, this.propService)
+      urlServiceContext.set(this, this.urlService)
       elementServiceContext.set(this, this.elementService)
       builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)

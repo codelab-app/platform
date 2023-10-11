@@ -3,6 +3,7 @@ import {
   adminMenuItems,
   allPagesMenuItem,
   appMenuItem,
+  authGuardMenuItem,
   builderComponentsMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
@@ -30,6 +31,7 @@ export const defaultNavigationBarItems = ({
     builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userSlug),
     pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userSlug),
     resourceMenuItem,
+    authGuardMenuItem,
   ],
   secondaryItems: adminMenuItems,
 })

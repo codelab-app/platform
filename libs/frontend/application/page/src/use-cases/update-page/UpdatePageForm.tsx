@@ -39,6 +39,7 @@ export const UpdatePageForm = observer(
 
     const model = {
       app: pageToUpdate?.app,
+      authGuard: pageToUpdate?.authGuard,
       id: pageToUpdate?.id,
       name: pageToUpdate?.name,
       url: pageToUpdate?.url,

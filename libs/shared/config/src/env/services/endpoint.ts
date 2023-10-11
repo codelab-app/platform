@@ -10,6 +10,10 @@ const { get } = env.from({
 
 export interface IEndpointEnvVars {
   /**
+   * Used to secure pages on production
+   */
+  canActivateUrl: string
+  /**
    * This is the Next.js middleware that forwards to the backend graphql endpoint
    */
   graphqlApiProxyUrl: string
@@ -23,6 +27,13 @@ export interface IEndpointEnvVars {
 }
 
 export class EndpointEnvVars implements IEndpointEnvVars {
+  /**
+   * URL is protocol + origin
+   */
+  get canActivateUrl() {
+    return `${this.platformApiHost}/api/can-activate`
+  }
+
   /**
    * URL is protocol + origin
    *

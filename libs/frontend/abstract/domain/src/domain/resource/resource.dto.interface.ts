@@ -1,12 +1,10 @@
-import type { IResourceDTO } from '@codelab/shared/abstract/core'
-
-export interface IBaseResourceConfigData {
-  headers: string
-  url: string
-}
+import type {
+  IResourceConfigData,
+  IResourceDTO,
+} from '@codelab/shared/abstract/core'
 
 export type ICreateResourceData = Omit<IResourceDTO, 'config'> & {
-  config: IBaseResourceConfigData
+  config: IResourceConfigData
 }
 
 export type IUpdateResourceData = ICreateResourceData

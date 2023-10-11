@@ -33,7 +33,6 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  clone,
   Model,
   model,
   modelAction,
@@ -104,6 +103,7 @@ export class PageApplicationService
 
     const page = appModel.addPageInCache({
       app,
+      authGuard,
       id,
       kind: IPageKind.Regular,
       name,

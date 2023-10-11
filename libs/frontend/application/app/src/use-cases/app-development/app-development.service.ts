@@ -77,7 +77,14 @@ export class AppDevelopmentService
       ),
     )
 
-    const props = elements.flatMap((element) => element.props)
+    const resources = data.resources
+    const authGuards = data.authGuards
+
+    const props = elements
+      .flatMap((element) => element.props)
+      .concat(resources.map((resource) => resource.config))
+      .concat(authGuards.map((authGuard) => authGuard.config))
+
     const stores = pages.flatMap((page) => page.store)
     const actions = stores.flatMap((store) => store.actions)
 
@@ -103,6 +110,7 @@ export class AppDevelopmentService
       ...data.primitiveTypes,
       ...data.reactNodeTypes,
       ...data.renderPropTypes,
+      ...data.actionTypes,
     ]
 
     const fields = types.flatMap((type) => type.fields)
@@ -111,11 +119,13 @@ export class AppDevelopmentService
       actions,
       app,
       atoms,
+      authGuards,
       components: [],
       elements,
       fields,
       pages,
       props,
+      resources,
       stores,
       types: [...types, ...systemTypes],
     }
@@ -145,6 +155,8 @@ export class AppDevelopmentService
 
     data.actions.forEach((action) => this.actionService.add(action))
 
+    data.resources.forEach((resource) => this.resourceService.add(resource))
+
     this.elementService.elementDomainService.logElementTreeState()
 
     return this.appService.appDomainService.hydrate(data.app)
@@ -163,6 +175,11 @@ export class AppDevelopmentService
   @computed
   private get atomService() {
     return getAtomService(this)
+  }
+
+  @computed
+  private get authGuardService() {
+    return getAuthGuardService(this)
   }
 
   @computed

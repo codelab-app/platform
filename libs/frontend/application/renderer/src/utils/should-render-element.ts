@@ -1,7 +1,7 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
-  hasStateExpression,
+  hasExpression,
 } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 
@@ -11,7 +11,7 @@ export const shouldRenderElement = (
 ) => {
   if (
     !element.renderIfExpression ||
-    !hasStateExpression(element.renderIfExpression)
+    !hasExpression(element.renderIfExpression)
   ) {
     return true
   }

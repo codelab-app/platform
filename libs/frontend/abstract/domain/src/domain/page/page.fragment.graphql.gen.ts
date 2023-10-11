@@ -21,6 +21,7 @@ export type PagePreviewFragment = {
   app: { id: string }
   rootElement: { id: string }
   store: { id: string }
+  authGuard?: { id: string } | null
 }
 
 export type PageFragment = {
@@ -32,6 +33,7 @@ export type PageFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
+  authGuard?: { id: string } | null
 }
 
 export type PageDevelopmentFragment = {
@@ -43,6 +45,7 @@ export type PageDevelopmentFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
+  authGuard?: { id: string } | null
 }
 
 export type PageProductionFragment = {
@@ -57,6 +60,7 @@ export type PageProductionFragment = {
     descendantElements: Array<ElementProductionFragment>
   } & ElementProductionFragment
   store: StoreFragment
+  authGuard?: { id: string } | null
 }
 
 export const PagePreviewFragmentDoc = gql`
@@ -71,6 +75,9 @@ export const PagePreviewFragmentDoc = gql`
       id
     }
     store {
+      id
+    }
+    authGuard {
       id
     }
     url
@@ -95,6 +102,9 @@ export const PageFragmentDoc = gql`
     }
     store {
       ...Store
+    }
+    authGuard {
+      id
     }
     url
   }
@@ -121,6 +131,9 @@ export const PageDevelopmentFragmentDoc = gql`
     store {
       ...Store
     }
+    authGuard {
+      id
+    }
     url
   }
   ${ElementFragmentDoc}
@@ -146,6 +159,9 @@ export const PageProductionFragmentDoc = gql`
     slug
     store {
       ...Store
+    }
+    authGuard {
+      id
     }
     url
   }

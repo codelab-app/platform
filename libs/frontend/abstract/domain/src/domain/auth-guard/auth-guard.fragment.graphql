@@ -1,0 +1,21 @@
+fragment AuthGuard on AuthGuard {
+  id
+  name
+  responseTransformer
+  config {
+    ...Prop
+  }
+  resource {
+    ...Resource
+  }
+  redirect {
+    ... on Page {
+      __typename
+      url
+    }
+    ... on Url {
+      __typename
+      url
+    }
+  }
+}

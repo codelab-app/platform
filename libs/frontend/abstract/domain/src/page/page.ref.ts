@@ -15,3 +15,6 @@ export const pageRef = rootRef<IPageModel>('@codelab/PageRef', {
     }
   },
 })
+
+export const isPageRef = (ref: Ref<object>): ref is Ref<IPageModel> =>
+  isRefOfType(ref, pageRef)

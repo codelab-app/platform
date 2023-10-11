@@ -23,8 +23,8 @@ mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
   }
 }
 
-mutation DeleteResources($where: ResourceWhere) {
-  deleteResources(where: $where) {
+mutation DeleteResources($where: ResourceWhere, $delete: ResourceDeleteInput) {
+  deleteResources(where: $where, delete: $delete) {
     nodesDeleted
   }
 }

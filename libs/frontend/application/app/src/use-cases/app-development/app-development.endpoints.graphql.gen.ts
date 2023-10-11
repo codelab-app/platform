@@ -33,6 +33,8 @@ export type GetAppDevelopmentQuery = {
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  authGuards: Array<AuthGuardFragment>
+  actionTypes: Array<ActionTypeFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -64,6 +66,9 @@ export const GetAppDevelopmentDocument = gql`
     resources {
       ...Resource
     }
+    authGuards {
+      ...AuthGuard
+    }
     primitiveTypes {
       ...PrimitiveType
     }
@@ -72,6 +77,9 @@ export const GetAppDevelopmentDocument = gql`
     }
     renderPropTypes {
       ...RenderPropType
+    }
+    actionTypes {
+      ...ActionType
     }
   }
   ${AppDevelopmentFragmentDoc}
