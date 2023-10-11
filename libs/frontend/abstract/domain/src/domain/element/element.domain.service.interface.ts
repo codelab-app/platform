@@ -13,7 +13,8 @@ export interface IElementDomainService {
   elements: ObjectMap<IElementModel>
   modifiedElements: Array<IElementModel>
 
-  add(elementDto: IElementDTO): IElementModel
+  addTreeNode(elementDto: IElementDTO): IElementModel
+  hydrate(elementDto: IElementDTO): IElementModel
   logElementTreeState(): void
   move(context: IMoveElementContext): void
   resetModifiedElements(): void

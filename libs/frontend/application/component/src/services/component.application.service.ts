@@ -188,7 +188,7 @@ export class ComponentApplicationService
 
     if (!rootElementModel) {
       rootElementModel =
-        this.elementService.elementDomainService.add(elementData)
+        this.elementService.elementDomainService.hydrate(elementData)
     }
 
     const component = this.add({
