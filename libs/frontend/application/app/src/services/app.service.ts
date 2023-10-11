@@ -70,10 +70,6 @@ export class AppService
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
     const defaultRenderType = this.atomService.defaultRenderType
 
-    // if (!defaultRenderType) {
-    //   throw new Error('Default atom renderType must be loaded first')
-    // }
-
     const pages = this.pageService.pageFactory.addSystemPages(
       {
         id,

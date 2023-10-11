@@ -18,7 +18,7 @@ import {
   getActionService,
   getStoreService,
 } from '@codelab/frontend/domain/store'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
@@ -96,6 +96,7 @@ export class AppDevelopmentService
     )
 
     const types = atoms.flatMap((type) => type.api)
+    const fields = types.flatMap((type) => type.fields)
 
     return {
       actions,
@@ -103,7 +104,7 @@ export class AppDevelopmentService
       atoms,
       components: [],
       elements,
-      fields: [],
+      fields,
       pages,
       props,
       stores,
@@ -116,6 +117,8 @@ export class AppDevelopmentService
     data.atoms.forEach((atom) => this.atomService.add(atom))
 
     data.types.forEach((type) => this.typeService.add(type))
+
+    data.fields.forEach((field) => this.fieldService.add(field))
 
     data.components.forEach((component) => this.componentService.add(component))
 
@@ -162,6 +165,11 @@ export class AppDevelopmentService
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  private get fieldService() {
+    return getFieldService(this)
   }
 
   @computed

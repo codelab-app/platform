@@ -97,19 +97,23 @@ export class TypeSchemaFactory {
     type: IInterfaceType,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    const makeFieldSchema = (field: IField) => ({
-      label: field.name || compoundCaseToTitleCase(field.key),
-      ...(field.description ? fieldDescription(field.description) : {}),
-      ...this.transform(field.type.current, {
-        autocomplete: context?.autocomplete,
-        defaultValues: field.defaultValues,
-        fieldName: field.name,
-        validationRules: field.validationRules ?? undefined,
-      }),
-      ...(field.type.current.kind !== ITypeKind.UnionType
-        ? field.validationRules?.general
-        : undefined),
-    })
+    const makeFieldSchema = (field: IField) => {
+      console.log(field)
+
+      return {
+        label: field.name || compoundCaseToTitleCase(field.key),
+        ...(field.description ? fieldDescription(field.description) : {}),
+        ...this.transform(field.type.current, {
+          autocomplete: context?.autocomplete,
+          defaultValues: field.defaultValues,
+          fieldName: field.name,
+          validationRules: field.validationRules ?? undefined,
+        }),
+        ...(field.type.current.kind !== ITypeKind.UnionType
+          ? field.validationRules?.general
+          : undefined),
+      }
+    }
 
     const makeFieldProperties = (
       acc: JsonSchema['properties'],

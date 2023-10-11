@@ -10,6 +10,7 @@ import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import isNil from 'lodash/isNil'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -68,6 +69,16 @@ export class Field
   implements IField
 {
   static create = create
+
+  @computed
+  get toJson() {
+    return {
+      id: this.id,
+      key: this.key,
+      name: this.name,
+      type: this.type.current,
+    }
+  }
 
   @modelAction
   add(fragment: IFieldDTO) {
