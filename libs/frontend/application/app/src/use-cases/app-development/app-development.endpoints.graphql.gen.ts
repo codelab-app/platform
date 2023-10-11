@@ -6,6 +6,9 @@ import {
   AtomProductionFragment,
 } from '../../../../../abstract/domain/src/domain/atom/atom.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
+import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/primitive-type.fragment.graphql.gen'
+import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
+import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/render-prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -15,6 +18,9 @@ import {
   AtomProductionFragmentDoc,
 } from '../../../../../abstract/domain/src/domain/atom/atom.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/domain/resource/resource.fragment.graphql.gen'
+import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/primitive-type.fragment.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
+import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/render-prop.fragment.graphql.gen'
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageName: Types.Scalars['String']['input']
@@ -24,6 +30,9 @@ export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
   resources: Array<ResourceFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -37,10 +46,22 @@ export const GetAppDevelopmentDocument = gql`
     resources {
       ...Resource
     }
+    primitiveTypes {
+      ...PrimitiveType
+    }
+    reactNodeTypes {
+      ...ReactNodeType
+    }
+    renderPropTypes {
+      ...RenderPropType
+    }
   }
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
   ${ResourceFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ReactNodeTypeFragmentDoc}
+  ${RenderPropTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

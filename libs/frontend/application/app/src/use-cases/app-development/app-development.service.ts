@@ -95,7 +95,14 @@ export class AppDevelopmentService
       (atom) => atom.id,
     )
 
-    const types = atoms.flatMap((type) => type.api)
+    const types = [...atoms.flatMap((type) => type.api)]
+
+    const systemTypes = [
+      ...data.primitiveTypes,
+      ...data.reactNodeTypes,
+      ...data.renderPropTypes,
+    ]
+
     const fields = types.flatMap((type) => type.fields)
 
     return {
@@ -108,7 +115,7 @@ export class AppDevelopmentService
       pages,
       props,
       stores,
-      types,
+      types: [...types, ...systemTypes],
     }
   })
 
