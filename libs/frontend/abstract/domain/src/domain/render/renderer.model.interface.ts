@@ -32,12 +32,11 @@ export interface IRenderer {
   urlSegments?: Record<string, string>
 
   addRuntimeProps(nodeRef: IPageNodeRef): IRuntimeProp<IPageNode>
-  logRendered(
-    element: IElementModel,
-    rendered: ArrayOrSingle<IRenderOutput>,
-  ): void
+  logRendered(rendered: IRenderOutput): void
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
-  renderElement(element: IElementModel): ReactElement
+  renderElement(element: IElementModel): Nullable<ReactElement>
   renderIntermediateElement(element: IElementModel): IRenderOutput
   renderRoot(): ReactElement | null
+  runPostRenderAction(element: IElementModel): void
+  runPreRenderAction(element: IElementModel): void
 }
