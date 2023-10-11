@@ -11,6 +11,7 @@ import type {
   IElementModel,
   IMoveElementContext,
   IUpdateElementData,
+  SelectElementOptions,
 } from '@codelab/frontend/abstract/domain'
 import {
   BuilderWidthBreakPoint,
