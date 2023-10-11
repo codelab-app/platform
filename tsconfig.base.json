@@ -164,6 +164,9 @@
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
+      "@codelab/frontend/domain/auth-guard": [
+        "libs/frontend/domain/auth-guard/src/index.ts"
+      ],
       "@codelab/frontend/abstract/application": [
         "libs/frontend/abstract/application/src/index.ts"
       ],
