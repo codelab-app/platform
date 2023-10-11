@@ -407,7 +407,7 @@ export class Element
   }
 
   @computed
-  get toElementTree() {
+  get toTreeNode() {
     return {
       firstChild: this.firstChild?.current.toId,
       id: this.id,
