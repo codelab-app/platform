@@ -1,4 +1,4 @@
-executor: docker-node
+executor: docker-node-neo4j
 resource_class: large
 environment:
   CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>

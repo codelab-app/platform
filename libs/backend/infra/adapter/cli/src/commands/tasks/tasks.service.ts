@@ -1,10 +1,10 @@
-import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import {
   execCommand,
   globalHandler,
 } from '@codelab/backend/infra/adapter/shell'
 import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { LazyModuleLoader } from '@nestjs/core'
 import { spawn } from 'child_process'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -28,7 +28,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
   describe = 'Run tasks'
 
-  constructor(private ogmService: OgmService) {
+  constructor(
+    // private ogmService: OgmService,
+    private lazyModuleLoader: LazyModuleLoader,
+  ) {
     this.builder = this.builder.bind(this)
   }
 
@@ -93,6 +96,19 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         // (argv) => argv.fail((msg, err) => console.log(msg, err)),
         globalHandler(async ({ stage }) => {
+          //
+          const { OgmModule } = await import(
+            '@codelab/backend/infra/adapter/neo4j'
+          )
+
+          const ogmModuleRef = await this.lazyModuleLoader.load(() => OgmModule)
+
+          const { OgmService } = await import(
+            '@codelab/backend/infra/adapter/neo4j'
+          )
+
+          const ogmService = ogmModuleRef.get(OgmService)
+
           if (stage === Stage.Dev) {
             if (!(await isPortReachable(4000, { host: '127.0.0.1' }))) {
               console.error('Please start server!')
@@ -102,7 +118,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             execCommand(
               'yarn graphql-codegen --config ./scripts/codegen/codegen.ts',
             )
-            await this.ogmService.generate()
+            await ogmService.generate()
 
             process.exit(0)
           }
@@ -134,7 +150,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 }
 
                 try {
-                  await this.ogmService.generate()
+                  await ogmService.generate()
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()
