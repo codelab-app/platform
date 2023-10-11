@@ -81,7 +81,7 @@ export interface IElementService
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 
   createElement(data: IElementDTO): Promise<IElementModel>
-  delete(subRoot: IEntity): Promise<void>
+  delete(subRoot: IElementModel): Promise<void>
   element(id: string): IElementModel
   getSelectElementOptions(
     props: SelectElementOptions,
