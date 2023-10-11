@@ -61,9 +61,7 @@ export class ElementRepository extends AbstractRepository<
    */
   protected async _add(elements: Array<ICreateElementDTO>) {
     return (
-      await (
-        await this.ogmService.Element
-      ).create({
+      await this.ogmService.Element.create({
         input: elements.map(
           ({
             closestContainerNode,
@@ -89,7 +87,7 @@ export class ElementRepository extends AbstractRepository<
             firstChild: connectNodeId(firstChild?.id),
             id,
             nextSibling: connectNodeId(nextSibling?.id),
-            parent: connectNodeId(parentElement?.id),
+            parentElement: connectNodeId(parentElement?.id),
             postRenderAction: connectNodeId(postRenderAction?.id),
             preRenderAction: connectNodeId(preRenderAction?.id),
             prevSibling: connectNodeId(prevSibling?.id),
