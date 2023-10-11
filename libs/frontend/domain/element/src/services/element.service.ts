@@ -70,7 +70,7 @@ export class ElementService
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
     this.elementDomainService.logElementTreeState()
 
-    const element = this.elementDomainService.hydrate(data)
+    const element = this.elementDomainService.addTreeNode(data)
 
     yield* _await(this.elementRepository.add(element))
 
@@ -104,6 +104,8 @@ export class ElementService
    */
   @modelFlow
   syncModifiedElements = _async(function* (this: ElementService) {
+    this.elementDomainService.logElementTreeState()
+
     yield* _await(
       this.updateElements(this.elementDomainService.modifiedElements),
     )
@@ -128,10 +130,12 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  delete = _async(function* (this: ElementService, subRoot: IElementModel) {
-    console.debug('ElementService.delete', subRoot)
+  delete = _async(function* (
+    this: ElementService,
+    subRootElement: IElementModel,
+  ) {
+    console.debug('ElementService.delete', subRootElement)
 
-    const subRootElement = this.element(subRoot.id)
     const parentComponent = subRootElement.parentComponent?.current
     const childrenContainer = parentComponent?.childrenContainerElement.current
 
@@ -150,22 +154,18 @@ export class ElementService
     // }
 
     // Get elements before detaching
-    const allElementsToDelete = [
+    const elementsToDelete = [
       subRootElement,
       ...subRootElement.descendantElements,
     ]
 
     subRootElement.detachFromTree()
 
-    console.log(allElementsToDelete)
+    yield* _await(this.syncModifiedElements())
+    // yield* _await(this.elementRepository.delete(elementsToDelete))
 
-    console.log(subRootElement.toTreeNode)
-
-    // yield* _await(this.syncModifiedElements())
-    // yield* _await(this.elementRepository.delete(allElementsToDelete))
-
-    // allElementsToDelete.reverse().forEach((element) => {
-    //   this.removeClones(element.id)
+    // elementsToDelete.reverse().forEach((element) => {
+    //   // this.removeClones(element.id)
     //   this.elementDomainService.elements.delete(element.id)
     // })
 

@@ -2,6 +2,7 @@ import { elementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { clone } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -20,16 +21,19 @@ export const DeleteElementModal = observer(() => {
   const elementToDelete = elementService.deleteModal.element
 
   const onSubmit = ({ element }: DeleteElementData) => {
+    const targetElement = elementService.element(element.id)
+
     // Get parent before we delete the current element
     const newSelectedNode =
-      elementToDelete.prevSibling ?? elementToDelete.closestParentElement
+      targetElement.prevSibling?.current ??
+      targetElement.closestParentElement?.current ??
+      targetElement.closestSubTreeRootElement
 
     // Don't wait so we don't block the UI
-    void elementService.delete(element)
+    void elementService.delete(targetElement)
 
     // Need to create new ref since prev ref already has a parent
-    newSelectedNode &&
-      builderService.setSelectedNode(elementRef(newSelectedNode.current))
+    builderService.setSelectedNode(elementRef(newSelectedNode))
 
     return Promise.resolve()
   }

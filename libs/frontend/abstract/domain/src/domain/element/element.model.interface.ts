@@ -177,7 +177,7 @@ export interface IElementModel
   attachAsPrevSibling(sibling: IElementModel): void
   clone(cloneIndex?: number): IElementModel
   deleteFromGuiCss(propNames: Array<string>): void
-  detachFromTree(): void
+  detachFromTree(): IElementModel
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void

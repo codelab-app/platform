@@ -760,7 +760,7 @@ export class Element
 
   @modelAction
   detachFromTree() {
-    console.debug('Element.detachFromTree()', this)
+    console.debug('Element.detachFromTree()', this.toTreeNode)
 
     const { nextSibling, parentElement, prevSibling } = this
 
@@ -787,6 +787,8 @@ export class Element
     this.nextSibling = null
     this.prevSibling = null
     this.parentElement = null
+
+    return this
   }
 
   @modelAction
