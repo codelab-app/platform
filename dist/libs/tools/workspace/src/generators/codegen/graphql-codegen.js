@@ -16,7 +16,7 @@ const graphql_1 = require("graphql");
  */
 const graphqlCodegen = async (sourceRoot, libName) => {
     // Schema
-    const schema = await (0, load_1.loadSchema)('http://127.0.0.1:3000/api/graphql', {
+    const schema = await (0, load_1.loadSchema)('http://127.0.0.1:4000/api/graphql', {
         loaders: [new url_loader_1.UrlLoader()],
     });
     // const schema = await loadSchema('your-schema.graphql', {
