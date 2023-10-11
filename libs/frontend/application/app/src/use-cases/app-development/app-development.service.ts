@@ -129,6 +129,8 @@ export class AppDevelopmentService
 
     data.fields.forEach((field) => this.fieldService.add(field))
 
+    data.fields.forEach((field) => this.fieldService.add(field))
+
     data.components.forEach((component) => this.componentService.add(component))
 
     data.elements.forEach((element) =>
