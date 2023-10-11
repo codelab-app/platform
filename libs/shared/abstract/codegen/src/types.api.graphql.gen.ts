@@ -20853,6 +20853,15 @@ export type GetAppDevelopmentQuery = {
   apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
   atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+  primitiveTypes: Array<
+    { __typename?: 'PrimitiveType' } & PrimitiveTypeFragment
+  >
+  reactNodeTypes: Array<
+    { __typename?: 'ReactNodeType' } & ReactNodeTypeFragment
+  >
+  renderPropTypes: Array<
+    { __typename?: 'RenderPropType' } & RenderPropTypeFragment
+  >
 }
 
 export type GetAppProductionQueryVariables = Exact<{

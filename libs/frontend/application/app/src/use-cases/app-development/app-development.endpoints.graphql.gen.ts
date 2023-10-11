@@ -33,6 +33,9 @@ export type GetAppDevelopmentQuery = {
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -64,6 +67,15 @@ export const GetAppDevelopmentDocument = gql`
     resources {
       ...Resource
     }
+    primitiveTypes {
+      ...PrimitiveType
+    }
+    reactNodeTypes {
+      ...ReactNodeType
+    }
+    renderPropTypes {
+      ...RenderPropType
+    }
   }
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
@@ -71,6 +83,9 @@ export const GetAppDevelopmentDocument = gql`
   ${ReactNodeTypeFragmentDoc}
   ${RenderPropTypeFragmentDoc}
   ${ResourceFragmentDoc}
+  ${PrimitiveTypeFragmentDoc}
+  ${ReactNodeTypeFragmentDoc}
+  ${RenderPropTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
