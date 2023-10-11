@@ -29,7 +29,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This uses the Next.js proxy middleware
    */
   get graphqlApiProxyUrl() {
-    return `${this.platformHost}/api/graphql`
+    return `/api/graphql`
   }
 
   get isLocal() {
