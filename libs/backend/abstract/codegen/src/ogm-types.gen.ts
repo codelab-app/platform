@@ -3776,8 +3776,8 @@ export type Element = {
   prevSibling?: Maybe<Element>
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
   firstChild?: Maybe<Element>
-  parentAggregate?: Maybe<ElementElementParentAggregationSelection>
-  parent?: Maybe<Element>
+  parentElementAggregate?: Maybe<ElementElementParentElementAggregationSelection>
+  parentElement?: Maybe<Element>
   pageAggregate?: Maybe<ElementPagePageAggregationSelection>
   page?: Maybe<Page>
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
@@ -3794,7 +3794,7 @@ export type Element = {
   nextSiblingConnection: ElementNextSiblingConnection
   prevSiblingConnection: ElementPrevSiblingConnection
   firstChildConnection: ElementFirstChildConnection
-  parentConnection: ElementParentConnection
+  parentElementConnection: ElementParentElementConnection
   pageConnection: ElementPageConnection
   propsConnection: ElementPropsConnection
   parentComponentConnection: ElementParentComponentConnection
@@ -3838,12 +3838,12 @@ export type ElementFirstChildArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ElementParentAggregateArgs = {
+export type ElementParentElementAggregateArgs = {
   where?: InputMaybe<ElementWhere>
   directed?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ElementParentArgs = {
+export type ElementParentElementArgs = {
   where?: InputMaybe<ElementWhere>
   options?: InputMaybe<ElementOptions>
   directed?: InputMaybe<Scalars['Boolean']['input']>
@@ -3946,12 +3946,12 @@ export type ElementFirstChildConnectionArgs = {
   sort?: InputMaybe<Array<ElementFirstChildConnectionSort>>
 }
 
-export type ElementParentConnectionArgs = {
-  where?: InputMaybe<ElementParentConnectionWhere>
+export type ElementParentElementConnectionArgs = {
+  where?: InputMaybe<ElementParentElementConnectionWhere>
   first?: InputMaybe<Scalars['Int']['input']>
   after?: InputMaybe<Scalars['String']['input']>
   directed?: InputMaybe<Scalars['Boolean']['input']>
-  sort?: InputMaybe<Array<ElementParentConnectionSort>>
+  sort?: InputMaybe<Array<ElementParentElementConnectionSort>>
 }
 
 export type ElementPageConnectionArgs = {
@@ -4134,14 +4134,14 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   renderIfExpression: StringAggregateSelectionNullable
 }
 
-export type ElementElementParentAggregationSelection = {
-  __typename?: 'ElementElementParentAggregationSelection'
+export type ElementElementParentElementAggregationSelection = {
+  __typename?: 'ElementElementParentElementAggregationSelection'
   count: Scalars['Int']['output']
-  node?: Maybe<ElementElementParentNodeAggregateSelection>
+  node?: Maybe<ElementElementParentElementNodeAggregateSelection>
 }
 
-export type ElementElementParentNodeAggregateSelection = {
-  __typename?: 'ElementElementParentNodeAggregateSelection'
+export type ElementElementParentElementNodeAggregateSelection = {
+  __typename?: 'ElementElementParentElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -4231,15 +4231,15 @@ export type ElementParentComponentRelationship = {
   node: Component
 }
 
-export type ElementParentConnection = {
-  __typename?: 'ElementParentConnection'
-  edges: Array<ElementParentRelationship>
+export type ElementParentElementConnection = {
+  __typename?: 'ElementParentElementConnection'
+  edges: Array<ElementParentElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
-export type ElementParentRelationship = {
-  __typename?: 'ElementParentRelationship'
+export type ElementParentElementRelationship = {
+  __typename?: 'ElementParentElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
@@ -15963,7 +15963,7 @@ export type ElementConnectInput = {
   nextSibling?: InputMaybe<ElementNextSiblingConnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>
   firstChild?: InputMaybe<ElementFirstChildConnectFieldInput>
-  parent?: InputMaybe<ElementParentConnectFieldInput>
+  parentElement?: InputMaybe<ElementParentElementConnectFieldInput>
   page?: InputMaybe<ElementPageConnectFieldInput>
   props?: InputMaybe<ElementPropsConnectFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentConnectFieldInput>
@@ -15978,7 +15978,7 @@ export type ElementConnectOrCreateInput = {
   nextSibling?: InputMaybe<ElementNextSiblingConnectOrCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildConnectOrCreateFieldInput>
-  parent?: InputMaybe<ElementParentConnectOrCreateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
   page?: InputMaybe<ElementPageConnectOrCreateFieldInput>
   props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
@@ -16006,7 +16006,7 @@ export type ElementCreateInput = {
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
-  parent?: InputMaybe<ElementParentFieldInput>
+  parentElement?: InputMaybe<ElementParentElementFieldInput>
   page?: InputMaybe<ElementPageFieldInput>
   props?: InputMaybe<ElementPropsFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentFieldInput>
@@ -16021,7 +16021,7 @@ export type ElementDeleteInput = {
   nextSibling?: InputMaybe<ElementNextSiblingDeleteFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
   firstChild?: InputMaybe<ElementFirstChildDeleteFieldInput>
-  parent?: InputMaybe<ElementParentDeleteFieldInput>
+  parentElement?: InputMaybe<ElementParentElementDeleteFieldInput>
   page?: InputMaybe<ElementPageDeleteFieldInput>
   props?: InputMaybe<ElementPropsDeleteFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentDeleteFieldInput>
@@ -16036,7 +16036,7 @@ export type ElementDisconnectInput = {
   nextSibling?: InputMaybe<ElementNextSiblingDisconnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDisconnectFieldInput>
   firstChild?: InputMaybe<ElementFirstChildDisconnectFieldInput>
-  parent?: InputMaybe<ElementParentDisconnectFieldInput>
+  parentElement?: InputMaybe<ElementParentElementDisconnectFieldInput>
   page?: InputMaybe<ElementPageDisconnectFieldInput>
   props?: InputMaybe<ElementPropsDisconnectFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentDisconnectFieldInput>
@@ -17001,18 +17001,6 @@ export type ElementPageUpdateFieldInput = {
   delete?: InputMaybe<ElementPageDeleteFieldInput>
 }
 
-export type ElementParentAggregateInput = {
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  AND?: InputMaybe<Array<ElementParentAggregateInput>>
-  OR?: InputMaybe<Array<ElementParentAggregateInput>>
-  NOT?: InputMaybe<ElementParentAggregateInput>
-  node?: InputMaybe<ElementParentNodeAggregationWhereInput>
-}
-
 export type ElementParentComponentAggregateInput = {
   count?: InputMaybe<Scalars['Int']['input']>
   count_LT?: InputMaybe<Scalars['Int']['input']>
@@ -17206,59 +17194,71 @@ export type ElementParentComponentUpdateFieldInput = {
   delete?: InputMaybe<ElementParentComponentDeleteFieldInput>
 }
 
-export type ElementParentConnectFieldInput = {
+export type ElementParentElementAggregateInput = {
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  AND?: InputMaybe<Array<ElementParentElementAggregateInput>>
+  OR?: InputMaybe<Array<ElementParentElementAggregateInput>>
+  NOT?: InputMaybe<ElementParentElementAggregateInput>
+  node?: InputMaybe<ElementParentElementNodeAggregationWhereInput>
+}
+
+export type ElementParentElementConnectFieldInput = {
   where?: InputMaybe<ElementConnectWhere>
   /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   connect?: InputMaybe<ElementConnectInput>
 }
 
-export type ElementParentConnectionSort = {
+export type ElementParentElementConnectionSort = {
   node?: InputMaybe<ElementSort>
 }
 
-export type ElementParentConnectionWhere = {
-  OR?: InputMaybe<Array<ElementParentConnectionWhere>>
-  AND?: InputMaybe<Array<ElementParentConnectionWhere>>
-  NOT?: InputMaybe<ElementParentConnectionWhere>
+export type ElementParentElementConnectionWhere = {
+  OR?: InputMaybe<Array<ElementParentElementConnectionWhere>>
+  AND?: InputMaybe<Array<ElementParentElementConnectionWhere>>
+  NOT?: InputMaybe<ElementParentElementConnectionWhere>
   node?: InputMaybe<ElementWhere>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   node_NOT?: InputMaybe<ElementWhere>
 }
 
-export type ElementParentConnectOrCreateFieldInput = {
+export type ElementParentElementConnectOrCreateFieldInput = {
   where: ElementConnectOrCreateWhere
-  onCreate: ElementParentConnectOrCreateFieldInputOnCreate
+  onCreate: ElementParentElementConnectOrCreateFieldInputOnCreate
 }
 
-export type ElementParentConnectOrCreateFieldInputOnCreate = {
+export type ElementParentElementConnectOrCreateFieldInputOnCreate = {
   node: ElementOnCreateInput
 }
 
-export type ElementParentCreateFieldInput = {
+export type ElementParentElementCreateFieldInput = {
   node: ElementCreateInput
 }
 
-export type ElementParentDeleteFieldInput = {
-  where?: InputMaybe<ElementParentConnectionWhere>
+export type ElementParentElementDeleteFieldInput = {
+  where?: InputMaybe<ElementParentElementConnectionWhere>
   delete?: InputMaybe<ElementDeleteInput>
 }
 
-export type ElementParentDisconnectFieldInput = {
-  where?: InputMaybe<ElementParentConnectionWhere>
+export type ElementParentElementDisconnectFieldInput = {
+  where?: InputMaybe<ElementParentElementConnectionWhere>
   disconnect?: InputMaybe<ElementDisconnectInput>
 }
 
-export type ElementParentFieldInput = {
-  connectOrCreate?: InputMaybe<ElementParentConnectOrCreateFieldInput>
-  connect?: InputMaybe<ElementParentConnectFieldInput>
-  create?: InputMaybe<ElementParentCreateFieldInput>
+export type ElementParentElementFieldInput = {
+  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
+  connect?: InputMaybe<ElementParentElementConnectFieldInput>
+  create?: InputMaybe<ElementParentElementCreateFieldInput>
 }
 
-export type ElementParentNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementParentNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<ElementParentNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementParentNodeAggregationWhereInput>
+export type ElementParentElementNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<ElementParentElementNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ElementParentElementNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
@@ -17552,18 +17552,18 @@ export type ElementParentNodeAggregationWhereInput = {
   renderIfExpression_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type ElementParentUpdateConnectionInput = {
+export type ElementParentElementUpdateConnectionInput = {
   node?: InputMaybe<ElementUpdateInput>
 }
 
-export type ElementParentUpdateFieldInput = {
-  where?: InputMaybe<ElementParentConnectionWhere>
-  connectOrCreate?: InputMaybe<ElementParentConnectOrCreateFieldInput>
-  connect?: InputMaybe<ElementParentConnectFieldInput>
-  disconnect?: InputMaybe<ElementParentDisconnectFieldInput>
-  create?: InputMaybe<ElementParentCreateFieldInput>
-  update?: InputMaybe<ElementParentUpdateConnectionInput>
-  delete?: InputMaybe<ElementParentDeleteFieldInput>
+export type ElementParentElementUpdateFieldInput = {
+  where?: InputMaybe<ElementParentElementConnectionWhere>
+  connectOrCreate?: InputMaybe<ElementParentElementConnectOrCreateFieldInput>
+  connect?: InputMaybe<ElementParentElementConnectFieldInput>
+  disconnect?: InputMaybe<ElementParentElementDisconnectFieldInput>
+  create?: InputMaybe<ElementParentElementCreateFieldInput>
+  update?: InputMaybe<ElementParentElementUpdateConnectionInput>
+  delete?: InputMaybe<ElementParentElementDeleteFieldInput>
 }
 
 export type ElementPostRenderActionConnectFieldInput = {
@@ -18177,7 +18177,7 @@ export type ElementRelationInput = {
   nextSibling?: InputMaybe<ElementNextSiblingCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildCreateFieldInput>
-  parent?: InputMaybe<ElementParentCreateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementCreateFieldInput>
   page?: InputMaybe<ElementPageCreateFieldInput>
   props?: InputMaybe<ElementPropsCreateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentCreateFieldInput>
@@ -18666,7 +18666,7 @@ export type ElementUpdateInput = {
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
-  parent?: InputMaybe<ElementParentUpdateFieldInput>
+  parentElement?: InputMaybe<ElementParentElementUpdateFieldInput>
   page?: InputMaybe<ElementPageUpdateFieldInput>
   props?: InputMaybe<ElementPropsUpdateFieldInput>
   parentComponent?: InputMaybe<ElementParentComponentUpdateFieldInput>
@@ -18804,9 +18804,9 @@ export type ElementWhere = {
   firstChild?: InputMaybe<ElementWhere>
   firstChild_NOT?: InputMaybe<ElementWhere>
   firstChildAggregate?: InputMaybe<ElementFirstChildAggregateInput>
-  parent?: InputMaybe<ElementWhere>
-  parent_NOT?: InputMaybe<ElementWhere>
-  parentAggregate?: InputMaybe<ElementParentAggregateInput>
+  parentElement?: InputMaybe<ElementWhere>
+  parentElement_NOT?: InputMaybe<ElementWhere>
+  parentElementAggregate?: InputMaybe<ElementParentElementAggregateInput>
   page?: InputMaybe<PageWhere>
   page_NOT?: InputMaybe<PageWhere>
   pageAggregate?: InputMaybe<ElementPageAggregateInput>
@@ -18828,8 +18828,8 @@ export type ElementWhere = {
   prevSiblingConnection_NOT?: InputMaybe<ElementPrevSiblingConnectionWhere>
   firstChildConnection?: InputMaybe<ElementFirstChildConnectionWhere>
   firstChildConnection_NOT?: InputMaybe<ElementFirstChildConnectionWhere>
-  parentConnection?: InputMaybe<ElementParentConnectionWhere>
-  parentConnection_NOT?: InputMaybe<ElementParentConnectionWhere>
+  parentElementConnection?: InputMaybe<ElementParentElementConnectionWhere>
+  parentElementConnection_NOT?: InputMaybe<ElementParentElementConnectionWhere>
   pageConnection?: InputMaybe<ElementPageConnectionWhere>
   pageConnection_NOT?: InputMaybe<ElementPageConnectionWhere>
   propsConnection?: InputMaybe<ElementPropsConnectionWhere>

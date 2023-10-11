@@ -15,6 +15,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  clone,
   idProp,
   Model,
   model,
@@ -146,13 +147,17 @@ export class ElementService
 
     subRootElement.detachFromTree()
 
-    yield* _await(this.syncModifiedElements())
-    yield* _await(this.elementRepository.delete(allElementsToDelete))
+    console.log(allElementsToDelete)
 
-    allElementsToDelete.reverse().forEach((element) => {
-      this.removeClones(element.id)
-      this.elementDomainService.elements.delete(element.id)
-    })
+    console.log(subRootElement.toTreeNode)
+
+    // yield* _await(this.syncModifiedElements())
+    // yield* _await(this.elementRepository.delete(allElementsToDelete))
+
+    // allElementsToDelete.reverse().forEach((element) => {
+    //   this.removeClones(element.id)
+    //   this.elementDomainService.elements.delete(element.id)
+    // })
 
     return
   })
@@ -250,7 +255,7 @@ export class ElementService
   private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
     return [...this.clonedElements.values()]
       .filter((clonedElement) => clonedElement.sourceElement?.id === id)
-      .map((clone) => clone.writeCache({ ...elementData }))
+      .map((clonedElement) => clonedElement.writeCache({ ...elementData }))
   }
 
   @computed

@@ -12,7 +12,8 @@ export const elementSchema = gql`
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
-    parent: Element @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
+    parentElement: Element
+      @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)

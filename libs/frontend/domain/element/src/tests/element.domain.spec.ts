@@ -161,6 +161,69 @@ describe('Element domain', () => {
     })
   })
 
+  // (rootElement)
+  //  /
+  // (anotherFirstChild)-(firstChild)-(anotherNextSibling)-[prevSibling]-(nextSibling)
+  // /
+  // (secondLevelFirstChild)
+  describe('Element getters', () => {
+    let secondLevelFirstChild: IElementModel
+
+    it('should have closestParentElement', () => {
+      const secondLevelFirstChildDto = {
+        ...rootElementDto,
+        id: v4(),
+        name: 'Second Level First Child',
+        parentElement: nextSibling,
+      }
+
+      secondLevelFirstChild = elementDomainService.add(secondLevelFirstChildDto)
+
+      expect(nextSibling.closestParentElement?.current).toBe(rootElement)
+      expect(anotherNextSibling.closestParentElement?.current).toBe(rootElement)
+      expect(firstChild.closestParentElement?.current).toBe(rootElement)
+      expect(anotherFirstChild.closestParentElement?.current).toBe(rootElement)
+
+      expect(rootElement.closestParentElement?.current).toBeUndefined()
+
+      expect(secondLevelFirstChild.closestParentElement?.current).toBe(
+        nextSibling,
+      )
+    })
+
+    it('should have children', () => {
+      const children = rootElement.children.map((element) => element.toJson)
+
+      expect(children).toStrictEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: nextSibling.id,
+          }),
+          expect.objectContaining({
+            id: anotherNextSibling.id,
+          }),
+          expect.objectContaining({
+            id: firstChild.id,
+          }),
+          expect.objectContaining({
+            id: anotherFirstChild.id,
+          }),
+        ]),
+      )
+    })
+
+    it('should have closestSubTreeRootElement', () => {
+      expect(nextSibling.closestSubTreeRootElement).toBe(rootElement)
+      expect(anotherNextSibling.closestSubTreeRootElement).toBe(rootElement)
+      expect(firstChild.closestSubTreeRootElement).toBe(rootElement)
+      expect(anotherFirstChild.closestSubTreeRootElement).toBe(rootElement)
+
+      expect(rootElement.closestSubTreeRootElement).toBe(rootElement)
+
+      expect(secondLevelFirstChild.closestSubTreeRootElement).toBe(rootElement)
+    })
+  })
+
   describe('Remove', () => {
     // (rootElement)
     // /
