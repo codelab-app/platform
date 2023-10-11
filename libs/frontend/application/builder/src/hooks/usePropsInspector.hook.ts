@@ -1,5 +1,7 @@
-import type { IPageNodeRef } from '@codelab/frontend/abstract/domain'
-import { isElementPageNodeRef } from '@codelab/frontend/abstract/domain'
+import {
+  type IPageNodeRef,
+  isElementRef,
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { schemaTransformer } from '@codelab/frontend/application/type'
 import { createValidator } from '@codelab/frontend/presentation/view'
@@ -23,7 +25,7 @@ const validateJson = (value: string): Nullable<IPropData> => {
 }
 
 const validateSchema = (node: IPageNodeRef) => {
-  const interfaceType = isElementPageNodeRef(node)
+  const interfaceType = isElementRef(node)
     ? node.current.renderType.current.api.current
     : node.current.api.current
 
@@ -60,7 +62,7 @@ export const usePropsInspector = (node: IPageNodeRef) => {
   const { propService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
   const validator = validateSchema(node)
-  const nodeLabel = isElementPageNodeRef(node) ? 'Element' : 'Component'
+  const nodeLabel = isElementRef(node) ? 'Element' : 'Component'
 
   const save = async (data: string) => {
     const jsonValue = validateJson(data)

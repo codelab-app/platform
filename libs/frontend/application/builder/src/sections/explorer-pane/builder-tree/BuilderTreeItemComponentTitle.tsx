@@ -1,9 +1,9 @@
-import type {
-  IBuilderService,
-  IComponentModel,
-  IElementService,
+import {
+  type IBuilderService,
+  type IComponentModel,
+  type IElementService,
+  isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { isElementPageNodeRef } from '@codelab/frontend/abstract/domain'
 import { CreateElementButton } from '@codelab/frontend/domain/element'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -23,9 +23,8 @@ export const BuilderTreeItemComponentTitle = observer(
   }: BuilderTreeItemComponentTitleProps) => {
     const { selectedNode } = builderService
 
-    const selectedNodeId = isElementPageNodeRef(selectedNode)
-      ? selectedNode.id
-      : undefined
+    const selectedNodeId =
+      selectedNode && isElementRef(selectedNode) ? selectedNode.id : undefined
 
     return (
       <Row justify="space-between">

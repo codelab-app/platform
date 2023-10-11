@@ -1,8 +1,8 @@
 import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
-  isComponentPageNode,
-  isElementPageNode,
+  isComponent,
+  isElement,
   RendererTab,
 } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
@@ -69,17 +69,11 @@ export const CustomComponents = observer(() => {
   const onBack = () => {
     builderService.setActiveTab(RendererTab.Page)
 
-    if (
-      previousActiveNode.current &&
-      isComponentPageNode(previousActiveNode.current)
-    ) {
+    if (previousActiveNode.current && isComponent(previousActiveNode.current)) {
       builderService.selectComponentNode(previousActiveNode.current)
     }
 
-    if (
-      previousActiveNode.current &&
-      isElementPageNode(previousActiveNode.current)
-    ) {
+    if (previousActiveNode.current && isElement(previousActiveNode.current)) {
       builderService.selectElementNode(previousActiveNode.current)
     }
   }

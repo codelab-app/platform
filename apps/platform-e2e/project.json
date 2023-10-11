@@ -29,6 +29,10 @@
         "test": {
           "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
           "devServerTarget": "platform-e2e:serve:test",
+          "reporter": "../../node_modules/cypress-multi-reporters",
+          "reporterOptions": {
+            "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
+          },
           "record": false,
           "watch": true,
           "exit": false

@@ -1,9 +1,9 @@
-import type {
-  IPageNode,
-  ITypedPropTransformer,
-  TypedProp,
+import {
+  type IPageNode,
+  isElement,
+  type ITypedPropTransformer,
+  type TypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { isElementPageNode } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 
@@ -27,7 +27,7 @@ export class ElementTypeTransformer
   implements ITypedPropTransformer
 {
   public transform(prop: TypedProp, node: IPageNode) {
-    const elements = isElementPageNode(node)
+    const elements = isElement(node)
       ? node.closestContainerNode.elements
       : node.elements
 

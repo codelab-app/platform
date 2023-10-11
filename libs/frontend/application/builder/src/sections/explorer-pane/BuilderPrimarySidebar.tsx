@@ -4,9 +4,8 @@ import {
   elementRef,
   elementTreeRef,
   isComponent,
-  isComponentPageNode,
-  isElementPageNode,
-  isElementPageNodeRef,
+  isElement,
+  isElementRef,
   RendererTab,
   storeRef,
   typeRef,
@@ -75,22 +74,24 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const isPageTree = antdTree && pageTree
     const store = builderService.selectedNode?.current.store.current
 
-    const providerStore = isElementPageNodeRef(builderService.selectedNode)
-      ? builderService.selectedNode.current.providerStore?.current
-      : undefined
+    const providerStore =
+      builderService.selectedNode && isElementRef(builderService.selectedNode)
+        ? builderService.selectedNode.current.providerStore?.current
+        : undefined
 
     const componentStore =
-      isElementPageNodeRef(builderService.selectedNode) &&
+      builderService.selectedNode &&
+      isElementRef(builderService.selectedNode) &&
       isComponent(builderService.selectedNode.current.renderType.current)
         ? builderService.selectedNode.current.renderType.current.store.current
         : undefined
 
     const selectTreeNode = (node: IPageNode) => {
-      if (isComponentPageNode(node)) {
+      if (isComponent(node)) {
         return builderService.selectComponentNode(node)
       }
 
-      if (isElementPageNode(node)) {
+      if (isElement(node)) {
         return builderService.selectElementNode(node)
       }
     }

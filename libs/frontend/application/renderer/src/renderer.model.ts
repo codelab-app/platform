@@ -20,7 +20,7 @@ import {
   IElementModel,
   IPageNodeRef,
   isAtom,
-  isElementPageNodeRef,
+  isElementRef,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -46,7 +46,7 @@ import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 import { ElementRuntimeProps } from './element-runtime-props.model'
-import { ExpressionTransformer } from './expresssion-transformer.service'
+import { ExpressionTransformer } from './expression-transformer.service'
 import {
   defaultPipes,
   renderPipeFactory,
@@ -238,7 +238,7 @@ export class Renderer
       return existingRuntimeProps
     }
 
-    const runtimeProps = isElementPageNodeRef(nodeRef)
+    const runtimeProps = isElementRef(nodeRef)
       ? ElementRuntimeProps.create(nodeRef)
       : ComponentRuntimeProps.create(nodeRef)
 

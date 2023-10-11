@@ -9,10 +9,9 @@ const ciCypressJsonConfig: Cypress.ConfigOptions = {
   pageLoadTimeout: 20000,
   // Cypress Cloud
   responseTimeout: 60000,
-  // retries: {
-  //   openMode: 0,
-  //   runMode: 1,
-  // },
+  retries: {
+    runMode: 1,
+  },
 }
 
 export default defineConfig({

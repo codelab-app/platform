@@ -6,8 +6,8 @@ import type {
 import {
   extractTypedPropValue,
   getRunnerId,
-  isComponentPageNode,
-  isElementPageNode,
+  isComponent,
+  isElement,
 } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -38,16 +38,14 @@ export class ActionTypeTransformer
       return prop.value
     }
 
-    const componentStore = isComponentPageNode(node) ? node.store : undefined
+    const componentStore = isComponent(node) ? node.store : undefined
     const propValue = extractTypedPropValue(prop)
 
     if (!propValue) {
       return ''
     }
 
-    const providerStore = isElementPageNode(node)
-      ? node.providerStore
-      : undefined
+    const providerStore = isElement(node) ? node.providerStore : undefined
 
     const localActionRunner = this.renderer.actionRunners.get(
       getRunnerId(node.store.id, propValue),
@@ -72,7 +70,7 @@ export class ActionTypeTransformer
       localActionRunner ?? rootActionRunner ?? componentActionRunner
 
     if (actionRunner) {
-      const context = isElementPageNode(node) ? node.propsEvaluationContext : {}
+      const context = isElement(node) ? node.propsEvaluationContext : {}
 
       return actionRunner.runner.bind(context)
     }
