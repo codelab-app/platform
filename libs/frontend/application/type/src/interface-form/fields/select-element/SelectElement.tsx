@@ -27,12 +27,16 @@ export const SelectElement = ({
   const { elementService } = useStore()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c84726e2 (refactor: refactor select components (#3066))
   const selectOptions = elementService.getSelectElementOptions({
     allElementOptions,
     elementTree,
     kind,
     targetElementId,
   })
+<<<<<<< HEAD
 =======
   allElementOptions ??=
     elementTree?.elements.map(({ children, id, label }) => ({
@@ -84,6 +88,8 @@ export const SelectElement = ({
     }
   }
 >>>>>>> eb2460d7a (ci: fix cypress after upgrade)
+=======
+>>>>>>> 5c84726e2 (refactor: refactor select components (#3066))
 
   return (
     <SelectField

@@ -10,10 +10,12 @@ import {
 import type {
   IElementModel,
   IMoveElementContext,
+  SelectElementOption,
 } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   IUpdateElementData,
+  SelectElementOptions,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { ElementDomainService } from '@codelab/frontend/domain/element'

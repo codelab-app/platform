@@ -4,6 +4,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   actionRef,
+  getBuilderService,
   type IActionModel,
   type IActionWhere,
   type ICreateActionData,
