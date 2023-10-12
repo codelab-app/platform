@@ -4,6 +4,7 @@ import {
   CloudServerOutlined,
   CodeSandboxOutlined,
   FileOutlined,
+  SafetyOutlined,
 } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
@@ -26,6 +27,15 @@ export const resourceMenuItem: NavigationBarItem = {
     href: PageType.Resources,
   },
   title: 'Resources',
+}
+
+export const authGuardMenuItem: NavigationBarItem = {
+  icon: <SafetyOutlined title="Auth Guards" />,
+  key: PageType.AuthGuards,
+  link: {
+    href: PageType.AuthGuards,
+  },
+  title: 'Auth Guards',
 }
 
 export const allPagesMenuItem = (

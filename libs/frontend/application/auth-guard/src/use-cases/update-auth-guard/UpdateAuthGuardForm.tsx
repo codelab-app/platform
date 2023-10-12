@@ -18,8 +18,8 @@ export const UpdateAuthGuardForm = observer(() => {
     resource: authGuard?.resource,
   }
 
-  const onSubmit = (AuthGuardDTO: IUpdateAuthGuardData) => {
-    void authGuardService.update(AuthGuardDTO)
+  const onSubmit = (authGuardDTO: IUpdateAuthGuardData) => {
+    void authGuardService.update(authGuardDTO)
 
     return Promise.resolve()
   }

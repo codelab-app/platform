@@ -51,6 +51,7 @@ const AuthGuardsPageHeader = observer(() => {
 const AuthGuardsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { authGuardService } = useStore()
   const authGuard = authGuardService.updateForm.authGuard
+  console.log(authGuard)
 
   return (
     <>

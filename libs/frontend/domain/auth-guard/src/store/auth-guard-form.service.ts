@@ -17,11 +17,11 @@ export class AuthGuardFormService
   implements
     IEntityFormService<
       Ref<IAuthGuardModel>,
-      { authguard: Maybe<IAuthGuardModel> }
+      { authGuard: Maybe<IAuthGuardModel> }
     >
 {
   @computed
-  get authguard() {
+  get authGuard() {
     return this.metadata?.current
   }
 }

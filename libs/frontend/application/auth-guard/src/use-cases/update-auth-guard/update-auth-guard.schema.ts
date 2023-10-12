@@ -4,5 +4,5 @@ import { createAuthGuardSchema } from '../create-auth-guard'
 
 export const updateAuthGuardSchema: JSONSchemaType<IUpdateAuthGuardData> = {
   ...createAuthGuardSchema,
-  title: 'Update AuthGuard Input',
+  title: 'Update Auth Guard Input',
 }

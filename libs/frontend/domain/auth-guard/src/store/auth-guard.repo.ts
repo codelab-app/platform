@@ -45,7 +45,7 @@ export class AuthGuardRepository
     return (await this.find(where)).items[0]
   }
 
-  // @clearCacheForKey('authguards')
+  // @clearCacheForKey('authGuards')
   async update(authGuard: IAuthGuardModel) {
     const {
       updateAuthGuards: { authGuards },

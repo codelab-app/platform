@@ -24,7 +24,7 @@ export const CreateAuthGuardModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      okText="Create AuthGuard"
+      okText="Create Auth Guard"
       onCancel={closeModal}
       open={authGuardService.createModal.isOpen}
     >

@@ -19,7 +19,7 @@ export const CreateAuthGuardPopover = observer(() => {
   return (
     <CuiSidebarPopover
       id={FormNames.CreateAuthGuard}
-      label="Create Auth-guard"
+      label="Create Auth Guard"
       toolbar={{
         items: [
           {

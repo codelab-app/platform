@@ -16,14 +16,14 @@ interface AuthGuardsTreeItemProps {
 export const AuthGuardsTreeItem = observer(
   ({ data }: AuthGuardsTreeItemProps) => {
     const { authGuardService } = useStore()
-    const AuthGuard = data.extraData.node
+    const authGuard = data.extraData.node
 
     const onEdit = () => {
-      authGuardService.updateForm.open(authGuardRef(AuthGuard.id))
+      authGuardService.updateForm.open(authGuardRef(authGuard.id))
     }
 
     const onDelete = () => {
-      authGuardService.deleteModal.open(authGuardRef(AuthGuard.id))
+      authGuardService.deleteModal.open(authGuardRef(authGuard.id))
     }
 
     const toolbarItems = [

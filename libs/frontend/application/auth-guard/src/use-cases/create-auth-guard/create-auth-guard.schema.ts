@@ -1,4 +1,5 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import { SelectResource } from '@codelab/frontend/application/type'
 import {
   CodeMirrorField,
   idSchema,
@@ -27,9 +28,13 @@ export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
     resource: {
       nullable: true,
       properties: {
-        ...idSchema({
-          label: 'Resource',
-        }),
+        id: {
+          type: 'string',
+          label: '',
+          uniforms: {
+            component: SelectResource,
+          },
+        },
       },
       required: ['id'],
       type: 'object',
