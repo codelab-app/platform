@@ -54,7 +54,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
 
       const page = find(
         Array.from(pageService.pages.values()),
-        (_page) => _page.name === pageName,
+        (_page) => _page.name === pageName && _page.app.id === app.id,
       )
 
       if (!page) {
