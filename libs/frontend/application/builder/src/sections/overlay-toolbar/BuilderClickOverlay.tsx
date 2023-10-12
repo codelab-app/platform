@@ -4,7 +4,7 @@ import type {
   IElementService,
 } from '@codelab/frontend/abstract/domain'
 import { elementRef, isElementRef } from '@codelab/frontend/abstract/domain'
-import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
+import { queryRenderedElementById } from '@codelab/frontend/presentation/renderer'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { Button } from 'antd'

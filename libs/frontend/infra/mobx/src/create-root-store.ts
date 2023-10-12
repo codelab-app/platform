@@ -12,7 +12,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { AppService } from '@codelab/frontend/application/app'
 import { ElementApplicationService } from '@codelab/frontend/application/element'
-import { RenderService } from '@codelab/frontend/application/renderer'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { BuilderService } from '@codelab/frontend/domain/builder'
@@ -24,6 +23,7 @@ import {
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
 import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
+import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ResourceService,
   resourceServiceContext,

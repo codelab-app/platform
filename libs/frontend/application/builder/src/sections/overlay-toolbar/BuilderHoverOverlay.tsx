@@ -3,7 +3,7 @@ import type {
   IElementService,
 } from '@codelab/frontend/abstract/domain'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
-import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
+import { queryRenderedElementById } from '@codelab/frontend/presentation/renderer'
 import {
   HoverOverlay,
   MarginPaddingOverlay,

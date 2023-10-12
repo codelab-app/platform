@@ -19,12 +19,12 @@ import {
   renderServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import { RenderService } from '@codelab/frontend/application/renderer'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
 import { ComponentService } from '@codelab/frontend/domain/component'
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
 import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
+import { RenderService } from '@codelab/frontend/domain/renderer'
 import {
   ActionService,
   actionServiceContext,

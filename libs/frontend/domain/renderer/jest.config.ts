@@ -2,7 +2,6 @@
 export default {
   displayName: 'renderer',
   preset: '../../../../jest.preset.js',
-  testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

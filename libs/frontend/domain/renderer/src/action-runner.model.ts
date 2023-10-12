@@ -29,6 +29,7 @@ import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
+import { getRunner } from './utils'
 
 const restFetch = (
   client: Axios,
@@ -63,36 +64,6 @@ const graphqlFetch = (
   )
 
   return client.request(config.query, variables, headers)
-}
-
-export const getRunner = (
-  renderer?: IRenderer,
-  actionId?: string,
-  storeId?: string,
-  providerStoreId?: string,
-): { runner?: IActionRunner; fromProvider?: boolean } => {
-  if (!renderer || !actionId || !storeId) {
-    return {}
-  }
-
-  const runner = renderer.actionRunners.get(getRunnerId(storeId, actionId))
-
-  if (!isNil(runner)) {
-    return { fromProvider: false, runner }
-  }
-
-  if (!providerStoreId) {
-    return {}
-  }
-
-  const providerRunner = renderer.actionRunners.get(
-    getRunnerId(providerStoreId, actionId),
-  )
-
-  return {
-    fromProvider: !isNil(providerRunner),
-    runner: providerRunner,
-  }
 }
 
 const create = (rootElement: IElementModel) => {

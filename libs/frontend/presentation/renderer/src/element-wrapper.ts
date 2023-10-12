@@ -7,14 +7,13 @@ import type {
 import { RendererType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import { getRunner } from '@codelab/frontend/domain/renderer'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useDragDropHandlers, useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
+import { useDragDropHandlers, useSelectionHandlers } from './utils'
 import {
   extractValidProps,
   generateTailwindClasses,
