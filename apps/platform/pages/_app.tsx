@@ -11,7 +11,7 @@ import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 import config from '../twind.config'
 
-// install(config)
+install(config)
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const store = useMemo(() => {
