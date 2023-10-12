@@ -15,6 +15,7 @@ import { ElementApplicationService } from '@codelab/frontend/application/element
 import { RenderService } from '@codelab/frontend/application/renderer'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
+import { AuthGuardService } from '@codelab/frontend/domain/auth-guard'
 import { BuilderService } from '@codelab/frontend/domain/builder'
 import { ComponentService } from '@codelab/frontend/domain/component'
 import {
@@ -56,6 +57,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       adminService: prop(() => new AdminService({})),
       appService: prop(() => new AppService({})),
       atomService: prop(() => new AtomService({})),
+      authGuardService: prop(() => new AuthGuardService({})),
       builderService: prop(() => new BuilderService({})),
       componentService: prop(() => new ComponentService({})),
       domainService: prop(() => new DomainService({})),

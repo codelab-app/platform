@@ -1,0 +1,8 @@
+fragment AuthGuard on AuthGuard {
+  id
+  name
+  canActivate
+  resource {
+    ...Resource
+  }
+}

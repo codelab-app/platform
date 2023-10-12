@@ -4230,13 +4230,36 @@ export type AtomsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type AuthGuard = {
+export type AuthGuard = WithOwner & {
   __typename?: 'AuthGuard'
   canActivate: Scalars['String']['output']
   id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  owner: User
+  ownerAggregate?: Maybe<AuthGuardUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
   resource?: Maybe<Resource>
   resourceAggregate?: Maybe<AuthGuardResourceResourceAggregationSelection>
   resourceConnection: AuthGuardResourceConnection
+}
+
+export type AuthGuardOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type AuthGuardOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type AuthGuardOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
 export type AuthGuardResourceArgs = {
@@ -4263,13 +4286,16 @@ export type AuthGuardAggregateSelection = {
   canActivate: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type AuthGuardConnectInput = {
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   resource?: InputMaybe<AuthGuardResourceConnectFieldInput>
 }
 
 export type AuthGuardConnectOrCreateInput = {
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   resource?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
 }
 
@@ -4284,14 +4310,18 @@ export type AuthGuardConnectWhere = {
 export type AuthGuardCreateInput = {
   canActivate: Scalars['String']['input']
   id: Scalars['ID']['input']
+  name: Scalars['String']['input']
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
   resource?: InputMaybe<AuthGuardResourceFieldInput>
 }
 
 export type AuthGuardDeleteInput = {
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   resource?: InputMaybe<AuthGuardResourceDeleteFieldInput>
 }
 
 export type AuthGuardDisconnectInput = {
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   resource?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
 }
 
@@ -4304,6 +4334,7 @@ export type AuthGuardEdge = {
 export type AuthGuardOnCreateInput = {
   canActivate: Scalars['String']['input']
   id: Scalars['ID']['input']
+  name: Scalars['String']['input']
 }
 
 export type AuthGuardOptions = {
@@ -4313,7 +4344,71 @@ export type AuthGuardOptions = {
   sort?: InputMaybe<Array<AuthGuardSort>>
 }
 
+export type AuthGuardOwnerAggregateInput = {
+  AND?: InputMaybe<Array<AuthGuardOwnerAggregateInput>>
+  NOT?: InputMaybe<AuthGuardOwnerAggregateInput>
+  OR?: InputMaybe<Array<AuthGuardOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<AuthGuardOwnerNodeAggregationWhereInput>
+}
+
+export type AuthGuardOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AuthGuardOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AuthGuardOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AuthGuardOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
 export type AuthGuardRelationInput = {
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   resource?: InputMaybe<AuthGuardResourceCreateFieldInput>
 }
 
@@ -4440,6 +4535,7 @@ export type AuthGuardResourceUpdateFieldInput = {
 export type AuthGuardSort = {
   canActivate?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
 }
 
 export type AuthGuardUniqueWhere = {
@@ -4449,7 +4545,23 @@ export type AuthGuardUniqueWhere = {
 export type AuthGuardUpdateInput = {
   canActivate?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
+}
+
+export type AuthGuardUserOwnerAggregationSelection = {
+  __typename?: 'AuthGuardUserOwnerAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<AuthGuardUserOwnerNodeAggregateSelection>
+}
+
+export type AuthGuardUserOwnerNodeAggregateSelection = {
+  __typename?: 'AuthGuardUserOwnerNodeAggregateSelection'
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
 }
 
 export type AuthGuardWhere = {
@@ -4468,6 +4580,17 @@ export type AuthGuardWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
   id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  name_MATCHES?: InputMaybe<Scalars['String']['input']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<AuthGuardOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
   resource?: InputMaybe<ResourceWhere>
   resourceAggregate?: InputMaybe<AuthGuardResourceAggregateInput>
   resourceConnection?: InputMaybe<AuthGuardResourceConnectionWhere>
@@ -14300,6 +14423,7 @@ export type PageAuthGuardAuthGuardNodeAggregateSelection = {
   __typename?: 'PageAuthGuardAuthGuardNodeAggregateSelection'
   canActivate: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
 }
 
 export type PageAuthGuardConnectFieldInput = {
@@ -14375,6 +14499,21 @@ export type PageAuthGuardNodeAggregationWhereInput = {
   canActivate_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   canActivate_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   canActivate_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type PageAuthGuardRelationship = {
@@ -21293,6 +21432,14 @@ export type AtomProductionFragment = {
   }>
 }
 
+export type AuthGuardFragment = {
+  __typename?: 'AuthGuard'
+  id: string
+  name: string
+  canActivate: string
+  resource?: ({ __typename?: 'Resource' } & ResourceFragment) | null
+}
+
 export type ComponentDevelopmentFragment = {
   __typename?: 'Component'
   rootElement: {
@@ -21991,6 +22138,51 @@ export type UpdateAtomsMutation = {
     __typename?: 'UpdateAtomsMutationResponse'
     atoms: Array<{ __typename?: 'Atom'; id: string }>
   }
+}
+
+export type GetAuthGuardsQueryVariables = Exact<{
+  options?: InputMaybe<AuthGuardOptions>
+  where?: InputMaybe<AuthGuardWhere>
+}>
+
+export type GetAuthGuardsQuery = {
+  __typename?: 'Query'
+  aggregate: { __typename?: 'AuthGuardAggregateSelection'; count: number }
+  items: Array<{ __typename?: 'AuthGuard' } & AuthGuardFragment>
+}
+
+export type CreateAuthGuardsMutationVariables = Exact<{
+  input: Array<AuthGuardCreateInput> | AuthGuardCreateInput
+}>
+
+export type CreateAuthGuardsMutation = {
+  __typename?: 'Mutation'
+  createAuthGuards: {
+    __typename?: 'CreateAuthGuardsMutationResponse'
+    authGuards: Array<{ __typename?: 'AuthGuard'; id: string }>
+  }
+}
+
+export type UpdateAuthGuardMutationVariables = Exact<{
+  where?: InputMaybe<AuthGuardWhere>
+  update?: InputMaybe<AuthGuardUpdateInput>
+}>
+
+export type UpdateAuthGuardMutation = {
+  __typename?: 'Mutation'
+  updateAuthGuards: {
+    __typename?: 'UpdateAuthGuardsMutationResponse'
+    authGuards: Array<{ __typename?: 'AuthGuard'; id: string }>
+  }
+}
+
+export type DeleteAuthGuardsMutationVariables = Exact<{
+  where?: InputMaybe<AuthGuardWhere>
+}>
+
+export type DeleteAuthGuardsMutation = {
+  __typename?: 'Mutation'
+  deleteAuthGuards: { __typename?: 'DeleteInfo'; nodesDeleted: number }
 }
 
 export type CreateComponentsMutationVariables = Exact<{

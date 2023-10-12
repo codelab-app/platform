@@ -1,10 +1,13 @@
-import type { IPropDTO } from './prop.dto.interface'
-import type { IResourceType } from './resource-type.enum'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IPropDTO } from './prop.dto.interface'
+import { IResourceType } from './resource-type.enum'
 
-export interface IResourceDTO {
-  // ref to prop of IResourceConfigData
-  config: IPropDTO
-  id: string
-  name: string
-  type: IResourceType
-}
+export const IResourceDTO = Type.Object({
+  config: IPropDTO,
+  id: Type.String(),
+  name: Type.String(),
+  type: Type.Enum(IResourceType),
+})
+
+export type IResourceDTO = Static<typeof IResourceDTO>

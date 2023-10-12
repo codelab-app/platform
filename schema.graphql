@@ -4126,9 +4126,22 @@ type AtomsConnection {
   totalCount: Int!
 }
 
-type AuthGuard {
+type AuthGuard implements WithOwner {
   canActivate: String!
   id: ID!
+  name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): AuthGuardUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   resource(
     directed: Boolean = true
     options: ResourceOptions
@@ -4151,13 +4164,16 @@ type AuthGuardAggregateSelection {
   canActivate: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input AuthGuardConnectInput {
+  owner: WithOwnerOwnerConnectFieldInput
   resource: AuthGuardResourceConnectFieldInput
 }
 
 input AuthGuardConnectOrCreateInput {
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   resource: AuthGuardResourceConnectOrCreateFieldInput
 }
 
@@ -4172,14 +4188,18 @@ input AuthGuardConnectWhere {
 input AuthGuardCreateInput {
   canActivate: String!
   id: ID!
+  name: String!
+  owner: WithOwnerOwnerFieldInput
   resource: AuthGuardResourceFieldInput
 }
 
 input AuthGuardDeleteInput {
+  owner: WithOwnerOwnerDeleteFieldInput
   resource: AuthGuardResourceDeleteFieldInput
 }
 
 input AuthGuardDisconnectInput {
+  owner: WithOwnerOwnerDisconnectFieldInput
   resource: AuthGuardResourceDisconnectFieldInput
 }
 
@@ -4191,6 +4211,7 @@ type AuthGuardEdge {
 input AuthGuardOnCreateInput {
   canActivate: String!
   id: ID!
+  name: String!
 }
 
 input AuthGuardOptions {
@@ -4203,7 +4224,71 @@ input AuthGuardOptions {
   sort: [AuthGuardSort!]
 }
 
+input AuthGuardOwnerAggregateInput {
+  AND: [AuthGuardOwnerAggregateInput!]
+  NOT: AuthGuardOwnerAggregateInput
+  OR: [AuthGuardOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AuthGuardOwnerNodeAggregationWhereInput
+}
+
+input AuthGuardOwnerNodeAggregationWhereInput {
+  AND: [AuthGuardOwnerNodeAggregationWhereInput!]
+  NOT: AuthGuardOwnerNodeAggregationWhereInput
+  OR: [AuthGuardOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
+}
+
 input AuthGuardRelationInput {
+  owner: WithOwnerOwnerCreateFieldInput
   resource: AuthGuardResourceCreateFieldInput
 }
 
@@ -4331,6 +4416,7 @@ Fields to sort AuthGuards by. The order in which sorts are applied is not guaran
 input AuthGuardSort {
   canActivate: SortDirection
   id: SortDirection
+  name: SortDirection
 }
 
 input AuthGuardUniqueWhere {
@@ -4340,7 +4426,21 @@ input AuthGuardUniqueWhere {
 input AuthGuardUpdateInput {
   canActivate: String
   id: ID
+  name: String
+  owner: WithOwnerOwnerUpdateFieldInput
   resource: AuthGuardResourceUpdateFieldInput
+}
+
+type AuthGuardUserOwnerAggregationSelection {
+  count: Int!
+  node: AuthGuardUserOwnerNodeAggregateSelection
+}
+
+type AuthGuardUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
 }
 
 input AuthGuardWhere {
@@ -4359,6 +4459,17 @@ input AuthGuardWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: AuthGuardOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   resource: ResourceWhere
   resourceAggregate: AuthGuardResourceAggregateInput
   resourceConnection: AuthGuardResourceConnectionWhere
@@ -13424,6 +13535,7 @@ type PageAuthGuardAuthGuardAggregationSelection {
 type PageAuthGuardAuthGuardNodeAggregateSelection {
   canActivate: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
 }
 
 input PageAuthGuardConnectFieldInput {
@@ -13501,6 +13613,21 @@ input PageAuthGuardNodeAggregationWhereInput {
   canActivate_SHORTEST_LENGTH_GTE: Int
   canActivate_SHORTEST_LENGTH_LT: Int
   canActivate_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageAuthGuardRelationship {
