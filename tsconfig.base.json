@@ -215,6 +215,9 @@
       "@codelab/frontend/application/resource": [
         "libs/frontend/application/resource/src/index.ts"
       ],
+      "@codelab/frontend/application/auth-guard": [
+        "libs/frontend/application/auth-guard/src/index.ts"
+      ],
       "@codelab/frontend/application/shared/auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
       ],

@@ -3,6 +3,7 @@ import type {
   IAdminService,
   IAppService,
   IAtomService,
+  IAuthGuardService,
   IBuilderService,
   IComponentService,
   IDomainService,
@@ -32,6 +33,7 @@ export interface IRootStore {
   adminService: IAdminService
   appService: IAppService
   atomService: IAtomService
+  authGuardService: IAuthGuardService
   builderService: IBuilderService
   componentService: IComponentService
   domainService: IDomainService

@@ -4,4 +4,5 @@ export enum ExplorerPaneType {
   Explorer = 'explorer',
   Tag = 'tag',
   ResourceList = 'resourceList',
+  AuthGuards = 'authGuardsList',
 }

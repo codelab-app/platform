@@ -20,6 +20,7 @@ export enum PageType {
   Page404 = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/404',
   Page500 = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/500',
   Resources = '/resources',
+  AuthGuards = '/authGuards',
   Components = '/components',
   Type = '/types',
   PageBuilder = '/apps/[userSlug]/[appSlug]/pages/[pageSlug]/builder',
