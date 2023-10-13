@@ -13,6 +13,7 @@ export const createElementSchema: JSONSchemaType<
     | 'childMapperPreviousSibling'
     | 'childMapperPropKey'
     | 'closestContainerNode'
+    | 'compositeKey'
     | 'firstChild'
     | 'nextSibling'
     | 'page'

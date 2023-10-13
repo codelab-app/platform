@@ -65,6 +65,7 @@ export class ElementRepository extends AbstractRepository<
         input: elements.map(
           ({
             closestContainerNode,
+            compositeKey,
             firstChild,
             id,
             name,
@@ -80,10 +81,9 @@ export class ElementRepository extends AbstractRepository<
             style,
             tailwindClassNames,
           }) => ({
-            compositeKey: ElementProperties.elementCompositeKey(
-              name,
-              closestContainerNode,
-            ),
+            compositeKey:
+              compositeKey ??
+              ElementProperties.elementCompositeKey(name, closestContainerNode),
             firstChild: connectNodeId(firstChild?.id),
             id,
             nextSibling: connectNodeId(nextSibling?.id),
