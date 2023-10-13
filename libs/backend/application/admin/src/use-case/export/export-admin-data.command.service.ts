@@ -35,12 +35,12 @@ export class ExportAdminDataHandler
 
   @Span()
   async execute({ baseDataPaths }: ExportAdminDataCommand) {
-    const span = this.traceService.getSpan()!
+    const span = this.traceService.getSpan()
 
-    span.setAttributes(flattenWithPrefix({ baseDataPaths }))
+    span?.setAttributes(flattenWithPrefix({ baseDataPaths }))
 
     if (baseDataPaths) {
-      span.addEvent('Add baseDataPath')
+      span?.addEvent('Add baseDataPath')
       this.writeAdminDataService.migrationDataService.basePaths = baseDataPaths
     }
 
@@ -49,7 +49,7 @@ export class ExportAdminDataHandler
       Array<ITypeOutputDto>
     >(new ExportSystemTypesCommand())
 
-    span.addEvent('SystemTypes', flattenWithPrefix(systemTypes))
+    span?.addEvent('SystemTypes', flattenWithPrefix(systemTypes))
 
     const atoms = await this.atomApplicationService.exportAtomsForAdmin()
 
