@@ -31,6 +31,7 @@ import {
   isAtom,
   isAtomRef,
   isComponent,
+  isComponentRef,
   pageRef,
   propRef,
   RendererType,
@@ -45,6 +46,7 @@ import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
+  disconnectAll,
   disconnectNodeId,
   ElementProperties,
   reconnectNodeId,
@@ -849,12 +851,12 @@ export class Element
     // We need to disconnect the atom if render type changed to component or empty
     const renderAtomType = isAtomRef(this.renderType)
       ? reconnectNodeId(this.renderType.id)
-      : disconnectNodeId(undefined)
+      : disconnectAll()
 
     // We need to disconnect the component if render type changed to atom or empty
-    const renderComponentType = isComponent(this.renderType)
+    const renderComponentType = isComponentRef(this.renderType)
       ? reconnectNodeId(this.renderType.id)
-      : disconnectNodeId(undefined)
+      : disconnectAll()
 
     const preRenderAction = this.preRenderAction?.id
       ? reconnectNodeId(this.preRenderAction.id)
@@ -885,12 +887,8 @@ export class Element
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: {
-        Atom: isAtomRef(this.renderType)
-          ? connectNodeId(this.renderType.id)
-          : undefined,
-        Component: isComponent(this.renderType)
-          ? connectNodeId(this.renderType.id)
-          : undefined,
+        Atom: renderAtomType,
+        Component: renderComponentType,
       },
       style: this.style,
       tailwindClassNames: this.tailwindClassNames,
