@@ -29,13 +29,14 @@ export class ImportComponentsHandler
 
     await this.propRepository.save(component.props)
 
+    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
+
     await this.commandBus.execute<ImportStoreCommand>(
       new ImportStoreCommand(store),
     )
 
-    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
-
     for await (const element of descendantElements) {
+      await this.propRepository.save(element.props)
       await this.elementRepository.save(element)
     }
 

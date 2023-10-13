@@ -19,7 +19,7 @@ export class ImportApiHandler
   @Span()
   async execute(command: ImportApiCommand) {
     const {
-      apiOutput: { fields, types, ...api },
+      apiOutput: { fields, types = [], ...api },
     } = command
 
     const descendantTypesWithApiType = [...types, { ...api, fields: [] }]

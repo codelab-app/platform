@@ -7,10 +7,6 @@ import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import {
-  FieldRepository,
-  InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
@@ -25,8 +21,6 @@ export class ExportComponentHandler
 {
   constructor(
     private componentRepository: ComponentRepository,
-    private interfaceTypeRepository: InterfaceTypeRepository,
-    private fieldRepository: FieldRepository,
     private elementRepository: ElementRepository,
     private commandBus: CommandBus,
   ) {}
@@ -47,7 +41,7 @@ export class ExportComponentHandler
       ...element,
       renderType: {
         __typename: throwIfUndefined(element.renderType.__typename),
-        id: element.id,
+        id: element.renderType.id,
       },
     }))
 
@@ -59,9 +53,24 @@ export class ExportComponentHandler
       new ExportStoreCommand({ id: component.store.id }),
     )
 
+    // complex data types are exported separately, no need to include them in component as well
+    const componentToExport = {
+      ...component,
+      api: {
+        __typename: api.__typename,
+        id: api.id,
+      },
+      rootElement: {
+        id: component.rootElement.id,
+      },
+      store: {
+        id: component.store.id,
+      },
+    }
+
     return {
       api,
-      component,
+      component: componentToExport,
       descendantElements,
       store,
     }

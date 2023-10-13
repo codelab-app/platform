@@ -13,6 +13,7 @@ import type {
   IEnumTypeDTO,
   IInterfaceTypeEntity,
   ITypeEntity,
+  IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import {
   IFieldDTO,
@@ -72,8 +73,8 @@ export class ExportApiHandler
       await this.interfaceTypeRepository.getDependentTypes(api)
 
     const dependentTypes = await this.getTypeItemsFromIds(dependentTypesIds)
+    this.sortUnionTypesBeforeExport(dependentTypes)
     this.sortEnumValuesBeforeExport(dependentTypes)
-    this.sortTypesBeforeExport(dependentTypes)
 
     const dependentInterfaceTypes = dependentTypes.filter(
       (type) => type.__typename === `${ITypeKind.InterfaceType}`,
@@ -105,11 +106,30 @@ export class ExportApiHandler
       ) {
         const type = await this.typeFactory.findOne(dependentType)
 
-        type && dependentTypes.push(type as ITypeOutputDto)
+        if (type?.__typename === `${ITypeKind.InterfaceType}`) {
+          dependentTypes.push({
+            ...type,
+            fields: (type as IInterfaceTypeDTO).fields.map((field) => ({
+              id: field.id,
+            })),
+          } as ITypeOutputDto)
+        } else if (type) {
+          dependentTypes.push(type as ITypeOutputDto)
+        }
       }
     }
 
-    return dependentTypes
+    return this.sortTypesBeforeExport(dependentTypes)
+  }
+
+  private sortUnionTypesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
+    dependentTypes
+      .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
+      .forEach((unionType) =>
+        (unionType as IUnionTypeDTO).typesOfUnionType.sort((a, b) =>
+          a.id.localeCompare(b.id),
+        ),
+      )
   }
 
   private sortEnumValuesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
@@ -123,15 +143,25 @@ export class ExportApiHandler
   }
 
   private sortTypesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
-    dependentTypes.sort((a, b) => {
-      // If type is the same, compare by name
-      if (a.__typename === b.__typename) {
-        return a.name.localeCompare(b.name)
-      }
+    dependentTypes.sort((a, b) => a.name.localeCompare(b.name))
 
-      // place interface types at the beginning, since other types might depend on it
-      // for example Array type may reference the interface type, and if imported after the array type, it will fail
-      return a.__typename === `${ITypeKind.InterfaceType}` ? -1 : 1
+    const interfaces: Array<ITypeOutputDto> = []
+    const unions: Array<ITypeOutputDto> = []
+    const remainingTypes: Array<ITypeOutputDto> = []
+
+    dependentTypes.forEach((type) => {
+      switch (type.__typename) {
+        case `${ITypeKind.InterfaceType}`:
+          interfaces.push(type)
+          break
+        case `${ITypeKind.UnionType}`:
+          unions.push(type)
+          break
+        default:
+          remainingTypes.push(type)
+      }
     })
+
+    return [...interfaces, ...unions, ...remainingTypes]
   }
 }
