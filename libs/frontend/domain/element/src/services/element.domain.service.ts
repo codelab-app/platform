@@ -57,7 +57,7 @@ export class ElementDomainService
    */
   @modelAction
   hydrate = (elementDto: IElementDTO): IElementModel => {
-    console.debug('ElementDomainService.add()', elementDto)
+    console.debug('ElementDomainService.hydrate()', elementDto)
 
     validateElementDto(elementDto)
 
