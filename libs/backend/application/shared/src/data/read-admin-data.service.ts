@@ -1,7 +1,9 @@
-import type { IAdminOutputDto } from '@codelab/backend/abstract/core'
+import type {
+  IAdminOutputDto,
+  IComponentOutputDto,
+} from '@codelab/backend/abstract/core'
 import {
   IAtomOutputDto,
-  IComponentOutputDto,
   ITagOutputDto,
   ITypeOutputDto,
 } from '@codelab/backend/abstract/core'
@@ -59,12 +61,7 @@ export class ReadAdminDataService implements IAdminOutputDto {
         'utf8',
       )
 
-      const component = JSON.parse(content)
-
-      return this.validationService.validateAndClean(
-        IComponentOutputDto,
-        component,
-      )
+      return JSON.parse(content)
     })
   }
 
