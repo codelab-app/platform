@@ -44,9 +44,9 @@ export class WriteAdminDataService {
         atom,
       })
 
-      const span = this.traceService.getSpan()!
+      const span = this.traceService.getSpan()
 
-      span.addEvent('Saving atoms data to', {
+      span?.addEvent('Saving atoms data to', {
         outputPath,
         stringData,
       })

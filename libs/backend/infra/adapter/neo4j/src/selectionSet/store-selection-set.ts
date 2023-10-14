@@ -10,9 +10,7 @@ export const storeSelectionSet = `
   api {
     ${interfaceTypeSelectionSet}
   }
-  actions {
-    ${actionSelectionSet}
-  }
+  actions ${actionSelectionSet}
 `
 
 export const exportStoreSelectionSet = `
@@ -21,7 +19,5 @@ export const exportStoreSelectionSet = `
   api {
     ${exportInterfaceTypeWithFieldsSelectionSet}
   }
-  actions {
-    ${actionSelectionSet}
-  }
+  actions ${actionSelectionSet}
 `

@@ -24,7 +24,6 @@ const baseElementSelectionSet = `
     id
     name
   }
-  ${renderElementType}
   parentElement {
     id
   }

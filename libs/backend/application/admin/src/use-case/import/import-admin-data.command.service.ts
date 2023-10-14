@@ -45,7 +45,7 @@ export class ImportAdminDataHandler
 
     await this.importAtoms()
 
-    // await this.importComponents(owner)
+    await this.importComponents()
   }
 
   @Span()

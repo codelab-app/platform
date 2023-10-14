@@ -19,9 +19,6 @@ export class ComponentApplicationService {
   @Span()
   async exportComponentsForAdmin(): Promise<Array<IComponentOutputDto>> {
     const components = await this.componentRepository.find({
-      options: {
-        limit: 1,
-      },
       where: {
         owner: {
           roles_INCLUDES: IRole.Admin,
