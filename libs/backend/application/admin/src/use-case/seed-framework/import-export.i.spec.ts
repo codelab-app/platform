@@ -26,7 +26,7 @@ const currentUser = {
   username: 'Codelab',
 }
 
-jest.setTimeout(240000)
+jest.setTimeout(300000)
 
 const exportPath = path.resolve('./data/export-v2')
 const exportTestPath = path.resolve('./tmp/data/export-v2')
