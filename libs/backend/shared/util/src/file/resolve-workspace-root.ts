@@ -11,5 +11,13 @@ export const resolveWorkspaceRoot = (basePath: string) => {
     return path.resolve(process.cwd(), '../../..', basePath)
   }
 
-  return path.resolve(process.cwd(), '../..', basePath)
+  const possibleAppsRoot = path.resolve(process.cwd(), '..')
+  const possibleAppsRootName = path.basename(possibleAppsRoot)
+
+  if (possibleAppsRootName === 'apps') {
+    return path.resolve(process.cwd(), '../..', basePath)
+  }
+
+  // in integration tests we run from root
+  return path.resolve(process.cwd(), basePath)
 }
