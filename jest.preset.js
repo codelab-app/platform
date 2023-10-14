@@ -22,8 +22,9 @@ module.exports = {
     // '<rootDir>/node_modules/(?!(stringify-object|is-regexp|is-obj|cheerio)/)',
   ],
   transform: {
-    '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':
+    '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$':
       'jest-transform-stub',
+    '\\.(cypher|cyp)$': "jest-text-transformer"
   },
   /* TODO: Update to latest Jest snapshotFormat
    * By default Nx has kept the older style of Jest Snapshot formats

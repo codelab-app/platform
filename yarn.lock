@@ -17581,6 +17581,7 @@ __metadata:
     jest-environment-jsdom: 29.7.0
     jest-environment-node: 29.7.0
     jest-junit: ^16.0.0
+    jest-text-transformer: ^1.0.4
     jest-transform-stub: 2.0.0
     joi: ^17.9.2
     jose: 4.14.4
@@ -26936,6 +26937,15 @@ __metadata:
     pretty-format: ^29.7.0
     semver: ^7.5.3
   checksum: 86821c3ad0b6899521ce75ee1ae7b01b17e6dfeff9166f2cf17f012e0c5d8c798f30f9e4f8f7f5bed01ea7b55a6bc159f5eda778311162cbfa48785447c237ad
+  languageName: node
+  linkType: hard
+
+"jest-text-transformer@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "jest-text-transformer@npm:1.0.4"
+  dependencies:
+    uuid: ^3.2.1
+  checksum: 8d77685c27c77e4408a1539a113caf7714793c83289a4e97b1245d82d6b641d6b0e85c66ff6e2df500ac9eed591c488330e7d2d3e49dc33d9a593b66a79cf1f3
   languageName: node
   linkType: hard
 
@@ -38440,6 +38450,15 @@ __metadata:
   bin:
     uuid: dist/bin/uuid
   checksum: 8dd2c83c43ddc7e1c71e36b60aea40030a6505139af6bee0f382ebcd1a56f6cd3028f7f06ffb07f8cf6ced320b76aea275284b224b002b289f89fe89c389b028
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^3.2.1":
+  version: 3.4.0
+  resolution: "uuid@npm:3.4.0"
+  bin:
+    uuid: ./bin/uuid
+  checksum: 58de2feed61c59060b40f8203c0e4ed7fd6f99d42534a499f1741218a1dd0c129f4aa1de797bcf822c8ea5da7e4137aa3673431a96dae729047f7aca7b27866f
   languageName: node
   linkType: hard
 

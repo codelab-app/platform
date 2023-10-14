@@ -29,10 +29,10 @@ export type GetAppDevelopmentQueryVariables = Types.Exact<{
 export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment & PrimitiveTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
+  renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
-  primitiveTypes: Array<PrimitiveTypeFragment>
-  reactNodeTypes: Array<ReactNodeTypeFragment>
-  renderPropTypes: Array<RenderPropTypeFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -42,6 +42,15 @@ export const GetAppDevelopmentDocument = gql`
     }
     atoms(where: { type: ReactFragment }) {
       ...AtomDevelopment
+    }
+    primitiveTypes {
+      ...PrimitiveType
+    }
+    reactNodeTypes {
+      ...ReactNodeType
+    }
+    renderPropTypes {
+      ...RenderPropType
     }
     resources {
       ...Resource
@@ -58,10 +67,10 @@ export const GetAppDevelopmentDocument = gql`
   }
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
-  ${ResourceFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
   ${RenderPropTypeFragmentDoc}
+  ${ResourceFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

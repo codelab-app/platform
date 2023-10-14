@@ -11,6 +11,7 @@ export const IComponentDTO = Type.Object({
   id: Type.String(),
   keyGenerator: Typebox.Nullish(Type.String()),
   name: Type.String(),
+  owner: Typebox.Nullish(IEntity),
   props: IPropDTO,
   rootElement: IEntity,
   store: IEntity,

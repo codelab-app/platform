@@ -55,7 +55,7 @@ export class PropRepository extends AbstractRepository<
       await this.ogmService.Prop
     ).find({
       options,
-      selectionSet: propSelectionSet,
+      selectionSet: `{${propSelectionSet}}`,
       where,
     })
   }

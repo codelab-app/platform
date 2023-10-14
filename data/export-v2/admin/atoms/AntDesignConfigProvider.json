@@ -318,7 +318,7 @@
         "kind": "InterfaceType",
         "name": "AntDesignConfigProvider Csp API",
         "owner": {
-          "id": "982650bc-fb74-4ca4-b2f2-3c1ee12e1e0b"
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       },
       {
@@ -328,7 +328,7 @@
         "kind": "InterfaceType",
         "name": "AntDesignConfigProvider Form API",
         "owner": {
-          "id": "982650bc-fb74-4ca4-b2f2-3c1ee12e1e0b"
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       },
       {
@@ -338,7 +338,7 @@
         "kind": "InterfaceType",
         "name": "AntDesignConfigProvider Input API",
         "owner": {
-          "id": "982650bc-fb74-4ca4-b2f2-3c1ee12e1e0b"
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       },
       {
@@ -348,7 +348,7 @@
         "kind": "InterfaceType",
         "name": "AntDesignConfigProvider PageHeader API",
         "owner": {
-          "id": "982650bc-fb74-4ca4-b2f2-3c1ee12e1e0b"
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       },
       {
@@ -358,7 +358,7 @@
         "kind": "InterfaceType",
         "name": "AntDesignConfigProvider Space API",
         "owner": {
-          "id": "982650bc-fb74-4ca4-b2f2-3c1ee12e1e0b"
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       },
       {

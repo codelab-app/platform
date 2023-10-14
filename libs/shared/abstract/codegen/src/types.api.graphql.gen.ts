@@ -21383,16 +21383,19 @@ export type GetAppDevelopmentQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
   atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
   primitiveTypes: Array<
-    { __typename?: 'PrimitiveType' } & PrimitiveTypeFragment
+    { __typename?: 'PrimitiveType' } & PrimitiveTypeFragment &
+      PrimitiveTypeFragment
   >
   reactNodeTypes: Array<
-    { __typename?: 'ReactNodeType' } & ReactNodeTypeFragment
+    { __typename?: 'ReactNodeType' } & ReactNodeTypeFragment &
+      ReactNodeTypeFragment
   >
   renderPropTypes: Array<
-    { __typename?: 'RenderPropType' } & RenderPropTypeFragment
+    { __typename?: 'RenderPropType' } & RenderPropTypeFragment &
+      RenderPropTypeFragment
   >
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{

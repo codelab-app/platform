@@ -13,6 +13,7 @@ export const IElementDTO = Type.Object({
    * For frontend models we can compute from Mobx, but for backend we would map the data in
    */
   closestContainerNode: IEntity,
+  compositeKey: Typebox.Nullish(Type.String()),
   firstChild: Typebox.Nullish(IEntity),
   id: Type.String(),
   name: Type.String(),
