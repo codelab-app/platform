@@ -374,7 +374,7 @@ export class Element
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {
-    const component = this.parentComponent?.current
+    const component = this.closestSubTreeRootElement.parentComponent?.current
 
     return {
       actions: this.store.current.actionRunners,
