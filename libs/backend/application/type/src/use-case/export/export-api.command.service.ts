@@ -72,7 +72,6 @@ export class ExportApiHandler
       await this.interfaceTypeRepository.getDependentTypes(api)
 
     const dependentTypes = await this.getTypeItemsFromIds(dependentTypesIds)
-
     this.sortUnionTypesBeforeExport(dependentTypes)
     this.sortEnumValuesBeforeExport(dependentTypes)
 
