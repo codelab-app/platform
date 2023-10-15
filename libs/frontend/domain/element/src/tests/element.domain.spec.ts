@@ -312,9 +312,12 @@ describe('Element domain', () => {
       expect(firstElement.parentElement?.current.id).toBe(secondParent.id)
       expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
       expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(5)
     })
 
     it('can move from next sibling to first child', () => {
+      elementDomainService.resetModifiedElements()
+
       elementDomainService.move({
         element: secondElement,
         parentElement: firstParent,
@@ -331,9 +334,12 @@ describe('Element domain', () => {
       expect(secondElement.parentElement?.current.id).toBe(firstParent.id)
       expect(secondElement.prevSibling?.current.id).toBeUndefined()
       expect(firstElement.nextSibling?.current.id).toBeUndefined()
+      expect(elementDomainService.modifiedElements).toHaveLength(3)
     })
 
     it('can move from first child to next sibling', () => {
+      elementDomainService.resetModifiedElements()
+
       elementDomainService.move({
         element: secondElement,
         prevSibling: firstElement,
@@ -349,6 +355,7 @@ describe('Element domain', () => {
       expect(firstParent.firstChild?.current.id).toBeUndefined()
       expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
       expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(3)
     })
   })
 })
