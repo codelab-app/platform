@@ -55,7 +55,7 @@ export const DeleteAuthGuardModal = observer(() => {
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
       >
-        <h4>Are you sure you want to delete auth guard {authGuard?.name}"</h4>
+        <h4>Are you sure you want to delete auth guard "{authGuard?.name}"</h4>
         <AutoFields />
       </ModalForm.Form>
     </ModalForm.Modal>
