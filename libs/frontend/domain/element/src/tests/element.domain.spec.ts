@@ -253,4 +253,102 @@ describe('Element domain', () => {
       expect(firstChild.parentElement?.id).toBe(rootElement.id)
     })
   })
+
+  describe('Move element', () => {
+    const firstParentDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'First Parent',
+      parentElement: rootElementDto,
+    }
+
+    const secondParentDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'Second Parent',
+      prevSibling: firstParentDto,
+    }
+
+    const firstElementDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'First Element',
+      parentElement: firstParentDto,
+    }
+
+    const secondElementDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'Second Element',
+      parentElement: secondParentDto,
+    }
+
+    let firstParent: IElementModel
+    let secondParent: IElementModel
+    let firstElement: IElementModel
+    let secondElement: IElementModel
+
+    it('can move first child to first child', () => {
+      elementDomainService.resetModifiedElements()
+
+      firstParent = elementDomainService.addTreeNode(firstParentDto)
+      secondParent = elementDomainService.addTreeNode(secondParentDto)
+      firstElement = elementDomainService.addTreeNode(firstElementDto)
+      secondElement = elementDomainService.addTreeNode(secondElementDto)
+
+      elementDomainService.move({
+        element: firstElement,
+        parentElement: secondParent,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      //               /
+      //               [firstElement]-(secondElement)
+
+      expect(firstParent.firstChild?.current.id).toBeUndefined()
+      expect(firstElement.parentElement?.current.id).toBe(secondParent.id)
+      expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
+    })
+
+    it('can move from next sibling to first child', () => {
+      elementDomainService.move({
+        element: secondElement,
+        parentElement: firstParent,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      // /               /
+      // [secondElement] (firstElement)
+
+      expect(firstParent.firstChild?.current.id).toBe(secondElement.id)
+      expect(secondElement.parentElement?.current.id).toBe(firstParent.id)
+      expect(secondElement.prevSibling?.current.id).toBeUndefined()
+      expect(firstElement.nextSibling?.current.id).toBeUndefined()
+    })
+
+    it('can move from first child to next sibling', () => {
+      elementDomainService.move({
+        element: secondElement,
+        prevSibling: firstElement,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      //                /
+      //                (firstElement)-[secondElement]
+
+      expect(firstParent.firstChild?.current.id).toBeUndefined()
+      expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
+      expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
+    })
+  })
 })
