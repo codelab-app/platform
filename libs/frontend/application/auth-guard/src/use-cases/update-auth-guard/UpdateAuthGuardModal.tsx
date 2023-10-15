@@ -12,7 +12,6 @@ export const UpdateAuthGuardModal = observer(() => {
   const authGuard = authGuardService.updateModal.authGuard
 
   const model = {
-    canActivate: authGuard?.canActivate,
     id: authGuard?.id,
     name: authGuard?.name,
     resource: authGuard?.resource,

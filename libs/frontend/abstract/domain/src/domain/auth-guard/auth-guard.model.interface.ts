@@ -17,7 +17,6 @@ export interface IAuthGuardModel
       AuthGuardDeleteInput
     >,
     ICacheService<IAuthGuardDTO, IAuthGuardModel> {
-  canActivate: string
   id: string
   name: string
   resource: Nullable<Ref<IResourceModel>>

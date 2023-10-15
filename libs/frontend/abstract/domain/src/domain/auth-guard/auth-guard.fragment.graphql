@@ -1,7 +1,9 @@
 fragment AuthGuard on AuthGuard {
   id
   name
-  canActivate
+  config {
+    ...Prop
+  }
   resource {
     ...Resource
   }

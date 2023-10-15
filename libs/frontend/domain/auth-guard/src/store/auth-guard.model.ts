@@ -14,9 +14,8 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ canActivate, id, name, resource }: IAuthGuardDTO) =>
+const create = ({ id, name, resource }: IAuthGuardDTO) =>
   new AuthGuardModel({
-    canActivate,
     id,
     name,
     resource: resource ? resourceRef(resource.id) : null,
@@ -25,7 +24,6 @@ const create = ({ canActivate, id, name, resource }: IAuthGuardDTO) =>
 @model('@codelab/AuthGuardModel')
 export class AuthGuardModel
   extends Model(() => ({
-    canActivate: prop<string>(),
     id: idProp,
     name: prop<string>(),
     resource: prop<Nullable<Ref<IResourceModel>>>(),
@@ -40,8 +38,7 @@ export class AuthGuardModel
   }
 
   @modelAction
-  writeCache({ canActivate, name, resource }: Partial<IAuthGuardDTO>) {
-    this.canActivate = canActivate ?? this.canActivate
+  writeCache({ name, resource }: Partial<IAuthGuardDTO>) {
     this.resource = resource?.id ? resourceRef(resource.id) : this.resource
     this.name = name ?? this.name
 
@@ -50,7 +47,6 @@ export class AuthGuardModel
 
   toCreateInput(): AuthGuardCreateInput {
     return {
-      canActivate: this.canActivate,
       id: this.id,
       name: this.name,
       owner: connectOwner(this.userService.user),
@@ -60,7 +56,6 @@ export class AuthGuardModel
 
   toUpdateInput(): AuthGuardUpdateInput {
     return {
-      canActivate: this.canActivate,
       name: this.name,
       resource: connectNodeId(this.resource?.id),
     }

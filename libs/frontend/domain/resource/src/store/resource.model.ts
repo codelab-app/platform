@@ -1,4 +1,5 @@
 import type {
+  IBaseResourceConfigData,
   IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
@@ -7,11 +8,13 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
+import type { IResourceDTO } from '@codelab/shared/abstract/core'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { ResourceGraphQlClient, ResourceRestClient } from './resource-client'
 
 const create = ({ config, id, name, type }: IResourceDTO) =>
   new Resource({
@@ -64,6 +67,15 @@ export class Resource
       name: this.name,
       type: this.type,
     }
+  }
+
+  @computed
+  get client() {
+    const config = this.config.current.values as IBaseResourceConfigData
+
+    return this.type === IResourceType.GraphQl
+      ? new ResourceGraphQlClient(config)
+      : new ResourceRestClient(config)
   }
 
   @computed

@@ -1,25 +1,15 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import { SelectResource } from '@codelab/frontend/application/type'
 import {
-  CodeMirrorField,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
 export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
   properties: {
     ...idSchema(),
-    canActivate: {
-      type: 'string',
-      uniforms: {
-        component: CodeMirrorField({
-          language: CodeMirrorLanguage.Typescript,
-        }),
-      },
-    },
     name: {
       autoFocus: true,
       ...nonEmptyString,
@@ -40,7 +30,7 @@ export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
       type: 'object',
     },
   },
-  required: ['name', 'canActivate'],
+  required: ['name', ''],
   title: 'Create Auth Guard',
   type: 'object',
 } as const

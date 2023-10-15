@@ -4,7 +4,6 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 export const IAuthGuardDTO = Type.Object({
-  canActivate: Type.String(),
   id: Type.String(),
   name: Type.String(),
   resource: Typebox.Nullish(IEntity),
