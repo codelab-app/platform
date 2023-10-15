@@ -774,13 +774,11 @@ export class Element
 
     if (nextSibling) {
       nextSibling.prevSibling = prevSibling ? elementRef(prevSibling) : null
-
       this.nextSibling = null
     }
 
     if (prevSibling) {
       prevSibling.nextSibling = nextSibling ? elementRef(nextSibling) : null
-
       this.prevSibling = null
     }
 
