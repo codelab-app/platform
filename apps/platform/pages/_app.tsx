@@ -34,7 +34,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
             theme={{
               components: {
                 Layout: {
-                  colorBgHeader: '#ffffff',
+                  headerBg: '#ffffff',
                 },
               },
               token: {

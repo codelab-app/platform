@@ -1,6 +1,5 @@
 import { Col, InputNumber, Row, Select } from 'antd'
 import type { SizeType } from 'antd/lib/config-provider/SizeContext'
-import { Option } from 'antd/lib/mentions'
 import debounce from 'lodash/debounce'
 import isNumber from 'lodash/isNumber'
 import type { ReactNode } from 'react'
@@ -27,36 +26,36 @@ const selectAfter = (
   >
     {!fixedUnit && (
       <>
-        <Option className="!text-[11px]" value={CssUnit.PX}>
+        <Select.Option className="!text-[11px]" value={CssUnit.PX}>
           {CssUnit.PX}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.PERCENT}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.PERCENT}>
           {CssUnit.PERCENT}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.REM}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.REM}>
           {CssUnit.REM}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.EM}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.EM}>
           {CssUnit.EM}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.VW}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.VW}>
           {CssUnit.VW}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.VH}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.VH}>
           {CssUnit.VH}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.CH}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.CH}>
           {CssUnit.CH}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.SVW}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.SVW}>
           {CssUnit.SVW}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.SVH}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.SVH}>
           {CssUnit.SVH}
-        </Option>
-        <Option className="!text-[11px]" value={CssUnit.Auto}>
+        </Select.Option>
+        <Select.Option className="!text-[11px]" value={CssUnit.Auto}>
           {CssUnit.Auto}
-        </Option>
+        </Select.Option>
       </>
     )}
   </Select>
