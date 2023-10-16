@@ -72,7 +72,6 @@ export class ElementDomainService
     console.debug('ElementDomainService.move()', context)
 
     const { element, nextSibling, parentElement, prevSibling } = context
-
     validateMoveElement(context)
 
     if (parentElement) {

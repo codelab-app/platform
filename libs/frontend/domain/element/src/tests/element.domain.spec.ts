@@ -30,7 +30,7 @@ describe('Element domain', () => {
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
   pageService.add(pageDto)
-  elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
+  elementDomainService.add({ ...rootElementDto, page: pageDto })
   atomService.add(atomReactFragmentDto)
 
   const rootElement = elementService.element(rootElementDto.id)
