@@ -255,11 +255,16 @@ describe('Element domain', () => {
   })
 
   describe('Move element', () => {
+    const newRootElementDto = { ...rootElementDto, id: v4() }
+    elementDomainService.hydrate({ ...newRootElementDto, page: pageDto })
+
+    const newRootElement = elementService.element(newRootElementDto.id)
+
     const firstParentDto: IElementDTO = {
       ...rootElementDto,
       id: v4(),
       name: 'First Parent',
-      parentElement: rootElementDto,
+      parentElement: newRootElement,
     }
 
     const secondParentDto: IElementDTO = {
@@ -283,18 +288,27 @@ describe('Element domain', () => {
       parentElement: secondParentDto,
     }
 
+    const thirdElementDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'Third Element',
+      prevSibling: secondElementDto,
+    }
+
     let firstParent: IElementModel
     let secondParent: IElementModel
     let firstElement: IElementModel
     let secondElement: IElementModel
+    let thirdElement: IElementModel
 
     it('can move first child to first child', () => {
-      elementDomainService.resetModifiedElements()
-
       firstParent = elementDomainService.addTreeNode(firstParentDto)
       secondParent = elementDomainService.addTreeNode(secondParentDto)
       firstElement = elementDomainService.addTreeNode(firstElementDto)
       secondElement = elementDomainService.addTreeNode(secondElementDto)
+      thirdElement = elementDomainService.addTreeNode(thirdElementDto)
+
+      elementDomainService.resetModifiedElements()
 
       elementDomainService.move({
         element: firstElement,
@@ -306,13 +320,13 @@ describe('Element domain', () => {
       // /
       // (firstParent)-(secondParent)
       //               /
-      //               [firstElement]-(secondElement)
+      //               [firstElement]-(secondElement)-(thirdElement)
 
       expect(firstParent.firstChild?.current.id).toBeUndefined()
       expect(firstElement.parentElement?.current.id).toBe(secondParent.id)
       expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
       expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
-      expect(elementDomainService.modifiedElements).toHaveLength(5)
+      expect(elementDomainService.modifiedElements).toHaveLength(4)
     })
 
     it('can move from next sibling to first child', () => {
@@ -328,16 +342,16 @@ describe('Element domain', () => {
       // /
       // (firstParent)-(secondParent)
       // /               /
-      // [secondElement] (firstElement)
+      // [secondElement] (firstElement)-(thirdElement)
 
       expect(firstParent.firstChild?.current.id).toBe(secondElement.id)
       expect(secondElement.parentElement?.current.id).toBe(firstParent.id)
       expect(secondElement.prevSibling?.current.id).toBeUndefined()
-      expect(firstElement.nextSibling?.current.id).toBeUndefined()
-      expect(elementDomainService.modifiedElements).toHaveLength(3)
+      expect(firstElement.nextSibling?.current.id).toBe(thirdElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(4)
     })
 
-    it('can move from first child to next sibling', () => {
+    it('can move from first child to between two nodes', () => {
       elementDomainService.resetModifiedElements()
 
       elementDomainService.move({
@@ -350,11 +364,32 @@ describe('Element domain', () => {
       // /
       // (firstParent)-(secondParent)
       //                /
-      //                (firstElement)-[secondElement]
+      //                (firstElement)-[secondElement]-(thirdElement)
 
       expect(firstParent.firstChild?.current.id).toBeUndefined()
       expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
       expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(4)
+    })
+
+    it('can move from between two nodes to next sibling', () => {
+      elementDomainService.resetModifiedElements()
+
+      elementDomainService.move({
+        element: secondElement,
+        prevSibling: thirdElement,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      //                /
+      //                (firstElement)-(thirdElement)-[secondElement]
+
+      expect(secondElement.prevSibling?.current.id).toBe(thirdElement.id)
+      expect(thirdElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(firstElement.nextSibling?.current.id).toBe(thirdElement.id)
       expect(elementDomainService.modifiedElements).toHaveLength(3)
     })
   })
