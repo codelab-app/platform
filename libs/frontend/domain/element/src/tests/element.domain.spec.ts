@@ -253,4 +253,144 @@ describe('Element domain', () => {
       expect(firstChild.parentElement?.id).toBe(rootElement.id)
     })
   })
+
+  describe('Move element', () => {
+    const newRootElementDto = { ...rootElementDto, id: v4() }
+    elementDomainService.hydrate({ ...newRootElementDto, page: pageDto })
+
+    const newRootElement = elementService.element(newRootElementDto.id)
+
+    const firstParentDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'First Parent',
+      parentElement: newRootElement,
+    }
+
+    const secondParentDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'Second Parent',
+      prevSibling: firstParentDto,
+    }
+
+    const firstElementDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'First Element',
+      parentElement: firstParentDto,
+    }
+
+    const secondElementDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'Second Element',
+      parentElement: secondParentDto,
+    }
+
+    const thirdElementDto: IElementDTO = {
+      ...rootElementDto,
+      id: v4(),
+      name: 'Third Element',
+      prevSibling: secondElementDto,
+    }
+
+    let firstParent: IElementModel
+    let secondParent: IElementModel
+    let firstElement: IElementModel
+    let secondElement: IElementModel
+    let thirdElement: IElementModel
+
+    it('can move first child to first child', () => {
+      firstParent = elementDomainService.addTreeNode(firstParentDto)
+      secondParent = elementDomainService.addTreeNode(secondParentDto)
+      firstElement = elementDomainService.addTreeNode(firstElementDto)
+      secondElement = elementDomainService.addTreeNode(secondElementDto)
+      thirdElement = elementDomainService.addTreeNode(thirdElementDto)
+
+      elementDomainService.resetModifiedElements()
+
+      elementDomainService.move({
+        element: firstElement,
+        parentElement: secondParent,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      //               /
+      //               [firstElement]-(secondElement)-(thirdElement)
+
+      expect(firstParent.firstChild?.current.id).toBeUndefined()
+      expect(firstElement.parentElement?.current.id).toBe(secondParent.id)
+      expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(4)
+    })
+
+    it('can move from next sibling to first child', () => {
+      elementDomainService.resetModifiedElements()
+
+      elementDomainService.move({
+        element: secondElement,
+        parentElement: firstParent,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      // /               /
+      // [secondElement] (firstElement)-(thirdElement)
+
+      expect(firstParent.firstChild?.current.id).toBe(secondElement.id)
+      expect(secondElement.parentElement?.current.id).toBe(firstParent.id)
+      expect(secondElement.prevSibling?.current.id).toBeUndefined()
+      expect(firstElement.nextSibling?.current.id).toBe(thirdElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(4)
+    })
+
+    it('can move from first child to between two nodes', () => {
+      elementDomainService.resetModifiedElements()
+
+      elementDomainService.move({
+        element: secondElement,
+        prevSibling: firstElement,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      //                /
+      //                (firstElement)-[secondElement]-(thirdElement)
+
+      expect(firstParent.firstChild?.current.id).toBeUndefined()
+      expect(secondElement.prevSibling?.current.id).toBe(firstElement.id)
+      expect(firstElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(4)
+    })
+
+    it('can move from between two nodes to next sibling', () => {
+      elementDomainService.resetModifiedElements()
+
+      elementDomainService.move({
+        element: secondElement,
+        prevSibling: thirdElement,
+      })
+
+      /** expected */
+      // (rootElement)
+      // /
+      // (firstParent)-(secondParent)
+      //                /
+      //                (firstElement)-(thirdElement)-[secondElement]
+
+      expect(secondElement.prevSibling?.current.id).toBe(thirdElement.id)
+      expect(thirdElement.nextSibling?.current.id).toBe(secondElement.id)
+      expect(firstElement.nextSibling?.current.id).toBe(thirdElement.id)
+      expect(elementDomainService.modifiedElements).toHaveLength(3)
+    })
+  })
 })

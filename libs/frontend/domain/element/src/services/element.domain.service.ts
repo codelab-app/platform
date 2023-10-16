@@ -88,18 +88,29 @@ export class ElementDomainService
     console.debug('ElementDomainService.move()', context)
 
     const { element, nextSibling, parentElement, prevSibling } = context
-
     validateMoveElement(context)
 
     if (parentElement) {
+      if (parentElement !== element.parentElement?.current) {
+        element.detachFromTree()
+      }
+
       element.attachAsFirstChild(parentElement)
     }
 
     if (nextSibling) {
+      if (nextSibling !== element.nextSibling?.current) {
+        element.detachFromTree()
+      }
+
       element.attachAsPrevSibling(nextSibling)
     }
 
     if (prevSibling) {
+      if (prevSibling !== element.prevSibling?.current) {
+        element.detachFromTree()
+      }
+
       element.attachAsNextSibling(prevSibling)
     }
   }
