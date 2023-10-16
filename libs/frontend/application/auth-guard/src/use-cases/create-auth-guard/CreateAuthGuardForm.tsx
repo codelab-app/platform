@@ -1,5 +1,6 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -10,6 +11,7 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAuthGuardSchema } from './create-auth-guard.schema'
@@ -22,7 +24,7 @@ interface CreateAuthGuardFormProps {
 
 export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
   ({ onSubmitSuccess, showFormControl = true, submitRef }) => {
-    const { authGuardService } = useStore()
+    const { authGuardService, resourceService } = useStore()
     const closeForm = () => authGuardService.createModal.close()
 
     const onSubmit = (authGuardData: ICreateAuthGuardData) => {
@@ -34,11 +36,12 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
       return Promise.resolve()
     }
 
-    const model = { id: v4() }
+    const getResource = ({ model }: Context<ICreateAuthGuardData>) =>
+      model.resource?.id ? resourceService.resource(model.resource.id) : null
 
     return (
       <Form<ICreateAuthGuardData>
-        model={model}
+        model={{ id: v4() }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating resource',
@@ -47,7 +50,9 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
         schema={createAuthGuardSchema}
         submitRef={submitRef}
       >
-        <AutoFields />
+        <AutoFields omitFields={['config']} />
+        <ResourceFetchConfig<ICreateAuthGuardData> getResource={getResource} />
+
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Type" />
         </DisplayIf>

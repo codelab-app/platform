@@ -5,19 +5,9 @@ import type {
 import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IGraphQLActionConfig, IRestActionConfig } from '../action'
 import type { IModel } from '../model.interface'
 import type { IPropModel } from '../prop'
-
-interface IBaseResourceClient<IActionConfig> {
-  fetch(config: IActionConfig): Promise<unknown>
-}
-
-export type IResourceGraphqlClient = IBaseResourceClient<IGraphQLActionConfig>
-
-export type IResourceRestClient = IBaseResourceClient<IRestActionConfig>
-
-export type IResourceClient = IResourceGraphqlClient | IResourceRestClient
+import type { IResourceClient } from './resource-client'
 
 export interface IResourceModel
   extends Omit<

@@ -1,17 +1,23 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { updateAuthGuardSchema } from './update-auth-guard.schema'
 
 export const UpdateAuthGuardForm = observer(() => {
-  const { authGuardService } = useStore()
+  const { authGuardService, resourceService } = useStore()
   const authGuard = authGuardService.updateForm.authGuard
 
   const model = {
+    config: {
+      data: authGuard?.config.current.values,
+      id: authGuard?.config.current.id,
+    },
     id: authGuard?.id,
     name: authGuard?.name,
     resource: authGuard?.resource,
@@ -23,6 +29,11 @@ export const UpdateAuthGuardForm = observer(() => {
     return Promise.resolve()
   }
 
+  const getResource = (context: Context<IUpdateAuthGuardData>) =>
+    context.model.resource?.id
+      ? resourceService.resource(context.model.resource.id)
+      : null
+
   return (
     <Form<IUpdateAuthGuardData>
       model={model}
@@ -32,7 +43,8 @@ export const UpdateAuthGuardForm = observer(() => {
       })}
       schema={updateAuthGuardSchema}
     >
-      <AutoFields />
+      <AutoFields omitFields={['config']} />
+      <ResourceFetchConfig<IUpdateAuthGuardData> getResource={getResource} />
       <FormController submitLabel="Update Auth Guard" />
     </Form>
   )

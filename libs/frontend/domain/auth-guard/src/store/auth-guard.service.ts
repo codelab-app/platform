@@ -4,11 +4,14 @@ import type {
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
+import { getPropService } from '@codelab/frontend/domain/prop'
+import { getResourceService } from '@codelab/frontend/domain/resource'
 import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/domain/shared'
 import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import { IAuthGuardDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -22,6 +25,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { AuthGuardModel } from './auth-guard.model'
 import { AuthGuardRepository } from './auth-guard.repo'
 import { AuthGuardFormService } from './auth-guard-form.service'
@@ -41,6 +45,16 @@ export class AuthGuardService
   implements IAuthGuardService
 {
   @computed
+  private get propService() {
+    return getPropService(this)
+  }
+
+  @computed
+  private get resourceService() {
+    return getResourceService(this)
+  }
+
+  @computed
   get authGuardList() {
     return [...this.authGuards.values()]
   }
@@ -51,7 +65,19 @@ export class AuthGuardService
     this: AuthGuardService,
     data: ICreateAuthGuardData,
   ) {
-    const authGuard = this.add(data)
+    const { config } = data
+
+    const configDto: IPropDTO = {
+      data: JSON.stringify(config.data),
+      id: v4(),
+    }
+
+    this.propService.add(configDto)
+
+    const authGuard = this.add({
+      ...data,
+      config: configDto,
+    })
 
     yield* _await(this.authGuardRepository.add(authGuard))
 
@@ -83,7 +109,12 @@ export class AuthGuardService
       this.authGuardRepository.find(where),
     )
 
-    return authGuards.map((authGuard) => this.add(authGuard))
+    return authGuards.map((authGuard) => {
+      this.resourceService.load([authGuard.resource])
+      this.propService.add(authGuard.config)
+
+      return this.add(authGuard)
+    })
   })
 
   @modelFlow
@@ -108,9 +139,12 @@ export class AuthGuardService
   @transaction
   update = _async(function* (
     this: AuthGuardService,
-    { id, name, resource }: IUpdateAuthGuardData,
+    { config: configData, id, name, resource }: IUpdateAuthGuardData,
   ) {
     const authGuard = this.authGuards.get(id)!
+    const config = authGuard.config.current
+
+    config.writeCache({ data: JSON.stringify(configData.data) })
 
     authGuard.writeCache({ name, resource })
 

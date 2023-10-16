@@ -26,8 +26,11 @@ mutation UpdateAuthGuard(
   }
 }
 
-mutation DeleteAuthGuards($where: AuthGuardWhere) {
-  deleteAuthGuards(where: $where) {
+mutation DeleteAuthGuards(
+  $where: AuthGuardWhere
+  $delete: AuthGuardDeleteInput
+) {
+  deleteAuthGuards(where: $where, delete: $delete) {
     nodesDeleted
   }
 }

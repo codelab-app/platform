@@ -1,7 +1,5 @@
 import type { IActionKind } from '@codelab/shared/abstract/core'
-import type { IGraphQLActionConfig, IRestActionConfig } from './actions'
-
-export type IApiActionConfig = IGraphQLActionConfig | IRestActionConfig
+import type { IResourceFetchConfig } from '../resource'
 
 /**
  * Base
@@ -16,7 +14,7 @@ export interface IBaseActionData {
 export interface IApiActionData extends IBaseActionData {
   config: {
     id: string
-    data: IApiActionConfig
+    data: IResourceFetchConfig
   }
   errorActionId?: string
   id: string

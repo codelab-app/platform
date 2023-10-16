@@ -1,11 +1,19 @@
-import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import {
+  HttpMethod,
+  HttpResponseType,
+  type ICreateAuthGuardData,
+} from '@codelab/frontend/abstract/domain'
 import { SelectResource } from '@codelab/frontend/application/type'
 import {
+  CodeMirrorField,
+  CodeMirrorGraphqlField,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
+import keys from 'lodash/keys'
 
 export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
   properties: {
@@ -15,8 +23,77 @@ export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
+    config: {
+      label: '',
+      properties: {
+        ...idSchema(),
+        data: {
+          type: 'object',
+          properties: {
+            body: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+            headers: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+            method: {
+              enum: keys(HttpMethod) as Array<HttpMethod>,
+              showSearch: true,
+              type: 'string',
+            },
+            query: {
+              // nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorGraphqlField({}),
+              },
+            },
+            queryParams: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+            responseType: {
+              enum: Object.values(HttpResponseType),
+              showSearch: true,
+              type: 'string',
+            },
+            urlSegment: {
+              type: 'string',
+            },
+            variables: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+          },
+          required: [],
+        },
+      },
+      required: [],
+      type: 'object',
+    },
     resource: {
-      nullable: true,
       properties: {
         id: {
           type: 'string',
@@ -30,7 +107,7 @@ export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
       type: 'object',
     },
   },
-  required: ['name', ''],
+  required: ['name', 'resource', 'config'],
   title: 'Create Auth Guard',
   type: 'object',
 } as const

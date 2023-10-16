@@ -1,9 +1,9 @@
 import type {
   IBaseResourceConfigData,
-  IGraphQLActionConfig,
+  IGraphQLFetchConfig,
   IResourceGraphqlClient,
   IResourceRestClient,
-  IRestActionConfig,
+  IRestFetchConfig,
 } from '@codelab/frontend/abstract/domain'
 import { tryParse } from '@codelab/frontend/shared/utils'
 import type { Axios, Method } from 'axios'
@@ -22,7 +22,7 @@ export class ResourceGraphQlClient implements IResourceGraphqlClient {
 
   private client: GraphQLClient
 
-  fetch(config: IGraphQLActionConfig): Promise<unknown> {
+  fetch(config: IGraphQLFetchConfig): Promise<unknown> {
     const headers = merge(tryParse(config.headers))
     const variables = merge(tryParse(config.variables))
 
@@ -39,7 +39,7 @@ export class ResourceRestClient implements IResourceRestClient {
 
   private client: Axios
 
-  fetch(config: IRestActionConfig) {
+  fetch(config: IRestFetchConfig) {
     const data = merge(tryParse(config.body))
     const headers = merge(tryParse(config.headers))
     const parsedParams = tryParse(config.queryParams)

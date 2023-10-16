@@ -30,6 +30,7 @@ export class AuthGuardRepository
     const {
       deleteAuthGuards: { nodesDeleted },
     } = await authGuardApi.DeleteAuthGuards({
+      delete: { config: { where: {} } },
       where: { id_IN: authGuards.map((authGuard) => authGuard.id) },
     })
 

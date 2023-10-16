@@ -19,7 +19,7 @@ export enum HttpResponseType {
   Text = 'text',
 }
 
-export interface IRestActionConfig {
+export interface IRestFetchConfig {
   body?: Nullable<string>
   headers?: Nullable<string>
   method: HttpMethod
@@ -27,3 +27,11 @@ export interface IRestActionConfig {
   responseType: HttpResponseType
   urlSegment: string
 }
+
+export interface IGraphQLFetchConfig {
+  headers?: Nullable<string>
+  query: string
+  variables?: Nullable<string>
+}
+
+export type IResourceFetchConfig = IGraphQLFetchConfig | IRestFetchConfig

@@ -34,6 +34,7 @@ export type UpdateAuthGuardMutation = {
 
 export type DeleteAuthGuardsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AuthGuardWhere>
+  delete?: Types.InputMaybe<Types.AuthGuardDeleteInput>
 }>
 
 export type DeleteAuthGuardsMutation = {
@@ -73,8 +74,11 @@ export const UpdateAuthGuardDocument = gql`
   }
 `
 export const DeleteAuthGuardsDocument = gql`
-  mutation DeleteAuthGuards($where: AuthGuardWhere) {
-    deleteAuthGuards(where: $where) {
+  mutation DeleteAuthGuards(
+    $where: AuthGuardWhere
+    $delete: AuthGuardDeleteInput
+  ) {
+    deleteAuthGuards(where: $where, delete: $delete) {
       nodesDeleted
     }
   }

@@ -5,9 +5,9 @@ import type {
   ICodeActionModel,
   IElementModel,
   IEvaluationContext,
-  IGraphQLActionConfig,
+  IGraphQLFetchConfig,
   IRenderer,
-  IRestActionConfig,
+  IRestFetchConfig,
 } from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
@@ -114,7 +114,7 @@ export class ActionRunner
       const evaluatedConfig = evaluateObject(
         config,
         context,
-      ) as IGraphQLActionConfig & IRestActionConfig
+      ) as IGraphQLFetchConfig & IRestFetchConfig
 
       const fetchPromise = resource.client.fetch(evaluatedConfig)
 

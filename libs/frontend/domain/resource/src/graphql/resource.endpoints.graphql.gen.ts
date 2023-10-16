@@ -34,6 +34,7 @@ export type UpdateResourceMutation = {
 
 export type DeleteResourcesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ResourceWhere>
+  delete?: Types.InputMaybe<Types.ResourceDeleteInput>
 }>
 
 export type DeleteResourcesMutation = {
@@ -70,8 +71,11 @@ export const UpdateResourceDocument = gql`
   }
 `
 export const DeleteResourcesDocument = gql`
-  mutation DeleteResources($where: ResourceWhere) {
-    deleteResources(where: $where) {
+  mutation DeleteResources(
+    $where: ResourceWhere
+    $delete: ResourceDeleteInput
+  ) {
+    deleteResources(where: $where, delete: $delete) {
       nodesDeleted
     }
   }

@@ -22491,6 +22491,7 @@ export type UpdateAuthGuardMutation = {
 
 export type DeleteAuthGuardsMutationVariables = Exact<{
   where?: InputMaybe<AuthGuardWhere>
+  delete?: InputMaybe<AuthGuardDeleteInput>
 }>
 
 export type DeleteAuthGuardsMutation = {
@@ -22794,6 +22795,7 @@ export type UpdateResourceMutation = {
 
 export type DeleteResourcesMutationVariables = Exact<{
   where?: InputMaybe<ResourceWhere>
+  delete?: InputMaybe<ResourceDeleteInput>
 }>
 
 export type DeleteResourcesMutation = {

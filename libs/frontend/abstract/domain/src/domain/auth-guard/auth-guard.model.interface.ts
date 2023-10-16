@@ -4,10 +4,10 @@ import type {
   AuthGuardUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAuthGuardDTO } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
+import type { IPropModel } from '../prop'
 import type { IResourceModel } from '../resource'
 
 export interface IAuthGuardModel
@@ -17,9 +17,10 @@ export interface IAuthGuardModel
       AuthGuardDeleteInput
     >,
     ICacheService<IAuthGuardDTO, IAuthGuardModel> {
+  config: Ref<IPropModel>
   id: string
   name: string
-  resource: Nullable<Ref<IResourceModel>>
+  resource: Ref<IResourceModel>
 }
 
 export type IAuthGuardRef = string
