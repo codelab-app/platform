@@ -768,14 +768,18 @@ export class Element
   detachFromTree() {
     console.debug('Element.detachFromTree()', this.toTreeNode)
 
-    const { nextSibling, parentElement, prevSibling } = this
+    const nextSibling = this.nextSibling?.current
+    const prevSibling = this.prevSibling?.current
+    const parentElement = this.parentElement?.current
 
-    /**
-     * If we are in the middle of a sibling chain
-     */
-    if (nextSibling && prevSibling) {
-      nextSibling.current.prevSibling = elementRef(prevSibling.current)
-      prevSibling.current.nextSibling = elementRef(nextSibling.current)
+    if (nextSibling) {
+      nextSibling.prevSibling = prevSibling ? elementRef(prevSibling) : null
+      this.nextSibling = null
+    }
+
+    if (prevSibling) {
+      prevSibling.nextSibling = nextSibling ? elementRef(nextSibling) : null
+      this.prevSibling = null
     }
 
     /**
@@ -783,11 +787,13 @@ export class Element
      */
     if (parentElement) {
       if (nextSibling) {
-        parentElement.current.firstChild = elementRef(nextSibling.current)
-        nextSibling.current.parentElement = elementRef(parentElement.current)
+        parentElement.firstChild = elementRef(nextSibling)
+        nextSibling.parentElement = elementRef(parentElement)
       } else {
-        parentElement.current.firstChild = null
+        parentElement.firstChild = null
       }
+
+      this.parentElement = null
     }
 
     /**
