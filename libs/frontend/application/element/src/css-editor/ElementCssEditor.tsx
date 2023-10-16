@@ -31,11 +31,11 @@ export interface ElementCssEditorInternalProps {
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
-    const lastStateRef = useRef(element.style)
+    const lastStateRef = useRef(element.style.toString())
     const lastTailwindClassNames = useRef(element.tailwindClassNames)
 
     const cssChangeHandler = useDebouncedCallback(
-      (value: string) => element.setCustomCss(value),
+      (value: string) => element.style.setCustomCss(value),
       [element],
       autosaveTimeout,
     )
@@ -46,18 +46,19 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
         const oldStyle = lastStateRef.current
         const oldTailwindClassNames = lastTailwindClassNames.current
         const { style, tailwindClassNames } = updatedElement
+        const styleString = style.toString()
 
         // do not send request if value was not changed
         if (
-          oldStyle !== style ||
+          oldStyle !== styleString ||
           oldTailwindClassNames !== tailwindClassNames
         ) {
-          lastStateRef.current = style
+          lastStateRef.current = styleString
           lastTailwindClassNames.current = tailwindClassNames
 
           void elementService.update({
             ...updatedElement.toJson,
-            style,
+            style: styleString,
             tailwindClassNames,
           })
         }
@@ -67,7 +68,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     useDebouncedEffect(
       () => updateElementStyles(element),
-      [element.style, element.tailwindClassNames],
+      [element.style.toString(), element.tailwindClassNames],
       autosaveTimeout,
     )
 
@@ -93,7 +94,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             language={CodeMirrorLanguage.Css}
             onChange={cssChangeHandler}
             title="CSS Editor"
-            value={element.customCss ?? ''}
+            value={element.style.customCss ?? ''}
           />
         </Col>
         <Col span={24}>

@@ -5,7 +5,6 @@ import {
   getRenderService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  ElementCssRules,
   IActionModel,
   IAtomModel,
   IComponentModel,
@@ -20,14 +19,10 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
-  BuilderWidthBreakPoint,
   componentRef,
-  CssMap,
   DATA_ELEMENT_ID,
-  defaultBuilderWidthBreakPoints,
   elementRef,
   IElementModel,
-  IElementStyle,
   IElementTreeViewDataNode,
   IEvaluationContext,
   isAtom,
@@ -68,7 +63,7 @@ import {
 } from 'mobx-keystone'
 import { validateElement } from '../services/element.validate'
 import { getRenderType } from './element-render-type.field'
-import { jsonStringToCss, parseCssStringIntoObject } from './utils'
+import { ElementStyle } from './element-style.model'
 
 const create = (element: IElementDTO): IElementModel => {
   const {
@@ -122,7 +117,7 @@ const create = (element: IElementDTO): IElementModel => {
     renderIfExpression,
     renderingMetadata: null,
     renderType: getRenderType(renderType),
-    style,
+    style: new ElementStyle({ style }),
     tailwindClassNames,
   })
 }
@@ -162,7 +157,7 @@ export class Element
     // .withTransform(renderTypeTransform()),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
-    style: prop<Nullable<string>>(null).withSetter(),
+    style: prop(() => new ElementStyle({})),
     tailwindClassNames: prop<Nullable<Array<string>>>(null).withSetter(),
   })
   implements IElementModel
@@ -217,17 +212,6 @@ export class Element
     }
 
     return ''
-  }
-
-  get breakpointsByPrecedence() {
-    const breakpoints = [
-      BuilderWidthBreakPoint.MobilePortrait,
-      BuilderWidthBreakPoint.MobileLandscape,
-      BuilderWidthBreakPoint.Tablet,
-      BuilderWidthBreakPoint.Desktop,
-    ]
-
-    return breakpoints
   }
 
   @computed
@@ -314,14 +298,6 @@ export class Element
       : this
   }
 
-  @computed
-  get customCss() {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const { cssString } = this.styleParsed[breakpoint] ?? {}
-
-    return cssString
-  }
-
   /**
    * We could fetch descendantElements for each element, but that would require too much GraphQL data, instead we can compute it from children.
    *
@@ -345,14 +321,6 @@ export class Element
       ...this.propsEvaluationContext,
       props: this.runtimeProp?.evaluatedProps || {},
     }
-  }
-
-  @computed
-  get guiCss() {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const { guiString } = this.styleParsed[breakpoint] ?? {}
-
-    return guiString
   }
 
   /**
@@ -419,74 +387,6 @@ export class Element
   }
 
   @computed
-  get styleParsed(): IElementStyle {
-    return JSON.parse(this.style || '{}')
-  }
-
-  @computed
-  get styleStringWithBreakpoints(): string {
-    const parsedCss = this.styleParsed
-    const activeRenderer = this.renderService.activeRenderer?.current
-    const rendererType = activeRenderer?.rendererType
-
-    const isProduction =
-      rendererType === RendererType.Production ||
-      rendererType === RendererType.Preview
-
-    const mediaQueryString = isProduction ? '@media' : '@container root'
-    const breakpointStyles = []
-
-    for (const breakpoint of this.breakpointsByPrecedence) {
-      const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
-
-      const breakpointWidth =
-        defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
-
-      const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
-
-      if (breakpointStyle) {
-        breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
-            ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
-          }`,
-        )
-      }
-    }
-
-    return breakpointStyles.join('\n')
-  }
-
-  @computed
-  get stylesInheritedFromOtherBreakpoints() {
-    const currentBreakpoint = this.builderService.selectedBuilderBreakpoint
-    const parsedStyle = this.styleParsed
-    let inheritedStyles = {} as ElementCssRules
-
-    for (const breakpoint of this.breakpointsByPrecedence) {
-      if (breakpoint === currentBreakpoint) {
-        break
-      }
-
-      const { cssString, guiString } = parsedStyle[breakpoint] ?? {}
-      const cssObject = parseCssStringIntoObject(cssString ?? '')
-      const guiObject = JSON.parse(guiString ?? '{}')
-
-      inheritedStyles = { ...inheritedStyles, ...cssObject, ...guiObject }
-    }
-
-    const { cssString, guiString } = parsedStyle[currentBreakpoint] ?? {}
-    const cssObject = parseCssStringIntoObject(cssString ?? '')
-    const guiObject = JSON.parse(guiString ?? '{}')
-    const currentStyles = { ...cssObject, ...guiObject }
-
-    return { currentStyles, inheritedStyles }
-  }
-
-  @computed
   get toJson() {
     return {
       childMapperComponent: this.childMapperComponent,
@@ -508,7 +408,7 @@ export class Element
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: this.renderType.current.toJson,
-      style: this.style,
+      style: this.style.toString(),
     }
   }
 
@@ -622,18 +522,6 @@ export class Element
     return this.renderService.activeRenderer?.current.urlSegments
   }
 
-  @modelAction
-  appendToGuiCss(css: CssMap) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss || '{}')
-    const newGuiCss = { ...curGuiCss, ...css }
-    const guiString = JSON.stringify(newGuiCss)
-
-    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
-    this.style = JSON.stringify(styleObject)
-  }
-
   /**
    * Attach the new element as as nextSibling. Leaves `nextSibling` still connected to `sibling`.
    *
@@ -745,23 +633,6 @@ export class Element
     return clonedElement
   }
 
-  @modelAction
-  deleteFromGuiCss(propNames: Array<string>) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss || '{}')
-    propNames.forEach((propName) => {
-      if (curGuiCss[propName]) {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete curGuiCss[propName]
-      }
-    })
-
-    const guiString = JSON.stringify(curGuiCss)
-    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
-    this.style = JSON.stringify(styleObject)
-  }
-
   /**
    * This function connects other elements together to form the new tree structure.
    *
@@ -811,14 +682,6 @@ export class Element
   }
 
   @modelAction
-  setCustomCss(cssString: string) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const styleObject = this.styleParsed
-    styleObject[breakpoint] = { ...styleObject[breakpoint], cssString }
-    this.style = JSON.stringify(styleObject)
-  }
-
-  @modelAction
   setRenderingError(error: Nullish<RenderingError>) {
     this.renderingMetadata = {
       error,
@@ -850,7 +713,7 @@ export class Element
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
-      style: this.style,
+      style: this.style.toString(),
     }
   }
 
@@ -898,7 +761,7 @@ export class Element
         Atom: renderAtomType,
         Component: renderComponentType,
       },
-      style: this.style,
+      style: this.style.style,
       tailwindClassNames: this.tailwindClassNames,
     }
   }
@@ -944,7 +807,6 @@ export class Element
     style,
   }: Partial<IElementDTO>) {
     this.name = name ?? this.name
-    this.style = style ?? this.style
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.renderType = renderType ? getRenderType(renderType) : this.renderType
@@ -978,14 +840,11 @@ export class Element
       ? elementRef(childMapperPreviousSibling.id)
       : null
 
+    this.style.setStyle(style ?? this.style.toString())
+
     validateElement(this)
 
     return this
-  }
-
-  @computed
-  private get builderService() {
-    return getBuilderService(this)
   }
 
   @computed

@@ -76,29 +76,19 @@ export const BuilderClickOverlay = observer<{
     </StyledOverlayContainer>
   )
 
-  const { closestParentElement, customCss, guiCss, nextSibling } =
-    selectedNode.current
-
+  const { closestParentElement, nextSibling } = selectedNode.current
   const breakpoint = builderService.selectedBuilderBreakpoint
   const props = selectedNode.current.props.values
   const parentId = closestParentElement?.id
   const nextSiblingId = nextSibling?.id
-
-  const dependencies = [
-    guiCss,
-    customCss,
-    props,
-    nextSiblingId,
-    breakpoint,
-    parentId,
-  ]
+  const dependencies = [props, nextSiblingId, breakpoint, parentId]
 
   return createPortal(
     <ClickOverlay
       content={content}
       dependencies={[
-        selectedNode.current.guiCss,
-        selectedNode.current.customCss,
+        selectedNode.current.style.guiCss,
+        selectedNode.current.style.customCss,
         selectedNode.current.tailwindClassNames,
         selectedNode.current.props.values,
         selectedNode.current.nextSibling?.id,

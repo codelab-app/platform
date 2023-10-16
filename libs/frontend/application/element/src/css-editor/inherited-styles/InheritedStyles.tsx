@@ -53,7 +53,7 @@ const getRules = (
 
 export const InheritedStyles = observer(({ element }: InheritedStylesProps) => {
   const { currentStyles, inheritedStyles } =
-    element.stylesInheritedFromOtherBreakpoints
+    element.style.stylesInheritedFromOtherBreakpoints
 
   const rootProps = getRules(currentStyles, inheritedStyles).map(
     ({ level, overridden, style }) => (

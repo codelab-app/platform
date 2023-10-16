@@ -17,7 +17,7 @@ export const useStyle = () => {
       isElementRef(builderService.selectedNode)
     ) {
       const newStyles = JSON.parse(
-        builderService.selectedNode.current.guiCss || '{}',
+        builderService.selectedNode.current.style.guiCss || '{}',
       )
 
       setCurrentStyles(newStyles)
@@ -41,7 +41,7 @@ export const useStyle = () => {
     const updatedStyles = { ...currentStyles, [key]: value }
     setCurrentStyles(updatedStyles)
 
-    selectedNode.current.appendToGuiCss(updatedStyles)
+    selectedNode.current.style.appendToGuiCss(updatedStyles)
   }
 
   const resetStyle = (property: CssProperty) => {
