@@ -10,6 +10,7 @@ import {
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import { getAuthGuardService } from '@codelab/frontend/domain/auth-guard'
 import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -75,7 +76,14 @@ export class AppDevelopmentService
       ),
     )
 
-    const props = elements.flatMap((element) => element.props)
+    const resources = data.resources
+    const authGuards = data.authGuards
+
+    const props = elements
+      .flatMap((element) => element.props)
+      .concat(resources.map((resource) => resource.config))
+      .concat(authGuards.map((authGuard) => authGuard.config))
+
     const stores = pages.flatMap((page) => page.store)
     const actions = stores.flatMap((store) => store.actions)
 
@@ -109,11 +117,13 @@ export class AppDevelopmentService
       actions,
       app,
       atoms,
+      authGuards,
       components: [],
       elements,
       fields,
       pages,
       props,
+      resources,
       stores,
       types: [...types, ...systemTypes],
     }
@@ -122,6 +132,8 @@ export class AppDevelopmentService
   @modelAction
   hydrateAppDevelopmentData(data: IAppDevelopmentDto) {
     data.atoms.forEach((atom) => this.atomService.add(atom))
+
+    data.authGuards.forEach((authGuard) => this.authGuardService.add(authGuard))
 
     data.types.forEach((type) => this.typeService.add(type))
 
@@ -141,6 +153,8 @@ export class AppDevelopmentService
 
     data.actions.forEach((action) => this.actionService.add(action))
 
+    data.resources.forEach((resource) => this.resourceService.add(resource))
+
     this.elementService.elementDomainService.logElementTreeState()
 
     return this.appService.add(data.app)
@@ -159,6 +173,11 @@ export class AppDevelopmentService
   @computed
   private get atomService() {
     return getAtomService(this)
+  }
+
+  @computed
+  private get authGuardService() {
+    return getAuthGuardService(this)
   }
 
   @computed

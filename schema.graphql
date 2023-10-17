@@ -13662,7 +13662,7 @@ type Page {
     directed: Boolean = true
     options: AuthGuardOptions
     where: AuthGuardWhere
-  ): AuthGuard!
+  ): AuthGuard
   authGuardAggregate(
     directed: Boolean = true
     where: AuthGuardWhere

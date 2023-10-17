@@ -4,7 +4,7 @@ import type { IPopoverStore } from './cui-popover.store.interface'
 
 export class CuiPopoverStore implements IPopoverStore {
   constructor() {
-    //  makeAutoObservable(this)
+    makeAutoObservable(this)
   }
 
   @action

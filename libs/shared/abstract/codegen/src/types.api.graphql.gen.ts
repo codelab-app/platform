@@ -14490,7 +14490,7 @@ export type Page = {
   app: App
   appAggregate?: Maybe<PageAppAppAggregationSelection>
   appConnection: PageAppConnection
-  authGuard: AuthGuard
+  authGuard?: Maybe<AuthGuard>
   authGuardAggregate?: Maybe<PageAuthGuardAuthGuardAggregationSelection>
   authGuardConnection: PageAuthGuardConnection
   compositeKey: Scalars['String']['output']
@@ -21907,6 +21907,7 @@ export type PagePreviewFragment = {
   app: { __typename?: 'App'; id: string }
   rootElement: { __typename?: 'Element'; id: string }
   store: { __typename?: 'Store'; id: string }
+  authGuard?: { __typename?: 'AuthGuard'; id: string } | null
 }
 
 export type PageFragment = {
@@ -21922,6 +21923,7 @@ export type PageFragment = {
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
   store: { __typename?: 'Store' } & StoreFragment
+  authGuard?: { __typename?: 'AuthGuard'; id: string } | null
 }
 
 export type PageDevelopmentFragment = {
@@ -21937,6 +21939,7 @@ export type PageDevelopmentFragment = {
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
   store: { __typename?: 'Store' } & StoreFragment
+  authGuard?: { __typename?: 'AuthGuard'; id: string } | null
 }
 
 export type PageProductionFragment = {
@@ -21955,6 +21958,7 @@ export type PageProductionFragment = {
     >
   } & ElementProductionFragment
   store: { __typename?: 'Store' } & StoreFragment
+  authGuard?: { __typename?: 'AuthGuard'; id: string } | null
 }
 
 export type PropFragment = { __typename?: 'Prop'; data: string; id: string }
@@ -22337,6 +22341,7 @@ export type GetAppDevelopmentQuery = {
       RenderPropTypeFragment
   >
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+  authGuards: Array<{ __typename?: 'AuthGuard' } & AuthGuardFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{

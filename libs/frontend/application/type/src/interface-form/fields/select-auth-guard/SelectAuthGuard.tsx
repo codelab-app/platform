@@ -4,17 +4,17 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
-export interface SelectResourcesProps {
+export interface SelectAuthGuardsProps {
   name: string
 }
 
-export const SelectResource = observer<SelectResourcesProps>(({ name }) => {
-  const { resourceService } = useStore()
+export const SelectAuthGuard = observer<SelectAuthGuardsProps>(({ name }) => {
+  const { authGuardService } = useStore()
 
   const [
-    { error: queryError, result: selectResourceOptions, status },
-    getSelectResourceOptions,
-  ] = useAsync(() => resourceService.getSelectResourceOptions())
+    { error: queryError, result: selectAuthGuardOptions, status },
+    getSelectAuthGuardOptions,
+  ] = useAsync(() => authGuardService.getSelectAuthGuardOptions())
 
   return (
     <SelectField
@@ -23,11 +23,11 @@ export const SelectResource = observer<SelectResourcesProps>(({ name }) => {
       name={name}
       onDropdownVisibleChange={async (open) => {
         if (open && status === 'not-executed') {
-          await getSelectResourceOptions.execute()
+          await getSelectAuthGuardOptions.execute()
         }
       }}
       optionFilterProp="label"
-      options={selectResourceOptions}
+      options={selectAuthGuardOptions}
       showSearch
     />
   )

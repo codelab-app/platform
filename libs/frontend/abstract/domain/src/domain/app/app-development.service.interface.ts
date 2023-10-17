@@ -2,6 +2,7 @@ import type {
   AppDevelopmentFragment,
   AtomDevelopmentFragment,
   AtomFragment,
+  AuthGuardFragment,
   ComponentDevelopmentFragment,
   ElementFragment,
   FieldFragment,
@@ -10,6 +11,7 @@ import type {
   StoreFragment,
   TypeFragment,
 } from '@codelab/shared/abstract/codegen'
+import type { ResourceFragment } from '../resource/resource.fragment.graphql.gen'
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppDevelopmentArgs {
@@ -22,11 +24,13 @@ export interface IAppDevelopmentDto {
   actions: StoreFragment['actions']
   app: AppDevelopmentFragment
   atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>
   pages: Array<PageDevelopmentFragment>
   props: Array<PropFragment>
+  resources: Array<ResourceFragment>
   stores: Array<StoreFragment>
   types: Array<TypeFragment>
 }

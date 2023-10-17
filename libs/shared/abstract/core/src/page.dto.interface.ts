@@ -6,6 +6,7 @@ import { IPageKind } from './page-kind.enum'
 
 export const IPageDTO = Type.Object({
   app: IEntity,
+  authGuard: Typebox.Nullish(IEntity),
   id: Type.String(),
   kind: Type.Enum(IPageKind),
   name: Type.String(),

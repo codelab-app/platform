@@ -37,7 +37,6 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  clone,
   Model,
   model,
   modelAction,
@@ -77,7 +76,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { app, id, name, url }: ICreatePageData,
+    { app, authGuard, id, name, url }: ICreatePageData,
   ) {
     const rootElementProps: IPropDTO = {
       data: '{}',
@@ -117,6 +116,7 @@ export class PageService
 
     const page = this.add({
       app,
+      authGuard,
       id,
       kind: IPageKind.Regular,
       name,
@@ -230,12 +230,13 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    { app, id, name, pageContentContainer, url }: IUpdatePageData,
+    { app, authGuard, id, name, pageContentContainer, url }: IUpdatePageData,
   ) {
     const page = this.pages.get(id)!
 
     page.writeCache({
       app,
+      authGuard,
       name,
       pageContentContainer,
       url,

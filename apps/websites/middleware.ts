@@ -1,4 +1,3 @@
-import { IPageKind } from '@codelab/shared/abstract/core'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -19,6 +18,7 @@ export const config = {
 const middleware = async (request: NextRequest) => {
   const hostname = request.headers.get('host')
   const url = request.nextUrl
+  /*
   const domain = url.searchParams.get('domain')
   const page = url.searchParams.get('page')
 
@@ -28,7 +28,6 @@ const middleware = async (request: NextRequest) => {
     IPageKind.InternalServerError,
   ].map(String)
 
-  /*
   if (domain && page && !skipPages.includes(page)) {
     const authGuard = await AuthGuardProductionService.getAuthGuardProduction(
       domain,

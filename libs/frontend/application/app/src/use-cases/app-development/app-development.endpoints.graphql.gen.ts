@@ -9,6 +9,7 @@ import { ResourceFragment } from '../../../../../abstract/domain/src/domain/reso
 import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/render-prop.fragment.graphql.gen'
+import { AuthGuardFragment } from '../../../../../abstract/domain/src/domain/auth-guard/auth-guard.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -21,6 +22,7 @@ import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/domain/r
 import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/render-prop.fragment.graphql.gen'
+import { AuthGuardFragmentDoc } from '../../../../../abstract/domain/src/domain/auth-guard/auth-guard.fragment.graphql.gen'
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageName: Types.Scalars['String']['input']
@@ -33,6 +35,7 @@ export type GetAppDevelopmentQuery = {
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  authGuards: Array<AuthGuardFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -55,6 +58,9 @@ export const GetAppDevelopmentDocument = gql`
     resources {
       ...Resource
     }
+    authGuards {
+      ...AuthGuard
+    }
     primitiveTypes {
       ...PrimitiveType
     }
@@ -71,6 +77,7 @@ export const GetAppDevelopmentDocument = gql`
   ${ReactNodeTypeFragmentDoc}
   ${RenderPropTypeFragmentDoc}
   ${ResourceFragmentDoc}
+  ${AuthGuardFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

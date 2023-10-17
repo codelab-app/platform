@@ -5675,7 +5675,7 @@ export type Page = {
   pageContentContainerAggregate?: Maybe<PageElementPageContentContainerAggregationSelection>
   pageContentContainer?: Maybe<Element>
   authGuardAggregate?: Maybe<PageAuthGuardAuthGuardAggregationSelection>
-  authGuard: AuthGuard
+  authGuard?: Maybe<AuthGuard>
   rootElementConnection: PageRootElementConnection
   appConnection: PageAppConnection
   storeConnection: PageStoreConnection

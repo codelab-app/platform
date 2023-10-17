@@ -21,6 +21,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   resources {
     ...Resource
   }
+  authGuards {
+    ...AuthGuard
+  }
   # Load system types
   # workaround for lack of ability to recursively fetch field's types
   primitiveTypes {
