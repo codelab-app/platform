@@ -6,7 +6,8 @@ import { rootStore as testRootStore } from '../setup'
 import chance from './chance'
 
 export default Factory.define<IStoreDTO>(({ params }) => {
-  const dto = {
+  const dto: IStoreDTO = {
+    actions: params.actions,
     api: { id: params.api?.id ?? v4() },
     id: params.id ?? v4(),
     name:

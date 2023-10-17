@@ -1,4 +1,5 @@
 import atomFactory from './atom.factory'
+import codeActionFactory from './code-action.factory'
 import componentFactory from './component.factory'
 import elementFactory from './element.factory'
 import fieldFactory from './field.factory'
@@ -13,6 +14,7 @@ import typeRenderPropFactory from './type-render-prop.factory'
 
 const FactoryBuildTypeMap = {
   atom: atomFactory.build.bind(atomFactory),
+  codeAction: codeActionFactory.build.bind(codeActionFactory),
   component: componentFactory.build.bind(componentFactory),
   element: elementFactory.build.bind(elementFactory),
   field: fieldFactory.build.bind(fieldFactory),
