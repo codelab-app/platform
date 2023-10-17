@@ -3,6 +3,7 @@ import type {
   IBuilderService,
   IComponentModel,
   IDragDropData,
+  IDragOverlayData,
   IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -11,6 +12,7 @@ import {
   BuilderWidthBreakPoint,
   componentRef,
   defaultBuilderWidthBreakPoints,
+  DragOverlayPosition,
   elementRef,
   IDropPosition,
   isComponentRef,
@@ -34,7 +36,7 @@ export class BuilderService
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
-    dragDropData: prop<Nullable<IDragDropData>>(null).withSetter(),
+    dragOverlayData: prop<Nullable<IDragOverlayData>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
@@ -144,22 +146,10 @@ export class BuilderService
   }
 
   @modelAction
-  dragOverElementNode(
-    node: Nullable<IElementModel>,
-    dropPosition: IDropPosition,
-  ) {
-    if (!node) {
-      this.dragDropData = {
-        dropPosition,
-        node: null,
-      }
-
-      return
-    }
-
-    this.dragDropData = {
-      dropPosition,
-      node: elementRef(node),
+  dragOverElementNode(elementId: string, position: DragOverlayPosition) {
+    this.dragOverlayData = {
+      elementId,
+      position,
     }
   }
 

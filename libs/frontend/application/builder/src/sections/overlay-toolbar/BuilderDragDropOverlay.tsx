@@ -6,6 +6,7 @@ import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { DragDropOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
@@ -15,13 +16,13 @@ export const BuilderDragDropOverlay = observer<{
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {
-  const dragDropData = builderService.dragDropData
+  const dragOverlayData = builderService.dragOverlayData
 
-  if (isServer || !dragDropData?.node || !isElementRef(dragDropData.node)) {
+  if (isServer || !dragOverlayData?.elementId) {
     return null
   }
 
-  const element = queryRenderedElementById(dragDropData.node.id)
+  const element = queryRenderedElementById(dragOverlayData.elementId)
 
   if (!element || !renderContainerRef.current) {
     return null
@@ -29,8 +30,8 @@ export const BuilderDragDropOverlay = observer<{
 
   return createPortal(
     <DragDropOverlay
-      dropPosition={dragDropData.dropPosition}
       element={element}
+      position={dragOverlayData.position}
       renderContainer={renderContainerRef.current}
     />,
     renderContainerRef.current,

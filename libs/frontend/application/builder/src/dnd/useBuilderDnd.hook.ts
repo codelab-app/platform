@@ -1,10 +1,10 @@
 import type {
   BuilderDragData,
-  IBuilderService,
-  IElementService,
+  DragPosition,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { BuilderDndType } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
@@ -15,20 +15,19 @@ import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 export interface UseBuilderDnd {
   sensors: ReturnType<typeof useSensors>
-  onDragEnd(data: DragEndEvent): void
+  onDragEnd(data: DragEndEvent, dragPosition: DragPosition): void
   onDragStart(data: DragStartEvent): void
 }
 
-export const useBuilderDnd = (
-  builderService: IBuilderService,
-  elementService: IElementService,
-  elementTree: Maybe<IElementTree>,
-): UseBuilderDnd => {
+export const useBuilderDnd = (): UseBuilderDnd => {
+  const { builderService, elementService } = useStore()
+  const elementTree: Maybe<IElementTree> = builderService.activeElementTree
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
         // Elements like checkboxes, inputs, etc. won't be interactive without a delay
-        delay: 100,
+        delay: 200,
         tolerance: 5,
       },
     }),
@@ -58,7 +57,7 @@ export const useBuilderDnd = (
   )
 
   const onDragEnd = useCallback(
-    async (event: DragEndEvent) => {
+    async (event: DragEndEvent, dragPosition: DragPosition) => {
       const data = event.active.data.current as Maybe<BuilderDragData>
 
       const shouldCreate =
@@ -66,16 +65,15 @@ export const useBuilderDnd = (
         data.createElementInput !== undefined
 
       const shouldMove = data?.type === BuilderDndType.MoveElement
-
       builderService.setCurrentDragData(null)
 
       if (shouldCreate) {
-        await handleCreateElement(event)
+        await handleCreateElement(event, dragPosition)
       } else if (shouldMove) {
-        await handleMoveElement(event)
+        await handleMoveElement(event, dragPosition)
       }
     },
-    [builderService, elementService, elementTree],
+    [builderService, handleCreateElement, handleMoveElement],
   )
 
   return { onDragEnd, onDragStart, sensors }

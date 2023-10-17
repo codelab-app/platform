@@ -1,10 +1,11 @@
+import { DragOverlayPosition } from '@codelab/frontend/abstract/domain'
 import type { CSSProperties } from 'react'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { DragDropOverlayProps } from './overlay.interface'
 
 export const DragDropOverlay = ({
-  dropPosition,
   element,
+  position,
   renderContainer,
 }: DragDropOverlayProps) => {
   const [containerRect, setContainerRect] = useState(() =>
@@ -20,13 +21,14 @@ export const DragDropOverlay = ({
 
   const rootStyle: CSSProperties = useMemo(
     () => ({
-      backgroundColor: dropPosition === 'inside' ? '#91caff77' : 'transparent',
-      borderBottomWidth: dropPosition === 'bottom' ? '10px' : '0',
+      backgroundColor:
+        position === DragOverlayPosition.Inside ? '#91caff77' : 'transparent',
+      borderBottomWidth: position === DragOverlayPosition.Bottom ? '10px' : '0',
       borderColor: '#91caff',
-      borderLeftWidth: dropPosition === 'left' ? '10px' : '0',
-      borderRightWidth: dropPosition === 'right' ? '10px' : '0',
+      borderLeftWidth: position === DragOverlayPosition.Left ? '10px' : '0',
+      borderRightWidth: position === DragOverlayPosition.Right ? '10px' : '0',
       borderStyle: 'solid',
-      borderTopWidth: dropPosition === 'top' ? '10px' : '0',
+      borderTopWidth: position === DragOverlayPosition.Top ? '10px' : '0',
       bottom: `${rect.bottom}px`,
       height: `${rect.height}px`,
       left: `${rect.left - containerRect.left}px`,
@@ -37,7 +39,7 @@ export const DragDropOverlay = ({
       width: `${rect.width}px`,
       zIndex: 2,
     }),
-    [containerRect, rect, dropPosition],
+    [containerRect, rect, position],
   )
 
   return <div style={rootStyle}></div>
