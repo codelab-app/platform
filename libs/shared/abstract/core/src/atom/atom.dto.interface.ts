@@ -5,9 +5,9 @@ import {
 } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IElementRenderTypeKind } from '../element'
+import { ITypeKind } from '../type-kind.enum'
 import { IAtomType } from './atom-type.enum'
-import { IElementRenderTypeKind } from './element-render-type'
-import { ITypeKind } from './type-kind.enum'
 
 export const IAtomDTO = Type.Object({
   api: IMaybeDiscriminatedEntity(`${ITypeKind.InterfaceType}`),

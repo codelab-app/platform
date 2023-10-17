@@ -7,6 +7,7 @@ export const IAuthGuardDTO = Type.Object({
   id: Type.String(),
   name: Type.String(),
   resource: IEntity,
+  responseTransformer: Type.String(),
 })
 
 export type IAuthGuardDTO = Static<typeof IAuthGuardDTO>

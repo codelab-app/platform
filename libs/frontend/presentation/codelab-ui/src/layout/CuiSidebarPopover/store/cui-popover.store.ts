@@ -1,10 +1,10 @@
-import { action, computed, makeAutoObservable, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { Router } from 'next/router'
 import type { IPopoverStore } from './cui-popover.store.interface'
 
 export class CuiPopoverStore implements IPopoverStore {
   constructor() {
-    makeAutoObservable(this)
+    //  makeAutoObservable(this)
   }
 
   @action

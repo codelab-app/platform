@@ -1,4 +1,3 @@
-import { AuthGuardProductionService } from '@codelab/frontend/application/auth-guard'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
@@ -29,6 +28,7 @@ const middleware = async (request: NextRequest) => {
     IPageKind.InternalServerError,
   ].map(String)
 
+  /*
   if (domain && page && !skipPages.includes(page)) {
     const authGuard = await AuthGuardProductionService.getAuthGuardProduction(
       domain,
@@ -59,7 +59,7 @@ const middleware = async (request: NextRequest) => {
       return NextResponse.rewrite(url)
     }
   }
-
+  */
   console.log('Redirecting...', url.toString())
   url.pathname = `/${hostname}${url.pathname}`
 

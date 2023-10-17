@@ -2,8 +2,8 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IPropDTO } from '../prop.dto.interface'
 import { IElementRenderTypeDto } from './element-render-type'
-import { IPropDTO } from './prop.dto.interface'
 
 export const IElementDTO = Type.Object({
   childMapperComponent: Typebox.Nullish(IEntity),

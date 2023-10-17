@@ -1,8 +1,4 @@
-import {
-  HttpMethod,
-  HttpResponseType,
-  type ICreateAuthGuardData,
-} from '@codelab/frontend/abstract/domain'
+import { type ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import { SelectResource } from '@codelab/frontend/application/type'
 import {
   CodeMirrorField,
@@ -12,6 +8,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
@@ -106,8 +103,18 @@ export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
       required: ['id'],
       type: 'object',
     },
+    responseTransformer: {
+      type: 'string',
+      default: '// return response.Authenticated',
+      help: 'Use "response" object to return a boolean',
+      uniforms: {
+        component: CodeMirrorField({
+          language: CodeMirrorLanguage.Typescript,
+        }),
+      },
+    },
   },
-  required: ['name', 'resource', 'config'],
+  required: ['name', 'resource', 'config', 'responseTransformer'],
   title: 'Create Auth Guard',
   type: 'object',
 } as const

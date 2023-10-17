@@ -36,13 +36,16 @@ export class AuthGuardRepository extends AbstractRepository<
       await (
         await this.ogmService.AuthGuard
       ).create({
-        input: authGuards.map(({ config, id, name, resource }) => ({
-          config: connectNodeId(config.id),
-          id,
-          name,
-          owner: connectOwner(this.authService.currentUser),
-          resource: connectNodeId(resource.id),
-        })),
+        input: authGuards.map(
+          ({ config, id, name, resource, responseTransformer }) => ({
+            config: connectNodeId(config.id),
+            id,
+            name,
+            owner: connectOwner(this.authService.currentUser),
+            resource: connectNodeId(resource.id),
+            responseTransformer,
+          }),
+        ),
       })
     ).authGuards
   }

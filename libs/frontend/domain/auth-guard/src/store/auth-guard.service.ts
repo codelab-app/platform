@@ -139,14 +139,20 @@ export class AuthGuardService
   @transaction
   update = _async(function* (
     this: AuthGuardService,
-    { config: configData, id, name, resource }: IUpdateAuthGuardData,
+    {
+      config: configData,
+      id,
+      name,
+      resource,
+      responseTransformer,
+    }: IUpdateAuthGuardData,
   ) {
     const authGuard = this.authGuards.get(id)!
     const config = authGuard.config.current
 
     config.writeCache({ data: JSON.stringify(configData.data) })
 
-    authGuard.writeCache({ name, resource })
+    authGuard.writeCache({ name, resource, responseTransformer })
 
     yield* _await(this.authGuardRepository.update(authGuard))
 

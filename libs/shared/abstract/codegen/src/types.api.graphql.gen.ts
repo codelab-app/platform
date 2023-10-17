@@ -4246,6 +4246,7 @@ export type AuthGuard = WithOwner & {
   resource: Resource
   resourceAggregate?: Maybe<AuthGuardResourceResourceAggregationSelection>
   resourceConnection: AuthGuardResourceConnection
+  responseTransformer: Scalars['String']['output']
 }
 
 export type AuthGuardConfigArgs = {
@@ -4329,6 +4330,7 @@ export type AuthGuardAggregateSelection = {
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+  responseTransformer: StringAggregateSelectionNonNullable
 }
 
 export type AuthGuardConfigAggregateInput = {
@@ -4464,6 +4466,7 @@ export type AuthGuardCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AuthGuardPagesFieldInput>
   resource?: InputMaybe<AuthGuardResourceFieldInput>
+  responseTransformer: Scalars['String']['input']
 }
 
 export type AuthGuardDeleteInput = {
@@ -4489,6 +4492,7 @@ export type AuthGuardEdge = {
 export type AuthGuardOnCreateInput = {
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
+  responseTransformer: Scalars['String']['input']
 }
 
 export type AuthGuardOptions = {
@@ -4838,6 +4842,7 @@ export type AuthGuardResourceUpdateFieldInput = {
 export type AuthGuardSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+  responseTransformer?: InputMaybe<SortDirection>
 }
 
 export type AuthGuardUniqueWhere = {
@@ -4851,6 +4856,7 @@ export type AuthGuardUpdateInput = {
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesUpdateFieldInput>>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
+  responseTransformer?: InputMaybe<Scalars['String']['input']>
 }
 
 export type AuthGuardUserOwnerAggregationSelection = {
@@ -4915,6 +4921,12 @@ export type AuthGuardWhere = {
   resourceConnection?: InputMaybe<AuthGuardResourceConnectionWhere>
   resourceConnection_NOT?: InputMaybe<AuthGuardResourceConnectionWhere>
   resource_NOT?: InputMaybe<ResourceWhere>
+  responseTransformer?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  responseTransformer_MATCHES?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type AuthGuardsConnection = {
@@ -14742,6 +14754,7 @@ export type PageAuthGuardAuthGuardNodeAggregateSelection = {
   __typename?: 'PageAuthGuardAuthGuardNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+  responseTransformer: StringAggregateSelectionNonNullable
 }
 
 export type PageAuthGuardConnectFieldInput = {
@@ -14817,6 +14830,25 @@ export type PageAuthGuardNodeAggregationWhereInput = {
   name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  responseTransformer_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Int']['input']
+  >
+  responseTransformer_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type PageAuthGuardRelationship = {
@@ -21739,6 +21771,7 @@ export type AuthGuardFragment = {
   __typename?: 'AuthGuard'
   id: string
   name: string
+  responseTransformer: string
   config: { __typename?: 'Prop' } & PropFragment
   resource: { __typename?: 'Resource' } & ResourceFragment
 }
@@ -22316,16 +22349,6 @@ export type GetAppProductionQuery = {
   apps: Array<{ __typename?: 'App' } & AppProductionFragment>
   atoms: Array<{ __typename?: 'Atom' } & AtomProductionFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-}
-
-export type GetAuthGuardProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrl: Scalars['String']['input']
-}>
-
-export type GetAuthGuardProductionQuery = {
-  __typename?: 'Query'
-  authGuards: Array<{ __typename?: 'AuthGuard' } & AuthGuardFragment>
 }
 
 export type CreateAppsMutationVariables = Exact<{

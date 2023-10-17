@@ -11,6 +11,8 @@ export const authGuardSchema = gql`
 
     config: Prop! @relationship(type: "AUTH_GUARD_CONFIG", direction: OUT)
 
+    responseTransformer: String!
+
     # redirect to another page inside the app or to a given url
     owner: User!
   }

@@ -5,9 +5,7 @@ import type {
   ICodeActionModel,
   IElementModel,
   IEvaluationContext,
-  IGraphQLFetchConfig,
   IRenderer,
-  IRestFetchConfig,
 } from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
@@ -16,6 +14,7 @@ import {
   getRunnerId,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
+import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
@@ -114,7 +113,7 @@ export class ActionRunner
       const evaluatedConfig = evaluateObject(
         config,
         context,
-      ) as IGraphQLFetchConfig & IRestFetchConfig
+      ) as IResourceFetchConfig
 
       const fetchPromise = resource.client.fetch(evaluatedConfig)
 

@@ -1,6 +1,7 @@
 fragment AuthGuard on AuthGuard {
   id
   name
+  responseTransformer
   config {
     ...Prop
   }

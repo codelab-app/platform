@@ -1,19 +1,19 @@
-import type { IBaseResourceConfigData } from '@codelab/frontend/abstract/domain'
-import { tryParse } from '@codelab/frontend/shared/utils'
 import type {
-  IGraphQLFetchConfig,
-  IResourceGraphqlClient,
-  IResourceRestClient,
-  IRestFetchConfig,
+  IGraphQLFetchConfigData,
+  IResourceClient,
+  IResourceConfigData,
+  IRestFetchConfigData,
 } from '@codelab/shared/abstract/core'
-import type { Axios, Method } from 'axios'
+import { IResourceType } from '@codelab/shared/abstract/core'
+import { tryParse } from '@codelab/shared/utils'
+import type { Axios } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 
-export class ResourceGraphQlClient implements IResourceGraphqlClient {
-  constructor(resourceConfig: IBaseResourceConfigData) {
+class ResourceGraphQlClient implements IResourceClient {
+  constructor(resourceConfig: IResourceConfigData) {
     const { headers, url } = resourceConfig
     const options = { headers: tryParse(headers) }
 
@@ -22,7 +22,7 @@ export class ResourceGraphQlClient implements IResourceGraphqlClient {
 
   private client: GraphQLClient
 
-  fetch(config: IGraphQLFetchConfig): Promise<unknown> {
+  fetch(config: IGraphQLFetchConfigData): Promise<unknown> {
     const headers = merge(tryParse(config.headers))
     const variables = merge(tryParse(config.variables))
 
@@ -30,8 +30,8 @@ export class ResourceGraphQlClient implements IResourceGraphqlClient {
   }
 }
 
-export class ResourceRestClient implements IResourceRestClient {
-  constructor(resourceConfig: IBaseResourceConfigData) {
+class ResourceRestClient implements IResourceClient {
+  constructor(resourceConfig: IResourceConfigData) {
     const { headers, url } = resourceConfig
 
     this.client = axios.create({ baseURL: url, headers: tryParse(headers) })
@@ -39,7 +39,7 @@ export class ResourceRestClient implements IResourceRestClient {
 
   private client: Axios
 
-  fetch(config: IRestFetchConfig) {
+  fetch(config: IRestFetchConfigData) {
     const data = merge(tryParse(config.body))
     const headers = merge(tryParse(config.headers))
     const parsedParams = tryParse(config.queryParams)
@@ -47,7 +47,7 @@ export class ResourceRestClient implements IResourceRestClient {
     return this.client.request({
       data,
       headers,
-      method: config.method as Method,
+      method: config.method,
       // params should be an object to be properly used as url params
       params: isString(parsedParams) ? undefined : parsedParams,
       responseType: config.responseType,
@@ -55,3 +55,11 @@ export class ResourceRestClient implements IResourceRestClient {
     })
   }
 }
+
+export const getResourceClient = (
+  type: IResourceType,
+  config: IResourceConfigData,
+): IResourceClient =>
+  type === IResourceType.GraphQl
+    ? new ResourceGraphQlClient(config)
+    : new ResourceRestClient(config)

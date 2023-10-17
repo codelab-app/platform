@@ -1,5 +1,7 @@
-import type { IAuthGuardDTO } from '@codelab/shared/abstract/core'
-import type { IResourceFetchConfig } from '../resource'
+import type {
+  IAuthGuardDTO,
+  IResourceFetchConfig,
+} from '@codelab/shared/abstract/core'
 
 export type ICreateAuthGuardData = Omit<IAuthGuardDTO, 'config'> & {
   config: {

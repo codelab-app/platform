@@ -10,6 +10,7 @@ import { ResourceFragmentDoc } from '../resource/resource.fragment.graphql.gen'
 export type AuthGuardFragment = {
   id: string
   name: string
+  responseTransformer: string
   config: PropFragment
   resource: ResourceFragment
 }
@@ -18,6 +19,7 @@ export const AuthGuardFragmentDoc = gql`
   fragment AuthGuard on AuthGuard {
     id
     name
+    responseTransformer
     config {
       ...Prop
     }

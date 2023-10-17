@@ -1,4 +1,3 @@
-export * from './auth-guard-production'
 export * from './create-auth-guard'
 export * from './delete-auth-guard'
 export * from './get-auth-guard'

@@ -18,12 +18,19 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ config, id, name, resource }: IAuthGuardDTO) =>
+const create = ({
+  config,
+  id,
+  name,
+  resource,
+  responseTransformer,
+}: IAuthGuardDTO) =>
   new AuthGuardModel({
     config: propRef(config.id),
     id,
     name,
     resource: resourceRef(resource.id),
+    responseTransformer,
   })
 
 @model('@codelab/AuthGuardModel')
@@ -33,6 +40,7 @@ export class AuthGuardModel
     id: idProp,
     name: prop<string>(),
     resource: prop<Ref<IResourceModel>>(),
+    responseTransformer: prop<string>(),
   }))
   implements IAuthGuardModel
 {
@@ -44,9 +52,10 @@ export class AuthGuardModel
   }
 
   @modelAction
-  writeCache({ name, resource }: Partial<IAuthGuardDTO>) {
-    this.resource = resource?.id ? resourceRef(resource.id) : this.resource
+  writeCache({ name, resource, responseTransformer }: Partial<IAuthGuardDTO>) {
     this.name = name ?? this.name
+    this.resource = resource?.id ? resourceRef(resource.id) : this.resource
+    this.responseTransformer = responseTransformer ?? this.responseTransformer
 
     return this
   }
@@ -62,6 +71,7 @@ export class AuthGuardModel
       name: this.name,
       owner: connectOwner(this.userService.user),
       resource: connectNodeId(this.resource.id),
+      responseTransformer: this.responseTransformer,
     }
   }
 
@@ -72,6 +82,7 @@ export class AuthGuardModel
       },
       name: this.name,
       resource: connectNodeId(this.resource.id),
+      responseTransformer: this.responseTransformer,
     }
   }
 }

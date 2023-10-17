@@ -1,6 +1,6 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IPropDTO } from './prop.dto.interface'
+import { IPropDTO } from '../prop.dto.interface'
 import { IResourceType } from './resource-type.enum'
 
 export const IResourceDTO = Type.Object({

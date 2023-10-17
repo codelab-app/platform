@@ -1,5 +1,7 @@
-import type { IActionKind } from '@codelab/shared/abstract/core'
-import type { IResourceFetchConfig } from '../resource'
+import type {
+  IActionKind,
+  IResourceFetchConfig,
+} from '@codelab/shared/abstract/core'
 
 /**
  * Base

@@ -21,6 +21,7 @@ export interface IAuthGuardModel
   id: string
   name: string
   resource: Ref<IResourceModel>
+  responseTransformer: string
 }
 
 export type IAuthGuardRef = string

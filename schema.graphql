@@ -4189,12 +4189,14 @@ type AuthGuard implements WithOwner {
     sort: [AuthGuardResourceConnectionSort!]
     where: AuthGuardResourceConnectionWhere
   ): AuthGuardResourceConnection!
+  responseTransformer: String!
 }
 
 type AuthGuardAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  responseTransformer: StringAggregateSelectionNonNullable!
 }
 
 input AuthGuardConfigAggregateInput {
@@ -4330,6 +4332,7 @@ input AuthGuardCreateInput {
   owner: WithOwnerOwnerFieldInput
   pages: AuthGuardPagesFieldInput
   resource: AuthGuardResourceFieldInput
+  responseTransformer: String!
 }
 
 input AuthGuardDeleteInput {
@@ -4354,6 +4357,7 @@ type AuthGuardEdge {
 input AuthGuardOnCreateInput {
   id: ID!
   name: String!
+  responseTransformer: String!
 }
 
 input AuthGuardOptions {
@@ -4704,6 +4708,7 @@ Fields to sort AuthGuards by. The order in which sorts are applied is not guaran
 input AuthGuardSort {
   id: SortDirection
   name: SortDirection
+  responseTransformer: SortDirection
 }
 
 input AuthGuardUniqueWhere {
@@ -4717,6 +4722,7 @@ input AuthGuardUpdateInput {
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AuthGuardPagesUpdateFieldInput!]
   resource: AuthGuardResourceUpdateFieldInput
+  responseTransformer: String
 }
 
 type AuthGuardUserOwnerAggregationSelection {
@@ -4803,6 +4809,12 @@ input AuthGuardWhere {
   resourceConnection: AuthGuardResourceConnectionWhere
   resourceConnection_NOT: AuthGuardResourceConnectionWhere
   resource_NOT: ResourceWhere
+  responseTransformer: String
+  responseTransformer_CONTAINS: String
+  responseTransformer_ENDS_WITH: String
+  responseTransformer_IN: [String!]
+  responseTransformer_MATCHES: String
+  responseTransformer_STARTS_WITH: String
 }
 
 type AuthGuardsConnection {
@@ -13863,6 +13875,7 @@ type PageAuthGuardAuthGuardAggregationSelection {
 type PageAuthGuardAuthGuardNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+  responseTransformer: StringAggregateSelectionNonNullable!
 }
 
 input PageAuthGuardConnectFieldInput {
@@ -13940,6 +13953,21 @@ input PageAuthGuardNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
+  responseTransformer_AVERAGE_LENGTH_EQUAL: Float
+  responseTransformer_AVERAGE_LENGTH_GT: Float
+  responseTransformer_AVERAGE_LENGTH_GTE: Float
+  responseTransformer_AVERAGE_LENGTH_LT: Float
+  responseTransformer_AVERAGE_LENGTH_LTE: Float
+  responseTransformer_LONGEST_LENGTH_EQUAL: Int
+  responseTransformer_LONGEST_LENGTH_GT: Int
+  responseTransformer_LONGEST_LENGTH_GTE: Int
+  responseTransformer_LONGEST_LENGTH_LT: Int
+  responseTransformer_LONGEST_LENGTH_LTE: Int
+  responseTransformer_SHORTEST_LENGTH_EQUAL: Int
+  responseTransformer_SHORTEST_LENGTH_GT: Int
+  responseTransformer_SHORTEST_LENGTH_GTE: Int
+  responseTransformer_SHORTEST_LENGTH_LT: Int
+  responseTransformer_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageAuthGuardRelationship {
