@@ -20,7 +20,7 @@ const middleware = async (request: NextRequest) => {
   const hostname = request.headers.get('host')
   const url = request.nextUrl
   const domain = url.searchParams.get('domain')
-  const pageUrl = url.searchParams.get('page')
+  const pageUrl = `/${url.searchParams.get('page')}`
 
   if (domain && pageUrl) {
     const endpoint = getEnv().endpoint.canActivateUrl

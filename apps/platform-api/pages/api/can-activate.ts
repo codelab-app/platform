@@ -2,10 +2,10 @@ import {
   AuthGuardDomainModule,
   AuthGuardRepository,
 } from '@codelab/backend/domain/auth-guard'
+import { getService } from '@codelab/backend/infra/adapter/serverless'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { getResourceClient } from '@codelab/shared/domain/mapper'
 import { tryParse } from '@codelab/shared/utils'
-import { NestFactory } from '@nestjs/core'
 import { ExternalCopy, Isolate } from 'isolated-vm'
 import isString from 'lodash/isString'
 import type { NextApiHandler } from 'next'
@@ -15,7 +15,10 @@ const secureEval = (code: string, response: unknown) => {
   const context = isolate.createContextSync()
   const jail = context.global
   jail.setSync('global', jail.derefInto())
-  jail.setSync('response', new ExternalCopy(response).copyInto())
+  jail.setSync(
+    'response',
+    new ExternalCopy(response, { transferOut: true }).copyInto(),
+  )
 
   return context.evalClosureSync(code, [], { result: { copy: true } })
 }
@@ -27,11 +30,10 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(400).json({ canActivate: false, message: 'Invalid body' })
   }
 
-  const appContext = await NestFactory.createApplicationContext(
+  const authGuardRepository = await getService(
     AuthGuardDomainModule,
+    AuthGuardRepository,
   )
-
-  const authGuardRepository = appContext.get(AuthGuardRepository)
 
   // load auth guard
   const authGuard = await authGuardRepository.findOne({
@@ -51,12 +53,26 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   const { resource, responseTransformer } = authGuard
-  const { config, type } = resource
-  const client = getResourceClient(type, tryParse(config.data))
-  const response = await client.fetch(tryParse(authGuard.config.data))
-  const canActivate = await secureEval(responseTransformer, response)
+  const resourceConfig = tryParse(resource.config.data)
+  const client = getResourceClient(resource.type, resourceConfig)
+  const fetchConfig = tryParse(authGuard.config.data)
 
-  res.status(200).json({ canActivate })
+  try {
+    const response = await client.fetch(fetchConfig)
+
+    const parsedResponse = {
+      data: response.data,
+      headers: response.headers,
+      status: response.status,
+      statusText: response.statusText,
+    }
+
+    const canActivate = await secureEval(responseTransformer, parsedResponse)
+
+    return res.status(200).json({ canActivate })
+  } catch (error) {
+    return res.status(500).json({ canActivate: false, error })
+  }
 }
 
 export default handler

@@ -6,9 +6,10 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { tryParse } from '@codelab/shared/utils'
-import type { Axios } from 'axios'
+import type { Axios, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
+import type { GraphQLResponse } from 'graphql-request/build/esm/types'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 
@@ -22,7 +23,7 @@ class ResourceGraphQlClient implements IResourceClient {
 
   private client: GraphQLClient
 
-  fetch(config: IGraphQLFetchConfigData): Promise<unknown> {
+  fetch(config: IGraphQLFetchConfigData): Promise<GraphQLResponse> {
     const headers = merge(tryParse(config.headers))
     const variables = merge(tryParse(config.variables))
 
@@ -39,7 +40,7 @@ class ResourceRestClient implements IResourceClient {
 
   private client: Axios
 
-  fetch(config: IRestFetchConfigData) {
+  fetch(config: IRestFetchConfigData): Promise<AxiosResponse> {
     const data = merge(tryParse(config.body))
     const headers = merge(tryParse(config.headers))
     const parsedParams = tryParse(config.queryParams)
