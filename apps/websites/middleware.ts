@@ -1,3 +1,4 @@
+import { getEnv } from '@codelab/shared/config'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -18,47 +19,21 @@ export const config = {
 const middleware = async (request: NextRequest) => {
   const hostname = request.headers.get('host')
   const url = request.nextUrl
-  /*
   const domain = url.searchParams.get('domain')
-  const page = url.searchParams.get('page')
+  const pageUrl = url.searchParams.get('page')
 
-  const skipPages = [
-    IPageKind.Provider,
-    IPageKind.NotFound,
-    IPageKind.InternalServerError,
-  ].map(String)
+  if (domain && pageUrl) {
+    const endpoint = getEnv().endpoint.canActivateUrl
 
-  if (domain && page && !skipPages.includes(page)) {
-    const authGuard = await AuthGuardProductionService.getAuthGuardProduction(
-      domain,
-      page,
-    )
+    const response = await fetch(endpoint, {
+      body: JSON.stringify({ domain, pageUrl }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST',
+    }).then((res) => res.json())
 
-    if (!authGuard) {
-      // Redirect to internal server error page
-      url.pathname = `/${hostname}/${IPageKind.InternalServerError}`
-
-      return NextResponse.rewrite(url)
-    }
-
-    try {
-      const result = await AuthGuardProductionService.canActivate(authGuard)
-
-      if (!result) {
-        // Follow unsuccessful activation redirect
-
-        url.pathname = `/${hostname}/${IPageKind.NotFound}`
-
-        return NextResponse.rewrite(url)
-      }
-    } catch (error) {
-      // Redirect to internal server error page
-      url.pathname = `/${hostname}/${IPageKind.InternalServerError}`
-
-      return NextResponse.rewrite(url)
-    }
+    console.log(response)
   }
-  */
+
   console.log('Redirecting...', url.toString())
   url.pathname = `/${hostname}${url.pathname}`
 

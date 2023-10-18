@@ -1,29 +1,12 @@
-import { AuthGuardRepository } from '@codelab/backend/domain/auth-guard'
 import { DataServerlessModule } from '@codelab/backend/infra/adapter/codelab'
 import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import type { INestApplication } from '@nestjs/common'
-import { ContextIdFactory, NestFactory } from '@nestjs/core'
+import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import type { Server } from 'http'
-import type { NextApiHandler, NextApiRequest } from 'next'
+import type { NextApiHandler } from 'next'
 
 let app: INestApplication | undefined
-
-export const getAuthGuardRepository = async (request: NextApiRequest) => {
-  if (!app) {
-    app = await NestFactory.create(DataServerlessModule, {})
-  }
-
-  const contextId = ContextIdFactory.create()
-  app.registerRequestByContextId(request, contextId)
-
-  const authGuardRepository = await app.resolve<AuthGuardRepository>(
-    AuthGuardRepository,
-    contextId,
-  )
-
-  return authGuardRepository
-}
 
 export const getDataListener = async () => {
   if (!app) {

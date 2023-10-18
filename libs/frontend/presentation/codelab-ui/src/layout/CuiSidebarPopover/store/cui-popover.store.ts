@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx'
+import { action, computed, makeAutoObservable, observable } from 'mobx'
 import { Router } from 'next/router'
 import type { IPopoverStore } from './cui-popover.store.interface'
 

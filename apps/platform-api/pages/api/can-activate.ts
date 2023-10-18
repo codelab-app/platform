@@ -1,6 +1,11 @@
-import { getAuthGuardRepository } from '@codelab/backend/infra/adapter/serverless'
+import {
+  AuthGuardDomainModule,
+  AuthGuardRepository,
+} from '@codelab/backend/domain/auth-guard'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { getResourceClient } from '@codelab/shared/domain/mapper'
 import { tryParse } from '@codelab/shared/utils'
+import { NestFactory } from '@nestjs/core'
 import { ExternalCopy, Isolate } from 'isolated-vm'
 import isString from 'lodash/isString'
 import type { NextApiHandler } from 'next'
@@ -18,23 +23,31 @@ const secureEval = (code: string, response: unknown) => {
 const handler: NextApiHandler = async (req, res) => {
   const { domain, pageUrl } = req.body
 
-  if (!domain || !isString(domain) || !pageUrl || !isString(pageUrl)) {
+  if (!isString(domain) || !isString(pageUrl)) {
     return res.status(400).json({ canActivate: false, message: 'Invalid body' })
   }
 
-  // load auth guard
-  const authGuardRepository = await getAuthGuardRepository(req)
+  const appContext = await NestFactory.createApplicationContext(
+    AuthGuardDomainModule,
+  )
 
+  const authGuardRepository = appContext.get(AuthGuardRepository)
+
+  // load auth guard
   const authGuard = await authGuardRepository.findOne({
     pages_SINGLE: {
-      AND: [{ app: { domains_SINGLE: { name: domain } } }, { url: pageUrl }],
+      AND: [
+        { app: { domains_SINGLE: { name: domain } } },
+        { url: pageUrl },
+        // system page doesn't have auth guard
+        { kind: IPageKind.Regular },
+      ],
     },
   })
 
+  // either a regular page with no auth guard attached to or a system page
   if (!authGuard) {
-    return res
-      .status(500)
-      .json({ canActivate: false, message: 'Unable to find auth guard' })
+    return res.status(200).json({ canActivate: true })
   }
 
   const { resource, responseTransformer } = authGuard
