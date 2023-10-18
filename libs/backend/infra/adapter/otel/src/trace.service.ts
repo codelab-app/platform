@@ -1,15 +1,11 @@
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import type { AttributeValue, Span } from '@opentelemetry/api'
 import { context, trace } from '@opentelemetry/api'
 import { PLATFORM_API_TRACER_NAME } from './tracer'
 
 @Injectable()
 export class TraceService {
-  constructor() {
-    Logger.log('I am created')
-  }
-
   public addAttribute(key: string, value: AttributeValue) {
     const span = this.getSpan()
 

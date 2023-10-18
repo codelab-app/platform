@@ -3,11 +3,13 @@ import {
   type AuthGuardOptions,
   type AuthGuardWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import type { OgmService } from '@codelab/backend/infra/adapter/neo4j'
-import { authGuardSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
-import type { TraceService } from '@codelab/backend/infra/adapter/otel'
-import type { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import {
+  authGuardSelectionSet,
+  OgmService,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAuthGuardDTO } from '@codelab/shared/abstract/core'
 import {
@@ -15,7 +17,9 @@ import {
   connectOwner,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class AuthGuardRepository extends AbstractRepository<
   IAuthGuardDTO,
   AuthGuard,
