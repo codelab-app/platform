@@ -1,4 +1,4 @@
-import { actionRef, IActionRunner } from '@codelab/frontend/abstract/domain'
+import { elementTreeRef, rendererRef } from '@codelab/frontend/abstract/domain'
 import { ActionRunner } from '../action-runner.model'
 import { factoryBuild } from './factory'
 import { rootStore, setupPage } from './setup'
@@ -9,9 +9,14 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should run a code action', async () => {
+    const testArg = 'hi there'
+    const spyFn = jest.fn()
     const testStoreId = 'test-store-id'
 
     const codeAction = factoryBuild('codeAction', {
+      code: `function run(fun) {
+        fun('${testArg}')
+      }`,
       store: { id: testStoreId },
     })
 
@@ -19,45 +24,30 @@ describe('ConditionalRenderPipe', () => {
       actions: [codeAction],
       storeId: testStoreId,
     })
-    // const { page, rootElement: pageRootElement } = setupPage()
 
-    const element = factoryBuild('element', {
-      page,
-      parentElement: pageRootElement,
-      props: factoryBuild('props'),
-      renderType: factoryBuild('atom', {
-        api: factoryBuild('typeInterface'),
-      }),
-    })
-
-    const elementModel = rootStore.elementService.element(element.id)
-    // const codeAction = factoryBuild('codeAction', {
-    //   store: { id: page.store.id },
-    // })
-    // console.log('codeAction.id', codeAction.id)
-    // const pageStore = rootStore.storeService.stores.get(page.store.id)
-    // pageStore?.actions.push(actionRef(codeAction.id))
-    // pageStore?.writeCache({
-    //   actions: [actionRef(rootStore.actionService.actions.get(codeAction.id)!)],
-    // })
+    const elementModel = rootStore.elementService.element(pageRootElement.id)
     const actionRunners = ActionRunner.create(elementModel)
 
     expect(actionRunners).toHaveLength(1)
 
-    const model = rootStore.actionService.actions.get(codeAction.id)
-    console.log('model', model)
+    const renderer = factoryBuild('renderer', {
+      elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
+    })
 
-    const modelRef = actionRef(model!)
-    console.log('modelRef', modelRef.isValid)
+    rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
-    // console.log('actionRunners[0]?.id', actionRunners[0]?.id)
+    rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+      elementModel,
+    )
 
-    // actionRunners[0]?.codeRunner()
-    // console.log(
-    //   'actionRunners[0]?.actionRef',
-    //   actionRunners[0]?.actionRef.isValid,
-    // )
+    const actionRunner = renderer.actionRunners.get(actionRunners[0]!.id)
+
+    actionRunner!.runner(spyFn)
+
+    expect(spyFn).toHaveBeenCalledWith(testArg)
   })
 
-  it('should run an api action', async () => {})
+  it('should run an api action', async () => {
+    // test
+  })
 })

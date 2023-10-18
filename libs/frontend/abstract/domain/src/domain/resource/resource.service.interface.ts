@@ -5,7 +5,7 @@ import type {
 import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
-import type { Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -43,6 +43,7 @@ export interface IResourceService
     ICRUDFormService<Ref<IResourceModel>, { resource: Maybe<IResourceModel> }> {
   createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
   resourceList: Array<IResourceModel>
+  resources: ObjectMap<IResourceModel>
 
   add(resource: IResourceDTO): IResourceModel
   getSelectResourceOptions(): Promise<Array<DefaultOptionType>>

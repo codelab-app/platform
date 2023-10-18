@@ -3,6 +3,7 @@ import { ComponentService } from '@codelab/frontend/domain/component'
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService } from '@codelab/frontend/domain/page'
 import { PropService } from '@codelab/frontend/domain/prop'
+import { ResourceService } from '@codelab/frontend/domain/resource'
 import { ActionService, StoreService } from '@codelab/frontend/domain/store'
 import { TagService } from '@codelab/frontend/domain/tag'
 import { FieldService, TypeService } from '@codelab/frontend/domain/type'
@@ -22,6 +23,7 @@ if (isNil(testRootStore)) {
     pageService: new PageService({}),
     propService: new PropService({}),
     renderService: new RenderService({}),
+    resourceService: new ResourceService({}),
     storeService: new StoreService({}),
     tagService: new TagService({}),
     typeService: new TypeService({}),
