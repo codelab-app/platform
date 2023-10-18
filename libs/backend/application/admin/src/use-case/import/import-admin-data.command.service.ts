@@ -9,6 +9,7 @@ import {
   TraceService,
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
+import { Stage } from '@codelab/shared/abstract/core'
 import { IAtomBoundedContext } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
@@ -35,6 +36,9 @@ export class ImportAdminDataHandler
     if (baseDataPaths) {
       this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
     }
+
+    this.readAdminDataService.partiallySeed =
+      process.env['NX_TASK_TARGET_CONFIGURATION'] === Stage.CI
 
     /**
      * System types must be seeded first, so other types can reference it

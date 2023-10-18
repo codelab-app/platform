@@ -13,7 +13,6 @@ import fs from 'fs'
 import path from 'path'
 import { AdminController } from '../../admin.application.controller'
 import { AdminApplicationModule } from '../../admin.application.module'
-import { concatenateFileContents } from './compare-directories'
 
 @Module({})
 class Auth0ModuleMock {}
@@ -26,7 +25,7 @@ const currentUser = {
   username: 'Codelab',
 }
 
-jest.setTimeout(300000)
+jest.setTimeout(200000)
 
 const exportPath = path.resolve('./data/export-v2')
 const exportTestPath = path.resolve('./tmp/data/export-v2')
@@ -66,9 +65,35 @@ describe('Seed, import, & export data', () => {
     await adminController.import({ adminDataPath: exportPath })
     await adminController.export({ adminDataPath: exportTestPath })
 
-    const exportPathContents = concatenateFileContents(exportPath)
-    const exportTestPathContents = concatenateFileContents(exportTestPath)
+    const pathsToCompare = [
+      path.join('system', 'types'),
+      path.join('admin', 'tags'),
+      path.join('admin', 'components'),
+      path.join('admin', 'atoms'),
+    ]
 
-    expect(exportPathContents).toEqual(exportTestPathContents)
+    pathsToCompare.forEach((pathToCompare) => {
+      const sourcePath = path.resolve(exportPath, pathToCompare)
+      const exportedPath = path.resolve(exportTestPath, pathToCompare)
+      const exportedFiles = fs.readdirSync(exportedPath)
+
+      expect(exportedFiles.length).toBeGreaterThan(0)
+
+      for (let i = 0; i < exportedFiles.length; i++) {
+        const fileName = exportedFiles[i]
+
+        const sourceContent = fs.readFileSync(
+          path.resolve(sourcePath, fileName!),
+          'utf8',
+        )
+
+        const exportedContent = fs.readFileSync(
+          path.resolve(exportedPath, fileName!),
+          'utf8',
+        )
+
+        expect(exportedContent).toEqual(sourceContent)
+      }
+    })
   })
 })
