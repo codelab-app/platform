@@ -5,7 +5,7 @@ import {
   codelabAtoms,
   htmlAtoms,
   reactAtoms,
-} from '@codelab/shared/config'
+} from '@codelab/shared/domain/mapper'
 import React, { useCallback } from 'react'
 import type { AtomLibrary } from '../columns'
 
