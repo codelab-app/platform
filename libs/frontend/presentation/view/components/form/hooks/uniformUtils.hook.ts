@@ -1,3 +1,4 @@
+import type { IEvaluationContext } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -87,12 +88,11 @@ ajv.addKeyword({
   },
 })
 
-export const createValidator = (schema: Schema, state: IPropData = {}) => {
+export const createValidator = (schema: Schema, state?: IPropData) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
-    // replace expressions with values to pass validation
-    const evaluatedModel = evaluateObject(model, {
+    const context: IEvaluationContext = {
       actions: {},
       componentProps: {},
       props: {},
@@ -100,11 +100,11 @@ export const createValidator = (schema: Schema, state: IPropData = {}) => {
       rootActions: {},
       rootRefs: {},
       rootState: {},
-      state,
+      state: state || {},
       url: {},
-    })
+    }
 
-    validator(evaluatedModel)
+    validator(state ? evaluateObject(model, context) : model)
 
     return validator.errors?.length ? { details: validator.errors } : null
   }
@@ -112,5 +112,5 @@ export const createValidator = (schema: Schema, state: IPropData = {}) => {
 
 export const createBridge = <T = unknown>(
   schema: JSONSchemaType<T> | TSchema,
-  state: IPropData = {},
+  state?: IPropData,
 ) => new JSONSchemaBridge(schema, createValidator(schema, state))
