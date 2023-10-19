@@ -31,7 +31,7 @@ const handler: NextApiHandler = async (req, res) => {
   const toJson = (status: number, canActivate: boolean, message?: string) =>
     res.status(status).json({ canActivate, message })
 
-  if (!isString(domain) || !isString(pageUrl) || authorization) {
+  if (!isString(domain) || !isString(pageUrl) || !authorization) {
     return toJson(400, false, 'Invalid body')
   }
 
