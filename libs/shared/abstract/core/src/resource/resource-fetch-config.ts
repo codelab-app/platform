@@ -40,6 +40,16 @@ export const IGraphQLFetchConfigData = Type.Object({
 
 export type IGraphQLFetchConfigData = Static<typeof IGraphQLFetchConfigData>
 
+export const IResourceFetchResponse = Type.Object({
+  data: Typebox.Nullish(Type.Any()),
+  error: Typebox.Nullish(Type.Any()),
+  headers: Typebox.Nullish(Type.Record(Type.String(), Type.Any())),
+  status: Typebox.Nullish(Type.Number()),
+  statusText: Typebox.Nullish(Type.String()),
+})
+
+export type IResourceFetchResponse = Static<typeof IResourceFetchResponse>
+
 export const IResourceFetchConfigData = Type.Union([
   IRestFetchConfigData,
   IGraphQLFetchConfigData,

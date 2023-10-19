@@ -1,5 +1,8 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
+import {
+  ResourceFetchConfig,
+  ResourceTestRequest,
+} from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -46,6 +49,11 @@ export const UpdateAuthGuardForm = observer(() => {
     >
       <AutoFields omitFields={['config']} />
       <ResourceFetchConfig<IUpdateAuthGuardData> getResource={getResource} />
+      <ResourceTestRequest
+        fetchConfigDataFieldName="config.data"
+        resourceIdFieldName="resource.id"
+      />
+
       <FormController submitLabel="Update Auth Guard" />
     </Form>
   )

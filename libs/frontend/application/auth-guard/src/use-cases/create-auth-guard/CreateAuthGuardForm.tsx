@@ -1,6 +1,9 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
+import {
+  ResourceFetchConfig,
+  ResourceTestRequest,
+} from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -52,6 +55,10 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
       >
         <AutoFields omitFields={['config']} />
         <ResourceFetchConfig<ICreateAuthGuardData> getResource={getResource} />
+        <ResourceTestRequest
+          fetchConfigDataFieldName="config.data"
+          resourceIdFieldName="resource.id"
+        />
 
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Type" />

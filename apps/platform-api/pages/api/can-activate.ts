@@ -10,7 +10,7 @@ import { ExternalCopy, Isolate } from 'isolated-vm'
 import isString from 'lodash/isString'
 import type { NextApiHandler } from 'next'
 
-const secureEval = (code: string, response: unknown) => {
+const safeEval = (code: string, response: object) => {
   const isolate = new Isolate({ memoryLimit: 8 })
   const context = isolate.createContextSync()
   const jail = context.global
@@ -26,8 +26,11 @@ const secureEval = (code: string, response: unknown) => {
 const handler: NextApiHandler = async (req, res) => {
   const { domain, pageUrl } = req.body
 
+  const toJson = (status: number, canActivate: boolean, message?: string) =>
+    res.status(status).json({ canActivate, message })
+
   if (!isString(domain) || !isString(pageUrl)) {
-    return res.status(400).json({ canActivate: false, message: 'Invalid body' })
+    return toJson(400, false, 'Invalid body')
   }
 
   const authGuardRepository = await getService(
@@ -49,29 +52,29 @@ const handler: NextApiHandler = async (req, res) => {
 
   // either a regular page with no auth guard attached to or a system page
   if (!authGuard) {
-    return res.status(200).json({ canActivate: true })
+    return toJson(200, true)
   }
 
   const { resource, responseTransformer } = authGuard
   const resourceConfig = tryParse(resource.config.data)
   const client = getResourceClient(resource.type, resourceConfig)
   const fetchConfig = tryParse(authGuard.config.data)
+  let response
 
   try {
-    const response = await client.fetch(fetchConfig)
-
-    const parsedResponse = {
-      data: response.data,
-      headers: response.headers,
-      status: response.status,
-      statusText: response.statusText,
-    }
-
-    const canActivate = await secureEval(responseTransformer, parsedResponse)
-
-    return res.status(200).json({ canActivate })
+    response = await client.fetch(fetchConfig)
   } catch (error) {
-    return res.status(500).json({ canActivate: false, error })
+    console.log(error)
+
+    return toJson(500, false, `Failed to request "${resource.name}" resource`)
+  }
+
+  try {
+    const canActivate = await safeEval(responseTransformer, response)
+
+    return toJson(200, canActivate)
+  } catch (error) {
+    return toJson(500, false, `Unable to transform response`)
   }
 }
 
