@@ -27,7 +27,11 @@ const middleware = async (request: NextRequest) => {
     const endpoint = getEnv().endpoint.canActivateUrl
 
     const response = await fetch(endpoint, {
-      body: JSON.stringify({ authorization, domain, pageUrl }),
+      body: JSON.stringify({
+        authorization: authorization?.value,
+        domain,
+        pageUrl,
+      }),
       headers: { 'Content-Type': 'application/json' },
 
       method: 'POST',
