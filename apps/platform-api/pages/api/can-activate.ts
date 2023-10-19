@@ -3,6 +3,8 @@ import {
   AuthGuardRepository,
 } from '@codelab/backend/domain/auth-guard'
 import { getService } from '@codelab/backend/infra/adapter/serverless'
+import { evaluateObject } from '@codelab/frontend/shared/utils'
+import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { getResourceClient } from '@codelab/shared/domain/mapper'
 import { tryParse } from '@codelab/shared/utils'
@@ -24,12 +26,12 @@ const safeEval = (code: string, response: object) => {
 }
 
 const handler: NextApiHandler = async (req, res) => {
-  const { domain, pageUrl } = req.body
+  const { authorization, domain, pageUrl } = req.body
 
   const toJson = (status: number, canActivate: boolean, message?: string) =>
     res.status(status).json({ canActivate, message })
 
-  if (!isString(domain) || !isString(pageUrl)) {
+  if (!isString(domain) || !isString(pageUrl) || authorization) {
     return toJson(400, false, 'Invalid body')
   }
 
@@ -59,10 +61,15 @@ const handler: NextApiHandler = async (req, res) => {
   const resourceConfig = tryParse(resource.config.data)
   const client = getResourceClient(resource.type, resourceConfig)
   const fetchConfig = tryParse(authGuard.config.data)
+
+  const evaluatedConfig = evaluateObject(fetchConfig, {
+    cookie: authorization,
+  }) as IResourceFetchConfig
+
   let response
 
   try {
-    response = await client.fetch(fetchConfig)
+    response = await client.fetch(evaluatedConfig)
   } catch (error) {
     console.log(error)
 

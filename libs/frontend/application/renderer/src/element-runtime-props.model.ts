@@ -12,7 +12,7 @@ import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
 import {
   evaluateExpression,
   evaluateObject,
-  hasStateExpression,
+  hasExpression,
 } from '@codelab/frontend/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
@@ -40,7 +40,7 @@ export class ElementRuntimeProps
       return []
     }
 
-    if (hasStateExpression(this.node.childMapperPropKey)) {
+    if (hasExpression(this.node.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
         this.node.childMapperPropKey,
         this.node.propsEvaluationContext,

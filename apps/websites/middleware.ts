@@ -21,13 +21,15 @@ const middleware = async (request: NextRequest) => {
   const url = request.nextUrl
   const domain = url.searchParams.get('domain')
   const pageUrl = `/${url.searchParams.get('page')}`
+  const authorization = request.cookies.get('authorization')
 
   if (domain && pageUrl) {
     const endpoint = getEnv().endpoint.canActivateUrl
 
     const response = await fetch(endpoint, {
-      body: JSON.stringify({ domain, pageUrl }),
+      body: JSON.stringify({ authorization, domain, pageUrl }),
       headers: { 'Content-Type': 'application/json' },
+
       method: 'POST',
     }).then((res) => res.json())
 

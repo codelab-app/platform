@@ -10,6 +10,7 @@ import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/domain
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/render-prop.fragment.graphql.gen'
 import { AuthGuardFragment } from '../../../../../abstract/domain/src/domain/auth-guard/auth-guard.fragment.graphql.gen'
+import { ActionTypeFragment } from '../../../../../abstract/domain/src/domain/type/fragments/action-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -23,6 +24,7 @@ import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/dom
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/render-prop.fragment.graphql.gen'
 import { AuthGuardFragmentDoc } from '../../../../../abstract/domain/src/domain/auth-guard/auth-guard.fragment.graphql.gen'
+import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/domain/type/fragments/action-type.fragment.graphql.gen'
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageName: Types.Scalars['String']['input']
@@ -36,6 +38,7 @@ export type GetAppDevelopmentQuery = {
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
   authGuards: Array<AuthGuardFragment>
+  actionTypes: Array<ActionTypeFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -70,6 +73,9 @@ export const GetAppDevelopmentDocument = gql`
     renderPropTypes {
       ...RenderPropType
     }
+    actionTypes {
+      ...ActionType
+    }
   }
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
@@ -78,6 +84,7 @@ export const GetAppDevelopmentDocument = gql`
   ${RenderPropTypeFragmentDoc}
   ${ResourceFragmentDoc}
   ${AuthGuardFragmentDoc}
+  ${ActionTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

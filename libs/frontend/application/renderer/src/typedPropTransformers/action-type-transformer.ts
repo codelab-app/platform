@@ -9,7 +9,7 @@ import {
   isComponent,
   isElement,
 } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import { hasExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 
@@ -34,7 +34,7 @@ export class ActionTypeTransformer
 {
   public transform(prop: TypedProp, node: IPageNode) {
     // unwrap custom action code so it is evaluated later
-    if (hasStateExpression(prop.value)) {
+    if (hasExpression(prop.value)) {
       return prop.value
     }
 

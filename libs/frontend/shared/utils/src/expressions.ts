@@ -1,4 +1,3 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/domain'
 import {
   isTypedProp,
   STATE_PATH_TEMPLATE_END,
@@ -10,71 +9,40 @@ import {
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
+import get from 'lodash/get'
 import isString from 'lodash/isString'
+import keys from 'lodash/keys'
 
-export const hasStateExpression = (str: unknown): boolean =>
+export const hasExpression = (str: unknown): boolean =>
   isString(str) &&
   str.includes(STATE_PATH_TEMPLATE_START) &&
   str.includes(STATE_PATH_TEMPLATE_END)
 
-export const isSingleStateExpression = (str: string) =>
+export const isSingleExpression = (str: string) =>
   str.startsWith(STATE_PATH_TEMPLATE_START) &&
   str.endsWith(STATE_PATH_TEMPLATE_END) &&
   str.match(STATE_PATH_TEMPLATE_START_REGEX)?.length === 1 &&
   str.match(STATE_PATH_TEMPLATE_END_REGEX)?.length === 1
 
-export const stripStateExpression = (expression: string) => {
-  return isSingleStateExpression(expression)
+export const stripExpression = (expression: string) => {
+  return isSingleExpression(expression)
     ? expression.substring(2, expression.length - 2).trim()
     : expression.replace(STATE_PATH_TEMPLATE_REGEX, (subExpression) =>
         subExpression.substring(2, subExpression.length - 2).trim(),
       )
 }
 
-export const evaluateExpression = (
+export const evaluateExpression = <IContext>(
   expression: string,
-  context: IEvaluationContext,
+  context: IContext,
 ) => {
   try {
-    const code = `return ${stripStateExpression(expression)}`
-
-    const {
-      actions,
-      args = [],
-      componentProps,
-      props,
-      refs,
-      rootActions,
-      rootRefs,
-      rootState,
-      state,
-      url,
-    } = context
+    const code = `return ${stripExpression(expression)}`
+    const contextKeys = keys(context).sort()
 
     // eslint-disable-next-line no-new-func
-    return new Function(
-      'actions',
-      'args',
-      'componentProps',
-      'props',
-      'refs',
-      'rootActions',
-      'rootRefs',
-      'rootState',
-      'state',
-      'url',
-      code,
-    )(
-      actions,
-      args,
-      componentProps,
-      props,
-      refs,
-      rootActions,
-      rootRefs,
-      rootState,
-      state,
-      url,
+    return new Function(contextKeys.join(','), code)(
+      contextKeys.map((key) => get(context, key)),
     )
   } catch (error) {
     console.log(error)
@@ -83,7 +51,7 @@ export const evaluateExpression = (
   }
 }
 
-export const evaluateObject = (props: IPropData, context: IEvaluationContext) =>
+export const evaluateObject = <IContext>(props: IPropData, context: IContext) =>
   mapDeep(
     props,
     // value mapper
@@ -98,7 +66,7 @@ export const evaluateObject = (props: IPropData, context: IEvaluationContext) =>
         isTypedProp(value) &&
         value.kind === ITypeKind.ReactNodeType &&
         isString(value.value) &&
-        hasStateExpression(value.value)
+        hasExpression(value.value)
       ) {
         return value.value
       }
@@ -109,15 +77,15 @@ export const evaluateObject = (props: IPropData, context: IEvaluationContext) =>
     (_, key) => (isString(key) ? getByExpression(key, context) : key) as string,
   )
 
-const getByExpression = (key: string, context: IEvaluationContext) => {
-  if (!hasStateExpression(key)) {
+const getByExpression = <IContext>(key: string, context: IContext) => {
+  if (!hasExpression(key)) {
     return key
   }
 
   /**
    * return typed value for : {{expression}}
    */
-  if (isSingleStateExpression(key)) {
+  if (isSingleExpression(key)) {
     return evaluateExpression(key, context)
   }
 

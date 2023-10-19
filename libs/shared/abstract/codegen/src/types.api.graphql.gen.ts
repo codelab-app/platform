@@ -22342,6 +22342,7 @@ export type GetAppDevelopmentQuery = {
   >
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
   authGuards: Array<{ __typename?: 'AuthGuard' } & AuthGuardFragment>
+  actionTypes: Array<{ __typename?: 'ActionType' } & ActionTypeFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import { hasExpression } from '@codelab/frontend/shared/utils'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'
@@ -77,7 +77,7 @@ const ToggleExpression = ({
     ? String(fieldProps.value ?? fieldProps.field?.default)
     : undefined
 
-  const isExpression = value && hasStateExpression(value)
+  const isExpression = value && hasExpression(value)
   const [showExpressionEditor, setShowExpressionEditor] = useState(isExpression)
   const [valueBeforeToggle, setValueBeforeToggle] = useState<Value>()
 
