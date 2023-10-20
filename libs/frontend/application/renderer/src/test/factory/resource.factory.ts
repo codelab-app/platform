@@ -12,7 +12,7 @@ export default Factory.define<IResourceDTO>(({ params }) => {
     },
     id: params.id ?? v4(),
     name: params.name ?? chance.word(),
-    type: IResourceType.Rest,
+    type: params.type ?? IResourceType.Rest,
   }
 
   testRootStore.resourceService.add(dto)
