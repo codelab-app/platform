@@ -12,9 +12,8 @@ const RANDOM_ATOMS_COUNT = 25
   scope: Scope.TRANSIENT,
 })
 export class ReadAdminDataService {
-  
   partiallySeed = false
-  
+
   constructor(
     public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
@@ -44,18 +43,12 @@ export class ReadAdminDataService {
         'utf8',
       )
 
-      const atomData = JSON.parse(content.toString())
+      const atomExport = JSON.parse(content.toString())
 
-      const atom = this.validationService.validateAndClean(
+      return this.validationService.validateAndClean(
         IAtomBoundedContext,
-        atomData,
+        atomExport,
       )
-
-      atoms.push(atom)
-
-      return atoms
-    }, [] as Array<IAtomBoundedContext>)
-      return this.validationService.validateAndClean(IAtomOutputDto, atomExport)
     })
   }
 
