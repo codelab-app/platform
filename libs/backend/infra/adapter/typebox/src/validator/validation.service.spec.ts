@@ -1,8 +1,12 @@
-import { IAtomOutputDto, TypeOutput } from '@codelab/backend/abstract/core'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
+  IActionType,
   IActionTypeDTO,
+  IAtom,
+  IAtomBoundedContext,
+  IPrimitiveType,
   IPrimitiveTypeDTO,
+  IType,
 } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
@@ -34,7 +38,7 @@ describe('ValidationService', () => {
   describe('validateAndClean', () => {
     it('should validate and clean the input correctly', () => {
       const result = validationService.validateAndClean(
-        IAtomOutputDto,
+        IAtomBoundedContext,
         affixJson,
       )
 
@@ -91,10 +95,9 @@ describe('ValidationService', () => {
         primitiveKind: 'Boolean',
       }
 
-      const UnionSchema = Type.Union(
-        [TypeOutput(IPrimitiveTypeDTO), TypeOutput(IActionTypeDTO)],
-        { discriminantKey: '__typename' },
-      )
+      const UnionSchema = Type.Union([IPrimitiveType, IActionType], {
+        discriminantKey: '__typename',
+      })
 
       expect(() =>
         validationService.validateAndClean(UnionSchema, data),
