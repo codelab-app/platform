@@ -79,7 +79,31 @@ export interface ElementCssRules {
   [key: string]: ElementCssRules | string
 }
 
-// TODO: Can implement interface shared with component
+export interface IElementStyleModel {
+  customCss?: Nullable<string>
+  /**
+   * html-ready string that includes styles for all breakpoints
+   * for production - uses media queries to apply styles
+   * for development - uses container queries, for better UX
+   */
+  guiCss?: Nullable<string>
+  styleStringWithBreakpoints: string
+  /**
+   * styles that are inherited from other breakpoints,
+   * for example, if we have a style for mobile, it will be inherited
+   * for desktop, and this prop will display the inherited styles
+   * when we edit the desktop breakpoint
+   */
+  stylesInheritedFromOtherBreakpoints: {
+    currentStyles: ElementCssRules
+    inheritedStyles: ElementCssRules
+  }
+
+  appendToGuiCss(css: CssMap): void
+  deleteFromGuiCss(propNames: Array<string>): void
+  setCustomCss(css: string): void
+}
+
 export interface IElementModel
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void, IElement>,
@@ -99,13 +123,11 @@ export interface IElementModel
   closestParentElement: Ref<IElementModel> | null
   // the closest rootElement of node (page/component) that element belongs to
   closestSubTreeRootElement: IElementModel
-  customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
   // used for expressions evaluation
   expressionEvaluationContext: IEvaluationContext
   firstChild?: Nullable<Ref<IElementModel>>
-  guiCss?: Nullable<string>
   hooks: Array<IHook>
   id: string
   isRoot: boolean
@@ -142,41 +164,18 @@ export interface IElementModel
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
   store: Ref<IStoreModel>
-  /**
-   * stringified object, see @IElementStyle interface
-   * to see what is the shape of parsed object
-   */
-  style?: Nullable<string>
-  /**
-   * html-ready string that includes styles for all breakpoints
-   * for production - uses media queries to apply styles
-   * for development - uses container queries, for better UX
-   */
-  styleStringWithBreakpoints: string
-  /**
-   * styles that are inherited from other breakpoints,
-   * for example, if we have a style for mobile, it will be inherited
-   * for desktop, and this prop will display the inherited styles
-   * when we edit the desktop breakpoint
-   */
-  stylesInheritedFromOtherBreakpoints: {
-    currentStyles: ElementCssRules
-    inheritedStyles: ElementCssRules
-  }
+  style: IElementStyleModel
   tailwindClassNames?: Nullable<Array<string>>
   toId: object
   toTreeNode: object
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
-  appendToGuiCss(css: CssMap): void
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
   clone(cloneIndex?: number): IElementModel
-  deleteFromGuiCss(propNames: Array<string>): void
   detachFromTree(): IElementModel
-  setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void
   setName(name: string): void
