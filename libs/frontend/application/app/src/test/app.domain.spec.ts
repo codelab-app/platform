@@ -1,5 +1,6 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import { atomReactFragmentDto, userDto } from '@codelab/frontend/test/data'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -7,19 +8,20 @@ import { createTestRootStore } from './root-store'
 
 describe('App domain', () => {
   const rootStore = createTestRootStore(userDto)
-  const { appService, atomService } = rootStore
+  const { appDomainService, atomService } = rootStore
 
   it('can add an app', async () => {
-    const appData: ICreateAppData = {
+    const appData: IAppDTO = {
       id: v4(),
       name: 'Codelab App',
+      owner: userDto,
     }
 
     await atomService.atomDomainService.add(atomReactFragmentDto)
 
-    await appService.create(appData)
+    await appDomainService.add(appData)
 
-    const app = appService.appDomainService.apps.get(appData.id)
+    const app = appDomainService.apps.get(appData.id)
 
     // App
     expect(app?.id).toBe(appData.id)
@@ -28,7 +30,7 @@ describe('App domain', () => {
     // Page
     const pages = app?.pages.map((page) => {
       return {
-        name: page.current.name,
+        name: page.name,
       }
     })
 
@@ -48,7 +50,7 @@ describe('App domain', () => {
 
     // Store
     app?.pages.forEach((page) => {
-      const store = page.current.store.current
+      const store = page.store.current
 
       expect(store.name).toBe(store.name)
       expect(store.api.current.name).toBe(store.api.current.name)

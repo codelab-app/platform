@@ -2,6 +2,7 @@ import {
   AtomService,
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
+import { AppDomainService } from '@codelab/frontend/domain/app'
 import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   TypeDomainService,
@@ -13,9 +14,9 @@ import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 export const createTestRootStore = (user: IUserDTO) => {
   @model('@codelab/TestRootStore')
   class TestRootStore extends Model({
-    appService: prop(() => new AppDomainService({})),
+    appDomainService: prop(() => new AppDomainService({})),
     atomService: prop(() => new AtomService({})),
-    pageService: prop(() => new PageDomainService({})),
+    pageDomainService: prop(() => new PageDomainService({})),
     typeDomainService: prop(() => new TypeDomainService({})),
   }) {
     protected override onInit() {
