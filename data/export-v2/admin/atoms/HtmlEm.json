@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "44ff3e1d-b409-41f9-84d5-0551017bda6b",
+    "kind": "InterfaceType",
+    "name": "HtmlEm API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "44ff3e1d-b409-41f9-84d5-0551017bda6b"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "e34cef05-cb4b-4b7e-bae4-72df524f6c35",
+    "name": "HtmlEm",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "57803031-aaf6-4f83-a0e7-1e5987e73189"
+      }
+    ],
+    "type": "HtmlEm"
+  }
+}

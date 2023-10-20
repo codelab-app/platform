@@ -1,0 +1,30 @@
+{
+  "name": "frontend-test-store",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/test/store/src",
+  "projectType": "library",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "type:test",
+    "scope:frontend"
+  ],
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/store/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-test-store.xml",
+          "quiet": true
+        }
+      }
+    }
+  }
+}

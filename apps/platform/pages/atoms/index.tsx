@@ -4,19 +4,19 @@ import {
   AtomsPrimarySidebar,
   CreateAtomModal,
   DeleteAtomsModal,
-} from '@codelab/frontend/domain/atom'
+} from '@codelab/frontend/application/atom'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateFieldModal,
   DeleteFieldModal,
-} from '@codelab/frontend/domain/type'
+} from '@codelab/frontend/application/type'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-} from '@codelab/frontend/presentation//codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

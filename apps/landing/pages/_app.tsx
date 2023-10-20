@@ -8,7 +8,7 @@ import '../styles/app.css'
 import 'antd/dist/reset.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type { IAppProps } from '@codelab/frontend/abstract/core'
+import type { IAppProps } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ConfigProvider } from 'antd'
 import React from 'react'
@@ -17,10 +17,6 @@ import { GoogleAnalytics } from '../home/GoogleAnalytics'
 import { Intercom } from '../home/Intercom'
 import { useHotjar } from '../hooks/useHotjar.hook'
 // import { slickCssFix } from '../src/styles/slick/Slick'
-
-/**
- * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
- */
 
 const App = ({ Component, pageProps }: IAppProps) => {
   const { Layout = ({ children }) => <>{children}</> } =

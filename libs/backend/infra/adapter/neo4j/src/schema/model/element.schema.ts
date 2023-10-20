@@ -1,28 +1,24 @@
 import { gql } from '@apollo/client'
-import { __RenderTypeKind } from '@codelab/shared/abstract/core'
-
-const renderTypeKindSchema = `enum RenderTypeKind {
-  ${Object.values(__RenderTypeKind).join('\n')}
-}`
 
 export const elementSchema = gql`
-  ${renderTypeKindSchema}
+  union ElementRenderType = Atom | Component
+  union ContainerNode = Page | Component
 
-  # Create this to match frontend
-  type RenderType @exclude {
-    id: ID!
-    kind: RenderTypeKind!
-  }
+  # __typename codegen is optional, making it difficult to use as discriminated union
+  #enum NodeType {
+  #
+  #  }
 
   type Element {
-    id: ID! @id(autogenerate: false)
-    _compoundName: String! @unique
-    name: String! @customResolver(requires: ["id", "_compoundName"])
-    slug: String! @customResolver(requires: ["id", "_compoundName"])
+    id: ID! @unique
+    compositeKey: String! @unique
+    name: String! @customResolver(requires: "id compositeKey")
+    slug: String! @customResolver(requires: "id compositeKey")
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
-    parent: Element @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
+    parentElement: Element
+      @relationship(type: "TREE_FIRST_CHILD", direction: OUT)
     # Used for reverse lookup to see whether element is detached
     page: Page @relationship(type: "ROOT_PAGE_ELEMENT", direction: IN)
     props: Prop! @relationship(type: "PROPS_OF_ELEMENT", direction: OUT)
@@ -34,6 +30,7 @@ export const elementSchema = gql`
     # that contains styles for different screen size breakpoints.
     # See interface for more details: IElementStyle
     style: String
+    tailwindClassNames: [String!]
     childMapperPropKey: String
     childMapperComponent: Component
       @relationship(type: "CHILD_MAPPER_COMPONENT", direction: OUT)
@@ -41,20 +38,16 @@ export const elementSchema = gql`
       @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
     renderIfExpression: String
-
     preRenderAction: BaseAction
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: OUT)
     postRenderAction: BaseAction
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
-
-    # Type of element to render, could be either a component or atom
-    renderComponentType: Component
-      @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
-
-    renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
-    renderType: RenderType
-
+    renderType: ElementRenderType!
+      # There is bug for union type, need to use custom query
+      # https://github.com/neo4j/graphql/issues/487
+      @relationship(type: "ELEMENT_RENDER_TYPE", direction: OUT)
     # This is a custom field resolver
     descendantElements: [Element!]!
+    closestContainerNode: ContainerNode!
   }
 `

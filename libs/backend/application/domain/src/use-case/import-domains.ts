@@ -1,11 +1,11 @@
-import type { IDomainExport } from '@codelab/backend/abstract/core'
+import type { IDomainOutputDto } from '@codelab/backend/abstract/core'
 import {
   addVercelDomain,
   createDomainIfNotExist,
 } from '@codelab/backend/domain/domain'
 import { logSection } from '@codelab/shared/utils'
 
-export const importDomains = async (domain: IDomainExport) => {
+export const importDomains = async (domain: IDomainOutputDto) => {
   logSection('Importing Domains')
 
   const newDomainAdded = await addVercelDomain(domain)

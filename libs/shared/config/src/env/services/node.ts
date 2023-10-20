@@ -3,6 +3,7 @@ import * as env from 'env-var'
 export type NodeEnv = 'development' | 'production' | 'test'
 
 export interface INodeEnvVars {
+  isCi: boolean
   isDevelopment: boolean
   isProduction: boolean
   isTest: boolean
@@ -10,15 +11,8 @@ export interface INodeEnvVars {
 }
 
 export class NodeEnvVars implements INodeEnvVars {
-  private _nodeEnv?: NodeEnv
-
-  get nodeEnv() {
-    // return (this._nodeEnv ??= process.env['NODE_ENV'] as NodeEnv)
-
-    return (this._nodeEnv ??= env
-      .get('NODE_ENV')
-      .default('development')
-      .asEnum(['development', 'production', 'test']))
+  get isCi() {
+    return env.get('CI').default('false').asBool()
   }
 
   get isDevelopment() {
@@ -32,4 +26,13 @@ export class NodeEnvVars implements INodeEnvVars {
   get isTest() {
     return this.nodeEnv === 'test'
   }
+
+  get nodeEnv() {
+    return (this._nodeEnv ??= env
+      .get('NODE_ENV')
+      .default('development')
+      .asEnum(['development', 'production', 'test']))
+  }
+
+  private _nodeEnv?: NodeEnv
 }

@@ -8,18 +8,18 @@ import {
   ResourcesPrimarySidebar,
   UpdateResourceForm,
   UpdateResourceModal,
-} from '@codelab/frontend/domain/resource'
+} from '@codelab/frontend/application/resource'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-} from '@codelab/frontend/presentation//codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

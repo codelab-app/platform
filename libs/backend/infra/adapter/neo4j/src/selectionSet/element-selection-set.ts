@@ -1,24 +1,30 @@
 import { atomSelectionSet } from './atom-selection-set'
 import { propSelectionSet } from './prop-selection-set'
 
+const renderElementType = `
+  renderType {
+    ... on Atom {
+      ${atomSelectionSet}
+    }
+    ... on Component {
+      id
+      __typename
+    }
+}
+`
+
 const baseElementSelectionSet = `
   id
   name
-  _compoundName
+  slug
+  compositeKey
   style
+  tailwindClassNames
   parentComponent {
     id
     name
   }
-  renderComponentType {
-    id
-    name
-  }
-  renderType {
-    id
-    kind
-  }
-  parent {
+  parentElement {
     id
   }
   prevSibling {
@@ -33,8 +39,9 @@ const baseElementSelectionSet = `
   childMapperPreviousSibling {
     id
   }
-  props
+  props {
     ${propSelectionSet}
+  }
   renderForEachPropKey
   childMapperPropKey
   childMapperComponent {
@@ -52,16 +59,12 @@ const baseElementSelectionSet = `
   }
 `
 
-export const elementSelectionSet = `{
+export const elementSelectionSet = `
   ${baseElementSelectionSet}
-  renderAtomType
-    ${atomSelectionSet}
-}`
+  ${renderElementType}
+`
 
-export const exportElementSelectionSet = `{
+export const exportElementSelectionSet = `
   ${baseElementSelectionSet}
-  renderAtomType {
-    id
-    name
-  }
-}`
+  ${renderElementType}
+`

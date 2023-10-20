@@ -8,7 +8,9 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/domain/resource/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/backend/domain/resource/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "configurations": {
         "ci": {
@@ -84,5 +86,10 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
-  "tags": ["scope:backend", "layer:domain"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:domain"
+  ]
 }

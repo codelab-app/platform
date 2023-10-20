@@ -1,8 +1,8 @@
 module "circleci" {
   source = "../../modules/circleci"
 
-  next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
-  platform_api_host         = var.PLATFORM_API_HOST
+  next_public_platform_host     = var.NEXT_PUBLIC_PLATFORM_HOST
+  next_public_platform_api_host = var.NEXT_PUBLIC_PLATFORM_API_HOST
 
   auth0_issuer_base_url  = var.AUTH0_ISSUER_BASE_URL
   auth0_domain           = var.AUTH0_DOMAIN
@@ -12,6 +12,9 @@ module "circleci" {
 
   auth0_web_client_id     = module.auth0.web_client.id
   auth0_web_client_secret = module.auth0.web_client.client_secret
+
+  auth0_m2m_client_id     = module.auth0.machine_client.id
+  auth0_m2m_client_secret = module.auth0.machine_client.client_secret
 
   circleci_token     = var.CIRCLECI_TOKEN
   cypress_record_key = var.CYPRESS_RECORD_KEY

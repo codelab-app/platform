@@ -1,0 +1,69 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "03295a22-d1d0-43a2-b8de-f6c2c87ab08d",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "a4ad297c-28a5-489c-9f3c-340b3771dd63",
+        "key": "hasSider",
+        "name": "Has Sider",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08",
+    "kind": "InterfaceType",
+    "name": "AntDesignLayout API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Layout",
+    "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+    "name": "AntDesignLayout",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "7dbf9407-3e93-4b8e-8722-edd8baa894ab"
+      }
+    ],
+    "type": "AntDesignLayout"
+  }
+}

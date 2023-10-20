@@ -1,23 +1,34 @@
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
+import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
+import { TagDomainModule } from '@codelab/backend/domain/tag'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared/config'
+import { CqrsModule } from '@nestjs/cqrs'
+import { Test, type TestingModule } from '@nestjs/testing'
 import { SeedTagsService } from './seed-tags.service'
 import { TagTreeUtils } from './seed-tags.util'
 
 describe('Tag Parser', () => {
-  const seedTagsService = new SeedTagsService({ auth0Id: 'Codelab' })
+  let seedTagsService: SeedTagsService
   let antdTagTreeData: Array<ITagDTO>
+  let getIdFromName: (atomType: IAtomType) => string | undefined
 
   beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [SharedDomainModule, TagDomainModule, CqrsModule],
+      providers: [SeedTagsService],
+    }).compile()
+
+    seedTagsService = module.get<SeedTagsService>(SeedTagsService)
     antdTagTreeData = await seedTagsService.createTagsData(antdTagTree)
+
+    getIdFromName = (atomType: IAtomType) =>
+      antdTagTreeData.find((node) => node.name === atomType)?.id
   })
 
   const antdTags = [...antdAtoms, ...Object.values(IAntdCategoryTag)]
-
-  const getIdFromName = (atomType: IAtomType) =>
-    antdTagTreeData.find((node) => node.name === atomType)?.id
 
   it('can generate tag tree data', () => {
     // Pick the most nested and assert

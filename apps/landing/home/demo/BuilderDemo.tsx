@@ -6,7 +6,7 @@ import { DOMTree } from './DomTree'
 import { DOMTreeCode } from './DomTreeCode'
 
 const onChange = (key: string) => {
-  console.log(key)
+  //
 }
 
 export const BuilderDemo = () => {

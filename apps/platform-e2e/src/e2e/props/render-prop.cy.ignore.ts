@@ -1,5 +1,5 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import {
   createListAtomInput,
   createListItemAtomInput,
@@ -37,9 +37,9 @@ const componentsInputs = (
 
 describe('Render props', () => {
   before(() => {
-    cy.resetDatabase().then(() => {
+    cy.resetDatabaseExceptForUserAndAtom().then(() => {
       loginSession().then(async () => {
-        cy.getCurrentOwner().then((userId) => {
+        cy.getCurrentUser().then((userId) => {
           /**
            * create :
            *  - list atom

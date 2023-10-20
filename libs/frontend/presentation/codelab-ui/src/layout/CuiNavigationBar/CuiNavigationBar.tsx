@@ -1,3 +1,4 @@
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Menu } from 'antd'
 import classNames from 'classnames'
 import type { LinkProps } from 'next/link'
@@ -26,7 +27,7 @@ export interface CuiNavigationBarProps {
 const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   disabled: navBarItem.disabled,
   icon: (
-    <div data-cy={`navigation-bar-item-${navBarItem.title}`}>
+    <div data-cy={CY_DATA.cuiNavigationBarItem(navBarItem.title)}>
       {navBarItem.icon}
     </div>
   ),

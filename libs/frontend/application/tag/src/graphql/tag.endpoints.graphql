@@ -1,0 +1,30 @@
+mutation CreateTags($input: [TagCreateInput!]!) {
+  createTags(input: $input) {
+    tags {
+      id
+    }
+  }
+}
+
+mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
+  updateTags(update: $update, where: $where) {
+    tags {
+      id
+    }
+  }
+}
+
+mutation DeleteTags($where: TagWhere!) {
+  deleteTags(where: $where) {
+    nodesDeleted
+  }
+}
+
+query GetTags($options: TagOptions, $where: TagWhere) {
+  aggregate: tagsAggregate(where: $where) {
+    count
+  }
+  items: tags(options: $options, where: $where) {
+    ...Tag
+  }
+}

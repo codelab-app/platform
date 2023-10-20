@@ -1,6 +1,6 @@
 const nxPreset = require('@nx/jest/preset').default
 
-const testTimeout = process.env.CI ? 15000 : 20000
+const testTimeout = process.env.CI ? 30000 : 20000
 
 const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
 
@@ -18,12 +18,13 @@ module.exports = {
   /**
    * Some NPM modules are written in ES6, and must be transformed with babel. node_modules is ignored by default because there are too many packages to transform, so we only transform the ones we have to.
    */
-  // transformIgnorePatterns: [
-  //   '<rootDir>/node_modules/(?!(stringify-object|is-regexp|is-obj|cheerio)/)',
-  // ],
+  transformIgnorePatterns: [
+    // '<rootDir>/node_modules/(?!(stringify-object|is-regexp|is-obj|cheerio)/)',
+  ],
   transform: {
-    '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2|cypher|cyp)$':
+    '\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$':
       'jest-transform-stub',
+    '\\.(cypher|cyp)$': "jest-text-transformer"
   },
   /* TODO: Update to latest Jest snapshotFormat
    * By default Nx has kept the older style of Jest Snapshot formats

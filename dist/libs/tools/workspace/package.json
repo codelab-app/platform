@@ -1,20 +1,11 @@
 {
-  "name": "tools-workspace",
+  "name": "@codelab/tools-workspace",
   "version": "0.0.1",
   "type": "commonjs",
   "generators": "./generators.json",
   "executors": "./executors.json",
   "dependencies": {
-    "@graphql-codegen/core": "4.0.0",
-    "@graphql-tools/graphql-file-loader": "8.0.0",
-    "@graphql-tools/load": "8.0.0",
-    "@graphql-tools/url-loader": "8.0.0",
-    "graphql": "16.6.0",
-    "lodash": "4.17.21"
+    "@nx/devkit": "16.7.4"
   },
-  "peerDependencies": {
-    "tslib": "2.3.1"
-  },
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts"
+  "main": "./src/index.js"
 }

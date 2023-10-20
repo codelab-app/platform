@@ -32,6 +32,9 @@ export default {
       {
         outputName: 'frontend-domain-type.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

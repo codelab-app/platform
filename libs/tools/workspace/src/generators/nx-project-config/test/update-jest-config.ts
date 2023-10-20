@@ -1,6 +1,5 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import path from 'path'
-import type { Expression, ObjectLiteralExpression } from 'ts-morph'
 import tsMorph, { Project } from 'ts-morph'
 import { addReportersToJestConfig } from './add-reporters'
 import { migrateToSwc } from './migrate-to-swc'

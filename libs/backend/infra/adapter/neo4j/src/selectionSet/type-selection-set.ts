@@ -19,65 +19,66 @@ export const baseTypeSelection = `
   ${ownerFieldSelectionSet}
 `
 
-export const exportPrimitiveTypeSelectionSet = `{
+export const exportPrimitiveTypeSelectionSet = `
   ${exportBaseTypeSelection}
   primitiveKind
-}`
+`
 
-export const exportReactNodeTypeSelectionSet = `{
+export const exportReactNodeTypeSelectionSet = `
   ${exportBaseTypeSelection}
-}`
+`
 
-export const exportRenderPropTypeSelectionSet = `{
+export const exportRenderPropTypeSelectionSet = `
   ${exportBaseTypeSelection}
-}`
+`
 
-export const exportActionTypeSelectionSet = `{
+export const exportActionTypeSelectionSet = `
   ${exportBaseTypeSelection}
-}`
+`
 
-export const exportArrayTypeSelectionSet = `{
+export const exportArrayTypeSelectionSet = `
   ${exportBaseTypeSelection}
   itemType {
     id
     kind
   }
-}`
+`
 
-export const exportEnumTypeSelectionSet = `{
+export const exportEnumTypeSelectionSet = `
   ${exportBaseTypeSelection}
   allowedValues {
     id
     key
     value
   }
-}`
+`
 
-export const exportInterfaceTypeSelectionSet = `{
+export const exportInterfaceTypeSelectionSet = `
   ${exportBaseTypeSelection}
   fields {
     id
   }
-}`
+`
 
-export const exportUnionTypeSelectionSet = `{
+export const exportUnionTypeSelectionSet = `
   ${exportBaseTypeSelection}
-  descendantTypesIds
   typesOfUnionType {
     ... on IBaseType {
       ${exportBaseTypeSelection}
     }
   }
-}`
+`
 
-export const interfaceTypeSelectionSet = `{
+export const interfaceTypeSelectionSet = `
   ${baseTypeSelection}
-  fields
+  fields {
     ${fieldSelectionSet}
-}`
+  }
+`
 
-export const exportInterfaceTypeWithFieldsSelectionSet = `{
+export const exportInterfaceTypeWithFieldsSelectionSet = `
   ${exportBaseTypeSelection}
-  fields
+  fields {
     ${fieldSelectionSet}
-}`
+  }
+`

@@ -34,7 +34,7 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
+    // instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
   },
   nx: { svgr: true },
 }

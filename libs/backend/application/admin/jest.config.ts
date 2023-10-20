@@ -7,7 +7,7 @@ export default {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',
@@ -31,6 +31,9 @@ export default {
       {
         outputName: 'backend-application-admin.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

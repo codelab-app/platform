@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "de749d18-fdea-4228-a6b6-87592483402b",
+    "kind": "InterfaceType",
+    "name": "AntDesignFormList API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "de749d18-fdea-4228-a6b6-87592483402b"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Form",
+    "id": "3c093418-6d0c-413c-9d7b-f4539da97176",
+    "name": "AntDesignFormList",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "bd7d8272-4ddb-43ad-bc93-919838c55c3b"
+      }
+    ],
+    "type": "AntDesignFormList"
+  }
+}

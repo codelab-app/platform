@@ -4,7 +4,6 @@
     "outDir": "../../../dist/out-tsc",
     "module": "commonjs",
     "types": ["jest", "node"],
-
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true

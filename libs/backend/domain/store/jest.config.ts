@@ -26,6 +26,9 @@ export default {
       {
         outputName: 'backend-domain-store.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

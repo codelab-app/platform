@@ -1,31 +1,47 @@
-import { AdminService } from '@codelab/backend/domain/admin'
-import { User, UserRepository } from '@codelab/backend/domain/user'
-import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { resetDatabase } from '@codelab/backend/test'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
-import omit from 'lodash/omit'
+import { AdminRepository } from '@codelab/backend/domain/admin'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
+import {
+  SeederDomainModule,
+  SeederDomainService,
+} from '@codelab/backend/domain/shared/seeder'
+import { UserDomainModule } from '@codelab/backend/domain/user'
+import type { TestingModule } from '@nestjs/testing'
+import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
-import { TagRepository } from './tag.repo'
-
-const tagRepository = new TagRepository()
-let user: IUserDTO
-const driver = getDriver()
-
-beforeAll(async () => {
-  user = await resetDatabase({
-    AdminService,
-    driver,
-    User,
-    UserRepository,
-  })
-})
-
-afterAll(async () => {
-  await driver.close()
-})
+import { TagRepository } from './tag.repo.service'
 
 describe('Tag repository.', () => {
+  let tagRepository: TagRepository
+  let adminRepository: AdminRepository
+  let seederService: SeederDomainService
+
+  beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [SharedDomainModule, UserDomainModule, SeederDomainModule],
+      providers: [TagRepository, AdminRepository, SeederDomainService],
+    })
+      .overrideProvider(AuthDomainService)
+      .useValue({
+        currentUser: {
+          auth0Id: v4(),
+          email: 'admin@codelab.app',
+          id: v4(),
+          roles: [],
+          username: 'Codelab',
+        },
+      })
+      .compile()
+
+    adminRepository = module.get<AdminRepository>(AdminRepository)
+    tagRepository = module.get<TagRepository>(TagRepository)
+    seederService = module.get<SeederDomainService>(SeederDomainService)
+
+    await adminRepository.resetDatabase(false)
+    await seederService.seedUserFromRequest()
+  })
+
   it('can create a tag', async () => {
     // Parent
     const parentTagId = v4()
@@ -42,14 +58,12 @@ describe('Tag repository.', () => {
       ],
       id: parentTagId,
       name: parentTagName,
-      owner: { auth0Id: user.auth0Id },
     })
 
     const childTag = new Tag({
       children: [],
       id: childTagId,
       name: childTagName,
-      owner: { auth0Id: user.auth0Id },
       // parent: parentTag,
     })
 

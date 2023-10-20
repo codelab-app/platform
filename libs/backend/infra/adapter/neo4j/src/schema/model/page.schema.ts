@@ -9,17 +9,16 @@ export const pageSchema = gql`
   ${pageKindSchema}
 
   type Page {
-    id: ID! @id(autogenerate: false)
+    id: ID! @unique
     # appId-name format to make it unique across apps
-    _compoundName: String! @unique
-    name: String! @customResolver(requires: ["id", "_compoundName"])
-    slug: String! @customResolver(requires: ["id", "_compoundName"])
+    compositeKey: String! @unique
+    name: String! @customResolver(requires: "app { id } compositeKey")
+    slug: String! @customResolver(requires: "app { id } compositeKey")
     # The root of the elementTree
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
     app: App! @relationship(type: "PAGES", direction: IN)
-
-    store: Store! @relationship(type: "STORE_OF_PAGE", direction: IN)
+    store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)
     #getServerSideProps: String
     # this is an element on _app page tree inside of which child pages content is rendered
     # default is root "Body" element, but can be changed using dropdown on Page Inspector tab
@@ -30,16 +29,8 @@ export const pageSchema = gql`
     url: String!
   }
 
-  extend type Page
-    @auth(
-      rules: [
-        {
-          operations: [CREATE, UPDATE, DELETE]
-          roles: ["User"]
-          where: { app: { owner: { auth0Id: "$jwt.sub" } } }
-          allow: { app: { owner: { auth0Id: "$jwt.sub" } } }
-        }
-        { operations: [CREATE, UPDATE, DELETE], roles: ["Admin"] }
-      ]
-    )
+  # extend type Page
+  #   @authorization(
+  #     validate: [{ where: { owner: { node: { id: "$jwt.sub" } } } }]
+  #   )
 `

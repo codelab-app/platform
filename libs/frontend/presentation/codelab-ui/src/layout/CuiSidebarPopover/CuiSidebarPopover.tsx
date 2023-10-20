@@ -1,3 +1,4 @@
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
@@ -34,7 +35,7 @@ export const CuiSidebarPopover = observer(
         border-gray-300
         bg-white
         "
-        data-cy={`codelabui-sidebar-popover-${label}`}
+        data-cy={CY_DATA.cuiPopover(label)}
       >
         <CuiSidebarPopoverHeader label={label} toolbar={toolbar} />
         <div

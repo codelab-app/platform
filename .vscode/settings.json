@@ -1,34 +1,31 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "eslint.run": "onSave",
-  "eslint.packageManager": "yarn",
-  "eslint.format.enable": true,
-  "eslint.nodePath": "D:\\workspace\\codelab\\web\\node_modules",
-  "[typescript][typescriptreact][javascript][javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "json.format.enable": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///Users/Webber/Sites/Codelab/web/.github/workflows/.workflows.yml",
-    "https://json.schemastore.org/circleciconfig.json": [
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/workflows.yml",
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/workflows.yml",
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/executors/executors.yml",
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/commands/resource-class-param.yml",
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/jobs/codegen.yml",
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/commands/init-repo.yml"
-    ],
-    "https://json.schemastore.org/cirrus.json": "file:///Users/webber/Sites/Codelab/platform/.circleci/config/workflows/app-pr.yml"
+  "[typescript][typescriptreact][javascript][javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "eslint.validate": ["json"]
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.format.enable": true,
+  "eslint.probe": [
+    "less",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "graphql"
+  ],
+  "eslint.run": "onSave",
+  "eslint.validate": ["json"],
+  "json.format.enable": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

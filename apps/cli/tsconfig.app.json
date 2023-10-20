@@ -2,9 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "commonjs",
+    "module": "ESNext",
     "types": ["node", "cypher"],
-    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
     "target": "es2021",
     "strictNullChecks": true,
     "noImplicitAny": true,
@@ -13,5 +13,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["jest.config.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["webpack.config.js", "src/**/*.ts"]
 }

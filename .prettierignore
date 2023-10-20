@@ -1,7 +1,9 @@
-node_modules
-dist
-yarn-error.log
+/data
+/examples
+
 .terraform
-yarn.lock
-.yarn
-tmp
+.next
+dist
+.idea
+.vscode
+

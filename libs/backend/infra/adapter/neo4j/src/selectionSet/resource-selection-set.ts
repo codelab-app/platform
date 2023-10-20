@@ -1,4 +1,4 @@
-export const resourceSelectionSet = `{ 
+export const resourceSelectionSet = `
   id
   type
   name
@@ -6,5 +6,4 @@ export const resourceSelectionSet = `{
     id
     data
   }
-}
 `

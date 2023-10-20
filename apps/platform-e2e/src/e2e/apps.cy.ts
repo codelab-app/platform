@@ -1,14 +1,14 @@
-import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { appName, updatedAppName } from './apps/app.data'
 
 describe('Apps CRUD', () => {
   before(() => {
-    cy.resetDatabase()
-    loginSession()
+    loginAndSetupData()
   })
 
   describe('create', () => {
     it('should be able to create app', () => {
+      cy.visit('/apps')
       // check that we don't have app with test-name
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 

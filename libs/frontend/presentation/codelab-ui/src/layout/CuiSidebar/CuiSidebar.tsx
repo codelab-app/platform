@@ -1,4 +1,5 @@
 import { MoreOutlined } from '@ant-design/icons'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'
@@ -46,7 +47,7 @@ export const CuiSidebar = ({
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={`codelabui-sidebar-${label}`}
+      data-cy={CY_DATA.cuiSidebar(label)}
       ref={sidebarRef}
     >
       {tabs && tabs[0] ? (
@@ -96,6 +97,7 @@ export const CuiSidebar = ({
           border-gray-300
           bg-neutral-100
           "
+            data-cy={CY_DATA.cuiSidebarHeader()}
           >
             <Typography className="pl-4">
               {views?.length !== 1 ? label : views[0]?.label}

@@ -19,6 +19,12 @@ export class ErrorBoundary extends React.Component<
   PropsWithChildren<ErrorBoundaryProps>,
   ErrorState
 > {
+  static getDerivedStateFromError(error: unknown) {
+    // Update state so the next render will show the fallback UI
+
+    return { hasError: true }
+  }
+
   override state: ErrorState
 
   constructor(props: PropsWithChildren<ErrorBoundaryProps>) {
@@ -26,12 +32,6 @@ export class ErrorBoundary extends React.Component<
 
     // Define a state variable to track whether is an error or not
     this.state = { hasError: false }
-  }
-
-  static getDerivedStateFromError(error: unknown) {
-    // Update state so the next render will show the fallback UI
-
-    return { hasError: true }
   }
 
   override componentDidCatch(error: unknown, errorInfo: unknown) {

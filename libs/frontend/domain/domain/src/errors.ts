@@ -1,18 +1,14 @@
 import type { ApolloError } from '@apollo/client'
-import type { UseNotifyReturnType } from '@codelab/frontend/shared/utils'
 import { extractFirstGraphQlErrorCode } from '@codelab/frontend/shared/utils'
 import { DOMAIN_GRAPHQL_ERROR_CODES } from '@codelab/shared/abstract/core'
 
-export const handleDomainExistError = (
-  error: unknown,
-  onError: UseNotifyReturnType['onError'],
-) => {
+export const DOMAIN_EXISTS_ERROR = `Cannot add since it's already assigned to another project.`
+
+export const checkDomainExists = (error: ApolloError) => {
   if (
-    extractFirstGraphQlErrorCode(error as ApolloError) ===
+    extractFirstGraphQlErrorCode(error) ===
     DOMAIN_GRAPHQL_ERROR_CODES.DOMAIN_EXIST
   ) {
-    onError("Cannot add  since it's already assigned to another project.")
-
     return true
   }
 

@@ -1,7 +1,7 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '../support/antd/form'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { appName, pageName } from './apps/app.data'
 
 const CARD_COMPONENT_NAME = 'Card Component'
@@ -29,9 +29,10 @@ const openPageByName = (name: string) => {
   cy.getCuiTreeItemByPrimaryTitle(name)
     .should('exist', { timeout: 15000 })
     .click()
-  cy.getCuiTreeItemByPrimaryTitle(name).within(() => {
-    cy.getToolbarItem('Open Builder').click()
-  })
+  cy.getCuiTreeItemByPrimaryTitle(name)
+    .getCuiTreeItemToolbar()
+    .getCuiToolbarItem('Open Builder')
+    .click()
 
   cy.getSpinner().should('not.exist')
   cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 15000 }).should(
@@ -41,20 +42,23 @@ const openPageByName = (name: string) => {
 
 describe('_app page', () => {
   before(() => {
-    cy.resetDatabase()
-    loginSession()
-
-    cy.request('/api/cypress/atom')
+    loginAndSetupData()
+    cy.postApiRequest('/atom/seed-cypress-atom')
   })
 
   it('should create _app page when app is created', () => {
+    cy.visit('/apps')
     cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
     cy.getButton({ label: /Create Now/ }).click()
     cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
+
+    cy.intercept('POST', `api/graphql`).as('createApp')
     cy.getModal()
       .getModalAction(/Create App/)
       .click()
+    cy.wait('@createApp')
+
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
@@ -88,12 +92,10 @@ describe('_app page', () => {
   })
 
   it('should be able to create simple page', () => {
-    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
+    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
 
-    cy.getCuiPopover('Create Page').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     openPageByName(pageName)
   })

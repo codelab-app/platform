@@ -1,4 +1,5 @@
 import type { Page } from '@codelab/shared/abstract/codegen'
+import { PageProperties } from '@codelab/shared/domain/mapper'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
 /**
@@ -6,6 +7,5 @@ import type { IFieldResolver } from '@graphql-tools/utils'
  *
  * We can compute name by replacing the ID
  */
-export const name: IFieldResolver<Page, unknown> = (page) => {
-  return page._compoundName.replace(`${page.app.id}-`, '')
-}
+export const pageName: IFieldResolver<Page, unknown> =
+  PageProperties.pageNameFromCompositeKey

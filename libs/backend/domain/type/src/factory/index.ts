@@ -1,1 +1,1 @@
-export * from './type.factory'
+export * from './type.factory.service'

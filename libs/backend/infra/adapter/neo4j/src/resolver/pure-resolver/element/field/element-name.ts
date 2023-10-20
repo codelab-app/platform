@@ -1,5 +1,5 @@
 import type { Element } from '@codelab/shared/abstract/codegen'
-import { uuidRegex } from '@codelab/shared/utils'
+import { ElementProperties } from '@codelab/shared/domain/mapper'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
 /**
@@ -7,8 +7,5 @@ import type { IFieldResolver } from '@graphql-tools/utils'
  *
  * We can compute name by replacing the ID
  */
-export const name: IFieldResolver<Element, unknown> = (element) => {
-  const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
-
-  return element._compoundName.replace(reg, '')
-}
+export const name: IFieldResolver<Element, unknown> =
+  ElementProperties.elementNameFromCompositeKey

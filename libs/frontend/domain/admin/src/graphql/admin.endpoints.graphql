@@ -1,6 +1,0 @@
-# Require a standalone function to reset
-mutation ResetDatabase {
-  resetDatabase {
-    success
-  }
-}

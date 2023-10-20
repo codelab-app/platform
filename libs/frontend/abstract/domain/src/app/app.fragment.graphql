@@ -1,0 +1,65 @@
+#
+# owner.auth0Id is required to compute name
+#
+fragment AppPreview on App {
+  id
+  name
+  # Required to compute name
+  owner {
+    ...Owner
+  }
+  # Links the app preview to the provider page
+  pages(where: { kind: Provider }) {
+    ...PagePreview
+  }
+  slug
+}
+
+fragment App on App {
+  domains {
+    ...Domain
+  }
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages {
+    ...Page
+  }
+  slug
+}
+
+fragment AppDevelopment on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(
+    where: {
+      OR: [
+        { compositeKey_ENDS_WITH: $pageName }
+        { kind: Provider }
+        { kind: NotFound }
+        { kind: InternalServerError }
+        { kind: Regular }
+      ]
+    }
+  ) {
+    ...PageDevelopment
+  }
+  slug
+}
+
+fragment AppProduction on App {
+  id
+  name
+  owner {
+    ...Owner
+  }
+  pages(where: { OR: [{ url: $pageUrl }, { kind: Provider }] }) {
+    ...PageProduction
+  }
+  slug
+}

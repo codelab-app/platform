@@ -1,0 +1,35 @@
+# Page name only gives us a rough filter, but requiring pageCompositeKey requires the app id, which we don't have unless fetched
+query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+  apps(where: { compositeKey: $appCompositeKey }) {
+    ...AppDevelopment
+  }
+  # Need to load all dependent types
+  atoms(where: { type: ReactFragment }) {
+    ...AtomDevelopment
+  }
+  # Load system types
+  # workaround for lack of ability to recursively fetch field's types
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  # Load system types
+  # workaround for lack of ability to recursively fetch field's types
+  primitiveTypes {
+    ...PrimitiveType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  reactNodeTypes {
+    ...ReactNodeType
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  renderPropTypes {
+    ...RenderPropType
+  }
+  resources {
+    ...Resource
+  }
+}

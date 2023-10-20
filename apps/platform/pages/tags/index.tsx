@@ -1,24 +1,24 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateTagModal,
   DeleteTagsModal,
   TagsPrimarySidebar,
   UpdateTagForm,
   UpdateTagModal,
-} from '@codelab/frontend/domain/tag'
+} from '@codelab/frontend/application/tag'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiSkeletonWrapper,
-} from '@codelab/frontend/presentation//codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'

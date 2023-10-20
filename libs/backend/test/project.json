@@ -8,7 +8,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/test/**/*.ts"]
+        "lintFilePatterns": ["libs/backend/test/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "configurations": {
         "ci": {
@@ -19,5 +19,5 @@
       }
     }
   },
-  "tags": ["scope:backend", "type:test"]
+  "tags": ["projectType:library", "type:concrete", "type:test", "scope:backend"]
 }

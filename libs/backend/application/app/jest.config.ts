@@ -27,6 +27,9 @@ export default {
       {
         outputName: 'backend-application-app.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

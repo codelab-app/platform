@@ -1,27 +1,19 @@
-import { createUniqueName, getNameFromSlug } from '@codelab/shared/utils'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { useStore } from '../providers'
 
 export const useCurrentApp = () => {
-  const { appService, userService } = useStore()
+  const { appService } = useStore()
   const { query } = useRouter()
   const appSlug = query.appSlug as string
-  const userName = query.userName as string
   const appName = getNameFromSlug(appSlug)
 
-  const owner = userService.usersList.find(
-    ({ username }) => username === userName,
-  )
-
-  if (!owner) {
-    throw new Error(`User ${userName} not found`)
-  }
-
   return useMemo(() => {
-    const _compoundName = createUniqueName(appName, owner.auth0Id)
-    const app = appService.appsList.find(({ name }) => name === appName)
+    const app = appService.appDomainService.appsList.find(
+      (item) => item.name === appName,
+    )
 
-    return { _compoundName, app, appName, appSlug, userName }
-  }, [appName, appService.appsList])
+    return app
+  }, [appName, appService.appDomainService.appsList])
 }

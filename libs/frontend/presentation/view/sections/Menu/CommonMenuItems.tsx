@@ -6,7 +6,7 @@ import {
   FileOutlined,
 } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import type { NavigationBarItem } from '@codelab/frontend/presentation//codelab-ui'
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import React from 'react'
 
@@ -32,7 +32,7 @@ export const allPagesMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
   componentSlug: Nullish<string>,
-  userName: Nullish<string>,
+  userSlug: Nullish<string>,
 ): NavigationBarItem => ({
   disabled: !appSlug,
   icon: <FileOutlined title="Pages" />,
@@ -45,7 +45,7 @@ export const allPagesMenuItem = (
         ...(componentSlug ? { componentSlug } : null),
         ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.PageList,
-        userName,
+        userSlug,
       },
     },
   },
@@ -56,7 +56,7 @@ export const builderComponentsMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
   componentSlug: Nullish<string>,
-  userName: Nullish<string>,
+  userSlug: Nullish<string>,
 ): NavigationBarItem => ({
   disabled: !appSlug || (!pageSlug && !componentSlug),
   icon: <CodeSandboxOutlined title="Builder Components" />,
@@ -69,7 +69,7 @@ export const builderComponentsMenuItem = (
         ...(componentSlug ? { componentSlug } : null),
         ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.Components,
-        userName,
+        userSlug,
       },
     },
   },
@@ -80,7 +80,7 @@ export const pageBuilderMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
   componentSlug: Nullish<string>,
-  userName: Nullish<string>,
+  userSlug: Nullish<string>,
 ): NavigationBarItem => ({
   disabled: !appSlug || (!pageSlug && !componentSlug),
   icon: <BuildOutlined title="Builder" />,
@@ -93,7 +93,7 @@ export const pageBuilderMenuItem = (
         ...(componentSlug ? { componentSlug } : null),
         ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.Explorer,
-        userName,
+        userSlug,
       },
     },
   },

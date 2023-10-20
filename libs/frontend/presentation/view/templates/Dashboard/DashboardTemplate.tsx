@@ -1,8 +1,9 @@
-import { CuiNavigationBar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
-  useCurrentApp,
+  useAppQuery,
   useCurrentComponent,
-  useCurrentPage,
+  usePageQuery,
+  useUserQuery,
 } from '@codelab/frontend/presentation/container'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -17,7 +18,7 @@ import type { DashboardTemplateProps } from './Types'
 
 const { Sider } = Layout
 
-export const DashboardTemplateSSR = observer(
+export const DashboardTemplate = observer(
   ({
     children,
     ConfigPane,
@@ -26,8 +27,9 @@ export const DashboardTemplateSSR = observer(
     PrimarySidebar,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     const { primarySidebarKey } = useRouter().query
-    const { appSlug, userName } = useCurrentApp()
-    const { pageSlug } = useCurrentPage()
+    const { appSlug } = useAppQuery()
+    const { pageSlug } = usePageQuery()
+    const { userSlug } = useUserQuery()
     const { componentSlug } = useCurrentComponent()
 
     const navigationBarItems = useMemo(
@@ -36,7 +38,7 @@ export const DashboardTemplateSSR = observer(
           appSlug,
           componentSlug,
           pageSlug,
-          userName,
+          userSlug,
         }),
       [appSlug, pageSlug, componentSlug],
     )
@@ -51,9 +53,9 @@ export const DashboardTemplateSSR = observer(
     return (
       <Layout className="max-h-full min-h-full">
         {Header && <Header />}
-        {/* 
+        {/*
           Need explicitly set `hasSider` prop to avoid flickering
-          see AntD documentation or https://github.com/ant-design/ant-design/issues/8937 
+          see AntD documentation or https://github.com/ant-design/ant-design/issues/8937
         */}
         <Layout hasSider>
           <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
@@ -100,4 +102,4 @@ export const DashboardTemplateSSR = observer(
   },
 )
 
-export default DashboardTemplateSSR
+export default DashboardTemplate

@@ -1,22 +1,27 @@
 {
-  "name": "frontend-presentation--codelab-ui",
+  "name": "frontend-presentation-codelab-ui",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/presentation/codelab-ui/src",
   "projectType": "library",
-  "tags": ["scope:frontend"],
+  "tags": [
+    "layer:presentation",
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/presentation/codelab-ui/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/presentation/codelab-ui/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-presentation--codelab-ui.xml",
+          "outputFile": "tmp/reports/lint/frontend-presentation-codelab-ui.xml",
           "quiet": true
         }
       }

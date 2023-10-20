@@ -1,0 +1,107 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "6621f44f-806c-451e-8e0e-e287e12bf94e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "871043d9-aac3-496a-93fc-5c3e8232a3cc",
+        "key": "default",
+        "name": "Default",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6621f44f-806c-451e-8e0e-e287e12bf94e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "356eb4b7-cc39-4672-9318-259306227015",
+        "key": "label",
+        "name": "Label",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6621f44f-806c-451e-8e0e-e287e12bf94e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "892190c2-4187-461e-b091-92a56a706f00",
+        "key": "src",
+        "name": "Src",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "6621f44f-806c-451e-8e0e-e287e12bf94e"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "5b4f283e-40bf-4fe5-82fe-63bc24c71043",
+        "key": "srclang",
+        "name": "Srclang",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "6621f44f-806c-451e-8e0e-e287e12bf94e",
+    "kind": "InterfaceType",
+    "name": "HtmlTrack API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "6621f44f-806c-451e-8e0e-e287e12bf94e"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "69fb2c88-59ee-4edf-9ec7-73e206446f48",
+    "name": "HtmlTrack",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "939989a3-2760-4e4e-ab41-42f0cb0ac08c"
+      }
+    ],
+    "type": "HtmlTrack"
+  }
+}

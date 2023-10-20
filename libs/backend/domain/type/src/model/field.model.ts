@@ -3,6 +3,23 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
 export class Field implements IFieldDTO {
+  /**
+   * Used to get composite key, fieldKey is
+   */
+  static compositeKey(apiName: string, fieldKey: string) {
+    return `${apiName}-${fieldKey}`
+  }
+
+  static create({ api, fieldType, id, key }: IFieldDTO) {
+    return new Field({
+      api,
+      fieldType,
+      id,
+      key,
+      name: compoundCaseToTitleCase(key),
+    })
+  }
+
   readonly api: { id: string }
 
   readonly defaultValues: string | null
@@ -17,11 +34,11 @@ export class Field implements IFieldDTO {
 
   readonly name: string | null
 
-  readonly validationRules: string | null
-
   nextSibling?: IEntity | null | undefined
 
   prevSibling?: IEntity | null | undefined
+
+  readonly validationRules: string | null
 
   constructor({
     api,
@@ -45,22 +62,5 @@ export class Field implements IFieldDTO {
     this.validationRules = validationRules
     this.nextSibling = nextSibling
     this.prevSibling = prevSibling
-  }
-
-  /**
-   * Used to get composite key, fieldKey is
-   */
-  static compositeKey(apiName: string, fieldKey: string) {
-    return `${apiName}-${fieldKey}`
-  }
-
-  static create({ api, fieldType, id, key }: IFieldDTO) {
-    return new Field({
-      api,
-      fieldType,
-      id,
-      key,
-      name: compoundCaseToTitleCase(key),
-    })
   }
 }

@@ -1,6 +1,10 @@
-import { generateOgmTypes } from '@codelab/backend/infra/adapter/neo4j'
-import { execCommand } from '@codelab/backend/infra/adapter/shell'
+import {
+  execCommand,
+  globalHandler,
+} from '@codelab/backend/infra/adapter/shell'
+import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { LazyModuleLoader } from '@nestjs/core'
 import { spawn } from 'child_process'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -8,10 +12,8 @@ import gitChangedFiles from 'git-changed-files'
 import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import type { Argv, CommandModule } from 'yargs'
-import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
-import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
 /**
@@ -26,6 +28,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
   describe = 'Run tasks'
 
+  constructor(
+    // private ogmService: OgmService,
+    private lazyModuleLoader: LazyModuleLoader,
+  ) {
+    this.builder = this.builder.bind(this)
+  }
+
   builder(yargv: Argv<unknown>) {
     return yargv
       .options(getStageOptions([Stage.Dev, Stage.Test, Stage.CI]))
@@ -39,7 +48,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(
-              `nx run-many --target=build --projects=platform,platform-api-test -c test`,
+              `nx run-many --target=build --projects=platform,platform-api -c test`,
             )
           }
 
@@ -87,21 +96,36 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         // (argv) => argv.fail((msg, err) => console.log(msg, err)),
         globalHandler(async ({ stage }) => {
+          //
+          const { OgmModule } = await import(
+            '@codelab/backend/infra/adapter/neo4j'
+          )
+
+          const ogmModuleRef = await this.lazyModuleLoader.load(() => OgmModule)
+
+          const { OgmService } = await import(
+            '@codelab/backend/infra/adapter/neo4j'
+          )
+
+          const ogmService = ogmModuleRef.get(OgmService)
+
           if (stage === Stage.Dev) {
             if (!(await isPortReachable(4000, { host: '127.0.0.1' }))) {
               console.error('Please start server!')
               process.exit(0)
             }
 
-            execCommand('yarn graphql-codegen')
-            await generateOgmTypes()
+            execCommand(
+              'yarn graphql-codegen --config ./scripts/codegen/codegen.ts',
+            )
+            await ogmService.generate()
 
             process.exit(0)
           }
 
           if (stage === Stage.CI) {
             const startServer = `nx serve platform-api -c ci`
-            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen && exit 0`
+            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,
@@ -126,7 +150,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 }
 
                 try {
-                  await generateOgmTypes()
+                  await ogmService.generate()
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()
@@ -166,26 +190,6 @@ export class TaskService implements CommandModule<unknown, unknown> {
         }),
       )
       .command(
-        Tasks.E2e,
-        'Run e2e tests',
-        (argv) => argv,
-        globalHandler(({ stage }) => {
-          if (stage === Stage.Dev) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:dev`)
-          }
-
-          if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:test`)
-          }
-
-          if (stage === Stage.CI) {
-            // Using `affected` here causes CircleCI parallel specs to not work
-            // execCommand(`npx nx affected --target=e2e -c ci`)
-            execCommand(`npx nx run platform-e2e:e2e:ci --verbose`)
-          }
-        }),
-      )
-      .command(
         Tasks.Lint,
         'Lint projects',
         (argv) => argv,
@@ -199,6 +203,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
             execCommand(
               `npx nx affected --target=lint --parallel=3 --verbose -c ci`,
             )
+            execCommand('echo $PWD')
+
             // https://github.com/nrwl/nx/discussions/8769
             execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)
             // execCommand(

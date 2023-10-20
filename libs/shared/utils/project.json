@@ -7,7 +7,7 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/shared/utils/**/*.ts"]
+        "lintFilePatterns": ["libs/shared/utils/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {
@@ -73,5 +73,5 @@
       "outputs": ["{workspaceRoot}/coverage/libs/shared/utils"]
     }
   },
-  "tags": ["scope:shared"]
+  "tags": ["projectType:library", "type:concrete", "scope:shared"]
 }

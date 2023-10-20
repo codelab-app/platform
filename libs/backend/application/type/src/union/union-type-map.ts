@@ -7,17 +7,12 @@ import {
   compoundCaseToTitleCase,
 } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import { isInterfaceTypeRegex } from '../../../../use-cases/seed/utils/matchers'
 import {
   extractObjectFromString,
+  type FieldTypeRef,
   parseSeparators,
-} from '../../../../use-cases/seed/utils/parser'
-import type { FieldTypeRef } from '../../../../use-cases/seed/utils/type-predicates'
-import {
-  isPrimitiveType,
   unionContainsInterfaceType,
-} from '../../../../use-cases/seed/utils/type-predicates'
-import { mapPrimitiveType } from '../mapper/ant-design-primitive-map'
+} from '../parser'
 
 /**
  *

@@ -2,16 +2,19 @@ import { exportTagSelectionSet, tagSelectionSet } from './tag-selection-set'
 import { interfaceTypeSelectionSet } from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
-export const atomSelectionSet = `{
+export const atomSelectionSet = `
+  __typename
   id
   name
-  type
-  api
-    ${interfaceTypeSelectionSet}
-  icon
   ${ownerFieldSelectionSet}
-  tags
+  type
+  api {
+    ${interfaceTypeSelectionSet}
+  }
+  icon
+  tags {
     ${tagSelectionSet}
+  }
   suggestedChildren {
     id
     name
@@ -25,9 +28,10 @@ export const atomSelectionSet = `{
   externalCssSource
   externalJsSource
   externalSourceType
-}`
+`
 
-export const exportAtomSelectionSet = `{
+export const exportAtomSelectionSet = `
+  __typename
   id
   name
   type
@@ -35,8 +39,9 @@ export const exportAtomSelectionSet = `{
     id
   }
   icon
-  tags
+  tags {
     ${exportTagSelectionSet}
+  }
   suggestedChildren {
     id
     name
@@ -50,4 +55,4 @@ export const exportAtomSelectionSet = `{
   externalCssSource
   externalJsSource
   externalSourceType
-}`
+`

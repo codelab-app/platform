@@ -1,5 +1,4 @@
 import { LogoutOutlined, PlusOutlined } from '@ant-design/icons'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
@@ -8,22 +7,21 @@ import {
   GetAppsList,
   ImportAppDialog,
   UpdateAppModal,
-} from '@codelab/frontend/domain/app'
-import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/application/app'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
-} from '@codelab/frontend/presentation//codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
-import { getEnv } from '@codelab/shared/config'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -75,24 +73,16 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService } = useStore()
-  const { user } = useUser()
+  const { appService, userService } = useStore()
+  const user = userService.user
 
-  const [{ status }, loadApp] = useAsync((owner: IAuth0Owner) =>
-    appService.loadAppsWithNestedPreviews({ owner }),
+  const [{ status }, loadAppsPreview] = useAsync((owner: IEntity) =>
+    appService.loadAppsPreview({ owner }),
   )
 
   useEffect(() => {
-    if (user?.sub) {
-      void loadApp.execute({ auth0Id: user.sub })
-    }
-
-    // in development need to execute this each time page is loaded,
-    // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-    if (user && getEnv().endpoint.isLocal) {
-      void fetch('/api/upsert-user')
-    }
-  }, [user, loadApp])
+    void loadAppsPreview.execute({ id: user.id })
+  }, [user, loadAppsPreview])
 
   return (
     <>

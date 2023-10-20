@@ -1,0 +1,4 @@
+directive @settable(
+  onCreate: Boolean! = true
+  onUpdate: Boolean! = true
+) on FIELD_DEFINITION

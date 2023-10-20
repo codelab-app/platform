@@ -1,16 +1,26 @@
-import type { IUser } from '@codelab/frontend/abstract/core'
-// import { appRef } from '@codelab/frontend/domain/app'
-import type { IRole, IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUser } from '@codelab/frontend/abstract/domain'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
-const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {
+const fromSession = (user: Auth0IdToken) => {
   return new User({
-    // apps: apps?.map((app) => appRef(app.id)),
-    auth0Id,
-    id,
-    roles,
-    username,
+    auth0Id: user.sub,
+    email: user.email,
+    id: user[JWT_CLAIMS].neo4j_user_id,
+    roles: user[JWT_CLAIMS].roles.map((role) => IRole[role]),
+    username: user.nickname,
+  })
+}
+
+const create = (user: IUserDTO) => {
+  return new User({
+    auth0Id: user.auth0Id,
+    email: user.email,
+    id: user.id,
+    roles: user.roles,
+    username: user.username,
   })
 }
 
@@ -22,9 +32,8 @@ const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {
 @model('@codelab/User')
 export class User
   extends Model({
-    // apps: prop<Array<Ref<IApp>>>(() => []),
     auth0Id: prop<string>(),
-    // We use auth0Id as the id here
+    email: prop<string>(),
     id: idProp.withSetter(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
@@ -32,4 +41,6 @@ export class User
   implements IUser
 {
   static create = create
+
+  static fromSession = fromSession
 }

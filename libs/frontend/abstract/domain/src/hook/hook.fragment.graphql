@@ -1,0 +1,17 @@
+# Needed because otherwise we get duplicate fragments when getting an element
+fragment HookProp on Prop {
+  data
+  id
+}
+
+fragment Hook on Hook {
+  config {
+    ...HookProp
+  }
+  element {
+    id
+    name
+  }
+  id
+  type
+}

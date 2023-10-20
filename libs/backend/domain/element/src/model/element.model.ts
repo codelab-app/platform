@@ -1,7 +1,7 @@
 import type {
-  ICreateIElementDTO,
   IElementDTO,
-  RenderType,
+  IElementRenderTypeDto,
+  IPropDTO,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
@@ -12,7 +12,7 @@ export class Element implements IElementDTO {
 
   childMapperPropKey?: Nullable<string> | undefined
 
-  style?: Nullable<string> | undefined
+  closestContainerNode: IEntity
 
   firstChild?: IEntity | null | undefined
 
@@ -34,20 +34,27 @@ export class Element implements IElementDTO {
 
   prevSibling?: IEntity | null | undefined
 
-  props: IEntity
+  props: IPropDTO
 
   renderForEachPropKey?: Nullable<string> | undefined
 
   renderIfExpression?: Nullable<string> | undefined
 
-  renderType?: Nullable<RenderType> | undefined
+  renderType: IElementRenderTypeDto
 
-  closestContainerNode: IEntity
+  style?: Nullable<string> | undefined
 
-  constructor({ closestContainerNode, id, name, props }: ICreateIElementDTO) {
+  constructor({
+    closestContainerNode,
+    id,
+    name,
+    props,
+    renderType,
+  }: IElementDTO) {
     this.id = id
-    this.name = name
     this.props = props
     this.closestContainerNode = closestContainerNode
+    this.name = name
+    this.renderType = renderType
   }
 }

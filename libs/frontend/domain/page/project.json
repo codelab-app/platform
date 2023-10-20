@@ -7,7 +7,9 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/frontend/domain/page/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/frontend/domain/page/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {
@@ -73,5 +75,10 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/page"]
     }
   },
-  "tags": ["scope:frontend", "layer:domain"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ]
 }

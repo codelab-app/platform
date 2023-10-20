@@ -1,0 +1,126 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "11c758f0-9c6d-4361-9df8-6b61c742025b",
+        "key": "className",
+        "name": "Class Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "a5d8e396-0987-4cc7-a091-e933f5af0d48",
+        "key": "href",
+        "name": "Href",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "id": "96a23f61-6652-4167-b252-426e2272cd10",
+        "key": "onClick",
+        "name": "On Click",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8ef8f0b4-f9d3-4a89-807f-9e334c5bb493",
+          "kind": "EnumType",
+          "name": "AntDesignBreadcrumbItem Overlay Enum"
+        },
+        "id": "2b5726e8-4f57-4d4f-9bb8-d25b3e222a6c",
+        "key": "overlay",
+        "name": "Overlay",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396",
+    "kind": "InterfaceType",
+    "name": "AntDesignBreadcrumbItem API",
+    "types": [
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "d2f91065-f049-4fd4-b751-9145ebd56a74",
+            "key": "() => Menu",
+            "value": "() => Menu"
+          },
+          {
+            "id": "fec25279-3cb1-4a73-b4ab-081c341bd056",
+            "key": "Menu",
+            "value": "Menu"
+          }
+        ],
+        "id": "8ef8f0b4-f9d3-4a89-807f-9e334c5bb493",
+        "kind": "EnumType",
+        "name": "AntDesignBreadcrumbItem Overlay Enum"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "c7fe3eaa-2c22-46ac-b72b-2d6127f00396"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Breadcrumb",
+    "id": "fa6ddeba-6610-43a7-907c-80c9c5305665",
+    "name": "AntDesignBreadcrumbItem",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "88502b9c-6350-4a13-845f-f56f9e1a0b76"
+      }
+    ],
+    "type": "AntDesignBreadcrumbItem"
+  }
+}

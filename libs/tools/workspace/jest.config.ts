@@ -26,6 +26,9 @@ export default {
       {
         outputName: 'tools-workspace.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

@@ -6,13 +6,13 @@ import {
   DeleteLambdaModal,
   GetLambdasTable,
   UpdateLambdaModal,
-} from '@codelab/frontend/domain/lambda'
+} from '@codelab/frontend/application/lambda'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import Head from 'next/head'
 import React from 'react'
 

@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "39e6fe1f-343e-48fd-a013-5aeb42275188",
+    "kind": "InterfaceType",
+    "name": "AntDesignCheckbox API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "39e6fe1f-343e-48fd-a013-5aeb42275188"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Checkbox",
+    "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b",
+    "name": "AntDesignCheckbox",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "50a8cf8c-069c-4a2d-af44-ec5a7c30b947"
+      }
+    ],
+    "type": "AntDesignCheckbox"
+  }
+}

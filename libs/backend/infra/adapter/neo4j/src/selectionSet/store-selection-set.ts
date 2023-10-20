@@ -7,17 +7,17 @@ import {
 export const storeSelectionSet = `
   id
   name
-  api
+  api {
     ${interfaceTypeSelectionSet}
-  actions
-    ${actionSelectionSet}
+  }
+  actions ${actionSelectionSet}
 `
 
 export const exportStoreSelectionSet = `
   id
   name
-  api
+  api {
     ${exportInterfaceTypeWithFieldsSelectionSet}
-  actions
-    ${actionSelectionSet}
+  }
+  actions ${actionSelectionSet}
 `

@@ -1,10 +1,13 @@
 import { SearchOutlined } from '@ant-design/icons'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { InputRef, TableColumnProps } from 'antd'
+import type { InputRef } from 'antd'
 import { Button, Input, Space } from 'antd'
+import type { ColumnType } from 'antd/lib/table'
+import type { FilterDropdownProps } from 'antd/lib/table/interface'
 import React, { useEffect, useRef, useState } from 'react'
 
-interface ColumnSearchProps<RecordType extends object> {
+interface ColumnSearchProps<RecordType extends object>
+  extends Omit<ColumnType<RecordType>, 'dataIndex'> {
   dataIndex: keyof RecordType
   text?: string
   onSearch?(searchText: string): void
@@ -28,7 +31,11 @@ export const useColumnSearchProps = <RecordType extends object>({
   }, [searchText])
 
   return {
-    filterDropdown: ({ clearFilters, confirm, setSelectedKeys }) => (
+    filterDropdown: ({
+      clearFilters,
+      confirm,
+      setSelectedKeys,
+    }: FilterDropdownProps) => (
       <div style={{ padding: 8 }}>
         <Input
           onChange={(error) => {
@@ -61,13 +68,13 @@ export const useColumnSearchProps = <RecordType extends object>({
         </Space>
       </div>
     ),
-    filterIcon: (filtered) => (
+    filterIcon: (filtered: boolean) => (
       <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
     ),
-    onFilterDropdownVisibleChange: (visible) => {
+    onFilterDropdownVisibleChange: (visible: boolean) => {
       if (visible) {
         setTimeout(() => searchInputRef.current?.select(), 100)
       }
     },
-  } as TableColumnProps<RecordType>
+  }
 }

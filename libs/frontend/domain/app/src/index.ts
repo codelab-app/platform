@@ -1,2 +1,2 @@
+export * from './app.domain.service'
 export * from './store'
-export * from './use-cases'

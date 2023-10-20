@@ -1,7 +1,7 @@
+import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { EditorView } from '@codemirror/view'
-import { FIELD_TYPE } from '../support/antd/form'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 // Primitive Type use case
 const primitiveTypeName = 'Text'
@@ -30,18 +30,19 @@ const fieldDefaultValue = 'something default'
 
 describe('Types CRUD', () => {
   before(() => {
-    cy.resetDatabase()
-    loginSession()
-    cy.visit(`/types`)
+    loginAndSetupData()
+    // Setup data creates types, so we need to clear that
+    cy.postApiRequest('/admin/reset-database-except-user')
   })
 
   describe('create type', () => {
     it('should be able to create primitive', () => {
+      cy.visit(`/types`)
       cy.findAllByText(primitiveTypeName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -60,9 +61,9 @@ describe('Types CRUD', () => {
         value: stringPrimitiveType,
       })
 
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.intercept('POST', `api/graphql`).as('action')
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
@@ -72,7 +73,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({ label: 'Name', value: enumTypeName })
 
@@ -90,15 +91,15 @@ describe('Types CRUD', () => {
         cy.findAllByLabelText('Value').last().type(enumItem.value)
       })
 
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.intercept('POST', `api/graphql`).as('action')
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
 
     it('should be able to create array', () => {
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -117,9 +118,9 @@ describe('Types CRUD', () => {
         value: arrayItemType,
       })
 
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.intercept('POST', `api/graphql`).as('action')
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
     })
@@ -129,7 +130,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
+      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -142,9 +143,9 @@ describe('Types CRUD', () => {
         value: interfaceTypeKind,
       })
 
-      cy.getCuiPopover('Create Type').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.intercept('POST', `api/graphql`).as('action')
+      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.wait('@action')
 
       cy.findByText(interfaceTypeName).should('exist')
     })
@@ -154,7 +155,7 @@ describe('Types CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
         .getCuiTreeItemToolbar()
-        .getToolbarItem('Add field')
+        .getCuiToolbarItem('Add field')
         .click()
 
       cy.setFormFieldValue({
@@ -183,9 +184,14 @@ describe('Types CRUD', () => {
 
       cy.findByText(fieldDefaultValue).should('be.visible')
 
-      cy.getToolbarItem('Create').click()
+      cy.intercept('POST', `api/graphql`).as('action')
+      cy.getCuiToolbarItem('Create').click()
+      cy.wait('@action')
+      // its re-rendering after saving and is flaky when running in CI
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
 
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
+      // cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
@@ -223,7 +229,9 @@ describe('Types CRUD', () => {
         value: updatedArrayTypeName,
       })
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getButton({ label: 'Update Type' }).click()
+      cy.wait('@action')
 
       cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).should('not.exist')
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).should('exist')
@@ -233,18 +241,19 @@ describe('Types CRUD', () => {
   describe('delete type', () => {
     it('should be able to delete interface', () => {
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).should('not.exist')
@@ -252,18 +261,19 @@ describe('Types CRUD', () => {
 
     it('should be able to delete array', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(updatedArrayTypeName).should('not.exist')
@@ -271,18 +281,19 @@ describe('Types CRUD', () => {
 
     it('should be able to delete enum', () => {
       cy.getCuiTreeItemByPrimaryTitle(enumTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(enumTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(enumTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(enumTypeName).should('not.exist')
@@ -290,18 +301,19 @@ describe('Types CRUD', () => {
 
     it('should be able to delete primitive', () => {
       cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).click()
-      cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete type')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete type')
+        .should('be.visible')
+        .click()
 
       cy.getSpinner().should('not.exist')
 
+      cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
+      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.findAllByText(primitiveTypeName).should('not.exist')

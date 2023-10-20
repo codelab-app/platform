@@ -1,0 +1,34 @@
+fragment Store on Store {
+  actions {
+    ...Action
+  }
+  api {
+    ...InterfaceType
+  }
+  container {
+    ... on Page {
+      id
+    }
+    ... on Component {
+      id
+    }
+  }
+  id
+  name
+}
+
+fragment ProductionStore on Store {
+  actions {
+    ...Action
+  }
+  container {
+    ... on Page {
+      id
+    }
+    ... on Component {
+      id
+    }
+  }
+  id
+  name
+}

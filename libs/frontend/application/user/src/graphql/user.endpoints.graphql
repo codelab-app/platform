@@ -1,0 +1,14 @@
+query GetUsers($where: UserWhere) {
+  users(where: $where) {
+    ...User
+  }
+}
+
+mutation CreateUser($input: [UserCreateInput!]!) {
+  createUsers(input: $input) {
+    users {
+      email
+      id
+    }
+  }
+}

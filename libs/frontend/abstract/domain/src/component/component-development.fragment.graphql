@@ -1,0 +1,9 @@
+fragment ComponentDevelopment on Component {
+  ...Component
+  rootElement {
+    descendantElements {
+      ...Element
+    }
+    ...Element
+  }
+}

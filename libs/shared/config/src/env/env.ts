@@ -45,32 +45,6 @@ export interface IEnvironmentVariables {
  * https://github.com/evanshortiss/env-var/issues/162
  */
 class EnvironmentVariables implements IEnvironmentVariables {
-  private _mailchimp?: IMailchimpEnvVars
-
-  private _auth0?: IAuth0EnvVars
-
-  private _circleci?: ICircleCIEnvVars
-
-  private _googleAnalytics?: IGoogleAnalyticsEnvVars
-
-  private _hotjar?: IHotjarEnvVars
-
-  private _intercom?: IIntercomEnvVars
-
-  private _neo4j?: INeo4jEnvVars
-
-  private _supabase?: ISupabaseEnvVars
-
-  private _vercel?: IVercelEnvVars
-
-  private _node?: INodeEnvVars
-
-  private _endpoint?: IEndpointEnvVars
-
-  private _vercelKV?: IVercelKVEnvVars
-
-  private static instance?: EnvironmentVariables
-
   public static getInstance(): EnvironmentVariables {
     if (!EnvironmentVariables.instance) {
       EnvironmentVariables.instance = new EnvironmentVariables()
@@ -79,20 +53,16 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return EnvironmentVariables.instance
   }
 
-  get vercelKV() {
-    return (this._vercelKV ??= new VercelKVEnvVars())
-  }
-
-  public get mailchimp() {
-    return (this._mailchimp ??= new MailchimpEnvVars())
-  }
-
   public get auth0() {
     return (this._auth0 ??= new Auth0EnvVars(this.endpoint))
   }
 
   public get circleci() {
     return (this._circleci ??= new CircleCIEnvVars())
+  }
+
+  public get endpoint() {
+    return (this._endpoint ??= new EndpointEnvVars())
   }
 
   public get googleAnalytics() {
@@ -107,8 +77,16 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return (this._intercom ??= new IntercomEnvVars())
   }
 
+  public get mailchimp() {
+    return (this._mailchimp ??= new MailchimpEnvVars())
+  }
+
   public get neo4j() {
     return (this._neo4j ??= new Neo4jEnvVars())
+  }
+
+  public get node() {
+    return (this._node ??= new NodeEnvVars())
   }
 
   public get supabase() {
@@ -119,13 +97,35 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return (this._vercel ??= new VercelEnvVars())
   }
 
-  public get node() {
-    return (this._node ??= new NodeEnvVars())
+  get vercelKV() {
+    return (this._vercelKV ??= new VercelKVEnvVars())
   }
 
-  public get endpoint() {
-    return (this._endpoint ??= new EndpointEnvVars())
-  }
+  private static instance?: EnvironmentVariables
+
+  private _auth0?: IAuth0EnvVars
+
+  private _circleci?: ICircleCIEnvVars
+
+  private _endpoint?: IEndpointEnvVars
+
+  private _googleAnalytics?: IGoogleAnalyticsEnvVars
+
+  private _hotjar?: IHotjarEnvVars
+
+  private _intercom?: IIntercomEnvVars
+
+  private _mailchimp?: IMailchimpEnvVars
+
+  private _neo4j?: INeo4jEnvVars
+
+  private _node?: INodeEnvVars
+
+  private _supabase?: ISupabaseEnvVars
+
+  private _vercel?: IVercelEnvVars
+
+  private _vercelKV?: IVercelKVEnvVars
 }
 
 export const getEnv = () => EnvironmentVariables.getInstance()

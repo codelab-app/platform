@@ -1,7 +1,10 @@
 {
-  "name": "tools-workspace",
+  "name": "@codelab/tools-workspace",
   "version": "0.0.1",
   "type": "commonjs",
   "generators": "./generators.json",
-  "executors": "./executors.json"
+  "executors": "./executors.json",
+  "dependencies": {
+    "@nx/devkit": "16.7.4"
+  }
 }

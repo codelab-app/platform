@@ -1,16 +1,33 @@
 import type {
+  IAtom,
   IAtomDTO,
   IAtomType,
-  IAuth0Owner,
+  IInterfaceTypeRef,
 } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { type IEntity } from '@codelab/shared/abstract/types'
+import type { ValidationError } from 'class-validator'
+import { validateSync } from 'class-validator'
 
-export class Atom implements IAtomDTO {
-  icon?: string | null | undefined
+export class Atom implements IAtom {
+  __typename = `${IElementRenderTypeKind.Atom}` as const
 
-  id: string
+  static create(data: IAtomDTO): Atom {
+    const atom = new Atom(data)
+    const errors = validateSync(atom)
 
-  name: string
+    if (errors.length > 0) {
+      const message = errors
+        .map((error: ValidationError) => Object.values(error.constraints || {}))
+        .join(', ')
+
+      throw new Error(message)
+    }
+
+    return atom
+  }
+
+  api: IInterfaceTypeRef
 
   externalCssSource: string | null | undefined
 
@@ -18,19 +35,22 @@ export class Atom implements IAtomDTO {
 
   externalSourceType: string | null | undefined
 
-  type: IAtomType
+  icon?: string | null | undefined
 
-  api: IEntity | undefined
+  id: string
 
-  tags: Array<IEntity>
+  name: string
 
   requiredParents: Array<IEntity>
 
   suggestedChildren: Array<IEntity>
 
-  owner: IAuth0Owner
+  tags: Array<IEntity>
 
-  constructor({
+  // Assuming this is a string, add validators as per actual type
+  type: IAtomType
+
+  private constructor({
     api,
     externalCssSource,
     externalJsSource,
@@ -38,7 +58,6 @@ export class Atom implements IAtomDTO {
     icon,
     id,
     name,
-    owner,
     requiredParents = [],
     suggestedChildren = [],
     tags = [],
@@ -55,6 +74,5 @@ export class Atom implements IAtomDTO {
     this.tags = tags
     this.requiredParents = requiredParents
     this.suggestedChildren = suggestedChildren
-    this.owner = owner
   }
 }

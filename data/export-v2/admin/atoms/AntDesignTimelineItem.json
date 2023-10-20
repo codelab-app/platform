@@ -1,0 +1,126 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "d3c9f40f-daee-49b2-a353-d830774b59c2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "38512a3f-c757-418c-97d4-7b5d7dd473de",
+        "key": "color",
+        "name": "Color",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "d3c9f40f-daee-49b2-a353-d830774b59c2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "a1534584-87b0-4a88-9314-e215aa48b720",
+        "key": "dot",
+        "name": "Dot",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "d3c9f40f-daee-49b2-a353-d830774b59c2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "46d5f9f9-ac8b-42cc-994b-ec9e605421ba",
+        "key": "label",
+        "name": "Label",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "d3c9f40f-daee-49b2-a353-d830774b59c2"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "fbf9df92-54cf-4706-82bc-e84bc87f3361",
+          "kind": "EnumType",
+          "name": "AntDesignTimelineItem Position Enum"
+        },
+        "id": "14ca81a0-2486-40db-893d-7b09e8e4839b",
+        "key": "position",
+        "name": "Position",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "d3c9f40f-daee-49b2-a353-d830774b59c2",
+    "kind": "InterfaceType",
+    "name": "AntDesignTimelineItem API",
+    "types": [
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "d6441cc1-1914-4824-a2fb-0c777576dd7f",
+            "key": "left",
+            "value": "left"
+          },
+          {
+            "id": "2dcc4e92-ca76-42c8-ae7d-68616bca4680",
+            "key": "right",
+            "value": "right"
+          }
+        ],
+        "id": "fbf9df92-54cf-4706-82bc-e84bc87f3361",
+        "kind": "EnumType",
+        "name": "AntDesignTimelineItem Position Enum"
+      }
+    ]
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "d3c9f40f-daee-49b2-a353-d830774b59c2"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Timeline",
+    "id": "a7f9f7fa-06ca-44f6-8244-e81e2467048d",
+    "name": "AntDesignTimelineItem",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "7fa10b4d-b446-4b39-9c94-c919631dd872"
+      }
+    ],
+    "type": "AntDesignTimelineItem"
+  }
+}

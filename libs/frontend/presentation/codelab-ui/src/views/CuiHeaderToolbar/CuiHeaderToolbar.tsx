@@ -51,7 +51,7 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
   )
 
   return (
-    <div className="flex w-full justify-end" data-cy="codelabui-header-toolbar">
+    <div className="flex w-full justify-end" data-cy="codelabui-toolbar">
       <div
         className="flex flex-row items-start gap-2 overflow-hidden"
         ref={listRef}

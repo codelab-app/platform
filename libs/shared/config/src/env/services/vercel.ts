@@ -20,27 +20,57 @@ export interface IVercelEnvVars {
 }
 
 export class VercelEnvVars implements IVercelEnvVars {
-  private _vercelAccessToken?: string
+  get isProduction() {
+    return (
+      this.vercelEnv === 'production' ||
+      this.nextPublicVercelEnv === 'production'
+    )
+  }
 
-  private _vercelProjectId?: string
+  get isVercel() {
+    return this.vercel || Boolean(this.nextPublicVercelEnv)
+  }
 
-  private _vercelTeamId?: string
+  /**
+   * Should be true only for preview environment, not for production
+   */
+  get isVercelPreview() {
+    return (
+      this.vercelEnv === 'preview' || this.nextPublicVercelEnv === 'preview'
+    )
+  }
 
-  private _vercelEnv?: VercelStage
+  get nextPublicVercelEnv() {
+    return (this._nextPublicVercelEnv ??= env
+      .get('NEXT_PUBLIC_VERCEL_ENV')
+      .asEnum(['development', 'preview', 'production']))
+  }
 
-  private _nextPublicVercelEnv?: VercelStage
+  get nextPublicVercelUrl() {
+    return (this._nextPublicVercelUrl ??= env
+      .get('NEXT_PUBLIC_VERCEL_URL')
+      .asString())
+  }
 
-  private _nextPublicVercelUrl?: string
+  get teamIdParam() {
+    return `teamId=${this.vercelTeamId}`
+  }
 
-  private _vercel?: boolean
-
-  readonly apiUrl = 'https://api.vercel.com'
+  get vercel() {
+    return (this._vercel ??= env.get('VERCEL').default('false').asBool())
+  }
 
   get vercelAccessToken() {
     return (this._vercelAccessToken ??= env
       .get('VERCEL_ACCESS_TOKEN')
       .required()
       .asString())
+  }
+
+  get vercelEnv() {
+    return (this._vercelEnv ??= env
+      .get('VERCEL_ENV')
+      .asEnum(['development', 'preview', 'production']))
   }
 
   get vercelProjectId() {
@@ -57,30 +87,8 @@ export class VercelEnvVars implements IVercelEnvVars {
       .asString())
   }
 
-  get vercelEnv() {
-    return (this._vercelEnv ??= env
-      .get('VERCEL_ENV')
-      .asEnum(['development', 'preview', 'production']))
-  }
-
-  get nextPublicVercelEnv() {
-    return (this._nextPublicVercelEnv ??= env
-      .get('NEXT_PUBLIC_VERCEL_ENV')
-      .asEnum(['development', 'preview', 'production']))
-  }
-
-  get nextPublicVercelUrl() {
-    return (this._nextPublicVercelUrl ??= env
-      .get('NEXT_PUBLIC_VERCEL_URL')
-      .asString())
-  }
-
-  get vercel() {
-    return (this._vercel ??= env.get('VERCEL').default('false').asBool())
-  }
-
-  projectApiUrl(apiVer = '9') {
-    return `${this.apiUrl}/v${apiVer}/projects/${this.vercelProjectId}`
+  domainApiUrl(apiVer = '6') {
+    return `${this.apiUrl}/v${apiVer}/domains`
   }
 
   getBaseHeaders() {
@@ -90,31 +98,23 @@ export class VercelEnvVars implements IVercelEnvVars {
     }
   }
 
-  get teamIdParam() {
-    return `teamId=${this.vercelTeamId}`
+  projectApiUrl(apiVer = '9') {
+    return `${this.apiUrl}/v${apiVer}/projects/${this.vercelProjectId}`
   }
 
-  domainApiUrl(apiVer = '6') {
-    return `${this.apiUrl}/v${apiVer}/domains`
-  }
+  private _nextPublicVercelEnv?: VercelStage
 
-  get isVercel() {
-    return this.vercel || Boolean(this.nextPublicVercelEnv)
-  }
+  private _nextPublicVercelUrl?: string
 
-  /**
-   * Should be true only for preview environment, not for production
-   */
-  get isVercelPreview() {
-    return (
-      this.vercelEnv === 'preview' || this.nextPublicVercelEnv === 'preview'
-    )
-  }
+  private _vercel?: boolean
 
-  get isProduction() {
-    return (
-      this.vercelEnv === 'production' ||
-      this.nextPublicVercelEnv === 'production'
-    )
-  }
+  private _vercelAccessToken?: string
+
+  private _vercelEnv?: VercelStage
+
+  private _vercelProjectId?: string
+
+  private _vercelTeamId?: string
+
+  private readonly apiUrl = 'https://api.vercel.com'
 }

@@ -1,3 +1,0 @@
-fragment Owner on User {
-  auth0Id
-}

@@ -1,7 +1,8 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
@@ -20,34 +21,30 @@ const clickEditor = () => {
 }
 
 describe('CSS CRUD', () => {
+  let app: IAppDTO
   before(() => {
-    cy.resetDatabase()
-    loginSession()
-
-    cy.request('/api/cypress/atom')
-      .then(() => cy.request('/api/cypress/app'))
-      .then((apps) => {
-        const app = apps.body
-
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-        cy.createElementTree([
-          {
-            atom: IAtomType.AntDesignButton,
-            name: elementName,
-            parentElement: ROOT_ELEMENT_NAME,
-          },
-        ])
-      })
+    loginAndSetupData()
+    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
   })
 
-  //
   describe('Add css string', () => {
     it('should be able to add styling through css string', () => {
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          IPageKindName.Provider,
+        )}/builder`,
+      )
+      cy.getSpinner().should('not.exist')
+      cy.createElementTree([
+        {
+          atom: IAtomType.AntDesignButton,
+          name: elementName,
+          parentElement: ROOT_ELEMENT_NAME,
+        },
+      ])
+
       cy.getSpinner().should('not.exist')
 
       clickEditor()
@@ -115,6 +112,11 @@ describe('CSS CRUD', () => {
     it('should persist styles after reload', () => {
       cy.reload()
       cy.getSpinner().should('not.exist')
+
+      // wait for multiple api calls that could occur
+      // this is the simplest way for now
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(1000)
       cy.findByText(elementName).click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(

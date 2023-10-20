@@ -1,8 +1,7 @@
-import type {
-  IEvaluationContext,
-  IPropData,
-} from '@codelab/frontend/abstract/core'
-import { isCyclic, propSafeStringify } from '@codelab/shared/utils'
+import type { IEvaluationContext } from '@codelab/frontend/abstract/domain'
+import { propSafeStringify } from '@codelab/frontend/domain/prop'
+import type { IPropData } from '@codelab/shared/abstract/core'
+import { isCyclic } from '@codelab/shared/utils'
 import type { Completion } from '@codemirror/autocomplete'
 import capitalize from 'lodash/capitalize'
 import isArray from 'lodash/isArray'

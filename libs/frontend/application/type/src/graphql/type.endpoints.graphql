@@ -1,0 +1,13 @@
+query IsTypeDescendantOf($descendantTypeId: ID!, $parentTypeId: ID!) {
+  isTypeDescendantOf(
+    descendantTypeId: $descendantTypeId
+    parentTypeId: $parentTypeId
+  )
+}
+
+query GetTypeReferences($typeId: ID!) {
+  getTypeReferences(typeId: $typeId) {
+    label
+    name
+  }
+}

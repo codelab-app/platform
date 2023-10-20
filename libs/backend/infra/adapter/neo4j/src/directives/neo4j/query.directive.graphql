@@ -1,0 +1,4 @@
+directive @query(
+  aggregate: Boolean! = false
+  read: Boolean! = true
+) on OBJECT | SCHEMA

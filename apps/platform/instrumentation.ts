@@ -1,5 +1,5 @@
 import { registerOTel } from '@vercel/otel'
 
-export const register = () => {
-  registerOTel('codelab-platform')
+export const register = async () => {
+  registerOTel('platform')
 }

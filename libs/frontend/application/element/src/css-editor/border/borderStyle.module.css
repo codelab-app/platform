@@ -1,0 +1,13 @@
+.borderContainer {
+  grid-area: 3 / 3 / span 3 / span 3;
+  /*grid-template-columns: 36px 1fr 36px;*/
+  /*grid-template-rows: 24px 1fr 24px;*/
+  column-gap: 10px;
+  row-gap: 10px;
+  width: 100%;
+  height: 90px;
+  grid-template-areas:
+    ". top ."
+    "left center right"
+    ". bottom .";
+}

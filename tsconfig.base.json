@@ -12,6 +12,7 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
     "noUncheckedIndexedAccess": true,
+    "noErrorTruncation": true,
     "resolveJsonModule": true,
     "importHelpers": true,
     "target": "es2021",
@@ -23,9 +24,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@backend/infra/adapter/serverless": [
-        "libs/backend/infra/adapter/serverless/src/index.ts"
-      ],
       "@codelab/backend/abstract/codegen": [
         "libs/backend/abstract/codegen/src/index.ts"
       ],
@@ -56,14 +54,23 @@
       "@codelab/backend/application/domain/prop": [
         "libs/backend/application/domain/prop/src/index.ts"
       ],
+      "@codelab/backend/application/element": [
+        "libs/backend/application/element/src/index.ts"
+      ],
       "@codelab/backend/application/field": [
         "libs/backend/application/field/src/index.ts"
+      ],
+      "@codelab/backend/application/migration": [
+        "libs/backend/application/migration/src/index.ts"
+      ],
+      "@codelab/backend/application/page": [
+        "libs/backend/application/page/src/index.ts"
       ],
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
       ],
-      "@codelab/backend/application/service": [
-        "libs/backend/application/service/src/index.ts"
+      "@codelab/backend/application/shared": [
+        "libs/backend/application/shared/src/index.ts"
       ],
       "@codelab/backend/application/store": [
         "libs/backend/application/store/src/index.ts"
@@ -100,14 +107,29 @@
       "@codelab/backend/domain/resource": [
         "libs/backend/domain/resource/src/index.ts"
       ],
+      "@codelab/backend/domain/shared/auth": [
+        "libs/backend/domain/shared/auth/src/index.ts"
+      ],
+      "@codelab/backend/domain/shared/modules": [
+        "libs/backend/domain/shared/modules/src/index.ts"
+      ],
+      "@codelab/backend/domain/shared/seeder": [
+        "libs/backend/domain/shared/seeder/src/index.ts"
+      ],
       "@codelab/backend/domain/store": [
         "libs/backend/domain/store/src/index.ts"
       ],
       "@codelab/backend/domain/tag": ["libs/backend/domain/tag/src/index.ts"],
       "@codelab/backend/domain/type": ["libs/backend/domain/type/src/index.ts"],
       "@codelab/backend/domain/user": ["libs/backend/domain/user/src/index.ts"],
+      "@codelab/backend/infra/adapter/auth0": [
+        "libs/backend/infra/adapter/auth0/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/cli": [
         "libs/backend/infra/adapter/cli/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/codelab": [
+        "libs/backend/infra/adapter/codelab/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/graphql": [
         "libs/backend/infra/adapter/graphql/src/index.ts"
@@ -124,8 +146,17 @@
       "@codelab/backend/infra/adapter/queue": [
         "libs/backend/infra/adapter/queue/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/request-context": [
+        "libs/backend/infra/adapter/request-context/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/serverless": [
+        "libs/backend/infra/adapter/serverless/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/typebox": [
+        "libs/backend/infra/adapter/typebox/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/vercel": [
         "libs/backend/infra/adapter/vercel/src/index.ts"
@@ -133,16 +164,82 @@
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
-      "@codelab/frontend/abstract/core": [
-        "libs/frontend/abstract/core/src/index.ts"
+      "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
+      "@codelab/frontend/abstract/application": [
+        "libs/frontend/abstract/application/src/index.ts"
+      ],
+      "@codelab/frontend/abstract/domain": [
+        "libs/frontend/abstract/domain/src/index.ts"
       ],
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
       ],
-      "@codelab/frontend/application/atoms": [
-        "libs/frontend/application/atoms/src/index.ts"
+      "@codelab/frontend/application/admin": [
+        "libs/frontend/application/admin/src/index.ts"
       ],
-      "@codelab/frontend/config": ["libs/frontend/config/src/index.ts"],
+      "@codelab/frontend/application/app": [
+        "libs/frontend/application/app/src/index.ts"
+      ],
+      "@codelab/frontend/application/atom": [
+        "libs/frontend/application/atom/src/index.ts"
+      ],
+      "@codelab/frontend/application/axios": [
+        "libs/frontend/infra/axios/src/index.ts"
+      ],
+      "@codelab/frontend/application/builder": [
+        "libs/frontend/application/builder/src/index.ts"
+      ],
+      "@codelab/frontend/application/component": [
+        "libs/frontend/application/component/src/index.ts"
+      ],
+      "@codelab/frontend/application/domain": [
+        "libs/frontend/application/domain/src/index.ts"
+      ],
+      "@codelab/frontend/application/element": [
+        "libs/frontend/application/element/src/index.ts"
+      ],
+      "@codelab/frontend/application/lambda": [
+        "libs/frontend/application/lambda/src/index.ts"
+      ],
+      "@codelab/frontend/application/page": [
+        "libs/frontend/application/page/src/index.ts"
+      ],
+      "@codelab/frontend/application/prop": [
+        "libs/frontend/application/prop/src/index.ts"
+      ],
+      "@codelab/frontend/application/renderer": [
+        "libs/frontend/application/renderer/src/index.ts"
+      ],
+      "@codelab/frontend/application/resource": [
+        "libs/frontend/application/resource/src/index.ts"
+      ],
+      "@codelab/frontend/application/shared/auth": [
+        "libs/frontend/application/shared/auth/src/index.ts"
+      ],
+      "@codelab/frontend/application/shared/data": [
+        "libs/frontend/application/shared/data/src/index.ts"
+      ],
+      "@codelab/frontend/application/shared/store": [
+        "libs/frontend/application/shared/store/src/index.ts"
+      ],
+      "@codelab/frontend/application/store": [
+        "libs/frontend/application/store/src/index.ts"
+      ],
+      "@codelab/frontend/application/style": [
+        "libs/frontend/application/style/src/index.ts"
+      ],
+      "@codelab/frontend/application/tag": [
+        "libs/frontend/application/tag/src/index.ts"
+      ],
+      "@codelab/frontend/application/type": [
+        "libs/frontend/application/type/src/index.ts"
+      ],
+      "@codelab/frontend/application/user": [
+        "libs/frontend/application/user/src/index.ts"
+      ],
+      "@codelab/frontend/application/vercel": [
+        "libs/frontend/application/vercel/src/index.ts"
+      ],
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
       ],
@@ -177,6 +274,9 @@
       "@codelab/frontend/domain/resource": [
         "libs/frontend/domain/resource/src/index.ts"
       ],
+      "@codelab/frontend/domain/shared": [
+        "libs/frontend/domain/shared/src/index.ts"
+      ],
       "@codelab/frontend/domain/store": [
         "libs/frontend/domain/store/src/index.ts"
       ],
@@ -193,14 +293,13 @@
       "@codelab/frontend/domain/vercel": [
         "libs/frontend/domain/vercel/src/index.ts"
       ],
-      "@codelab/frontend/presentation//codelab-ui": [
+      "@codelab/frontend/infra/graphql": [
+        "libs/frontend/infra/graphql/src/index.ts"
+      ],
+      "@codelab/frontend/infra/mobx": ["libs/frontend/infra/mobx/src/index.ts"],
+      "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
+      "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
-      ],
-      "@codelab/frontend/presentation/client/graphql": [
-        "libs/frontend/presentation/client/graphql/src/index.ts"
-      ],
-      "@codelab/frontend/presentation/client/mobx": [
-        "libs/frontend/presentation/client/mobx/src/index.ts"
       ],
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
@@ -214,11 +313,31 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
+      "@codelab/frontend/test/cypress/antd": [
+        "libs/frontend/test/cypress/antd/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/cui": [
+        "libs/frontend/test/cypress/cui/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/nextjs-auth0": [
+        "libs/frontend/test/cypress/nextjs-auth0/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/shared": [
+        "libs/frontend/test/cypress/shared/src/index.ts"
+      ],
+      "@codelab/frontend/test/cypress/utils": [
+        "libs/frontend/test/cypress/utils/src/index.ts"
+      ],
+      "@codelab/frontend/test/data": ["libs/frontend/test/data/src/index.ts"],
+      "@codelab/frontend/test/store": ["libs/frontend/test/store/src/index.ts"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],
       "@codelab/shared/abstract/core": [
         "libs/shared/abstract/core/src/index.ts"
+      ],
+      "@codelab/shared/abstract/typebox": [
+        "libs/shared/abstract/typebox/src/index.ts"
       ],
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
@@ -230,13 +349,14 @@
         "libs/shared/domain/mapper/src/index.ts"
       ],
       "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
+      "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"],
-      "@shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/tools/eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "832a516f-46fc-46ce-814b-d641cc51b302",
+    "kind": "InterfaceType",
+    "name": "AntDesignAutoComplete API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "832a516f-46fc-46ce-814b-d641cc51b302"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "AutoComplete",
+    "id": "8ec79857-b3ea-4092-ae82-3de6665adfab",
+    "name": "AntDesignAutoComplete",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "a0d6489b-0703-4e4f-8319-98147b38ebcd"
+      }
+    ],
+    "type": "AntDesignAutoComplete"
+  }
+}

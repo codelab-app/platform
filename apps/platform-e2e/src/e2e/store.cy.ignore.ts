@@ -1,6 +1,6 @@
+import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IActionKind, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '../support/antd/form'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
 import {
   actionBody,
   actionName,
@@ -11,9 +11,8 @@ import {
 
 describe('Store', () => {
   before(() => {
-    cy.resetDatabase()
-    loginSession()
-    cy.getCurrentOwner()
+    loginAndSetupData()
+    cy.getCurrentUser()
       .then((owner) => {
         // cy.createType(
         //   {

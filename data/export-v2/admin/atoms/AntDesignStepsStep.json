@@ -1,0 +1,145 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "23f7a6c9-0613-49b4-9a2a-cfaf5de7d183",
+        "key": "description",
+        "name": "Description",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "id": "4c4860c6-e5c1-43dc-a734-e6b7b6f4f8c8",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "11d6b440-b533-4f8c-a77f-aaf6a18ff63e",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "7770da9e-e245-47b7-9682-4fa2ee6ff17e",
+        "key": "status",
+        "name": "Status",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "eab13dff-d1da-4bee-bfee-fbd273debfb7",
+        "key": "subTitle",
+        "name": "Sub Title",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "53588781-5767-49c0-908f-820a4029fc1d",
+        "key": "title",
+        "name": "Title",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f",
+    "kind": "InterfaceType",
+    "name": "AntDesignStepsStep API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Steps",
+    "id": "534b5f3e-a726-457c-b27c-b353bf88b1a3",
+    "name": "AntDesignStepsStep",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "075edb93-9b21-4494-92de-e510043bcf71"
+      }
+    ],
+    "type": "AntDesignStepsStep"
+  }
+}

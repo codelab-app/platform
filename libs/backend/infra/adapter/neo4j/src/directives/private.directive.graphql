@@ -1,0 +1,2 @@
+# Just documentation meant for fields that shouldn't be queried
+directive @private on FIELD_DEFINITION

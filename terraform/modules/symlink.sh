@@ -10,6 +10,7 @@ ln -s ../supabase/vars.tf ./circleci/vars-supabase.symlink.tf
 ln -s ../vercel-platform/vars.tf ./circleci/vars-vercel-platform.symlink.tf
 ln -s ../auth0-vars/vars-auth0-secret.tf ./circleci/vars-auth0-secret.symlink.tf
 ln -s ../auth0-vars/vars-web-client.tf ./circleci/vars-auth0-web-client.symlink.tf
+ln -s ../auth0-vars/vars-machine-client.tf ./circleci/vars-auth0-machine-client.symlink.tf
 ln -s ../slack/vars.tf ./circleci/vars-slack.symlink.tf
 ln -s ../nx/vars.tf ./circleci/vars-nx.symlink.tf
 # ln -s ../vercel/vars-access-token.tf ./circleci/vars-vercel-access-token.symlink.tf

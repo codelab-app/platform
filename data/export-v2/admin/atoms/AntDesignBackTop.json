@@ -1,0 +1,88 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027",
+        "key": "duration",
+        "name": "Duration",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "id": "099bb04f-28ce-4b0c-8904-865dd3c0702e",
+        "key": "target",
+        "name": "Target",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74",
+        "key": "visibilityHeight",
+        "name": "Visibility Height",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a",
+    "kind": "InterfaceType",
+    "name": "AntDesignBackTop API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "BackTop",
+    "id": "1c2bdcb6-2e1c-4509-8478-46660aeb6905",
+    "name": "AntDesignBackTop",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "49214355-5eb3-4dc5-b7e2-a15f6a278ded"
+      }
+    ],
+    "type": "AntDesignBackTop"
+  }
+}

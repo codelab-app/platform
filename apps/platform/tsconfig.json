@@ -37,9 +37,7 @@
     "index.d.ts",
     "**/*.js",
     "**/*.jsx",
-    ".next/types/**/*.ts",
-    "../../dist/apps/platform/.next/types/**/*.ts",
-    "../../dist/apps/platform-test/.next/types/**/*.ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",

@@ -13,15 +13,23 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
-import 'cypress-jest-adapter'
-import './commands'
-import './antd/register'
-import './codelab-ui/register'
+import { antCommands } from '@codelab/frontend/test/cypress/antd'
+import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
+import { nextjsAuth0Commands } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import { registerCommands } from '@codelab/frontend/test/cypress/shared'
+import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
+import { commands } from './commands'
 
-// afterEach(stopOnFirstError)
-
-Cypress.on('test:after:run', (test) => {
-  if (test.state !== 'passed' && test.retries > 0) {
-    ;(Cypress as any).runner.stop()
-  }
-})
+/**
+ * When we register, the global Cypress types are loaded in the command files
+ */
+registerCommands([
+  ...antCommands,
+  ...codelabCommands,
+  ...utilsCommands,
+  ...nextjsAuth0Commands,
+  /**
+   * These commands depend on the previous
+   */
+  ...commands,
+])

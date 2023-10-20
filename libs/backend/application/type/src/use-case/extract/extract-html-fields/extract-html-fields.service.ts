@@ -1,12 +1,14 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
-import { AuthUseCase } from '@codelab/backend/application/service'
+import type { IUseCase } from '@codelab/backend/abstract/types'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
+import { type IAtomDTO, type IFieldDTO } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { Injectable } from '@nestjs/common'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { v4 } from 'uuid'
@@ -14,15 +16,18 @@ import { HtmlTypeAdapterService } from '../../type-adapter/html-type-adapter/htm
 
 export type HtmlData = Record<string, Array<HtmlField>>
 
-export class ExtractHtmlFieldsService extends AuthUseCase<
-  Array<IAtomDTO>,
-  Array<IFieldDTO>
-> {
-  private htmlDataFolder = `${process.cwd()}/data/html/`
+@Injectable()
+export class ExtractHtmlFieldsService
+  implements IUseCase<Array<IAtomDTO>, Array<IFieldDTO>>
+{
+  constructor(
+    private typeFactory: TypeFactory,
+    private htmlTypeAdapterService: HtmlTypeAdapterService,
+    private readonly fieldRepository: FieldRepository,
+    private authService: AuthDomainService,
+  ) {}
 
-  fieldRepository = new FieldRepository()
-
-  async _execute(atoms: Array<IAtomDTO>) {
+  async execute(atoms: Array<IAtomDTO>) {
     const htmlAttributesByName = JSON.parse(
       readFileSync(path.resolve(this.htmlDataFolder, 'html.json'), 'utf8'),
     ) as HtmlData
@@ -46,6 +51,48 @@ export class ExtractHtmlFieldsService extends AuthUseCase<
     }, Promise.resolve([] as Array<IFieldDTO>))
   }
 
+  private async createOrUpdateField(
+    atom: IAtomDTO,
+    field: HtmlField,
+  ): Promise<IFieldDTO | undefined> {
+    const existingField = await this.fieldRepository.findOne({
+      api: {
+        id: atom.api.id,
+      },
+      key: field.key,
+    })
+
+    if (existingField) {
+      return existingField
+    }
+
+    const fieldTypeDTO = await this.htmlTypeAdapterService.execute({
+      atom,
+      field,
+      type: field.type,
+    })
+
+    if (!fieldTypeDTO) {
+      return undefined
+    }
+
+    const type = await this.typeFactory.save(fieldTypeDTO, {
+      name: fieldTypeDTO.name,
+    })
+
+    return Field.create({
+      api: { id: atom.api.id },
+      defaultValues: null,
+      description: '',
+      fieldType: type,
+      id: v4(),
+      key: field.key,
+      name: compoundCaseToTitleCase(field.key),
+    })
+  }
+
+  private htmlDataFolder = `${process.cwd()}/data/html/`
+
   private async transformFields(atom: IAtomDTO, fields: Array<HtmlField>) {
     return fields.reduce<Promise<Array<IFieldDTO>>>(
       async (accFields, field) => {
@@ -59,51 +106,5 @@ export class ExtractHtmlFieldsService extends AuthUseCase<
       },
       Promise.resolve([]),
     )
-  }
-
-  private async createOrUpdateField(
-    atom: IAtomDTO,
-    field: HtmlField,
-  ): Promise<IFieldDTO | undefined> {
-    const existingField = await this.fieldRepository.findOne({
-      api: {
-        id: atom.api?.id,
-      },
-      key: field.key,
-    })
-
-    if (existingField) {
-      return existingField
-    }
-
-    const fieldTypeDTO = await new HtmlTypeAdapterService({
-      atom,
-      field: {
-        key: field.key,
-      },
-      owner: this.owner,
-    }).execute({ type: field.type })
-
-    if (!fieldTypeDTO) {
-      return undefined
-    }
-
-    const type = await TypeFactory.save(
-      {
-        ...fieldTypeDTO,
-        owner: this.owner,
-      },
-      { name: fieldTypeDTO.name },
-    )
-
-    return Field.create({
-      api: { id: atom.api?.id ?? '' },
-      defaultValues: null,
-      description: '',
-      fieldType: type,
-      id: v4(),
-      key: field.key,
-      name: compoundCaseToTitleCase(field.key),
-    })
   }
 }

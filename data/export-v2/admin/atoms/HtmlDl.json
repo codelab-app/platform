@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "265300b1-615e-4272-a84d-a5285e2d6475",
+    "kind": "InterfaceType",
+    "name": "HtmlDl API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "265300b1-615e-4272-a84d-a5285e2d6475"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "2f32ee10-0585-421f-bc82-e630d5b5a6a2",
+    "name": "HtmlDl",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "1e9bd520-bc6f-416f-b399-beb343551f50"
+      }
+    ],
+    "type": "HtmlDl"
+  }
+}

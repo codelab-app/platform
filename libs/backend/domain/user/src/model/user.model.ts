@@ -1,22 +1,30 @@
-import { Role } from '@codelab/backend/abstract/codegen'
-import type {
-  Auth0SessionUser,
-  IRole,
-  IUserDTO,
-} from '@codelab/shared/abstract/core'
-import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 export class User implements IUserDTO {
-  id: string
+  static fromSession({ email, nickname, sub, ...session }: Auth0IdToken) {
+    const auth0Id = sub
+    const id = session[JWT_CLAIMS].neo4j_user_id
+    const roles = session[JWT_CLAIMS].roles.map((role) => IRole[role])
+
+    return new User({
+      auth0Id,
+      email,
+      id,
+      roles,
+      username: nickname,
+    })
+  }
 
   auth0Id: string
 
   email: string
 
-  username: string
+  id: string
 
   roles: Array<IRole>
+
+  username: string
 
   constructor({ auth0Id, email, id, roles = [], username }: IUserDTO) {
     this.id = id
@@ -24,19 +32,6 @@ export class User implements IUserDTO {
     this.email = email
     this.roles = roles
     this.username = username
-  }
-
-  static fromSession({ email, nickname, sub, ...session }: Auth0SessionUser) {
-    const auth0Id = sub
-    const roles = session[JWT_CLAIMS].roles
-
-    return new User({
-      auth0Id,
-      email,
-      id: v4(),
-      roles: [Role.Admin],
-      username: nickname,
-    })
   }
 }
 

@@ -4,6 +4,6 @@
 yarn cli tasks build --stage test
 yarn cli tasks unit --stage test
 yarn cli tasks int --stage test
-yarn cli tasks e2e --stage test
+nx e2e platform-e2e --watch false --exit true
 
 ./scripts/git/branch-name-check.sh

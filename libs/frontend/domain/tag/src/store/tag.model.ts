@@ -1,14 +1,15 @@
-import type { ITag } from '@codelab/frontend/abstract/core'
-import { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
+import { getUserService } from '@codelab/frontend/abstract/application'
+import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import type {
   TagCreateInput,
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
-  connectAuth0Owner,
   connectNodeId,
+  connectOwner,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
@@ -23,56 +24,29 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({
-  children,
-  descendants,
-  id,
-  isRoot,
-  name,
-  owner,
-}: ITagDTO) => {
+const create = ({ children, descendants, id, isRoot, name }: ITagDTO) => {
   return new Tag({
     children: children?.map((child) => tagRef(child.id)),
     descendants: descendants?.map((descendant) => tagRef(descendant.id)),
     id,
     isRoot,
     name,
-    owner,
   })
 }
 
 @model('@codelab/Tag')
 export class Tag
   extends Model({
-    children: prop<Array<Ref<ITag>>>(() => []),
-    descendants: prop<Array<Ref<ITag>>>(() => []),
+    children: prop<Array<Ref<ITagModel>>>(() => []),
+    descendants: prop<Array<Ref<ITagModel>>>(() => []),
     id: idProp,
     isRoot: prop<boolean>(false),
     name: prop<string>(),
-    owner: prop<IAuth0Owner>(),
-    parent: prop<Nullable<Ref<ITag>>>(null),
+    parent: prop<Nullable<Ref<ITagModel>>>(null),
   })
-  implements ITag
+  implements ITagModel
 {
-  @computed
-  get label() {
-    return this.name
-  }
-
   static create = create
-
-  @modelAction
-  writeCache({ children, descendants, isRoot, name, owner }: Partial<ITagDTO>) {
-    this.name = name ?? this.name
-    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
-    this.descendants =
-      descendants?.map((descendant) => tagRef(descendant.id)) ??
-      this.descendants
-    this.isRoot = isRoot ?? this.isRoot
-    this.owner = owner ?? this.owner
-
-    return this
-  }
 
   @computed
   get antdNode(): ITagsTreeDataNode {
@@ -88,11 +62,40 @@ export class Tag
     }
   }
 
+  @computed
+  get label() {
+    return this.name
+  }
+
+  @computed
+  get toJson() {
+    return {
+      children: this.children,
+      descendants: this.descendants,
+      id: this.id,
+      isRoot: this.isRoot,
+      name: this.name,
+      parent: this.parent,
+    }
+  }
+
+  @modelAction
+  writeCache({ children, descendants, isRoot, name }: Partial<ITagDTO>) {
+    this.name = name ?? this.name
+    this.children = children?.map((child) => tagRef(child.id)) ?? this.children
+    this.descendants =
+      descendants?.map((descendant) => tagRef(descendant.id)) ??
+      this.descendants
+    this.isRoot = isRoot ?? this.isRoot
+
+    return this
+  }
+
   toCreateInput(): TagCreateInput {
     return {
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
+      owner: connectOwner(this.userService.user),
       parent: connectNodeId(this.parent?.current.id),
     }
   }
@@ -103,9 +106,14 @@ export class Tag
       parent: reconnectNodeId(this.parent?.current.id),
     }
   }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
+  }
 }
 
-export const tagRef = rootRef<ITag>('@codelab/TagRef', {
+export const tagRef = rootRef<ITagModel>('@codelab/TagRef', {
   onResolvedValueChange: (ref, newTag, oldTag) => {
     if (oldTag && !newTag) {
       detach(ref)

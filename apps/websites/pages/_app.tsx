@@ -7,14 +7,36 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
-import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
-import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
-import { StoreProvider } from '@codelab/frontend/presentation/container'
+import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
+import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import { initializeStore } from '@codelab/frontend/infra/mobx'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Analytics } from '@vercel/analytics/react'
 import React, { useMemo } from 'react'
+import { v4 } from 'uuid'
+
+// because user is required we pass a guest user
+export const user: Auth0IdToken = {
+  email: '',
+  /* eslint-disable @typescript-eslint/naming-convention */
+  email_verified: false,
+  family_name: '',
+  given_name: '',
+  'https://api.codelab.app/jwt/claims': { neo4j_user_id: v4(), roles: [] },
+  locale: '',
+  name: '',
+  nickname: '',
+  picture: '',
+  sid: v4(),
+  sub: v4(),
+  updated_at: '',
+  /* eslint-enable @typescript-eslint/naming-convention */
+}
 
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
-  const store = useMemo(() => initializeStore(pageProps), [])
+  const store = useMemo(() => {
+    return initializeStore({ user })
+  }, [user])
 
   return (
     <StoreProvider value={store}>

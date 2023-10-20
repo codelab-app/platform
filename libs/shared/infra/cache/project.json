@@ -8,7 +8,9 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/infra/cache/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/shared/infra/cache/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "configurations": {
         "ci": {
@@ -19,5 +21,10 @@
       }
     }
   },
-  "tags": ["scope:shared"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:shared"
+  ]
 }

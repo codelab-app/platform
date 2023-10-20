@@ -1,0 +1,50 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "89a8932b-e423-4b48-949c-6966cbcc4ec9",
+        "key": "cite",
+        "name": "Cite",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
+    "kind": "InterfaceType",
+    "name": "HtmlQ API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "d5b07621-b322-4e44-977f-41d67cd366c6",
+    "name": "HtmlQ",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "4743e35e-5011-43cf-a8df-25205530923c"
+      }
+    ],
+    "type": "HtmlQ"
+  }
+}

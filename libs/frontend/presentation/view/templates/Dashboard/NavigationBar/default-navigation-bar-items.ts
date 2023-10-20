@@ -1,4 +1,4 @@
-import type { NavigationBarItem } from '@codelab/frontend/presentation//codelab-ui'
+import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -12,23 +12,23 @@ interface SidebarNavigationRequirements {
   appSlug: string
   componentSlug: string
   pageSlug: string
-  userName: string
+  userSlug: string
 }
 
 export const defaultNavigationBarItems = ({
   appSlug,
   componentSlug,
   pageSlug,
-  userName,
+  userSlug,
 }: SidebarNavigationRequirements): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({
   primaryItems: [
     appMenuItem,
-    allPagesMenuItem(appSlug, pageSlug, componentSlug, userName),
-    builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userName),
-    pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userName),
+    allPagesMenuItem(appSlug, pageSlug, componentSlug, userSlug),
+    builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userSlug),
+    pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userSlug),
     resourceMenuItem,
   ],
   secondaryItems: adminMenuItems,

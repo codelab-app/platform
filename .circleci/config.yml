@@ -70,7 +70,7 @@ commands:
             sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
             sudo apt update
-            sudo apt install terraform=1.3.9
+            sudo apt install terraform=1.5.1
           name: Install Terraform
   restore-infra-workspace:
     description: Restore Infra Workspace
@@ -96,9 +96,6 @@ commands:
             - node-modules-{{ checksum "yarn.lock" }}
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NPM Cache
-      - run:
-          command: npx nx reset
-          name: Nx Reset
       - setup-env
   setup-env:
     description: Setup Env
@@ -119,7 +116,7 @@ executors:
         environment:
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
-        image: neo4j:5.4.0
+        image: neo4j:5.11.0
   machine-ubuntu:
     machine:
       image: ubuntu-2004:2022.04.1
@@ -134,10 +131,10 @@ jobs:
     steps:
       - restore-infra-workspace
       - run:
-          command: yarn cli terraform --stage=prod init
+          command: yarn cli terraform --stage prod init
           name: Terraform Init
       - run:
-          command: yarn cli terraform --stage=prod apply
+          command: yarn cli terraform --stage prod apply
           name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
@@ -189,7 +186,7 @@ jobs:
       - run: npx cypress install
       - run: npx cypress verify
       - run:
-          command: yarn cli tasks e2e --stage ci
+          command: npx nx e2e platform-e2e -c ci --verbose
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos
@@ -219,7 +216,7 @@ jobs:
     environment:
       CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
       CIRCLE_REVISION: << pipeline.git.revision >>
-    executor: docker-node
+    executor: docker-node-neo4j
     resource_class: large
     steps:
       - restore-workspace
@@ -230,6 +227,8 @@ jobs:
           command: yarn cli tasks commitlint --stage ci
           name: Commitlint
       - store_test_results:
+          path: ./tmp/reports/lint
+      - store_artifacts:
           path: ./tmp/reports/lint
   notify-failure:
     executor: machine-ubuntu
@@ -331,13 +330,13 @@ jobs:
           command: terraform -chdir=terraform fmt
           name: Terraform Format
       - run:
-          command: yarn cli terraform --stage=prod init
+          command: yarn cli terraform --stage prod init
           name: Terraform Init
       - run:
-          command: yarn cli terraform --stage=prod validate
+          command: yarn cli terraform --stage prod validate
           name: Terraform Validate
       - run:
-          command: yarn cli terraform --stage=prod plan
+          command: yarn cli terraform --stage prod plan
           name: Terraform Plan
       - persist_to_workspace:
           paths:

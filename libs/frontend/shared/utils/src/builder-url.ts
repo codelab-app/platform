@@ -1,4 +1,4 @@
-import type { IApp, IPage } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IPageModel } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
 import isNil from 'lodash/isNil'
 import type { NextRouter } from 'next/router'
@@ -7,7 +7,7 @@ import type { NextRouter } from 'next/router'
  * Extracts the builder route for the app page from the given url so that user
  * can navigate within their app in the builder/preview mode
  */
-const extractBuilderRouteFromUrl = (pages: Array<IPage>, url: string) => {
+const extractBuilderRouteFromUrl = (pages: Array<IPageModel>, url: string) => {
   let appPageFromUrl = pages.find((appPage) => appPage.url === url)
   let matchSegments: Array<string> = []
 
@@ -63,8 +63,8 @@ const extractBuilderRouteFromUrl = (pages: Array<IPage>, url: string) => {
  */
 export const builderRouteChangeHandler = async (
   router: NextRouter,
-  app: IApp,
-  pages: Array<IPage>,
+  app: IAppModel,
+  pages: Array<IPageModel>,
   url: string,
   pathname: PageType.PageBuilder | PageType.PageDetail,
 ) => {
@@ -87,7 +87,7 @@ export const builderRouteChangeHandler = async (
       appSlug: router.query.appSlug,
       pageSlug: page.slug,
       primarySidebarKey: router.query.primarySidebarKey,
-      userName: router.query.userName,
+      userSlug: router.query.userSlug,
     },
   })
 }

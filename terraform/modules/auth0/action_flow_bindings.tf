@@ -1,4 +1,4 @@
-resource "auth0_trigger_binding" "login_flow" {
+resource "auth0_trigger_actions" "login_flow" {
   count = "${terraform.workspace}" == "prod" ? 1 : 0
 
   trigger = "post-login"
@@ -20,7 +20,7 @@ resource "auth0_trigger_binding" "login_flow" {
   }
 }
 
-resource "auth0_trigger_binding" "login_flow_test" {
+resource "auth0_trigger_actions" "login_flow_test" {
   count = "${terraform.workspace}" != "prod" ? 1 : 0
 
   trigger = "post-login"

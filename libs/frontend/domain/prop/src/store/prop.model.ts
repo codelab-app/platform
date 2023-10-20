@@ -1,16 +1,18 @@
-import type { IInterfaceType, IProp } from '@codelab/frontend/abstract/core'
+import type {
+  IInterfaceTypeModel,
+  IPropModel,
+} from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  IPropData,
   typeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
 import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
+import { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import isMatch from 'lodash/isMatch'
 import isNil from 'lodash/isNil'
@@ -21,14 +23,21 @@ import set from 'lodash/set'
 import values from 'lodash/values'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import {
+  clone,
+  frozen,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+} from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
-import { v4 } from 'uuid'
-import { getPropService } from './prop.service'
+import { mergeProps, propSafeStringify } from '../index'
 
 const create = ({ api, data = '{}', id }: IPropDTO) => {
   return new Prop({
-    api: api ? typeRef<IInterfaceType>(api.id) : null,
+    api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
     data: frozen(JSON.parse(data)),
     id,
   })
@@ -37,41 +46,26 @@ const create = ({ api, data = '{}', id }: IPropDTO) => {
 @model('@codelab/Prop')
 export class Prop
   extends Model({
-    api: prop<Nullable<Ref<IInterfaceType>>>(null),
+    api: prop<Nullable<Ref<IInterfaceTypeModel>>>(null),
     data: prop(() => frozen<Nullable<IPropData>>(null)),
     id: idProp,
   })
-  implements IProp
+  implements IPropModel
 {
-  private silentData: IPropData = {}
-
   static create = create
 
-  @modelAction
-  writeCache({ api, data, id }: Partial<IPropDTO>) {
-    this.id = id ?? this.id
-    this.data = data ? frozen(JSON.parse(data)) : this.data
-    this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
-
-    return this
-  }
-
-  toCreateInput(): PropCreateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-      id: this.id,
-    }
-  }
-
-  toUpdateInput(): PropUpdateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-    }
+  @computed
+  get jsonString() {
+    return propSafeStringify(this.values)
   }
 
   @computed
-  private get propService() {
-    return getPropService(this)
+  get toJson() {
+    return {
+      apI: this.api?.current,
+      data: JSON.stringify(this.data.data),
+      id: this.id,
+    }
   }
 
   @computed
@@ -98,15 +92,26 @@ export class Prop
   }
 
   @modelAction
+  clear() {
+    this.data = frozen(null)
+  }
+
+  @modelAction
+  clone() {
+    return clone(this)
+  }
+
+  @modelAction
+  delete(key: string) {
+    // Need to cast since deleting key changes the interface
+    this.data = frozen(omit(this.data.data, key))
+  }
+
+  @modelAction
   set(key: string, value: boolean | object | string) {
     const obj = set({}, key, value)
 
     this.data = frozen(mergeDeepRight(this.data.data ?? {}, obj))
-  }
-
-  // set data without re-rendering
-  setSilently(key: string, value: object) {
-    this.silentData[key] = value
   }
 
   @modelAction
@@ -121,31 +126,35 @@ export class Prop
   }
 
   @modelAction
-  delete(key: string) {
-    // Need to cast since deleting key changes the interface
-    this.data = frozen(omit(this.data.data, key))
+  writeCache({ api, data, id }: Partial<IPropDTO>) {
+    this.id = id ?? this.id
+    this.data = data ? frozen(JSON.parse(data)) : this.data
+    this.api = api ? typeRef<IInterfaceTypeModel>(api.id) : this.api
+
+    return this
   }
 
   get(key: string) {
     return get(merge(this.values, this.silentData), key)
   }
 
-  @modelAction
-  clear() {
-    this.data = frozen(null)
+  // set data without re-rendering
+  setSilently(key: string, value: object) {
+    this.silentData[key] = value
   }
 
-  @modelAction
-  clone() {
-    return this.propService.add({
-      api: this.api?.id ? typeRef<IInterfaceType>(this.api.id) : undefined,
-      data: this.jsonString,
-      id: v4(),
-    })
+  toCreateInput(): PropCreateInput {
+    return {
+      data: JSON.stringify(this.data.data ?? {}),
+      id: this.id,
+    }
   }
 
-  @computed
-  get jsonString() {
-    return propSafeStringify(this.values)
+  toUpdateInput(): PropUpdateInput {
+    return {
+      data: JSON.stringify(this.data.data ?? {}),
+    }
   }
+
+  private silentData: IPropData = {}
 }

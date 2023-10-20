@@ -1,6 +1,5 @@
 import type { Tree } from '@nx/devkit'
 import { formatFiles, getProjects } from '@nx/devkit'
-import type { EslintGeneratorSchema } from './schema'
 import { updateProjectConfig } from './update-project-config'
 
 /**
@@ -8,7 +7,7 @@ import { updateProjectConfig } from './update-project-config'
  */
 export const nxProjectConfigGenerator = async (
   tree: Tree,
-  options: EslintGeneratorSchema,
+  // options: EslintGeneratorSchema,
 ) => {
   const projects = getProjects(tree)
   const projectNames = projects.keys()

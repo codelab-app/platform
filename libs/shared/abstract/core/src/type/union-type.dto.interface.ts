@@ -1,9 +1,19 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import { Typebox } from '@codelab/shared/abstract/typebox'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { ITypeMaybeRef } from './any-type.dto.interface'
+import { IBaseTypeDTO } from './base-type.dto.interface'
 
-export interface IUnionTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.UnionType}`
-  // We need kind and name
-  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>
-}
+export const IUnionTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.UnionType}`)),
+  Type.Object({
+    typesOfUnionType: Type.Array(ITypeMaybeRef),
+  }),
+])
+
+export type IUnionTypeDTO = Static<typeof IUnionTypeDTO>
+
+export const IUnionType = Typebox.RequireTypename(IUnionTypeDTO)
+
+export type IUnionType = Static<typeof IUnionType>

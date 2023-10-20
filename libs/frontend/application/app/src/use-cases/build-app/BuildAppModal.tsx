@@ -1,0 +1,49 @@
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { regeneratePages } from '@codelab/frontend/domain/domain'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import { AutoFields } from 'uniforms-antd'
+
+export const BuildAppModal = observer(() => {
+  const { appService, domainService } = useStore()
+  const app = appService.buildModal.app
+
+  const onSubmit = async () => {
+    if (app) {
+      const domain = domainService.domainsList.find(
+        (_domain) => _domain.app.id === app.id,
+      )
+
+      const pages = app.pages.map((page) => page.url)
+
+      if (domain) {
+        await regeneratePages(pages, domain.name)
+      }
+    }
+  }
+
+  const closeModal = () => appService.buildModal.close()
+
+  return (
+    <ModalForm.Modal
+      okText="Build App"
+      onCancel={closeModal}
+      open={appService.buildModal.isOpen}
+    >
+      <ModalForm.Form
+        model={{}}
+        onSubmit={onSubmit}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while rebuilding app',
+        })}
+        onSubmitSuccess={closeModal}
+        schema={emptyJsonSchema}
+      >
+        <h4>Are you sure you want to build all pages for "{app?.name}"?</h4>
+        <AutoFields />
+      </ModalForm.Form>
+    </ModalForm.Modal>
+  )
+})

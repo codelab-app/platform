@@ -3,14 +3,19 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/domain/resource/src",
   "projectType": "library",
-  "tags": ["scope:frontend", "layer:domain"],
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ],
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/domain/resource/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/domain/resource/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "configurations": {

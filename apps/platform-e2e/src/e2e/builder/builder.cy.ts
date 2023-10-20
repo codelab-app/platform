@@ -1,8 +1,8 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -14,10 +14,12 @@ const ELEMENT_BUTTON = 'Button'
 
 const elements = [
   {
+    atom: IAtomType.ReactFragment,
     name: ELEMENT_CONTAINER,
     parentElement: ROOT_ELEMENT_NAME,
   },
   {
+    atom: IAtomType.ReactFragment,
     name: ELEMENT_ROW,
     parentElement: ELEMENT_CONTAINER,
   },
@@ -51,32 +53,32 @@ const elements = [
 const updatedElementName = 'Container Updated'
 
 describe('Elements CRUD', () => {
+  let app: IAppDTO
+
   before(() => {
-    cy.resetDatabase()
-    loginSession()
+    loginAndSetupData()
 
-    cy.request('/api/cypress/atom')
-      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
-      .then((apps) => {
-        const app = apps.body
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-
-        // select root now so we can update its child later
-        // there is an issue with tree interaction
-        // Increased timeout since builder may take longer to load
-        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-          .should('be.visible')
-          .click({ force: true })
-      })
+    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
   })
 
   describe('create', () => {
     it('should be able to create elements', () => {
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          IPageKindName.Provider,
+        )}/builder`,
+      )
+      cy.getSpinner().should('not.exist')
+
+      // select root now so we can update its child later
+      // there is an issue with tree interaction
+      // Increased timeout since builder may take longer to load
+      cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+        .should('be.visible')
+        .click({ force: true })
+
       cy.createElementTree(elements)
     })
   })

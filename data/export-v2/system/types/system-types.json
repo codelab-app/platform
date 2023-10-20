@@ -1,0 +1,48 @@
+[
+  {
+    "__typename": "PrimitiveType",
+    "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+    "kind": "PrimitiveType",
+    "name": "Boolean",
+    "primitiveKind": "Boolean"
+  },
+  {
+    "__typename": "PrimitiveType",
+    "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+    "kind": "PrimitiveType",
+    "name": "Integer",
+    "primitiveKind": "Integer"
+  },
+  {
+    "__typename": "PrimitiveType",
+    "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+    "kind": "PrimitiveType",
+    "name": "Number",
+    "primitiveKind": "Number"
+  },
+  {
+    "__typename": "PrimitiveType",
+    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+    "kind": "PrimitiveType",
+    "name": "String",
+    "primitiveKind": "String"
+  },
+  {
+    "__typename": "RenderPropType",
+    "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4",
+    "kind": "RenderPropType",
+    "name": "RenderPropType"
+  },
+  {
+    "__typename": "ReactNodeType",
+    "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+    "kind": "ReactNodeType",
+    "name": "ReactNodeType"
+  },
+  {
+    "__typename": "ActionType",
+    "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+    "kind": "ActionType",
+    "name": "ActionType"
+  }
+]

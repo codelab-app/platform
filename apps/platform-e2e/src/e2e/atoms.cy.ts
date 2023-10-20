@@ -1,6 +1,6 @@
+import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '../support/antd/form'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const atomName = 'Button'
 const atomType = IAtomType.AntDesignButton
@@ -8,18 +8,20 @@ const updatedAtomName = 'Updated Button'
 
 describe('Atoms CRUD', () => {
   before(() => {
-    cy.resetDatabase()
-    loginSession()
-    cy.visit('/atoms')
+    loginAndSetupData()
   })
 
   describe('create', () => {
     it('should be able to create atom', () => {
+      cy.visit('/atoms')
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
 
-      cy.getHeaderToolbarItem('Create Atom').click()
+      cy.getCuiSidebar('Atoms')
+        .getCuiSidebarHeader()
+        .getCuiToolbarItem('Create Atom')
+        .click()
 
       cy.setFormFieldValue({ label: 'Name', value: atomName })
 
@@ -29,9 +31,7 @@ describe('Atoms CRUD', () => {
         value: atomType,
       })
 
-      cy.getCuiPopover('Create Atom').within(() => {
-        cy.getToolbarItem('Create').click()
-      })
+      cy.getCuiPopover('Create Atom').getCuiToolbarItem('Create').click()
 
       cy.findByText(atomName).should('exist')
     })
@@ -53,12 +53,11 @@ describe('Atoms CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete an atom', () => {
-      cy.getCuiTreeItemBySecondaryTitle(updatedAtomName).within(() => {
-        cy.getCuiTreeItemToolbar()
-          .getToolbarItem('Delete atom')
-          .should('be.visible')
-          .click()
-      })
+      cy.getCuiTreeItemBySecondaryTitle(updatedAtomName)
+        .getCuiTreeItemToolbar()
+        .getCuiToolbarItem('Delete atom')
+        .should('be.visible')
+        .click()
       cy.getSpinner().should('not.exist')
 
       cy.getModal()

@@ -1,64 +1,54 @@
-import type {
-  ElementCssRules,
-  IAction,
-  IAtom,
-  IComponent,
-  IElementRenderType,
-  IElementRuntimeProp,
-  IHook,
-  IPage,
-  IProp,
-  IPropData,
-  IStore,
-  RenderingError,
-  RenderingMetadata,
-} from '@codelab/frontend/abstract/core'
 import {
-  actionRef,
-  BuilderWidthBreakPoint,
-  componentRef,
-  CssMap,
-  DATA_ELEMENT_ID,
-  defaultBuilderWidthBreakPoints,
-  elementRef,
   getBuilderService,
   getComponentService,
   getElementService,
   getRenderService,
-  IElement,
-  IElementStyle,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IActionModel,
+  IAtomModel,
+  IComponentModel,
+  IElementRenderTypeModel,
+  IElementRuntimeProp,
+  IHook,
+  IPageModel,
+  IPropModel,
+  IStoreModel,
+  RenderingError,
+  RenderingMetadata,
+} from '@codelab/frontend/abstract/domain'
+import {
+  actionRef,
+  componentRef,
+  DATA_ELEMENT_ID,
+  elementRef,
+  IElementModel,
   IElementTreeViewDataNode,
   IEvaluationContext,
-  isAtomInstance,
-  isComponentInstance,
+  isAtom,
+  isAtomRef,
+  isComponent,
+  isComponentRef,
   pageRef,
-  propRef,
   RendererType,
-} from '@codelab/frontend/abstract/core'
-import { getPropService } from '@codelab/frontend/domain/prop'
-import { schemaTransformer } from '@codelab/frontend/domain/type'
-import { createValidator } from '@codelab/frontend/presentation/view'
+} from '@codelab/frontend/abstract/domain'
+import { Prop } from '@codelab/frontend/domain/prop'
 import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import {
-  type IAuth0Owner,
-  type IElementDTO,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IElementDTO, IPropData } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
+  disconnectAll,
   disconnectNodeId,
+  ElementProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
-import {
-  compoundCaseToTitleCase,
-  createUniqueName,
-  slugify,
-} from '@codelab/shared/utils'
+import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import {
@@ -67,40 +57,38 @@ import {
   Model,
   model,
   modelAction,
+  patchRecorder,
   prop,
   Ref,
 } from 'mobx-keystone'
-import {
-  getRenderType,
-  jsonStringToCss,
-  parseCssStringIntoObject,
-} from './utils'
+import { validateElement } from '../services/element.validate'
+import { getRenderType } from './element-render-type.field'
+import { ElementStyle } from './element-style.model'
 
-const create = ({
-  childMapperComponent,
-  childMapperPreviousSibling,
-  childMapperPropKey,
-  firstChild,
-  id,
-  name,
-  nextSibling,
-  page,
-  parent,
-  parentComponent,
-  postRenderAction,
-  preRenderAction,
-  prevSibling,
-  props,
-  renderForEachPropKey,
-  renderIfExpression,
-  renderType,
-  style,
-}: IElementDTO) => {
-  const elementRenderType = getRenderType(renderType)
+const create = (element: IElementDTO): IElementModel => {
+  const {
+    childMapperComponent,
+    childMapperPreviousSibling,
+    childMapperPropKey,
+    firstChild,
+    id,
+    name,
+    nextSibling,
+    page,
+    parentComponent,
+    parentElement,
+    postRenderAction,
+    preRenderAction,
+    prevSibling,
+    props,
+    renderForEachPropKey,
+    renderIfExpression,
+    renderType,
+    style,
+    tailwindClassNames,
+  } = element
 
   return new Element({
-    _page: page ? pageRef(page.id) : null,
-    _parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     childMapperComponent: childMapperComponent
       ? componentRef(childMapperComponent.id)
       : null,
@@ -110,11 +98,13 @@ const create = ({
     childMapperPropKey,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     id,
+    isTextContentEditable: false,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
-
+    page: page ? pageRef(page.id) : null,
+    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     // parent of first child
-    parent: parent?.id ? elementRef(parent.id) : undefined,
+    parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
     postRenderAction: postRenderAction?.id
       ? actionRef(postRenderAction.id)
       : undefined,
@@ -122,124 +112,110 @@ const create = ({
       ? actionRef(preRenderAction.id)
       : undefined,
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
-    props: propRef(props.id),
+    props: Prop.create(props),
     renderForEachPropKey,
     renderIfExpression,
     renderingMetadata: null,
-    renderType: elementRenderType,
-    style,
+    renderType: getRenderType(renderType),
+    style: new ElementStyle({ style }),
+    tailwindClassNames,
   })
 }
 
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // page which has this element as rootElement
-    _page: prop<Nullable<Ref<IPage>>>(null),
-    // component which has this element as rootElement
-    _parentComponent: prop<Nullable<Ref<IComponent>>>(null),
-
-    childMapperComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    // The patches don't record until attached to root, so initial creation won't be tracked
+    _modified: prop(true).withSetter(),
+    childMapperComponent:
+      prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     childMapperPreviousSibling:
-      prop<Nullable<Ref<IElement>>>(null).withSetter(),
+      prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
-    firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-    // Marks the element as an instance of a specific component
-    // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    firstChild: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
     id: idProp.withSetter(),
+    isTextContentEditable: prop<boolean>(false).withSetter(),
     name: prop<string>().withSetter(),
-    nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    nextSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
-    owner: prop<Nullable<IAuth0Owner>>(null),
+    owner: prop<Nullable<IEntity>>(null),
+    // page which has this element as rootElement
+    page: prop<Nullable<Ref<IPageModel>>>(null),
+    // component which has this element as rootElement
+    parentComponent: prop<Nullable<Ref<IComponentModel>>>(null).withSetter(),
     // Data used for tree initializing, before our Element model is ready
-    parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-    postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
-    preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
-    prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-    props: prop<Ref<IProp>>().withSetter(),
+    parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
+    postRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
+    preRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
+    prevSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
+    props: prop<IPropModel>().withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
-    // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
-    renderType: prop<IElementRenderType | null>(null).withSetter(),
+    renderType: prop<IElementRenderTypeModel>().withSetter(),
+    // .withTransform(renderTypeTransform()),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
-    style: prop<Nullable<string>>(null).withSetter(),
+    style: prop(() => new ElementStyle({})),
+    tailwindClassNames: prop<Nullable<Array<string>>>(null).withSetter(),
   })
-  implements IElement
+  implements IElementModel
 {
+  static create = create
+
+  onAttachedToRootStore() {
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // Skip patches related to setting '_modified' to false
+
+        return !patches.some((patch) => {
+          return patch.path.includes('_modified')
+        })
+      },
+      onPatches: (patches, inversePatches) => {
+        this.set_modified(true)
+      },
+      recording: true,
+    })
+
+    return () => recorder.dispose()
+  }
+
+  /**
+   * Internal system props for meta data, use double underline for system-defined identifiers.
+   */
   @computed
-  get componentService() {
-    return getComponentService(this)
+  get __metadataProps() {
+    return { [DATA_ELEMENT_ID]: this.id, key: this.id }
   }
 
   @computed
-  get elementService() {
-    return getElementService(this)
-  }
+  get ancestorError() {
+    const parent = this.closestParentElement?.current
 
-  @computed
-  get renderService() {
-    return getRenderService(this)
-  }
-
-  @computed
-  get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  get builderService() {
-    return getBuilderService(this)
-  }
-
-  @computed
-  get closestRootElement(): IElement {
-    return this.closestParent
-      ? this.closestParent.closestRootElement
-      : (this as IElement)
-  }
-
-  @computed
-  get parentComponent(): Nullable<Ref<IComponent>> {
-    return this.closestParent?.parentComponent ?? this._parentComponent
-  }
-
-  @computed
-  get page(): Nullable<Ref<IPage>> {
-    return this.closestParent?.page ?? this._page
-  }
-
-  @computed
-  get closestContainerNode(): IComponent | IPage {
-    const closestNode = this.page || this.parentComponent
-
-    if (!closestNode) {
-      throw new Error('Element has no node attached to')
+    if (!parent) {
+      return null
     }
 
-    return closestNode.current
+    if (parent.renderingMetadata?.error) {
+      return parent.renderingMetadata.error
+    }
+
+    return parent.ancestorError
   }
 
   @computed
-  get store(): Ref<IStore> {
-    return this.closestContainerNode.store
+  get atomName() {
+    if (isAtom(this.renderType.current)) {
+      return this.renderType.current.name || this.renderType.current.type
+    }
+
+    return ''
   }
 
   @computed
-  get providerStore(): Ref<IStore> | undefined {
-    return this.renderService.activeRenderer?.current.providerTree?.current
-      .rootElement.current.store
-  }
-
-  @computed
-  get urlProps(): IPropData | undefined {
-    return this.renderService.activeRenderer?.current.urlSegments
-  }
-
-  @computed
-  get children(): Array<IElement> {
+  get children(): Array<IElementModel> {
     const firstChild = this.firstChild
 
     if (!firstChild) {
@@ -247,7 +223,7 @@ export class Element
     }
 
     const results = []
-    let currentTraveledNode: Maybe<IElement> = firstChild.current
+    let currentTraveledNode: Maybe<IElementModel> = firstChild.current
 
     // parent = el1 -> el2 -> el3 -> end
     // given el1, travel next using next sibling until next = no more next sibling
@@ -259,17 +235,23 @@ export class Element
     return results
   }
 
-  /**
-   * Only the root doesn't have a closestParent
-   */
   @computed
-  get isRoot() {
-    return !this.closestParent?.id
+  get closestContainerNode() {
+    const closestContainerNode =
+      this.closestSubTreeRootElement.parentComponent?.current ??
+      this.closestSubTreeRootElement.page?.current
+
+    if (!closestContainerNode) {
+      console.log(this.toTreeNode, this.closestSubTreeRootElement.toTreeNode)
+      throw new Error('Element has no node attached to')
+    }
+
+    return closestContainerNode
   }
 
   /**
    * We have the concept of `parent` and `closestParent`.
-   *
+   closestParentElement?.maybeCurrent?.toTreeNode,*
    * `parent` has an edge connection like `siblings` in the database.
    *
    * `closestParent` is a conceptual value, we traverse up the sibling chain until we find the first parent
@@ -281,20 +263,20 @@ export class Element
    * `nextSibling` has no `parent`, but has a `closestParent` of `parentA`
    */
   @computed
-  get closestParent(): IElement | null {
-    const parent = this.parent
+  get closestParentElement() {
+    const parent = this.parentElement
 
     if (parent) {
-      return parent.current
+      return parent
     }
 
     let traveledNode = this.prevSibling?.maybeCurrent
 
     while (traveledNode) {
-      const currentParent = traveledNode.parent
+      const currentParent = traveledNode.parentElement
 
       if (currentParent) {
-        return currentParent.current
+        return currentParent
       }
 
       /**
@@ -306,16 +288,65 @@ export class Element
     return null
   }
 
+  /**
+   * The root element is the child of a container node, a tree could have many root elements
+   */
   @computed
-  get runtimeProp(): Maybe<IElementRuntimeProp> {
-    return this.renderService.activeRenderer?.current.runtimeProps.get(
-      this.id,
-    ) as Maybe<IElementRuntimeProp>
+  get closestSubTreeRootElement(): IElementModel {
+    return this.closestParentElement
+      ? this.closestParentElement.current.closestSubTreeRootElement
+      : this
+  }
+
+  /**
+   * We could fetch descendantElements for each element, but that would require too much GraphQL data, instead we can compute it from children.
+   *
+   * We reserve descendantElements for rootElements only
+   */
+  @computed
+  get descendantElements(): Array<IElementModel> {
+    const descendants: Array<IElementModel> = []
+
+    for (const child of this.children) {
+      descendants.push(child)
+      descendants.push(...child.descendantElements)
+    }
+
+    return descendants
+  }
+
+  @computed
+  get expressionEvaluationContext(): IEvaluationContext {
+    return {
+      ...this.propsEvaluationContext,
+      props: this.runtimeProp?.evaluatedProps || {},
+    }
+  }
+
+  /**
+   * Only the root doesn't have a closestParent
+   */
+  @computed
+  get isRoot() {
+    return !this.closestParentElement?.id
+  }
+
+  @computed
+  get label() {
+    return (
+      this.name ||
+      this.renderType.maybeCurrent?.name ||
+      (isAtomRef(this.renderType)
+        ? compoundCaseToTitleCase((this.renderType.current as IAtomModel).type)
+        : undefined) ||
+      this.parentComponent?.maybeCurrent?.name ||
+      ''
+    )
   }
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {
-    const component = this.parentComponent?.current
+    const component = this.closestSubTreeRootElement.parentComponent?.current
 
     return {
       actions: this.store.current.actionRunners,
@@ -333,22 +364,16 @@ export class Element
   }
 
   @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return {
-      ...this.propsEvaluationContext,
-      props: this.runtimeProp?.evaluatedProps || {},
-    }
+  get providerStore(): Ref<IStoreModel> | undefined {
+    return this.renderService.activeRenderer?.current.providerTree?.current
+      .rootElement.current.store
   }
 
-  get breakpointsByPrecedence() {
-    const breakpoints = [
-      BuilderWidthBreakPoint.MobilePortrait,
-      BuilderWidthBreakPoint.MobileLandscape,
-      BuilderWidthBreakPoint.Tablet,
-      BuilderWidthBreakPoint.Desktop,
-    ]
-
-    return breakpoints
+  @computed
+  get runtimeProp(): Maybe<IElementRuntimeProp> {
+    return this.renderService.activeRenderer?.current.runtimeProps.get(
+      this.id,
+    ) as Maybe<IElementRuntimeProp>
   }
 
   @computed
@@ -356,198 +381,55 @@ export class Element
     return slugify(this.name)
   }
 
-  get styleStringWithBreakpoints(): string {
-    const parsedCss = this.styleParsed
-    const activeRenderer = this.renderService.activeRenderer?.current
-    const rendererType = activeRenderer?.rendererType
-    const isProduction = rendererType === RendererType.Production
-    const mediaQueryString = isProduction ? '@media' : '@container root'
-    const breakpointStyles = []
-
-    for (const breakpoint of this.breakpointsByPrecedence) {
-      const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
-
-      const breakpointWidth =
-        defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
-
-      const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
-
-      if (breakpointStyle) {
-        breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
-            ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
-          }`,
-        )
-      }
-    }
-
-    return breakpointStyles.join('\n')
+  @computed
+  get store(): Ref<IStoreModel> {
+    return this.closestContainerNode.store
   }
 
   @computed
-  get stylesInheritedFromOtherBreakpoints() {
-    const currentBreakpoint = this.builderService.selectedBuilderBreakpoint
-    const parsedStyle = this.styleParsed
-    let inheritedStyles = {} as ElementCssRules
-
-    for (const breakpoint of this.breakpointsByPrecedence) {
-      if (breakpoint === currentBreakpoint) {
-        break
-      }
-
-      const { cssString, guiString } = parsedStyle[breakpoint] ?? {}
-      const cssObject = parseCssStringIntoObject(cssString ?? '')
-      const guiObject = JSON.parse(guiString ?? '{}')
-
-      inheritedStyles = { ...inheritedStyles, ...cssObject, ...guiObject }
-    }
-
-    const { cssString, guiString } = parsedStyle[currentBreakpoint] ?? {}
-    const cssObject = parseCssStringIntoObject(cssString ?? '')
-    const guiObject = JSON.parse(guiString ?? '{}')
-    const currentStyles = { ...cssObject, ...guiObject }
-
-    return { currentStyles, inheritedStyles }
-  }
-
-  @computed
-  get customCss() {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const { cssString } = this.styleParsed[breakpoint] ?? {}
-
-    return cssString
-  }
-
-  @computed
-  get guiCss() {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const { guiString } = this.styleParsed[breakpoint] ?? {}
-
-    return guiString
-  }
-
-  @computed
-  get styleParsed(): IElementStyle {
-    return JSON.parse(this.style || '{}')
-  }
-
-  @modelAction
-  setCustomCss(cssString: string) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const styleObject = this.styleParsed
-    styleObject[breakpoint] = { ...styleObject[breakpoint], cssString }
-    this.style = JSON.stringify(styleObject)
-  }
-
-  @modelAction
-  appendToGuiCss(css: CssMap) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss || '{}')
-    const newGuiCss = { ...curGuiCss, ...css }
-    const guiString = JSON.stringify(newGuiCss)
-
-    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
-    this.style = JSON.stringify(styleObject)
-  }
-
-  @modelAction
-  deleteFromGuiCss(propNames: Array<string>) {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss || '{}')
-    propNames.forEach((propName) => {
-      if (curGuiCss[propName]) {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete curGuiCss[propName]
-      }
-    })
-
-    const guiString = JSON.stringify(curGuiCss)
-    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
-    this.style = JSON.stringify(styleObject)
-  }
-
-  @modelAction
-  setParentComponent(component: Ref<IComponent>) {
-    this._parentComponent = component
-  }
-
-  @modelAction
-  setPage(page: Ref<IPage>) {
-    this._page = page
-  }
-
-  @modelAction
-  setRenderingError(error: Nullish<RenderingError>) {
-    this.renderingMetadata = {
-      error,
+  get toJson() {
+    return {
+      childMapperComponent: this.childMapperComponent,
+      childMapperPreviousSibling: this.childMapperPreviousSibling,
+      childMapperPropKey: this.childMapperPropKey,
+      closestContainerNode: this.closestContainerNode,
+      firstChild: this.firstChild,
+      id: this.id,
+      // isRoot: this.isRoot,
+      name: this.name,
+      nextSibling: this.nextSibling,
+      page: this.page,
+      parentComponent: this.parentComponent,
+      parentElement: this.parentElement,
+      postRenderAction: this.postRenderAction,
+      preRenderAction: this.preRenderAction,
+      prevSibling: this.prevSibling,
+      props: this.props.toJson,
+      renderForEachPropKey: this.renderForEachPropKey,
+      renderIfExpression: this.renderIfExpression,
+      renderType: this.renderType.current.toJson,
+      style: this.style.toString(),
     }
   }
 
   @computed
-  get propsHaveErrors() {
-    if (!this.renderType?.current.api?.current) {
-      return false
+  get toTreeNode() {
+    return {
+      firstChild: this.firstChild?.current.toId,
+      id: this.id,
+      name: this.name,
+      nextSibling: this.nextSibling?.current.toId,
+      parentElement: this.parentElement?.current.toId,
+      prevSibling: this.prevSibling?.current.toId,
     }
-
-    const schema = schemaTransformer.transform(
-      this.renderType.current.api.current,
-    )
-
-    const validate = createValidator(schema)
-    const result = validate(this.props.current.values)
-
-    return result ? result.details.length > 0 : false
   }
 
   @computed
-  get ancestorError() {
-    const parent = this.closestParent
-
-    if (!parent) {
-      return null
+  get toId() {
+    return {
+      id: this.id,
+      name: this.name,
     }
-
-    if (parent.renderingMetadata?.error) {
-      return parent.renderingMetadata.error
-    }
-
-    return parent.ancestorError
-  }
-
-  /**
-   * We could fetch descendantElements for each element, but that would require too much GraphQL data, instead we can compute it from children.
-   *
-   * We reserve descendantElements for rootElements only
-   */
-  @computed
-  get descendantElements(): Array<IElement> {
-    const descendants: Array<IElement> = []
-
-    for (const child of this.children) {
-      descendants.push(child)
-      descendants.push(...child.descendantElements)
-    }
-
-    return descendants
-  }
-
-  @computed
-  get label() {
-    return (
-      this.name ||
-      this.renderType?.maybeCurrent?.name ||
-      (isAtomInstance(this.renderType)
-        ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
-        : undefined) ||
-      this.parentComponent?.maybeCurrent?.name ||
-      ''
-    )
   }
 
   @computed
@@ -555,24 +437,16 @@ export class Element
     return {
       primary: this.label,
       secondary:
-        this.renderType?.maybeCurrent?.name ||
-        (isAtomInstance(this.renderType)
+        this.renderType.maybeCurrent?.name ||
+        (isAtom(this.renderType.current)
           ? compoundCaseToTitleCase(this.renderType.current.type)
           : undefined),
     }
   }
 
-  /**
-   * Internal system props for meta data, use double underline for system-defined identifiers.
-   */
-  @computed
-  get __metadataProps() {
-    return { [DATA_ELEMENT_ID]: this.id, key: this.id }
-  }
-
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    const extraChildren: Array<IElement> = []
+    const extraChildren: Array<IElementModel> = []
 
     // Creates the tree node n times for the component based on the child mapper prop
     if (
@@ -597,8 +471,8 @@ export class Element
 
     // Add assigned ReactNode props as children
     const reactNodesChildren: Array<IElementTreeViewDataNode> = []
-    Object.keys(this.props.current.values).forEach((key, index) => {
-      const propData = this.props.current.values[key]
+    Object.keys(this.props.values).forEach((key, index) => {
+      const propData = this.props.values[key]
 
       const component = this.componentService.components.get(propData.value)
         ?.rootElement.current
@@ -637,61 +511,223 @@ export class Element
       key: this.id,
       node: this,
       primaryTitle: this.treeTitle.primary,
-      rootKey: this.closestRootElement.id,
+      rootKey: this.closestSubTreeRootElement.id,
       secondaryTitle: this.treeTitle.secondary,
       title: `${this.treeTitle.primary} (${this.treeTitle.secondary})`,
     }
   }
 
   @computed
-  get atomName() {
-    if (isAtomInstance(this.renderType)) {
-      return this.renderType.current.name || this.renderType.current.type
-    }
-
-    return ''
+  get urlProps(): IPropData | undefined {
+    return this.renderService.activeRenderer?.current.urlSegments
   }
 
-  static create = create
+  /**
+   * Attach the new element as as nextSibling. Leaves `nextSibling` still connected to `sibling`.
+   *
+   * (sibling)-(nextSibling)
+   * (sibling)-[element]-x-(nextSibling)
+   *
+   * @param prevSibling
+   * @returns
+   */
+  @modelAction
+  attachAsNextSibling(prevSibling: IElementModel) {
+    console.debug('Element.attachAsNextSibling()', prevSibling.toTreeNode)
+
+    const oldNextSibling = prevSibling.nextSibling?.current
+
+    if (oldNextSibling) {
+      oldNextSibling.prevSibling = elementRef(this)
+      this.setNextSibling(elementRef(oldNextSibling))
+    }
+
+    this.prevSibling = elementRef(prevSibling.id)
+
+    prevSibling.nextSibling = elementRef(this.id)
+  }
+
+  /**
+   * Attach the new element as prevSibling. Leaves `prevSibling` still connected to `sibling`.
+   *
+   * (prevSibling)-(sibling)
+   * (prevSibling)-[element]-(sibling)
+   *
+   * There is a special case, if prevSibling is the firstChild, we need to connect the new element to the parent as well
+   */
+  @modelAction
+  attachAsPrevSibling(nextSibling: IElementModel) {
+    const nextSiblingParentElement = nextSibling.parentElement?.current
+
+    if (nextSiblingParentElement) {
+      this.attachAsFirstChild(nextSiblingParentElement)
+
+      return
+    }
+
+    const oldPrevSibling = nextSibling.prevSibling?.current
+
+    nextSibling.prevSibling = elementRef(this)
+
+    if (oldPrevSibling) {
+      oldPrevSibling.nextSibling = elementRef(this)
+      console.log(oldPrevSibling.toTreeNode)
+
+      this.prevSibling = elementRef(oldPrevSibling)
+    }
+
+    this.nextSibling = elementRef(nextSibling)
+  }
+
+  /**
+   * This function will replace the current `firstChild` with our new element. You'll need to call other function to handle attaching firstChild
+   *
+   * (parent)
+   * \
+   * (firstChild)
+   *
+   *    (parent)
+   *       \   \
+   * [element]  x
+   *             \
+   *             (firstChild)
+   */
+  @modelAction
+  attachAsFirstChild(parentElement: IElementModel) {
+    /**
+     * If parent has existing first child, detach it
+     */
+    const parentElementsFirstChild = parentElement.firstChild?.current
+
+    if (parentElementsFirstChild) {
+      parentElementsFirstChild.parentElement = null
+
+      parentElementsFirstChild.prevSibling = elementRef(this)
+
+      this.nextSibling = elementRef(parentElementsFirstChild)
+    }
+
+    /**
+     * Add new first child
+     */
+    parentElement.firstChild = elementRef(this.id)
+
+    this.parentElement = elementRef(parentElement)
+  }
+
+  @modelAction
+  clone(cloneIndex?: number) {
+    const clonedElement: IElementModel = clone<IElementModel>(this, {
+      generateNewIds: true,
+    })
+
+    // FIXME: add atom and props
+    clonedElement.setName(
+      `${this.name}${isNil(cloneIndex) ? '' : ` ${cloneIndex}`}`,
+    )
+    clonedElement.setSourceElement(elementRef(this.id))
+
+    // store elements in elementService
+    this.elementService.clonedElements.set(clonedElement.id, clonedElement)
+
+    return clonedElement
+  }
+
+  /**
+   * This function connects other elements together to form the new tree structure.
+   *
+   * This element will still reference others, we can only delete this model, not change its reference to others.
+   *
+   */
+  @modelAction
+  detachFromTree() {
+    console.debug('Element.detachFromTree()', this.toTreeNode)
+
+    const nextSibling = this.nextSibling?.current
+    const prevSibling = this.prevSibling?.current
+    const parentElement = this.parentElement?.current
+
+    if (nextSibling) {
+      nextSibling.prevSibling = prevSibling ? elementRef(prevSibling) : null
+      this.nextSibling = null
+    }
+
+    if (prevSibling) {
+      prevSibling.nextSibling = nextSibling ? elementRef(nextSibling) : null
+      this.prevSibling = null
+    }
+
+    /**
+     * Move nextSibling to firstChild
+     */
+    if (parentElement) {
+      if (nextSibling) {
+        parentElement.firstChild = elementRef(nextSibling)
+        nextSibling.parentElement = elementRef(parentElement)
+      } else {
+        parentElement.firstChild = null
+      }
+
+      this.parentElement = null
+    }
+
+    /**
+     * The element cannot exist below state, so we delete in calling function instead of changing the elementTree, since this would cause some invariants to break.
+     */
+    // this.nextSibling = null
+    // this.prevSibling = null
+    // this.parentElement = null
+
+    return this
+  }
+
+  @modelAction
+  setRenderingError(error: Nullish<RenderingError>) {
+    this.renderingMetadata = {
+      error,
+    }
+  }
 
   @modelAction
   toCreateInput(): ElementCreateInput {
-    /**
-     * Here we'll want to set default value based on the interface
-     */
-    const renderAtomType = isAtomInstance(this.renderType)
-      ? connectNodeId(this.renderType.id)
-      : undefined
-
-    const renderComponentType = isComponentInstance(this.renderType)
-      ? connectNodeId(this.renderType.id)
-      : undefined
-
     return {
-      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
+      compositeKey: ElementProperties.elementCompositeKey(
+        this.name,
+        this.closestContainerNode,
+      ),
+      firstChild: connectNodeId(this.firstChild?.id),
       id: this.id,
+      nextSibling: connectNodeId(this.nextSibling?.id),
+      parentElement: connectNodeId(this.parentElement?.id),
+      prevSibling: connectNodeId(this.prevSibling?.id),
       props: {
         create: {
-          node: this.props.current.toCreateInput(),
+          node: this.props.toCreateInput(),
         },
       },
-      renderAtomType,
-      renderComponentType,
-      style: this.style,
+      renderType: {
+        Atom: isAtomRef(this.renderType)
+          ? connectNodeId(this.renderType.id)
+          : undefined,
+        Component: isComponent(this.renderType)
+          ? connectNodeId(this.renderType.id)
+          : undefined,
+      },
+      style: this.style.toString(),
     }
   }
 
   @modelAction
   toUpdateInput(): ElementUpdateInput {
     // We need to disconnect the atom if render type changed to component or empty
-    const renderAtomType = isAtomInstance(this.renderType)
+    const renderAtomType = isAtomRef(this.renderType)
       ? reconnectNodeId(this.renderType.id)
-      : disconnectNodeId(undefined)
+      : disconnectAll()
 
     // We need to disconnect the component if render type changed to atom or empty
-    const renderComponentType = isComponentInstance(this.renderType)
+    const renderComponentType = isComponentRef(this.renderType)
       ? reconnectNodeId(this.renderType.id)
-      : disconnectNodeId(undefined)
+      : disconnectAll()
 
     const preRenderAction = this.preRenderAction?.id
       ? reconnectNodeId(this.preRenderAction.id)
@@ -710,161 +746,45 @@ export class Element
       : disconnectNodeId(undefined)
 
     return {
-      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       childMapperComponent,
       childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
+      compositeKey: ElementProperties.elementCompositeKey(
+        this.name,
+        this.closestContainerNode,
+      ),
       postRenderAction,
       preRenderAction,
-      renderAtomType,
-      renderComponentType,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
-      style: this.style,
+      renderType: {
+        Atom: renderAtomType,
+        Component: renderComponentType,
+      },
+      style: this.style.style,
+      tailwindClassNames: this.tailwindClassNames,
     }
   }
 
   @modelAction
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
-    '_compoundName' | 'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+    | 'compositeKey'
+    | 'firstChild'
+    | 'nextSibling'
+    | 'parentElement'
+    | 'prevSibling'
   > {
     return {
-      // _compoundName could change too
-      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
+      compositeKey: ElementProperties.elementCompositeKey(
+        this.name,
+        this.closestContainerNode,
+      ),
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
-      parent: reconnectNodeId(this.parent?.id),
+      parentElement: reconnectNodeId(this.parentElement?.id),
       prevSibling: reconnectNodeId(this.prevSibling?.id),
     }
-  }
-
-  @modelAction
-  clone(cloneIndex?: number) {
-    const clonedElement: IElement = clone<IElement>(this, {
-      generateNewIds: true,
-    })
-
-    // FIXME: add atom and props
-    clonedElement.setName(
-      `${this.name}${isNil(cloneIndex) ? '' : ` ${cloneIndex}`}`,
-    )
-    clonedElement.setSourceElement(elementRef(this.id))
-
-    // store elements in elementService
-    this.elementService.clonedElements.set(clonedElement.id, clonedElement)
-
-    return clonedElement
-  }
-
-  /**
-   * This removes the `element` and attaches the siblings together
-   *
-   * (prevSibling)-[element]-(nextSibling)
-   *
-   * (prevSibling)-(nextSibling)
-   */
-  @modelAction
-  connectPrevToNextSibling() {
-    if (this.nextSibling) {
-      this.nextSibling.current.prevSibling = this.prevSibling
-        ? elementRef(this.prevSibling.current)
-        : null
-    }
-
-    if (this.prevSibling) {
-      this.prevSibling.current.nextSibling = this.nextSibling
-        ? elementRef(this.nextSibling.current)
-        : null
-    }
-
-    this.nextSibling = null
-    this.prevSibling = null
-  }
-
-  /**
-   * This will connect any siblings to the current element's parent
-   *
-   * (parent)
-   * \
-   *  [element]-(nextSibling)
-   */
-  @modelAction
-  detachFromParent() {
-    if (!this.parent) {
-      return
-    }
-
-    /**
-     * Connect nextSibling to the parent
-     */
-    if (this.nextSibling) {
-      // Connect parent to nextSibling
-      this.parent.current.firstChild = elementRef(this.nextSibling.current)
-
-      // Connect nextSibling to parent
-      this.nextSibling.current.setParent(elementRef(this.parent.id))
-    } else {
-      this.parent.current.firstChild = null
-    }
-
-    this.parent = null
-  }
-
-  @modelAction
-  detachAsFirstChild() {
-    this.parent = null
-  }
-
-  /**
-   * This function will replace the current `firstChild` with our new element. You'll need to call other function to handle attaching firstChild
-   *
-   * (parent)
-   * \
-   * (firstChild)
-   *
-   *    (parent)
-   *       \   \
-   * [element]  x
-   *             \
-   *             (firstChild)
-   */
-  @modelAction
-  attachToParentAsFirstChild(parentElement: IElement) {
-    parentElement.firstChild?.current.detachAsFirstChild()
-    this.parent = elementRef(parentElement)
-    parentElement.firstChild = elementRef(this.id)
-  }
-
-  /**
-   * Attach the new element as prevSibling. Leaves `prevSibling` still connected to `sibling`.
-   *
-   * (prevSibling)-(sibling)
-   * (prevSibling)-x-[element]-(sibling)
-   *
-   * @param sibling
-   * @returns
-   */
-  @modelAction
-  attachAsPrevSibling(sibling: IElement) {
-    // Add element as as prevSibling
-    sibling.prevSibling = elementRef(this)
-    this.nextSibling = elementRef(sibling)
-  }
-
-  /**
-   * Attach the new element as as nextSibling. Leaves `nextSibling` still connected to `sibling`.
-   *
-   * (sibling)-(nextSibling)
-   * (sibling)-[element]-x-(nextSibling)
-   *
-   * @param sibling
-   * @returns
-   */
-  @modelAction
-  attachAsNextSibling(sibling: IElement) {
-    sibling.nextSibling = elementRef(this.id)
-    this.prevSibling = elementRef(sibling.id)
   }
 
   @modelAction
@@ -875,8 +795,8 @@ export class Element
     firstChild,
     name,
     nextSibling,
-    parent,
     parentComponent,
+    parentElement,
     postRenderAction,
     preRenderAction,
     prevSibling,
@@ -886,16 +806,15 @@ export class Element
     renderType,
     style,
   }: Partial<IElementDTO>) {
-    const elementRenderType = getRenderType(renderType)
-
     this.name = name ?? this.name
-    this.style = style ?? this.style
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
-    this.renderType = elementRenderType ?? null
-    this.props = props?.id ? propRef(props.id) : this.props
+    this.renderType = renderType ? getRenderType(renderType) : this.renderType
+    this.props = props ? this.props.writeCache(props) : this.props
     this.childMapperPropKey = childMapperPropKey ?? null
-    this.parent = parent?.id ? elementRef(parent.id) : this.parent
+    this.parentElement = parentElement?.id
+      ? elementRef(parentElement.id)
+      : this.parentElement
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling
@@ -905,9 +824,9 @@ export class Element
     this.firstChild = firstChild?.id
       ? elementRef(firstChild.id)
       : this.firstChild
-    this._parentComponent = parentComponent
+    this.parentComponent = parentComponent
       ? componentRef(parentComponent.id)
-      : this._parentComponent
+      : this.parentComponent
     this.preRenderAction = preRenderAction
       ? actionRef(preRenderAction.id)
       : null
@@ -921,6 +840,25 @@ export class Element
       ? elementRef(childMapperPreviousSibling.id)
       : null
 
+    this.style.setStyle(style ?? this.style.toString())
+
+    validateElement(this)
+
     return this
+  }
+
+  @computed
+  private get componentService() {
+    return getComponentService(this)
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
+  }
+
+  @computed
+  private get renderService() {
+    return getRenderService(this)
   }
 }

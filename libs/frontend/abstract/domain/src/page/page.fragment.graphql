@@ -1,0 +1,87 @@
+#
+# app.id is required to compute name
+#
+fragment PagePreview on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  rootElement {
+    id
+  }
+  store {
+    id
+  }
+  url
+}
+
+fragment Page on Page {
+  # slug
+  app {
+    id
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  rootElement {
+    descendantElements {
+      ...Element
+    }
+    ...Element
+  }
+  store {
+    ...Store
+  }
+  url
+}
+
+fragment PageDevelopment on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  # slug
+  rootElement {
+    descendantElements {
+      ...Element
+    }
+    ...Element
+  }
+  store {
+    ...Store
+  }
+  url
+}
+
+fragment PageProduction on Page {
+  app {
+    id
+  }
+  id
+  kind
+  name
+  pageContentContainer {
+    id
+  }
+  rootElement {
+    descendantElements {
+      ...ElementProduction
+    }
+    ...ElementProduction
+  }
+  slug
+  store {
+    ...Store
+  }
+  url
+}

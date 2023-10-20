@@ -1,0 +1,47 @@
+fragment Component on Component {
+  __typename
+  api {
+    ...InterfaceType
+  }
+  childrenContainerElement {
+    id
+  }
+  id
+  keyGenerator
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}
+
+fragment ComponentProduction on Component {
+  childrenContainerElement {
+    id
+  }
+  id
+  keyGenerator
+  name
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  rootElement {
+    id
+    name
+  }
+  store {
+    ...Store
+  }
+}

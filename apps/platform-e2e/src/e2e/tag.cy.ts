@@ -1,32 +1,29 @@
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import {
   CreateData,
   DeleteTreeData,
   UpdateData,
 } from '@codelab/shared/data/test'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
+
+const testCreate = (name: string, parentName?: string) => {
+  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
+
+  if (parentName) {
+    cy.toggleTreeNodeSwitcher(parentName)
+  }
+
+  cy.getTree().findByText(name).should('exist')
+}
 
 describe('Tag CRUD', () => {
   before(() => {
-    cy.resetDatabase()
-    loginSession()
-
-    cy.request('/api/cypress/tag').then(() => {
-      cy.visit('/tags')
-    })
+    loginAndSetupData()
+    cy.postApiRequest('/tag/seed-cypress-tag')
   })
 
   describe('create', () => {
-    const testCreate = (name: string, parentName?: string) => {
-      cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
-
-      if (parentName) {
-        cy.toggleTreeNodeSwitcher(parentName)
-      }
-
-      cy.getTree().findByText(name).should('exist')
-    }
-
     it('should be able to create a tag', () => {
+      cy.visit('/tags')
       cy.createTagByUI(CreateData.tag_0)
       testCreate(CreateData.tag_0)
     })
@@ -57,7 +54,7 @@ describe('Tag CRUD', () => {
   describe('delete', () => {
     const deleteTagNodeInTree = (tagName: string) => {
       cy.toggleTreeNodeChk(tagName)
-      cy.getCuiSidebar('Tags').getToolbarItem('Delete Tag').click()
+      cy.getCuiSidebar('Tags').getCuiToolbarItem('Delete Tag').click()
       cy.getModal().findByText(`Are you sure you want to delete ${tagName}?`)
       cy.getModal()
         .getModalAction(/Delete Tags/)

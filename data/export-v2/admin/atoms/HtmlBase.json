@@ -1,0 +1,69 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "def9aa94-66ea-4a02-b2c4-8d1c5afebc5f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "8a166710-a0a1-4bb9-b041-604e9d42269d",
+        "key": "href",
+        "name": "Href",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "def9aa94-66ea-4a02-b2c4-8d1c5afebc5f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "724ebf58-07c6-4fd1-8ca9-fadeca7279ac",
+        "key": "target",
+        "name": "Target",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "def9aa94-66ea-4a02-b2c4-8d1c5afebc5f",
+    "kind": "InterfaceType",
+    "name": "HtmlBase API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "def9aa94-66ea-4a02-b2c4-8d1c5afebc5f"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "cd6025c8-4c16-4c3e-a835-1d71f3545804",
+    "name": "HtmlBase",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "4c7db600-8dc7-40c3-9f25-b343e829ae1c"
+      }
+    ],
+    "type": "HtmlBase"
+  }
+}

@@ -1,4 +1,4 @@
-export const propSelectionSet = `{
+export const propSelectionSet = `
   id
   data
-}`
+`

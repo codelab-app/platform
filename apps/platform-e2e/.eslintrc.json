@@ -9,10 +9,6 @@
         "project": ["apps/platform-e2e/tsconfig(.*)?.json"]
       },
       "rules": {
-        "import/no-unresolved": "error",
-        "import/named": "error",
-        "jest/valid-expect": "off",
-        "@nx/enforce-module-boundaries": "off",
         "@typescript-eslint/no-explicit-any": "off"
       }
     },
@@ -21,11 +17,8 @@
       "rules": {}
     },
     {
-      "files": ["src/plugins/index.js"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off",
-        "no-undef": "off"
-      }
+      "files": ["*.graphql"],
+      "rules": {}
     }
   ]
 }

@@ -1,1 +1,1 @@
-export * from './page.repo'
+export * from './page.repo.service'

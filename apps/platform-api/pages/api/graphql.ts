@@ -1,18 +1,14 @@
 /* eslint-disable unicorn/filename-case */
-import { getListener } from '@backend/infra/adapter/serverless'
+import { getPlatformListener } from '@codelab/backend/infra/adapter/serverless'
 import type { NextApiHandler } from 'next'
 
 /**
  * https://github.com/Skn0tt/nextjs-nestjs-integration-example/issues/30
  */
 const handler: NextApiHandler = async (req, res) => {
-  const listener = await getListener()
+  const listener = await getPlatformListener()
 
-  listener(req, res)
-  // res.end()
-  // res.on('finish', () => {
-  //   console.log('done')
-  // })
+  await listener(req, res)
 }
 
 export const config = {

@@ -1,17 +1,17 @@
 import { gql } from '@apollo/client'
 import { __AtomType } from '@codelab/shared/abstract/core'
 
-const atomTypeSchema = `enum AtomType {
+const atomTypeEnum = `enum AtomType {
   ${Object.values(__AtomType).join('\n')}
 }`
 
 export const atomSchema = gql`
-  ${atomTypeSchema}
+  ${atomTypeEnum}
 
   type Atom implements WithOwner {
-    id: ID! @id(autogenerate: false)
+    id: ID! @unique
     owner: User!
-    type: AtomType!
+    type: AtomType! @unique
     name: String! @unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
@@ -23,22 +23,12 @@ export const atomSchema = gql`
       @relationship(type: "REQUIRED_PARRENTS", direction: OUT)
     suggestedChildren: [Atom!]!
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
+    elements: [Element!]!
+      @relationship(type: "ELEMENT_RENDER_TYPE", direction: IN)
   }
 
-  extend type Atom
-    @auth(
-      rules: [
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["User"]
-          where: { owner: { auth0Id: "$jwt.sub" } }
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["Admin"]
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-      ]
-    )
+  # extend type Atom
+  #   @authorization(
+  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
+  #   )
 `

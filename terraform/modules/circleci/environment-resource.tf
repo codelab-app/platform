@@ -17,9 +17,9 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_HOST" {
   organization = local.organization
 }
 
-resource "circleci_environment_variable" "PLATFORM_API_HOST" {
-  name         = "PLATFORM_API_HOST"
-  value        = var.platform_api_host
+resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_API_HOST" {
+  name         = "NEXT_PUBLIC_PLATFORM_API_HOST"
+  value        = var.next_public_platform_api_host
   project      = local.project_name
   organization = local.organization
 }
@@ -34,6 +34,20 @@ resource "circleci_environment_variable" "AUTH0_CLIENT_ID" {
 resource "circleci_environment_variable" "AUTH0_CLIENT_SECRET" {
   name         = "AUTH0_CLIENT_SECRET"
   value        = var.auth0_web_client_secret
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "AUTH0_M2M_CLIENT_ID" {
+  name         = "AUTH0_M2M_CLIENT_ID"
+  value        = var.auth0_m2m_client_id
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "AUTH0_M2M_CLIENT_SECRET" {
+  name         = "AUTH0_M2M_CLIENT_SECRET"
+  value        = var.auth0_m2m_client_secret
   project      = local.project_name
   organization = local.organization
 }
@@ -69,6 +83,13 @@ resource "circleci_environment_variable" "AUTH0_AUDIENCE" {
 resource "circleci_environment_variable" "AUTH0_SECRET" {
   name         = "AUTH0_SECRET"
   value        = var.auth0_secret
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "AUTH0_BASE_URL" {
+  name         = "AUTH0_BASE_URL"
+  value        = var.next_public_platform_host
   project      = local.project_name
   organization = local.organization
 }

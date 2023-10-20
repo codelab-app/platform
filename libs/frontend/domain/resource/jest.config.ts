@@ -27,6 +27,9 @@ export default {
       {
         outputName: 'frontend-domain-resource.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

@@ -6,13 +6,13 @@ export const ownerSchema: PropertiesSchema<IOwner> = {
   owner: {
     label: '',
     properties: {
-      auth0Id: {
+      id: {
         label: 'Owner',
         disabled: true,
         type: 'string',
       },
     },
-    required: ['auth0Id'],
+    required: ['id'],
     type: 'object',
     ...showFieldOnDev(),
   },

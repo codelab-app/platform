@@ -1,7 +1,6 @@
-import {
-  HttpResponseType,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
+import { HttpResponseType } from '@codelab/frontend/abstract/domain'
+import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import {
   ActionKind,
   ResourceType,
@@ -9,9 +8,8 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../../support/antd/form'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
 
 describe('Element Child Mapper', () => {
   let app: IAppDTO
@@ -44,14 +42,18 @@ describe('Element Child Mapper', () => {
   ]
 
   before(() => {
-    cy.resetDatabase()
-    loginSession()
+    loginAndSetupData()
+    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      app = apps.body
+    })
+  })
 
+  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
+    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
 
     cy.setFormFieldValue({ label: 'Name', value: resourceName })
     cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
@@ -61,19 +63,9 @@ describe('Element Child Mapper', () => {
       value: ResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
-
-    cy.request('/api/cypress/type')
-
-    cy.request('/api/cypress/atom')
-      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
-      .then((apps) => {
-        app = apps.body
-      })
   })
 
   it('should create a component and api action', () => {
@@ -92,16 +84,14 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     cy.getCuiSidebar('Components')
-      .getToolbarItem('Add Component')
+      .getCuiToolbarItem('Add Component')
       .first()
       .click()
     cy.findByTestId('create-component-form')
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
 
-    cy.getCuiPopover('Create Component').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
 
     cy.findByTestId('create-component-form').should('not.exist', {
       timeout: 10000,
@@ -114,13 +104,9 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     cy.getCuiSidebarViewHeader('Actions').click()
-    cy.getHeaderToolbarItem('Add Action').click()
-
-    cy.get('input[name="id"]')
-      .invoke('val')
-      .then((id) => {
-        apiGetActionId = id as string
-      })
+    cy.getCuiSidebarViewHeader('Actions')
+      .getCuiToolbarItem('Add Action')
+      .click()
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -152,16 +138,21 @@ describe('Element Child Mapper', () => {
       value: HttpResponseType.Text,
     })
 
-    cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+    cy.intercept('POST', `api/graphql`).as('createAction')
+    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+
+    cy.wait('@createAction').then(({ response }) => {
+      apiGetActionId = response?.body.data.createApiActions.apiActions[0]
+        .id as string
     })
   })
 
   it('should add button to the component and set the api action on the onClick', () => {
     cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
-    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
-      cy.getToolbarItem('Add Child').click()
-    })
+    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
+      .getCuiTreeItemToolbar()
+      .getCuiToolbarItem('Add Child')
+      .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -180,21 +171,27 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.INPUT,
       value: `{ "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiGetActionId}", "type": "${actionTypeId}" } }`,
     })
+
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: ELEMENT_BUTTON,
     })
 
-    cy.getCuiPopover('Create Element').within(() => {
-      cy.getToolbarItem('Create').click()
-    })
+    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
 
     cy.waitForApiCalls()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
+
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
 
     cy.typeIntoTextEditor('Name of data - {{ componentProps.name }}')
 

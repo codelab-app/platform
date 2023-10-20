@@ -10,6 +10,21 @@ export class TagTreeUtils {
       TagTreeUtils.parseTagNode({ [tagKey]: tagNode }, null),
     ])
 
+  static flattenTagTree = (node: TagNodeData): Array<TagNodeData> => {
+    return node.children.map(this.flattenTagTree).reduce(
+      (tagTree: Array<TagNodeData>, tagNodes: Array<TagNodeData>) => {
+        return [...tagTree, ...tagNodes]
+      },
+      [
+        {
+          children: node.children,
+          name: node.name,
+          parent: node.parent,
+        },
+      ],
+    )
+  }
+
   /**
    * Function to parse our custom tag structure that is optimized for easy manual editing
    */
@@ -41,20 +56,5 @@ export class TagTreeUtils {
       name: node,
       parent,
     }
-  }
-
-  static flattenTagTree = (node: TagNodeData): Array<TagNodeData> => {
-    return node.children.map(this.flattenTagTree).reduce(
-      (tagTree: Array<TagNodeData>, tagNodes: Array<TagNodeData>) => {
-        return [...tagTree, ...tagNodes]
-      },
-      [
-        {
-          children: node.children,
-          name: node.name,
-          parent: node.parent,
-        },
-      ],
-    )
   }
 }

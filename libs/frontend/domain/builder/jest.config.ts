@@ -26,6 +26,9 @@ export default {
       {
         outputName: 'frontend-domain-builder.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

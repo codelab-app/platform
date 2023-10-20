@@ -1,9 +1,14 @@
-import type { IElement, IPage, IStore } from '@codelab/frontend/abstract/core'
+import type {
+  IElementModel,
+  IPageModel,
+  IStoreModel,
+} from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   ElementTree,
   storeRef,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/frontend/abstract/domain'
+import { Store } from '@codelab/frontend/domain/store'
 import type {
   PageCreateInput,
   PageDeleteInput,
@@ -11,8 +16,12 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName, slugify } from '@codelab/shared/utils'
+import {
+  connectNodeId,
+  PageProperties,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -46,13 +55,26 @@ export class Page
   extends ExtendedModel(ElementTree, {
     app: prop<IEntity>(),
     kind: prop<IPageKind>(),
-    name: prop<string>().withSetter(),
-    pageContentContainer: prop<Maybe<Ref<IElement>>>(),
-    store: prop<Ref<IStore>>(),
+    name: prop<string>(),
+    pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
+    store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),
   })
-  implements IPage
+  implements IPageModel
 {
+  static create = create
+
+  static toDeleteInput(): PageDeleteInput {
+    return {
+      // pageContentContainer: { delete: {}, where: {} },
+      rootElement: {},
+      store: {
+        delete: Store.toDeleteInput(),
+        where: {},
+      },
+    }
+  }
+
   @computed
   get slug() {
     return slugify(this.name)
@@ -61,53 +83,16 @@ export class Page
   @computed
   get toJson() {
     return {
-      [this.slug]: {
-        id: this.id,
-        name: this.name,
-        slug: this.slug,
-        url: `apps/${this.app.id}/pages/${this.id}`,
-      },
-    }
-  }
-
-  toCreateInput(): PageCreateInput {
-    return {
-      _compoundName: createUniqueName(this.name, this.app.id),
-      app: connectNodeId(this.app.id),
+      $modelType: 'serialized' as const,
+      app: this.app,
       id: this.id,
       kind: this.kind,
-      pageContentContainer: connectNodeId(
-        this.pageContentContainer?.current.id,
-      ),
-      rootElement: {
-        create: {
-          node: this.rootElement.current.toCreateInput(),
-        },
-      },
-      store: {
-        create: {
-          node: this.store.current.toCreateInput(),
-        },
-      },
-      url: this.url,
-    }
-  }
-
-  toUpdateInput(): PageUpdateInput {
-    return {
-      _compoundName: createUniqueName(this.name, this.app.id),
-      app: connectNodeId(this.app.id),
-      pageContentContainer: reconnectNodeId(
-        this.pageContentContainer?.current.id,
-      ),
-      url: this.url,
-    }
-  }
-
-  toDeleteInput(): PageDeleteInput {
-    return {
-      pageContentContainer: { delete: {}, where: {} },
-      rootElement: {},
+      name: this.name,
+      pageContentContainer: this.pageContentContainer,
+      rootElement: this.rootElement,
+      slug: this.slug,
+      store: this.store,
+      url: `apps/${this.app.id}/pages/${this.id}`,
     }
   }
 
@@ -136,5 +121,37 @@ export class Page
     return this
   }
 
-  static create = create
+  toCreateInput(): PageCreateInput {
+    return {
+      app: connectNodeId(this.app.id),
+      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
+      id: this.id,
+      kind: this.kind,
+      pageContentContainer: connectNodeId(
+        this.pageContentContainer?.current.id,
+      ),
+      rootElement: {
+        create: {
+          node: this.rootElement.current.toCreateInput(),
+        },
+      },
+      store: {
+        create: {
+          node: this.store.current.toCreateInput(),
+        },
+      },
+      url: this.url,
+    }
+  }
+
+  toUpdateInput(): PageUpdateInput {
+    return {
+      app: connectNodeId(this.app.id),
+      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
+      pageContentContainer: reconnectNodeId(
+        this.pageContentContainer?.current.id,
+      ),
+      url: this.url,
+    }
+  }
 }

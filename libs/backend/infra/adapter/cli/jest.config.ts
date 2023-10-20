@@ -26,6 +26,9 @@ export default {
       {
         outputName: 'backend-infra-adapter-cli.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

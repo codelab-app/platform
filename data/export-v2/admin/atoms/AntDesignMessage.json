@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
+    "kind": "InterfaceType",
+    "name": "AntDesignMessage API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Message",
+    "id": "f7c9e900-5c6c-4673-bc47-f4e5df7ee80a",
+    "name": "AntDesignMessage",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "f202957d-80bd-40e2-beef-03b9c4578b11"
+      }
+    ],
+    "type": "AntDesignMessage"
+  }
+}

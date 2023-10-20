@@ -1,14 +1,6 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
   "configurations": [
     {
-      "name": "Debug Jest Tests",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx",
       // "program": "${workspaceFolder}/node_modules/.bin/nx",
       "args": [
         "test",
@@ -18,21 +10,20 @@
         "--runInBand",
         "--testFile"
       ],
+      "console": "integratedTerminal",
       // "runtimeArgs": [
       //   "--inspect-brk",
       //   "${workspaceRoot}/node_modules/.bin/jest",
       //   "--runInBand"
       // ],
       "cwd": "${workspaceFolder}",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "name": "Debug Jest Tests",
+      "program": "${workspaceFolder}/node_modules/@nrwl/cli/bin/nx",
+      "request": "launch",
+      "type": "node"
     },
     {
-      "type": "node",
-      "request": "launch",
-      "name": "Jest Current File",
-      "program": "${workspaceFolder}/node_modules/.bin/nx",
-      "cwd": "${workspaceFolder}",
       "args": [
         "test",
         "`echo $(node ./scripts/get-nx-project.js --fileDirname=${fileDirname})`",
@@ -41,17 +32,27 @@
         "--skip-nx-cache"
       ],
       "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "disableOptimisticBPs": true,
       "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true
+      "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/nx",
+      "request": "launch",
+      "type": "node"
     },
     {
-      "name": "apps/cli",
-      "type": "node",
+      "args": ["apps/cli/src/main.ts", "codegen"],
       "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "NODE_PATH": "${workspaceRoot}",
+        "TS_NODE_PROJECT": "${workspaceRoot}/apps/cli/tsconfig.app.json"
+      },
       "internalConsoleOptions": "neverOpen",
-      "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "name": "apps/cli",
       "protocol": "inspector",
+      "request": "launch",
+      "restart": true,
       "runtimeArgs": [
         "--project",
         "${workspaceRoot}/apps/cli/tsconfig.app.json",
@@ -60,36 +61,35 @@
         "-r",
         "dotenv/config"
       ],
-      "env": {
-        "NODE_PATH": "${workspaceRoot}",
-        "TS_NODE_PROJECT": "${workspaceRoot}/apps/cli/tsconfig.app.json"
-      },
-      "args": ["apps/cli/src/main.ts", "codegen"],
-      "cwd": "${workspaceRoot}",
-      "restart": true
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "type": "node"
     },
     {
-      "name": "Generator",
-      "type": "node",
+      "args": ["libs/tools/generators/json-schema/src/main.ts"],
       "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "NODE_PATH": "${workspaceRoot}",
+        "TS_NODE_PROJECT": "${workspaceRoot}/libs/tools/generators/json-schema/tsconfig.lib.json"
+      },
       "internalConsoleOptions": "neverOpen",
-      "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "name": "Generator",
       "protocol": "inspector",
+      "request": "launch",
+      "restart": true,
       "runtimeArgs": [
         "--project",
         "${workspaceRoot}/libs/tools/generators/json-schema/tsconfig.lib.json",
         "-r",
         "tsconfig-paths/register"
       ],
-      "env": {
-        "NODE_PATH": "${workspaceRoot}",
-        "TS_NODE_PROJECT": "${workspaceRoot}/libs/tools/generators/json-schema/tsconfig.lib.json"
-      },
-      "args": ["libs/tools/generators/json-schema/src/main.ts"],
-      "cwd": "${workspaceRoot}",
-      "restart": true
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/ts-node",
+      "type": "node"
     }
   ],
-  "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"]
+  "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0"
 }

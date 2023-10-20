@@ -12,15 +12,15 @@ name: 'codelab'
 services:
   neo4j:
     container_name: codelab-neo4j
-    image: neo4j:5.9.0
+    image: neo4j:5.11.0
     volumes:
       - codelab-neo4j:/data
       - codelab-neo4j:/plugins
       - codelab-neo4j:/import
       - codelab-neo4j:/logs
     ports:
-      - 7474:7474
-      - 7687:7687
+      - '7474:7474'
+      - '7687:7687'
     environment:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       - NEO4J_apoc_export_file_enabled=true
@@ -41,15 +41,15 @@ services:
 
   neo4j-test:
     container_name: codelab-neo4j-test
-    image: neo4j:5.9.0
+    image: neo4j:5.11.0
     volumes:
       - codelab-neo4j-test:/data
       - codelab-neo4j-test:/plugins
       - codelab-neo4j-test:/import
       - codelab-neo4j-test:/logs
     ports:
-      - 7475:7474
-      - 7688:7687
+      - '7475:7474'
+      - '7688:7687'
     environment:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       - NEO4J_apoc_export_file_enabled=true
@@ -66,25 +66,27 @@ services:
     image: jaegertracing/all-in-one:1.45.0
     restart: always
     ports:
+      # Expoes Jaeger UI for the user
       - '16686:16686'
+      # Exposed for metrics to be used by Prometheus
+      - '14269:14269'
       - '14268'
       - '14250'
 
   # Zipkin
-  zipkin-all-in-one:
-    container_name: zipkin-all-in-one
-    image: openzipkin/zipkin:latest
-    restart: always
-    ports:
-      - '9411:9411'
+  # zipkin-all-in-one:
+  #   container_name: zipkin-all-in-one
+  #   image: openzipkin/zipkin:latest
+  #   restart: always
+  #   ports:
+  #     - '9411:9411'
 
   # Observability, used for metrics
   prometheus:
     container_name: prometheus
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.46.0
     restart: always
     volumes:
-      # - prometheus-config:/etc/prometheus
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
       - '9090:9090'
@@ -92,7 +94,7 @@ services:
   # Collectors, used for collecting metrics and traces
   opentelemetry:
     container_name: opentelemetry
-    image: otel/opentelemetry-collector:0.81.0
+    image: otel/opentelemetry-collector:0.82.0
     restart: always
     command: ['--config=/etc/opentelemetry/opentelemetry.yaml']
     volumes:
@@ -108,14 +110,27 @@ services:
       - '55679:55679' # zpages extension
     depends_on:
       - jaeger-all-in-one
+      - prometheus
       # - zipkin
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:10.0.3
+    restart: always
+    ports:
+      - '3100:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
+      - prometheus
 
 volumes:
   codelab-neo4j:
     name: codelab-neo4j
   codelab-neo4j-test:
     name: codelab-neo4j-test
-  # prometheus-config:
-  #   name: prometheus-config
-  # opentelemetry-config:
-  #   name: opentelemetry-config
+  grafana-storage:
+    name: grafana-storage

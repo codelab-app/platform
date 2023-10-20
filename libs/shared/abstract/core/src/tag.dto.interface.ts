@@ -1,12 +1,20 @@
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import type { IOwner } from './user.interface'
+import { Typebox } from '@codelab/shared/abstract/typebox'
+import { IEntity } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export interface ITagDTO extends IOwner {
-  children?: Array<IEntity>
+export const ITagDTO = Type.Object({
+  children: Type.Optional(Type.Array(IEntity)),
   // This is computed property
-  descendants?: Array<IEntity>
-  id: string
-  isRoot?: boolean | null
-  name: string
-  parent?: Nullable<IEntity>
-}
+  descendants: Type.Optional(Type.Array(IEntity)),
+  id: Type.String(),
+  isRoot: Typebox.Nullish(Type.Boolean()),
+  name: Type.String(),
+  parent: Typebox.Nullish(IEntity),
+})
+
+export type ITagDTO = Static<typeof ITagDTO>
+
+export const ITag = ITagDTO
+
+export type ITag = Static<typeof ITag>

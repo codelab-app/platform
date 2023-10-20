@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-presentation--codelab-ui',
+  displayName: 'frontend-presentation-codelab-ui',
   preset: '../../../../jest.preset.js',
   transform: {
     '^.+.[tj]sx?$': [
@@ -24,8 +24,11 @@ export default {
     [
       'jest-junit',
       {
-        outputName: 'frontend-presentation--codelab-ui.xml',
+        outputName: 'frontend-presentation-codelab-ui.xml',
         reportTestSuiteErrors: true,
+        titleTemplate: '{classname} > {title}',
+        ancestorSeparator: ' › ',
+        classNameTemplate: '{displayName} > {filename}',
       },
     ],
   ],

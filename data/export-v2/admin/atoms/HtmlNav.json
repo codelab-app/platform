@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "794aa40b-20b1-4ee3-b7da-0455fe11041f",
+    "kind": "InterfaceType",
+    "name": "HtmlNav API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "794aa40b-20b1-4ee3-b7da-0455fe11041f"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "98546e52-bced-4d60-b535-da434eb6c261",
+    "name": "HtmlNav",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "3d0656ad-9ea0-43fb-b5dc-2e0d2b7d180c"
+      }
+    ],
+    "type": "HtmlNav"
+  }
+}

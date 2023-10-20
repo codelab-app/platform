@@ -1,0 +1,30 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "b6d252c2-a601-40a8-a877-2e02de442239",
+    "kind": "InterfaceType",
+    "name": "AntDesignStatistic API",
+    "types": []
+  },
+  "atom": {
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "b6d252c2-a601-40a8-a877-2e02de442239"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Statistic",
+    "id": "2d95149c-6c51-4870-a209-97672e56ed21",
+    "name": "AntDesignStatistic",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "ae740409-10a9-462d-a590-8f0849082e49"
+      }
+    ],
+    "type": "AntDesignStatistic"
+  }
+}

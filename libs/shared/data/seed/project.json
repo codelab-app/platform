@@ -8,7 +8,9 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/shared/data/seed/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/shared/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "configurations": {
         "ci": {
@@ -84,5 +86,5 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
-  "tags": ["scope:shared"]
+  "tags": ["projectType:library", "type:concrete", "scope:shared"]
 }

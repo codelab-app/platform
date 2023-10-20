@@ -1,18 +1,21 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   ExportAdminDataButton,
-  ImportDataButton,
-} from '@codelab/frontend/domain/admin'
+  ExportAdminDataModal,
+  ImportAdminDataButton,
+  ImportAdminDataModal,
+  ResetDataButtons,
+} from '@codelab/frontend/application/admin'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-} from '@codelab/frontend/presentation//codelab-ui'
+} from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -27,7 +30,10 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <ContentSection className="bg-white p-4">
         <Space>
           <ExportAdminDataButton />
-          <ImportDataButton />
+          <ExportAdminDataModal />
+          <ImportAdminDataButton />
+          <ImportAdminDataModal />
+          <ResetDataButtons />
         </Space>
       </ContentSection>
     </>

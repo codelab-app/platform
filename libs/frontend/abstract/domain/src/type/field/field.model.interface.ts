@@ -1,0 +1,47 @@
+import type {
+  FieldCreateInput,
+  FieldDeleteInput,
+  FieldUpdateInput,
+} from '@codelab/shared/abstract/codegen'
+import type { IField, IFieldDTO } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { ICacheService, IModel } from '../../shared'
+import type { IValidationRules } from '../field.validation'
+import type { IInterfaceTypeModel, ITypeModel } from '../types'
+
+export type IFieldDefaultValue =
+  | Array<IFieldDefaultValue>
+  | boolean
+  | number
+  | string
+  | { [x: string]: IFieldDefaultValue }
+
+export interface IFieldModel<T extends ITypeModel = ITypeModel>
+  extends Omit<
+      IModel<FieldCreateInput, FieldUpdateInput, FieldDeleteInput, IField>,
+      'toDeleteInput'
+    >,
+    ICacheService<IFieldDTO, IFieldModel> {
+  api: Ref<IInterfaceTypeModel>
+  defaultValues: Nullish<IFieldDefaultValue>
+  description: Nullish<string>
+  key: string
+  /**
+   * Allows default to null
+   */
+  name: Nullish<string>
+  nextSibling?: Nullish<Ref<IFieldModel>>
+  prevSibling?: Nullish<Ref<IFieldModel>>
+  type: Ref<T>
+  validationRules: Nullish<IValidationRules>
+
+  attachAsNextSibling(sibling: IFieldModel): void
+  attachAsPrevSibling(sibling: IFieldModel): void
+  changePrev(sibling: IFieldModel): void
+  connectPrevToNextSibling(): void
+  detachPrevSibling(): void
+  toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'>
+}
+
+export type IFieldRef = string

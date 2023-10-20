@@ -78,9 +78,17 @@
         "babel": true
       },
       "library": {
-        "style": "css",
+        "style": "styled-components",
         "linter": "eslint",
-        "unitTestRunner": "none"
+        "unitTestRunner": "none",
+        "compiler": "swc",
+        "component": false,
+        "name": "",
+        "directory": "libs/frontend/",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "importPath": "@codelab/frontend/",
+        "tags": "scope:frontend"
       },
       "storybook-configuration": {
         "linter": "eslint"
@@ -99,13 +107,25 @@
         "linter": "eslint"
       },
       "library": {
-        "linter": "eslint"
+        "linter": "eslint",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:backend"
       }
     },
     "@nx/next": {
       "application": {
         "style": "styled-components",
         "linter": "eslint"
+      }
+    },
+    "@nx/js": {
+      "library": {
+        "unitTestRunner": "none",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "importPath": "@codelab/frontend",
+        "tags": "scope:shared"
       }
     }
   },
