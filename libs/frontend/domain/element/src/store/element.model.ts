@@ -355,18 +355,18 @@ export class Element
       props: {},
       refs: this.store.current.refs,
       rendererType: this.renderService.activeRenderer?.current.rendererType,
-      rootActions: this.providerStore?.current.actionRunners ?? {},
-      rootRefs: this.providerStore?.current.refs || {},
-      rootState: this.providerStore?.current.state || {},
+      rootActions: this.providerStore?.actionRunners ?? {},
+      rootRefs: this.providerStore?.refs || {},
+      rootState: this.providerStore?.state || {},
       state: this.store.current.state,
       url: this.urlProps ?? {},
     }
   }
 
   @computed
-  get providerStore(): Ref<IStoreModel> | undefined {
+  get providerStore(): IStoreModel | undefined {
     return this.renderService.activeRenderer?.current.providerTree?.current
-      .rootElement.current.store
+      .rootElement.current.store.current
   }
 
   @computed
@@ -471,6 +471,7 @@ export class Element
 
     // Add assigned ReactNode props as children
     const reactNodesChildren: Array<IElementTreeViewDataNode> = []
+
     Object.keys(this.props.values).forEach((key, index) => {
       const propData = this.props.values[key]
 
@@ -495,6 +496,7 @@ export class Element
       ) + 1
 
     const children = [...this.children.map((child) => child.treeViewNode)]
+
     children.splice(
       childMapperRenderIndex,
       0,

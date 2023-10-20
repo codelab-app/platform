@@ -1,6 +1,7 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
 import {
+  appDto,
   atomReactFragmentDto,
   elementDto,
   pageDto,
@@ -13,11 +14,13 @@ import { createTestRootStore } from './root-store'
 const rootElementDto = { ...elementDto, name: 'Root Element' }
 
 describe('Element domain', () => {
-  const { atomDomainService, elementDomainService, pageDomainService } =
+  const { appDomainService, atomDomainService, elementDomainService } =
     createTestRootStore()
 
+  const app = appDomainService.hydrate(appDto)
+
   rootElementDto.renderType.id = atomReactFragmentDto.id
-  pageDomainService.add(pageDto)
+  app.addPageInCache(pageDto)
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
   atomDomainService.add(atomReactFragmentDto)
 

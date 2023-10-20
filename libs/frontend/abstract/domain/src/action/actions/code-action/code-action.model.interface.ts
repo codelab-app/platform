@@ -3,7 +3,11 @@ import type {
   CodeActionDeleteInput,
   CodeActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IActionKind, ICodeActionDTO } from '@codelab/shared/abstract/core'
+import type {
+  IActionKind,
+  ICodeAction,
+  ICodeActionDTO,
+} from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../../shared'
 import type { IModel } from '../../../shared/models/model.interface'
 import type { IBaseAction } from '../../base-action.interface'
@@ -19,8 +23,4 @@ export interface ICodeActionModel
     > {
   code: string
   type: IActionKind.CodeAction
-}
-
-export interface ICodeAction {
-  id: string
 }

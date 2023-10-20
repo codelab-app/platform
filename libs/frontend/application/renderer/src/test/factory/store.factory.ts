@@ -2,7 +2,7 @@ import { Store } from '@codelab/frontend/domain/store'
 import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { rootStore as testRootStore } from '../setup'
+import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IStoreDTO>(({ params }) => {
@@ -14,7 +14,7 @@ export default Factory.define<IStoreDTO>(({ params }) => {
       Store.createName({ name: chance.word({ capitalize: true }) }),
   }
 
-  testRootStore.storeService.storeDomainService.add(dto)
+  createTestRootStore().storeService.storeDomainService.add(dto)
 
   return dto
 })

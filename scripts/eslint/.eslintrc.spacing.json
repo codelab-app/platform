@@ -37,10 +37,15 @@
             "next": "*"
           },
           {
-            "blankLine": "any",
+            "blankLine": "always",
             "prev": ["const", "let", "var"],
-            "next": ["const", "let", "var", "expression"]
+            "next": ["expression", "block", "block-like", "return"]
           },
+          // {
+          //   "blankLine": "any",
+          //   "prev": ["const", "let", "var"],
+          //   "next": ["const", "let", "var", "expression"]
+          // },
           {
             "blankLine": "never",
             "prev": ["singleline-const", "singleline-let", "singleline-var"],

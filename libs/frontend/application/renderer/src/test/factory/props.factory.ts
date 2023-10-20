@@ -1,7 +1,7 @@
 import type { IPropDTO } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { rootStore as testRootStore } from '../setup'
+import { createTestRootStore } from '../setup/test-root-store'
 
 export default Factory.define<IPropDTO>(({ params }) => {
   const dto = {
@@ -9,7 +9,7 @@ export default Factory.define<IPropDTO>(({ params }) => {
     id: params.id ?? v4(),
   }
 
-  testRootStore.propService.add(dto)
+  // createTestRootStore().propService.add(dto)
 
   return dto
 })

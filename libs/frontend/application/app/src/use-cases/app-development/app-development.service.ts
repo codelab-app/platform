@@ -145,7 +145,7 @@ export class AppDevelopmentService
 
     this.elementService.elementDomainService.logElementTreeState()
 
-    return this.appService.appDomainService.add(data.app)
+    return this.appService.appDomainService.hydrate(data.app)
   }
 
   @computed

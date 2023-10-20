@@ -190,7 +190,7 @@ export class ActionService
 
     const providerStore =
       selectedNode && isElementRef(selectedNode)
-        ? selectedNode.current.providerStore?.current
+        ? selectedNode.current.providerStore
         : undefined
 
     const updatedAction = actionEntity
@@ -277,6 +277,7 @@ export class ActionService
     }
 
     const newAction = this.add(newActionDto)
+
     await this.actionRepository.add(newAction)
 
     return newAction

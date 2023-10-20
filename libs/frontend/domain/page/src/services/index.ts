@@ -1,2 +1,1 @@
-export * from './page.domain.service'
-export * from './page.factory'
+export * from './page.domain.factory'

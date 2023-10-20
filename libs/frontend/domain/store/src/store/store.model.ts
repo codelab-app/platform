@@ -188,20 +188,18 @@ export class Store
 
   @modelAction
   clone(componentId: string) {
-    const clonedStore = clone<IStoreModel>(this as IStoreModel)
+    const id = v4()
 
-    this.storeDomainService.stores.set(clonedStore.id, clonedStore)
-
-    return clonedStore
-
-    // return this.storeDomainService.add({
-    //   actions: [...this.actions.values()].map((action) => action.current),
-    //   api: typeRef<IInterfaceTypeModel>(this.api.id),
-    //   component: componentRef(componentId),
-    //   id,
-    //   name: this.name,
-    //   source: { id: this.id },
-    // })
+    return this.storeDomainService.add({
+      actions: [...this.actions.values()].map(
+        (action) => action.current.toJson,
+      ),
+      api: typeRef<IInterfaceTypeModel>(this.api.id),
+      component: componentRef(componentId),
+      id,
+      name: this.name,
+      source: { id: this.id },
+    })
   }
 
   @modelAction

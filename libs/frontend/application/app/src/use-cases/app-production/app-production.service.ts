@@ -130,7 +130,7 @@ export class AppProductionService
 
     data.actions.forEach((action) => this.actionService.add(action))
 
-    return this.appService.appDomainService.add(data.app)
+    return this.appService.appDomainService.hydrate(data.app)
   }
 
   @computed

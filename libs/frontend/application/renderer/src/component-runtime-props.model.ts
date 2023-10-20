@@ -45,6 +45,13 @@ export class ComponentRuntimeProps
 
   @computed
   get evaluatedProps() {
+    console.log('ComponentRuntimeProps', this.node.store.current.state)
+
+    console.log(
+      'ComponentRuntimeProps',
+      this.node.store.current.state['testPropKey'],
+    )
+
     return evaluateObject(this.renderedTypedProps, {
       actions: {},
       componentProps: {},
@@ -60,7 +67,7 @@ export class ComponentRuntimeProps
 
   @computed
   get evaluatedPropsBeforeRender() {
-    return evaluateObject(this.props, {
+    const props = evaluateObject(this.props, {
       actions: {},
       componentProps: {},
       props: {},
@@ -71,6 +78,8 @@ export class ComponentRuntimeProps
       state: this.node.store.current.state,
       url: {},
     })
+
+    return props
   }
 
   @computed

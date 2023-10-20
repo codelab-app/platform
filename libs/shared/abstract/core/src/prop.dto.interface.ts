@@ -16,7 +16,7 @@ export type IPropData = Record<string, any>
 
 export const IProp = Type.Object({
   // api: Typebox.Nullish(IEntity),
-  data: Type.Object({}),
+  data: Type.Any(),
   id: Type.String(),
 })
 

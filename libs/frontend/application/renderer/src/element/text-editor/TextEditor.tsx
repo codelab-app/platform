@@ -63,6 +63,7 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
           }
 
           const outputData = await api.saver.save()
+
           await onChange(outputData)
         },
         readOnly,
@@ -111,9 +112,11 @@ const selectAllTextInTheElement = (elementId: string) => {
   }
 
   const range = document.createRange()
+
   range.selectNodeContents(editableElement)
 
   const selection = window.getSelection()
+
   selection?.removeAllRanges()
   selection?.addRange(range)
 }

@@ -57,7 +57,11 @@ export class CodeAction
   @computed
   get toJson() {
     return {
+      __typename: IActionKind.CodeAction as const,
+      code: this.code,
       id: this.id,
+      name: this.name,
+      store: this.store,
     }
   }
 

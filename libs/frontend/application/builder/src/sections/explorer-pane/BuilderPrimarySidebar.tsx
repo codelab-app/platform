@@ -74,14 +74,14 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const providerStore =
       builderService.selectedNode && isElementRef(builderService.selectedNode)
-        ? builderService.selectedNode.current.providerStore?.current
+        ? builderService.selectedNode.current.providerStore
         : undefined
 
     const componentStore =
       builderService.selectedNode &&
       isElementRef(builderService.selectedNode) &&
       isComponent(builderService.selectedNode.current.renderType.current)
-        ? builderService.selectedNode.current.renderType.current.store.current
+        ? builderService.selectedNode.current.renderType.current.store
         : undefined
 
     const selectTreeNode = (node: IPageNode) => {
@@ -214,7 +214,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Component Store"
-                  value={componentStore.jsonString}
+                  value={componentStore.current.jsonString}
                 />
               </Collapse.Panel>
             ) : (

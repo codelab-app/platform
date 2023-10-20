@@ -5,6 +5,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IActionKind,
+  IApiAction,
   IApiActionDTO,
   IProp,
 } from '@codelab/shared/abstract/core'
@@ -31,8 +32,4 @@ export interface IApiActionModel
   resource: Ref<IResourceModel>
   successAction?: Nullish<Ref<IActionModel>>
   type: IActionKind.ApiAction
-}
-
-export interface IApiAction {
-  config: IProp
 }

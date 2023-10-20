@@ -144,6 +144,7 @@ export class Renderer
         ) + 1
 
       const elementChildren = [...element.children]
+
       elementChildren.splice(childMapperRenderIndex, 0, ...childMapperChildren)
 
       const children = [
@@ -220,6 +221,7 @@ export class Renderer
     }
 
     const runners = ActionRunner.create(element)
+
     runners.forEach((runner) => this.actionRunners.set(runner.id, runner))
 
     return runners
@@ -342,16 +344,20 @@ export class Renderer
 
   /**
    * Renders a single element (without its children) to an intermediate RenderOutput
-   *
    */
   renderIntermediateElement = (element: IElementModel): IRenderOutput => {
     this.addActionRunners(element)
 
     const runtimeProps = this.addRuntimeProps(elementRef(element.id))
 
+    console.log('IntermediateElement', runtimeProps.evaluatedProps)
+
     return this.renderPipe.render(element, runtimeProps.evaluatedProps)
   }
 
+  /**
+   * This is the entry point to start the rendering process
+   */
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.rootElement.current
     const providerRoot = this.providerTree?.current.rootElement.current

@@ -147,6 +147,7 @@ export class Component
     }
 
     const clonedComponent: IComponentModel = clone<IComponentModel>(this)
+
     componentService.clonedComponents.set(key, clonedComponent)
 
     const clonesList = [...componentService.clonedComponents.values()].filter(
@@ -252,26 +253,31 @@ export class Component
 
       if (parentElement) {
         const parentId = elementMap.get(parentElement.current.id)
+
         element.setParentElement(elementRef(parentId!))
       }
 
       if (firstChild) {
         const firstChildId = elementMap.get(firstChild.current.id)
+
         element.setFirstChild(elementRef(firstChildId!))
       }
 
       if (nextSibling) {
         const nextSiblingId = elementMap.get(nextSibling.current.id)
+
         element.setNextSibling(elementRef(nextSiblingId!))
       }
 
       if (prevSibling) {
         const prevSiblingId = elementMap.get(prevSibling.current.id)
+
         element.setPrevSibling(elementRef(prevSiblingId!))
       }
     })
 
     const rootElement = elements.find((element) => element.id === rootElementId)
+
     rootElement?.setParentComponent(componentRef(clonedComponent.id))
 
     if (!rootElement) {

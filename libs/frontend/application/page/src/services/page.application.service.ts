@@ -14,7 +14,6 @@ import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { getStoreService } from '@codelab/frontend/application/store'
 import { getTypeService } from '@codelab/frontend/application/type'
-import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   InlineFormService,
   ModalService,
@@ -53,7 +52,6 @@ export class PageApplicationService
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new PageModalService({})),
-    pageDomainService: prop(() => new PageDomainService({})),
     pageRepository: prop(() => new PageRepository({})),
     updateForm: prop(() => new PageFormService({})),
     updateModal: prop(() => new PageModalService({})),

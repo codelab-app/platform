@@ -8,7 +8,7 @@ export const getStoreDomainService = (self: object) => {
   const storeService = storeDomainServiceContext.get(self)
 
   if (!storeService) {
-    throw new Error('storeServiceContext is not set')
+    throw new Error('storeDomainServiceContext is not set')
   }
 
   return storeService

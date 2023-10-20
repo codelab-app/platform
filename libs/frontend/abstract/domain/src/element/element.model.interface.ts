@@ -148,7 +148,7 @@ export interface IElementModel
   // same as expressionEvaluationContext but without props
   propsEvaluationContext: IEvaluationContext
   // store attached to the provider page
-  providerStore?: Ref<IStoreModel>
+  providerStore?: IStoreModel
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
   renderType: IElementRenderTypeModel

@@ -3,7 +3,7 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { rootStore as testRootStore } from '../setup'
+import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IFieldDTO>(({ params }) => {
@@ -23,7 +23,7 @@ export default Factory.define<IFieldDTO>(({ params }) => {
     validationRules: params.validationRules ?? null,
   }
 
-  testRootStore.fieldService.add(dto)
+  createTestRootStore().fieldService.add(dto)
 
   return dto
 })

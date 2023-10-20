@@ -15,8 +15,8 @@ import type {
   ApiActionDeleteInput,
   ApiActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IApiActionDTO } from '@codelab/shared/abstract/core'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import type { IApiAction, IApiActionDTO } from '@codelab/shared/abstract/core'
+import { IActionKind, IActionType } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
@@ -87,8 +87,14 @@ export class ApiAction
   @computed
   get toJson() {
     return {
+      __typename: `${IActionKind.ApiAction}` as const,
       config: this.config.toJson,
+      errorAction: this.errorAction,
       id: this.id,
+      name: this.name,
+      resource: this.resource.current,
+      store: this.store.current,
+      successAction: this.successAction,
     }
   }
 

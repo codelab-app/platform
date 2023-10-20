@@ -21,7 +21,6 @@ export interface IPageApplicationService
     >,
     ICRUDModalService<IPageModel, { page?: IPageModel }>,
     ICRUDFormService<IPageModel, { page?: IPageModel }> {
-  pageDomainService: IPageDomainService
   pageRepository: IPageRepository
 
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
