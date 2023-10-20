@@ -92,7 +92,7 @@ describe('TypedPropTransformers', () => {
       }),
       renderType: factoryBuild('atom', {
         api: factoryBuild('typeInterface'),
-        type: IAtomType.Text,
+        type: IAtomType.AntDesignTypographyText,
       }),
     })
 
@@ -135,7 +135,9 @@ describe('TypedPropTransformers', () => {
       wrapper: TestProviderWrapper(rootStore),
     })
 
-    expect(await findByText(testPropValue)).toBeInTheDocument()
+    const node = await findByText(testPropValue)
+
+    expect(node).toBeInTheDocument()
   })
 
   it.each([
@@ -157,7 +159,7 @@ describe('TypedPropTransformers', () => {
         }),
         renderType: factoryBuild('atom', {
           api: factoryBuild('typeInterface'),
-          type: IAtomType.Text,
+          type: IAtomType.AntDesignTypographyText,
         }),
       })
 

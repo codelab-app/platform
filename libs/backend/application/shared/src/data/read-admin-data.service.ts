@@ -6,37 +6,50 @@ import fs from 'fs'
 import path from 'path'
 import { MigrationDataService } from './migration-data.service'
 
+const RANDOM_ATOMS_COUNT = 25
+
 @Injectable({
   scope: Scope.TRANSIENT,
 })
 export class ReadAdminDataService {
+  partiallySeed = false
+
   constructor(
     public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
   ) {}
 
-  get atoms() {
-    const atomFilenames = fs
+  get atomNames() {
+    const atomFileNames = fs
       .readdirSync(this.migrationDataService.atomsPath)
       .filter((filename) => path.extname(filename) === '.json')
 
-    return atomFilenames.reduce((atoms, filename) => {
+    if (!this.partiallySeed) {
+      return atomFileNames
+    }
+
+    const randomAtomNames = atomFileNames
+      .sort(() => Math.random() - 0.5)
+      .slice(0, RANDOM_ATOMS_COUNT)
+
+    // always include HtmlLink atom, since components import depends on it
+    return [...randomAtomNames, 'HtmlLink.json']
+  }
+
+  get atoms() {
+    return this.atomNames.map((filename) => {
       const content = fs.readFileSync(
         `${this.migrationDataService.atomsPath}/${filename}`,
         'utf8',
       )
 
-      const atomData = JSON.parse(content.toString())
+      const atomExport = JSON.parse(content.toString())
 
-      const atom = this.validationService.validateAndClean(
+      return this.validationService.validateAndClean(
         IAtomBoundedContext,
-        atomData,
+        atomExport,
       )
-
-      atoms.push(atom)
-
-      return atoms
-    }, [] as Array<IAtomBoundedContext>)
+    })
   }
 
   get components(): Array<IComponentBoundedContext> {
