@@ -1,3 +1,4 @@
+import { getRenderService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IActionRunner,
@@ -13,7 +14,6 @@ import type {
 import {
   actionRef,
   elementRef,
-  getRenderService,
   getRunnerId,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
@@ -133,8 +133,7 @@ export class ActionRunner
   @computed
   get _resourceConfig() {
     return this.replaceStateInConfig(
-      (this.actionRef.current as IApiActionModel).resource.current.config
-        .current,
+      (this.actionRef.current as IApiActionModel).resource.current.config,
     ) as IBaseResourceConfigData
   }
 
@@ -166,7 +165,7 @@ export class ActionRunner
       getRunner(this.renderer, action.errorAction?.id, storeId, providerStoreId)
 
     const resource = action.resource.current
-    const config = action.config.current.values
+    const config = action.config.values
     const graphQLClient = this._graphqlClient
     const restClient = this._restClient
 

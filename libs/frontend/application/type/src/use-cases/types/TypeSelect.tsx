@@ -26,7 +26,7 @@ export const TypeSelect = observer<TypeSelectProps>(
     // On update mode, the current selected type can be used
     // to show the type name instead of showing just the id
     const currentType = fieldProps.value
-      ? typeService.types.get(fieldProps.value)
+      ? typeService.typeDomainService.types.get(fieldProps.value)
       : undefined
 
     const typeOptions = createTypeOptions

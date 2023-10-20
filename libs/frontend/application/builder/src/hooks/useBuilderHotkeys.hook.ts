@@ -1,8 +1,8 @@
 import type {
   IBuilderService,
   IElementService,
-} from '@codelab/frontend/abstract/domain'
-import { elementRef, isElementRef } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import { isElement, isElementRef } from '@codelab/frontend/abstract/domain'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
@@ -28,8 +28,8 @@ export const useBuilderHotkeys = ({
         const isRootElement =
           isElementRef(selectedNode) && selectedNode.current.isRoot
 
-        if (!isRootElement) {
-          deleteModal.open(elementRef(selectedNode.id))
+        if (!isRootElement && isElement(selectedNode)) {
+          deleteModal.open(selectedNode)
         }
       }
     },

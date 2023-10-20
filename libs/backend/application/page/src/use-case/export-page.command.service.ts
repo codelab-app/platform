@@ -1,9 +1,9 @@
 import type { AppWhere, Page } from '@codelab/backend/abstract/codegen'
-import type { IPageOutputDto } from '@codelab/backend/abstract/core'
 import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
+import type { IElement, IPage } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { throwIfUndefined, uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -16,7 +16,7 @@ export class ExportPageCommand {
 
 @CommandHandler(ExportPageCommand)
 export class ExportPageHandler
-  implements ICommandHandler<ExportPageCommand, Array<IPageOutputDto>>
+  implements ICommandHandler<ExportPageCommand, Array<IPage>>
 {
   constructor(
     private readonly pageRepository: PageRepository,
@@ -30,13 +30,15 @@ export class ExportPageHandler
       where: { app: { id: where.id } },
     })
 
-    const pagesExport: Array<IPageOutputDto> = await Promise.all(
+    const pagesExport: Array<IPage> = await Promise.all(
       pages.map(async (page) => {
         const { components, elements, store } = await this.getPageData(page)
 
         return {
-          elements,
-          page,
+          ...page,
+          descendantElements: elements.slice(1, 0),
+          rootElement: elements[0]!,
+          slug: page.slug,
           store,
         }
       }),
@@ -46,7 +48,7 @@ export class ExportPageHandler
   }
 
   private async getPageData(page: Page) {
-    const elements = (
+    const elements: Array<IElement> = (
       await this.elementRepository.getElementWithDescendants(
         page.rootElement.id,
       )

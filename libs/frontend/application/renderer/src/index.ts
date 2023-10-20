@@ -1,5 +1,6 @@
 export * from './action-runner.model'
-export * from './atoms'
+// Cannot export these, since they are dynamically loaded
+// export * from './atoms'
 export * from './render.service'
 export * from './renderer.model'
 export * from './RootRenderer'

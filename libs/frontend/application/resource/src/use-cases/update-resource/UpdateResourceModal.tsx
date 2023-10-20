@@ -12,7 +12,7 @@ export const UpdateResourceModal = observer(() => {
   const resource = resourceService.updateModal.resource
 
   const model = {
-    config: resource?.config.current.values,
+    config: resource?.config.values,
     id: resource?.id,
     name: resource?.name,
     type: resource?.type,

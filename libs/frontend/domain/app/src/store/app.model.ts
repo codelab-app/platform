@@ -1,15 +1,11 @@
+import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IAppModel,
   IDomainModel,
   IPageModel,
   IUser,
 } from '@codelab/frontend/abstract/domain'
-import {
-  domainRef,
-  getUserService,
-  pageRef,
-  userRef,
-} from '@codelab/frontend/abstract/domain'
+import { userRef } from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend/domain/domain'
 import { Page } from '@codelab/frontend/domain/page'
 import type {
@@ -18,21 +14,20 @@ import type {
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
 import { AppProperties, connectOwner } from '@codelab/shared/domain/mapper'
-import { slugify } from '@codelab/shared/utils'
-import merge from 'lodash/merge'
+import { slugify, throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
+const create = ({ domains = [], id, name, owner, pages = [] }: IAppDTO) => {
   const app = new App({
-    domains: domains?.map((domain) => domainRef(domain.id)),
+    domains: domains.map((domain) => Domain.create(domain)),
     id,
     name,
     owner: userRef(owner.id),
-    pages: pages?.map((page) => pageRef(page.id)),
+    pages: pages.map((page) => Page.create(page)),
   })
 
   return app
@@ -41,11 +36,11 @@ const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends Model({
-    domains: prop<Array<Ref<IDomainModel>>>(() => []),
+    domains: prop<Array<IDomainModel>>(() => []),
     id: idProp,
     name: prop<string>(),
     owner: prop<Ref<IUser>>(),
-    pages: prop<Array<Ref<IPageModel>>>(() => []),
+    pages: prop<Array<IPageModel>>(() => []),
   })
   implements IAppModel
 {
@@ -66,16 +61,16 @@ export class App
     }
   }
 
-  @computed
-  get pageRootElements() {
-    return this.pages.map((page) => page.current.rootElement)
-  }
+  // @computed
+  // get pageRootElements() {
+  //   return this.pages.map((page) => page.rootElement)
+  // }
 
   @computed
   get providerPage() {
     const providerPage = this.pages.find(
-      (page) => page.current.kind === IPageKind.Provider,
-    )?.current
+      (page) => page.kind === IPageKind.Provider,
+    )
 
     if (!providerPage) {
       throw new Error('ProviderPage is required')
@@ -92,9 +87,11 @@ export class App
   @computed
   get toJson() {
     return {
+      domains: this.domains.map((domain) => domain.toJson),
       id: this.id,
       name: this.name,
-      pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
+      owner: this.owner,
+      pages: this.pages.map((page) => page.toJson),
     }
   }
 
@@ -102,16 +99,22 @@ export class App
   static create = create
 
   @modelAction
+  addPageInCache(pageDto: IPageDTO) {
+    const page: IPageModel = this.page(pageDto.id) ?? Page.create(pageDto)
+
+    this.pages.push(page)
+
+    return page
+  }
+
+  @modelAction
   page(id: string) {
-    const currentPage = this.pages.find(
-      (page) => page.current.id === id,
-    )?.maybeCurrent
+    return this.pages.find((page) => page.id === id)
+  }
 
-    if (!currentPage) {
-      throw new Error('Missing page')
-    }
-
-    return currentPage
+  @modelAction
+  pageByName(name: string) {
+    return throwIfUndefined(this.pages.find((page) => name === page.name))
   }
 
   /**
@@ -120,10 +123,10 @@ export class App
   @modelAction
   writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
     this.id = id ?? this.id
-    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+    this.pages = pages ? pages.map((page) => Page.create(page)) : this.pages
     this.name = name ?? this.name
     this.domains = domains
-      ? domains.map((domain) => domainRef(domain.id))
+      ? domains.map((domain) => Domain.create(domain))
       : this.domains
     this.owner = owner?.id ? userRef(owner.id) : this.owner
 
@@ -140,7 +143,7 @@ export class App
       owner: connectOwner(this.userService.user),
       pages: {
         create: this.pages.map((page) => ({
-          node: page.current.toCreateInput(),
+          node: page.toCreateInput(),
         })),
       },
     }

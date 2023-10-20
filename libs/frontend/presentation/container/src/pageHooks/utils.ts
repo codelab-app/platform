@@ -1,7 +1,9 @@
 import type {
-  IComponentService,
-  IElementModel,
+  IComponentApplicationService,
   ITypeService,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IElementModel,
   TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -43,9 +45,7 @@ const getComponentIdsFromElements = (elements: Array<IElementModel>) =>
         acc.push(element.childMapperComponent.id)
       }
 
-      acc.push(
-        ...getComponentIdsFromProp(element.props.current).filter(isString),
-      )
+      acc.push(...getComponentIdsFromProp(element.props).filter(isString))
 
       return acc
     }, [])
@@ -67,7 +67,7 @@ const getTypeIdsFromElements = (elements: Array<IElementModel>) => {
 }
 
 export const loadAllTypesForElements = async (
-  componentService: IComponentService,
+  componentService: IComponentApplicationService,
   typeService: ITypeService,
   roots: Array<IElementModel>,
   isProduction = false,
@@ -114,7 +114,7 @@ export const loadAllTypesForElements = async (
     const typeIds = getTypeIdsFromElements([
       ...elements,
       ...loadedComponentElements,
-    ]).filter((id) => !typeService.types.has(id))
+    ]).filter((id) => !typeService.typeDomainService.types.has(id))
 
     await typeService.getAll(typeIds)
   }

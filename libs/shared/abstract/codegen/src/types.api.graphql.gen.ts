@@ -20895,8 +20895,8 @@ export type ElementFragment = {
   firstChild?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null
-  parentElement?: { __typename?: 'Element'; id: string } | null
   parentComponent?: { __typename?: 'Component'; id: string } | null
+  parentElement?: { __typename?: 'Element'; id: string } | null
   postRenderAction?:
     | { __typename?: 'ApiAction'; id: string; type: ActionKind }
     | { __typename?: 'CodeAction'; id: string; type: ActionKind }
@@ -20930,8 +20930,8 @@ export type ElementProductionFragment = {
   firstChild?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null
-  parentElement?: { __typename?: 'Element'; id: string } | null
   parentComponent?: { __typename?: 'Component'; id: string } | null
+  parentElement?: { __typename?: 'Element'; id: string } | null
   postRenderAction?:
     | { __typename?: 'ApiAction'; id: string; type: ActionKind }
     | { __typename?: 'CodeAction'; id: string; type: ActionKind }
@@ -21374,42 +21374,6 @@ export type UserFragment = {
   apps: Array<{ __typename?: 'App' } & AppFragment>
 }
 
-export type GetAppDevelopmentQueryVariables = Exact<{
-  appCompositeKey: Scalars['String']['input']
-  pageName: Scalars['String']['input']
-}>
-
-export type GetAppDevelopmentQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
-  primitiveTypes: Array<
-    { __typename?: 'PrimitiveType' } & PrimitiveTypeFragment &
-      PrimitiveTypeFragment
-  >
-  reactNodeTypes: Array<
-    { __typename?: 'ReactNodeType' } & ReactNodeTypeFragment &
-      ReactNodeTypeFragment
-  >
-  renderPropTypes: Array<
-    { __typename?: 'RenderPropType' } & RenderPropTypeFragment &
-      RenderPropTypeFragment
-  >
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-}
-
-export type GetAppProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrl: Scalars['String']['input']
-}>
-
-export type GetAppProductionQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomProductionFragment>
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-}
-
 export type CreateAppsMutationVariables = Exact<{
   input: Array<AppCreateInput> | AppCreateInput
 }>
@@ -21467,18 +21431,40 @@ export type GetAppsListQuery = {
   atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
 }
 
-export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
+export type GetAppDevelopmentQueryVariables = Exact<{
+  appCompositeKey: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
 
-export type GetSelectAtomOptionsQuery = {
+export type GetAppDevelopmentQuery = {
   __typename?: 'Query'
-  atoms: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-    api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-    requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
-  }>
+  apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
+  primitiveTypes: Array<
+    { __typename?: 'PrimitiveType' } & PrimitiveTypeFragment &
+      PrimitiveTypeFragment
+  >
+  reactNodeTypes: Array<
+    { __typename?: 'ReactNodeType' } & ReactNodeTypeFragment &
+      ReactNodeTypeFragment
+  >
+  renderPropTypes: Array<
+    { __typename?: 'RenderPropType' } & RenderPropTypeFragment &
+      RenderPropTypeFragment
+  >
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
+export type GetAppProductionQueryVariables = Exact<{
+  domain: Scalars['String']['input']
+  pageUrl: Scalars['String']['input']
+}>
+
+export type GetAppProductionQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
+  atoms: Array<{ __typename?: 'Atom' } & AtomProductionFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
 export type CreateAtomsMutationVariables = Exact<{
@@ -21533,6 +21519,20 @@ export type UpdateAtomsMutation = {
     __typename?: 'UpdateAtomsMutationResponse'
     atoms: Array<{ __typename?: 'Atom'; id: string }>
   }
+}
+
+export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSelectAtomOptionsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+    api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+    requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
+  }>
 }
 
 export type CreateComponentsMutationVariables = Exact<{

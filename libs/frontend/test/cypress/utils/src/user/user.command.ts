@@ -1,5 +1,4 @@
-import { Role } from '@codelab/shared/abstract/codegen'
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 export const getCurrentUser = () => {

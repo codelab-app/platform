@@ -1,4 +1,3 @@
-import { type IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import type { IBaseDataPaths } from '@codelab/backend/application/shared'
@@ -10,6 +9,7 @@ import {
   TraceService,
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
+import { IAtomBoundedContext } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
@@ -49,22 +49,20 @@ export class ImportAdminDataHandler
   }
 
   @Span()
-  private async importAtom(atomOutput: IAtomOutputDto) {
+  private async importAtom(atom: IAtomBoundedContext) {
     const span = this.traceService.getSpan()
-    span?.setAttributes(flattenWithPrefix(atomOutput))
+    span?.setAttributes(flattenWithPrefix(atom))
 
     await this.commandBus.execute<ImportAtomCommand>(
-      new ImportAtomCommand(atomOutput),
+      new ImportAtomCommand(atom),
     )
   }
 
   private async importAtoms() {
-    for (const atomData of this.readAdminDataService.atoms) {
+    for (const atom of this.readAdminDataService.atoms) {
       // const attributes = pick(atomData.atom, ['name'])
       // this.traceService.getSpan()?.setAttributes(attributes)
-      await withActiveSpan(`${atomData.atom.name}`, () =>
-        this.importAtom(atomData),
-      )
+      await withActiveSpan(`${atom.atom.name}`, () => this.importAtom(atom))
     }
   }
 

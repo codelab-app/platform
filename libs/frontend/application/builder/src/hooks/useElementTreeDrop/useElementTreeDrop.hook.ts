@@ -1,5 +1,5 @@
+import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
-  IElementService,
   IElementTree,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'

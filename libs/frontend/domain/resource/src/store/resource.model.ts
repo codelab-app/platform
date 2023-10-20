@@ -1,8 +1,10 @@
+import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import { getUserService, propRef } from '@codelab/frontend/abstract/domain'
+import { propRef } from '@codelab/frontend/abstract/domain'
+import { Prop } from '@codelab/frontend/domain/prop'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,
@@ -15,7 +17,7 @@ import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ config, id, name, type }: IResourceDTO) =>
   new Resource({
-    config: propRef(config.id),
+    config: Prop.create(config),
     id,
     name,
     type,
@@ -24,7 +26,7 @@ const create = ({ config, id, name, type }: IResourceDTO) =>
 @model('@codelab/ResourceModel')
 export class Resource
   extends Model(() => ({
-    config: prop<Ref<IPropModel>>(),
+    config: prop<IPropModel>(),
     id: idProp,
     name: prop<string>(),
     type: prop<IResourceType>(),
@@ -37,7 +39,7 @@ export class Resource
   writeCache({ config, name, type }: Partial<IResourceDTO>) {
     this.name = name ?? this.name
     this.type = type ?? this.type
-    this.config = config?.id ? propRef(config.id) : this.config
+    this.config = config ? Prop.create(config) : this.config
 
     return this
   }
@@ -46,7 +48,7 @@ export class Resource
     return {
       config: {
         create: {
-          node: this.config.current.toCreateInput(),
+          node: this.config.toCreateInput(),
         },
       },
       id: this.id,
@@ -56,10 +58,20 @@ export class Resource
     }
   }
 
+  @computed
+  get toJson() {
+    return {
+      config: this.config.toJson,
+      id: this.id,
+      name: this.name,
+      type: this.type,
+    }
+  }
+
   toUpdateInput(): ResourceUpdateInput {
     return {
       config: {
-        update: { node: this.config.current.toCreateInput() },
+        update: { node: this.config.toCreateInput() },
       },
       name: this.name,
       type: this.type,

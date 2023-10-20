@@ -2,16 +2,16 @@ import type { IType } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import {
   Field,
-  FieldService,
   InterfaceType,
   PrimitiveType,
-  TypeService,
+  TypeDomainService,
   UnionType,
 } from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { FieldService } from '../../services'
 import { TestRootStore } from './test-root-store'
 
 export const stringType = new PrimitiveType({
@@ -75,7 +75,7 @@ export const rootStore = new TestRootStore({
       [unionField.id, unionField],
     ]),
   }),
-  typeService: new TypeService({
+  typeService: new TypeDomainService({
     types: objectMap<IType>([
       [unionType.id, unionType],
       [interfaceWithUnionField.id, interfaceWithUnionField],

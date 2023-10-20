@@ -15,7 +15,7 @@ export const CreateActionButton = observer(() => {
       icon={<PlusOutlined />}
       onClick={(event) => {
         event.stopPropagation()
-        store && actionService.createForm.open(storeRef(store))
+        store && actionService.createForm.open(store)
       }}
       size="small"
     >

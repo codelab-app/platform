@@ -4,7 +4,7 @@ import { v4 } from 'uuid'
 
 export const atomReactFragmentDto: IAtomDTO = {
   api: {
-    __typename: 'InterfaceType',
+    // __typename: 'InterfaceType',
     id: v4(),
   },
   id: v4(),

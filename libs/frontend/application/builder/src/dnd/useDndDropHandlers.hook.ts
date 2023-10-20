@@ -1,7 +1,7 @@
+import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
   BuilderDropData,
-  IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { DragPosition } from '@codelab/frontend/abstract/domain'

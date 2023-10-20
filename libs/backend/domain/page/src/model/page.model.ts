@@ -1,11 +1,11 @@
+import { IModel } from '@codelab/backend/abstract/types'
 import type { PageKind } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import { slugify } from 'voca'
 
-export class Page implements IPageDTO {
+export class Page extends IModel implements IPage {
   app: IEntity
-
-  // descendentElements?: Array<IEntity> | undefined
 
   id: string
 
@@ -21,9 +21,12 @@ export class Page implements IPageDTO {
 
   url: string
 
+  get slug() {
+    return slugify(this.name)
+  }
+
   constructor({
     app,
-    // descendentElements,
     id,
     kind,
     name,
@@ -32,9 +35,10 @@ export class Page implements IPageDTO {
     store,
     url,
   }: IPageDTO) {
+    super()
+
     this.id = id
     this.app = app
-    // this.descendentElements = descendentElements
     this.kind = kind
     this.name = name
     this.pageContentContainer = pageContentContainer

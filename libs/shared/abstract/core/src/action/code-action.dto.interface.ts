@@ -1,3 +1,4 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IActionKind } from '../action-kind.enum'
@@ -12,3 +13,7 @@ export const ICodeActionDTO = Type.Composite([
 ])
 
 export type ICodeActionDTO = Static<typeof ICodeActionDTO>
+
+export const ICodeAction = Typebox.RequireTypename(ICodeActionDTO)
+
+export type ICodeAction = Static<typeof ICodeAction>

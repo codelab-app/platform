@@ -1,9 +1,17 @@
-import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import type {
+  IAtom,
+  IAtomDTO,
+  IAtomType,
+  IInterfaceTypeRef,
+} from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { type IEntity } from '@codelab/shared/abstract/types'
 import type { ValidationError } from 'class-validator'
 import { validateSync } from 'class-validator'
 
-export class Atom implements IAtomDTO {
+export class Atom implements IAtom {
+  __typename = `${IElementRenderTypeKind.Atom}` as const
+
   static create(data: IAtomDTO): Atom {
     const atom = new Atom(data)
     const errors = validateSync(atom)
@@ -19,7 +27,7 @@ export class Atom implements IAtomDTO {
     return atom
   }
 
-  api: IEntity
+  api: IInterfaceTypeRef
 
   externalCssSource: string | null | undefined
 

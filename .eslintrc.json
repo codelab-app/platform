@@ -5,7 +5,7 @@
     "@nx",
     "import",
     "unused-imports",
-    //    "react-hooks",
+    // "react-hooks",
     "prettier",
     "simple-import-sort",
     "lodash",
@@ -39,7 +39,6 @@
   ],
   // Used for import plugin
   "settings": {
-    "extensions": [".js", ".jsx", ".ts", ".tsx"],
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
@@ -47,11 +46,10 @@
       "typescript": {
         "alwaysTryTypes": true,
         "project": ["(apps|libs)/**/tsconfig.lib.json"]
+      },
+      "node": {
+        "project": ["(apps|libs)/**/tsconfig.lib.json"]
       }
-      // "node": {
-      //   "extensions": [".js", ".jsx", ".ts", ".tsx"],
-      //   "project": ["(apps|libs)/**/tsconfig.lib.json"]
-      // }
     }
   },
   "overrides": [
@@ -59,6 +57,7 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        // "unused-imports/no-unused-imports-ts": "error",
         "sort-destructure-keys/sort-destructure-keys": [
           "error",
           { "caseSensitive": false }
@@ -66,7 +65,6 @@
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",
-        // "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
           {

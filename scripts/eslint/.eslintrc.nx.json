@@ -1,8 +1,10 @@
 {
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"],
+      "plugins": ["@codelab"],
+      "files": ["*.ts", "*.tsx", "*.graphql"],
       "rules": {
+        "@codelab/domain-layer-constraint": "error",
         "@nx/enforce-module-boundaries": [
           "error",
           {

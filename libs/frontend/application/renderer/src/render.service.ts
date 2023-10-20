@@ -1,8 +1,8 @@
 import type {
-  IRenderer,
   IRenderService,
   RendererProps,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import type { IRenderer } from '@codelab/frontend/abstract/domain'
 import { getRendererId } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'

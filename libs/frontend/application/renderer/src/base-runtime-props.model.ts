@@ -1,6 +1,6 @@
 import type { IPageNode, IRuntimeProp } from '@codelab/frontend/abstract/domain'
 import { isTypedProp } from '@codelab/frontend/abstract/domain'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { getTypeService } from '@codelab/frontend/application/type'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -35,7 +35,7 @@ export class BaseRuntimeProps<TNode extends IPageNode>
    * a default implementation which will be overridden by child models
    */
   get props() {
-    return this.node.props.current.values
+    return this.node.props.values
   }
 
   /**

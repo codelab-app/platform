@@ -25,12 +25,12 @@ export const UpdatePageForm = observer(
     showFormControl = true,
     submitRef,
   }: CreatePageFormProps) => {
-    const { pageService } = useStore()
+    const { appService, pageService } = useStore()
     const pageToUpdate = pageService.updateForm.page
     const closeForm = () => pageService.updateForm.close()
 
     const onSubmit = (data: IUpdatePageData) => {
-      void pageService.update(data)
+      void appService.updatePage(data)
       closeForm()
       onSubmitSuccess?.()
 

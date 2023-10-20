@@ -9,7 +9,7 @@ import { usePropsInspector } from '../../hooks'
 
 const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
   const { isLoading, nodeLabel, save } = usePropsInspector(node)
-  const initialProps = node.current.props.current.jsonString
+  const initialProps = node.current.props.jsonString
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
   const lastRenderedProp = node.current.runtimeProp?.evaluatedProps || {}

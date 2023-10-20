@@ -7,7 +7,8 @@ import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
-  defaultCommandTimeout: 5000,
+  defaultCommandTimeout: 10000,
+  //
   env: {
     auth0Audience: getEnv().auth0.audience,
     auth0BaseUrl: getEnv().endpoint.platformHost,

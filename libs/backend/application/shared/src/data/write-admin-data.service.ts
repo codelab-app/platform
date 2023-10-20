@@ -1,9 +1,9 @@
-import { type IAdminOutputDto } from '@codelab/backend/abstract/core'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   formatToPrettifiedJson,
   writeFileSyncWithDirs,
 } from '@codelab/backend/shared/util'
+import { IAdminBoundedContext } from '@codelab/shared/abstract/core'
 import { deepSortKeys } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import path from 'path'
@@ -20,7 +20,7 @@ export class WriteAdminDataService {
    * Write data to the volume
    */
   @Span()
-  async saveData(data: IAdminOutputDto) {
+  async saveData(data: IAdminBoundedContext) {
     const { atoms, components, systemTypes, tags } = deepSortKeys(data)
 
     await this.writeAtomsData(atoms)
@@ -32,11 +32,11 @@ export class WriteAdminDataService {
   }
 
   @Span()
-  private async writeAtomsData(atoms: IAdminOutputDto['atoms']) {
-    for (const { api, atom } of atoms) {
+  private async writeAtomsData(atoms: IAdminBoundedContext['atoms']) {
+    for (const { api, ...atom } of atoms) {
       const outputPath = path.resolve(
         this.migrationDataService.atomsPath,
-        `${atom.name}.json`,
+        `${atom.atom.name}.json`,
       )
 
       const stringData = await formatToPrettifiedJson({
@@ -55,8 +55,10 @@ export class WriteAdminDataService {
     }
   }
 
-  private async writeComponentsData(components: IAdminOutputDto['components']) {
-    for (const { api, component, descendantElements, store } of components) {
+  private async writeComponentsData(
+    components: IAdminBoundedContext['components'],
+  ) {
+    for (const { api, descendantElements, store, ...component } of components) {
       // Component name can have spaces, which can cause issues with file names
       const name = component.name.replace(/ /g, '')
 
@@ -77,7 +79,7 @@ export class WriteAdminDataService {
   }
 
   private async writeSystemTypesData(
-    systemTypes: IAdminOutputDto['systemTypes'],
+    systemTypes: IAdminBoundedContext['systemTypes'],
   ) {
     const stringData = await formatToPrettifiedJson(systemTypes)
 
@@ -87,7 +89,7 @@ export class WriteAdminDataService {
     )
   }
 
-  private async writeTagsData(tags: IAdminOutputDto['tags']) {
+  private async writeTagsData(tags: IAdminBoundedContext['tags']) {
     const stringData = await formatToPrettifiedJson(tags)
 
     writeFileSyncWithDirs(this.migrationDataService.tagsFilePath, stringData)

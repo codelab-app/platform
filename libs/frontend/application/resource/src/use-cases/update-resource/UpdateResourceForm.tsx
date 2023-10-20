@@ -12,7 +12,7 @@ export const UpdateResourceForm = observer(() => {
   const resource = resourceService.updateForm.resource
 
   const model = {
-    config: resource?.config.current.values,
+    config: resource?.config.values,
     id: resource?.id,
     name: resource?.name,
     type: resource?.type,

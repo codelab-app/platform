@@ -1,4 +1,4 @@
-import type { IRepository } from '@codelab/frontend/abstract/domain'
+import type { IRepository } from '@codelab/frontend/abstract/application'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Model, model } from 'mobx-keystone'
 

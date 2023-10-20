@@ -1,7 +1,7 @@
-import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Span } from '@codelab/backend/infra/adapter/otel'
+import { IAtomBoundedContext } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -9,7 +9,7 @@ import omit from 'lodash/omit'
 
 @Injectable()
 export class ImportAtomCommand {
-  constructor(public atomOutput: IAtomOutputDto) {}
+  constructor(public atomAggregate: IAtomBoundedContext) {}
 }
 
 @CommandHandler(ImportAtomCommand)
@@ -24,7 +24,7 @@ export class ImportAtomHandler
   @Span()
   async execute(command: ImportAtomCommand) {
     const {
-      atomOutput: { api, atom },
+      atomAggregate: { api, atom },
     } = command
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))

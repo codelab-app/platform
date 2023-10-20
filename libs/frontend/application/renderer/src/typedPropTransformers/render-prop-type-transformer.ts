@@ -1,5 +1,5 @@
 import type {
-  IField,
+  IFieldModel,
   IPageNode,
   ITypedPropTransformer,
   TypedProp,
@@ -28,7 +28,10 @@ import { cloneComponent } from '../utils'
  * }
  */
 
-const matchPropsToFields = (fields: Array<IField> = [], props: Array<object>) =>
+const matchPropsToFields = (
+  fields: Array<IFieldModel> = [],
+  props: Array<object>,
+) =>
   props.reduce(
     (acc, val, index) =>
       fields[index]?.key
@@ -77,7 +80,7 @@ export class RenderPropTypeTransformer
         return fallback
       }
 
-      clonedComponent.props.current.setMany(props)
+      clonedComponent.props.setMany(props)
       this.renderer.addRuntimeProps(componentRef(clonedComponent.id))
 
       const rootElement = clonedComponent.rootElement.current

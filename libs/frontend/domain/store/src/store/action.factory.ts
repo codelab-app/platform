@@ -1,10 +1,9 @@
+import type { IActionFactory } from '@codelab/frontend/abstract/application'
 import type {
-  IActionFactory,
   IActionModel,
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   ActionFragment,
   ApiActionFragment,
@@ -16,7 +15,6 @@ import {
   IApiActionDTO,
   ICodeActionDTO,
 } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 
 const writeCache = (
@@ -48,7 +46,6 @@ export class ActionFactory extends Model({}) implements IActionFactory {
       case IActionKind.CodeAction:
         return {
           __typename: IActionKind.CodeAction,
-
           code: action.code,
           id: action.id,
           name: action.name,
@@ -58,9 +55,10 @@ export class ActionFactory extends Model({}) implements IActionFactory {
       case IActionKind.ApiAction:
         return {
           __typename: IActionKind.ApiAction,
-
-          config: { id: action.config.id },
-
+          config: {
+            data: JSON.stringify(action.config.data),
+            id: action.config.id,
+          },
           errorAction: action.errorAction
             ? { id: action.errorAction.id }
             : undefined,
@@ -88,7 +86,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
         return {
           ...data,
           __typename: IActionKind.ApiAction,
-          config: { id: data.config.id },
+          config: { data: JSON.stringify(data.config), id: data.id },
           errorAction: data.errorActionId
             ? { id: data.errorActionId }
             : undefined,
@@ -129,7 +127,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
   }: ApiActionFragment): IApiActionDTO {
     return {
       ...apiActionFragment,
-      config: this.propService.add(config),
+      config,
       errorAction: errorAction ? { id: errorAction.id } : undefined,
       successAction: successAction ? { id: successAction.id } : undefined,
     }
@@ -140,10 +138,5 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     codeAction: CodeActionFragment,
   ): ICodeActionDTO {
     return codeAction
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
   }
 }

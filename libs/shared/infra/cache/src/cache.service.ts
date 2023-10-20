@@ -20,10 +20,6 @@ const createStringToJSONSchema = <T>(): z.ZodTransformer<z.ZodString, T> => {
   })
 }
 
-interface ICacheService {
-  clearAllCache(): Promise<void>
-}
-
 /**
  * Adds a layer of caching before we fetch with repository. Item and List are cached separately. We use where to differentiate the cache
  *

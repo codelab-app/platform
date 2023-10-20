@@ -1,15 +1,15 @@
-import type { IComponentOutputDto } from '@codelab/backend/abstract/core'
 import { ImportStoreCommand } from '@codelab/backend/application/store'
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly componentExport: IComponentOutputDto) {}
+  constructor(public readonly componentAggregate: IComponentBoundedContext) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -26,8 +26,10 @@ export class ImportComponentsHandler
 
   async execute(command: ImportComponentsCommand) {
     const {
-      componentExport: { api, component, descendantElements, store },
+      componentAggregate: { api, component },
     } = command
+
+    const { descendantElements, rootElement, store } = component
 
     await this.propRepository.save(component.props)
 
@@ -37,7 +39,7 @@ export class ImportComponentsHandler
       new ImportStoreCommand(store),
     )
 
-    for await (const element of descendantElements) {
+    for await (const element of [...descendantElements, rootElement]) {
       await this.propRepository.save(element.props)
       await this.elementRepository.save(element)
     }

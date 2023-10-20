@@ -164,6 +164,7 @@
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
+      "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
       "@codelab/frontend/abstract/application": [
         "libs/frontend/abstract/application/src/index.ts"
       ],
@@ -354,7 +355,8 @@
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/tools/eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

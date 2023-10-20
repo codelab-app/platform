@@ -11,7 +11,7 @@ import { TagsTreeView } from '../get-tags'
 export const TagsPrimarySidebar = observer(() => {
   const { tagService } = useStore()
   const { popover } = useCui()
-  const ids = tagService.checkedTags.map((tag) => tag.id)
+  const tags = tagService.checkedTags.map((tag) => tag.current)
 
   const toolbarItems = [
     {
@@ -26,8 +26,7 @@ export const TagsPrimarySidebar = observer(() => {
     {
       icon: <DeleteOutlined />,
       key: 'delete',
-      onClick: () =>
-        tagService.deleteManyModal.open(ids.map((id) => tagRef(id))),
+      onClick: () => tagService.deleteManyModal.open(tags),
       title: 'Delete Tag',
     },
   ]

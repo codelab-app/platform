@@ -1,8 +1,8 @@
 import type {
-  IPrimitiveType,
-  ITypeService,
+  IPrimitiveTypeModel,
   IValidationRules,
 } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -16,13 +16,9 @@ import { useField } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { schemaTransformer } from '../../type-schema.factory'
 
-export interface SelectDefaultValueProps {
-  typeService: ITypeService
-}
+export const SelectDefaultValue = () => {
+  const { typeService } = useStore()
 
-export const SelectDefaultValue = ({
-  typeService,
-}: SelectDefaultValueProps) => {
   // Need to load the type if not loaded yet
   // otherwise default value form will not be rendered
   const [, getType] = useAsync(() =>
@@ -43,7 +39,7 @@ export const SelectDefaultValue = ({
     : null
 
   // Typecasting just for conditional check if field type is primitive
-  const primitiveKind = (type as Maybe<IPrimitiveType>)?.primitiveKind
+  const primitiveKind = (type as Maybe<IPrimitiveTypeModel>)?.primitiveKind
   // This prevents a nullable boolean when switching from another type to boolean
   // Cant move this yet to ajv schema since fieldType is id and cannot determine primitive kind
   const isRequired = primitiveKind === PrimitiveTypeKind.Boolean

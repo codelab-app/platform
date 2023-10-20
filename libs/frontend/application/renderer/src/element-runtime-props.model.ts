@@ -85,7 +85,7 @@ export class ElementRuntimeProps
     }
 
     const customTextProp =
-      this.nodeRef.current.props.current.values[CUSTOM_TEXT_PROP_KEY]
+      this.nodeRef.current.props.values[CUSTOM_TEXT_PROP_KEY]
 
     const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
     const evaluated = evaluateObject(props, this.node.propsEvaluationContext)
@@ -107,7 +107,7 @@ export class ElementRuntimeProps
 
     return {
       ...getDefaultFieldProps(this.node.renderType.current),
-      ...this.node.props.current.values,
+      ...this.node.props.values,
       /**
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */

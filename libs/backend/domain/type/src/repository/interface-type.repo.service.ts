@@ -15,7 +15,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   type IInterfaceTypeDTO,
-  type ITypeEntity,
+  ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
 import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
@@ -40,7 +40,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
 
   @Span()
   async getDependentTypes<T extends TAnySchema>(
-    { id }: ITypeEntity,
+    { id }: ITypeMaybeRef,
     schema?: T,
   ): Promise<Array<Static<T>>> {
     return this.neo4jService.withReadTransaction(async (txn) => {

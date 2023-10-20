@@ -9,7 +9,6 @@ import { useCurrentApp } from './useCurrentApp.hook'
  */
 export const useCurrentPage = () => {
   const app = useCurrentApp()
-  const { pageService } = useStore()
   const { query } = useRouter()
   const pageSlug = query.pageSlug as string
   const pageName = getNameFromSlug(pageSlug)
@@ -19,9 +18,7 @@ export const useCurrentPage = () => {
       return undefined
     }
 
-    const page = pageService
-      .pagesByApp(app.id)
-      .find(({ name }) => name === pageName)
+    const page = app.pages.find(({ name }) => name === pageName)
 
     return page
   }, [pageName])

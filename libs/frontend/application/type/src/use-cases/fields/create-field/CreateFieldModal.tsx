@@ -129,7 +129,7 @@ export const CreateFieldModal = observer(() => {
             canSetDefaultValue(typeService, model.fieldType)
           }
         >
-          <SelectDefaultValue typeService={typeService} />
+          <SelectDefaultValue />
         </DisplayIfField>
       </ModalForm.Form>
     </ModalForm.Modal>

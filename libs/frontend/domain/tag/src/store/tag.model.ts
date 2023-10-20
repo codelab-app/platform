@@ -1,8 +1,6 @@
+import { getUserService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import {
-  getUserService,
-  ITagsTreeDataNode,
-} from '@codelab/frontend/abstract/domain'
+import { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import type {
   TagCreateInput,
   TagUpdateInput,
@@ -67,6 +65,18 @@ export class Tag
   @computed
   get label() {
     return this.name
+  }
+
+  @computed
+  get toJson() {
+    return {
+      children: this.children,
+      descendants: this.descendants,
+      id: this.id,
+      isRoot: this.isRoot,
+      name: this.name,
+      parent: this.parent,
+    }
   }
 
   @modelAction

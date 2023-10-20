@@ -17,7 +17,7 @@ export class ElementApplicationValidationService
     const { props, renderType } = element
     const schema = schemaTransformer.transform(renderType.current.api.current)
     const validate = createValidator(schema)
-    const result = validate(props.current.values)
+    const result = validate(props.values)
 
     return result ? result.details.length > 0 : false
   }

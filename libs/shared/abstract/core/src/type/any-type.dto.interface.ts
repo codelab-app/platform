@@ -1,17 +1,11 @@
-import { IMaybeDiscriminatedEntity } from '@codelab/shared/abstract/types'
+import {
+  IDiscriminatedEntity,
+  IMaybeDiscriminatedEntity,
+} from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'
-
-/**
- * This approach collapses the types
- */
-// export const IAnyType = Type.Union(
-//   ObjectTyped.keys(ITypeKind).map((key) =>
-//     IBaseTypeDTO<TLiteral<typeof key>>(Type.Literal(key)),
-//   ),
-// )
 
 export const IAnyBaseType = Type.Union([
   IBaseTypeDTO(Type.Literal(`${ITypeKind.ActionType}`)),
@@ -31,10 +25,25 @@ export const IAnyBaseType = Type.Union([
 
 export type IAnyBaseType = Static<typeof IAnyBaseType>
 
-/**
- * Entity
- */
-export const ITypeEntity = Type.Union([
+export const ITypeRef = Type.Union([
+  IDiscriminatedEntity(`${ITypeKind.ActionType}`),
+  IDiscriminatedEntity(`${ITypeKind.AppType}`),
+  IDiscriminatedEntity(`${ITypeKind.ArrayType}`),
+  IDiscriminatedEntity(`${ITypeKind.CodeMirrorType}`),
+  IDiscriminatedEntity(`${ITypeKind.ElementType}`),
+  IDiscriminatedEntity(`${ITypeKind.EnumType}`),
+  IDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
+  IDiscriminatedEntity(`${ITypeKind.LambdaType}`),
+  IDiscriminatedEntity(`${ITypeKind.PageType}`),
+  IDiscriminatedEntity(`${ITypeKind.PrimitiveType}`),
+  IDiscriminatedEntity(`${ITypeKind.ReactNodeType}`),
+  IDiscriminatedEntity(`${ITypeKind.RenderPropType}`),
+  IDiscriminatedEntity(`${ITypeKind.UnionType}`),
+])
+
+export type ITypeRef = Static<typeof ITypeRef>
+
+export const ITypeMaybeRef = Type.Union([
   IMaybeDiscriminatedEntity(`${ITypeKind.ActionType}`),
   IMaybeDiscriminatedEntity(`${ITypeKind.AppType}`),
   IMaybeDiscriminatedEntity(`${ITypeKind.ArrayType}`),
@@ -50,4 +59,4 @@ export const ITypeEntity = Type.Union([
   IMaybeDiscriminatedEntity(`${ITypeKind.UnionType}`),
 ])
 
-export type ITypeEntity = Static<typeof ITypeEntity>
+export type ITypeMaybeRef = Static<typeof ITypeMaybeRef>

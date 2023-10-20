@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IActionType } from '@codelab/frontend/abstract/domain'
+import type { IActionTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   createAutoCompleteOptions,
   ToggleExpressionField,
@@ -14,7 +14,7 @@ const ACTION_TEMPLATE = `{{
   }
 }}`
 
-export const actionTypeUiProperties: UiPropertiesFn<IActionType> = (
+export const actionTypeUiProperties: UiPropertiesFn<IActionTypeModel> = (
   type,
   context,
 ) => {

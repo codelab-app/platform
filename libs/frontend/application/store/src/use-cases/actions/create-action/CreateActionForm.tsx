@@ -61,7 +61,7 @@ export const CreateActionForm = observer(
 
     const getResourceApiUrl = ({ model }: Context<ICreateActionData>) =>
       model.resourceId
-        ? resourceService.resource(model.resourceId)?.config.current.get('url')
+        ? resourceService.resource(model.resourceId)?.config.get('url')
         : null
 
     const model = {

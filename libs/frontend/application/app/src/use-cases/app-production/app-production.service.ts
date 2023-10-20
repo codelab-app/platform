@@ -1,20 +1,20 @@
-import type {
-  IAppProductionArgs,
-  IAppProductionService,
-} from '@codelab/frontend/abstract/domain'
 import {
   getAppService,
   getComponentService,
   getElementService,
-  IAppProductionDto,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IAppProductionArgs,
+  IAppProductionService,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getPageService } from '@codelab/frontend/domain/page'
-import { getPropService } from '@codelab/frontend/domain/prop'
+import { IAppProductionDto } from '@codelab/frontend/abstract/domain'
+import { getAtomService } from '@codelab/frontend/application/atom'
+import { getPageService } from '@codelab/frontend/application/page'
+import { getPropService } from '@codelab/frontend/application/prop'
 import {
   getActionService,
   getStoreService,
-} from '@codelab/frontend/domain/store'
+} from '@codelab/frontend/application/store'
 import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomProductionFragment } from '@codelab/shared/abstract/codegen'
 import uniqBy from 'lodash/uniqBy'
@@ -105,7 +105,9 @@ export class AppProductionService
     const entity = { id: v4() }
 
     // use a dummy api to avoid typing issues
-    data.atoms.forEach((atom) => this.atomService.add({ ...atom, api: entity }))
+    data.atoms.forEach((atom) =>
+      this.atomService.atomDomainService.add({ ...atom, api: entity }),
+    )
 
     data.components.forEach((component) =>
       // use a dummy api to avoid typing issues
@@ -122,13 +124,13 @@ export class AppProductionService
 
     data.props.forEach((prop) => this.propService.add(prop))
 
-    data.pages.forEach((page) => this.pageService.add(page))
-
-    data.stores.forEach((store) => this.storeService.add(store))
+    data.stores.forEach((store) =>
+      this.storeService.storeDomainService.add(store),
+    )
 
     data.actions.forEach((action) => this.actionService.add(action))
 
-    return this.appService.add(data.app)
+    return this.appService.appDomainService.add(data.app)
   }
 
   @computed

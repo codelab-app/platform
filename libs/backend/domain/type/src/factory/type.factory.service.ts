@@ -13,7 +13,7 @@ import {
   getTypeDescendantsOGM,
   NEO4J_DRIVER_PROVIDER,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { ITypeDTO, ITypeEntity } from '@codelab/shared/abstract/core'
+import type { ITypeDTO, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { context } from '@opentelemetry/api'
@@ -37,7 +37,7 @@ import {
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
 } from '../repository'
-import { UnionTypeRepository } from './../repository/union-type.repo.service'
+import { UnionTypeRepository } from '../repository/union-type.repo.service'
 
 /**
  * Used for dynamic data when we don't know what type we are creating
@@ -66,7 +66,7 @@ export class TypeFactory {
     // We pass in a single id, so only get 1 record, for each record, we want the first column
     const descendants = [
       ...(results.records[0]?.values() ?? []),
-    ][0] as Array<ITypeEntity>
+    ][0] as Array<ITypeMaybeRef>
 
     // We only get interface type descendants, since other types are pushed in front of interfaces
     const sortedDescendants = descendants.sort((a, b) =>
@@ -76,7 +76,7 @@ export class TypeFactory {
     return sortedDescendants
   }
 
-  async findOne({ __typename, id }: ITypeEntity) {
+  async findOne({ __typename, id }: ITypeMaybeRef) {
     if (!__typename) {
       throw new Error('__typename must be provided')
     }

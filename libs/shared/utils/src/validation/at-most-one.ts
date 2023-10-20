@@ -14,6 +14,7 @@ export const assertContainsAtMostOne = (
   const atMostOne = containsAtMostOne(items)
 
   if (!atMostOne) {
+    console.error(items)
     throw new Error(options?.message ?? 'Can contain at most one')
   }
 }

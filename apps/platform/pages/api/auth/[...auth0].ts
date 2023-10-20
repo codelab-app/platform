@@ -1,5 +1,4 @@
 import { restPlatformApiClient } from '@codelab/frontend/application/axios'
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiRequest, NextApiResponse } from 'next'

@@ -1,8 +1,8 @@
 import type {
   IEvaluationContext,
   IFieldDefaultValue,
-  IInterfaceType,
-  IType,
+  IInterfaceTypeModel,
+  ITypeModel,
   IValidationRules,
 } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
@@ -14,12 +14,12 @@ export type InterfaceFormProps<TData, TResponse> = Assign<
   SubmitRef & {
     context?: UiPropertiesContext
     initialSchema?: object
-    interfaceType: IInterfaceType
+    interfaceType: IInterfaceTypeModel
     setIsLoading?: SetIsLoading
   }
 >
 
-export type UiPropertiesFn<TType extends IType = IType> = (
+export type UiPropertiesFn<TType extends ITypeModel = ITypeModel> = (
   type: TType,
   context?: UiPropertiesContext,
 ) => Record<string, unknown>

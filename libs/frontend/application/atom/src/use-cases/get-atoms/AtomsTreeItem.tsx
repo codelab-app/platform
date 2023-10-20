@@ -1,9 +1,9 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
   IAtomsTreeDataNode,
-  IInterfaceType,
+  IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { typeRef } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -11,9 +11,7 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { AtomType } from '@codelab/shared/abstract/codegen'
 import React from 'react'
-import { useGetLibrary } from './dataSource/atom-library'
 
 interface AtomsTreeItemProps {
   data: IAtomsTreeDataNode
@@ -22,25 +20,24 @@ interface AtomsTreeItemProps {
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   const { atomService, fieldService } = useStore()
   const { popover } = useCui()
-  const getLibrary = useGetLibrary()
   const { node, type } = data.extraData
-  const icon = type === 'atom' ? getLibrary(node.type as AtomType).icon : null
+  const icon = type === 'atom' ? node.library.icon : null
 
   const onEdit = () => {
     if (type === 'atom') {
-      atomService.updateForm.open(atomRef(node.id))
+      atomService.updateForm.open(node)
       fieldService.updateForm.close()
     } else {
-      fieldService.updateForm.open(fieldRef(node.id))
+      fieldService.updateForm.open(node)
       atomService.updateForm.close()
     }
   }
 
   const onDelete = () => {
     if (type === 'atom') {
-      atomService.deleteManyModal.open([atomRef(node.id)])
+      atomService.deleteManyModal.open([node])
     } else {
-      fieldService.deleteModal.open(fieldRef(node.id))
+      fieldService.deleteModal.open(node)
     }
   }
 
@@ -48,11 +45,11 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     const interfaceId = node.api.id
 
     const interfaceRef = interfaceId
-      ? typeRef<IInterfaceType>(interfaceId)
+      ? typeRef<IInterfaceTypeModel>(interfaceId)
       : undefined
 
     if (interfaceRef) {
-      fieldService.createForm.open(interfaceRef)
+      fieldService.createForm.open(interfaceRef.current)
       popover.open(FormNames.CreateField)
     }
   }

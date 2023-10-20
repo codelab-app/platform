@@ -1,7 +1,5 @@
-import type {
-  IElementModel,
-  IElementService,
-} from '@codelab/frontend/abstract/domain'
+import type { IElementService } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'

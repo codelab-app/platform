@@ -19,7 +19,7 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
 
   const onChange = (output: OutputData) => {
     const element = elementService.element(elementId)
-    const props = element.props.current
+    const props = element.props
 
     return propService.updateWithDefaultValuesApplied({
       data: { ...props.data.data, customText: JSON.stringify(output) },

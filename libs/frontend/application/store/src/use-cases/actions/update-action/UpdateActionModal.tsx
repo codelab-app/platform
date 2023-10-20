@@ -37,7 +37,7 @@ export const UpdateActionModal = observer(() => {
     actionToUpdate?.type === IActionKind.ApiAction
       ? {
           config: {
-            data: actionToUpdate.config.current.values,
+            data: actionToUpdate.config.values,
             id: actionToUpdate.config.id,
           },
           ...baseModel,
@@ -57,9 +57,7 @@ export const UpdateActionModal = observer(() => {
 
   const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
     context.model.resourceId
-      ? resourceService
-          .resource(context.model.resourceId)
-          ?.config.current.get('url')
+      ? resourceService.resource(context.model.resourceId)?.config.get('url')
       : null
 
   return (

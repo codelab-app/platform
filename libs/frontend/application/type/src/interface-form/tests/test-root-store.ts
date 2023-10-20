@@ -1,20 +1,16 @@
-import type {
-  IFieldService,
-  ITypeService,
-} from '@codelab/frontend/abstract/domain'
-import {
-  fieldServiceContext,
-  typeServiceContext,
-} from '@codelab/frontend/domain/type'
+import type { IFieldService } from '@codelab/frontend/abstract/application'
+import type { ITypeDomainService } from '@codelab/frontend/abstract/domain'
+import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
+import { fieldServiceContext } from '../../services'
 
 @model('@codelab/TestRootStore')
 export class TestRootStore extends Model({
   fieldService: prop<IFieldService>(),
-  typeService: prop<ITypeService>(),
+  typeService: prop<ITypeDomainService>(),
 }) {
   protected override onInit(): void {
-    typeServiceContext.set(this, this.typeService)
+    typeDomainServiceContext.set(this, this.typeService)
     fieldServiceContext.set(this, this.fieldService)
 
     registerRootStore(this)

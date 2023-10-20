@@ -7,7 +7,7 @@ export const antdAtoms: IAtomRendererRecord = {
     () => import('antd/lib/grid/row'),
   ),
   [IAtomType.AntDesignIcon]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atom').then((mod) => mod.AntdIcon),
+    import('./components').then((mod) => mod.AntdIcon),
   ),
   [IAtomType.AntDesignMenu]: dynamicLoader(() => import('antd/lib/menu')),
   [IAtomType.AntDesignGridCol]: dynamicLoader(

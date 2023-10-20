@@ -1,3 +1,2 @@
-export * from './ant-design'
-export * from './custom'
+export * from './services'
 export * from './use-cases'

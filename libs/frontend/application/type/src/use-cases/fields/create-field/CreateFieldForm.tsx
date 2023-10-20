@@ -144,7 +144,7 @@ export const CreateFieldForm = observer(
             canSetDefaultValue(typeService, model.fieldType)
           }
         >
-          <SelectDefaultValue typeService={typeService} />
+          <SelectDefaultValue />
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>

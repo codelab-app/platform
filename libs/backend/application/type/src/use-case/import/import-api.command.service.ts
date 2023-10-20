@@ -1,10 +1,10 @@
-import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
+import type { IApi } from '@codelab/shared/abstract/core'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportApiCommand {
-  constructor(public apiOutput: IApiOutputDto) {}
+  constructor(public api: IApi) {}
 }
 
 @CommandHandler(ImportApiCommand)
@@ -19,12 +19,10 @@ export class ImportApiHandler
   @Span()
   async execute(command: ImportApiCommand) {
     const {
-      apiOutput: { fields, types = [], ...api },
+      api: { fields, types },
     } = command
 
-    const descendantTypesWithApiType = [...types, { ...api, fields: [] }]
-
-    for (const type of descendantTypesWithApiType) {
+    for (const type of types) {
       await this.typeFactory.save(type)
     }
 

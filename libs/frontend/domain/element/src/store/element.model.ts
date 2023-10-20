@@ -1,3 +1,9 @@
+import {
+  getBuilderService,
+  getComponentService,
+  getElementService,
+  getRenderService,
+} from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IActionModel,
@@ -20,10 +26,6 @@ import {
   DATA_ELEMENT_ID,
   defaultBuilderWidthBreakPoints,
   elementRef,
-  getBuilderService,
-  getComponentService,
-  getElementService,
-  getRenderService,
   IElementModel,
   IElementStyle,
   IElementTreeViewDataNode,
@@ -33,9 +35,9 @@ import {
   isComponent,
   isComponentRef,
   pageRef,
-  propRef,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
+import { Prop } from '@codelab/frontend/domain/prop'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -115,7 +117,7 @@ const create = (element: IElementDTO): IElementModel => {
       ? actionRef(preRenderAction.id)
       : undefined,
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
-    props: propRef(props.id),
+    props: Prop.create(props),
     renderForEachPropKey,
     renderIfExpression,
     renderingMetadata: null,
@@ -152,7 +154,7 @@ export class Element
     postRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
     preRenderAction: prop<Nullable<Ref<IActionModel>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
-    props: prop<Ref<IPropModel>>().withSetter(),
+    props: prop<IPropModel>().withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
@@ -502,7 +504,7 @@ export class Element
       postRenderAction: this.postRenderAction,
       preRenderAction: this.preRenderAction,
       prevSibling: this.prevSibling,
-      props: this.props.current.toJson,
+      props: this.props.toJson,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: this.renderType.current.toJson,
@@ -569,8 +571,8 @@ export class Element
 
     // Add assigned ReactNode props as children
     const reactNodesChildren: Array<IElementTreeViewDataNode> = []
-    Object.keys(this.props.current.values).forEach((key, index) => {
-      const propData = this.props.current.values[key]
+    Object.keys(this.props.values).forEach((key, index) => {
+      const propData = this.props.values[key]
 
       const component = this.componentService.components.get(propData.value)
         ?.rootElement.current
@@ -837,7 +839,7 @@ export class Element
       prevSibling: connectNodeId(this.prevSibling?.id),
       props: {
         create: {
-          node: this.props.current.toCreateInput(),
+          node: this.props.toCreateInput(),
         },
       },
       renderType: {
@@ -946,7 +948,7 @@ export class Element
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.renderType = renderType ? getRenderType(renderType) : this.renderType
-    this.props = props?.id ? propRef(props.id) : this.props
+    this.props = props ? this.props.writeCache(props) : this.props
     this.childMapperPropKey = childMapperPropKey ?? null
     this.parentElement = parentElement?.id
       ? elementRef(parentElement.id)

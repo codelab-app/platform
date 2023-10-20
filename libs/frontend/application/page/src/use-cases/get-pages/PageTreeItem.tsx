@@ -11,7 +11,6 @@ import type {
   IAppModel,
   IPagesTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
-import { pageRef } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
   FormNames,
@@ -46,7 +45,7 @@ export const PageTreeItem = observer(
     const { popover } = useCui()
     const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
     const router = useRouter()
-    const domains = app.domains.map((domain) => domain.current)
+    const domains = app.domains.map((domain) => domain)
 
     const commonToolbarItems = [
       {
@@ -71,7 +70,7 @@ export const PageTreeItem = observer(
       {
         icon: <DeleteOutlined />,
         key: 'delete',
-        onClick: () => pageService.deleteModal.open(pageRef(page)),
+        onClick: () => pageService.deleteModal.open(page),
         title: 'Delete',
       },
       {
@@ -102,7 +101,7 @@ export const PageTreeItem = observer(
         icon: <EditOutlined />,
         key: 'edit',
         onClick: () => {
-          pageService.updateForm.open(pageRef(page))
+          pageService.updateForm.open(page)
           popover.open(FormNames.UpdatePage)
         },
         title: 'Edit',

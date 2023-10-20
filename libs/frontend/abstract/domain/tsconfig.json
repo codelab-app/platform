@@ -2,7 +2,6 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -14,9 +13,6 @@
   "references": [
     {
       "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
     }
   ]
 }

@@ -1,6 +1,6 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
-  IInterfaceType,
+  IInterfaceTypeModel,
   ITypesTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
@@ -25,19 +25,19 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
-      typeService.updateForm.open(typeRef(data.extraData.node.id))
+      typeService.updateForm.open(data.extraData.node)
       fieldService.updateForm.close()
     } else {
-      fieldService.updateForm.open(fieldRef(data.extraData.node.id))
+      fieldService.updateForm.open(data.extraData.node)
       typeService.updateForm.close()
     }
   }
 
   const onDelete = () => {
     if (data.extraData.type === 'type') {
-      typeService.deleteModal.open(typeRef(data.extraData.node.id))
+      typeService.deleteModal.open(data.extraData.node)
     } else {
-      fieldService.deleteModal.open(fieldRef(data.extraData.node.id))
+      fieldService.deleteModal.open(data.extraData.node)
     }
   }
 
@@ -56,12 +56,12 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
       return
     }
 
-    const interfaceId =
+    const interfaceType =
       data.extraData.type === 'field'
-        ? data.extraData.node.type.id
-        : data.extraData.node.id
+        ? data.extraData.node.type.current
+        : data.extraData.node
 
-    fieldService.createForm.open(typeRef(interfaceId) as Ref<IInterfaceType>)
+    fieldService.createForm.open(interfaceType as IInterfaceTypeModel)
     popover.open(FormNames.CreateField)
   }
 

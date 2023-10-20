@@ -1,17 +1,17 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IElementModel,
-  IField,
-  IReactNodeType,
+  IFieldModel,
+  IReactNodeTypeModel,
   IRenderer,
-  IRenderPropType,
+  IRenderPropTypeModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IRootStore } from '@codelab/frontend/application/shared/store'
 
 export type ITestRootStore = Pick<
   IRootStore,
   | 'atomService'
-  | 'builderService'
+  // | 'builderService'
   | 'componentService'
   | 'elementService'
   | 'pageService'
@@ -24,12 +24,12 @@ export type ITestRootStore = Pick<
 
 export interface TestServices {
   component: IComponentModel
-  componentField: IField
+  componentField: IFieldModel
   componentInstance: IElementModel
   element: IElementModel
-  reactNodeType: IReactNodeType
-  renderPropType: IRenderPropType
+  reactNodeType: IReactNodeTypeModel
+  renderPropType: IRenderPropTypeModel
   renderer: IRenderer
   rootStore: ITestRootStore
-  textField: IField
+  textField: IFieldModel
 }

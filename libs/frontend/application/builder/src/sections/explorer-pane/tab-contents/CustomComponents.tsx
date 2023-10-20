@@ -83,7 +83,9 @@ export const CustomComponents = observer(() => {
       {!isNil(error) ? error.message : null}
       <ComponentList
         components={componentService.componentList}
-        onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
+        onDelete={(id) =>
+          componentService.deleteModal.open(componentRef(id).current)
+        }
         onEdit={(id) => editComponent(id)}
         onExport={(id) => exportComponent(id)}
         onSelect={(id) => selectComponent(id)}

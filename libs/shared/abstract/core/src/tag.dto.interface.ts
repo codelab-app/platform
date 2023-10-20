@@ -14,3 +14,7 @@ export const ITagDTO = Type.Object({
 })
 
 export type ITagDTO = Static<typeof ITagDTO>
+
+export const ITag = ITagDTO
+
+export type ITag = Static<typeof ITag>

@@ -3,7 +3,6 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/domain/prop'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -61,14 +60,6 @@ export class ElementDomainService
 
     validateElementDto(elementDto)
 
-    const props = {
-      data: elementDto.props.data,
-      // makeDefaultProps(renderType.current.api.current),
-      id: elementDto.props.id,
-    }
-
-    this.propService.add(props)
-
     const element: IElementModel = Element.create(elementDto)
 
     this.elements.set(elementDto.id, element)
@@ -120,10 +111,5 @@ export class ElementDomainService
       const node = element.toTreeNode
       console.debug(node)
     })
-  }
-
-  @computed
-  get propService() {
-    return getPropService(this)
   }
 }

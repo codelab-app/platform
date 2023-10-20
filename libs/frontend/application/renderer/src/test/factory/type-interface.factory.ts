@@ -15,7 +15,7 @@ export default Factory.define<ICreateTypeData>(({ params }) => {
       InterfaceType.createName(chance.word({ capitalize: true })),
   }
 
-  testRootStore.typeService.addInterface(dto)
+  testRootStore.typeService.typeDomainService.addInterface(dto)
 
   return dto
 })

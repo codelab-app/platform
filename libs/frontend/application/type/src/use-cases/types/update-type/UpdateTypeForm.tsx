@@ -16,7 +16,7 @@ export const UpdateTypeForm = observer(() => {
   const { typeService } = useStore()
   const closeForm = () => typeService.updateForm.close()
 
-  const typeToUpdate = typeService.types.get(
+  const typeToUpdate = typeService.typeDomainService.types.get(
     typeService.updateForm.type?.id ?? '',
   )
 
@@ -82,7 +82,10 @@ export const UpdateTypeForm = observer(() => {
     >
       <AutoFields fields={['name']} />
       {typeToUpdate?.kind === ITypeKind.UnionType && (
-        <AutoField name="unionTypeIds" types={typeService.typesList} />
+        <AutoField
+          name="unionTypeIds"
+          types={typeService.typeDomainService.typesList}
+        />
       )}
       {typeToUpdate?.kind === ITypeKind.PrimitiveType && (
         <AutoField name="primitiveKind" />

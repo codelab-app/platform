@@ -30,7 +30,9 @@ describe('TypedPropTransformers', () => {
     ;({ page, rootElement: pageRootElement } = setupPage())
     renderer = factoryBuild('renderer', {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
+      elementTree: elementTreeRef(
+        rootStore.pageService.pageDomainService.page(page.id)!,
+      ),
       // Passing Preview renderer to replace customText prop value
       rendererType: RendererType.Preview,
     })

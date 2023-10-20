@@ -1,7 +1,6 @@
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 

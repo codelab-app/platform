@@ -20,7 +20,7 @@ export default Factory.define<IAtomDTO>(({ params }) => {
     type: params.type ?? IAtomType.ReactFragment,
   }
 
-  testRootStore.atomService.add(dto)
+  testRootStore.atomService.atomDomainService.add(dto)
 
   return dto
 })

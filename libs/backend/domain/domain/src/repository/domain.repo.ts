@@ -1,8 +1,8 @@
-import type { IDomainOutputDto } from '@codelab/backend/abstract/core'
 import {
   PROJECT_NOT_FOUND,
   vercelApis,
 } from '@codelab/backend/infra/adapter/vercel'
+import type { IDomain } from '@codelab/shared/abstract/core'
 
 /**
  * If response is 200, we log error & return false
@@ -38,9 +38,7 @@ export const logAPIError = async (
  *
  * @return throws if due to error
  */
-export const addVercelDomain = async (
-  domain: IDomainOutputDto,
-): Promise<boolean> => {
+export const addVercelDomain = async (domain: IDomain): Promise<boolean> => {
   const getProjectDomainResponse = await vercelApis.domain.getProjectDomain(
     domain.name,
   )

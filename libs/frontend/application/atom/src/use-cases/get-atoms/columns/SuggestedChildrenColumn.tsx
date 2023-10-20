@@ -1,16 +1,16 @@
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { Space, Tag } from 'antd'
 import React from 'react'
-import type { AtomRecord } from './types'
 
 export const SuggestedChildrenColumn = ({
   suggestedChildren,
-}: Pick<AtomRecord, 'suggestedChildren'>) => {
+}: Pick<IAtomModel, 'suggestedChildren'>) => {
   return (
     <Space wrap>
       {suggestedChildren.map((atom) => {
         return (
           <Tag color="magenta" key={atom.id}>
-            {atom.name}
+            {atom.current.name}
           </Tag>
         )
       })}

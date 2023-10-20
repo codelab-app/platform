@@ -2520,6 +2520,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codelab/eslint-plugin@file:./dist/libs/tools/eslint-plugin::locator=codelab%40workspace%3A.":
+  version: 0.0.1
+  resolution: "@codelab/eslint-plugin@file:./dist/libs/tools/eslint-plugin#./dist/libs/tools/eslint-plugin::hash=3513b1&locator=codelab%40workspace%3A."
+  checksum: 228a0d7ded387856917e3c18a8f6c72cfcb3bf692218036fb1eca36bd40693d837e675ee914a781d4abdbd110be8ff235568dba694e41cf7bccae668698ee2f0
+  languageName: node
+  linkType: hard
+
+"@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
+  version: 0.0.1
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=5d94d8&locator=codelab%40workspace%3A."
+  dependencies:
+    "@nx/devkit": 16.7.4
+  checksum: 703b732903902962990bc620d3a577e618534cc7e7ab5e7dd5e512cde619e6c1a6d02b260d5c40d515b6787e3136b43c7452fe2980c0fbe859cc540e017624d7
+  languageName: node
+  linkType: hard
+
 "@codemirror/autocomplete@npm:^6.0.0, @codemirror/autocomplete@npm:^6.9.0":
   version: 6.9.0
   resolution: "@codemirror/autocomplete@npm:6.9.0"
@@ -9985,10 +10001,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinclair/typebox@npm:0.31.14":
-  version: 0.31.14
-  resolution: "@sinclair/typebox@npm:0.31.14"
-  checksum: 4a7e5a05f8023e3c28ddbb5cabb49336d177ddbf435fcc2950d778b3aa4900d6125bb82052007c855e085f1a8999d016fd7a0331ca1598319f6781014c0d5fa5
+"@sinclair/typebox@npm:0.31.18":
+  version: 0.31.18
+  resolution: "@sinclair/typebox@npm:0.31.18"
+  checksum: 06bc64232394cc11a00ec8214696fcecab4e8af0c04da81fb21c69ccd69b398be55d42dedb5f007b8f49abdb6eb6045520785e362975a9af82563ce11032a91b
   languageName: node
   linkType: hard
 
@@ -17309,6 +17325,8 @@ __metadata:
     "@apollo/server": 4.7.2
     "@as-integrations/next": 2.0.0
     "@auth0/nextjs-auth0": 3.1.0
+    "@codelab/eslint-plugin": "file:./dist/libs/tools/eslint-plugin"
+    "@codelab/tools-workspace": "file:./dist/libs/tools/workspace"
     "@codemirror/autocomplete": ^6.9.0
     "@codemirror/commands": ^6.2.4
     "@codemirror/lang-css": ^6.2.1
@@ -17412,7 +17430,7 @@ __metadata:
     "@react-hook/size": 2.1.2
     "@react-hook/window-size": 3.0.7
     "@react-hookz/web": 22.0.0
-    "@sinclair/typebox": 0.31.14
+    "@sinclair/typebox": 0.31.18
     "@sotaproject/strikethrough": ^1.0.1
     "@storybook/addon-essentials": 7.3.2
     "@storybook/core-common": 7.0.7
@@ -19047,7 +19065,7 @@ __metadata:
 
 "cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::locator=codelab%40workspace%3A.":
   version: 13.3.0
-  resolution: "cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::version=13.3.0&hash=9547a3&locator=codelab%40workspace%3A."
+  resolution: "cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::version=13.3.0&hash=49aeac&locator=codelab%40workspace%3A."
   dependencies:
     "@cypress/request": ^3.0.0
     "@cypress/xvfb": ^1.2.4
@@ -19094,7 +19112,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 3561ba93584af271f38c5dd8e7a7dab8725e3e9efded02ef863f91ca51e1c9c4d980f134d94274dc670e1a9d53880d125002fcd97a6dd20c49b0504f1d6dc8f5
+  checksum: 8db2bf616d638c1ca1996d4dbdff48d4dd0930741473de3dfd3a796cbc789c5d7e57a240586d03b6aea7a60bc95fb3318d8a5a35da280f22736f441655b54183
   languageName: node
   linkType: hard
 

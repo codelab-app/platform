@@ -1,13 +1,6 @@
-import type {
-  IAdminOutputDto,
-  IComponentOutputDto,
-} from '@codelab/backend/abstract/core'
-import {
-  IAtomOutputDto,
-  ITagOutputDto,
-  ITypeOutputDto,
-} from '@codelab/backend/abstract/core'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
+import { IAtomBoundedContext, ITag, IType } from '@codelab/shared/abstract/core'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
@@ -16,7 +9,7 @@ import { MigrationDataService } from './migration-data.service'
 @Injectable({
   scope: Scope.TRANSIENT,
 })
-export class ReadAdminDataService implements IAdminOutputDto {
+export class ReadAdminDataService {
   constructor(
     public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
@@ -33,20 +26,20 @@ export class ReadAdminDataService implements IAdminOutputDto {
         'utf8',
       )
 
-      const atomExport = JSON.parse(content.toString())
+      const atomData = JSON.parse(content.toString())
 
       const atom = this.validationService.validateAndClean(
-        IAtomOutputDto,
-        atomExport,
+        IAtomBoundedContext,
+        atomData,
       )
 
       atoms.push(atom)
 
       return atoms
-    }, [] as Array<IAtomOutputDto>)
+    }, [] as Array<IAtomBoundedContext>)
   }
 
-  get components(): Array<IComponentOutputDto> {
+  get components(): Array<IComponentBoundedContext> {
     const componentFilenames = fs.existsSync(
       this.migrationDataService.componentsPath,
     )
@@ -74,7 +67,7 @@ export class ReadAdminDataService implements IAdminOutputDto {
     )
 
     return types.map((type: unknown) =>
-      this.validationService.validateAndClean(ITypeOutputDto, type),
+      this.validationService.validateAndClean(IType, type),
     )
   }
 
@@ -88,7 +81,7 @@ export class ReadAdminDataService implements IAdminOutputDto {
     )
 
     return tags.map((tag: unknown) =>
-      this.validationService.validateAndClean(ITagOutputDto, tag),
+      this.validationService.validateAndClean(ITag, tag),
     )
   }
 }

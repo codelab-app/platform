@@ -1,8 +1,8 @@
-import type { AtomRecord } from '../columns'
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 
 export const onLibraryFilter = (
   value: boolean | number | string,
-  atom: AtomRecord,
+  atom: IAtomModel,
 ): boolean => {
   const list = [atom.name, atom.type].map((item) => item.toLowerCase())
   const search = value.toString().toLowerCase()

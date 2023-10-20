@@ -1,7 +1,7 @@
 import type {
   IBuilderService,
   IElementService,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import {

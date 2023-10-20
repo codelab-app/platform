@@ -1,11 +1,13 @@
 import { type AtomWhere } from '@codelab/backend/abstract/codegen'
-import type { IApiOutputDto } from '@codelab/backend/abstract/core'
-import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
-import { IAtomDTO } from '@codelab/shared/abstract/core'
+import type {
+  IApi,
+  IAtom,
+  IAtomBoundedContext,
+} from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -15,7 +17,7 @@ export class ExportAtomCommand {
 
 @CommandHandler(ExportAtomCommand)
 export class ExportAtomHandler
-  implements ICommandHandler<ExportAtomCommand, IAtomOutputDto>
+  implements ICommandHandler<ExportAtomCommand, IAtomBoundedContext>
 {
   constructor(
     private readonly atomRepository: AtomRepository,
@@ -25,30 +27,31 @@ export class ExportAtomHandler
   ) {}
 
   @Span()
-  async execute(command: ExportAtomCommand): Promise<IAtomOutputDto> {
+  async execute(command: ExportAtomCommand): Promise<IAtomBoundedContext> {
     const { where } = command
-    const atom = await this.atomRepository.findOne(where, IAtomDTO)
+    const existingAtom = await this.atomRepository.findOne(where)
 
-    if (!atom) {
+    if (!existingAtom) {
       throw new Error('Atom not found')
     }
 
     // this.traceService.getSpan()!.setAttributes({ atom: atom.name })
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
-      new ExportApiCommand(atom.api),
+    const api = await this.commandBus.execute<ExportApiCommand, IApi>(
+      new ExportApiCommand(existingAtom.api),
     )
 
-    const data: IAtomOutputDto = {
+    const atom: IAtom = {
+      ...existingAtom,
+      __typename: 'Atom' as const,
+      api,
+    }
+
+    // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
+
+    return {
       api,
       atom,
     }
-
-    const results: IAtomOutputDto = this.validationService.validateAndClean(
-      IAtomOutputDto,
-      data,
-    )
-
-    return results
   }
 }

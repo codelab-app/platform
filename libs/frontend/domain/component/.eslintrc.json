@@ -6,8 +6,7 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
         "project": ["libs/frontend/domain/component/tsconfig.*?.json"]
-      },
-      "rules": {}
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

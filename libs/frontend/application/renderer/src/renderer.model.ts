@@ -1,3 +1,4 @@
+import type { RendererProps } from '@codelab/frontend/abstract/application'
 import type {
   IActionRunner,
   IElementTree,
@@ -8,7 +9,6 @@ import type {
   IRenderPipe,
   IRuntimeProp,
   ITypedPropTransformer,
-  RendererProps,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
@@ -289,7 +289,7 @@ export class Renderer
 
         const rootElement = clonedComponent.rootElement.current
 
-        clonedComponent.props.current.setMany(
+        clonedComponent.props.setMany(
           isObject(propValue) ? propValue : { value: propValue },
         )
 

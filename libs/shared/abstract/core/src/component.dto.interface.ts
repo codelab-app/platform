@@ -3,7 +3,7 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeKind } from './element-render-type'
-import { IPropDTO } from './prop.dto.interface'
+import { IProp, IPropDTO } from './prop.dto.interface'
 
 export const IComponentDTO = Type.Object({
   api: IEntity,
@@ -19,11 +19,16 @@ export const IComponentDTO = Type.Object({
 
 export type IComponentDTO = Static<typeof IComponentDTO>
 
-export const IComponentSerialized = Type.Composite([
+export const IComponent = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
   }),
-  IComponentDTO,
+  Typebox.Overwrite(
+    IComponentDTO,
+    Type.Object({
+      props: IProp,
+    }),
+  ),
 ])
 
-export type IComponentSerialized = Static<typeof IComponentSerialized>
+export type IComponent = Static<typeof IComponent>

@@ -16,15 +16,14 @@ export const useRemainingPages = () => {
     }
 
     const notAlreadyLoadedPages = app.pages
-      .map((page) => page.current.id)
+      .map((page) => page.id)
       .map((id) => ({ NOT: { id } }))
 
     await appService.getAppPages(app.id, {
       AND: notAlreadyLoadedPages,
     })
 
-    app.pages.forEach((pageRef) => {
-      const page = pageRef.current
+    app.pages.forEach((page) => {
       const rendererExists = renderService.renderers.has(page.id)
 
       if (!rendererExists) {

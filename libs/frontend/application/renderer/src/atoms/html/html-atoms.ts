@@ -79,8 +79,6 @@ export const htmlAtoms: IAtomRendererRecord = {
   [IAtomType.HtmlSub]: 'sub',
   [IAtomType.HtmlSup]: 'sup',
   [IAtomType.HtmlScript]: dynamicLoader(() =>
-    import('@codelab/frontend/application/atom').then(
-      (mod) => mod.CodelabScript,
-    ),
+    import('../codelab/components').then((mod) => mod.CodelabScript),
   ),
 }

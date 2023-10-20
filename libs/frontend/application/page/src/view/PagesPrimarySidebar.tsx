@@ -16,6 +16,7 @@ export const PagesPrimarySidebar = observer(() => {
   const { pageService } = useStore()
   const app = useCurrentApp()
   const { popover } = useCui()
+  const page = pageService.deleteModal.page
 
   return (
     <>
@@ -50,7 +51,7 @@ export const PagesPrimarySidebar = observer(() => {
           },
         ]}
       />
-      <DeletePageModal />
+      {page && <DeletePageModal page={page} />}
     </>
   )
 })

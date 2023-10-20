@@ -82,7 +82,7 @@ export class ComponentRuntimeProps
   get props() {
     return mergeProps(
       this.node.api.current.defaultValues,
-      this.node.props.current.values,
+      this.node.props.values,
       /**
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */

@@ -1,8 +1,8 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
+import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   ICloneElementService,
   IElementModel,
-  IElementService,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -73,7 +73,7 @@ export const ElementContextMenu = observer<
     }
 
     const onDelete = () => {
-      return deleteModal.open(elementRef(element.id))
+      return deleteModal.open(element)
     }
 
     const onDuplicate = async () => {

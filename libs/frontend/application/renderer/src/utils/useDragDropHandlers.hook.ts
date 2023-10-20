@@ -1,6 +1,6 @@
+import type { IDropPosition } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
-  IDropPosition,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { RendererType } from '@codelab/frontend/abstract/domain'
@@ -71,11 +71,11 @@ export const useDragDropHandlers = (
         return
       }
 
-      const dropTargetAtom = atomService.atoms.get(
+      const dropTargetAtom = atomService.atomDomainService.atoms.get(
         dropTargetElement.renderType.id,
       )
 
-      const draggedAtom = atomService.atoms.get(
+      const draggedAtom = atomService.atomDomainService.atoms.get(
         draggedElement?.renderType.id ?? '',
       )
 

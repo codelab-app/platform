@@ -1,20 +1,17 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
-  IPrimitiveTypeOutputDto,
-  type ITypeOutputDto,
-  TypeOutput,
-} from '@codelab/backend/abstract/core'
-import {
   ActionTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
 } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
+import type { IType } from '@codelab/shared/abstract/core'
 import {
-  IActionTypeDTO,
-  IReactNodeTypeDTO,
-  IRenderPropTypeDTO,
+  IActionType,
+  IPrimitiveType,
+  IReactNodeType,
+  IRenderPropType,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -38,7 +35,7 @@ export class ExportSystemTypesCommand {}
  */
 @CommandHandler(ExportSystemTypesCommand)
 export class ExportSystemTypesHandler
-  implements ICommandHandler<ExportSystemTypesCommand, Array<ITypeOutputDto>>
+  implements ICommandHandler<ExportSystemTypesCommand, Array<IType>>
 {
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,
@@ -58,7 +55,7 @@ export class ExportSystemTypesHandler
           sort: [{ name: SortDirection.Asc }],
         },
       },
-      IPrimitiveTypeOutputDto,
+      IPrimitiveType,
     )
 
     /**
@@ -71,7 +68,7 @@ export class ExportSystemTypesHandler
           sort: [{ name: SortDirection.Asc }],
         },
       },
-      TypeOutput(IReactNodeTypeDTO),
+      IReactNodeType,
     )
 
     /**
@@ -84,7 +81,7 @@ export class ExportSystemTypesHandler
           sort: [{ name: SortDirection.Asc }],
         },
       },
-      TypeOutput(IRenderPropTypeDTO),
+      IRenderPropType,
     )
 
     /**
@@ -97,7 +94,7 @@ export class ExportSystemTypesHandler
           sort: [{ name: SortDirection.Asc }],
         },
       },
-      TypeOutput(IActionTypeDTO),
+      IActionType,
     )
 
     /**

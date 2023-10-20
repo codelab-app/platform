@@ -10,7 +10,6 @@ import {
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
-import find from 'lodash/find'
 import { useRouter } from 'next/router'
 
 interface DevelopmentPageProps {
@@ -52,14 +51,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
           appDevelopmentData,
         )
 
-      const page = find(
-        Array.from(pageService.pages.values()),
-        (_page) => _page.name === pageName && _page.app.id === app.id,
-      )
-
-      if (!page) {
-        throw new Error('Missing page')
-      }
+      const page = app.pageByName(pageName)
 
       builderService.selectElementNode(page.rootElement.current)
 

@@ -1,13 +1,11 @@
+import { AntDesignOutlined, Html5Outlined } from '@ant-design/icons'
+import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
-  IInterfaceType,
+  IInterfaceTypeModel,
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  atomRef,
-  getUserService,
-  typeRef,
-} from '@codelab/frontend/abstract/domain'
+import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import {
@@ -20,6 +18,12 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import {
+  antdAtoms,
+  codelabAtoms,
+  htmlAtoms,
+  reactAtoms,
+} from '@codelab/shared/config'
+import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
@@ -28,6 +32,7 @@ import {
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import React from 'react'
 import { v4 } from 'uuid'
 
 const create = ({
@@ -44,7 +49,7 @@ const create = ({
   type,
 }: IAtomDTO) => {
   return new Atom({
-    api: typeRef<IInterfaceType>(api.id),
+    api: typeRef<IInterfaceTypeModel>(api.id),
     externalCssSource,
     externalJsSource,
     externalSourceType,
@@ -61,7 +66,7 @@ const create = ({
 @model('@codelab/Atom')
 export class Atom
   extends Model({
-    api: prop<Ref<IInterfaceType>>(),
+    api: prop<Ref<IInterfaceTypeModel>>(),
     externalCssSource: prop<string | null | undefined>(),
     externalJsSource: prop<string | null | undefined>(),
     externalSourceType: prop<string | null | undefined>(),
@@ -84,6 +89,31 @@ export class Atom
   @computed
   get __typename() {
     return IElementRenderTypeKind.Atom as const
+  }
+
+  @computed
+  get library() {
+    const atomType = this.type
+
+    return htmlAtoms.includes(atomType)
+      ? {
+          color: 'orange',
+          icon: React.createElement(Html5Outlined),
+          name: 'HTML',
+        }
+      : antdAtoms.includes(atomType)
+      ? {
+          color: 'geekblue',
+          icon: React.createElement(AntDesignOutlined),
+          name: 'Ant Design',
+        }
+      : codelabAtoms.includes(atomType)
+      ? { color: 'yellow', name: 'Codelab' }
+      : reactAtoms.includes(atomType)
+      ? { color: 'green', name: 'React' }
+      : atomType === 'ExternalComponent'
+      ? { color: 'brown', name: 'External' }
+      : { color: 'black', name: 'Unknown' }
   }
 
   /**
@@ -175,7 +205,7 @@ export class Atom
     this.externalSourceType = externalSourceType ?? this.externalSourceType
     this.name = name ?? this.name
     this.type = type ?? this.type
-    this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
+    this.api = api?.id ? typeRef<IInterfaceTypeModel>(api.id) : this.api
     this.tags = tags.map((tag) => tagRef(tag.id))
     this.icon = icon ?? this.icon
     this.suggestedChildren = suggestedChildren.map((child) => atomRef(child.id))

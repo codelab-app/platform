@@ -9,7 +9,6 @@ import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AtomsTreeItem } from './AtomsTreeItem'
-import { useGetLibrary } from './dataSource/atom-library'
 
 interface AtomsTreeViewProps {
   showSearchBar: boolean
@@ -18,7 +17,6 @@ interface AtomsTreeViewProps {
 export const AtomsTreeView = observer(
   ({ showSearchBar }: AtomsTreeViewProps) => {
     const { atomService } = useStore()
-    const getLibrary = useGetLibrary()
 
     const { data, filter, handleChange, isLoading } = useTablePagination<
       IAtomModel,
@@ -33,7 +31,7 @@ export const AtomsTreeView = observer(
       children: atom.api.current.fieldsTree,
       extraData: { node: atom, type: 'atom' },
       key: atom.id,
-      primaryTitle: getLibrary(atom.type).name,
+      primaryTitle: atom.library.name,
       secondaryTitle: atom.name,
     }))
 

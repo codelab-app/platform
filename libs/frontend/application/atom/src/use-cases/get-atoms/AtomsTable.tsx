@@ -1,4 +1,4 @@
-import type { IAtomModel, ITagModel } from '@codelab/frontend/abstract/domain'
+import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useTablePagination } from '@codelab/frontend/domain/shared'
@@ -10,20 +10,13 @@ import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import {
-  ActionColumn,
-  type AtomRecord,
-  LibraryColumn,
-  PropsColumn,
-  TagsColumn,
-} from './columns'
+import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { RequiredParentsColumn } from './columns/RequiredParentsColumn'
 import { SuggestedChildrenColumn } from './columns/SuggestedChildrenColumn'
-import { useGetLibrary } from './dataSource/atom-library'
 import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = observer(() => {
-  const { atomService, fieldService } = useStore()
+  const { atomService } = useStore()
 
   const { data, filter, handleChange, isLoading, pagination } =
     useTablePagination<IAtomModel, { name: string }>({
@@ -32,16 +25,14 @@ export const AtomsTable = observer(() => {
       pathname: PageType.Atoms,
     })
 
-  const getLibrary = useGetLibrary()
-
-  const nameColumnSearchProps = useColumnSearchProps<AtomRecord>({
+  const nameColumnSearchProps = useColumnSearchProps<IAtomModel>({
     dataIndex: 'name',
     onSearch: (name) =>
       handleChange({ newFilter: { name: name || undefined } }),
     text: filter.name,
   })
 
-  const columns: Array<ColumnType<AtomRecord>> = [
+  const columns: Array<ColumnType<IAtomModel>> = [
     {
       dataIndex: 'name',
       key: 'name',
@@ -86,42 +77,23 @@ export const AtomsTable = observer(() => {
       dataIndex: 'props',
       key: 'props',
       onHeaderCell: headerCellProps,
-      render: (_, atom) => (
-        <PropsColumn atom={atom} fieldService={fieldService} />
-      ),
+      render: (_, atom) => <PropsColumn atom={atom} />,
       title: 'Props API',
       width: 300,
     },
     {
       key: 'action',
       onHeaderCell: headerCellProps,
-      render: (text, atom) => (
-        <ActionColumn atom={atom} atomService={atomService} />
-      ),
+      render: (text, atom) => <ActionColumn atom={atom} />,
       title: 'Action',
       width: 100,
     },
   ]
 
-  const dataSource: Array<AtomRecord> | undefined = data.map((atom) => ({
-    api: atom.api.current,
-    id: atom.id,
-    library: getLibrary(atom.type),
-    name: atom.name,
-    requiredParents: atom.requiredParents.map((children) => children.current),
-    suggestedChildren: atom.suggestedChildren.map(
-      (children) => children.current,
-    ),
-    tags: atom.tags
-      .map((tag) => tag.maybeCurrent)
-      .filter(Boolean) as Array<ITagModel>,
-    type: atom.type,
-  }))
-
   return (
-    <Table<AtomRecord>
+    <Table<IAtomModel>
       columns={columns}
-      dataSource={dataSource}
+      dataSource={data}
       loading={isLoading}
       pagination={pagination}
       rowKey={(atom) => atom.id}

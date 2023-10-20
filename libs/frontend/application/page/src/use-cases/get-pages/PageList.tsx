@@ -12,9 +12,7 @@ interface PageListProps {
 }
 
 export const PageList = observer(({ app }: PageListProps) => {
-  const pages = app.pages.map((page) => page.current)
-
-  const treeData: Array<IPagesTreeDataNode> = pages.map((page) => ({
+  const treeData: Array<IPagesTreeDataNode> = app.pages.map((page) => ({
     extraData: {
       node: page,
       type: 'page',

@@ -41,7 +41,9 @@ describe('ConditionalRenderPipe', () => {
       const elementModel = rootStore.elementService.element(element.id)
 
       const renderer = factoryBuild('renderer', {
-        elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
+        elementTree: elementTreeRef(
+          rootStore.pageService.pageDomainService.page(page.id)!,
+        ),
         renderPipe: renderPipeFactory([
           PassThroughRenderPipe,
           ConditionalRenderPipe,

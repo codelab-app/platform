@@ -1,10 +1,10 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { typeApi } from '@codelab/frontend/domain/type'
 import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { typeApi } from '../../../graphql/type.api'
 
 export const DeleteTypeModal = observer(() => {
   const { typeService } = useStore()

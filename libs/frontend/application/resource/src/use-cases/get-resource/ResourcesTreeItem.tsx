@@ -22,11 +22,11 @@ export const ResourcesTreeItem = observer(
     const resource = data.extraData.node
 
     const onEdit = () => {
-      resourceService.updateForm.open(resourceRef(resource.id))
+      resourceService.updateForm.open(resource)
     }
 
     const onDelete = () => {
-      resourceService.deleteModal.open(resourceRef(resource.id))
+      resourceService.deleteModal.open(resource)
     }
 
     const toolbarItems = [

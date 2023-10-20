@@ -1,3 +1,4 @@
+import type { Prop } from '@codelab/backend/domain/prop'
 import type {
   IActionEntity,
   IApiActionDTO,
@@ -8,7 +9,7 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 export class ApiAction implements IApiActionDTO {
   __typename: `${IActionKind.ApiAction}` = `${IActionKind.ApiAction}`
 
-  config: IEntity
+  config: Prop
 
   errorAction?: IActionEntity | null
 

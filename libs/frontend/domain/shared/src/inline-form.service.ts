@@ -1,36 +1,30 @@
-import type { IModalService } from '@codelab/frontend/abstract/domain'
+import type { IFormService } from '@codelab/frontend/abstract/application'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { Router } from 'next/router'
 
 @model('@codelab/InlineFormService')
-export class InlineFormService<
-    TMetadata = undefined,
-    Properties extends object = Record<string, unknown>,
-  >
+export class InlineFormService<TMetadata extends object = object>
   extends Model(<
     // eslint-disable-next-line @typescript-eslint/no-shadow
     TMetadata,
   >() => ({
     isOpen: prop<boolean>(false),
-    metadata: prop<TMetadata | null>(null),
+    metadata: prop<TMetadata | undefined>(undefined),
   }))<TMetadata>
-  implements IModalService<TMetadata>
+  implements IFormService<TMetadata>
 {
   @modelAction
   close() {
     this.isOpen = false
-    this.metadata = null
+    this.metadata = undefined
 
     Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
   @modelAction
-  open(...args: TMetadata extends undefined ? [] : [TMetadata]) {
+  open(metadata: TMetadata) {
     this.isOpen = true
-
-    if (args.length > 0) {
-      this.metadata = args[0] ?? null
-    }
+    this.metadata = metadata
 
     Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }

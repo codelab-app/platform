@@ -1,8 +1,8 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
-import type { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
+import type { IAtomBoundedContext } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { ExportAtomCommand } from '../use-case'
@@ -16,7 +16,7 @@ export class AtomApplicationService {
   ) {}
 
   @Span()
-  async exportAtomsForAdmin(): Promise<Array<IAtomOutputDto>> {
+  async exportAtomsForAdmin(): Promise<Array<IAtomBoundedContext>> {
     /**
      * Get all atoms first
      */
@@ -29,7 +29,7 @@ export class AtomApplicationService {
     return await Promise.all(
       atoms.map(
         async (atom) =>
-          await this.commandBus.execute<ExportAtomCommand, IAtomOutputDto>(
+          await this.commandBus.execute<ExportAtomCommand, IAtomBoundedContext>(
             new ExportAtomCommand({ id: atom.id }),
           ),
       ),

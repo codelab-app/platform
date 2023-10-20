@@ -16,7 +16,7 @@ export default Factory.define<IPageDTO>(({ params }) => {
     url: chance.word(),
   }
 
-  testRootStore.pageService.add(dto)
+  testRootStore.pageService.pageDomainService.add(dto)
 
   return dto
 })

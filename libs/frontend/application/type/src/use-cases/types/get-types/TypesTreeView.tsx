@@ -1,5 +1,5 @@
 import type {
-  IType,
+  ITypeModel,
   ITypesTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -20,7 +20,7 @@ export const TypesTreeView = observer(
     const { typeService } = useStore()
 
     const { data, filter, handleChange, isLoading } = useTablePagination<
-      IType,
+      ITypeModel,
       { name: string }
     >({
       filterTypes: { name: 'string' },

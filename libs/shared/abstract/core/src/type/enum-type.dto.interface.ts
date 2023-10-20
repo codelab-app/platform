@@ -1,3 +1,4 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
@@ -19,3 +20,7 @@ export const IEnumTypeDTO = Type.Composite([
 ])
 
 export type IEnumTypeDTO = Static<typeof IEnumTypeDTO>
+
+export const IEnumType = Typebox.RequireTypename(IEnumTypeDTO)
+
+export type IEnumType = Static<typeof IEnumType>

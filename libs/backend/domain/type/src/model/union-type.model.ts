@@ -1,7 +1,7 @@
 import type {
   IAtomDTO,
   IFieldDTO,
-  ITypeEntity,
+  ITypeMaybeRef,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -18,7 +18,7 @@ export class UnionType extends BaseType implements IUnionTypeDTO {
 
   declare __typename: `${ITypeKind.UnionType}`
 
-  typesOfUnionType: Array<ITypeEntity>
+  typesOfUnionType: Array<ITypeMaybeRef>
 
   constructor({ id, name, typesOfUnionType }: IUnionTypeDTO) {
     super({ id, kind: ITypeKind.UnionType, name })

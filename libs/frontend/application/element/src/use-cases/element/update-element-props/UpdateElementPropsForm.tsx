@@ -44,7 +44,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
-      const props = element.current.props.current
+      const props = element.current.props
 
       return propService.updateWithDefaultValuesApplied({
         data,
@@ -61,9 +61,9 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       () =>
         mergeProps(
           isComponent(currentElement.renderType.current)
-            ? currentElement.renderType.current.props.current.values
+            ? currentElement.renderType.current.props.values
             : {},
-          currentElement.props.current.values,
+          currentElement.props.values,
         ),
       [currentElement.id],
     )

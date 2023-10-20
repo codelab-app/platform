@@ -1,19 +1,19 @@
 import type {
-  IActionType,
-  IAppType,
-  IArrayType,
-  ICodeMirrorType,
-  IElementType,
+  IActionTypeModel,
+  IAppTypeModel,
+  IArrayTypeModel,
+  ICodeMirrorTypeModel,
+  IElementTypeModel,
   IEnumType,
-  IField,
-  IInterfaceType,
-  ILambdaType,
-  IPageType,
-  IPrimitiveType,
-  IReactNodeType,
-  IRenderPropType,
-  IType,
-  IUnionType,
+  IFieldModel,
+  IInterfaceTypeModel,
+  ILambdaTypeModel,
+  IPageTypeModel,
+  IPrimitiveTypeModel,
+  IReactNodeTypeModel,
+  IRenderPropTypeModel,
+  ITypeModel,
+  IUnionTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldDescription } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
@@ -28,7 +28,7 @@ export type JsonSchema = JSONSchema7 & { label?: string; uniforms?: object }
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
-  extraProperties?(type: IType, context?: UiPropertiesContext): JsonSchema
+  extraProperties?(type: ITypeModel, context?: UiPropertiesContext): JsonSchema
 }
 
 // I'm not sure what the difference is, but I'm keeping it like it is for now
@@ -45,15 +45,21 @@ export const primitives = {
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  fromActionType(type: IActionType, context?: UiPropertiesContext): JsonSchema {
+  fromActionType(
+    type: IActionTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     return this.transformTypedPropType(type, context)
   }
 
-  fromAppType(type: IAppType, context?: UiPropertiesContext): JsonSchema {
+  fromAppType(type: IAppTypeModel, context?: UiPropertiesContext): JsonSchema {
     return this.simpleReferenceType(type, context)
   }
 
-  fromArrayType(type: IArrayType, context?: UiPropertiesContext): JsonSchema {
+  fromArrayType(
+    type: IArrayTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
 
     return {
@@ -66,14 +72,14 @@ export class TypeSchemaFactory {
   }
 
   fromCodeMirrorType(
-    type: ICodeMirrorType,
+    type: ICodeMirrorTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     return this.simpleReferenceType(type, context)
   }
 
   fromElementType(
-    type: IElementType,
+    type: IElementTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
@@ -94,10 +100,10 @@ export class TypeSchemaFactory {
   }
 
   fromInterfaceType(
-    type: IInterfaceType,
+    type: IInterfaceTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    const makeFieldSchema = (field: IField) => {
+    const makeFieldSchema = (field: IFieldModel) => {
       return {
         label: field.name || compoundCaseToTitleCase(field.key),
         ...(field.description ? fieldDescription(field.description) : {}),
@@ -115,7 +121,7 @@ export class TypeSchemaFactory {
 
     const makeFieldProperties = (
       acc: JsonSchema['properties'],
-      field: IField,
+      field: IFieldModel,
     ) => {
       acc = acc || {}
       acc[field.key] = makeFieldSchema(field)
@@ -139,16 +145,22 @@ export class TypeSchemaFactory {
     }
   }
 
-  fromLambdaType(type: ILambdaType, context?: UiPropertiesContext): JsonSchema {
+  fromLambdaType(
+    type: ILambdaTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     return this.simpleReferenceType(type, context)
   }
 
-  fromPageType(type: IPageType, context?: UiPropertiesContext): JsonSchema {
+  fromPageType(
+    type: IPageTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     return this.simpleReferenceType(type, context)
   }
 
   fromPrimitiveType(
-    type: IPrimitiveType,
+    type: IPrimitiveTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
@@ -199,20 +211,23 @@ export class TypeSchemaFactory {
   }
 
   fromReactNodeType(
-    type: IReactNodeType,
+    type: IReactNodeTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     return this.transformTypedPropType(type, context)
   }
 
   fromRenderPropType(
-    type: IRenderPropType,
+    type: IRenderPropTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     return this.transformTypedPropType(type, context)
   }
 
-  fromUnionType(type: IUnionType, context?: UiPropertiesContext): JsonSchema {
+  fromUnionType(
+    type: IUnionTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
     // This is the extra for the union type. Not to be confused with the extra for the value type
     const extra = this.getExtraProperties(type, context)
     const label: string | undefined = extra?.label
@@ -243,7 +258,7 @@ export class TypeSchemaFactory {
     }
   }
 
-  transform(type: IType, context?: UiPropertiesContext) {
+  transform(type: ITypeModel, context?: UiPropertiesContext) {
     switch (type.kind) {
       case ITypeKind.AppType:
         return this.fromAppType(type, context)
@@ -279,7 +294,7 @@ export class TypeSchemaFactory {
    * with a `type` field that has a value of `typeId`
    */
   private static schemaForTypedProp(
-    type: Maybe<IType>,
+    type: Maybe<ITypeModel>,
     valueSchema: JsonSchema,
     typeLabel: Maybe<string>,
   ): { [key: string]: JsonSchema } {
@@ -310,7 +325,7 @@ export class TypeSchemaFactory {
     }
   }
 
-  private getExtraProperties(type: IType, context?: UiPropertiesContext) {
+  private getExtraProperties(type: ITypeModel, context?: UiPropertiesContext) {
     return this.options?.extraProperties?.(type, context) || undefined
   }
 
@@ -319,7 +334,7 @@ export class TypeSchemaFactory {
    * Produces a 'string' type
    */
   private simpleReferenceType(
-    type: IType,
+    type: ITypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
@@ -332,7 +347,7 @@ export class TypeSchemaFactory {
    * Produces a {@link TypedProp} shaped schema
    */
   private transformTypedPropType(
-    type: IActionType | IReactNodeType | IRenderPropType,
+    type: IActionTypeModel | IReactNodeTypeModel | IRenderPropTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)

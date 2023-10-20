@@ -1,14 +1,13 @@
-import type { ICodeMirrorType } from '@codelab/frontend/abstract/domain'
+import type { ICodeMirrorTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,
 } from '@codelab/frontend/presentation/view'
 import type { UiPropertiesFn } from '../types'
 
-export const codeMirrorTypeUiProperties: UiPropertiesFn<ICodeMirrorType> = (
-  type,
-  context,
-) => {
+export const codeMirrorTypeUiProperties: UiPropertiesFn<
+  ICodeMirrorTypeModel
+> = (type, context) => {
   return {
     uniforms: {
       component: CodeMirrorField({

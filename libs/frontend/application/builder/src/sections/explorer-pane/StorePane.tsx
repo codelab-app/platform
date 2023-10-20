@@ -6,8 +6,8 @@ import {
   DeleteActionModal,
   StateTreeView,
   UpdateActionModal,
-} from '@codelab/frontend/domain/store'
-import { CreateFieldButton } from '@codelab/frontend/domain/type'
+} from '@codelab/frontend/application/store'
+import { CreateFieldButton } from '@codelab/frontend/application/type'
 import {
   CodeMirrorEditor,
   SkeletonWrapper,
@@ -42,7 +42,7 @@ export const StorePane = observer<{
               <StoreHeader
                 extra={
                   <CreateFieldButton
-                    interfaceId={store.api.id}
+                    interfaceType={store.api.current}
                     useModal={false}
                   />
                 }

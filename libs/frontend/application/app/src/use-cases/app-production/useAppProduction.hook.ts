@@ -3,14 +3,13 @@ import { rendererRef, RendererType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
-import find from 'lodash/find'
 import { useRouter } from 'next/router'
 
 /**
  * Fetch related data for rendering page, and load them into store
  */
 export const useAppProduction = (appProductionData: IAppProductionDto) => {
-  const { appService, pageService, renderService } = useStore()
+  const { appService, renderService } = useStore()
   const { appName, pageName } = appProductionData
   const router = useRouter()
 
@@ -21,14 +20,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
       appProductionData,
     )
 
-    const page = find(
-      Array.from(pageService.pages.values()),
-      (_page) => _page.name === pageName,
-    )
-
-    if (!page) {
-      throw new Error('Missing page')
-    }
+    const page = app.pageByName(pageName)
 
     // extract the dynamic segments from the url query params for the page url
     // build complains with the return type `RegExpMatchArray` of `match`

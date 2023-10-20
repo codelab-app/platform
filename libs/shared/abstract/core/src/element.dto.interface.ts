@@ -3,7 +3,7 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeDto } from './element-render-type'
-import { IPropDTO } from './prop.dto.interface'
+import { IProp, IPropDTO } from './prop.dto.interface'
 
 export const IElementDTO = Type.Object({
   childMapperComponent: Typebox.Nullish(IEntity),
@@ -26,7 +26,6 @@ export const IElementDTO = Type.Object({
   prevSibling: Typebox.Nullish(IEntity),
   // Treat element as aggregate, so we include prop data here
   props: IPropDTO,
-  // props: IEntity,
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
   renderType: IElementRenderTypeDto,
@@ -36,14 +35,12 @@ export const IElementDTO = Type.Object({
 
 export type IElementDTO = Static<typeof IElementDTO>
 
-export const IElement = IElementDTO
-
-// export const IElement = Typebox.Overwrite(
-//   IElementDTO,
-//   Type.Object({
-//     props: Type.Union([IAtomDTO, IComponentDTO]),
-//   }),
-// )
+export const IElement = Typebox.Overwrite(
+  IElementDTO,
+  Type.Object({
+    props: IProp,
+  }),
+)
 
 export type IElement = Static<typeof IElement>
 

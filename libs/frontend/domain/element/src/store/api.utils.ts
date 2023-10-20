@@ -1,7 +1,7 @@
 import type {
   IElementModel,
   IFieldDefaultValue,
-  IInterfaceType,
+  IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -22,7 +22,7 @@ export const makeUpdateElementInput = (
  * Generates a JSON containing api fields that has a default value
  * that will be saved as props for the new element created
  */
-export const makeDefaultProps = (typeApi: Maybe<IInterfaceType>) => {
+export const makeDefaultProps = (typeApi: Maybe<IInterfaceTypeModel>) => {
   const fields = typeApi?.fields ?? []
 
   const defaultProps = fields.reduce<Record<string, IFieldDefaultValue>>(

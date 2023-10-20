@@ -1,16 +1,13 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import {
-  IEntity,
-  IMaybeDiscriminatedEntity,
-} from '@codelab/shared/abstract/types'
+import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IAtomType } from './atom-type.enum'
 import { IElementRenderTypeKind } from './element-render-type'
-import { ITypeKind } from './type-kind.enum'
+import { IInterfaceTypeRef } from './type'
 
 export const IAtomDTO = Type.Object({
-  api: IMaybeDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
+  api: IEntity,
   externalCssSource: Typebox.Nullish(Type.String()),
   externalJsSource: Typebox.Nullish(Type.String()),
   externalSourceType: Typebox.Nullish(Type.String()),
@@ -25,11 +22,11 @@ export const IAtomDTO = Type.Object({
 
 export type IAtomDTO = Static<typeof IAtomDTO>
 
-export const IAtomSerialized = Type.Composite([
+export const IAtom = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),
   }),
   IAtomDTO,
 ])
 
-export type IAtomSerialized = Static<typeof IAtomSerialized>
+export type IAtom = Static<typeof IAtom>

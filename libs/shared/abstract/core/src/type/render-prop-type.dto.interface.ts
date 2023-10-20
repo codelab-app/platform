@@ -1,3 +1,4 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
@@ -8,3 +9,7 @@ export const IRenderPropTypeDTO = Type.Composite([
 ])
 
 export type IRenderPropTypeDTO = Static<typeof IRenderPropTypeDTO>
+
+export const IRenderPropType = Typebox.RequireTypename(IRenderPropTypeDTO)
+
+export type IRenderPropType = Static<typeof IRenderPropType>

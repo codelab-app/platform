@@ -1,5 +1,5 @@
 import type {
-  IInterfaceType,
+  IInterfaceTypeModel,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -23,15 +23,21 @@ import set from 'lodash/set'
 import values from 'lodash/values'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import {
+  clone,
+  frozen,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+} from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
-import { v4 } from 'uuid'
-import { mergeProps, propSafeStringify } from '../utils'
-import { getPropService } from './prop.service'
+import { mergeProps, propSafeStringify } from '../index'
 
 const create = ({ api, data = '{}', id }: IPropDTO) => {
   return new Prop({
-    api: api ? typeRef<IInterfaceType>(api.id) : null,
+    api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
     data: frozen(JSON.parse(data)),
     id,
   })
@@ -40,7 +46,7 @@ const create = ({ api, data = '{}', id }: IPropDTO) => {
 @model('@codelab/Prop')
 export class Prop
   extends Model({
-    api: prop<Nullable<Ref<IInterfaceType>>>(null),
+    api: prop<Nullable<Ref<IInterfaceTypeModel>>>(null),
     data: prop(() => frozen<Nullable<IPropData>>(null)),
     id: idProp,
   })
@@ -92,11 +98,7 @@ export class Prop
 
   @modelAction
   clone() {
-    return this.propService.add({
-      api: this.api?.id ? typeRef<IInterfaceType>(this.api.id) : undefined,
-      data: this.jsonString,
-      id: v4(),
-    })
+    return clone(this)
   }
 
   @modelAction
@@ -127,7 +129,7 @@ export class Prop
   writeCache({ api, data, id }: Partial<IPropDTO>) {
     this.id = id ?? this.id
     this.data = data ? frozen(JSON.parse(data)) : this.data
-    this.api = api ? typeRef<IInterfaceType>(api.id) : this.api
+    this.api = api ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     return this
   }
@@ -155,9 +157,4 @@ export class Prop
   }
 
   private silentData: IPropData = {}
-
-  @computed
-  private get propService() {
-    return getPropService(this)
-  }
 }

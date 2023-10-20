@@ -20,7 +20,7 @@ export const useFieldSchema = (
       fieldService.createForm.interface?.id ??
       fieldService.updateForm.field?.api.current.id
 
-    const parentStore = storeService.storesList.find(
+    const parentStore = storeService.storeDomainService.storesList.find(
       ({ api }) => api.id === interfaceId,
     )
 
@@ -42,6 +42,6 @@ export const useFieldSchema = (
     schema,
     fieldService.createForm.interface,
     fieldService.updateForm.field,
-    storeService.storesList,
+    storeService.storeDomainService.storesList,
   ])
 }

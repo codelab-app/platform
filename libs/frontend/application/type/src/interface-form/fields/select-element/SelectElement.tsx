@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { SelectElementOption } from '@codelab/frontend/abstract/domain'
+import type { SelectElementOption } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useFormContext } from '@codelab/frontend/presentation/view'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'

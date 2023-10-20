@@ -1,5 +1,4 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { elementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -14,9 +13,7 @@ interface DeleteElementProps {
 export const DeleteElementButton = observer<DeleteElementProps>(
   ({ className, disabled, element }) => {
     const { elementService } = useStore()
-
-    const onClick = () =>
-      elementService.deleteModal.open(elementRef(element.id))
+    const onClick = () => elementService.deleteModal.open(element)
 
     return (
       <Button

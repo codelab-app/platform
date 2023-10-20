@@ -1,7 +1,5 @@
-import type {
-  IInterfaceType,
-  ITypeService,
-} from '@codelab/frontend/abstract/domain'
+import type { ITypeService } from '@codelab/frontend/abstract/application'
+import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -37,7 +35,7 @@ export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
     loading: status === 'loading',
     type:
       interfaceId && status !== 'loading'
-        ? (typeService.type(interfaceId) as IInterfaceType)
+        ? (typeService.type(interfaceId) as IInterfaceTypeModel)
         : undefined,
   }
 }

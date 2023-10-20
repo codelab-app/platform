@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import type { ManagedTransaction, Transaction } from 'neo4j-driver'
+import type { ManagedTransaction } from 'neo4j-driver'
 import { Driver } from 'neo4j-driver'
 import { NEO4J_DRIVER_PROVIDER } from './neo4j.constant'
 

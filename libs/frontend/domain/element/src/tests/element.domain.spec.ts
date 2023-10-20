@@ -4,7 +4,6 @@ import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
-  userDto,
 } from '@codelab/frontend/test/data'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { isRefOfType } from 'mobx-keystone'
@@ -14,17 +13,15 @@ import { createTestRootStore } from './root-store'
 const rootElementDto = { ...elementDto, name: 'Root Element' }
 
 describe('Element domain', () => {
-  const { atomService, elementService, pageService } =
-    createTestRootStore(userDto)
-
-  const { elementDomainService } = elementService
+  const { atomDomainService, elementDomainService, pageDomainService } =
+    createTestRootStore()
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
-  pageService.add(pageDto)
+  pageDomainService.add(pageDto)
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
-  atomService.add(atomReactFragmentDto)
+  atomDomainService.add(atomReactFragmentDto)
 
-  const rootElement = elementService.element(rootElementDto.id)
+  const rootElement = elementDomainService.elements.get(rootElementDto.id)!
 
   it('should add a render type to element', () => {
     const renderType = rootElement.renderType
@@ -235,6 +232,7 @@ describe('Element domain', () => {
     it('can detach from tree', () => {
       anotherNextSibling.detachFromTree()
 
+      // We can't set to null, or else will break invariant
       // expect(anotherNextSibling.parentElement).toBeNull()
       // expect(anotherNextSibling.prevSibling).toBeNull()
       // expect(anotherNextSibling.nextSibling).toBeNull()

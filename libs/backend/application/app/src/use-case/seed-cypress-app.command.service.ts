@@ -196,7 +196,10 @@ export class SeedCypressAppHandler
      * Attach the pages to the app
      */
     app.pages = [providerPage, internalServerErrorPage, notFoundPage].map(
-      (page) => ({ id: page.id }),
+      (element) => ({
+        ...element,
+        slug: element.slug,
+      }),
     )
 
     await this.appRepository.update(app, { id: app.id })

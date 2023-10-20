@@ -2,8 +2,8 @@ import { DeleteOutlined } from '@ant-design/icons'
 import type {
   IBuilderService,
   IElementService,
-} from '@codelab/frontend/abstract/domain'
-import { elementRef, isElementRef } from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
@@ -67,7 +67,7 @@ export const BuilderClickOverlay = observer<{
           icon={<DeleteOutlined />}
           onClick={(event) => {
             event.stopPropagation()
-            elementService.deleteModal.open(elementRef(selectedNode.id))
+            elementService.deleteModal.open(selectedNode.current)
           }}
           size="small"
           type="text"
@@ -80,7 +80,7 @@ export const BuilderClickOverlay = observer<{
     selectedNode.current
 
   const breakpoint = builderService.selectedBuilderBreakpoint
-  const props = selectedNode.current.props.current.values
+  const props = selectedNode.current.props.values
   const parentId = closestParentElement?.id
   const nextSiblingId = nextSibling?.id
 
@@ -100,7 +100,7 @@ export const BuilderClickOverlay = observer<{
         selectedNode.current.guiCss,
         selectedNode.current.customCss,
         selectedNode.current.tailwindClassNames,
-        selectedNode.current.props.current.values,
+        selectedNode.current.props.values,
         selectedNode.current.nextSibling?.id,
         selectedNode.current.parentElement?.id,
       ]}

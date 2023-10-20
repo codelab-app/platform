@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
-  IInterfaceType,
+  IInterfaceTypeModel,
   IStateTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
@@ -23,17 +23,17 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const { popover } = useCui()
 
   const onEdit = () => {
-    fieldService.updateForm.open(fieldRef(data.extraData.node.id))
+    fieldService.updateForm.open(data.extraData.node)
     popover.open(FormNames.UpdateField)
   }
 
   const onDelete = () => {
-    fieldService.deleteModal.open(fieldRef(data.extraData.node.id))
+    fieldService.deleteModal.open(data.extraData.node)
   }
 
   const onAddField = () => {
     fieldService.createForm.open(
-      typeRef(data.extraData.node.type.id) as Ref<IInterfaceType>,
+      data.extraData.node.type.current as IInterfaceTypeModel,
     )
     popover.open(FormNames.CreateField)
   }

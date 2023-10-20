@@ -15,11 +15,11 @@ describe('App domain', () => {
       name: 'Codelab App',
     }
 
-    await atomService.add(atomReactFragmentDto)
+    await atomService.atomDomainService.add(atomReactFragmentDto)
 
     await appService.create(appData)
 
-    const app = appService.apps.get(appData.id)
+    const app = appService.appDomainService.apps.get(appData.id)
 
     // App
     expect(app?.id).toBe(appData.id)

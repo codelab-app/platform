@@ -18,11 +18,11 @@ export const IPageDTO = Type.Object({
 
 export type IPageDTO = Static<typeof IPageDTO>
 
-export const IPage = Type.Composite([
+export const IPage = Typebox.Overwrite(
   IPageDTO,
   Type.Object({
     slug: Type.String(),
   }),
-])
+)
 
 export type IPage = Static<typeof IPage>

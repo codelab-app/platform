@@ -86,7 +86,7 @@ export class AppRepository extends AbstractRepository<
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
             (input) => ({
               ...input,
-              // overriding disconnect from reconnectNodeIds because it disconnects everythin
+              // overriding disconnect from reconnectNodeIds because it disconnects everything
               // including the pages connected in previous items of the input array. This causes
               // the transaction to register only the last page being connected in the input array
               // TODO: Check it it's the case for other places using reconnectNodeIds and if so update it.

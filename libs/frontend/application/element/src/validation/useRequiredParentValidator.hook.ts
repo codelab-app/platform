@@ -5,11 +5,11 @@ export const useRequiredParentValidator = () => {
   const { atomService, elementService } = useStore()
 
   const validate = (childAtomId?: string, parentAtomId?: string) => {
-    const parentAtom = atomService.atomsList.find(
+    const parentAtom = atomService.atomDomainService.atomsList.find(
       (atom) => atom.id === parentAtomId,
     )
 
-    const childAtom = atomService.atomsList.find(
+    const childAtom = atomService.atomDomainService.atomsList.find(
       (atom) => atom.id === childAtomId,
     )
 

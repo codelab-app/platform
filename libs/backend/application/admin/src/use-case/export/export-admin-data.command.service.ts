@@ -1,8 +1,3 @@
-import type {
-  IAdminOutputDto,
-  ITagOutputDto,
-  ITypeOutputDto,
-} from '@codelab/backend/abstract/core'
 import { AtomApplicationService } from '@codelab/backend/application/atom'
 import { ComponentApplicationService } from '@codelab/backend/application/component'
 import type { IBaseDataPaths } from '@codelab/backend/application/shared'
@@ -10,6 +5,11 @@ import { WriteAdminDataService } from '@codelab/backend/application/shared'
 import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
+import type {
+  IAdminBoundedContext,
+  ITag,
+  IType,
+} from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -23,7 +23,7 @@ export class ExportAdminDataCommand implements IBaseDataPaths {
  */
 @CommandHandler(ExportAdminDataCommand)
 export class ExportAdminDataHandler
-  implements ICommandHandler<ExportAdminDataCommand, IAdminOutputDto>
+  implements ICommandHandler<ExportAdminDataCommand, IAdminBoundedContext>
 {
   constructor(
     private writeAdminDataService: WriteAdminDataService,
@@ -46,22 +46,21 @@ export class ExportAdminDataHandler
 
     const systemTypes = await this.commandBus.execute<
       ExportSystemTypesCommand,
-      Array<ITypeOutputDto>
+      Array<IType>
     >(new ExportSystemTypesCommand())
 
     span?.addEvent('SystemTypes', flattenWithPrefix(systemTypes))
 
     const atoms = await this.atomApplicationService.exportAtomsForAdmin()
 
-    const tags = await this.commandBus.execute<
-      ExportTagsCommand,
-      Array<ITagOutputDto>
-    >(new ExportTagsCommand())
+    const tags = await this.commandBus.execute<ExportTagsCommand, Array<ITag>>(
+      new ExportTagsCommand(),
+    )
 
     const components =
       await this.componentApplicationService.exportComponentsForAdmin()
 
-    const data = {
+    const data: IAdminBoundedContext = {
       atoms,
       components,
       systemTypes,

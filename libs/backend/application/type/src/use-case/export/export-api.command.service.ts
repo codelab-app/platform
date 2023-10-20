@@ -1,8 +1,4 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
-import type {
-  IApiOutputDto,
-  ITypeOutputDto,
-} from '@codelab/backend/abstract/core'
 import {
   FieldRepository,
   InterfaceTypeRepository,
@@ -10,9 +6,12 @@ import {
 } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type {
+  IApi,
   IEnumTypeDTO,
-  IInterfaceTypeEntity,
-  ITypeEntity,
+  IInterfaceType,
+  IInterfaceTypeRef,
+  IType,
+  ITypeRef,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import {
@@ -24,7 +23,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ExportApiCommand {
-  constructor(public api: IInterfaceTypeEntity) {}
+  constructor(public api: IInterfaceTypeRef) {}
 }
 
 /**
@@ -32,7 +31,7 @@ export class ExportApiCommand {
  */
 @CommandHandler(ExportApiCommand)
 export class ExportApiHandler
-  implements ICommandHandler<ExportApiCommand, IApiOutputDto>
+  implements ICommandHandler<ExportApiCommand, IApi>
 {
   constructor(
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
@@ -41,7 +40,7 @@ export class ExportApiHandler
   ) {}
 
   @Span()
-  async execute({ api }: ExportApiCommand): Promise<IApiOutputDto> {
+  async execute({ api }: ExportApiCommand): Promise<IApi> {
     /**
      * (1) Get itself
      */
@@ -97,8 +96,8 @@ export class ExportApiHandler
     }
   }
 
-  private async getTypeItemsFromIds(dependentTypesIds: Array<ITypeEntity>) {
-    const dependentTypes: Array<ITypeOutputDto> = []
+  private async getTypeItemsFromIds(dependentTypesIds: Array<ITypeRef>) {
+    const dependentTypes: Array<IType> = []
 
     for (const dependentType of dependentTypesIds) {
       if (
@@ -109,12 +108,10 @@ export class ExportApiHandler
         if (type?.__typename === `${ITypeKind.InterfaceType}`) {
           dependentTypes.push({
             ...type,
-            fields: (type as IInterfaceTypeDTO).fields.map((field) => ({
-              id: field.id,
-            })),
-          } as ITypeOutputDto)
+            fields: (type as IInterfaceType).fields,
+          } as IType)
         } else if (type) {
-          dependentTypes.push(type as ITypeOutputDto)
+          dependentTypes.push(type as IType)
         }
       }
     }
@@ -122,7 +119,7 @@ export class ExportApiHandler
     return this.sortTypesBeforeExport(dependentTypes)
   }
 
-  private sortUnionTypesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
+  private sortUnionTypesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
       .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
       .forEach((unionType) =>
@@ -132,7 +129,7 @@ export class ExportApiHandler
       )
   }
 
-  private sortEnumValuesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
+  private sortEnumValuesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
       .filter((type) => type.__typename === `${ITypeKind.EnumType}`)
       .forEach((unionType) =>
@@ -142,12 +139,12 @@ export class ExportApiHandler
       )
   }
 
-  private sortTypesBeforeExport(dependentTypes: Array<ITypeOutputDto>) {
+  private sortTypesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes.sort((a, b) => a.name.localeCompare(b.name))
 
-    const interfaces: Array<ITypeOutputDto> = []
-    const unions: Array<ITypeOutputDto> = []
-    const remainingTypes: Array<ITypeOutputDto> = []
+    const interfaces: Array<IType> = []
+    const unions: Array<IType> = []
+    const remainingTypes: Array<IType> = []
 
     dependentTypes.forEach((type) => {
       switch (type.__typename) {

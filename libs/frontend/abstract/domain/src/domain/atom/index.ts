@@ -1,7 +1,0 @@
-export * from './atom.dto.interface'
-export * from './atom.model.interface'
-export * from './atom.ref'
-export * from './atom.repo.interface'
-export * from './atom.seed.interface'
-export * from './atom.service.interface'
-export * from './hooks.enum'

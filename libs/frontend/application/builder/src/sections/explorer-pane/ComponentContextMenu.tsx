@@ -1,6 +1,6 @@
 import type {
+  IComponentApplicationService,
   IComponentModel,
-  IComponentService,
 } from '@codelab/frontend/abstract/domain'
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -14,7 +14,7 @@ import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemCom
 import type { ContextMenuProps } from './ElementContextMenu'
 
 export type ComponentContextMenuProps = ContextMenuProps &
-  Pick<IComponentService, 'deleteModal'> & {
+  Pick<IComponentApplicationService, 'deleteModal'> & {
     component: IComponentModel
   }
 

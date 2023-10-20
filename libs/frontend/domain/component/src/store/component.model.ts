@@ -1,7 +1,12 @@
+import {
+  getComponentService,
+  getRenderService,
+  getUserService,
+} from '@codelab/frontend/abstract/application'
 import type {
   IComponentRuntimeProp,
   IElementModel,
-  IInterfaceType,
+  IInterfaceTypeModel,
   IPropModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
@@ -10,15 +15,13 @@ import {
   DATA_COMPONENT_ID,
   elementRef,
   ElementTree,
-  getComponentService,
-  getRenderService,
-  getUserService,
   IComponentModel,
   isComponent,
-  propRef,
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
+import { Prop } from '@codelab/frontend/domain/prop'
+import type { ComponentUpdateInput } from '@codelab/shared/abstract/codegen'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import {
   type IComponentDTO,
@@ -42,13 +45,13 @@ const create = ({
   store,
 }: IComponentDTO) => {
   return new Component({
-    api: typeRef<IInterfaceType>(api.id),
+    api: typeRef<IInterfaceTypeModel>(api.id),
     childrenContainerElement: elementRef(childrenContainerElement.id),
     id,
     instanceElement: null,
     keyGenerator,
     name,
-    props: propRef(props.id),
+    props: Prop.create(props),
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
   })
@@ -57,14 +60,14 @@ const create = ({
 @model('@codelab/Component')
 export class Component
   extends ExtendedModel(ElementTree, {
-    api: prop<Ref<IInterfaceType>>(),
+    api: prop<Ref<IInterfaceTypeModel>>(),
     childrenContainerElement: prop<Ref<IElementModel>>().withSetter(),
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     // a function to extract component key from input
     keyGenerator: prop<Nullish<string>>().withSetter(),
     name: prop<string>().withSetter(),
-    props: prop<Ref<IPropModel>>().withSetter(),
+    props: prop<IPropModel>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
     store: prop<Ref<IStoreModel>>().withSetter(),
@@ -121,7 +124,7 @@ export class Component
       id: this.id,
       keyGenerator: this.keyGenerator,
       name: this.name,
-      props: this.props.current.toJson,
+      props: this.props.toJson,
       rootElement: this.rootElement,
       store: this.store,
     }
@@ -154,12 +157,12 @@ export class Component
 
     const clonedStore = this.store.current.clone(clonedComponent.id)
 
-    clonedComponent.setProps(propRef(this.props.current.clone()))
+    clonedComponent.setProps(this.props.clone())
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setStore(storeRef(clonedStore))
 
     clonedComponent.elements.forEach((childElement) => {
-      childElement.props.current.set(DATA_COMPONENT_ID, clonedComponent.id)
+      childElement.props.set(DATA_COMPONENT_ID, clonedComponent.id)
     })
 
     if (instanceId) {
@@ -178,7 +181,7 @@ export class Component
       keyGenerator: this.keyGenerator,
       name: this.name,
       owner: connectOwner(this.userService.user),
-      props: { create: { node: this.props.current.toCreateInput() } },
+      props: { create: { node: this.props.toCreateInput() } },
       rootElement: connectNodeId(this.rootElement.id),
       store: { create: { node: this.store.current.toCreateInput() } },
     }
@@ -193,14 +196,14 @@ export class Component
     props,
     rootElement,
   }: Partial<IComponentDTO>) {
-    const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
+    const apiRef = api?.id ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     this.name = name ?? this.name
     this.rootElement = rootElement?.id
       ? elementRef(rootElement.id)
       : this.rootElement
     this.api = apiRef
-    this.props = props?.id ? propRef(props.id) : this.props
+    this.props = props ? Prop.create(props) : this.props
     this.keyGenerator = keyGenerator ?? this.keyGenerator
     this.childrenContainerElement = childrenContainerElement
       ? elementRef(childrenContainerElement.id)
@@ -276,6 +279,10 @@ export class Component
     }
 
     clonedComponent.setRootElement(elementRef(rootElement.id))
+  }
+
+  toUpdateInput(): ComponentUpdateInput {
+    return {}
   }
 
   /**

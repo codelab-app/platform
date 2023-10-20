@@ -7,19 +7,18 @@ import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
-  Omit<
+  Pick<
     IElementDTO,
-    | 'childMapperComponent'
-    | 'childMapperPreviousSibling'
-    | 'childMapperPropKey'
-    | 'closestContainerNode'
-    | 'compositeKey'
-    | 'firstChild'
-    | 'nextSibling'
-    | 'page'
-    | 'parentComponent'
-    | 'renderForEachPropKey'
-    | 'renderIfExpression'
+    | 'id'
+    | 'name'
+    | 'parentElement'
+    | 'postRenderAction'
+    | 'preRenderAction'
+    | 'prevSibling'
+    | 'props'
+    | 'renderType'
+    | 'style'
+    | 'tailwindClassNames'
   >
 > = {
   properties: {

@@ -1,7 +1,7 @@
 import type { AppWhere } from '@codelab/backend/abstract/codegen'
-import type { IAppOutputDto } from '@codelab/backend/abstract/core'
 import { ExportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
+import type { IApp } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -11,7 +11,7 @@ export class ExportAppsCommand {
 
 @CommandHandler(ExportAppsCommand)
 export class ExportAppsHandler
-  implements ICommandHandler<ExportAppsCommand, Array<IAppOutputDto>>
+  implements ICommandHandler<ExportAppsCommand, Array<IApp>>
 {
   constructor(
     private readonly appRepository: AppRepository,
@@ -26,14 +26,13 @@ export class ExportAppsHandler
         new ExportPageCommand(where),
       )
 
-      const appExport: IAppOutputDto = {
-        app,
-        components: [],
-        domains: app.domains,
+      const appExport: IApp = {
+        ...app,
+        domains: [],
         pages,
       }
 
       return [...(await appsData), appExport]
-    }, Promise.resolve<Array<IAppOutputDto>>([]))
+    }, Promise.resolve<Array<IApp>>([]))
   }
 }

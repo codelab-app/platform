@@ -4,6 +4,11 @@ export const elementSchema = gql`
   union ElementRenderType = Atom | Component
   union ContainerNode = Page | Component
 
+  # __typename codegen is optional, making it difficult to use as discriminated union
+  #enum NodeType {
+  #
+  #  }
+
   type Element {
     id: ID! @unique
     compositeKey: String! @unique
@@ -33,7 +38,6 @@ export const elementSchema = gql`
       @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
     renderIfExpression: String
-
     preRenderAction: BaseAction
       @relationship(type: "PRE_RENDER_ELEMENT_ACTION", direction: OUT)
     postRenderAction: BaseAction

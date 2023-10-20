@@ -1,47 +1,59 @@
-import type {
-  IRootStore,
-  RootStoreData,
-} from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
   builderServiceContext,
   componentServiceContext,
   elementServiceContext,
   renderServiceContext,
+  resourceServiceContext,
   userServiceContext,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import { AdminService } from '@codelab/frontend/application/admin'
 import { AppService } from '@codelab/frontend/application/app'
-import { ElementApplicationService } from '@codelab/frontend/application/element'
-import { RenderService } from '@codelab/frontend/application/renderer'
-import { AdminService } from '@codelab/frontend/domain/admin'
-import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
-import { BuilderService } from '@codelab/frontend/domain/builder'
-import { ComponentService } from '@codelab/frontend/domain/component'
+import {
+  AtomService,
+  atomServiceContext,
+} from '@codelab/frontend/application/atom'
+import { BuilderService } from '@codelab/frontend/application/builder'
+import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
   domainServiceContext,
-} from '@codelab/frontend/domain/domain'
-import { ElementService } from '@codelab/frontend/domain/element'
-import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
-import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
+} from '@codelab/frontend/application/domain'
 import {
-  ResourceService,
-  resourceServiceContext,
-} from '@codelab/frontend/domain/resource'
+  ElementApplicationService,
+  ElementService,
+} from '@codelab/frontend/application/element'
+import {
+  PageApplicationService,
+  pageServiceContext,
+} from '@codelab/frontend/application/page'
+import {
+  PropService,
+  propServiceContext,
+} from '@codelab/frontend/application/prop'
+import { RenderService } from '@codelab/frontend/application/renderer'
+import { ResourceService } from '@codelab/frontend/application/resource'
+import type {
+  IRootStore,
+  RootStoreData,
+} from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   actionServiceContext,
   StoreService,
   storeServiceContext,
-} from '@codelab/frontend/domain/store'
-import { TagService, tagServiceContext } from '@codelab/frontend/domain/tag'
+} from '@codelab/frontend/application/store'
+import {
+  TagService,
+  tagServiceContext,
+} from '@codelab/frontend/application/tag'
 import {
   FieldService,
   fieldServiceContext,
   TypeService,
   typeServiceContext,
-} from '@codelab/frontend/domain/type'
-import { UserService } from '@codelab/frontend/domain/user'
+} from '@codelab/frontend/application/type'
+import { UserService } from '@codelab/frontend/application/user'
 import {
   TracerService,
   tracerServiceContext,
@@ -57,12 +69,12 @@ export const createRootStore = ({ user }: RootStoreData) => {
       appService: prop(() => new AppService({})),
       atomService: prop(() => new AtomService({})),
       builderService: prop(() => new BuilderService({})),
-      componentService: prop(() => new ComponentService({})),
+      componentService: prop(() => new ComponentApplicationService({})),
       domainService: prop(() => new DomainService({})),
       elementApplicationService: prop(() => new ElementApplicationService({})),
       elementService: prop(() => new ElementService({})),
       fieldService: prop(() => new FieldService({})),
-      pageService: prop(() => new PageService({})),
+      pageService: prop(() => new PageApplicationService({})),
       propService: prop(() => new PropService({})),
       renderService: prop(() => new RenderService({})),
       resourceService: prop(() => new ResourceService({})),

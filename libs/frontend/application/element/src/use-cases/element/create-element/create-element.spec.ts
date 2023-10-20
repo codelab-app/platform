@@ -3,13 +3,12 @@ import {
   atomReactFragmentDto,
   elementDto,
   pageDto,
-  userDto,
 } from '@codelab/frontend/test/data'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 describe('Create element', () => {
-  const { elementService, pageService } = createTestRootStore(userDto)
+  const { elementDomainService, pageDomainService } = createTestRootStore()
 
   const rootElementDto: IElementDTO = {
     ...elementDto,
@@ -35,19 +34,18 @@ describe('Create element', () => {
     },
   } as const
 
-  pageService.add(pageDto)
+  pageDomainService.add(pageDto)
 
-  const rootElement =
-    elementService.elementDomainService.hydrate(rootElementDto)
+  const rootElement = elementDomainService.hydrate(rootElementDto)
 
   it('can create element as first child', async () => {
-    const firstChild = await elementService.createElement(firstChildDto)
+    const firstChild = await elementDomainService.addTreeNode(firstChildDto)
 
     expect(firstChild.parentElement?.maybeCurrent).toBe(rootElement)
   })
 
   it('should compute isRoot', async () => {
-    const firstChild = await elementService.createElement(firstChildDto)
+    const firstChild = await elementDomainService.addTreeNode(firstChildDto)
 
     expect(rootElement.isRoot).toBeTruthy()
 

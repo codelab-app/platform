@@ -1,0 +1,30 @@
+{
+  "name": "eslint-plugin",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tools/eslint-plugin/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/tools/eslint-plugin",
+        "tsConfig": "libs/tools/eslint-plugin/tsconfig.lib.json",
+        "packageJson": "libs/tools/eslint-plugin/package.json",
+        "main": "libs/tools/eslint-plugin/src/index.ts",
+        "assets": ["libs/tools/eslint-plugin/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/eslint-plugin/**/*.ts",
+          "libs/tools/eslint-plugin/package.json"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

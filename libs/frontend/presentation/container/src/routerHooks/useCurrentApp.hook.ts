@@ -10,8 +10,10 @@ export const useCurrentApp = () => {
   const appName = getNameFromSlug(appSlug)
 
   return useMemo(() => {
-    const app = appService.appsList.find(({ name }) => name === appName)
+    const app = appService.appDomainService.appsList.find(
+      (item) => item.name === appName,
+    )
 
     return app
-  }, [appName, appService.appsList])
+  }, [appName, appService.appDomainService.appsList])
 }

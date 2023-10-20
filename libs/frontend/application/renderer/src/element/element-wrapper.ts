@@ -64,8 +64,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const ReactComponent: IComponentType =
       renderOutput.atomType &&
-      atomService.dynamicComponents[renderOutput.atomType]
-        ? atomService.dynamicComponents[renderOutput.atomType] ?? React.Fragment
+      atomService.atomDomainService.dynamicComponents[renderOutput.atomType]
+        ? atomService.atomDomainService.dynamicComponents[
+            renderOutput.atomType
+          ] ?? React.Fragment
         : getReactComponent(renderOutput)
 
     const tailwindClassNames = {

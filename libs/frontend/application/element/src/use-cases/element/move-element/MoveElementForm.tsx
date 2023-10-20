@@ -66,7 +66,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
     return Promise.resolve()
   }
 
-  const elementAtomRequiredParents = atomService.atoms
+  const elementAtomRequiredParents = atomService.atomDomainService.atoms
     .get(element.renderType.id)
     ?.requiredParents.map((parent) => parent.id)
 

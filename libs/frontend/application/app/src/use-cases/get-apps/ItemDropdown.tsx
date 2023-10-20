@@ -6,8 +6,7 @@ import {
   GlobalOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/domain'
-import { appRef } from '@codelab/frontend/abstract/domain'
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
@@ -19,7 +18,6 @@ import React from 'react'
 
 export interface ItemMenuProps {
   app: IAppModel
-  domains?: Array<IDomainModel>
 }
 
 const menuItemStyle: CSSProperties = {
@@ -34,11 +32,11 @@ const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
 }
 
-export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
+export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
   const { appService, userService } = useStore()
-  const onEditClick = () => appService.updateModal.open(appRef(app.id))
-  const onDeleteClick = () => appService.deleteModal.open(appRef(app.id))
-  const onBuildClick = () => appService.buildModal.open(appRef(app.id))
+  const onEditClick = () => appService.updateModal.open(app)
+  const onDeleteClick = () => appService.deleteModal.open(app)
+  const onBuildClick = () => appService.buildModal.open(app)
   const router = useRouter()
 
   const goToDomainsPage = () =>
@@ -48,9 +46,9 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
 
   const menuItems: MenuProps['items'] = [
     {
-      disabled:
-        !domains ||
-        !domains.some((domain) => !domain.domainConfig?.misconfigured),
+      disabled: !app.domains.some(
+        (domain) => !domain.domainConfig?.misconfigured,
+      ),
       icon: <ToolOutlined style={menuItemIconStyle} />,
       key: 'build',
       label: 'Build',

@@ -1,38 +1,39 @@
 import type {
   IActionService,
+  IAppService,
   IAtomService,
-  IComponentService,
+  IComponentApplicationService,
   IElementService,
   IFieldService,
-  IPageService,
+  IPageApplicationService,
   IPropService,
   IRenderService,
   IStoreService,
   ITagService,
   ITypeService,
   IUserService,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
 import {
-  builderServiceContext,
+  appServiceContext,
   componentServiceContext,
   elementServiceContext,
   renderServiceContext,
   userServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { atomServiceContext } from '@codelab/frontend/domain/atom'
-import { BuilderService } from '@codelab/frontend/domain/builder'
-import { pageServiceContext } from '@codelab/frontend/domain/page'
-import { propServiceContext } from '@codelab/frontend/domain/prop'
+} from '@codelab/frontend/abstract/application'
+import { atomServiceContext } from '@codelab/frontend/application/atom'
+import { pageServiceContext } from '@codelab/frontend/application/page'
+import { propServiceContext } from '@codelab/frontend/application/prop'
 import {
   actionServiceContext,
   storeServiceContext,
-} from '@codelab/frontend/domain/store'
-import { tagServiceContext } from '@codelab/frontend/domain/tag'
+} from '@codelab/frontend/application/store'
+import { tagServiceContext } from '@codelab/frontend/application/tag'
 import {
   fieldServiceContext,
   typeServiceContext,
-} from '@codelab/frontend/domain/type'
-import { User, UserService } from '@codelab/frontend/domain/user'
+} from '@codelab/frontend/application/type'
+import { UserService } from '@codelab/frontend/application/user'
+import { User } from '@codelab/frontend/domain/user'
 import { userDto } from '@codelab/frontend/test/data'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 import type { ITestRootStore } from './test-root-store.interface'
@@ -41,12 +42,13 @@ import type { ITestRootStore } from './test-root-store.interface'
 export class TestRootStore
   extends Model({
     actionService: prop<IActionService>(),
+    appService: prop<IAppService>(),
     atomService: prop<IAtomService>(),
-    builderService: prop(() => new BuilderService({})),
-    componentService: prop<IComponentService>(),
+    // builderService: prop(() => new BuilderService({})),
+    componentService: prop<IComponentApplicationService>(),
     elementService: prop<IElementService>(),
     fieldService: prop<IFieldService>(),
-    pageService: prop<IPageService>(),
+    pageService: prop<IPageApplicationService>(),
     propService: prop<IPropService>(),
     renderService: prop<IRenderService>(),
     storeService: prop<IStoreService>(),
@@ -59,24 +61,24 @@ export class TestRootStore
   implements ITestRootStore
 {
   public clear() {
-    this.typeService.types.clear()
-    this.atomService.atoms.clear()
+    this.appService.appDomainService.apps.clear()
+    this.typeService.typeDomainService.types.clear()
+    this.atomService.atomDomainService.atoms.clear()
     this.componentService.components.clear()
     this.elementService.elementDomainService.elements.clear()
     this.fieldService.fields.clear()
     this.actionService.actions.clear()
     this.propService.props.clear()
-    this.pageService.pages.clear()
-    this.storeService.stores.clear()
+    this.storeService.storeDomainService.stores.clear()
     this.tagService.tags.clear()
     this.userService.users.clear()
     this.renderService.renderers.clear()
   }
 
   protected override onInit() {
+    appServiceContext.set(this, this.appService)
     typeServiceContext.set(this, this.typeService)
     atomServiceContext.set(this, this.atomService)
-    builderServiceContext.set(this, this.builderService)
     componentServiceContext.set(this, this.componentService)
     elementServiceContext.set(this, this.elementService)
     fieldServiceContext.set(this, this.fieldService)

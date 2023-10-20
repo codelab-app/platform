@@ -76,13 +76,13 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, userService } = useStore()
   const user = userService.user
 
-  const [{ status }, loadApp] = useAsync((owner: IEntity) =>
+  const [{ status }, loadAppsPreview] = useAsync((owner: IEntity) =>
     appService.loadAppsPreview({ owner }),
   )
 
   useEffect(() => {
-    void loadApp.execute({ id: user.id })
-  }, [user, loadApp])
+    void loadAppsPreview.execute({ id: user.id })
+  }, [user, loadAppsPreview])
 
   return (
     <>

@@ -1,7 +1,9 @@
 import type {
-  BuilderDragData,
   IBuilderService,
   IElementService,
+} from '@codelab/frontend/abstract/application'
+import type {
+  BuilderDragData,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { BuilderDndType } from '@codelab/frontend/abstract/domain'

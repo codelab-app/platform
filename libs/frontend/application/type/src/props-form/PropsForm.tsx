@@ -1,6 +1,6 @@
 import type {
   IEvaluationContext,
-  IInterfaceType,
+  IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
@@ -21,7 +21,7 @@ export interface PropsFormProps
   autosave?: boolean
   cssString?: string
   initialSchema?: object
-  interfaceType?: IInterfaceType
+  interfaceType?: IInterfaceTypeModel
   model?: IPropData
   setIsLoading?: SetIsLoading
 

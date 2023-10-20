@@ -1,24 +1,26 @@
-import type {
-  IAppDevelopmentArgs,
-  IAppDevelopmentService,
-} from '@codelab/frontend/abstract/domain'
 import {
   getAppService,
   getComponentService,
   getElementService,
-  getUserService,
-  IAppDevelopmentDto,
+  getResourceService,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IAppDevelopmentArgs,
+  IAppDevelopmentService,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getDomainService } from '@codelab/frontend/domain/domain'
-import { getPageService } from '@codelab/frontend/domain/page'
-import { getPropService } from '@codelab/frontend/domain/prop'
-import { getResourceService } from '@codelab/frontend/domain/resource'
+import { IAppDevelopmentDto } from '@codelab/frontend/abstract/domain'
+import { getAtomService } from '@codelab/frontend/application/atom'
+import { getDomainService } from '@codelab/frontend/application/domain'
+import { getPageService } from '@codelab/frontend/application/page'
+import { getPropService } from '@codelab/frontend/application/prop'
 import {
   getActionService,
   getStoreService,
-} from '@codelab/frontend/domain/store'
-import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
+} from '@codelab/frontend/application/store'
+import {
+  getFieldService,
+  getTypeService,
+} from '@codelab/frontend/application/type'
 import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
@@ -121,9 +123,9 @@ export class AppDevelopmentService
 
   @modelAction
   hydrateAppDevelopmentData(data: IAppDevelopmentDto) {
-    data.atoms.forEach((atom) => this.atomService.add(atom))
+    data.atoms.forEach((atom) => this.atomService.atomDomainService.add(atom))
 
-    data.types.forEach((type) => this.typeService.add(type))
+    data.types.forEach((type) => this.typeService.typeDomainService.add(type))
 
     data.fields.forEach((field) => this.fieldService.add(field))
 
@@ -135,15 +137,15 @@ export class AppDevelopmentService
 
     data.props.forEach((prop) => this.propService.add(prop))
 
-    data.pages.forEach((page) => this.pageService.add(page))
-
-    data.stores.forEach((store) => this.storeService.add(store))
+    data.stores.forEach((store) =>
+      this.storeService.storeDomainService.add(store),
+    )
 
     data.actions.forEach((action) => this.actionService.add(action))
 
     this.elementService.elementDomainService.logElementTreeState()
 
-    return this.appService.add(data.app)
+    return this.appService.appDomainService.add(data.app)
   }
 
   @computed
@@ -204,10 +206,5 @@ export class AppDevelopmentService
   @computed
   private get typeService() {
     return getTypeService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
   }
 }

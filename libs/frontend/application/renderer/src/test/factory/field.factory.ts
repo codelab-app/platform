@@ -1,4 +1,4 @@
-import type { IFieldDTO, ITypeEntity } from '@codelab/shared/abstract/core'
+import type { IFieldDTO, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Factory } from 'fishery'
@@ -14,7 +14,7 @@ export default Factory.define<IFieldDTO>(({ params }) => {
     fieldType: (params.fieldType ?? {
       __typename: ITypeKind.PrimitiveType,
       id: v4(),
-    }) as ITypeEntity,
+    }) as ITypeMaybeRef,
     id: params.id ?? v4(),
     key: params.key ?? chance.word(),
     name: params.name ?? null,

@@ -1,5 +1,3 @@
-import { otelSDK } from '@codelab/backend/infra/adapter/otel'
-import { trace } from '@opentelemetry/api'
 import type { ArgumentsCamelCase } from 'yargs'
 
 type HandlerFunction<T> = (args: ArgumentsCamelCase<T>) => Promise<void> | void

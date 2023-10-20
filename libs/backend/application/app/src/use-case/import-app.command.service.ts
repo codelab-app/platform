@@ -1,14 +1,13 @@
-import type { IAppOutputDto } from '@codelab/backend/abstract/core'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
-import type { IOwner } from '@codelab/shared/abstract/core'
+import type { IAppBoundedContext, IOwner } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
   constructor(
-    public readonly appExport: IAppOutputDto,
+    public readonly app: IAppBoundedContext,
     public readonly owner: IOwner,
   ) {}
 }
@@ -23,8 +22,10 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
 
   async execute(command: ImportAppCommand) {
     const {
-      appExport: { app, components, domains, pages },
+      app: { app, components, pages },
     } = command
+
+    const { domains } = app
 
     for (const page of pages) {
       await this.commandBus.execute<ImportPageCommand>(

@@ -14,13 +14,13 @@ export const DeleteAppModal = observer(() => {
       return Promise.reject()
     }
 
-    app.domains.forEach(async (domain) => {
-      const existingDomain = domainService.domains.get(domain.id)
+    // app.domains.forEach(async (domain) => {
+    //   const existingDomain = domainService.domains.get(domain.id)
 
-      if (existingDomain) {
-        await domainService.delete([existingDomain])
-      }
-    })
+    //   if (existingDomain) {
+    //     await domainService.delete([existingDomain])
+    //   }
+    // })
 
     return appService.delete([app])
   }

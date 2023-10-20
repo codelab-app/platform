@@ -15,7 +15,6 @@ import type {
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
-import { IPage } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -82,8 +81,9 @@ export class Page
   }
 
   @computed
-  get toJson(): IPage {
+  get toJson() {
     return {
+      $modelType: 'serialized' as const,
       app: this.app,
       id: this.id,
       kind: this.kind,

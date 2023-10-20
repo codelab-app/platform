@@ -1,13 +1,14 @@
-import type {
-  IApiOutputDto,
-  IComponentOutputDto,
-  IElementOutputDto,
-} from '@codelab/backend/abstract/core'
 import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { Span } from '@codelab/backend/infra/adapter/otel'
+import type {
+  IApi,
+  IComponent,
+  IComponentBoundedContext,
+  IElement,
+} from '@codelab/shared/abstract/core'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
@@ -17,7 +18,7 @@ export class ExportComponentCommand {
 
 @CommandHandler(ExportComponentCommand)
 export class ExportComponentHandler
-  implements ICommandHandler<ExportComponentCommand, IComponentOutputDto>
+  implements ICommandHandler<ExportComponentCommand, IComponent>
 {
   constructor(
     private componentRepository: ComponentRepository,
@@ -33,7 +34,7 @@ export class ExportComponentHandler
       }),
     )
 
-    const descendantElements: Array<IElementOutputDto> = (
+    const descendantElements: Array<IElement> = (
       await this.elementRepository.getElementWithDescendants(
         component.rootElement.id,
       )
@@ -45,7 +46,7 @@ export class ExportComponentHandler
       },
     }))
 
-    const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
+    const api = await this.commandBus.execute<ExportApiCommand, IApi>(
       new ExportApiCommand(component.api),
     )
 
@@ -54,26 +55,36 @@ export class ExportComponentHandler
     )
 
     // complex data types are exported separately, no need to include them in component as well
-    const componentToExport = {
+    // const componentToExport = {
+    //   ...component,
+    //   api: {
+    //     __typename: ITypeKind.InterfaceType,
+    //     id: api.id,
+    //   },
+    //   rootElement: {
+    //     id: component.rootElement.id,
+    //   },
+    //   store: {
+    //     id: component.store.id,
+    //   },
+    // }
+    const componentData: IComponentBoundedContext = {
+      __typename: 'Component',
       ...component,
-      api: {
-        __typename: api.__typename,
-        id: api.id,
-      },
-      rootElement: {
-        id: component.rootElement.id,
-      },
-      store: {
-        id: component.store.id,
-      },
-    }
-
-    return {
       api,
-      component: componentToExport,
       descendantElements,
+      rootElement: component.rootElement,
       store,
     }
+
+    return componentData
+
+    // return {
+    //   api,
+    //   component: componentToExport,
+    //   descendantElements,
+    //   store,
+    // }
   }
 
   // async getAtomApis() {

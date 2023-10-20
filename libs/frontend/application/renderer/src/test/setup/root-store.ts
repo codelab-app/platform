@@ -1,11 +1,14 @@
-import { AtomService } from '@codelab/frontend/domain/atom'
-import { ComponentService } from '@codelab/frontend/domain/component'
-import { ElementService } from '@codelab/frontend/domain/element'
-import { PageService } from '@codelab/frontend/domain/page'
-import { PropService } from '@codelab/frontend/domain/prop'
-import { ActionService, StoreService } from '@codelab/frontend/domain/store'
-import { TagService } from '@codelab/frontend/domain/tag'
-import { FieldService, TypeService } from '@codelab/frontend/domain/type'
+import { AtomService } from '@codelab/frontend/application/atom'
+import { ComponentApplicationService } from '@codelab/frontend/application/component'
+import { ElementService } from '@codelab/frontend/application/element'
+import { PageApplicationService } from '@codelab/frontend/application/page'
+import { PropService } from '@codelab/frontend/application/prop'
+import {
+  ActionService,
+  StoreService,
+} from '@codelab/frontend/application/store'
+import { TagService } from '@codelab/frontend/application/tag'
+import { FieldService, TypeService } from '@codelab/frontend/application/type'
 import isNil from 'lodash/isNil'
 import { RenderService } from '../../render.service'
 import { TestRootStore } from './test-root-store'
@@ -16,10 +19,10 @@ if (isNil(testRootStore)) {
   testRootStore = new TestRootStore({
     actionService: new ActionService({}),
     atomService: new AtomService({}),
-    componentService: new ComponentService({}),
+    componentService: new ComponentApplicationService({}),
     elementService: new ElementService({}),
     fieldService: new FieldService({}),
-    pageService: new PageService({}),
+    pageService: new PageApplicationService({}),
     propService: new PropService({}),
     renderService: new RenderService({}),
     storeService: new StoreService({}),

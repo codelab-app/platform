@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IPageNode, IStoreModel } from '@codelab/frontend/abstract/domain'
+import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
@@ -7,7 +7,6 @@ import {
   isElement,
   isElementRef,
   RendererTab,
-  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
@@ -43,7 +42,6 @@ import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
-import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ElementTreeView } from './builder-tree'
@@ -159,7 +157,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 const form = fieldService.createForm
 
                 if (store.api.id) {
-                  form.open(typeRef(store.api.id) as Ref<InterfaceType>)
+                  form.open(typeRef(store.api.id).current as InterfaceType)
                   popover.open(FormNames.CreateField)
                 }
               },
@@ -184,9 +182,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                actionService.createForm.open(
-                  storeRef(store) as Ref<IStoreModel>,
-                )
+                actionService.createForm.open(store)
                 popover.open(FormNames.CreateAction)
               },
               title: 'Add Action',

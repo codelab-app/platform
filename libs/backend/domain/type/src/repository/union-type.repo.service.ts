@@ -11,7 +11,10 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { ITypeEntity, IUnionTypeDTO } from '@codelab/shared/abstract/core'
+import type {
+  ITypeMaybeRef,
+  IUnionTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectNodeIds,
@@ -21,14 +24,14 @@ import {
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (
-  typesOfUnionType: Array<ITypeEntity>,
+  typesOfUnionType: Array<ITypeMaybeRef>,
   kind: ITypeKind,
 ): Array<string> =>
   typesOfUnionType
     .filter((_type) => _type.__typename === kind)
     .map(({ id }) => id)
 
-const getFilteredTypes = (typesOfUnionType: Array<ITypeEntity>) => ({
+const getFilteredTypes = (typesOfUnionType: Array<ITypeMaybeRef>) => ({
   arrayTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ArrayType),
   enumTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.EnumType),
   interfaceTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.InterfaceType),

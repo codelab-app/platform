@@ -1,91 +1,32 @@
 import type {
-  IActionService,
-  IAtomService,
-  IComponentService,
-  IElementService,
-  IFieldService,
-  IPageService,
-  IPropService,
-  IStoreService,
-  ITagService,
-  ITypeService,
-  IUserService,
+  IAtomDomainService,
+  IElementDomainService,
+  IPageDomainService,
 } from '@codelab/frontend/abstract/domain'
-import {
-  componentServiceContext,
-  elementServiceContext,
-  userServiceContext,
-} from '@codelab/frontend/abstract/domain'
-import { AtomService, atomServiceContext } from '@codelab/frontend/domain/atom'
-import { ComponentService } from '@codelab/frontend/domain/component'
-import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
-import { PropService, propServiceContext } from '@codelab/frontend/domain/prop'
-import {
-  ActionService,
-  actionServiceContext,
-  StoreService,
-  storeServiceContext,
-} from '@codelab/frontend/domain/store'
-import { TagService, tagServiceContext } from '@codelab/frontend/domain/tag'
-import {
-  FieldService,
-  fieldServiceContext,
-  TypeService,
-  typeServiceContext,
-} from '@codelab/frontend/domain/type'
-import { User, UserService } from '@codelab/frontend/domain/user'
-import { atomReactFragmentDto } from '@codelab/frontend/test/data'
-import { mockRepository } from '@codelab/frontend/test/store'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import { AtomDomainService } from '@codelab/frontend/domain/atom'
+import { PageDomainService } from '@codelab/frontend/domain/page'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
-import { ElementService } from '../store'
+import { ElementDomainService } from '../services/element.domain.service'
 
-export const createTestRootStore = (user: IUserDTO) => {
+export const createTestRootStore = () => {
   @model('@codelab/TestRootStore')
   class TestRootStore extends Model({
-    actionService: prop<IActionService>(() => new ActionService({})),
-    atomService: prop<IAtomService>(() => new AtomService({})),
-    componentService: prop<IComponentService>(() => new ComponentService({})),
-    elementService: prop<IElementService>(() => new ElementService({})),
-    fieldService: prop<IFieldService>(() => new FieldService({})),
-    pageService: prop<IPageService>(() => new PageService({})),
-    propService: prop<IPropService>(() => new PropService({})),
-    storeService: prop<IStoreService>(() => new StoreService({})),
-    tagService: prop<ITagService>(() => new TagService({})),
-    typeService: prop<ITypeService>(() => new TypeService({})),
-    userService: prop<IUserService>(
-      () => new UserService({ user: User.create(user) }),
+    atomDomainService: prop<IAtomDomainService>(
+      () => new AtomDomainService({}),
+    ),
+    elementDomainService: prop<IElementDomainService>(
+      () => new ElementDomainService({}),
+    ),
+    pageDomainService: prop<IPageDomainService>(
+      () => new PageDomainService({}),
     ),
   }) {
     protected override onInit() {
-      typeServiceContext.set(this, this.typeService)
-      userServiceContext.set(this, this.userService)
-      atomServiceContext.set(this, this.atomService)
-      componentServiceContext.set(this, this.componentService)
-      elementServiceContext.set(this, this.elementService)
-      fieldServiceContext.set(this, this.fieldService)
-      actionServiceContext.set(this, this.actionService)
-      propServiceContext.set(this, this.propService)
-      pageServiceContext.set(this, this.pageService)
-      storeServiceContext.set(this, this.storeService)
-      tagServiceContext.set(this, this.tagService)
-      tagServiceContext.set(this, this.tagService)
-
       registerRootStore(this)
     }
   }
 
   const rootStore = new TestRootStore({})
-  const { atomService, elementService } = rootStore
-  const { elementRepository } = elementService
-  const { atomRepository } = atomService
-
-  atomService.add(atomReactFragmentDto)
-
-  mockRepository(elementRepository)
-  jest.spyOn(elementRepository, 'updateNodes').mockImplementation()
-
-  mockRepository(atomRepository)
 
   return rootStore
 }

@@ -57,10 +57,10 @@ const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
   const {
+    appService,
     builderService,
     elementApplicationService,
     elementService,
-    pageService,
   } = useStore()
 
   const elementTree = builderService.activeElementTree
@@ -154,7 +154,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     },
     {
       children: (
-        <UpdatePageTabForm key={selectedNode.id} pageService={pageService} />
+        <UpdatePageTabForm appService={appService} key={selectedNode.id} />
       ),
       key: TAB_NAMES.Page,
       label: <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />,

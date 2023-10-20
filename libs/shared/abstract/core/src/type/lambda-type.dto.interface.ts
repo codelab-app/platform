@@ -1,3 +1,4 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import { type Static, Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'
@@ -7,3 +8,7 @@ export const ILambdaTypeDTO = Type.Composite([
 ])
 
 export type ILambdaTypeDTO = Static<typeof ILambdaTypeDTO>
+
+export const ILambdaType = Typebox.RequireTypename(ILambdaTypeDTO)
+
+export type ILambdaType = Static<typeof ILambdaType>

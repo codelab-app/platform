@@ -17,7 +17,7 @@ const emptyImageStyle: React.CSSProperties = {
 
 export const GetAppsList = observer(() => {
   const { appService } = useStore()
-  const appList = appService.appsList
+  const appList = appService.appDomainService.appsList
 
   return (
     <ErrorBoundary>

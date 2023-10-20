@@ -1,4 +1,5 @@
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
@@ -12,3 +13,7 @@ export const IPrimitiveTypeDTO = Type.Composite([
 ])
 
 export type IPrimitiveTypeDTO = Static<typeof IPrimitiveTypeDTO>
+
+export const IPrimitiveType = Typebox.RequireTypename(IPrimitiveTypeDTO)
+
+export type IPrimitiveType = Static<typeof IPrimitiveType>
