@@ -5,6 +5,7 @@ import type {
   IRenderOutput,
 } from '@codelab/frontend/abstract/domain'
 import { RendererType } from '@codelab/frontend/abstract/domain'
+import { useDndListeners } from '@codelab/frontend/application/builder'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -84,14 +85,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
-    const dragDropHandlers = useDragDropHandlers(element, renderer.rendererType)
+    const dndListeners = useDndListeners(element)
 
     // leave ElementWrapper pass-through so refs are attached to correct element
     const mergedProps = mergeProps(
       extractedProps,
       rest,
       selectionHandlers,
-      dragDropHandlers,
+      dndListeners,
       tailwindClassNames,
     )
 

@@ -82,7 +82,7 @@ export class ElementDomainService
 
     validateMoveElement(context)
 
-    if (parentElement) {
+    if (parentElement && parentElement.firstChild?.current !== element) {
       if (parentElement !== element.parentElement?.current) {
         element.detachFromTree()
       }
@@ -90,7 +90,7 @@ export class ElementDomainService
       element.attachAsFirstChild(parentElement)
     }
 
-    if (nextSibling) {
+    if (nextSibling && nextSibling.prevSibling?.current !== element) {
       if (nextSibling !== element.nextSibling?.current) {
         element.detachFromTree()
       }
@@ -98,7 +98,7 @@ export class ElementDomainService
       element.attachAsPrevSibling(nextSibling)
     }
 
-    if (prevSibling) {
+    if (prevSibling && prevSibling.nextSibling?.current !== element) {
       if (prevSibling !== element.prevSibling?.current) {
         element.detachFromTree()
       }

@@ -17,11 +17,18 @@ export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
 
-export type IDropPosition = 'bottom' | 'inside' | 'left' | 'right' | 'top'
+export enum DragOverlayPosition {
+  Left = 'Left',
+  Top = 'Top',
+  Bottom = 'Bottom',
+  Right = 'Right',
+  Inside = 'Inside',
+  NotAllowed = 'Not Allowed',
+}
 
-export interface IDragDropData {
-  dropPosition: IDropPosition
-  node: Nullable<IPageNodeRef>
+export interface IDragOverlayData {
+  elementId: string
+  position: DragOverlayPosition
 }
 
 export interface IBuilderService {
@@ -38,7 +45,7 @@ export interface IBuilderService {
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
   currentDragData: Nullable<Frozen<BuilderDragData>>
-  dragDropData: Nullable<IDragDropData>
+  dragOverlayData: Nullable<IDragOverlayData>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IPageNodeRef>
@@ -46,17 +53,14 @@ export interface IBuilderService {
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
-  dragOverElementNode(
-    node: Nullable<IElementModel>,
-    dropPosition: IDropPosition,
-  ): void
+  dragOverElementNode(id: string, position: DragOverlayPosition): void
   hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
-  setDragDropData(data: IDragDropData): void
+  setDragDropData(data: IDragOverlayData): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void

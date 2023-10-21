@@ -2,6 +2,7 @@ import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
   BuilderDropData,
+  IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { DragPosition } from '@codelab/frontend/abstract/domain'
@@ -11,8 +12,14 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
 export interface UseDndDropHandler {
-  handleCreateElement(event: DragEndEvent): Promise<void>
-  handleMoveElement(event: DragEndEvent): Promise<void>
+  handleCreateElement(
+    event: DragEndEvent,
+    dragPosition: DragPosition,
+  ): Promise<void>
+  handleMoveElement(
+    event: DragEndEvent,
+    dragPosition: DragPosition,
+  ): Promise<void>
 }
 
 export const useDndDropHandler = (
@@ -22,11 +29,12 @@ export const useDndDropHandler = (
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
-  const handleCreateElement = async (event: DragEndEvent) => {
+  const handleCreateElement = async (
+    event: DragEndEvent,
+    dragPosition: DragPosition,
+  ) => {
     const targetElementId = event.over?.id.toString()
     const data = event.active.data.current as Maybe<BuilderDragData>
-    const overData = event.over?.data.current as Maybe<BuilderDropData>
-    const dragPosition = overData?.dragPosition
     const createElementInput = data?.createElementInput
 
     if (!elementTree) {
@@ -40,12 +48,6 @@ export const useDndDropHandler = (
     }
 
     const targetElement = elementService.element(targetElementId)
-
-    if (!dragPosition) {
-      console.error('Drag position is required')
-
-      return
-    }
 
     // for not mutating the actual input from the components tab
     const createElementDTO = {
@@ -92,11 +94,13 @@ export const useDndDropHandler = (
     await elementService.createElement(createElementDTO)
   }
 
-  const handleMoveElement = async (event: DragEndEvent) => {
+  const handleMoveElement = async (
+    event: DragEndEvent,
+    dragPosition: DragPosition,
+  ) => {
     const draggedElementId = event.active.id.toString()
     const draggedElement = elementService.element(draggedElementId)
     const dropElementId = event.over?.id.toString()
-    const dragPosition = event.over?.data.current?.dragPosition
 
     if (!dropElementId || dropElementId === draggedElement.id) {
       return
@@ -104,18 +108,15 @@ export const useDndDropHandler = (
 
     const targetElement = elementService.element(dropElementId)
 
-    if (!dragPosition) {
-      console.error('Drag position is required')
-
-      return
-    }
-
     const parentId =
       dragPosition === DragPosition.Inside
         ? targetElement.id
         : targetElement.parentElement?.id
 
-    if (!validateParentForMove(draggedElement.id, parentId)) {
+    if (
+      dragPosition === DragPosition.Inside &&
+      !validateParentForMove(draggedElement.id, parentId)
+    ) {
       return
     }
 
@@ -136,12 +137,10 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element inside the target element as a first child
-    if (dragPosition === DragPosition.Inside) {
-      return await elementService.move({
-        element: draggedElement,
-        parentElement: targetElement,
-      })
-    }
+    return await elementService.move({
+      element: draggedElement,
+      parentElement: targetElement,
+    })
   }
 
   return {

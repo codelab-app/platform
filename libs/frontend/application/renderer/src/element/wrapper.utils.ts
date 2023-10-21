@@ -1,16 +1,23 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementModel,
+  IRenderOutput,
+} from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
+import type { FunctionComponentElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
+import type { DraggableElementProps } from './DraggableElement'
+import { DraggableElementWrapper } from './DraggableElementWrapper'
 
 const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
   ssr: false,
@@ -80,50 +87,6 @@ export const generateTailwindClasses = (
   }
 
   return ''
-}
-
-let dragImage: HTMLElement | undefined
-
-export const createDragImage = (name: string) => {
-  if (dragImage) {
-    dragImage.innerText = name
-
-    return dragImage
-  }
-
-  dragImage = document.createElement('div')
-  dragImage.style.width = 'auto'
-  dragImage.style.height = '40px'
-  dragImage.style.position = 'fixed'
-  dragImage.style.top = '-400px'
-  dragImage.style.borderRadius = '5px'
-  dragImage.style.backgroundColor = 'white'
-  dragImage.style.textAlign = 'center'
-  dragImage.style.display = 'flex'
-  dragImage.style.justifyContent = 'center'
-  dragImage.style.alignItems = 'center'
-  dragImage.style.fontSize = '14px'
-  dragImage.style.padding = '5px'
-  dragImage.innerText = name
-  document.body.appendChild(dragImage)
-
-  return dragImage
-}
-
-let transparentDragImage: HTMLElement | undefined
-
-export const createTransparentDragImage = () => {
-  if (transparentDragImage) {
-    return transparentDragImage
-  }
-
-  transparentDragImage = document.createElement('div')
-  transparentDragImage.style.width = '1px'
-  transparentDragImage.style.height = '1px'
-  transparentDragImage.style.opacity = '0'
-  document.body.appendChild(transparentDragImage)
-
-  return transparentDragImage
 }
 
 const replaceWithCustomResponsiveVariants = (classNames: Array<string>) => {
