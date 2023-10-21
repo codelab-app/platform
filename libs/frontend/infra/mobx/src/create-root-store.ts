@@ -95,7 +95,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
       this.elementService.elementDomainService.elements.clear()
       this.fieldService.fields.clear()
       this.actionService.actions.clear()
-      this.propService.props.clear()
       this.storeService.storeDomainService.stores.clear()
       this.tagService.tags.clear()
       this.userService.users.clear()

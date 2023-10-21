@@ -73,7 +73,10 @@ export const usePropsInspector = (node: IPageNodeRef) => {
 
     setIsLoading(true)
 
-    await propService.update({ data, id: node.current.props.id })
+    await propService.update(node.current.props, {
+      data,
+      id: node.current.props.id,
+    })
 
     setIsLoading(false)
 

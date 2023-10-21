@@ -46,7 +46,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const onSubmit = (data: IPropData) => {
       const props = element.current.props
 
-      return propService.updateWithDefaultValuesApplied({
+      return propService.updateWithDefaultValuesApplied(props, {
         data,
         defaultValues: getDefaultFieldProps(currentElement.renderType.current),
         id: props.id,
@@ -69,6 +69,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     )
 
     const submitRef = useRef<Maybe<SubmitController>>()
+
     React.useEffect(() => {
       // to trigger validation when props tab opened
       submitRef.current?.validate?.()

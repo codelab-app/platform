@@ -69,8 +69,6 @@ export class PageApplicationService
       id: v4(),
     }
 
-    this.propService.add(rootElementProps)
-
     const rootElement = this.elementService.elementDomainService.hydrate({
       closestContainerNode: {
         id,
@@ -244,8 +242,6 @@ export class PageApplicationService
   @modelAction
   loadElements = (elements: Array<IElementDTO>) => {
     elements.forEach((element) => {
-      this.propService.add(element.props)
-
       /**
        * Element comes with `component` or `atom` data that we need to load as well
        *
@@ -261,13 +257,9 @@ export class PageApplicationService
         // this.atomService.atomDomainService.add(element.renderType)
       }
 
-      const elementDto = {
-        ...element,
-      }
+      console.log('AppService.loadPages() element', element)
 
-      console.log('AppService.loadPages() elementDto', elementDto)
-
-      this.elementService.elementDomainService.hydrate(elementDto)
+      this.elementService.elementDomainService.hydrate(element)
     })
   }
 

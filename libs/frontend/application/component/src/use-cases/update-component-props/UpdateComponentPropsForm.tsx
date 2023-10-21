@@ -18,20 +18,20 @@ export interface UpdateComponentPropsFormProps {
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
   ({ component }) => {
     const { propService, typeService } = useStore()
-    const apiId = component.api.id
+    const api = component.api.current
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(() =>
-      typeService.getInterface(apiId),
+      typeService.getInterface(api.id),
     )
 
     useEffect(() => {
       void getInterface.execute()
-    }, [apiId])
+    }, [api.id])
 
     const onSubmit = async (data: IPropData) => {
       const filteredData = filterEmptyStrings(data)
 
-      return propService.update({
+      return propService.update(component.props, {
         data: JSON.stringify(filteredData),
         id: component.props.id,
       })

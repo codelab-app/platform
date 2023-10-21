@@ -85,13 +85,6 @@ export class ActionService
 
     store.actions.push(actionRef(action))
 
-    if (data.type === IActionKind.ApiAction) {
-      this.propService.add({
-        data: JSON.stringify(data.config.data),
-        id: data.config.id,
-      })
-    }
-
     yield* _await(this.actionRepository.add(action))
 
     return action

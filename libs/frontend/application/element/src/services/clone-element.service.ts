@@ -185,40 +185,32 @@ export class CloneElementService
     )
 
     // Update element and its descendants props values to use new action ids
-    const elementAndDescendantsProps = [
+    const elementProps = [
       element.props,
       ...element.descendantElements.map(
         (descendantElement) => descendantElement.props,
       ),
     ]
 
-    const updatedPropsById = elementAndDescendantsProps.reduce(
-      (acc, elementProps) => {
-        const updatedPropsData = mapDeep(elementProps.data, (value) => {
-          if (
-            value.kind === ITypeKind.ActionType &&
-            oldToNewActionIdMap.has(value.value)
-          ) {
-            return { ...value, value: oldToNewActionIdMap.get(value.value) }
-          }
+    const updatedElementProps = elementProps.map((props) => {
+      const updatedPropsData = mapDeep(props.data, (value) => {
+        if (
+          value.kind === ITypeKind.ActionType &&
+          oldToNewActionIdMap.has(value.value)
+        ) {
+          return { ...value, value: oldToNewActionIdMap.get(value.value) }
+        }
 
-          return value
-        })
+        return value
+      })
 
-        acc.set(elementProps.id, updatedPropsData)
-
-        return acc
-      },
-      new Map<string, IPropData>(),
-    )
+      return props.writeCache(updatedPropsData)
+    })
 
     await Promise.all(
-      Array.from(updatedPropsById.entries()).map(([propId, updatedData]) => {
-        return this.propService.update({
-          data: JSON.stringify(updatedData.data),
-          id: propId,
-        })
-      }),
+      updatedElementProps.map((props) =>
+        this.propService.propRepository.update(props),
+      ),
     )
 
     // This is required to load the added actions and fields into the component store
@@ -241,8 +233,6 @@ export class CloneElementService
       data: element.props.jsonString,
       id: v4(),
     }
-
-    this.propService.add(propsDto)
 
     const cloneElementDto: IElementDTO = {
       childMapperComponent: element.childMapperComponent

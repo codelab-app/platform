@@ -122,7 +122,7 @@ export class AppProductionService
       }),
     )
 
-    data.props.forEach((prop) => this.propService.add(prop))
+    // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) =>
       this.storeService.storeDomainService.add(store),
