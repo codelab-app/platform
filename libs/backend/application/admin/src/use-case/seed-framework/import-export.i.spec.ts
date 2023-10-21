@@ -13,6 +13,7 @@ import fs from 'fs'
 import path from 'path'
 import { AdminController } from '../../admin.application.controller'
 import { AdminApplicationModule } from '../../admin.application.module'
+import glob from 'glob'
 
 @Module({})
 class Auth0ModuleMock {}
@@ -65,35 +66,20 @@ describe('Seed, import, & export data', () => {
     await adminController.import({ adminDataPath: exportPath })
     await adminController.export({ adminDataPath: exportTestPath })
 
-    const pathsToCompare = [
-      path.join('system', 'types'),
-      path.join('admin', 'tags'),
-      path.join('admin', 'components'),
-      path.join('admin', 'atoms'),
-    ]
+    const sourceToExpectedFilePath = glob
+      .sync('**/*', { cwd: exportTestPath, nodir: true })
+      .reduce((acc, file) => {
+        const sourcePath = path.resolve(exportPath, file)
+        const exportedPath = path.resolve(exportTestPath, file)
 
-    pathsToCompare.forEach((pathToCompare) => {
-      const sourcePath = path.resolve(exportPath, pathToCompare)
-      const exportedPath = path.resolve(exportTestPath, pathToCompare)
-      const exportedFiles = fs.readdirSync(exportedPath)
+        return acc.set(sourcePath, exportedPath)
+      }, new Map())
 
-      expect(exportedFiles.length).toBeGreaterThan(0)
+    for (let [sourceFile, exportedFile] of sourceToExpectedFilePath) {
+      const sourceContent = fs.readFileSync(sourceFile, 'utf8')
+      const exportedContent = fs.readFileSync(exportedFile, 'utf8')
 
-      for (let i = 0; i < exportedFiles.length; i++) {
-        const fileName = exportedFiles[i]
-
-        const sourceContent = fs.readFileSync(
-          path.resolve(sourcePath, fileName!),
-          'utf8',
-        )
-
-        const exportedContent = fs.readFileSync(
-          path.resolve(exportedPath, fileName!),
-          'utf8',
-        )
-
-        expect(exportedContent).toEqual(sourceContent)
-      }
-    })
+      expect(exportedContent).toEqual(sourceContent)
+    }
   })
 })
