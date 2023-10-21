@@ -57,7 +57,7 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "unused-imports/no-unused-imports-ts": "error",
+        // "unused-imports/no-unused-imports-ts": "error",
         "sort-destructure-keys/sort-destructure-keys": [
           "error",
           { "caseSensitive": false }
