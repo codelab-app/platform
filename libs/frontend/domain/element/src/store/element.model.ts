@@ -1,5 +1,4 @@
 import {
-  getBuilderService,
   getComponentService,
   getElementService,
   getRenderService,
@@ -30,7 +29,6 @@ import {
   isComponent,
   isComponentRef,
   pageRef,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend/domain/prop'
 import {

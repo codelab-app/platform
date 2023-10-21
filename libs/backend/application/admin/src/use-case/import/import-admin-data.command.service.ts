@@ -9,8 +9,7 @@ import {
   TraceService,
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
-import { Stage } from '@codelab/shared/abstract/core'
-import { IAtomBoundedContext } from '@codelab/shared/abstract/core'
+import { IAtomBoundedContext, Stage } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
@@ -55,6 +54,7 @@ export class ImportAdminDataHandler
   @Span()
   private async importAtom(atom: IAtomBoundedContext) {
     const span = this.traceService.getSpan()
+
     span?.setAttributes(flattenWithPrefix(atom))
 
     await this.commandBus.execute<ImportAtomCommand>(

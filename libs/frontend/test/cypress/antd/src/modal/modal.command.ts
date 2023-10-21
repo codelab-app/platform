@@ -57,6 +57,7 @@ export const expectModalActions = (
   options?: Partial<Cypress.Loggable>,
 ) => {
   const opts = logAndMute('expectModalActions', labels.join(', '), options)
+
   labels.forEach((label) => getModalAction(label, opts).should('be.visible'))
 }
 
@@ -104,6 +105,7 @@ export const resolveModal = (
   options?: Partial<Cypress.Loggable>,
 ) => {
   const opts = logAndMute('resolveModal', label.toString(), options)
+
   getModalAction(label, opts).click(opts)
 }
 
@@ -112,6 +114,7 @@ export const resolveModalConfirm = (
   options?: Partial<Cypress.Loggable>,
 ) => {
   const opts = logAndMute('resolveModalConfirm', label.toString(), options)
+
   getModalConfirmAction(label, opts).click(opts)
 }
 

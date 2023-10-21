@@ -2,7 +2,6 @@ import type {
   IAppDomainService,
   IAtomDomainService,
   IElementDomainService,
-  IPageDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { AppDomainService } from '@codelab/frontend/domain/app'
 import { AtomDomainService } from '@codelab/frontend/domain/atom'

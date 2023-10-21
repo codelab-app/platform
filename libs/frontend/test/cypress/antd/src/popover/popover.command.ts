@@ -10,6 +10,7 @@ export const getPopover = (options?: CommonOptions) =>
 export const showPopover =
   (options?: CommonOptions & TickOptions) => ($el: JQuery) => {
     const opts = logAndMute('showPopover', undefined, options)
+
     cy.wrap($el, MUTE).trigger('mouseover', { force: true, ...opts })
     tickIfOnClock(opts)
     ifOnClock(() => forceShowPopover(opts))
@@ -20,6 +21,7 @@ export const showPopover =
 export const hidePopover =
   (options?: CommonOptions & TickOptions) => ($el: JQuery) => {
     const opts = logAndMute('hidePopover', undefined, options)
+
     cy.wrap($el, MUTE).trigger('mouseover', { force: true, ...opts })
     tickIfOnClock(opts)
     ifOnClock(() => forceHidePopover(opts))

@@ -7,10 +7,6 @@ import {
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
 import { ElementService } from '@codelab/frontend/application/element'
-import {
-  StoreService,
-  storeServiceContext,
-} from '@codelab/frontend/application/store'
 import { UserService } from '@codelab/frontend/application/user'
 import { AppDomainService } from '@codelab/frontend/domain/app'
 import {

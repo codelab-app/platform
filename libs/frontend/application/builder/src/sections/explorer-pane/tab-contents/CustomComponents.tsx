@@ -56,6 +56,7 @@ export const CustomComponents = observer(() => {
 
   const selectComponent = (id: string) => {
     const component = componentService.component(id)
+
     builderService.selectComponentNode(component)
   }
 

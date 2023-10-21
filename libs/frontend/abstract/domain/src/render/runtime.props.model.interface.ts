@@ -39,6 +39,7 @@ export interface IElementRuntimeProp extends IRuntimeProp<IElementModel> {
    */
   evaluatedChildMapperProp: Array<unknown>
 }
+
 export interface IComponentRuntimeProp extends IRuntimeProp<IComponentModel> {
   /**
    * merge component.props evaluation with instance element props evaluation

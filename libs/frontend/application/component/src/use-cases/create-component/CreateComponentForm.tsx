@@ -35,6 +35,7 @@ export const CreateComponentForm = observer(
 
     const onSubmit = (componentData: ICreateComponentData) => {
       const promise = componentService.create(componentData)
+
       onSubmitSuccess?.()
 
       return promise

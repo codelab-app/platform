@@ -164,6 +164,7 @@ export const expectTableColumnHeaders = (
 
 export const expectTableRowCount = (count: number, options?: CommonOptions) => {
   const opts = logAndMute('expectTableRowCount', count.toString(), options)
+
   getTableRows(opts).should('have.length', count)
 }
 
@@ -232,6 +233,7 @@ export const sortTableBy = (
   options?: CommonOptions,
 ) => {
   const opts = logAndMute('sortTableBy', columnIdxOrLabel.toString(), options)
+
   getTableColumnHeader(columnIdxOrLabel, opts)
     .find('.ant-table-column-sorters', opts)
     .click(opts)
@@ -264,6 +266,7 @@ export const filterTableBy = (
 
 export const toggleRowSelection = (rowIdx: number, options?: CommonOptions) => {
   const opts = logAndMute('toggleRowSelection', rowIdx.toString(), options)
+
   getTableRowSelectionCell(rowIdx, opts)
     .find('input[type=checkbox]', opts)
     .click(opts)
@@ -271,6 +274,7 @@ export const toggleRowSelection = (rowIdx: number, options?: CommonOptions) => {
 
 export const toggleBulkRowSelection = (options?: CommonOptions) => {
   const opts = logAndMute('toggleBulkSelection', undefined, options)
+
   getTableRowSelectionHeader(opts)
     .find('input[type=checkbox]', opts)
     .click(opts)

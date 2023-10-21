@@ -12,6 +12,7 @@ export interface IAuth0EnvVars {
   audience: string
   secret: string
 }
+
 /* *
  * https://github.com/auth0/nextjs-auth0/issues/383
  *

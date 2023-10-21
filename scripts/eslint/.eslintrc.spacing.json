@@ -15,11 +15,6 @@
           "error",
           {
             "blankLine": "always",
-            "prev": "export",
-            "next": "export"
-          },
-          {
-            "blankLine": "always",
             "prev": "*",
             "next": "return"
           },

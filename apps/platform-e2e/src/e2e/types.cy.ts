@@ -209,6 +209,7 @@ describe('Types CRUD', () => {
         type: FIELD_TYPE.CODE_MIRROR,
       }).then((editorView: EditorView) => {
         const text = editorView.state.doc.toString()
+
         expect(text).to.equal(fieldDefaultValue)
       })
     })

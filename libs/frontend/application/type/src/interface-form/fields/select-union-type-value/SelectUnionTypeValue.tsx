@@ -89,6 +89,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   }
 
   const previousSelectedTypeId = usePrevious(selectedTypeId)
+
   useEffect(() => {
     if (
       !isNil(previousSelectedTypeId) &&
@@ -136,6 +137,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             // This is needed for ReactNodeType or similar types where the schema has a default `type` field value
             // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
             const validate = createValidator(valueSchema)
+
             validate(formData)
 
             context.onChange(

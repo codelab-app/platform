@@ -286,6 +286,7 @@ export const expectFormFields = (
     ) = {},
 ) => {
   const mergedFields = mergeFields(fields, { error: errors, value: values })
+
   forEach(mergedFields, ({ error, placeholder, value, ...fieldSelector }) => {
     if (!isUndefined(value) || !isUndefined(placeholder)) {
       expectFormFieldValue({ ...options, placeholder, value, ...fieldSelector })
@@ -334,6 +335,7 @@ export const chooseSelectDropdownOption = (
   options?: CommonOptions,
 ) => {
   const opts = logAndMute('chooseSelectOption', value.toString(), options)
+
   ifOnClock(() => unlockSelectDropdownOptions(opts))
   absoluteRoot(opts)
     .contains(`${dropdownSelector} .ant-select-item-option`, value, opts)
@@ -639,6 +641,7 @@ export const setFormFieldValues = (
   } = {},
 ) => {
   const mergedFields = mergeFields(fields, { value: values })
+
   forEach(mergedFields, (field) => {
     if (!isUndefined(field.value)) {
       setFormFieldValue(cy, { ...options, ...field })

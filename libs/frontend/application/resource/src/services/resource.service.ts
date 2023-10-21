@@ -4,7 +4,6 @@ import type {
   IResourceModel,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/application/prop'
 import { Resource } from '@codelab/frontend/domain/resource'
 import {
   InlineFormService,

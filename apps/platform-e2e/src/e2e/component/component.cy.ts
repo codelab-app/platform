@@ -26,6 +26,7 @@ const componentChildren: Array<ComponentChildData> = [
 
 let testApp: any
 let app: IAppDTO
+
 describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {

@@ -1,6 +1,5 @@
 import type {
   ICreatePageData,
-  IPageDomainService,
   IPageModel,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/domain'

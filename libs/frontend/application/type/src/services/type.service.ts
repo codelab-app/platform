@@ -72,6 +72,7 @@ export class TypeService
   delete = _async(function* (this: TypeService, types: Array<ITypeModel>) {
     const deleteType = async (type: ITypeModel) => {
       const { id } = type
+
       this.typeDomainService.types.delete(id)
 
       await this.typeRepository.delete([type])
@@ -219,6 +220,7 @@ export class TypeService
   update = _async(function* (this: TypeService, data: IUpdateTypeData) {
     const type = this.typeDomainService.types.get(data.id)!
     const typeDTO = TypeFactory.mapDataToDTO(data)
+
     TypeFactory.writeCache(typeDTO, type)
 
     yield* _await(this.typeRepository.update(type))
@@ -234,6 +236,7 @@ export class TypeService
     console.debug('TypeService.loadTypes()', types)
 
     const flatTypes = Object.values(types).flat()
+
     this.fieldService.load(
       (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
     )

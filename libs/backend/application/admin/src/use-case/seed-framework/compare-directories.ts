@@ -23,6 +23,7 @@ const readDirectory = (dirPath: string): Array<string> => {
 export const concatenateFileContents = (dirPath: string): string => {
   const filePaths = readDirectory(dirPath)
   let content = ''
+
   filePaths.forEach((filePath) => {
     content += fs.readFileSync(filePath, 'utf8')
   })

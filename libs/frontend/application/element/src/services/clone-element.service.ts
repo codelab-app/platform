@@ -16,11 +16,7 @@ import {
 } from '@codelab/frontend/application/store'
 import { getFieldService } from '@codelab/frontend/application/type'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
-import type {
-  IElementDTO,
-  IPropData,
-  IPropDTO,
-} from '@codelab/shared/abstract/core'
+import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,

@@ -7,5 +7,7 @@ import { getSdk as getUpdateSdk } from '../graphql/update-action.endpoints.graph
 export const getActionApi = getGetSdk(client)
 
 export const createActionApi = getCreateSdk(client)
+
 export const deleteActionApi = getDeleteSdk(client)
+
 export const updateActionApi = getUpdateSdk(client)

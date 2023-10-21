@@ -4,7 +4,6 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IAtomType } from './atom-type.enum'
 import { IElementRenderTypeKind } from './element-render-type'
-import { IInterfaceTypeRef } from './type'
 
 export const IAtomDTO = Type.Object({
   api: IEntity,

@@ -95,6 +95,7 @@ export const SelectDefaultValue = () => {
       model={{ defaultValues }}
       onChange={(key, value) => {
         const formattedValue = value === '' ? undefined : value
+
         context.onChange(key, formattedValue)
       }}
       onSubmit={() => Promise.resolve()}

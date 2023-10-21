@@ -20,6 +20,7 @@ const componentChildren = [
 
 describe('Element Child Mapper', () => {
   let app: IAppDTO
+
   before(() => {
     loginAndSetupData()
     cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {

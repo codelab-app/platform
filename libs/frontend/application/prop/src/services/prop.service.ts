@@ -1,13 +1,11 @@
 import type { IPropService } from '@codelab/frontend/abstract/application'
 import type {
-  ICreatePropData,
   IPropModel,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/frontend/abstract/domain'
-import { mergeProps, Prop } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { IPropDTO } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import {
   _async,
@@ -15,9 +13,7 @@ import {
   idProp,
   Model,
   model,
-  modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'

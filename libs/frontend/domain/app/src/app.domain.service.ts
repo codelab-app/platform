@@ -6,7 +6,6 @@ import { PageDomainFactory } from '@codelab/frontend/domain/page'
 import type {
   IAppDTO,
   IElementRenderTypeDto,
-  IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'

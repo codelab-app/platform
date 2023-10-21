@@ -15,8 +15,8 @@ import type {
   ApiActionDeleteInput,
   ApiActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IApiAction, IApiActionDTO } from '@codelab/shared/abstract/core'
-import { IActionKind, IActionType } from '@codelab/shared/abstract/core'
+import type { IApiActionDTO } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'

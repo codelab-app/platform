@@ -14,6 +14,7 @@ export const scrapeHtmlData = async () => {
   })
 
   const page = await browser.newPage()
+
   await page.goto(
     'https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes',
     {

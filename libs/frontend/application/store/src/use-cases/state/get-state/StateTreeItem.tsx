@@ -3,7 +3,6 @@ import type {
   IInterfaceTypeModel,
   IStateTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
-import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -11,7 +10,6 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
-import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
 interface StateTreeItemProps {

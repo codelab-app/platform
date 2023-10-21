@@ -257,6 +257,7 @@ describe('Element domain', () => {
 
   describe('Move element', () => {
     const newRootElementDto = { ...rootElementDto, id: v4() }
+
     elementDomainService.hydrate({ ...newRootElementDto, page: pageDto })
 
     const newRootElement = elementDomainService.elements.get(

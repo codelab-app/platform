@@ -18,6 +18,7 @@ export const enum RendererType {
   Preview = 'preview',
   Production = 'production',
 }
+
 export interface IRenderer {
   actionRunners: ObjectMap<IActionRunner>
   debugMode: boolean

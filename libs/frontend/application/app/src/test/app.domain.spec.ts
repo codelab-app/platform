@@ -1,13 +1,10 @@
-import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
 import {
   appDto,
   atomReactFragmentDto,
   userDto,
 } from '@codelab/frontend/test/data'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { createTestRootStore } from './root-store'
 
 describe('App domain', () => {

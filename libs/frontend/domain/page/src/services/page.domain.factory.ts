@@ -9,7 +9,6 @@ import type {
 import {
   IAppModel,
   ICreatePageData,
-  IPageAppFragment,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getStoreDomainService, Store } from '@codelab/frontend/domain/store'
