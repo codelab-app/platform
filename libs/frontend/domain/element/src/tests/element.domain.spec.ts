@@ -256,7 +256,9 @@ describe('Element domain', () => {
     const newRootElementDto = { ...rootElementDto, id: v4() }
     elementDomainService.hydrate({ ...newRootElementDto, page: pageDto })
 
-    const newRootElement = elementService.element(newRootElementDto.id)
+    const newRootElement = elementDomainService.elements.get(
+      newRootElementDto.id,
+    )
 
     const firstParentDto: IElementDTO = {
       ...rootElementDto,

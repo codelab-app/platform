@@ -26,10 +26,10 @@ export class ImportComponentsHandler
 
   async execute(command: ImportComponentsCommand) {
     const {
-      componentAggregate: { api, component },
+      componentAggregate: { api, component, store, descendantElements },
     } = command
 
-    const { descendantElements, rootElement, store } = component
+    const { rootElement } = component
 
     await this.propRepository.save(component.props)
 
@@ -46,6 +46,8 @@ export class ImportComponentsHandler
 
     await this.componentRepository.save({
       ...component,
+      api,
+      store: store.store,
       owner: this.authDomainService.currentUser,
     })
   }

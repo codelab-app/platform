@@ -1,6 +1,7 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
+import { ExportApiCommand } from '@codelab/backend/application/type'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import type { ICommandHandler } from '@nestjs/cqrs'
+import { CommandBus, ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ExportStoreCommand {
@@ -9,7 +10,10 @@ export class ExportStoreCommand {
 
 @CommandHandler(ExportStoreCommand)
 export class ExportStoreHandler implements ICommandHandler<ExportStoreCommand> {
-  constructor(private storeRepository: StoreRepository) {}
+  constructor(
+    private readonly storeRepository: StoreRepository,
+    private readonly commandBus: CommandBus,
+  ) {}
 
   async execute({ where }: ExportStoreCommand) {
     const store = await this.storeRepository.findOne(where)
@@ -18,9 +22,13 @@ export class ExportStoreHandler implements ICommandHandler<ExportStoreCommand> {
       throw new Error('Cannot find Component Store')
     }
 
+    const api = await this.commandBus.execute<ExportApiCommand>(
+      new ExportApiCommand(store.api),
+    )
+
     return {
       actions: store.actions,
-      api: store.api,
+      api,
       store,
     }
   }

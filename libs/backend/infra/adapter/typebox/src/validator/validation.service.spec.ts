@@ -12,7 +12,7 @@ import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { TSchema } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import affixJson from 'data/export-v2/admin/atoms/AntDesignAffix.json'
+import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
 import { ValidationService } from './validation.service'
 
 describe('ValidationService', () => {

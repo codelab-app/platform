@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2",
+    "kind": "InterfaceType",
+    "name": "HtmlSection API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2",
+        "kind": "InterfaceType",
+        "name": "HtmlSection API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "5b65938d-2ed8-4edb-8a27-57c2471d4ea2"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "2cb35fbd-61e5-4895-bfd1-73ca226bdfbd",
+    "name": "HtmlSection",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "7e80685d-a5df-4497-90e1-290383e39149"
+      }
+    ],
+    "type": "HtmlSection"
+  }
+}

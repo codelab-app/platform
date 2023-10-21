@@ -89,10 +89,15 @@ export class ExportApiHandler
       },
     })
 
+    const apiInterfaceForExport = {
+      ...interfaceType,
+      fields: [],
+    } as IInterfaceType
+
     return {
       ...interfaceType,
       fields: [...fields, ...dependentFields],
-      types: dependentTypes,
+      types: [apiInterfaceForExport, ...dependentTypes],
     }
   }
 

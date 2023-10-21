@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "8b4c4158-9410-40bc-9200-c889088422c2",
+    "kind": "InterfaceType",
+    "name": "HtmlDatalist API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "8b4c4158-9410-40bc-9200-c889088422c2",
+        "kind": "InterfaceType",
+        "name": "HtmlDatalist API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "8b4c4158-9410-40bc-9200-c889088422c2"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "149f445e-6a3e-4ef0-8d02-cb48d3e6f0d4",
+    "name": "HtmlDatalist",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "165d749d-3b99-4c40-b5fd-8e0a6ac5798a"
+      }
+    ],
+    "type": "HtmlDatalist"
+  }
+}

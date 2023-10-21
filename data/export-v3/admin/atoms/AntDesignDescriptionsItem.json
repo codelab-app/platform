@@ -1,0 +1,74 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "1c521fcf-d6e7-44c2-b858-b65fd00c3f2b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "9568f082-b288-4272-98da-9fcf718beb3b",
+        "key": "label",
+        "name": "Label",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "1c521fcf-d6e7-44c2-b858-b65fd00c3f2b"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885"
+        },
+        "id": "788c5c29-0c4f-476f-8c7d-6e522ad99fa1",
+        "key": "span",
+        "name": "Span",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "1c521fcf-d6e7-44c2-b858-b65fd00c3f2b",
+    "kind": "InterfaceType",
+    "name": "AntDesignDescriptionsItem API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "1c521fcf-d6e7-44c2-b858-b65fd00c3f2b",
+        "kind": "InterfaceType",
+        "name": "AntDesignDescriptionsItem API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "1c521fcf-d6e7-44c2-b858-b65fd00c3f2b"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Descriptions",
+    "id": "2457b030-e43e-462e-b174-ef005f549733",
+    "name": "AntDesignDescriptionsItem",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "ae3012c5-9215-4a82-b553-32fab8b61fd2"
+      }
+    ],
+    "type": "AntDesignDescriptionsItem"
+  }
+}

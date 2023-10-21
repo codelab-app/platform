@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "b3054c85-a130-4e3e-b889-13bf286acbc2",
+    "kind": "InterfaceType",
+    "name": "HtmlDiv API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "b3054c85-a130-4e3e-b889-13bf286acbc2",
+        "kind": "InterfaceType",
+        "name": "HtmlDiv API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "b3054c85-a130-4e3e-b889-13bf286acbc2"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e",
+    "name": "HtmlDiv",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "abdf3a30-ff6d-4808-990b-af80611db3e7"
+      }
+    ],
+    "type": "HtmlDiv"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "ef84c17b-fb1b-45c1-93e2-bb6fad79e278",
+        "key": "cite",
+        "name": "Cite",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
+    "kind": "InterfaceType",
+    "name": "HtmlBlockquote API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
+        "kind": "InterfaceType",
+        "name": "HtmlBlockquote API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "c0322351-8b41-4ca8-9f55-64cb938dd70f",
+    "name": "HtmlBlockquote",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "945cacfa-4869-47c5-8748-20dadc6d512c"
+      }
+    ],
+    "type": "HtmlBlockquote"
+  }
+}

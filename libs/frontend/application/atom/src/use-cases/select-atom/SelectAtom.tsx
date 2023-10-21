@@ -20,7 +20,8 @@ export type SelectAtomProps = Pick<
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const { atomService } = useStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
-  const fallbackAtomOptions = atomService.atomsList.map(mapAtomOptions)
+  const fallbackAtomOptions =
+    atomService.atomDomainService.atomsList.map(mapAtomOptions)
 
   const [{ error: queryError, result, status }, getSelectAtomOptions] =
     useAsync(() => atomService.getSelectAtomOptions(fieldProps, parent))

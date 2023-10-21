@@ -129,7 +129,14 @@ export class ElementRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { closestContainerNode, id, name, props, renderType }: ICreateElementDTO,
+    {
+      closestContainerNode,
+      id,
+      name,
+      props,
+      renderType,
+      compositeKey,
+    }: ICreateElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -137,10 +144,9 @@ export class ElementRepository extends AbstractRepository<
         await this.ogmService.Element
       ).update({
         update: {
-          compositeKey: ElementProperties.elementCompositeKey(
-            name,
-            closestContainerNode,
-          ),
+          compositeKey:
+            compositeKey ??
+            ElementProperties.elementCompositeKey(name, closestContainerNode),
           id,
           props: reconnectNodeId(props.id),
           renderType: {

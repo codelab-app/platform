@@ -1,0 +1,3684 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "d8d412dd-2611-4132-8234-e7ea8667c919"
+        },
+        "defaultValues": "[]",
+        "description": null,
+        "fieldType": {
+          "id": "896be646-32e8-4046-9fe0-0f25a60714f7"
+        },
+        "id": "88221841-2720-4d04-a2b0-8a9e28cbc1a9",
+        "key": "fonts",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
+        },
+        "defaultValues": "\"Roboto\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "5f7982fd-4d0f-43c3-a30b-0c6c70e867ac",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
+        },
+        "defaultValues": "\"Open Sans\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f9dba15a-d8ae-4058-843f-9354fffe2558",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
+        },
+        "defaultValues": "\"Noto Sans JP\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "3d0818ea-d9fd-44a9-b8d6-d827dd5e1ad6",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
+        },
+        "defaultValues": "\"Montserrat\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "8cbc3b7b-229a-419c-880a-0cba15baab95",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
+        },
+        "defaultValues": "\"Lato\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "d61ca4a1-d19a-4a08-af44-5764218583b3",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
+        },
+        "defaultValues": "\"Poppins\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "35de6560-d869-4156-8634-42dc4e94e5da",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
+        },
+        "defaultValues": "\"Roboto Condensed\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "fb91dcd3-ff5a-4f87-9650-ce5f7b9c48ee",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
+        },
+        "defaultValues": "\"Inter\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "b5f603db-ad63-4192-8ec0-abd83fc35305",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
+        },
+        "defaultValues": "\"Roboto Mono\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f24410f4-5d5d-447a-8d72-349b7e5d6c64",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "ba311b82-869e-407d-9c8f-137138ab0868"
+        },
+        "defaultValues": "\"Oswald\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "4ed1ade8-965a-42f5-9caa-76627de217b1",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
+        },
+        "defaultValues": "\"Raleway\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "5eb88454-f3b5-425f-8201-118f839bbc92",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
+        },
+        "defaultValues": "\"Noto Sans\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f803c998-ae50-4c59-ac64-44f7715aa86e",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
+        },
+        "defaultValues": "\"Nunito Sans\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "dbf8147e-ef9a-4d2d-b304-375b471d7fdb",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
+        },
+        "defaultValues": "\"Roboto Slab\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "378bc7b9-c6e3-4849-a598-a1b53b55ca3e",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
+        },
+        "defaultValues": "\"Playfair Display\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "00b95e53-eae8-4042-ba26-873bfb73e7b9",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
+        },
+        "defaultValues": "\"Rubik\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f08d93aa-83d4-47ab-a587-851c74c545c3",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
+        },
+        "defaultValues": "\"Nunito\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "ffe8e066-2bfb-42b5-a351-8863ed2feca0",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
+        },
+        "defaultValues": "\"Ubuntu\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "f63c2e31-cbc0-4230-ac88-1ec4b03f6721",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
+        },
+        "defaultValues": "\"Nanum Gothic\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "72c89015-6244-4809-9184-de0629183478",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
+        },
+        "defaultValues": "\"Josefin Sans\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "1bd09556-41cc-43a7-a6c8-59fa85126fd2",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
+        },
+        "defaultValues": "\"Inconsolata\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "1a5ac6d9-ba09-446a-9f55-fa7c43d8ee54",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "3e20a519-4968-49ce-9663-6b5380707055"
+        },
+        "defaultValues": "\"Dosis\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "9565b8f7-41e7-4959-baf2-5296cd8c8b92",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
+        },
+        "defaultValues": "\"Pacifico\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "a8a96e80-86f2-474f-805e-bd9011653fba",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
+        },
+        "defaultValues": "\"Bruno Ace SC\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "37cd2888-366a-459e-b6b5-d4b78dfcc186",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
+        },
+        "defaultValues": "\"Gloria Hallelujah\"",
+        "description": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "id": "1cadf0c9-911c-44b5-b704-d1a97faf93de",
+        "key": "family",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b2c1216d-4840-404a-a7a5-32a6483eccae",
+          "kind": "EnumType",
+          "name": "Google Fonts Roboto Weight Enum"
+        },
+        "id": "627f7769-185b-4bf1-ad0e-3586ad3a9ed6",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "a1286e57-5852-458b-babf-3c8c2bb31040",
+          "kind": "EnumType",
+          "name": "Google Fonts Open Sans Weight Enum"
+        },
+        "id": "c170d7c9-3e56-4a54-a046-345a425c1216",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b0bce48d-4817-4205-bbfe-fc8fa9f19ec2",
+          "kind": "EnumType",
+          "name": "Google Fonts Noto Sans JP Weight Enum"
+        },
+        "id": "46203320-2ef2-4232-a11a-4468305973b6",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "fe446a41-27d1-41d6-9ce0-4c1f5e05e675",
+          "kind": "EnumType",
+          "name": "Google Fonts Montserrat Weight Enum"
+        },
+        "id": "667e7288-e3de-4d59-a3e8-8440fcba1a1e",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "cf18c60d-258a-42bc-a84d-a0e3a7bd17c9",
+          "kind": "EnumType",
+          "name": "Google Fonts Lato Weight Enum"
+        },
+        "id": "6b80d8eb-4995-4065-b17f-fcc6a16a6363",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "aefea36f-bb3d-4c84-8745-a8cd2d6c30e8",
+          "kind": "EnumType",
+          "name": "Google Fonts Poppins Weight Enum"
+        },
+        "id": "c76e330d-1906-4f63-afd2-9e61e45d34b4",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8aa85607-48cb-42a0-b361-9f24f88adb39",
+          "kind": "EnumType",
+          "name": "Google Fonts Roboto Condensed Weight Enum"
+        },
+        "id": "3e89b12e-a6a8-49ae-8643-2a3916f387cb",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "57cde81c-a439-4917-8923-243427be8f30",
+          "kind": "EnumType",
+          "name": "Google Fonts Inter Weight Enum"
+        },
+        "id": "1ff3ba46-bcce-4391-bedd-9d6c2dbbc811",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "c8a141d6-b160-4d42-87b2-1222b51a9009",
+          "kind": "EnumType",
+          "name": "Google Fonts Roboto Mono Weight Enum"
+        },
+        "id": "40ab1696-40e8-45d6-8c87-68a0d266b6af",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "ba311b82-869e-407d-9c8f-137138ab0868"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "4caf918b-48f9-4499-aa16-0b3aee805832",
+          "kind": "EnumType",
+          "name": "Google Fonts Oswald Weight Enum"
+        },
+        "id": "736dadd6-ffc6-41f6-a196-7ebb1fb5836e",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "08100a42-e090-4589-b4f5-e81a36059150",
+          "kind": "EnumType",
+          "name": "Google Fonts Raleway Weight Enum"
+        },
+        "id": "87e47aee-ec84-463f-904e-807fd2c7cf78",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "aa566256-bca7-4ce7-9832-a202cae9fc2b",
+          "kind": "EnumType",
+          "name": "Google Fonts Noto Sans Weight Enum"
+        },
+        "id": "2cfcf50e-dd95-4ecb-8f03-bef86511fa0c",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "035926c1-d9a9-44f0-8f8c-831b995fa7c6",
+          "kind": "EnumType",
+          "name": "Google Fonts Nunito Sans Weight Enum"
+        },
+        "id": "23d2e7e3-16ac-45ac-ba0d-2a15eb0be8cf",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "d03c9a02-fe37-47b4-8fdb-d8426c08c88d",
+          "kind": "EnumType",
+          "name": "Google Fonts Roboto Slab Weight Enum"
+        },
+        "id": "b5129a7b-ef5c-4a89-86fa-3b7742ab9d0b",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8e490d7e-0971-45f9-884c-39a863dce962",
+          "kind": "EnumType",
+          "name": "Google Fonts Playfair Display Weight Enum"
+        },
+        "id": "7ad829fd-a402-4f6f-a4a3-9aa86ede8ac9",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "37c42c19-b31a-46d1-8a0b-004ec4636b89",
+          "kind": "EnumType",
+          "name": "Google Fonts Rubik Weight Enum"
+        },
+        "id": "fc111ce6-738d-4600-802e-b12887875e58",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ef83bded-f795-46b4-b2f8-56822ed711d0",
+          "kind": "EnumType",
+          "name": "Google Fonts Nunito Weight Enum"
+        },
+        "id": "70610f19-7ab2-4a15-8004-c37dcadecb96",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "762e77e5-b2bf-4778-801b-630bbbd076c9",
+          "kind": "EnumType",
+          "name": "Google Fonts Ubuntu Weight Enum"
+        },
+        "id": "71672dab-9874-4ecb-9de8-e10edf9b462d",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "cccf8bbe-f71f-4334-af98-c9821c0cc349",
+          "kind": "EnumType",
+          "name": "Google Fonts Nanum Gothic Weight Enum"
+        },
+        "id": "8bb2418f-c6b6-4188-9a56-3ad8eb11e865",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "529a9531-9e49-4ed7-b643-651caadf3d0e",
+          "kind": "EnumType",
+          "name": "Google Fonts Josefin Sans Weight Enum"
+        },
+        "id": "6a0eed0a-0b2c-4ef8-83d6-389c964715fe",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "c6648d4b-1789-4489-bac9-0158788b494b",
+          "kind": "EnumType",
+          "name": "Google Fonts Inconsolata Weight Enum"
+        },
+        "id": "e0c9ce97-fc56-4dc3-96bc-009c0a971415",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "3e20a519-4968-49ce-9663-6b5380707055"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "5cc3d9cf-2da2-4709-93d4-ddea71a1599a",
+          "kind": "EnumType",
+          "name": "Google Fonts Dosis Weight Enum"
+        },
+        "id": "64acb7af-dea2-42f9-842e-1cabe572e4fd",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "d5bd6b0e-621f-44e7-8517-466b2a8897e1",
+          "kind": "EnumType",
+          "name": "Google Fonts Pacifico Weight Enum"
+        },
+        "id": "0b1701d2-5e5f-40f2-abc1-bd9acca7cc8a",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "252ef653-2b3c-469c-82f9-1a3344fd965e",
+          "kind": "EnumType",
+          "name": "Google Fonts Bruno Ace SC Weight Enum"
+        },
+        "id": "0e9a5afa-ce57-4781-a7c6-cc7a4e9ad8b6",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "e787a128-d0fe-422f-845a-1ad8fa638701",
+          "kind": "EnumType",
+          "name": "Google Fonts Gloria Hallelujah Weight Enum"
+        },
+        "id": "30d2942d-f5d2-4115-aa18-920c4bfb7940",
+        "key": "weight",
+        "name": null,
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      }
+    ],
+    "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+    "kind": "InterfaceType",
+    "name": "Google Fonts API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+        "kind": "InterfaceType",
+        "name": "Google Fonts API"
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "252ef653-2b3c-469c-82f9-1a3344fd965e",
+              "kind": "EnumType",
+              "name": "Google Fonts Bruno Ace SC Weight Enum"
+            },
+            "id": "0e9a5afa-ce57-4781-a7c6-cc7a4e9ad8b6",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04"
+            },
+            "defaultValues": "\"Bruno Ace SC\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "37cd2888-366a-459e-b6b5-d4b78dfcc186",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Bruno Ace SC",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "3e20a519-4968-49ce-9663-6b5380707055"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "5cc3d9cf-2da2-4709-93d4-ddea71a1599a",
+              "kind": "EnumType",
+              "name": "Google Fonts Dosis Weight Enum"
+            },
+            "id": "64acb7af-dea2-42f9-842e-1cabe572e4fd",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "3e20a519-4968-49ce-9663-6b5380707055"
+            },
+            "defaultValues": "\"Dosis\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "9565b8f7-41e7-4959-baf2-5296cd8c8b92",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "3e20a519-4968-49ce-9663-6b5380707055",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Dosis",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "e787a128-d0fe-422f-845a-1ad8fa638701",
+              "kind": "EnumType",
+              "name": "Google Fonts Gloria Hallelujah Weight Enum"
+            },
+            "id": "30d2942d-f5d2-4115-aa18-920c4bfb7940",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf"
+            },
+            "defaultValues": "\"Gloria Hallelujah\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "1cadf0c9-911c-44b5-b704-d1a97faf93de",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Gloria Hallelujah",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "c6648d4b-1789-4489-bac9-0158788b494b",
+              "kind": "EnumType",
+              "name": "Google Fonts Inconsolata Weight Enum"
+            },
+            "id": "e0c9ce97-fc56-4dc3-96bc-009c0a971415",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "b5de478b-8d16-477b-be8f-301379ab26d9"
+            },
+            "defaultValues": "\"Inconsolata\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "1a5ac6d9-ba09-446a-9f55-fa7c43d8ee54",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "b5de478b-8d16-477b-be8f-301379ab26d9",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Inconsolata",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "57cde81c-a439-4917-8923-243427be8f30",
+              "kind": "EnumType",
+              "name": "Google Fonts Inter Weight Enum"
+            },
+            "id": "1ff3ba46-bcce-4391-bedd-9d6c2dbbc811",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "de8f4c80-35e8-4b87-a232-d99983248f1a"
+            },
+            "defaultValues": "\"Inter\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "b5f603db-ad63-4192-8ec0-abd83fc35305",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "de8f4c80-35e8-4b87-a232-d99983248f1a",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Inter",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "529a9531-9e49-4ed7-b643-651caadf3d0e",
+              "kind": "EnumType",
+              "name": "Google Fonts Josefin Sans Weight Enum"
+            },
+            "id": "6a0eed0a-0b2c-4ef8-83d6-389c964715fe",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656"
+            },
+            "defaultValues": "\"Josefin Sans\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "1bd09556-41cc-43a7-a6c8-59fa85126fd2",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Josefin Sans",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "cf18c60d-258a-42bc-a84d-a0e3a7bd17c9",
+              "kind": "EnumType",
+              "name": "Google Fonts Lato Weight Enum"
+            },
+            "id": "6b80d8eb-4995-4065-b17f-fcc6a16a6363",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169"
+            },
+            "defaultValues": "\"Lato\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "d61ca4a1-d19a-4a08-af44-5764218583b3",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Lato",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "fe446a41-27d1-41d6-9ce0-4c1f5e05e675",
+              "kind": "EnumType",
+              "name": "Google Fonts Montserrat Weight Enum"
+            },
+            "id": "667e7288-e3de-4d59-a3e8-8440fcba1a1e",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "10883ab5-c70c-4ce0-ab73-59935a806b05"
+            },
+            "defaultValues": "\"Montserrat\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "8cbc3b7b-229a-419c-880a-0cba15baab95",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "10883ab5-c70c-4ce0-ab73-59935a806b05",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Montserrat",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "cccf8bbe-f71f-4334-af98-c9821c0cc349",
+              "kind": "EnumType",
+              "name": "Google Fonts Nanum Gothic Weight Enum"
+            },
+            "id": "8bb2418f-c6b6-4188-9a56-3ad8eb11e865",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "6babdef9-12fd-4114-8bb6-391a089bc801"
+            },
+            "defaultValues": "\"Nanum Gothic\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "72c89015-6244-4809-9184-de0629183478",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "6babdef9-12fd-4114-8bb6-391a089bc801",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Nanum Gothic",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "aa566256-bca7-4ce7-9832-a202cae9fc2b",
+              "kind": "EnumType",
+              "name": "Google Fonts Noto Sans Weight Enum"
+            },
+            "id": "2cfcf50e-dd95-4ecb-8f03-bef86511fa0c",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0"
+            },
+            "defaultValues": "\"Noto Sans\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f803c998-ae50-4c59-ac64-44f7715aa86e",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Noto Sans",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "b0bce48d-4817-4205-bbfe-fc8fa9f19ec2",
+              "kind": "EnumType",
+              "name": "Google Fonts Noto Sans JP Weight Enum"
+            },
+            "id": "46203320-2ef2-4232-a11a-4468305973b6",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e"
+            },
+            "defaultValues": "\"Noto Sans JP\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "3d0818ea-d9fd-44a9-b8d6-d827dd5e1ad6",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Noto Sans JP",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "ef83bded-f795-46b4-b2f8-56822ed711d0",
+              "kind": "EnumType",
+              "name": "Google Fonts Nunito Weight Enum"
+            },
+            "id": "70610f19-7ab2-4a15-8004-c37dcadecb96",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51"
+            },
+            "defaultValues": "\"Nunito\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "ffe8e066-2bfb-42b5-a351-8863ed2feca0",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Nunito",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "035926c1-d9a9-44f0-8f8c-831b995fa7c6",
+              "kind": "EnumType",
+              "name": "Google Fonts Nunito Sans Weight Enum"
+            },
+            "id": "23d2e7e3-16ac-45ac-ba0d-2a15eb0be8cf",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6"
+            },
+            "defaultValues": "\"Nunito Sans\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "dbf8147e-ef9a-4d2d-b304-375b471d7fdb",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Nunito Sans",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "a1286e57-5852-458b-babf-3c8c2bb31040",
+              "kind": "EnumType",
+              "name": "Google Fonts Open Sans Weight Enum"
+            },
+            "id": "c170d7c9-3e56-4a54-a046-345a425c1216",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb"
+            },
+            "defaultValues": "\"Open Sans\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f9dba15a-d8ae-4058-843f-9354fffe2558",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Open Sans",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "ba311b82-869e-407d-9c8f-137138ab0868"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "4caf918b-48f9-4499-aa16-0b3aee805832",
+              "kind": "EnumType",
+              "name": "Google Fonts Oswald Weight Enum"
+            },
+            "id": "736dadd6-ffc6-41f6-a196-7ebb1fb5836e",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "ba311b82-869e-407d-9c8f-137138ab0868"
+            },
+            "defaultValues": "\"Oswald\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "4ed1ade8-965a-42f5-9caa-76627de217b1",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "ba311b82-869e-407d-9c8f-137138ab0868",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Oswald",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "d5bd6b0e-621f-44e7-8517-466b2a8897e1",
+              "kind": "EnumType",
+              "name": "Google Fonts Pacifico Weight Enum"
+            },
+            "id": "0b1701d2-5e5f-40f2-abc1-bd9acca7cc8a",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903"
+            },
+            "defaultValues": "\"Pacifico\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "a8a96e80-86f2-474f-805e-bd9011653fba",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Pacifico",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "8e490d7e-0971-45f9-884c-39a863dce962",
+              "kind": "EnumType",
+              "name": "Google Fonts Playfair Display Weight Enum"
+            },
+            "id": "7ad829fd-a402-4f6f-a4a3-9aa86ede8ac9",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d"
+            },
+            "defaultValues": "\"Playfair Display\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "00b95e53-eae8-4042-ba26-873bfb73e7b9",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Playfair Display",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "aefea36f-bb3d-4c84-8745-a8cd2d6c30e8",
+              "kind": "EnumType",
+              "name": "Google Fonts Poppins Weight Enum"
+            },
+            "id": "c76e330d-1906-4f63-afd2-9e61e45d34b4",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3"
+            },
+            "defaultValues": "\"Poppins\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "35de6560-d869-4156-8634-42dc4e94e5da",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Poppins",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "08100a42-e090-4589-b4f5-e81a36059150",
+              "kind": "EnumType",
+              "name": "Google Fonts Raleway Weight Enum"
+            },
+            "id": "87e47aee-ec84-463f-904e-807fd2c7cf78",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53"
+            },
+            "defaultValues": "\"Raleway\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "5eb88454-f3b5-425f-8201-118f839bbc92",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Raleway",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "b2c1216d-4840-404a-a7a5-32a6483eccae",
+              "kind": "EnumType",
+              "name": "Google Fonts Roboto Weight Enum"
+            },
+            "id": "627f7769-185b-4bf1-ad0e-3586ad3a9ed6",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20"
+            },
+            "defaultValues": "\"Roboto\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "5f7982fd-4d0f-43c3-a30b-0c6c70e867ac",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Roboto",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "8aa85607-48cb-42a0-b361-9f24f88adb39",
+              "kind": "EnumType",
+              "name": "Google Fonts Roboto Condensed Weight Enum"
+            },
+            "id": "3e89b12e-a6a8-49ae-8643-2a3916f387cb",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6"
+            },
+            "defaultValues": "\"Roboto Condensed\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "fb91dcd3-ff5a-4f87-9650-ce5f7b9c48ee",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Roboto Condensed",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "c8a141d6-b160-4d42-87b2-1222b51a9009",
+              "kind": "EnumType",
+              "name": "Google Fonts Roboto Mono Weight Enum"
+            },
+            "id": "40ab1696-40e8-45d6-8c87-68a0d266b6af",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36"
+            },
+            "defaultValues": "\"Roboto Mono\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f24410f4-5d5d-447a-8d72-349b7e5d6c64",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Roboto Mono",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "d03c9a02-fe37-47b4-8fdb-d8426c08c88d",
+              "kind": "EnumType",
+              "name": "Google Fonts Roboto Slab Weight Enum"
+            },
+            "id": "b5129a7b-ef5c-4a89-86fa-3b7742ab9d0b",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb"
+            },
+            "defaultValues": "\"Roboto Slab\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "378bc7b9-c6e3-4849-a598-a1b53b55ca3e",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Roboto Slab",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "37c42c19-b31a-46d1-8a0b-004ec4636b89",
+              "kind": "EnumType",
+              "name": "Google Fonts Rubik Weight Enum"
+            },
+            "id": "fc111ce6-738d-4600-802e-b12887875e58",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e"
+            },
+            "defaultValues": "\"Rubik\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f08d93aa-83d4-47ab-a587-851c74c545c3",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Rubik",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "InterfaceType",
+        "fields": [
+          {
+            "api": {
+              "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "762e77e5-b2bf-4778-801b-630bbbd076c9",
+              "kind": "EnumType",
+              "name": "Google Fonts Ubuntu Weight Enum"
+            },
+            "id": "71672dab-9874-4ecb-9de8-e10edf9b462d",
+            "key": "weight",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "63be0022-34ca-41b5-bdd5-66d3344fa537"
+            },
+            "defaultValues": "\"Ubuntu\"",
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "id": "f63c2e31-cbc0-4230-ac88-1ec4b03f6721",
+            "key": "family",
+            "name": null,
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "id": "63be0022-34ca-41b5-bdd5-66d3344fa537",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Ubuntu",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      {
+        "__typename": "UnionType",
+        "id": "12c8df17-1186-491a-87be-ddeba08c6583",
+        "kind": "UnionType",
+        "name": "Google Fonts Option",
+        "typesOfUnionType": [
+          {
+            "__typename": "InterfaceType",
+            "id": "10883ab5-c70c-4ce0-ab73-59935a806b05",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Montserrat"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "11e2bb7c-f3c1-412a-8d25-dc212d4dd169",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Lato"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "22451e71-275f-4a03-a1e5-1576f1ce9fe3",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Poppins"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "3e20a519-4968-49ce-9663-6b5380707055",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Dosis"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "57ccc2be-619b-4e27-8ad2-8d11cefb61eb",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Open Sans"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "5cc64ee4-3a00-4643-9b14-8613e0e98d04",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Bruno Ace SC"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "63be0022-34ca-41b5-bdd5-66d3344fa537",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Ubuntu"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "65dce128-d88c-4eba-b41c-5d4ead345fbf",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Gloria Hallelujah"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "6babdef9-12fd-4114-8bb6-391a089bc801",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Nanum Gothic"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "719fc1d2-2289-4e4d-a8b9-e0ab1da83bb6",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Roboto Condensed"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "8d18d110-1e69-4dbe-b02c-5553e96f4656",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Josefin Sans"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "a1b9b3a8-b09a-471e-b871-0ebfa40a7a20",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Roboto"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "a50f5d2f-6ad8-4302-a88a-a43eaa63f2c6",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Nunito Sans"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "b5de478b-8d16-477b-be8f-301379ab26d9",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Inconsolata"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "b9b379e6-afd4-47eb-a14b-ac0eaa019c2e",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Rubik"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "ba311b82-869e-407d-9c8f-137138ab0868",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Oswald"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "bbb47052-87b6-4900-b5d9-c6697d072fc0",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Noto Sans"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "c13c6711-6c69-41c1-bb4f-6d20727eca51",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Nunito"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "d6921cd9-a8a4-4a2b-b025-1a54311030cb",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Roboto Slab"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "d6a6104d-b710-4ae3-8b7b-6e704a2c4b36",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Roboto Mono"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "de8f4c80-35e8-4b87-a232-d99983248f1a",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Inter"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "e08ce6a1-7057-46e4-8ad1-2ce48789f63d",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Playfair Display"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "e1f583a4-5bc3-4b47-9b41-6a916bd2dc53",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Raleway"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "e50c1ff7-28df-40a9-97b9-62ddc5ef927e",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Noto Sans JP"
+          },
+          {
+            "__typename": "InterfaceType",
+            "id": "e79af94e-ee1b-4023-b25a-25f33ee0e903",
+            "kind": "InterfaceType",
+            "name": "Google Fonts Pacifico"
+          }
+        ]
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "6704d409-796f-4897-be40-94b286f8646a",
+            "key": "400",
+            "value": "400"
+          }
+        ],
+        "id": "252ef653-2b3c-469c-82f9-1a3344fd965e",
+        "kind": "EnumType",
+        "name": "Google Fonts Bruno Ace SC Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "6bbf16ca-91cc-4b19-9164-e01846383781",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "6a691873-6ef4-4303-a6f1-cc4c7710e29f",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "0e949ad2-2d40-43d7-a1d2-c8d6e7689787",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "d7470c71-e0ac-4bde-aadd-a5057f9cd627",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "755d5cce-6a72-46a9-8f12-61957941230c",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "fc0ee744-3082-443c-bc27-116f3c8fe624",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "db84d534-0eb7-4b0d-b111-f2a8d2e93edf",
+            "key": "800",
+            "value": "800"
+          }
+        ],
+        "id": "5cc3d9cf-2da2-4709-93d4-ddea71a1599a",
+        "kind": "EnumType",
+        "name": "Google Fonts Dosis Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "187e5055-3058-456b-9abc-b12d2a3f9519",
+            "key": "400",
+            "value": "400"
+          }
+        ],
+        "id": "e787a128-d0fe-422f-845a-1ad8fa638701",
+        "kind": "EnumType",
+        "name": "Google Fonts Gloria Hallelujah Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "89d372b5-9125-47cc-b85e-5649b1616ed5",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "81a49690-7492-48f1-907c-035b9bdf6ea6",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "857b8675-7974-4c8f-91b0-19e1e19e8ea8",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "22e11cee-ce8c-4a17-a7f0-e7fd5c64c8f9",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "c8c93e2c-3418-4989-a971-db098e09cbd7",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "72a562a5-76ea-40cf-86ce-a36759fa9821",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "d1da579d-8002-4ea4-9109-e3d56cb42e9c",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "24bf9805-ba47-4c7c-8f28-b24d1abc942a",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "c6648d4b-1789-4489-bac9-0158788b494b",
+        "kind": "EnumType",
+        "name": "Google Fonts Inconsolata Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "24546d1a-1088-4618-8b52-8c192147c85f",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "6b8da287-6a85-4b3c-a8eb-fd883c316e59",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "51b697a6-dca0-4953-a718-39146664a100",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "bc2a9f5c-e1d9-49a6-96bd-a09269792220",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "4f729171-c087-42bf-a719-eb72fe4c5c1b",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "c2e95c6a-5c9d-4867-b7f9-9ab37a13af24",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "0717d3c4-9da6-4708-9c1c-1b5703da3e1d",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "968c5270-915a-43e4-8dd4-649b8b916459",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "9c66f429-9d5d-45da-b7bf-8a78c09fd7b3",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "57cde81c-a439-4917-8923-243427be8f30",
+        "kind": "EnumType",
+        "name": "Google Fonts Inter Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "2e4e6eea-3f92-4fe1-aca1-d8361896466a",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "e691332f-61fc-4a0a-bb8e-268260c6109c",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "21d428c5-e0c1-4b18-8e14-6da74508873c",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "39203157-ad9c-4086-a1ac-2fe416bc7490",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "5ab64a47-b154-41e2-93f0-2f560a6ba882",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "44a89839-1026-49ad-abe3-9a2a6198c263",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "4d5df19b-6999-4be2-8130-0f322e0962a0",
+            "key": "700",
+            "value": "700"
+          }
+        ],
+        "id": "529a9531-9e49-4ed7-b643-651caadf3d0e",
+        "kind": "EnumType",
+        "name": "Google Fonts Josefin Sans Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "a61da2b9-b3ee-4697-822e-93004c5946f1",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "56a72479-577d-4919-a0ff-bde9b4da7c78",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "f4fddebc-8493-4af2-abb6-ea044ced3cba",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "53ad0e28-4d0a-4d20-b87b-7e57cc7d80a3",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "089c6a95-f879-4138-8544-b9db0beb1ecc",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "cf18c60d-258a-42bc-a84d-a0e3a7bd17c9",
+        "kind": "EnumType",
+        "name": "Google Fonts Lato Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "37e577a0-d9c0-44cf-8765-3a60b93ec845",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "9cc0d195-6983-4aec-96ca-ec8a9853917e",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "a37a252c-3bce-44ec-b090-0a3d2126ecfa",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "f44a24ec-6365-4a0e-ba97-fc83741379d7",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "8fe26933-e00a-4a8b-8ef0-fb914542a12e",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "a362c8b6-3249-4db9-9bd3-38e13170e112",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "17cd3b58-24fb-4d2f-b945-506414b75143",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "d7b7986e-8b0a-4606-902a-d7a492f57273",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "7de286f6-f222-4c86-abad-35297e197503",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "fe446a41-27d1-41d6-9ce0-4c1f5e05e675",
+        "kind": "EnumType",
+        "name": "Google Fonts Montserrat Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "5e66dfe9-16b7-470a-990c-b5305189939e",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "1115ab21-f08d-4e15-aa4e-ed24c5e96203",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "26b3240c-8cff-4957-ba50-f2984ad13947",
+            "key": "800",
+            "value": "800"
+          }
+        ],
+        "id": "cccf8bbe-f71f-4334-af98-c9821c0cc349",
+        "kind": "EnumType",
+        "name": "Google Fonts Nanum Gothic Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "b0749ed6-1efb-498b-9fd5-1c1333d3ae31",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "92b76b0f-3810-44ba-a782-f9843e08bd24",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "125d2018-2259-4219-8072-e8e8417e1f82",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "dcb408fb-2915-4e3d-887d-db284d7b56c5",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "611c66bd-5bc1-4d38-a2c9-acfe410e470b",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "f2be748a-0d1c-4716-b04e-281119d81029",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "0bcb9ec0-971d-4878-ae47-bd9793141c56",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "63acde05-0730-4b59-9ae8-dd0f76a4f01a",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "21b1e8d4-685e-4d21-a51b-d93707973577",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "b0bce48d-4817-4205-bbfe-fc8fa9f19ec2",
+        "kind": "EnumType",
+        "name": "Google Fonts Noto Sans JP Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "a2d1d2e2-aa06-4d2c-a4e6-cdaa4d977239",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "7098f651-0d10-46c0-b102-7c4ab483e704",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "c39d913d-2792-44bf-9a52-79060e35899b",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "6fe2a6aa-0f05-4080-bbef-caabcd60d567",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "222df647-76c1-4a59-8407-44ed7973dc7a",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "c790b6f9-1e90-4ff6-9eb4-3d66a8e455ac",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "600bbb96-37c8-4a91-ad36-1b05caf43737",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "22fcb5d6-e306-4f30-812c-29f07046ff08",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "bfabb625-e4be-416d-af4e-c0e417e5f0d7",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "aa566256-bca7-4ce7-9832-a202cae9fc2b",
+        "kind": "EnumType",
+        "name": "Google Fonts Noto Sans Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "ff47d6b7-61a3-48ca-84b3-fdb777483c85",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "eb0befb5-8179-4784-9740-3c28b3740edc",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "f849d410-4df3-4060-8870-ec59b6ce7e60",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "6533c8d7-98dd-4b94-9ee9-be77d4e93202",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "1595c12d-eb8b-4a1b-8df1-7b6a26fa7e3d",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "3e797669-22a4-4c14-b40f-b160810778e4",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "ef343f97-3c87-4167-b374-0dce2774f381",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "53044044-8788-4773-8235-a85ba14b1066",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "035926c1-d9a9-44f0-8f8c-831b995fa7c6",
+        "kind": "EnumType",
+        "name": "Google Fonts Nunito Sans Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "3a1ea2cc-b769-43ce-b69a-44495f572a4b",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "db7a6ac7-5746-4c00-b192-480a3f8e27dc",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "26f04722-752c-4f8a-bfde-b482ccb83876",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "2e237ef2-1994-4e89-9ca3-de3bf835fa5c",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "258fde25-c944-426a-b5b4-206c96bbf1c8",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "42828246-752b-408b-ac66-a9a10aaa13a4",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "0a2b31d6-df8e-415f-9b2c-d3943c2427cf",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "d0cdfc06-3c35-4b76-8145-f6f46a0f19c7",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "ef83bded-f795-46b4-b2f8-56822ed711d0",
+        "kind": "EnumType",
+        "name": "Google Fonts Nunito Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "b18faa5b-3241-4711-af31-5f7dccad76f6",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "285ff163-0aa5-4690-9b3f-4996345b3858",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "a7e6e3e3-4ab3-48c6-97a3-6872b6237207",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "03e6e03c-4d32-4410-ae94-cba6e6c32972",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "4de1f538-10d2-44c9-8c52-a49613dc835f",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "3dd46821-a821-4485-9c69-bd9b73c053ac",
+            "key": "800",
+            "value": "800"
+          }
+        ],
+        "id": "a1286e57-5852-458b-babf-3c8c2bb31040",
+        "kind": "EnumType",
+        "name": "Google Fonts Open Sans Weight Enum"
+      },
+      {
+        "__typename": "ArrayType",
+        "id": "896be646-32e8-4046-9fe0-0f25a60714f7",
+        "itemType": {
+          "id": "12c8df17-1186-491a-87be-ddeba08c6583",
+          "kind": "UnionType"
+        },
+        "kind": "ArrayType",
+        "name": "Google Fonts Option Array"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "d99cfa75-1df7-459a-8eb9-7b2300e3c164",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "307ab01a-4dcd-4712-95fe-52f81ed58940",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "76f5e372-a24b-4224-966d-13664ada5c1c",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "1c968199-ec04-4e70-8b1f-cb95265b2145",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "dee27773-4c15-40a7-885d-c2819af4de6e",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "ccb2db67-8775-4571-88c3-f838151d2ef9",
+            "key": "700",
+            "value": "700"
+          }
+        ],
+        "id": "4caf918b-48f9-4499-aa16-0b3aee805832",
+        "kind": "EnumType",
+        "name": "Google Fonts Oswald Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "16c7c395-c3af-4628-b49b-e4381d40fcd4",
+            "key": "400",
+            "value": "400"
+          }
+        ],
+        "id": "d5bd6b0e-621f-44e7-8517-466b2a8897e1",
+        "kind": "EnumType",
+        "name": "Google Fonts Pacifico Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "05374e70-c8b3-45a0-9572-d9de759667c1",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "e0473eff-9245-46bf-b276-4e5223467e4d",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "1f5615dc-6d66-408b-903d-0d0fca1c591c",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "fe0e5194-0442-4afb-93b8-c3730290ec9d",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "f5ae9523-e3fd-4eba-a098-67255a9b8909",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "718da0a2-a785-4a63-869f-fd7f3bfd6170",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "8e490d7e-0971-45f9-884c-39a863dce962",
+        "kind": "EnumType",
+        "name": "Google Fonts Playfair Display Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "717bb3d8-5cd8-4232-9840-d55bbe643971",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "74736fab-092b-4589-af2e-226349374359",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "7c6e1f61-a839-42d5-858b-275a66b8ae0f",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "6ee80540-153b-4004-9a1f-8fdee44ae37b",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "285f7adc-0ad4-4235-99fd-ea0c774a9e9c",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "0d359a14-dcc0-4fdd-bfe7-e646f04492fd",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "d5a02cab-e81e-4601-b4c5-65197a4eb0d9",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "27f25f1c-7450-405e-b5f4-37fc3acc3be5",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "38a462fd-bfe7-44df-9eb7-41ba9f974ac7",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "aefea36f-bb3d-4c84-8745-a8cd2d6c30e8",
+        "kind": "EnumType",
+        "name": "Google Fonts Poppins Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "c19b3aa9-bdef-4220-b22b-a57194799a02",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "e58a7ba9-f238-4b23-a90d-54ba9779f7b2",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "510309e3-3371-4d3c-8b83-16a6d6100aad",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "0a263525-397e-446b-b24f-d270a30027c3",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "250e94cb-4afe-45b1-81fc-012decb52657",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "e21a4f5c-2a70-4972-8e78-d2a520588d3d",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "880e36da-0c47-435a-a0c2-34be1986e005",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "3f5faa4c-0f0a-48ea-b99d-9035119bae95",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "8a3f0a41-e52e-4b7f-833a-3e3394a2e423",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "08100a42-e090-4589-b4f5-e81a36059150",
+        "kind": "EnumType",
+        "name": "Google Fonts Raleway Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "1f9d7fa0-1c3c-49d8-9737-4d03e8a1c5f0",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "b5ca2ba1-63d0-474f-a41c-d2af0896ba9f",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "47e69456-48c9-4866-baaa-d88316cacdd5",
+            "key": "700",
+            "value": "700"
+          }
+        ],
+        "id": "8aa85607-48cb-42a0-b361-9f24f88adb39",
+        "kind": "EnumType",
+        "name": "Google Fonts Roboto Condensed Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "5c223e74-073f-456c-9518-8e248726b8af",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "c0b40050-c507-450b-b118-17a75ca32b0c",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "b592f047-4bb4-41ac-bdeb-b75cfd147bd1",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "e686a308-a934-4ba2-b1ef-54710a810d89",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "de347214-e1cc-416c-8b60-b147afa4fe31",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "aa7deb0c-00f9-47e2-b50d-1479f98f717e",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "e6ddd2c5-d2f3-48bd-bc5a-9484f0cd24e3",
+            "key": "700",
+            "value": "700"
+          }
+        ],
+        "id": "c8a141d6-b160-4d42-87b2-1222b51a9009",
+        "kind": "EnumType",
+        "name": "Google Fonts Roboto Mono Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "517fdc26-15e7-469d-b259-8666402ce831",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "c5d34a8d-b6ad-49e4-84eb-d4271bbaf3ec",
+            "key": "200",
+            "value": "200"
+          },
+          {
+            "id": "3edc4645-acee-4383-8465-cd2144d9b1e1",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "6d7d5532-d50d-4467-86d0-95654738245c",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "af356b1c-ace6-43b1-a112-f825005e76e0",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "1b3c5998-1337-4870-9207-1b50d5294646",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "e5eed167-76e4-48d5-81e2-f89a8133607c",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "dde27489-f9e7-424a-bc13-1c731c8866aa",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "4fc7ba85-bbc1-4e51-8db8-1d70589c3fb7",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "d03c9a02-fe37-47b4-8fdb-d8426c08c88d",
+        "kind": "EnumType",
+        "name": "Google Fonts Roboto Slab Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "b2b0fe82-e765-44d9-8cf5-10a4883fe90a",
+            "key": "100",
+            "value": "100"
+          },
+          {
+            "id": "ac31f21b-2ad8-4a41-abae-7d2363429970",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "52d6b209-e6fc-4bd9-b751-da53891d4a16",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "00aa34e8-fb45-40e2-bb25-01bc432f1954",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "86380bc1-9478-4a9f-865b-b98fa597f4ae",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "f9726c86-4c5f-407f-8197-a12ff27c849e",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "b2c1216d-4840-404a-a7a5-32a6483eccae",
+        "kind": "EnumType",
+        "name": "Google Fonts Roboto Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "f7b36a14-728c-42aa-8b3e-6adedd0e5f7e",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "76d2b9f7-c120-4bb5-82de-d942b80dd487",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "40dac8f7-283d-46e1-9768-de37a222bfdf",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "65f3d414-1af1-4c24-afb9-02d3615e68f4",
+            "key": "600",
+            "value": "600"
+          },
+          {
+            "id": "b8a62434-4714-47d0-82af-bb3d3aae6674",
+            "key": "700",
+            "value": "700"
+          },
+          {
+            "id": "20e83349-be83-4251-a66a-7b1b643c355a",
+            "key": "800",
+            "value": "800"
+          },
+          {
+            "id": "8b49d564-78b1-4eb7-aa47-b4b72bb2d7f5",
+            "key": "900",
+            "value": "900"
+          }
+        ],
+        "id": "37c42c19-b31a-46d1-8a0b-004ec4636b89",
+        "kind": "EnumType",
+        "name": "Google Fonts Rubik Weight Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "d7151c60-4cbe-4d25-a90c-bdc36f65929b",
+            "key": "300",
+            "value": "300"
+          },
+          {
+            "id": "7e3f062b-406d-4d2d-920b-241d02661cfd",
+            "key": "400",
+            "value": "400"
+          },
+          {
+            "id": "ae2e9c74-3824-498c-b731-92b9ea11ab8c",
+            "key": "500",
+            "value": "500"
+          },
+          {
+            "id": "59bfa042-34fa-446b-b4a4-6fe73b22fbd1",
+            "key": "700",
+            "value": "700"
+          }
+        ],
+        "id": "762e77e5-b2bf-4778-801b-630bbbd076c9",
+        "kind": "EnumType",
+        "name": "Google Fonts Ubuntu Weight Enum"
+      }
+    ]
+  },
+  "component": {
+    "__typename": "Component",
+    "childrenContainerElement": {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c"
+    },
+    "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+    "keyGenerator": null,
+    "name": "Google Fonts",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "props": {
+      "data": "{\"fonts\":[]}",
+      "id": "7e8d336a-65b3-47cd-9a44-2bb446155210"
+    },
+    "rootElement": {
+      "childMapperComponent": null,
+      "childMapperPreviousSibling": null,
+      "childMapperPropKey": null,
+      "compositeKey": "417cba0d-a781-485d-82d5-cb3672efe555-Google Fonts",
+      "firstChild": null,
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
+      "nextSibling": null,
+      "parentComponent": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
+      },
+      "parentElement": null,
+      "postRenderAction": null,
+      "preRenderAction": null,
+      "prevSibling": null,
+      "props": {
+        "data": "{\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\",\"rel\":\"stylesheet\",\"href\":\"{{function run() {\\n  const { fonts } = props\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const family = fontDetails[i].family\\n      const weight = fontDetails[i].weight\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\"}",
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1"
+      },
+      "renderForEachPropKey": null,
+      "renderIfExpression": null,
+      "renderType": {
+        "__typename": "Atom",
+        "api": {
+          "__typename": "InterfaceType",
+          "fields": [
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "98a1cc5a-10ae-4907-b825-25c21290d145",
+              "key": "type",
+              "name": "Type",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "80e29df4-e01d-4316-9346-e3f1c21bf806",
+              "key": "sizes",
+              "name": "Sizes",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
+              "key": "rel",
+              "name": "Rel",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "EnumType",
+                "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
+                "kind": "EnumType",
+                "name": "HtmlLink Referrerpolicy Enum"
+              },
+              "id": "22221951-0725-49d2-b432-8b24e03352ba",
+              "key": "referrerpolicy",
+              "name": "Referrerpolicy",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
+              "key": "media",
+              "name": "Media",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc",
+              "key": "integrity",
+              "name": "Integrity",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "df57332d-8b01-4316-9f99-6c8f83075251",
+              "key": "hreflang",
+              "name": "Hreflang",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b",
+              "key": "href",
+              "name": "Href",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            },
+            {
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              },
+              "defaultValues": null,
+              "description": null,
+              "fieldType": {
+                "__typename": "EnumType",
+                "id": "1d557d56-c90c-481f-b17c-e80252360d65",
+                "kind": "EnumType",
+                "name": "HtmlLink Crossorigin Enum"
+              },
+              "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0",
+              "key": "crossorigin",
+              "name": "Crossorigin",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": null
+            }
+          ],
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913",
+          "kind": "InterfaceType",
+          "name": "HtmlLink API",
+          "owner": {
+            "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+          }
+        },
+        "externalCssSource": null,
+        "externalJsSource": null,
+        "externalSourceType": null,
+        "icon": null,
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "name": "HtmlLink",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "requiredParents": [],
+        "suggestedChildren": [],
+        "tags": [
+          {
+            "children": [],
+            "id": "579b099c-95ff-481b-9154-3d00840c2b94",
+            "name": "HtmlLink",
+            "owner": {
+              "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+            },
+            "parent": {
+              "id": "81adcc2f-67a1-4bd9-a0f5-e763effa69b5",
+              "name": "Metadata"
+            }
+          }
+        ],
+        "type": "HtmlLink"
+      },
+      "slug": "Google Fonts",
+      "style": null,
+      "tailwindClassNames": null
+    }
+  },
+  "descendantElements": [
+    {
+      "childMapperComponent": null,
+      "childMapperPreviousSibling": null,
+      "childMapperPropKey": null,
+      "compositeKey": "417cba0d-a781-485d-82d5-cb3672efe555-Google Fonts",
+      "firstChild": null,
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
+      "nextSibling": null,
+      "parentComponent": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
+      },
+      "parentElement": null,
+      "postRenderAction": null,
+      "preRenderAction": null,
+      "prevSibling": null,
+      "props": {
+        "data": "{\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\",\"rel\":\"stylesheet\",\"href\":\"{{function run() {\\n  const { fonts } = props\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const family = fontDetails[i].family\\n      const weight = fontDetails[i].weight\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\"}",
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1"
+      },
+      "renderForEachPropKey": null,
+      "renderIfExpression": null,
+      "renderType": {
+        "__typename": "Atom",
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498"
+      },
+      "slug": "Google Fonts",
+      "style": null,
+      "tailwindClassNames": null
+    }
+  ],
+  "store": {
+    "actions": [],
+    "api": {
+      "__typename": "InterfaceType",
+      "fields": [],
+      "id": "369777a3-7afb-4059-be35-71d145fed48d",
+      "kind": "InterfaceType",
+      "name": "Google Fonts Store API",
+      "types": [
+        {
+          "__typename": "InterfaceType",
+          "fields": [],
+          "id": "369777a3-7afb-4059-be35-71d145fed48d",
+          "kind": "InterfaceType",
+          "name": "Google Fonts Store API"
+        }
+      ]
+    },
+    "store": {
+      "actions": [],
+      "api": {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "369777a3-7afb-4059-be35-71d145fed48d",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Store API",
+        "owner": {
+          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      },
+      "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",
+      "name": "Google Fonts Store"
+    }
+  }
+}

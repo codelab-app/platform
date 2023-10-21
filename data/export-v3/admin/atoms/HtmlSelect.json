@@ -1,0 +1,154 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "37f2a117-d7a0-46fc-9759-91411e1d4542",
+        "key": "autofocus",
+        "name": "Autofocus",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "7715790f-0043-4ecb-b8cc-fd6004b3508c",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "f1302bb5-02f4-435a-a7f4-52c42a6145e8",
+        "key": "form",
+        "name": "Form",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "c1487b22-c158-4cc7-b457-e3126bfc2d3a",
+        "key": "multiple",
+        "name": "Multiple",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "b9383a50-bd83-4f25-a70e-830ab2dd932b",
+        "key": "name",
+        "name": "Name",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "76284952-a014-4c52-8e52-7539ddd7dac8",
+        "key": "required",
+        "name": "Required",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec"
+        },
+        "id": "ea90a53f-cc53-4908-a013-52b78cd63115",
+        "key": "size",
+        "name": "Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "51cd2e92-9172-48b3-9241-bac3ecd44678",
+    "kind": "InterfaceType",
+    "name": "HtmlSelect API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678",
+        "kind": "InterfaceType",
+        "name": "HtmlSelect API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "9d774c57-10ba-42c2-8084-1be6128a89ae",
+    "name": "HtmlSelect",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "8362b8d3-21eb-47cd-8167-602554894675"
+      }
+    ],
+    "type": "HtmlSelect"
+  }
+}

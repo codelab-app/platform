@@ -6,8 +6,6 @@ import {
   BuilderWidthBreakPoint,
   CssMap,
   defaultBuilderWidthBreakPoints,
-  getBuilderService,
-  getRenderService,
   IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
@@ -15,6 +13,10 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { jsonStringToCss, parseCssStringIntoObject } from './utils'
+import {
+  getBuilderService,
+  getRenderService,
+} from '@codelab/frontend/abstract/application'
 
 @model('@codelab/ElementStyle')
 export class ElementStyle
