@@ -33,10 +33,10 @@ export class WriteAdminDataService {
 
   @Span()
   private async writeAtomsData(atoms: IAdminBoundedContext['atoms']) {
-    for (const { api, ...atom } of atoms) {
+    for (const { api, atom } of atoms) {
       const outputPath = path.resolve(
         this.migrationDataService.atomsPath,
-        `${atom.atom.name}.json`,
+        `${atom.name}.json`,
       )
 
       const stringData = await formatToPrettifiedJson({
