@@ -1,8 +1,7 @@
 import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
-import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import type {
   IApi,
   IAtom,
@@ -22,8 +21,6 @@ export class ExportAtomHandler
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
-    private traceService: TraceService,
-    private validationService: ValidationService,
   ) {}
 
   @Span()
@@ -44,7 +41,8 @@ export class ExportAtomHandler
     const atom: IAtom = {
       ...existingAtom,
       __typename: 'Atom' as const,
-      api,
+      api: { id: api.id },
+      tags: existingAtom.tags.map((tag) => ({ id: tag.id })),
     }
 
     // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
