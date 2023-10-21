@@ -67,7 +67,7 @@ export class ExportPageHandler
         ? element.renderType.id
         : null,
       element.childMapperComponent?.id,
-      ...(element.props.data.match(uuidRegex) || []),
+      ...((element.props.data as string).match(uuidRegex) || []),
     ]).filter((element): element is string => Boolean(element))
 
     const components = await this.componentRepository.find({
