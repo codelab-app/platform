@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf",
+    "kind": "InterfaceType",
+    "name": "HtmlWbr API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf",
+        "kind": "InterfaceType",
+        "name": "HtmlWbr API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "a388a06f-aa26-412a-a07b-693d20f3fcaf"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "a26584f5-f1ab-4691-88b7-3b5e5aae9fa0",
+    "name": "HtmlWbr",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "ab84b7ea-1965-44d1-aa3d-9c225465bf28"
+      }
+    ],
+    "type": "HtmlWbr"
+  }
+}

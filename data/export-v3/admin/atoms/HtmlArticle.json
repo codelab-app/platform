@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "6002e02c-bc1d-4128-8944-65d4a3202262",
+    "kind": "InterfaceType",
+    "name": "HtmlArticle API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "6002e02c-bc1d-4128-8944-65d4a3202262",
+        "kind": "InterfaceType",
+        "name": "HtmlArticle API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "6002e02c-bc1d-4128-8944-65d4a3202262"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "bded8164-9777-4d23-82e2-c43ff27432ef",
+    "name": "HtmlArticle",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "421d68e3-fe05-4037-956e-d24d70bfdbc9"
+      }
+    ],
+    "type": "HtmlArticle"
+  }
+}

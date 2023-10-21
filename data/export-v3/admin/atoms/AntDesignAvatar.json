@@ -1,0 +1,319 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "46b7bfd6-0863-4ef3-a00c-3bb81081e1f3",
+        "key": "alt",
+        "name": "Alt",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "2489cc3f-04b4-42b8-bd20-274fe386964c"
+        },
+        "id": "8f0252f4-a15a-46db-bafb-a3545c63c40a",
+        "key": "crossOrigin",
+        "name": "Cross Origin",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "c1f4e4fd-a626-4af2-afcd-1dc00a9e8b77"
+        },
+        "id": "660115b0-73c2-4e89-967f-477da89c2706",
+        "key": "draggable",
+        "name": "Draggable",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885"
+        },
+        "id": "d1ba60e4-f398-40b9-8063-9330f99c1a81",
+        "key": "gap",
+        "name": "Gap",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "4f88bf43-e8d9-426c-ac42-de99c68e8656",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "5f9ee790-fe37-4396-8dff-dbd439912fc8",
+        "key": "onError",
+        "name": "On Error",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "276cc1df-92ba-4258-86fe-f19b41540685"
+        },
+        "id": "c3bf5795-dd29-4261-b6ea-57a7865e6ed5",
+        "key": "shape",
+        "name": "Shape",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "2efb9752-51cd-40fe-aba1-80c291f227d0"
+        },
+        "id": "784fcf0d-43f8-4e20-b474-c897c9ced064",
+        "key": "size",
+        "name": "Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": "{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\", \"kind\":\"PrimitiveType\"}",
+        "description": null,
+        "fieldType": {
+          "id": "e1489c1e-c897-400b-8806-d22320a01bf7"
+        },
+        "id": "6be5fcb0-8b14-46ca-9f82-35d2b31cc45b",
+        "key": "src",
+        "name": "Src",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "b1130477-919b-4bba-98cf-2d50f8b7cf6c",
+        "key": "srcSet",
+        "name": "Src Set",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "b97d5258-936f-4396-81d4-c3acefe05cd1",
+    "kind": "InterfaceType",
+    "name": "AntDesignAvatar API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "b97d5258-936f-4396-81d4-c3acefe05cd1",
+        "kind": "InterfaceType",
+        "name": "AntDesignAvatar API"
+      },
+      {
+        "__typename": "UnionType",
+        "id": "e1489c1e-c897-400b-8806-d22320a01bf7",
+        "kind": "UnionType",
+        "name": "AntDesignAvatar Src Union",
+        "typesOfUnionType": [
+          {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          }
+        ]
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "c928b4b4-5448-4fbd-acf9-0add66de5e34",
+            "key": "",
+            "value": ""
+          },
+          {
+            "id": "88fd859c-96a2-4175-af7a-a98349dab1cf",
+            "key": "anonymous",
+            "value": "anonymous"
+          },
+          {
+            "id": "87069e4b-414e-4a56-b43e-1dc16084f531",
+            "key": "use-credentials",
+            "value": "use-credentials"
+          }
+        ],
+        "id": "2489cc3f-04b4-42b8-bd20-274fe386964c",
+        "kind": "EnumType",
+        "name": "AntDesignAvatar Cross Origin Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "9b09d5f0-6b07-49f3-aa2c-9bcd897da28e",
+            "key": "boolean",
+            "value": "boolean"
+          },
+          {
+            "id": "4c3a7f70-1b05-499f-becb-8818e29df0d0",
+            "key": "false",
+            "value": "false"
+          },
+          {
+            "id": "ddcd9c8a-dee2-40c1-8e90-6ca9453370f7",
+            "key": "true",
+            "value": "true"
+          }
+        ],
+        "id": "c1f4e4fd-a626-4af2-afcd-1dc00a9e8b77",
+        "kind": "EnumType",
+        "name": "AntDesignAvatar Draggable Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "a96c508f-fbdf-45a6-89ee-cd4cc922fc69",
+            "key": "circle",
+            "value": "circle"
+          },
+          {
+            "id": "d9692378-7e61-4055-9c8c-c78e2937ffc0",
+            "key": "square",
+            "value": "square"
+          }
+        ],
+        "id": "276cc1df-92ba-4258-86fe-f19b41540685",
+        "kind": "EnumType",
+        "name": "AntDesignAvatar Shape Enum"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "bfa04291-7eab-49ab-8dd3-c67c8e3971b9",
+            "key": "{ xs: number, sm: number, ...}",
+            "value": "{ xs: number, sm: number, ...}"
+          },
+          {
+            "id": "47e918d3-242a-44e3-90a0-1efc931d3b2e",
+            "key": "default",
+            "value": "default"
+          },
+          {
+            "id": "f6748070-f5b3-4b83-b849-e8dfef0a99f5",
+            "key": "large",
+            "value": "large"
+          },
+          {
+            "id": "25f8b593-6fc3-49d9-bb7d-eb0159f9d9d6",
+            "key": "number",
+            "value": "number"
+          },
+          {
+            "id": "4c735cb0-3c9d-4dab-9146-02dc48af83eb",
+            "key": "small",
+            "value": "small"
+          }
+        ],
+        "id": "2efb9752-51cd-40fe-aba1-80c291f227d0",
+        "kind": "EnumType",
+        "name": "AntDesignAvatar Size Enum"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Avatar",
+    "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
+    "name": "AntDesignAvatar",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "48009d3a-aebc-404f-a298-442eeab9fd6e"
+      }
+    ],
+    "type": "AntDesignAvatar"
+  }
+}

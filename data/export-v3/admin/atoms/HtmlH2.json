@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "5221f96e-0084-4a4b-810c-c9423c885a06",
+    "kind": "InterfaceType",
+    "name": "HtmlH2 API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "5221f96e-0084-4a4b-810c-c9423c885a06",
+        "kind": "InterfaceType",
+        "name": "HtmlH2 API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "5221f96e-0084-4a4b-810c-c9423c885a06"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "a80e76ee-4ce2-4179-a2b7-736112551937",
+    "name": "HtmlH2",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "82a9af93-1179-4e04-af08-68bbe0f0a004"
+      }
+    ],
+    "type": "HtmlH2"
+  }
+}

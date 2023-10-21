@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc",
+    "kind": "InterfaceType",
+    "name": "HtmlP API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc",
+        "kind": "InterfaceType",
+        "name": "HtmlP API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "bce6e40f-f1c1-4c0e-a081-6e02bdd091dc"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "bc9d005e-c66d-483e-a2c2-d4112acaeb64",
+    "name": "HtmlP",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "62de7e55-660f-465b-9b04-5bbd2937a206"
+      }
+    ],
+    "type": "HtmlP"
+  }
+}

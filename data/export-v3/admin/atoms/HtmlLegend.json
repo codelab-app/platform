@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "e6716a57-6faa-49c9-bd64-dc2c57070afb",
+    "kind": "InterfaceType",
+    "name": "HtmlLegend API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "e6716a57-6faa-49c9-bd64-dc2c57070afb",
+        "kind": "InterfaceType",
+        "name": "HtmlLegend API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "e6716a57-6faa-49c9-bd64-dc2c57070afb"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "9e07ddb4-05b0-43e8-a889-33c87b397ee7",
+    "name": "HtmlLegend",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "e49e99c9-4faf-477d-abae-21331c4e1931"
+      }
+    ],
+    "type": "HtmlLegend"
+  }
+}

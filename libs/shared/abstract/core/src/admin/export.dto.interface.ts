@@ -5,7 +5,7 @@ import { Type } from '@sinclair/typebox'
 export const ExportDto = Type.Object({
   adminDataPath: Type.Optional(
     Type.String({
-      default: './data/export-v2',
+      default: './data/export-v3',
     }),
   ),
   download: Type.Optional(

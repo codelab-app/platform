@@ -1,0 +1,204 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "7654cb45-6e79-44d5-9287-0e6a76beffda",
+        "key": "cancelText",
+        "name": "Cancel Text",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "9bdceea6-6c90-4c4b-b930-2e6a6521ea70",
+        "key": "disabled",
+        "name": "Disabled",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "077d729c-ce5b-42ec-95a6-dccdda93034c",
+        "key": "icon",
+        "name": "Icon",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "e8f80b49-b9b3-4d4d-9b2d-27d0124fa736",
+        "key": "okText",
+        "name": "Ok Text",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "bec36ed2-1027-4046-812c-0196990fc22e",
+        "key": "okType",
+        "name": "Ok Type",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "3b311d6b-b39c-4c4d-ad98-9a97a246ff42",
+        "key": "onCancel",
+        "name": "On Cancel",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "43e5e9c8-7e1f-478c-a4a6-c08bb0da8bdd",
+        "key": "onConfirm",
+        "name": "On Confirm",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "d22af9ca-d26b-4029-a33c-0f4102f0f52b",
+        "key": "showCancel",
+        "name": "Show Cancel",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      },
+      {
+        "api": {
+          "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+        },
+        "defaultValues": null,
+        "description": null,
+        "fieldType": {
+          "id": "ec68e029-5793-4c58-a2be-b804f238a080"
+        },
+        "id": "0be76646-5f9e-4179-85b1-f7a2f20d44c4",
+        "key": "title",
+        "name": "Title",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": null
+      }
+    ],
+    "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5",
+    "kind": "InterfaceType",
+    "name": "AntDesignPopconfirm API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5",
+        "kind": "InterfaceType",
+        "name": "AntDesignPopconfirm API"
+      },
+      {
+        "__typename": "EnumType",
+        "allowedValues": [
+          {
+            "id": "3d4b0ef3-6bdf-4ef1-9258-35a26d88c959",
+            "key": "() => ReactNode",
+            "value": "() => ReactNode"
+          },
+          {
+            "id": "39b3d972-fdb2-46d2-a6b9-b1ebcabb17a7",
+            "key": "ReactNode",
+            "value": "ReactNode"
+          }
+        ],
+        "id": "ec68e029-5793-4c58-a2be-b804f238a080",
+        "kind": "EnumType",
+        "name": "AntDesignPopconfirm Title Enum"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Popconfirm",
+    "id": "44482590-d873-4832-87da-d65760ddfeae",
+    "name": "AntDesignPopconfirm",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "1f2dd657-723b-4538-b727-dae50ec48652"
+      }
+    ],
+    "type": "AntDesignPopconfirm"
+  }
+}

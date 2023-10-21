@@ -1,0 +1,41 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "cb77fba6-f982-418f-8fb8-48ad4224aed0",
+    "kind": "InterfaceType",
+    "name": "AntDesignBreadcrumbSeparator API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "cb77fba6-f982-418f-8fb8-48ad4224aed0",
+        "kind": "InterfaceType",
+        "name": "AntDesignBreadcrumbSeparator API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "cb77fba6-f982-418f-8fb8-48ad4224aed0"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": "Breadcrumb",
+    "id": "0f56bde3-5c25-4111-b769-03a9d21ed93a",
+    "name": "AntDesignBreadcrumbSeparator",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [
+      {
+        "id": "00210182-7fe7-465e-89ef-4a70dcf51ae3"
+      }
+    ],
+    "type": "AntDesignBreadcrumbSeparator"
+  }
+}

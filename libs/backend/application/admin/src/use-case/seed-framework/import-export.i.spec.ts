@@ -27,8 +27,8 @@ const currentUser = {
 
 jest.setTimeout(200000)
 
-const exportPath = path.resolve('./data/export-v2')
-const exportTestPath = path.resolve('./tmp/data/export-v2')
+const exportPath = path.resolve('./data/export-v3')
+const exportTestPath = path.resolve('./tmp/data/export-v3')
 let adminController: AdminController
 
 describe('Seed, import, & export data', () => {
