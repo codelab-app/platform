@@ -1,23 +1,16 @@
-import type {
-  IElementModel,
-  IRenderOutput,
-} from '@codelab/frontend/abstract/domain'
+import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
-import type { FunctionComponentElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
-import type { DraggableElementProps } from './DraggableElement'
-import { DraggableElementWrapper } from './DraggableElementWrapper'
 
 const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
   ssr: false,
