@@ -3,7 +3,6 @@ import type {
   IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import { propRef } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type {
   ResourceCreateInput,
@@ -12,7 +11,6 @@ import type {
 import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ config, id, name, type }: IResourceDTO) =>

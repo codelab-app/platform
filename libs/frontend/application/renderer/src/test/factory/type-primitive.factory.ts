@@ -2,7 +2,7 @@ import { PrimitiveTypeKind, TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { rootStore as testRootStore } from '../setup'
+import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IPrimitiveTypeDTO>(({ params }) => {
@@ -14,7 +14,7 @@ export default Factory.define<IPrimitiveTypeDTO>(({ params }) => {
     primitiveKind: params.primitiveKind ?? PrimitiveTypeKind.String,
   }
 
-  testRootStore.typeService.add(dto)
+  createTestRootStore().typeService.typeDomainService.add(dto)
 
   return dto
 })

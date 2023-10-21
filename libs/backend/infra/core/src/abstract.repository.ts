@@ -25,6 +25,7 @@ export abstract class AbstractRepository<
   public async add(data: Array<Model>): Promise<Array<ModelData>> {
     const span = this.traceService.getSpan()
     const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
+
     span?.setAttributes(attributes)
 
     return this._add(data)
@@ -165,6 +166,7 @@ export abstract class AbstractRepository<
     return withActiveSpan(`${this.constructor.name}.update`, async (span) => {
       const dataAttributes = flattenWithPrefix(data, 'data')
       const whereAttributes = flattenWithPrefix(data, 'where')
+
       span.setAttributes(dataAttributes)
       span.setAttributes(whereAttributes)
 

@@ -1,12 +1,8 @@
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   IActionType,
-  IActionTypeDTO,
-  IAtom,
   IAtomBoundedContext,
   IPrimitiveType,
-  IPrimitiveTypeDTO,
-  IType,
 } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'

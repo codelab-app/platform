@@ -52,3 +52,5 @@ Thumbs.db
 # Next.js
 .next
 .vercel
+
+.nx/cache

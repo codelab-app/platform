@@ -57,22 +57,12 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const defaultRenderType = this.atomService.defaultRenderType
+    const renderType = this.atomService.defaultRenderType
 
-    const pages = this.pageService.pageDomainService.pageFactory.addSystemPages(
-      {
-        id,
-        name,
-      },
-      defaultRenderType,
+    const app = this.appDomainService.create(
+      { id, name, owner: this.userService.user },
+      renderType,
     )
-
-    const app = this.appDomainService.add({
-      id,
-      name,
-      owner: this.userService.user,
-      pages,
-    })
 
     yield* _await(this.appRepository.add(app))
 
@@ -138,7 +128,7 @@ export class AppService
   getAll = _async(function* (this: AppService, where: AppWhere) {
     const { items: apps } = yield* _await(this.appRepository.find(where))
 
-    return apps.map((app) => this.appDomainService.add(app))
+    return apps.map((app) => this.appDomainService.hydrate(app))
   })
 
   @modelFlow
@@ -198,7 +188,7 @@ export class AppService
 
     atoms.forEach((atom) => this.atomService.atomDomainService.add(atom))
 
-    return apps.map((app) => this.appDomainService.add(app))
+    return apps.map((app) => this.appDomainService.hydrate(app))
   })
 
   @modelFlow

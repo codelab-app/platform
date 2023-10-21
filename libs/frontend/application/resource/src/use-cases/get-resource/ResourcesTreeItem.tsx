@@ -1,8 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import {
-  type IResourcesTreeDataNode,
-  resourceRef,
-} from '@codelab/frontend/abstract/domain'
+import { type IResourcesTreeDataNode } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,

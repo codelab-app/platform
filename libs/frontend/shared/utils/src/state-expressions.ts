@@ -35,6 +35,8 @@ export const evaluateExpression = (
   expression: string,
   context: IEvaluationContext,
 ) => {
+  console.debug('evaluateExpression', expression, context)
+
   try {
     const code = `return ${stripStateExpression(expression)}`
 
@@ -83,8 +85,13 @@ export const evaluateExpression = (
   }
 }
 
-export const evaluateObject = (props: IPropData, context: IEvaluationContext) =>
-  mapDeep(
+export const evaluateObject = (
+  props: IPropData,
+  context: IEvaluationContext,
+) => {
+  console.log('evaluateObject', props, context)
+
+  return mapDeep(
     props,
     // value mapper
     (value) => {
@@ -108,20 +115,30 @@ export const evaluateObject = (props: IPropData, context: IEvaluationContext) =>
     // key mapper
     (_, key) => (isString(key) ? getByExpression(key, context) : key) as string,
   )
+}
 
-const getByExpression = (key: string, context: IEvaluationContext) => {
-  if (!hasStateExpression(key)) {
-    return key
+const getByExpression = (
+  expressionValue: string,
+  context: IEvaluationContext,
+) => {
+  console.log('getByExpression', expressionValue)
+
+  if (!hasStateExpression(expressionValue)) {
+    return expressionValue
   }
 
   /**
    * return typed value for : {{expression}}
    */
-  if (isSingleStateExpression(key)) {
-    return evaluateExpression(key, context)
+  if (isSingleStateExpression(expressionValue)) {
+    return evaluateExpression(expressionValue, context)
   }
 
-  return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
+  const data = expressionValue.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
     evaluateExpression(value, context),
   )
+
+  console.log('expressionResults', data)
+
+  return data
 }

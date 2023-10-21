@@ -53,6 +53,7 @@ export class AtomDomainService
       !this.loadedExternalCssSources.has(externalSourceType)
     ) {
       const link = document.createElement('link')
+
       link.setAttribute('rel', 'stylesheet')
       link.setAttribute('href', externalCssSource)
       document.head.appendChild(link)
@@ -80,6 +81,7 @@ export class AtomDomainService
       }
 
       const script = document.createElement('script')
+
       script.type = 'module'
       script.innerText = `
         import ${externalSourceType} from '${externalJsSource}';

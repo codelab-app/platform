@@ -41,6 +41,7 @@ export const ifOnClock = (callback: (clock: Cypress.Clock) => void) =>
 export interface TickOptions {
   tickInterval?: number
 }
+
 export const tickIfOnClock = ({ tickInterval = 100 }: TickOptions = {}) =>
   getClock((clock) => {
     clock.tick(tickInterval)
@@ -62,6 +63,7 @@ export const triggerAliased =
   ) =>
   ($el: JQuery) => {
     const opts = logAndMute(commandName, '', options)
+
     cy.wrap($el, MUTE).trigger(eventName, { ...defaultOptions, ...opts })
   }
 

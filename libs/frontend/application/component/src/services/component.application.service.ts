@@ -119,8 +119,6 @@ export class ComponentApplicationService
       id: v4(),
     }
 
-    this.propService.add(componentProps)
-
     /**
      * create rootElement in case it doesn't already exist
      * Unlike other models such rootElement could exist before component (convertElementToComponent)
@@ -229,7 +227,6 @@ export class ComponentApplicationService
       const { id } = component
 
       this.storeService.load([component.store])
-      this.propService.add(component.props)
       this.typeService.loadTypes({ interfaceTypes: [component.api] })
 
       const allElements = [
@@ -238,8 +235,6 @@ export class ComponentApplicationService
       ]
 
       allElements.forEach((elementData) => {
-        this.propService.add(elementData.props)
-
         /**
          * Element comes with `component` or `atom` data that we need to load as well
          * TODO: Need to handle component case, refactor reuse

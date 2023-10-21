@@ -26,6 +26,7 @@ export const useDragDropHandlers = (
       draggedElement = currentElement
 
       const target = event.target as HTMLElement
+
       // assign a specific class to the DOM element that is currently being dragged
       // so we can easily identify it later on
       target.classList.add('currently-dragged')
@@ -96,6 +97,7 @@ export const useDragDropHandlers = (
       event.stopPropagation()
 
       const target = event.target as HTMLElement
+
       target.classList.remove('currently-dragged')
       target.style.opacity = '1'
       builderService.dragOverElementNode(null, 'inside')

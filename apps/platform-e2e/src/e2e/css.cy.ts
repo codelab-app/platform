@@ -22,6 +22,7 @@ const clickEditor = () => {
 
 describe('CSS CRUD', () => {
   let app: IAppDTO
+
   before(() => {
     loginAndSetupData()
     cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {

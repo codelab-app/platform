@@ -34,8 +34,7 @@ import keys from 'lodash/keys'
 import merge from 'lodash/merge'
 import { autorun, computed, observable, set } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { clone, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { ThisExpression } from 'ts-morph'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { getStoreDomainService } from '../services/store.domain.service.context'
 
@@ -188,20 +187,18 @@ export class Store
 
   @modelAction
   clone(componentId: string) {
-    const clonedStore = clone<IStoreModel>(this as IStoreModel)
+    const id = v4()
 
-    this.storeDomainService.stores.set(clonedStore.id, clonedStore)
-
-    return clonedStore
-
-    // return this.storeDomainService.add({
-    //   actions: [...this.actions.values()].map((action) => action.current),
-    //   api: typeRef<IInterfaceTypeModel>(this.api.id),
-    //   component: componentRef(componentId),
-    //   id,
-    //   name: this.name,
-    //   source: { id: this.id },
-    // })
+    return this.storeDomainService.add({
+      actions: [...this.actions.values()].map(
+        (action) => action.current.toJson,
+      ),
+      api: typeRef<IInterfaceTypeModel>(this.api.id),
+      component: componentRef(componentId),
+      id,
+      name: this.name,
+      source: { id: this.id },
+    })
   }
 
   @modelAction

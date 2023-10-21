@@ -1,6 +1,5 @@
 import type {
   ICreatePageData,
-  IPageDomainService,
   IPageModel,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/domain'
@@ -21,7 +20,6 @@ export interface IPageApplicationService
     >,
     ICRUDModalService<IPageModel, { page?: IPageModel }>,
     ICRUDFormService<IPageModel, { page?: IPageModel }> {
-  pageDomainService: IPageDomainService
   pageRepository: IPageRepository
 
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>

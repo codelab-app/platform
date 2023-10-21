@@ -85,13 +85,6 @@ export class ActionService
 
     store.actions.push(actionRef(action))
 
-    if (data.type === IActionKind.ApiAction) {
-      this.propService.add({
-        data: JSON.stringify(data.config.data),
-        id: data.config.id,
-      })
-    }
-
     yield* _await(this.actionRepository.add(action))
 
     return action
@@ -190,7 +183,7 @@ export class ActionService
 
     const providerStore =
       selectedNode && isElementRef(selectedNode)
-        ? selectedNode.current.providerStore?.current
+        ? selectedNode.current.providerStore
         : undefined
 
     const updatedAction = actionEntity
@@ -277,6 +270,7 @@ export class ActionService
     }
 
     const newAction = this.add(newActionDto)
+
     await this.actionRepository.add(newAction)
 
     return newAction

@@ -23,6 +23,7 @@ export const ClickOverlay = ({
   // - screen breakpoint is changed
 
   const { height, width } = useResizeObserver({ ref: renderContainer })
+
   useScrollIntoView(element, renderContainer)
   useScroll()
 

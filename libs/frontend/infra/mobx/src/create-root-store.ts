@@ -54,6 +54,7 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
+import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
 import {
   TracerService,
   tracerServiceContext,
@@ -86,6 +87,20 @@ export const createRootStore = ({ user }: RootStoreData) => {
     })
     implements IRootStore
   {
+    public clear() {
+      this.typeService.typeDomainService.types.clear()
+      this.appService.appDomainService.apps.clear()
+      this.atomService.atomDomainService.atoms.clear()
+      this.componentService.components.clear()
+      this.elementService.elementDomainService.elements.clear()
+      this.fieldService.fields.clear()
+      this.actionService.actions.clear()
+      this.storeService.storeDomainService.stores.clear()
+      this.tagService.tags.clear()
+      this.userService.users.clear()
+      this.renderService.renderers.clear()
+    }
+
     protected onInit() {
       appServiceContext.set(this, this.appService)
       domainServiceContext.set(this, this.domainService)
@@ -93,6 +108,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       typeServiceContext.set(this, this.typeService)
       atomServiceContext.set(this, this.atomService)
       componentServiceContext.set(this, this.componentService)
+      storeDomainServiceContext.set(this, this.storeService.storeDomainService)
       actionServiceContext.set(this, this.actionService)
       storeServiceContext.set(this, this.storeService)
       resourceServiceContext.set(this, this.resourceService)

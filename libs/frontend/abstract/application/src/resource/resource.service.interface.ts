@@ -25,6 +25,7 @@ export interface CreateResourceData {
 export interface CreateResourceProperties {
   type?: IResourceType
 }
+
 export interface IResourceService
   extends ICRUDService<
       IResourceModel,

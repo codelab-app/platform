@@ -1,6 +1,6 @@
 import type { Tree } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
-import { Linter } from '@nx/linter'
+import { Linter } from '@nx/eslint'
 import { libraryGenerator } from '@nx/react'
 import type { CodegenGeneratorSchema } from './schema'
 

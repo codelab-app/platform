@@ -61,6 +61,7 @@ export const useBuilderResize = ({
       clampSet(mWidth, info.delta.x, selectedWidth)
 
       const roundedWidth = Math.round(mWidth.get())
+
       setSelectedBuilderWidth({ ...selectedWidth, default: roundedWidth })
     },
 

@@ -8,9 +8,12 @@ import { ConditionalRenderPipe } from '../renderPipes/conditional-render-pipe'
 import { PassThroughRenderPipe } from '../renderPipes/pass-through-render-pipe'
 import { renderPipeFactory } from '../renderPipes/render-pipe.factory'
 import { factoryBuild } from './factory'
-import { rootStore, setupPage } from './setup'
+import { setupPage } from './setup'
+import { createTestRootStore } from './setup/test-root-store'
 
 describe('ConditionalRenderPipe', () => {
+  const rootStore = createTestRootStore()
+
   beforeEach(() => {
     rootStore.clear()
   })
@@ -42,7 +45,9 @@ describe('ConditionalRenderPipe', () => {
 
       const renderer = factoryBuild('renderer', {
         elementTree: elementTreeRef(
-          rootStore.pageService.pageDomainService.page(page.id)!,
+          rootStore.appService.appDomainService
+            .app(page.app.id)!
+            .page(page.id)!,
         ),
         renderPipe: renderPipeFactory([
           PassThroughRenderPipe,

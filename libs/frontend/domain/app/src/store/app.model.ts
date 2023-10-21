@@ -100,11 +100,17 @@ export class App
 
   @modelAction
   addPageInCache(pageDto: IPageDTO) {
-    const page: IPageModel = this.page(pageDto.id) ?? Page.create(pageDto)
+    const existingPage = this.page(pageDto.id)
 
-    this.pages.push(page)
+    if (existingPage) {
+      return existingPage.writeCache(pageDto)
+    } else {
+      const page: IPageModel = Page.create(pageDto)
 
-    return page
+      this.pages.push(page)
+
+      return page
+    }
   }
 
   @modelAction

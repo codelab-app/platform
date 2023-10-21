@@ -1,5 +1,4 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { storeRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

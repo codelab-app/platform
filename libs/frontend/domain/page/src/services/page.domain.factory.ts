@@ -9,7 +9,6 @@ import type {
 import {
   IAppModel,
   ICreatePageData,
-  IPageAppFragment,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getStoreDomainService, Store } from '@codelab/frontend/domain/store'
@@ -27,15 +26,9 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { getPageDomainService } from './page.domain.service.context'
 
 @model('@codelab/PageFactory')
-export class PageFactory extends Model({}) implements IPageFactory {
-  /**
-   *
-   * @param app
-   * @returns
-   */
+export class PageDomainFactory extends Model({}) implements IPageFactory {
   @modelAction
   addSystemPages(app: IAppModel, renderType: IElementRenderTypeDto) {
     return [
@@ -146,11 +139,6 @@ export class PageFactory extends Model({}) implements IPageFactory {
   @computed
   private get elementService() {
     return getElementService(this)
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
   }
 
   @computed

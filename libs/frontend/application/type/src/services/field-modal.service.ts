@@ -4,8 +4,6 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
-import type { IField, IInterfaceType } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 

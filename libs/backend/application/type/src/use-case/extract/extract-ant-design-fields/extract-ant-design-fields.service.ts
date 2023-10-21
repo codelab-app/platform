@@ -50,6 +50,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
       }
 
       const fields = await this.transformFields(atom, antDesignApi.fields)
+
       fieldsByAtom.push(...fields)
     }
 

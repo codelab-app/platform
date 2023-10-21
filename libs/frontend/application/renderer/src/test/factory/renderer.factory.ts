@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 import { Renderer } from '../../renderer.model'
 import { PassThroughRenderPipe } from '../../renderPipes/pass-through-render-pipe'
 import { renderPipeFactory } from '../../renderPipes/render-pipe.factory'
-import { rootStore as testRootStore } from '../setup'
+import { createTestRootStore } from '../setup/test-root-store'
 
 export default Factory.define<IRenderer>(({ params }) => {
   const renderer = new Renderer({
@@ -22,7 +22,7 @@ export default Factory.define<IRenderer>(({ params }) => {
       renderPipeFactory([PassThroughRenderPipe])) as IRenderPipe,
   })
 
-  testRootStore.renderService.renderers.set(renderer.id, renderer)
+  createTestRootStore().renderService.renderers.set(renderer.id, renderer)
 
   return renderer
 })

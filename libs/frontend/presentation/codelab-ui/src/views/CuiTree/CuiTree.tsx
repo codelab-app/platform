@@ -154,12 +154,14 @@ export const CuiTree = observer(
               expandedKeys={cuiTreeStore.expandedKeys}
               onDragStart={(info) => {
                 const transparentDragImage = createTransparentDragImage()
+
                 info.event.dataTransfer.setDragImage(transparentDragImage, 5, 5)
               }}
               onExpand={handleExpand}
               onMouseEnter={(info) => {
                 const target = info.event.target as Element
                 const treeNodeWrapper = target.closest('.ant-tree-treenode')
+
                 treeNodeWrapper?.classList.add('ant-tree-treenode-hovered')
 
                 return onMouseEnter?.(info)
@@ -167,6 +169,7 @@ export const CuiTree = observer(
               onMouseLeave={(info) => {
                 const target = info.event.target as Element
                 const treeNodeWrapper = target.closest('.ant-tree-treenode')
+
                 treeNodeWrapper?.classList.remove('ant-tree-treenode-hovered')
 
                 return onMouseLeave?.(info)

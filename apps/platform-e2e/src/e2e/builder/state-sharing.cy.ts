@@ -19,6 +19,7 @@ const componentChildren = [
 
 describe('State variables sharing between pages', () => {
   let app: IAppDTO
+
   before(() => {
     loginAndSetupData()
     cy.postApiRequest('/type/seed-cypress-type')

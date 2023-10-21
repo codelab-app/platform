@@ -40,6 +40,7 @@ export const UpdateActionForm = observer(
 
     const onSubmit = (actionDTO: IUpdateActionData) => {
       const promise = actionService.update(actionDTO)
+
       onSubmitSuccess?.()
 
       return promise

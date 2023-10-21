@@ -154,6 +154,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()
+
                   console.log('Un-committed files', unCommittedFiles)
 
                   const containsGeneratedFiles = unCommittedFiles.reduce(

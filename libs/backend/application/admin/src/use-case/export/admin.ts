@@ -19,6 +19,7 @@ const exportAdminData: NextApiHandler = async (req, res) => {
     // Create zip
     const zip = new AdmZip()
     const filename = `admin-export-data-${Date.now()}.tgz`
+
     zip.addLocalFolder(baseExportPath)
 
     res.setHeader('Content-Type', 'application/zip')

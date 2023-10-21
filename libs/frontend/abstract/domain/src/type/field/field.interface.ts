@@ -17,6 +17,7 @@ export type IFieldDefaultValue =
   | number
   | string
   | { [x: string]: IFieldDefaultValue }
+
 export interface IField<T extends ITypeModel = ITypeModel>
   extends Omit<
       IModel<FieldCreateInput, FieldUpdateInput, FieldDeleteInput>,

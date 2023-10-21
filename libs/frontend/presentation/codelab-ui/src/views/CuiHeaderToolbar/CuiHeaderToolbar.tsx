@@ -25,6 +25,7 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
         // Adjust the item width based on your needs
         const visibleItemsCount = Math.floor(containerWidth / 100)
         const overflowCount = allItems.length - visibleItemsCount
+
         setOverflowItems(allItems.splice(visibleItemsCount, overflowCount))
         setShowDropdown(true)
       } else {

@@ -1,3 +1,7 @@
+import {
+  getBuilderService,
+  getRenderService,
+} from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IElementStyleModel,
@@ -137,6 +141,7 @@ export class ElementStyle
     const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
     const curGuiCss = JSON.parse(this.guiCss || '{}')
+
     propNames.forEach((propName) => {
       if (curGuiCss[propName]) {
         // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
@@ -145,6 +150,7 @@ export class ElementStyle
     })
 
     const guiString = JSON.stringify(curGuiCss)
+
     styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
     this.style = JSON.stringify(styleObject)
   }
@@ -153,6 +159,7 @@ export class ElementStyle
   setCustomCss(cssString: string) {
     const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
+
     styleObject[breakpoint] = { ...styleObject[breakpoint], cssString }
     this.style = JSON.stringify(styleObject)
   }

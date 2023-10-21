@@ -14,13 +14,15 @@ import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { factoryBuild } from './factory'
-import { rootStore, setupPage } from './setup'
+import { setupPage } from './setup'
+import { createTestRootStore } from './setup/test-root-store'
 import { TestProviderWrapper } from './TestProviderWrapper'
 
 describe('TypedPropTransformers', () => {
   const testPropValue = 'some text'
   const testOverridePropValue = 'overridden text'
   const componentId = 'component-id'
+  const rootStore = createTestRootStore()
   let page: IPageDTO
   let pageRootElement: IElementDTO
   let renderer: IRenderer
@@ -31,7 +33,9 @@ describe('TypedPropTransformers', () => {
     renderer = factoryBuild('renderer', {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       elementTree: elementTreeRef(
-        rootStore.pageService.pageDomainService.page(page.id)!,
+        rootStore.appService.appDomainService.apps
+          .get(page.app.id)!
+          .page(page.id)!,
       ),
       // Passing Preview renderer to replace customText prop value
       rendererType: RendererType.Preview,

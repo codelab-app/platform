@@ -1,3 +1,4 @@
+import appFactory from './app.factory'
 import atomFactory from './atom.factory'
 import componentFactory from './component.factory'
 import elementFactory from './element.factory'
@@ -12,6 +13,7 @@ import typeReactNodeFactory from './type-react-node.factory'
 import typeRenderPropFactory from './type-render-prop.factory'
 
 const FactoryBuildTypeMap = {
+  app: appFactory.build.bind(appFactory),
   atom: atomFactory.build.bind(atomFactory),
   component: componentFactory.build.bind(componentFactory),
   element: elementFactory.build.bind(elementFactory),

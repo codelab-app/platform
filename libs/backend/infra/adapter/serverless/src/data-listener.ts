@@ -22,6 +22,7 @@ export const getDataListener = async () => {
 
     const config = new DocumentBuilder().setTitle('Data API').build()
     const document = SwaggerModule.createDocument(app, config)
+
     SwaggerModule.setup('api/data', app, document)
 
     await app.init()

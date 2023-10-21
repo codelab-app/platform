@@ -190,7 +190,7 @@ export class ElementService
     const oldRenderTypeId = currentElement.renderType.id
 
     if (newRenderTypeId !== oldRenderTypeId) {
-      this.propService.reset(currentElement.props.id)
+      this.propService.reset(currentElement.props)
     }
 
     currentElement.writeCache(newElement)

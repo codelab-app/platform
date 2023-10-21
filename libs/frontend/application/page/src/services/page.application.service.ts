@@ -14,7 +14,6 @@ import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { getStoreService } from '@codelab/frontend/application/store'
 import { getTypeService } from '@codelab/frontend/application/type'
-import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   InlineFormService,
   ModalService,
@@ -53,7 +52,6 @@ export class PageApplicationService
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new PageModalService({})),
-    pageDomainService: prop(() => new PageDomainService({})),
     pageRepository: prop(() => new PageRepository({})),
     updateForm: prop(() => new PageFormService({})),
     updateModal: prop(() => new PageModalService({})),
@@ -70,8 +68,6 @@ export class PageApplicationService
       data: '{}',
       id: v4(),
     }
-
-    this.propService.add(rootElementProps)
 
     const rootElement = this.elementService.elementDomainService.hydrate({
       closestContainerNode: {
@@ -246,8 +242,6 @@ export class PageApplicationService
   @modelAction
   loadElements = (elements: Array<IElementDTO>) => {
     elements.forEach((element) => {
-      this.propService.add(element.props)
-
       /**
        * Element comes with `component` or `atom` data that we need to load as well
        *
@@ -263,13 +257,9 @@ export class PageApplicationService
         // this.atomService.atomDomainService.add(element.renderType)
       }
 
-      const elementDto = {
-        ...element,
-      }
+      console.log('AppService.loadPages() element', element)
 
-      console.log('AppService.loadPages() elementDto', elementDto)
-
-      this.elementService.elementDomainService.hydrate(elementDto)
+      this.elementService.elementDomainService.hydrate(element)
     })
   }
 

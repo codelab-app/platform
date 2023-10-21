@@ -1,21 +1,19 @@
 import type {
-  ICreatePropData,
   IPropModel,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropDTO } from '@codelab/shared/abstract/core'
-import type { ObjectMap } from 'mobx-keystone'
-import type { ICRUDService } from '../services'
 import type { IPropRepository } from './prop.repo.interface'
 
-export interface IPropService
-  extends ICRUDService<IPropModel, ICreatePropData, IUpdatePropData> {
+export interface IPropService {
   propRepository: IPropRepository
-  props: ObjectMap<IPropModel>
-  add(propDTO: IPropDTO): IPropModel
-  reset(id: string): void
+
+  create(props: IPropModel): Promise<IPropModel>
+  delete(props: Array<IPropModel>): Promise<void>
+  reset(props: IPropModel): void
+  update(props: IPropModel, data: IUpdatePropData): Promise<IPropModel>
   updateWithDefaultValuesApplied(
+    props: IPropModel,
     data: IUpdatePropDataWithDefaultValues,
   ): Promise<IPropModel>
 }

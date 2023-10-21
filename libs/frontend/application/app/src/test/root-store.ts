@@ -1,9 +1,18 @@
 import {
+  elementServiceContext,
+  userServiceContext,
+} from '@codelab/frontend/abstract/application'
+import {
   AtomService,
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
+import { ElementService } from '@codelab/frontend/application/element'
+import { UserService } from '@codelab/frontend/application/user'
 import { AppDomainService } from '@codelab/frontend/domain/app'
-import { PageDomainService } from '@codelab/frontend/domain/page'
+import {
+  StoreDomainService,
+  storeDomainServiceContext,
+} from '@codelab/frontend/domain/store'
 import {
   TypeDomainService,
   typeDomainServiceContext,
@@ -16,12 +25,17 @@ export const createTestRootStore = (user: IUserDTO) => {
   class TestRootStore extends Model({
     appDomainService: prop(() => new AppDomainService({})),
     atomService: prop(() => new AtomService({})),
-    pageDomainService: prop(() => new PageDomainService({})),
+    elementService: prop(() => new ElementService({})),
+    storeDomainService: prop(() => new StoreDomainService({})),
     typeDomainService: prop(() => new TypeDomainService({})),
+    userService: prop(() => UserService.fromDto(user)),
   }) {
     protected override onInit() {
       atomServiceContext.set(this, this.atomService)
+      userServiceContext.set(this, this.userService)
       typeDomainServiceContext.set(this, this.typeDomainService)
+      storeDomainServiceContext.set(this, this.storeDomainService)
+      elementServiceContext.set(this, this.elementService)
 
       registerRootStore(this)
     }

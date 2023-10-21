@@ -88,6 +88,7 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
             const target = event.target as Element
             // This is where the hover effect is set
             const treeNodeWrapper = target.closest(TREE_NODE_WRAPPER_SELECTOR)
+
             treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
           }
 

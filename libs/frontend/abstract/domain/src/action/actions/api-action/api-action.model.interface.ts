@@ -5,8 +5,8 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IActionKind,
+  IApiAction,
   IApiActionDTO,
-  IProp,
 } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
@@ -31,8 +31,4 @@ export interface IApiActionModel
   resource: Ref<IResourceModel>
   successAction?: Nullish<Ref<IActionModel>>
   type: IActionKind.ApiAction
-}
-
-export interface IApiAction {
-  config: IProp
 }

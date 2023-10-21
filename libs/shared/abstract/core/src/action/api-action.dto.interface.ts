@@ -3,7 +3,7 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IActionKind } from '../action-kind.enum'
-import { IPropDTO } from '../prop.dto.interface'
+import { IProp, IPropDTO } from '../prop.dto.interface'
 import { IActionEntity } from './action-entity.dto.interface'
 import { IBaseActionDTO } from './base-action.dto.interface'
 
@@ -20,6 +20,11 @@ export const IApiActionDTO = Type.Composite([
 
 export type IApiActionDTO = Static<typeof IApiActionDTO>
 
-export const IApiAction = Typebox.RequireTypename(IApiActionDTO)
+export const IApiAction = Typebox.Overwrite(
+  Typebox.RequireTypename(IApiActionDTO),
+  Type.Object({
+    config: IProp,
+  }),
+)
 
 export type IApiAction = Static<typeof IApiAction>

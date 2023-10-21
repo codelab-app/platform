@@ -2,7 +2,7 @@ import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { rootStore as testRootStore } from '../setup'
+import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IElementDTO>(({ params }) => {
@@ -30,7 +30,7 @@ export default Factory.define<IElementDTO>(({ params }) => {
     },
   }
 
-  testRootStore.elementService.elementDomainService.hydrate(dto)
+  createTestRootStore().elementService.elementDomainService.hydrate(dto)
 
   return dto
 })

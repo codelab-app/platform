@@ -39,6 +39,7 @@ export const useStyle = () => {
     }
 
     const updatedStyles = { ...currentStyles, [key]: value }
+
     setCurrentStyles(updatedStyles)
 
     selectedNode.current.style.appendToGuiCss(updatedStyles)
@@ -46,6 +47,7 @@ export const useStyle = () => {
 
   const resetStyle = (property: CssProperty) => {
     const { defaultValue } = DefaultCssProperties[property]
+
     setStyle(property, defaultValue)
   }
 

@@ -1,4 +1,5 @@
 export const arrowFnReturnReactNode = /^\(.+\).+=>.+ReactNode$/
+
 export const es5FnReturnReactNode = /^function(.+): ReactNode$/
 
 /**

@@ -21,6 +21,8 @@ export class ComponentRenderPipe
       return this.next.render(element, props)
     }
 
+    console.log('component props', props)
+
     const component = element.renderType.current
     const clonedComponent = component.clone(element.id, element.id)
     const rootElement = clonedComponent.rootElement.current

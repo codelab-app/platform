@@ -164,6 +164,7 @@ export const listItemComponentName = 'ListItem'
 // })
 
 export const listElementName = 'List'
+
 export const listDataSource = [{ value: 'test1' }, { value: 'test2' }]
 
 export const createListElementInput = (
@@ -178,6 +179,7 @@ export const createListElementInput = (
 })
 
 export const reactNodeTextComponentName = 'Text'
+
 export const reactNodeTextProp = { text: 'React Node' }
 
 // TODO: this util isn't used anywhere. Fix types later if requires

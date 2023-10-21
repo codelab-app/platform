@@ -22,5 +22,5 @@ export interface IRepository<
     options?: Option,
   ): Promise<{ items: Array<ModelFragment>; aggregate: { count: number } }>
   findOne(where: Where): Promise<ModelFragment | undefined>
-  update(model: Model, where: Where): Promise<IEntity | undefined>
+  update(model: Model, where?: Where): Promise<IEntity | undefined>
 }

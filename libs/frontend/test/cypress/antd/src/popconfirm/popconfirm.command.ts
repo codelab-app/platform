@@ -13,6 +13,7 @@ export const getPopconfirm = (options?: CommonOptions) =>
 
 export const expectPopconfirm = (text: string, options?: CommonOptions) => {
   const opts = logAndMute('expectPopconfirm', '', options)
+
   getPopconfirm(opts)
     .find('.ant-popover-message-title', opts)
     .should('contain', text)

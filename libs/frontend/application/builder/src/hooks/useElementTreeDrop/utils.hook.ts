@@ -1,8 +1,10 @@
 import type { EventDataNode } from 'antd/lib/tree'
-import type { Key } from 'rc-tree/lib/interface'
+import type { Key } from 'react'
+// import type { Key } from 'rc-tree/lib/interface'
 
 interface DropInfo {
   dragNode: EventDataNode<unknown>
+  // Type issue with rc-tree
   dragNodesKeys: Array<Key>
   dropPosition: number
   dropToGap: boolean

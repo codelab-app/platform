@@ -4,7 +4,6 @@ import type {
   IResourceModel,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/domain'
-import { getPropService } from '@codelab/frontend/application/prop'
 import { Resource } from '@codelab/frontend/domain/resource'
 import {
   InlineFormService,
@@ -59,8 +58,6 @@ export class ResourceService
       id: v4(),
     }
 
-    this.propService.add(configProps)
-
     const resource = this.add({
       config: configProps,
       id,
@@ -97,14 +94,7 @@ export class ResourceService
       this.resourceRepository.find(where),
     )
 
-    return resources.map((resource) => {
-      /**
-       * attach resource config to mobx tree before calling propRef
-       */
-      this.propService.add(resource.config)
-
-      return this.add(resource)
-    })
+    return resources.map((resource) => this.add(resource))
   })
 
   @modelFlow
@@ -161,22 +151,10 @@ export class ResourceService
 
   @modelAction
   load(resources: Array<IResourceDTO>) {
-    resources.forEach((resource) => {
-      /**
-       * attach resource config to mobx tree before calling propRef
-       */
-      this.propService.add(resource.config)
-
-      this.add(resource)
-    })
+    resources.forEach((resource) => this.add(resource))
   }
 
   resource(id: string) {
     return this.resources.get(id)
-  }
-
-  @computed
-  private get propService() {
-    return getPropService(this)
   }
 }
