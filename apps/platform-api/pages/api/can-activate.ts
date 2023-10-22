@@ -31,7 +31,7 @@ const handler: NextApiHandler = async (req, res) => {
   const toJson = (status: number, canActivate: boolean, message?: string) =>
     res.status(status).json({ canActivate, message })
 
-  if (!isString(domain) || !isString(pageUrl) || !authorization) {
+  if (!isString(domain) || !isString(pageUrl)) {
     return toJson(400, false, 'Invalid body')
   }
 
@@ -55,6 +55,12 @@ const handler: NextApiHandler = async (req, res) => {
   // either a regular page with no auth guard attached to or a system page
   if (!authGuard) {
     return toJson(200, true)
+  }
+
+  // there is an auth guard to protect the page but not authorization is provided
+  // no benefit from running auth guard without user specific info
+  if (!authorization) {
+    return toJson(200, false, 'Messing authorization in request body')
   }
 
   const { resource, responseTransformer } = authGuard
