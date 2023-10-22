@@ -14,6 +14,7 @@ import { propSchema } from './model/prop.schema'
 import { resourceSchema } from './model/resource.schema'
 import { storeSchema } from './model/store.schema'
 import { tagSchema } from './model/tag.schema'
+import { urlSchema } from './model/url.schema'
 import { userSchema } from './model/user.schema'
 import { fieldSchema, typeSchema } from './type'
 
@@ -31,6 +32,7 @@ export const typeDefs = print(gql`
   ${hookSchema}
   ${componentSchema}
   ${storeSchema}
+  ${urlSchema}
   ${actionSchema}
   ${resourceSchema}
   ${domainSchema}

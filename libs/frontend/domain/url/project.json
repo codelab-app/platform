@@ -1,0 +1,84 @@
+{
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "name": "frontend-domain-url",
+  "projectType": "library",
+  "sourceRoot": "libs/frontend/domain/url/src",
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ],
+  "targets": {
+    "lint": {
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-url.xml",
+          "quiet": true
+        }
+      },
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/domain/url/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/frontend/domain/url/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/url"]
+    },
+    "test:integration": {
+      "configurations": {
+        "ci": {
+          "parallel": 3
+        },
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        }
+      },
+      "defaultConfiguration": "dev",
+      "executor": "@nx/jest:jest",
+      "options": {
+        "color": true,
+        "jestConfig": "libs/frontend/domain/url/jest.config.ts",
+        "memoryLimit": 8192,
+        "passWithNoTests": true,
+        "testPathPattern": ["[i].spec.ts"]
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/url"]
+    },
+    "test:unit": {
+      "configurations": {
+        "ci": {},
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        }
+      },
+      "defaultConfiguration": "dev",
+      "executor": "@nx/jest:jest",
+      "options": {
+        "color": true,
+        "jestConfig": "libs/frontend/domain/url/jest.config.ts",
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "passWithNoTests": true,
+        "testPathPattern": ["[^i].spec.ts"]
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/url"]
+    }
+  }
+}

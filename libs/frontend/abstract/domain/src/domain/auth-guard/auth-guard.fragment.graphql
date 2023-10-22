@@ -8,4 +8,14 @@ fragment AuthGuard on AuthGuard {
   resource {
     ...Resource
   }
+  redirect {
+    ... on Page {
+      __typename
+      url
+    }
+    ... on Url {
+      __typename
+      url
+    }
+  }
 }

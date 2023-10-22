@@ -5,7 +5,7 @@ import { useAsync } from '@react-hookz/web'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectPageProps = UniformSelectFieldProps
+export type SelectPageProps = Pick<UniformSelectFieldProps, 'error' | 'name'>
 
 export const SelectPage = ({ error, name }: SelectPageProps) => {
   const app = useCurrentApp()

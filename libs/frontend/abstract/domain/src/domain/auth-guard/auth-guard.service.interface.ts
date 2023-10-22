@@ -5,7 +5,7 @@ import type {
 import type { IAuthGuardDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
-import type { Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -37,7 +37,7 @@ export interface IAuthGuardService
       { authGuard: Maybe<IAuthGuardModel> }
     > {
   authGuardList: Array<IAuthGuardModel>
-
+  authGuards: ObjectMap<IAuthGuardModel>
   add(authGuard: IAuthGuardDTO): IAuthGuardModel
   authGuard(authGuard: IAuthGuardRef): Maybe<IAuthGuardModel>
   getSelectAuthGuardOptions(): Promise<Array<DefaultOptionType>>

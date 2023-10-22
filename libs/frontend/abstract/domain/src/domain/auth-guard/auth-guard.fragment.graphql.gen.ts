@@ -13,6 +13,9 @@ export type AuthGuardFragment = {
   responseTransformer: string
   config: PropFragment
   resource: ResourceFragment
+  redirect:
+    | { __typename: 'Page'; url: string }
+    | { __typename: 'Url'; url: string }
 }
 
 export const AuthGuardFragmentDoc = gql`
@@ -25,6 +28,16 @@ export const AuthGuardFragmentDoc = gql`
     }
     resource {
       ...Resource
+    }
+    redirect {
+      ... on Page {
+        __typename
+        url
+      }
+      ... on Url {
+        __typename
+        url
+      }
     }
   }
   ${PropFragmentDoc}
