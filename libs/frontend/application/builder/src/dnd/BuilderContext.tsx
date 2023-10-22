@@ -83,7 +83,8 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
     (args) => {
       const pointerX = args.pointerCoordinates?.x ?? 0
       const pointerY = args.pointerCoordinates?.y ?? 0
-      const dropTargetId = pointerWithin(args)[0]?.id.toString() ?? ''
+      const pointerWihthinResult = pointerWithin(args)
+      const dropTargetId = pointerWihthinResult?.[0]?.id.toString() ?? ''
       const overRect = args.droppableRects.get(dropTargetId)
 
       if (!pointerX || !pointerY || !overRect) {
@@ -113,7 +114,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         dragPositionData.dragOverlayPosition,
       )
 
-      return pointerWithin(args)
+      return pointerWihthinResult
     },
     [builderService],
   )
@@ -127,11 +128,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
       sensors={sensors}
     >
       {children}
-      <DragOverlay
-        className="w-auto"
-        dropAnimation={null}
-        modifiers={[snapCenterToCursor]}
-      >
+      <DragOverlay className="w-auto" dropAnimation={null} modifiers={[]}>
         <div className="min-h-[20px] min-w-[70px] max-w-[100px] truncate rounded bg-white p-2 text-center text-[14px]">
           {draggedElement?.atomName}
         </div>
