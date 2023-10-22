@@ -15,15 +15,12 @@ import { getPropService } from '@codelab/frontend/domain/prop'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import difference from 'lodash/difference'
-import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
-  clone,
   idProp,
   Model,
   model,

@@ -1,6 +1,7 @@
 import type {
   IActionService,
   IAtomService,
+  IAuthGuardService,
   IComponentService,
   IElementService,
   IFieldService,
@@ -10,6 +11,7 @@ import type {
   IStoreService,
   ITagService,
   ITypeService,
+  IUrlService,
   IUserService,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -42,6 +44,7 @@ export class TestRootStore
   extends Model({
     actionService: prop<IActionService>(),
     atomService: prop<IAtomService>(),
+    authGuardService: prop<IAuthGuardService>(),
     builderService: prop(() => new BuilderService({})),
     componentService: prop<IComponentService>(),
     elementService: prop<IElementService>(),
@@ -52,6 +55,7 @@ export class TestRootStore
     storeService: prop<IStoreService>(),
     tagService: prop<ITagService>(),
     typeService: prop<ITypeService>(),
+    urlService: prop<IUrlService>(),
     userService: prop<IUserService>(
       () => new UserService({ user: User.create(userDto) }),
     ),
@@ -67,6 +71,7 @@ export class TestRootStore
     this.actionService.actions.clear()
     this.propService.props.clear()
     this.pageService.pages.clear()
+    this.authGuardService.authGuards.clear()
     this.storeService.stores.clear()
     this.tagService.tags.clear()
     this.userService.users.clear()

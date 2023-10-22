@@ -4243,6 +4243,8 @@ export type AuthGuard = WithOwner & {
   pages: Array<Page>
   pagesAggregate?: Maybe<AuthGuardPagePagesAggregationSelection>
   pagesConnection: AuthGuardPagesConnection
+  redirect: Redirect
+  redirectConnection: AuthGuardRedirectConnection
   resource: Resource
   resourceAggregate?: Maybe<AuthGuardResourceResourceAggregationSelection>
   resourceConnection: AuthGuardResourceConnection
@@ -4304,6 +4306,19 @@ export type AuthGuardPagesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<AuthGuardPagesConnectionSort>>
   where?: InputMaybe<AuthGuardPagesConnectionWhere>
+}
+
+export type AuthGuardRedirectArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<QueryOptions>
+  where?: InputMaybe<RedirectWhere>
+}
+
+export type AuthGuardRedirectConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  where?: InputMaybe<AuthGuardRedirectConnectionWhere>
 }
 
 export type AuthGuardResourceArgs = {
@@ -4441,6 +4456,7 @@ export type AuthGuardConnectInput = {
   config?: InputMaybe<AuthGuardConfigConnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesConnectFieldInput>>
+  redirect?: InputMaybe<AuthGuardRedirectConnectInput>
   resource?: InputMaybe<AuthGuardResourceConnectFieldInput>
 }
 
@@ -4448,6 +4464,7 @@ export type AuthGuardConnectOrCreateInput = {
   config?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesConnectOrCreateFieldInput>>
+  redirect?: InputMaybe<AuthGuardRedirectConnectOrCreateInput>
   resource?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
 }
 
@@ -4465,6 +4482,7 @@ export type AuthGuardCreateInput = {
   name: Scalars['String']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AuthGuardPagesFieldInput>
+  redirect?: InputMaybe<AuthGuardRedirectCreateInput>
   resource?: InputMaybe<AuthGuardResourceFieldInput>
   responseTransformer: Scalars['String']['input']
 }
@@ -4473,6 +4491,7 @@ export type AuthGuardDeleteInput = {
   config?: InputMaybe<AuthGuardConfigDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesDeleteFieldInput>>
+  redirect?: InputMaybe<AuthGuardRedirectDeleteInput>
   resource?: InputMaybe<AuthGuardResourceDeleteFieldInput>
 }
 
@@ -4480,6 +4499,7 @@ export type AuthGuardDisconnectInput = {
   config?: InputMaybe<AuthGuardConfigDisconnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesDisconnectFieldInput>>
+  redirect?: InputMaybe<AuthGuardRedirectDisconnectInput>
   resource?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
 }
 
@@ -4712,10 +4732,171 @@ export type AuthGuardPropConfigNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
 }
 
+export type AuthGuardRedirectConnectInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageConnectFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlConnectFieldInput>
+}
+
+export type AuthGuardRedirectConnectOrCreateInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageConnectOrCreateFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlConnectOrCreateFieldInput>
+}
+
+export type AuthGuardRedirectConnection = {
+  __typename?: 'AuthGuardRedirectConnection'
+  edges: Array<AuthGuardRedirectRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type AuthGuardRedirectConnectionWhere = {
+  Page?: InputMaybe<AuthGuardRedirectPageConnectionWhere>
+  Url?: InputMaybe<AuthGuardRedirectUrlConnectionWhere>
+}
+
+export type AuthGuardRedirectCreateFieldInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageCreateFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlCreateFieldInput>
+}
+
+export type AuthGuardRedirectCreateInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlFieldInput>
+}
+
+export type AuthGuardRedirectDeleteInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageDeleteFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlDeleteFieldInput>
+}
+
+export type AuthGuardRedirectDisconnectInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageDisconnectFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlDisconnectFieldInput>
+}
+
+export type AuthGuardRedirectPageConnectFieldInput = {
+  connect?: InputMaybe<PageConnectInput>
+  where?: InputMaybe<PageConnectWhere>
+}
+
+export type AuthGuardRedirectPageConnectOrCreateFieldInput = {
+  onCreate: AuthGuardRedirectPageConnectOrCreateFieldInputOnCreate
+  where: PageConnectOrCreateWhere
+}
+
+export type AuthGuardRedirectPageConnectOrCreateFieldInputOnCreate = {
+  node: PageOnCreateInput
+}
+
+export type AuthGuardRedirectPageConnectionWhere = {
+  AND?: InputMaybe<Array<AuthGuardRedirectPageConnectionWhere>>
+  NOT?: InputMaybe<AuthGuardRedirectPageConnectionWhere>
+  OR?: InputMaybe<Array<AuthGuardRedirectPageConnectionWhere>>
+  node?: InputMaybe<PageWhere>
+}
+
+export type AuthGuardRedirectPageCreateFieldInput = {
+  node: PageCreateInput
+}
+
+export type AuthGuardRedirectPageDeleteFieldInput = {
+  delete?: InputMaybe<PageDeleteInput>
+  where?: InputMaybe<AuthGuardRedirectPageConnectionWhere>
+}
+
+export type AuthGuardRedirectPageDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageDisconnectInput>
+  where?: InputMaybe<AuthGuardRedirectPageConnectionWhere>
+}
+
+export type AuthGuardRedirectPageFieldInput = {
+  connect?: InputMaybe<AuthGuardRedirectPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardRedirectPageConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardRedirectPageCreateFieldInput>
+}
+
+export type AuthGuardRedirectPageUpdateConnectionInput = {
+  node?: InputMaybe<PageUpdateInput>
+}
+
+export type AuthGuardRedirectPageUpdateFieldInput = {
+  connect?: InputMaybe<AuthGuardRedirectPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardRedirectPageConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardRedirectPageCreateFieldInput>
+  delete?: InputMaybe<AuthGuardRedirectPageDeleteFieldInput>
+  disconnect?: InputMaybe<AuthGuardRedirectPageDisconnectFieldInput>
+  update?: InputMaybe<AuthGuardRedirectPageUpdateConnectionInput>
+  where?: InputMaybe<AuthGuardRedirectPageConnectionWhere>
+}
+
+export type AuthGuardRedirectRelationship = {
+  __typename?: 'AuthGuardRedirectRelationship'
+  cursor: Scalars['String']['output']
+  node: Redirect
+}
+
+export type AuthGuardRedirectUpdateInput = {
+  Page?: InputMaybe<AuthGuardRedirectPageUpdateFieldInput>
+  Url?: InputMaybe<AuthGuardRedirectUrlUpdateFieldInput>
+}
+
+export type AuthGuardRedirectUrlConnectFieldInput = {
+  where?: InputMaybe<UrlConnectWhere>
+}
+
+export type AuthGuardRedirectUrlConnectOrCreateFieldInput = {
+  onCreate: AuthGuardRedirectUrlConnectOrCreateFieldInputOnCreate
+  where: UrlConnectOrCreateWhere
+}
+
+export type AuthGuardRedirectUrlConnectOrCreateFieldInputOnCreate = {
+  node: UrlOnCreateInput
+}
+
+export type AuthGuardRedirectUrlConnectionWhere = {
+  AND?: InputMaybe<Array<AuthGuardRedirectUrlConnectionWhere>>
+  NOT?: InputMaybe<AuthGuardRedirectUrlConnectionWhere>
+  OR?: InputMaybe<Array<AuthGuardRedirectUrlConnectionWhere>>
+  node?: InputMaybe<UrlWhere>
+}
+
+export type AuthGuardRedirectUrlCreateFieldInput = {
+  node: UrlCreateInput
+}
+
+export type AuthGuardRedirectUrlDeleteFieldInput = {
+  where?: InputMaybe<AuthGuardRedirectUrlConnectionWhere>
+}
+
+export type AuthGuardRedirectUrlDisconnectFieldInput = {
+  where?: InputMaybe<AuthGuardRedirectUrlConnectionWhere>
+}
+
+export type AuthGuardRedirectUrlFieldInput = {
+  connect?: InputMaybe<AuthGuardRedirectUrlConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardRedirectUrlConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardRedirectUrlCreateFieldInput>
+}
+
+export type AuthGuardRedirectUrlUpdateConnectionInput = {
+  node?: InputMaybe<UrlUpdateInput>
+}
+
+export type AuthGuardRedirectUrlUpdateFieldInput = {
+  connect?: InputMaybe<AuthGuardRedirectUrlConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardRedirectUrlConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardRedirectUrlCreateFieldInput>
+  delete?: InputMaybe<AuthGuardRedirectUrlDeleteFieldInput>
+  disconnect?: InputMaybe<AuthGuardRedirectUrlDisconnectFieldInput>
+  update?: InputMaybe<AuthGuardRedirectUrlUpdateConnectionInput>
+  where?: InputMaybe<AuthGuardRedirectUrlConnectionWhere>
+}
+
 export type AuthGuardRelationInput = {
   config?: InputMaybe<AuthGuardConfigCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesCreateFieldInput>>
+  redirect?: InputMaybe<AuthGuardRedirectCreateFieldInput>
   resource?: InputMaybe<AuthGuardResourceCreateFieldInput>
 }
 
@@ -4855,6 +5036,7 @@ export type AuthGuardUpdateInput = {
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AuthGuardPagesUpdateFieldInput>>
+  redirect?: InputMaybe<AuthGuardRedirectUpdateInput>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
   responseTransformer?: InputMaybe<Scalars['String']['input']>
 }
@@ -4916,6 +5098,8 @@ export type AuthGuardWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return AuthGuards where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
+  redirectConnection?: InputMaybe<AuthGuardRedirectConnectionWhere>
+  redirectConnection_NOT?: InputMaybe<AuthGuardRedirectConnectionWhere>
   resource?: InputMaybe<ResourceWhere>
   resourceAggregate?: InputMaybe<AuthGuardResourceAggregateInput>
   resourceConnection?: InputMaybe<AuthGuardResourceConnectionWhere>
@@ -7255,6 +7439,12 @@ export type CreateUnionTypesMutationResponse = {
   __typename?: 'CreateUnionTypesMutationResponse'
   info: CreateInfo
   unionTypes: Array<UnionType>
+}
+
+export type CreateUrlsMutationResponse = {
+  __typename?: 'CreateUrlsMutationResponse'
+  info: CreateInfo
+  urls: Array<Url>
 }
 
 export type CreateUsersMutationResponse = {
@@ -13829,6 +14019,7 @@ export type Mutation = {
   createTags: CreateTagsMutationResponse
   createTypeReferences: CreateTypeReferencesMutationResponse
   createUnionTypes: CreateUnionTypesMutationResponse
+  createUrls: CreateUrlsMutationResponse
   createUsers: CreateUsersMutationResponse
   deleteActionTypes: DeleteInfo
   deleteApiActions: DeleteInfo
@@ -13861,6 +14052,7 @@ export type Mutation = {
   deleteTags: DeleteInfo
   deleteTypeReferences: DeleteInfo
   deleteUnionTypes: DeleteInfo
+  deleteUrls: DeleteInfo
   deleteUsers: DeleteInfo
   updateActionTypes: UpdateActionTypesMutationResponse
   updateApiActions: UpdateApiActionsMutationResponse
@@ -13893,6 +14085,7 @@ export type Mutation = {
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
+  updateUrls: UpdateUrlsMutationResponse
   updateUsers: UpdateUsersMutationResponse
 }
 
@@ -14018,6 +14211,10 @@ export type MutationCreateTypeReferencesArgs = {
 
 export type MutationCreateUnionTypesArgs = {
   input: Array<UnionTypeCreateInput>
+}
+
+export type MutationCreateUrlsArgs = {
+  input: Array<UrlCreateInput>
 }
 
 export type MutationCreateUsersArgs = {
@@ -14174,6 +14371,10 @@ export type MutationDeleteTypeReferencesArgs = {
 export type MutationDeleteUnionTypesArgs = {
   delete?: InputMaybe<UnionTypeDeleteInput>
   where?: InputMaybe<UnionTypeWhere>
+}
+
+export type MutationDeleteUrlsArgs = {
+  where?: InputMaybe<UrlWhere>
 }
 
 export type MutationDeleteUsersArgs = {
@@ -14473,6 +14674,11 @@ export type MutationUpdateUnionTypesArgs = {
   disconnect?: InputMaybe<UnionTypeDisconnectInput>
   update?: InputMaybe<UnionTypeUpdateInput>
   where?: InputMaybe<UnionTypeWhere>
+}
+
+export type MutationUpdateUrlsArgs = {
+  update?: InputMaybe<UrlUpdateInput>
+  where?: InputMaybe<UrlWhere>
 }
 
 export type MutationUpdateUsersArgs = {
@@ -16187,6 +16393,9 @@ export type Query = {
   unionTypes: Array<UnionType>
   unionTypesAggregate: UnionTypeAggregateSelection
   unionTypesConnection: UnionTypesConnection
+  urls: Array<Url>
+  urlsAggregate: UrlAggregateSelection
+  urlsConnection: UrlsConnection
   users: Array<User>
   usersAggregate: UserAggregateSelection
   usersConnection: UsersConnection
@@ -16701,6 +16910,22 @@ export type QueryUnionTypesConnectionArgs = {
   where?: InputMaybe<UnionTypeWhere>
 }
 
+export type QueryUrlsArgs = {
+  options?: InputMaybe<UrlOptions>
+  where?: InputMaybe<UrlWhere>
+}
+
+export type QueryUrlsAggregateArgs = {
+  where?: InputMaybe<UrlWhere>
+}
+
+export type QueryUrlsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<InputMaybe<UrlSort>>>
+  where?: InputMaybe<UrlWhere>
+}
+
 export type QueryUsersArgs = {
   options?: InputMaybe<UserOptions>
   where?: InputMaybe<UserWhere>
@@ -16977,6 +17202,13 @@ export type ReactNodeTypesConnection = {
   edges: Array<ReactNodeTypeEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
+}
+
+export type Redirect = Page | Url
+
+export type RedirectWhere = {
+  Page?: InputMaybe<PageWhere>
+  Url?: InputMaybe<UrlWhere>
 }
 
 /**
@@ -20301,10 +20533,100 @@ export type UpdateUnionTypesMutationResponse = {
   unionTypes: Array<UnionType>
 }
 
+export type UpdateUrlsMutationResponse = {
+  __typename?: 'UpdateUrlsMutationResponse'
+  info: UpdateInfo
+  urls: Array<Url>
+}
+
 export type UpdateUsersMutationResponse = {
   __typename?: 'UpdateUsersMutationResponse'
   info: UpdateInfo
   users: Array<User>
+}
+
+export type Url = {
+  __typename?: 'Url'
+  id: Scalars['ID']['output']
+  url: Scalars['String']['output']
+}
+
+export type UrlAggregateSelection = {
+  __typename?: 'UrlAggregateSelection'
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
+}
+
+export type UrlConnectOrCreateWhere = {
+  node: UrlUniqueWhere
+}
+
+export type UrlConnectWhere = {
+  node: UrlWhere
+}
+
+export type UrlCreateInput = {
+  id: Scalars['ID']['input']
+  url: Scalars['String']['input']
+}
+
+export type UrlEdge = {
+  __typename?: 'UrlEdge'
+  cursor: Scalars['String']['output']
+  node: Url
+}
+
+export type UrlOnCreateInput = {
+  id: Scalars['ID']['input']
+  url: Scalars['String']['input']
+}
+
+export type UrlOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more UrlSort objects to sort Urls by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<UrlSort>>
+}
+
+/** Fields to sort Urls by. The order in which sorts are applied is not guaranteed when specifying many fields in one UrlSort object. */
+export type UrlSort = {
+  id?: InputMaybe<SortDirection>
+  url?: InputMaybe<SortDirection>
+}
+
+export type UrlUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type UrlUpdateInput = {
+  id?: InputMaybe<Scalars['ID']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
+}
+
+export type UrlWhere = {
+  AND?: InputMaybe<Array<UrlWhere>>
+  NOT?: InputMaybe<UrlWhere>
+  OR?: InputMaybe<Array<UrlWhere>>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
+  url_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  url_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  url_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  url_MATCHES?: InputMaybe<Scalars['String']['input']>
+  url_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
+export type UrlsConnection = {
+  __typename?: 'UrlsConnection'
+  edges: Array<UrlEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
 }
 
 export type User = {
@@ -21774,6 +22096,9 @@ export type AuthGuardFragment = {
   responseTransformer: string
   config: { __typename?: 'Prop' } & PropFragment
   resource: { __typename?: 'Resource' } & ResourceFragment
+  redirect:
+    | { __typename: 'Page'; url: string }
+    | { __typename: 'Url'; url: string }
 }
 
 export type ComponentDevelopmentFragment = {
@@ -22306,6 +22631,8 @@ export type UnionTypeFragment = {
     | { __typename?: 'UnionType'; id: string; kind: TypeKind; name: string }
   >
 } & BaseType_UnionType_Fragment
+
+export type UrlFragment = { __typename: 'Url'; url: string; id: string }
 
 export type OwnerFragment = { __typename?: 'User'; id: string }
 
@@ -23975,6 +24302,51 @@ export type UpdateCodeMirrorTypesMutation = {
     __typename?: 'UpdateCodeMirrorTypesMutationResponse'
     types: Array<{ __typename?: 'CodeMirrorType'; id: string }>
   }
+}
+
+export type CreateUrlsMutationVariables = Exact<{
+  input: Array<UrlCreateInput> | UrlCreateInput
+}>
+
+export type CreateUrlsMutation = {
+  __typename?: 'Mutation'
+  createUrls: {
+    __typename?: 'CreateUrlsMutationResponse'
+    urls: Array<{ __typename?: 'Url'; id: string }>
+  }
+}
+
+export type UpdateUrlsMutationVariables = Exact<{
+  where?: InputMaybe<UrlWhere>
+  update?: InputMaybe<UrlUpdateInput>
+}>
+
+export type UpdateUrlsMutation = {
+  __typename?: 'Mutation'
+  updateUrls: {
+    __typename?: 'UpdateUrlsMutationResponse'
+    urls: Array<{ __typename?: 'Url'; id: string }>
+  }
+}
+
+export type DeleteUrlsMutationVariables = Exact<{
+  where: UrlWhere
+}>
+
+export type DeleteUrlsMutation = {
+  __typename?: 'Mutation'
+  deleteUrls: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
+export type GetUrlsQueryVariables = Exact<{
+  options?: InputMaybe<UrlOptions>
+  where?: InputMaybe<UrlWhere>
+}>
+
+export type GetUrlsQuery = {
+  __typename?: 'Query'
+  aggregate: { __typename?: 'UrlAggregateSelection'; count: number }
+  items: Array<{ __typename?: 'Url' } & UrlFragment>
 }
 
 export type GetUsersQueryVariables = Exact<{

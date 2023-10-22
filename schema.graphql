@@ -4173,6 +4173,17 @@ type AuthGuard implements WithOwner {
     sort: [AuthGuardPagesConnectionSort!]
     where: AuthGuardPagesConnectionWhere
   ): AuthGuardPagesConnection!
+  redirect(
+    directed: Boolean = true
+    options: QueryOptions
+    where: RedirectWhere
+  ): Redirect!
+  redirectConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    where: AuthGuardRedirectConnectionWhere
+  ): AuthGuardRedirectConnection!
   resource(
     directed: Boolean = true
     options: ResourceOptions
@@ -4307,6 +4318,7 @@ input AuthGuardConnectInput {
   config: AuthGuardConfigConnectFieldInput
   owner: WithOwnerOwnerConnectFieldInput
   pages: [AuthGuardPagesConnectFieldInput!]
+  redirect: AuthGuardRedirectConnectInput
   resource: AuthGuardResourceConnectFieldInput
 }
 
@@ -4314,6 +4326,7 @@ input AuthGuardConnectOrCreateInput {
   config: AuthGuardConfigConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   pages: [AuthGuardPagesConnectOrCreateFieldInput!]
+  redirect: AuthGuardRedirectConnectOrCreateInput
   resource: AuthGuardResourceConnectOrCreateFieldInput
 }
 
@@ -4331,6 +4344,7 @@ input AuthGuardCreateInput {
   name: String!
   owner: WithOwnerOwnerFieldInput
   pages: AuthGuardPagesFieldInput
+  redirect: AuthGuardRedirectCreateInput
   resource: AuthGuardResourceFieldInput
   responseTransformer: String!
 }
@@ -4339,6 +4353,7 @@ input AuthGuardDeleteInput {
   config: AuthGuardConfigDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
   pages: [AuthGuardPagesDeleteFieldInput!]
+  redirect: AuthGuardRedirectDeleteInput
   resource: AuthGuardResourceDeleteFieldInput
 }
 
@@ -4346,6 +4361,7 @@ input AuthGuardDisconnectInput {
   config: AuthGuardConfigDisconnectFieldInput
   owner: WithOwnerOwnerDisconnectFieldInput
   pages: [AuthGuardPagesDisconnectFieldInput!]
+  redirect: AuthGuardRedirectDisconnectInput
   resource: AuthGuardResourceDisconnectFieldInput
 }
 
@@ -4577,10 +4593,169 @@ type AuthGuardPropConfigNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
 }
 
+input AuthGuardRedirectConnectInput {
+  Page: AuthGuardRedirectPageConnectFieldInput
+  Url: AuthGuardRedirectUrlConnectFieldInput
+}
+
+input AuthGuardRedirectConnectOrCreateInput {
+  Page: AuthGuardRedirectPageConnectOrCreateFieldInput
+  Url: AuthGuardRedirectUrlConnectOrCreateFieldInput
+}
+
+type AuthGuardRedirectConnection {
+  edges: [AuthGuardRedirectRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AuthGuardRedirectConnectionWhere {
+  Page: AuthGuardRedirectPageConnectionWhere
+  Url: AuthGuardRedirectUrlConnectionWhere
+}
+
+input AuthGuardRedirectCreateFieldInput {
+  Page: AuthGuardRedirectPageCreateFieldInput
+  Url: AuthGuardRedirectUrlCreateFieldInput
+}
+
+input AuthGuardRedirectCreateInput {
+  Page: AuthGuardRedirectPageFieldInput
+  Url: AuthGuardRedirectUrlFieldInput
+}
+
+input AuthGuardRedirectDeleteInput {
+  Page: AuthGuardRedirectPageDeleteFieldInput
+  Url: AuthGuardRedirectUrlDeleteFieldInput
+}
+
+input AuthGuardRedirectDisconnectInput {
+  Page: AuthGuardRedirectPageDisconnectFieldInput
+  Url: AuthGuardRedirectUrlDisconnectFieldInput
+}
+
+input AuthGuardRedirectPageConnectFieldInput {
+  connect: PageConnectInput
+  where: PageConnectWhere
+}
+
+input AuthGuardRedirectPageConnectOrCreateFieldInput {
+  onCreate: AuthGuardRedirectPageConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input AuthGuardRedirectPageConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+input AuthGuardRedirectPageConnectionWhere {
+  AND: [AuthGuardRedirectPageConnectionWhere!]
+  NOT: AuthGuardRedirectPageConnectionWhere
+  OR: [AuthGuardRedirectPageConnectionWhere!]
+  node: PageWhere
+}
+
+input AuthGuardRedirectPageCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input AuthGuardRedirectPageDeleteFieldInput {
+  delete: PageDeleteInput
+  where: AuthGuardRedirectPageConnectionWhere
+}
+
+input AuthGuardRedirectPageDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: AuthGuardRedirectPageConnectionWhere
+}
+
+input AuthGuardRedirectPageFieldInput {
+  connect: AuthGuardRedirectPageConnectFieldInput
+  connectOrCreate: AuthGuardRedirectPageConnectOrCreateFieldInput
+  create: AuthGuardRedirectPageCreateFieldInput
+}
+
+input AuthGuardRedirectPageUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input AuthGuardRedirectPageUpdateFieldInput {
+  connect: AuthGuardRedirectPageConnectFieldInput
+  connectOrCreate: AuthGuardRedirectPageConnectOrCreateFieldInput
+  create: AuthGuardRedirectPageCreateFieldInput
+  delete: AuthGuardRedirectPageDeleteFieldInput
+  disconnect: AuthGuardRedirectPageDisconnectFieldInput
+  update: AuthGuardRedirectPageUpdateConnectionInput
+  where: AuthGuardRedirectPageConnectionWhere
+}
+
+type AuthGuardRedirectRelationship {
+  cursor: String!
+  node: Redirect!
+}
+
+input AuthGuardRedirectUpdateInput {
+  Page: AuthGuardRedirectPageUpdateFieldInput
+  Url: AuthGuardRedirectUrlUpdateFieldInput
+}
+
+input AuthGuardRedirectUrlConnectFieldInput {
+  where: UrlConnectWhere
+}
+
+input AuthGuardRedirectUrlConnectOrCreateFieldInput {
+  onCreate: AuthGuardRedirectUrlConnectOrCreateFieldInputOnCreate!
+  where: UrlConnectOrCreateWhere!
+}
+
+input AuthGuardRedirectUrlConnectOrCreateFieldInputOnCreate {
+  node: UrlOnCreateInput!
+}
+
+input AuthGuardRedirectUrlConnectionWhere {
+  AND: [AuthGuardRedirectUrlConnectionWhere!]
+  NOT: AuthGuardRedirectUrlConnectionWhere
+  OR: [AuthGuardRedirectUrlConnectionWhere!]
+  node: UrlWhere
+}
+
+input AuthGuardRedirectUrlCreateFieldInput {
+  node: UrlCreateInput!
+}
+
+input AuthGuardRedirectUrlDeleteFieldInput {
+  where: AuthGuardRedirectUrlConnectionWhere
+}
+
+input AuthGuardRedirectUrlDisconnectFieldInput {
+  where: AuthGuardRedirectUrlConnectionWhere
+}
+
+input AuthGuardRedirectUrlFieldInput {
+  connect: AuthGuardRedirectUrlConnectFieldInput
+  connectOrCreate: AuthGuardRedirectUrlConnectOrCreateFieldInput
+  create: AuthGuardRedirectUrlCreateFieldInput
+}
+
+input AuthGuardRedirectUrlUpdateConnectionInput {
+  node: UrlUpdateInput
+}
+
+input AuthGuardRedirectUrlUpdateFieldInput {
+  connect: AuthGuardRedirectUrlConnectFieldInput
+  connectOrCreate: AuthGuardRedirectUrlConnectOrCreateFieldInput
+  create: AuthGuardRedirectUrlCreateFieldInput
+  delete: AuthGuardRedirectUrlDeleteFieldInput
+  disconnect: AuthGuardRedirectUrlDisconnectFieldInput
+  update: AuthGuardRedirectUrlUpdateConnectionInput
+  where: AuthGuardRedirectUrlConnectionWhere
+}
+
 input AuthGuardRelationInput {
   config: AuthGuardConfigCreateFieldInput
   owner: WithOwnerOwnerCreateFieldInput
   pages: [AuthGuardPagesCreateFieldInput!]
+  redirect: AuthGuardRedirectCreateFieldInput
   resource: AuthGuardResourceCreateFieldInput
 }
 
@@ -4721,6 +4896,7 @@ input AuthGuardUpdateInput {
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AuthGuardPagesUpdateFieldInput!]
+  redirect: AuthGuardRedirectUpdateInput
   resource: AuthGuardResourceUpdateFieldInput
   responseTransformer: String
 }
@@ -4804,6 +4980,8 @@ input AuthGuardWhere {
   Return AuthGuards where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
+  redirectConnection: AuthGuardRedirectConnectionWhere
+  redirectConnection_NOT: AuthGuardRedirectConnectionWhere
   resource: ResourceWhere
   resourceAggregate: AuthGuardResourceAggregateInput
   resourceConnection: AuthGuardResourceConnectionWhere
@@ -6976,6 +7154,11 @@ type CreateTypeReferencesMutationResponse {
 type CreateUnionTypesMutationResponse {
   info: CreateInfo!
   unionTypes: [UnionType!]!
+}
+
+type CreateUrlsMutationResponse {
+  info: CreateInfo!
+  urls: [Url!]!
 }
 
 type CreateUsersMutationResponse {
@@ -13284,6 +13467,7 @@ type Mutation {
   createUnionTypes(
     input: [UnionTypeCreateInput!]!
   ): CreateUnionTypesMutationResponse!
+  createUrls(input: [UrlCreateInput!]!): CreateUrlsMutationResponse!
   createUsers(input: [UserCreateInput!]!): CreateUsersMutationResponse!
   deleteActionTypes(
     delete: ActionTypeDeleteInput
@@ -13370,6 +13554,7 @@ type Mutation {
     delete: UnionTypeDeleteInput
     where: UnionTypeWhere
   ): DeleteInfo!
+  deleteUrls(where: UrlWhere): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
   updateActionTypes(
     connect: ActionTypeConnectInput
@@ -13634,6 +13819,10 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
+  updateUrls(
+    update: UrlUpdateInput
+    where: UrlWhere
+  ): UpdateUrlsMutationResponse!
   updateUsers(
     connect: UserConnectInput
     connectOrCreate: UserConnectOrCreateInput
@@ -15465,6 +15654,14 @@ type Query {
     sort: [UnionTypeSort]
     where: UnionTypeWhere
   ): UnionTypesConnection!
+  urls(options: UrlOptions, where: UrlWhere): [Url!]!
+  urlsAggregate(where: UrlWhere): UrlAggregateSelection!
+  urlsConnection(
+    after: String
+    first: Int
+    sort: [UrlSort]
+    where: UrlWhere
+  ): UrlsConnection!
   users(options: UserOptions, where: UserWhere): [User!]!
   usersAggregate(where: UserWhere): UserAggregateSelection!
   usersConnection(
@@ -15696,6 +15893,13 @@ type ReactNodeTypesConnection {
   edges: [ReactNodeTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
+}
+
+union Redirect = Page | Url
+
+input RedirectWhere {
+  Page: PageWhere
+  Url: UrlWhere
 }
 
 """
@@ -18741,9 +18945,99 @@ type UpdateUnionTypesMutationResponse {
   unionTypes: [UnionType!]!
 }
 
+type UpdateUrlsMutationResponse {
+  info: UpdateInfo!
+  urls: [Url!]!
+}
+
 type UpdateUsersMutationResponse {
   info: UpdateInfo!
   users: [User!]!
+}
+
+type Url {
+  id: ID!
+  url: String!
+}
+
+type UrlAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  url: StringAggregateSelectionNonNullable!
+}
+
+input UrlConnectOrCreateWhere {
+  node: UrlUniqueWhere!
+}
+
+input UrlConnectWhere {
+  node: UrlWhere!
+}
+
+input UrlCreateInput {
+  id: ID!
+  url: String!
+}
+
+type UrlEdge {
+  cursor: String!
+  node: Url!
+}
+
+input UrlOnCreateInput {
+  id: ID!
+  url: String!
+}
+
+input UrlOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more UrlSort objects to sort Urls by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [UrlSort!]
+}
+
+"""
+Fields to sort Urls by. The order in which sorts are applied is not guaranteed when specifying many fields in one UrlSort object.
+"""
+input UrlSort {
+  id: SortDirection
+  url: SortDirection
+}
+
+input UrlUniqueWhere {
+  id: ID
+}
+
+input UrlUpdateInput {
+  id: ID
+  url: String
+}
+
+input UrlWhere {
+  AND: [UrlWhere!]
+  NOT: UrlWhere
+  OR: [UrlWhere!]
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  url: String
+  url_CONTAINS: String
+  url_ENDS_WITH: String
+  url_IN: [String!]
+  url_MATCHES: String
+  url_STARTS_WITH: String
+}
+
+type UrlsConnection {
+  edges: [UrlEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
 }
 
 type User {
