@@ -2,7 +2,7 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { isAdmin } from '@codelab/frontend/abstract/domain'
+import { fieldRef, isAdmin, typeRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -17,11 +17,11 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
     }
 
     const onEdit = (field: IFieldModel) => {
-      fieldService.updateModal.open(field)
+      fieldService.updateModal.open(fieldRef(field))
     }
 
     const onDelete = (field: IFieldModel) => {
-      fieldService.deleteModal.open(field)
+      fieldService.deleteModal.open(fieldRef(field))
     }
 
     const editMenuItems = interfaceType.fields.map((field) => {
@@ -43,7 +43,11 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceTypeModel }>(
     return (
       <Row gutter={[16, 16]} justify="center">
         <Col>
-          <Button onClick={() => fieldService.createModal.open(interfaceType)}>
+          <Button
+            onClick={() =>
+              fieldService.createModal.open(typeRef(interfaceType))
+            }
+          >
             Add
           </Button>
         </Col>

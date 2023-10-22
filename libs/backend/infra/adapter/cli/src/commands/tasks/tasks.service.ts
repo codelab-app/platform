@@ -94,9 +94,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         Tasks.Codegen,
         'Run codegen',
         (argv) => argv,
-        // (argv) => argv.fail((msg, err) => console.log(msg, err)),
         globalHandler(async ({ stage }) => {
-          //
           const { OgmModule } = await import(
             '@codelab/backend/infra/adapter/neo4j'
           )

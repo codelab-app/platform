@@ -10,7 +10,7 @@ import { TagsTreeView } from '../get-tags'
 export const TagsPrimarySidebar = observer(() => {
   const { tagService } = useStore()
   const { popover } = useCui()
-  const tags = tagService.checkedTags.map((tag) => tag.current)
+  const tags = tagService.checkedTags.map((tag) => tagRef(tag.current))
 
   const toolbarItems = [
     {

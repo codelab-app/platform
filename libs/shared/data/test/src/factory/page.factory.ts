@@ -2,11 +2,10 @@ import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IPageDTO>(({ params }) => {
-  const dto = {
+  const dto: IPageDTO = {
     app: { id: params.app?.id ?? v4() },
     id: params.id ?? v4(),
     kind: params.kind ?? IPageKind.Regular,
@@ -16,7 +15,7 @@ export default Factory.define<IPageDTO>(({ params }) => {
     url: chance.word(),
   }
 
-  const app = createTestRootStore().appService.appDomainService.app(dto.app.id)
+  // testRootStore.pageService.pageDomainService.add(dto)
 
   app?.addPageInCache(dto)
 

@@ -3,7 +3,7 @@ import type {
   IAtomsTreeDataNode,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
+import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -25,19 +25,19 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   const onEdit = () => {
     if (type === 'atom') {
-      atomService.updateForm.open(node)
+      atomService.updateForm.open(atomRef(node))
       fieldService.updateForm.close()
     } else {
-      fieldService.updateForm.open(node)
+      fieldService.updateForm.open(fieldRef(node))
       atomService.updateForm.close()
     }
   }
 
   const onDelete = () => {
     if (type === 'atom') {
-      atomService.deleteManyModal.open([node])
+      atomService.deleteManyModal.open([atomRef(node)])
     } else {
-      fieldService.deleteModal.open(node)
+      fieldService.deleteModal.open(fieldRef(node))
     }
   }
 
@@ -49,7 +49,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
       : undefined
 
     if (interfaceRef) {
-      fieldService.createForm.open(interfaceRef.current)
+      fieldService.createForm.open(interfaceRef)
       popover.open(FormNames.CreateField)
     }
   }

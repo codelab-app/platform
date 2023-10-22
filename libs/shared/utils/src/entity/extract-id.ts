@@ -1,3 +1,3 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 
-export const extractId = (entity: IEntity) => entity.id
+export const extractId = (entity: IRef) => entity.id

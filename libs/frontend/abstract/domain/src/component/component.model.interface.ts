@@ -6,13 +6,9 @@ import type {
   IComponent,
   IComponentDTO,
   IElementRenderTypeKind,
+  IRef,
 } from '@codelab/shared/abstract/core'
-import type {
-  IEntity,
-  Maybe,
-  Nullable,
-  Nullish,
-} from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPropModel } from '../prop'
@@ -38,14 +34,14 @@ export interface IComponentModel
    * to render a component we create a duplicate for each instance
    * keeps track of source component in case this is a duplicate
    */
-  sourceComponent?: Nullable<IEntity>
+  sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
 
   clone(key: string, instanceId?: string): IComponentModel
   setChildrenContainerElement(element: Ref<IElementModel>): void
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void
-  setSourceComponent(entity: IEntity): void
+  setSourceComponent(entity: IRef): void
   setStore(props: Nullable<Ref<IStoreModel>>): void
   toCreateInput(): ComponentCreateInput
 }

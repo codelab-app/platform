@@ -14,10 +14,6 @@ export class ActionService {
   ) {}
 
   async save(action: IActionDTO) {
-    if (!action.__typename) {
-      throw new Error('Action __typename not found')
-    }
-
     switch (action.__typename) {
       case IActionKind.ApiAction: {
         const apiAction = new ApiAction(action)

@@ -1,12 +1,10 @@
 import {
+  getAtomDomainService,
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
-import { PageDomainFactory } from '@codelab/frontend/domain/page'
-import type {
-  IAppDTO,
-  IElementRenderTypeDto,
-} from '@codelab/shared/abstract/core'
+import { PageFactory } from '@codelab/frontend/domain/page'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -16,7 +14,7 @@ import { App } from './store/app.model'
 export class AppDomainService
   extends Model({
     apps: prop(() => objectMap<IAppModel>()),
-    pageFactory: prop(() => new PageDomainFactory({})),
+    pageFactory: prop(() => new PageFactory({})),
   })
   implements IAppDomainService
 {
@@ -56,16 +54,20 @@ export class AppDomainService
   }
 
   @modelAction
-  create = (appDto: IAppDTO, renderType: IElementRenderTypeDto) => {
+  create = (appDto: IAppDTO) => {
     const app = this.hydrate(appDto)
-    const pages = this.pageFactory.addSystemPages(app, renderType)
-
-    pages.forEach((page) => app.addPageInCache(page))
+    const renderType = this.atomDomainService.defaultRenderType
+    this.pageFactory.addSystemPages(app, renderType)
 
     return app
   }
 
   app(id: string) {
     return this.apps.get(id)
+  }
+
+  @computed
+  private get atomDomainService() {
+    return getAtomDomainService(this)
   }
 }

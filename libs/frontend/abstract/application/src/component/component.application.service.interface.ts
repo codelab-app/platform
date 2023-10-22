@@ -9,7 +9,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
-import type { ObjectMap } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { IFormService } from '../services/form.service.interface'
 import type { ICRUDModalService } from '../services/modal.service.interface'
 import type { IPaginateable } from '../services/pagination.service.interface'
@@ -26,7 +26,7 @@ export interface IComponentApplicationService
       IUpdateComponentData
     >,
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
-    ICRUDModalService<IComponentModel, { component?: IComponentModel }>,
+    ICRUDModalService<Ref<IComponentModel>, { component?: IComponentModel }>,
     IPaginateable<IComponentModel, { name?: string }> {
   clonedComponents: ObjectMap<IComponentModel>
   componentList: Array<IComponentModel>

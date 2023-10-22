@@ -9,6 +9,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
@@ -19,7 +20,7 @@ import type { IStoreRepository } from './store.repo.interface'
 export interface IStoreService
   extends ICRUDService<IStoreModel, IStoreDTO, IStoreDTO>,
     IQueryService<IStoreModel, StoreWhere, StoreOptions>,
-    ICRUDModalService<IStoreModel, { store?: IStoreModel }> {
+    ICRUDModalService<Ref<IStoreModel>, { store?: IStoreModel }> {
   storeDomainService: IStoreDomainService
   storeRepository: IStoreRepository
 

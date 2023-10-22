@@ -21,17 +21,17 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const { popover } = useCui()
 
   const onEdit = () => {
-    fieldService.updateForm.open(data.extraData.node)
+    fieldService.updateForm.open(fieldRef(data.extraData.node))
     popover.open(FormNames.UpdateField)
   }
 
   const onDelete = () => {
-    fieldService.deleteModal.open(data.extraData.node)
+    fieldService.deleteModal.open(fieldRef(data.extraData.node))
   }
 
   const onAddField = () => {
     fieldService.createForm.open(
-      data.extraData.node.type.current as IInterfaceTypeModel,
+      data.extraData.node.type as Ref<IInterfaceTypeModel>,
     )
     popover.open(FormNames.CreateField)
   }

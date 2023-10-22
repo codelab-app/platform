@@ -1,8 +1,8 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 export interface IRepository<
-  Model extends IEntity,
+  Model extends IRef,
   ModelData,
   Where extends { id?: string | null },
   Options,

@@ -7,13 +7,13 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/TypeFormService')
 export class TypeFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<ITypeModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<ITypeModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<ITypeModel, { type?: ITypeModel }>
+  implements IEntityFormService<Ref<ITypeModel>, { type?: ITypeModel }>
 {
   @computed
   get type() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

@@ -6,7 +6,7 @@ import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IAtomDTO>(({ params }) => {
-  const dto = {
+  const dto: IAtomDTO = {
     api: { id: params.api?.id ?? v4() },
     externalCssSource: params.externalCssSource ?? null,
     externalJsSource: params.externalJsSource ?? null,
@@ -21,6 +21,7 @@ export default Factory.define<IAtomDTO>(({ params }) => {
   }
 
   createTestRootStore().atomService.atomDomainService.add(dto)
+  // testRootStore.atomService.atomDomainService.add(dto)
 
   return dto
 })

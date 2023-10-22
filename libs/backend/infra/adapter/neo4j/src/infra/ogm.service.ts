@@ -165,9 +165,10 @@ export class OgmService {
       outFile,
     })
       .then((data) => {
-        console.info('OGM type generated!')
+        console.info('OGM type generated!!')
 
-        return data
+        // Change optional to required
+        return data?.replace(/__typename\?\:/g, '__typename:')
       })
       .catch((error) =>
         console.error(`[generateOgmTypes] ${JSON.stringify(error, null, 2)}`),

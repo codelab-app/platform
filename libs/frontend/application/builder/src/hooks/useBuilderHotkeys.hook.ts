@@ -28,7 +28,7 @@ export const useBuilderHotkeys = ({
         const isRootElement =
           isElementRef(selectedNode) && selectedNode.current.isRoot
 
-        if (!isRootElement && isElement(selectedNode)) {
+        if (!isRootElement && isElementRef(selectedNode)) {
           deleteModal.open(selectedNode)
         }
       }

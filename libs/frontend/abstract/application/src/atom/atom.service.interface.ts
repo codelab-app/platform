@@ -7,6 +7,7 @@ import type {
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtom } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
+import type { Ref } from 'mobx-keystone'
 import type { GuaranteedProps } from 'uniforms'
 import type {
   ICRUDFormService,
@@ -24,14 +25,16 @@ export interface IAtomService
       'delete'
     >,
     IQueryService<IAtomModel, AtomWhere, AtomOptions>,
-    Omit<ICRUDModalService<IAtomModel, { atom?: IAtomModel }>, 'deleteModal'>,
-    ICRUDFormService<IAtomModel, { atom?: IAtomModel }>,
+    Omit<
+      ICRUDModalService<Ref<IAtomModel>, { atom?: IAtomModel }>,
+      'deleteModal'
+    >,
+    ICRUDFormService<Ref<IAtomModel>, { atom?: IAtomModel }>,
     IPaginateable<IAtomModel, { name?: string }> {
   atomDomainService: IAtomDomainService
   atomRepository: IAtomRepository
-  defaultRenderType: IAtom
   deleteManyModal: IEntityModalService<
-    Array<IAtomModel>,
+    Array<Ref<IAtomModel>>,
     { atoms: Array<IAtomModel> }
   >
 

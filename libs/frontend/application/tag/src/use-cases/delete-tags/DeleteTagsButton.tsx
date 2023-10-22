@@ -8,7 +8,7 @@ import React from 'react'
 export const DeleteTagsButton = observer<Omit<DeleteButtonProps, 'ids'>>(
   ({ disabled }) => {
     const { tagService } = useStore()
-    const tags = tagService.checkedTags.map((tag) => tag.current)
+    const tags = tagService.checkedTags.map((tag) => tagRef(tag.current))
 
     return (
       <Button

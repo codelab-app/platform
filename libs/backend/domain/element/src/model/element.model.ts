@@ -2,37 +2,38 @@ import type {
   IElementDTO,
   IElementRenderTypeDto,
   IPropDTO,
+  IRef,
 } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 
 export class Element implements IElementDTO {
-  childMapperComponent?: IEntity | null | undefined
+  childMapperComponent?: IRef | null | undefined
 
-  childMapperPreviousSibling?: IEntity | null | undefined
+  childMapperPreviousSibling?: IRef | null | undefined
 
   childMapperPropKey?: Nullable<string> | undefined
 
-  closestContainerNode: IEntity
+  closestContainerNode: IRef
 
-  firstChild?: IEntity | null | undefined
+  firstChild?: IRef | null | undefined
 
   id: string
 
   name: string
 
-  nextSibling?: IEntity | null | undefined
+  nextSibling?: IRef | null | undefined
 
-  page?: IEntity | null | undefined
+  page?: IRef | null | undefined
 
-  parent?: IEntity | null | undefined
+  parent?: IRef | null | undefined
 
-  parentComponent?: IEntity | null | undefined
+  parentComponent?: IRef | null | undefined
 
-  postRenderAction?: IEntity | null | undefined
+  postRenderAction?: IRef | null | undefined
 
-  preRenderAction?: IEntity | null | undefined
+  preRenderAction?: IRef | null | undefined
 
-  prevSibling?: IEntity | null | undefined
+  prevSibling?: IRef | null | undefined
 
   props: IPropDTO
 

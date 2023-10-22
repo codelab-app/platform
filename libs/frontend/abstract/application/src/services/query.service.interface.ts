@@ -1,9 +1,10 @@
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 
 export interface ICRUDService<
-  Entity extends IEntity,
+  Entity extends IRef,
   CreateData,
-  UpdateData extends IEntity,
+  UpdateData extends IRef,
 > {
   create(data: CreateData): Promise<Entity>
   /**

@@ -77,7 +77,7 @@ export class PageApplicationService
       name: ROOT_ELEMENT_NAME,
       page: { id },
       props: rootElementProps,
-      renderType: this.atomService.defaultRenderType,
+      renderType: this.atomService.atomDomainService.defaultRenderType,
     })
 
     const appModel = throwIfUndefined(

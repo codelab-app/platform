@@ -14,6 +14,6 @@ export const IElementTypeDTO = Type.Composite([
 
 export type IElementTypeDTO = Static<typeof IElementTypeDTO>
 
-export const IElementType = Typebox.RequireTypename(IElementTypeDTO)
+export const IElementType = IElementTypeDTO
 
 export type IElementType = Static<typeof IElementType>

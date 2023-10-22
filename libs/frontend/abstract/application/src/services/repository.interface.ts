@@ -1,4 +1,4 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 /**
  * We have a repository for the frontend and the backend. The frontend repository should handle nested creates and updates. Since frontend API calls are more costly, we want to be able to update a graph of data in a single call
@@ -10,12 +10,12 @@ import type { IEntity } from '@codelab/shared/abstract/types'
  * @template Where where clause, at least need to implement ID
  */
 export interface IRepository<
-  Model extends IEntity,
+  Model extends IRef,
   ModelFragment,
   Where extends { id?: number | string | null },
   Option extends { limit?: number | null; offset?: number | null },
 > {
-  add(model: Model): Promise<IEntity | undefined>
+  add(model: Model): Promise<IRef | undefined>
   delete(models: Array<object>): Promise<number>
   find(
     where?: Where,

@@ -2,10 +2,10 @@ import type {
   IAppDTO,
   IElementDTO,
   IInterfaceTypeDTO,
+  IRef,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
 export const storeApiData = (): IInterfaceTypeDTO => ({
@@ -16,13 +16,13 @@ export const storeApiData = (): IInterfaceTypeDTO => ({
   name: `Test Store API`,
 })
 
-export const storeData = (api: IEntity): IStoreDTO => ({
+export const storeData = (api: IRef): IStoreDTO => ({
   api,
   id: v4(),
   name: 'Test Store',
 })
 
-export const appData = (owner: IEntity): IAppDTO => ({
+export const appData = (owner: IRef): IAppDTO => ({
   id: v4(),
   name: 'Codelab App',
   owner,

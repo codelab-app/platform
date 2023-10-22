@@ -7,13 +7,13 @@ import { IBaseActionDTO } from './base-action.dto.interface'
 export const ICodeActionDTO = Type.Composite([
   IBaseActionDTO,
   Type.Object({
-    __typename: Type.Optional(Type.Literal(`${IActionKind.CodeAction}`)),
+    __typename: Type.Literal(`${IActionKind.CodeAction}`),
     code: Type.String(),
   }),
 ])
 
 export type ICodeActionDTO = Static<typeof ICodeActionDTO>
 
-export const ICodeAction = Typebox.RequireTypename(ICodeActionDTO)
+export const ICodeAction = ICodeActionDTO
 
 export type ICodeAction = Static<typeof ICodeAction>

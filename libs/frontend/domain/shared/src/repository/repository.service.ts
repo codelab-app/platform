@@ -1,5 +1,5 @@
 import type { IRepository } from '@codelab/frontend/abstract/application'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 
 /**
@@ -7,7 +7,7 @@ import { Model, model } from 'mobx-keystone'
  */
 @model('@codelab/RepositoryService')
 export class RepositoryService<
-    IModel extends IEntity,
+    IModel extends IRef,
     ModelFragment,
     Where extends { id?: number | string | null },
     Option extends { limit?: number | null; offset?: number | null },
@@ -15,7 +15,7 @@ export class RepositoryService<
   extends Model({})
   implements IRepository<IModel, ModelFragment, Where, Option>
 {
-  add(item: IModel): Promise<IEntity | undefined> {
+  add(item: IModel): Promise<IRef | undefined> {
     throw new Error('Must implement `add` method')
   }
 
@@ -34,7 +34,7 @@ export class RepositoryService<
     return (await this.find(where)).items[0]
   }
 
-  update(item: IModel, where: Where): Promise<IEntity | undefined> {
+  update(item: IModel, where: Where): Promise<IRef | undefined> {
     throw new Error('Must implement `update` method')
   }
 }

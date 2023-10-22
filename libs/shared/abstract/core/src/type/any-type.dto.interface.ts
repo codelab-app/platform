@@ -1,9 +1,6 @@
-import {
-  IDiscriminatedEntity,
-  IMaybeDiscriminatedEntity,
-} from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IDiscriminatedRef } from '../model/node-type.interface'
 import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'
 
@@ -26,37 +23,37 @@ export const IAnyBaseType = Type.Union([
 export type IAnyBaseType = Static<typeof IAnyBaseType>
 
 export const ITypeRef = Type.Union([
-  IDiscriminatedEntity(`${ITypeKind.ActionType}`),
-  IDiscriminatedEntity(`${ITypeKind.AppType}`),
-  IDiscriminatedEntity(`${ITypeKind.ArrayType}`),
-  IDiscriminatedEntity(`${ITypeKind.CodeMirrorType}`),
-  IDiscriminatedEntity(`${ITypeKind.ElementType}`),
-  IDiscriminatedEntity(`${ITypeKind.EnumType}`),
-  IDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
-  IDiscriminatedEntity(`${ITypeKind.LambdaType}`),
-  IDiscriminatedEntity(`${ITypeKind.PageType}`),
-  IDiscriminatedEntity(`${ITypeKind.PrimitiveType}`),
-  IDiscriminatedEntity(`${ITypeKind.ReactNodeType}`),
-  IDiscriminatedEntity(`${ITypeKind.RenderPropType}`),
-  IDiscriminatedEntity(`${ITypeKind.UnionType}`),
+  IDiscriminatedRef(`${ITypeKind.ActionType}`),
+  IDiscriminatedRef(`${ITypeKind.AppType}`),
+  IDiscriminatedRef(`${ITypeKind.ArrayType}`),
+  IDiscriminatedRef(`${ITypeKind.CodeMirrorType}`),
+  IDiscriminatedRef(`${ITypeKind.ElementType}`),
+  IDiscriminatedRef(`${ITypeKind.EnumType}`),
+  IDiscriminatedRef(`${ITypeKind.InterfaceType}`),
+  IDiscriminatedRef(`${ITypeKind.LambdaType}`),
+  IDiscriminatedRef(`${ITypeKind.PageType}`),
+  IDiscriminatedRef(`${ITypeKind.PrimitiveType}`),
+  IDiscriminatedRef(`${ITypeKind.ReactNodeType}`),
+  IDiscriminatedRef(`${ITypeKind.RenderPropType}`),
+  IDiscriminatedRef(`${ITypeKind.UnionType}`),
 ])
 
 export type ITypeRef = Static<typeof ITypeRef>
 
 export const ITypeMaybeRef = Type.Union([
-  IMaybeDiscriminatedEntity(`${ITypeKind.ActionType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.AppType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.ArrayType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.CodeMirrorType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.ElementType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.EnumType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.LambdaType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.PageType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.PrimitiveType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.ReactNodeType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.RenderPropType}`),
-  IMaybeDiscriminatedEntity(`${ITypeKind.UnionType}`),
+  IDiscriminatedRef(`${ITypeKind.ActionType}`),
+  IDiscriminatedRef(`${ITypeKind.AppType}`),
+  IDiscriminatedRef(`${ITypeKind.ArrayType}`),
+  IDiscriminatedRef(`${ITypeKind.CodeMirrorType}`),
+  IDiscriminatedRef(`${ITypeKind.ElementType}`),
+  IDiscriminatedRef(`${ITypeKind.EnumType}`),
+  IDiscriminatedRef(`${ITypeKind.InterfaceType}`),
+  IDiscriminatedRef(`${ITypeKind.LambdaType}`),
+  IDiscriminatedRef(`${ITypeKind.PageType}`),
+  IDiscriminatedRef(`${ITypeKind.PrimitiveType}`),
+  IDiscriminatedRef(`${ITypeKind.ReactNodeType}`),
+  IDiscriminatedRef(`${ITypeKind.RenderPropType}`),
+  IDiscriminatedRef(`${ITypeKind.UnionType}`),
 ])
 
 export type ITypeMaybeRef = Static<typeof ITypeMaybeRef>

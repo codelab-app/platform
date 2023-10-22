@@ -1,12 +1,11 @@
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageDTO, IRef } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 
 export const providerPageData = (
   id: string,
-  app: IEntity,
-  store: IEntity,
-  rootElement: IEntity,
+  app: IRef,
+  store: IRef,
+  rootElement: IRef,
 ): IPageDTO => ({
   app,
   id,
@@ -22,9 +21,9 @@ export const providerPageData = (
 
 export const notFoundPageData = (
   id: string,
-  app: IEntity,
-  store: IEntity,
-  rootElement: IEntity,
+  app: IRef,
+  store: IRef,
+  rootElement: IRef,
 ): IPageDTO => ({
   app,
   id,
@@ -37,9 +36,9 @@ export const notFoundPageData = (
 
 export const internalServerErrorPageData = (
   id: string,
-  app: IEntity,
-  store: IEntity,
-  rootElement: IEntity,
+  app: IRef,
+  store: IRef,
+  rootElement: IRef,
 ): IPageDTO => ({
   app,
   id,

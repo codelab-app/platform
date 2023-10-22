@@ -51,15 +51,6 @@ export class AtomService
   })
   implements IAtomService
 {
-  @computed
-  get defaultRenderType() {
-    const renderType = this.atomDomainService.atomsList.find(
-      (atom) => atom.type === IAtomType.ReactFragment,
-    )?.toJson
-
-    return throwIfUndefined(renderType)
-  }
-
   /**
    * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
    */

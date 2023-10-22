@@ -19,9 +19,8 @@ import {
   CodeAction,
 } from '@codelab/frontend/domain/store'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
-import type { IActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionDTO, IRef } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
@@ -177,7 +176,7 @@ export class ActionService
     return this.actions.get(id)
   }
 
-  getSelectActionOptions(actionEntity?: IEntity) {
+  getSelectActionOptions(actionEntity?: IRef) {
     const { selectedNode } = this.builderService
     const selectedNodeStore = selectedNode?.current.store.current
 

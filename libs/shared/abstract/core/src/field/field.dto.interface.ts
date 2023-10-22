@@ -1,18 +1,19 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IRef } from '../model/node-type.interface'
+import { IInterfaceTypeRef, ITypeMaybeRef } from '../type'
 
 export const IFieldDTO = Type.Object({
-  api: IEntity,
+  api: IRef,
   defaultValues: Typebox.Nullish(Type.Any()),
   description: Typebox.Nullish(Type.String()),
-  fieldType: IEntity,
+  fieldType: IRef,
   id: Type.String(),
   key: Type.String(),
   name: Typebox.Nullish(Type.String()),
-  nextSibling: Typebox.Nullish(IEntity),
-  prevSibling: Typebox.Nullish(IEntity),
+  nextSibling: Typebox.Nullish(IRef),
+  prevSibling: Typebox.Nullish(IRef),
   validationRules: Typebox.Nullish(Type.Any()),
 })
 

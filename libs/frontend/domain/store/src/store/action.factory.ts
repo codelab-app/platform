@@ -60,14 +60,14 @@ export class ActionFactory extends Model({}) implements IActionFactory {
             id: action.config.id,
           },
           errorAction: action.errorAction
-            ? { id: action.errorAction.id }
+            ? { __typename: IActionKind.ApiAction, id: action.errorAction.id }
             : undefined,
           id: action.id,
           name: action.name,
           resource: { id: action.resource.id },
           store: { id: action.store.id },
           successAction: action.successAction
-            ? { id: action.successAction.id }
+            ? { __typename: IActionKind.ApiAction, id: action.successAction.id }
             : undefined,
         }
     }
@@ -88,12 +88,12 @@ export class ActionFactory extends Model({}) implements IActionFactory {
           __typename: IActionKind.ApiAction,
           config: { data: JSON.stringify(data.config), id: data.id },
           errorAction: data.errorActionId
-            ? { id: data.errorActionId }
+            ? { __typename: IActionKind.ApiAction, id: data.errorActionId }
             : undefined,
           resource: { id: data.resourceId },
           store: { id: data.storeId },
           successAction: data.successActionId
-            ? { id: data.successActionId }
+            ? { __typename: IActionKind.ApiAction, id: data.successActionId }
             : undefined,
         }
     }
@@ -128,8 +128,12 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     return {
       ...apiActionFragment,
       config,
-      errorAction: errorAction ? { id: errorAction.id } : undefined,
-      successAction: successAction ? { id: successAction.id } : undefined,
+      errorAction: errorAction
+        ? { __typename: IActionKind.ApiAction, id: errorAction.id }
+        : undefined,
+      successAction: successAction
+        ? { __typename: IActionKind.ApiAction, id: successAction.id }
+        : undefined,
     }
   }
 

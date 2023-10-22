@@ -11,7 +11,8 @@ import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 import config from '../twind.config'
 
-install(config)
+// TODO: Commented out showing too many logs, enable only for builder/preview
+// install(config)
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const store = useMemo(() => {

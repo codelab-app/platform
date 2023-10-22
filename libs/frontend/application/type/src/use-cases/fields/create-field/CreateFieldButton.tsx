@@ -13,8 +13,7 @@ export const CreateFieldButton = observer<{
 
   const onClick = () => {
     const form = useModal ? fieldService.createModal : fieldService.createForm
-
-    form.open(interfaceType)
+    form.open(typeRef(interfaceType))
   }
 
   return (

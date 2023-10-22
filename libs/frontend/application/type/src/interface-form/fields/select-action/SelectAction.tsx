@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type {
-  IEntity,
-  UniformSelectFieldProps,
-} from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
 
@@ -12,7 +10,7 @@ export type SelectActionProps = Pick<
   'error' | 'label' | 'name' | 'required' | 'value'
 > & {
   onChange(value: unknown): void
-  updatedAction?: IEntity
+  updatedAction?: IRef
 }
 
 export const SelectAction = (fieldProps: SelectActionProps) => {

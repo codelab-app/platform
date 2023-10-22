@@ -1,29 +1,29 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeDto } from './element-render-type'
+import { IRef } from './model/node-type.interface'
 import { IProp, IPropDTO } from './prop.dto.interface'
 
 export const IElementDTO = Type.Object({
-  childMapperComponent: Typebox.Nullish(IEntity),
-  childMapperPreviousSibling: Typebox.Nullish(IEntity),
+  childMapperComponent: Typebox.Nullish(IRef),
+  childMapperPreviousSibling: Typebox.Nullish(IRef),
   childMapperPropKey: Typebox.Nullish(Type.String()),
   /**
    * For frontend models we can compute from Mobx, but for backend we would map the data in
    */
-  closestContainerNode: IEntity,
+  closestContainerNode: IRef,
   compositeKey: Typebox.Nullish(Type.String()),
-  firstChild: Typebox.Nullish(IEntity),
+  firstChild: Typebox.Nullish(IRef),
   id: Type.String(),
   name: Type.String(),
-  nextSibling: Typebox.Nullish(IEntity),
-  page: Typebox.Nullish(IEntity),
-  parentComponent: Typebox.Nullish(IEntity),
-  parentElement: Typebox.Nullish(IEntity),
-  postRenderAction: Typebox.Nullish(IEntity),
-  preRenderAction: Typebox.Nullish(IEntity),
-  prevSibling: Typebox.Nullish(IEntity),
+  nextSibling: Typebox.Nullish(IRef),
+  page: Typebox.Nullish(IRef),
+  parentComponent: Typebox.Nullish(IRef),
+  parentElement: Typebox.Nullish(IRef),
+  postRenderAction: Typebox.Nullish(IRef),
+  preRenderAction: Typebox.Nullish(IRef),
+  prevSibling: Typebox.Nullish(IRef),
   // Treat element as aggregate, so we include prop data here
   props: IPropDTO,
   renderForEachPropKey: Typebox.Nullish(Type.String()),
@@ -50,7 +50,7 @@ export const ICreateElementDTO = Type.Composite([
     /**
      * Used for composite key
      */
-    closestContainerNode: IEntity,
+    closestContainerNode: IRef,
   }),
 ])
 

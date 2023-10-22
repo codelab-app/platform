@@ -6,6 +6,7 @@ import {
   pageDto,
 } from '@codelab/frontend/test/data'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
+import { appData } from '@codelab/shared/data/test'
 import { v4 } from 'uuid'
 
 describe('Create element', () => {

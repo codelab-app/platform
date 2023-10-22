@@ -6,7 +6,7 @@ import type {
   DomainOptions,
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { ObjectMap } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
@@ -17,7 +17,7 @@ import type {
 export interface IDomainService
   extends ICRUDService<IDomainModel, ICreateDomainData, ICreateDomainData>,
     Omit<IQueryService<IDomainModel, DomainWhere, DomainOptions>, 'getOne'>,
-    ICRUDModalService<IDomainModel, { domain?: IDomainModel }> {
+    ICRUDModalService<Ref<IDomainModel>, { domain?: IDomainModel }> {
   createModal: IModalService
   domains: ObjectMap<IDomainModel>
   domainsList: Array<IDomainModel>

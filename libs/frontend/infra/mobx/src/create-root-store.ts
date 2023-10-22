@@ -7,6 +7,7 @@ import {
   resourceServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
+import { atomDomainServiceContext } from '@codelab/frontend/abstract/domain'
 import { AdminService } from '@codelab/frontend/application/admin'
 import { AppService } from '@codelab/frontend/application/app'
 import {
@@ -55,6 +56,7 @@ import {
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
 import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
+import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import {
   TracerService,
   tracerServiceContext,
@@ -106,11 +108,14 @@ export const createRootStore = ({ user }: RootStoreData) => {
       domainServiceContext.set(this, this.domainService)
       pageServiceContext.set(this, this.pageService)
       typeServiceContext.set(this, this.typeService)
+      typeDomainServiceContext.set(this, this.typeService.typeDomainService)
       atomServiceContext.set(this, this.atomService)
+      atomDomainServiceContext.set(this, this.atomService.atomDomainService)
       componentServiceContext.set(this, this.componentService)
       storeDomainServiceContext.set(this, this.storeService.storeDomainService)
       actionServiceContext.set(this, this.actionService)
       storeServiceContext.set(this, this.storeService)
+      storeDomainServiceContext.set(this, this.storeService.storeDomainService)
       resourceServiceContext.set(this, this.resourceService)
       propServiceContext.set(this, this.propService)
       elementServiceContext.set(this, this.elementService)

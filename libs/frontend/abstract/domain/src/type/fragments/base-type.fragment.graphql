@@ -3,8 +3,5 @@ fragment BaseType on IBaseType {
   __typename
   id
   kind
-  # owner {
-  #   ...Owner
-  # }
   name
 }

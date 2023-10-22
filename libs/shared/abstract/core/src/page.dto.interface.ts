@@ -1,18 +1,18 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IRef } from './model/node-type.interface'
 import { IPageKind } from './page-kind.enum'
 
 export const IPageDTO = Type.Object({
-  app: IEntity,
+  app: IRef,
   id: Type.String(),
   kind: Type.Enum(IPageKind),
   name: Type.String(),
   // The container element of the page
-  pageContentContainer: Typebox.Nullish(IEntity),
-  rootElement: IEntity,
-  store: IEntity,
+  pageContentContainer: Typebox.Nullish(IRef),
+  rootElement: IRef,
+  store: IRef,
   url: Type.String(),
 })
 

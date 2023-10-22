@@ -104,7 +104,7 @@ export class ComponentApplicationService
       name: Store.createName({ name }),
     })
 
-    const fragmentAtom = this.atomService.defaultRenderType
+    const fragmentAtom = this.atomService.atomDomainService.defaultRenderType
 
     this.atomService.atomDomainService.add(fragmentAtom)
 

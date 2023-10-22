@@ -34,7 +34,7 @@ import keys from 'lodash/keys'
 import merge from 'lodash/merge'
 import { autorun, computed, observable, set } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { clone, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { getStoreDomainService } from '../services/store.domain.service.context'
 
@@ -90,12 +90,7 @@ export class Store
   @computed
   get toJson() {
     return {
-      actions: this.actions.map((action) => {
-        return {
-          ...action.current,
-          __typename: `${action.current.type}`,
-        } as IAction
-      }),
+      actions: this.actions.map((action) => action.current as IAction),
       api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
       component: this.component,
       id: this.id,

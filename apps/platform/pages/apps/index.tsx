@@ -21,7 +21,7 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -76,7 +76,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, userService } = useStore()
   const user = userService.user
 
-  const [{ status }, loadAppsPreview] = useAsync((owner: IEntity) =>
+  const [{ status }, loadAppsPreview] = useAsync((owner: IRef) =>
     appService.loadAppsPreview({ owner }),
   )
 

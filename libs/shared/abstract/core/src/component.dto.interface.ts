@@ -1,20 +1,20 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeKind } from './element-render-type'
+import { IRef } from './model/node-type.interface'
 import { IProp, IPropDTO } from './prop.dto.interface'
 
 export const IComponentDTO = Type.Object({
-  api: IEntity,
-  childrenContainerElement: IEntity,
+  api: IRef,
+  childrenContainerElement: IRef,
   id: Type.String(),
   keyGenerator: Typebox.Nullish(Type.String()),
   name: Type.String(),
-  owner: Typebox.Nullish(IEntity),
+  owner: Typebox.Nullish(IRef),
   props: IPropDTO,
-  rootElement: IEntity,
-  store: IEntity,
+  rootElement: IRef,
+  store: IRef,
 })
 
 export type IComponentDTO = Static<typeof IComponentDTO>

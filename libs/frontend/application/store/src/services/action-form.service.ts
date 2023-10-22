@@ -10,27 +10,27 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/CreateActionFormService')
 export class CreateActionFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<IStoreModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IStoreModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<IStoreModel, { store?: IStoreModel }>
+  implements IEntityFormService<Ref<IStoreModel>, { store?: IStoreModel }>
 {
   @computed
   get store() {
-    return this.metadata
+    return this.metadata?.current
   }
 }
 
 @model('@codelab/ActionFormService')
 export class ActionFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<IActionModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IActionModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<IActionModel, { action?: IActionModel }>
+  implements IEntityFormService<Ref<IActionModel>, { action?: IActionModel }>
 {
   @computed
   get action() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

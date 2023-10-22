@@ -11,6 +11,7 @@ import { idProp, Model, prop } from 'mobx-keystone'
 export const createBaseAction = <T extends IActionKind>(type: T) =>
   class
     extends Model({
+      __typename: prop<T>(() => type),
       element: prop<Maybe<Ref<IElementModel>>>(),
       id: idProp,
       name: prop<string>(),

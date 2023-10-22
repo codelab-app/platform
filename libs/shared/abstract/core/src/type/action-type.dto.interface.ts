@@ -10,6 +10,6 @@ export const IActionTypeDTO = IBaseTypeDTO(
 
 export type IActionTypeDTO = Static<typeof IActionTypeDTO>
 
-export const IActionType = Typebox.RequireTypename(IActionTypeDTO)
+export const IActionType = IActionTypeDTO
 
 export type IActionType = Static<typeof IActionType>

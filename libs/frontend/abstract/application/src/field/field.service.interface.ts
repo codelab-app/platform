@@ -6,9 +6,9 @@ import type {
   IUpdateFieldData,
 } from '@codelab/frontend/abstract/domain'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
-import type { IFieldDTO } from '@codelab/shared/abstract/core'
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
-import type { ObjectMap } from 'mobx-keystone'
+import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -24,16 +24,19 @@ export interface IFieldService
       'delete'
     >,
     Omit<
-      ICRUDModalService<IFieldModel, { field?: IFieldModel }>,
+      ICRUDModalService<Ref<IFieldModel>, { field?: IFieldModel }>,
       'createModal'
     >,
-    Omit<ICRUDFormService<IFieldModel, { field?: IFieldModel }>, 'createForm'> {
+    Omit<
+      ICRUDFormService<Ref<IFieldModel>, { field?: IFieldModel }>,
+      'createForm'
+    > {
   createForm: IEntityFormService<
-    IInterfaceTypeModel,
+    Ref<IInterfaceTypeModel>,
     { interface?: IInterfaceTypeModel }
   >
   createModal: IEntityModalService<
-    IInterfaceTypeModel,
+    Ref<IInterfaceTypeModel>,
     { interface?: IInterfaceTypeModel }
   >
   fieldRepository: IFieldRepository
@@ -45,11 +48,11 @@ export interface IFieldService
   getField(id: string): Maybe<IFieldModel<ITypeModel>>
   load(fields: Array<FieldFragment>): void
   moveFieldAsNextSibling(props: {
-    field: IEntity
-    targetField: IEntity
+    field: IRef
+    targetField: IRef
   }): Promise<void>
   moveFieldAsPrevSibling(props: {
-    field: IEntity
-    targetField: IEntity
+    field: IRef
+    targetField: IRef
   }): Promise<void>
 }

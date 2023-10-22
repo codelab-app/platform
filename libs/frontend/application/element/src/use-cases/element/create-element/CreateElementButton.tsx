@@ -3,7 +3,10 @@ import type {
   IElementService,
   IEntityFormService,
 } from '@codelab/frontend/abstract/application'
-import type { IElementTree } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementModel,
+  IElementTree,
+} from '@codelab/frontend/abstract/domain'
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -13,7 +16,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 export type CreateElementButtonProps = React.ComponentProps<typeof Button> & {
-  activeForm?: IEntityFormService<Ref<object>> | null
+  activeForm?: IEntityFormService<Ref<IElementModel>> | null
   createElementForm: IElementService['createForm']
   selectedElementId: Maybe<string>
   elementTree: IElementTree

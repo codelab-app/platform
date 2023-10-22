@@ -23,11 +23,11 @@ export interface ITagService
       'delete'
     >,
     Omit<IQueryService<ITagModel, TagWhere, TagOptions>, 'getOne'>,
-    Omit<ICRUDModalService<ITagModel, { tag?: ITagModel }>, 'deleteModal'>,
-    ICRUDFormService<ITagModel, { tag?: ITagModel }> {
+    Omit<ICRUDModalService<Ref<ITagModel>, { tag?: ITagModel }>, 'deleteModal'>,
+    ICRUDFormService<Ref<ITagModel>, { tag?: ITagModel }> {
   checkedTags: Array<Ref<ITagModel>>
   deleteManyModal: IEntityModalService<
-    Array<ITagModel>,
+    Array<Ref<ITagModel>>,
     { tags: Array<ITagModel> }
   >
   selectedOption: LabeledValue

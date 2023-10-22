@@ -6,6 +6,7 @@ import type {
 import type { GetRenderedPageQuery } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -18,8 +19,8 @@ export interface IPageApplicationService
       ICRUDService<IPageModel, ICreatePageData, IUpdatePageData>,
       'update'
     >,
-    ICRUDModalService<IPageModel, { page?: IPageModel }>,
-    ICRUDFormService<IPageModel, { page?: IPageModel }> {
+    ICRUDModalService<Ref<IPageModel>, { page?: IPageModel }>,
+    ICRUDFormService<Ref<IPageModel>, { page?: IPageModel }> {
   pageRepository: IPageRepository
 
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>

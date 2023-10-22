@@ -5,6 +5,7 @@ import { slug } from './field/element-slug'
 
 export const elementResolver: IResolvers = {
   Element: {
+    __typename: 'Element',
     name,
     // renderType,
     slug,

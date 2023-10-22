@@ -1,5 +1,5 @@
 import type { Element } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { uuidRegex } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 
@@ -10,7 +10,7 @@ interface ElementData {
 export class ElementProperties {
   static elementCompositeKey = (
     elementName: string,
-    closestContainerNode: IEntity,
+    closestContainerNode: IRef,
   ) => {
     return `${closestContainerNode.id}-${elementName}`
   }

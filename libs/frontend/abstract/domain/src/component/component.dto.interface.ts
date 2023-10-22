@@ -1,11 +1,10 @@
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IComponentDTO, IRef } from '@codelab/shared/abstract/core'
 
 export type ICreateComponentData = Pick<
   IComponentDTO,
   'id' | 'keyGenerator' | 'name'
 > & {
-  rootElement?: IEntity
+  rootElement?: IRef
 }
 
 export type IUpdateComponentData = Pick<

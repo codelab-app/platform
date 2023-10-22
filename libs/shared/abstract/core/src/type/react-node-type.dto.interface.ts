@@ -10,6 +10,6 @@ export const IReactNodeTypeDTO = Type.Composite([
 
 export type IReactNodeTypeDTO = Static<typeof IReactNodeTypeDTO>
 
-export const IReactNodeType = Typebox.RequireTypename(IReactNodeTypeDTO)
+export const IReactNodeType = IReactNodeTypeDTO
 
 export type IReactNodeType = Static<typeof IReactNodeType>

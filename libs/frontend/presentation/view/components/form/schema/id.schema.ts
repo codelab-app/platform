@@ -1,4 +1,4 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 import { showFieldOnDev } from './show-field-on-dev'
 
@@ -9,7 +9,7 @@ export const idSchema = ({
   label?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: React.FunctionComponent<any>
-} = {}): PropertiesSchema<IEntity> => ({
+} = {}): PropertiesSchema<IRef> => ({
   id: {
     type: 'string',
     ...(label ? { label } : {}),

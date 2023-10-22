@@ -1,9 +1,9 @@
-import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IRef } from './model/node-type.interface'
 
 export const IDomainDTO = Type.Object({
-  app: IEntity,
+  app: IRef,
   /**
    * https://stackoverflow.com/a/74650249/2159920
    *

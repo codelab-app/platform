@@ -23,11 +23,9 @@ import {
 import { Prop } from '@codelab/frontend/domain/prop'
 import type { ComponentUpdateInput } from '@codelab/shared/abstract/codegen'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import {
-  type IComponentDTO,
-  IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IComponentDTO, IRef } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
@@ -69,7 +67,7 @@ export class Component
     name: prop<string>().withSetter(),
     props: prop<IPropModel>().withSetter(),
     // if this is a duplicate, trace source component id else null
-    sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
+    sourceComponent: prop<Nullable<IRef>>(null).withSetter(),
     store: prop<Ref<IStoreModel>>().withSetter(),
   })
   implements IComponentModel

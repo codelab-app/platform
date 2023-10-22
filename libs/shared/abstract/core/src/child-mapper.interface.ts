@@ -1,6 +1,6 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from './model/node-type.interface'
 
 export interface IChildMapper {
-  component: IEntity
+  component: IRef
   propKey: string
 }

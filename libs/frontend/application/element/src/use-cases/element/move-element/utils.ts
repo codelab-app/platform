@@ -1,8 +1,8 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 export const shouldMoveElementAsNextSibling = (
-  currentPrevSibling: Partial<IEntity>,
-  newPrevSiblingId: Partial<IEntity>,
+  currentPrevSibling: Partial<IRef>,
+  newPrevSiblingId: Partial<IRef>,
 ) => {
   const changePrevSibling = currentPrevSibling !== newPrevSiblingId
 
@@ -10,10 +10,10 @@ export const shouldMoveElementAsNextSibling = (
 }
 
 export const shouldMoveElementAsFirstChild = (
-  currentParentElement: Partial<IEntity>,
-  newParentElement: Partial<IEntity>,
-  currentPrevSibling: Partial<IEntity>,
-  newPrevSibling: Partial<IEntity>,
+  currentParentElement: Partial<IRef>,
+  newParentElement: Partial<IRef>,
+  currentPrevSibling: Partial<IRef>,
+  newPrevSibling: Partial<IRef>,
 ) => {
   const changeParent = currentParentElement.id !== newParentElement.id
   const changePrevSibling = currentPrevSibling.id !== newPrevSibling.id

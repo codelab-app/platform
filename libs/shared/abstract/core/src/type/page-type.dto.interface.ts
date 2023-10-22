@@ -10,6 +10,6 @@ export const IPageTypeDTO = Type.Composite([
 
 export type IPageTypeDTO = Static<typeof IPageTypeDTO>
 
-export const IPageType = Typebox.RequireTypename(IPageTypeDTO)
+export const IPageType = IPageTypeDTO
 
 export type IPageType = Static<typeof IPageType>

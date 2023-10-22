@@ -24,6 +24,7 @@ export class ModalService<TMetadata extends object>
   @modelAction
   open(metadata: TMetadata) {
     this.isOpen = true
+    console.log(this.metadata, metadata)
     this.metadata = metadata
 
     Router.events.on('routeChangeStart', this.closeOnRouteChange)

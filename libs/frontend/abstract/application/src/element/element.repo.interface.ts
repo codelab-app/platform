@@ -4,7 +4,7 @@ import type {
   ElementFragment,
   ElementWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { IRepository } from '../services'
 
 export interface IElementRepository
@@ -14,5 +14,5 @@ export interface IElementRepository
     ElementWhere,
     DomainOptions
   > {
-  updateNodes(element: IElementModel): Promise<IEntity>
+  updateNodes(element: IElementModel): Promise<IRef>
 }

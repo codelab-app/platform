@@ -35,9 +35,13 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IPropData } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  IPropData,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -137,7 +141,7 @@ export class Element
     name: prop<string>().withSetter(),
     nextSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
-    owner: prop<Nullable<IEntity>>(null),
+    owner: prop<Nullable<IRef>>(null),
     // page which has this element as rootElement
     page: prop<Nullable<Ref<IPageModel>>>(null),
     // component which has this element as rootElement
@@ -154,7 +158,7 @@ export class Element
     renderType: prop<IElementRenderTypeModel>().withSetter(),
     // .withTransform(renderTypeTransform()),
     // if this is a duplicate, trace source element id else null
-    sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
+    sourceElement: prop<Nullable<IRef>>(null).withSetter(),
     style: prop(() => new ElementStyle({})),
     tailwindClassNames: prop<Nullable<Array<string>>>(null).withSetter(),
   })

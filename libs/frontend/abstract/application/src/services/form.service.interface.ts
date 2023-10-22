@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AnyModel } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { IToggleController } from './toggle.service.interface'
 
@@ -14,7 +14,7 @@ export type IFormService<
 }
 
 export type IEntityFormService<
-  Metadata extends ArrayOrSingle<AnyModel>,
+  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, ArrayOrSingle<AnyModel>> = Record<
     string,
     any
@@ -24,7 +24,7 @@ export type IEntityFormService<
 }
 
 export interface ICRUDFormService<
-  Metadata extends ArrayOrSingle<AnyModel>,
+  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, AnyModel>,
 > {
   createForm: IFormService

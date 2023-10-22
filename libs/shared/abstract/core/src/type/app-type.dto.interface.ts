@@ -8,6 +8,6 @@ export const IAppTypeDTO = IBaseTypeDTO(Type.Literal(`${ITypeKind.AppType}`))
 
 export type IAppTypeDTO = Static<typeof IAppTypeDTO>
 
-export const IAppType = Typebox.RequireTypename(IAppTypeDTO)
+export const IAppType = IAppTypeDTO
 
 export type IAppType = Static<typeof IAppType>

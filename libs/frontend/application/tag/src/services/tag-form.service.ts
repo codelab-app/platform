@@ -7,13 +7,13 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/TagFormService')
 export class TagFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<ITagModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<ITagModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<ITagModel, { tag?: ITagModel }>
+  implements IEntityFormService<Ref<ITagModel>, { tag?: ITagModel }>
 {
   @computed
   get tag() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

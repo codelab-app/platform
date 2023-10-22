@@ -1,10 +1,10 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
-import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IRef } from './model/node-type.interface'
 
 export const IPropDTO = Type.Object({
-  api: Typebox.Nullish(IEntity),
+  api: Typebox.Nullish(IRef),
   data: Type.String(),
   id: Type.String(),
 })

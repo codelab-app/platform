@@ -14,8 +14,8 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { IPageDTO, IPageKind, IRef } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   PageProperties,
@@ -53,7 +53,7 @@ const create = ({
 @model('@codelab/Page')
 export class Page
   extends ExtendedModel(ElementTree, {
-    app: prop<IEntity>(),
+    app: prop<IRef>(),
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),

@@ -1,11 +1,11 @@
 import { IModel } from '@codelab/backend/abstract/types'
 import type { PageKind } from '@codelab/shared/abstract/codegen'
-import type { IPage, IPageDTO } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { IPage, IPageDTO, IRef } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import { slugify } from 'voca'
 
 export class Page extends IModel implements IPage {
-  app: IEntity
+  app: IRef
 
   id: string
 
@@ -13,11 +13,11 @@ export class Page extends IModel implements IPage {
 
   name: string
 
-  pageContentContainer?: Nullish<IEntity>
+  pageContentContainer?: Nullish<IRef>
 
-  rootElement: IEntity
+  rootElement: IRef
 
-  store: IEntity
+  store: IRef
 
   url: string
 

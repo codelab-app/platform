@@ -3,17 +3,17 @@ import { InterfaceType } from '@codelab/backend/domain/type'
 import type {
   IAction,
   IInterfaceTypeRef,
+  IRef,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
 export class Store implements IStore {
   static create(name: string) {
     const api = new InterfaceType({
-      fields: [] as Array<IEntity>,
+      fields: [] as Array<IRef>,
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,

@@ -4,8 +4,8 @@ import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
-import type { IDomainDTO } from '@codelab/shared/abstract/core'
-import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
+import type { IDomainDTO, IRef } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -23,7 +23,7 @@ const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDTO) => {
 @model('@codelab/Domain')
 export class Domain
   extends Model({
-    app: prop<IEntity>(),
+    app: prop<IRef>(),
     domainConfig: prop<Maybe<VercelDomainConfig>>(),
     id: idProp,
     name: prop<string>(),

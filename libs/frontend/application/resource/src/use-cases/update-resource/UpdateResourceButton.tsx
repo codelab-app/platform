@@ -17,9 +17,7 @@ export const UpdateResourceButton = observer(
         disabled={disabled}
         ghost
         icon={<EditOutlined />}
-        onClick={() =>
-          resourceService.updateModal.open(resourceRef(id).current)
-        }
+        onClick={() => resourceService.updateModal.open(resourceRef(id))}
         size="small"
         type="primary"
       />

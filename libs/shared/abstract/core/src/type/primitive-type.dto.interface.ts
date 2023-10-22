@@ -14,6 +14,6 @@ export const IPrimitiveTypeDTO = Type.Composite([
 
 export type IPrimitiveTypeDTO = Static<typeof IPrimitiveTypeDTO>
 
-export const IPrimitiveType = Typebox.RequireTypename(IPrimitiveTypeDTO)
+export const IPrimitiveType = IPrimitiveTypeDTO
 
 export type IPrimitiveType = Static<typeof IPrimitiveType>

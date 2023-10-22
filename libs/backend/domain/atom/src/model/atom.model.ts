@@ -3,9 +3,9 @@ import type {
   IAtomDTO,
   IAtomType,
   IInterfaceTypeRef,
+  IRef,
 } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { type IEntity } from '@codelab/shared/abstract/types'
 import type { ValidationError } from 'class-validator'
 import { validateSync } from 'class-validator'
 
@@ -41,11 +41,11 @@ export class Atom implements IAtom {
 
   name: string
 
-  requiredParents: Array<IEntity>
+  requiredParents: Array<IRef>
 
-  suggestedChildren: Array<IEntity>
+  suggestedChildren: Array<IRef>
 
-  tags: Array<IEntity>
+  tags: Array<IRef>
 
   // Assuming this is a string, add validators as per actual type
   type: IAtomType
