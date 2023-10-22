@@ -4,7 +4,7 @@ import type {
   IInterfaceTypeModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { typeRef } from '@codelab/frontend/abstract/domain'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -15,11 +15,11 @@ export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {
   const { fieldService } = useStore()
 
   const onEdit = (field: IFieldModel<ITypeModel>) => {
-    fieldService.updateModal.open(field)
+    fieldService.updateModal.open(fieldRef(field))
   }
 
   const onDelete = (field: IFieldModel<ITypeModel>) => {
-    fieldService.deleteModal.open(field)
+    fieldService.deleteModal.open(fieldRef(field))
   }
 
   const editMenuItems = atom.api.current.fields.map((field) => {
@@ -48,7 +48,7 @@ export const PropsColumn = observer<AtomColumnProps>(({ atom }) => {
             }
 
             fieldService.createModal.open(
-              typeRef<IInterfaceTypeModel>(atom.api.id).current,
+              typeRef<IInterfaceTypeModel>(atom.api.id),
             )
           }}
         >

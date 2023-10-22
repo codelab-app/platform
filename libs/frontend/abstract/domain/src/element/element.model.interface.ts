@@ -6,13 +6,9 @@ import type {
   IElement,
   IElementDTO,
   IPropData,
+  IRef,
 } from '@codelab/shared/abstract/core'
-import type {
-  IEntity,
-  Maybe,
-  Nullable,
-  Nullish,
-} from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
 import type { BuilderWidthBreakPoint } from '../builder'
@@ -135,7 +131,7 @@ export interface IElementModel
   label: string
   name: string
   nextSibling?: Nullable<Ref<IElementModel>>
-  owner: Nullable<IEntity>
+  owner: Nullable<IRef>
   page: Nullable<Ref<IPageModel>>
   // page that this element belongs to
   // component that this element belongs to
@@ -161,7 +157,7 @@ export interface IElementModel
    * to render a component we create a duplicate for each element
    * keeps track of source element in case this is a duplicate
    */
-  sourceElement: Nullable<IEntity>
+  sourceElement: Nullable<IRef>
   // store attached to closestContainerNode
   store: Ref<IStoreModel>
   style: IElementStyleModel

@@ -5,36 +5,37 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { InlineFormService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/CreateFieldFormService')
 export class CreateFieldFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<IInterfaceTypeModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IInterfaceTypeModel>>>(InlineFormService),
     {},
   )
   implements
     IEntityFormService<
-      IInterfaceTypeModel,
+      Ref<IInterfaceTypeModel>,
       { interface?: IInterfaceTypeModel }
     >
 {
   @computed
   get interface() {
-    return this.metadata
+    return this.metadata?.current
   }
 }
 
 @model('@codelab/FieldFormService')
 export class FieldFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<IFieldModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IFieldModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<IFieldModel, { field?: IFieldModel }>
+  implements IEntityFormService<Ref<IFieldModel>, { field?: IFieldModel }>
 {
   @computed
   get field() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

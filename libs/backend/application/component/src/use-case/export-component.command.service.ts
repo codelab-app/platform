@@ -41,7 +41,7 @@ export class ExportComponentHandler
     ).map((element) => ({
       ...element,
       renderType: {
-        __typename: throwIfUndefined(element.renderType.__typename),
+        __typename: element.renderType.__typename,
         id: element.renderType.id,
       },
     }))
@@ -69,7 +69,6 @@ export class ExportComponentHandler
     //   },
     // }
     const componentData: IComponentBoundedContext = {
-      __typename: 'Component',
       ...component,
       api,
       descendantElements,

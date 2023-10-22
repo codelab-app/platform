@@ -1,4 +1,5 @@
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import type { ITypeRecord } from '../type.record.interface'
 
 export interface ValidationRuleTag {
@@ -12,8 +13,8 @@ export interface IFieldRecord {
   id: string
   key: string
   name: Nullish<string>
-  nextSibling?: IEntity | null
-  prevSibling?: IEntity | null
+  nextSibling?: IRef | null
+  prevSibling?: IRef | null
   type?: {
     id: string
     kind: string

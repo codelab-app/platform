@@ -1,5 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IPageNode } from '@codelab/frontend/abstract/domain'
+import type {
+  IInterfaceTypeModel,
+  IPageNode,
+} from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
@@ -7,6 +10,7 @@ import {
   isElement,
   isElementRef,
   RendererTab,
+  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
@@ -40,8 +44,10 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { IInterfaceType } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
+import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ElementTreeView } from './builder-tree'
@@ -157,7 +163,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 const form = fieldService.createForm
 
                 if (store.api.id) {
-                  form.open(typeRef(store.api.id).current as InterfaceType)
+                  form.open(typeRef(store.api.id) as Ref<IInterfaceTypeModel>)
                   popover.open(FormNames.CreateField)
                 }
               },
@@ -182,7 +188,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                actionService.createForm.open(store)
+                actionService.createForm.open(storeRef(store))
                 popover.open(FormNames.CreateAction)
               },
               title: 'Add Action',

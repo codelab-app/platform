@@ -3,8 +3,12 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IApp, IAppDTO, IPageDTO } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type {
+  IApp,
+  IAppDTO,
+  IPageDTO,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { ICacheService } from '../shared'
@@ -33,5 +37,5 @@ export interface IAppModel
 }
 
 export interface IAppSchema {
-  app: IEntity
+  app: IRef
 }

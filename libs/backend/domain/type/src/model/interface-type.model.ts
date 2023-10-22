@@ -2,9 +2,9 @@ import type {
   IAtomDTO,
   IFieldDTO,
   IInterfaceTypeDTO,
+  IRef,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 import capitalize from 'voca/capitalize'
 import { BaseType } from './base-type.model'
@@ -31,7 +31,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
 
   declare __typename: `${ITypeKind.InterfaceType}`
 
-  declare fields: Array<IEntity>
+  declare fields: Array<IRef>
 
   constructor({ fields = [], id, name }: IInterfaceTypeDTO) {
     super({ id, kind: ITypeKind.InterfaceType, name })

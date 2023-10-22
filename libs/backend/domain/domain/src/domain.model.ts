@@ -1,11 +1,10 @@
 import { IModel } from '@codelab/backend/abstract/types'
-import type { IDomain, IDomainDTO } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IDomain, IDomainDTO, IRef } from '@codelab/shared/abstract/core'
 
 export class Domain extends IModel implements IDomain {
   id: string
 
-  app: IEntity
+  app: IRef
 
   domainConfig: { misconfigured: boolean } | undefined
 

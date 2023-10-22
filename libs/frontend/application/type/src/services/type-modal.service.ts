@@ -6,11 +6,14 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/TypeModalService')
 export class TypeModalService
-  extends ExtendedModel(modelClass<ModalService<ITypeModel>>(ModalService), {})
-  implements IEntityModalService<ITypeModel, { type?: ITypeModel }>
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<ITypeModel>>>(ModalService),
+    {},
+  )
+  implements IEntityModalService<Ref<ITypeModel>, { type?: ITypeModel }>
 {
   @computed
   get type() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

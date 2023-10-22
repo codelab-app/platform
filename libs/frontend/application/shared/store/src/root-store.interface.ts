@@ -19,6 +19,7 @@ import type {
   IUserService,
 } from '@codelab/frontend/abstract/application'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import type { AnyModel } from 'mobx-keystone'
 
 /**
  * Initial data to be injected into store

@@ -10,12 +10,15 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/AtomFormService')
 export class AtomFormService
-  extends ExtendedModel(modelClass<ModalService<IAtomModel>>(ModalService), {})
-  implements IEntityModalService<IAtomModel, { atom?: IAtomModel }>
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<IAtomModel>>>(ModalService),
+    {},
+  )
+  implements IEntityModalService<Ref<IAtomModel>, { atom?: IAtomModel }>
 {
   @computed
   get atom() {
-    return this.metadata
+    return this.metadata?.current
   }
 }
 

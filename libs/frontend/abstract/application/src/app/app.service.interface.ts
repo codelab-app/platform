@@ -13,6 +13,7 @@ import type {
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { DefaultOptionType } from 'antd/lib/select'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
@@ -24,12 +25,12 @@ import type { IAppRepository } from '.'
 export interface IAppService
   extends ICRUDService<IAppModel, ICreateAppData, IUpdateAppData>,
     IQueryService<IAppModel, AppWhere, AppOptions>,
-    ICRUDModalService<IAppModel, { app: IAppModel }> {
+    ICRUDModalService<Ref<IAppModel>, { app?: IAppModel }> {
   appDevelopmentService: IAppDevelopmentService
   appDomainService: IAppDomainService
   appProductionService: IAppProductionService
   appRepository: IAppRepository
-  buildModal: IEntityModalService<IAppModel, { app?: IAppModel }>
+  buildModal: IEntityModalService<Ref<IAppModel>, { app?: IAppModel }>
 
   getAppPages(appId: string, where: PageWhere): Promise<void>
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>

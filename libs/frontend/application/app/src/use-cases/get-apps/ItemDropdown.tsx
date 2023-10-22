@@ -6,7 +6,7 @@ import {
   GlobalOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type { IAppModel } from '@codelab/frontend/abstract/domain'
+import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
@@ -34,9 +34,9 @@ const menuItemIconStyle: CSSProperties = {
 
 export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
   const { appService, userService } = useStore()
-  const onEditClick = () => appService.updateModal.open(app)
-  const onDeleteClick = () => appService.deleteModal.open(app)
-  const onBuildClick = () => appService.buildModal.open(app)
+  const onEditClick = () => appService.updateModal.open(appRef(app))
+  const onDeleteClick = () => appService.deleteModal.open(appRef(app))
+  const onBuildClick = () => appService.buildModal.open(appRef(app))
   const router = useRouter()
 
   const goToDomainsPage = () =>

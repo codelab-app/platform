@@ -1,8 +1,8 @@
-import type { IPropDTO } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { IPropDTO, IRef } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 
 export class Prop implements IPropDTO {
-  api?: Nullable<IEntity> | undefined
+  api?: Nullable<IRef> | undefined
 
   data: string
 

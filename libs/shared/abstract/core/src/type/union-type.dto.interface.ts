@@ -14,6 +14,6 @@ export const IUnionTypeDTO = Type.Composite([
 
 export type IUnionTypeDTO = Static<typeof IUnionTypeDTO>
 
-export const IUnionType = Typebox.RequireTypename(IUnionTypeDTO)
+export const IUnionType = IUnionTypeDTO
 
 export type IUnionType = Static<typeof IUnionType>

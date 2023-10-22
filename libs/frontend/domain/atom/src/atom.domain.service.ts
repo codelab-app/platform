@@ -4,7 +4,8 @@ import type {
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { IAtomDTO } from '@codelab/shared/abstract/core'
+import { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed, observable } from 'mobx'
 import {
   arraySet,
@@ -28,6 +29,15 @@ export class AtomDomainService
   @computed
   get atomsList() {
     return Array.from(this.atoms.values())
+  }
+
+  @computed
+  get defaultRenderType() {
+    const renderType = this.atomsList.find(
+      (atom) => atom.type === IAtomType.ReactFragment,
+    )?.toJson
+
+    return throwIfUndefined(renderType)
   }
 
   @modelAction

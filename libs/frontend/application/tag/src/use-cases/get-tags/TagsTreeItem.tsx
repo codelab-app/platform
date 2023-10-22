@@ -18,7 +18,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
   return (
     <CuiTreeItem
       onClick={() => {
-        tagService.updateForm.open(data.extraData.node)
+        tagService.updateForm.open(tagRef(data.extraData.node))
       }}
       primaryTitle={data.primaryTitle}
       toolbar={
@@ -29,7 +29,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
               key: 'delete',
               label: 'Delete',
               onClick: () => {
-                tagService.deleteManyModal.open([data.extraData.node])
+                tagService.deleteManyModal.open([tagRef(data.extraData.node)])
               },
               title: 'Delete',
             },

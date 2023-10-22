@@ -7,9 +7,10 @@ import {
   LoadingOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type {
-  IAppModel,
-  IPagesTreeDataNode,
+import {
+  type IAppModel,
+  type IPagesTreeDataNode,
+  pageRef,
 } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
@@ -70,7 +71,7 @@ export const PageTreeItem = observer(
       {
         icon: <DeleteOutlined />,
         key: 'delete',
-        onClick: () => pageService.deleteModal.open(page),
+        onClick: () => pageService.deleteModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
@@ -101,7 +102,7 @@ export const PageTreeItem = observer(
         icon: <EditOutlined />,
         key: 'edit',
         onClick: () => {
-          pageService.updateForm.open(page)
+          pageService.updateForm.open(pageRef(page))
           popover.open(FormNames.UpdatePage)
         },
         title: 'Edit',

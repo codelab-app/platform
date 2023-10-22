@@ -1,7 +1,7 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 
 /**
- * Types we wan't to seed
+ * Types we want to seed
  */
 export const atomTypes = [
   IAtomType.AntDesignButton,

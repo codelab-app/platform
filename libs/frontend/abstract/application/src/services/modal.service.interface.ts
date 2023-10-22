@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AnyModel } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { IToggleController } from './toggle.service.interface'
 
@@ -21,8 +21,10 @@ export type IEntityModalService<
    * Thought to use ref at first, but some cases we don't have ref since aggregate holds the model directly
    *
    * Ref's need to be attached to root tree, so ad hoc adding ref to tree just to pass it in here makes little sense
+   *
+   * But using model doesn't work, since it already has a parent
    */
-  Metadata extends ArrayOrSingle<AnyModel>,
+  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
   /**
    * With this interface, you can't have an object that has a property of a type other than number. It's restrictive in that sense.
    *
@@ -37,7 +39,7 @@ export type IEntityModalService<
 }
 
 export interface ICRUDModalService<
-  Metadata extends ArrayOrSingle<AnyModel>,
+  Metadata extends ArrayOrSingle<Ref<AnyModel>>,
   Properties extends Record<string, AnyModel>,
 > {
   createModal: IModalService

@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import type { IDomainModel } from '@codelab/frontend/abstract/domain'
+import { domainRef, type IDomainModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -15,10 +15,11 @@ export const ItemTools = observer<ItemToolsProps>(
     const { domainService } = useStore()
 
     const onEditClick = () => {
-      domainService.updateModal.open(domain)
+      domainService.updateModal.open(domainRef(domain))
     }
 
-    const onDeleteClick = () => domainService.deleteModal.open(domain)
+    const onDeleteClick = () =>
+      domainService.deleteModal.open(domainRef(domain))
 
     return (
       <React.Fragment>

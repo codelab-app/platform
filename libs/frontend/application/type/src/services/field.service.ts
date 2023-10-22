@@ -9,8 +9,8 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { Field } from '@codelab/frontend/domain/type'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
@@ -285,8 +285,8 @@ export class FieldService
       field: existingField,
       targetField: existingTargetField,
     }: {
-      field: IEntity
-      targetField: IEntity
+      field: IRef
+      targetField: IRef
     },
   ) {
     const field = this.field(existingField.id)
@@ -312,8 +312,8 @@ export class FieldService
       field: existingField,
       targetField: existingTargetField,
     }: {
-      field: IEntity
-      targetField: IEntity
+      field: IRef
+      targetField: IRef
     },
   ) {
     const field = this.field(existingField.id)

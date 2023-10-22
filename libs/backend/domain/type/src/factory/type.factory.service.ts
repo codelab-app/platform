@@ -77,10 +77,6 @@ export class TypeFactory {
   }
 
   async findOne({ __typename, id }: ITypeMaybeRef) {
-    if (!__typename) {
-      throw new Error('__typename must be provided')
-    }
-
     switch (__typename) {
       case ITypeKind.PrimitiveType: {
         return (await this.primitiveTypeRepository).findOne({ id })
@@ -123,10 +119,6 @@ export class TypeFactory {
 
   async save<T extends IType>(type: ITypeDTO, where?: ITypeWhere): Promise<T> {
     const activeContext = context.active()
-
-    if (!type.__typename) {
-      throw new Error('__typename must be provided')
-    }
 
     /**
      * Type narrow using discriminated union

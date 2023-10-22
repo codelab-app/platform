@@ -14,6 +14,6 @@ export const ICodeMirrorTypeDTO = Type.Composite([
 
 export type ICodeMirrorTypeDTO = Static<typeof ICodeMirrorTypeDTO>
 
-export const ICodeMirrorType = Typebox.RequireTypename(ICodeMirrorTypeDTO)
+export const ICodeMirrorType = ICodeMirrorTypeDTO
 
 export type ICodeMirrorType = Static<typeof ICodeMirrorType>

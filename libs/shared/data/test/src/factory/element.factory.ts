@@ -2,11 +2,10 @@ import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IElementDTO>(({ params }) => {
-  const dto = {
+  const dto: IElementDTO = {
     closestContainerNode: {
       id: params.closestContainerNode?.id ?? v4(),
     },
@@ -30,7 +29,7 @@ export default Factory.define<IElementDTO>(({ params }) => {
     },
   }
 
-  createTestRootStore().elementService.elementDomainService.hydrate(dto)
+  // testRootStore.elementService.elementDomainService.hydrate(dto)
 
   return dto
 })

@@ -8,13 +8,13 @@ import type {
   InterfaceTypeCreateInput,
   InterfaceTypeDeleteInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IRef } from '@codelab/shared/abstract/core'
 import {
   assertIsTypeKind,
   IInterfaceTypeDTO,
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -133,7 +133,7 @@ export class InterfaceType
   }
 
   @modelAction
-  writeFieldCache(fields: Array<IEntity>) {
+  writeFieldCache(fields: Array<IRef>) {
     for (const field of fields) {
       this._fields.set(field.id, fieldRef(field.id))
     }

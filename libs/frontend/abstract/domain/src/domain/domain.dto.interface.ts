@@ -1,7 +1,7 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface ICreateDomainData {
-  app: IEntity
+  app: IRef
   id: string
   name: string
 }

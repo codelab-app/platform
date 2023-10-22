@@ -1,7 +1,6 @@
 export * from './array'
 export * from './callback'
 export * from './distributive'
-export * from './entity'
 export * from './error/error'
 export * from './error/notification'
 export * from './graphql'

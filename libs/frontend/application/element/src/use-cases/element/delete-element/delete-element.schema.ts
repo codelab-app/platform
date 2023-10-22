@@ -1,9 +1,9 @@
 import { idSchema } from '@codelab/frontend/presentation/view'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export interface DeleteElementData {
-  element: IEntity
+  element: IRef
 }
 
 export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {

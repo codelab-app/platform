@@ -1,12 +1,14 @@
 import type {
   CreateElementData,
   CreateElementProperties,
+  IEntityFormService,
   IFormService,
   UpdateElementProperties,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { InlineFormService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/CreateElementFormService')
@@ -46,13 +48,13 @@ export class CreateElementFormService
 @model('@codelab/UpdateElementFormService')
 export class UpdateElementFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<IElementModel>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IElementModel>>>(InlineFormService),
     {},
   )
-  implements IFormService<IElementModel, UpdateElementProperties>
+  implements IEntityFormService<Ref<IElementModel>, UpdateElementProperties>
 {
   @computed
   get element() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

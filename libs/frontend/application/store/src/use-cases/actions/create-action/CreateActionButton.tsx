@@ -6,7 +6,7 @@ import React from 'react'
 
 export const CreateActionButton = observer(() => {
   const { actionService, builderService } = useStore()
-  const store = builderService.selectedNode?.current.store.current
+  const store = builderService.selectedNode?.current.store
 
   return (
     <Button

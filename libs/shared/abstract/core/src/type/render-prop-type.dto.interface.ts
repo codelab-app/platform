@@ -10,6 +10,6 @@ export const IRenderPropTypeDTO = Type.Composite([
 
 export type IRenderPropTypeDTO = Static<typeof IRenderPropTypeDTO>
 
-export const IRenderPropType = Typebox.RequireTypename(IRenderPropTypeDTO)
+export const IRenderPropType = IRenderPropTypeDTO
 
 export type IRenderPropType = Static<typeof IRenderPropType>

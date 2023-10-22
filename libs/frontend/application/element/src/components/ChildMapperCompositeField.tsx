@@ -5,7 +5,7 @@ import {
   AutoCompleteField,
   ToggleExpressionField,
 } from '@codelab/frontend/presentation/view'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import React from 'react'
 import { useField } from 'uniforms'
 import { SelectLinkElement } from './SelectLinkElement'
@@ -15,12 +15,12 @@ interface ChildMapperFieldsProps {
 }
 
 const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
-  const [childMapperComponentFieldProps] = useField<{ value?: IEntity }>(
+  const [childMapperComponentFieldProps] = useField<{ value?: IRef }>(
     'childMapperComponent',
     {},
   )
 
-  const [childMapperPreviousSiblingFieldProps] = useField<{ value?: IEntity }>(
+  const [childMapperPreviousSiblingFieldProps] = useField<{ value?: IRef }>(
     'childMapperPreviousSibling',
     {},
   )
@@ -53,7 +53,7 @@ const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
         name="childMapperComponent.id"
         onChange={(value) =>
           childMapperComponentFieldProps.onChange(
-            (value ? { id: value } : null) as IEntity,
+            (value ? { id: value } : null) as IRef,
           )
         }
       />
@@ -62,7 +62,7 @@ const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
         name="childMapperPreviousSibling.id"
         onChange={(value) => {
           return childMapperPreviousSiblingFieldProps.onChange(
-            (value ? { id: value } : null) as IEntity,
+            (value ? { id: value } : null) as IRef,
           )
         }}
         targetElementId={element.id}

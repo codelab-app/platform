@@ -1,16 +1,15 @@
-import type { ITagDTO } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef, ITagDTO } from '@codelab/shared/abstract/core'
 
 export class Tag implements ITagDTO {
-  children: Array<IEntity>
+  children: Array<IRef>
 
-  descendants: Array<IEntity>
+  descendants: Array<IRef>
 
   id: string
 
   name: string
 
-  parent?: IEntity | null
+  parent?: IRef | null
 
   constructor({
     children = [],

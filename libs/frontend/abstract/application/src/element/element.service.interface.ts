@@ -15,6 +15,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
+  IEntityModalService,
   IFormService,
   IModalService,
 } from '../services'
@@ -59,7 +60,7 @@ export interface SelectElementOptions {
 
 export interface IElementService
   extends Omit<
-    ICRUDModalService<IElementModel, { element?: IElementModel }>,
+    ICRUDModalService<Ref<IElementModel>, { element?: IElementModel }>,
     'createModal'
   > {
   cloneElementService: ICloneElementService
@@ -67,8 +68,8 @@ export interface IElementService
   createForm: IFormService<CreateElementData, CreateElementProperties>
   elementDomainService: IElementDomainService
   elementRepository: IElementRepository
-  updateForm: IModalService<IElementModel, UpdateElementProperties>
-  updateModal: IModalService<IElementModel, UpdateElementProperties>
+  updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
+  updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 
   createElement(data: IElementDTO): Promise<IElementModel>
   delete(subRoot: IElementModel): Promise<void>

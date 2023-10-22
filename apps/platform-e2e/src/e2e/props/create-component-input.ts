@@ -1,7 +1,7 @@
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
@@ -12,7 +12,7 @@ export const headerFieldName = 'Header'
 
 export const renderItemFieldName = 'Render Item'
 
-export const createListAtomInput = (owner: IEntity): AtomCreateInput => ({
+export const createListAtomInput = (owner: IRef): AtomCreateInput => ({
   api: {
     create: {
       node: {
@@ -60,7 +60,7 @@ export const createListAtomInput = (owner: IEntity): AtomCreateInput => ({
  * create ListItem Atom
  */
 
-export const createListItemAtomInput = (owner: IEntity): AtomCreateInput => ({
+export const createListItemAtomInput = (owner: IRef): AtomCreateInput => ({
   api: {
     create: {
       node: {
@@ -77,7 +77,7 @@ export const createListItemAtomInput = (owner: IEntity): AtomCreateInput => ({
  * create Text Atom
  */
 
-export const createTextAtomInput = (owner: IEntity): AtomCreateInput => ({
+export const createTextAtomInput = (owner: IRef): AtomCreateInput => ({
   api: {
     create: {
       node: {

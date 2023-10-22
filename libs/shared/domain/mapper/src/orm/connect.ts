@@ -1,4 +1,4 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { whereNode, whereNodeId } from './where'
 
 /**
@@ -18,4 +18,4 @@ export const connectNode = (key: string, value: string | null | undefined) =>
       }
     : undefined
 
-export const connectOwner = ({ id }: IEntity) => connectNode('id', id)
+export const connectOwner = ({ id }: IRef) => connectNode('id', id)

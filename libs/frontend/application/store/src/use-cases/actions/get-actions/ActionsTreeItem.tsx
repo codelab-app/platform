@@ -24,11 +24,11 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   const { popover } = useCui()
 
   const onDelete = () => {
-    actionService.deleteModal.open(data.extraData.node)
+    actionService.deleteModal.open(actionRef(data.extraData.node))
   }
 
   const onEdit = () => {
-    actionService.updateForm.open(data.extraData.node)
+    actionService.updateForm.open(actionRef(data.extraData.node))
     popover.open(FormNames.UpdateAction)
   }
 

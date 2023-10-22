@@ -21,6 +21,6 @@ export const IEnumTypeDTO = Type.Composite([
 
 export type IEnumTypeDTO = Static<typeof IEnumTypeDTO>
 
-export const IEnumType = Typebox.RequireTypename(IEnumTypeDTO)
+export const IEnumType = IEnumTypeDTO
 
 export type IEnumType = Static<typeof IEnumType>

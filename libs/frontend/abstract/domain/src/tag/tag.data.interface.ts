@@ -1,9 +1,9 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface ICreateTagData {
   id: string
   name: string
-  parent?: IEntity
+  parent?: IRef
 }
 
 export type IUpdateTagData = ICreateTagData

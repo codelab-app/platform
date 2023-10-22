@@ -1,7 +1,7 @@
 import { Store } from '@codelab/frontend/domain/store'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { factoryBuild } from '../factory'
+import { FactoryDto } from '@codelab/shared/data/test'
 
 export const setupPage = () => {
   const appId = 'app-id'
@@ -19,22 +19,22 @@ export const setupPage = () => {
     id: pageId,
     name: pageName,
     rootElement: { id: pageRootElementId },
-    store: factoryBuild('store', {
-      api: factoryBuild('typeInterface'),
+    store: FactoryDto.build('store', {
+      api: FactoryDto.build('typeInterface'),
       id: pageStoreId,
       name: Store.createName({ name: pageName }),
       page: { id: pageId },
     }),
   })
 
-  const rootElement = factoryBuild('element', {
+  const rootElement = FactoryDto.build('element', {
     closestContainerNode: page,
     id: pageRootElementId,
     name: ROOT_ELEMENT_NAME,
     page,
-    props: factoryBuild('props'),
-    renderType: factoryBuild('atom', {
-      api: factoryBuild('typeInterface'),
+    props: FactoryDto.build('props'),
+    renderType: FactoryDto.build('atom', {
+      api: FactoryDto.build('typeInterface'),
       type: IAtomType.HtmlDiv,
     }),
   })

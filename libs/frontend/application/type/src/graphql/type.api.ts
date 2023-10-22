@@ -10,8 +10,8 @@ import type {
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { getSdk as getCreateSdk } from './create-type.endpoints.graphql.gen'
 import { getSdk as getDeleteSdk } from './delete-type.endpoints.graphql.gen'
@@ -31,7 +31,7 @@ const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
   ITypeKind,
-  (input: Array<ICreateTypeInput>) => Promise<Array<IEntity>>
+  (input: Array<ICreateTypeInput>) => Promise<Array<IRef>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
@@ -129,7 +129,7 @@ const _updateApi = getUpdateSdk(client)
 
 type UpdateTypesRecord = Record<
   ITypeKind,
-  (vars: IUpdateTypeVars) => Promise<Array<IEntity>>
+  (vars: IUpdateTypeVars) => Promise<Array<IRef>>
 >
 
 export const updateTypeApi: UpdateTypesRecord = {

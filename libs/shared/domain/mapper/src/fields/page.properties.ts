@@ -1,5 +1,5 @@
 import type { Page } from '@codelab/shared/abstract/codegen'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import type { DeepPick } from 'ts-essentials'
 
@@ -9,7 +9,7 @@ interface PageData {
 }
 
 export class PageProperties {
-  static pageCompositeKey = (pageName: string, app: IEntity) => {
+  static pageCompositeKey = (pageName: string, app: IRef) => {
     return `${app.id}-${pageName}`
   }
 

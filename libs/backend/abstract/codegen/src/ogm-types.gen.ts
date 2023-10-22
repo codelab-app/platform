@@ -34,7 +34,7 @@ export type Scalars = {
 }
 
 export type Query = {
-  __typename?: 'Query'
+  __typename: 'Query'
   baseTypes: GetBaseTypesReturn
   users: Array<User>
   usersConnection: UsersConnection
@@ -686,7 +686,7 @@ export type QueryGetTypeReferencesArgs = {
 }
 
 export type Mutation = {
-  __typename?: 'Mutation'
+  __typename: 'Mutation'
   createUsers: CreateUsersMutationResponse
   deleteUsers: DeleteInfo
   updateUsers: UpdateUsersMutationResponse
@@ -1922,7 +1922,7 @@ export type WithOwner = {
 
 /** Allows picking a action from the list of actions */
 export type ActionType = IBaseType & {
-  __typename?: 'ActionType'
+  __typename: 'ActionType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -1954,33 +1954,33 @@ export type ActionTypeOwnerConnectionArgs = {
 }
 
 export type ActionTypeAggregateSelection = {
-  __typename?: 'ActionTypeAggregateSelection'
+  __typename: 'ActionTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ActionTypeEdge = {
-  __typename?: 'ActionTypeEdge'
+  __typename: 'ActionTypeEdge'
   cursor: Scalars['String']['output']
   node: ActionType
 }
 
 export type ActionTypesConnection = {
-  __typename?: 'ActionTypesConnection'
+  __typename: 'ActionTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ActionTypeEdge>
 }
 
 export type ActionTypeUserOwnerAggregationSelection = {
-  __typename?: 'ActionTypeUserOwnerAggregationSelection'
+  __typename: 'ActionTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ActionTypeUserOwnerNodeAggregateSelection>
 }
 
 export type ActionTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'ActionTypeUserOwnerNodeAggregateSelection'
+  __typename: 'ActionTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -1988,7 +1988,7 @@ export type ActionTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type ApiAction = BaseAction & {
-  __typename?: 'ApiAction'
+  __typename: 'ApiAction'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   type: ActionKind
@@ -2115,39 +2115,39 @@ export type ApiActionElementConnectionArgs = {
 }
 
 export type ApiActionAggregateSelection = {
-  __typename?: 'ApiActionAggregateSelection'
+  __typename: 'ApiActionAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ApiActionConfigConnection = {
-  __typename?: 'ApiActionConfigConnection'
+  __typename: 'ApiActionConfigConnection'
   edges: Array<ApiActionConfigRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ApiActionConfigRelationship = {
-  __typename?: 'ApiActionConfigRelationship'
+  __typename: 'ApiActionConfigRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type ApiActionEdge = {
-  __typename?: 'ApiActionEdge'
+  __typename: 'ApiActionEdge'
   cursor: Scalars['String']['output']
   node: ApiAction
 }
 
 export type ApiActionElementElementAggregationSelection = {
-  __typename?: 'ApiActionElementElementAggregationSelection'
+  __typename: 'ApiActionElementElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ApiActionElementElementNodeAggregateSelection>
 }
 
 export type ApiActionElementElementNodeAggregateSelection = {
-  __typename?: 'ApiActionElementElementNodeAggregateSelection'
+  __typename: 'ApiActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -2157,89 +2157,89 @@ export type ApiActionElementElementNodeAggregateSelection = {
 }
 
 export type ApiActionErrorActionConnection = {
-  __typename?: 'ApiActionErrorActionConnection'
+  __typename: 'ApiActionErrorActionConnection'
   edges: Array<ApiActionErrorActionRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ApiActionErrorActionRelationship = {
-  __typename?: 'ApiActionErrorActionRelationship'
+  __typename: 'ApiActionErrorActionRelationship'
   cursor: Scalars['String']['output']
   node: AnyAction
 }
 
 export type ApiActionPropConfigAggregationSelection = {
-  __typename?: 'ApiActionPropConfigAggregationSelection'
+  __typename: 'ApiActionPropConfigAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ApiActionPropConfigNodeAggregateSelection>
 }
 
 export type ApiActionPropConfigNodeAggregateSelection = {
-  __typename?: 'ApiActionPropConfigNodeAggregateSelection'
+  __typename: 'ApiActionPropConfigNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type ApiActionResourceConnection = {
-  __typename?: 'ApiActionResourceConnection'
+  __typename: 'ApiActionResourceConnection'
   edges: Array<ApiActionResourceRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ApiActionResourceRelationship = {
-  __typename?: 'ApiActionResourceRelationship'
+  __typename: 'ApiActionResourceRelationship'
   cursor: Scalars['String']['output']
   node: Resource
 }
 
 export type ApiActionResourceResourceAggregationSelection = {
-  __typename?: 'ApiActionResourceResourceAggregationSelection'
+  __typename: 'ApiActionResourceResourceAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ApiActionResourceResourceNodeAggregateSelection>
 }
 
 export type ApiActionResourceResourceNodeAggregateSelection = {
-  __typename?: 'ApiActionResourceResourceNodeAggregateSelection'
+  __typename: 'ApiActionResourceResourceNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ApiActionsConnection = {
-  __typename?: 'ApiActionsConnection'
+  __typename: 'ApiActionsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ApiActionEdge>
 }
 
 export type ApiActionStoreStoreAggregationSelection = {
-  __typename?: 'ApiActionStoreStoreAggregationSelection'
+  __typename: 'ApiActionStoreStoreAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ApiActionStoreStoreNodeAggregateSelection>
 }
 
 export type ApiActionStoreStoreNodeAggregateSelection = {
-  __typename?: 'ApiActionStoreStoreNodeAggregateSelection'
+  __typename: 'ApiActionStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ApiActionSuccessActionConnection = {
-  __typename?: 'ApiActionSuccessActionConnection'
+  __typename: 'ApiActionSuccessActionConnection'
   edges: Array<ApiActionSuccessActionRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ApiActionSuccessActionRelationship = {
-  __typename?: 'ApiActionSuccessActionRelationship'
+  __typename: 'ApiActionSuccessActionRelationship'
   cursor: Scalars['String']['output']
   node: AnyAction
 }
 
 export type App = WithOwner & {
-  __typename?: 'App'
+  __typename: 'App'
   id: Scalars['ID']['output']
   compositeKey: Scalars['String']['output']
   name: Scalars['String']['output']
@@ -2313,71 +2313,71 @@ export type AppOwnerConnectionArgs = {
 }
 
 export type AppAggregateSelection = {
-  __typename?: 'AppAggregateSelection'
+  __typename: 'AppAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
 }
 
 export type AppDomainDomainsAggregationSelection = {
-  __typename?: 'AppDomainDomainsAggregationSelection'
+  __typename: 'AppDomainDomainsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AppDomainDomainsNodeAggregateSelection>
 }
 
 export type AppDomainDomainsNodeAggregateSelection = {
-  __typename?: 'AppDomainDomainsNodeAggregateSelection'
+  __typename: 'AppDomainDomainsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type AppDomainsConnection = {
-  __typename?: 'AppDomainsConnection'
+  __typename: 'AppDomainsConnection'
   edges: Array<AppDomainsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AppDomainsRelationship = {
-  __typename?: 'AppDomainsRelationship'
+  __typename: 'AppDomainsRelationship'
   cursor: Scalars['String']['output']
   node: Domain
 }
 
 export type AppEdge = {
-  __typename?: 'AppEdge'
+  __typename: 'AppEdge'
   cursor: Scalars['String']['output']
   node: App
 }
 
 export type AppPagePagesAggregationSelection = {
-  __typename?: 'AppPagePagesAggregationSelection'
+  __typename: 'AppPagePagesAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AppPagePagesNodeAggregateSelection>
 }
 
 export type AppPagePagesNodeAggregateSelection = {
-  __typename?: 'AppPagePagesNodeAggregateSelection'
+  __typename: 'AppPagePagesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
 export type AppPagesConnection = {
-  __typename?: 'AppPagesConnection'
+  __typename: 'AppPagesConnection'
   edges: Array<AppPagesRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AppPagesRelationship = {
-  __typename?: 'AppPagesRelationship'
+  __typename: 'AppPagesRelationship'
   cursor: Scalars['String']['output']
   node: Page
 }
 
 export type AppsConnection = {
-  __typename?: 'AppsConnection'
+  __typename: 'AppsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<AppEdge>
@@ -2385,7 +2385,7 @@ export type AppsConnection = {
 
 /** Allows picking a app from the list of apps */
 export type AppType = IBaseType & {
-  __typename?: 'AppType'
+  __typename: 'AppType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -2417,33 +2417,33 @@ export type AppTypeOwnerConnectionArgs = {
 }
 
 export type AppTypeAggregateSelection = {
-  __typename?: 'AppTypeAggregateSelection'
+  __typename: 'AppTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type AppTypeEdge = {
-  __typename?: 'AppTypeEdge'
+  __typename: 'AppTypeEdge'
   cursor: Scalars['String']['output']
   node: AppType
 }
 
 export type AppTypesConnection = {
-  __typename?: 'AppTypesConnection'
+  __typename: 'AppTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<AppTypeEdge>
 }
 
 export type AppTypeUserOwnerAggregationSelection = {
-  __typename?: 'AppTypeUserOwnerAggregationSelection'
+  __typename: 'AppTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AppTypeUserOwnerNodeAggregateSelection>
 }
 
 export type AppTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'AppTypeUserOwnerNodeAggregateSelection'
+  __typename: 'AppTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -2451,13 +2451,13 @@ export type AppTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type AppUserOwnerAggregationSelection = {
-  __typename?: 'AppUserOwnerAggregationSelection'
+  __typename: 'AppUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AppUserOwnerNodeAggregateSelection>
 }
 
 export type AppUserOwnerNodeAggregateSelection = {
-  __typename?: 'AppUserOwnerNodeAggregateSelection'
+  __typename: 'AppUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -2470,7 +2470,7 @@ export type AppUserOwnerNodeAggregateSelection = {
  */
 export type ArrayType = IBaseType &
   WithDescendants & {
-    __typename?: 'ArrayType'
+    __typename: 'ArrayType'
     id: Scalars['ID']['output']
     kind: TypeKind
     name: Scalars['String']['output']
@@ -2570,26 +2570,26 @@ export type ArrayTypeOwnerConnectionArgs = {
 }
 
 export type ArrayTypeAggregateSelection = {
-  __typename?: 'ArrayTypeAggregateSelection'
+  __typename: 'ArrayTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ArrayTypeEdge = {
-  __typename?: 'ArrayTypeEdge'
+  __typename: 'ArrayTypeEdge'
   cursor: Scalars['String']['output']
   node: ArrayType
 }
 
 export type ArrayTypeFieldFieldRefsAggregationSelection = {
-  __typename?: 'ArrayTypeFieldFieldRefsAggregationSelection'
+  __typename: 'ArrayTypeFieldFieldRefsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ArrayTypeFieldFieldRefsNodeAggregateSelection>
 }
 
 export type ArrayTypeFieldFieldRefsNodeAggregateSelection = {
-  __typename?: 'ArrayTypeFieldFieldRefsNodeAggregateSelection'
+  __typename: 'ArrayTypeFieldFieldRefsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -2599,46 +2599,46 @@ export type ArrayTypeFieldFieldRefsNodeAggregateSelection = {
 }
 
 export type ArrayTypeFieldRefsConnection = {
-  __typename?: 'ArrayTypeFieldRefsConnection'
+  __typename: 'ArrayTypeFieldRefsConnection'
   edges: Array<ArrayTypeFieldRefsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ArrayTypeFieldRefsRelationship = {
-  __typename?: 'ArrayTypeFieldRefsRelationship'
+  __typename: 'ArrayTypeFieldRefsRelationship'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type ArrayTypeItemTypeConnection = {
-  __typename?: 'ArrayTypeItemTypeConnection'
+  __typename: 'ArrayTypeItemTypeConnection'
   edges: Array<ArrayTypeItemTypeRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ArrayTypeItemTypeRelationship = {
-  __typename?: 'ArrayTypeItemTypeRelationship'
+  __typename: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']['output']
   node: IBaseType
 }
 
 export type ArrayTypesConnection = {
-  __typename?: 'ArrayTypesConnection'
+  __typename: 'ArrayTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ArrayTypeEdge>
 }
 
 export type ArrayTypeUserOwnerAggregationSelection = {
-  __typename?: 'ArrayTypeUserOwnerAggregationSelection'
+  __typename: 'ArrayTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ArrayTypeUserOwnerNodeAggregateSelection>
 }
 
 export type ArrayTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'ArrayTypeUserOwnerNodeAggregateSelection'
+  __typename: 'ArrayTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -2646,7 +2646,7 @@ export type ArrayTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type Atom = WithOwner & {
-  __typename?: 'Atom'
+  __typename: 'Atom'
   id: Scalars['ID']['output']
   type: AtomType
   name: Scalars['String']['output']
@@ -2789,7 +2789,7 @@ export type AtomOwnerConnectionArgs = {
 }
 
 export type AtomAggregateSelection = {
-  __typename?: 'AtomAggregateSelection'
+  __typename: 'AtomAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -2800,26 +2800,26 @@ export type AtomAggregateSelection = {
 }
 
 export type AtomApiConnection = {
-  __typename?: 'AtomApiConnection'
+  __typename: 'AtomApiConnection'
   edges: Array<AtomApiRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AtomApiRelationship = {
-  __typename?: 'AtomApiRelationship'
+  __typename: 'AtomApiRelationship'
   cursor: Scalars['String']['output']
   node: InterfaceType
 }
 
 export type AtomAtomRequiredParentsAggregationSelection = {
-  __typename?: 'AtomAtomRequiredParentsAggregationSelection'
+  __typename: 'AtomAtomRequiredParentsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AtomAtomRequiredParentsNodeAggregateSelection>
 }
 
 export type AtomAtomRequiredParentsNodeAggregateSelection = {
-  __typename?: 'AtomAtomRequiredParentsNodeAggregateSelection'
+  __typename: 'AtomAtomRequiredParentsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
@@ -2829,13 +2829,13 @@ export type AtomAtomRequiredParentsNodeAggregateSelection = {
 }
 
 export type AtomAtomSuggestedChildrenAggregationSelection = {
-  __typename?: 'AtomAtomSuggestedChildrenAggregationSelection'
+  __typename: 'AtomAtomSuggestedChildrenAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AtomAtomSuggestedChildrenNodeAggregateSelection>
 }
 
 export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
-  __typename?: 'AtomAtomSuggestedChildrenNodeAggregateSelection'
+  __typename: 'AtomAtomSuggestedChildrenNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
@@ -2845,19 +2845,19 @@ export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
 }
 
 export type AtomEdge = {
-  __typename?: 'AtomEdge'
+  __typename: 'AtomEdge'
   cursor: Scalars['String']['output']
   node: Atom
 }
 
 export type AtomElementElementsAggregationSelection = {
-  __typename?: 'AtomElementElementsAggregationSelection'
+  __typename: 'AtomElementElementsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AtomElementElementsNodeAggregateSelection>
 }
 
 export type AtomElementElementsNodeAggregateSelection = {
-  __typename?: 'AtomElementElementsNodeAggregateSelection'
+  __typename: 'AtomElementElementsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -2867,96 +2867,96 @@ export type AtomElementElementsNodeAggregateSelection = {
 }
 
 export type AtomElementsConnection = {
-  __typename?: 'AtomElementsConnection'
+  __typename: 'AtomElementsConnection'
   edges: Array<AtomElementsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AtomElementsRelationship = {
-  __typename?: 'AtomElementsRelationship'
+  __typename: 'AtomElementsRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type AtomInterfaceTypeApiAggregationSelection = {
-  __typename?: 'AtomInterfaceTypeApiAggregationSelection'
+  __typename: 'AtomInterfaceTypeApiAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AtomInterfaceTypeApiNodeAggregateSelection>
 }
 
 export type AtomInterfaceTypeApiNodeAggregateSelection = {
-  __typename?: 'AtomInterfaceTypeApiNodeAggregateSelection'
+  __typename: 'AtomInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type AtomRequiredParentsConnection = {
-  __typename?: 'AtomRequiredParentsConnection'
+  __typename: 'AtomRequiredParentsConnection'
   edges: Array<AtomRequiredParentsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AtomRequiredParentsRelationship = {
-  __typename?: 'AtomRequiredParentsRelationship'
+  __typename: 'AtomRequiredParentsRelationship'
   cursor: Scalars['String']['output']
   node: Atom
 }
 
 export type AtomsConnection = {
-  __typename?: 'AtomsConnection'
+  __typename: 'AtomsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<AtomEdge>
 }
 
 export type AtomSuggestedChildrenConnection = {
-  __typename?: 'AtomSuggestedChildrenConnection'
+  __typename: 'AtomSuggestedChildrenConnection'
   edges: Array<AtomSuggestedChildrenRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AtomSuggestedChildrenRelationship = {
-  __typename?: 'AtomSuggestedChildrenRelationship'
+  __typename: 'AtomSuggestedChildrenRelationship'
   cursor: Scalars['String']['output']
   node: Atom
 }
 
 export type AtomTagsConnection = {
-  __typename?: 'AtomTagsConnection'
+  __typename: 'AtomTagsConnection'
   edges: Array<AtomTagsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AtomTagsRelationship = {
-  __typename?: 'AtomTagsRelationship'
+  __typename: 'AtomTagsRelationship'
   cursor: Scalars['String']['output']
   node: Tag
 }
 
 export type AtomTagTagsAggregationSelection = {
-  __typename?: 'AtomTagTagsAggregationSelection'
+  __typename: 'AtomTagTagsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AtomTagTagsNodeAggregateSelection>
 }
 
 export type AtomTagTagsNodeAggregateSelection = {
-  __typename?: 'AtomTagTagsNodeAggregateSelection'
+  __typename: 'AtomTagTagsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type AtomUserOwnerAggregationSelection = {
-  __typename?: 'AtomUserOwnerAggregationSelection'
+  __typename: 'AtomUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AtomUserOwnerNodeAggregateSelection>
 }
 
 export type AtomUserOwnerNodeAggregateSelection = {
-  __typename?: 'AtomUserOwnerNodeAggregateSelection'
+  __typename: 'AtomUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -2964,33 +2964,33 @@ export type AtomUserOwnerNodeAggregateSelection = {
 }
 
 export type BaseActionElementConnection = {
-  __typename?: 'BaseActionElementConnection'
+  __typename: 'BaseActionElementConnection'
   edges: Array<BaseActionElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type BaseActionElementRelationship = {
-  __typename?: 'BaseActionElementRelationship'
+  __typename: 'BaseActionElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type BaseActionStoreConnection = {
-  __typename?: 'BaseActionStoreConnection'
+  __typename: 'BaseActionStoreConnection'
   edges: Array<BaseActionStoreRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type BaseActionStoreRelationship = {
-  __typename?: 'BaseActionStoreRelationship'
+  __typename: 'BaseActionStoreRelationship'
   cursor: Scalars['String']['output']
   node: Store
 }
 
 export type CodeAction = BaseAction & {
-  __typename?: 'CodeAction'
+  __typename: 'CodeAction'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   type: ActionKind
@@ -3043,7 +3043,7 @@ export type CodeActionElementConnectionArgs = {
 }
 
 export type CodeActionAggregateSelection = {
-  __typename?: 'CodeActionAggregateSelection'
+  __typename: 'CodeActionAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -3051,19 +3051,19 @@ export type CodeActionAggregateSelection = {
 }
 
 export type CodeActionEdge = {
-  __typename?: 'CodeActionEdge'
+  __typename: 'CodeActionEdge'
   cursor: Scalars['String']['output']
   node: CodeAction
 }
 
 export type CodeActionElementElementAggregationSelection = {
-  __typename?: 'CodeActionElementElementAggregationSelection'
+  __typename: 'CodeActionElementElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<CodeActionElementElementNodeAggregateSelection>
 }
 
 export type CodeActionElementElementNodeAggregateSelection = {
-  __typename?: 'CodeActionElementElementNodeAggregateSelection'
+  __typename: 'CodeActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -3073,27 +3073,27 @@ export type CodeActionElementElementNodeAggregateSelection = {
 }
 
 export type CodeActionsConnection = {
-  __typename?: 'CodeActionsConnection'
+  __typename: 'CodeActionsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<CodeActionEdge>
 }
 
 export type CodeActionStoreStoreAggregationSelection = {
-  __typename?: 'CodeActionStoreStoreAggregationSelection'
+  __typename: 'CodeActionStoreStoreAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<CodeActionStoreStoreNodeAggregateSelection>
 }
 
 export type CodeActionStoreStoreNodeAggregateSelection = {
-  __typename?: 'CodeActionStoreStoreNodeAggregateSelection'
+  __typename: 'CodeActionStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 /** Allows editing the value using a code mirror editor */
 export type CodeMirrorType = IBaseType & {
-  __typename?: 'CodeMirrorType'
+  __typename: 'CodeMirrorType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -3126,33 +3126,33 @@ export type CodeMirrorTypeOwnerConnectionArgs = {
 }
 
 export type CodeMirrorTypeAggregateSelection = {
-  __typename?: 'CodeMirrorTypeAggregateSelection'
+  __typename: 'CodeMirrorTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type CodeMirrorTypeEdge = {
-  __typename?: 'CodeMirrorTypeEdge'
+  __typename: 'CodeMirrorTypeEdge'
   cursor: Scalars['String']['output']
   node: CodeMirrorType
 }
 
 export type CodeMirrorTypesConnection = {
-  __typename?: 'CodeMirrorTypesConnection'
+  __typename: 'CodeMirrorTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<CodeMirrorTypeEdge>
 }
 
 export type CodeMirrorTypeUserOwnerAggregationSelection = {
-  __typename?: 'CodeMirrorTypeUserOwnerAggregationSelection'
+  __typename: 'CodeMirrorTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<CodeMirrorTypeUserOwnerNodeAggregateSelection>
 }
 
 export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'CodeMirrorTypeUserOwnerNodeAggregateSelection'
+  __typename: 'CodeMirrorTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -3160,7 +3160,7 @@ export type CodeMirrorTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type Component = WithOwner & {
-  __typename?: 'Component'
+  __typename: 'Component'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   keyGenerator?: Maybe<Scalars['String']['output']>
@@ -3299,7 +3299,7 @@ export type ComponentOwnerConnectionArgs = {
 }
 
 export type ComponentAggregateSelection = {
-  __typename?: 'ComponentAggregateSelection'
+  __typename: 'ComponentAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -3307,45 +3307,45 @@ export type ComponentAggregateSelection = {
 }
 
 export type ComponentApiConnection = {
-  __typename?: 'ComponentApiConnection'
+  __typename: 'ComponentApiConnection'
   edges: Array<ComponentApiRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ComponentApiRelationship = {
-  __typename?: 'ComponentApiRelationship'
+  __typename: 'ComponentApiRelationship'
   cursor: Scalars['String']['output']
   node: InterfaceType
 }
 
 export type ComponentChildrenContainerElementConnection = {
-  __typename?: 'ComponentChildrenContainerElementConnection'
+  __typename: 'ComponentChildrenContainerElementConnection'
   edges: Array<ComponentChildrenContainerElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ComponentChildrenContainerElementRelationship = {
-  __typename?: 'ComponentChildrenContainerElementRelationship'
+  __typename: 'ComponentChildrenContainerElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ComponentEdge = {
-  __typename?: 'ComponentEdge'
+  __typename: 'ComponentEdge'
   cursor: Scalars['String']['output']
   node: Component
 }
 
 export type ComponentElementChildrenContainerElementAggregationSelection = {
-  __typename?: 'ComponentElementChildrenContainerElementAggregationSelection'
+  __typename: 'ComponentElementChildrenContainerElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ComponentElementChildrenContainerElementNodeAggregateSelection>
 }
 
 export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
-  __typename?: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
+  __typename: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -3355,13 +3355,13 @@ export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
 }
 
 export type ComponentElementRootElementAggregationSelection = {
-  __typename?: 'ComponentElementRootElementAggregationSelection'
+  __typename: 'ComponentElementRootElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ComponentElementRootElementNodeAggregateSelection>
 }
 
 export type ComponentElementRootElementNodeAggregateSelection = {
-  __typename?: 'ComponentElementRootElementNodeAggregateSelection'
+  __typename: 'ComponentElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -3371,95 +3371,95 @@ export type ComponentElementRootElementNodeAggregateSelection = {
 }
 
 export type ComponentInterfaceTypeApiAggregationSelection = {
-  __typename?: 'ComponentInterfaceTypeApiAggregationSelection'
+  __typename: 'ComponentInterfaceTypeApiAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ComponentInterfaceTypeApiNodeAggregateSelection>
 }
 
 export type ComponentInterfaceTypeApiNodeAggregateSelection = {
-  __typename?: 'ComponentInterfaceTypeApiNodeAggregateSelection'
+  __typename: 'ComponentInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ComponentPropPropsAggregationSelection = {
-  __typename?: 'ComponentPropPropsAggregationSelection'
+  __typename: 'ComponentPropPropsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ComponentPropPropsNodeAggregateSelection>
 }
 
 export type ComponentPropPropsNodeAggregateSelection = {
-  __typename?: 'ComponentPropPropsNodeAggregateSelection'
+  __typename: 'ComponentPropPropsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type ComponentPropsConnection = {
-  __typename?: 'ComponentPropsConnection'
+  __typename: 'ComponentPropsConnection'
   edges: Array<ComponentPropsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ComponentPropsRelationship = {
-  __typename?: 'ComponentPropsRelationship'
+  __typename: 'ComponentPropsRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type ComponentRootElementConnection = {
-  __typename?: 'ComponentRootElementConnection'
+  __typename: 'ComponentRootElementConnection'
   edges: Array<ComponentRootElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ComponentRootElementRelationship = {
-  __typename?: 'ComponentRootElementRelationship'
+  __typename: 'ComponentRootElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ComponentsConnection = {
-  __typename?: 'ComponentsConnection'
+  __typename: 'ComponentsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ComponentEdge>
 }
 
 export type ComponentStoreConnection = {
-  __typename?: 'ComponentStoreConnection'
+  __typename: 'ComponentStoreConnection'
   edges: Array<ComponentStoreRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ComponentStoreRelationship = {
-  __typename?: 'ComponentStoreRelationship'
+  __typename: 'ComponentStoreRelationship'
   cursor: Scalars['String']['output']
   node: Store
 }
 
 export type ComponentStoreStoreAggregationSelection = {
-  __typename?: 'ComponentStoreStoreAggregationSelection'
+  __typename: 'ComponentStoreStoreAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ComponentStoreStoreNodeAggregateSelection>
 }
 
 export type ComponentStoreStoreNodeAggregateSelection = {
-  __typename?: 'ComponentStoreStoreNodeAggregateSelection'
+  __typename: 'ComponentStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ComponentUserOwnerAggregationSelection = {
-  __typename?: 'ComponentUserOwnerAggregationSelection'
+  __typename: 'ComponentUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ComponentUserOwnerNodeAggregateSelection>
 }
 
 export type ComponentUserOwnerNodeAggregateSelection = {
-  __typename?: 'ComponentUserOwnerNodeAggregateSelection'
+  __typename: 'ComponentUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -3467,110 +3467,110 @@ export type ComponentUserOwnerNodeAggregateSelection = {
 }
 
 export type CreateActionTypesMutationResponse = {
-  __typename?: 'CreateActionTypesMutationResponse'
+  __typename: 'CreateActionTypesMutationResponse'
   info: CreateInfo
   actionTypes: Array<ActionType>
 }
 
 export type CreateApiActionsMutationResponse = {
-  __typename?: 'CreateApiActionsMutationResponse'
+  __typename: 'CreateApiActionsMutationResponse'
   info: CreateInfo
   apiActions: Array<ApiAction>
 }
 
 export type CreateAppsMutationResponse = {
-  __typename?: 'CreateAppsMutationResponse'
+  __typename: 'CreateAppsMutationResponse'
   info: CreateInfo
   apps: Array<App>
 }
 
 export type CreateAppTypesMutationResponse = {
-  __typename?: 'CreateAppTypesMutationResponse'
+  __typename: 'CreateAppTypesMutationResponse'
   info: CreateInfo
   appTypes: Array<AppType>
 }
 
 export type CreateArrayTypesMutationResponse = {
-  __typename?: 'CreateArrayTypesMutationResponse'
+  __typename: 'CreateArrayTypesMutationResponse'
   info: CreateInfo
   arrayTypes: Array<ArrayType>
 }
 
 export type CreateAtomsMutationResponse = {
-  __typename?: 'CreateAtomsMutationResponse'
+  __typename: 'CreateAtomsMutationResponse'
   info: CreateInfo
   atoms: Array<Atom>
 }
 
 export type CreateCodeActionsMutationResponse = {
-  __typename?: 'CreateCodeActionsMutationResponse'
+  __typename: 'CreateCodeActionsMutationResponse'
   info: CreateInfo
   codeActions: Array<CodeAction>
 }
 
 export type CreateCodeMirrorTypesMutationResponse = {
-  __typename?: 'CreateCodeMirrorTypesMutationResponse'
+  __typename: 'CreateCodeMirrorTypesMutationResponse'
   info: CreateInfo
   codeMirrorTypes: Array<CodeMirrorType>
 }
 
 export type CreateComponentsMutationResponse = {
-  __typename?: 'CreateComponentsMutationResponse'
+  __typename: 'CreateComponentsMutationResponse'
   info: CreateInfo
   components: Array<Component>
 }
 
 export type CreateDomainsMutationResponse = {
-  __typename?: 'CreateDomainsMutationResponse'
+  __typename: 'CreateDomainsMutationResponse'
   info: CreateInfo
   domains: Array<Domain>
 }
 
 export type CreateElementsMutationResponse = {
-  __typename?: 'CreateElementsMutationResponse'
+  __typename: 'CreateElementsMutationResponse'
   info: CreateInfo
   elements: Array<Element>
 }
 
 export type CreateElementTypesMutationResponse = {
-  __typename?: 'CreateElementTypesMutationResponse'
+  __typename: 'CreateElementTypesMutationResponse'
   info: CreateInfo
   elementTypes: Array<ElementType>
 }
 
 export type CreateEnumTypesMutationResponse = {
-  __typename?: 'CreateEnumTypesMutationResponse'
+  __typename: 'CreateEnumTypesMutationResponse'
   info: CreateInfo
   enumTypes: Array<EnumType>
 }
 
 export type CreateEnumTypeValuesMutationResponse = {
-  __typename?: 'CreateEnumTypeValuesMutationResponse'
+  __typename: 'CreateEnumTypeValuesMutationResponse'
   info: CreateInfo
   enumTypeValues: Array<EnumTypeValue>
 }
 
 export type CreateFieldsMutationResponse = {
-  __typename?: 'CreateFieldsMutationResponse'
+  __typename: 'CreateFieldsMutationResponse'
   info: CreateInfo
   fields: Array<Field>
 }
 
 export type CreateGetBaseTypesReturnsMutationResponse = {
-  __typename?: 'CreateGetBaseTypesReturnsMutationResponse'
+  __typename: 'CreateGetBaseTypesReturnsMutationResponse'
   info: CreateInfo
   getBaseTypesReturns: Array<GetBaseTypesReturn>
 }
 
 export type CreateHooksMutationResponse = {
-  __typename?: 'CreateHooksMutationResponse'
+  __typename: 'CreateHooksMutationResponse'
   info: CreateInfo
   hooks: Array<Hook>
 }
 
 /** Information about the number of nodes and relationships created during a create mutation */
 export type CreateInfo = {
-  __typename?: 'CreateInfo'
+  __typename: 'CreateInfo'
   /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
   bookmark?: Maybe<Scalars['String']['output']>
   nodesCreated: Scalars['Int']['output']
@@ -3578,104 +3578,104 @@ export type CreateInfo = {
 }
 
 export type CreateInterfaceTypesMutationResponse = {
-  __typename?: 'CreateInterfaceTypesMutationResponse'
+  __typename: 'CreateInterfaceTypesMutationResponse'
   info: CreateInfo
   interfaceTypes: Array<InterfaceType>
 }
 
 export type CreateLambdaTypesMutationResponse = {
-  __typename?: 'CreateLambdaTypesMutationResponse'
+  __typename: 'CreateLambdaTypesMutationResponse'
   info: CreateInfo
   lambdaTypes: Array<LambdaType>
 }
 
 export type CreatePagesMutationResponse = {
-  __typename?: 'CreatePagesMutationResponse'
+  __typename: 'CreatePagesMutationResponse'
   info: CreateInfo
   pages: Array<Page>
 }
 
 export type CreatePageTypesMutationResponse = {
-  __typename?: 'CreatePageTypesMutationResponse'
+  __typename: 'CreatePageTypesMutationResponse'
   info: CreateInfo
   pageTypes: Array<PageType>
 }
 
 export type CreatePrimitiveTypesMutationResponse = {
-  __typename?: 'CreatePrimitiveTypesMutationResponse'
+  __typename: 'CreatePrimitiveTypesMutationResponse'
   info: CreateInfo
   primitiveTypes: Array<PrimitiveType>
 }
 
 export type CreatePropsMutationResponse = {
-  __typename?: 'CreatePropsMutationResponse'
+  __typename: 'CreatePropsMutationResponse'
   info: CreateInfo
   props: Array<Prop>
 }
 
 export type CreateReactNodeTypesMutationResponse = {
-  __typename?: 'CreateReactNodeTypesMutationResponse'
+  __typename: 'CreateReactNodeTypesMutationResponse'
   info: CreateInfo
   reactNodeTypes: Array<ReactNodeType>
 }
 
 export type CreateRenderPropTypesMutationResponse = {
-  __typename?: 'CreateRenderPropTypesMutationResponse'
+  __typename: 'CreateRenderPropTypesMutationResponse'
   info: CreateInfo
   renderPropTypes: Array<RenderPropType>
 }
 
 export type CreateResourcesMutationResponse = {
-  __typename?: 'CreateResourcesMutationResponse'
+  __typename: 'CreateResourcesMutationResponse'
   info: CreateInfo
   resources: Array<Resource>
 }
 
 export type CreateStoresMutationResponse = {
-  __typename?: 'CreateStoresMutationResponse'
+  __typename: 'CreateStoresMutationResponse'
   info: CreateInfo
   stores: Array<Store>
 }
 
 export type CreateTagsMutationResponse = {
-  __typename?: 'CreateTagsMutationResponse'
+  __typename: 'CreateTagsMutationResponse'
   info: CreateInfo
   tags: Array<Tag>
 }
 
 export type CreateTypeReferencesMutationResponse = {
-  __typename?: 'CreateTypeReferencesMutationResponse'
+  __typename: 'CreateTypeReferencesMutationResponse'
   info: CreateInfo
   typeReferences: Array<TypeReference>
 }
 
 export type CreateUnionTypesMutationResponse = {
-  __typename?: 'CreateUnionTypesMutationResponse'
+  __typename: 'CreateUnionTypesMutationResponse'
   info: CreateInfo
   unionTypes: Array<UnionType>
 }
 
 export type CreateUsersMutationResponse = {
-  __typename?: 'CreateUsersMutationResponse'
+  __typename: 'CreateUsersMutationResponse'
   info: CreateInfo
   users: Array<User>
 }
 
 export type CreateVercelDomainConfigsMutationResponse = {
-  __typename?: 'CreateVercelDomainConfigsMutationResponse'
+  __typename: 'CreateVercelDomainConfigsMutationResponse'
   info: CreateInfo
   vercelDomainConfigs: Array<VercelDomainConfig>
 }
 
 export type CreateVercelProjectDomainsMutationResponse = {
-  __typename?: 'CreateVercelProjectDomainsMutationResponse'
+  __typename: 'CreateVercelProjectDomainsMutationResponse'
   info: CreateInfo
   vercelProjectDomains: Array<VercelProjectDomain>
 }
 
 /** Information about the number of nodes and relationships deleted during a delete mutation */
 export type DeleteInfo = {
-  __typename?: 'DeleteInfo'
+  __typename: 'DeleteInfo'
   /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
   bookmark?: Maybe<Scalars['String']['output']>
   nodesDeleted: Scalars['Int']['output']
@@ -3683,7 +3683,7 @@ export type DeleteInfo = {
 }
 
 export type Domain = {
-  __typename?: 'Domain'
+  __typename: 'Domain'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   domainConfig: VercelDomainConfig
@@ -3713,52 +3713,52 @@ export type DomainAppConnectionArgs = {
 }
 
 export type DomainAggregateSelection = {
-  __typename?: 'DomainAggregateSelection'
+  __typename: 'DomainAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type DomainAppAppAggregationSelection = {
-  __typename?: 'DomainAppAppAggregationSelection'
+  __typename: 'DomainAppAppAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<DomainAppAppNodeAggregateSelection>
 }
 
 export type DomainAppAppNodeAggregateSelection = {
-  __typename?: 'DomainAppAppNodeAggregateSelection'
+  __typename: 'DomainAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
 }
 
 export type DomainAppConnection = {
-  __typename?: 'DomainAppConnection'
+  __typename: 'DomainAppConnection'
   edges: Array<DomainAppRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type DomainAppRelationship = {
-  __typename?: 'DomainAppRelationship'
+  __typename: 'DomainAppRelationship'
   cursor: Scalars['String']['output']
   node: App
 }
 
 export type DomainEdge = {
-  __typename?: 'DomainEdge'
+  __typename: 'DomainEdge'
   cursor: Scalars['String']['output']
   node: Domain
 }
 
 export type DomainsConnection = {
-  __typename?: 'DomainsConnection'
+  __typename: 'DomainsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<DomainEdge>
 }
 
 export type Element = {
-  __typename?: 'Element'
+  __typename: 'Element'
   id: Scalars['ID']['output']
   compositeKey: Scalars['String']['output']
   name: Scalars['String']['output']
@@ -4018,7 +4018,7 @@ export type ElementRenderTypeConnectionArgs = {
 }
 
 export type ElementAggregateSelection = {
-  __typename?: 'ElementAggregateSelection'
+  __typename: 'ElementAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
@@ -4029,71 +4029,71 @@ export type ElementAggregateSelection = {
 }
 
 export type ElementChildMapperComponentConnection = {
-  __typename?: 'ElementChildMapperComponentConnection'
+  __typename: 'ElementChildMapperComponentConnection'
   edges: Array<ElementChildMapperComponentRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementChildMapperComponentRelationship = {
-  __typename?: 'ElementChildMapperComponentRelationship'
+  __typename: 'ElementChildMapperComponentRelationship'
   cursor: Scalars['String']['output']
   node: Component
 }
 
 export type ElementChildMapperPreviousSiblingConnection = {
-  __typename?: 'ElementChildMapperPreviousSiblingConnection'
+  __typename: 'ElementChildMapperPreviousSiblingConnection'
   edges: Array<ElementChildMapperPreviousSiblingRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementChildMapperPreviousSiblingRelationship = {
-  __typename?: 'ElementChildMapperPreviousSiblingRelationship'
+  __typename: 'ElementChildMapperPreviousSiblingRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ElementComponentChildMapperComponentAggregationSelection = {
-  __typename?: 'ElementComponentChildMapperComponentAggregationSelection'
+  __typename: 'ElementComponentChildMapperComponentAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementComponentChildMapperComponentNodeAggregateSelection>
 }
 
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
-  __typename?: 'ElementComponentChildMapperComponentNodeAggregateSelection'
+  __typename: 'ElementComponentChildMapperComponentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   keyGenerator: StringAggregateSelectionNullable
 }
 
 export type ElementComponentParentComponentAggregationSelection = {
-  __typename?: 'ElementComponentParentComponentAggregationSelection'
+  __typename: 'ElementComponentParentComponentAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementComponentParentComponentNodeAggregateSelection>
 }
 
 export type ElementComponentParentComponentNodeAggregateSelection = {
-  __typename?: 'ElementComponentParentComponentNodeAggregateSelection'
+  __typename: 'ElementComponentParentComponentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   keyGenerator: StringAggregateSelectionNullable
 }
 
 export type ElementEdge = {
-  __typename?: 'ElementEdge'
+  __typename: 'ElementEdge'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ElementElementChildMapperPreviousSiblingAggregationSelection = {
-  __typename?: 'ElementElementChildMapperPreviousSiblingAggregationSelection'
+  __typename: 'ElementElementChildMapperPreviousSiblingAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementElementChildMapperPreviousSiblingNodeAggregateSelection>
 }
 
 export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
-  __typename?: 'ElementElementChildMapperPreviousSiblingNodeAggregateSelection'
+  __typename: 'ElementElementChildMapperPreviousSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -4103,13 +4103,13 @@ export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
 }
 
 export type ElementElementFirstChildAggregationSelection = {
-  __typename?: 'ElementElementFirstChildAggregationSelection'
+  __typename: 'ElementElementFirstChildAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementElementFirstChildNodeAggregateSelection>
 }
 
 export type ElementElementFirstChildNodeAggregateSelection = {
-  __typename?: 'ElementElementFirstChildNodeAggregateSelection'
+  __typename: 'ElementElementFirstChildNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -4119,13 +4119,13 @@ export type ElementElementFirstChildNodeAggregateSelection = {
 }
 
 export type ElementElementNextSiblingAggregationSelection = {
-  __typename?: 'ElementElementNextSiblingAggregationSelection'
+  __typename: 'ElementElementNextSiblingAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementElementNextSiblingNodeAggregateSelection>
 }
 
 export type ElementElementNextSiblingNodeAggregateSelection = {
-  __typename?: 'ElementElementNextSiblingNodeAggregateSelection'
+  __typename: 'ElementElementNextSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -4135,13 +4135,13 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
 }
 
 export type ElementElementParentElementAggregationSelection = {
-  __typename?: 'ElementElementParentElementAggregationSelection'
+  __typename: 'ElementElementParentElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementElementParentElementNodeAggregateSelection>
 }
 
 export type ElementElementParentElementNodeAggregateSelection = {
-  __typename?: 'ElementElementParentElementNodeAggregateSelection'
+  __typename: 'ElementElementParentElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -4151,13 +4151,13 @@ export type ElementElementParentElementNodeAggregateSelection = {
 }
 
 export type ElementElementPrevSiblingAggregationSelection = {
-  __typename?: 'ElementElementPrevSiblingAggregationSelection'
+  __typename: 'ElementElementPrevSiblingAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementElementPrevSiblingNodeAggregateSelection>
 }
 
 export type ElementElementPrevSiblingNodeAggregateSelection = {
-  __typename?: 'ElementElementPrevSiblingNodeAggregateSelection'
+  __typename: 'ElementElementPrevSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -4167,162 +4167,162 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
 }
 
 export type ElementFirstChildConnection = {
-  __typename?: 'ElementFirstChildConnection'
+  __typename: 'ElementFirstChildConnection'
   edges: Array<ElementFirstChildRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementFirstChildRelationship = {
-  __typename?: 'ElementFirstChildRelationship'
+  __typename: 'ElementFirstChildRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ElementNextSiblingConnection = {
-  __typename?: 'ElementNextSiblingConnection'
+  __typename: 'ElementNextSiblingConnection'
   edges: Array<ElementNextSiblingRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementNextSiblingRelationship = {
-  __typename?: 'ElementNextSiblingRelationship'
+  __typename: 'ElementNextSiblingRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ElementPageConnection = {
-  __typename?: 'ElementPageConnection'
+  __typename: 'ElementPageConnection'
   edges: Array<ElementPageRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementPagePageAggregationSelection = {
-  __typename?: 'ElementPagePageAggregationSelection'
+  __typename: 'ElementPagePageAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementPagePageNodeAggregateSelection>
 }
 
 export type ElementPagePageNodeAggregateSelection = {
-  __typename?: 'ElementPagePageNodeAggregateSelection'
+  __typename: 'ElementPagePageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
 export type ElementPageRelationship = {
-  __typename?: 'ElementPageRelationship'
+  __typename: 'ElementPageRelationship'
   cursor: Scalars['String']['output']
   node: Page
 }
 
 export type ElementParentComponentConnection = {
-  __typename?: 'ElementParentComponentConnection'
+  __typename: 'ElementParentComponentConnection'
   edges: Array<ElementParentComponentRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementParentComponentRelationship = {
-  __typename?: 'ElementParentComponentRelationship'
+  __typename: 'ElementParentComponentRelationship'
   cursor: Scalars['String']['output']
   node: Component
 }
 
 export type ElementParentElementConnection = {
-  __typename?: 'ElementParentElementConnection'
+  __typename: 'ElementParentElementConnection'
   edges: Array<ElementParentElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementParentElementRelationship = {
-  __typename?: 'ElementParentElementRelationship'
+  __typename: 'ElementParentElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ElementPostRenderActionConnection = {
-  __typename?: 'ElementPostRenderActionConnection'
+  __typename: 'ElementPostRenderActionConnection'
   edges: Array<ElementPostRenderActionRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementPostRenderActionRelationship = {
-  __typename?: 'ElementPostRenderActionRelationship'
+  __typename: 'ElementPostRenderActionRelationship'
   cursor: Scalars['String']['output']
   node: BaseAction
 }
 
 export type ElementPreRenderActionConnection = {
-  __typename?: 'ElementPreRenderActionConnection'
+  __typename: 'ElementPreRenderActionConnection'
   edges: Array<ElementPreRenderActionRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementPreRenderActionRelationship = {
-  __typename?: 'ElementPreRenderActionRelationship'
+  __typename: 'ElementPreRenderActionRelationship'
   cursor: Scalars['String']['output']
   node: BaseAction
 }
 
 export type ElementPrevSiblingConnection = {
-  __typename?: 'ElementPrevSiblingConnection'
+  __typename: 'ElementPrevSiblingConnection'
   edges: Array<ElementPrevSiblingRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementPrevSiblingRelationship = {
-  __typename?: 'ElementPrevSiblingRelationship'
+  __typename: 'ElementPrevSiblingRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type ElementPropPropsAggregationSelection = {
-  __typename?: 'ElementPropPropsAggregationSelection'
+  __typename: 'ElementPropPropsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementPropPropsNodeAggregateSelection>
 }
 
 export type ElementPropPropsNodeAggregateSelection = {
-  __typename?: 'ElementPropPropsNodeAggregateSelection'
+  __typename: 'ElementPropPropsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type ElementPropsConnection = {
-  __typename?: 'ElementPropsConnection'
+  __typename: 'ElementPropsConnection'
   edges: Array<ElementPropsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementPropsRelationship = {
-  __typename?: 'ElementPropsRelationship'
+  __typename: 'ElementPropsRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type ElementRenderTypeConnection = {
-  __typename?: 'ElementRenderTypeConnection'
+  __typename: 'ElementRenderTypeConnection'
   edges: Array<ElementRenderTypeRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ElementRenderTypeRelationship = {
-  __typename?: 'ElementRenderTypeRelationship'
+  __typename: 'ElementRenderTypeRelationship'
   cursor: Scalars['String']['output']
   node: ElementRenderType
 }
 
 export type ElementsConnection = {
-  __typename?: 'ElementsConnection'
+  __typename: 'ElementsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ElementEdge>
@@ -4339,7 +4339,7 @@ export type ElementsConnection = {
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
 export type ElementType = IBaseType & {
-  __typename?: 'ElementType'
+  __typename: 'ElementType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -4400,33 +4400,33 @@ export type ElementTypeOwnerConnectionArgs = {
 }
 
 export type ElementTypeAggregateSelection = {
-  __typename?: 'ElementTypeAggregateSelection'
+  __typename: 'ElementTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ElementTypeEdge = {
-  __typename?: 'ElementTypeEdge'
+  __typename: 'ElementTypeEdge'
   cursor: Scalars['String']['output']
   node: ElementType
 }
 
 export type ElementTypesConnection = {
-  __typename?: 'ElementTypesConnection'
+  __typename: 'ElementTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ElementTypeEdge>
 }
 
 export type ElementTypeUserOwnerAggregationSelection = {
-  __typename?: 'ElementTypeUserOwnerAggregationSelection'
+  __typename: 'ElementTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ElementTypeUserOwnerNodeAggregateSelection>
 }
 
 export type ElementTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'ElementTypeUserOwnerNodeAggregateSelection'
+  __typename: 'ElementTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -4439,7 +4439,7 @@ export type ElementTypeUserOwnerNodeAggregateSelection = {
  * The actual value must be de-referenced by the id.
  */
 export type EnumType = IBaseType & {
-  __typename?: 'EnumType'
+  __typename: 'EnumType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -4557,52 +4557,52 @@ export type EnumTypeOwnerConnectionArgs = {
 }
 
 export type EnumTypeAggregateSelection = {
-  __typename?: 'EnumTypeAggregateSelection'
+  __typename: 'EnumTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeAllowedValuesConnection = {
-  __typename?: 'EnumTypeAllowedValuesConnection'
+  __typename: 'EnumTypeAllowedValuesConnection'
   edges: Array<EnumTypeAllowedValuesRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type EnumTypeAllowedValuesRelationship = {
-  __typename?: 'EnumTypeAllowedValuesRelationship'
+  __typename: 'EnumTypeAllowedValuesRelationship'
   cursor: Scalars['String']['output']
   node: EnumTypeValue
 }
 
 export type EnumTypeEdge = {
-  __typename?: 'EnumTypeEdge'
+  __typename: 'EnumTypeEdge'
   cursor: Scalars['String']['output']
   node: EnumType
 }
 
 export type EnumTypeEnumTypeValueAllowedValuesAggregationSelection = {
-  __typename?: 'EnumTypeEnumTypeValueAllowedValuesAggregationSelection'
+  __typename: 'EnumTypeEnumTypeValueAllowedValuesAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection>
 }
 
 export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
-  __typename?: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
+  __typename: 'EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   value: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeFieldFieldRefsAggregationSelection = {
-  __typename?: 'EnumTypeFieldFieldRefsAggregationSelection'
+  __typename: 'EnumTypeFieldFieldRefsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<EnumTypeFieldFieldRefsNodeAggregateSelection>
 }
 
 export type EnumTypeFieldFieldRefsNodeAggregateSelection = {
-  __typename?: 'EnumTypeFieldFieldRefsNodeAggregateSelection'
+  __typename: 'EnumTypeFieldFieldRefsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -4612,33 +4612,33 @@ export type EnumTypeFieldFieldRefsNodeAggregateSelection = {
 }
 
 export type EnumTypeFieldRefsConnection = {
-  __typename?: 'EnumTypeFieldRefsConnection'
+  __typename: 'EnumTypeFieldRefsConnection'
   edges: Array<EnumTypeFieldRefsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type EnumTypeFieldRefsRelationship = {
-  __typename?: 'EnumTypeFieldRefsRelationship'
+  __typename: 'EnumTypeFieldRefsRelationship'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type EnumTypesConnection = {
-  __typename?: 'EnumTypesConnection'
+  __typename: 'EnumTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<EnumTypeEdge>
 }
 
 export type EnumTypeUserOwnerAggregationSelection = {
-  __typename?: 'EnumTypeUserOwnerAggregationSelection'
+  __typename: 'EnumTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<EnumTypeUserOwnerNodeAggregateSelection>
 }
 
 export type EnumTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'EnumTypeUserOwnerNodeAggregateSelection'
+  __typename: 'EnumTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -4646,7 +4646,7 @@ export type EnumTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type EnumTypeValue = {
-  __typename?: 'EnumTypeValue'
+  __typename: 'EnumTypeValue'
   id: Scalars['ID']['output']
   key: Scalars['String']['output']
   value: Scalars['String']['output']
@@ -4675,7 +4675,7 @@ export type EnumTypeValueEnumTypeConnectionArgs = {
 }
 
 export type EnumTypeValueAggregateSelection = {
-  __typename?: 'EnumTypeValueAggregateSelection'
+  __typename: 'EnumTypeValueAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
@@ -4683,45 +4683,45 @@ export type EnumTypeValueAggregateSelection = {
 }
 
 export type EnumTypeValueEdge = {
-  __typename?: 'EnumTypeValueEdge'
+  __typename: 'EnumTypeValueEdge'
   cursor: Scalars['String']['output']
   node: EnumTypeValue
 }
 
 export type EnumTypeValueEnumTypeConnection = {
-  __typename?: 'EnumTypeValueEnumTypeConnection'
+  __typename: 'EnumTypeValueEnumTypeConnection'
   edges: Array<EnumTypeValueEnumTypeRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type EnumTypeValueEnumTypeEnumTypeAggregationSelection = {
-  __typename?: 'EnumTypeValueEnumTypeEnumTypeAggregationSelection'
+  __typename: 'EnumTypeValueEnumTypeEnumTypeAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection>
 }
 
 export type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection = {
-  __typename?: 'EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection'
+  __typename: 'EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type EnumTypeValueEnumTypeRelationship = {
-  __typename?: 'EnumTypeValueEnumTypeRelationship'
+  __typename: 'EnumTypeValueEnumTypeRelationship'
   cursor: Scalars['String']['output']
   node: EnumType
 }
 
 export type EnumTypeValuesConnection = {
-  __typename?: 'EnumTypeValuesConnection'
+  __typename: 'EnumTypeValuesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<EnumTypeValueEdge>
 }
 
 export type Field = {
-  __typename?: 'Field'
+  __typename: 'Field'
   id: Scalars['ID']['output']
   key: Scalars['String']['output']
   name?: Maybe<Scalars['String']['output']>
@@ -4813,7 +4813,7 @@ export type FieldApiConnectionArgs = {
 }
 
 export type FieldAggregateSelection = {
-  __typename?: 'FieldAggregateSelection'
+  __typename: 'FieldAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
@@ -4824,32 +4824,32 @@ export type FieldAggregateSelection = {
 }
 
 export type FieldApiConnection = {
-  __typename?: 'FieldApiConnection'
+  __typename: 'FieldApiConnection'
   edges: Array<FieldApiRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type FieldApiRelationship = {
-  __typename?: 'FieldApiRelationship'
+  __typename: 'FieldApiRelationship'
   cursor: Scalars['String']['output']
   node: InterfaceType
 }
 
 export type FieldEdge = {
-  __typename?: 'FieldEdge'
+  __typename: 'FieldEdge'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type FieldFieldNextSiblingAggregationSelection = {
-  __typename?: 'FieldFieldNextSiblingAggregationSelection'
+  __typename: 'FieldFieldNextSiblingAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<FieldFieldNextSiblingNodeAggregateSelection>
 }
 
 export type FieldFieldNextSiblingNodeAggregateSelection = {
-  __typename?: 'FieldFieldNextSiblingNodeAggregateSelection'
+  __typename: 'FieldFieldNextSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -4859,13 +4859,13 @@ export type FieldFieldNextSiblingNodeAggregateSelection = {
 }
 
 export type FieldFieldPrevSiblingAggregationSelection = {
-  __typename?: 'FieldFieldPrevSiblingAggregationSelection'
+  __typename: 'FieldFieldPrevSiblingAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<FieldFieldPrevSiblingNodeAggregateSelection>
 }
 
 export type FieldFieldPrevSiblingNodeAggregateSelection = {
-  __typename?: 'FieldFieldPrevSiblingNodeAggregateSelection'
+  __typename: 'FieldFieldPrevSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -4875,90 +4875,90 @@ export type FieldFieldPrevSiblingNodeAggregateSelection = {
 }
 
 export type FieldFieldTypeConnection = {
-  __typename?: 'FieldFieldTypeConnection'
+  __typename: 'FieldFieldTypeConnection'
   edges: Array<FieldFieldTypeRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type FieldFieldTypeRelationship = {
-  __typename?: 'FieldFieldTypeRelationship'
+  __typename: 'FieldFieldTypeRelationship'
   cursor: Scalars['String']['output']
   node: IBaseType
 }
 
 export type FieldInterfaceTypeApiAggregationSelection = {
-  __typename?: 'FieldInterfaceTypeApiAggregationSelection'
+  __typename: 'FieldInterfaceTypeApiAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<FieldInterfaceTypeApiNodeAggregateSelection>
 }
 
 export type FieldInterfaceTypeApiNodeAggregateSelection = {
-  __typename?: 'FieldInterfaceTypeApiNodeAggregateSelection'
+  __typename: 'FieldInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type FieldNextSiblingConnection = {
-  __typename?: 'FieldNextSiblingConnection'
+  __typename: 'FieldNextSiblingConnection'
   edges: Array<FieldNextSiblingRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type FieldNextSiblingRelationship = {
-  __typename?: 'FieldNextSiblingRelationship'
+  __typename: 'FieldNextSiblingRelationship'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type FieldPrevSiblingConnection = {
-  __typename?: 'FieldPrevSiblingConnection'
+  __typename: 'FieldPrevSiblingConnection'
   edges: Array<FieldPrevSiblingRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type FieldPrevSiblingRelationship = {
-  __typename?: 'FieldPrevSiblingRelationship'
+  __typename: 'FieldPrevSiblingRelationship'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type FieldsConnection = {
-  __typename?: 'FieldsConnection'
+  __typename: 'FieldsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<FieldEdge>
 }
 
 export type GetBaseTypesReturn = {
-  __typename?: 'GetBaseTypesReturn'
+  __typename: 'GetBaseTypesReturn'
   items: Array<IBaseType>
   totalCount: Scalars['Int']['output']
 }
 
 export type GetBaseTypesReturnAggregateSelection = {
-  __typename?: 'GetBaseTypesReturnAggregateSelection'
+  __typename: 'GetBaseTypesReturnAggregateSelection'
   count: Scalars['Int']['output']
   totalCount: IntAggregateSelectionNonNullable
 }
 
 export type GetBaseTypesReturnEdge = {
-  __typename?: 'GetBaseTypesReturnEdge'
+  __typename: 'GetBaseTypesReturnEdge'
   cursor: Scalars['String']['output']
   node: GetBaseTypesReturn
 }
 
 export type GetBaseTypesReturnsConnection = {
-  __typename?: 'GetBaseTypesReturnsConnection'
+  __typename: 'GetBaseTypesReturnsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<GetBaseTypesReturnEdge>
 }
 
 export type Hook = {
-  __typename?: 'Hook'
+  __typename: 'Hook'
   id: Scalars['ID']['output']
   type: AtomType
   configAggregate?: Maybe<HookPropConfigAggregationSelection>
@@ -5008,45 +5008,45 @@ export type HookElementConnectionArgs = {
 }
 
 export type HookAggregateSelection = {
-  __typename?: 'HookAggregateSelection'
+  __typename: 'HookAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
 }
 
 export type HookConfigConnection = {
-  __typename?: 'HookConfigConnection'
+  __typename: 'HookConfigConnection'
   edges: Array<HookConfigRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type HookConfigRelationship = {
-  __typename?: 'HookConfigRelationship'
+  __typename: 'HookConfigRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type HookEdge = {
-  __typename?: 'HookEdge'
+  __typename: 'HookEdge'
   cursor: Scalars['String']['output']
   node: Hook
 }
 
 export type HookElementConnection = {
-  __typename?: 'HookElementConnection'
+  __typename: 'HookElementConnection'
   edges: Array<HookElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type HookElementElementAggregationSelection = {
-  __typename?: 'HookElementElementAggregationSelection'
+  __typename: 'HookElementElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<HookElementElementNodeAggregateSelection>
 }
 
 export type HookElementElementNodeAggregateSelection = {
-  __typename?: 'HookElementElementNodeAggregateSelection'
+  __typename: 'HookElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -5056,51 +5056,51 @@ export type HookElementElementNodeAggregateSelection = {
 }
 
 export type HookElementRelationship = {
-  __typename?: 'HookElementRelationship'
+  __typename: 'HookElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type HookPropConfigAggregationSelection = {
-  __typename?: 'HookPropConfigAggregationSelection'
+  __typename: 'HookPropConfigAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<HookPropConfigNodeAggregateSelection>
 }
 
 export type HookPropConfigNodeAggregateSelection = {
-  __typename?: 'HookPropConfigNodeAggregateSelection'
+  __typename: 'HookPropConfigNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type HooksConnection = {
-  __typename?: 'HooksConnection'
+  __typename: 'HooksConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<HookEdge>
 }
 
 export type IBaseTypeOwnerConnection = {
-  __typename?: 'IBaseTypeOwnerConnection'
+  __typename: 'IBaseTypeOwnerConnection'
   edges: Array<IBaseTypeOwnerRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type IBaseTypeOwnerRelationship = {
-  __typename?: 'IBaseTypeOwnerRelationship'
+  __typename: 'IBaseTypeOwnerRelationship'
   cursor: Scalars['String']['output']
   node: User
 }
 
 export type IdAggregateSelectionNonNullable = {
-  __typename?: 'IDAggregateSelectionNonNullable'
+  __typename: 'IDAggregateSelectionNonNullable'
   shortest: Scalars['ID']['output']
   longest: Scalars['ID']['output']
 }
 
 export type IntAggregateSelectionNonNullable = {
-  __typename?: 'IntAggregateSelectionNonNullable'
+  __typename: 'IntAggregateSelectionNonNullable'
   max: Scalars['Int']['output']
   min: Scalars['Int']['output']
   average: Scalars['Float']['output']
@@ -5110,7 +5110,7 @@ export type IntAggregateSelectionNonNullable = {
 /** Represents an object type with multiple fields */
 export type InterfaceType = IBaseType &
   WithDescendants & {
-    __typename?: 'InterfaceType'
+    __typename: 'InterfaceType'
     id: Scalars['ID']['output']
     kind: TypeKind
     name: Scalars['String']['output']
@@ -5218,33 +5218,33 @@ export type InterfaceTypeOwnerConnectionArgs = {
 }
 
 export type InterfaceTypeAggregateSelection = {
-  __typename?: 'InterfaceTypeAggregateSelection'
+  __typename: 'InterfaceTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type InterfaceTypeApiOfAtomsConnection = {
-  __typename?: 'InterfaceTypeApiOfAtomsConnection'
+  __typename: 'InterfaceTypeApiOfAtomsConnection'
   edges: Array<InterfaceTypeApiOfAtomsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type InterfaceTypeApiOfAtomsRelationship = {
-  __typename?: 'InterfaceTypeApiOfAtomsRelationship'
+  __typename: 'InterfaceTypeApiOfAtomsRelationship'
   cursor: Scalars['String']['output']
   node: Atom
 }
 
 export type InterfaceTypeAtomApiOfAtomsAggregationSelection = {
-  __typename?: 'InterfaceTypeAtomApiOfAtomsAggregationSelection'
+  __typename: 'InterfaceTypeAtomApiOfAtomsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<InterfaceTypeAtomApiOfAtomsNodeAggregateSelection>
 }
 
 export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
+  __typename: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
@@ -5254,19 +5254,19 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
 }
 
 export type InterfaceTypeEdge = {
-  __typename?: 'InterfaceTypeEdge'
+  __typename: 'InterfaceTypeEdge'
   cursor: Scalars['String']['output']
   node: InterfaceType
 }
 
 export type InterfaceTypeFieldFieldRefsAggregationSelection = {
-  __typename?: 'InterfaceTypeFieldFieldRefsAggregationSelection'
+  __typename: 'InterfaceTypeFieldFieldRefsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<InterfaceTypeFieldFieldRefsNodeAggregateSelection>
 }
 
 export type InterfaceTypeFieldFieldRefsNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeFieldFieldRefsNodeAggregateSelection'
+  __typename: 'InterfaceTypeFieldFieldRefsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -5276,13 +5276,13 @@ export type InterfaceTypeFieldFieldRefsNodeAggregateSelection = {
 }
 
 export type InterfaceTypeFieldFieldsAggregationSelection = {
-  __typename?: 'InterfaceTypeFieldFieldsAggregationSelection'
+  __typename: 'InterfaceTypeFieldFieldsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<InterfaceTypeFieldFieldsNodeAggregateSelection>
 }
 
 export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeFieldFieldsNodeAggregateSelection'
+  __typename: 'InterfaceTypeFieldFieldsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   key: StringAggregateSelectionNonNullable
   name: StringAggregateSelectionNullable
@@ -5292,46 +5292,46 @@ export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
 }
 
 export type InterfaceTypeFieldRefsConnection = {
-  __typename?: 'InterfaceTypeFieldRefsConnection'
+  __typename: 'InterfaceTypeFieldRefsConnection'
   edges: Array<InterfaceTypeFieldRefsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type InterfaceTypeFieldRefsRelationship = {
-  __typename?: 'InterfaceTypeFieldRefsRelationship'
+  __typename: 'InterfaceTypeFieldRefsRelationship'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type InterfaceTypeFieldsConnection = {
-  __typename?: 'InterfaceTypeFieldsConnection'
+  __typename: 'InterfaceTypeFieldsConnection'
   edges: Array<InterfaceTypeFieldsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type InterfaceTypeFieldsRelationship = {
-  __typename?: 'InterfaceTypeFieldsRelationship'
+  __typename: 'InterfaceTypeFieldsRelationship'
   cursor: Scalars['String']['output']
   node: Field
 }
 
 export type InterfaceTypesConnection = {
-  __typename?: 'InterfaceTypesConnection'
+  __typename: 'InterfaceTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<InterfaceTypeEdge>
 }
 
 export type InterfaceTypeUserOwnerAggregationSelection = {
-  __typename?: 'InterfaceTypeUserOwnerAggregationSelection'
+  __typename: 'InterfaceTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<InterfaceTypeUserOwnerNodeAggregateSelection>
 }
 
 export type InterfaceTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeUserOwnerNodeAggregateSelection'
+  __typename: 'InterfaceTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -5340,7 +5340,7 @@ export type InterfaceTypeUserOwnerNodeAggregateSelection = {
 
 /** Allows picking a lambda */
 export type LambdaType = IBaseType & {
-  __typename?: 'LambdaType'
+  __typename: 'LambdaType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -5372,33 +5372,33 @@ export type LambdaTypeOwnerConnectionArgs = {
 }
 
 export type LambdaTypeAggregateSelection = {
-  __typename?: 'LambdaTypeAggregateSelection'
+  __typename: 'LambdaTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type LambdaTypeEdge = {
-  __typename?: 'LambdaTypeEdge'
+  __typename: 'LambdaTypeEdge'
   cursor: Scalars['String']['output']
   node: LambdaType
 }
 
 export type LambdaTypesConnection = {
-  __typename?: 'LambdaTypesConnection'
+  __typename: 'LambdaTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<LambdaTypeEdge>
 }
 
 export type LambdaTypeUserOwnerAggregationSelection = {
-  __typename?: 'LambdaTypeUserOwnerAggregationSelection'
+  __typename: 'LambdaTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<LambdaTypeUserOwnerNodeAggregateSelection>
 }
 
 export type LambdaTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'LambdaTypeUserOwnerNodeAggregateSelection'
+  __typename: 'LambdaTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -5406,7 +5406,7 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type Page = {
-  __typename?: 'Page'
+  __typename: 'Page'
   id: Scalars['ID']['output']
   compositeKey: Scalars['String']['output']
   name: Scalars['String']['output']
@@ -5504,7 +5504,7 @@ export type PagePageContentContainerConnectionArgs = {
 }
 
 export type PageAggregateSelection = {
-  __typename?: 'PageAggregateSelection'
+  __typename: 'PageAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
@@ -5512,44 +5512,44 @@ export type PageAggregateSelection = {
 }
 
 export type PageAppAppAggregationSelection = {
-  __typename?: 'PageAppAppAggregationSelection'
+  __typename: 'PageAppAppAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageAppAppNodeAggregateSelection>
 }
 
 export type PageAppAppNodeAggregateSelection = {
-  __typename?: 'PageAppAppNodeAggregateSelection'
+  __typename: 'PageAppAppNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
 }
 
 export type PageAppConnection = {
-  __typename?: 'PageAppConnection'
+  __typename: 'PageAppConnection'
   edges: Array<PageAppRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type PageAppRelationship = {
-  __typename?: 'PageAppRelationship'
+  __typename: 'PageAppRelationship'
   cursor: Scalars['String']['output']
   node: App
 }
 
 export type PageEdge = {
-  __typename?: 'PageEdge'
+  __typename: 'PageEdge'
   cursor: Scalars['String']['output']
   node: Page
 }
 
 export type PageElementPageContentContainerAggregationSelection = {
-  __typename?: 'PageElementPageContentContainerAggregationSelection'
+  __typename: 'PageElementPageContentContainerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageElementPageContentContainerNodeAggregateSelection>
 }
 
 export type PageElementPageContentContainerNodeAggregateSelection = {
-  __typename?: 'PageElementPageContentContainerNodeAggregateSelection'
+  __typename: 'PageElementPageContentContainerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -5559,13 +5559,13 @@ export type PageElementPageContentContainerNodeAggregateSelection = {
 }
 
 export type PageElementRootElementAggregationSelection = {
-  __typename?: 'PageElementRootElementAggregationSelection'
+  __typename: 'PageElementRootElementAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageElementRootElementNodeAggregateSelection>
 }
 
 export type PageElementRootElementNodeAggregateSelection = {
-  __typename?: 'PageElementRootElementNodeAggregateSelection'
+  __typename: 'PageElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -5576,7 +5576,7 @@ export type PageElementRootElementNodeAggregateSelection = {
 
 /** Pagination information (Relay) */
 export type PageInfo = {
-  __typename?: 'PageInfo'
+  __typename: 'PageInfo'
   hasNextPage: Scalars['Boolean']['output']
   hasPreviousPage: Scalars['Boolean']['output']
   startCursor?: Maybe<Scalars['String']['output']>
@@ -5584,66 +5584,66 @@ export type PageInfo = {
 }
 
 export type PagePageContentContainerConnection = {
-  __typename?: 'PagePageContentContainerConnection'
+  __typename: 'PagePageContentContainerConnection'
   edges: Array<PagePageContentContainerRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type PagePageContentContainerRelationship = {
-  __typename?: 'PagePageContentContainerRelationship'
+  __typename: 'PagePageContentContainerRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type PageRootElementConnection = {
-  __typename?: 'PageRootElementConnection'
+  __typename: 'PageRootElementConnection'
   edges: Array<PageRootElementRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type PageRootElementRelationship = {
-  __typename?: 'PageRootElementRelationship'
+  __typename: 'PageRootElementRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type PagesConnection = {
-  __typename?: 'PagesConnection'
+  __typename: 'PagesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<PageEdge>
 }
 
 export type PageStoreConnection = {
-  __typename?: 'PageStoreConnection'
+  __typename: 'PageStoreConnection'
   edges: Array<PageStoreRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type PageStoreRelationship = {
-  __typename?: 'PageStoreRelationship'
+  __typename: 'PageStoreRelationship'
   cursor: Scalars['String']['output']
   node: Store
 }
 
 export type PageStoreStoreAggregationSelection = {
-  __typename?: 'PageStoreStoreAggregationSelection'
+  __typename: 'PageStoreStoreAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageStoreStoreNodeAggregateSelection>
 }
 
 export type PageStoreStoreNodeAggregateSelection = {
-  __typename?: 'PageStoreStoreNodeAggregateSelection'
+  __typename: 'PageStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 /** Allows picking a page from the list of pages */
 export type PageType = IBaseType & {
-  __typename?: 'PageType'
+  __typename: 'PageType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -5675,33 +5675,33 @@ export type PageTypeOwnerConnectionArgs = {
 }
 
 export type PageTypeAggregateSelection = {
-  __typename?: 'PageTypeAggregateSelection'
+  __typename: 'PageTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type PageTypeEdge = {
-  __typename?: 'PageTypeEdge'
+  __typename: 'PageTypeEdge'
   cursor: Scalars['String']['output']
   node: PageType
 }
 
 export type PageTypesConnection = {
-  __typename?: 'PageTypesConnection'
+  __typename: 'PageTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<PageTypeEdge>
 }
 
 export type PageTypeUserOwnerAggregationSelection = {
-  __typename?: 'PageTypeUserOwnerAggregationSelection'
+  __typename: 'PageTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageTypeUserOwnerNodeAggregateSelection>
 }
 
 export type PageTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'PageTypeUserOwnerNodeAggregateSelection'
+  __typename: 'PageTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -5710,7 +5710,7 @@ export type PageTypeUserOwnerNodeAggregateSelection = {
 
 /** Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean */
 export type PrimitiveType = IBaseType & {
-  __typename?: 'PrimitiveType'
+  __typename: 'PrimitiveType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -5743,33 +5743,33 @@ export type PrimitiveTypeOwnerConnectionArgs = {
 }
 
 export type PrimitiveTypeAggregateSelection = {
-  __typename?: 'PrimitiveTypeAggregateSelection'
+  __typename: 'PrimitiveTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type PrimitiveTypeEdge = {
-  __typename?: 'PrimitiveTypeEdge'
+  __typename: 'PrimitiveTypeEdge'
   cursor: Scalars['String']['output']
   node: PrimitiveType
 }
 
 export type PrimitiveTypesConnection = {
-  __typename?: 'PrimitiveTypesConnection'
+  __typename: 'PrimitiveTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<PrimitiveTypeEdge>
 }
 
 export type PrimitiveTypeUserOwnerAggregationSelection = {
-  __typename?: 'PrimitiveTypeUserOwnerAggregationSelection'
+  __typename: 'PrimitiveTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PrimitiveTypeUserOwnerNodeAggregateSelection>
 }
 
 export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'PrimitiveTypeUserOwnerNodeAggregateSelection'
+  __typename: 'PrimitiveTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -5777,26 +5777,26 @@ export type PrimitiveTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type Prop = {
-  __typename?: 'Prop'
+  __typename: 'Prop'
   id: Scalars['ID']['output']
   data: Scalars['String']['output']
 }
 
 export type PropAggregateSelection = {
-  __typename?: 'PropAggregateSelection'
+  __typename: 'PropAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type PropEdge = {
-  __typename?: 'PropEdge'
+  __typename: 'PropEdge'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type PropsConnection = {
-  __typename?: 'PropsConnection'
+  __typename: 'PropsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<PropEdge>
@@ -5813,7 +5813,7 @@ export type PropsConnection = {
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
 export type ReactNodeType = IBaseType & {
-  __typename?: 'ReactNodeType'
+  __typename: 'ReactNodeType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -5872,33 +5872,33 @@ export type ReactNodeTypeOwnerConnectionArgs = {
 }
 
 export type ReactNodeTypeAggregateSelection = {
-  __typename?: 'ReactNodeTypeAggregateSelection'
+  __typename: 'ReactNodeTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ReactNodeTypeEdge = {
-  __typename?: 'ReactNodeTypeEdge'
+  __typename: 'ReactNodeTypeEdge'
   cursor: Scalars['String']['output']
   node: ReactNodeType
 }
 
 export type ReactNodeTypesConnection = {
-  __typename?: 'ReactNodeTypesConnection'
+  __typename: 'ReactNodeTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ReactNodeTypeEdge>
 }
 
 export type ReactNodeTypeUserOwnerAggregationSelection = {
-  __typename?: 'ReactNodeTypeUserOwnerAggregationSelection'
+  __typename: 'ReactNodeTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ReactNodeTypeUserOwnerNodeAggregateSelection>
 }
 
 export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'ReactNodeTypeUserOwnerNodeAggregateSelection'
+  __typename: 'ReactNodeTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -5917,7 +5917,7 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
 export type RenderPropType = IBaseType & {
-  __typename?: 'RenderPropType'
+  __typename: 'RenderPropType'
   id: Scalars['ID']['output']
   kind: TypeKind
   name: Scalars['String']['output']
@@ -5979,33 +5979,33 @@ export type RenderPropTypeOwnerConnectionArgs = {
 }
 
 export type RenderPropTypeAggregateSelection = {
-  __typename?: 'RenderPropTypeAggregateSelection'
+  __typename: 'RenderPropTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type RenderPropTypeEdge = {
-  __typename?: 'RenderPropTypeEdge'
+  __typename: 'RenderPropTypeEdge'
   cursor: Scalars['String']['output']
   node: RenderPropType
 }
 
 export type RenderPropTypesConnection = {
-  __typename?: 'RenderPropTypesConnection'
+  __typename: 'RenderPropTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<RenderPropTypeEdge>
 }
 
 export type RenderPropTypeUserOwnerAggregationSelection = {
-  __typename?: 'RenderPropTypeUserOwnerAggregationSelection'
+  __typename: 'RenderPropTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RenderPropTypeUserOwnerNodeAggregateSelection>
 }
 
 export type RenderPropTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'RenderPropTypeUserOwnerNodeAggregateSelection'
+  __typename: 'RenderPropTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -6013,7 +6013,7 @@ export type RenderPropTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type Resource = WithOwner & {
-  __typename?: 'Resource'
+  __typename: 'Resource'
   id: Scalars['ID']['output']
   type: ResourceType
   name: Scalars['String']['output']
@@ -6064,58 +6064,58 @@ export type ResourceOwnerConnectionArgs = {
 }
 
 export type ResourceAggregateSelection = {
-  __typename?: 'ResourceAggregateSelection'
+  __typename: 'ResourceAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type ResourceConfigConnection = {
-  __typename?: 'ResourceConfigConnection'
+  __typename: 'ResourceConfigConnection'
   edges: Array<ResourceConfigRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type ResourceConfigRelationship = {
-  __typename?: 'ResourceConfigRelationship'
+  __typename: 'ResourceConfigRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type ResourceEdge = {
-  __typename?: 'ResourceEdge'
+  __typename: 'ResourceEdge'
   cursor: Scalars['String']['output']
   node: Resource
 }
 
 export type ResourcePropConfigAggregationSelection = {
-  __typename?: 'ResourcePropConfigAggregationSelection'
+  __typename: 'ResourcePropConfigAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ResourcePropConfigNodeAggregateSelection>
 }
 
 export type ResourcePropConfigNodeAggregateSelection = {
-  __typename?: 'ResourcePropConfigNodeAggregateSelection'
+  __typename: 'ResourcePropConfigNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type ResourcesConnection = {
-  __typename?: 'ResourcesConnection'
+  __typename: 'ResourcesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<ResourceEdge>
 }
 
 export type ResourceUserOwnerAggregationSelection = {
-  __typename?: 'ResourceUserOwnerAggregationSelection'
+  __typename: 'ResourceUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<ResourceUserOwnerNodeAggregateSelection>
 }
 
 export type ResourceUserOwnerNodeAggregateSelection = {
-  __typename?: 'ResourceUserOwnerNodeAggregateSelection'
+  __typename: 'ResourceUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -6123,7 +6123,7 @@ export type ResourceUserOwnerNodeAggregateSelection = {
 }
 
 export type Store = {
-  __typename?: 'Store'
+  __typename: 'Store'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>
@@ -6181,90 +6181,90 @@ export type StoreContainerConnectionArgs = {
 }
 
 export type StoreActionsConnection = {
-  __typename?: 'StoreActionsConnection'
+  __typename: 'StoreActionsConnection'
   edges: Array<StoreActionsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type StoreActionsRelationship = {
-  __typename?: 'StoreActionsRelationship'
+  __typename: 'StoreActionsRelationship'
   cursor: Scalars['String']['output']
   node: AnyAction
 }
 
 export type StoreAggregateSelection = {
-  __typename?: 'StoreAggregateSelection'
+  __typename: 'StoreAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type StoreApiConnection = {
-  __typename?: 'StoreApiConnection'
+  __typename: 'StoreApiConnection'
   edges: Array<StoreApiRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type StoreApiRelationship = {
-  __typename?: 'StoreApiRelationship'
+  __typename: 'StoreApiRelationship'
   cursor: Scalars['String']['output']
   node: InterfaceType
 }
 
 export type StoreContainerConnection = {
-  __typename?: 'StoreContainerConnection'
+  __typename: 'StoreContainerConnection'
   edges: Array<StoreContainerRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type StoreContainerRelationship = {
-  __typename?: 'StoreContainerRelationship'
+  __typename: 'StoreContainerRelationship'
   cursor: Scalars['String']['output']
   node: ContainerNode
 }
 
 export type StoreEdge = {
-  __typename?: 'StoreEdge'
+  __typename: 'StoreEdge'
   cursor: Scalars['String']['output']
   node: Store
 }
 
 export type StoreInterfaceTypeApiAggregationSelection = {
-  __typename?: 'StoreInterfaceTypeApiAggregationSelection'
+  __typename: 'StoreInterfaceTypeApiAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<StoreInterfaceTypeApiNodeAggregateSelection>
 }
 
 export type StoreInterfaceTypeApiNodeAggregateSelection = {
-  __typename?: 'StoreInterfaceTypeApiNodeAggregateSelection'
+  __typename: 'StoreInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type StoresConnection = {
-  __typename?: 'StoresConnection'
+  __typename: 'StoresConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<StoreEdge>
 }
 
 export type StringAggregateSelectionNonNullable = {
-  __typename?: 'StringAggregateSelectionNonNullable'
+  __typename: 'StringAggregateSelectionNonNullable'
   shortest: Scalars['String']['output']
   longest: Scalars['String']['output']
 }
 
 export type StringAggregateSelectionNullable = {
-  __typename?: 'StringAggregateSelectionNullable'
+  __typename: 'StringAggregateSelectionNullable'
   shortest?: Maybe<Scalars['String']['output']>
   longest?: Maybe<Scalars['String']['output']>
 }
 
 export type Tag = {
-  __typename?: 'Tag'
+  __typename: 'Tag'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   isRoot: Scalars['Boolean']['output']
@@ -6360,20 +6360,20 @@ export type TagAtomsConnectionArgs = {
 }
 
 export type TagAggregateSelection = {
-  __typename?: 'TagAggregateSelection'
+  __typename: 'TagAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type TagAtomAtomsAggregationSelection = {
-  __typename?: 'TagAtomAtomsAggregationSelection'
+  __typename: 'TagAtomAtomsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<TagAtomAtomsNodeAggregateSelection>
 }
 
 export type TagAtomAtomsNodeAggregateSelection = {
-  __typename?: 'TagAtomAtomsNodeAggregateSelection'
+  __typename: 'TagAtomAtomsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
@@ -6383,102 +6383,102 @@ export type TagAtomAtomsNodeAggregateSelection = {
 }
 
 export type TagAtomsConnection = {
-  __typename?: 'TagAtomsConnection'
+  __typename: 'TagAtomsConnection'
   edges: Array<TagAtomsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type TagAtomsRelationship = {
-  __typename?: 'TagAtomsRelationship'
+  __typename: 'TagAtomsRelationship'
   cursor: Scalars['String']['output']
   node: Atom
 }
 
 export type TagChildrenConnection = {
-  __typename?: 'TagChildrenConnection'
+  __typename: 'TagChildrenConnection'
   edges: Array<TagChildrenRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type TagChildrenRelationship = {
-  __typename?: 'TagChildrenRelationship'
+  __typename: 'TagChildrenRelationship'
   cursor: Scalars['String']['output']
   node: Tag
 }
 
 export type TagEdge = {
-  __typename?: 'TagEdge'
+  __typename: 'TagEdge'
   cursor: Scalars['String']['output']
   node: Tag
 }
 
 export type TagOwnerConnection = {
-  __typename?: 'TagOwnerConnection'
+  __typename: 'TagOwnerConnection'
   edges: Array<TagOwnerRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type TagOwnerRelationship = {
-  __typename?: 'TagOwnerRelationship'
+  __typename: 'TagOwnerRelationship'
   cursor: Scalars['String']['output']
   node: User
 }
 
 export type TagParentConnection = {
-  __typename?: 'TagParentConnection'
+  __typename: 'TagParentConnection'
   edges: Array<TagParentRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type TagParentRelationship = {
-  __typename?: 'TagParentRelationship'
+  __typename: 'TagParentRelationship'
   cursor: Scalars['String']['output']
   node: Tag
 }
 
 export type TagsConnection = {
-  __typename?: 'TagsConnection'
+  __typename: 'TagsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<TagEdge>
 }
 
 export type TagTagChildrenAggregationSelection = {
-  __typename?: 'TagTagChildrenAggregationSelection'
+  __typename: 'TagTagChildrenAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<TagTagChildrenNodeAggregateSelection>
 }
 
 export type TagTagChildrenNodeAggregateSelection = {
-  __typename?: 'TagTagChildrenNodeAggregateSelection'
+  __typename: 'TagTagChildrenNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type TagTagParentAggregationSelection = {
-  __typename?: 'TagTagParentAggregationSelection'
+  __typename: 'TagTagParentAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<TagTagParentNodeAggregateSelection>
 }
 
 export type TagTagParentNodeAggregateSelection = {
-  __typename?: 'TagTagParentNodeAggregateSelection'
+  __typename: 'TagTagParentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type TagUserOwnerAggregationSelection = {
-  __typename?: 'TagUserOwnerAggregationSelection'
+  __typename: 'TagUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<TagUserOwnerNodeAggregateSelection>
 }
 
 export type TagUserOwnerNodeAggregateSelection = {
-  __typename?: 'TagUserOwnerNodeAggregateSelection'
+  __typename: 'TagUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -6486,7 +6486,7 @@ export type TagUserOwnerNodeAggregateSelection = {
 }
 
 export type TypeReference = {
-  __typename?: 'TypeReference'
+  __typename: 'TypeReference'
   /** The name of the resource referencing the type */
   name: Scalars['String']['output']
   /** The type of resource - Atom, InterfaceType, etc. */
@@ -6494,20 +6494,20 @@ export type TypeReference = {
 }
 
 export type TypeReferenceAggregateSelection = {
-  __typename?: 'TypeReferenceAggregateSelection'
+  __typename: 'TypeReferenceAggregateSelection'
   count: Scalars['Int']['output']
   name: StringAggregateSelectionNonNullable
   label: StringAggregateSelectionNonNullable
 }
 
 export type TypeReferenceEdge = {
-  __typename?: 'TypeReferenceEdge'
+  __typename: 'TypeReferenceEdge'
   cursor: Scalars['String']['output']
   node: TypeReference
 }
 
 export type TypeReferencesConnection = {
-  __typename?: 'TypeReferencesConnection'
+  __typename: 'TypeReferencesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<TypeReferenceEdge>
@@ -6516,7 +6516,7 @@ export type TypeReferencesConnection = {
 /** Allows picking one of a set of types */
 export type UnionType = IBaseType &
   WithDescendants & {
-    __typename?: 'UnionType'
+    __typename: 'UnionType'
     id: Scalars['ID']['output']
     kind: TypeKind
     name: Scalars['String']['output']
@@ -6566,46 +6566,46 @@ export type UnionTypeOwnerConnectionArgs = {
 }
 
 export type UnionTypeAggregateSelection = {
-  __typename?: 'UnionTypeAggregateSelection'
+  __typename: 'UnionTypeAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type UnionTypeEdge = {
-  __typename?: 'UnionTypeEdge'
+  __typename: 'UnionTypeEdge'
   cursor: Scalars['String']['output']
   node: UnionType
 }
 
 export type UnionTypesConnection = {
-  __typename?: 'UnionTypesConnection'
+  __typename: 'UnionTypesConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<UnionTypeEdge>
 }
 
 export type UnionTypeTypesOfUnionTypeConnection = {
-  __typename?: 'UnionTypeTypesOfUnionTypeConnection'
+  __typename: 'UnionTypeTypesOfUnionTypeConnection'
   edges: Array<UnionTypeTypesOfUnionTypeRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UnionTypeTypesOfUnionTypeRelationship = {
-  __typename?: 'UnionTypeTypesOfUnionTypeRelationship'
+  __typename: 'UnionTypeTypesOfUnionTypeRelationship'
   cursor: Scalars['String']['output']
   node: AnyType
 }
 
 export type UnionTypeUserOwnerAggregationSelection = {
-  __typename?: 'UnionTypeUserOwnerAggregationSelection'
+  __typename: 'UnionTypeUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<UnionTypeUserOwnerNodeAggregateSelection>
 }
 
 export type UnionTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'UnionTypeUserOwnerNodeAggregateSelection'
+  __typename: 'UnionTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -6613,110 +6613,110 @@ export type UnionTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type UpdateActionTypesMutationResponse = {
-  __typename?: 'UpdateActionTypesMutationResponse'
+  __typename: 'UpdateActionTypesMutationResponse'
   info: UpdateInfo
   actionTypes: Array<ActionType>
 }
 
 export type UpdateApiActionsMutationResponse = {
-  __typename?: 'UpdateApiActionsMutationResponse'
+  __typename: 'UpdateApiActionsMutationResponse'
   info: UpdateInfo
   apiActions: Array<ApiAction>
 }
 
 export type UpdateAppsMutationResponse = {
-  __typename?: 'UpdateAppsMutationResponse'
+  __typename: 'UpdateAppsMutationResponse'
   info: UpdateInfo
   apps: Array<App>
 }
 
 export type UpdateAppTypesMutationResponse = {
-  __typename?: 'UpdateAppTypesMutationResponse'
+  __typename: 'UpdateAppTypesMutationResponse'
   info: UpdateInfo
   appTypes: Array<AppType>
 }
 
 export type UpdateArrayTypesMutationResponse = {
-  __typename?: 'UpdateArrayTypesMutationResponse'
+  __typename: 'UpdateArrayTypesMutationResponse'
   info: UpdateInfo
   arrayTypes: Array<ArrayType>
 }
 
 export type UpdateAtomsMutationResponse = {
-  __typename?: 'UpdateAtomsMutationResponse'
+  __typename: 'UpdateAtomsMutationResponse'
   info: UpdateInfo
   atoms: Array<Atom>
 }
 
 export type UpdateCodeActionsMutationResponse = {
-  __typename?: 'UpdateCodeActionsMutationResponse'
+  __typename: 'UpdateCodeActionsMutationResponse'
   info: UpdateInfo
   codeActions: Array<CodeAction>
 }
 
 export type UpdateCodeMirrorTypesMutationResponse = {
-  __typename?: 'UpdateCodeMirrorTypesMutationResponse'
+  __typename: 'UpdateCodeMirrorTypesMutationResponse'
   info: UpdateInfo
   codeMirrorTypes: Array<CodeMirrorType>
 }
 
 export type UpdateComponentsMutationResponse = {
-  __typename?: 'UpdateComponentsMutationResponse'
+  __typename: 'UpdateComponentsMutationResponse'
   info: UpdateInfo
   components: Array<Component>
 }
 
 export type UpdateDomainsMutationResponse = {
-  __typename?: 'UpdateDomainsMutationResponse'
+  __typename: 'UpdateDomainsMutationResponse'
   info: UpdateInfo
   domains: Array<Domain>
 }
 
 export type UpdateElementsMutationResponse = {
-  __typename?: 'UpdateElementsMutationResponse'
+  __typename: 'UpdateElementsMutationResponse'
   info: UpdateInfo
   elements: Array<Element>
 }
 
 export type UpdateElementTypesMutationResponse = {
-  __typename?: 'UpdateElementTypesMutationResponse'
+  __typename: 'UpdateElementTypesMutationResponse'
   info: UpdateInfo
   elementTypes: Array<ElementType>
 }
 
 export type UpdateEnumTypesMutationResponse = {
-  __typename?: 'UpdateEnumTypesMutationResponse'
+  __typename: 'UpdateEnumTypesMutationResponse'
   info: UpdateInfo
   enumTypes: Array<EnumType>
 }
 
 export type UpdateEnumTypeValuesMutationResponse = {
-  __typename?: 'UpdateEnumTypeValuesMutationResponse'
+  __typename: 'UpdateEnumTypeValuesMutationResponse'
   info: UpdateInfo
   enumTypeValues: Array<EnumTypeValue>
 }
 
 export type UpdateFieldsMutationResponse = {
-  __typename?: 'UpdateFieldsMutationResponse'
+  __typename: 'UpdateFieldsMutationResponse'
   info: UpdateInfo
   fields: Array<Field>
 }
 
 export type UpdateGetBaseTypesReturnsMutationResponse = {
-  __typename?: 'UpdateGetBaseTypesReturnsMutationResponse'
+  __typename: 'UpdateGetBaseTypesReturnsMutationResponse'
   info: UpdateInfo
   getBaseTypesReturns: Array<GetBaseTypesReturn>
 }
 
 export type UpdateHooksMutationResponse = {
-  __typename?: 'UpdateHooksMutationResponse'
+  __typename: 'UpdateHooksMutationResponse'
   info: UpdateInfo
   hooks: Array<Hook>
 }
 
 /** Information about the number of nodes and relationships created and deleted during an update mutation */
 export type UpdateInfo = {
-  __typename?: 'UpdateInfo'
+  __typename: 'UpdateInfo'
   /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
   bookmark?: Maybe<Scalars['String']['output']>
   nodesCreated: Scalars['Int']['output']
@@ -6726,103 +6726,103 @@ export type UpdateInfo = {
 }
 
 export type UpdateInterfaceTypesMutationResponse = {
-  __typename?: 'UpdateInterfaceTypesMutationResponse'
+  __typename: 'UpdateInterfaceTypesMutationResponse'
   info: UpdateInfo
   interfaceTypes: Array<InterfaceType>
 }
 
 export type UpdateLambdaTypesMutationResponse = {
-  __typename?: 'UpdateLambdaTypesMutationResponse'
+  __typename: 'UpdateLambdaTypesMutationResponse'
   info: UpdateInfo
   lambdaTypes: Array<LambdaType>
 }
 
 export type UpdatePagesMutationResponse = {
-  __typename?: 'UpdatePagesMutationResponse'
+  __typename: 'UpdatePagesMutationResponse'
   info: UpdateInfo
   pages: Array<Page>
 }
 
 export type UpdatePageTypesMutationResponse = {
-  __typename?: 'UpdatePageTypesMutationResponse'
+  __typename: 'UpdatePageTypesMutationResponse'
   info: UpdateInfo
   pageTypes: Array<PageType>
 }
 
 export type UpdatePrimitiveTypesMutationResponse = {
-  __typename?: 'UpdatePrimitiveTypesMutationResponse'
+  __typename: 'UpdatePrimitiveTypesMutationResponse'
   info: UpdateInfo
   primitiveTypes: Array<PrimitiveType>
 }
 
 export type UpdatePropsMutationResponse = {
-  __typename?: 'UpdatePropsMutationResponse'
+  __typename: 'UpdatePropsMutationResponse'
   info: UpdateInfo
   props: Array<Prop>
 }
 
 export type UpdateReactNodeTypesMutationResponse = {
-  __typename?: 'UpdateReactNodeTypesMutationResponse'
+  __typename: 'UpdateReactNodeTypesMutationResponse'
   info: UpdateInfo
   reactNodeTypes: Array<ReactNodeType>
 }
 
 export type UpdateRenderPropTypesMutationResponse = {
-  __typename?: 'UpdateRenderPropTypesMutationResponse'
+  __typename: 'UpdateRenderPropTypesMutationResponse'
   info: UpdateInfo
   renderPropTypes: Array<RenderPropType>
 }
 
 export type UpdateResourcesMutationResponse = {
-  __typename?: 'UpdateResourcesMutationResponse'
+  __typename: 'UpdateResourcesMutationResponse'
   info: UpdateInfo
   resources: Array<Resource>
 }
 
 export type UpdateStoresMutationResponse = {
-  __typename?: 'UpdateStoresMutationResponse'
+  __typename: 'UpdateStoresMutationResponse'
   info: UpdateInfo
   stores: Array<Store>
 }
 
 export type UpdateTagsMutationResponse = {
-  __typename?: 'UpdateTagsMutationResponse'
+  __typename: 'UpdateTagsMutationResponse'
   info: UpdateInfo
   tags: Array<Tag>
 }
 
 export type UpdateTypeReferencesMutationResponse = {
-  __typename?: 'UpdateTypeReferencesMutationResponse'
+  __typename: 'UpdateTypeReferencesMutationResponse'
   info: UpdateInfo
   typeReferences: Array<TypeReference>
 }
 
 export type UpdateUnionTypesMutationResponse = {
-  __typename?: 'UpdateUnionTypesMutationResponse'
+  __typename: 'UpdateUnionTypesMutationResponse'
   info: UpdateInfo
   unionTypes: Array<UnionType>
 }
 
 export type UpdateUsersMutationResponse = {
-  __typename?: 'UpdateUsersMutationResponse'
+  __typename: 'UpdateUsersMutationResponse'
   info: UpdateInfo
   users: Array<User>
 }
 
 export type UpdateVercelDomainConfigsMutationResponse = {
-  __typename?: 'UpdateVercelDomainConfigsMutationResponse'
+  __typename: 'UpdateVercelDomainConfigsMutationResponse'
   info: UpdateInfo
   vercelDomainConfigs: Array<VercelDomainConfig>
 }
 
 export type UpdateVercelProjectDomainsMutationResponse = {
-  __typename?: 'UpdateVercelProjectDomainsMutationResponse'
+  __typename: 'UpdateVercelProjectDomainsMutationResponse'
   info: UpdateInfo
   vercelProjectDomains: Array<VercelProjectDomain>
 }
 
 export type User = {
-  __typename?: 'User'
+  __typename: 'User'
   id: Scalars['ID']['output']
   auth0Id: Scalars['String']['output']
   email: Scalars['String']['output']
@@ -6957,7 +6957,7 @@ export type UserTagsConnectionArgs = {
 }
 
 export type UserAggregateSelection = {
-  __typename?: 'UserAggregateSelection'
+  __typename: 'UserAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
@@ -6966,38 +6966,38 @@ export type UserAggregateSelection = {
 }
 
 export type UserAppAppsAggregationSelection = {
-  __typename?: 'UserAppAppsAggregationSelection'
+  __typename: 'UserAppAppsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<UserAppAppsNodeAggregateSelection>
 }
 
 export type UserAppAppsNodeAggregateSelection = {
-  __typename?: 'UserAppAppsNodeAggregateSelection'
+  __typename: 'UserAppAppsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
 }
 
 export type UserAppsConnection = {
-  __typename?: 'UserAppsConnection'
+  __typename: 'UserAppsConnection'
   edges: Array<UserAppsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UserAppsRelationship = {
-  __typename?: 'UserAppsRelationship'
+  __typename: 'UserAppsRelationship'
   cursor: Scalars['String']['output']
   node: App
 }
 
 export type UserAtomAtomsAggregationSelection = {
-  __typename?: 'UserAtomAtomsAggregationSelection'
+  __typename: 'UserAtomAtomsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<UserAtomAtomsNodeAggregateSelection>
 }
 
 export type UserAtomAtomsNodeAggregateSelection = {
-  __typename?: 'UserAtomAtomsNodeAggregateSelection'
+  __typename: 'UserAtomAtomsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   icon: StringAggregateSelectionNullable
@@ -7007,58 +7007,58 @@ export type UserAtomAtomsNodeAggregateSelection = {
 }
 
 export type UserAtomsConnection = {
-  __typename?: 'UserAtomsConnection'
+  __typename: 'UserAtomsConnection'
   edges: Array<UserAtomsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UserAtomsRelationship = {
-  __typename?: 'UserAtomsRelationship'
+  __typename: 'UserAtomsRelationship'
   cursor: Scalars['String']['output']
   node: Atom
 }
 
 export type UserComponentComponentsAggregationSelection = {
-  __typename?: 'UserComponentComponentsAggregationSelection'
+  __typename: 'UserComponentComponentsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<UserComponentComponentsNodeAggregateSelection>
 }
 
 export type UserComponentComponentsNodeAggregateSelection = {
-  __typename?: 'UserComponentComponentsNodeAggregateSelection'
+  __typename: 'UserComponentComponentsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   keyGenerator: StringAggregateSelectionNullable
 }
 
 export type UserComponentsConnection = {
-  __typename?: 'UserComponentsConnection'
+  __typename: 'UserComponentsConnection'
   edges: Array<UserComponentsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UserComponentsRelationship = {
-  __typename?: 'UserComponentsRelationship'
+  __typename: 'UserComponentsRelationship'
   cursor: Scalars['String']['output']
   node: Component
 }
 
 export type UserEdge = {
-  __typename?: 'UserEdge'
+  __typename: 'UserEdge'
   cursor: Scalars['String']['output']
   node: User
 }
 
 export type UserElementElementsAggregationSelection = {
-  __typename?: 'UserElementElementsAggregationSelection'
+  __typename: 'UserElementElementsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<UserElementElementsNodeAggregateSelection>
 }
 
 export type UserElementElementsNodeAggregateSelection = {
-  __typename?: 'UserElementElementsNodeAggregateSelection'
+  __typename: 'UserElementElementsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
@@ -7068,118 +7068,118 @@ export type UserElementElementsNodeAggregateSelection = {
 }
 
 export type UserElementsConnection = {
-  __typename?: 'UserElementsConnection'
+  __typename: 'UserElementsConnection'
   edges: Array<UserElementsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UserElementsRelationship = {
-  __typename?: 'UserElementsRelationship'
+  __typename: 'UserElementsRelationship'
   cursor: Scalars['String']['output']
   node: Element
 }
 
 export type UsersConnection = {
-  __typename?: 'UsersConnection'
+  __typename: 'UsersConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<UserEdge>
 }
 
 export type UserTagsConnection = {
-  __typename?: 'UserTagsConnection'
+  __typename: 'UserTagsConnection'
   edges: Array<UserTagsRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UserTagsRelationship = {
-  __typename?: 'UserTagsRelationship'
+  __typename: 'UserTagsRelationship'
   cursor: Scalars['String']['output']
   node: Tag
 }
 
 export type UserTagTagsAggregationSelection = {
-  __typename?: 'UserTagTagsAggregationSelection'
+  __typename: 'UserTagTagsAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<UserTagTagsNodeAggregateSelection>
 }
 
 export type UserTagTagsNodeAggregateSelection = {
-  __typename?: 'UserTagTagsNodeAggregateSelection'
+  __typename: 'UserTagTagsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type UserTypesConnection = {
-  __typename?: 'UserTypesConnection'
+  __typename: 'UserTypesConnection'
   edges: Array<UserTypesRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type UserTypesRelationship = {
-  __typename?: 'UserTypesRelationship'
+  __typename: 'UserTypesRelationship'
   cursor: Scalars['String']['output']
   node: IBaseType
 }
 
 export type VercelDomainConfig = {
-  __typename?: 'VercelDomainConfig'
+  __typename: 'VercelDomainConfig'
   misconfigured: Scalars['Boolean']['output']
 }
 
 export type VercelDomainConfigAggregateSelection = {
-  __typename?: 'VercelDomainConfigAggregateSelection'
+  __typename: 'VercelDomainConfigAggregateSelection'
   count: Scalars['Int']['output']
 }
 
 export type VercelDomainConfigEdge = {
-  __typename?: 'VercelDomainConfigEdge'
+  __typename: 'VercelDomainConfigEdge'
   cursor: Scalars['String']['output']
   node: VercelDomainConfig
 }
 
 export type VercelDomainConfigsConnection = {
-  __typename?: 'VercelDomainConfigsConnection'
+  __typename: 'VercelDomainConfigsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<VercelDomainConfigEdge>
 }
 
 export type VercelProjectDomain = {
-  __typename?: 'VercelProjectDomain'
+  __typename: 'VercelProjectDomain'
   verified: Scalars['Boolean']['output']
 }
 
 export type VercelProjectDomainAggregateSelection = {
-  __typename?: 'VercelProjectDomainAggregateSelection'
+  __typename: 'VercelProjectDomainAggregateSelection'
   count: Scalars['Int']['output']
 }
 
 export type VercelProjectDomainEdge = {
-  __typename?: 'VercelProjectDomainEdge'
+  __typename: 'VercelProjectDomainEdge'
   cursor: Scalars['String']['output']
   node: VercelProjectDomain
 }
 
 export type VercelProjectDomainsConnection = {
-  __typename?: 'VercelProjectDomainsConnection'
+  __typename: 'VercelProjectDomainsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<VercelProjectDomainEdge>
 }
 
 export type WithOwnerOwnerConnection = {
-  __typename?: 'WithOwnerOwnerConnection'
+  __typename: 'WithOwnerOwnerConnection'
   edges: Array<WithOwnerOwnerRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type WithOwnerOwnerRelationship = {
-  __typename?: 'WithOwnerOwnerRelationship'
+  __typename: 'WithOwnerOwnerRelationship'
   cursor: Scalars['String']['output']
   node: User
 }

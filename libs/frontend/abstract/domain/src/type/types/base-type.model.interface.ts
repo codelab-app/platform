@@ -28,7 +28,7 @@ export interface IBaseTypeModel<
       'toDeleteInput'
     >,
     ICacheService<DTO, IBaseTypeModel<DTO, CreateInput, UpdateInput>> {
-  __typename?: `${ITypeKind}`
+  __typename: `${ITypeKind}`
   kind: ITypeKind
   name: string
 }

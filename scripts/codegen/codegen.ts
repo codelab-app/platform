@@ -21,6 +21,8 @@ const config: Types.Config = {
       _Any: 'any',
       Void: 'void',
     },
+    skipTypename: true,
+    nonOptionalTypename: false,
   },
   generates: {
     'schema.graphql': {
@@ -53,8 +55,6 @@ const config: Types.Config = {
         // Uncomment to set suffix for document variables
         // documentVariableSuffix: 'Gql',
         gqlImport: 'graphql-tag#gql',
-        skipTypename: true,
-        nonOptionalTypename: false,
         strictScalars: true,
         defaultScalarType: 'unknown',
         // dedupeFragments: true, // Uncomment to deduplicate fragments

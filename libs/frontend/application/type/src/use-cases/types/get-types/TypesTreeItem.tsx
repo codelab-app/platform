@@ -23,19 +23,19 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
-      typeService.updateForm.open(data.extraData.node)
+      typeService.updateForm.open(typeRef(data.extraData.node))
       fieldService.updateForm.close()
     } else {
-      fieldService.updateForm.open(data.extraData.node)
+      fieldService.updateForm.open(fieldRef(data.extraData.node))
       typeService.updateForm.close()
     }
   }
 
   const onDelete = () => {
     if (data.extraData.type === 'type') {
-      typeService.deleteModal.open(data.extraData.node)
+      typeService.deleteModal.open(typeRef(data.extraData.node))
     } else {
-      fieldService.deleteModal.open(data.extraData.node)
+      fieldService.deleteModal.open(fieldRef(data.extraData.node))
     }
   }
 
@@ -59,7 +59,9 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.current
         : data.extraData.node
 
-    fieldService.createForm.open(interfaceType as IInterfaceTypeModel)
+    fieldService.createForm.open(
+      typeRef(interfaceType) as Ref<IInterfaceTypeModel>,
+    )
     popover.open(FormNames.CreateField)
   }
 

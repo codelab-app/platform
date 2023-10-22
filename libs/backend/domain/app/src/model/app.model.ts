@@ -6,8 +6,8 @@ import type {
   IAppDTO,
   IDomain,
   IPage,
+  IRef,
 } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { slugify } from '@codelab/shared/utils'
 import { Expose } from 'class-transformer'
 
@@ -23,7 +23,7 @@ export class App extends IModel implements IApp {
 
   name: string
 
-  owner: IEntity
+  owner: IRef
 
   pages: Array<IPage>
 

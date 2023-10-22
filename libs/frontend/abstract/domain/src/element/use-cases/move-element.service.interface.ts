@@ -1,13 +1,13 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface IMoveFirstChildProps {
-  element: IEntity
-  parentElement: IEntity
+  element: IRef
+  parentElement: IRef
 }
 
 export interface IMoveNextSiblingProps {
-  element: IEntity
-  targetElement: IEntity
+  element: IRef
+  targetElement: IRef
 }
 
 export interface IMoveElementService {
@@ -21,11 +21,11 @@ export interface IMoveElementService {
   attachElementAsNextSibling(context: IMoveNextSiblingProps): Array<string>
   detachElementFromElementTree(elementId: string): Array<string>
   moveElementAsFirstChild(props: {
-    element: IEntity
-    parentElement: IEntity
+    element: IRef
+    parentElement: IRef
   }): Promise<void>
   moveElementAsNextSibling(props: {
-    element: IEntity
-    targetElement: IEntity
+    element: IRef
+    targetElement: IRef
   }): Promise<void>
 }

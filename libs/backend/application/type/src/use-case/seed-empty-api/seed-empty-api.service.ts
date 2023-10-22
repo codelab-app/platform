@@ -3,8 +3,7 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import { type IAtomType } from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
+import { type IAtomType, IRef } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 /**
@@ -14,7 +13,7 @@ import { Injectable } from '@nestjs/common'
 export class SeedEmptyApiService extends UseCase<Array<IAtomType>, void> {
   constructor(
     private interfaceTypeRepository: InterfaceTypeRepository,
-    private owner: IEntity,
+    private owner: IRef,
   ) {
     super()
   }

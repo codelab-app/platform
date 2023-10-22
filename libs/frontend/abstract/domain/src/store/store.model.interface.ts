@@ -5,10 +5,11 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IPropData,
+  IRef,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
 import type { IComponentModel } from '../component'
@@ -30,7 +31,7 @@ export interface IStoreModel
   name: string
   page: Nullable<Ref<IPageModel>>
   refs: IPropData
-  source: Nullable<IEntity>
+  source: Nullable<IRef>
   state: IPropData
 
   clone(componentId: string): IStoreModel

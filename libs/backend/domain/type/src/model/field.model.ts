@@ -1,5 +1,4 @@
-import type { IFieldDTO } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
 export class Field implements IFieldDTO {
@@ -26,7 +25,7 @@ export class Field implements IFieldDTO {
 
   readonly description: string | null
 
-  readonly fieldType: IEntity
+  readonly fieldType: IRef
 
   readonly id: string
 
@@ -34,9 +33,9 @@ export class Field implements IFieldDTO {
 
   readonly name: string | null
 
-  nextSibling?: IEntity | null | undefined
+  nextSibling?: IRef | null | undefined
 
-  prevSibling?: IEntity | null | undefined
+  prevSibling?: IRef | null | undefined
 
   readonly validationRules: string | null
 

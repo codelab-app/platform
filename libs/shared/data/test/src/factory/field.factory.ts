@@ -1,9 +1,13 @@
-import type { IFieldDTO, ITypeMaybeRef } from '@codelab/shared/abstract/core'
+import type {
+  IFieldDTO,
+  IRef,
+  ITypeMaybeRef,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { DeepPartial } from 'fishery'
 import { Factory } from 'fishery'
+import type { _DeepPartialObject } from 'utility-types/dist/mapped-types'
 import { v4 } from 'uuid'
-import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IFieldDTO>(({ params }) => {
@@ -18,12 +22,12 @@ export default Factory.define<IFieldDTO>(({ params }) => {
     id: params.id ?? v4(),
     key: params.key ?? chance.word(),
     name: params.name ?? null,
-    nextSibling: (params.nextSibling ?? null) as IEntity | null,
-    prevSibling: (params.prevSibling ?? null) as IEntity | null,
+    nextSibling: (params.nextSibling ?? null) as IRef | null,
+    prevSibling: (params.prevSibling ?? null) as IRef | null,
     validationRules: params.validationRules ?? null,
   }
 
-  createTestRootStore().fieldService.add(dto)
+  // testRootStore.fieldService.add(dto)
 
   return dto
 })

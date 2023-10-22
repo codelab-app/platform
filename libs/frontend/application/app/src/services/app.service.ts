@@ -57,12 +57,12 @@ export class AppService
   @modelFlow
   @transaction
   create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
-    const renderType = this.atomService.defaultRenderType
-
-    const app = this.appDomainService.create(
-      { id, name, owner: this.userService.user },
-      renderType,
-    )
+    const app = this.appDomainService.create({
+      id,
+      name,
+      owner: this.userService.user,
+      pages: [],
+    })
 
     yield* _await(this.appRepository.add(app))
 

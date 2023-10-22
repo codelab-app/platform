@@ -67,7 +67,7 @@ export const BuilderClickOverlay = observer<{
           icon={<DeleteOutlined />}
           onClick={(event) => {
             event.stopPropagation()
-            elementService.deleteModal.open(selectedNode.current)
+            elementService.deleteModal.open(selectedNode)
           }}
           size="small"
           type="text"

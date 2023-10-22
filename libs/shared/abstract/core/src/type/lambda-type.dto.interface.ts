@@ -9,6 +9,6 @@ export const ILambdaTypeDTO = Type.Composite([
 
 export type ILambdaTypeDTO = Static<typeof ILambdaTypeDTO>
 
-export const ILambdaType = Typebox.RequireTypename(ILambdaTypeDTO)
+export const ILambdaType = ILambdaTypeDTO
 
 export type ILambdaType = Static<typeof ILambdaType>

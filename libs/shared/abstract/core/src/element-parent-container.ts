@@ -1,6 +1,6 @@
-import { IMaybeDiscriminatedEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IDiscriminatedRef } from './model/node-type.interface'
 
 export enum IElementParentContainerKind {
   Component = 'Component',
@@ -10,8 +10,8 @@ export enum IElementParentContainerKind {
 export const IElementParentContainer = Type.Union([
   // IDiscriminatedEntity('Component'),
   // IDiscriminatedEntity('Page'),
-  IMaybeDiscriminatedEntity('Component'),
-  IMaybeDiscriminatedEntity('Page'),
+  IDiscriminatedRef('Component'),
+  IDiscriminatedRef('Page'),
 ])
 
 export type IElementParentContainer = Static<typeof IElementParentContainer>

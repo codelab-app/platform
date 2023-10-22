@@ -4,14 +4,14 @@ import {
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
-import { type IEntity } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export abstract class AbstractRepository<
-  Model extends IEntity,
+  Model extends IRef,
   ModelData extends object,
   Where extends { id?: string | null },
   Options,

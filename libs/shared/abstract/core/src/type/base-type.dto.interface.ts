@@ -20,7 +20,7 @@ export const IBaseTypeDTO = <T extends TLiteral<`${ITypeKind}`>>(schema: T) =>
     /**
      * Needs to be optional since our Neo4j OGM returns only optional
      */
-    __typename: Type.Optional(schema),
+    __typename: schema,
     id: Type.String(),
     kind: Type.Enum(ITypeKind),
     name: Type.String(),

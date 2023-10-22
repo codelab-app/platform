@@ -8,6 +8,7 @@ import type {
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/CreateElementModalService')
@@ -44,27 +45,27 @@ export class CreateElementModalService
 @model('@codelab/UpdateElementModalService')
 export class UpdateElementModalService
   extends ExtendedModel(
-    modelClass<ModalService<IElementModel>>(ModalService),
+    modelClass<ModalService<Ref<IElementModel>>>(ModalService),
     {},
   )
-  implements IEntityModalService<IElementModel, UpdateElementProperties>
+  implements IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 {
   @computed
   get element() {
-    return this.metadata
+    return this.metadata?.current
   }
 }
 
 @model('@codelab/ElementModalService')
 export class ElementModalService
   extends ExtendedModel(
-    modelClass<ModalService<IElementModel>>(ModalService),
+    modelClass<ModalService<Ref<IElementModel>>>(ModalService),
     {},
   )
-  implements IEntityModalService<IElementModel, UpdateElementProperties>
+  implements IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 {
   @computed
   get element() {
-    return this.metadata
+    return this.metadata?.current
   }
 }

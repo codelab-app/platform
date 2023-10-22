@@ -21,14 +21,14 @@ import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 export type UnionTypeFragment = {
   typesOfUnionType: Array<
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
+    | BaseType_ActionType_Fragment
+    | BaseType_ArrayType_Fragment
+    | BaseType_EnumType_Fragment
+    | BaseType_InterfaceType_Fragment
+    | BaseType_PrimitiveType_Fragment
+    | BaseType_ReactNodeType_Fragment
+    | BaseType_RenderPropType_Fragment
+    | BaseType_UnionType_Fragment
   >
 } & BaseType_UnionType_Fragment
 
@@ -37,9 +37,7 @@ export const UnionTypeFragmentDoc = gql`
     ...BaseType
     typesOfUnionType {
       ... on IBaseType {
-        id
-        kind
-        name
+        ...BaseType
       }
     }
   }
