@@ -32,7 +32,5 @@ export default Factory.define<IComponentDTO>(({ params }) => {
     },
   }
 
-  // testRootStore.componentService.add(dto)
-
   return dto
 })

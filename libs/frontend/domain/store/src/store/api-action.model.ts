@@ -89,12 +89,12 @@ export class ApiAction
     return {
       __typename: `${IActionKind.ApiAction}` as const,
       config: this.config.toJson,
-      errorAction: this.errorAction,
+      errorAction: this.errorAction?.current,
       id: this.id,
       name: this.name,
       resource: this.resource.current,
       store: this.store.current,
-      successAction: this.successAction,
+      successAction: this.successAction?.current,
     }
   }
 

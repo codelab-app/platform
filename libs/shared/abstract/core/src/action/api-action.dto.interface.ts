@@ -4,7 +4,7 @@ import { Type } from '@sinclair/typebox'
 import { IActionKind } from '../action-kind.enum'
 import { IRef } from '../model/node-type.interface'
 import { IPropDTO } from '../prop.dto.interface'
-import { IActionEntity } from './action-entity.dto.interface'
+import { IActionRef } from './action-entity.dto.interface'
 import { IBaseActionDTO } from './base-action.dto.interface'
 
 export const IApiActionDTO = Type.Composite([
@@ -12,9 +12,9 @@ export const IApiActionDTO = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IActionKind.ApiAction}`),
     config: IPropDTO,
-    errorAction: Typebox.Nullish(IActionEntity),
+    errorAction: Typebox.Nullish(IActionRef),
     resource: IRef,
-    successAction: Typebox.Nullish(IActionEntity),
+    successAction: Typebox.Nullish(IActionRef),
   }),
 ])
 

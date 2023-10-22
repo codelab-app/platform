@@ -22,5 +22,5 @@ export interface IRepository<
   findOne(where: Where): Promise<ModelData | undefined>
   findOne<T extends TAnySchema>(where: Where, schema: T): Promise<T | undefined>
   save(data: Model, where?: Where): Promise<ModelData | undefined>
-  update(data: Model, where: Where): Promise<ModelData | undefined>
+  update(data: Model, where: Where): Promise<IRef | undefined>
 }

@@ -15,9 +15,5 @@ export default Factory.define<IPageDTO>(({ params }) => {
     url: chance.word(),
   }
 
-  // testRootStore.pageService.pageDomainService.add(dto)
-
-  app?.addPageInCache(dto)
-
   return dto
 })

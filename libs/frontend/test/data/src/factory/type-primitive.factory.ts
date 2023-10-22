@@ -13,7 +13,5 @@ export default Factory.define<IPrimitiveTypeDTO>(({ params }) => {
     primitiveKind: params.primitiveKind ?? PrimitiveTypeKind.String,
   }
 
-  // testRootStore.typeService.add(dto)
-
   return dto
 })

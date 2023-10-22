@@ -131,11 +131,11 @@ export class ElementRepository extends AbstractRepository<
   protected async _update(
     {
       closestContainerNode,
+      compositeKey,
       id,
       name,
       props,
       renderType,
-      compositeKey,
     }: ICreateElementDTO,
     where: ElementWhere,
   ) {

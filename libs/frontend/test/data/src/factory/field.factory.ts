@@ -27,7 +27,5 @@ export default Factory.define<IFieldDTO>(({ params }) => {
     validationRules: params.validationRules ?? null,
   }
 
-  // testRootStore.fieldService.add(dto)
-
   return dto
 })

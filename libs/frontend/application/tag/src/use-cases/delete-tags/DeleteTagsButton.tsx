@@ -1,6 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { tagRef } from '@codelab/frontend/domain/tag'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

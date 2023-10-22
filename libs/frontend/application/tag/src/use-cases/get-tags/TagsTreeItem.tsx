@@ -1,6 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { tagRef } from '@codelab/frontend/domain/tag'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,

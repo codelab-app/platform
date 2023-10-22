@@ -10,10 +10,10 @@ import { Module } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import fs from 'fs'
+import glob from 'glob'
 import path from 'path'
 import { AdminController } from '../../admin.application.controller'
 import { AdminApplicationModule } from '../../admin.application.module'
-import glob from 'glob'
 
 @Module({})
 class Auth0ModuleMock {}
@@ -75,7 +75,7 @@ describe('Seed, import, & export data', () => {
         return acc.set(sourcePath, exportedPath)
       }, new Map())
 
-    for (let [sourceFile, exportedFile] of sourceToExpectedFilePath) {
+    for (const [sourceFile, exportedFile] of sourceToExpectedFilePath) {
       const sourceContent = fs.readFileSync(sourceFile, 'utf8')
       const exportedContent = fs.readFileSync(exportedFile, 'utf8')
 

@@ -11,7 +11,5 @@ export default Factory.define<IReactNodeTypeDTO>(({ params }) => {
     name: params.name ?? 'reactNodeType',
   }
 
-  // testRootStore.typeService.add(dto)
-
   return dto
 })

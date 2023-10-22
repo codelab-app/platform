@@ -3,12 +3,12 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   rendererRef,
 } from '@codelab/frontend/abstract/domain'
+import { FactoryDto } from '@codelab/frontend/test/data'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { factoryBuild } from './factory'
 import { setupPage } from './setup'
 import { createTestRootStore } from './setup/test-root-store'
 
@@ -52,29 +52,29 @@ describe('Renderer', () => {
 
       const { rootElement: pageRootElement } = setupPage()
 
-      const componentRootElement = factoryBuild('element', {
+      const componentRootElement = FactoryDto.build('element', {
         closestContainerNode: {
           id: componentId,
         },
         name: `${componentName} Root`,
         parentComponent: { id: componentId },
-        props: factoryBuild('props', {
+        props: FactoryDto.build('props', {
           data: JSON.stringify(componentRootElementPropData),
         }),
-        renderType: factoryBuild('atom', {
-          api: factoryBuild('typeInterface'),
+        renderType: FactoryDto.build('atom', {
+          api: FactoryDto.build('typeInterface'),
           type: componentRootElementAtomType,
         }),
       })
 
-      const componentStoreApi = factoryBuild('typeInterface')
+      const componentStoreApi = FactoryDto.build('typeInterface')
 
-      const component = factoryBuild('component', {
-        api: factoryBuild('typeInterface'),
+      const component = FactoryDto.build('component', {
+        api: FactoryDto.build('typeInterface'),
         childrenContainerElement: componentRootElement,
         id: componentId,
         name: componentName,
-        props: factoryBuild('props', {
+        props: FactoryDto.build('props', {
           data: JSON.stringify({
             [testPropKey]:
               propSource === 'component' || propSource === 'all'
@@ -83,7 +83,7 @@ describe('Renderer', () => {
           }),
         }),
         rootElement: componentRootElement,
-        store: factoryBuild('store', {
+        store: FactoryDto.build('store', {
           api: componentStoreApi,
         }),
       })
@@ -96,14 +96,14 @@ describe('Renderer', () => {
 
       componentStore?.api.current.writeCache({
         fields: [
-          factoryBuild('field', {
+          FactoryDto.build('field', {
             api: componentStoreApi,
             defaultValues:
               propSource === 'store' || propSource === 'all'
                 ? componentStorePropValue
                 : undefined,
             key: testPropKey,
-            type: factoryBuild('typePrimitive', {
+            type: FactoryDto.build('typePrimitive', {
               name: PrimitiveTypeKind.String,
               primitiveKind: PrimitiveTypeKind.String,
             }),
@@ -111,11 +111,11 @@ describe('Renderer', () => {
         ],
       })
 
-      const componentElement = factoryBuild('element', {
+      const componentElement = FactoryDto.build('element', {
         closestContainerNode: component,
         parentComponent: component,
         parentElement: pageRootElement,
-        props: factoryBuild('props', {
+        props: FactoryDto.build('props', {
           data: JSON.stringify({
             [testPropKey]:
               propSource === 'instance' || propSource === 'all'

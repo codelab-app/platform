@@ -1,8 +1,8 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import { CommandBus, ICommandHandler } from '@nestjs/cqrs'
-import { CommandHandler } from '@nestjs/cqrs'
+import type { ICommandHandler } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ExportStoreCommand {
   constructor(public where: StoreWhere) {}

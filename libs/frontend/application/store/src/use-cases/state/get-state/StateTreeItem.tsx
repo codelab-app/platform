@@ -1,7 +1,8 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
-import type {
-  IInterfaceTypeModel,
-  IStateTreeDataNode,
+import {
+  fieldRef,
+  type IInterfaceTypeModel,
+  type IStateTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -10,6 +11,7 @@ import {
   CuiTreeItemToolbar,
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
+import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
 interface StateTreeItemProps {

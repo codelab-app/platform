@@ -9,6 +9,7 @@ export enum INodeType {
 export const IRef = Type.Object({
   id: Type.String(),
 })
+
 export type IRef = Static<typeof IRef>
 
 export const IDiscriminatedRef = <T extends string>(typename: T) => {

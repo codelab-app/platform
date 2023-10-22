@@ -1,7 +1,9 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import type {
-  IInterfaceTypeModel,
-  ITypesTreeDataNode,
+import {
+  fieldRef,
+  type IInterfaceTypeModel,
+  type ITypesTreeDataNode,
+  typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -11,6 +13,7 @@ import {
   useCui,
 } from '@codelab/frontend/presentation/codelab-ui'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
 interface TypesTreeItemProps {

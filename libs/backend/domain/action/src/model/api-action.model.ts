@@ -1,6 +1,6 @@
 import type { Prop } from '@codelab/backend/domain/prop'
 import type {
-  IActionEntity,
+  IActionRef,
   IApiActionDTO,
   IRef,
 } from '@codelab/shared/abstract/core'

@@ -11,7 +11,5 @@ export default Factory.define<IRenderPropTypeDTO>(({ params }) => {
     name: params.name ?? 'renderPropType',
   }
 
-  // testRootStore.typeService.add(dto)
-
   return dto
 })

@@ -7,7 +7,6 @@ import {
 import { ConditionalRenderPipe } from '../renderPipes/conditional-render-pipe'
 import { PassThroughRenderPipe } from '../renderPipes/pass-through-render-pipe'
 import { renderPipeFactory } from '../renderPipes/render-pipe.factory'
-import { factoryBuild } from './factory'
 import { setupPage } from './setup'
 import { createTestRootStore } from './setup/test-root-store'
 

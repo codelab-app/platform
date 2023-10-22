@@ -1,5 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
+import {
+  type IInterfaceTypeModel,
+  typeRef,
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -13,6 +16,7 @@ export const CreateFieldButton = observer<{
 
   const onClick = () => {
     const form = useModal ? fieldService.createModal : fieldService.createForm
+
     form.open(typeRef(interfaceType))
   }
 

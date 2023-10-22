@@ -10,7 +10,5 @@ export default Factory.define<IStoreDTO>(({ params }) => {
     name: params.name ?? `${chance.word({ capitalize: true })} Store`,
   }
 
-  // testRootStore.storeService.storeDomainService.add(dto)
-
   return dto
 })

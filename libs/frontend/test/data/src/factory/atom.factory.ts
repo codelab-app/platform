@@ -2,7 +2,6 @@ import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
-import { createTestRootStore } from '../setup/test-root-store'
 import chance from './chance'
 
 export default Factory.define<IAtomDTO>(({ params }) => {
@@ -19,9 +18,6 @@ export default Factory.define<IAtomDTO>(({ params }) => {
     tags: params.tags ?? [],
     type: params.type ?? IAtomType.ReactFragment,
   }
-
-  createTestRootStore().atomService.atomDomainService.add(dto)
-  // testRootStore.atomService.atomDomainService.add(dto)
 
   return dto
 })
