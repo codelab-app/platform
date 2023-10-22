@@ -2,6 +2,7 @@ import type {
   BuilderDragData,
   BuilderWidth,
   BuilderWidthBreakPoint,
+  DragPosition,
   IAtomModel,
   IComponentModel,
   IElementModel,
@@ -17,18 +18,9 @@ export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
 
-export enum DragOverlayPosition {
-  Left = 'Left',
-  Top = 'Top',
-  Bottom = 'Bottom',
-  Right = 'Right',
-  Inside = 'Inside',
-  NotAllowed = 'Not Allowed',
-}
-
 export interface IDragOverlayData {
   elementId: string
-  position: DragOverlayPosition
+  position: DragPosition
 }
 
 export interface IBuilderService {
@@ -53,14 +45,13 @@ export interface IBuilderService {
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
-  dragOverElementNode(id: string, position: DragOverlayPosition): void
+  dragOverElementNode(id: string, position: DragPosition): void
   hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
-  setDragDropData(data: IDragOverlayData): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void

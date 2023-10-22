@@ -39,6 +39,8 @@ export enum DragPosition {
   Before = 'Before',
   Inside = 'Inside',
   NotAllowed = 'Not Allowed',
+  Top = 'Top',
+  Bottom = 'Bottom',
 }
 
 export const defaultBuilderWidthBreakPoints: Record<

@@ -1,7 +1,7 @@
-import { DragOverlayPosition } from '@codelab/frontend/abstract/domain'
 import type { CSSProperties } from 'react'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { DragDropOverlayProps } from './overlay.interface'
+import { DragPosition } from '@codelab/frontend/abstract/domain'
 
 export const DragDropOverlay = ({
   element,
@@ -22,13 +22,13 @@ export const DragDropOverlay = ({
   const rootStyle: CSSProperties = useMemo(
     () => ({
       backgroundColor:
-        position === DragOverlayPosition.Inside ? '#91caff77' : 'transparent',
-      borderBottomWidth: position === DragOverlayPosition.Bottom ? '10px' : '0',
+        position === DragPosition.Inside ? '#91caff77' : 'transparent',
+      borderBottomWidth: position === DragPosition.Bottom ? '10px' : '0',
       borderColor: '#91caff',
-      borderLeftWidth: position === DragOverlayPosition.Left ? '10px' : '0',
-      borderRightWidth: position === DragOverlayPosition.Right ? '10px' : '0',
+      borderLeftWidth: position === DragPosition.Before ? '10px' : '0',
+      borderRightWidth: position === DragPosition.After ? '10px' : '0',
       borderStyle: 'solid',
-      borderTopWidth: position === DragOverlayPosition.Top ? '10px' : '0',
+      borderTopWidth: position === DragPosition.Top ? '10px' : '0',
       bottom: `${rect.bottom}px`,
       height: `${rect.height}px`,
       left: `${rect.left - containerRect.left}px`,

@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useDragDropHandlers, useSelectionHandlers } from '../utils'
+import { useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import {
   extractValidProps,

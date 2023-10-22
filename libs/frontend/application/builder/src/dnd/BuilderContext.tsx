@@ -1,6 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
-  DragOverlayPosition,
   DragPosition,
   ROOT_RENDER_CONTAINER_ID,
 } from '@codelab/frontend/abstract/domain'
@@ -69,7 +68,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         draggedHtmlElement.classList.remove(CURRENTLY_DRAGGED_CLASS)
       }
 
-      builderService.dragOverElementNode('', DragOverlayPosition.Inside)
+      builderService.dragOverElementNode('', DragPosition.Inside)
 
       if (dragPositionData.dragPosition === DragPosition.NotAllowed) {
         return
@@ -104,7 +103,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         })
       } else {
         dragPositionData = {
-          dragOverlayPosition: DragOverlayPosition.NotAllowed,
+          dragOverlayPosition: DragPosition.NotAllowed,
           dragPosition: DragPosition.NotAllowed,
         }
       }
@@ -144,7 +143,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
 BuilderContext.displayName = 'BuilderContext'
 
 interface DragPositionData {
-  dragOverlayPosition: DragOverlayPosition
+  dragOverlayPosition: DragPosition
   dragPosition: DragPosition
 }
 
@@ -165,34 +164,34 @@ export const calcDragPosition = ({
 
   if (offsetX < width * 0.3) {
     return {
-      dragOverlayPosition: DragOverlayPosition.Left,
+      dragOverlayPosition: DragPosition.Before,
       dragPosition: DragPosition.Before,
     }
   }
 
   if (offsetY < height * 0.3) {
     return {
-      dragOverlayPosition: DragOverlayPosition.Top,
+      dragOverlayPosition: DragPosition.Top,
       dragPosition: DragPosition.Before,
     }
   }
 
   if (offsetY > height * 0.7) {
     return {
-      dragOverlayPosition: DragOverlayPosition.Bottom,
+      dragOverlayPosition: DragPosition.Bottom,
       dragPosition: DragPosition.After,
     }
   }
 
   if (offsetX > width * 0.7) {
     return {
-      dragOverlayPosition: DragOverlayPosition.Right,
+      dragOverlayPosition: DragPosition.After,
       dragPosition: DragPosition.After,
     }
   }
 
   return {
-    dragOverlayPosition: DragOverlayPosition.Inside,
+    dragOverlayPosition: DragPosition.Inside,
     dragPosition: DragPosition.Inside,
   }
 }

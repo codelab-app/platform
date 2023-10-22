@@ -1,13 +1,12 @@
 import type {
   IBuilderService,
   IDragDropData,
+  IDragOverlayData,
 } from '@codelab/frontend/abstract/application'
-import { IDropPosition } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
+  DragPosition,
   IComponentModel,
-  IDragDropData,
-  IDragOverlayData,
   IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -16,7 +15,6 @@ import {
   BuilderWidthBreakPoint,
   componentRef,
   defaultBuilderWidthBreakPoints,
-  DragOverlayPosition,
   elementRef,
   isComponentRef,
   isElementRef,
@@ -149,7 +147,7 @@ export class BuilderService
   }
 
   @modelAction
-  dragOverElementNode(elementId: string, position: DragOverlayPosition) {
+  dragOverElementNode(elementId: string, position: DragPosition) {
     this.dragOverlayData = {
       elementId,
       position,
