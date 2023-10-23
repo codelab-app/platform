@@ -1,6 +1,4 @@
-import type {
-  DragOverlayPosition,
-} from '@codelab/frontend/abstract/domain'
+import { DragPosition } from '@codelab/frontend/abstract/domain'
 import type React from 'react'
 
 export interface OverlayProps {
@@ -16,7 +14,7 @@ export interface HoverOverlayProps {
 }
 
 export interface DragDropOverlayProps {
-  position: DragOverlayPosition
+  position: DragPosition
   element: HTMLElement
   renderContainer: HTMLElement
 }

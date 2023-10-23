@@ -5,7 +5,6 @@ import type {
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { DragDropOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
-import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
