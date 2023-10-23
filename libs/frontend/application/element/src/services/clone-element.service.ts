@@ -1,5 +1,5 @@
 import {
-  getBuilderService,
+  getBuilderDomainService,
   getComponentService,
   getElementService,
 } from '@codelab/frontend/abstract/application'
@@ -303,7 +303,7 @@ export class CloneElementService
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @computed

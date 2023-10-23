@@ -3,8 +3,8 @@ import { createContext } from 'mobx-keystone'
 
 export const tagServiceContext = createContext<ITagService>()
 
-export const getTagService = (thisModel: object) => {
-  const tagStore = tagServiceContext.get(thisModel)
+export const getTagService = (self: object) => {
+  const tagStore = tagServiceContext.get(self)
 
   if (!tagStore) {
     throw new Error('tagServiceContext is not defined')

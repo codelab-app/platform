@@ -7,7 +7,7 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import install from '@twind/with-next/app'
-import { ConfigProvider } from 'antd'
+import { Button, ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 import config from '../twind.config'
 

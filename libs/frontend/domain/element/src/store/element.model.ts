@@ -1,7 +1,7 @@
 import {
   getComponentService,
   getElementService,
-  getRenderService,
+  getRendererApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
@@ -863,6 +863,6 @@ export class Element
 
   @computed
   private get renderService() {
-    return getRenderService(this)
+    return getRendererApplicationService(this)
   }
 }

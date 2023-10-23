@@ -6,5 +6,5 @@ export interface IStoreDomainService {
   stores: ObjectMap<IStoreModel>
   storesList: Array<IStoreModel>
 
-  add(storeDTO: IStoreDTO): IStoreModel
+  hydrate(storeDTO: IStoreDTO): IStoreModel
 }

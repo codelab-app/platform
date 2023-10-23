@@ -7,6 +7,6 @@ export interface ITypeDomainService {
   types: ObjectMap<ITypeModel>
   typesList: Array<ITypeModel>
 
-  add(type: ITypeDTO): ITypeModel
-  addInterface(data: ICreateTypeData): IInterfaceTypeModel
+  hydrate(type: ITypeDTO): ITypeModel
+  hydrateInterface(data: ICreateTypeData): IInterfaceTypeModel
 }

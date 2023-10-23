@@ -9,7 +9,7 @@ import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/domain/shared'
-import { Tag, tagRef } from '@codelab/frontend/domain/tag'
+import { Tag, TagDomainService, tagRef } from '@codelab/frontend/domain/tag'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
@@ -38,40 +38,18 @@ export class TagService
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new TagsModalService({})),
-    selectedTag: prop<Nullish<Ref<ITagModel>>>(null).withSetter(),
+    tagDomainService: prop(() => new TagDomainService({})),
     tagRepository: prop(() => new TagRepository({})),
-    tags: prop(() => objectMap<ITagModel>()),
     treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
     updateForm: prop(() => new TagFormService({})),
     updateModal: prop(() => new TagModalService({})),
   })
   implements ITagService
 {
-  @computed
-  get selectedOption() {
-    return {
-      label: this.selectedTag?.current.name ?? '',
-      value: this.selectedTag?.current.id ?? '',
-    }
-  }
-
-  @computed
-  get tagsList() {
-    return Array.from(this.tags.values())
-  }
-
-  @computed
-  get tagsSelectOptions() {
-    return this.tagsList.map((tag) => ({
-      label: tag.name,
-      value: tag.id,
-    }))
-  }
-
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, data: ICreateTagData) {
-    const tag = this.add({
+    const tag = this.tagDomainService.hydrate({
       ...data,
       children: [],
       descendants: [],
@@ -89,7 +67,7 @@ export class TagService
     const [parentTag] = yield* _await(this.getAll({ id: tag.parent.id }))
 
     if (parentTag) {
-      this.tags.set(parentTag.id, parentTag)
+      this.tagDomainService.tags.set(parentTag.id, parentTag)
 
       this.treeService.addRoots([tag, parentTag])
     }
@@ -105,13 +83,13 @@ export class TagService
 
     for (const tag of tags) {
       // Remove parent
-      this.tags.delete(tag.id)
+      this.tagDomainService.tags.delete(tag.id)
       tagsToRemove.push(tag)
 
       // Remove descendants
       tag.descendants.forEach((descendant) => {
         tagsToRemove.push(descendant)
-        this.tags.delete(descendant.id)
+        this.tagDomainService.tags.delete(descendant.id)
       })
     }
 
@@ -132,7 +110,7 @@ export class TagService
   getAll = _async(function* (this: TagService, where?: TagWhere) {
     const { items: tags } = yield* _await(this.tagRepository.find(where))
 
-    return tags.map((tag) => this.add(tag))
+    return tags.map((tag) => this.tagDomainService.hydrate(tag))
   })
 
   /**
@@ -151,7 +129,7 @@ export class TagService
     this: TagService,
     { id, name, parent }: IUpdateTagData,
   ) {
-    const tag = this.tags.get(id)!
+    const tag = this.tagDomainService.tags.get(id)!
 
     tag.writeCache({ name, parent })
 
@@ -159,24 +137,4 @@ export class TagService
 
     return tag
   })
-
-  @modelAction
-  add = ({ children, descendants, id, isRoot, name, parent }: ITagDTO) => {
-    const tag = new Tag({
-      children: children?.map((child) => tagRef(child.id)),
-      descendants: descendants?.map((child) => tagRef(child.id)),
-      id,
-      isRoot: isRoot === undefined ? !parent?.id : isRoot,
-      name,
-      parent: parent?.id ? tagRef(parent.id) : null,
-    })
-
-    this.tags.set(tag.id, tag)
-
-    return tag
-  }
-
-  tag(id: string) {
-    return this.tags.get(id)
-  }
 }

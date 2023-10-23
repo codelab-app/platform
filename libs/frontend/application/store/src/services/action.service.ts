@@ -1,5 +1,5 @@
 import {
-  getBuilderService,
+  getBuilderDomainService,
   type IActionService,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -63,7 +63,7 @@ export class ActionService
 
   @computed
   get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @modelFlow

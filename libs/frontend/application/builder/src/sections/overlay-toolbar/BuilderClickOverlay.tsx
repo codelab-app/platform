@@ -1,6 +1,6 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import type {
-  IBuilderService,
+  IBuilderDomainService,
   IElementService,
 } from '@codelab/frontend/abstract/application'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
@@ -42,7 +42,7 @@ const StyledOverlayButtonGroup = styled.div`
 `
 
 export const BuilderClickOverlay = observer<{
-  builderService: IBuilderService
+  builderService: IBuilderDomainService
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, elementService, renderContainerRef }) => {

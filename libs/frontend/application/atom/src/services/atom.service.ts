@@ -68,13 +68,13 @@ export class AtomService
       type,
     }: ICreateAtomData,
   ) {
-    const api = this.typeService.typeDomainService.addInterface({
+    const api = this.typeService.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
     })
 
-    const atom = this.atomDomainService.add({
+    const atom = this.atomDomainService.hydrate({
       api,
       externalCssSource,
       externalJsSource,
@@ -131,7 +131,7 @@ export class AtomService
       })
     }
 
-    return atoms.map((atom) => this.atomDomainService.add(atom))
+    return atoms.map((atom) => this.atomDomainService.hydrate(atom))
   })
 
   @modelFlow
@@ -156,8 +156,10 @@ export class AtomService
 
     atoms
       .flatMap((atom) => atom.api)
-      .forEach((type) => this.typeService.typeDomainService.addInterface(type))
-    atoms.forEach((atom) => this.atomDomainService.add(atom))
+      .forEach((type) =>
+        this.typeService.typeDomainService.hydrateInterface(type),
+      )
+    atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
 
     // const currentAtom = fieldProps.value
     //   ? this.atomDomainService.atoms.get(fieldProps.value)

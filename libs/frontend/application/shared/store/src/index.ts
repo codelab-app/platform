@@ -1,2 +1,2 @@
-export * from './root-store.interface'
 export * from './StoreProvider'
+export * from './test'

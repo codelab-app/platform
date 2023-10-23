@@ -1,2 +1,2 @@
-export * from './render.service.context'
-export * from './render.service.interface'
+export * from './renderer.application.service.context'
+export * from './renderer.application.service.interface'

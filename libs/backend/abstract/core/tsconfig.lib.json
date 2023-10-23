@@ -7,8 +7,5 @@
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": [
-    "**/*.ts",
-    "../../../shared/abstract/core/src/admin.bounded-context.interface.ts"
-  ]
+  "include": ["**/*.ts"]
 }

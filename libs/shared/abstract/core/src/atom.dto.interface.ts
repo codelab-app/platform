@@ -7,6 +7,7 @@ import { IRef } from './model/node-type.interface'
 import { IInterfaceTypeRef } from './type'
 
 export const IAtomDTO = Type.Object({
+  __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),
   api: IRef,
   externalCssSource: Typebox.Nullish(Type.String()),
   externalJsSource: Typebox.Nullish(Type.String()),

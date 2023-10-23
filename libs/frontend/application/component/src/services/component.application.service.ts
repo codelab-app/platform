@@ -1,7 +1,7 @@
 import {
-  getBuilderService,
+  getBuilderDomainService,
   getElementService,
-  getRenderService,
+  getRendererApplicationService,
   type IComponentApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -92,13 +92,13 @@ export class ComponentApplicationService
     this: ComponentApplicationService,
     { id, keyGenerator, name, rootElement }: ICreateComponentData,
   ) {
-    const storeApi = this.typeService.typeDomainService.addInterface({
+    const storeApi = this.typeService.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${name} Store`),
     })
 
-    const store = this.storeService.storeDomainService.add({
+    const store = this.storeService.storeDomainService.hydrate({
       api: typeRef<IInterfaceTypeModel>(storeApi.id),
       id: v4(),
       name: Store.createName({ name }),
@@ -106,9 +106,9 @@ export class ComponentApplicationService
 
     const fragmentAtom = this.atomService.atomDomainService.defaultRenderType
 
-    this.atomService.atomDomainService.add(fragmentAtom)
+    this.atomService.atomDomainService.hydrate(fragmentAtom)
 
-    const api = this.typeService.typeDomainService.addInterface({
+    const api = this.typeService.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(name),
@@ -155,7 +155,7 @@ export class ComponentApplicationService
         this.elementService.elementDomainService.hydrate(elementData)
     }
 
-    const component = this.add({
+    const component = this.hydrate({
       api,
       childrenContainerElement: { id: rootElementModel.id },
       id,
@@ -244,9 +244,11 @@ export class ComponentApplicationService
             interfaceTypes: [elementData.renderType.api],
           })
 
-          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
+          elementData.renderType.tags.forEach((tag) =>
+            this.tagService.hydrate(tag),
+          )
 
-          this.atomService.atomDomainService.add(elementData.renderType)
+          this.atomService.atomDomainService.hydrate(elementData.renderType)
         }
 
         this.elementService.elementDomainService.hydrate({
@@ -256,7 +258,7 @@ export class ComponentApplicationService
         })
       })
 
-      return this.add(component)
+      return this.hydrate(component)
     })
 
     const allComponentsFieldTypeIds = uniq(
@@ -331,7 +333,7 @@ export class ComponentApplicationService
   })
 
   @modelAction
-  add(componentDTO: IComponentDTO) {
+  hydrate(componentDTO: IComponentDTO) {
     let component = this.components.get(componentDTO.id)
 
     if (component) {
@@ -339,7 +341,7 @@ export class ComponentApplicationService
     } else {
       component = Component.create(componentDTO)
 
-      this.renderService.addRenderer({
+      this.renderService.hydrate({
         elementTree: component,
         id: component.id,
         providerTree: null,
@@ -417,7 +419,7 @@ export class ComponentApplicationService
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @computed
@@ -432,7 +434,7 @@ export class ComponentApplicationService
 
   @computed
   private get renderService() {
-    return getRenderService(this)
+    return getRendererApplicationService(this)
   }
 
   @computed

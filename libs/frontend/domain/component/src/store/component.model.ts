@@ -1,6 +1,6 @@
 import {
   getComponentService,
-  getRenderService,
+  getRendererApplicationService,
   getUserService,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -296,7 +296,7 @@ export class Component
    */
   @computed
   private get renderService() {
-    return getRenderService(this)
+    return getRendererApplicationService(this)
   }
 
   @computed

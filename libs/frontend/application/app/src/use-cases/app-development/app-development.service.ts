@@ -123,13 +123,19 @@ export class AppDevelopmentService
 
   @modelAction
   hydrateAppDevelopmentData(data: IAppDevelopmentDto) {
-    data.atoms.forEach((atom) => this.atomService.atomDomainService.add(atom))
+    data.atoms.forEach((atom) =>
+      this.atomService.atomDomainService.hydrate(atom),
+    )
 
-    data.types.forEach((type) => this.typeService.typeDomainService.add(type))
+    data.types.forEach((type) =>
+      this.typeService.typeDomainService.hydrate(type),
+    )
 
-    data.fields.forEach((field) => this.fieldService.add(field))
+    data.fields.forEach((field) => this.fieldService.hydrate(field))
 
-    data.components.forEach((component) => this.componentService.add(component))
+    data.components.forEach((component) =>
+      this.componentService.hydrate(component),
+    )
 
     data.elements.forEach((element) =>
       this.elementService.elementDomainService.hydrate(element),
@@ -138,7 +144,7 @@ export class AppDevelopmentService
     // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) =>
-      this.storeService.storeDomainService.add(store),
+      this.storeService.storeDomainService.hydrate(store),
     )
 
     data.actions.forEach((action) => this.actionService.add(action))

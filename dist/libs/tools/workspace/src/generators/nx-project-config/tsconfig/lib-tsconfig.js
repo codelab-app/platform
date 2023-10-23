@@ -20,6 +20,18 @@ const updateLibTsconfig = (tree, project) => {
             };
             return json;
         });
+        // Add for all
+        (0, devkit_1.updateJson)(tree, `${project.root}/tsconfig.json`, (json) => {
+            json.compilerOptions = {
+                ...json.compilerOptions,
+                noFallthroughCasesInSwitch: true,
+                noImplicitOverride: true,
+                noImplicitReturns: true,
+                noPropertyAccessFromIndexSignature: true,
+                strict: true,
+            };
+            return json;
+        });
         (0, devkit_1.updateJson)(tree, `${project.root}/tsconfig.lib.json`, (json) => {
             json.compilerOptions = {
                 declaration: true,

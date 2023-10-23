@@ -1,5 +1,6 @@
 import type {
   ICreateTagData,
+  ITagDomainService,
   ITagModel,
   ITagTreeService,
   IUpdateTagData,
@@ -30,17 +31,11 @@ export interface ITagService
     Array<Ref<ITagModel>>,
     { tags: Array<ITagModel> }
   >
-  selectedOption: LabeledValue
-  tags: ObjectMap<ITagModel>
-  tagsList: Array<ITagModel>
-  tagsSelectOptions: Array<LabeledValue>
+  tagDomainService: ITagDomainService
   treeService: ITagTreeService
 
-  add(tagDTO: ITagDTO): ITagModel
   delete(ids: Array<string>): Promise<number>
   deleteCheckedTags(): void
   loadTagTree(): void
   setCheckedTags(tags: Array<Ref<ITagModel>>): void
-  setSelectedTag(tag: Nullish<Ref<ITagModel>>): void
-  tag(id: string): Maybe<ITagModel>
 }

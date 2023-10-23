@@ -106,12 +106,12 @@ export class AppProductionService
 
     // use a dummy api to avoid typing issues
     data.atoms.forEach((atom) =>
-      this.atomService.atomDomainService.add({ ...atom, api: entity }),
+      this.atomService.atomDomainService.hydrate({ ...atom, api: entity }),
     )
 
     data.components.forEach((component) =>
       // use a dummy api to avoid typing issues
-      this.componentService.add({ ...component, api: entity }),
+      this.componentService.hydrate({ ...component, api: entity }),
     )
 
     data.elements.forEach((element) =>
@@ -125,7 +125,7 @@ export class AppProductionService
     // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) =>
-      this.storeService.storeDomainService.add(store),
+      this.storeService.storeDomainService.hydrate(store),
     )
 
     data.actions.forEach((action) => this.actionService.add(action))

@@ -1,13 +1,5 @@
-import {
-  DATA_ELEMENT_ID,
-  elementTreeRef,
-  isAtomRef,
-  rendererRef,
-} from '@codelab/frontend/abstract/domain'
-import { ConditionalRenderPipe } from '../renderPipes/conditional-render-pipe'
-import { PassThroughRenderPipe } from '../renderPipes/pass-through-render-pipe'
-import { renderPipeFactory } from '../renderPipes/render-pipe.factory'
 import { setupPage } from './setup'
+import { dtoFactory } from './setup/dto.factory'
 import { createTestRootStore } from './setup/test-root-store'
 
 describe('ConditionalRenderPipe', () => {
@@ -28,21 +20,21 @@ describe('ConditionalRenderPipe', () => {
     async (expression, shouldRender) => {
       const { page, rootElement: pageRootElement } = setupPage()
 
-      const element = factoryBuild('element', {
+      const element = dtoFactory.build('element', {
         page,
         parentElement: pageRootElement,
-        props: factoryBuild('props', {
+        props: dtoFactory.build('props', {
           data: '{ "testPropTrue": true, "testPropFalse": false }',
         }),
         renderIfExpression: expression,
-        renderType: factoryBuild('atom', {
-          api: factoryBuild('typeInterface'),
+        renderType: dtoFactory.build('atom', {
+          api: dtoFactory.build('typeInterface'),
         }),
       })
 
       const elementModel = rootStore.elementService.element(element.id)
 
-      const renderer = factoryBuild('renderer', {
+      const renderer = DtoFactory.build('renderer', {
         elementTree: elementTreeRef(
           rootStore.appService.appDomainService
             .app(page.app.id)!

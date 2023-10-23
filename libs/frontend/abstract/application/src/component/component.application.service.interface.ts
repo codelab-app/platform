@@ -34,7 +34,7 @@ export interface IComponentApplicationService
   components: ObjectMap<IComponentModel>
   createForm: IFormService
 
-  add(componentDTO: IComponentDTO): IComponentModel
   component(id: string): IComponentModel
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
+  hydrate(componentDTO: IComponentDTO): IComponentModel
 }

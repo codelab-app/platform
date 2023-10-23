@@ -31,7 +31,7 @@ export const mapDeep = (
             : valueMapper(_value, _key)
 
           return {
-            [mappedKey]: mappedValue,
+            [mappedKey.toString()]: mappedValue,
           }
         })
         .reduce((acc, cur) => ({ ...acc, ...cur }), {})

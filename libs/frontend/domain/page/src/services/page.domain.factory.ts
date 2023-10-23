@@ -47,13 +47,13 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
     const { user } = this.userService
     const userName = user.username
 
-    const interfaceType = this.typeDomainService.addInterface({
+    const interfaceType = this.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${app.name}(${userName}) ${name} Store`),
     })
 
-    const store = this.storeDomainService.add({
+    const store = this.storeDomainService.hydrate({
       api: typeRef<IInterfaceTypeModel>(interfaceType.id),
       id: v4(),
       name: Store.createName({ name }),

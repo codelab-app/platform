@@ -1,4 +1,4 @@
-import { getRenderService } from '@codelab/frontend/abstract/application'
+import { getRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IComponentModel,
@@ -184,7 +184,7 @@ export class Store
   clone(componentId: string) {
     const id = v4()
 
-    return this.storeDomainService.add({
+    return this.storeDomainService.hydrate({
       actions: [...this.actions.values()].map(
         (action) => action.current.toJson,
       ),
@@ -249,7 +249,7 @@ export class Store
 
   @computed
   private get renderService() {
-    return getRenderService(this)
+    return getRendererApplicationService(this)
   }
 
   @computed

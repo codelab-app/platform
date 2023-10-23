@@ -7,7 +7,8 @@ import type {
   IFieldService,
   IPageApplicationService,
   IPropService,
-  IRenderService,
+  IRendererApplicationService,
+  IRootStore,
   IStoreService,
   ITypeService,
   IUserService,
@@ -16,7 +17,7 @@ import {
   appServiceContext,
   componentServiceContext,
   elementServiceContext,
-  renderServiceContext,
+  rendererApplicationServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
 import { AppService } from '@codelab/frontend/application/app'
@@ -34,7 +35,6 @@ import {
   PropService,
   propServiceContext,
 } from '@codelab/frontend/application/prop'
-import type { IRootStore } from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   actionServiceContext,
@@ -51,23 +51,24 @@ import { UserService } from '@codelab/frontend/application/user'
 import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
 import { userDto } from '@codelab/frontend/test/data'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
-import { RenderService } from '../../render.service'
+import { RendererApplicationService } from '../../renderer.application.service'
 
 export type ITestRootStore = Pick<
   IRootStore,
   | 'actionService'
   | 'appService'
   | 'atomService'
+  | 'clear'
   | 'componentService'
   | 'elementService'
   | 'fieldService'
   | 'pageService'
   | 'propService'
-  | 'renderService'
+  | 'rendererService'
   | 'storeService'
   | 'typeService'
   | 'userService'
-> & { clear(): void }
+>
 
 let testRootStore: ITestRootStore | undefined
 
@@ -87,7 +88,9 @@ export const createTestRootStore = () => {
         () => new PageApplicationService({}),
       ),
       propService: prop<IPropService>(() => new PropService({})),
-      renderService: prop<IRenderService>(() => new RenderService({})),
+      rendererService: prop<IRendererApplicationService>(
+        () => new RendererApplicationService({}),
+      ),
       storeService: prop<IStoreService>(() => new StoreService({})),
       typeService: prop<ITypeService>(() => new TypeService({})),
       userService: prop<IUserService>(() => UserService.fromDto(userDto)),
@@ -104,7 +107,7 @@ export const createTestRootStore = () => {
       this.actionService.actions.clear()
       this.storeService.storeDomainService.stores.clear()
       this.userService.users.clear()
-      this.renderService.renderers.clear()
+      this.rendererService.renderers.clear()
     }
 
     protected override onInit() {
@@ -119,7 +122,7 @@ export const createTestRootStore = () => {
       propServiceContext.set(this, this.propService)
       pageServiceContext.set(this, this.pageService)
       storeServiceContext.set(this, this.storeService)
-      renderServiceContext.set(this, this.renderService)
+      rendererApplicationServiceContext.set(this, this.rendererService)
       userServiceContext.set(this, this.userService)
 
       registerRootStore(this)

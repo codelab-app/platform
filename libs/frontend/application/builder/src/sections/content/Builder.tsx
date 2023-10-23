@@ -24,8 +24,8 @@ import { BuilderResizeHandle } from './BuilderResizeHandle'
  * Generic builder used for both Component & Element
  */
 export const Builder = observer(() => {
-  const { builderService, elementService, renderService } = useStore()
-  const renderer = renderService.activeRenderer?.current
+  const { builderService, elementService, rendererService } = useStore()
+  const renderer = rendererService.activeRenderer?.current
   const elementTree = builderService.activeElementTree
   const { selectedBuilderWidth, selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)

@@ -11,5 +11,5 @@ export interface IAtomDomainService {
   loadedExternalCssSources: ArraySet<string>
   loadedExternalJsSources: ArraySet<string>
 
-  add(atomDTO: IAtomDTO): IAtomModel
+  hydrate(atomDTO: IAtomDTO): IAtomModel
 }

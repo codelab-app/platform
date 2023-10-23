@@ -1,6 +1,6 @@
 import {
-  getBuilderService,
-  getRenderService,
+  getBuilderDomainService,
+  getRendererApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
@@ -166,11 +166,11 @@ export class ElementStyle
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @computed
   private get renderService() {
-    return getRenderService(this)
+    return getRendererApplicationService(this)
   }
 }

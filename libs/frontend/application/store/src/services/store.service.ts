@@ -37,7 +37,7 @@ export class StoreService
   @modelFlow
   @transaction
   create = _async(function* (this: StoreService, data: IStoreDTO) {
-    const store = this.storeDomainService.add(data)
+    const store = this.storeDomainService.hydrate(data)
 
     yield* _await(this.storeRepository.add(store))
 
@@ -101,7 +101,7 @@ export class StoreService
     }
 
     return stores.map((store) =>
-      this.storeDomainService.add({ ...store, source: null }),
+      this.storeDomainService.hydrate({ ...store, source: null }),
     )
   }
 

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
  * Fetch related data for rendering page, and load them into store
  */
 export const useAppProduction = (appProductionData: IAppProductionDto) => {
-  const { appService, renderService } = useStore()
+  const { appService, rendererService } = useStore()
   const { appName, pageName } = appProductionData
   const router = useRouter()
 
@@ -40,7 +40,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
       {},
     )
 
-    const renderer = renderService.addRenderer({
+    const renderer = rendererService.hydrate({
       elementTree: page,
       id: page.id,
       providerTree: app.providerPage,
@@ -50,7 +50,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
 
     console.debug(renderer)
 
-    renderService.setActiveRenderer(rendererRef(renderer.id))
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()
 
     return {
