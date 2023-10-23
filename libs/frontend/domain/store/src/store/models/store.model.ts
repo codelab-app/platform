@@ -198,6 +198,7 @@ export class Store
     })
   }
 
+  @modelAction
   deleteUnusedRefs() {
     keys(this.refs).forEach((key) => {
       if (!this.refKeys.includes(key)) {

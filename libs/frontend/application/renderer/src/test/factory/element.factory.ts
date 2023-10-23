@@ -6,7 +6,7 @@ import { rootStore as testRootStore } from '../setup'
 import chance from './chance'
 
 export default Factory.define<IElementDTO>(({ params }) => {
-  const dto = {
+  const dto: IElementDTO = {
     closestContainerNode: {
       id: params.closestContainerNode?.id ?? v4(),
     },
@@ -18,6 +18,12 @@ export default Factory.define<IElementDTO>(({ params }) => {
       : null,
     parentElement: params.parentElement?.id
       ? { id: params.parentElement.id }
+      : null,
+    postRenderAction: params.postRenderAction?.id
+      ? { id: params.postRenderAction.id }
+      : null,
+    preRenderAction: params.preRenderAction?.id
+      ? { id: params.preRenderAction.id }
       : null,
     props: {
       data: params.props?.data ?? '{}',

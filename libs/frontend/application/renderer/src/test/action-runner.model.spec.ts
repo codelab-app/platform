@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { elementTreeRef, rendererRef } from '@codelab/frontend/abstract/domain'
+import {
+  elementTreeRef,
+  getRunnerId,
+  rendererRef,
+} from '@codelab/frontend/abstract/domain'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import nock from 'nock'
-import { ActionRunner } from '../action-runner.model'
 import { factoryBuild } from './factory'
 import { rootStore, setupPage } from './setup'
 
@@ -29,11 +32,6 @@ describe('ActionRunnerModel', () => {
       storeId: testStoreId,
     })
 
-    const elementModel = rootStore.elementService.element(pageRootElement.id)
-    const actionRunners = ActionRunner.create(elementModel)
-
-    expect(actionRunners).toHaveLength(1)
-
     const renderer = factoryBuild('renderer', {
       elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
     })
@@ -41,10 +39,14 @@ describe('ActionRunnerModel', () => {
     rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
     rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
-      elementModel,
+      rootStore.elementService.element(pageRootElement.id),
     )
 
-    const actionRunner = renderer.actionRunners.get(actionRunners[0]!.id)
+    const actionRunner = renderer.actionRunners.get(
+      getRunnerId(testStoreId, codeAction.id),
+    )
+
+    expect(renderer.actionRunners.size).toBe(1)
 
     actionRunner!.runner(spyFn)
 
@@ -78,11 +80,6 @@ describe('ActionRunnerModel', () => {
       storeId: testStoreId,
     })
 
-    const elementModel = rootStore.elementService.element(pageRootElement.id)
-    const actionRunners = ActionRunner.create(elementModel)
-
-    expect(actionRunners).toHaveLength(1)
-
     const renderer = factoryBuild('renderer', {
       elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
     })
@@ -90,10 +87,14 @@ describe('ActionRunnerModel', () => {
     rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
     rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
-      elementModel,
+      rootStore.elementService.element(pageRootElement.id),
     )
 
-    const actionRunner = renderer.actionRunners.get(actionRunners[0]!.id)
+    const actionRunner = renderer.actionRunners.get(
+      getRunnerId(testStoreId, apiAction.id),
+    )
+
+    expect(renderer.actionRunners.size).toBe(1)
 
     await actionRunner!.runner()
 
@@ -150,11 +151,6 @@ describe('ActionRunnerModel', () => {
         storeId: testStoreId,
       })
 
-      const elementModel = rootStore.elementService.element(pageRootElement.id)
-      const actionRunners = ActionRunner.create(elementModel)
-
-      expect(actionRunners).toHaveLength(3)
-
       const renderer = factoryBuild('renderer', {
         elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
       })
@@ -162,10 +158,15 @@ describe('ActionRunnerModel', () => {
       rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
       rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
-        elementModel,
+        rootStore.elementService.element(pageRootElement.id),
       )
 
-      const apiActionRunner = renderer.actionRunners.get(actionRunners[0]!.id)
+      const apiActionRunner = renderer.actionRunners.get(
+        getRunnerId(testStoreId, apiAction.id),
+      )
+
+      expect(renderer.actionRunners.size).toBe(3)
+
       const consoleLogSpy = jest.spyOn(global.console, 'log')
 
       await apiActionRunner!.runner()
@@ -219,11 +220,6 @@ describe('ActionRunnerModel', () => {
       storeId: testStoreId,
     })
 
-    const elementModel = rootStore.elementService.element(pageRootElement.id)
-    const actionRunners = ActionRunner.create(elementModel)
-
-    expect(actionRunners).toHaveLength(1)
-
     const renderer = factoryBuild('renderer', {
       elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
     })
@@ -231,10 +227,14 @@ describe('ActionRunnerModel', () => {
     rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
     rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
-      elementModel,
+      rootStore.elementService.element(pageRootElement.id),
     )
 
-    const actionRunner = renderer.actionRunners.get(actionRunners[0]!.id)
+    const actionRunner = renderer.actionRunners.get(
+      getRunnerId(testStoreId, apiAction.id),
+    )
+
+    expect(renderer.actionRunners.size).toBe(1)
 
     await actionRunner!.runner()
 
@@ -321,11 +321,6 @@ describe('ActionRunnerModel', () => {
         storeId: testStoreId,
       })
 
-      const elementModel = rootStore.elementService.element(pageRootElement.id)
-      const actionRunners = ActionRunner.create(elementModel)
-
-      expect(actionRunners).toHaveLength(3)
-
       const renderer = factoryBuild('renderer', {
         elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
       })
@@ -333,10 +328,15 @@ describe('ActionRunnerModel', () => {
       rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
 
       rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
-        elementModel,
+        rootStore.elementService.element(pageRootElement.id),
       )
 
-      const apiActionRunner = renderer.actionRunners.get(actionRunners[0]!.id)
+      const apiActionRunner = renderer.actionRunners.get(
+        getRunnerId(testStoreId, apiAction.id),
+      )
+
+      expect(renderer.actionRunners.size).toBe(3)
+
       const consoleLogSpy = jest.spyOn(global.console, 'log')
 
       await apiActionRunner!.runner()

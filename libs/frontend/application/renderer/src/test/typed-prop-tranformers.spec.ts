@@ -12,7 +12,7 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { render } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import { factoryBuild } from './factory'
 import { rootStore, setupPage } from './setup'
 import { TestProviderWrapper } from './TestProviderWrapper'
@@ -131,11 +131,13 @@ describe('TypedPropTransformers', () => {
         rootStore.elementService.element(element.id),
       ) as IRenderOutput
 
-    const { findByText } = render(props?.['someNode'], {
-      wrapper: TestProviderWrapper(rootStore),
-    })
+    await act(async () =>
+      render(props?.['someNode'], {
+        wrapper: TestProviderWrapper(rootStore),
+      }),
+    )
 
-    expect(await findByText(testPropValue)).toBeInTheDocument()
+    expect(await screen.findByText(testPropValue)).toBeInTheDocument()
   })
 
   it.each([
@@ -215,12 +217,14 @@ describe('TypedPropTransformers', () => {
           rootStore.elementService.element(element.id),
         ) as IRenderOutput
 
-      const { findByText } = render(props?.['someNode'](renderedPropArgument), {
-        wrapper: TestProviderWrapper(rootStore),
-      })
+      await act(async () =>
+        render(props?.['someNode'](renderedPropArgument), {
+          wrapper: TestProviderWrapper(rootStore),
+        }),
+      )
 
       expect(
-        await findByText(renderedPropArgument ?? testPropValue),
+        await screen.findByText(renderedPropArgument ?? testPropValue),
       ).toBeInTheDocument()
     },
   )

@@ -6,10 +6,13 @@ import { factoryBuild } from '../factory'
 
 interface SetupOptions {
   actions?: Array<IEntity>
+  postRenderAction?: IEntity
+  preRenderAction?: IEntity
   storeId?: string
 }
 
 export const setupPage = (options: SetupOptions = {}) => {
+  const { actions, postRenderAction, preRenderAction, storeId } = options
   const pageId = 'page-id'
   const pageName = 'Page'
   const pageStoreId = 'page-store-id'
@@ -20,9 +23,9 @@ export const setupPage = (options: SetupOptions = {}) => {
     name: pageName,
     rootElement: { id: pageRootElementId },
     store: factoryBuild('store', {
-      actions: options.actions,
+      actions,
       api: factoryBuild('typeInterface'),
-      id: options.storeId ?? pageStoreId,
+      id: storeId ?? pageStoreId,
       name: Store.createName({ name: pageName }),
       page: { id: pageId },
     }),
@@ -33,6 +36,8 @@ export const setupPage = (options: SetupOptions = {}) => {
     id: pageRootElementId,
     name: ROOT_ELEMENT_NAME,
     page,
+    postRenderAction,
+    preRenderAction,
     props: factoryBuild('props'),
     renderType: factoryBuild('atom', {
       api: factoryBuild('typeInterface'),

@@ -1,15 +1,22 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  elementTreeRef,
   rendererRef,
+  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import { act, render } from '@testing-library/react'
+import { PassThroughRenderPipe } from '../renderPipes/pass-through-render-pipe'
+import { PreRenderPipe } from '../renderPipes/pre-render-pipe'
+import { renderPipeFactory } from '../renderPipes/render-pipe.factory'
 import { factoryBuild } from './factory'
 import { rootStore, setupPage } from './setup'
+import { TestProviderWrapper } from './TestProviderWrapper'
 
 describe('Renderer', () => {
   const componentId = 'component-id'
@@ -149,4 +156,50 @@ describe('Renderer', () => {
       })
     },
   )
+
+  it('should run a pre-render and post-render action', async () => {
+    const testStoreId = 'test-store-id'
+    const preRenderLogText = 'running the pre-render action in the test'
+    const postRenderLogText = 'running the post-render action in the test'
+
+    const preRenderAction = factoryBuild('codeAction', {
+      code: `function run() {
+        console.log('${preRenderLogText}')
+      }`,
+      store: { id: testStoreId },
+    })
+
+    const postRenderAction = factoryBuild('codeAction', {
+      code: `function run() {
+        console.log('${postRenderLogText}')
+      }`,
+      store: { id: testStoreId },
+    })
+
+    const { page } = setupPage({
+      actions: [preRenderAction, postRenderAction],
+      postRenderAction,
+      preRenderAction,
+      storeId: testStoreId,
+    })
+
+    const renderer = factoryBuild('renderer', {
+      elementTree: elementTreeRef(rootStore.pageService.page(page.id)!),
+      rendererType: RendererType.Preview,
+      renderPipe: renderPipeFactory([PassThroughRenderPipe, PreRenderPipe]),
+    })
+
+    rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
+
+    const consoleLogSpy = jest.spyOn(global.console, 'log')
+
+    await act(async () => {
+      render(renderer.renderRoot()!, {
+        wrapper: TestProviderWrapper(rootStore),
+      })
+    })
+
+    expect(consoleLogSpy).toHaveBeenCalledWith(preRenderLogText)
+    expect(consoleLogSpy).toHaveBeenCalledWith(postRenderLogText)
+  })
 })
