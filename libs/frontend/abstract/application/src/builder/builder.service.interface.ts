@@ -58,7 +58,6 @@ export interface IBuilderService {
   mergeWithDragHoverContext(partialData: Partial<DragHoverContext>): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
-  setHoveredNode(element: Nullable<IPageNodeRef>): void
   setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void
