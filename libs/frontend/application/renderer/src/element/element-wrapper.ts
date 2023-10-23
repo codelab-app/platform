@@ -85,7 +85,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
-    const dndListeners = useDndListeners(element)
+    const dndListeners = useDndListeners(element, renderer.rendererType)
 
     // leave ElementWrapper pass-through so refs are attached to correct element
     const mergedProps = mergeProps(
