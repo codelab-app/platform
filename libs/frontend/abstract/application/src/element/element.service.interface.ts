@@ -19,6 +19,7 @@ import type {
   IFormService,
   IModalService,
 } from '../services'
+import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
 import type { IElementRepository } from './element.repo.interface'
 
 /**
@@ -70,6 +71,7 @@ export interface IElementService
   elementRepository: IElementRepository
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
+  validationService: IElementApplicationValidationService
 
   createElement(data: IElementDTO): Promise<IElementModel>
   delete(subRoot: IElementModel): Promise<void>

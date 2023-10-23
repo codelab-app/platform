@@ -1,6 +1,6 @@
 import type {
   BuilderWidth,
-  IBuilderService,
+  IBuilderDomainService,
 } from '@codelab/frontend/abstract/domain'
 import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
 import { useMotionValue } from 'framer-motion'

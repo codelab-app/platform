@@ -186,7 +186,7 @@ export class AppService
   loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
     const { apps, atoms } = yield* _await(this.appRepository.appsList(where))
 
-    atoms.forEach((atom) => this.atomService.atomDomainService.add(atom))
+    atoms.forEach((atom) => this.atomService.atomDomainService.hydrate(atom))
 
     return apps.map((app) => this.appDomainService.hydrate(app))
   })

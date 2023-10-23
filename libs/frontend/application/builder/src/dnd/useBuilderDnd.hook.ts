@@ -1,5 +1,5 @@
 import type {
-  IBuilderService,
+  IBuilderDomainService,
   IElementService,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -22,7 +22,7 @@ export interface UseBuilderDnd {
 }
 
 export const useBuilderDnd = (
-  builderService: IBuilderService,
+  builderService: IBuilderDomainService,
   elementService: IElementService,
   elementTree: Maybe<IElementTree>,
 ): UseBuilderDnd => {

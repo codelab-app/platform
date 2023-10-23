@@ -20,7 +20,7 @@ export class StoreDomainService
   }
 
   @modelAction
-  add(storeDTO: IStoreDTO) {
+  hydrate(storeDTO: IStoreDTO) {
     let store = this.stores.get(storeDTO.id)
 
     if (store) {

@@ -87,7 +87,7 @@ export class PageApplicationService
     const { user } = this.userService
     const userName = user.username
 
-    const interfaceType = this.typeService.typeDomainService.addInterface({
+    const interfaceType = this.typeService.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(
@@ -95,7 +95,7 @@ export class PageApplicationService
       ),
     })
 
-    const store = this.storeService.storeDomainService.add({
+    const store = this.storeService.storeDomainService.hydrate({
       api: typeRef<IInterfaceTypeModel>(interfaceType.id),
       id: v4(),
       name: Store.createName({ name }),

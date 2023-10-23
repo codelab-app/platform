@@ -1,5 +1,5 @@
+import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type { IPageProps } from '@codelab/frontend/abstract/domain'
-import type { IRootStore } from '@codelab/frontend/application/shared/store'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
 

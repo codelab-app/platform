@@ -63,7 +63,7 @@ export class FieldService
       id: v4(),
     }
 
-    const newField = this.add(fieldDto)
+    const newField = this.hydrate(fieldDto)
     const interfaceType = this.typeService.type(apiId) as IInterfaceTypeModel
 
     interfaceType.writeCache({
@@ -90,7 +90,7 @@ export class FieldService
       yield* _await(this.typeService.getOne(createFieldData.fieldType))
     }
 
-    const field = this.add(FieldService.mapDataToDTO(createFieldData))
+    const field = this.hydrate(FieldService.mapDataToDTO(createFieldData))
 
     const interfaceType = this.typeService.type(
       field.api.id,
@@ -207,7 +207,7 @@ export class FieldService
   })
 
   @modelAction
-  add(fieldDTO: IFieldDTO) {
+  hydrate(fieldDTO: IFieldDTO) {
     const existingField = this.fields.get(fieldDTO.id)
 
     if (existingField) {

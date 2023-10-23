@@ -1,5 +1,5 @@
 import type {
-  IBuilderService,
+  IBuilderDomainService,
   IElementService,
 } from '@codelab/frontend/abstract/application'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
@@ -14,7 +14,7 @@ import React from 'react'
 import { createPortal } from 'react-dom'
 
 export const BuilderHoverOverlay = observer<{
-  builderService: IBuilderService
+  builderService: IBuilderDomainService
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {

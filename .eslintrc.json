@@ -126,7 +126,6 @@
         "canonical/sort-keys": "off"
       }
     },
-
     {
       "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
       "rules": {
@@ -150,7 +149,7 @@
         "plugin:import/typescript"
       ],
       "rules": {
-        "curly": "error",
+        "curly": ["error", "all"],
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",

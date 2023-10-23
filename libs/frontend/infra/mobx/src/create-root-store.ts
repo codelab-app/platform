@@ -1,9 +1,31 @@
+import type {
+  IActionService,
+  IAdminService,
+  IAppService,
+  IAtomService,
+  IBuilderDomainService,
+  IComponentApplicationService,
+  IDomainService,
+  IElementApplicationService,
+  IElementService,
+  IFieldService,
+  IPageApplicationService,
+  IPropService,
+  IRendererApplicationService,
+  IResourceService,
+  IRootStore,
+  IStoreService,
+  ITagService,
+  ITypeService,
+  IUserService,
+  RootStoreData,
+} from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
-  builderServiceContext,
+  builderDomainServiceContext,
   componentServiceContext,
   elementServiceContext,
-  renderServiceContext,
+  rendererApplicationServiceContext,
   resourceServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
@@ -14,7 +36,7 @@ import {
   AtomService,
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
-import { BuilderService } from '@codelab/frontend/application/builder'
+import { BuilderDomainService } from '@codelab/frontend/application/builder'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
@@ -32,12 +54,8 @@ import {
   PropService,
   propServiceContext,
 } from '@codelab/frontend/application/prop'
-import { RenderService } from '@codelab/frontend/application/renderer'
+import { RendererApplicationService } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
-import type {
-  IRootStore,
-  RootStoreData,
-} from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   actionServiceContext,
@@ -67,25 +85,34 @@ export const createRootStore = ({ user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
-      actionService: prop(() => new ActionService({})),
-      adminService: prop(() => new AdminService({})),
-      appService: prop(() => new AppService({})),
-      atomService: prop(() => new AtomService({})),
-      builderService: prop(() => new BuilderService({})),
-      componentService: prop(() => new ComponentApplicationService({})),
-      domainService: prop(() => new DomainService({})),
-      elementApplicationService: prop(() => new ElementApplicationService({})),
-      elementService: prop(() => new ElementService({})),
-      fieldService: prop(() => new FieldService({})),
-      pageService: prop(() => new PageApplicationService({})),
-      propService: prop(() => new PropService({})),
-      renderService: prop(() => new RenderService({})),
-      resourceService: prop(() => new ResourceService({})),
-      storeService: prop(() => new StoreService({})),
-      tagService: prop(() => new TagService({})),
-      tracerService: prop(() => new TracerService({})),
-      typeService: prop(() => new TypeService({})),
-      userService: prop(() => UserService.init(user)),
+      actionService: prop<IActionService>(() => new ActionService({})),
+      adminService: prop<IAdminService>(() => new AdminService({})),
+      appService: prop<IAppService>(() => new AppService({})),
+      atomService: prop<IAtomService>(() => new AtomService({})),
+      builderService: prop<IBuilderDomainService>(
+        () => new BuilderDomainService({}),
+      ),
+      componentService: prop<IComponentApplicationService>(
+        () => new ComponentApplicationService({}),
+      ),
+      domainService: prop<IDomainService>(() => new DomainService({})),
+      elementApplicationService: prop<IElementApplicationService>(
+        () => new ElementApplicationService({}),
+      ),
+      elementService: prop<IElementService>(() => new ElementService({})),
+      fieldService: prop<IFieldService>(() => new FieldService({})),
+      pageService: prop<IPageApplicationService>(
+        () => new PageApplicationService({}),
+      ),
+      propService: prop<IPropService>(() => new PropService({})),
+      rendererService: prop<IRendererApplicationService>(
+        () => new RendererApplicationService({}),
+      ),
+      resourceService: prop<IResourceService>(() => new ResourceService({})),
+      storeService: prop<IStoreService>(() => new StoreService({})),
+      tagService: prop<ITagService>(() => new TagService({})),
+      typeService: prop<ITypeService>(() => new TypeService({})),
+      userService: prop<IUserService>(() => UserService.init(user)),
     })
     implements IRootStore
   {
@@ -100,7 +127,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       this.storeService.storeDomainService.stores.clear()
       this.tagService.tags.clear()
       this.userService.users.clear()
-      this.renderService.renderers.clear()
+      this.rendererService.renderers.clear()
     }
 
     protected onInit() {
@@ -119,12 +146,11 @@ export const createRootStore = ({ user }: RootStoreData) => {
       resourceServiceContext.set(this, this.resourceService)
       propServiceContext.set(this, this.propService)
       elementServiceContext.set(this, this.elementService)
-      builderServiceContext.set(this, this.builderService)
+      builderDomainServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
-      renderServiceContext.set(this, this.renderService)
-      tracerServiceContext.set(this, this.tracerService)
+      rendererApplicationServiceContext.set(this, this.rendererService)
     }
   }
 

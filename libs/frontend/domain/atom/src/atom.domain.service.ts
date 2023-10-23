@@ -41,7 +41,7 @@ export class AtomDomainService
   }
 
   @modelAction
-  add(atomDto: IAtomDTO) {
+  hydrate(atomDto: IAtomDTO) {
     // console.debug('AtomService.add()', atomDto)
 
     let atom = this.atoms.get(atomDto.id)

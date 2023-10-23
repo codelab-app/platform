@@ -58,7 +58,7 @@ export class TypeService
   @modelFlow
   @transaction
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
-    const type = this.typeDomainService.add(TypeFactory.mapDataToDTO(data))
+    const type = this.typeDomainService.hydrate(TypeFactory.mapDataToDTO(data))
 
     yield* _await(this.typeRepository.add(type))
 
@@ -138,11 +138,11 @@ export class TypeService
         newFragments.map((typeFragment) => {
           if (typeFragment.__typename === TypeKind.InterfaceType) {
             typeFragment.fields.forEach((fieldFragment) => {
-              this.fieldService.add(fieldFragment)
+              this.fieldService.hydrate(fieldFragment)
             })
           }
 
-          const newType = this.typeDomainService.add(typeFragment)
+          const newType = this.typeDomainService.hydrate(typeFragment)
 
           return idsToLoad?.includes(typeFragment.id) || !ids
             ? newType

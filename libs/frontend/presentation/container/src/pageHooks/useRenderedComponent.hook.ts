@@ -18,7 +18,7 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     builderService,
     componentService,
     elementService,
-    renderService,
+    rendererService,
     typeService,
     userService,
   } = useStore()
@@ -52,13 +52,13 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       builderService.selectComponentNode(component)
     }
 
-    const renderer = renderService.addRenderer({
+    const renderer = rendererService.hydrate({
       elementTree: component,
       id: component.id,
       rendererType,
     })
 
-    renderService.setActiveRenderer(rendererRef(renderer.id))
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()
 
     return { app, elementTree: component, renderer }

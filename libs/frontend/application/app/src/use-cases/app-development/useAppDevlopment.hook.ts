@@ -25,7 +25,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
     builderService,
     componentService,
     pageService,
-    renderService,
+    rendererService,
     typeService,
     userService,
   } = useStore()
@@ -86,7 +86,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         {},
       )
 
-      const renderer = renderService.addRenderer({
+      const renderer = rendererService.hydrate({
         elementTree: page,
         id: page.id,
         providerTree: app.providerPage,
@@ -96,7 +96,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
 
       console.debug(renderer)
 
-      renderService.setActiveRenderer(rendererRef(renderer.id))
+      rendererService.setActiveRenderer(rendererRef(renderer.id))
       await renderer.expressionTransformer.init()
 
       return {

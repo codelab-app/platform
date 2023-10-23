@@ -3,7 +3,7 @@ import type {
   SelectElementOption,
 } from '@codelab/frontend/abstract/application'
 import {
-  getBuilderService,
+  getBuilderDomainService,
   getComponentService,
   SelectElementOptions,
 } from '@codelab/frontend/abstract/application'
@@ -36,6 +36,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { CloneElementService } from './clone-element.service'
+import { ElementApplicationValidationService } from './element.application.validation.service'
 import { ElementRepository } from './element.repo'
 import {
   CreateElementFormService,
@@ -60,11 +61,13 @@ export class ElementService
     createForm: prop(() => new CreateElementFormService({})),
     // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
+
     elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),
     id: idProp,
     updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
+    validationService: prop(() => new ElementApplicationValidationService({})),
   })
   implements IElementService
 {
@@ -365,7 +368,7 @@ export class ElementService
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @computed

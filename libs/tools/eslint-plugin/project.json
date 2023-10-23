@@ -20,11 +20,17 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/tools/eslint-plugin/**/*.ts",
-          "libs/tools/eslint-plugin/package.json"
+          "libs/tools/eslint-plugin/**/*.{ts,tsx,js,jsx,graphql}"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/eslint-plugin.xml",
+          "quiet": true
+        }
       }
     }
   },
-  "tags": ["scope:backend"]
+  "tags": ["projectType:library", "type:concrete"]
 }

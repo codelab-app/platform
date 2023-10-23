@@ -26,6 +26,20 @@ export const updateLibTsconfig = (
       return json
     })
 
+    // Add for all
+    updateJson(tree, `${project.root}/tsconfig.json`, (json) => {
+      json.compilerOptions = {
+        ...json.compilerOptions,
+        noFallthroughCasesInSwitch: true,
+        noImplicitOverride: true,
+        noImplicitReturns: true,
+        noPropertyAccessFromIndexSignature: true,
+        strict: true,
+      }
+
+      return json
+    })
+
     updateJson(tree, `${project.root}/tsconfig.lib.json`, (json) => {
       json.compilerOptions = {
         declaration: true,

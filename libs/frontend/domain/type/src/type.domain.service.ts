@@ -1,4 +1,7 @@
-import type { ITypeModel } from '@codelab/frontend/abstract/domain'
+import type {
+  ITypeDomainService,
+  ITypeModel,
+} from '@codelab/frontend/abstract/domain'
 import { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { ITypeDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -6,12 +9,15 @@ import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { InterfaceType, TypeFactory } from './models'
 
 @model('@codelab/TypeDomainService')
-export class TypeDomainService extends Model({
-  /**
-   * This holds all types
-   */
-  types: prop(() => objectMap<ITypeModel>()),
-}) {
+export class TypeDomainService
+  extends Model({
+    /**
+     * This holds all types
+     */
+    types: prop(() => objectMap<ITypeModel>()),
+  })
+  implements ITypeDomainService
+{
   @computed
   get typesList() {
     // loading sub types messes up the order of the next page
@@ -23,7 +29,7 @@ export class TypeDomainService extends Model({
   }
 
   @modelAction
-  add(typeDTO: ITypeDTO) {
+  hydrate(typeDTO: ITypeDTO) {
     const existingType = this.types.get(typeDTO.id)
 
     if (existingType) {
@@ -38,7 +44,7 @@ export class TypeDomainService extends Model({
   }
 
   @modelAction
-  addInterface(data: ICreateTypeData) {
+  hydrateInterface(data: ICreateTypeData) {
     const interfaceType = new InterfaceType({
       id: data.id,
       name: data.name,

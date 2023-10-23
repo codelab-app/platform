@@ -42,10 +42,10 @@ export interface IFieldService
   fieldRepository: IFieldRepository
   fields: ObjectMap<IFieldModel>
 
-  add(fieldDTO: IFieldDTO): IFieldModel
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   delete(fields: Array<IFieldModel>): Promise<number>
   getField(id: string): Maybe<IFieldModel<ITypeModel>>
+  hydrate(fieldDTO: IFieldDTO): IFieldModel
   load(fields: Array<FieldFragment>): void
   moveFieldAsNextSibling(props: {
     field: IRef
