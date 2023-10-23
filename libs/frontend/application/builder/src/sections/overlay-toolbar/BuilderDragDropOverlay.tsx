@@ -16,7 +16,7 @@ export const BuilderDragDropOverlay = observer<{
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {
-  const dragOverlayData = builderService.dragOverlayData
+  const dragOverlayData = builderService.dragHoverContext?.overlayData
 
   if (isServer || !dragOverlayData?.elementId) {
     return null

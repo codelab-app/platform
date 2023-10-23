@@ -1,7 +1,6 @@
-import type {
-  IBuilderService,
-  IDragDropData,
-  IDragOverlayData,
+import {
+  DragHoverContext,
+  type IBuilderService,
 } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
@@ -36,8 +35,7 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
-    dragOverlayData: prop<Nullable<IDragOverlayData>>(null).withSetter(),
+    dragHoverContext: prop<Nullable<DragHoverContext>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
@@ -148,10 +146,12 @@ export class BuilderService
 
   @modelAction
   dragOverElementNode(elementId: string, position: DragPosition) {
-    this.dragOverlayData = {
-      elementId,
-      position,
-    }
+    this.mergeWithDragHoverContext({
+      overlayData: {
+        elementId,
+        position,
+      },
+    })
   }
 
   @modelAction
@@ -162,7 +162,15 @@ export class BuilderService
       return
     }
 
-    this.hoveredNode = elementRef(node)
+    this.mergeWithDragHoverContext({ hoveredNode: elementRef(node) })
+  }
+
+  @modelAction
+  mergeWithDragHoverContext(partialData: Partial<DragHoverContext>) {
+    this.dragHoverContext = {
+      ...(this.dragHoverContext ?? {}),
+      ...partialData,
+    }
   }
 
   @modelAction

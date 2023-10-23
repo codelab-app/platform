@@ -54,7 +54,10 @@ export const useBuilderDnd = (): UseBuilderDnd => {
           data,
         )
 
-        builderService.setCurrentDragData(frozen(dragData))
+        builderService.mergeWithDragHoverContext({
+          createAndMoveData: frozen(dragData),
+          hoveredNode: null,
+        })
       }
     },
     [builderService],
@@ -69,7 +72,10 @@ export const useBuilderDnd = (): UseBuilderDnd => {
         data.createElementInput !== undefined
 
       const shouldMove = data?.type === BuilderDndType.MoveElement
-      builderService.setCurrentDragData(null)
+
+      builderService.mergeWithDragHoverContext({
+        createAndMoveData: null,
+      })
 
       if (shouldCreate) {
         await handleCreateElement(event, dragPosition)

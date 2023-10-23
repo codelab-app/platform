@@ -128,8 +128,12 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
       sensors={sensors}
     >
       {children}
-      <DragOverlay className="w-auto" dropAnimation={null} modifiers={[]}>
-        <div className="min-h-[20px] min-w-[70px] max-w-[100px] truncate rounded bg-white p-2 text-center text-[14px]">
+      <DragOverlay
+        className="w-auto"
+        dropAnimation={null}
+        modifiers={[snapCenterToCursor]}
+      >
+        <div className="min-h-[20px] min-w-[70px] max-w-[120px] truncate rounded bg-white p-2 text-center text-[14px]">
           {draggedElement?.atomName}
         </div>
       </DragOverlay>

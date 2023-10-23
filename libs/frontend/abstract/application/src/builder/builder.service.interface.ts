@@ -18,9 +18,15 @@ export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
 
-export interface IDragOverlayData {
+export interface DropOverlayData {
   elementId: string
   position: DragPosition
+}
+
+export type DragHoverContext = {
+  createAndMoveData?: Nullable<Frozen<BuilderDragData>>
+  overlayData?: Nullable<DropOverlayData>
+  hoveredNode?: Nullable<IPageNodeRef>
 }
 
 export interface IBuilderService {
@@ -36,11 +42,9 @@ export interface IBuilderService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  currentDragData: Nullable<Frozen<BuilderDragData>>
-  dragOverlayData: Nullable<IDragOverlayData>
+  dragHoverContext: Nullable<DragHoverContext>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
-  hoveredNode: Nullable<IPageNodeRef>
   selectedBuilderBreakpoint: BuilderWidthBreakPoint
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
@@ -51,7 +55,7 @@ export interface IBuilderService {
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
+  mergeWithDragHoverContext(partialData: Partial<DragHoverContext>): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
