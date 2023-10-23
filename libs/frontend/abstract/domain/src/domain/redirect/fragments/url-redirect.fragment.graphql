@@ -1,0 +1,4 @@
+fragment UrlRedirect on UrlRedirect {
+  ...BaseRedirect
+  url
+}

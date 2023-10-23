@@ -1,8 +1,6 @@
 import { gql } from '@apollo/client'
 
 export const authGuardSchema = gql`
-  union Redirect = Page | Url
-
   type AuthGuard implements WithOwner {
     id: ID! @unique
     name: String!
@@ -15,10 +13,6 @@ export const authGuardSchema = gql`
 
     responseTransformer: String!
 
-    redirect: Redirect!
-      @relationship(type: "AUTH_GUARD_REDIRECT", direction: OUT)
-
-    # redirect to another page inside the app or to a given url
     owner: User!
   }
 `

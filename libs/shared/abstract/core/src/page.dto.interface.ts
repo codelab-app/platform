@@ -3,12 +3,22 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IPageKind } from './page-kind.enum'
+import { IRedirectDTO } from './redirect'
+
+export const IPageAuthGuardDTO = Type.Object({
+  authGuard: IEntity,
+  id: Type.String(),
+  redirect: IRedirectDTO,
+})
+
+export type IPageAuthGuardDTO = Static<typeof IPageAuthGuardDTO>
 
 export const IPageDTO = Type.Object({
   app: IEntity,
-  authGuard: Typebox.Nullish(IEntity),
+  authGuard: Typebox.Nullish(IPageAuthGuardDTO),
   id: Type.String(),
   kind: Type.Enum(IPageKind),
+
   name: Type.String(),
   // The container element of the page
   pageContentContainer: Typebox.Nullish(IEntity),

@@ -8,6 +8,13 @@ const pageKindSchema = `enum PageKind {
 export const pageSchema = gql`
   ${pageKindSchema}
 
+  type PageAuthGuard {
+    id: ID! @unique
+    redirect: Redirect! @relationship(type: "AUTH_REDIRECT", direction: OUT)
+    authGuard: AuthGuard!
+      @relationship(type: "AUTH_PROVIDER_GUARD", direction: OUT)
+  }
+
   type Page {
     id: ID! @unique
     # appId-name format to make it unique across apps
@@ -28,7 +35,8 @@ export const pageSchema = gql`
     # when the app will be deployed - the page will be available on this URL
     url: String!
 
-    authGuard: AuthGuard @relationship(type: "PAGE_AUTH_GUARD", direction: OUT)
+    authGuard: PageAuthGuard
+      @relationship(type: "PAGE_AUTH_PROVIDER", direction: OUT)
   }
 
   # extend type Page

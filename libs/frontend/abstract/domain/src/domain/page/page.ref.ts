@@ -1,5 +1,5 @@
 import type { Ref } from 'mobx-keystone'
-import { detach, isRefOfType, rootRef } from 'mobx-keystone'
+import { detach, rootRef } from 'mobx-keystone'
 import type { IComponentModel } from '../component'
 import type { IElementModel } from '../element'
 import type { IPageModel } from './page.model.interface'
@@ -15,6 +15,3 @@ export const pageRef = rootRef<IPageModel>('@codelab/PageRef', {
     }
   },
 })
-
-export const isPageRef = (ref: Ref<object>): ref is Ref<IPageModel> =>
-  isRefOfType(ref, pageRef)

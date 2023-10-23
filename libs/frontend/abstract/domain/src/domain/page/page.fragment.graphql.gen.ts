@@ -5,6 +5,10 @@ import {
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
+import {
+  Redirect_PageRedirect_Fragment,
+  Redirect_UrlRedirect_Fragment,
+} from '../redirect/fragments/redirect.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -13,6 +17,7 @@ import {
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
+import { RedirectFragmentDoc } from '../redirect/fragments/redirect.fragment.graphql.gen'
 export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
@@ -45,7 +50,11 @@ export type PageDevelopmentFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
-  authGuard?: { id: string } | null
+  authGuard?: {
+    id: string
+    redirect: Redirect_PageRedirect_Fragment | Redirect_UrlRedirect_Fragment
+    authGuard: { id: string }
+  } | null
 }
 
 export type PageProductionFragment = {
@@ -133,11 +142,18 @@ export const PageDevelopmentFragmentDoc = gql`
     }
     authGuard {
       id
+      redirect {
+        ...Redirect
+      }
+      authGuard {
+        id
+      }
     }
     url
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
+  ${RedirectFragmentDoc}
 `
 export const PageProductionFragmentDoc = gql`
   fragment PageProduction on Page {

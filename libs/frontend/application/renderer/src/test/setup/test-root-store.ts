@@ -11,7 +11,6 @@ import type {
   IStoreService,
   ITagService,
   ITypeService,
-  IUrlService,
   IUserService,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -55,7 +54,6 @@ export class TestRootStore
     storeService: prop<IStoreService>(),
     tagService: prop<ITagService>(),
     typeService: prop<ITypeService>(),
-    urlService: prop<IUrlService>(),
     userService: prop<IUserService>(
       () => new UserService({ user: User.create(userDto) }),
     ),

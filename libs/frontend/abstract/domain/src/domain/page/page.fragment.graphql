@@ -68,6 +68,12 @@ fragment PageDevelopment on Page {
   }
   authGuard {
     id
+    redirect {
+      ...Redirect
+    }
+    authGuard {
+      id
+    }
   }
   url
 }

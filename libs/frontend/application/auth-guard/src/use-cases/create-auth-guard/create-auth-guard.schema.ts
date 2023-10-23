@@ -8,11 +8,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import {
-  HttpMethod,
-  HttpResponseType,
-  IRedirectKind,
-} from '@codelab/shared/abstract/core'
+import { HttpMethod, HttpResponseType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import keys from 'lodash/keys'
 
@@ -117,40 +113,8 @@ export const createAuthGuardSchema: JSONSchemaType<ICreateAuthGuardData> = {
         }),
       },
     },
-    redirect: {
-      oneOf: [
-        {
-          properties: {
-            id: {
-              type: 'string',
-            },
-            __typename: {
-              enum: [IRedirectKind.Page],
-              label: 'Redirect Type',
-              type: 'string',
-            },
-          },
-          required: ['id'],
-          type: 'object',
-        },
-        {
-          properties: {
-            url: {
-              type: 'string',
-            },
-            __typename: {
-              enum: [IRedirectKind.Url],
-              label: 'Redirect Type',
-              type: 'string',
-            },
-          },
-          required: ['url'],
-          type: 'object',
-        },
-      ],
-    },
   },
-  required: ['name', 'resource', 'config', 'responseTransformer', 'redirect'],
+  required: ['name', 'resource', 'config', 'responseTransformer'],
   title: 'Create Auth Guard',
   type: 'object',
 } as const

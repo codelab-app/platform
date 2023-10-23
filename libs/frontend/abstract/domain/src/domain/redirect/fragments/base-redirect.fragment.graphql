@@ -1,0 +1,5 @@
+fragment BaseRedirect on BaseRedirect {
+  __typename
+  id
+  kind
+}

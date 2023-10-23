@@ -11,10 +11,10 @@ import { elementSchema } from './model/element.schema'
 import { hookSchema } from './model/hook.schema'
 import { pageSchema } from './model/page.schema'
 import { propSchema } from './model/prop.schema'
+import { redirectSchema } from './model/redirect.schema'
 import { resourceSchema } from './model/resource.schema'
 import { storeSchema } from './model/store.schema'
 import { tagSchema } from './model/tag.schema'
-import { urlSchema } from './model/url.schema'
 import { userSchema } from './model/user.schema'
 import { fieldSchema, typeSchema } from './type'
 
@@ -32,7 +32,7 @@ export const typeDefs = print(gql`
   ${hookSchema}
   ${componentSchema}
   ${storeSchema}
-  ${urlSchema}
+  ${redirectSchema}
   ${actionSchema}
   ${resourceSchema}
   ${domainSchema}

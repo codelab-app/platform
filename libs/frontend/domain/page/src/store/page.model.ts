@@ -1,11 +1,10 @@
 import type {
-  IAuthGuardModel,
   IElementModel,
+  IPageAuthGuardModel,
   IPageModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
-  authGuardRef,
   elementRef,
   ElementTree,
   storeRef,
@@ -28,6 +27,7 @@ import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { PageAuthGuardModel } from './page-auth-guard.model'
 
 const create = ({
   app,
@@ -42,7 +42,7 @@ const create = ({
 }: IPageDTO) => {
   return new Page({
     app: { id: app.id },
-    authGuard: authGuard?.id ? authGuardRef(authGuard.id) : undefined,
+    authGuard: authGuard ? PageAuthGuardModel.create(authGuard) : undefined,
     id,
     kind,
     name,
@@ -59,7 +59,7 @@ const create = ({
 export class Page
   extends ExtendedModel(ElementTree, {
     app: prop<IEntity>(),
-    authGuard: prop<Nullish<Ref<IAuthGuardModel>>>(),
+    authGuard: prop<Nullish<IPageAuthGuardModel>>(),
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
@@ -122,8 +122,13 @@ export class Page
       : this.pageContentContainer
     this.kind = kind ? kind : this.kind
     this.store = store ? storeRef(store.id) : this.store
-    this.authGuard = authGuard ? authGuardRef(authGuard.id) : this.authGuard
     this.url = url ?? ''
+
+    if (authGuard) {
+      this.authGuard =
+        this.authGuard?.writeCache(authGuard) ??
+        PageAuthGuardModel.create(authGuard)
+    }
 
     return this
   }
@@ -131,7 +136,9 @@ export class Page
   toCreateInput(): PageCreateInput {
     return {
       app: connectNodeId(this.app.id),
-      authGuard: connectNodeId(this.authGuard?.id),
+      authGuard: this.authGuard
+        ? { create: { node: this.authGuard.toCreateInput() } }
+        : undefined,
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       id: this.id,
       kind: this.kind,
@@ -155,7 +162,9 @@ export class Page
   toUpdateInput(): PageUpdateInput {
     return {
       app: connectNodeId(this.app.id),
-      authGuard: reconnectNodeId(this.authGuard?.id),
+      authGuard: this.authGuard
+        ? { update: { node: this.authGuard.toCreateInput() } }
+        : undefined,
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,

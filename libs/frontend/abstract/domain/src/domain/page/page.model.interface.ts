@@ -7,10 +7,10 @@ import type { IPage, IPageDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IAuthGuardModel } from '../auth-guard'
 import type { IElementModel, IElementTree } from '../element'
 import type { IModel } from '../model.interface'
 import type { IStoreModel } from '../store'
+import type { IPageAuthGuardModel } from './page-auth-guard.model.interface'
 
 export interface IPageModel
   extends IModel<PageCreateInput, PageUpdateInput, PageDeleteInput>,
@@ -18,7 +18,7 @@ export interface IPageModel
     ICacheService<IPageDTO, IPageModel>,
     IElementTree,
     IPage {
-  authGuard?: Nullish<Ref<IAuthGuardModel>>
+  authGuard?: Nullish<IPageAuthGuardModel>
   // elementTree: IElementTree
   // Helper getter to get all elements
   elements: Array<IElementModel>

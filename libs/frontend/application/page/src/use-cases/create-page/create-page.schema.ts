@@ -1,11 +1,12 @@
 import type { ICreatePageData } from '@codelab/frontend/abstract/domain'
-import { SelectAuthGuard } from '@codelab/frontend/application/type'
+import { SelectAuthGuard, SelectPage } from '@codelab/frontend/application/type'
 import {
   appSchema,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import { IRedirectKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
@@ -22,13 +23,70 @@ export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
       properties: {
         id: {
           type: 'string',
-          label: '',
-          uniforms: {
-            component: SelectAuthGuard,
+        },
+        authGuard: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              label: '',
+              uniforms: {
+                component: SelectAuthGuard,
+              },
+            },
           },
+          required: ['id'],
+        },
+        redirect: {
+          oneOf: [
+            {
+              properties: {
+                id: {
+                  type: 'string',
+                },
+                __typename: {
+                  enum: [IRedirectKind.Page],
+                  label: 'Redirect Type',
+                  type: 'string',
+                },
+                page: {
+                  type: 'object',
+                  required: ['id'],
+                  properties: {
+                    id: {
+                      type: 'string',
+                      label: '',
+                      uniforms: {
+                        component: SelectPage,
+                      },
+                    },
+                  },
+                },
+              },
+              required: ['page', '__typename', 'id'],
+              type: 'object',
+            },
+            {
+              properties: {
+                url: {
+                  type: 'string',
+                },
+                id: {
+                  type: 'string',
+                },
+                __typename: {
+                  enum: [IRedirectKind.Url],
+                  label: 'Redirect Type',
+                  type: 'string',
+                },
+              },
+              required: ['url', '__typename', 'id'],
+              type: 'object',
+            },
+          ],
         },
       },
-      required: ['id'],
+      required: ['id', 'redirect', 'authGuard'],
       type: 'object',
     },
     url: {

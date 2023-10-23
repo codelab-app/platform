@@ -1,5 +1,0 @@
-export * from './url.data.interface'
-export * from './url.model.interface'
-export * from './url.ref'
-export * from './url.repo.interface'
-export * from './url.service.interface'

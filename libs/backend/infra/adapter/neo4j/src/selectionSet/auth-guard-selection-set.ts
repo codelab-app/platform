@@ -11,14 +11,4 @@ export const authGuardSelectionSet = `
   resource {
     ${resourceSelectionSet}
   }
-  redirect {
-    ... on Page {
-      __typename
-      url
-    }
-    ... on Url {
-      __typename
-      url
-    }
-  }
 `

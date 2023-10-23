@@ -17,7 +17,6 @@ import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { RedirectCompositeField } from '../../components/RedirectField'
 import { createAuthGuardSchema } from './create-auth-guard.schema'
 
 interface CreateAuthGuardFormProps {
@@ -54,14 +53,12 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
         schema={createAuthGuardSchema}
         submitRef={submitRef}
       >
-        <AutoFields omitFields={['config', 'redirect']} />
+        <AutoFields omitFields={['config']} />
         <ResourceFetchConfig<ICreateAuthGuardData> getResource={getResource} />
         <ResourceTestRequest
           fetchConfigDataFieldName="config.data"
           resourceIdFieldName="resource.id"
         />
-        <RedirectCompositeField name="redirect" />
-
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Type" />
         </DisplayIf>

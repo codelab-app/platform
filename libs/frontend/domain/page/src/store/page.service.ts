@@ -174,6 +174,7 @@ export class PageService
   @transaction
   getAll = _async(function* (this: PageService, where: PageWhere) {
     const { items: pages } = yield* _await(this.pageRepository.find(where))
+    console.log(pages)
 
     /**
      * Load elements so they can be referenced

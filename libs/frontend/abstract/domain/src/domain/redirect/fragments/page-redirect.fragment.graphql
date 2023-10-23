@@ -1,0 +1,6 @@
+fragment PageRedirect on PageRedirect {
+  ...BaseRedirect
+  page {
+    id
+  }
+}

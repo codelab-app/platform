@@ -45,7 +45,6 @@ import {
   TypeService,
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
-import { UrlService, urlServiceContext } from '@codelab/frontend/domain/url'
 import { UserService } from '@codelab/frontend/domain/user'
 import {
   TracerService,
@@ -76,7 +75,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
       tagService: prop(() => new TagService({})),
       tracerService: prop(() => new TracerService({})),
       typeService: prop(() => new TypeService({})),
-      urlService: prop(() => new UrlService({})),
       userService: prop(() => UserService.init(user)),
     })
     implements IRootStore
@@ -93,7 +91,6 @@ export const createRootStore = ({ user }: RootStoreData) => {
       resourceServiceContext.set(this, this.resourceService)
       authGuardServiceContext.set(this, this.authGuardService)
       propServiceContext.set(this, this.propService)
-      urlServiceContext.set(this, this.urlService)
       elementServiceContext.set(this, this.elementService)
       builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)

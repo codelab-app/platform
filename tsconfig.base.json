@@ -279,7 +279,9 @@
       "@codelab/frontend/domain/prop": [
         "libs/frontend/domain/prop/src/index.ts"
       ],
-      "@codelab/frontend/domain/url": ["libs/frontend/domain/url/src/index.ts"],
+      "@codelab/frontend/domain/redirect": [
+        "libs/frontend/domain/redirect/src/index.ts"
+      ],
       "@codelab/frontend/domain/renderer": [
         "libs/frontend/domain/renderer/src/index.ts"
       ],

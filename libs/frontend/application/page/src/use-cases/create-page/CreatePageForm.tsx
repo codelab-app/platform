@@ -13,6 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { RedirectCompositeField } from '../../components'
 import { createPageSchema } from './create-page.schema'
 
 interface CreatePageFormProps {
@@ -60,7 +61,8 @@ export const CreatePageForm = observer(
         schema={createPageSchema}
         submitRef={submitRef}
       >
-        <AutoFields />
+        <AutoFields omitFields={['authGuard']} />
+        <RedirectCompositeField name="redirect" />
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Page" />
         </DisplayIf>

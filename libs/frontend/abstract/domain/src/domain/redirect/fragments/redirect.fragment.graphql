@@ -1,0 +1,9 @@
+fragment Redirect on BaseRedirect {
+  ...BaseRedirect
+  ... on PageRedirect {
+    ...PageRedirect
+  }
+  ... on UrlRedirect {
+    ...UrlRedirect
+  }
+}
