@@ -50,12 +50,12 @@ export const useBuilderDnd = (): UseBuilderDnd => {
         // In mobx-keystone v1.2.0, `frozen` will throw if property is not serializable
         // e.g. `overlayRenderer` which is a function we add used for dragging effect style
         const dragData = pick(
-          ['name', 'type', 'createElementInput', 'icon'],
+          ['createName', 'actionType', 'createElementInput', 'createIcon'],
           data,
         )
 
         builderService.mergeWithDragHoverContext({
-          createAndMoveData: frozen(dragData),
+          ...dragData,
           hoveredNode: null,
         })
       }
@@ -74,7 +74,11 @@ export const useBuilderDnd = (): UseBuilderDnd => {
       const shouldMove = data?.type === BuilderDndType.MoveElement
 
       builderService.mergeWithDragHoverContext({
-        createAndMoveData: null,
+        createElementInput: null,
+        createName: null,
+        actionType: null,
+        createIcon: null,
+        hoveredNode: null,
       })
 
       if (shouldCreate) {

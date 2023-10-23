@@ -3,7 +3,6 @@ import {
   type IBuilderService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  BuilderDragData,
   DragPosition,
   IComponentModel,
   IElementModel,
@@ -25,7 +24,6 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
-import type { Frozen } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 export const COMPONENT_TAG_NAME = 'Component'
@@ -145,31 +143,35 @@ export class BuilderService
   }
 
   @modelAction
-  dragOverElementNode(elementId: string, position: DragPosition) {
+  dragOverElementNode(dropTargetId: string, dragPosition: DragPosition) {
     this.mergeWithDragHoverContext({
-      overlayData: {
-        elementId,
-        position,
-      },
+      dropTargetId,
+      dragPosition,
     })
   }
 
   @modelAction
   hoverElementNode(node: Nullable<IElementModel>) {
-    if (!node) {
-      this.hoveredNode = null
-
-      return
-    }
-
-    this.mergeWithDragHoverContext({ hoveredNode: elementRef(node) })
+    this.mergeWithDragHoverContext({
+      hoveredNode: node ? elementRef(node) : null,
+    })
   }
 
   @modelAction
   mergeWithDragHoverContext(partialData: Partial<DragHoverContext>) {
-    this.dragHoverContext = {
-      ...(this.dragHoverContext ?? {}),
-      ...partialData,
+    if (!this.dragHoverContext) {
+      this.dragHoverContext = {
+        createElementInput: null,
+        createIcon: null,
+        createName: null,
+        actionType: null,
+        dropTargetId: null,
+        dragPosition: null,
+        hoveredNode: null,
+        ...partialData,
+      }
+    } else {
+      this.dragHoverContext = { ...this.dragHoverContext, ...partialData }
     }
   }
 

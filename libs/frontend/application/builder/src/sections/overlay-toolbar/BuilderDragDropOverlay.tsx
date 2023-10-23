@@ -2,7 +2,6 @@ import type {
   IBuilderService,
   IElementService,
 } from '@codelab/frontend/abstract/application'
-import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { DragDropOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
@@ -16,13 +15,14 @@ export const BuilderDragDropOverlay = observer<{
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {
-  const dragOverlayData = builderService.dragHoverContext?.overlayData
+  const dropTargetId = builderService.dragHoverContext?.dropTargetId
+  const dragPosition = builderService.dragHoverContext?.dragPosition
 
-  if (isServer || !dragOverlayData?.elementId) {
+  if (isServer || !dropTargetId) {
     return null
   }
 
-  const element = queryRenderedElementById(dragOverlayData.elementId)
+  const element = queryRenderedElementById(dropTargetId ?? '')
 
   if (!element || !renderContainerRef.current) {
     return null
@@ -31,7 +31,7 @@ export const BuilderDragDropOverlay = observer<{
   return createPortal(
     <DragDropOverlay
       element={element}
-      position={dragOverlayData.position}
+      position={dragPosition}
       renderContainer={renderContainerRef.current}
     />,
     renderContainerRef.current,

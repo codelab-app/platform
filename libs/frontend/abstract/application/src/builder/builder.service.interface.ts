@@ -1,5 +1,5 @@
 import type {
-  BuilderDragData,
+  BuilderDndType,
   BuilderWidth,
   BuilderWidthBreakPoint,
   DragPosition,
@@ -10,23 +10,23 @@ import type {
   IPageNodeRef,
   RendererTab,
 } from '@codelab/frontend/abstract/domain'
+import { IElementDTO } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { Frozen, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 
 // TBC: | IComponent
 export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
 
-export interface DropOverlayData {
-  elementId: string
-  position: DragPosition
-}
-
 export type DragHoverContext = {
-  createAndMoveData?: Nullable<Frozen<BuilderDragData>>
-  overlayData?: Nullable<DropOverlayData>
-  hoveredNode?: Nullable<IPageNodeRef>
+  createElementInput: Nullable<IElementDTO>
+  createIcon: Nullable<string>
+  createName: Nullable<string>
+  actionType: Nullable<BuilderDndType>
+  dropTargetId: Nullable<string>
+  dragPosition: Nullable<DragPosition>
+  hoveredNode: Nullable<IPageNodeRef>
 }
 
 export interface IBuilderService {
@@ -49,7 +49,7 @@ export interface IBuilderService {
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
-  dragOverElementNode(id: string, position: DragPosition): void
+  dragOverElementNode(dropTargetId: string, dragPosition: DragPosition): void
   hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
