@@ -1,6 +1,7 @@
 import type {
   IElementModel,
   IElementTree,
+  IEvaluationContext,
   IRendererDto,
   IRendererModel,
   IRenderOutput,

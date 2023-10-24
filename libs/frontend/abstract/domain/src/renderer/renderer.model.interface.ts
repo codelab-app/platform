@@ -3,7 +3,11 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { IExpressionTransformer } from '../builder'
-import type { IElementModel, IElementTree } from '../element'
+import type {
+  IElementModel,
+  IElementTree,
+  IEvaluationContext,
+} from '../element'
 import type { IPageNode, IPageNodeRef } from '../page'
 import type { IActionRunner } from './action.runner.model.interface'
 import type { IRenderOutput, IRenderPipe } from './render.interface'

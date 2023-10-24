@@ -20,15 +20,18 @@ import type {
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/application'
-import {
-  type IAppDomainService,
-  type IAtomDomainService,
-  type IElementDomainService,
-  type IRootDomainStore,
-  type IRootDomainStoreDto,
-  type IStoreDomainService,
-  type ITypeDomainService,
-  type IUserDomainService,
+import type {
+  IAppDomainService,
+  IAtomDomainService,
+  IComponentDomainService,
+  IElementDomainService,
+  IFieldDomainService,
+  IPageDomainService,
+  IRootDomainStore,
+  IRootDomainStoreDto,
+  IStoreDomainService,
+  ITypeDomainService,
+  IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
@@ -41,7 +44,12 @@ export const createRootDomainStore = ({
     extends Model({
       appDomainService: prop<IAppDomainService | undefined>(undefined),
       atomDomainService: prop<IAtomDomainService | undefined>(undefined),
+      componentDomainService: prop<IComponentDomainService | undefined>(
+        undefined,
+      ),
       elementDomainService: prop<IElementDomainService | undefined>(undefined),
+      fieldDomainService: prop<IFieldDomainService | undefined>(undefined),
+      pageDomainService: prop<IPageDomainService | undefined>(undefined),
       storeDomainService: prop<IStoreDomainService | undefined>(undefined),
       typeDomainService: prop<ITypeDomainService | undefined>(undefined),
       userDomainService: prop<IUserDomainService | undefined>(undefined),
@@ -63,15 +71,22 @@ export const createRootDomainStore = ({
         context.typeDomainServiceContext?.set(this, this.typeDomainService)
       this.storeDomainService &&
         context.storeDomainServiceContext?.set(this, this.storeDomainService)
+      this.pageDomainService &&
+        context.pageDomainServiceContext?.set(this, this.pageDomainService)
       this.elementDomainService &&
         context.elementDomainServiceContext?.set(
           this,
           this.elementDomainService,
+        )
+      this.componentDomainService &&
+        context.componentDomainServiceContext?.set(
+          this,
+          this.componentDomainService,
         )
 
       registerRootStore(this)
     }
   }
 
-  return new RootDomainStore(store)
+  return new RootDomainStore(store) as IRootDomainStore
 }

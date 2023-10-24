@@ -58,9 +58,12 @@ export class AppDomainService
     const app = this.hydrate(appDto)
     const renderType = this.atomDomainService.defaultRenderType
 
-    this.pageDomainService.pageFactory.addSystemPages(app, renderType)
+    const pages = this.pageDomainService.pageFactory.addSystemPages(
+      app,
+      renderType,
+    )
 
-    return app
+    return app.writeCache({ pages })
   }
 
   app(id: string) {

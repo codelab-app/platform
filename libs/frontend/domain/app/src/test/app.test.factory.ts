@@ -13,6 +13,7 @@ import {
 } from '@codelab/frontend/domain/atom'
 import { chance, ModelFactory } from '@codelab/frontend/domain/shared'
 import { type IAppDTO, IAtomType } from '@codelab/shared/abstract/core'
+import type { DeepPartial } from 'fishery'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
@@ -38,19 +39,15 @@ export const AppTestFactory = (rootStore: Partial<IRootDomainStore>) => {
   )
 }
 
-export class AppModelFactory extends ModelFactory {
-  build(dto?: Partial<IAppDTO>) {
-    const atom = new AtomModelFactory(this.rootStore)
-    const reactFragment = atom.build({ name: IAtomType.ReactFragment })!
-
+export const appFactory =
+  (rootStore: IRootDomainStore) => (dto: DeepPartial<IAppDTO>) => {
     const app: IAppDTO = {
-      domains: dto?.domains ?? [],
-      id: dto?.id ?? v4(),
-      name: dto?.name ?? chance.word({ capitalize: true }),
-      owner: { id: dto?.owner?.id ?? v4() },
-      pages: dto?.pages ?? [],
+      domains: dto.domains ?? [],
+      id: dto.id ?? v4(),
+      name: dto.name ?? chance.word({ capitalize: true }),
+      owner: { id: dto.owner?.id ?? v4() },
+      pages: dto.pages ?? [],
     }
 
-    return this.rootStore.appDomainService?.create(app, reactFragment)
+    return rootStore.appDomainService.create(app, reactFragment)
   }
-}

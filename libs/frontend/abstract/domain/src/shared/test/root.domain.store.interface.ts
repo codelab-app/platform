@@ -3,6 +3,7 @@ import type { IAppDomainService } from '../../app'
 import type { IAtomDomainService } from '../../atom'
 import type { IComponentDomainService } from '../../component'
 import type { IElementDomainService } from '../../element'
+import type { IPageDomainService } from '../../page'
 import type { IStoreDomainService } from '../../store'
 import type { IFieldDomainService, ITypeDomainService } from '../../type'
 import type { IUserDomainService } from '../../user'
@@ -20,6 +21,7 @@ export interface IRootDomainStore {
   componentDomainService: IComponentDomainService
   elementDomainService: IElementDomainService
   fieldDomainService: IFieldDomainService
+  pageDomainService: IPageDomainService
   storeDomainService: IStoreDomainService
   typeDomainService: ITypeDomainService
   userDomainService: IUserDomainService
@@ -33,6 +35,7 @@ export interface IRootDomainContext {
   componentDomainServiceContext: MaybeContext<IComponentDomainService>
   elementDomainServiceContext: MaybeContext<IElementDomainService>
   fieldDomainServiceContext: MaybeContext<IFieldDomainService>
+  pageDomainServiceContext: MaybeContext<IPageDomainService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   typeDomainServiceContext: MaybeContext<ITypeDomainService>
   userDomainServiceContext: MaybeContext<IUserDomainService>

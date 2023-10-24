@@ -51,6 +51,7 @@ export class ReactNodeTypeTransformer
 
     const component =
       this.componentService.componentDomainService.components.get(propValue)
+
     const fallback = ''
 
     if (!component) {
