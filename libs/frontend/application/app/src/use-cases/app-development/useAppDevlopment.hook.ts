@@ -24,7 +24,6 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
     appService,
     builderService,
     componentService,
-    pageService,
     rendererService,
     typeService,
     userService,

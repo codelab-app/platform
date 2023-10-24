@@ -14,15 +14,14 @@ import { createTestRootStore } from './root.test.store'
 const rootElementDto = { ...elementDto, name: 'Root Element' }
 
 describe('Element domain', () => {
-  const { appDomainService, atomDomainService, elementDomainService } =
-    createTestRootStore()
+  const { atomDomainService, elementDomainService } = createTestRootStore()
 
-  const app = appDomainService.hydrate(appDto)
+  // const app = appDomainService.hydrate(appDto)
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
-  app.addPageInCache(pageDto)
+  // app.addPageInCache(pageDto)
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
-  atomDomainService.add(atomReactFragmentDto)
+  atomDomainService.hydrate(atomReactFragmentDto)
 
   const rootElement = elementDomainService.elements.get(rootElementDto.id)!
 

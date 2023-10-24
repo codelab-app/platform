@@ -92,7 +92,7 @@ export class ApiAction
       errorAction: this.errorAction?.current,
       id: this.id,
       name: this.name,
-      resource: this.resource.current,
+      resource: this.resource.current.toJson,
       store: this.store.current,
       successAction: this.successAction?.current,
     }

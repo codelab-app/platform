@@ -37,7 +37,7 @@ export const CreateTagForm = observer(
       return Promise.resolve()
     }
 
-    const defaultOption = tagService.selectedOption
+    const defaultOption = tagService.tagDomainService.selectedOption
     const closeForm = () => tagService.createForm.close()
 
     return (

@@ -3,17 +3,17 @@ import type {
   SelectElementOption,
 } from '@codelab/frontend/abstract/application'
 import {
-  getBuilderDomainService,
   getComponentService,
   SelectElementOptions,
 } from '@codelab/frontend/abstract/application'
 import type {
   IElementModel,
   IMoveElementContext,
+  IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
-  IUpdateElementData,
+  getBuilderDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { ElementDomainService } from '@codelab/frontend/domain/element'
@@ -56,7 +56,6 @@ import {
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
-    clonedElements: prop(() => objectMap<IElementModel>()),
     cloneElementService: prop(() => new CloneElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
     // createModal: prop(() => new CreateElementModalService({})),
@@ -99,6 +98,10 @@ export class ElementService
 
     return element
   })
+
+  element(id: string) {
+    return this.elementDomainService.element(id)
+  }
 
   /**
    * Call this to update modified elements
@@ -188,7 +191,7 @@ export class ElementService
     this: ElementService,
     newElement: IUpdateElementData,
   ) {
-    const currentElement = this.element(newElement.id)
+    const currentElement = this.elementDomainService.element(newElement.id)
     const newRenderTypeId = newElement.renderType.id
     const oldRenderTypeId = currentElement.renderType.id
 
@@ -197,7 +200,7 @@ export class ElementService
     }
 
     currentElement.writeCache(newElement)
-    this.writeCloneCache(newElement)
+    this.elementDomainService.writeCloneCache(newElement)
 
     yield* _await(this.elementRepository.update(currentElement))
 
@@ -221,17 +224,6 @@ export class ElementService
       ),
     )
   })
-
-  @modelAction
-  element(id: string) {
-    const element = this.maybeElement(id)
-
-    if (!element) {
-      throw new Error('Missing element')
-    }
-
-    return element
-  }
 
   @modelAction
   getSelectElementOptions({
@@ -305,26 +297,11 @@ export class ElementService
       }),
     )
 
-    const rootElement = this.element(component.rootElement.id)
+    const rootElement = this.elementDomainService.element(
+      component.rootElement.id,
+    )
 
     return { hydratedElements, rootElement }
-  }
-
-  @modelAction
-  maybeElement(id: string) {
-    return (
-      this.elementDomainService.elements.get(id) || this.clonedElements.get(id)
-    )
-  }
-
-  @modelAction
-  removeClones(elementId: string) {
-    return [...this.clonedElements.entries()]
-      .filter(([id, component]) => component.sourceElement?.id === elementId)
-      .forEach(([id]) => {
-        // this.moveElementService.detachElementFromElementTree(id)
-        this.clonedElements.delete(id)
-      })
   }
 
   private getDescendants(
@@ -357,13 +334,6 @@ export class ElementService
             Boolean(selectElementOption),
         ) ?? []
     )
-  }
-
-  @modelAction
-  private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
-    return [...this.clonedElements.values()]
-      .filter((clonedElement) => clonedElement.sourceElement?.id === id)
-      .map((clonedElement) => clonedElement.writeCache({ ...elementData }))
   }
 
   @computed

@@ -7,6 +7,9 @@ import type {
   IPageFactory,
 } from '@codelab/frontend/abstract/domain'
 import {
+  getElementDomainService,
+  getPageDomainService,
+  getUserDomainService,
   IAppModel,
   ICreatePageData,
   typeRef,
@@ -44,7 +47,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
     { id, kind, name, url }: ICreatePageData,
     renderType: IElementRenderTypeDto,
   ) {
-    const { user } = this.userService
+    const { user } = this.userDomainService
     const userName = user.username
 
     const interfaceType = this.typeDomainService.hydrateInterface({
@@ -59,7 +62,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
       name: Store.createName({ name }),
     })
 
-    const rootElement = this.elementService.elementDomainService.hydrate({
+    const rootElement = this.elementDomainService.hydrate({
       closestContainerNode: {
         id,
       },
@@ -76,7 +79,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
     const pageContentContainer =
       kind === IPageKind.Provider ? { id: rootElement.id } : null
 
-    return app.addPageInCache({
+    return this.pageDomainService.hydrate({
       app,
       id,
       kind,
@@ -137,8 +140,8 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   }
 
   @computed
-  private get elementService() {
-    return getElementService(this)
+  private get elementDomainService() {
+    return getElementDomainService(this)
   }
 
   @computed
@@ -152,7 +155,12 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   }
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 }

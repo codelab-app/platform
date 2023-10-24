@@ -40,7 +40,7 @@ export const UpdateAtomForm = observer(() => {
     type: atom?.type,
   }
 
-  const tagListOption = tagService.tagsSelectOptions
+  const tagListOption = tagService.tagDomainService.tagsSelectOptions
 
   return (
     <Form<IUpdateAtomData>

@@ -1,10 +1,8 @@
-import type {
-  IRendererApplicationService,
-  IRendererDto,
-} from '@codelab/frontend/abstract/application'
+import type { IRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
   ElementWrapperProps,
   IElementModel,
+  IRendererDto,
   IRendererModel,
   IRenderOutput,
 } from '@codelab/frontend/abstract/domain'

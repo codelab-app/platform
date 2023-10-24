@@ -126,7 +126,7 @@ export class AtomService
     this.paginationService.totalItems = count
 
     if (!isEmpty(where) || options?.limit) {
-      this.typeService.loadTypes({
+      this.typeService.typeDomainService.hydrateTypes({
         interfaceTypes: atoms.map((atom) => atom.api),
       })
     }

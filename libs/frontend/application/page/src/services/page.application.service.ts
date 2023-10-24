@@ -9,17 +9,26 @@ import type {
   IInterfaceTypeModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import { elementRef, typeRef } from '@codelab/frontend/abstract/domain'
+import {
+  elementRef,
+  getAtomDomainService,
+  getElementDomainService,
+  typeRef,
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { getStoreService } from '@codelab/frontend/application/store'
 import { getTypeService } from '@codelab/frontend/application/type'
+import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/domain/shared'
-import { Store } from '@codelab/frontend/domain/store'
-import { InterfaceType } from '@codelab/frontend/domain/type'
+import { getStoreDomainService, Store } from '@codelab/frontend/domain/store'
+import {
+  getTypeDomainService,
+  InterfaceType,
+} from '@codelab/frontend/domain/type'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
 import {
@@ -52,6 +61,7 @@ export class PageApplicationService
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new PageModalService({})),
+    pageDomainService: prop(() => new PageDomainService({})),
     pageRepository: prop(() => new PageRepository({})),
     updateForm: prop(() => new PageFormService({})),
     updateModal: prop(() => new PageModalService({})),
@@ -77,7 +87,7 @@ export class PageApplicationService
       name: ROOT_ELEMENT_NAME,
       page: { id },
       props: rootElementProps,
-      renderType: this.atomService.atomDomainService.defaultRenderType,
+      renderType: this.atomDomainService.defaultRenderType,
     })
 
     const appModel = throwIfUndefined(
@@ -87,7 +97,7 @@ export class PageApplicationService
     const { user } = this.userService
     const userName = user.username
 
-    const interfaceType = this.typeService.typeDomainService.hydrateInterface({
+    const interfaceType = this.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(
@@ -95,13 +105,13 @@ export class PageApplicationService
       ),
     })
 
-    const store = this.storeService.storeDomainService.hydrate({
+    const store = this.storeDomainService.hydrate({
       api: typeRef<IInterfaceTypeModel>(interfaceType.id),
       id: v4(),
       name: Store.createName({ name }),
     })
 
-    const page = appModel.addPageInCache({
+    const page = this.pageDomainService.hydrate({
       app,
       id,
       kind: IPageKind.Regular,
@@ -269,8 +279,8 @@ export class PageApplicationService
   }
 
   @computed
-  private get atomService() {
-    return getAtomService(this)
+  private get atomDomainService() {
+    return getAtomDomainService(this)
   }
 
   @computed
@@ -279,18 +289,14 @@ export class PageApplicationService
   }
 
   @computed
-  private get propService() {
-    return getPropService(this)
+  @computed
+  private get storeDomainService() {
+    return getStoreDomainService(this)
   }
 
   @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
+  private get typeDomainService() {
+    return getTypeDomainService(this)
   }
 
   @computed

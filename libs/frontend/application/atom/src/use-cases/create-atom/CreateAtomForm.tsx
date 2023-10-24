@@ -19,6 +19,7 @@ import { createAtomSchema } from './create-atom.schema'
 interface CreateAtomFormProps {
   showFormControl?: boolean
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+
   onSubmitSuccess?(): void
 }
 
@@ -43,7 +44,7 @@ export const CreateAtomForm = observer(
       title: 'Error while creating atom',
     })
 
-    const tagsSelectionOptions = tagService.tagsSelectOptions
+    const tagsSelectionOptions = tagService.tagDomainService.tagsSelectOptions
 
     return (
       <Form<ICreateAtomData>

@@ -1,8 +1,6 @@
 import { DeleteOutlined } from '@ant-design/icons'
-import type {
-  IBuilderDomainService,
-  IElementService,
-} from '@codelab/frontend/abstract/application'
+import type { IElementService } from '@codelab/frontend/abstract/application'
+import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'

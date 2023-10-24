@@ -138,7 +138,7 @@ export class TypeService
         newFragments.map((typeFragment) => {
           if (typeFragment.__typename === TypeKind.InterfaceType) {
             typeFragment.fields.forEach((fieldFragment) => {
-              this.fieldService.hydrate(fieldFragment)
+              this.fieldService.fieldDomainService.hydrate(fieldFragment)
             })
           }
 
@@ -227,30 +227,6 @@ export class TypeService
 
     return type
   })
-
-  /**
-   * Caches all types into mobx
-   */
-  @modelAction
-  loadTypes(types: Partial<GetTypesQuery>) {
-    console.debug('TypeService.loadTypes()', types)
-
-    const flatTypes = Object.values(types).flat()
-
-    this.fieldService.load(
-      (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
-    )
-
-    const loadedTypes = flatTypes.map((fragment) =>
-      TypeFactory.create(fragment),
-    )
-
-    for (const type of loadedTypes) {
-      this.typeDomainService.types.set(type.id, type)
-    }
-
-    return loadedTypes
-  }
 
   @modelAction
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {

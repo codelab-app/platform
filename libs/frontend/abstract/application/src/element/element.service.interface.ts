@@ -65,7 +65,6 @@ export interface IElementService
     'createModal'
   > {
   cloneElementService: ICloneElementService
-  clonedElements: ObjectMap<IElementModel>
   createForm: IFormService<CreateElementData, CreateElementProperties>
   elementDomainService: IElementDomainService
   elementRepository: IElementRepository
@@ -83,7 +82,6 @@ export interface IElementService
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }
-  maybeElement(id: Maybe<string>): Maybe<IElementModel>
   move(context: IMoveElementContext): Promise<void>
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>

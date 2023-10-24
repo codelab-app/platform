@@ -1,5 +1,6 @@
 import {
   getAtomDomainService,
+  getPageDomainService,
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
@@ -14,7 +15,6 @@ import { App } from './store/app.model'
 export class AppDomainService
   extends Model({
     apps: prop(() => objectMap<IAppModel>()),
-    pageFactory: prop(() => new PageDomainFactory({})),
   })
   implements IAppDomainService
 {
@@ -58,7 +58,7 @@ export class AppDomainService
     const app = this.hydrate(appDto)
     const renderType = this.atomDomainService.defaultRenderType
 
-    this.pageFactory.addSystemPages(app, renderType)
+    this.pageDomainService.pageFactory.addSystemPages(app, renderType)
 
     return app
   }
@@ -70,5 +70,10 @@ export class AppDomainService
   @computed
   private get atomDomainService() {
     return getAtomDomainService(this)
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 }

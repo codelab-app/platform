@@ -1,9 +1,7 @@
-import type {
-  IBuilderDomainService,
-  IElementService,
-} from '@codelab/frontend/abstract/application'
+import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
+  IBuilderDomainService,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { BuilderDndType } from '@codelab/frontend/abstract/domain'
@@ -17,6 +15,7 @@ import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 export interface UseBuilderDnd {
   sensors: ReturnType<typeof useSensors>
+
   onDragEnd(data: DragEndEvent): void
   onDragStart(data: DragStartEvent): void
 }

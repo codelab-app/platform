@@ -1,4 +1,7 @@
-import type { IRootStoreDtoTest } from '@codelab/frontend/abstract/application'
+import type {
+  IFactoryApplicationCallback,
+  IRootStoreDtoTest,
+} from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
   componentServiceContext,
@@ -8,10 +11,6 @@ import {
   rendererApplicationServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IDtoFactory,
-  IDtoFactoryCallback,
-} from '@codelab/frontend/abstract/domain'
 import { AppService } from '@codelab/frontend/application/app'
 import {
   AtomService,
@@ -27,6 +26,7 @@ import {
   PropService,
   propServiceContext,
 } from '@codelab/frontend/application/prop'
+import { DtoFactory } from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   actionServiceContext,
@@ -47,7 +47,6 @@ import { ElementTestFactory } from '@codelab/frontend/domain/element'
 import { PageTestFactory } from '@codelab/frontend/domain/page'
 import { PropTestFactory } from '@codelab/frontend/domain/prop'
 import { RendererTestFactory } from '@codelab/frontend/domain/renderer'
-import { DtoFactory } from '@codelab/frontend/domain/shared'
 import {
   storeDomainServiceContext,
   StoreTestFactory,
@@ -61,8 +60,9 @@ import {
 } from '@codelab/frontend/domain/type'
 import { userDto } from '@codelab/frontend/test/data'
 import { RendererApplicationService } from '../../renderer.application.service'
+import { createTestRootStore } from './test-root-store'
 
-const factories: IDtoFactoryCallback = (rootStore) => ({
+const factories: IFactoryApplicationCallback = (rootStore) => ({
   app: AppTestFactory(rootStore),
   atom: AtomTestFactory(rootStore),
   component: ComponentTestFactory(rootStore),
@@ -109,4 +109,8 @@ const context: IRootStoreDtoTest['context'] = {
   userServiceContext,
 }
 
-export const dtoFactory = new DtoFactory(factories, { context, store })
+// export const testRootStore = createTestRootStore({ context, store })
+
+export const testRootStore = createTestRootStore()
+
+export const dtoFactory = new DtoFactory(factories, testRootStore)

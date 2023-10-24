@@ -79,8 +79,8 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   if (
     (data.extraData.type === 'field' &&
-      fieldService.getField(data.extraData.node.id)?.type.maybeCurrent?.kind ===
-        ITypeKind.InterfaceType) ||
+      fieldService.fieldDomainService.getField(data.extraData.node.id)?.type
+        .maybeCurrent?.kind === ITypeKind.InterfaceType) ||
     (data.extraData.type === 'type' &&
       data.extraData.node.kind === ITypeKind.InterfaceType)
   ) {

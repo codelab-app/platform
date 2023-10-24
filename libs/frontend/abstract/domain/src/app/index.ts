@@ -1,3 +1,4 @@
+export * from './app.domain.service.context'
 export * from './app.domain.service.interface'
 export * from './app.dto.interface'
 export * from './app.model.interface'

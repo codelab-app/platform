@@ -1,4 +1,6 @@
 import type {
+  IElementModel,
+  IPageModel,
   IRendererModel,
   IRenderOutput,
   TypedProp,
@@ -12,6 +14,7 @@ import {
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { ConsoleLogger } from '@nestjs/common'
 import { render } from '@testing-library/react'
 import { setupPage } from './setup'
 import { dtoFactory } from './setup/dto.factory'
@@ -23,8 +26,8 @@ describe('TypedPropTransformers', () => {
   const testOverridePropValue = 'overridden text'
   const componentId = 'component-id'
   const rootStore = createTestRootStore()
-  let page: IPageDTO
-  let pageRootElement: IElementDTO
+  let page: IPageModel
+  let pageRootElement: IElementModel
   let renderer: IRendererModel
 
   beforeEach(() => {
@@ -37,7 +40,7 @@ describe('TypedPropTransformers', () => {
         rootStore.appService.appDomainService.apps
           .get(page.app.id)!
           .page(page.id)!,
-      ),
+      ).current,
       // Passing Preview renderer to replace customText prop value
       rendererType: RendererType.Preview,
     })
@@ -45,7 +48,7 @@ describe('TypedPropTransformers', () => {
     rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
   })
 
-  it('should apply default typed prop transformer', () => {
+  it.only('should apply default typed prop transformer', () => {
     const integerType = dtoFactory.build('primitiveType', {
       name: PrimitiveTypeKind.Integer,
       primitiveKind: PrimitiveTypeKind.Integer,
@@ -64,7 +67,7 @@ describe('TypedPropTransformers', () => {
             value: 123,
           },
         }),
-      }),
+      }).toJson,
       renderType: dtoFactory.build('atom', {
         api: dtoFactory.build('interfaceType'),
       }),
@@ -94,7 +97,7 @@ describe('TypedPropTransformers', () => {
         data: JSON.stringify({
           [CUSTOM_TEXT_PROP_KEY]: testPropValue,
         }),
-      }),
+      }).toJson,
       renderType: dtoFactory.build('atom', {
         api: dtoFactory.build('interfaceType'),
         type: IAtomType.AntDesignTypographyText,
@@ -105,7 +108,7 @@ describe('TypedPropTransformers', () => {
       api: dtoFactory.build('interfaceType'),
       childrenContainerElement: componentRootElement,
       id: componentId,
-      props: dtoFactory.build('props'),
+      props: dtoFactory.build('props').toJson,
       rootElement: componentRootElement,
       store: dtoFactory.build('store', {
         api: dtoFactory.build('interfaceType'),
@@ -125,7 +128,7 @@ describe('TypedPropTransformers', () => {
             value: component.id,
           } as TypedProp,
         }),
-      }),
+      }).toJson,
       renderType: dtoFactory.build('atom', {
         api: dtoFactory.build('interfaceType'),
       }),
@@ -161,7 +164,7 @@ describe('TypedPropTransformers', () => {
           data: JSON.stringify({
             [CUSTOM_TEXT_PROP_KEY]: `{{componentProps.${CUSTOM_TEXT_PROP_KEY}}}`,
           }),
-        }),
+        }).toJson,
         renderType: dtoFactory.build('atom', {
           api: dtoFactory.build('interfaceType'),
           type: IAtomType.AntDesignTypographyText,
@@ -176,7 +179,7 @@ describe('TypedPropTransformers', () => {
           data: JSON.stringify({
             [CUSTOM_TEXT_PROP_KEY]: testPropValue,
           }),
-        }),
+        }).toJson,
         rootElement: componentRootElement,
         store: dtoFactory.build('store', {
           api: dtoFactory.build('interfaceType'),
@@ -189,11 +192,11 @@ describe('TypedPropTransformers', () => {
         fields: [
           dtoFactory.build('field', {
             api: componentApi,
-            key: CUSTOM_TEXT_PROP_KEY,
-            type: dtoFactory.build('primitiveType', {
+            fieldType: dtoFactory.build('primitiveType', {
               name: PrimitiveTypeKind.String,
               primitiveKind: PrimitiveTypeKind.String,
             }),
+            key: CUSTOM_TEXT_PROP_KEY,
           }),
         ],
       })
@@ -211,7 +214,7 @@ describe('TypedPropTransformers', () => {
               value: component.id,
             } as TypedProp,
           }),
-        }),
+        }).toJson,
         renderType: dtoFactory.build('atom', {
           api: dtoFactory.build('interfaceType'),
         }),

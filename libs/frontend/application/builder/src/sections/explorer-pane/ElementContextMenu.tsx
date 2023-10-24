@@ -99,7 +99,9 @@ export const ElementContextMenu = observer<
 
       builderService.setActiveTab(RendererTab.Component)
 
-      const component = componentService.components.get(element.renderType.id)
+      const component = componentService.componentDomainService.components.get(
+        element.renderType.id,
+      )
 
       component && builderService.selectComponentNode(component)
     }

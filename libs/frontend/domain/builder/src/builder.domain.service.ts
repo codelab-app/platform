@@ -1,6 +1,6 @@
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
+  IBuilderDomainService,
   IComponentModel,
   IElementModel,
   IPageNodeRef,

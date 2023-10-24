@@ -54,8 +54,8 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   ]
 
   if (
-    fieldService.getField(data.extraData.node.id)?.type.maybeCurrent?.kind ===
-    'InterfaceType'
+    fieldService.fieldDomainService.getField(data.extraData.node.id)?.type
+      .maybeCurrent?.kind === 'InterfaceType'
   ) {
     toolbarItems.push({
       icon: <PlusOutlined />,

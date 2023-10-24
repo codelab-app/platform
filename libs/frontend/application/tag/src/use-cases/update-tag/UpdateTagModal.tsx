@@ -11,7 +11,7 @@ export const UpdateTagModal = observer(() => {
   const { tagService } = useStore()
   const tag = tagService.updateModal.tag as IUpdateTagData | undefined
 
-  const options = tagService.tagsSelectOptions.filter(
+  const options = tagService.tagDomainService.tagsSelectOptions.filter(
     (option) => option.value !== tag?.id,
   )
 

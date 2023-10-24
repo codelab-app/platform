@@ -3,13 +3,13 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   rendererRef,
 } from '@codelab/frontend/abstract/domain'
-import { FactoryDto } from '@codelab/frontend/test/data'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { setupPage } from './setup'
+import { dtoFactory } from './setup/dto.factory'
 import { createTestRootStore } from './setup/test-root-store'
 
 describe('Renderer', () => {
@@ -52,29 +52,29 @@ describe('Renderer', () => {
 
       const { rootElement: pageRootElement } = setupPage()
 
-      const componentRootElement = FactoryDto.build('element', {
+      const componentRootElement = dtoFactory.build('element', {
         closestContainerNode: {
           id: componentId,
         },
         name: `${componentName} Root`,
         parentComponent: { id: componentId },
-        props: FactoryDto.build('props', {
+        props: dtoFactory.build('props', {
           data: JSON.stringify(componentRootElementPropData),
         }),
-        renderType: FactoryDto.build('atom', {
-          api: FactoryDto.build('typeInterface'),
+        renderType: dtoFactory.build('atom', {
+          api: dtoFactory.build('typeInterface'),
           type: componentRootElementAtomType,
         }),
       })
 
-      const componentStoreApi = FactoryDto.build('typeInterface')
+      const componentStoreApi = dtoFactory.build('typeInterface')
 
-      const component = FactoryDto.build('component', {
-        api: FactoryDto.build('typeInterface'),
+      const component = dtoFactory.build('component', {
+        api: dtoFactory.build('typeInterface'),
         childrenContainerElement: componentRootElement,
         id: componentId,
         name: componentName,
-        props: FactoryDto.build('props', {
+        props: dtoFactory.build('props', {
           data: JSON.stringify({
             [testPropKey]:
               propSource === 'component' || propSource === 'all'
@@ -83,7 +83,7 @@ describe('Renderer', () => {
           }),
         }),
         rootElement: componentRootElement,
-        store: FactoryDto.build('store', {
+        store: dtoFactory.build('store', {
           api: componentStoreApi,
         }),
       })
@@ -96,14 +96,14 @@ describe('Renderer', () => {
 
       componentStore?.api.current.writeCache({
         fields: [
-          FactoryDto.build('field', {
+          dtoFactory.build('field', {
             api: componentStoreApi,
             defaultValues:
               propSource === 'store' || propSource === 'all'
                 ? componentStorePropValue
                 : undefined,
             key: testPropKey,
-            type: FactoryDto.build('typePrimitive', {
+            type: dtoFactory.build('typePrimitive', {
               name: PrimitiveTypeKind.String,
               primitiveKind: PrimitiveTypeKind.String,
             }),
@@ -111,11 +111,11 @@ describe('Renderer', () => {
         ],
       })
 
-      const componentElement = FactoryDto.build('element', {
+      const componentElement = dtoFactory.build('element', {
         closestContainerNode: component,
         parentComponent: component,
         parentElement: pageRootElement,
-        props: FactoryDto.build('props', {
+        props: dtoFactory.build('props', {
           data: JSON.stringify({
             [testPropKey]:
               propSource === 'instance' || propSource === 'all'
@@ -135,13 +135,13 @@ describe('Renderer', () => {
 
       // The renderer for the component is already added as part of the componentService.add logic
       // so we just need to get that here, and it should already exist
-      rootStore.renderService.setActiveRenderer(
+      rootStore.rendererService.setActiveRenderer(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        rendererRef(rootStore.renderService.renderers.get(component.id)!),
+        rendererRef(rootStore.rendererService.renderers.get(component.id)!),
       )
 
       const { atomType, element, props } =
-        rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           componentInstance,
         ) as IRenderOutput
 

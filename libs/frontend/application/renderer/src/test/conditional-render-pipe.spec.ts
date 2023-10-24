@@ -1,9 +1,20 @@
+import type { IRootStore } from '@codelab/frontend/abstract/application'
+import {
+  DATA_ELEMENT_ID,
+  elementTreeRef,
+  isAtomRef,
+  rendererRef,
+} from '@codelab/frontend/abstract/domain'
+import {
+  ConditionalRenderPipe,
+  PassThroughRenderPipe,
+  renderPipeFactory,
+} from '@codelab/frontend/domain/renderer'
 import { setupPage } from './setup'
-import { dtoFactory } from './setup/dto.factory'
-import { createTestRootStore } from './setup/test-root-store'
+import { dtoFactory, testRootStore } from './setup/dto.factory'
 
 describe('ConditionalRenderPipe', () => {
-  const rootStore = createTestRootStore()
+  const rootStore = testRootStore as IRootStore
 
   beforeEach(() => {
     rootStore.clear()
@@ -25,31 +36,31 @@ describe('ConditionalRenderPipe', () => {
         parentElement: pageRootElement,
         props: dtoFactory.build('props', {
           data: '{ "testPropTrue": true, "testPropFalse": false }',
-        }),
+        }).toJson,
         renderIfExpression: expression,
         renderType: dtoFactory.build('atom', {
-          api: dtoFactory.build('typeInterface'),
+          api: dtoFactory.build('interfaceType'),
         }),
       })
 
       const elementModel = rootStore.elementService.element(element.id)
 
-      const renderer = DtoFactory.build('renderer', {
+      const renderer = dtoFactory.build('renderer', {
         elementTree: elementTreeRef(
           rootStore.appService.appDomainService
             .app(page.app.id)!
             .page(page.id)!,
-        ),
+        ).current,
         renderPipe: renderPipeFactory([
           PassThroughRenderPipe,
           ConditionalRenderPipe,
         ]),
       })
 
-      rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
+      rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
 
       const output =
-        rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           elementModel,
         )
 

@@ -15,6 +15,7 @@ import {
   DATA_COMPONENT_ID,
   elementRef,
   ElementTree,
+  getComponentDomainService,
   IComponentModel,
   isComponent,
   storeRef,
@@ -136,7 +137,7 @@ export class Component
    */
   @modelAction
   clone(key: string, instanceId?: string) {
-    const componentService = getComponentService(this)
+    const componentService = getComponentDomainService(this)
 
     // if instance already created
     if (componentService.clonedComponents.has(key)) {

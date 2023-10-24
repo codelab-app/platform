@@ -15,7 +15,7 @@ export const setupPage = () => {
   })
 
   const page = dtoFactory.build('page', {
-    app: { id: appId },
+    app,
     id: pageId,
     name: pageName,
     rootElement: { id: pageRootElementId },
@@ -27,17 +27,19 @@ export const setupPage = () => {
     }),
   })
 
-  const atom: IAtomDTO = dtoFactory.build('atom', {
+  const atom = dtoFactory.build('atom', {
     api: dtoFactory.build('interfaceType'),
     type: IAtomType.HtmlDiv,
   })
+
+  const props = dtoFactory.build('props').toJson
 
   const rootElement = dtoFactory.build('element', {
     closestContainerNode: page,
     id: pageRootElementId,
     name: ROOT_ELEMENT_NAME,
     page,
-    props: dtoFactory.build('props'),
+    props,
     renderType: atom,
   })
 

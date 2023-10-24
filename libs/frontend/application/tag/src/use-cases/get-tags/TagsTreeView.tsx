@@ -17,7 +17,9 @@ export const TagsTreeView = observer(() => {
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     selectedKeys[0] &&
-      tagService.setSelectedTag(tagRef(selectedKeys[0].toString()))
+      tagService.tagDomainService.setSelectedTag(
+        tagRef(selectedKeys[0].toString()),
+      )
   }
 
   const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {

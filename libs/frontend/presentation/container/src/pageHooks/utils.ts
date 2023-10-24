@@ -81,7 +81,7 @@ export const loadAllTypesForElements = async (
 
   // Loading custom components
   let componentsBatch = getComponentIdsFromElements(elements).filter(
-    (id) => !componentService.components.has(id),
+    (id) => !componentService.componentDomainService.components.has(id),
   )
 
   // This makes sure the deeply nested components will also be loaded
@@ -103,7 +103,7 @@ export const loadAllTypesForElements = async (
       loadedComponentElements.push(...componentElements)
 
       componentsBatch = getComponentIdsFromElements(componentElements).filter(
-        (id) => !componentService.components.has(id),
+        (id) => !componentService.componentDomainService.components.has(id),
       )
     }
   } while (componentsBatch.length > 0)

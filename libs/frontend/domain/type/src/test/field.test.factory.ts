@@ -1,4 +1,8 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
+import type {
+  IFieldModel,
+  IRootDomainStore,
+} from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
 import type {
   IFieldDTO,
@@ -11,25 +15,25 @@ import { Factory } from 'fishery'
 import type { _DeepPartialObject } from 'utility-types/dist/mapped-types'
 import { v4 } from 'uuid'
 
-export const FieldTestFactory = (rootStore: Partial<IRootStore>) =>
-  Factory.define<IFieldDTO>(({ params }) => {
+export const FieldTestFactory = (rootStore: Partial<IRootDomainStore>) =>
+  Factory.define<IFieldModel, IFieldDTO>(({ transientParams }) => {
     const dto: IFieldDTO = {
-      api: { id: params.api?.id ?? v4() },
-      defaultValues: params.defaultValues ?? null,
-      description: params.description ?? null,
-      fieldType: (params.fieldType ?? {
+      api: { id: transientParams.api?.id ?? v4() },
+      defaultValues: transientParams.defaultValues ?? null,
+      description: transientParams.description ?? null,
+      fieldType: (transientParams.fieldType ?? {
         __typename: ITypeKind.PrimitiveType,
         id: v4(),
       }) as ITypeMaybeRef,
-      id: params.id ?? v4(),
-      key: params.key ?? chance.word(),
-      name: params.name ?? null,
-      nextSibling: (params.nextSibling ?? null) as IRef | null,
-      prevSibling: (params.prevSibling ?? null) as IRef | null,
-      validationRules: params.validationRules ?? null,
+      id: transientParams.id ?? v4(),
+      key: transientParams.key ?? chance.word(),
+      name: transientParams.name ?? null,
+      nextSibling: (transientParams.nextSibling ?? null) as IRef | null,
+      prevSibling: (transientParams.prevSibling ?? null) as IRef | null,
+      validationRules: transientParams.validationRules ?? null,
     }
 
-    rootStore.fieldService?.hydrate(dto)
+    const model = rootStore.fieldDomainService?.hydrate(dto)
 
-    return dto
+    return model!
   })

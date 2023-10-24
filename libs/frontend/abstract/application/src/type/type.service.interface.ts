@@ -36,7 +36,6 @@ export interface ITypeService
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
   getInterface(id: IInterfaceTypeRef): Promise<IInterfaceTypeModel>
   getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
-  loadTypes(types: Partial<GetTypesQuery>): Array<ITypeModel>
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   type(id: string): Maybe<ITypeModel>
 }

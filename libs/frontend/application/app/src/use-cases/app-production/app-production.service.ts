@@ -7,7 +7,12 @@ import type {
   IAppProductionArgs,
   IAppProductionService,
 } from '@codelab/frontend/abstract/domain'
-import { IAppProductionDto } from '@codelab/frontend/abstract/domain'
+import {
+  getActionDomainService,
+  getComponentDomainService,
+  getPageDomainService,
+  IAppProductionDto,
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPageService } from '@codelab/frontend/application/page'
 import { getPropService } from '@codelab/frontend/application/prop'
@@ -111,7 +116,7 @@ export class AppProductionService
 
     data.components.forEach((component) =>
       // use a dummy api to avoid typing issues
-      this.componentService.hydrate({ ...component, api: entity }),
+      this.componentDomainService.hydrate({ ...component, api: entity }),
     )
 
     data.elements.forEach((element) =>
@@ -122,20 +127,22 @@ export class AppProductionService
       }),
     )
 
+    data.pages.forEach((page) => this.pageDomainService.hydrate(page))
+
     // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) =>
       this.storeService.storeDomainService.hydrate(store),
     )
 
-    data.actions.forEach((action) => this.actionService.add(action))
+    data.actions.forEach((action) => this.actionDomainService.hydrate(action))
 
     return this.appService.appDomainService.hydrate(data.app)
   }
 
   @computed
-  private get actionService() {
-    return getActionService(this)
+  private get actionDomainService() {
+    return getActionDomainService(this)
   }
 
   @computed
@@ -144,13 +151,18 @@ export class AppProductionService
   }
 
   @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
+  @computed
   private get atomService() {
     return getAtomService(this)
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
