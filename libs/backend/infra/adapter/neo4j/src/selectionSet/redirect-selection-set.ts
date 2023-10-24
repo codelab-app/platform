@@ -8,6 +8,7 @@ export const pageRedirectSelectionSet = `
   ${baseRedirectSelectionSet}
   page {
     id
+    url
   }
 `
 

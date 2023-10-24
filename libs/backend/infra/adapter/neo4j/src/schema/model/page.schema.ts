@@ -11,6 +11,7 @@ export const pageSchema = gql`
   type PageAuthGuard {
     id: ID! @unique
     redirect: Redirect! @relationship(type: "AUTH_REDIRECT", direction: OUT)
+    page: Page! @relationship(type: "PAGE_AUTH_PROVIDER", direction: IN)
     authGuard: AuthGuard!
       @relationship(type: "AUTH_PROVIDER_GUARD", direction: OUT)
   }

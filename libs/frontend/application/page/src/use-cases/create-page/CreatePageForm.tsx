@@ -33,11 +33,6 @@ export const CreatePageForm = observer(
 
     const model = {
       app: { id: app?.id },
-      authGuard: {
-        authGuard: {},
-        id: v4(),
-        redirect: { id: v4() },
-      },
       id: v4(),
       // required for store api
       owner: {

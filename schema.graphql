@@ -4157,6 +4157,22 @@ type AuthGuard implements WithOwner {
     sort: [WithOwnerOwnerConnectionSort!]
     where: WithOwnerOwnerConnectionWhere
   ): WithOwnerOwnerConnection!
+  pagesAuthGuards(
+    directed: Boolean = true
+    options: PageAuthGuardOptions
+    where: PageAuthGuardWhere
+  ): [PageAuthGuard!]!
+  pagesAuthGuardsAggregate(
+    directed: Boolean = true
+    where: PageAuthGuardWhere
+  ): AuthGuardPageAuthGuardPagesAuthGuardsAggregationSelection
+  pagesAuthGuardsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AuthGuardPagesAuthGuardsConnectionSort!]
+    where: AuthGuardPagesAuthGuardsConnectionWhere
+  ): AuthGuardPagesAuthGuardsConnection!
   resource(
     directed: Boolean = true
     options: ResourceOptions
@@ -4290,12 +4306,14 @@ input AuthGuardConfigUpdateFieldInput {
 input AuthGuardConnectInput {
   config: AuthGuardConfigConnectFieldInput
   owner: WithOwnerOwnerConnectFieldInput
+  pagesAuthGuards: [AuthGuardPagesAuthGuardsConnectFieldInput!]
   resource: AuthGuardResourceConnectFieldInput
 }
 
 input AuthGuardConnectOrCreateInput {
   config: AuthGuardConfigConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
+  pagesAuthGuards: [AuthGuardPagesAuthGuardsConnectOrCreateFieldInput!]
   resource: AuthGuardResourceConnectOrCreateFieldInput
 }
 
@@ -4312,6 +4330,7 @@ input AuthGuardCreateInput {
   id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
+  pagesAuthGuards: AuthGuardPagesAuthGuardsFieldInput
   resource: AuthGuardResourceFieldInput
   responseTransformer: String!
 }
@@ -4319,12 +4338,14 @@ input AuthGuardCreateInput {
 input AuthGuardDeleteInput {
   config: AuthGuardConfigDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
+  pagesAuthGuards: [AuthGuardPagesAuthGuardsDeleteFieldInput!]
   resource: AuthGuardResourceDeleteFieldInput
 }
 
 input AuthGuardDisconnectInput {
   config: AuthGuardConfigDisconnectFieldInput
   owner: WithOwnerOwnerDisconnectFieldInput
+  pagesAuthGuards: [AuthGuardPagesAuthGuardsDisconnectFieldInput!]
   resource: AuthGuardResourceDisconnectFieldInput
 }
 
@@ -4412,6 +4433,108 @@ input AuthGuardOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
+type AuthGuardPageAuthGuardPagesAuthGuardsAggregationSelection {
+  count: Int!
+  node: AuthGuardPageAuthGuardPagesAuthGuardsNodeAggregateSelection
+}
+
+type AuthGuardPageAuthGuardPagesAuthGuardsNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+}
+
+input AuthGuardPagesAuthGuardsAggregateInput {
+  AND: [AuthGuardPagesAuthGuardsAggregateInput!]
+  NOT: AuthGuardPagesAuthGuardsAggregateInput
+  OR: [AuthGuardPagesAuthGuardsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AuthGuardPagesAuthGuardsNodeAggregationWhereInput
+}
+
+input AuthGuardPagesAuthGuardsConnectFieldInput {
+  connect: [PageAuthGuardConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: PageAuthGuardConnectWhere
+}
+
+input AuthGuardPagesAuthGuardsConnectOrCreateFieldInput {
+  onCreate: AuthGuardPagesAuthGuardsConnectOrCreateFieldInputOnCreate!
+  where: PageAuthGuardConnectOrCreateWhere!
+}
+
+input AuthGuardPagesAuthGuardsConnectOrCreateFieldInputOnCreate {
+  node: PageAuthGuardOnCreateInput!
+}
+
+type AuthGuardPagesAuthGuardsConnection {
+  edges: [AuthGuardPagesAuthGuardsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AuthGuardPagesAuthGuardsConnectionSort {
+  node: PageAuthGuardSort
+}
+
+input AuthGuardPagesAuthGuardsConnectionWhere {
+  AND: [AuthGuardPagesAuthGuardsConnectionWhere!]
+  NOT: AuthGuardPagesAuthGuardsConnectionWhere
+  OR: [AuthGuardPagesAuthGuardsConnectionWhere!]
+  node: PageAuthGuardWhere
+}
+
+input AuthGuardPagesAuthGuardsCreateFieldInput {
+  node: PageAuthGuardCreateInput!
+}
+
+input AuthGuardPagesAuthGuardsDeleteFieldInput {
+  delete: PageAuthGuardDeleteInput
+  where: AuthGuardPagesAuthGuardsConnectionWhere
+}
+
+input AuthGuardPagesAuthGuardsDisconnectFieldInput {
+  disconnect: PageAuthGuardDisconnectInput
+  where: AuthGuardPagesAuthGuardsConnectionWhere
+}
+
+input AuthGuardPagesAuthGuardsFieldInput {
+  connect: [AuthGuardPagesAuthGuardsConnectFieldInput!]
+  connectOrCreate: [AuthGuardPagesAuthGuardsConnectOrCreateFieldInput!]
+  create: [AuthGuardPagesAuthGuardsCreateFieldInput!]
+}
+
+input AuthGuardPagesAuthGuardsNodeAggregationWhereInput {
+  AND: [AuthGuardPagesAuthGuardsNodeAggregationWhereInput!]
+  NOT: AuthGuardPagesAuthGuardsNodeAggregationWhereInput
+  OR: [AuthGuardPagesAuthGuardsNodeAggregationWhereInput!]
+}
+
+type AuthGuardPagesAuthGuardsRelationship {
+  cursor: String!
+  node: PageAuthGuard!
+}
+
+input AuthGuardPagesAuthGuardsUpdateConnectionInput {
+  node: PageAuthGuardUpdateInput
+}
+
+input AuthGuardPagesAuthGuardsUpdateFieldInput {
+  connect: [AuthGuardPagesAuthGuardsConnectFieldInput!]
+  connectOrCreate: [AuthGuardPagesAuthGuardsConnectOrCreateFieldInput!]
+  create: [AuthGuardPagesAuthGuardsCreateFieldInput!]
+  delete: [AuthGuardPagesAuthGuardsDeleteFieldInput!]
+  disconnect: [AuthGuardPagesAuthGuardsDisconnectFieldInput!]
+  update: AuthGuardPagesAuthGuardsUpdateConnectionInput
+  where: AuthGuardPagesAuthGuardsConnectionWhere
+}
+
 type AuthGuardPropConfigAggregationSelection {
   count: Int!
   node: AuthGuardPropConfigNodeAggregateSelection
@@ -4425,6 +4548,7 @@ type AuthGuardPropConfigNodeAggregateSelection {
 input AuthGuardRelationInput {
   config: AuthGuardConfigCreateFieldInput
   owner: WithOwnerOwnerCreateFieldInput
+  pagesAuthGuards: [AuthGuardPagesAuthGuardsCreateFieldInput!]
   resource: AuthGuardResourceCreateFieldInput
 }
 
@@ -4564,6 +4688,7 @@ input AuthGuardUpdateInput {
   id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
+  pagesAuthGuards: [AuthGuardPagesAuthGuardsUpdateFieldInput!]
   resource: AuthGuardResourceUpdateFieldInput
   responseTransformer: String
 }
@@ -4606,6 +4731,47 @@ input AuthGuardWhere {
   ownerConnection: WithOwnerOwnerConnectionWhere
   ownerConnection_NOT: WithOwnerOwnerConnectionWhere
   owner_NOT: UserWhere
+  pagesAuthGuardsAggregate: AuthGuardPagesAuthGuardsAggregateInput
+
+  """
+  Return AuthGuards where all of the related AuthGuardPagesAuthGuardsConnections match this filter
+  """
+  pagesAuthGuardsConnection_ALL: AuthGuardPagesAuthGuardsConnectionWhere
+
+  """
+  Return AuthGuards where none of the related AuthGuardPagesAuthGuardsConnections match this filter
+  """
+  pagesAuthGuardsConnection_NONE: AuthGuardPagesAuthGuardsConnectionWhere
+
+  """
+  Return AuthGuards where one of the related AuthGuardPagesAuthGuardsConnections match this filter
+  """
+  pagesAuthGuardsConnection_SINGLE: AuthGuardPagesAuthGuardsConnectionWhere
+
+  """
+  Return AuthGuards where some of the related AuthGuardPagesAuthGuardsConnections match this filter
+  """
+  pagesAuthGuardsConnection_SOME: AuthGuardPagesAuthGuardsConnectionWhere
+
+  """
+  Return AuthGuards where all of the related PageAuthGuards match this filter
+  """
+  pagesAuthGuards_ALL: PageAuthGuardWhere
+
+  """
+  Return AuthGuards where none of the related PageAuthGuards match this filter
+  """
+  pagesAuthGuards_NONE: PageAuthGuardWhere
+
+  """
+  Return AuthGuards where one of the related PageAuthGuards match this filter
+  """
+  pagesAuthGuards_SINGLE: PageAuthGuardWhere
+
+  """
+  Return AuthGuards where some of the related PageAuthGuards match this filter
+  """
+  pagesAuthGuards_SOME: PageAuthGuardWhere
   resource: ResourceWhere
   resourceAggregate: AuthGuardResourceAggregateInput
   resourceConnection: AuthGuardResourceConnectionWhere
@@ -13735,6 +13901,18 @@ type PageAuthGuard {
     where: PageAuthGuardAuthGuardConnectionWhere
   ): PageAuthGuardAuthGuardConnection!
   id: ID!
+  page(directed: Boolean = true, options: PageOptions, where: PageWhere): Page!
+  pageAggregate(
+    directed: Boolean = true
+    where: PageWhere
+  ): PageAuthGuardPagePageAggregationSelection
+  pageConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [PageAuthGuardPageConnectionSort!]
+    where: PageAuthGuardPageConnectionWhere
+  ): PageAuthGuardPageConnection!
   redirect(
     directed: Boolean = true
     options: QueryOptions
@@ -13911,6 +14089,7 @@ input PageAuthGuardConnectFieldInput {
 
 input PageAuthGuardConnectInput {
   authGuard: PageAuthGuardAuthGuardConnectFieldInput
+  page: PageAuthGuardPageConnectFieldInput
   redirect: PageAuthGuardRedirectConnectInput
 }
 
@@ -13925,6 +14104,7 @@ input PageAuthGuardConnectOrCreateFieldInputOnCreate {
 
 input PageAuthGuardConnectOrCreateInput {
   authGuard: PageAuthGuardAuthGuardConnectOrCreateFieldInput
+  page: PageAuthGuardPageConnectOrCreateFieldInput
 }
 
 input PageAuthGuardConnectOrCreateWhere {
@@ -13959,6 +14139,7 @@ input PageAuthGuardCreateFieldInput {
 input PageAuthGuardCreateInput {
   authGuard: PageAuthGuardAuthGuardFieldInput
   id: ID!
+  page: PageAuthGuardPageFieldInput
   redirect: PageAuthGuardRedirectCreateInput
 }
 
@@ -13969,6 +14150,7 @@ input PageAuthGuardDeleteFieldInput {
 
 input PageAuthGuardDeleteInput {
   authGuard: PageAuthGuardAuthGuardDeleteFieldInput
+  page: PageAuthGuardPageDeleteFieldInput
   redirect: PageAuthGuardRedirectDeleteInput
 }
 
@@ -13979,6 +14161,7 @@ input PageAuthGuardDisconnectFieldInput {
 
 input PageAuthGuardDisconnectInput {
   authGuard: PageAuthGuardAuthGuardDisconnectFieldInput
+  page: PageAuthGuardPageDisconnectFieldInput
   redirect: PageAuthGuardRedirectDisconnectInput
 }
 
@@ -14011,6 +14194,140 @@ input PageAuthGuardOptions {
   Specify one or more PageAuthGuardSort objects to sort PageAuthGuards by. The sorts will be applied in the order in which they are arranged in the array.
   """
   sort: [PageAuthGuardSort!]
+}
+
+input PageAuthGuardPageAggregateInput {
+  AND: [PageAuthGuardPageAggregateInput!]
+  NOT: PageAuthGuardPageAggregateInput
+  OR: [PageAuthGuardPageAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageAuthGuardPageNodeAggregationWhereInput
+}
+
+input PageAuthGuardPageConnectFieldInput {
+  connect: PageConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: PageConnectWhere
+}
+
+input PageAuthGuardPageConnectOrCreateFieldInput {
+  onCreate: PageAuthGuardPageConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input PageAuthGuardPageConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+type PageAuthGuardPageConnection {
+  edges: [PageAuthGuardPageRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input PageAuthGuardPageConnectionSort {
+  node: PageSort
+}
+
+input PageAuthGuardPageConnectionWhere {
+  AND: [PageAuthGuardPageConnectionWhere!]
+  NOT: PageAuthGuardPageConnectionWhere
+  OR: [PageAuthGuardPageConnectionWhere!]
+  node: PageWhere
+}
+
+input PageAuthGuardPageCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input PageAuthGuardPageDeleteFieldInput {
+  delete: PageDeleteInput
+  where: PageAuthGuardPageConnectionWhere
+}
+
+input PageAuthGuardPageDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: PageAuthGuardPageConnectionWhere
+}
+
+input PageAuthGuardPageFieldInput {
+  connect: PageAuthGuardPageConnectFieldInput
+  connectOrCreate: PageAuthGuardPageConnectOrCreateFieldInput
+  create: PageAuthGuardPageCreateFieldInput
+}
+
+input PageAuthGuardPageNodeAggregationWhereInput {
+  AND: [PageAuthGuardPageNodeAggregationWhereInput!]
+  NOT: PageAuthGuardPageNodeAggregationWhereInput
+  OR: [PageAuthGuardPageNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  url_AVERAGE_LENGTH_EQUAL: Float
+  url_AVERAGE_LENGTH_GT: Float
+  url_AVERAGE_LENGTH_GTE: Float
+  url_AVERAGE_LENGTH_LT: Float
+  url_AVERAGE_LENGTH_LTE: Float
+  url_LONGEST_LENGTH_EQUAL: Int
+  url_LONGEST_LENGTH_GT: Int
+  url_LONGEST_LENGTH_GTE: Int
+  url_LONGEST_LENGTH_LT: Int
+  url_LONGEST_LENGTH_LTE: Int
+  url_SHORTEST_LENGTH_EQUAL: Int
+  url_SHORTEST_LENGTH_GT: Int
+  url_SHORTEST_LENGTH_GTE: Int
+  url_SHORTEST_LENGTH_LT: Int
+  url_SHORTEST_LENGTH_LTE: Int
+}
+
+type PageAuthGuardPagePageAggregationSelection {
+  count: Int!
+  node: PageAuthGuardPagePageNodeAggregateSelection
+}
+
+type PageAuthGuardPagePageNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  url: StringAggregateSelectionNonNullable!
+}
+
+type PageAuthGuardPageRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input PageAuthGuardPageUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input PageAuthGuardPageUpdateFieldInput {
+  connect: PageAuthGuardPageConnectFieldInput
+  connectOrCreate: PageAuthGuardPageConnectOrCreateFieldInput
+  create: PageAuthGuardPageCreateFieldInput
+  delete: PageAuthGuardPageDeleteFieldInput
+  disconnect: PageAuthGuardPageDisconnectFieldInput
+  update: PageAuthGuardPageUpdateConnectionInput
+  where: PageAuthGuardPageConnectionWhere
 }
 
 input PageAuthGuardRedirectConnectInput {
@@ -14146,6 +14463,7 @@ input PageAuthGuardRedirectUrlRedirectUpdateFieldInput {
 
 input PageAuthGuardRelationInput {
   authGuard: PageAuthGuardAuthGuardCreateFieldInput
+  page: PageAuthGuardPageCreateFieldInput
   redirect: PageAuthGuardRedirectCreateFieldInput
 }
 
@@ -14182,6 +14500,7 @@ input PageAuthGuardUpdateFieldInput {
 input PageAuthGuardUpdateInput {
   authGuard: PageAuthGuardAuthGuardUpdateFieldInput
   id: ID
+  page: PageAuthGuardPageUpdateFieldInput
   redirect: PageAuthGuardRedirectUpdateInput
 }
 
@@ -14200,6 +14519,11 @@ input PageAuthGuardWhere {
   id_IN: [ID!]
   id_MATCHES: String
   id_STARTS_WITH: ID
+  page: PageWhere
+  pageAggregate: PageAuthGuardPageAggregateInput
+  pageConnection: PageAuthGuardPageConnectionWhere
+  pageConnection_NOT: PageAuthGuardPageConnectionWhere
+  page_NOT: PageWhere
   redirectConnection: PageAuthGuardRedirectConnectionWhere
   redirectConnection_NOT: PageAuthGuardRedirectConnectionWhere
 }

@@ -9,6 +9,9 @@ export const authGuardSchema = gql`
 
     config: Prop! @relationship(type: "AUTH_GUARD_CONFIG", direction: OUT)
 
+    pagesAuthGuards: [PageAuthGuard!]!
+      @relationship(type: "PAGE_AUTH_PROVIDER", direction: IN)
+
     responseTransformer: String!
 
     owner: User!

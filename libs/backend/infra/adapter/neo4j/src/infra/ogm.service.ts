@@ -18,6 +18,7 @@ import type {
   InterfaceTypeModel,
   LambdaTypeModel,
   ModelMap,
+  PageAuthGuardModel,
   PageModel,
   PageRedirectModel,
   PageTypeModel,
@@ -53,6 +54,10 @@ export class OgmService {
 
   get PageRedirect() {
     return (this.pageRedirect ??= this.ogm.model('PageRedirect'))
+  }
+
+  get PageAuthGuard() {
+    return (this.pageAuthGuard ??= this.ogm.model('PageAuthGuard'))
   }
 
   get UrlRedirect() {
@@ -244,6 +249,8 @@ export class OgmService {
   private page: PageModel | undefined
 
   private pageType: PageTypeModel | undefined
+
+  private pageAuthGuard: PageAuthGuardModel | undefined
 
   private primitiveType: PrimitiveTypeModel | undefined
 

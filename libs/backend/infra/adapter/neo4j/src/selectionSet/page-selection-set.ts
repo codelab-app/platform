@@ -1,7 +1,21 @@
+import { authGuardSelectionSet } from './auth-guard-selection-set'
+import { redirectSelectionSet } from './redirect-selection-set'
 import {
   exportStoreSelectionSet,
   storeSelectionSet,
 } from './store-selection-set'
+
+const pageAuthGuardSelectionSet = `
+{
+  id
+  authGuard {
+    ${authGuardSelectionSet}
+  }
+  redirect {
+    ${redirectSelectionSet}
+  }
+}
+`
 
 export const basePageSelectionSet = `
   app {
@@ -24,11 +38,11 @@ export const basePageSelectionSet = `
     id
     name
   }
+  authGuard {
+    ${pageAuthGuardSelectionSet}
+  }
   url
   _compoundName
-  authGuard {
-    id
-  }
 `
 
 export const pageSelectionSet = `

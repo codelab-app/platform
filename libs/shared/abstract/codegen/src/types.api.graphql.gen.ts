@@ -4240,6 +4240,9 @@ export type AuthGuard = WithOwner & {
   owner: User
   ownerAggregate?: Maybe<AuthGuardUserOwnerAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
+  pagesAuthGuards: Array<PageAuthGuard>
+  pagesAuthGuardsAggregate?: Maybe<AuthGuardPageAuthGuardPagesAuthGuardsAggregationSelection>
+  pagesAuthGuardsConnection: AuthGuardPagesAuthGuardsConnection
   resource: Resource
   resourceAggregate?: Maybe<AuthGuardResourceResourceAggregationSelection>
   resourceConnection: AuthGuardResourceConnection
@@ -4282,6 +4285,25 @@ export type AuthGuardOwnerConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type AuthGuardPagesAuthGuardsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<PageAuthGuardOptions>
+  where?: InputMaybe<PageAuthGuardWhere>
+}
+
+export type AuthGuardPagesAuthGuardsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<PageAuthGuardWhere>
+}
+
+export type AuthGuardPagesAuthGuardsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<AuthGuardPagesAuthGuardsConnectionSort>>
+  where?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
 }
 
 export type AuthGuardResourceArgs = {
@@ -4418,12 +4440,16 @@ export type AuthGuardConfigUpdateFieldInput = {
 export type AuthGuardConnectInput = {
   config?: InputMaybe<AuthGuardConfigConnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
+  pagesAuthGuards?: InputMaybe<Array<AuthGuardPagesAuthGuardsConnectFieldInput>>
   resource?: InputMaybe<AuthGuardResourceConnectFieldInput>
 }
 
 export type AuthGuardConnectOrCreateInput = {
   config?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
+  pagesAuthGuards?: InputMaybe<
+    Array<AuthGuardPagesAuthGuardsConnectOrCreateFieldInput>
+  >
   resource?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
 }
 
@@ -4440,6 +4466,7 @@ export type AuthGuardCreateInput = {
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
+  pagesAuthGuards?: InputMaybe<AuthGuardPagesAuthGuardsFieldInput>
   resource?: InputMaybe<AuthGuardResourceFieldInput>
   responseTransformer: Scalars['String']['input']
 }
@@ -4447,12 +4474,16 @@ export type AuthGuardCreateInput = {
 export type AuthGuardDeleteInput = {
   config?: InputMaybe<AuthGuardConfigDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+  pagesAuthGuards?: InputMaybe<Array<AuthGuardPagesAuthGuardsDeleteFieldInput>>
   resource?: InputMaybe<AuthGuardResourceDeleteFieldInput>
 }
 
 export type AuthGuardDisconnectInput = {
   config?: InputMaybe<AuthGuardConfigDisconnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
+  pagesAuthGuards?: InputMaybe<
+    Array<AuthGuardPagesAuthGuardsDisconnectFieldInput>
+  >
   resource?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
 }
 
@@ -4538,6 +4569,113 @@ export type AuthGuardOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
+export type AuthGuardPageAuthGuardPagesAuthGuardsAggregationSelection = {
+  __typename?: 'AuthGuardPageAuthGuardPagesAuthGuardsAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<AuthGuardPageAuthGuardPagesAuthGuardsNodeAggregateSelection>
+}
+
+export type AuthGuardPageAuthGuardPagesAuthGuardsNodeAggregateSelection = {
+  __typename?: 'AuthGuardPageAuthGuardPagesAuthGuardsNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+}
+
+export type AuthGuardPagesAuthGuardsAggregateInput = {
+  AND?: InputMaybe<Array<AuthGuardPagesAuthGuardsAggregateInput>>
+  NOT?: InputMaybe<AuthGuardPagesAuthGuardsAggregateInput>
+  OR?: InputMaybe<Array<AuthGuardPagesAuthGuardsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<AuthGuardPagesAuthGuardsNodeAggregationWhereInput>
+}
+
+export type AuthGuardPagesAuthGuardsConnectFieldInput = {
+  connect?: InputMaybe<Array<PageAuthGuardConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<PageAuthGuardConnectWhere>
+}
+
+export type AuthGuardPagesAuthGuardsConnectOrCreateFieldInput = {
+  onCreate: AuthGuardPagesAuthGuardsConnectOrCreateFieldInputOnCreate
+  where: PageAuthGuardConnectOrCreateWhere
+}
+
+export type AuthGuardPagesAuthGuardsConnectOrCreateFieldInputOnCreate = {
+  node: PageAuthGuardOnCreateInput
+}
+
+export type AuthGuardPagesAuthGuardsConnection = {
+  __typename?: 'AuthGuardPagesAuthGuardsConnection'
+  edges: Array<AuthGuardPagesAuthGuardsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type AuthGuardPagesAuthGuardsConnectionSort = {
+  node?: InputMaybe<PageAuthGuardSort>
+}
+
+export type AuthGuardPagesAuthGuardsConnectionWhere = {
+  AND?: InputMaybe<Array<AuthGuardPagesAuthGuardsConnectionWhere>>
+  NOT?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+  OR?: InputMaybe<Array<AuthGuardPagesAuthGuardsConnectionWhere>>
+  node?: InputMaybe<PageAuthGuardWhere>
+}
+
+export type AuthGuardPagesAuthGuardsCreateFieldInput = {
+  node: PageAuthGuardCreateInput
+}
+
+export type AuthGuardPagesAuthGuardsDeleteFieldInput = {
+  delete?: InputMaybe<PageAuthGuardDeleteInput>
+  where?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+}
+
+export type AuthGuardPagesAuthGuardsDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageAuthGuardDisconnectInput>
+  where?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+}
+
+export type AuthGuardPagesAuthGuardsFieldInput = {
+  connect?: InputMaybe<Array<AuthGuardPagesAuthGuardsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AuthGuardPagesAuthGuardsConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<AuthGuardPagesAuthGuardsCreateFieldInput>>
+}
+
+export type AuthGuardPagesAuthGuardsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AuthGuardPagesAuthGuardsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AuthGuardPagesAuthGuardsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AuthGuardPagesAuthGuardsNodeAggregationWhereInput>>
+}
+
+export type AuthGuardPagesAuthGuardsRelationship = {
+  __typename?: 'AuthGuardPagesAuthGuardsRelationship'
+  cursor: Scalars['String']['output']
+  node: PageAuthGuard
+}
+
+export type AuthGuardPagesAuthGuardsUpdateConnectionInput = {
+  node?: InputMaybe<PageAuthGuardUpdateInput>
+}
+
+export type AuthGuardPagesAuthGuardsUpdateFieldInput = {
+  connect?: InputMaybe<Array<AuthGuardPagesAuthGuardsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AuthGuardPagesAuthGuardsConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<AuthGuardPagesAuthGuardsCreateFieldInput>>
+  delete?: InputMaybe<Array<AuthGuardPagesAuthGuardsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<AuthGuardPagesAuthGuardsDisconnectFieldInput>>
+  update?: InputMaybe<AuthGuardPagesAuthGuardsUpdateConnectionInput>
+  where?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+}
+
 export type AuthGuardPropConfigAggregationSelection = {
   __typename?: 'AuthGuardPropConfigAggregationSelection'
   count: Scalars['Int']['output']
@@ -4553,6 +4691,7 @@ export type AuthGuardPropConfigNodeAggregateSelection = {
 export type AuthGuardRelationInput = {
   config?: InputMaybe<AuthGuardConfigCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
+  pagesAuthGuards?: InputMaybe<Array<AuthGuardPagesAuthGuardsCreateFieldInput>>
   resource?: InputMaybe<AuthGuardResourceCreateFieldInput>
 }
 
@@ -4691,6 +4830,7 @@ export type AuthGuardUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+  pagesAuthGuards?: InputMaybe<Array<AuthGuardPagesAuthGuardsUpdateFieldInput>>
   resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
   responseTransformer?: InputMaybe<Scalars['String']['input']>
 }
@@ -4735,6 +4875,23 @@ export type AuthGuardWhere = {
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
+  pagesAuthGuardsAggregate?: InputMaybe<AuthGuardPagesAuthGuardsAggregateInput>
+  /** Return AuthGuards where all of the related AuthGuardPagesAuthGuardsConnections match this filter */
+  pagesAuthGuardsConnection_ALL?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+  /** Return AuthGuards where none of the related AuthGuardPagesAuthGuardsConnections match this filter */
+  pagesAuthGuardsConnection_NONE?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+  /** Return AuthGuards where one of the related AuthGuardPagesAuthGuardsConnections match this filter */
+  pagesAuthGuardsConnection_SINGLE?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+  /** Return AuthGuards where some of the related AuthGuardPagesAuthGuardsConnections match this filter */
+  pagesAuthGuardsConnection_SOME?: InputMaybe<AuthGuardPagesAuthGuardsConnectionWhere>
+  /** Return AuthGuards where all of the related PageAuthGuards match this filter */
+  pagesAuthGuards_ALL?: InputMaybe<PageAuthGuardWhere>
+  /** Return AuthGuards where none of the related PageAuthGuards match this filter */
+  pagesAuthGuards_NONE?: InputMaybe<PageAuthGuardWhere>
+  /** Return AuthGuards where one of the related PageAuthGuards match this filter */
+  pagesAuthGuards_SINGLE?: InputMaybe<PageAuthGuardWhere>
+  /** Return AuthGuards where some of the related PageAuthGuards match this filter */
+  pagesAuthGuards_SOME?: InputMaybe<PageAuthGuardWhere>
   resource?: InputMaybe<ResourceWhere>
   resourceAggregate?: InputMaybe<AuthGuardResourceAggregateInput>
   resourceConnection?: InputMaybe<AuthGuardResourceConnectionWhere>
@@ -14640,6 +14797,9 @@ export type PageAuthGuard = {
   authGuardAggregate?: Maybe<PageAuthGuardAuthGuardAuthGuardAggregationSelection>
   authGuardConnection: PageAuthGuardAuthGuardConnection
   id: Scalars['ID']['output']
+  page: Page
+  pageAggregate?: Maybe<PageAuthGuardPagePageAggregationSelection>
+  pageConnection: PageAuthGuardPageConnection
   redirect: Redirect
   redirectConnection: PageAuthGuardRedirectConnection
 }
@@ -14661,6 +14821,25 @@ export type PageAuthGuardAuthGuardConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<PageAuthGuardAuthGuardConnectionSort>>
   where?: InputMaybe<PageAuthGuardAuthGuardConnectionWhere>
+}
+
+export type PageAuthGuardPageArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}
+
+export type PageAuthGuardPageAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<PageWhere>
+}
+
+export type PageAuthGuardPageConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<PageAuthGuardPageConnectionSort>>
+  where?: InputMaybe<PageAuthGuardPageConnectionWhere>
 }
 
 export type PageAuthGuardRedirectArgs = {
@@ -14842,6 +15021,7 @@ export type PageAuthGuardConnectFieldInput = {
 
 export type PageAuthGuardConnectInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardConnectFieldInput>
+  page?: InputMaybe<PageAuthGuardPageConnectFieldInput>
   redirect?: InputMaybe<PageAuthGuardRedirectConnectInput>
 }
 
@@ -14856,6 +15036,7 @@ export type PageAuthGuardConnectOrCreateFieldInputOnCreate = {
 
 export type PageAuthGuardConnectOrCreateInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardConnectOrCreateFieldInput>
+  page?: InputMaybe<PageAuthGuardPageConnectOrCreateFieldInput>
 }
 
 export type PageAuthGuardConnectOrCreateWhere = {
@@ -14891,6 +15072,7 @@ export type PageAuthGuardCreateFieldInput = {
 export type PageAuthGuardCreateInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardFieldInput>
   id: Scalars['ID']['input']
+  page?: InputMaybe<PageAuthGuardPageFieldInput>
   redirect?: InputMaybe<PageAuthGuardRedirectCreateInput>
 }
 
@@ -14901,6 +15083,7 @@ export type PageAuthGuardDeleteFieldInput = {
 
 export type PageAuthGuardDeleteInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardDeleteFieldInput>
+  page?: InputMaybe<PageAuthGuardPageDeleteFieldInput>
   redirect?: InputMaybe<PageAuthGuardRedirectDeleteInput>
 }
 
@@ -14911,6 +15094,7 @@ export type PageAuthGuardDisconnectFieldInput = {
 
 export type PageAuthGuardDisconnectInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardDisconnectFieldInput>
+  page?: InputMaybe<PageAuthGuardPageDisconnectFieldInput>
   redirect?: InputMaybe<PageAuthGuardRedirectDisconnectInput>
 }
 
@@ -14941,6 +15125,141 @@ export type PageAuthGuardOptions = {
   offset?: InputMaybe<Scalars['Int']['input']>
   /** Specify one or more PageAuthGuardSort objects to sort PageAuthGuards by. The sorts will be applied in the order in which they are arranged in the array. */
   sort?: InputMaybe<Array<PageAuthGuardSort>>
+}
+
+export type PageAuthGuardPageAggregateInput = {
+  AND?: InputMaybe<Array<PageAuthGuardPageAggregateInput>>
+  NOT?: InputMaybe<PageAuthGuardPageAggregateInput>
+  OR?: InputMaybe<Array<PageAuthGuardPageAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<PageAuthGuardPageNodeAggregationWhereInput>
+}
+
+export type PageAuthGuardPageConnectFieldInput = {
+  connect?: InputMaybe<PageConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<PageConnectWhere>
+}
+
+export type PageAuthGuardPageConnectOrCreateFieldInput = {
+  onCreate: PageAuthGuardPageConnectOrCreateFieldInputOnCreate
+  where: PageConnectOrCreateWhere
+}
+
+export type PageAuthGuardPageConnectOrCreateFieldInputOnCreate = {
+  node: PageOnCreateInput
+}
+
+export type PageAuthGuardPageConnection = {
+  __typename?: 'PageAuthGuardPageConnection'
+  edges: Array<PageAuthGuardPageRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type PageAuthGuardPageConnectionSort = {
+  node?: InputMaybe<PageSort>
+}
+
+export type PageAuthGuardPageConnectionWhere = {
+  AND?: InputMaybe<Array<PageAuthGuardPageConnectionWhere>>
+  NOT?: InputMaybe<PageAuthGuardPageConnectionWhere>
+  OR?: InputMaybe<Array<PageAuthGuardPageConnectionWhere>>
+  node?: InputMaybe<PageWhere>
+}
+
+export type PageAuthGuardPageCreateFieldInput = {
+  node: PageCreateInput
+}
+
+export type PageAuthGuardPageDeleteFieldInput = {
+  delete?: InputMaybe<PageDeleteInput>
+  where?: InputMaybe<PageAuthGuardPageConnectionWhere>
+}
+
+export type PageAuthGuardPageDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageDisconnectInput>
+  where?: InputMaybe<PageAuthGuardPageConnectionWhere>
+}
+
+export type PageAuthGuardPageFieldInput = {
+  connect?: InputMaybe<PageAuthGuardPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageAuthGuardPageConnectOrCreateFieldInput>
+  create?: InputMaybe<PageAuthGuardPageCreateFieldInput>
+}
+
+export type PageAuthGuardPageNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PageAuthGuardPageNodeAggregationWhereInput>>
+  NOT?: InputMaybe<PageAuthGuardPageNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<PageAuthGuardPageNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type PageAuthGuardPagePageAggregationSelection = {
+  __typename?: 'PageAuthGuardPagePageAggregationSelection'
+  count: Scalars['Int']['output']
+  node?: Maybe<PageAuthGuardPagePageNodeAggregateSelection>
+}
+
+export type PageAuthGuardPagePageNodeAggregateSelection = {
+  __typename?: 'PageAuthGuardPagePageNodeAggregateSelection'
+  compositeKey: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
+}
+
+export type PageAuthGuardPageRelationship = {
+  __typename?: 'PageAuthGuardPageRelationship'
+  cursor: Scalars['String']['output']
+  node: Page
+}
+
+export type PageAuthGuardPageUpdateConnectionInput = {
+  node?: InputMaybe<PageUpdateInput>
+}
+
+export type PageAuthGuardPageUpdateFieldInput = {
+  connect?: InputMaybe<PageAuthGuardPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageAuthGuardPageConnectOrCreateFieldInput>
+  create?: InputMaybe<PageAuthGuardPageCreateFieldInput>
+  delete?: InputMaybe<PageAuthGuardPageDeleteFieldInput>
+  disconnect?: InputMaybe<PageAuthGuardPageDisconnectFieldInput>
+  update?: InputMaybe<PageAuthGuardPageUpdateConnectionInput>
+  where?: InputMaybe<PageAuthGuardPageConnectionWhere>
 }
 
 export type PageAuthGuardRedirectConnectInput = {
@@ -15078,6 +15397,7 @@ export type PageAuthGuardRedirectUrlRedirectUpdateFieldInput = {
 
 export type PageAuthGuardRelationInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardCreateFieldInput>
+  page?: InputMaybe<PageAuthGuardPageCreateFieldInput>
   redirect?: InputMaybe<PageAuthGuardRedirectCreateFieldInput>
 }
 
@@ -15113,6 +15433,7 @@ export type PageAuthGuardUpdateFieldInput = {
 export type PageAuthGuardUpdateInput = {
   authGuard?: InputMaybe<PageAuthGuardAuthGuardUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
+  page?: InputMaybe<PageAuthGuardPageUpdateFieldInput>
   redirect?: InputMaybe<PageAuthGuardRedirectUpdateInput>
 }
 
@@ -15131,6 +15452,11 @@ export type PageAuthGuardWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
   id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  page?: InputMaybe<PageWhere>
+  pageAggregate?: InputMaybe<PageAuthGuardPageAggregateInput>
+  pageConnection?: InputMaybe<PageAuthGuardPageConnectionWhere>
+  pageConnection_NOT?: InputMaybe<PageAuthGuardPageConnectionWhere>
+  page_NOT?: InputMaybe<PageWhere>
   redirectConnection?: InputMaybe<PageAuthGuardRedirectConnectionWhere>
   redirectConnection_NOT?: InputMaybe<PageAuthGuardRedirectConnectionWhere>
 }
