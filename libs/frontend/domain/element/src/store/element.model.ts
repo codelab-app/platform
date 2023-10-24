@@ -21,6 +21,8 @@ import {
   componentRef,
   DATA_ELEMENT_ID,
   elementRef,
+  getComponentDomainService,
+  getElementDomainService,
   IElementModel,
   IElementTreeViewDataNode,
   IEvaluationContext,
@@ -461,9 +463,8 @@ export class Element
       ]
 
       keys.forEach((i) => {
-        const clonedComponent = this.componentService.clonedComponents.get(
-          `${this.id}-${i}`,
-        )
+        const clonedComponent =
+          this.componentDomainService.clonedComponents.get(`${this.id}-${i}`)
 
         if (clonedComponent) {
           extraChildren.push(clonedComponent.rootElement.current)
@@ -477,8 +478,9 @@ export class Element
     Object.keys(this.props.values).forEach((key, index) => {
       const propData = this.props.values[key]
 
-      const component = this.componentService.components.get(propData.value)
-        ?.rootElement.current
+      const component = this.componentDomainService.components.get(
+        propData.value,
+      )?.rootElement.current
 
       if (propData.kind === ITypeKind.ReactNodeType && component) {
         reactNodesChildren.push({
@@ -632,7 +634,10 @@ export class Element
     clonedElement.setSourceElement(elementRef(this.id))
 
     // store elements in elementService
-    this.elementService.clonedElements.set(clonedElement.id, clonedElement)
+    this.elementDomainService.clonedElements.set(
+      clonedElement.id,
+      clonedElement,
+    )
 
     return clonedElement
   }
@@ -852,13 +857,13 @@ export class Element
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
-  private get elementService() {
-    return getElementService(this)
+  private get elementDomainService() {
+    return getElementDomainService(this)
   }
 
   @computed

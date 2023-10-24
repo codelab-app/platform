@@ -40,7 +40,7 @@ export const CustomComponents = observer(() => {
   }, [])
 
   const editComponent = async (id: string) => {
-    const { name } = componentService.component(id)
+    const { name } = componentService.componentDomainService.component(id)
     const componentSlug = slugify(name)
 
     await router.push({
@@ -55,7 +55,7 @@ export const CustomComponents = observer(() => {
   }
 
   const selectComponent = (id: string) => {
-    const component = componentService.component(id)
+    const component = componentService.componentDomainService.component(id)
 
     builderService.selectComponentNode(component)
   }
@@ -83,7 +83,7 @@ export const CustomComponents = observer(() => {
     <SkeletonWrapper isLoading={isLoading}>
       {!isNil(error) ? error.message : null}
       <ComponentList
-        components={componentService.componentList}
+        components={componentService.componentDomainService.componentList}
         onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
         onEdit={(id) => editComponent(id)}
         onExport={(id) => exportComponent(id)}

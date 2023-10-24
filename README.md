@@ -32,3 +32,13 @@ Initially thought of introducing the concept of aggregate for exporting data, bu
 ---
 
 Trying to use a different domain, mobx model vs serialized data in the modal/form causes some issue. Better to convert at last second.
+
+---
+
+Aggregate root boundary
+
+App contains page/element. These are created together
+
+Issue is that element requires page. But since we tied page to app, now element requires app. Creating a circular dep.
+
+Should keep page separate, this way we can create a page without an app.

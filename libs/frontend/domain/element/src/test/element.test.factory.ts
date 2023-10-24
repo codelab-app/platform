@@ -1,38 +1,43 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
+import type {
+  IElementModel,
+  IRootDomainStore,
+} from '@codelab/frontend/abstract/domain'
+import { PropTestFactory } from '@codelab/frontend/domain/prop'
 import { chance } from '@codelab/frontend/domain/shared'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
-export const ElementTestFactory = (rootStore: Partial<IRootStore>) =>
-  Factory.define<IElementDTO>(({ params }) => {
+export const ElementTestFactory = (rootStore: Partial<IRootDomainStore>) =>
+  Factory.define<IElementModel, IElementDTO>(({ params, transientParams }) => {
     const dto: IElementDTO = {
       closestContainerNode: {
-        id: params.closestContainerNode?.id ?? v4(),
+        id: transientParams.closestContainerNode?.id ?? v4(),
       },
-      id: params.id ?? v4(),
-      name: params.name ?? chance.word({ capitalize: true }),
-      page: params.page?.id ? { id: params.page.id } : null,
-      parentComponent: params.parentComponent?.id
-        ? { id: params.parentComponent.id }
+      id: transientParams.id ?? v4(),
+      name: transientParams.name ?? chance.word({ capitalize: true }),
+      page: transientParams.page?.id ? { id: transientParams.page.id } : null,
+      parentComponent: transientParams.parentComponent?.id
+        ? { id: transientParams.parentComponent.id }
         : null,
-      parentElement: params.parentElement?.id
-        ? { id: params.parentElement.id }
+      parentElement: transientParams.parentElement?.id
+        ? { id: transientParams.parentElement.id }
         : null,
-      props: {
-        data: params.props?.data ?? '{}',
-        id: params.props?.id ?? v4(),
-      },
-      renderIfExpression: params.renderIfExpression ?? null,
+      props: PropTestFactory(rootStore).build(
+        {},
+        { transient: transientParams.props },
+      ).toJson,
+      renderIfExpression: transientParams.renderIfExpression ?? null,
       renderType: {
         __typename:
-          params.renderType?.__typename ?? IElementRenderTypeKind.Atom,
-        id: params.renderType?.id ?? v4(),
+          transientParams.renderType?.__typename ?? IElementRenderTypeKind.Atom,
+        id: transientParams.renderType?.id ?? v4(),
       },
     }
 
-    rootStore.elementService?.elementDomainService.hydrate(dto)
+    const model = rootStore.elementDomainService?.hydrate(dto)
 
-    return dto
+    return model!
   })

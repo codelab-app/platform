@@ -1,5 +1,4 @@
 import {
-  getBuilderDomainService,
   getComponentService,
   getElementService,
 } from '@codelab/frontend/abstract/application'
@@ -8,7 +7,10 @@ import type {
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import { elementRef } from '@codelab/frontend/abstract/domain'
+import {
+  elementRef,
+  getBuilderDomainService,
+} from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import {
   getActionService,

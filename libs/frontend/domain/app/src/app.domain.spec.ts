@@ -1,3 +1,4 @@
+import { chance } from '@codelab/frontend/domain/shared'
 import {
   appDto,
   atomReactFragmentDto,
@@ -5,21 +6,27 @@ import {
 } from '@codelab/frontend/test/data'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
-import { createTestRootStore } from './root-store'
+import { v4 } from 'uuid'
+import { AppModelFactory } from './test/app.test.factory'
+import { appModelFactory, factory, rootDomainStore } from './test/setup'
 
 describe('App domain', () => {
-  const rootStore = createTestRootStore(userDto)
-  const { appDomainService } = rootStore
+  const appId = v4()
+  const appName = chance.word({ capitalize: true })
 
   it('can add an app', async () => {
-    const app = appDomainService.create(appDto, {
-      __typename: 'Atom',
-      id: atomReactFragmentDto.id,
-    })
+    // const app = factory.build('app', {
+    //   id: appId,
+    //   name: appName,
+    // })
+    const app = appModelFactory.build({
+      id: appId,
+      name: appName,
+    })!
 
     // App
-    expect(app.id).toBe(appDto.id)
-    expect(app.name).toBe(appDto.name)
+    expect(app.id).toBe(appId)
+    expect(app.name).toBe(appName)
 
     // Page
     const pages = app.pages.map((page) => {
@@ -52,6 +59,6 @@ describe('App domain', () => {
   })
 
   afterAll(() => {
-    unregisterRootStore(rootStore)
+    unregisterRootStore(rootDomainStore)
   })
 })

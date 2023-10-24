@@ -2,8 +2,12 @@ import type {
   ITypeDomainService,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { ICreateTypeData } from '@codelab/frontend/abstract/domain'
-import { ITypeDTO } from '@codelab/shared/abstract/core'
+import {
+  getFieldDomainService,
+  ICreateTypeData,
+} from '@codelab/frontend/abstract/domain'
+import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
+import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { InterfaceType, TypeFactory } from './models'
@@ -53,5 +57,32 @@ export class TypeDomainService
     this.types.set(interfaceType.id, interfaceType)
 
     return interfaceType
+  }
+
+  @modelAction
+  hydrateTypes(types: Partial<GetTypesQuery>) {
+    console.debug('TypeService.loadTypes()', types)
+
+    const flatTypes = Object.values(types).flat()
+
+    const fields =
+      types.interfaceTypes?.flatMap((fragment) => fragment.fields) ?? []
+
+    fields.forEach((field) => this.fieldDomainService.hydrate(field))
+
+    const loadedTypes = flatTypes.map((fragment) =>
+      TypeFactory.create(fragment),
+    )
+
+    for (const type of loadedTypes) {
+      this.types.set(type.id, type)
+    }
+
+    return loadedTypes
+  }
+
+  @computed
+  private get fieldDomainService() {
+    return getFieldDomainService(this)
   }
 }

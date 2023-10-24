@@ -3,10 +3,8 @@ import type {
   IAdminService,
   IAppService,
   IAtomService,
-  IBuilderDomainService,
   IComponentApplicationService,
   IDomainService,
-  IElementApplicationService,
   IElementService,
   IFieldService,
   IPageApplicationService,
@@ -22,6 +20,7 @@ import type {
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/application'
+import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
 export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
@@ -37,9 +36,6 @@ export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
         undefined,
       ),
       domainService: prop<IDomainService | undefined>(undefined),
-      elementApplicationService: prop<IElementApplicationService | undefined>(
-        undefined,
-      ),
       elementService: prop<IElementService | undefined>(undefined),
       fieldService: prop<IFieldService | undefined>(undefined),
       pageService: prop<IPageApplicationService | undefined>(undefined),

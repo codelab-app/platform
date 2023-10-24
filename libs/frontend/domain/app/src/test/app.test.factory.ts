@@ -1,20 +1,56 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
-import { chance } from '@codelab/frontend/domain/shared'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type {
+  IFactoryApplicationCallback,
+  IRootStore,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IAppModel,
+  IFactoryDomainCallback,
+  IRootDomainStore,
+} from '@codelab/frontend/abstract/domain'
+import {
+  AtomModelFactory,
+  AtomTestFactory,
+} from '@codelab/frontend/domain/atom'
+import { chance, ModelFactory } from '@codelab/frontend/domain/shared'
+import { type IAppDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
-export const AppTestFactory = (rootStore: Partial<IRootStore>) =>
-  Factory.define<IAppDTO>(({ params }) => {
-    const dto: IAppDTO = {
-      domains: params.domains,
-      id: params.id ?? v4(),
-      name: params.name ?? chance.word({ capitalize: true }),
-      owner: { id: params.owner?.id ?? v4() },
-      pages: params.pages,
+export const AppTestFactory = (rootStore: Partial<IRootDomainStore>) => {
+  const atomFactory = AtomTestFactory(rootStore)
+  const reactFragment = atomFactory.build({ name: IAtomType.ReactFragment })
+
+  return Factory.define<IAppModel, IAppDTO>(
+    ({ associations, transientParams }) => {
+      const dto: IAppDTO = {
+        domains: transientParams.domains,
+        id: transientParams.id ?? v4(),
+        name: transientParams.name ?? chance.word({ capitalize: true }),
+        owner: { id: transientParams.owner?.id ?? v4() },
+        pages: associations.pages,
+      }
+
+      const model = rootStore.appDomainService?.create(dto, reactFragment!)
+      // const model = rootStore.appDomainService?.hydrate(dto)
+
+      return model!
+    },
+  )
+}
+
+export class AppModelFactory extends ModelFactory {
+  build(dto?: Partial<IAppDTO>) {
+    const atom = new AtomModelFactory(this.rootStore)
+    const reactFragment = atom.build({ name: IAtomType.ReactFragment })!
+
+    const app: IAppDTO = {
+      domains: dto?.domains ?? [],
+      id: dto?.id ?? v4(),
+      name: dto?.name ?? chance.word({ capitalize: true }),
+      owner: { id: dto?.owner?.id ?? v4() },
+      pages: dto?.pages ?? [],
     }
 
-    rootStore.appService?.appDomainService.hydrate(dto)
-
-    return dto
-  })
+    return this.rootStore.appDomainService?.create(app, reactFragment)
+  }
+}

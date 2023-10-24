@@ -1,4 +1,4 @@
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/application'
+import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { elementRef } from '@codelab/frontend/abstract/domain'
 import type { MouseEvent } from 'react'
 import { useCallback } from 'react'

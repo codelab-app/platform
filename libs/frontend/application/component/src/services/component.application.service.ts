@@ -1,5 +1,4 @@
 import {
-  getBuilderDomainService,
   getElementService,
   getRendererApplicationService,
   type IComponentApplicationService,
@@ -9,10 +8,12 @@ import type {
   ICreateComponentData,
   IElementModel,
   IInterfaceTypeModel,
+  IUpdateComponentData,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
-  IUpdateComponentData,
+  getBuilderDomainService,
+  getTagDomainService,
   RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -21,7 +22,10 @@ import { getPropService } from '@codelab/frontend/application/prop'
 import { getStoreService } from '@codelab/frontend/application/store'
 import { getTagService } from '@codelab/frontend/application/tag'
 import { getTypeService } from '@codelab/frontend/application/type'
-import { Component } from '@codelab/frontend/domain/component'
+import {
+  Component,
+  ComponentDomainService,
+} from '@codelab/frontend/domain/component'
 import {
   ModalService,
   PaginationService,
@@ -67,9 +71,8 @@ import { ComponentModalService } from './component-modal.service'
 export class ComponentApplicationService
   extends Model({
     allComponentsLoaded: prop(() => false),
-    clonedComponents: prop(() => objectMap<IComponentModel>()),
+    componentDomainService: prop(() => new ComponentDomainService({})),
     componentRepository: prop(() => new ComponentRepository({})),
-    components: prop(() => objectMap<IComponentModel>()),
     createForm: prop(() => new ComponentFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
@@ -81,11 +84,6 @@ export class ComponentApplicationService
   })
   implements IComponentApplicationService
 {
-  @computed
-  get componentList() {
-    return [...this.components.values()]
-  }
-
   @modelFlow
   @transaction
   create = _async(function* (
@@ -155,7 +153,7 @@ export class ComponentApplicationService
         this.elementService.elementDomainService.hydrate(elementData)
     }
 
-    const component = this.hydrate({
+    const component = this.componentDomainService.hydrate({
       api,
       childrenContainerElement: { id: rootElementModel.id },
       id,
@@ -188,8 +186,8 @@ export class ComponentApplicationService
 
       await this.elementService.delete(rootElement)
 
-      this.components.delete(id)
-      this.removeClones(id)
+      this.componentDomainService.components.delete(id)
+      this.componentDomainService.removeClones(id)
 
       await this.storeService.delete([store])
       await this.componentRepository.delete([component])
@@ -212,7 +210,7 @@ export class ComponentApplicationService
     options?: ComponentOptions,
   ) {
     if (this.allComponentsLoaded) {
-      return this.componentList
+      return this.componentDomainService.componentList
     }
 
     const { items: components } = yield* _await(
@@ -227,7 +225,9 @@ export class ComponentApplicationService
       const { id } = component
 
       this.storeService.load([component.store])
-      this.typeService.loadTypes({ interfaceTypes: [component.api] })
+      this.typeService.typeDomainService.hydrateTypes({
+        interfaceTypes: [component.api],
+      })
 
       const allElements = [
         component.rootElement,
@@ -240,12 +240,12 @@ export class ComponentApplicationService
          * TODO: Need to handle component case, refactor reuse
          */
         if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
-          this.typeService.loadTypes({
+          this.typeService.typeDomainService.hydrateTypes({
             interfaceTypes: [elementData.renderType.api],
           })
 
           elementData.renderType.tags.forEach((tag) =>
-            this.tagService.hydrate(tag),
+            this.tagDomainService.hydrate(tag),
           )
 
           this.atomService.atomDomainService.hydrate(elementData.renderType)
@@ -258,7 +258,7 @@ export class ComponentApplicationService
         })
       })
 
-      return this.hydrate(component)
+      return this.componentDomainService.hydrate(component)
     })
 
     const allComponentsFieldTypeIds = uniq(
@@ -277,8 +277,8 @@ export class ComponentApplicationService
   @modelFlow
   @transaction
   getOne = _async(function* (this: ComponentApplicationService, id: string) {
-    if (this.components.has(id)) {
-      return this.components.get(id)
+    if (this.componentDomainService.components.has(id)) {
+      return this.componentDomainService.components.get(id)
     }
 
     const all = yield* _await(this.getAll({ id }))
@@ -294,17 +294,19 @@ export class ComponentApplicationService
 
     const parentComponent = this.builderService.activeComponent?.current
 
-    const filtered = this.sortedComponentsList.filter((component) => {
-      if (component.id === parentComponent?.id) {
-        return false
-      }
+    const filtered = this.componentDomainService.sortedComponentsList.filter(
+      (component) => {
+        if (component.id === parentComponent?.id) {
+          return false
+        }
 
-      const parentIsDescendant = component.descendantComponents.some(
-        ({ id }) => id === parentComponent?.id,
-      )
+        const parentIsDescendant = component.descendantComponents.some(
+          ({ id }) => id === parentComponent?.id,
+        )
 
-      return !parentComponent?.id || !parentIsDescendant
-    })
+        return !parentComponent?.id || !parentIsDescendant
+      },
+    )
 
     return filtered.map((component) => ({
       label: component.name,
@@ -318,57 +320,24 @@ export class ComponentApplicationService
     this: ComponentApplicationService,
     { childrenContainerElement, id, keyGenerator, name }: IUpdateComponentData,
   ) {
-    const component = this.components.get(id)
+    const component = this.componentDomainService.components.get(id)
 
     if (!component) {
       throw new Error('ID not found')
     }
 
     component.writeCache({ childrenContainerElement, keyGenerator, name })
-    this.writeCloneCache({ childrenContainerElement, id, keyGenerator, name })
+    this.componentDomainService.writeCloneCache({
+      childrenContainerElement,
+      id,
+      keyGenerator,
+      name,
+    })
 
     yield* _await(this.componentRepository.update(component))
 
     return component
   })
-
-  @modelAction
-  hydrate(componentDTO: IComponentDTO) {
-    let component = this.components.get(componentDTO.id)
-
-    if (component) {
-      component.writeCache(componentDTO)
-    } else {
-      component = Component.create(componentDTO)
-
-      this.renderService.hydrate({
-        elementTree: component,
-        id: component.id,
-        providerTree: null,
-        rendererType: RendererType.ComponentBuilder,
-      })
-
-      this.components.set(component.id, component)
-    }
-
-    return component
-  }
-
-  @modelAction
-  component(id: string) {
-    const component = this.maybeComponent(id)
-
-    if (!component) {
-      throw new Error('Missing component')
-    }
-
-    return component
-  }
-
-  @modelAction
-  maybeComponent(id: string) {
-    return this.components.get(id) || this.clonedComponents.get(id)
-  }
 
   onAttachedToRootStore() {
     this.paginationService.getDataFn = async (page, pageSize, filter) => {
@@ -382,34 +351,6 @@ export class ComponentApplicationService
 
       return { items, totalItems: this.paginationService.totalItems }
     }
-  }
-
-  @modelAction
-  private removeClones(componentId: string) {
-    return [...this.clonedComponents.entries()]
-      .filter(([_, component]) => component.sourceComponent?.id === componentId)
-      .forEach(([elementId]) => this.clonedComponents.delete(elementId))
-  }
-
-  @modelAction
-  private writeCloneCache({
-    childrenContainerElement,
-    id,
-    name,
-  }: IUpdateComponentData) {
-    return [...this.clonedComponents.values()]
-      .filter((componentClone) => componentClone.sourceComponent?.id === id)
-      .map((clone) => {
-        const containerClone = clone.elements.find(
-          ({ sourceElement }) =>
-            sourceElement?.id === childrenContainerElement.id,
-        )
-
-        return clone.writeCache({
-          childrenContainerElement: containerClone,
-          name,
-        })
-      })
   }
 
   @computed
@@ -428,28 +369,13 @@ export class ComponentApplicationService
   }
 
   @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get renderService() {
-    return getRendererApplicationService(this)
-  }
-
-  @computed
-  private get sortedComponentsList() {
-    return sortBy(this.componentList, 'name')
-  }
-
-  @computed
   private get storeService() {
     return getStoreService(this)
   }
 
   @computed
-  private get tagService() {
-    return getTagService(this)
+  private get tagDomainService() {
+    return getTagDomainService(this)
   }
 
   @computed

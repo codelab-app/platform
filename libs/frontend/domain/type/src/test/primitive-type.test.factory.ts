@@ -1,21 +1,35 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
+import type {
+  IPrimitiveTypeModel,
+  IRootDomainStore,
+} from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
 import { PrimitiveTypeKind, TypeKind } from '@codelab/shared/abstract/codegen'
-import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
+import {
+  type IPrimitiveTypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
-export const PrimitiveTypeTestFactory = (rootStore: Partial<IRootStore>) =>
-  Factory.define<IPrimitiveTypeDTO>(({ params }) => {
-    const dto: IPrimitiveTypeDTO = {
-      __typename: TypeKind.PrimitiveType as const,
-      id: params.id ?? v4(),
-      kind: TypeKind.PrimitiveType,
-      name: params.name ?? chance.word({ capitalize: true }),
-      primitiveKind: params.primitiveKind ?? PrimitiveTypeKind.String,
-    }
+export const PrimitiveTypeTestFactory = (
+  rootStore: Partial<IRootDomainStore>,
+) =>
+  Factory.define<IPrimitiveTypeModel, IPrimitiveTypeDTO>(
+    ({ transientParams }) => {
+      const dto: IPrimitiveTypeDTO = {
+        __typename: ITypeKind.PrimitiveType as const,
+        id: transientParams.id ?? v4(),
+        kind: ITypeKind.PrimitiveType,
+        name: transientParams.name ?? chance.word({ capitalize: true }),
+        primitiveKind:
+          transientParams.primitiveKind ?? PrimitiveTypeKind.String,
+      }
 
-    rootStore.typeService?.typeDomainService.hydrate(dto)
+      const model = rootStore.typeDomainService?.hydrate(
+        dto,
+      ) as IPrimitiveTypeModel
 
-    return dto
-  })
+      return model!
+    },
+  )

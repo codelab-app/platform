@@ -1,7 +1,4 @@
-import {
-  getBuilderDomainService,
-  getRendererApplicationService,
-} from '@codelab/frontend/abstract/application'
+import { getRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IElementStyleModel,
@@ -10,6 +7,7 @@ import {
   BuilderWidthBreakPoint,
   CssMap,
   defaultBuilderWidthBreakPoints,
+  getBuilderDomainService,
   IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/domain'

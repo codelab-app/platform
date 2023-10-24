@@ -1,4 +1,5 @@
 import type {
+  IActionDomainService,
   IActionModel,
   IActionWhere,
   ICreateActionData,
@@ -21,10 +22,6 @@ import type {
   IQueryService,
 } from '../services'
 
-export interface IActionFactory {
-  fromActionFragment(fragment: ActionFragment): IActionDTO
-}
-
 export interface IActionService
   extends ICRUDService<IActionModel, ICreateActionData, IUpdateActionData>,
     IQueryService<IActionModel, IActionWhere, ApiActionOptions>,
@@ -33,14 +30,8 @@ export interface IActionService
       ICRUDFormService<Ref<IActionModel>, { action?: IActionModel }>,
       'createForm'
     > {
-  actionFactory: IActionFactory
-  actions: ObjectMap<IActionModel>
-  actionsList: Array<IActionModel>
+  actionDomainService: IActionDomainService
   createForm: IEntityFormService<Ref<IStoreModel>, { store?: IStoreModel }>
 
-  action(id: string): Maybe<IActionModel>
-  add<T extends IActionDTO>(action: T): IActionModel
   cloneAction(action: IActionModel, storeId: string): Promise<IActionModel>
-  getSelectActionOptions(actionEntity?: IRef): Array<DefaultOptionType>
-  load(actions: Array<ActionFragment>): Array<IActionModel>
 }

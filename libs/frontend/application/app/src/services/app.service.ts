@@ -5,11 +5,13 @@ import {
   getUserService,
   type IAppService,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IAppModel,
-  ICreateAppData,
-  IUpdateAppData,
-  IUpdatePageData,
+import {
+  getUserDomainService,
+  type IAppModel,
+  type ICreateAppData,
+  type IUpdateAppData,
+  type IUpdatePageData,
+  pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getDomainService } from '@codelab/frontend/application/domain'
@@ -60,7 +62,7 @@ export class AppService
     const app = this.appDomainService.create({
       id,
       name,
-      owner: this.userService.user,
+      owner: this.userDomainService.user,
       pages: [],
     })
 
@@ -148,13 +150,11 @@ export class AppService
 
     const app = this.appDomainService.app(appId)
 
-    pages.forEach((page) => {
-      const pageExistsInApp = app?.pages.find(
-        (appPage) => appPage.id === page.id,
-      )
+    pages.forEach(({ id }) => {
+      const pageExistsInApp = app?.pages.find((appPage) => appPage.id === id)
 
       if (!pageExistsInApp) {
-        app?.pages.push(Page.create(page))
+        app?.pages.push(pageRef(id))
       }
     })
   })
@@ -209,16 +209,6 @@ export class AppService
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
-  }
-
-  @computed
-  private get domainService() {
-    return getDomainService(this)
-  }
-
-  @computed
   private get elementService() {
     return getElementService(this)
   }
@@ -229,17 +219,7 @@ export class AppService
   }
 
   @computed
-  private get resourceService() {
-    return getResourceService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

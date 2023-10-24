@@ -8,7 +8,16 @@ import type {
   IAppDevelopmentArgs,
   IAppDevelopmentService,
 } from '@codelab/frontend/abstract/domain'
-import { IAppDevelopmentDto } from '@codelab/frontend/abstract/domain'
+import {
+  getActionDomainService,
+  getAppDomainService,
+  getAtomDomainService,
+  getComponentDomainService,
+  getElementDomainService,
+  getFieldDomainService,
+  getPageDomainService,
+  IAppDevelopmentDto,
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getDomainService } from '@codelab/frontend/application/domain'
 import { getPageService } from '@codelab/frontend/application/page'
@@ -21,6 +30,8 @@ import {
   getFieldService,
   getTypeService,
 } from '@codelab/frontend/application/type'
+import { getStoreDomainService } from '@codelab/frontend/domain/store'
+import { getTypeDomainService } from '@codelab/frontend/domain/type'
 import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
@@ -123,94 +134,75 @@ export class AppDevelopmentService
 
   @modelAction
   hydrateAppDevelopmentData(data: IAppDevelopmentDto) {
-    data.atoms.forEach((atom) =>
-      this.atomService.atomDomainService.hydrate(atom),
-    )
+    data.atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
 
-    data.types.forEach((type) =>
-      this.typeService.typeDomainService.hydrate(type),
-    )
+    data.types.forEach((type) => this.typeDomainService.hydrate(type))
 
-    data.fields.forEach((field) => this.fieldService.hydrate(field))
+    data.fields.forEach((field) => this.fieldDomainService.hydrate(field))
 
     data.components.forEach((component) =>
-      this.componentService.hydrate(component),
+      this.componentDomainService.hydrate(component),
     )
 
     data.elements.forEach((element) =>
-      this.elementService.elementDomainService.hydrate(element),
+      this.elementDomainService.hydrate(element),
     )
+
+    data.pages.forEach((page) => this.pageDomainService.hydrate(page))
 
     // data.props.forEach((prop) => this.propService.add(prop))
 
-    data.stores.forEach((store) =>
-      this.storeService.storeDomainService.hydrate(store),
-    )
+    data.stores.forEach((store) => this.storeDomainService.hydrate(store))
 
-    data.actions.forEach((action) => this.actionService.add(action))
+    data.actions.forEach((action) => this.actionDomainService.hydrate(action))
 
-    this.elementService.elementDomainService.logElementTreeState()
+    this.elementDomainService.logElementTreeState()
 
-    return this.appService.appDomainService.hydrate(data.app)
+    return this.appDomainService.hydrate(data.app)
   }
 
   @computed
-  private get actionService() {
-    return getActionService(this)
+  private get actionDomainService() {
+    return getActionDomainService(this)
   }
 
   @computed
-  private get appService() {
-    return getAppService(this)
+  private get appDomainService() {
+    return getAppDomainService(this)
   }
 
   @computed
-  private get atomService() {
-    return getAtomService(this)
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get atomDomainService() {
+    return getAtomDomainService(this)
   }
 
   @computed
-  private get domainService() {
-    return getDomainService(this)
+  private get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
-  private get elementService() {
-    return getElementService(this)
+  private get elementDomainService() {
+    return getElementDomainService(this)
   }
 
   @computed
-  private get fieldService() {
-    return getFieldService(this)
+  private get fieldDomainService() {
+    return getFieldDomainService(this)
   }
 
   @computed
-  private get pageService() {
-    return getPageService(this)
+  private get storeDomainService() {
+    return getStoreDomainService(this)
   }
 
   @computed
-  private get propService() {
-    return getPropService(this)
-  }
-
-  @computed
-  private get resourceService() {
-    return getResourceService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
+  private get typeDomainService() {
+    return getTypeDomainService(this)
   }
 }

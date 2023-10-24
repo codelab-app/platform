@@ -1,17 +1,29 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
+import type {
+  IPropModel,
+  IRootDomainStore,
+} from '@codelab/frontend/abstract/domain'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
+import { Prop } from '../store'
 
-export const PropTestFactory = (rootStore: Partial<IRootStore>) =>
-  Factory.define<IPropDTO>(({ params }) => {
+export const PropTestFactory = (rootStore: Partial<IRootDomainStore>) =>
+  Factory.define<IPropModel, IPropDTO>(({ transientParams }) => {
     const dto: IPropDTO = {
-      api: {
-        id: params.api?.id ?? v4(),
-      },
-      data: params.data ?? '{}',
-      id: params.id ?? v4(),
+      // Api is optional here
+      api: transientParams.api?.id
+        ? {
+            id: transientParams.api.id,
+          }
+        : null,
+      data: transientParams.data ?? '"{}"',
+      id: transientParams.id ?? v4(),
     }
 
-    return dto
+    console.log('PropTestFactory', dto)
+
+    const model = Prop.create(dto)
+
+    return model
   })

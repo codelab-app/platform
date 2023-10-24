@@ -49,7 +49,8 @@ export class ReactNodeTypeTransformer
         : transpiledValue
     }
 
-    const component = this.componentService.components.get(propValue)
+    const component =
+      this.componentService.componentDomainService.components.get(propValue)
     const fallback = ''
 
     if (!component) {

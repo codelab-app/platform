@@ -20,7 +20,7 @@ export const CreateAtomModal = observer(() => {
     title: 'Error while creating atom',
   })
 
-  const tagsSelectionOptions = tagService.tagsSelectOptions
+  const tagsSelectionOptions = tagService.tagDomainService.tagsSelectOptions
 
   return (
     <ModalForm.Modal

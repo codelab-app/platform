@@ -3,11 +3,16 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPage, IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
+import type {
+  IPage,
+  IPageDTO,
+  IPageKind,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IElementModel, IElementTree } from '../element'
-import type { ICacheService, IRef } from '../shared'
+import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
 

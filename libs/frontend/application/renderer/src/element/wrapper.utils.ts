@@ -4,7 +4,7 @@ import {
   DATA_COMPONENT_ID,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
-import { getAtom } from '@codelab/frontend/application/atom'
+import { getAtom } from '@codelab/frontend/domain/renderer'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'

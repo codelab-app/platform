@@ -3,10 +3,8 @@ import type {
   IAdminService,
   IAppService,
   IAtomService,
-  IBuilderDomainService,
   IComponentApplicationService,
   IDomainService,
-  IElementApplicationService,
   IElementService,
   IFieldService,
   IPageApplicationService,
@@ -22,30 +20,29 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
-  builderDomainServiceContext,
   componentServiceContext,
   elementServiceContext,
   rendererApplicationServiceContext,
   resourceServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
-import { atomDomainServiceContext } from '@codelab/frontend/abstract/domain'
+import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
+import {
+  atomDomainServiceContext,
+  builderDomainServiceContext,
+} from '@codelab/frontend/abstract/domain'
 import { AdminService } from '@codelab/frontend/application/admin'
 import { AppService } from '@codelab/frontend/application/app'
 import {
   AtomService,
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
-import { BuilderDomainService } from '@codelab/frontend/application/builder'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
   domainServiceContext,
 } from '@codelab/frontend/application/domain'
-import {
-  ElementApplicationService,
-  ElementService,
-} from '@codelab/frontend/application/element'
+import { ElementService } from '@codelab/frontend/application/element'
 import {
   PageApplicationService,
   pageServiceContext,
@@ -73,6 +70,7 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
+import { BuilderDomainService } from '@codelab/frontend/domain/builder'
 import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import {
@@ -96,8 +94,8 @@ export const createRootStore = ({ user }: RootStoreData) => {
         () => new ComponentApplicationService({}),
       ),
       domainService: prop<IDomainService>(() => new DomainService({})),
-      elementApplicationService: prop<IElementApplicationService>(
-        () => new ElementApplicationService({}),
+      elementApplicationService: prop<IElementService>(
+        () => new ElementService({}),
       ),
       elementService: prop<IElementService>(() => new ElementService({})),
       fieldService: prop<IFieldService>(() => new FieldService({})),
@@ -120,13 +118,13 @@ export const createRootStore = ({ user }: RootStoreData) => {
       this.typeService.typeDomainService.types.clear()
       this.appService.appDomainService.apps.clear()
       this.atomService.atomDomainService.atoms.clear()
-      this.componentService.components.clear()
+      this.componentService.componentDomainService.components.clear()
       this.elementService.elementDomainService.elements.clear()
-      this.fieldService.fields.clear()
-      this.actionService.actions.clear()
+      this.fieldService.fieldDomainService.fields.clear()
+      this.actionService.actionDomainService.actions.clear()
       this.storeService.storeDomainService.stores.clear()
-      this.tagService.tags.clear()
-      this.userService.users.clear()
+      this.tagService.tagDomainService.tags.clear()
+      this.userService.userDomainService.users.clear()
       this.rendererService.renderers.clear()
     }
 

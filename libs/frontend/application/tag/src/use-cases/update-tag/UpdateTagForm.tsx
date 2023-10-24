@@ -11,7 +11,7 @@ export const UpdateTagForm = observer(() => {
   const { tagService } = useStore()
   const tag = tagService.updateForm.tag as IUpdateTagData | undefined
 
-  const options = tagService.tagsSelectOptions.filter(
+  const options = tagService.tagDomainService.tagsSelectOptions.filter(
     (option) => option.value !== tag?.id,
   )
 

@@ -1,40 +1,44 @@
 // import type { IRootStoreDtoTest } from '@codelab/frontend/abstract/application'
-import type { IRootStoreDtoTest } from '@codelab/frontend/abstract/application'
-import {
-  IRootStore,
-  IRootStoreDto,
-} from '@codelab/frontend/abstract/application'
 import type {
-  IDtoFactory,
-  IDtoFactoryCallback,
-  IDtoFactoryType,
+  IRootStore,
+  IRootStoreDtoTest,
+} from '@codelab/frontend/abstract/application'
+import { IRootStoreDto } from '@codelab/frontend/abstract/application'
+import type {
+  DomainMap,
+  IFactoryDomain,
+  IFactoryDomainCallback,
 } from '@codelab/frontend/abstract/domain'
+import type { BuildOptions, DeepPartial } from 'fishery'
 import type { _DeepPartialObject } from 'utility-types/dist/mapped-types'
-import { createTestRootStore } from './root.domain.test.store'
 
 /**
  * Create the structure, but don't take in any concrete classes to prevent circular dependency
  */
 export class DtoFactory {
-  public rootStore: IRootStoreDtoTest['store']
-
   /**
    * @param factories Inject so each lib can provide the concrete instances
    * @param rootStore Inject the store so the factory can hydrate the models into cache
    *
+   * Fishery has concept of the transient param, which is a different type from the factory return type.
+   *
+   * This is what we need since we transform dto -> model type.
    */
   constructor(
-    private factories: IDtoFactoryCallback,
-    rootStoreDto: IRootStoreDtoTest,
-  ) {
-    this.rootStore = createTestRootStore(rootStoreDto)
-  }
+    private factories: IFactoryDomainCallback,
+    private rootStore: Partial<IRootStore>,
+  ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  build<T extends keyof IDtoFactory>(factoryType: T, params?: any) {
+  build<
+    K extends keyof IFactoryDomain,
+    T extends DomainMap[K][0],
+    I extends DomainMap[K][1],
+  >(factoryType: K, transient?: BuildOptions<T, I>['transient']) {
     const factories = this.factories(this.rootStore)
     const factory = factories[factoryType]
 
-    return factory.build(params) as unknown as IDtoFactory[T]
+    return factory?.build(undefined, {
+      transient,
+    })
   }
 }

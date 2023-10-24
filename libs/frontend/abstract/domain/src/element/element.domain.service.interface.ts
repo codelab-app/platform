@@ -1,5 +1,7 @@
 import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
+import type { IUpdateElementData } from './element.dto.interface'
 import type { IElementModel } from './element.model.interface'
 
 export interface IMoveElementContext {
@@ -10,12 +12,16 @@ export interface IMoveElementContext {
 }
 
 export interface IElementDomainService {
+  clonedElements: ObjectMap<IElementModel>
   elements: ObjectMap<IElementModel>
   modifiedElements: Array<IElementModel>
 
   addTreeNode(elementDto: IElementDTO): IElementModel
+  element(id: string): IElementModel
   hydrate(elementDto: IElementDTO): IElementModel
   logElementTreeState(): void
+  maybeElement(id: Maybe<string>): Maybe<IElementModel>
   move(context: IMoveElementContext): void
   resetModifiedElements(): void
+  writeCloneCache(data: IUpdateElementData): Array<IElementModel>
 }

@@ -1,4 +1,5 @@
 import type {
+  IComponentDomainService,
   IComponentModel,
   ICreateComponentData,
   IUpdateComponentData,
@@ -28,13 +29,9 @@ export interface IComponentApplicationService
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
     ICRUDModalService<Ref<IComponentModel>, { component?: IComponentModel }>,
     IPaginateable<IComponentModel, { name?: string }> {
-  clonedComponents: ObjectMap<IComponentModel>
-  componentList: Array<IComponentModel>
+  componentDomainService: IComponentDomainService
   componentRepository: IComponentRepository
-  components: ObjectMap<IComponentModel>
   createForm: IFormService
 
-  component(id: string): IComponentModel
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
-  hydrate(componentDTO: IComponentDTO): IComponentModel
 }

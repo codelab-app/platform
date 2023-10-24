@@ -101,12 +101,12 @@ export const createTestRootStore = () => {
       this.appService.appDomainService.apps.clear()
       this.typeService.typeDomainService.types.clear()
       this.atomService.atomDomainService.atoms.clear()
-      this.componentService.components.clear()
+      this.componentService.componentDomainService.components.clear()
       this.elementService.elementDomainService.elements.clear()
-      this.fieldService.fields.clear()
-      this.actionService.actions.clear()
+      this.fieldService.fieldDomainService.fields.clear()
+      this.actionService.actionDomainService.actions.clear()
       this.storeService.storeDomainService.stores.clear()
-      this.userService.users.clear()
+      this.userService.userDomainService.users.clear()
       this.rendererService.renderers.clear()
     }
 

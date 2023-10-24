@@ -35,7 +35,7 @@ export const CreatePageForm = observer(
       id: v4(),
       // required for store api
       owner: {
-        auth0Id: userService.auth0Id,
+        auth0Id: userService.user.auth0Id,
       },
     }
 

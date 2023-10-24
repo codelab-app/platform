@@ -43,7 +43,10 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     }
 
     const roots = [component.rootElement.current]
-    const rootElement = elementService.maybeElement(component.rootElement.id)
+
+    const rootElement = elementService.elementDomainService.maybeElement(
+      component.rootElement.id,
+    )
 
     await loadAllTypesForElements(componentService, typeService, roots)
 
