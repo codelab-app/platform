@@ -1,8 +1,5 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/domain'
-import {
-  getSelectElementComponent,
-  SelectAuthGuard,
-} from '@codelab/frontend/application/type'
+import { getSelectElementComponent } from '@codelab/frontend/application/type'
 import {
   appSchema,
   idSchema,
@@ -11,6 +8,7 @@ import {
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
+import { pageAuthGuardSchema } from '../create-page'
 
 // pageContentContainer is not required in interface, but is required for _app page
 export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
@@ -19,20 +17,6 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
       ...idSchema(),
       ...appSchema,
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
-      authGuard: {
-        nullable: true,
-        properties: {
-          id: {
-            type: 'string',
-            label: '',
-            uniforms: {
-              component: SelectAuthGuard,
-            },
-          },
-        },
-        required: ['id'],
-        type: 'object',
-      },
       pageContentContainer: {
         label: '',
         nullable: true,
@@ -46,6 +30,7 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
         type: 'object',
       },
       ...pageUrlSchema,
+      ...pageAuthGuardSchema,
     },
     required: ['name', 'app'],
     type: 'object',

@@ -16,11 +16,14 @@ import type { IBaseRedirect } from '../../base-redirect.interface'
 export interface IPageRedirectModel
   extends IBaseRedirect,
     ICacheService<IPageRedirectDTO, IPageRedirectModel>,
-    IModel<
-      PageRedirectCreateInput,
-      PageRedirectUpdateInput,
-      PageRedirectDeleteInput
+    Omit<
+      IModel<
+        PageRedirectCreateInput,
+        PageRedirectUpdateInput,
+        PageRedirectDeleteInput
+      >,
+      'toUpdateInput'
     > {
-  kind: IRedirectKind.Page
+  kind: IRedirectKind.PageRedirect
   page: Ref<IPageModel>
 }

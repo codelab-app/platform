@@ -5,12 +5,12 @@ export const redirectSchema = gql`
     """
     Redirect to page inside the same app
     """
-    Page
+    PageRedirect
 
     """
     Redirect to custom Url string
     """
-    Url
+    UrlRedirect
   }
 
   interface BaseRedirect {
@@ -20,13 +20,13 @@ export const redirectSchema = gql`
 
   type PageRedirect implements BaseRedirect {
     id: ID!
-    kind: RedirectKind! @default(value: Page)
+    kind: RedirectKind! @default(value: PageRedirect)
     page: Page! @relationship(type: "REDIRECT_TO_PAGE", direction: OUT)
   }
 
   type UrlRedirect implements BaseRedirect {
     id: ID!
-    kind: RedirectKind! @default(value: Url)
+    kind: RedirectKind! @default(value: UrlRedirect)
     url: String!
   }
 

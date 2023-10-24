@@ -1,5 +1,4 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/domain'
-import { SelectAuthGuard } from '@codelab/frontend/application/type'
 import {
   appSchema,
   idSchema,
@@ -8,6 +7,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
+import { pageAuthGuardSchema } from '../create-page'
 
 export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContentContainer'>
 
@@ -20,21 +20,8 @@ export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    authGuard: {
-      nullable: true,
-      properties: {
-        id: {
-          type: 'string',
-          label: '',
-          uniforms: {
-            component: SelectAuthGuard,
-          },
-        },
-      },
-      required: ['id'],
-      type: 'object',
-    },
     ...pageUrlSchema,
+    ...pageAuthGuardSchema,
   },
   required: ['name', 'app'],
   title: 'Update Page Input',

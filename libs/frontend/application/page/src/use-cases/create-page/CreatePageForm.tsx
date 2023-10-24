@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { RedirectCompositeField } from '../../components'
+import { AuthGuardCompositeField } from '../../components'
 import { createPageSchema } from './create-page.schema'
 
 interface CreatePageFormProps {
@@ -33,6 +33,11 @@ export const CreatePageForm = observer(
 
     const model = {
       app: { id: app?.id },
+      authGuard: {
+        authGuard: {},
+        id: v4(),
+        redirect: { id: v4() },
+      },
       id: v4(),
       // required for store api
       owner: {
@@ -62,7 +67,7 @@ export const CreatePageForm = observer(
         submitRef={submitRef}
       >
         <AutoFields omitFields={['authGuard']} />
-        <RedirectCompositeField name="redirect" />
+        <AuthGuardCompositeField name="authGuard" />
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Page" />
         </DisplayIf>

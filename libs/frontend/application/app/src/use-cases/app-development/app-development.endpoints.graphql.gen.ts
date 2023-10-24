@@ -37,7 +37,7 @@ export type GetAppDevelopmentQuery = {
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
-  authGuards: Array<AuthGuardFragment>
+  authGuards: Array<AuthGuardFragment & AuthGuardFragment>
   actionTypes: Array<ActionTypeFragment>
 }
 
@@ -75,6 +75,9 @@ export const GetAppDevelopmentDocument = gql`
     }
     actionTypes {
       ...ActionType
+    }
+    authGuards {
+      ...AuthGuard
     }
   }
   ${AppDevelopmentFragmentDoc}

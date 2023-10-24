@@ -20,7 +20,7 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
 
     const onSubmit = (input: IUpdatePageData) => pageService.update(input)
     const { kind, pageContentContainer } = page
-    const omitFields = ['appId']
+    const omitFields = ['appId', 'authGuard']
 
     if (kind !== IPageKind.Provider) {
       omitFields.push('pageContentContainer')

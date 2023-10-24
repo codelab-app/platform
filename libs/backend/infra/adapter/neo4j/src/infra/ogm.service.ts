@@ -19,6 +19,7 @@ import type {
   LambdaTypeModel,
   ModelMap,
   PageModel,
+  PageRedirectModel,
   PageTypeModel,
   PrimitiveTypeModel,
   PropModel,
@@ -28,6 +29,7 @@ import type {
   StoreModel,
   TagModel,
   UnionTypeModel,
+  UrlRedirectModel,
   UserModel,
 } from '@codelab/backend/abstract/codegen'
 import { generate, OGM } from '@neo4j/graphql-ogm'
@@ -47,6 +49,14 @@ export class OgmService {
 
   get ApiAction() {
     return (this.apiAction ??= this.ogm.model('ApiAction'))
+  }
+
+  get PageRedirect() {
+    return (this.pageRedirect ??= this.ogm.model('PageRedirect'))
+  }
+
+  get UrlRedirect() {
+    return (this.urlRedirect ??= this.ogm.model('UrlRedirect'))
   }
 
   get App() {
@@ -196,6 +206,10 @@ export class OgmService {
   private actionType: ActionTypeModel | undefined
 
   private apiAction: ApiActionModel | undefined
+
+  private pageRedirect: PageRedirectModel | undefined
+
+  private urlRedirect: UrlRedirectModel | undefined
 
   private app: AppModel | undefined
 

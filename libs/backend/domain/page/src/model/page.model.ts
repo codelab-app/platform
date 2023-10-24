@@ -1,5 +1,5 @@
 import type { PageKind } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageAuthGuardDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 
 export class Page implements IPageDTO {
@@ -21,9 +21,12 @@ export class Page implements IPageDTO {
 
   url: string
 
+  authGuard?: Nullish<IPageAuthGuardDTO>
+
   constructor({
     app,
     // descendentElements,
+    authGuard,
     id,
     kind,
     name,
@@ -41,5 +44,6 @@ export class Page implements IPageDTO {
     this.rootElement = rootElement
     this.store = store
     this.url = url
+    this.authGuard = authGuard
   }
 }

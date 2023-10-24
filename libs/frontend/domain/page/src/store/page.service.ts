@@ -14,6 +14,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import { RedirectFactory } from '@codelab/frontend/domain/redirect'
 import {
   InlineFormService,
   ModalService,
@@ -23,6 +24,7 @@ import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDTO,
+  IPageAuthGuardDTO,
   IPageDTO,
   IPropDTO,
 } from '@codelab/shared/abstract/core'
@@ -31,6 +33,7 @@ import {
   IPageKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -76,7 +79,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { app, authGuard, id, name, url }: ICreatePageData,
+    { app, authGuard: authGuardData, id, name, url }: ICreatePageData,
   ) {
     const rootElementProps: IPropDTO = {
       data: '{}',
@@ -113,6 +116,13 @@ export class PageService
       id: v4(),
       name: Store.createName({ name }),
     })
+
+    const authGuard: Maybe<IPageAuthGuardDTO> = authGuardData
+      ? {
+          ...authGuardData,
+          redirect: RedirectFactory.mapDataToDTO(authGuardData.redirect),
+        }
+      : undefined
 
     const page = this.add({
       app,
@@ -231,9 +241,23 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    { app, authGuard, id, name, pageContentContainer, url }: IUpdatePageData,
+    {
+      app,
+      authGuard: authGuardData,
+      id,
+      name,
+      pageContentContainer,
+      url,
+    }: IUpdatePageData,
   ) {
     const page = this.pages.get(id)!
+
+    const authGuard = authGuardData
+      ? {
+          ...authGuardData,
+          redirect: RedirectFactory.mapDataToDTO(authGuardData.redirect),
+        }
+      : undefined
 
     page.writeCache({
       app,

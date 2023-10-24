@@ -28,6 +28,7 @@ export const SelectAuthGuard = observer<SelectAuthGuardsProps>(({ name }) => {
       }}
       optionFilterProp="label"
       options={selectAuthGuardOptions}
+      required={false}
       showSearch
     />
   )

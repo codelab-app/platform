@@ -1,0 +1,9 @@
+fragment PageAuthGuard on PageAuthGuard {
+  id
+  authGuard {
+    ...AuthGuard
+  }
+  redirect {
+    ...Redirect
+  }
+}

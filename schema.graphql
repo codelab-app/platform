@@ -4157,22 +4157,6 @@ type AuthGuard implements WithOwner {
     sort: [WithOwnerOwnerConnectionSort!]
     where: WithOwnerOwnerConnectionWhere
   ): WithOwnerOwnerConnection!
-  pages(
-    directed: Boolean = true
-    options: PageOptions
-    where: PageWhere
-  ): [Page!]!
-  pagesAggregate(
-    directed: Boolean = true
-    where: PageWhere
-  ): AuthGuardPagePagesAggregationSelection
-  pagesConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [AuthGuardPagesConnectionSort!]
-    where: AuthGuardPagesConnectionWhere
-  ): AuthGuardPagesConnection!
   resource(
     directed: Boolean = true
     options: ResourceOptions
@@ -4306,14 +4290,12 @@ input AuthGuardConfigUpdateFieldInput {
 input AuthGuardConnectInput {
   config: AuthGuardConfigConnectFieldInput
   owner: WithOwnerOwnerConnectFieldInput
-  pages: [AuthGuardPagesConnectFieldInput!]
   resource: AuthGuardResourceConnectFieldInput
 }
 
 input AuthGuardConnectOrCreateInput {
   config: AuthGuardConfigConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
-  pages: [AuthGuardPagesConnectOrCreateFieldInput!]
   resource: AuthGuardResourceConnectOrCreateFieldInput
 }
 
@@ -4330,7 +4312,6 @@ input AuthGuardCreateInput {
   id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
-  pages: AuthGuardPagesFieldInput
   resource: AuthGuardResourceFieldInput
   responseTransformer: String!
 }
@@ -4338,14 +4319,12 @@ input AuthGuardCreateInput {
 input AuthGuardDeleteInput {
   config: AuthGuardConfigDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
-  pages: [AuthGuardPagesDeleteFieldInput!]
   resource: AuthGuardResourceDeleteFieldInput
 }
 
 input AuthGuardDisconnectInput {
   config: AuthGuardConfigDisconnectFieldInput
   owner: WithOwnerOwnerDisconnectFieldInput
-  pages: [AuthGuardPagesDisconnectFieldInput!]
   resource: AuthGuardResourceDisconnectFieldInput
 }
 
@@ -4433,140 +4412,6 @@ input AuthGuardOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
-type AuthGuardPagePagesAggregationSelection {
-  count: Int!
-  node: AuthGuardPagePagesNodeAggregateSelection
-}
-
-type AuthGuardPagePagesNodeAggregateSelection {
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  url: StringAggregateSelectionNonNullable!
-}
-
-input AuthGuardPagesAggregateInput {
-  AND: [AuthGuardPagesAggregateInput!]
-  NOT: AuthGuardPagesAggregateInput
-  OR: [AuthGuardPagesAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: AuthGuardPagesNodeAggregationWhereInput
-}
-
-input AuthGuardPagesConnectFieldInput {
-  connect: [PageConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-  where: PageConnectWhere
-}
-
-input AuthGuardPagesConnectOrCreateFieldInput {
-  onCreate: AuthGuardPagesConnectOrCreateFieldInputOnCreate!
-  where: PageConnectOrCreateWhere!
-}
-
-input AuthGuardPagesConnectOrCreateFieldInputOnCreate {
-  node: PageOnCreateInput!
-}
-
-type AuthGuardPagesConnection {
-  edges: [AuthGuardPagesRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input AuthGuardPagesConnectionSort {
-  node: PageSort
-}
-
-input AuthGuardPagesConnectionWhere {
-  AND: [AuthGuardPagesConnectionWhere!]
-  NOT: AuthGuardPagesConnectionWhere
-  OR: [AuthGuardPagesConnectionWhere!]
-  node: PageWhere
-}
-
-input AuthGuardPagesCreateFieldInput {
-  node: PageCreateInput!
-}
-
-input AuthGuardPagesDeleteFieldInput {
-  delete: PageDeleteInput
-  where: AuthGuardPagesConnectionWhere
-}
-
-input AuthGuardPagesDisconnectFieldInput {
-  disconnect: PageDisconnectInput
-  where: AuthGuardPagesConnectionWhere
-}
-
-input AuthGuardPagesFieldInput {
-  connect: [AuthGuardPagesConnectFieldInput!]
-  connectOrCreate: [AuthGuardPagesConnectOrCreateFieldInput!]
-  create: [AuthGuardPagesCreateFieldInput!]
-}
-
-input AuthGuardPagesNodeAggregationWhereInput {
-  AND: [AuthGuardPagesNodeAggregationWhereInput!]
-  NOT: AuthGuardPagesNodeAggregationWhereInput
-  OR: [AuthGuardPagesNodeAggregationWhereInput!]
-  compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  compositeKey_AVERAGE_LENGTH_GT: Float
-  compositeKey_AVERAGE_LENGTH_GTE: Float
-  compositeKey_AVERAGE_LENGTH_LT: Float
-  compositeKey_AVERAGE_LENGTH_LTE: Float
-  compositeKey_LONGEST_LENGTH_EQUAL: Int
-  compositeKey_LONGEST_LENGTH_GT: Int
-  compositeKey_LONGEST_LENGTH_GTE: Int
-  compositeKey_LONGEST_LENGTH_LT: Int
-  compositeKey_LONGEST_LENGTH_LTE: Int
-  compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  compositeKey_SHORTEST_LENGTH_GT: Int
-  compositeKey_SHORTEST_LENGTH_GTE: Int
-  compositeKey_SHORTEST_LENGTH_LT: Int
-  compositeKey_SHORTEST_LENGTH_LTE: Int
-  url_AVERAGE_LENGTH_EQUAL: Float
-  url_AVERAGE_LENGTH_GT: Float
-  url_AVERAGE_LENGTH_GTE: Float
-  url_AVERAGE_LENGTH_LT: Float
-  url_AVERAGE_LENGTH_LTE: Float
-  url_LONGEST_LENGTH_EQUAL: Int
-  url_LONGEST_LENGTH_GT: Int
-  url_LONGEST_LENGTH_GTE: Int
-  url_LONGEST_LENGTH_LT: Int
-  url_LONGEST_LENGTH_LTE: Int
-  url_SHORTEST_LENGTH_EQUAL: Int
-  url_SHORTEST_LENGTH_GT: Int
-  url_SHORTEST_LENGTH_GTE: Int
-  url_SHORTEST_LENGTH_LT: Int
-  url_SHORTEST_LENGTH_LTE: Int
-}
-
-type AuthGuardPagesRelationship {
-  cursor: String!
-  node: Page!
-}
-
-input AuthGuardPagesUpdateConnectionInput {
-  node: PageUpdateInput
-}
-
-input AuthGuardPagesUpdateFieldInput {
-  connect: [AuthGuardPagesConnectFieldInput!]
-  connectOrCreate: [AuthGuardPagesConnectOrCreateFieldInput!]
-  create: [AuthGuardPagesCreateFieldInput!]
-  delete: [AuthGuardPagesDeleteFieldInput!]
-  disconnect: [AuthGuardPagesDisconnectFieldInput!]
-  update: AuthGuardPagesUpdateConnectionInput
-  where: AuthGuardPagesConnectionWhere
-}
-
 type AuthGuardPropConfigAggregationSelection {
   count: Int!
   node: AuthGuardPropConfigNodeAggregateSelection
@@ -4580,7 +4425,6 @@ type AuthGuardPropConfigNodeAggregateSelection {
 input AuthGuardRelationInput {
   config: AuthGuardConfigCreateFieldInput
   owner: WithOwnerOwnerCreateFieldInput
-  pages: [AuthGuardPagesCreateFieldInput!]
   resource: AuthGuardResourceCreateFieldInput
 }
 
@@ -4720,7 +4564,6 @@ input AuthGuardUpdateInput {
   id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
-  pages: [AuthGuardPagesUpdateFieldInput!]
   resource: AuthGuardResourceUpdateFieldInput
   responseTransformer: String
 }
@@ -4763,47 +4606,6 @@ input AuthGuardWhere {
   ownerConnection: WithOwnerOwnerConnectionWhere
   ownerConnection_NOT: WithOwnerOwnerConnectionWhere
   owner_NOT: UserWhere
-  pagesAggregate: AuthGuardPagesAggregateInput
-
-  """
-  Return AuthGuards where all of the related AuthGuardPagesConnections match this filter
-  """
-  pagesConnection_ALL: AuthGuardPagesConnectionWhere
-
-  """
-  Return AuthGuards where none of the related AuthGuardPagesConnections match this filter
-  """
-  pagesConnection_NONE: AuthGuardPagesConnectionWhere
-
-  """
-  Return AuthGuards where one of the related AuthGuardPagesConnections match this filter
-  """
-  pagesConnection_SINGLE: AuthGuardPagesConnectionWhere
-
-  """
-  Return AuthGuards where some of the related AuthGuardPagesConnections match this filter
-  """
-  pagesConnection_SOME: AuthGuardPagesConnectionWhere
-
-  """
-  Return AuthGuards where all of the related Pages match this filter
-  """
-  pages_ALL: PageWhere
-
-  """
-  Return AuthGuards where none of the related Pages match this filter
-  """
-  pages_NONE: PageWhere
-
-  """
-  Return AuthGuards where one of the related Pages match this filter
-  """
-  pages_SINGLE: PageWhere
-
-  """
-  Return AuthGuards where some of the related Pages match this filter
-  """
-  pages_SOME: PageWhere
   resource: ResourceWhere
   resourceAggregate: AuthGuardResourceAggregateInput
   resourceConnection: AuthGuardResourceConnectionWhere
@@ -14740,7 +14542,7 @@ input PageRedirectConnectWhere {
 
 input PageRedirectCreateInput {
   id: ID!
-  kind: RedirectKind! = Page
+  kind: RedirectKind! = PageRedirect
   page: PageRedirectPageFieldInput
 }
 
@@ -16408,12 +16210,12 @@ enum RedirectKind {
   """
   Redirect to page inside the same app
   """
-  Page
+  PageRedirect
 
   """
   Redirect to custom Url string
   """
-  Url
+  UrlRedirect
 }
 
 input RedirectWhere {
@@ -19502,7 +19304,7 @@ input UrlRedirectConnectWhere {
 
 input UrlRedirectCreateInput {
   id: ID!
-  kind: RedirectKind! = Url
+  kind: RedirectKind! = UrlRedirect
   url: String!
 }
 

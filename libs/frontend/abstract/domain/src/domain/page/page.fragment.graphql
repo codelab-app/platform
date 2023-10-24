@@ -15,7 +15,7 @@ fragment PagePreview on Page {
     id
   }
   authGuard {
-    id
+    ...PageAuthGuard
   }
   url
 }
@@ -41,7 +41,7 @@ fragment Page on Page {
     ...Store
   }
   authGuard {
-    id
+    ...PageAuthGuard
   }
   url
 }
@@ -99,7 +99,7 @@ fragment PageProduction on Page {
     ...Store
   }
   authGuard {
-    id
+    ...PageAuthGuard
   }
   url
 }

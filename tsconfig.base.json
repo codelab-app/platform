@@ -91,6 +91,9 @@
       "@codelab/backend/domain/action": [
         "libs/backend/domain/action/src/index.ts"
       ],
+      "@codelab/backend/domain/redirect": [
+        "libs/backend/domain/redirect/src/index.ts"
+      ],
       "@codelab/backend/domain/admin": [
         "libs/backend/domain/admin/src/index.ts"
       ],

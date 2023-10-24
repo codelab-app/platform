@@ -12,10 +12,13 @@ import type { IModel } from '../model.interface'
 import type { IRedirectModel } from '../redirect'
 
 export interface IPageAuthGuardModel
-  extends IModel<
-      PageAuthGuardCreateInput,
-      PageAuthGuardUpdateInput,
-      PageAuthGuardDeleteInput
+  extends Omit<
+      IModel<
+        PageAuthGuardCreateInput,
+        PageAuthGuardUpdateInput,
+        PageAuthGuardDeleteInput
+      >,
+      'toUpdateInput'
     >,
     IEntity,
     ICacheService<IPageAuthGuardDTO, IPageAuthGuardModel> {

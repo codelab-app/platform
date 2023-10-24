@@ -38,4 +38,7 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   actionTypes {
     ...ActionType
   }
+  authGuards {
+    ...AuthGuard
+  }
 }

@@ -1,8 +1,5 @@
 import type { IUrlRedirectModel } from '@codelab/frontend/abstract/domain'
-import {
-  UrlRedirectCreateInput,
-  UrlRedirectUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { UrlRedirectCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IUrlRedirectDTO } from '@codelab/shared/abstract/core'
 import { IRedirectKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -11,13 +8,13 @@ import { createBaseRedirect } from './base-redirect.model'
 const create = ({ id, url }: IUrlRedirectDTO) =>
   new UrlRedirect({
     id,
-    kind: IRedirectKind.Url,
+    kind: IRedirectKind.UrlRedirect,
     url,
   })
 
 @model('@urllab/UrlRedirect')
 export class UrlRedirect
-  extends ExtendedModel(createBaseRedirect(IRedirectKind.Url), {
+  extends ExtendedModel(createBaseRedirect(IRedirectKind.UrlRedirect), {
     url: prop<string>(),
   })
   implements IUrlRedirectModel
@@ -28,13 +25,6 @@ export class UrlRedirect
   toCreateInput(): UrlRedirectCreateInput {
     return {
       id: this.id,
-      url: this.url,
-    }
-  }
-
-  @modelAction
-  toUpdateInput(): UrlRedirectUpdateInput {
-    return {
       url: this.url,
     }
   }

@@ -1,23 +1,25 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { PageAuthGuardFragment } from './page-auth-guard.fragment.graphql.gen'
+import {
+  Redirect_PageRedirect_Fragment,
+  Redirect_UrlRedirect_Fragment,
+} from '../redirect/fragments/redirect.fragment.graphql.gen'
 import {
   ElementFragment,
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
-import {
-  Redirect_PageRedirect_Fragment,
-  Redirect_UrlRedirect_Fragment,
-} from '../redirect/fragments/redirect.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
+import { PageAuthGuardFragmentDoc } from './page-auth-guard.fragment.graphql.gen'
+import { RedirectFragmentDoc } from '../redirect/fragments/redirect.fragment.graphql.gen'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
-import { RedirectFragmentDoc } from '../redirect/fragments/redirect.fragment.graphql.gen'
 export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
@@ -26,7 +28,7 @@ export type PagePreviewFragment = {
   app: { id: string }
   rootElement: { id: string }
   store: { id: string }
-  authGuard?: { id: string } | null
+  authGuard?: PageAuthGuardFragment | null
 }
 
 export type PageFragment = {
@@ -38,7 +40,7 @@ export type PageFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
-  authGuard?: { id: string } | null
+  authGuard?: PageAuthGuardFragment | null
 }
 
 export type PageDevelopmentFragment = {
@@ -69,7 +71,7 @@ export type PageProductionFragment = {
     descendantElements: Array<ElementProductionFragment>
   } & ElementProductionFragment
   store: StoreFragment
-  authGuard?: { id: string } | null
+  authGuard?: PageAuthGuardFragment | null
 }
 
 export const PagePreviewFragmentDoc = gql`
@@ -87,10 +89,11 @@ export const PagePreviewFragmentDoc = gql`
       id
     }
     authGuard {
-      id
+      ...PageAuthGuard
     }
     url
   }
+  ${PageAuthGuardFragmentDoc}
 `
 export const PageFragmentDoc = gql`
   fragment Page on Page {
@@ -113,12 +116,13 @@ export const PageFragmentDoc = gql`
       ...Store
     }
     authGuard {
-      id
+      ...PageAuthGuard
     }
     url
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
+  ${PageAuthGuardFragmentDoc}
 `
 export const PageDevelopmentFragmentDoc = gql`
   fragment PageDevelopment on Page {
@@ -177,12 +181,13 @@ export const PageProductionFragmentDoc = gql`
       ...Store
     }
     authGuard {
-      id
+      ...PageAuthGuard
     }
     url
   }
   ${ElementProductionFragmentDoc}
   ${StoreFragmentDoc}
+  ${PageAuthGuardFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

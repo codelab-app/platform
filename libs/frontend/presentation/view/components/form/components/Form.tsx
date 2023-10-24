@@ -61,6 +61,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {
+            console.log(formData)
             validate(formData)
 
             const submitResults = onSubmit(formData as TData)

@@ -13,11 +13,10 @@ import type { IBaseRedirect } from '../../base-redirect.interface'
 export interface IUrlRedirectModel
   extends IBaseRedirect,
     ICacheService<IUrlRedirectDTO, IUrlRedirectModel>,
-    IModel<
-      UrlRedirectCreateInput,
-      UrlRedirectUpdateInput,
-      UrlRedirectCreateInput
+    Omit<
+      IModel<UrlRedirectCreateInput, UrlRedirectUpdateInput, unknown>,
+      'toUpdateInput'
     > {
-  kind: IRedirectKind.Url
+  kind: IRedirectKind.UrlRedirect
   url: string
 }

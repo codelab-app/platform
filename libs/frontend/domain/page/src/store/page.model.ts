@@ -72,6 +72,15 @@ export class Page
 
   static toDeleteInput(): PageDeleteInput {
     return {
+      authGuard: {
+        delete: {
+          redirect: {
+            PageRedirect: { where: {} },
+            UrlRedirect: { where: {} },
+          },
+        },
+        where: {},
+      },
       // pageContentContainer: { delete: {}, where: {} },
       rootElement: {},
       store: {
@@ -124,11 +133,11 @@ export class Page
     this.store = store ? storeRef(store.id) : this.store
     this.url = url ?? ''
 
-    if (authGuard) {
-      this.authGuard =
-        this.authGuard?.writeCache(authGuard) ??
+    this.authGuard = authGuard
+      ? this.authGuard?.writeCache(authGuard) ||
+        // if no instance existed before create a new one
         PageAuthGuardModel.create(authGuard)
-    }
+      : this.authGuard
 
     return this
   }
@@ -160,11 +169,28 @@ export class Page
   }
 
   toUpdateInput(): PageUpdateInput {
+    const deleteAuthGuard = {
+      delete: {
+        delete: {
+          redirect: {
+            PageRedirect: { where: {} },
+            UrlRedirect: { where: {} },
+          },
+        },
+        where: {},
+      },
+    }
+
     return {
       app: connectNodeId(this.app.id),
+      // we delete in both cases on updating and when guard isn't there
+      // because it may be delete by user
       authGuard: this.authGuard
-        ? { update: { node: this.authGuard.toCreateInput() } }
-        : undefined,
+        ? {
+            create: { node: this.authGuard.toCreateInput() },
+            ...deleteAuthGuard,
+          }
+        : deleteAuthGuard,
       compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,
