@@ -12,13 +12,8 @@ import type {
 import {
   elementRef,
   getAtomDomainService,
-  getElementDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { getPropService } from '@codelab/frontend/application/prop'
-import { getStoreService } from '@codelab/frontend/application/store'
-import { getTypeService } from '@codelab/frontend/application/type'
 import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   InlineFormService,

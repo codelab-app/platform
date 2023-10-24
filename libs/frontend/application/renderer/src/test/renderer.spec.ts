@@ -135,13 +135,17 @@ describe('Renderer', () => {
 
       // The renderer for the component is already added as part of the componentService.add logic
       // so we just need to get that here, and it should already exist
-      rootStore.rendererService.setActiveRenderer(
+      rootStore.rendererService.rendererDomainService.setActiveRenderer(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        rendererRef(rootStore.rendererService.renderers.get(component.id)!),
+        rendererRef(
+          rootStore.rendererService.rendererDomainService.renderers.get(
+            component.id,
+          )!,
+        ),
       )
 
       const { atomType, element, props } =
-        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
           componentInstance,
         ) as IRenderOutput
 

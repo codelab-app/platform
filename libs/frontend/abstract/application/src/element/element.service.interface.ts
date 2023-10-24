@@ -12,12 +12,11 @@ import type {
   IElementTypeKind,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   IEntityModalService,
   IFormService,
-  IModalService,
 } from '../services'
 import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
 import type { IElementRepository } from './element.repo.interface'

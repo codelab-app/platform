@@ -1,7 +1,3 @@
-import {
-  getElementService,
-  getUserService,
-} from '@codelab/frontend/abstract/application'
 import type {
   IInterfaceTypeModel,
   IPageFactory,

@@ -1,17 +1,9 @@
 import type {
-  IFactoryApplicationCallback,
-  IRootStore,
-} from '@codelab/frontend/abstract/application'
-import type {
   IAppModel,
-  IFactoryDomainCallback,
   IRootDomainStore,
 } from '@codelab/frontend/abstract/domain'
-import {
-  AtomModelFactory,
-  AtomTestFactory,
-} from '@codelab/frontend/domain/atom'
-import { chance, ModelFactory } from '@codelab/frontend/domain/shared'
+import { AtomTestFactory } from '@codelab/frontend/domain/atom'
+import { chance } from '@codelab/frontend/domain/shared'
 import { type IAppDTO, IAtomType } from '@codelab/shared/abstract/core'
 import type { DeepPartial } from 'fishery'
 import { Factory } from 'fishery'

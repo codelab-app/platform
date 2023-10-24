@@ -35,7 +35,6 @@ import {
   UpdateFieldPopover,
 } from '@codelab/frontend/application/type'
 import { mapElementOption } from '@codelab/frontend/domain/element'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -44,7 +43,6 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import type { IInterfaceType } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
 import type { Ref } from 'mobx-keystone'
@@ -65,10 +63,13 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const { popover } = useCui()
     const page = useCurrentPage()
     const { component } = useCurrentComponent()
-    const pageBuilderRenderer = page && rendererService.renderers.get(page.id)
+
+    const pageBuilderRenderer =
+      page && rendererService.rendererDomainService.renderers.get(page.id)
 
     const componentBuilderRenderer =
-      component && rendererService.renderers.get(component.id)
+      component &&
+      rendererService.rendererDomainService.renderers.get(component.id)
 
     const pageTree = (pageBuilderRenderer ?? componentBuilderRenderer)
       ?.elementTree.maybeCurrent

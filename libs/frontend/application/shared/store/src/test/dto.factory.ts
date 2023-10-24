@@ -1,16 +1,11 @@
 // import type { IRootStoreDtoTest } from '@codelab/frontend/abstract/application'
-import type {
-  IRootStore,
-  IRootStoreDtoTest,
-} from '@codelab/frontend/abstract/application'
-import { IRootStoreDto } from '@codelab/frontend/abstract/application'
+import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type {
   DomainMap,
   IFactoryDomain,
   IFactoryDomainCallback,
 } from '@codelab/frontend/abstract/domain'
-import type { BuildOptions, DeepPartial } from 'fishery'
-import type { _DeepPartialObject } from 'utility-types/dist/mapped-types'
+import type { BuildOptions } from 'fishery'
 
 /**
  * Create the structure, but don't take in any concrete classes to prevent circular dependency

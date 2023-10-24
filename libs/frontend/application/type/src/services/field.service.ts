@@ -7,8 +7,7 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { Field, FieldDomainService } from '@codelab/frontend/domain/type'
-import type { FieldFragment } from '@codelab/shared/abstract/codegen'
+import { FieldDomainService } from '@codelab/frontend/domain/type'
 import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
@@ -22,7 +21,6 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'

@@ -6,8 +6,6 @@ import {
   appServiceContext,
   componentServiceContext,
   elementServiceContext,
-  IRootStore,
-  IRootStoreContext,
   rendererApplicationServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
@@ -26,7 +24,6 @@ import {
   PropService,
   propServiceContext,
 } from '@codelab/frontend/application/prop'
-import { DtoFactory } from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   actionServiceContext,

@@ -1,7 +1,6 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
 import {
-  appDto,
   atomReactFragmentDto,
   elementDto,
   pageDto,

@@ -4,7 +4,6 @@ import {
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
-import { PageDomainFactory } from '@codelab/frontend/domain/page'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'

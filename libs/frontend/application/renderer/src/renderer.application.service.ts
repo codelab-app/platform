@@ -2,23 +2,20 @@ import type { IRendererApplicationService } from '@codelab/frontend/abstract/app
 import type {
   ElementWrapperProps,
   IElementModel,
-  IRendererDto,
   IRendererModel,
   IRenderOutput,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
-  getRendererId,
   isAtom,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
-import { Renderer } from '@codelab/frontend/domain/renderer'
+import { RendererDomainService } from '@codelab/frontend/domain/renderer'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
-import type { Ref } from 'mobx-keystone'
-import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
+import { Model, model, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
@@ -29,29 +26,10 @@ import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 @model('@codelab/RendererApplicationService')
 export class RendererApplicationService
   extends Model({
-    activeRenderer: prop<Nullable<Ref<IRendererModel>>>(
-      () => null,
-    ).withSetter(),
-    /**
-     * These are renderers for the public, they are keyed by pageId
-     */
-    renderers: prop(() => objectMap<IRendererModel>()),
+    rendererDomainService: prop(() => new RendererDomainService({})),
   })
   implements IRendererApplicationService
 {
-  @modelAction
-  hydrate = (rendererDto: IRendererDto) => {
-    let renderer = this.renderers.get(getRendererId(rendererDto.id))
-
-    if (!renderer) {
-      renderer = Renderer.create(rendererDto)
-
-      this.renderers.set(rendererDto.id, renderer)
-    }
-
-    return renderer
-  }
-
   /**
    * This is the entry point to start the rendering process
    */

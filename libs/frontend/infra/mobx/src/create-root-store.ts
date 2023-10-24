@@ -73,10 +73,6 @@ import { UserService } from '@codelab/frontend/application/user'
 import { BuilderDomainService } from '@codelab/frontend/domain/builder'
 import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
-import {
-  TracerService,
-  tracerServiceContext,
-} from '@codelab/frontend/infra/otel'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {
@@ -125,7 +121,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       this.storeService.storeDomainService.stores.clear()
       this.tagService.tagDomainService.tags.clear()
       this.userService.userDomainService.users.clear()
-      this.rendererService.renderers.clear()
+      this.rendererService.rendererDomainService.renderers.clear()
     }
 
     protected onInit() {

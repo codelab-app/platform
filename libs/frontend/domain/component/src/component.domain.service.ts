@@ -2,24 +2,11 @@ import type {
   IComponentDomainService,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  IUpdateComponentData,
-  RendererType,
-} from '@codelab/frontend/abstract/domain'
+import { IUpdateComponentData } from '@codelab/frontend/abstract/domain'
 import { IComponentDTO } from '@codelab/shared/abstract/core'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  objectMap,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Component } from './store'
 
 @model('@codelab/ComponentDomainService')
@@ -94,7 +81,7 @@ export class ComponentDomainService
       component = Component.create(componentDTO)
 
       // TODO: Need to move this out of domain layer
-      // this.rendererService.hydrate({
+      // this.rendererService.rendererDomainService.hydrate({
       //   elementTree: component,
       //   id: component.id,
       //   providerTree: null,

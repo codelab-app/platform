@@ -1,4 +1,3 @@
-import { getRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IActionRunner,
@@ -13,6 +12,7 @@ import type {
 import {
   actionRef,
   elementRef,
+  getRendererDomainService,
   getRunnerId,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
@@ -205,9 +205,9 @@ export class ActionRunner
 
   @computed
   get renderer() {
-    const renderService = getRendererApplicationService(this)
+    const rendererDomainService = getRendererDomainService(this)
 
-    return renderService.activeRenderer?.current
+    return rendererDomainService.activeRenderer?.current
   }
 
   @computed

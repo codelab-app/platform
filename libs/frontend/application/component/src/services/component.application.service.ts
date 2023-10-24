@@ -1,6 +1,5 @@
 import {
   getElementService,
-  getRendererApplicationService,
   type IComponentApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -14,18 +13,12 @@ import {
   componentRef,
   getBuilderDomainService,
   getTagDomainService,
-  RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
-import { getPropService } from '@codelab/frontend/application/prop'
 import { getStoreService } from '@codelab/frontend/application/store'
-import { getTagService } from '@codelab/frontend/application/tag'
 import { getTypeService } from '@codelab/frontend/application/type'
-import {
-  Component,
-  ComponentDomainService,
-} from '@codelab/frontend/domain/component'
+import { ComponentDomainService } from '@codelab/frontend/domain/component'
 import {
   ModalService,
   PaginationService,
@@ -38,13 +31,11 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
 import {
-  IComponentDTO,
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
-import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
@@ -53,9 +44,7 @@ import {
   idProp,
   Model,
   model,
-  modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'

@@ -1,8 +1,3 @@
-import {
-  getComponentService,
-  getElementService,
-  getRendererApplicationService,
-} from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IAtomModel,
@@ -23,6 +18,7 @@ import {
   elementRef,
   getComponentDomainService,
   getElementDomainService,
+  getRendererDomainService,
   IElementModel,
   IElementTreeViewDataNode,
   IEvaluationContext,
@@ -358,7 +354,8 @@ export class Element
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.store.current.refs,
-      rendererType: this.renderService.activeRenderer?.current.rendererType,
+      rendererType:
+        this.rendererDomainService.activeRenderer?.current.rendererType,
       rootActions: this.providerStore?.actionRunners ?? {},
       rootRefs: this.providerStore?.refs || {},
       rootState: this.providerStore?.state || {},
@@ -369,13 +366,13 @@ export class Element
 
   @computed
   get providerStore(): IStoreModel | undefined {
-    return this.renderService.activeRenderer?.current.providerTree?.current
-      .rootElement.current.store.current
+    return this.rendererDomainService.activeRenderer?.current.providerTree
+      ?.current.rootElement.current.store.current
   }
 
   @computed
   get runtimeProp(): Maybe<IElementRuntimeProp> {
-    return this.renderService.activeRenderer?.current.runtimeProps.get(
+    return this.rendererDomainService.activeRenderer?.current.runtimeProps.get(
       this.id,
     ) as Maybe<IElementRuntimeProp>
   }
@@ -525,7 +522,7 @@ export class Element
 
   @computed
   get urlProps(): IPropData | undefined {
-    return this.renderService.activeRenderer?.current.urlSegments
+    return this.rendererDomainService.activeRenderer?.current.urlSegments
   }
 
   /**
@@ -867,7 +864,7 @@ export class Element
   }
 
   @computed
-  private get renderService() {
-    return getRendererApplicationService(this)
+  private get rendererDomainService() {
+    return getRendererDomainService(this)
   }
 }

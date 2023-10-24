@@ -1,8 +1,4 @@
-import {
-  getComponentService,
-  getRendererApplicationService,
-  getUserService,
-} from '@codelab/frontend/abstract/application'
+import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IComponentRuntimeProp,
   IElementModel,
@@ -16,6 +12,7 @@ import {
   elementRef,
   ElementTree,
   getComponentDomainService,
+  getRendererDomainService,
   IComponentModel,
   isComponent,
   storeRef,
@@ -109,7 +106,7 @@ export class Component
 
   @computed
   get runtimeProp(): Maybe<IComponentRuntimeProp> {
-    return this.renderService.activeRenderer?.current.runtimeProps.get(
+    return this.rendererDomainService.activeRenderer?.current.runtimeProps.get(
       this.id,
     ) as Maybe<IComponentRuntimeProp>
   }
@@ -296,8 +293,8 @@ export class Component
    * any of these found components recursively
    */
   @computed
-  private get renderService() {
-    return getRendererApplicationService(this)
+  private get rendererDomainService() {
+    return getRendererDomainService(this)
   }
 
   @computed

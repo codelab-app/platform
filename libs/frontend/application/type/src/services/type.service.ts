@@ -29,7 +29,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../graphql/type.repo'
 import { getFieldService } from './field.service.context'
 import { TypeFormService } from './type-form.service'

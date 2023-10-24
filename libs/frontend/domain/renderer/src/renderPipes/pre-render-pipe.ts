@@ -15,7 +15,8 @@ export class PreRenderPipe
   implements IRenderPipe
 {
   render(element: IElementModel, props: IPropData): IRenderOutput {
-    const renderer = this.rendererService.activeRenderer?.current
+    const renderer =
+      this.rendererService.rendererDomainService.activeRenderer?.current
 
     renderer?.runPreRenderAction(element)
 

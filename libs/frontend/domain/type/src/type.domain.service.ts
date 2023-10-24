@@ -7,7 +7,7 @@ import {
   ICreateTypeData,
 } from '@codelab/frontend/abstract/domain'
 import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
-import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { InterfaceType, TypeFactory } from './models'
