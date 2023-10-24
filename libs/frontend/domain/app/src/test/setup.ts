@@ -6,6 +6,7 @@ import {
   appDomainServiceContext,
   atomDomainServiceContext,
   elementDomainServiceContext,
+  pageDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -13,6 +14,7 @@ import {
   AtomTestFactory,
 } from '@codelab/frontend/domain/atom'
 import { ElementDomainService } from '@codelab/frontend/domain/element'
+import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   createRootDomainStore,
   DtoDomainFactory,
@@ -28,15 +30,13 @@ import {
 import { UserDomainService } from '@codelab/frontend/domain/user'
 import { userDto } from '@codelab/frontend/test/data'
 import { AppDomainService } from '../app.domain.service'
-import { AppModelFactory, AppTestFactory } from './app.test.factory'
-
-type RootDomainStore = Pick<IRootDomainStore, 'appDomainService'>
 
 export const rootDomainStore = createRootDomainStore({
   context: {
     appDomainServiceContext,
     atomDomainServiceContext,
     elementDomainServiceContext,
+    pageDomainServiceContext,
     storeDomainServiceContext,
     typeDomainServiceContext,
     userDomainServiceContext,
@@ -45,17 +45,9 @@ export const rootDomainStore = createRootDomainStore({
     appDomainService: new AppDomainService({}),
     atomDomainService: new AtomDomainService({}),
     elementDomainService: new ElementDomainService({}),
+    pageDomainService: new PageDomainService({}),
     storeDomainService: new StoreDomainService({}),
     typeDomainService: new TypeDomainService({}),
     userDomainService: UserDomainService.fromDto(userDto),
   },
-}) as RootDomainStore
-
-const factories: IFactoryDomainCallback = (rootStore) => ({
-  app: AppTestFactory(rootStore),
-  atom: AtomTestFactory(rootStore),
-})
-
-export const factory = new DtoDomainFactory(factories, rootDomainStore)
-
-export const appModelFactory = new AppModelFactory(rootDomainStore)
+}) as IRootDomainStore

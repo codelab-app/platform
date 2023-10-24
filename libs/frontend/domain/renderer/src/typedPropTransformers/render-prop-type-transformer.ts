@@ -59,6 +59,7 @@ export class RenderPropTypeTransformer
 
     const component =
       this.componentService.componentDomainService.components.get(propValue)
+
     const fields = component?.api.current.fields
     // can't return prop object because it will be passed as React Child, which will throw an error
     const fallback = ''

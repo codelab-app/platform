@@ -113,4 +113,4 @@ const context: IRootStoreDtoTest['context'] = {
 
 export const testRootStore = createTestRootStore()
 
-export const dtoFactory = new DtoFactory(factories, testRootStore)
+// export const dtoFactory = new DtoFactory(factories, testRootStore)
