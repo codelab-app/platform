@@ -12,8 +12,6 @@ import type {
   IRendererApplicationService,
   IResourceService,
   IRootStore,
-  IRootStoreContext,
-  IRootStoreDto,
   IRootStoreDtoTest,
   IStoreService,
   ITagService,

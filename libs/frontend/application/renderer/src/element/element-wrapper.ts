@@ -1,9 +1,6 @@
 import type {
   ElementWrapperProps,
   IComponentType,
-  IElementModel,
-  IRendererModel,
-  IRenderOutput,
 } from '@codelab/frontend/abstract/domain'
 import { RendererType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'

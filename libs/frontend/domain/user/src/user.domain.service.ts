@@ -2,19 +2,9 @@ import type {
   IUser,
   IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
+import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  objectMap,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { Model, model, objectMap, prop } from 'mobx-keystone'
 import { User } from './store'
 
 const fromDto = (user: IUserDTO) => {

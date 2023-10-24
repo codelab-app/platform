@@ -7,7 +7,6 @@ import type {
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/domain'
 import type {
-  GetTypesQuery,
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,

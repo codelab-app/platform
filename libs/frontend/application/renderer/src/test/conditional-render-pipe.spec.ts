@@ -57,10 +57,12 @@ describe('ConditionalRenderPipe', () => {
         ]),
       })
 
-      rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
+      rootStore.rendererService.rendererDomainService.setActiveRenderer(
+        rendererRef(renderer.id),
+      )
 
       const output =
-        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
           elementModel,
         )
 

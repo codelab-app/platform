@@ -1,6 +1,5 @@
 import {
   getAppService,
-  getComponentService,
   getElementService,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -16,10 +15,7 @@ import {
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPageService } from '@codelab/frontend/application/page'
 import { getPropService } from '@codelab/frontend/application/prop'
-import {
-  getActionService,
-  getStoreService,
-} from '@codelab/frontend/application/store'
+import { getStoreService } from '@codelab/frontend/application/store'
 import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomProductionFragment } from '@codelab/shared/abstract/codegen'
 import uniqBy from 'lodash/uniqBy'

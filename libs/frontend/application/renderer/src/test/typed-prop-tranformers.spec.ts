@@ -12,9 +12,7 @@ import {
   RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { ConsoleLogger } from '@nestjs/common'
 import { render } from '@testing-library/react'
 import { setupPage } from './setup'
 import { dtoFactory } from './setup/dto.factory'
@@ -45,7 +43,9 @@ describe('TypedPropTransformers', () => {
       rendererType: RendererType.Preview,
     })
 
-    rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
+    rootStore.rendererService.rendererDomainService.setActiveRenderer(
+      rendererRef(renderer.id),
+    )
   })
 
   it.only('should apply default typed prop transformer', () => {
@@ -76,7 +76,7 @@ describe('TypedPropTransformers', () => {
     const elementModel = rootStore.elementService.element(element.id)
 
     const { props } =
-      rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
+      rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
         elementModel,
       ) as IRenderOutput
 
@@ -135,7 +135,7 @@ describe('TypedPropTransformers', () => {
     })
 
     const { props } =
-      rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
+      rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
         rootStore.elementService.element(element.id),
       ) as IRenderOutput
 
@@ -221,7 +221,7 @@ describe('TypedPropTransformers', () => {
       })
 
       const { props } =
-        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
           rootStore.elementService.element(element.id),
         ) as IRenderOutput
 

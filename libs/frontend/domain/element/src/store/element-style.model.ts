@@ -1,4 +1,3 @@
-import { getRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IElementStyleModel,
@@ -8,6 +7,7 @@ import {
   CssMap,
   defaultBuilderWidthBreakPoints,
   getBuilderDomainService,
+  getRendererDomainService,
   IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
@@ -58,7 +58,7 @@ export class ElementStyle
   @computed
   get styleStringWithBreakpoints(): string {
     const parsedCss = this.styleParsed
-    const activeRenderer = this.renderService.activeRenderer?.current
+    const activeRenderer = this.rendererDomainService.activeRenderer?.current
     const rendererType = activeRenderer?.rendererType
 
     const isProduction =
@@ -168,7 +168,7 @@ export class ElementStyle
   }
 
   @computed
-  private get renderService() {
-    return getRendererApplicationService(this)
+  private get rendererDomainService() {
+    return getRendererDomainService(this)
   }
 }

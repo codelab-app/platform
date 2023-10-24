@@ -1,5 +1,4 @@
 import type {
-  IAppDomainService,
   IAtomDomainService,
   IElementDomainService,
 } from '@codelab/frontend/abstract/domain'

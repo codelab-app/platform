@@ -1,8 +1,4 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
-import type {
-  ICreateTypeData,
-  IRootDomainStore,
-} from '@codelab/frontend/abstract/domain'
+import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
 import type { IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'

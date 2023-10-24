@@ -1,10 +1,9 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type {
   IPrimitiveTypeModel,
   IRootDomainStore,
 } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import { PrimitiveTypeKind, TypeKind } from '@codelab/shared/abstract/codegen'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   type IPrimitiveTypeDTO,
   ITypeKind,

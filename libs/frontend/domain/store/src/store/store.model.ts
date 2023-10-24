@@ -1,4 +1,3 @@
-import { getRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IComponentModel,
@@ -9,6 +8,7 @@ import type {
 import {
   actionRef,
   componentRef,
+  getRendererDomainService,
   getRunnerId,
   isAtomRef,
   pageRef,
@@ -34,7 +34,7 @@ import keys from 'lodash/keys'
 import merge from 'lodash/merge'
 import { autorun, computed, observable, set } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { clone, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { getStoreDomainService } from '../services/store.domain.service.context'
 
@@ -102,7 +102,7 @@ export class Store
 
   @computed
   get actionRunners() {
-    const renderer = this.renderService.activeRenderer?.current
+    const renderer = this.rendererDomainService.activeRenderer?.current
 
     const actionRunners = this.actions
       .map(({ current: action }) => {
@@ -163,7 +163,8 @@ export class Store
 
   @computed
   get state() {
-    const { rendererType } = this.renderService.activeRenderer?.current ?? {}
+    const { rendererType } =
+      this.rendererDomainService.activeRenderer?.current ?? {}
 
     const isPreviewOrProduction =
       rendererType === RendererType.Preview ||
@@ -248,8 +249,8 @@ export class Store
   private cachedState: Nullable<object> = null
 
   @computed
-  private get renderService() {
-    return getRendererApplicationService(this)
+  private get rendererDomainService() {
+    return getRendererDomainService(this)
   }
 
   @computed

@@ -2,7 +2,6 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
-import { IInterfaceTypeRef, ITypeMaybeRef } from '../type'
 
 export const IFieldDTO = Type.Object({
   api: IRef,

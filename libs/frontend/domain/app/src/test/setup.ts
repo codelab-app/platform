@@ -1,24 +1,17 @@
-import type {
-  IFactoryDomainCallback,
-  IRootDomainStore,
-} from '@codelab/frontend/abstract/domain'
+import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
 import {
   appDomainServiceContext,
   atomDomainServiceContext,
   elementDomainServiceContext,
   pageDomainServiceContext,
+  rendererDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-import {
-  AtomDomainService,
-  AtomTestFactory,
-} from '@codelab/frontend/domain/atom'
+import { AtomDomainService } from '@codelab/frontend/domain/atom'
 import { ElementDomainService } from '@codelab/frontend/domain/element'
 import { PageDomainService } from '@codelab/frontend/domain/page'
-import {
-  createRootDomainStore,
-  DtoDomainFactory,
-} from '@codelab/frontend/domain/shared'
+import { RendererDomainService } from '@codelab/frontend/domain/renderer'
+import { createRootDomainStore } from '@codelab/frontend/domain/shared'
 import {
   StoreDomainService,
   storeDomainServiceContext,
@@ -37,6 +30,7 @@ export const rootDomainStore = createRootDomainStore({
     atomDomainServiceContext,
     elementDomainServiceContext,
     pageDomainServiceContext,
+    rendererDomainServiceContext,
     storeDomainServiceContext,
     typeDomainServiceContext,
     userDomainServiceContext,
@@ -46,6 +40,7 @@ export const rootDomainStore = createRootDomainStore({
     atomDomainService: new AtomDomainService({}),
     elementDomainService: new ElementDomainService({}),
     pageDomainService: new PageDomainService({}),
+    rendererDomainService: new RendererDomainService({}),
     storeDomainService: new StoreDomainService({}),
     typeDomainService: new TypeDomainService({}),
     userDomainService: UserDomainService.fromDto(userDto),

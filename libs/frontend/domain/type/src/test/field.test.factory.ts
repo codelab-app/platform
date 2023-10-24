@@ -1,4 +1,3 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IRootDomainStore,
@@ -10,9 +9,7 @@ import type {
   ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { DeepPartial } from 'fishery'
 import { Factory } from 'fishery'
-import type { _DeepPartialObject } from 'utility-types/dist/mapped-types'
 import { v4 } from 'uuid'
 
 export const FieldTestFactory = (rootStore: Partial<IRootDomainStore>) =>

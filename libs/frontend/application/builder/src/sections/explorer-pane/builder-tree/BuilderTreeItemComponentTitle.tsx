@@ -1,5 +1,4 @@
 import {
-  type IBuilderDomainService,
   type IComponentModel,
   type IElementService,
   isElementRef,

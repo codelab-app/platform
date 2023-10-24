@@ -1,12 +1,5 @@
-import { chance } from '@codelab/frontend/domain/shared'
-import {
-  appDto,
-  atomReactFragmentDto,
-  userDto,
-} from '@codelab/frontend/test/data'
-import { IPageKindName } from '@codelab/shared/abstract/core'
+import { appDto, atomReactFragmentDto } from '@codelab/frontend/test/data'
 import { unregisterRootStore } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { rootDomainStore } from './test/setup'
 
 describe('App domain', () => {

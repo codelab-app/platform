@@ -4,7 +4,6 @@ import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { User, UserDomainService } from '@codelab/frontend/domain/user'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -12,7 +11,6 @@ import {
   Model,
   model,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'

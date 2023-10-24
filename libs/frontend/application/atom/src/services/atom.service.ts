@@ -17,8 +17,7 @@ import {
   PaginationService,
 } from '@codelab/frontend/domain/shared'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {

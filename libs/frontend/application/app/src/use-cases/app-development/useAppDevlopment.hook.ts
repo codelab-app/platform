@@ -85,7 +85,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         {},
       )
 
-      const renderer = rendererService.hydrate({
+      const renderer = rendererService.rendererDomainService.hydrate({
         elementTree: page,
         id: page.id,
         providerTree: app.providerPage,
@@ -95,7 +95,9 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
 
       console.debug(renderer)
 
-      rendererService.setActiveRenderer(rendererRef(renderer.id))
+      rendererService.rendererDomainService.setActiveRenderer(
+        rendererRef(renderer.id),
+      )
       await renderer.expressionTransformer.init()
 
       return {

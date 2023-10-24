@@ -8,9 +8,8 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import type { IFormService } from '../services/form.service.interface'
 import type { ICRUDModalService } from '../services/modal.service.interface'
 import type { IPaginateable } from '../services/pagination.service.interface'

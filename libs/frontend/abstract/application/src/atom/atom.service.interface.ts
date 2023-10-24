@@ -5,7 +5,6 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import type { IAtom } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type { GuaranteedProps } from 'uniforms'

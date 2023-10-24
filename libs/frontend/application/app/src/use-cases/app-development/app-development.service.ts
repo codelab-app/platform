@@ -1,9 +1,3 @@
-import {
-  getAppService,
-  getComponentService,
-  getElementService,
-  getResourceService,
-} from '@codelab/frontend/abstract/application'
 import type {
   IAppDevelopmentArgs,
   IAppDevelopmentService,
@@ -18,18 +12,6 @@ import {
   getPageDomainService,
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
-import { getAtomService } from '@codelab/frontend/application/atom'
-import { getDomainService } from '@codelab/frontend/application/domain'
-import { getPageService } from '@codelab/frontend/application/page'
-import { getPropService } from '@codelab/frontend/application/prop'
-import {
-  getActionService,
-  getStoreService,
-} from '@codelab/frontend/application/store'
-import {
-  getFieldService,
-  getTypeService,
-} from '@codelab/frontend/application/type'
 import { getStoreDomainService } from '@codelab/frontend/domain/store'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
 import { client } from '@codelab/frontend/infra/graphql'

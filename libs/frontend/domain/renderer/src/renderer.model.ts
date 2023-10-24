@@ -1,5 +1,4 @@
 import type {
-  ElementWrapperProps,
   IActionRunner,
   IElementTree,
   IExpressionTransformer,
@@ -14,19 +13,16 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
-  CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
   getRendererId,
   getRunnerId,
   IElementModel,
   IPageNodeRef,
-  isAtom,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import compact from 'lodash/compact'
 import isObject from 'lodash/isObject'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -37,10 +33,6 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { createTransformer } from 'mobx-utils'
-import type { ReactElement, ReactNode } from 'react'
-import React from 'react'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { ActionRunner } from './action-runner.model'
 import { ComponentRuntimeProps } from './component-runtime-props.model'
 import { ElementRuntimeProps } from './element-runtime-props.model'

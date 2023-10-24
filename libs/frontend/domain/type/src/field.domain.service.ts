@@ -2,19 +2,8 @@ import type {
   IFieldDomainService,
   IFieldModel,
 } from '@codelab/frontend/abstract/domain'
-import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  objectMap,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Field } from './models'
 
 @model('@codelab/FieldDomainService')

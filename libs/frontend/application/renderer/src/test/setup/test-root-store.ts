@@ -107,7 +107,7 @@ export const createTestRootStore = () => {
       this.actionService.actionDomainService.actions.clear()
       this.storeService.storeDomainService.stores.clear()
       this.userService.userDomainService.users.clear()
-      this.rendererService.renderers.clear()
+      this.rendererService.rendererDomainService.renderers.clear()
     }
 
     protected override onInit() {

@@ -4,7 +4,6 @@ import type {
   IRendererDto,
   IRendererModel,
   IRenderPipe,
-  IRootDomainStore,
 } from '@codelab/frontend/abstract/domain'
 import { RendererType } from '@codelab/frontend/abstract/domain'
 import {

@@ -1,8 +1,8 @@
+import { getComponentService } from '@codelab/frontend/abstract/application'
 import {
-  getComponentService,
-  getRendererApplicationService,
-} from '@codelab/frontend/abstract/application'
-import type { IBaseRenderPipe } from '@codelab/frontend/abstract/domain'
+  getRendererDomainService,
+  type IBaseRenderPipe,
+} from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model } from 'mobx-keystone'
 
@@ -18,7 +18,7 @@ export class BaseRenderPipe
    */
   @computed
   get renderer() {
-    const renderer = this.rendererService.activeRenderer?.current
+    const renderer = this.rendererDomainService.activeRenderer?.current
 
     if (!renderer) {
       throw new Error('Unable to find active renderer')
@@ -33,7 +33,7 @@ export class BaseRenderPipe
   }
 
   @computed
-  protected get rendererService() {
-    return getRendererApplicationService(this)
+  protected get rendererDomainService() {
+    return getRendererDomainService(this)
   }
 }
