@@ -1,21 +1,26 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
+  BuilderDndType,
   DragPosition,
   ROOT_RENDER_CONTAINER_ID,
+  elementRef,
 } from '@codelab/frontend/abstract/domain'
 import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type {
-  CollisionDetection,
-  DragEndEvent,
-  DragStartEvent,
+import type { CollisionDetection, DragStartEvent } from '@dnd-kit/core'
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  pointerWithin,
+  useSensor,
+  useSensors,
 } from '@dnd-kit/core'
-import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { snapCenterToCursor } from '@dnd-kit/modifiers'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React, { useCallback, useMemo } from 'react'
-import { useBuilderDnd } from './useBuilderDnd.hook'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 /**
  * Provides the DnD context for the builder
@@ -26,11 +31,18 @@ let draggedHtmlElement: HTMLElement | null
 const CURRENTLY_DRAGGED_CLASS = 'currently-dragged'
 
 export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
-  const { onDragEnd, onDragStart, sensors } = useBuilderDnd()
   const { builderService, elementService } = useStore()
-
-  const [draggedElement, setDraggedElement] =
-    React.useState<IElementModel | null>(null)
+  const { handleCreateElement, handleMoveElement } = useDndDropHandler()
+  const [sourceAtomName, setSourceAtomName] = useState('')
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        // Elements like checkboxes, inputs, etc. won't be interactive without a delay
+        delay: 200,
+        tolerance: 5,
+      },
+    }),
+  )
 
   const autoScroll = useMemo(
     () => ({
@@ -45,7 +57,15 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
 
   const onDragStartHandler = useCallback(
     (event: DragStartEvent) => {
-      setDraggedElement(elementService.element(event.active.id.toString()))
+      builderService.setDragDropData({
+        source: elementRef(event.active.id.toString()),
+        actionType:
+          event.active.data?.current?.type ?? BuilderDndType.MoveElement,
+      })
+      builderService.hoverElementNode(null)
+      setSourceAtomName(
+        elementService.element(event.active.id.toString()).atomName,
+      )
 
       draggedHtmlElement = queryRenderedElementById(event.active.id.toString())
 
@@ -55,37 +75,41 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         // to tell which dom element is currently being dragged
         draggedHtmlElement.classList.add(CURRENTLY_DRAGGED_CLASS)
       }
-
-      onDragStart(event)
     },
-    [onDragStart, elementService],
+    [builderService, elementService],
   )
 
-  const onDragEndHandler = useCallback(
-    (event: DragEndEvent) => {
-      if (draggedHtmlElement) {
-        draggedHtmlElement.style.opacity = '1'
-        draggedHtmlElement.classList.remove(CURRENTLY_DRAGGED_CLASS)
-      }
+  const onDragEndHandler = useCallback(() => {
+    if (draggedHtmlElement) {
+      draggedHtmlElement.style.opacity = '1'
+      draggedHtmlElement.classList.remove(CURRENTLY_DRAGGED_CLASS)
+    }
 
-      builderService.dragOverElementNode('', DragPosition.Inside)
+    if (builderService.dragDropData?.dragPosition === DragPosition.NotAllowed) {
+      return
+    }
 
-      if (dragPositionData.dragPosition === DragPosition.NotAllowed) {
-        return
-      }
+    const actionType = builderService.dragDropData?.actionType
 
-      onDragEnd(event, dragPositionData.dragPosition)
-    },
-    [onDragEnd, builderService],
-  )
+    if (actionType === BuilderDndType.CreateElement) {
+      void handleCreateElement()
+    } else {
+      void handleMoveElement()
+    }
+
+    builderService.setDragDropData({
+      target: null,
+      dragOverlayPosition: DragPosition.Inside,
+    })
+  }, [builderService])
 
   const collisionDetection: CollisionDetection = useCallback(
     (args) => {
       const pointerX = args.pointerCoordinates?.x ?? 0
       const pointerY = args.pointerCoordinates?.y ?? 0
       const pointerWihthinResult = pointerWithin(args)
-      const dropTargetId = pointerWihthinResult?.[0]?.id.toString() ?? ''
-      const overRect = args.droppableRects.get(dropTargetId)
+      const targetId = pointerWihthinResult?.[0]?.id.toString() ?? ''
+      const overRect = args.droppableRects.get(targetId)
 
       if (!pointerX || !pointerY || !overRect) {
         return []
@@ -93,7 +117,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
 
       const offsetX = pointerX - overRect.left
       const offsetY = pointerY - overRect.top
-      const dropTargetHtmlElement = queryRenderedElementById(dropTargetId)
+      const dropTargetHtmlElement = queryRenderedElementById(targetId)
 
       if (!isDescendantOfCurrentlyDraggedElement(dropTargetHtmlElement)) {
         dragPositionData = calcDragPosition({
@@ -109,10 +133,12 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         }
       }
 
-      builderService.dragOverElementNode(
-        dropTargetId,
-        dragPositionData.dragOverlayPosition,
-      )
+      builderService.setDragDropData({
+        ...builderService.dragDropData,
+        target: elementRef(targetId),
+        dragPosition: dragPositionData.dragPosition,
+        dragOverlayPosition: dragPositionData.dragOverlayPosition,
+      })
 
       return pointerWihthinResult
     },
@@ -134,7 +160,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         modifiers={[snapCenterToCursor]}
       >
         <div className="min-h-[20px] min-w-[70px] max-w-[120px] truncate rounded bg-white p-2 text-center text-[14px]">
-          {draggedElement?.atomName}
+          {sourceAtomName}
         </div>
       </DragOverlay>
     </DndContext>

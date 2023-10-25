@@ -14,14 +14,14 @@ export const BuilderDragDropOverlay = observer<{
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {
-  const dropTargetId = builderService.dragHoverContext?.dropTargetId
-  const dragPosition = builderService.dragHoverContext?.dragPosition
+  const target = builderService.dragDropData?.target?.current
+  const dragOverlayPosition = builderService.dragDropData?.dragOverlayPosition
 
-  if (isServer || !dropTargetId) {
+  if (isServer || !target || !dragOverlayPosition) {
     return null
   }
 
-  const element = queryRenderedElementById(dropTargetId ?? '')
+  const element = queryRenderedElementById(target.id ?? '')
 
   if (!element || !renderContainerRef.current) {
     return null
@@ -30,7 +30,7 @@ export const BuilderDragDropOverlay = observer<{
   return createPortal(
     <DragDropOverlay
       element={element}
-      position={dragPosition}
+      position={dragOverlayPosition}
       renderContainer={renderContainerRef.current}
     />,
     renderContainerRef.current,

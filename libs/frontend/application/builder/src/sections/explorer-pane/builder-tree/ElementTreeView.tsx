@@ -93,15 +93,9 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
           }
 
           node.key.toString() !== 'components' &&
-            builderService.mergeWithDragHoverContext({
-              hoveredNode: elementRef(node.key.toString()),
-            })
+            builderService.setHoveredNode(elementRef(node.key.toString()))
         }}
-        onMouseLeave={() =>
-          builderService.mergeWithDragHoverContext({
-            hoveredNode: null,
-          })
-        }
+        onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
           nativeEvent.stopPropagation()
 

@@ -1,9 +1,8 @@
 import {
-  DragHoverContext,
+  DragDropData,
   type IBuilderService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  DragPosition,
   IComponentModel,
   IElementModel,
   IPageNodeRef,
@@ -33,7 +32,7 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    dragHoverContext: prop<Nullable<DragHoverContext>>(null).withSetter(),
+    dragDropData: prop<Nullable<DragDropData>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
@@ -143,36 +142,8 @@ export class BuilderService
   }
 
   @modelAction
-  dragOverElementNode(dropTargetId: string, dragPosition: DragPosition) {
-    this.mergeWithDragHoverContext({
-      dropTargetId,
-      dragPosition,
-    })
-  }
-
-  @modelAction
   hoverElementNode(node: Nullable<IElementModel>) {
-    this.mergeWithDragHoverContext({
-      hoveredNode: node ? elementRef(node) : null,
-    })
-  }
-
-  @modelAction
-  mergeWithDragHoverContext(partialData: Partial<DragHoverContext>) {
-    if (!this.dragHoverContext) {
-      this.dragHoverContext = {
-        createElementInput: null,
-        createIcon: null,
-        createName: null,
-        actionType: null,
-        dropTargetId: null,
-        dragPosition: null,
-        hoveredNode: null,
-        ...partialData,
-      }
-    } else {
-      this.dragHoverContext = { ...this.dragHoverContext, ...partialData }
-    }
+    this.hoveredNode = node ? elementRef(node) : null
   }
 
   @modelAction

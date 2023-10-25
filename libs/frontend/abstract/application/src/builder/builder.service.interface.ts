@@ -19,14 +19,12 @@ export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
 
-export type DragHoverContext = {
-  createElementInput: Nullable<IElementDTO>
-  createIcon: Nullable<string>
-  createName: Nullable<string>
-  actionType: Nullable<BuilderDndType>
-  dropTargetId: Nullable<string>
-  dragPosition: Nullable<DragPosition>
-  hoveredNode: Nullable<IPageNodeRef>
+export type DragDropData = {
+  source?: Nullable<Ref<IElementModel>>
+  target?: Nullable<Ref<IElementModel>>
+  dragPosition?: Nullable<DragPosition>
+  dragOverlayPosition?: Nullable<DragPosition>
+  actionType?: Nullable<BuilderDndType>
 }
 
 export interface IBuilderService {
@@ -42,22 +40,23 @@ export interface IBuilderService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  dragHoverContext: Nullable<DragHoverContext>
+  dragDropData: Nullable<DragDropData>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   selectedBuilderBreakpoint: BuilderWidthBreakPoint
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
+  hoveredNode: Nullable<IPageNodeRef>
 
-  dragOverElementNode(dropTargetId: string, dragPosition: DragPosition): void
   hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  mergeWithDragHoverContext(partialData: Partial<DragHoverContext>): void
+  setDragDropData(data: DragDropData): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
+  setHoveredNode(element: Nullable<IPageNodeRef>): void
   setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void

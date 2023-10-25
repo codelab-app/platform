@@ -18,7 +18,7 @@ export const BuilderHoverOverlay = observer<{
   elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {
-  const hoveredNode = builderService.dragHoverContext?.hoveredNode
+  const hoveredNode = builderService.hoveredNode
   const selectedNode = builderService.selectedNode
 
   if (isServer || !hoveredNode || !isElementRef(hoveredNode)) {
