@@ -62,7 +62,9 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
         actionType:
           event.active.data?.current?.type ?? BuilderDndType.MoveElement,
       })
+
       builderService.hoverElementNode(null)
+
       setSourceAtomName(
         elementService.element(event.active.id.toString()).atomName,
       )
@@ -134,7 +136,6 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
       }
 
       builderService.setDragDropData({
-        ...builderService.dragDropData,
         target: elementRef(targetId),
         dragPosition: dragPositionData.dragPosition,
         dragOverlayPosition: dragPositionData.dragOverlayPosition,

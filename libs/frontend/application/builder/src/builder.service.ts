@@ -32,7 +32,7 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    dragDropData: prop<Nullable<DragDropData>>(null).withSetter(),
+    dragDropData: prop<Nullable<DragDropData>>(null),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
@@ -144,6 +144,25 @@ export class BuilderService
   @modelAction
   hoverElementNode(node: Nullable<IElementModel>) {
     this.hoveredNode = node ? elementRef(node) : null
+  }
+
+  @modelAction
+  setDragDropData(data: Partial<DragDropData>) {
+    if (!this.dragDropData) {
+      this.dragDropData = {
+        source: null,
+        target: null,
+        actionType: null,
+        dragPosition: null,
+        dragOverlayPosition: null,
+        ...data,
+      }
+    } else {
+      this.dragDropData = {
+        ...this.dragDropData,
+        ...data,
+      }
+    }
   }
 
   @modelAction

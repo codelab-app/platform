@@ -20,11 +20,11 @@ export type IBuilderComponent = IAtomModel & {
 }
 
 export type DragDropData = {
-  source?: Nullable<Ref<IElementModel>>
-  target?: Nullable<Ref<IElementModel>>
-  dragPosition?: Nullable<DragPosition>
-  dragOverlayPosition?: Nullable<DragPosition>
-  actionType?: Nullable<BuilderDndType>
+  source: Nullable<Ref<IElementModel>>
+  target: Nullable<Ref<IElementModel>>
+  dragPosition: Nullable<DragPosition>
+  dragOverlayPosition: Nullable<DragPosition>
+  actionType: Nullable<BuilderDndType>
 }
 
 export interface IBuilderService {
@@ -53,7 +53,7 @@ export interface IBuilderService {
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  setDragDropData(data: DragDropData): void
+  setDragDropData(data: Partial<DragDropData>): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
