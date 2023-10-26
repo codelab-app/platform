@@ -24,11 +24,10 @@ export const useRemainingPages = () => {
     })
 
     app.pages.forEach((page) => {
-      const rendererExists =
-        rendererService.rendererDomainService.renderers.has(page.id)
+      const rendererExists = rendererService.renderers.has(page.id)
 
       if (!rendererExists) {
-        rendererService.rendererDomainService.hydrate({
+        rendererService.hydrate({
           elementTree: page.current,
           id: page.id,
           providerTree: app.providerPage,

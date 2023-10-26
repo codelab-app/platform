@@ -9,8 +9,8 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
+import { useSelectionHandlers } from './useSelectionHandlers.hook'
 import {
   extractValidProps,
   generateTailwindClasses,

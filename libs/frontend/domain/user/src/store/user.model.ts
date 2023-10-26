@@ -1,6 +1,12 @@
-import type { IUser } from '@codelab/frontend/abstract/domain'
+import type { IUserModel } from '@codelab/frontend/abstract/domain'
+import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
+import type {
+  UserCreateInput,
+  UserUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 // import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
@@ -38,9 +44,33 @@ export class User
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),
   })
-  implements IUser
+  implements IUserModel
 {
   static create = create
 
   static fromSession = fromSession
+
+  @computed
+  get toJson() {
+    return {
+      auth0Id: this.auth0Id,
+      email: this.email,
+      id: this.id,
+      roles: this.roles,
+      username: this.username,
+    }
+  }
+
+  toCreateInput() {
+    return {
+      auth0Id: this.auth0Id,
+      email: this.email,
+      id: this.id,
+      username: this.username,
+    }
+  }
+
+  toUpdateInput() {
+    return {}
+  }
 }

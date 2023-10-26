@@ -1,2 +1,5 @@
+export * from './pagination'
+export * from './repository/repository.service'
 export * from './StoreProvider'
 export * from './test'
+export * from './ui'

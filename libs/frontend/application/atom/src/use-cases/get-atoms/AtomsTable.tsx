@@ -1,7 +1,9 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { useTablePagination } from '@codelab/frontend/domain/shared'
+import {
+  useStore,
+  useTablePagination,
+} from '@codelab/frontend/application/shared/store'
 import {
   headerCellProps,
   useColumnSearchProps,

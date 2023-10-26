@@ -4,11 +4,11 @@ import type {
   IResourceModel,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/domain'
-import { Resource } from '@codelab/frontend/domain/resource'
 import {
   InlineFormService,
   ModalService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
+import { Resource } from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
 import { IResourceDTO } from '@codelab/shared/abstract/core'

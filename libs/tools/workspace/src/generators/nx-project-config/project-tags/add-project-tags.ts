@@ -135,7 +135,11 @@ export const addProjectTags = (
    * Add `layer:domain` tag
    */
   appendTagsToProjectConfig(
-    ['libs/backend/domain', 'libs/frontend/domain'],
+    [
+      'libs/backend/domain',
+      'libs/frontend/domain',
+      'libs/frontend/abstract/domain',
+    ],
     'layer:domain',
     projectConfig,
   )
@@ -144,7 +148,11 @@ export const addProjectTags = (
    * Add `layer:application` tag
    */
   appendTagsToProjectConfig(
-    ['libs/backend/application', 'libs/frontend/application'],
+    [
+      'libs/backend/application',
+      'libs/frontend/application',
+      'libs/frontend/abstract/application',
+    ],
     'layer:application',
     projectConfig,
   )

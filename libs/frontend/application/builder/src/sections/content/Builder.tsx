@@ -3,16 +3,14 @@ import {
   DATA_ELEMENT_ID,
   DragPosition,
 } from '@codelab/frontend/abstract/domain'
-import {
-  makeDropIndicatorStyle,
-  RootRenderer,
-} from '@codelab/frontend/application/renderer'
+import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useDroppable } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks'
+import { makeDropIndicatorStyle } from '../../utils'
 import {
   BuilderClickOverlay,
   BuilderDragDropOverlay,
@@ -25,7 +23,7 @@ import { BuilderResizeHandle } from './BuilderResizeHandle'
  */
 export const Builder = observer(() => {
   const { builderService, elementService, rendererService } = useStore()
-  const renderer = rendererService.rendererDomainService.activeRenderer?.current
+  const renderer = rendererService.activeRenderer?.current
   const elementTree = builderService.activeElementTree
   const { selectedBuilderWidth, selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)

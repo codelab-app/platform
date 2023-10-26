@@ -84,11 +84,19 @@ const addProjectTags = (tree, projectConfig) => {
     /**
      * Add `layer:domain` tag
      */
-    appendTagsToProjectConfig(['libs/backend/domain', 'libs/frontend/domain'], 'layer:domain', projectConfig);
+    appendTagsToProjectConfig([
+        'libs/backend/domain',
+        'libs/frontend/domain',
+        'libs/frontend/abstract/domain',
+    ], 'layer:domain', projectConfig);
     /**
      * Add `layer:application` tag
      */
-    appendTagsToProjectConfig(['libs/backend/application', 'libs/frontend/application'], 'layer:application', projectConfig);
+    appendTagsToProjectConfig([
+        'libs/backend/application',
+        'libs/frontend/application',
+        'libs/frontend/abstract/application',
+    ], 'layer:application', projectConfig);
 };
 exports.addProjectTags = addProjectTags;
 //# sourceMappingURL=add-project-tags.js.map

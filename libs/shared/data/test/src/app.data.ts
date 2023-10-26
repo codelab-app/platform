@@ -2,6 +2,7 @@ import type {
   IAppDTO,
   IElementDTO,
   IInterfaceTypeDTO,
+  IInterfaceTypeRef,
   IRef,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
@@ -16,7 +17,7 @@ export const storeApiData = (): IInterfaceTypeDTO => ({
   name: `Test Store API`,
 })
 
-export const storeData = (api: IRef): IStoreDTO => ({
+export const storeData = (api: IInterfaceTypeRef): IStoreDTO => ({
   api,
   id: v4(),
   name: 'Test Store',

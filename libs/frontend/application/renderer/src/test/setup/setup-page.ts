@@ -1,7 +1,6 @@
 import { Store } from '@codelab/frontend/domain/store'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { dtoFactory } from './dto.factory'
 
 export const setupPage = () => {
   const appId = 'app-id'

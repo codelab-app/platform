@@ -16,7 +16,7 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { setupPage } from './setup'
 import { dtoFactory } from './setup/dto.factory'
-import { createTestRootStore } from './setup/test-root-store'
+import { createTestRootStore } from './setup/root.test.store'
 import { TestProviderWrapper } from './TestProviderWrapper'
 
 describe('TypedPropTransformers', () => {
@@ -43,9 +43,7 @@ describe('TypedPropTransformers', () => {
       rendererType: RendererType.Preview,
     })
 
-    rootStore.rendererService.rendererDomainService.setActiveRenderer(
-      rendererRef(renderer.id),
-    )
+    rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
   })
 
   it.only('should apply default typed prop transformer', () => {
@@ -76,7 +74,7 @@ describe('TypedPropTransformers', () => {
     const elementModel = rootStore.elementService.element(element.id)
 
     const { props } =
-      rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
+      rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
         elementModel,
       ) as IRenderOutput
 
@@ -135,7 +133,7 @@ describe('TypedPropTransformers', () => {
     })
 
     const { props } =
-      rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
+      rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
         rootStore.elementService.element(element.id),
       ) as IRenderOutput
 
@@ -221,7 +219,7 @@ describe('TypedPropTransformers', () => {
       })
 
       const { props } =
-        rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           rootStore.elementService.element(element.id),
         ) as IRenderOutput
 

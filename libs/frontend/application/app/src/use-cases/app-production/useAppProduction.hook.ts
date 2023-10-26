@@ -40,7 +40,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
       {},
     )
 
-    const renderer = rendererService.rendererDomainService.hydrate({
+    const renderer = rendererService.hydrate({
       elementTree: page,
       id: page.id,
       providerTree: app.providerPage,
@@ -50,9 +50,7 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
 
     console.debug(renderer)
 
-    rendererService.rendererDomainService.setActiveRenderer(
-      rendererRef(renderer.id),
-    )
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()
 
     return {

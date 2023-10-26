@@ -1,12 +1,12 @@
 import type {
-  IUser,
   IUserDomainService,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { AxiosResponse } from 'axios'
 
 export interface IUserService {
-  user: IUser
+  user: IUserModel
   userDomainService: IUserDomainService
 
   saveUser(data: Auth0IdToken): Promise<AxiosResponse>

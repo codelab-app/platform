@@ -3,7 +3,7 @@ import {
   type IAdminService,
 } from '@codelab/frontend/abstract/application'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
-import { ModalService } from '@codelab/frontend/domain/shared'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'

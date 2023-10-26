@@ -20282,6 +20282,7 @@ export type AppProductionFragment = {
 }
 
 export type AtomFragment = {
+  __typename: 'Atom'
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
@@ -20863,6 +20864,7 @@ export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
   atoms: Array<{
+    __typename: 'Atom'
     id: string
     name: string
     type: AtomType

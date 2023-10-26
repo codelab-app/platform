@@ -63,13 +63,10 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const { popover } = useCui()
     const page = useCurrentPage()
     const { component } = useCurrentComponent()
-
-    const pageBuilderRenderer =
-      page && rendererService.rendererDomainService.renderers.get(page.id)
+    const pageBuilderRenderer = page && rendererService.renderers.get(page.id)
 
     const componentBuilderRenderer =
-      component &&
-      rendererService.rendererDomainService.renderers.get(component.id)
+      component && rendererService.renderers.get(component.id)
 
     const pageTree = (pageBuilderRenderer ?? componentBuilderRenderer)
       ?.elementTree.maybeCurrent

@@ -8,7 +8,7 @@ import type {
 import {
   InlineFormService,
   ModalService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'

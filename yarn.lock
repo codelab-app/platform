@@ -2656,10 +2656,10 @@ __metadata:
 
 "@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=ff0e24&locator=codelab%40workspace%3A."
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=a83567&locator=codelab%40workspace%3A."
   dependencies:
     "@nx/devkit": 16.7.4
-  checksum: 4aba8be054faec1070f109b00df1cb389d06c111ef8c09330dc94175855e13cf4aaaa1ec050937fb480de5cfe585a896a102c54cb09670d9bbb40eecb633e510
+  checksum: f1f5cdaf7556ac4334b92b376137654f5fad9270d28e7f12862f66dddf626ad39b29976320504b3241bc2c63a02d641800f24f4f6e46552ad21b9f9ab48e4b48
   languageName: node
   linkType: hard
 

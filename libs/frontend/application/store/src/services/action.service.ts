@@ -7,8 +7,8 @@ import {
   type IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import { getTypeService } from '@codelab/frontend/application/type'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import {
   ActionDomainService,
   ActionFactory,

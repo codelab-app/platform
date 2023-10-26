@@ -1,14 +1,14 @@
 import { createContext } from 'mobx-keystone'
 import type { IRendererApplicationService } from './renderer.application.service.interface'
 
-export const rendererApplicationServiceContext =
+export const rendererServiceContext =
   createContext<IRendererApplicationService>()
 
-export const getRendererApplicationService = (self: object) => {
-  const renderService = rendererApplicationServiceContext.get(self)
+export const getRendererService = (self: object) => {
+  const renderService = rendererServiceContext.get(self)
 
   if (!renderService) {
-    throw new Error('rendererApplicationServiceContext is not defined')
+    throw new Error('rendererServiceContext is not defined')
   }
 
   return renderService

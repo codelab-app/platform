@@ -304,11 +304,11 @@
       "@codelab/frontend/presentation/container": [
         "libs/frontend/presentation/container/src/index.ts"
       ],
-      "@codelab/frontend/presentation/renderer": [
-        "libs/frontend/presentation/renderer/src/index.ts"
-      ],
       "@codelab/frontend/presentation/view": [
         "libs/frontend/presentation/view/index.ts"
+      ],
+      "@codelab/frontend/shared/core": [
+        "libs/frontend/shared/core/src/index.ts"
       ],
       "@codelab/frontend/shared/style": [
         "libs/frontend/shared/style/src/index.ts"

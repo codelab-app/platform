@@ -11,6 +11,7 @@ export type GetSelectAtomOptionsQueryVariables = Types.Exact<{
 
 export type GetSelectAtomOptionsQuery = {
   atoms: Array<{
+    __typename: 'Atom'
     id: string
     name: string
     type: Types.AtomType
@@ -22,6 +23,7 @@ export type GetSelectAtomOptionsQuery = {
 export const GetSelectAtomOptionsDocument = gql`
   query GetSelectAtomOptions {
     atoms {
+      __typename
       api {
         ...InterfaceType
       }

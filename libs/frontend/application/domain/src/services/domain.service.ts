@@ -4,8 +4,8 @@ import type {
   IDomainModel,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/domain'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import { Domain } from '@codelab/frontend/domain/domain'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'

@@ -27,5 +27,3 @@ export interface IInterfaceTypeModel
   fieldsTree: Array<IStateTreeDataNode>
   kind: ITypeKind.InterfaceType
 }
-
-export type IInterfaceTypeRef = string

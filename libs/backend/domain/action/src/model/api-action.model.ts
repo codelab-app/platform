@@ -1,5 +1,9 @@
 import type { Prop } from '@codelab/backend/domain/prop'
-import type { IApiActionDTO, IRef } from '@codelab/shared/abstract/core'
+import type {
+  IActionRef,
+  IApiActionDTO,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 
 export class ApiAction implements IApiActionDTO {

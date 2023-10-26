@@ -1,7 +1,6 @@
 import type {
   ICreateTypeData,
   IInterfaceTypeModel,
-  IInterfaceTypeRef,
   ITypeDomainService,
   ITypeModel,
   IUpdateTypeData,
@@ -33,7 +32,7 @@ export interface ITypeService
   typeRepository: ITypeRepository
 
   getAll(ids?: Array<string>): Promise<Array<ITypeModel>>
-  getInterface(id: IInterfaceTypeRef): Promise<IInterfaceTypeModel>
+  getInterface(id: string): Promise<IInterfaceTypeModel>
   getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   type(id: string): Maybe<ITypeModel>

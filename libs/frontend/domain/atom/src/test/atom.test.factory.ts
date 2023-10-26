@@ -14,7 +14,7 @@ import { v4 } from 'uuid'
 export const AtomTestFactory = (rootStore: Partial<IRootDomainStore>) =>
   Factory.define<IAtomModel, IAtomDTO>(({ transientParams }) => {
     const dto: IAtomDTO = {
-      __typename: `${IElementRenderTypeKind.Atom}`,
+      // __typename: `${IElementRenderTypeKind.Atom}`,
       api: { id: transientParams.api?.id ?? v4() },
       externalCssSource: transientParams.externalCssSource ?? null,
       externalJsSource: transientParams.externalJsSource ?? null,
@@ -33,10 +33,10 @@ export const AtomTestFactory = (rootStore: Partial<IRootDomainStore>) =>
     return model!
   })
 
-export class AtomModelFactory extends ModelFactory {
-  build(dto: Partial<IAtomDTO>) {
+export const atomFactory =
+  (rootStore: IRootDomainStore) => (dto: Partial<IAtomDTO>) => {
     const atom: IAtomDTO = {
-      __typename: `${IElementRenderTypeKind.Atom}`,
+      // __typename: `${IElementRenderTypeKind.Atom}`,
       api: { id: dto.api?.id ?? v4() },
       externalCssSource: dto.externalCssSource ?? null,
       externalJsSource: dto.externalJsSource ?? null,
@@ -50,6 +50,5 @@ export class AtomModelFactory extends ModelFactory {
       type: dto.type ?? IAtomType.ReactFragment,
     }
 
-    return this.rootStore.atomDomainService?.hydrate(atom)
+    return rootStore.atomDomainService.hydrate(atom)
   }
-}

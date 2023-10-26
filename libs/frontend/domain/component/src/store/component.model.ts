@@ -1,4 +1,4 @@
-import { getUserService } from '@codelab/frontend/abstract/application'
+import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
   IComponentRuntimeProp,
   IElementModel,
@@ -13,6 +13,7 @@ import {
   ElementTree,
   getComponentDomainService,
   getRendererDomainService,
+  getUserDomainService,
   IComponentModel,
   isComponent,
   storeRef,
@@ -106,7 +107,7 @@ export class Component
 
   @computed
   get runtimeProp(): Maybe<IComponentRuntimeProp> {
-    return this.rendererDomainService.activeRenderer?.current.runtimeProps.get(
+    return this.rendererService.activeRenderer?.current.runtimeProps.get(
       this.id,
     ) as Maybe<IComponentRuntimeProp>
   }
@@ -177,7 +178,7 @@ export class Component
       id: this.id,
       keyGenerator: this.keyGenerator,
       name: this.name,
-      owner: connectOwner(this.userService.user),
+      owner: connectOwner(this.userDomainService.user),
       props: { create: { node: this.props.toCreateInput() } },
       rootElement: connectNodeId(this.rootElement.id),
       store: { create: { node: this.store.current.toCreateInput() } },
@@ -293,12 +294,12 @@ export class Component
    * any of these found components recursively
    */
   @computed
-  private get rendererDomainService() {
-    return getRendererDomainService(this)
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

@@ -3,8 +3,10 @@ import type {
   ITypesTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/application/shared/store'
-import { useTablePagination } from '@codelab/frontend/domain/shared'
+import {
+  useStore,
+  useTablePagination,
+} from '@codelab/frontend/application/shared/store'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'

@@ -7,7 +7,11 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import { type IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import {
+  type IAtomDTO,
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
@@ -85,6 +89,7 @@ export class SeedAtomsService extends UseCase<
         }
 
         return {
+          __typename: IElementRenderTypeKind.Atom,
           api: existingApi,
           icon: atomData.icon,
           id: v4(),

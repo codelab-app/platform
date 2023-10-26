@@ -16,7 +16,7 @@ interface ITreeNode {
 }
 
 /**
- * We model the tree UI as a node
+ * We model the tree UI as a node. This is an attempt to separate view info from element.model
  */
 @model('@codelab/TreeNode')
 export class TreeNode

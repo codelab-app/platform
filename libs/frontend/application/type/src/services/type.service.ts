@@ -1,7 +1,6 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type {
   ICreateTypeData,
-  IInterfaceTypeRef,
   ITypeModel,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/domain'
@@ -10,7 +9,7 @@ import {
   InlineFormService,
   ModalService,
   PaginationService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
 import { TypeDomainService, TypeFactory } from '@codelab/frontend/domain/type'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
@@ -168,10 +167,7 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  getInterface = _async(function* (
-    this: TypeService,
-    interfaceTypeId: IInterfaceTypeRef,
-  ) {
+  getInterface = _async(function* (this: TypeService, interfaceTypeId: string) {
     const interfaceFromStore = this.type(interfaceTypeId)
 
     if (

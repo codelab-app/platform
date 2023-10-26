@@ -12,7 +12,7 @@ import type { Static, TAnySchema } from '@sinclair/typebox'
 @Injectable()
 export abstract class AbstractRepository<
   Model extends IRef,
-  ModelData extends object,
+  ModelData extends IRef,
   Where extends { id?: string | null },
   Options,
 > implements IRepository<Model, ModelData, Where, Options>
