@@ -67,6 +67,7 @@ export interface IElementService
   createForm: IFormService<CreateElementData, CreateElementProperties>
   elementDomainService: IElementDomainService
   elementRepository: IElementRepository
+  // Moved from element model to decouple renderer
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   validationService: IElementApplicationValidationService
@@ -82,6 +83,7 @@ export interface IElementService
     rootElement: IElementModel
   }
   move(context: IMoveElementContext): Promise<void>
+  styleStringWithBreakpoints(element: IElementModel): string
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>
 }

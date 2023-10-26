@@ -1,6 +1,7 @@
 import type {
   ElementWrapperProps,
   IActionRunner,
+  IComponentModel,
   IElementTree,
   IExpressionTransformer,
   IPageNode,
@@ -8,7 +9,9 @@ import type {
   IRendererModel,
   IRenderOutput,
   IRenderPipe,
-  IRuntimeProp,
+  IRuntimeBase,
+  IRuntimeComponent,
+  IRuntimeElement,
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
@@ -22,10 +25,16 @@ import {
   IPageNodeRef,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
+import {
+  evaluateExpression,
+  hasStateExpression,
+} from '@codelab/frontend/application/shared/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import isObject from 'lodash/isObject'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ObjectMap } from 'mobx-keystone'
 import {
   idProp,
   Model,
@@ -33,15 +42,16 @@ import {
   modelAction,
   objectMap,
   prop,
+  Ref,
 } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import React from 'react'
-import { ActionRunner } from './action-runner.model'
-import { ComponentRuntimeProps } from './component-runtime-props.model'
+import { ActionRunner } from './runtime-store.model'
 import { ElementWrapper } from './element/element-wrapper'
-import { ElementRuntimeProps } from './element-runtime-props.model'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
+import { RuntimeComponent } from './runtime-component.model'
+import { RuntimeElement } from './runtime-element.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 import { getRunner } from './utils'
 /**
@@ -109,7 +119,8 @@ export class Renderer
     /**
      * Props record for all components during all transformations stages
      */
-    runtimeProps: prop<ObjectMap<IRuntimeProp<IPageNode>>>(() => objectMap([])),
+    runtimeComponents: prop<ObjectMap<IRuntimeComponent>>(() => objectMap([])),
+    runtimeElements: prop<ObjectMap<IRuntimeElement>>(() => objectMap([])),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -153,20 +164,33 @@ export class Renderer
   }
 
   @modelAction
-  addRuntimeProps(nodeRef: IPageNodeRef) {
-    const existingRuntimeProps = this.runtimeProps.get(nodeRef.id)
+  addRuntimeComponent(component: Ref<IComponentModel>) {
+    const existingRuntimeComponent = this.runtimeComponents.get(component.id)
 
-    if (existingRuntimeProps) {
-      return existingRuntimeProps
+    if (existingRuntimeComponent) {
+      return existingRuntimeComponent
     }
 
-    const runtimeProps = isElementRef(nodeRef)
-      ? ElementRuntimeProps.create(nodeRef)
-      : ComponentRuntimeProps.create(nodeRef)
+    const runtimeComponent = RuntimeComponent.create(component)
 
-    this.runtimeProps.set(nodeRef.id, runtimeProps)
+    this.runtimeComponents.set(component.id, runtimeComponent)
 
-    return runtimeProps
+    return runtimeComponent
+  }
+
+  @modelAction
+  addRuntimeElement(element: Ref<IElementModel>) {
+    const existingRuntimeElement = this.runtimeElements.get(element.id)
+
+    if (existingRuntimeElement) {
+      return existingRuntimeElement
+    }
+
+    const runtimeElement = RuntimeElement.create(element)
+
+    this.runtimeElements.set(element.id, runtimeElement)
+
+    return runtimeElement
   }
 
   getChildMapperChildren(element: IElementModel) {
@@ -177,23 +201,25 @@ export class Renderer
     }
 
     return (
-      element.runtimeProp?.evaluatedChildMapperProp.map((propValue, i) => {
-        const clonedComponent = childMapperComponent.current.clone(
-          `${element.id}-${i}`,
-        )
+      this.runtimeElements
+        .get(element.id)
+        ?.evaluatedChildMapperProp.map((propValue, i) => {
+          const clonedComponent = childMapperComponent.current.clone(
+            `${element.id}-${i}`,
+          )
 
-        const rootElement = clonedComponent.rootElement.current
+          const rootElement = clonedComponent.rootElement.current
 
-        clonedComponent.props.setMany(
-          isObject(propValue) ? propValue : { value: propValue },
-        )
+          clonedComponent.props.setMany(
+            isObject(propValue) ? propValue : { value: propValue },
+          )
 
-        if (!this.runtimeProps.get(clonedComponent.id)) {
-          this.addRuntimeProps(componentRef(clonedComponent.id))
-        }
+          if (!this.runtimeComponents.get(clonedComponent.id)) {
+            this.addRuntimeComponent(componentRef(clonedComponent.id))
+          }
 
-        return rootElement
-      }) ?? []
+          return rootElement
+        }) ?? []
     )
   }
 
@@ -241,7 +267,7 @@ export class Renderer
   renderIntermediateElement = (element: IElementModel): IRenderOutput => {
     this.addActionRunners(element)
 
-    const runtimeProps = this.addRuntimeProps(elementRef(element.id))
+    const runtimeProps = this.addRuntimeElement(elementRef(element.id))
 
     console.log('IntermediateElement', runtimeProps.evaluatedProps)
 
@@ -260,7 +286,7 @@ export class Renderer
 
     if (postRenderActionRunner) {
       const runner = postRenderActionRunner.runner.bind(
-        element.expressionEvaluationContext,
+        this.runtimeElements.get(element.id)?.expressionEvaluationContext,
       )
 
       runner()
@@ -280,7 +306,7 @@ export class Renderer
 
       if (preRenderActionRunner) {
         const runner = preRenderActionRunner.runner.bind(
-          element.expressionEvaluationContext,
+          this.runtimeElements.get(element.id)?.expressionEvaluationContext,
         )
 
         runner()
@@ -318,5 +344,27 @@ export class Renderer
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
+  }
+
+  runtimeElement(element: IElementModel) {
+    return throwIfUndefined(this.runtimeElements.get(element.id))
+  }
+
+  runtimeComponent(component: IComponentModel) {
+    return throwIfUndefined(this.runtimeComponents.get(component.id))
+  }
+
+  shouldRenderElement(element: IElementModel, props: IPropData = {}) {
+    if (
+      !element.renderIfExpression ||
+      !hasStateExpression(element.renderIfExpression)
+    ) {
+      return true
+    }
+
+    return evaluateExpression(
+      element.renderIfExpression,
+      this.runtimeElement(element).expressionEvaluationContext,
+    )
   }
 }

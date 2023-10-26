@@ -12,7 +12,7 @@ import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPropModel } from '../prop'
-import type { IComponentRuntimeProp } from '../renderer'
+import type { IRuntimeComponent } from '../renderer'
 import type { ICacheService, IModel } from '../shared'
 import type { IStoreModel } from '../store'
 import type { IInterfaceTypeModel } from '../type'
@@ -29,7 +29,6 @@ export interface IComponentModel
   instanceElement: Nullable<Ref<IElementModel>>
   keyGenerator: Nullish<string>
   props: IPropModel
-  runtimeProp: Maybe<IComponentRuntimeProp>
   /**
    * to render a component we create a duplicate for each instance
    * keeps track of source component in case this is a duplicate

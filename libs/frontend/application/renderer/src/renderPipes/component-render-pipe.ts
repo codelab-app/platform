@@ -27,7 +27,7 @@ export class ComponentRenderPipe
     const clonedComponent = component.clone(element.id, element.id)
     const rootElement = clonedComponent.rootElement.current
 
-    this.renderer.addRuntimeProps(componentRef(clonedComponent.id))
+    this.renderer.addRuntimeComponent(componentRef(clonedComponent.id))
 
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 

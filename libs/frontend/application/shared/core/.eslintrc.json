@@ -1,11 +1,11 @@
 {
-  "extends": ["plugin:@nx/react", "../../../../.eslintrc.json"],
+  "extends": ["plugin:@nx/react", "../../../../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/frontend/shared/core/tsconfig.*?.json"]
+        "project": ["libs/frontend/application/shared/core/tsconfig.*?.json"]
       },
       "rules": {}
     },
@@ -15,6 +15,10 @@
     },
     {
       "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
       "rules": {}
     }
   ]

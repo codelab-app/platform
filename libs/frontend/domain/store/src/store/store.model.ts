@@ -1,4 +1,3 @@
-import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IComponentModel,
@@ -9,7 +8,6 @@ import type {
 import {
   actionRef,
   componentRef,
-  getRendererDomainService,
   getRunnerId,
   isAtomRef,
   pageRef,
@@ -247,11 +245,6 @@ export class Store
   }
 
   private cachedState: Nullable<object> = null
-
-  @computed
-  private get rendererService() {
-    return getRendererService(this)
-  }
 
   @computed
   private get storeDomainService() {

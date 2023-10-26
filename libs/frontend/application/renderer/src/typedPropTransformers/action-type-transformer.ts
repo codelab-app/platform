@@ -9,9 +9,9 @@ import {
   isComponent,
   isElement,
 } from '@codelab/frontend/abstract/domain'
+import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
-import { hasStateExpression } from '../utils'
 
 /**
  * Transforms props from the following format:
@@ -70,7 +70,9 @@ export class ActionTypeTransformer
       localActionRunner ?? rootActionRunner ?? componentActionRunner
 
     if (actionRunner) {
-      const context = isElement(node) ? node.propsEvaluationContext : {}
+      const context = isElement(node)
+        ? this.renderer.runtimeElement(node).propsEvaluationContext
+        : {}
 
       return actionRunner.runner.bind(context)
     }

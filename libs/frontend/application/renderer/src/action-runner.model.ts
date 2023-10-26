@@ -16,6 +16,7 @@ import {
   getRunnerId,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
+import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
@@ -27,7 +28,7 @@ import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
-import { evaluateObject, getRunner, tryParse } from './utils'
+import { getRunner, tryParse } from './utils'
 
 const restFetch = (
   client: Axios,
@@ -68,7 +69,7 @@ const create = (rootElement: IElementModel) => {
   const store = rootElement.store.current
   const component = rootElement.parentComponent?.current
   // more props will be added other then component
-  const props = component?.runtimeProp?.componentEvaluatedProps || {}
+  // const props = component?.runtimeProp?.componentEvaluatedProps || {}
 
   return store.actions.map(
     (action) =>

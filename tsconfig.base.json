@@ -216,6 +216,9 @@
       "@codelab/frontend/application/shared/auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
       ],
+      "@codelab/frontend/application/shared/core": [
+        "libs/frontend/application/shared/core/src/index.ts"
+      ],
       "@codelab/frontend/application/shared/data": [
         "libs/frontend/application/shared/data/src/index.ts"
       ],
@@ -306,9 +309,6 @@
       ],
       "@codelab/frontend/presentation/view": [
         "libs/frontend/presentation/view/index.ts"
-      ],
-      "@codelab/frontend/shared/core": [
-        "libs/frontend/shared/core/src/index.ts"
       ],
       "@codelab/frontend/shared/style": [
         "libs/frontend/shared/style/src/index.ts"

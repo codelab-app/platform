@@ -16,7 +16,7 @@ import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IPageModel } from '../page'
 import type { IPropModel } from '../prop'
-import type { IElementRuntimeProp, RendererType } from '../renderer'
+import type { IRuntimeElement, RendererType } from '../renderer'
 import type { ICacheService, IElementTreeViewDataNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
@@ -76,6 +76,7 @@ export interface ElementCssRules {
 }
 
 export interface IElementStyleModel {
+  breakpointsByPrecedence: Array<BuilderWidthBreakPoint>
   customCss?: Nullable<string>
   /**
    * html-ready string that includes styles for all breakpoints
@@ -83,7 +84,7 @@ export interface IElementStyleModel {
    * for development - uses container queries, for better UX
    */
   guiCss?: Nullable<string>
-  styleStringWithBreakpoints: string
+  styleParsed: IElementStyle
   /**
    * styles that are inherited from other breakpoints,
    * for example, if we have a style for mobile, it will be inherited
@@ -121,8 +122,6 @@ export interface IElementModel
   closestSubTreeRootElement: IElementModel
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
-  // used for expressions evaluation
-  expressionEvaluationContext: IEvaluationContext
   firstChild?: Nullable<Ref<IElementModel>>
   hooks: Array<IHook>
   id: string
@@ -141,8 +140,6 @@ export interface IElementModel
   preRenderAction?: Nullable<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
   props: IPropModel
-  // same as expressionEvaluationContext but without props
-  propsEvaluationContext: IEvaluationContext
   // store attached to the provider page
   providerStore?: IStoreModel
   renderForEachPropKey: Nullable<string>
@@ -151,7 +148,6 @@ export interface IElementModel
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
-  runtimeProp: Maybe<IElementRuntimeProp>
   slug: string
   /**
    * to render a component we create a duplicate for each element
@@ -165,7 +161,6 @@ export interface IElementModel
   toId: object
   toTreeNode: object
   treeViewNode: IElementTreeViewDataNode
-  urlProps?: IPropData
 
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void

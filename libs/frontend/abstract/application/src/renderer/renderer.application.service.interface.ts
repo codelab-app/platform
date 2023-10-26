@@ -1,9 +1,11 @@
 import type {
+  IComponentModel,
   IElementModel,
-  IRendererDomainService,
   IRendererDto,
   IRendererModel,
   IRenderOutput,
+  IRuntimeComponent,
+  IRuntimeElement,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -22,5 +24,7 @@ export interface IRendererApplicationService {
   ]): ArrayOrSingle<ReactNode>
 
   renderRoot(renderer: IRendererModel): ReactElement | null
+  runtimeComponent(component: IComponentModel): IRuntimeComponent
+  runtimeElement(element: IElementModel): IRuntimeElement
   setActiveRenderer(renderer: Ref<IRendererModel>): void
 }

@@ -2,8 +2,9 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
 import type { IComponentModel } from '../component'
-import type { IElementModel } from '../element'
+import type { IElementModel, IEvaluationContext } from '../element'
 import type { IPageNode } from '../page'
+import type { IElementTreeViewDataNode } from '../shared'
 import type { TypedProp } from '../type'
 import type { IBaseRenderPipe } from '.'
 
@@ -14,7 +15,7 @@ export interface ITypedPropTransformer extends IBaseRenderPipe {
   transform(prop: TypedProp, node: IPageNode): unknown
 }
 
-export interface IRuntimeProp<T extends IPageNode> {
+export interface IRuntimeBase<T extends IPageNode> {
   /**
    * Final output after rendering typedProps
    */
@@ -33,14 +34,25 @@ export interface IRuntimeProp<T extends IPageNode> {
   props: IPropData
 }
 
-export interface IElementRuntimeProp extends IRuntimeProp<IElementModel> {
+export interface IRuntimeElement extends IRuntimeBase<IElementModel> {
   /**
    * Evaluated childMapperPropKey based on the state and props
    */
   evaluatedChildMapperProp: Array<unknown>
+
+  /**
+   * Used for expressions evaluation
+   */
+  expressionEvaluationContext: IEvaluationContext
+
+  /**
+   * Same as expressionEvaluationContext but without props
+   */
+  propsEvaluationContext: IEvaluationContext
+  urlProps?: IPropData
 }
 
-export interface IComponentRuntimeProp extends IRuntimeProp<IComponentModel> {
+export interface IRuntimeComponent extends IRuntimeBase<IComponentModel> {
   /**
    * merge component.props evaluation with instance element props evaluation
    */
@@ -49,5 +61,5 @@ export interface IComponentRuntimeProp extends IRuntimeProp<IComponentModel> {
   /**
    * Runtime props for component instance
    */
-  instanceElementProps: Maybe<IElementRuntimeProp>
+  instanceElementProps: Maybe<IRuntimeElement>
 }
