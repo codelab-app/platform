@@ -1,11 +1,11 @@
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
-import type { IUser } from './user.interface'
+import type { IUserModel } from './user.model.interface'
 
 export interface IUserDomainService {
-  user: IUser
-  users: ObjectMap<IUser>
-  usersList: Array<IUser>
+  user: IUserModel
+  users: ObjectMap<IUserModel>
+  usersList: Array<IUserModel>
 
-  setUser(user: Nullable<IUser>): void
+  setUser(user: Nullable<IUserModel>): void
 }

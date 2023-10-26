@@ -15,8 +15,8 @@ import {
   getPageService,
   PageRepository,
 } from '@codelab/frontend/application/page'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import type { AppWhere, PageWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'

@@ -1,3 +1,4 @@
+import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IComponentModel,
@@ -102,7 +103,7 @@ export class Store
 
   @computed
   get actionRunners() {
-    const renderer = this.rendererDomainService.activeRenderer?.current
+    const renderer = this.rendererService.activeRenderer?.current
 
     const actionRunners = this.actions
       .map(({ current: action }) => {
@@ -163,8 +164,7 @@ export class Store
 
   @computed
   get state() {
-    const { rendererType } =
-      this.rendererDomainService.activeRenderer?.current ?? {}
+    const { rendererType } = this.rendererService.activeRenderer?.current ?? {}
 
     const isPreviewOrProduction =
       rendererType === RendererType.Preview ||
@@ -249,8 +249,8 @@ export class Store
   private cachedState: Nullable<object> = null
 
   @computed
-  private get rendererDomainService() {
-    return getRendererDomainService(this)
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

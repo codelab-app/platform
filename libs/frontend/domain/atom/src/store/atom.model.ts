@@ -1,11 +1,14 @@
 import { AntDesignOutlined, Html5Outlined } from '@ant-design/icons'
-import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IInterfaceTypeModel,
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/domain'
+import {
+  atomRef,
+  getUserDomainService,
+  typeRef,
+} from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import {
@@ -151,7 +154,7 @@ export class Atom
             id: v4(),
             kind: ITypeKind.InterfaceType,
             name: `${this.name} API`,
-            owner: connectOwner(this.userService.user),
+            owner: connectOwner(this.userDomainService.user),
           },
         },
       },
@@ -160,7 +163,7 @@ export class Atom
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
-      owner: connectOwner(this.userService.user),
+      owner: connectOwner(this.userDomainService.user),
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
@@ -215,7 +218,7 @@ export class Atom
   }
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

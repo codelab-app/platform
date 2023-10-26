@@ -1,6 +1,6 @@
 import type {
-  IUser,
   IUserDomainService,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -17,11 +17,11 @@ const fromDto = (user: IUserDTO) => {
 export class UserDomainService
   extends Model({
     // Authenticated user
-    user: prop<IUser>().withSetter(),
+    user: prop<IUserModel>().withSetter(),
     /**
      * Used by getStaticPaths for custom domain routing
      */
-    users: prop(() => objectMap<IUser>()),
+    users: prop(() => objectMap<IUserModel>()),
   })
   implements IUserDomainService
 {

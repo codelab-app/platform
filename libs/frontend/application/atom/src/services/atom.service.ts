@@ -5,19 +5,22 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
+import {
+  InlineFormService,
+  ModalService,
+  PaginationService,
+} from '@codelab/frontend/application/shared/store'
 import { getTypeService } from '@codelab/frontend/application/type'
 import {
   AtomDomainService,
   filterAtoms,
   mapAtomOptions,
 } from '@codelab/frontend/domain/atom'
-import {
-  InlineFormService,
-  ModalService,
-  PaginationService,
-} from '@codelab/frontend/domain/shared'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {
@@ -74,6 +77,7 @@ export class AtomService
     })
 
     const atom = this.atomDomainService.hydrate({
+      __typename: IElementRenderTypeKind.Atom,
       api,
       externalCssSource,
       externalJsSource,

@@ -22,7 +22,7 @@ import {
   appServiceContext,
   componentServiceContext,
   elementServiceContext,
-  rendererApplicationServiceContext,
+  rendererServiceContext,
   resourceServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
@@ -121,7 +121,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       this.storeService.storeDomainService.stores.clear()
       this.tagService.tagDomainService.tags.clear()
       this.userService.userDomainService.users.clear()
-      this.rendererService.rendererDomainService.renderers.clear()
+      this.rendererService.renderers.clear()
     }
 
     protected onInit() {
@@ -144,7 +144,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       userServiceContext.set(this, this.userService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
-      rendererApplicationServiceContext.set(this, this.rendererService)
+      rendererServiceContext.set(this, this.rendererService)
     }
   }
 

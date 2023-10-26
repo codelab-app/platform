@@ -1,5 +1,6 @@
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { IExpressionTransformer } from '../builder'
 import type { IElementModel, IElementTree } from '../element'
@@ -36,6 +37,7 @@ export interface IRendererModel {
   getChildPageChildren(element: IElementModel): Array<IElementModel>
   getComponentInstanceChildren(element: IElementModel): Array<IElementModel>
   logRendered(rendered: IRenderOutput): void
+  renderElement(element: IElementModel): Nullable<ReactElement>
   renderIntermediateElement(element: IElementModel): IRenderOutput
   runPostRenderAction(element: IElementModel): void
   runPreRenderAction(element: IElementModel): void

@@ -2,7 +2,7 @@ import type {
   IAppModel,
   IDomainModel,
   IPageModel,
-  IUser,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   getUserDomainService,
@@ -42,7 +42,7 @@ export class App
     domains: prop<Array<IDomainModel>>(() => []),
     id: idProp,
     name: prop<string>(),
-    owner: prop<Ref<IUser>>(),
+    owner: prop<Ref<IUserModel>>(),
     pages: prop<Array<Ref<IPageModel>>>(() => []),
   })
   implements IAppModel
@@ -93,7 +93,7 @@ export class App
       domains: this.domains.map((domain) => domain.toJson),
       id: this.id,
       name: this.name,
-      owner: this.owner,
+      owner: this.owner.current.toJson,
       pages: this.pages.map((page) => page.current.toJson),
     }
   }

@@ -3,17 +3,19 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   rendererRef,
 } from '@codelab/frontend/abstract/domain'
+import { atomFactory } from '@codelab/frontend/domain/atom'
+import { elementFactory } from '@codelab/frontend/domain/element'
+import { propFactory } from '@codelab/frontend/domain/prop'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { setupPage } from './setup'
-import { dtoFactory } from './setup/dto.factory'
-import { createTestRootStore } from './setup/test-root-store'
+import { rootDomainStore } from './setup/root.test.store'
 
 describe('Renderer', () => {
-  const rootStore = createTestRootStore()
+  const rootStore = rootDomainStore
   const componentId = 'component-id'
   const componentName = 'The Component'
   const testPropKey = 'testPropKey'
@@ -42,26 +44,18 @@ describe('Renderer', () => {
     'should render component instance with prop expression evaluated with %s props',
     async (propSource, expectedEvaluatedValue) => {
       // mock these to skip API calls with `createElementAsFirstChild`
-      jest
-        .spyOn(rootStore.elementService.elementRepository, 'add')
-        .mockImplementation()
-
-      jest
-        .spyOn(rootStore.elementService.elementRepository, 'updateNodes')
-        .mockImplementation()
-
       const { rootElement: pageRootElement } = setupPage()
 
-      const componentRootElement = dtoFactory.build('element', {
+      const componentRootElement = elementFactory(rootStore)({
         closestContainerNode: {
           id: componentId,
         },
         name: `${componentName} Root`,
         parentComponent: { id: componentId },
-        props: dtoFactory.build('props', {
+        props: propFactory(rootStore)({
           data: JSON.stringify(componentRootElementPropData),
-        }),
-        renderType: dtoFactory.build('atom', {
+        }).toJson,
+        renderType: atomFactory(rootStore)({
           api: dtoFactory.build('typeInterface'),
           type: componentRootElementAtomType,
         }),
@@ -135,17 +129,13 @@ describe('Renderer', () => {
 
       // The renderer for the component is already added as part of the componentService.add logic
       // so we just need to get that here, and it should already exist
-      rootStore.rendererService.rendererDomainService.setActiveRenderer(
+      rootStore.rendererService.setActiveRenderer(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        rendererRef(
-          rootStore.rendererService.rendererDomainService.renderers.get(
-            component.id,
-          )!,
-        ),
+        rendererRef(rootStore.rendererService.renderers.get(component.id)!),
       )
 
       const { atomType, element, props } =
-        rootStore.rendererService.rendererDomainService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           componentInstance,
         ) as IRenderOutput
 

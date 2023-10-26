@@ -16,13 +16,13 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
-import { getStoreService } from '@codelab/frontend/application/store'
-import { getTypeService } from '@codelab/frontend/application/type'
-import { ComponentDomainService } from '@codelab/frontend/domain/component'
 import {
   ModalService,
   PaginationService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
+import { getStoreService } from '@codelab/frontend/application/store'
+import { getTypeService } from '@codelab/frontend/application/type'
+import { ComponentDomainService } from '@codelab/frontend/domain/component'
 import { Store } from '@codelab/frontend/domain/store'
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {

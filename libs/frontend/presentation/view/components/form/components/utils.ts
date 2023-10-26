@@ -1,9 +1,7 @@
 import { isTypedProp } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import {
-  callbackWithParams,
-  hasStateExpression,
-} from '@codelab/frontend/shared/utils'
+import { hasStateExpression } from '@codelab/frontend/application/renderer'
+import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { ErrorObject } from 'ajv'

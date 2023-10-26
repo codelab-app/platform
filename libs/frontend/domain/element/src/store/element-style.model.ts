@@ -1,3 +1,4 @@
+import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IElementStyleModel,
@@ -58,7 +59,7 @@ export class ElementStyle
   @computed
   get styleStringWithBreakpoints(): string {
     const parsedCss = this.styleParsed
-    const activeRenderer = this.rendererDomainService.activeRenderer?.current
+    const activeRenderer = this.rendererService.activeRenderer?.current
     const rendererType = activeRenderer?.rendererType
 
     const isProduction =
@@ -168,7 +169,7 @@ export class ElementStyle
   }
 
   @computed
-  private get rendererDomainService() {
-    return getRendererDomainService(this)
+  private get rendererService() {
+    return getRendererService(this)
   }
 }

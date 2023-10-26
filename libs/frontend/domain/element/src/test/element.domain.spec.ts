@@ -8,17 +8,17 @@ import {
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { createTestRootStore } from './root.test.store'
+import { rootDomainStore } from './root.test.store'
 
 const rootElementDto = { ...elementDto, name: 'Root Element' }
 
 describe('Element domain', () => {
-  const { atomDomainService, elementDomainService } = createTestRootStore()
+  const { atomDomainService, elementDomainService, pageDomainService } =
+    rootDomainStore
 
-  // const app = appDomainService.hydrate(appDto)
+  pageDomainService.hydrate(pageDto)
 
   rootElementDto.renderType.id = atomReactFragmentDto.id
-  // app.addPageInCache(pageDto)
   elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
   atomDomainService.hydrate(atomReactFragmentDto)
 

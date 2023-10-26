@@ -1,7 +1,7 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldDefaultValue, IFieldRef } from './field'
 import type { IValidationRules } from './field.validation'
-import type { IInterfaceTypeRef, ITypeRef } from './types'
+import type { ITypeRef } from './types'
 
 export interface ICreateFieldData {
   defaultValues?: Nullish<IFieldDefaultValue>
@@ -10,7 +10,7 @@ export interface ICreateFieldData {
   // TODO: Refactor fieldType to take in `{ id: string }`
   fieldType: ITypeRef
   id: IFieldRef
-  interfaceTypeId: IInterfaceTypeRef
+  interfaceTypeId: string
   key: string
   name?: Nullish<string>
   validationRules?: Nullish<IValidationRules>

@@ -2,34 +2,56 @@ import type { IRendererApplicationService } from '@codelab/frontend/abstract/app
 import type {
   ElementWrapperProps,
   IElementModel,
+  IRendererDto,
   IRendererModel,
   IRenderOutput,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
+  getRendererId,
   isAtom,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
-import { RendererDomainService } from '@codelab/frontend/domain/renderer'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
-import { Model, model, prop } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
+import { Renderer } from './renderer.model'
 
 @model('@codelab/RendererApplicationService')
 export class RendererApplicationService
   extends Model({
-    rendererDomainService: prop(() => new RendererDomainService({})),
+    activeRenderer: prop<Nullable<Ref<IRendererModel>>>(
+      () => null,
+    ).withSetter(),
+    /**
+     * These are renderers for the public, they are keyed by pageId
+     */
+    renderers: prop(() => objectMap<IRendererModel>()),
   })
   implements IRendererApplicationService
 {
+  @modelAction
+  hydrate = (rendererDto: IRendererDto) => {
+    let renderer = this.renderers.get(getRendererId(rendererDto.id))
+
+    if (!renderer) {
+      renderer = Renderer.create(rendererDto)
+
+      this.renderers.set(rendererDto.id, renderer)
+    }
+
+    return renderer
+  }
+
   /**
    * This is the entry point to start the rendering process
    */
@@ -55,43 +77,8 @@ export class RendererApplicationService
     }
 
     return providerRoot && root.page?.current.kind === IPageKind.Regular
-      ? this.renderElement(renderer, providerRoot)
-      : this.renderElement(renderer, root)
-  }
-
-  /**
-   * Renders a single Element using the provided RenderAdapter
-   */
-  renderElement = (
-    renderer: IRendererModel,
-    element: IElementModel,
-  ): Nullable<ReactElement> => {
-    // Render the element to an intermediate output
-    const renderOutput = renderer.renderIntermediateElement(element)
-
-    if (renderOutput.shouldRender === false) {
-      return null
-    }
-
-    const wrapperProps: ElementWrapperProps = {
-      element,
-      errorBoundary: {
-        onError: ({ message, stack }) => {
-          element.setRenderingError({ message, stack })
-        },
-        onResetKeysChange: () => {
-          element.setRenderingError(null)
-        },
-      },
-      key: element.id,
-      onRendered: () => {
-        renderer.runPostRenderAction(element)
-      },
-      renderer,
-      renderOutput,
-    }
-
-    return React.createElement(ElementWrapper, wrapperProps)
+      ? renderer.renderElement(providerRoot)
+      : renderer.renderElement(root)
   }
 
   /**
@@ -121,7 +108,7 @@ export class RendererApplicationService
 
       const renderedChildren = compact(
         children.map((child) => {
-          return this.renderElement(renderer, child)
+          return renderer.renderElement(child)
         }),
       )
 

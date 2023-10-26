@@ -14,11 +14,11 @@ import {
   getAtomDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { PageDomainService } from '@codelab/frontend/domain/page'
 import {
   InlineFormService,
   ModalService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
+import { PageDomainService } from '@codelab/frontend/domain/page'
 import { getStoreDomainService, Store } from '@codelab/frontend/domain/store'
 import {
   getTypeDomainService,

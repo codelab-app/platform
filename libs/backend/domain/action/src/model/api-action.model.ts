@@ -1,5 +1,9 @@
 import type { Prop } from '@codelab/backend/domain/prop'
-import type { IApiActionDTO, IRef } from '@codelab/shared/abstract/core'
+import type {
+  IActionRef,
+  IApiActionDTO,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 
 export class ApiAction implements IApiActionDTO {
@@ -7,7 +11,7 @@ export class ApiAction implements IApiActionDTO {
 
   config: Prop
 
-  errorAction?: IActionEntity | null
+  errorAction?: IActionRef | null
 
   id: string
 
@@ -17,7 +21,7 @@ export class ApiAction implements IApiActionDTO {
 
   store: IRef
 
-  successAction?: IActionEntity | null
+  successAction?: IActionRef | null
 
   constructor({
     config,

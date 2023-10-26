@@ -13,7 +13,8 @@ import { v4 } from 'uuid'
 export class Store implements IStore {
   static create(name: string) {
     const api = new InterfaceType({
-      fields: [] as Array<IRef>,
+      __typename: ITypeKind.InterfaceType,
+      fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,

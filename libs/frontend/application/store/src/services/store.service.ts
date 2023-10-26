@@ -1,7 +1,7 @@
 import type { IStoreService } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import { getTypeService } from '@codelab/frontend/application/type'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import { StoreDomainService } from '@codelab/frontend/domain/store'
 import type {
   StoreFragment,

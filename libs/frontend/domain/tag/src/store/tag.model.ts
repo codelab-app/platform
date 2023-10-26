@@ -1,6 +1,8 @@
-import { getUserService } from '@codelab/frontend/abstract/application'
 import type { ITagModel } from '@codelab/frontend/abstract/domain'
-import { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
+import {
+  getUserDomainService,
+  ITagsTreeDataNode,
+} from '@codelab/frontend/abstract/domain'
 import type {
   TagCreateInput,
   TagUpdateInput,
@@ -95,7 +97,7 @@ export class Tag
     return {
       id: this.id,
       name: this.name,
-      owner: connectOwner(this.userService.user),
+      owner: connectOwner(this.userDomainService.user),
       parent: connectNodeId(this.parent?.current.id),
     }
   }
@@ -108,8 +110,8 @@ export class Tag
   }
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }
 

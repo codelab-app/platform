@@ -14,11 +14,9 @@ export const IUserDTO = Type.Object({
 
 export type IUserDTO = Static<typeof IUserDTO>
 
-// export const IAuth0User = Type.Object({
-//   auth0Id: Type.String(),
-// })
+export const IUser = IUserDTO
 
-// export type IAuth0User = Static<typeof IAuth0User>
+export type IUser = Static<typeof IUser>
 
 export const IOwner = Type.Object({
   owner: IRef,

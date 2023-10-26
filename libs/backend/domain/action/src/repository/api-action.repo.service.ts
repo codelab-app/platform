@@ -10,7 +10,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IApiActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionRef, IApiActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
@@ -133,7 +133,7 @@ export class ApiActionRepository extends AbstractRepository<
    * Filters the entity by their appropriate types
    */
   private filterBy(
-    action: IActionEntity | null | undefined,
+    action: IActionRef | null | undefined,
     discriminate: IActionKind,
   ) {
     if (action?.__typename === `${discriminate}`) {

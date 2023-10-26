@@ -1,4 +1,4 @@
-import type { IUser } from '@codelab/frontend/abstract/domain'
+import type { IUserModel } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -11,7 +11,7 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 
-  const dataSource = data.users.map((user: IUser) => ({
+  const dataSource = data.users.map((user: IUserModel) => ({
     id: user.id,
     key: user.id,
   }))

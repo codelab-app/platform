@@ -8,6 +8,7 @@ import { gql } from 'graphql-tag'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { TagFragmentDoc } from '../tag/tag.fragment.graphql.gen'
 export type AtomFragment = {
+  __typename: 'Atom'
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
@@ -48,6 +49,7 @@ export type AtomProductionFragment = {
 
 export const AtomFragmentDoc = gql`
   fragment Atom on Atom {
+    __typename
     api {
       ...InterfaceType
     }

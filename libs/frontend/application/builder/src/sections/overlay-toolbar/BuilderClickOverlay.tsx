@@ -2,7 +2,6 @@ import { DeleteOutlined } from '@ant-design/icons'
 import type { IElementService } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
-import { queryRenderedElementById } from '@codelab/frontend/application/renderer'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { Button } from 'antd'
@@ -10,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
+import { queryRenderedElementById } from '../../utils'
 
 const StyledOverlayContainer = styled.div`
   display: flex;

@@ -15,6 +15,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
    */
   static createFromAtomName(name: string) {
     return new InterfaceType({
+      __typename: ITypeKind.InterfaceType,
       fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
@@ -29,12 +30,16 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
     return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
   }
 
-  declare __typename: `${ITypeKind.InterfaceType}`
+  __typename = `${ITypeKind.InterfaceType}` as const
 
-  declare fields: Array<IRef>
+  fields: Array<IRef>
 
   constructor({ fields = [], id, name }: IInterfaceTypeDTO) {
-    super({ id, kind: ITypeKind.InterfaceType, name })
+    super({
+      id,
+      kind: ITypeKind.InterfaceType,
+      name,
+    })
 
     this.fields = fields
   }

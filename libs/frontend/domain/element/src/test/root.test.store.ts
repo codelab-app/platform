@@ -1,29 +1,33 @@
-import type {
-  IAtomDomainService,
-  IElementDomainService,
+import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
+import {
+  appDomainServiceContext,
+  atomDomainServiceContext,
+  elementDomainServiceContext,
+  pageDomainServiceContext,
+  rendererDomainServiceContext,
+  userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
-// import { AppDomainService } from '@codelab/frontend/domain/app'
 import { AtomDomainService } from '@codelab/frontend/domain/atom'
-import { Model, model, prop, registerRootStore } from 'mobx-keystone'
-import { ElementDomainService } from '../services/element.domain.service'
+import { PageDomainService } from '@codelab/frontend/domain/page'
+import { RendererDomainService } from '@codelab/frontend/domain/renderer'
+import { createRootDomainStore } from '@codelab/frontend/domain/shared'
+import {
+  StoreDomainService,
+  storeDomainServiceContext,
+} from '@codelab/frontend/domain/store'
+import {
+  TypeDomainService,
+  typeDomainServiceContext,
+} from '@codelab/frontend/domain/type'
+import { UserDomainService } from '@codelab/frontend/domain/user'
+import { userDto } from '@codelab/frontend/test/data'
+import { ElementDomainService } from '../services'
 
-export const createTestRootStore = () => {
-  @model('@codelab/TestRootStore')
-  class TestRootStore extends Model({
-    // appDomainService: prop<IAppDomainService>(() => new AppDomainService({})),
-    atomDomainService: prop<IAtomDomainService>(
-      () => new AtomDomainService({}),
-    ),
-    elementDomainService: prop<IElementDomainService>(
-      () => new ElementDomainService({}),
-    ),
-  }) {
-    protected override onInit() {
-      registerRootStore(this)
-    }
-  }
-
-  const rootStore = new TestRootStore({})
-
-  return rootStore
-}
+export const rootDomainStore = createRootDomainStore({
+  context: {},
+  store: {
+    atomDomainService: new AtomDomainService({}),
+    elementDomainService: new ElementDomainService({}),
+    pageDomainService: new PageDomainService({}),
+  },
+}) as IRootDomainStore

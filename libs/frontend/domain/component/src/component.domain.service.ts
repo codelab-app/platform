@@ -81,7 +81,7 @@ export class ComponentDomainService
       component = Component.create(componentDTO)
 
       // TODO: Need to move this out of domain layer
-      // this.rendererService.rendererDomainService.hydrate({
+      // this.rendererService.hydrate({
       //   elementTree: component,
       //   id: component.id,
       //   providerTree: null,
