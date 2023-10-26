@@ -4,6 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getComponentService,
+  getRendererService,
   SelectElementOptions,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -12,11 +13,17 @@ import type {
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import {
+  BuilderWidthBreakPoint,
+  defaultBuilderWidthBreakPoints,
   elementRef,
   getBuilderDomainService,
+  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
-import { ElementDomainService } from '@codelab/frontend/domain/element'
+import {
+  ElementDomainService,
+  jsonStringToCss,
+} from '@codelab/frontend/domain/element'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
@@ -335,14 +342,51 @@ export class ElementService
     )
   }
 
+  /**
+   * Moved here to de-couple `Element` model from `Renderer`
+   */
+  styleStringWithBreakpoints(element: IElementModel): string {
+    const parsedCss = element.style.styleParsed
+    const activeRenderer = this.rendererService.activeRenderer?.current
+    const rendererType = activeRenderer?.rendererType
+
+    const isProduction =
+      rendererType === RendererType.Production ||
+      rendererType === RendererType.Preview
+
+    const mediaQueryString = isProduction ? '@media' : '@container root'
+    const breakpointStyles = []
+
+    for (const breakpoint of element.style.breakpointsByPrecedence) {
+      const breakpointStyle = parsedCss[breakpoint]
+      const breakpointWidth = defaultBuilderWidthBreakPoints[breakpoint]
+
+      const lowerBound =
+        breakpoint === BuilderWidthBreakPoint.MobilePortrait
+          ? 0
+          : breakpointWidth.min
+
+      if (breakpointStyle) {
+        breakpointStyles.push(
+          `${mediaQueryString} (width >= ${lowerBound}px) {
+            ${breakpointStyle.cssString ?? ''}
+            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
+          }`,
+        )
+      }
+    }
+
+    return breakpointStyles.join('\n')
+  }
+
   @computed
   private get builderService() {
     return getBuilderDomainService(this)
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

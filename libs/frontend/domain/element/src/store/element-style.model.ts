@@ -1,4 +1,3 @@
-import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IElementStyleModel,
@@ -8,7 +7,6 @@ import {
   CssMap,
   defaultBuilderWidthBreakPoints,
   getBuilderDomainService,
-  getRendererDomainService,
   IElementStyle,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
@@ -54,43 +52,6 @@ export class ElementStyle
   @computed
   get styleParsed(): IElementStyle {
     return JSON.parse(this.style || '{}')
-  }
-
-  @computed
-  get styleStringWithBreakpoints(): string {
-    const parsedCss = this.styleParsed
-    const activeRenderer = this.rendererService.activeRenderer?.current
-    const rendererType = activeRenderer?.rendererType
-
-    const isProduction =
-      rendererType === RendererType.Production ||
-      rendererType === RendererType.Preview
-
-    const mediaQueryString = isProduction ? '@media' : '@container root'
-    const breakpointStyles = []
-
-    for (const breakpoint of this.breakpointsByPrecedence) {
-      const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
-
-      const breakpointWidth =
-        defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
-
-      const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
-
-      if (breakpointStyle) {
-        breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
-            ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
-          }`,
-        )
-      }
-    }
-
-    return breakpointStyles.join('\n')
   }
 
   @computed
@@ -166,10 +127,5 @@ export class ElementStyle
   @computed
   private get builderService() {
     return getBuilderDomainService(this)
-  }
-
-  @computed
-  private get rendererService() {
-    return getRendererService(this)
   }
 }

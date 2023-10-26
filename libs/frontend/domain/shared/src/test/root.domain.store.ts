@@ -5,7 +5,6 @@ import {
   type IElementDomainService,
   type IFieldDomainService,
   type IPageDomainService,
-  type IRendererDomainService,
   type IRootDomainStore,
   type IRootDomainStoreDto,
   type IStoreDomainService,
@@ -29,9 +28,6 @@ export const createRootDomainStore = ({
       elementDomainService: prop<IElementDomainService | undefined>(undefined),
       fieldDomainService: prop<IFieldDomainService | undefined>(undefined),
       pageDomainService: prop<IPageDomainService | undefined>(undefined),
-      rendererDomainService: prop<IRendererDomainService | undefined>(
-        undefined,
-      ),
       storeDomainService: prop<IStoreDomainService | undefined>(undefined),
       typeDomainService: prop<ITypeDomainService | undefined>(undefined),
       userDomainService: prop<IUserDomainService | undefined>(undefined),
@@ -64,11 +60,6 @@ export const createRootDomainStore = ({
         context.componentDomainServiceContext?.set(
           this,
           this.componentDomainService,
-        )
-      this.rendererDomainService &&
-        context.rendererDomainServiceContext?.set(
-          this,
-          this.rendererDomainService,
         )
 
       registerRootStore(this)

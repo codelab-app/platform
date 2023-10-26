@@ -1,16 +1,20 @@
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { IExpressionTransformer } from '../builder'
+import type { IComponentModel } from '../component'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPageNode, IPageNodeRef } from '../page'
 import type { IActionRunner } from './action.runner.model.interface'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type {
-  IRuntimeProp,
+  IRuntimeBase,
+  IRuntimeComponent,
+  IRuntimeElement,
   ITypedPropTransformer,
-} from './runtime.props.model.interface'
+} from './runtime.model.interface'
 
 export const enum RendererType {
   ComponentBuilder = 'component-builder',
@@ -28,11 +32,13 @@ export interface IRendererModel {
   providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  runtimeProps: ObjectMap<IRuntimeProp<IPageNode>>
+  runtimeComponents: ObjectMap<IRuntimeComponent>
+  runtimeElements: ObjectMap<IRuntimeElement>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  addRuntimeProps(nodeRef: IPageNodeRef): IRuntimeProp<IPageNode>
+  addRuntimeComponent(component: Ref<IComponentModel>): IRuntimeComponent
+  addRuntimeElement(element: Ref<IElementModel>): IRuntimeElement
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>
   getComponentInstanceChildren(element: IElementModel): Array<IElementModel>
@@ -41,6 +47,9 @@ export interface IRendererModel {
   renderIntermediateElement(element: IElementModel): IRenderOutput
   runPostRenderAction(element: IElementModel): void
   runPreRenderAction(element: IElementModel): void
+  runtimeComponent(component: IComponentModel): IRuntimeComponent
+  runtimeElement(element: IElementModel): IRuntimeElement
+  shouldRenderElement(element: IElementModel, props: IPropData): boolean
 }
 
 export interface ElementWrapperProps {

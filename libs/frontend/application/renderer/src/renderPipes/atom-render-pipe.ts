@@ -1,3 +1,4 @@
+import { getElementService } from '@codelab/frontend/abstract/application'
 import {
   type IElementModel,
   type IRenderOutput,
@@ -5,6 +6,7 @@ import {
   isAtom,
 } from '@codelab/frontend/abstract/domain'
 import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { atomFactory } from '../atoms'
 import { RenderOutput } from '../utils'
@@ -59,8 +61,13 @@ export class AtomRenderPipe
         /**
          * This is rendered to style with css prop and styled-components
          */
-        css: element.style.styleStringWithBreakpoints,
+        css: this.elementService.styleStringWithBreakpoints(element),
       },
     })
+  }
+
+  @computed
+  private get elementService() {
+    return getElementService(this)
   }
 }

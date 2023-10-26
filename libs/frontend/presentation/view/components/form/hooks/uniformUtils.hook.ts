@@ -1,5 +1,5 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { evaluateObject } from '@codelab/frontend/shared/utils'
+import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { TSchema } from '@sinclair/typebox'

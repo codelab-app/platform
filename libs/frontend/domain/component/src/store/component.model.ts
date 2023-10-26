@@ -1,9 +1,8 @@
-import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
-  IComponentRuntimeProp,
   IElementModel,
   IInterfaceTypeModel,
   IPropModel,
+  IRuntimeComponent,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -12,7 +11,6 @@ import {
   elementRef,
   ElementTree,
   getComponentDomainService,
-  getRendererDomainService,
   getUserDomainService,
   IComponentModel,
   isComponent,
@@ -103,13 +101,6 @@ export class Component
     })
 
     return Array.from(descendants)
-  }
-
-  @computed
-  get runtimeProp(): Maybe<IComponentRuntimeProp> {
-    return this.rendererService.activeRenderer?.current.runtimeProps.get(
-      this.id,
-    ) as Maybe<IComponentRuntimeProp>
   }
 
   @computed
@@ -286,16 +277,6 @@ export class Component
 
   toUpdateInput(): ComponentUpdateInput {
     return {}
-  }
-
-  /**
-   * Finds all the components that are referenced by all the
-   * children of this component as well as the children of
-   * any of these found components recursively
-   */
-  @computed
-  private get rendererService() {
-    return getRendererService(this)
   }
 
   @computed

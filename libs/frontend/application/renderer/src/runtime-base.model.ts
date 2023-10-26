@@ -1,5 +1,5 @@
 import { getRendererService } from '@codelab/frontend/abstract/application'
-import type { IPageNode, IRuntimeProp } from '@codelab/frontend/abstract/domain'
+import type { IPageNode, IRuntimeBase } from '@codelab/frontend/abstract/domain'
 import { isTypedProp } from '@codelab/frontend/abstract/domain'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -11,13 +11,13 @@ import { Model, model, prop } from 'mobx-keystone'
  *
  * node.props -> renderedTypedProps -> evaluatedProps
  */
-@model('@codelab/BaseRuntimeProps')
-export class BaseRuntimeProps<TNode extends IPageNode>
+@model('@codelab/RuntimeBase')
+export class RuntimeBase<TNode extends IPageNode>
   extends Model(<Node extends IPageNode>() => ({
     nodeRef: prop<Ref<Node>>(),
   }))<TNode>
   implements
-    Omit<IRuntimeProp<TNode>, 'evaluatedProps' | 'evaluatedPropsBeforeRender'>
+    Omit<IRuntimeBase<TNode>, 'evaluatedProps' | 'evaluatedPropsBeforeRender'>
 {
   @computed
   get node() {
@@ -46,10 +46,7 @@ export class BaseRuntimeProps<TNode extends IPageNode>
         return undefined
       }
 
-      const transformer =
-        this.renderService.activeRenderer?.current.typedPropTransformers.get(
-          value.kind,
-        )
+      const transformer = this.renderer?.typedPropTransformers.get(value.kind)
 
       if (!transformer) {
         return value.value
@@ -60,7 +57,7 @@ export class BaseRuntimeProps<TNode extends IPageNode>
   }
 
   @computed
-  private get renderService() {
-    return getRendererService(this)
+  protected get renderer() {
+    return getRendererService(this).activeRenderer?.current
   }
 }

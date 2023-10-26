@@ -1,13 +1,12 @@
-import { getRendererService } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IAtomModel,
   IComponentModel,
   IElementRenderTypeModel,
-  IElementRuntimeProp,
   IHook,
   IPageModel,
   IPropModel,
+  IRuntimeElement,
   IStoreModel,
   RenderingError,
   RenderingMetadata,
@@ -39,8 +38,8 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   disconnectAll,
@@ -315,14 +314,6 @@ export class Element
     return descendants
   }
 
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return {
-      ...this.propsEvaluationContext,
-      props: this.runtimeProp?.evaluatedProps || {},
-    }
-  }
-
   /**
    * Only the root doesn't have a closestParent
    */
@@ -342,38 +333,6 @@ export class Element
       this.parentComponent?.maybeCurrent?.name ||
       ''
     )
-  }
-
-  @computed
-  get propsEvaluationContext(): IEvaluationContext {
-    const component = this.closestSubTreeRootElement.parentComponent?.current
-
-    return {
-      actions: this.store.current.actionRunners,
-      componentProps: component?.runtimeProp?.componentEvaluatedProps || {},
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.store.current.refs,
-      rendererType: this.rendererService.activeRenderer?.current.rendererType,
-      rootActions: this.providerStore?.actionRunners ?? {},
-      rootRefs: this.providerStore?.refs || {},
-      rootState: this.providerStore?.state || {},
-      state: this.store.current.state,
-      url: this.urlProps ?? {},
-    }
-  }
-
-  @computed
-  get providerStore(): IStoreModel | undefined {
-    return this.rendererService.activeRenderer?.current.providerTree?.current
-      .rootElement.current.store.current
-  }
-
-  @computed
-  get runtimeProp(): Maybe<IElementRuntimeProp> {
-    return this.rendererService.activeRenderer?.current.runtimeProps.get(
-      this.id,
-    ) as Maybe<IElementRuntimeProp>
   }
 
   @computed
@@ -451,11 +410,11 @@ export class Element
     // Creates the tree node n times for the component based on the child mapper prop
     if (
       this.childMapperComponent?.id &&
-      this.childMapperPropKey &&
-      this.runtimeProp?.evaluatedChildMapperProp.length
+      this.childMapperPropKey
+      // && this.runtimeProp?.evaluatedChildMapperProp.length
     ) {
-      const keys = [
-        ...Array(this.runtimeProp.evaluatedChildMapperProp.length).keys(),
+      const keys: Array<string> = [
+        // ...Array(this.runtimeProp.evaluatedChildMapperProp.length).keys(),
       ]
 
       keys.forEach((i) => {
@@ -517,11 +476,6 @@ export class Element
       secondaryTitle: this.treeTitle.secondary,
       title: `${this.treeTitle.primary} (${this.treeTitle.secondary})`,
     }
-  }
-
-  @computed
-  get urlProps(): IPropData | undefined {
-    return this.rendererService.activeRenderer?.current.urlSegments
   }
 
   /**
@@ -860,10 +814,5 @@ export class Element
   @computed
   private get elementDomainService() {
     return getElementDomainService(this)
-  }
-
-  @computed
-  private get rendererService() {
-    return getRendererService(this)
   }
 }

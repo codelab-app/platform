@@ -1,10 +1,13 @@
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import {
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const atomReactFragmentDto: IAtomDTO = {
+  __typename: IElementRenderTypeKind.Atom,
   api: {
-    // __typename: 'InterfaceType',
     id: v4(),
   },
   id: v4(),

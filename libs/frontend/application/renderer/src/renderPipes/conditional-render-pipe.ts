@@ -5,7 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { RenderOutput, shouldRenderElement } from '../utils'
+import { RenderOutput } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/ConditionalRenderPipe')
@@ -16,7 +16,7 @@ export class ConditionalRenderPipe
   implements IRenderPipe
 {
   render(element: IElementModel, props: IPropData): IRenderOutput {
-    if (shouldRenderElement(element, props)) {
+    if (this.renderer.shouldRenderElement(element, props)) {
       return this.next.render(element, props)
     }
 

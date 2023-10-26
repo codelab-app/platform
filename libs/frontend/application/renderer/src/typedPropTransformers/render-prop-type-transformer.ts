@@ -8,9 +8,10 @@ import {
   componentRef,
   extractTypedPropValue,
 } from '@codelab/frontend/abstract/domain'
+import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
-import { cloneComponent, hasStateExpression } from '../utils'
+import { cloneComponent } from '../utils'
 
 /**
  * Transforms props from the following format:
@@ -80,7 +81,7 @@ export class RenderPropTypeTransformer
       }
 
       clonedComponent.props.setMany(props)
-      this.renderer.addRuntimeProps(componentRef(clonedComponent.id))
+      this.renderer.addRuntimeComponent(componentRef(clonedComponent.id))
 
       const rootElement = clonedComponent.rootElement.current
 

@@ -11,7 +11,7 @@ import {
   isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/application/renderer'
+import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'

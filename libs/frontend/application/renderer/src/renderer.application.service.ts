@@ -10,12 +10,15 @@ import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
   getRendererId,
+  IComponentModel,
   isAtom,
   RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { throwIfUndefined } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
@@ -39,6 +42,19 @@ export class RendererApplicationService
   })
   implements IRendererApplicationService
 {
+  runtimeElement(element: IElementModel) {
+    return throwIfUndefined(
+      this.activeRenderer?.current.runtimeElement(element),
+    )
+  }
+
+  @computed
+  runtimeComponent(component: IComponentModel) {
+    return throwIfUndefined(
+      this.activeRenderer?.current.runtimeComponent(component),
+    )
+  }
+
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(getRendererId(rendererDto.id))
@@ -73,7 +89,7 @@ export class RendererApplicationService
        * because the other one creates runtime props for component instances
        * while this one doesn't pass by the component pipe at all
        */
-      renderer.addRuntimeProps(componentRef(parentComponent.id))
+      renderer.addRuntimeComponent(componentRef(parentComponent.id))
     }
 
     return providerRoot && root.page?.current.kind === IPageKind.Regular

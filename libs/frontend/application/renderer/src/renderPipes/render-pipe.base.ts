@@ -1,7 +1,6 @@
 import { getRendererService } from '@codelab/frontend/abstract/application'
 import {
   getComponentDomainService,
-  getRendererDomainService,
   type IBaseRenderPipe,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'

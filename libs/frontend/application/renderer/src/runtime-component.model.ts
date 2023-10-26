@@ -1,16 +1,16 @@
 import type {
   IComponentModel,
-  IComponentRuntimeProp,
-  IElementRuntimeProp,
+  IRuntimeComponent,
+  IRuntimeElement,
 } from '@codelab/frontend/abstract/domain'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
+import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
-import { BaseRuntimeProps } from './base-runtime-props.model'
-import { evaluateObject } from './utils'
+import { RuntimeBase } from './runtime-base.model'
 
 /**
  * The pipeline is as follow
@@ -20,18 +20,20 @@ import { evaluateObject } from './utils'
  *                                evaluatedProps
  *
  * evaluatedProps + instanceElementProps.evaluatedProps => componentEvaluatedProps
+ *
+ * Finds all the components that are referenced by all the children of this component as well as the children of any of these found components recursively
  */
 
 const create = (nodeRef: Ref<IComponentModel>) =>
-  new ComponentRuntimeProps({ nodeRef })
+  new RuntimeComponent({ nodeRef })
 
-@model('@codelab/ComponentRuntimeProps')
-export class ComponentRuntimeProps
+@model('@codelab/RuntimeComponent')
+export class RuntimeComponent
   extends ExtendedModel(
-    modelClass<BaseRuntimeProps<IComponentModel>>(BaseRuntimeProps),
+    modelClass<RuntimeBase<IComponentModel>>(RuntimeBase),
     {},
   )
-  implements IComponentRuntimeProp
+  implements IRuntimeComponent
 {
   static create = create
 
@@ -74,8 +76,12 @@ export class ComponentRuntimeProps
   }
 
   @computed
-  get instanceElementProps(): Maybe<IElementRuntimeProp> {
-    return this.node.instanceElement?.current.runtimeProp
+  get instanceElementProps(): Maybe<IRuntimeElement> {
+    const instanceElement = this.node.instanceElement?.current
+
+    return instanceElement
+      ? this.renderer?.runtimeElement(instanceElement)
+      : undefined
   }
 
   @computed
