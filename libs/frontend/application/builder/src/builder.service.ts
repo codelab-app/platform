@@ -154,7 +154,6 @@ export class BuilderService
         target: null,
         actionType: null,
         dragPosition: null,
-        dragOverlayPosition: null,
         ...data,
       }
     } else {

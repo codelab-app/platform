@@ -23,7 +23,6 @@ export type DragDropData = {
   source: Nullable<Ref<IElementModel>>
   target: Nullable<Ref<IElementModel>>
   dragPosition: Nullable<DragPosition>
-  dragOverlayPosition: Nullable<DragPosition>
   actionType: Nullable<BuilderDndType>
 }
 

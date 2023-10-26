@@ -15,7 +15,7 @@ export const BuilderDragDropOverlay = observer<{
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
 }>(({ builderService, renderContainerRef }) => {
   const target = builderService.dragDropData?.target?.current
-  const dragOverlayPosition = builderService.dragDropData?.dragOverlayPosition
+  const dragOverlayPosition = builderService.dragDropData?.dragPosition
 
   if (isServer || !target || !dragOverlayPosition) {
     return null

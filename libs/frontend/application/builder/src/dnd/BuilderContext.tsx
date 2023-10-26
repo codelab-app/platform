@@ -26,7 +26,6 @@ import { useDndDropHandler } from './useDndDropHandlers.hook'
  * Provides the DnD context for the builder
  */
 
-let dragPositionData: DragPositionData
 let draggedHtmlElement: HTMLElement | null
 const CURRENTLY_DRAGGED_CLASS = 'currently-dragged'
 
@@ -101,7 +100,7 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
 
     builderService.setDragDropData({
       target: null,
-      dragOverlayPosition: DragPosition.Inside,
+      dragPosition: DragPosition.Inside,
     })
   }, [builderService])
 
@@ -120,25 +119,22 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
       const offsetX = pointerX - overRect.left
       const offsetY = pointerY - overRect.top
       const dropTargetHtmlElement = queryRenderedElementById(targetId)
+      let dragPosition: DragPosition
 
       if (!isDescendantOfCurrentlyDraggedElement(dropTargetHtmlElement)) {
-        dragPositionData = calcDragPosition({
+        dragPosition = calcDragPosition({
           height: overRect.height,
           offsetX,
           offsetY,
           width: overRect.width,
         })
       } else {
-        dragPositionData = {
-          dragOverlayPosition: DragPosition.NotAllowed,
-          dragPosition: DragPosition.NotAllowed,
-        }
+        dragPosition = DragPosition.NotAllowed
       }
 
       builderService.setDragDropData({
         target: elementRef(targetId),
-        dragPosition: dragPositionData.dragPosition,
-        dragOverlayPosition: dragPositionData.dragOverlayPosition,
+        dragPosition,
       })
 
       return pointerWihthinResult
@@ -170,11 +166,6 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
 
 BuilderContext.displayName = 'BuilderContext'
 
-interface DragPositionData {
-  dragOverlayPosition: DragPosition
-  dragPosition: DragPosition
-}
-
 export const calcDragPosition = ({
   height,
   offsetX,
@@ -185,43 +176,28 @@ export const calcDragPosition = ({
   offsetY: number
   height: number | undefined
   width: number | undefined
-}): DragPositionData => {
+}): DragPosition => {
   if (!width || !height) {
     throw new Error('Missing width or height for calculating drag position')
   }
 
   if (offsetX < width * 0.3) {
-    return {
-      dragOverlayPosition: DragPosition.Before,
-      dragPosition: DragPosition.Before,
-    }
+    return DragPosition.Before
   }
 
   if (offsetY < height * 0.3) {
-    return {
-      dragOverlayPosition: DragPosition.Top,
-      dragPosition: DragPosition.Before,
-    }
+    return DragPosition.Top
   }
 
   if (offsetY > height * 0.7) {
-    return {
-      dragOverlayPosition: DragPosition.Bottom,
-      dragPosition: DragPosition.After,
-    }
+    return DragPosition.Bottom
   }
 
   if (offsetX > width * 0.7) {
-    return {
-      dragOverlayPosition: DragPosition.After,
-      dragPosition: DragPosition.After,
-    }
+    return DragPosition.After
   }
 
-  return {
-    dragOverlayPosition: DragPosition.Inside,
-    dragPosition: DragPosition.Inside,
-  }
+  return DragPosition.Inside
 }
 
 const isDescendantOfCurrentlyDraggedElement = (element: HTMLElement | null) => {

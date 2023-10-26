@@ -66,12 +66,19 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     }
 
     // create the new element after the target element
-    if (dragPosition === DragPosition.After && createElementDTO.prevSibling) {
+    if (
+      (dragPosition === DragPosition.After ||
+        dragPosition === DragPosition.Bottom) &&
+      createElementDTO.prevSibling
+    ) {
       createElementDTO.prevSibling.id = targetElement.id
     }
 
     // create the new element before the target element
-    if (dragPosition === DragPosition.Before) {
+    if (
+      dragPosition === DragPosition.Before ||
+      dragPosition === DragPosition.Top
+    ) {
       // if theres an element before the target, create the new element next to that
       if (targetElement.prevSibling && createElementDTO.prevSibling) {
         createElementDTO.prevSibling.id = targetElement.prevSibling.id
@@ -118,7 +125,10 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     }
 
     // move the dragged element after the target element
-    if (dragPosition === DragPosition.After) {
+    if (
+      dragPosition === DragPosition.After ||
+      dragPosition === DragPosition.Bottom
+    ) {
       return await elementService.move({
         element: sourceElement,
         prevSibling: targetElement,
@@ -126,7 +136,10 @@ export const useDndDropHandler = (): UseDndDropHandler => {
     }
 
     // move the dragged element before the target element
-    if (dragPosition === DragPosition.Before) {
+    if (
+      dragPosition === DragPosition.Before ||
+      dragPosition === DragPosition.Top
+    ) {
       return await elementService.move({
         element: sourceElement,
         nextSibling: targetElement,
