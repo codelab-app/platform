@@ -2645,12 +2645,12 @@ __metadata:
 
 "@codelab/eslint-plugin@file:./dist/libs/tools/eslint-plugin::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/eslint-plugin@file:./dist/libs/tools/eslint-plugin#./dist/libs/tools/eslint-plugin::hash=12a37d&locator=codelab%40workspace%3A."
+  resolution: "@codelab/eslint-plugin@file:./dist/libs/tools/eslint-plugin#./dist/libs/tools/eslint-plugin::hash=c941e9&locator=codelab%40workspace%3A."
   dependencies:
     "@nx/devkit": 17.0.0
     "@typescript-eslint/utils": 5.62.0
     tslib: 2.3.1
-  checksum: 9582f11f480505aec85c81631bf1c2852be61f553335eaaf08a6a0910508042747f73cb736c8b1754b0856b687632a43bc4966b1f8f66c088c49c2afff57de16
+  checksum: eae8be0708fa1d352ec68e2bd5c7e37d238b4dbdde4da06b5144f6255bc75b7c96c060dcdd04b2902c41c33cbdd1ef6f55f5b99e20950d83b4dd00835ce82cdb
   languageName: node
   linkType: hard
 
