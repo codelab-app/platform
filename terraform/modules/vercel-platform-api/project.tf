@@ -19,7 +19,7 @@ resource "vercel_project" "platform_api" {
   environment = [
     {
       target = ["production", "preview"]
-      key    = "PLATFORM_API_HOST"
+      key    = "NEXT_PUBLIC_PLATFORM_API_HOST"
       value  = var.next_public_platform_api_host
     },
     # Auth0
