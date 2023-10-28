@@ -11,7 +11,7 @@ export class ApiAction implements IApiActionDTO {
 
   config: Prop
 
-  errorAction?: IActionEntity | null
+  errorAction?: IActionRef | null
 
   id: string
 
@@ -21,7 +21,7 @@ export class ApiAction implements IApiActionDTO {
 
   store: IRef
 
-  successAction?: IActionEntity | null
+  successAction?: IActionRef | null
 
   constructor({
     config,

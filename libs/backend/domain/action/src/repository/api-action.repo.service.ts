@@ -133,7 +133,7 @@ export class ApiActionRepository extends AbstractRepository<
    * Filters the entity by their appropriate types
    */
   private filterBy(
-    action: IActionEntity | null | undefined,
+    action: IActionRef | null | undefined,
     discriminate: IActionKind,
   ) {
     if (action?.__typename === `${discriminate}`) {
