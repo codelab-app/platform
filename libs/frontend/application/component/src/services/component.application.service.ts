@@ -287,6 +287,21 @@ export class ComponentApplicationService
     }))
   })
 
+  getSelectActiveComponentPropOptions = () => {
+    const activeComponent = this.builderService.activeComponent?.current
+
+    if (!activeComponent) {
+      return []
+    }
+
+    const componentProps = activeComponent.props.values
+
+    return Object.keys(componentProps).map((key) => ({
+      label: `props.${key}`,
+      value: `{{componentProps.${key}}}`,
+    }))
+  }
+
   @modelFlow
   @transaction
   update = _async(function* (

@@ -2,6 +2,10 @@ import {
   createAutoCompleteOptions,
   ToggleExpressionField,
 } from '@codelab/frontend/presentation/view'
+import {
+  hasStateExpression,
+  isComponentPropsStateExpression,
+} from '@codelab/frontend/shared/utils'
 import { SelectComponent } from '../fields'
 import type { UiPropertiesFn } from '../types'
 
@@ -31,6 +35,8 @@ export const selectComponentUiProperties: UiPropertiesFn = (type, context) => ({
           onChange(lastValue ?? field.default)
         }
       },
+      shouldAutoToggleExpressionEditor: (value) =>
+        !isComponentPropsStateExpression(value) && hasStateExpression(value),
     }),
   },
 })

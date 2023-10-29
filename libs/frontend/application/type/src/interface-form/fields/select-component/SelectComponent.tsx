@@ -16,6 +16,9 @@ export const SelectComponent = ({ ...fieldProps }: SelectComponentProps) => {
   const [{ error: queryError, result, status }, getSelectComponentOptions] =
     useAsync(() => componentService.getSelectComponentOptions())
 
+  const componentOptions = result || []
+  const propOptions = componentService.getSelectActiveComponentPropOptions()
+
   return (
     <SelectField
       {...fieldProps}
@@ -28,7 +31,7 @@ export const SelectComponent = ({ ...fieldProps }: SelectComponentProps) => {
         }
       }}
       optionFilterProp="label"
-      options={result}
+      options={[...componentOptions, ...propOptions]}
       showSearch
     />
   )

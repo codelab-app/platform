@@ -2,10 +2,7 @@ import type {
   IInterfaceTypeModel,
   IPropModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  CUSTOM_TEXT_PROP_KEY,
-  typeRef,
-} from '@codelab/frontend/abstract/domain'
+import { TEXT_CHILDREN, typeRef } from '@codelab/frontend/abstract/domain'
 import type {
   PropCreateInput,
   PropUpdateInput,
@@ -80,7 +77,7 @@ export class Prop
       return omitBy(this.data.data, (_, key) => {
         // CUSTOM_TEXT_PROP_KEY is a special case, it's an element prop
         // that is not part of the api
-        if (key === CUSTOM_TEXT_PROP_KEY) {
+        if (key === TEXT_CHILDREN) {
           return false
         }
 

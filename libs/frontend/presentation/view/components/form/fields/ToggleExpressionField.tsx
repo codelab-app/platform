@@ -25,6 +25,7 @@ interface CodeMirrorFieldProps {
     props: CodeMirrorConnectFieldProps,
     lastValue?: Value,
   ): void
+  shouldAutoToggleExpressionEditor?(value: unknown): boolean
 }
 
 type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps>
@@ -77,7 +78,10 @@ const ToggleExpression = ({
     ? String(fieldProps.value ?? fieldProps.field?.default)
     : undefined
 
-  const isExpression = value && hasStateExpression(value)
+  const hasExpression =
+    mainProps.shouldAutoToggleExpressionEditor ?? hasStateExpression
+
+  const isExpression = value && hasExpression(value)
   const [showExpressionEditor, setShowExpressionEditor] = useState(isExpression)
   const [valueBeforeToggle, setValueBeforeToggle] = useState<Value>()
 

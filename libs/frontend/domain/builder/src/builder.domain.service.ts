@@ -55,21 +55,9 @@ export class BuilderDomainService
    */
   @computed
   get activeComponent() {
-    const { selectedNode } = this
+    const { activeElementTree } = this
 
-    if (!selectedNode) {
-      return null
-    }
-
-    if (isComponentRef(selectedNode)) {
-      return selectedNode
-    }
-
-    if (isElementRef(selectedNode)) {
-      return selectedNode.current.parentComponent ?? null
-    }
-
-    return null
+    return activeElementTree?.rootElement.current.parentComponent ?? null
   }
 
   /**

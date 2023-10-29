@@ -36,4 +36,9 @@ export interface UiPropertiesContext {
   defaultValues?: IFieldDefaultValue | null
   fieldName?: string | null
   validationRules?: IValidationRules
+  /**
+   * used to hide some interface fields if they're irrelevant.
+   * if undefined all fields are visible
+   */
+  isFieldHidden?(interfaceId: string, fieldKey: string): boolean
 }

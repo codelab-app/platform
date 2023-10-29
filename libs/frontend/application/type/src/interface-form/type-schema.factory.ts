@@ -129,7 +129,13 @@ export class TypeSchemaFactory {
       field: IFieldModel,
     ) => {
       acc = acc || {}
-      acc[field.key] = makeFieldSchema(field)
+
+      if (
+        !context?.isFieldHidden ||
+        !context.isFieldHidden(type.id, field.key)
+      ) {
+        acc[field.key] = makeFieldSchema(field)
+      }
 
       return acc
     }

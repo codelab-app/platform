@@ -1,5 +1,8 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { isComponent } from '@codelab/frontend/abstract/domain'
+import {
+  isComponent,
+  PROP_BINDING_CHILDREN,
+} from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -21,13 +24,12 @@ export interface UpdateElementPropsFormProps {
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element }) => {
-    const {
-      builderService,
-      componentService,
-      propService,
-      rendererService,
-      typeService,
-    } = useStore()
+    const { componentService, propService, rendererService, typeService } =
+      useStore()
+
+    const activeComponent =
+      rendererService.activeElementTree?.rootElement.current.parentComponent
+        ?.maybeCurrent
 
     const currentElement = element.current
     const apiId = currentElement.renderType.current.api.id
@@ -84,6 +86,14 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const runtimeElement = rendererService.runtimeElement(currentElement)
     const runtimeProps = runtimeElement?.runtimeProps
 
+    const isFieldHidden = (interfaceId: string, fieldKey: string) => {
+      return (
+        !activeComponent &&
+        interfaceType?.id === interfaceId &&
+        fieldKey === PROP_BINDING_CHILDREN
+      )
+    }
+
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
@@ -94,6 +104,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 autosave
                 initialSchema={{}}
                 interfaceType={interfaceType}
+                isFieldHidden={isFieldHidden}
                 key={element.id}
                 model={propsModel}
                 onSubmit={onSubmit}

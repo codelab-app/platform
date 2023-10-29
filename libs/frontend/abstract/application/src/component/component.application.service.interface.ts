@@ -31,6 +31,6 @@ export interface IComponentApplicationService
   componentDomainService: IComponentDomainService
   componentRepository: IComponentRepository
   createForm: IFormService
-
+  getSelectActiveComponentPropOptions(): Array<DefaultOptionType>
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
 }

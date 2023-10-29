@@ -36,7 +36,8 @@ export const LAST_WORD_AFTER_DOT_REGEX = /\.\w+$/
 
 export const WORD_BEFORE_DOT_REGEX = /\w*(\.)?/
 
-export const CUSTOM_TEXT_PROP_KEY = 'customText'
+export const TEXT_CHILDREN = 'textChildren'
+export const PROP_BINDING_CHILDREN = 'codelab_internal_prop_binding_children'
 
 // export const DEFAULT_GET_SERVER_SIDE_PROPS = `async function (context) {
 //     return {

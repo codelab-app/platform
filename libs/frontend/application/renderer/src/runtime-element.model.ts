@@ -17,12 +17,13 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   elementRef,
   IElementModel,
   isAtom,
   isComponent,
   isPage,
+  PROP_BINDING_CHILDREN,
+  TEXT_CHILDREN,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
@@ -258,9 +259,17 @@ export class RuntimeElement
     const hasOneChild = this.sortedRuntimeChildren.length === 1
 
     if (hasNoChildren) {
-      // Inject text, but only if we have no regular children
+      // Inject prop or text, but only if we have no regular children
+      // (prop binding has precedence)
+      const injectedProp =
+        this.runtimeProps.evaluatedProps[PROP_BINDING_CHILDREN]
+
       const injectedText =
-        this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
+        this.runtimeProps.evaluatedProps[TEXT_CHILDREN] || '""'
+
+      if (injectedProp) {
+        return injectedProp
+      }
 
       const shouldInjectText =
         isAtom(this.element.current.renderType.current) &&

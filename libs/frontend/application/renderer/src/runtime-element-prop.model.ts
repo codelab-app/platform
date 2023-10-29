@@ -12,13 +12,13 @@ import {
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   elementRef,
   IComponentModel,
   IElementModel,
   isAtomRef,
   isTypedProp,
+  TEXT_CHILDREN,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
@@ -161,13 +161,11 @@ export class RuntimeElementProps
       )
     }
 
-    const customTextProp =
-      this.element.current.props.values[CUSTOM_TEXT_PROP_KEY]
-
-    const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
+    const customTextProp = this.element.current.props.values[TEXT_CHILDREN]
+    const props = omit(this.renderedTypedProps, [TEXT_CHILDREN])
     const evaluated = evaluateObject(props, this.propsEvaluationContext)
 
-    return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
+    return { ...evaluated, [TEXT_CHILDREN]: customTextProp }
   }
 
   @computed

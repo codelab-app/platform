@@ -1,8 +1,8 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
+  TEXT_CHILDREN,
 } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -32,7 +32,7 @@ export const extractValidProps = (
 ) =>
   ReactComponent === Fragment
     ? { key: renderOutput.props?.['key'] }
-    : omit(renderOutput.props, [CUSTOM_TEXT_PROP_KEY])
+    : omit(renderOutput.props, [TEXT_CHILDREN])
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // if component does not have atom assigned to the root element

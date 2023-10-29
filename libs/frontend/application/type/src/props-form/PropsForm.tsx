@@ -7,6 +7,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { DeepPartial } from 'utility-types'
+import type { UiPropertiesContext } from '../interface-form'
 import { InterfaceForm } from '../interface-form'
 
 export interface PropsFormProps
@@ -20,6 +21,7 @@ export interface PropsFormProps
   cssString?: string
   initialSchema?: object
   interfaceType?: IInterfaceTypeModel
+  isFieldHidden?: UiPropertiesContext['isFieldHidden']
   model?: IPropData
   setIsLoading?: SetIsLoading
 
@@ -36,6 +38,7 @@ export const PropsForm = observer<PropsFormProps>(
     cssString,
     initialSchema,
     interfaceType,
+    isFieldHidden,
     model,
     onSubmit,
     onSubmitError,
@@ -56,7 +59,7 @@ export const PropsForm = observer<PropsFormProps>(
       >
         <InterfaceForm
           autosave={autosave}
-          context={{ autocomplete }}
+          context={{ autocomplete, isFieldHidden }}
           initialSchema={initialSchema}
           interfaceType={interfaceType}
           model={model || {}}

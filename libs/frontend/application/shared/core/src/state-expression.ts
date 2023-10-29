@@ -12,6 +12,9 @@ import {
   STATE_PATH_TEMPLATE_START,
 } from './state-expression.constants'
 
+export const isComponentPropsStateExpression = (str: unknown) =>
+  isString(str) && /{{componentProps\.[a-zA-Z0-9_]+}}/g.test(str)
+
 export const hasStateExpression = (str: unknown): boolean =>
   isString(str) &&
   str.includes(STATE_PATH_TEMPLATE_START) &&
