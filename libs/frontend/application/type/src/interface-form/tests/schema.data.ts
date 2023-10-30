@@ -1,10 +1,96 @@
 /// <reference types='jest'/>
 import merge from 'lodash/merge'
-import { intType, stringType } from './setup-store'
+import { createTypedPropTypeExpectedSchema } from './schema.data.util'
+import {
+  actionType,
+  elementType,
+  enumType,
+  intType,
+  reactNodeType,
+  renderPropType,
+  stringType,
+} from './setup-store'
 
-export const stringTypeExpectedSchema = { type: 'string' }
+export const stringTypeExpectedSchema = {
+  type: 'string',
+  uniforms: expect.any(Object),
+}
 
-export const intTypeExpectedSchema = { type: 'integer' }
+export const intTypeExpectedSchema = {
+  type: 'integer',
+  uniforms: expect.any(Object),
+}
+
+export const booleanTypeExpectedSchema = {
+  default: false,
+  type: 'boolean',
+  uniforms: expect.any(Object),
+}
+
+export const appTypeExpectedSchema = {
+  type: 'string',
+  uniforms: expect.any(Object),
+}
+
+export const pageTypeExpectedSchema = {
+  type: 'string',
+  uniforms: expect.any(Object),
+}
+
+export const actionTypeExpectedSchema = {
+  ...createTypedPropTypeExpectedSchema(actionType.kind, actionType.id),
+}
+
+export const renderPropTypeExpectedSchema = {
+  ...createTypedPropTypeExpectedSchema(renderPropType.kind, renderPropType.id),
+}
+
+export const reactNodeTypeExpectedSchema = {
+  ...createTypedPropTypeExpectedSchema(reactNodeType.kind, reactNodeType.id),
+}
+
+export const codeMirrorTypeExpectedSchema = {
+  type: 'string',
+  uniforms: expect.any(Object),
+}
+
+export const elementTypeExpectedSchema = {
+  properties: {
+    kind: {
+      default: 'ElementType',
+      enum: ['ElementType'],
+      label: 'Kind',
+      type: 'string',
+      uniforms: expect.any(Object),
+    },
+    type: {
+      default: elementType.id,
+      enum: [elementType.id],
+      label: '',
+      type: 'string',
+      uniforms: expect.any(Object),
+    },
+    value: {
+      label: '',
+      type: 'string',
+      uniforms: expect.any(Object),
+    },
+  },
+  type: 'object',
+  uniforms: expect.any(Object),
+}
+
+export const enumTypeExpectedSchema = {
+  enum: enumType.allowedValues.map(({ value }) => value),
+  type: 'string',
+  uniforms: expect.any(Object),
+}
+
+export const arrayTypeExpectedSchema = {
+  items: {},
+  type: 'array',
+  uniforms: expect.any(Object),
+}
 
 export const unionTypeExpectedSchema = {
   oneOf: [
@@ -25,7 +111,7 @@ export const unionTypeExpectedSchema = {
           type: 'string',
           uniforms: expect.any(Object),
         },
-        value: { ...stringTypeExpectedSchema, label: undefined },
+        value: { ...stringTypeExpectedSchema },
       },
       required: ['type'],
       type: 'object',
@@ -48,13 +134,14 @@ export const unionTypeExpectedSchema = {
           type: 'string',
           uniforms: expect.any(Object),
         },
-        value: { ...intTypeExpectedSchema, label: undefined },
+        value: { ...intTypeExpectedSchema },
       },
       required: ['type'],
       type: 'object',
       typeName: intType.name,
     },
   ],
+  uniforms: expect.any(Object),
 }
 
 export const interfaceWithUnionExpectedSchema = {
