@@ -132,6 +132,28 @@ const stringField = new Field({
   type: typeRef(stringType),
 })
 
+export const stringFieldWithDefaultValue = new Field({
+  api: typeRef(emptyInterface),
+  defaultValues: 'string field default value',
+  id: v4(),
+  key: 'stringField',
+  name: 'String field',
+  type: typeRef(stringType),
+})
+
+export const intFieldWithRequiredValue = new Field({
+  api: typeRef(emptyInterface),
+  id: v4(),
+  key: 'intField',
+  name: 'Int field',
+  type: typeRef(intType),
+  validationRules: {
+    general: {
+      nullable: false,
+    },
+  },
+})
+
 const unionField = new Field({
   api: typeRef(emptyInterface),
   id: v4(),
@@ -150,17 +172,33 @@ export const interfaceWithUnionField = new InterfaceType({
   name: 'Interface with union field',
 })
 
+export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
+  _fields: objectMap([
+    [stringFieldWithDefaultValue.id, fieldRef(stringFieldWithDefaultValue)],
+    [intFieldWithRequiredValue.id, fieldRef(intFieldWithRequiredValue)],
+  ]),
+  id: v4(),
+  kind: ITypeKind.InterfaceType,
+  name: 'Interface with default field values',
+})
+
 export const rootStore = new TestRootStore({
   fieldService: new FieldService({
     fields: objectMap([
       [stringField.id, stringField],
       [unionField.id, unionField],
+      [stringFieldWithDefaultValue.id, stringFieldWithDefaultValue],
+      [intFieldWithRequiredValue.id, intFieldWithRequiredValue],
     ]),
   }),
   typeService: new TypeDomainService({
     types: objectMap<IType>([
       [unionType.id, unionType],
       [interfaceWithUnionField.id, interfaceWithUnionField],
+      [
+        interfaceWithRequiredAndDefaultFieldValues.id,
+        interfaceWithRequiredAndDefaultFieldValues,
+      ],
       [intType.id, intType],
       [stringType.id, stringType],
     ]),

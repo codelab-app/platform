@@ -9,6 +9,7 @@ import {
   codeMirrorTypeExpectedSchema,
   elementTypeExpectedSchema,
   enumTypeExpectedSchema,
+  interfaceWithRequiredDefaultFieldValuesExpectedSchema,
   interfaceWithUnionExpectedSchema,
   intTypeExpectedSchema,
   pageTypeExpectedSchema,
@@ -25,6 +26,7 @@ import {
   codeMirrorType,
   elementType,
   enumType,
+  interfaceWithRequiredAndDefaultFieldValues,
   interfaceWithUnionField,
   intType,
   pageType,
@@ -149,6 +151,18 @@ describe('Type tree to json schema', () => {
     const jsonSchema = transformer.transform(arrayType)
 
     expect(jsonSchema).toEqual(arrayTypeExpectedSchema)
+
+    ajv.compile(jsonSchema)
+  })
+
+  it('should transform InterfaceType with required and default field values', () => {
+    const jsonSchema = transformer.transform(
+      interfaceWithRequiredAndDefaultFieldValues,
+    )
+
+    expect(jsonSchema).toEqual(
+      interfaceWithRequiredDefaultFieldValuesExpectedSchema,
+    )
 
     ajv.compile(jsonSchema)
   })

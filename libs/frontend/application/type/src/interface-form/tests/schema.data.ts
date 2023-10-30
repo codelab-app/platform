@@ -5,9 +5,11 @@ import {
   actionType,
   elementType,
   enumType,
+  intFieldWithRequiredValue,
   intType,
   reactNodeType,
   renderPropType,
+  stringFieldWithDefaultValue,
   stringType,
 } from './setup-store'
 
@@ -172,5 +174,26 @@ export const interfaceWithUnionExpectedSchema = {
     },
   },
   required: [],
+  type: 'object',
+}
+
+export const interfaceWithRequiredDefaultFieldValuesExpectedSchema = {
+  properties: {
+    intField: {
+      ...intTypeExpectedSchema,
+      label: 'Int field',
+      nullable: false,
+      type: 'integer',
+      uniforms: expect.any(Object),
+    },
+    stringField: {
+      ...stringTypeExpectedSchema,
+      default: stringFieldWithDefaultValue.defaultValues,
+      label: 'String field',
+      type: 'string',
+      uniforms: expect.any(Object),
+    },
+  },
+  required: [intFieldWithRequiredValue.key],
   type: 'object',
 }
