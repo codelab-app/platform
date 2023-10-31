@@ -120,13 +120,13 @@
         "func-style": "error"
       }
     },
-
     {
       "files": ["*.schema.ts", "*.schema.interface.ts"],
       "rules": {
         "canonical/sort-keys": "off"
       }
     },
+
     {
       "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
       "rules": {

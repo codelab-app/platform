@@ -1,6 +1,7 @@
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { IRef, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
