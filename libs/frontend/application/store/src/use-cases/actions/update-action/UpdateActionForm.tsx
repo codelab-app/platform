@@ -76,12 +76,7 @@ export const UpdateActionForm = observer(
 
     const getResource = (context: Context<IUpdateActionData>) =>
       context.model.resourceId
-        ? resourceService.resource(context.model.resourceId)?.type
-        : null
-
-    const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
-      context.model.resourceId
-        ? resourceService.resource(context.model.resourceId)?.config.get('url')
+        ? resourceService.resource(context.model.resourceId)
         : null
 
     return (

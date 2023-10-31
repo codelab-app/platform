@@ -23,6 +23,7 @@ import type {
   PrimitiveTypeModel,
   PropModel,
   ReactNodeTypeModel,
+  RedirectModel,
   RenderPropTypeModel,
   ResourceModel,
   StoreModel,
@@ -63,6 +64,10 @@ export class OgmService {
 
   get Atom() {
     return (this.atom ??= this.ogm.model('Atom'))
+  }
+
+  get AuthGuard() {
+    return (this.authGuard ??= this.ogm.model('AuthGuard'))
   }
 
   get CodeAction() {
@@ -137,8 +142,8 @@ export class OgmService {
     return (this.resource ??= this.ogm.model('Resource'))
   }
 
-  get AuthGuard() {
-    return (this.authGuard ??= this.ogm.model('AuthGuard'))
+  get Redirect() {
+    return (this.redirect ??= this.ogm.model('Redirect'))
   }
 
   get Store() {
@@ -241,6 +246,8 @@ export class OgmService {
   private renderPropType: RenderPropTypeModel | undefined
 
   private resource: ResourceModel | undefined
+
+  private redirect: RedirectModel | undefined
 
   private authGuard: AuthGuardModel | undefined
 

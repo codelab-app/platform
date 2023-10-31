@@ -16,6 +16,7 @@ import {
   disconnectAll,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -49,6 +50,18 @@ export class Redirect
   implements IRedirectModel
 {
   static create = create
+
+  @computed
+  get toJson() {
+    return {
+      id: this.id,
+      source: this.source,
+      targetType: this.targetType,
+      targetPage: this.targetPage,
+      targetUrl: this.targetUrl,
+      authGuard: this.authGuard,
+    }
+  }
 
   @modelAction
   writeCache({

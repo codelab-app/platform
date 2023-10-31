@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { RedirectFragment } from '../../../../abstract/domain/src/domain/redirect/redirect.fragment.graphql.gen'
+import { RedirectFragment } from '../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { RedirectFragmentDoc } from '../../../../abstract/domain/src/domain/redirect/redirect.fragment.graphql.gen'
+import { RedirectFragmentDoc } from '../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
 export type CreateRedirectsMutationVariables = Types.Exact<{
   input: Array<Types.RedirectCreateInput> | Types.RedirectCreateInput
 }>

@@ -1,7 +1,7 @@
 import {
-  AuthGuardDomainModule,
-  AuthGuardRepository,
-} from '@codelab/backend/domain/auth-guard'
+  RedirectDomainModule,
+  RedirectRepository,
+} from '@codelab/backend/domain/redirect'
 import { getService } from '@codelab/backend/infra/adapter/serverless'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
@@ -35,14 +35,13 @@ const handler: NextApiHandler = async (req, res) => {
     return toJson(400, false, 'Invalid body')
   }
 
-  const authGuardRepository = await getService(
-    AuthGuardDomainModule,
-    AuthGuardRepository,
+  const redirectRepository = await getService(
+    RedirectDomainModule,
+    RedirectRepository,
   )
 
-  // load auth guard
-  const authGuard = await authGuardRepository.findOne({
-    pages_SINGLE: {
+  const redirect = await redirectRepository.findOne({
+    source: {
       AND: [
         { app: { domains_SINGLE: { name: domain } } },
         { url: pageUrl },
@@ -52,8 +51,8 @@ const handler: NextApiHandler = async (req, res) => {
     },
   })
 
-  // either a regular page with no auth guard attached to or a system page
-  if (!authGuard) {
+  // either a regular page with no redirect attached to or a system page
+  if (!redirect) {
     return toJson(200, true)
   }
 
@@ -63,10 +62,10 @@ const handler: NextApiHandler = async (req, res) => {
     return toJson(200, false, 'Messing authorization in request body')
   }
 
-  const { resource, responseTransformer } = authGuard
+  const { config, resource, responseTransformer } = redirect.authGuard
   const resourceConfig = tryParse(resource.config.data)
   const client = getResourceClient(resource.type, resourceConfig)
-  const fetchConfig = tryParse(authGuard.config.data)
+  const fetchConfig = tryParse(config.data)
 
   const evaluatedConfig = evaluateObject(fetchConfig, {
     cookie: authorization,

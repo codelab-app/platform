@@ -1,4 +1,4 @@
-import type { IRedirectService } from '@codelab/frontend/abstract/domain'
+import { IRedirectService } from '@codelab/frontend/abstract/application'
 import { createContext } from 'mobx-keystone'
 
 export const redirectServiceContext = createContext<IRedirectService>()

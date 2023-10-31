@@ -1,13 +1,7 @@
-import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/domain'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import {
-  ActionKind,
-  ResourceType,
-  TypeKind,
-} from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
-import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import { HttpMethod, HttpResponseType, IActionKind, IAtomType, IPageKindName, IResourceType, ITypeKind } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 
@@ -47,7 +41,7 @@ describe('Running nested API and code actions', () => {
     cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
-      value: ResourceType.Rest,
+      value: IResourceType.Rest,
     })
 
     cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
@@ -111,7 +105,7 @@ describe('Running nested API and code actions', () => {
     cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
-      value: ActionKind.CodeAction,
+      value: IActionKind.CodeAction,
     })
 
     cy.setFormFieldValue({
@@ -139,7 +133,7 @@ describe('Running nested API and code actions', () => {
     cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
-      value: ActionKind.ApiAction,
+      value: IActionKind.ApiAction,
     })
 
     cy.setFormFieldValue({
@@ -185,7 +179,7 @@ describe('Running nested API and code actions', () => {
     cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
-      value: ActionKind.ApiAction,
+      value: IActionKind.ApiAction,
     })
 
     cy.setFormFieldValue({
@@ -290,7 +284,7 @@ describe('Running nested API and code actions', () => {
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
-      value: `{ "customText": "Click button to post", "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
+      value: `{ "customText": "Click button to post", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
     })
 
     // need to wait for the code to put the autocomputed name before typing

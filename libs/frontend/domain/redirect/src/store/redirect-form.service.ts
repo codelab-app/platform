@@ -1,10 +1,9 @@
+import { IEntityFormService } from '@codelab/frontend/abstract/application'
 import type {
-  IEntityFormService,
   IPageModel,
   IRedirectModel,
 } from '@codelab/frontend/abstract/domain'
 import { InlineFormService } from '@codelab/frontend/domain/shared'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
@@ -16,10 +15,7 @@ export class CreateRedirectFormService
     {},
   )
   implements
-    IEntityFormService<
-      Ref<IPageModel>,
-      { selectedPage: Nullable<Ref<IPageModel>> }
-    >
+    IEntityFormService<Ref<IPageModel>, { selectedPage: Ref<IPageModel> }>
 {
   @computed
   get selectedPage() {
@@ -34,10 +30,7 @@ export class RedirectFormService
     {},
   )
   implements
-    IEntityFormService<
-      Ref<IRedirectModel>,
-      { redirect: Maybe<IRedirectModel> }
-    >
+    IEntityFormService<Ref<IRedirectModel>, { redirect: IRedirectModel }>
 {
   @computed
   get redirect() {

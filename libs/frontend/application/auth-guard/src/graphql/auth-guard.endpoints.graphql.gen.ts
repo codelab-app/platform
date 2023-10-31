@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AuthGuardFragment } from '../../../../abstract/domain/src/domain/auth-guard/auth-guard.fragment.graphql.gen'
+import { AuthGuardFragment } from '../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { AuthGuardFragmentDoc } from '../../../../abstract/domain/src/domain/auth-guard/auth-guard.fragment.graphql.gen'
+import { AuthGuardFragmentDoc } from '../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
 export type GetAuthGuardsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AuthGuardOptions>
   where?: Types.InputMaybe<Types.AuthGuardWhere>

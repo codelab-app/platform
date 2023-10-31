@@ -16,12 +16,6 @@ export const IRedirectDTO = Type.Object({
 
 export type IRedirectDTO = Static<typeof IRedirectDTO>
 
-
-export const IRedirect = Typebox.Overwrite(
-  IRedirectDTO,
-  Type.Object({
-    config: IProp,
-  }),
-)
+export const IRedirect = IRedirectDTO
 
 export type IRedirect = Static<typeof IRedirect>

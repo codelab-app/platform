@@ -5,7 +5,6 @@ import type {
 import type {
   IComponent,
   IComponentDTO,
-  IComponentSerialized,
   IElementRenderTypeKind,
   IRef,
 } from '@codelab/shared/abstract/core'

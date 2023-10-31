@@ -1,10 +1,8 @@
 import type {
   ICreateRedirectData,
   IRedirectModel,
-  IRedirectService,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
 import type { IRedirectDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -25,12 +23,13 @@ import {
   CreateRedirectFormService,
   RedirectFormService,
 } from './redirect-form.service'
+import { IRedirectService } from '@codelab/frontend/abstract/application'
 
 @model('@codelab/RedirectService')
 export class RedirectService
   extends Model({
     createForm: prop(() => new CreateRedirectFormService({})),
-    deleteModal: prop(() => new ModalService({})),
+    deleteModal: prop(() => new RedirectFormService({})),
     redirectRepository: prop(() => new RedirectRepository({})),
     redirects: prop(() => objectMap<IRedirectModel>()),
     updateForm: prop(() => new RedirectFormService({})),

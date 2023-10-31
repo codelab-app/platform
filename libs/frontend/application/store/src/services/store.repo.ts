@@ -7,6 +7,7 @@ import type {
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
+import { storeApi } from '../store'
 
 @model('@codelab/StoreRepository')
 export class StoreRepository extends Model({}) implements IStoreRepository {

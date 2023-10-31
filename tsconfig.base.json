@@ -110,6 +110,9 @@
       "@codelab/backend/domain/resource": [
         "libs/backend/domain/resource/src/index.ts"
       ],
+      "@codelab/backend/domain/redirect": [
+        "libs/backend/domain/redirect/src/index.ts"
+      ],
       "@codelab/backend/domain/auth-guard": [
         "libs/backend/domain/auth-guard/src/index.ts"
       ],

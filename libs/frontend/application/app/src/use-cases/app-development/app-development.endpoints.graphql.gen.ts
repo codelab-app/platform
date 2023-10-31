@@ -11,6 +11,9 @@ import {
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
+import { AuthGuardFragment } from '../../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
+import { ActionTypeFragment } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
+import { RedirectFragment } from '../../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -25,6 +28,9 @@ import {
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
+import { AuthGuardFragmentDoc } from '../../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
+import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
+import { RedirectFragmentDoc } from '../../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageName: Types.Scalars['String']['input']
@@ -60,12 +66,6 @@ export const GetAppDevelopmentDocument = gql`
     }
     reactNodeTypes {
       ...ReactNodeType
-    }
-    reactNodeTypes {
-      ...ReactNodeType
-    }
-    renderPropTypes {
-      ...RenderPropType
     }
     renderPropTypes {
       ...RenderPropType

@@ -18,7 +18,7 @@ import type {
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
-import { IPage, IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,

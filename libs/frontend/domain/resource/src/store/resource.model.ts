@@ -92,4 +92,12 @@ export class Resource
   private get userDomainService() {
     return getUserDomainService(this)
   }
+
+  @computed
+  get client() {
+    return getResourceClient(
+      this.type,
+      this.config.values as IResourceConfigData,
+    )
+  }
 }

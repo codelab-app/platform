@@ -18,8 +18,8 @@ export const UpdateAuthGuardForm = observer(() => {
 
   const model = {
     config: {
-      data: authGuard?.config.current.values,
-      id: authGuard?.config.current.id,
+      data: authGuard?.config.values,
+      id: authGuard?.config.id,
     },
     id: authGuard?.id,
     name: authGuard?.name,

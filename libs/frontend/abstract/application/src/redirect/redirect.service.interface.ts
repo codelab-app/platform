@@ -35,7 +35,7 @@ export interface IRedirectService
       ICRUDModalService<Ref<IRedirectModel>, { redirect: IRedirectModel }>,
       'deleteModal'
     > {
-  createForm: IEntityFormService<Ref<IPageModel>, { selectedPage: IPageModel }>
+  createForm: IEntityFormService<Ref<IPageModel>, { selectedPage: Ref<IPageModel> }>
   redirectList: Array<IRedirectModel>
   add(redirect: IRedirectDTO): IRedirectModel
   redirect(redirect: IRedirectRef): Maybe<IRedirectModel>

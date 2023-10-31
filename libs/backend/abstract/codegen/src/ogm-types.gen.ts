@@ -3058,7 +3058,7 @@ export type AtomUserOwnerNodeAggregateSelection = {
 }
 
 export type AuthGuard = WithOwner & {
-  __typename?: 'AuthGuard'
+  __typename: 'AuthGuard'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   responseTransformer: Scalars['String']['output']
@@ -3131,7 +3131,7 @@ export type AuthGuardOwnerConnectionArgs = {
 }
 
 export type AuthGuardAggregateSelection = {
-  __typename?: 'AuthGuardAggregateSelection'
+  __typename: 'AuthGuardAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -3139,76 +3139,76 @@ export type AuthGuardAggregateSelection = {
 }
 
 export type AuthGuardConfigConnection = {
-  __typename?: 'AuthGuardConfigConnection'
+  __typename: 'AuthGuardConfigConnection'
   edges: Array<AuthGuardConfigRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AuthGuardConfigRelationship = {
-  __typename?: 'AuthGuardConfigRelationship'
+  __typename: 'AuthGuardConfigRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
 
 export type AuthGuardEdge = {
-  __typename?: 'AuthGuardEdge'
+  __typename: 'AuthGuardEdge'
   cursor: Scalars['String']['output']
   node: AuthGuard
 }
 
 export type AuthGuardPropConfigAggregationSelection = {
-  __typename?: 'AuthGuardPropConfigAggregationSelection'
+  __typename: 'AuthGuardPropConfigAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardPropConfigNodeAggregateSelection>
 }
 
 export type AuthGuardPropConfigNodeAggregateSelection = {
-  __typename?: 'AuthGuardPropConfigNodeAggregateSelection'
+  __typename: 'AuthGuardPropConfigNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   data: StringAggregateSelectionNonNullable
 }
 
 export type AuthGuardResourceConnection = {
-  __typename?: 'AuthGuardResourceConnection'
+  __typename: 'AuthGuardResourceConnection'
   edges: Array<AuthGuardResourceRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type AuthGuardResourceRelationship = {
-  __typename?: 'AuthGuardResourceRelationship'
+  __typename: 'AuthGuardResourceRelationship'
   cursor: Scalars['String']['output']
   node: Resource
 }
 
 export type AuthGuardResourceResourceAggregationSelection = {
-  __typename?: 'AuthGuardResourceResourceAggregationSelection'
+  __typename: 'AuthGuardResourceResourceAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardResourceResourceNodeAggregateSelection>
 }
 
 export type AuthGuardResourceResourceNodeAggregateSelection = {
-  __typename?: 'AuthGuardResourceResourceNodeAggregateSelection'
+  __typename: 'AuthGuardResourceResourceNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type AuthGuardsConnection = {
-  __typename?: 'AuthGuardsConnection'
+  __typename: 'AuthGuardsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<AuthGuardEdge>
 }
 
 export type AuthGuardUserOwnerAggregationSelection = {
-  __typename?: 'AuthGuardUserOwnerAggregationSelection'
+  __typename: 'AuthGuardUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardUserOwnerNodeAggregateSelection>
 }
 
 export type AuthGuardUserOwnerNodeAggregateSelection = {
-  __typename?: 'AuthGuardUserOwnerNodeAggregateSelection'
+  __typename: 'AuthGuardUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -3754,7 +3754,7 @@ export type CreateAtomsMutationResponse = {
 }
 
 export type CreateAuthGuardsMutationResponse = {
-  __typename?: 'CreateAuthGuardsMutationResponse'
+  __typename: 'CreateAuthGuardsMutationResponse'
   info: CreateInfo
   authGuards: Array<AuthGuard>
 }
@@ -3877,7 +3877,7 @@ export type CreateReactNodeTypesMutationResponse = {
 }
 
 export type CreateRedirectsMutationResponse = {
-  __typename?: 'CreateRedirectsMutationResponse'
+  __typename: 'CreateRedirectsMutationResponse'
   info: CreateInfo
   redirects: Array<Redirect>
 }
@@ -5882,26 +5882,26 @@ export type PagePageContentContainerRelationship = {
 }
 
 export type PageRedirectConnection = {
-  __typename?: 'PageRedirectConnection'
+  __typename: 'PageRedirectConnection'
   edges: Array<PageRedirectRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type PageRedirectRedirectAggregationSelection = {
-  __typename?: 'PageRedirectRedirectAggregationSelection'
+  __typename: 'PageRedirectRedirectAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageRedirectRedirectNodeAggregateSelection>
 }
 
 export type PageRedirectRedirectNodeAggregateSelection = {
-  __typename?: 'PageRedirectRedirectNodeAggregateSelection'
+  __typename: 'PageRedirectRedirectNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   targetUrl: StringAggregateSelectionNullable
 }
 
 export type PageRedirectRelationship = {
-  __typename?: 'PageRedirectRelationship'
+  __typename: 'PageRedirectRelationship'
   cursor: Scalars['String']['output']
   node: Redirect
 }
@@ -6216,7 +6216,7 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
 }
 
 export type Redirect = {
-  __typename?: 'Redirect'
+  __typename: 'Redirect'
   id: Scalars['ID']['output']
   targetType: RedirectTargetType
   targetUrl?: Maybe<Scalars['String']['output']>
@@ -6289,99 +6289,99 @@ export type RedirectAuthGuardConnectionArgs = {
 }
 
 export type RedirectAggregateSelection = {
-  __typename?: 'RedirectAggregateSelection'
+  __typename: 'RedirectAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   targetUrl: StringAggregateSelectionNullable
 }
 
 export type RedirectAuthGuardAuthGuardAggregationSelection = {
-  __typename?: 'RedirectAuthGuardAuthGuardAggregationSelection'
+  __typename: 'RedirectAuthGuardAuthGuardAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RedirectAuthGuardAuthGuardNodeAggregateSelection>
 }
 
 export type RedirectAuthGuardAuthGuardNodeAggregateSelection = {
-  __typename?: 'RedirectAuthGuardAuthGuardNodeAggregateSelection'
+  __typename: 'RedirectAuthGuardAuthGuardNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   responseTransformer: StringAggregateSelectionNonNullable
 }
 
 export type RedirectAuthGuardConnection = {
-  __typename?: 'RedirectAuthGuardConnection'
+  __typename: 'RedirectAuthGuardConnection'
   edges: Array<RedirectAuthGuardRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type RedirectAuthGuardRelationship = {
-  __typename?: 'RedirectAuthGuardRelationship'
+  __typename: 'RedirectAuthGuardRelationship'
   cursor: Scalars['String']['output']
   node: AuthGuard
 }
 
 export type RedirectEdge = {
-  __typename?: 'RedirectEdge'
+  __typename: 'RedirectEdge'
   cursor: Scalars['String']['output']
   node: Redirect
 }
 
 export type RedirectPageSourceAggregationSelection = {
-  __typename?: 'RedirectPageSourceAggregationSelection'
+  __typename: 'RedirectPageSourceAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RedirectPageSourceNodeAggregateSelection>
 }
 
 export type RedirectPageSourceNodeAggregateSelection = {
-  __typename?: 'RedirectPageSourceNodeAggregateSelection'
+  __typename: 'RedirectPageSourceNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
 export type RedirectPageTargetPageAggregationSelection = {
-  __typename?: 'RedirectPageTargetPageAggregationSelection'
+  __typename: 'RedirectPageTargetPageAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RedirectPageTargetPageNodeAggregateSelection>
 }
 
 export type RedirectPageTargetPageNodeAggregateSelection = {
-  __typename?: 'RedirectPageTargetPageNodeAggregateSelection'
+  __typename: 'RedirectPageTargetPageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
 export type RedirectsConnection = {
-  __typename?: 'RedirectsConnection'
+  __typename: 'RedirectsConnection'
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
   edges: Array<RedirectEdge>
 }
 
 export type RedirectSourceConnection = {
-  __typename?: 'RedirectSourceConnection'
+  __typename: 'RedirectSourceConnection'
   edges: Array<RedirectSourceRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type RedirectSourceRelationship = {
-  __typename?: 'RedirectSourceRelationship'
+  __typename: 'RedirectSourceRelationship'
   cursor: Scalars['String']['output']
   node: Page
 }
 
 export type RedirectTargetPageConnection = {
-  __typename?: 'RedirectTargetPageConnection'
+  __typename: 'RedirectTargetPageConnection'
   edges: Array<RedirectTargetPageRelationship>
   totalCount: Scalars['Int']['output']
   pageInfo: PageInfo
 }
 
 export type RedirectTargetPageRelationship = {
-  __typename?: 'RedirectTargetPageRelationship'
+  __typename: 'RedirectTargetPageRelationship'
   cursor: Scalars['String']['output']
   node: Page
 }
@@ -7102,7 +7102,7 @@ export type UpdateAtomsMutationResponse = {
 }
 
 export type UpdateAuthGuardsMutationResponse = {
-  __typename?: 'UpdateAuthGuardsMutationResponse'
+  __typename: 'UpdateAuthGuardsMutationResponse'
   info: UpdateInfo
   authGuards: Array<AuthGuard>
 }
@@ -7227,7 +7227,7 @@ export type UpdateReactNodeTypesMutationResponse = {
 }
 
 export type UpdateRedirectsMutationResponse = {
-  __typename?: 'UpdateRedirectsMutationResponse'
+  __typename: 'UpdateRedirectsMutationResponse'
   info: UpdateInfo
   redirects: Array<Redirect>
 }
@@ -10012,8 +10012,6 @@ export type ArrayTypeConnectInput = {
 }
 
 export type ArrayTypeConnectOrCreateInput = {
-  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
-  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
   fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
@@ -19992,8 +19990,6 @@ export type EnumTypeConnectInput = {
 export type EnumTypeConnectOrCreateInput = {
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
-  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectOrCreateFieldInput>>
-  owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
 export type EnumTypeConnectWhere = {
@@ -21510,15 +21506,6 @@ export type FieldNextSiblingUpdateFieldInput = {
   create?: InputMaybe<FieldNextSiblingCreateFieldInput>
   update?: InputMaybe<FieldNextSiblingUpdateConnectionInput>
   delete?: InputMaybe<FieldNextSiblingDeleteFieldInput>
-}
-
-export type FieldOnCreateInput = {
-  id: Scalars['ID']['input']
-  key: Scalars['String']['input']
-  name?: InputMaybe<Scalars['String']['input']>
-  description?: InputMaybe<Scalars['String']['input']>
-  validationRules?: InputMaybe<Scalars['String']['input']>
-  defaultValues?: InputMaybe<Scalars['String']['input']>
 }
 
 export type FieldOnCreateInput = {

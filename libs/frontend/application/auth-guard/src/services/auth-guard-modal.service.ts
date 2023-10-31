@@ -1,6 +1,6 @@
+import { IEntityModalService } from '@codelab/frontend/abstract/application'
 import type {
   IAuthGuardModel,
-  IEntityModalService,
 } from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'

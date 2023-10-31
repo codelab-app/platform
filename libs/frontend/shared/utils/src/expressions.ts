@@ -3,6 +3,7 @@ import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
 ========
 >>>>>>>> cc511e831 (wip: add auth guard schema):libs/frontend/shared/utils/src/expressions.ts
 import {
+  IEvaluationContext,
   isTypedProp,
   STATE_PATH_TEMPLATE_END_REGEX,
   STATE_PATH_TEMPLATE_REGEX,
@@ -124,9 +125,9 @@ export const evaluateExpression = <IContext>(
 <<<<<<<< HEAD:libs/frontend/application/shared/core/src/state-expression.ts
 ========
 
-export const evaluateObject = (
+export const evaluateObject = <IContext>(
   props: IPropData,
-  context: IEvaluationContext,
+  context: IContext,
 ) => {
   console.log('evaluateObject', props, context)
 
@@ -135,7 +136,7 @@ export const evaluateObject = (
     // value mapper
     (value) => {
       if (isString(value)) {
-        return getByExpression(value, context)
+        return getByExpression<IContext>(value, context)
       }
 
       // ReactNodeType can accept a string and will be rendered as a normal html node
@@ -152,29 +153,30 @@ export const evaluateObject = (
       return value
     },
     // key mapper
-    (_, key) => (isString(key) ? getByExpression(key, context) : key) as string,
+    (_, key) =>
+      (isString(key) ? getByExpression<IContext>(key, context) : key) as string,
   )
 }
 
-const getByExpression = (
+const getByExpression = <IContext>(
   expressionValue: string,
-  context: IEvaluationContext,
+  context: IContext,
 ) => {
   console.log('getByExpression', expressionValue)
 
-  if (!hasStateExpression(expressionValue)) {
+  if (!hasExpression(expressionValue)) {
     return expressionValue
   }
 
   /**
    * return typed value for : {{expression}}
    */
-  if (isSingleStateExpression(expressionValue)) {
-    return evaluateExpression(expressionValue, context)
+  if (isSingleExpression(expressionValue)) {
+    return evaluateExpression<IContext>(expressionValue, context)
   }
 
   const data = expressionValue.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
-    evaluateExpression(value, context),
+    evaluateExpression<IContext>(value, context),
   )
 
   console.log('expressionResults', data)
