@@ -19,20 +19,6 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
       ...idSchema(),
       ...appSchema,
       name: { disabled: kind !== IPageKind.Regular, type: 'string' },
-      authGuard: {
-        nullable: true,
-        properties: {
-          id: {
-            type: 'string',
-            label: '',
-            uniforms: {
-              component: SelectAuthGuard,
-            },
-          },
-        },
-        required: ['id'],
-        type: 'object',
-      },
       pageContentContainer: {
         label: '',
         nullable: true,

@@ -9,7 +9,6 @@ import type {
 import type { IPage } from '@codelab/shared/abstract/core'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'
-import { Page } from './page.model'
 
 @model('@codelab/PageRepository')
 export class PageRepository extends Model({}) implements IPageRepository {

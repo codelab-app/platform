@@ -25,12 +25,6 @@ export class BaseRenderPipe
     return renderer
   }
 
-  // Used by inherited classes
-  @computed
-  protected get componentService() {
-    return getComponentService(this)
-  }
-
   @computed
   protected get componentDomainService() {
     return getComponentDomainService(this)

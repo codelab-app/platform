@@ -27,17 +27,12 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      },
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/frontend/application/lambda/jest.config.ts",
         "reporters": ["default"]
-      }
+      },
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:integration": {
       "configurations": {
@@ -69,6 +64,41 @@
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
+    "test:integration": {
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true,
+          "parallel": 3
+        },
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        }
+      },
+      "defaultConfiguration": "dev",
+      "defaultConfiguration": "dev",
+      "defaultConfiguration": "dev",
+      "executor": "@nx/jest:jest",
+      "options": {
+        "color": true,
+        "jestConfig": "libs/frontend/application/lambda/jest.config.ts",
+        "memoryLimit": 8192,
+        "passWithNoTests": true,
+        "testPathPattern": ["[i].spec.ts"]
+      },
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:unit": {
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
     "test:unit": {
       "configurations": {
         "ci": {
@@ -83,11 +113,9 @@
         }
       },
       "defaultConfiguration": "dev",
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
       "options": {
         "color": true,
-        "jestConfig": "libs/frontend/application/lambda/jest.config.ts",
         "memoryLimit": 8192,
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"]
