@@ -50,10 +50,6 @@
       "node": {
         "project": ["(apps|libs)/**/tsconfig.lib.json"]
       }
-      // "node": {
-      //   "extensions": [".js", ".jsx", ".ts", ".tsx"],
-      //   "project": ["(apps|libs)/**/tsconfig.lib.json"]
-      // }
     }
   },
   "overrides": [
@@ -124,6 +120,7 @@
         "func-style": "error"
       }
     },
+
     {
       "files": ["*.schema.ts", "*.schema.interface.ts"],
       "rules": {

@@ -24,26 +24,6 @@ describe('Pages CRUD', () => {
       cy.findAllByText(IPageKindName.NotFound).should('exist')
       cy.findAllByText(IPageKindName.InternalServerError).should('exist')
 
-describe('Pages CRUD', () => {
-  let app: IApp
-
-  before(() => {
-    loginAndSetupData()
-    cy.postApiRequest<IApp>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
-  })
-
-  describe('create', () => {
-    it('should be able to create page', () => {
-      cy.visit(
-        `/apps/cypress/${app.slug}/pages/_app/builder?primarySidebarKey=pageList`,
-      )
-      cy.getSpinner().should('not.exist')
-      cy.findAllByText(IPageKindName.Provider).should('exist')
-      cy.findAllByText(IPageKindName.NotFound).should('exist')
-      cy.findAllByText(IPageKindName.InternalServerError).should('exist')
-
       cy.findAllByText(pageName).should('not.exist')
 
       cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()

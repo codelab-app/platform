@@ -22007,16 +22007,6 @@ export type PagePreviewFragment = {
   store: { id: string }
 }
 
-export type PagePreviewFragment = {
-  __typename?: 'Page'
-  id: string
-  kind: PageKind
-  name: string
-  url: string
-  app: { __typename?: 'App'; id: string }
-  rootElement: { __typename?: 'Element'; id: string }
-  store: { __typename?: 'Store'; id: string }
-}
 
 export type PageFragment = {
   id: string
@@ -22418,113 +22408,6 @@ export type GetAppProductionQuery = {
   resources: Array<ResourceFragment>
 }
 
-export type GetAppsListQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsListQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
-}
-
-export type GetAppDevelopmentQueryVariables = Exact<{
-  appCompositeKey: Scalars['String']['input']
-  pageName: Scalars['String']['input']
-}>
-
-export type GetAppDevelopmentQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppDevelopmentFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
-  primitiveTypes: Array<
-    { __typename?: 'PrimitiveType' } & PrimitiveTypeFragment &
-      PrimitiveTypeFragment
-  >
-  reactNodeTypes: Array<
-    { __typename?: 'ReactNodeType' } & ReactNodeTypeFragment &
-      ReactNodeTypeFragment
-  >
-  renderPropTypes: Array<
-    { __typename?: 'RenderPropType' } & RenderPropTypeFragment &
-      RenderPropTypeFragment
-  >
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-  authGuards: Array<{ __typename?: 'AuthGuard' } & AuthGuardFragment>
-  actionTypes: Array<{ __typename?: 'ActionType' } & ActionTypeFragment>
-  redirects: Array<{ __typename?: 'Redirect' } & RedirectFragment>
-}
-
-export type GetAppProductionQueryVariables = Exact<{
-  domain: Scalars['String']['input']
-  pageUrl: Scalars['String']['input']
-}>
-
-export type GetAppProductionQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppProductionFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomProductionFragment>
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-}
-
-export type CreateAppsMutationVariables = Exact<{
-  input: Array<AppCreateInput> | AppCreateInput
-}>
-
-export type CreateAppsMutation = {
-  __typename?: 'Mutation'
-  createApps: {
-    __typename?: 'CreateAppsMutationResponse'
-    apps: Array<{ __typename?: 'App'; id: string }>
-  }
-}
-
-export type UpdateAppsMutationVariables = Exact<{
-  where: AppWhere
-  update: AppUpdateInput
-}>
-
-export type UpdateAppsMutation = {
-  __typename?: 'Mutation'
-  updateApps: {
-    __typename?: 'UpdateAppsMutationResponse'
-    apps: Array<{ __typename?: 'App'; id: string }>
-  }
-}
-
-export type DeleteAppsMutationVariables = Exact<{
-  where: AppWhere
-  delete?: InputMaybe<AppDeleteInput>
-}>
-
-export type DeleteAppsMutation = {
-  __typename?: 'Mutation'
-  deleteApps: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
-
-export type GetAppsQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsQuery = {
-  __typename?: 'Query'
-  aggregate: { __typename?: 'AppAggregateSelection'; count: number }
-  items: Array<{ __typename?: 'App' } & AppFragment>
-}
-
-export type GetAppsListQueryVariables = Exact<{
-  options?: InputMaybe<AppOptions>
-  where?: InputMaybe<AppWhere>
-}>
-
-export type GetAppsListQuery = {
-  __typename?: 'Query'
-  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
-  atoms: Array<{ __typename?: 'Atom' } & AtomDevelopmentFragment>
-}
-
 export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
@@ -22577,18 +22460,6 @@ export type UpdateAtomsMutation = {
   updateAtoms: { atoms: Array<{ id: string }> }
 }
 
-export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetSelectAtomOptionsQuery = {
-  atoms: Array<{
-    __typename: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-    api: InterfaceTypeFragment
-    requiredParents: Array<{ id: string; type: AtomType }>
-  }>
-}
 
 export type GetAuthGuardsQueryVariables = Exact<{
   options?: InputMaybe<AuthGuardOptions>

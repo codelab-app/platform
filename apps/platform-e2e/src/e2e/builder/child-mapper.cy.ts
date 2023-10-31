@@ -113,16 +113,6 @@ describe('Element Child Mapper', () => {
       .should('be.visible')
       .click({ force: true })
   })
-  it('should create the component that will be used for the child mapper', () => {
-    // create a component
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder?primarySidebarKey=components`,
-    )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
 
   it('should create the element tree where we will insert the component as a child mapper component', () => {
     cy.createElementTree([

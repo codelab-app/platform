@@ -145,11 +145,6 @@ describe('Element Child Mapper', () => {
       apiGetActionId = response?.body.data.createApiActions.apiActions[0]
         .id as string
     })
-
-    cy.wait('@createAction').then(({ response }) => {
-      apiGetActionId = response?.body.data.createApiActions.apiActions[0]
-        .id as string
-    })
   })
 
   it('should add button to the component and set the api action on the onClick', () => {

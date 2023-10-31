@@ -11,9 +11,6 @@ export interface INodeEnvVars {
 }
 
 export class NodeEnvVars implements INodeEnvVars {
-  get isCi() {
-    return env.get('CI').default('false').asBool()
-  }
 
   get isCi() {
     return env.get('CI').default('false').asBool()

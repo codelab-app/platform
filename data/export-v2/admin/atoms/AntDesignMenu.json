@@ -426,54 +426,6 @@
         "name": "AntDesignMenu Expand Icon Enum"
       },
       {
-        "__typename": "ArrayType",
-        "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
-        "itemType": {
-          "id": "8baae515-020d-422e-a1bc-340c20490dd2",
-          "kind": "InterfaceType"
-        },
-        "kind": "ArrayType",
-        "name": "AntDesignMenuItemTypeArray"
-      },
-      {
-        "__typename": "InterfaceType",
-        "fields": [
-          {
-            "id": "2b9265ef-1f26-478c-a225-419408ce0fa4"
-          },
-          {
-            "id": "915200d2-ea99-4216-9ba8-673d239d1007"
-          },
-          {
-            "id": "cf910edd-2c9f-4094-ab98-a6f185e71bb1"
-          }
-        ],
-        "id": "8baae515-020d-422e-a1bc-340c20490dd2",
-        "kind": "InterfaceType",
-        "name": "AntDesignMenuItemType",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
-      },
-      {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "afc53482-37d4-4d7a-8481-2e8c91efbe70",
-            "key": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode",
-            "value": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode"
-          },
-          {
-            "id": "dab49cd8-6029-4114-9f13-adf60fbc14a0",
-            "key": "ReactNode",
-            "value": "ReactNode"
-          }
-        ],
-        "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
-        "kind": "EnumType",
-        "name": "AntDesignMenu Expand Icon Enum"
-      },
-      {
         "__typename": "EnumType",
         "allowedValues": [
           {
