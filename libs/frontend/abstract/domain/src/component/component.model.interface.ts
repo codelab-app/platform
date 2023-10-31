@@ -34,7 +34,6 @@ export interface IComponentModel
    */
   sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
-  toJson: IComponentSerialized
 
   setChildrenContainerElement(element: Ref<IElementModel>): void
   setInstanceElement(elementRef: Ref<IElementModel>): void

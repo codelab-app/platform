@@ -16,7 +16,6 @@ export interface IPropModel
   api?: Nullable<Ref<IInterfaceTypeModel>>
   data: Frozen<Nullable<IPropData>>
   jsonString: string
-  toJson: IPropDTO
   values: IPropData
 
   clone(): IPropModel

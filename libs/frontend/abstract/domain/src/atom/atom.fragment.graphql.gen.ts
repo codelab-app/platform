@@ -69,16 +69,6 @@ export const AtomFragmentDoc = gql`
       name
       type
     }
-    requiredParents {
-      id
-      name
-      type
-    }
-    suggestedChildren {
-      id
-      name
-      type
-    }
     tags {
       ...Tag
     }

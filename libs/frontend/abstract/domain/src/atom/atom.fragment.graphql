@@ -19,16 +19,6 @@ fragment Atom on Atom {
     name
     type
   }
-  requiredParents {
-    id
-    name
-    type
-  }
-  suggestedChildren {
-    id
-    name
-    type
-  }
   tags {
     ...Tag
   }

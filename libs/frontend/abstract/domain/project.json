@@ -1,9 +1,7 @@
 {
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "frontend-abstract-domain",
-  "projectType": "library",
   "sourceRoot": "libs/frontend/abstract/domain/src",
-  "tags": ["projectType:library", "type:abstract", "scope:frontend"],
   "tags": [
     "projectType:library",
     "type:abstract",

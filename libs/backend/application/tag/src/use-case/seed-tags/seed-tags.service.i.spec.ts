@@ -36,6 +36,11 @@ describe('Tag Parser', () => {
       (node) => node.name === IAntdCategoryTag.AntDesignGeneral,
     )
 
+    // Assert root node
+    expect(generalTagNode?.parent).toBeUndefined()
+    expect(generalTagNode?.name).toBe(IAntdCategoryTag.AntDesignGeneral)
+    expect(generalTagNode?.children).toHaveLength(3)
+
     // Assert leaf node
     const typographyNodeId = generalTagNode?.children?.[2]?.id
 
