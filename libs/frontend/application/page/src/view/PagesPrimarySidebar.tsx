@@ -34,6 +34,7 @@ export const PagesPrimarySidebar = observer(() => {
             <UpdatePagePopover />
             <CreateRedirectPopover />
             <UpdateRedirectPopover />
+            <DeleteRedirectModal />
           </>
         }
         views={[
