@@ -1,8 +1,8 @@
 {
-  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "name": "frontend-application-shared-data",
-  "projectType": "library",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/application/shared/data/src",
+  "projectType": "library",
   "tags": [
     "type:data",
     "projectType:library",
@@ -12,20 +12,20 @@
   ],
   "targets": {
     "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/application/shared/data/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-application-shared-data.xml",
           "quiet": true
         }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/shared/data/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     }
   }
 }

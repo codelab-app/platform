@@ -382,52 +382,6 @@ export class Element
   }
 
   @computed
-  get toJson() {
-    return {
-      childMapperComponent: this.childMapperComponent,
-      childMapperPreviousSibling: this.childMapperPreviousSibling,
-      childMapperPropKey: this.childMapperPropKey,
-      closestContainerNode: this.closestContainerNode,
-      firstChild: this.firstChild,
-      id: this.id,
-      // isRoot: this.isRoot,
-      name: this.name,
-      nextSibling: this.nextSibling,
-      page: this.page,
-      parentComponent: this.parentComponent,
-      parentElement: this.parentElement,
-      postRenderAction: this.postRenderAction,
-      preRenderAction: this.preRenderAction,
-      prevSibling: this.prevSibling,
-      props: this.props.current.toJson,
-      renderForEachPropKey: this.renderForEachPropKey,
-      renderIfExpression: this.renderIfExpression,
-      renderType: this.renderType.current.toJson,
-      style: this.style,
-    }
-  }
-
-  @computed
-  get toTreeNode() {
-    return {
-      firstChild: this.firstChild?.current.toId,
-      id: this.id,
-      name: this.name,
-      nextSibling: this.nextSibling?.current.toId,
-      parentElement: this.parentElement?.current.toId,
-      prevSibling: this.prevSibling?.current.toId,
-    }
-  }
-
-  @computed
-  get toId() {
-    return {
-      id: this.id,
-      name: this.name,
-    }
-  }
-
-  @computed
   get treeTitle() {
     return {
       primary: this.label,

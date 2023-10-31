@@ -85,7 +85,7 @@ export class Page
   }
 
   @computed
-  get toJson(): IPage {
+  get toJson() {
     return {
       $modelType: 'serialized' as const,
       app: this.app,

@@ -24,15 +24,6 @@ describe('Element domain', () => {
 
   const rootElement = elementDomainService.elements.get(rootElementDto.id)!
 
-  const { elementDomainService } = elementService
-
-  rootElementDto.renderType.id = atomReactFragmentDto.id
-  pageService.add(pageDto)
-  elementDomainService.hydrate({ ...rootElementDto, page: pageDto })
-  atomService.add(atomReactFragmentDto)
-
-  const rootElement = elementService.element(rootElementDto.id)
-
   it('should add a render type to element', () => {
     const renderType = rootElement.renderType
 

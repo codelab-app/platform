@@ -4,7 +4,6 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

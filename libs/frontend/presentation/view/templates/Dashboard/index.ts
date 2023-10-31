@@ -9,5 +9,6 @@ export const DynamicDashboardTemplate = dynamic(
 
 export * from './constants'
 export * from './Types'
+
 export { DynamicDashboardTemplate as DashboardTemplate }
 // export * from './DashboardTemplate'

@@ -121,14 +121,6 @@ export class Atom
   }
 
   /**
-   * Make it so we can match the interface
-   */
-  @computed
-  get __typename() {
-    return IElementRenderTypeKind.Atom as const
-  }
-
-  /**
    * Determines whether the atom accepts children and text make sense for the type.
    */
   @computed
