@@ -1,3 +1,4 @@
+import { getRedirectService } from '@codelab/frontend/abstract/application'
 import type {
   IAppModel,
   IElementModel,
