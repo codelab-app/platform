@@ -14,7 +14,7 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-infra-adapter-codelab.xml",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-typebox.xml",
           "quiet": true
         }
       },

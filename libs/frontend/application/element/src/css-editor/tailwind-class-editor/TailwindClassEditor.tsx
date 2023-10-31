@@ -49,6 +49,7 @@ export const TailwindClassEditor = ({
 
     if (activeOption) {
       const label = activeOption.getAttribute('label') ?? ''
+
       appendClassName(label)
     }
   }

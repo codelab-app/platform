@@ -11,7 +11,6 @@ import type {
   IElementModel,
   IMoveElementContext,
   IUpdateElementData,
-  SelectElementOptions,
 } from '@codelab/frontend/abstract/domain'
 import {
   BuilderWidthBreakPoint,
@@ -80,8 +79,6 @@ export class ElementService
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDTO) {
     const element = this.elementDomainService.addTreeNode(data)
-
-    yield* _await(this.elementRepository.add(element))
 
     yield* _await(this.elementRepository.add(element))
 
