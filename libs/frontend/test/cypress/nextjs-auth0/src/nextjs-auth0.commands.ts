@@ -5,5 +5,5 @@ export const nextjsAuth0Commands: Array<CypressCommand> = [
   {
     fn: loginToAuth0,
     name: 'loginToAuth0',
-  }
+  },
 ]
