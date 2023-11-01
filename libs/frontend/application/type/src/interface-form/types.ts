@@ -1,5 +1,5 @@
+import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
 import type {
-  IEvaluationContext,
   IFieldDefaultValue,
   IInterfaceTypeModel,
   ITypeModel,

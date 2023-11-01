@@ -2,7 +2,6 @@ import type {
   IElementModel,
   IInterfaceTypeModel,
   IPropModel,
-  IRuntimeComponent,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {

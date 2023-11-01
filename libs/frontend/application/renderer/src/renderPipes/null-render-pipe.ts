@@ -1,7 +1,7 @@
 import type {
   IRenderOutput,
   IRenderPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -17,13 +17,13 @@ export class NullRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(runtimeElement: IRuntimeElement): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const { element, props } = runtimeElement
 
     if (this.renderer.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 
-    return RenderOutput.empty({ element, props })
+    return RenderOutput.empty({ runtimeElement, props })
   }
 }

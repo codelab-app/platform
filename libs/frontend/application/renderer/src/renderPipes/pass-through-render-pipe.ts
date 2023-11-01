@@ -1,7 +1,7 @@
 import type {
   IRenderOutput,
   IRenderPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { isAtom } from '@codelab/frontend/abstract/domain'
@@ -19,7 +19,7 @@ export class PassThroughRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(runtimeElement: IRuntimeElement): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const element = runtimeElement.element
     const props = runtimeElement.props
 
@@ -35,7 +35,7 @@ export class PassThroughRenderPipe
       atomType: isAtom(element.renderType.current)
         ? element.renderType.current.type
         : IAtomType.ReactFragment,
-      element,
+      runtimeElement,
       props,
     })
   }

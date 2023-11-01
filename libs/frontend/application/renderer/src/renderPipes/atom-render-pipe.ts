@@ -1,7 +1,7 @@
 import type {
   IRenderOutput,
   IRenderPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { getElementService } from '@codelab/frontend/abstract/application'
 import { type IElementModel, isAtom } from '@codelab/frontend/abstract/domain'
@@ -19,7 +19,7 @@ export class AtomRenderPipe
   })
   implements IRenderPipe
 {
-  render(runtimeElement: IRuntimeElement): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const element = runtimeElement.element
 
     if (!isAtom(element.renderType.current)) {
@@ -57,7 +57,6 @@ export class AtomRenderPipe
 
     return RenderOutput.withAtom({
       atomType,
-      element,
       props: {
         ...newProps,
         /**
@@ -65,6 +64,7 @@ export class AtomRenderPipe
          */
         css: this.elementService.styleStringWithBreakpoints(element),
       },
+      runtimeElement,
     })
   }
 

@@ -1,7 +1,7 @@
 import type {
   IRuntimeComponent,
   IRuntimeComponentDto,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
@@ -77,7 +77,7 @@ export class RuntimeComponent
   }
 
   @computed
-  get instanceElementProps(): Maybe<IRuntimeElement> {
+  get instanceElementProps(): Maybe<IRuntimeElementModel> {
     const instanceElement = this.node.instanceElement?.current
 
     return instanceElement

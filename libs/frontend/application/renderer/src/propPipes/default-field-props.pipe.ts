@@ -1,6 +1,6 @@
 import type {
   IPropPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
 import {
@@ -23,7 +23,7 @@ export class DefaultFieldPropsPipe
   })
   implements IPropPipe
 {
-  merge(runtimeElement: IRuntimeElement) {
+  merge(runtimeElement: IRuntimeElementModel) {
     const element = runtimeElement.elementRef.current
     const props = getDefaultFieldProps(element.renderType.current) ?? {}
 

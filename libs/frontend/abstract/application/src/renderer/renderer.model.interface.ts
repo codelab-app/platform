@@ -18,8 +18,8 @@ import type {
   IRuntimeBase,
   ITypedPropTransformer,
 } from './runtime.model.interface'
-import type { IRuntimeComponent } from './runtime-component.model'
-import type { IRuntimeElement } from './runtime-element.model.interface'
+import type { IRuntimeComponent } from './runtime-component.model.interface'
+import type { IRuntimeElementModel } from './runtime-element.model.interface'
 
 export const enum RendererType {
   ComponentBuilder = 'component-builder',
@@ -37,25 +37,25 @@ export interface IRendererModel {
   renderPipe: IRenderPipe
   rendererType: RendererType
   runtimeComponents: ObjectMap<IRuntimeComponent>
-  runtimeElements: ObjectMap<IRuntimeElement>
+  runtimeElements: ObjectMap<IRuntimeElementModel>
   // runtimeStores: ObjectMap<IRuntimeStore>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
   addRuntimeComponent(component: IComponentModel): IRuntimeComponent
-  addRuntimeElement(element: IElementModel): IRuntimeElement
+  addRuntimeElement(element: IElementModel): IRuntimeElementModel
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>
   getComponentInstanceChildren(element: IElementModel): Array<IElementModel>
   logRendered(rendered: IRenderOutput): void
   renderElement(element: IElementModel): Nullable<ReactElement>
   renderIntermediateElement(element: IElementModel): IRenderOutput
-  runPostRenderAction(element: IRuntimeElement): void
-  runPreRenderAction(element: IRuntimeElement): void
-  // runtimeAction(action: IRef): IRuntimeAction
+  runPostRenderAction(element: IRuntimeElementModel): void
+  runPreRenderAction(element: IRuntimeElementModel): void
+  runtimeAction(action: IRef): IRuntimeAction
   runtimeComponent(component: IRef): IRuntimeComponent
-  runtimeElement(element: IRef): IRuntimeElement
-  shouldRenderElement(element: IRuntimeElement): boolean
+  runtimeElement(element: IRef): IRuntimeElementModel
+  shouldRenderElement(element: IRuntimeElementModel): boolean
 }
 
 export interface ElementWrapperProps {

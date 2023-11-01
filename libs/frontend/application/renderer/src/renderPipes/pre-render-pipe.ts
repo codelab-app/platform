@@ -1,7 +1,7 @@
 import type {
   IRenderOutput,
   IRenderPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -15,7 +15,7 @@ export class PreRenderPipe
   })
   implements IRenderPipe
 {
-  render(runtimeElement: IRuntimeElement): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const renderer = this.rendererService.activeRenderer?.current
 
     renderer?.runPreRenderAction(runtimeElement)
