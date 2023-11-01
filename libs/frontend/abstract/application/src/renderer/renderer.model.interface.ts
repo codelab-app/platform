@@ -38,7 +38,7 @@ export interface IRendererModel {
   rendererType: RendererType
   runtimeComponents: ObjectMap<IRuntimeComponent>
   runtimeElements: ObjectMap<IRuntimeElement>
-  runtimeStores: ObjectMap<IRuntimeStore>
+  // runtimeStores: ObjectMap<IRuntimeStore>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
@@ -52,7 +52,7 @@ export interface IRendererModel {
   renderIntermediateElement(element: IElementModel): IRenderOutput
   runPostRenderAction(element: IRuntimeElement): void
   runPreRenderAction(element: IRuntimeElement): void
-  runtimeAction(action: IRef): IRuntimeAction
+  // runtimeAction(action: IRef): IRuntimeAction
   runtimeComponent(component: IRef): IRuntimeComponent
   runtimeElement(element: IRef): IRuntimeElement
   shouldRenderElement(element: IRuntimeElement): boolean

@@ -2,9 +2,9 @@ import type {
   IElementModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData, IRef } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
-import type { IRuntimeBase, RendererType } from '../renderer'
+import type { IRuntimeAction, IRuntimeBase, RendererType } from '../renderer'
 import type { IRuntimeStore } from '../store'
 import type { IRuntimeProp } from './runtime-prop.model.interface'
 
@@ -23,8 +23,8 @@ export interface IEvaluationContext {
 }
 
 export interface IRuntimeElementDto {
-  node: IElementModel
-  store: IStoreModel
+  element: IElementModel
+  // store: IStoreModel
 }
 
 export interface IPropPipeOutput {
@@ -67,5 +67,7 @@ export interface IRuntimeElement {
    * This is the evaluation context for props
    */
   propsEvaluationContext: IEvaluationContext
-  runtimeStore: IRuntimeStore
+  // runtimeStore: IRuntimeStore
+
+  runtimeAction(action: IRef): IRuntimeAction
 }

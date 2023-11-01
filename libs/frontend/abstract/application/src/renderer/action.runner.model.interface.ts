@@ -8,13 +8,9 @@ import type { IRuntimeStore } from '../store/runtime-store.model.interface'
 
 export interface IRuntimeAction {
   actionRef: Ref<IActionModel>
+  elementRef: Ref<IElementModel>
   fromProvider: boolean
-  // elementRef: Ref<IElementModel>
   id: string
-  runtimeStore: Ref<IRuntimeStore>
 
   runner(node: IPageNode): (...args: Array<unknown>) => void
 }
-
-export const getRunnerId = (storeId: string, actionId: string) =>
-  `${storeId}${actionId}`

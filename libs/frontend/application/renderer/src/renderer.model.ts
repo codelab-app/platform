@@ -50,9 +50,9 @@ import React from 'react'
 import { ElementWrapper } from './element/element-wrapper'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
+import { RuntimeAction } from './runtime-action.model'
 import { RuntimeComponent } from './runtime-component.model'
 import { RuntimeElement } from './runtime-element.model'
-import { RuntimeStore } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 import { getRunner } from './utils'
 /**
@@ -156,7 +156,7 @@ export class Renderer
     }
 
     const runtimeElement = RuntimeElement.create({
-      nodeRef: elementRef(element),
+      element,
     })
 
     this.runtimeElements.set(element.id, runtimeElement)
@@ -236,48 +236,46 @@ export class Renderer
    * Renders a single element (without its children) to an intermediate RenderOutput
    */
   renderIntermediateElement = (element: IElementModel): IRenderOutput => {
-    this.addRuntimeStore(element.store.current)
+    // this.addRuntimeStore(element.store.current)
 
-    const runtimeProps = this.addRuntimeElement(element)
+    const runtimeElement = this.addRuntimeElement(element)
 
-    console.log('IntermediateElement', runtimeProps.evaluatedProps)
+    console.log('IntermediateElement', runtimeElement.evaluatedProps)
 
-    return this.renderPipe.render(element, runtimeProps.evaluatedProps)
+    return this.renderPipe.render(runtimeElement)
   }
 
-  runPostRenderAction = (element: IElementModel) => {
-    const { postRenderAction } = element
+  runPostRenderAction = (runtimeElement: IRuntimeElement) => {
+    const {
+      element: { postRenderAction },
+    } = runtimeElement
+
     const currentPostRenderAction = postRenderAction?.current
 
     if (currentPostRenderAction) {
       const runtimeAction = this.runtimeAction(currentPostRenderAction)
 
       const runner = runtimeAction.runner.bind(
-        this.runtimeElements.get(element.id)?.expressionEvaluationContext,
+        runtimeElement.expressionEvaluationContext,
       )
 
-      runner(element)
+      runner(runtimeElement)
     }
   }
 
-  runPreRenderAction = (element: IElementModel) => {
+  runPreRenderAction = (runtimeElement: IRuntimeElement) => {
+    const { element } = runtimeElement
     const { preRenderAction, providerStore, store } = element
 
     if (preRenderAction) {
-      const { runner: preRenderActionRunner } = getRunner(
-        this,
-        preRenderAction.id,
-        store.id,
-        providerStore?.id,
-      )
+      const preRenderActionRunner =
+        runtimeElement.runtimeAction(preRenderAction)
 
-      if (preRenderActionRunner) {
-        const runner = preRenderActionRunner.runner.bind(
-          this.runtimeElements.get(element.id)?.expressionEvaluationContext,
-        )
+      // const runner = preRenderActionRunner.runner.bind(
+      //   this.runtimeElements.get(element.id)?.expressionEvaluationContext,
+      // )
 
-        runner(element)
-      }
+      preRenderActionRunner.runner(element)
     }
   }
 
@@ -321,19 +319,15 @@ export class Renderer
     return throwIfUndefined(this.runtimeComponents.get(component.id))
   }
 
-  runtimeStore(store: IRef) {
-    return throwIfUndefined(this.runtimeStores.get(store.id))
-  }
+  // runtimeAction(actionRef: IRef) {
+  //   const actions = [...this.runtimeStores.values()].flatMap(
+  //     (store) => store.runtimeActions,
+  //   )
 
-  runtimeAction(actionRef: IRef) {
-    const actions = [...this.runtimeStores.values()].flatMap(
-      (store) => store.runtimeActions,
-    )
-
-    return throwIfUndefined(
-      actions.find((action) => (action.id = actionRef.id)),
-    )
-  }
+  //   return throwIfUndefined(
+  //     actions.find((action) => (action.id = actionRef.id)),
+  //   )
+  // }
 
   shouldRenderElement(runtimeElement: IRuntimeElement) {
     const { element } = runtimeElement
