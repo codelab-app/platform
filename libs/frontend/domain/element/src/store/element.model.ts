@@ -30,11 +30,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IElementDTO,
-  IPropData,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IElementDTO, IRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -46,10 +42,8 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import {
-  clone,
   idProp,
   Model,
   model,
@@ -567,27 +561,6 @@ export class Element
     parentElement.firstChild = elementRef(this.id)
 
     this.parentElement = elementRef(parentElement)
-  }
-
-  @modelAction
-  clone(cloneIndex?: number) {
-    const clonedElement: IElementModel = clone<IElementModel>(this, {
-      generateNewIds: true,
-    })
-
-    // FIXME: add atom and props
-    clonedElement.setName(
-      `${this.name}${isNil(cloneIndex) ? '' : ` ${cloneIndex}`}`,
-    )
-    clonedElement.setSourceElement(elementRef(this.id))
-
-    // store elements in elementService
-    this.elementDomainService.clonedElements.set(
-      clonedElement.id,
-      clonedElement,
-    )
-
-    return clonedElement
   }
 
   /**

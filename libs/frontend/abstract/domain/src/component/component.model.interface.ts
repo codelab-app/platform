@@ -8,7 +8,7 @@ import type {
   IElementRenderTypeKind,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPropModel } from '../prop'
@@ -35,7 +35,6 @@ export interface IComponentModel
   sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
 
-  clone(key: string, instanceId?: string): IComponentModel
   setChildrenContainerElement(element: Ref<IElementModel>): void
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void

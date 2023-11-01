@@ -2,10 +2,7 @@ import type {
   IElementDomainService,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  IMoveElementContext,
-  IUpdateElementData,
-} from '@codelab/frontend/abstract/domain'
+import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -16,7 +13,6 @@ import { validateMoveElement } from './move-element.validation'
 @model('@codelab/ElementDomainService')
 export class ElementDomainService
   extends Model({
-    clonedElements: prop(() => objectMap<IElementModel>()),
     /**
      * Contains all elements
      *
@@ -40,16 +36,6 @@ export class ElementDomainService
   }
 
   @modelAction
-  removeClones(elementId: string) {
-    return [...this.clonedElements.entries()]
-      .filter(([id, component]) => component.sourceElement?.id === elementId)
-      .forEach(([id]) => {
-        // this.moveElementService.detachElementFromElementTree(id)
-        this.clonedElements.delete(id)
-      })
-  }
-
-  @modelAction
   element(id: string) {
     const element = this.maybeElement(id)
 
@@ -62,7 +48,7 @@ export class ElementDomainService
 
   @modelAction
   maybeElement(id: string) {
-    return this.elements.get(id) || this.clonedElements.get(id)
+    return this.elements.get(id)
   }
 
   @modelAction
@@ -95,13 +81,6 @@ export class ElementDomainService
     this.elements.set(elementDto.id, element)
 
     return element
-  }
-
-  @modelAction
-  writeCloneCache({ id, ...elementData }: IUpdateElementData) {
-    return [...this.clonedElements.values()]
-      .filter((clonedElement) => clonedElement.sourceElement?.id === id)
-      .map((clonedElement) => clonedElement.writeCache({ ...elementData }))
   }
 
   /**

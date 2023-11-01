@@ -8,31 +8,21 @@ import type {
 import {
   actionRef,
   componentRef,
-  isAtomRef,
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IAction,
-  IAppDTO,
-  IPropData,
-  IStoreDTO,
-} from '@codelab/shared/abstract/core'
+import type { IAction, IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import keys from 'lodash/keys'
-import merge from 'lodash/merge'
-import { autorun, computed, observable, set } from 'mobx'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { getStoreDomainService } from '../services/store.domain.service.context'
 
 const create = ({
@@ -138,22 +128,6 @@ export class Store
         title: `${action.current.name} (${action.current.type})`,
       }))
       .filter((node) => Boolean(node))
-  }
-
-  @modelAction
-  clone(componentId: string) {
-    const id = v4()
-
-    return this.storeDomainService.hydrate({
-      actions: [...this.actions.values()].map(
-        (action) => action.current.toJson,
-      ),
-      api: typeRef<IInterfaceTypeModel>(this.api.id),
-      component: componentRef(componentId),
-      id,
-      name: this.name,
-      source: { id: this.id },
-    })
   }
 
   @modelAction
