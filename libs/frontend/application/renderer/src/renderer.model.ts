@@ -115,7 +115,7 @@ export class Renderer
     /**
      * Props record for all components during all transformations stages
      */
-    // runtimeComponents: prop<ObjectMap<IRuntimeComponent>>(() => objectMap([])),
+    runtimeComponents: prop<ObjectMap<IRuntimeComponent>>(() => objectMap([])),
     runtimeElements: prop<ObjectMap<IRuntimeElement>>(() => objectMap([])),
     // runtimeStores: prop<ObjectMap<IRuntimeStore>>(() => objectMap([])),
     /**
@@ -129,49 +129,6 @@ export class Renderer
   implements IRendererModel
 {
   static create = create
-
-  @modelAction
-  addRuntimeStore(store: IStoreModel) {
-    // if (!element.isRoot) {
-    //   return []
-    // }
-
-    const runtimeStore =
-      this.runtimeStores.get(store.id) ?? RuntimeStore.create(store)
-
-    this.runtimeStores.set(store.id, runtimeStore)
-
-    return runtimeStore
-
-    // const storeActions = store.actions
-
-    // const allActionsStored = storeActions.map((action) => {
-    //   const runtimeStore = this.runtimeStores.get(
-    //     getRunnerId(store.id, action.id),
-    //   )
-
-    //   if (!runtimeStore) {
-    //     return RuntimeStore.create(store)
-    //   }
-
-    //   return runtimeStore
-    // })
-
-    // // Prevents re-creating of runners which causes unnecessary re-renders
-    // // when renderIntermediateElement is called again due to some re-render
-    // if (allActionsStored) {
-    //   return storeActions.map(
-    //     (action) =>
-    //       this.runtimeStores.get(
-    //         getRunnerId(store.id, action.id),
-    //       ) as IActionRunner,
-    //   )
-    // }
-
-    // runtimeStore.forEach((runner) => this.runtimeStores.set(runner.id, runner))
-
-    // return runtimeStore
-  }
 
   @modelAction
   addRuntimeComponent(component: IComponentModel) {
@@ -378,7 +335,9 @@ export class Renderer
     )
   }
 
-  shouldRenderElement(element: IElementModel, props: IPropData = {}) {
+  shouldRenderElement(runtimeElement: IRuntimeElement) {
+    const { element } = runtimeElement
+
     if (
       !element.renderIfExpression ||
       !hasStateExpression(element.renderIfExpression)
@@ -388,7 +347,7 @@ export class Renderer
 
     return evaluateExpression(
       element.renderIfExpression,
-      this.runtimeElement(element).expressionEvaluationContext,
+      runtimeElement.expressionEvaluationContext,
     )
   }
 }
