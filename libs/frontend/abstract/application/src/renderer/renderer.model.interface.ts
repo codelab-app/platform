@@ -36,13 +36,13 @@ export interface IRendererModel {
   providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  // runtimeComponents: ObjectMap<IRuntimeComponent>
+  runtimeComponents: ObjectMap<IRuntimeComponent>
   runtimeElements: ObjectMap<IRuntimeElement>
   runtimeStores: ObjectMap<IRuntimeStore>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  // addRuntimeComponent(component: IComponentModel): IRuntimeComponent
+  addRuntimeComponent(component: IComponentModel): IRuntimeComponent
   addRuntimeElement(element: IElementModel): IRuntimeElement
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>
@@ -53,7 +53,7 @@ export interface IRendererModel {
   runPostRenderAction(element: IRuntimeElement): void
   runPreRenderAction(element: IRuntimeElement): void
   runtimeAction(action: IRef): IRuntimeAction
-  // runtimeComponent(component: IRef): IRuntimeComponent
+  runtimeComponent(component: IRef): IRuntimeComponent
   runtimeElement(element: IRef): IRuntimeElement
   shouldRenderElement(element: IRuntimeElement): boolean
 }

@@ -1,8 +1,12 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementModel,
+  IStoreModel,
+} from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { IRuntimeBase, RendererType } from '../renderer'
 import type { IRuntimeStore } from '../store'
+import type { IRuntimeProp } from './runtime-prop.model.interface'
 
 export interface IEvaluationContext {
   actions: IPropData
@@ -19,8 +23,8 @@ export interface IEvaluationContext {
 }
 
 export interface IRuntimeElementDto {
-  nodeRef: Ref<IElementModel>
-  // store: IRuntimeStore
+  node: IElementModel
+  store: IStoreModel
 }
 
 export interface IPropPipeOutput {
@@ -39,22 +43,29 @@ export interface IPropPipe {
 export interface IRuntimeElement {
   element: IElementModel
   elementRef: Ref<IElementModel>
-  // props: IPropData
-  // propsPipe: Array<IPropPipe>
+  /**
+   * Evaluated childMapperPropKey based on the state and props
+   */
+  evaluatedChildMapperProp: Array<unknown>
+  /**
+   * Final output after rendering typedProps
+   */
+  evaluatedProps: IPropData
+  /**
+   * Props after substituting state expression used for form validation
+   */
+  evaluatedPropsBeforeRender: IPropData
+  /**
+   * The props used for evaluating expressions, which includes `evaluatedProps`
+   */
+  expressionEvaluationContext: IEvaluationContext
+  /**
+   * Props in initial state before any transformation
+   */
+  props: IPropData
+  /**
+   * This is the evaluation context for props
+   */
+  propsEvaluationContext: IEvaluationContext
   runtimeStore: IRuntimeStore
-  // /**
-  //  * Evaluated childMapperPropKey based on the state and props
-  //  */
-  // evaluatedChildMapperProp: Array<unknown>
-
-  // /**
-  //  * Used for expressions evaluation
-  //  */
-  // expressionEvaluationContext: IEvaluationContext
-
-  // /**
-  //  * Same as expressionEvaluationContext but without props
-  //  */
-  // propsEvaluationContext: IEvaluationContext
-  // urlProps?: IPropData
 }

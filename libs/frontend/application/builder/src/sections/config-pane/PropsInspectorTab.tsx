@@ -23,7 +23,7 @@ const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
   //   : rendererService.runtimeComponent(node.current).evaluatedProps
 
   const lastRenderedProp = isElementRef(node)
-    ? rendererService.runtimeElement(node.current).props
+    ? rendererService.runtimeElement(node.current).evaluatedProps
     : {}
 
   return (

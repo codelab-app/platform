@@ -1,7 +1,9 @@
 import type {
   IRuntimeElement,
   IRuntimeElementDto,
+  IRuntimeProp,
   IRuntimeStore,
+  IRuntimeAction,
 } from '@codelab/frontend/abstract/application'
 import {
   IEvaluationContext,
@@ -14,6 +16,7 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
+  elementRef,
   IElementTreeViewDataNode,
   isAtomRef,
 } from '@codelab/frontend/abstract/domain'
@@ -34,32 +37,49 @@ import { RuntimeBase } from './runtime-base.model'
 import { RuntimeStore } from './runtime-store.model'
 
 const create = (runtimeElement: IRuntimeElementDto) => {
-  const node = runtimeElement.nodeRef.current
+  const { node, store } = runtimeElement
 
   return new RuntimeElement({
-    nodeRef: runtimeElement.nodeRef,
-    // store: node.store,
+    elementRef: elementRef(node),
+    store: RuntimeStore.create(store),
   })
 }
 
-@model('@codelab/ElementRuntimeProps')
+@model('@codelab/RuntimeElement')
 export class RuntimeElement
   extends Model({
     elementRef: prop<Ref<IElementModel>>(),
+    runtimeActions: prop<Array<IRuntimeAction>>(),
   })
   implements IRuntimeElement
 {
   static create = create
 
   @computed
+  get element() {
+    return this.elementRef.current
+  }
+
+  @computed
+  get providerStore(): IStoreModel | undefined {
+    return this.renderer?.providerTree?.current.rootElement.current.store
+      .current
+  }
+
+  @computed
+  get urlProps(): IPropData | undefined {
+    return this.renderer?.urlSegments
+  }
+
+  @computed
   get evaluatedChildMapperProp() {
-    if (!this.node.childMapperPropKey) {
+    if (!this.element.childMapperPropKey) {
       return []
     }
 
-    if (hasStateExpression(this.node.childMapperPropKey)) {
+    if (hasStateExpression(this.element.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
-        this.node.childMapperPropKey,
+        this.element.childMapperPropKey,
         this.propsEvaluationContext,
       )
 
@@ -74,7 +94,7 @@ export class RuntimeElement
 
     const evaluatedChildMapperProp = get(
       this.expressionEvaluationContext,
-      this.node.childMapperPropKey,
+      this.element.childMapperPropKey,
     )
 
     if (!Array.isArray(evaluatedChildMapperProp)) {
@@ -101,9 +121,7 @@ export class RuntimeElement
       )
     }
 
-    const customTextProp =
-      this.nodeRef.current.props.values[CUSTOM_TEXT_PROP_KEY]
-
+    const customTextProp = this.element.props.values[CUSTOM_TEXT_PROP_KEY]
     const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
     const evaluated = evaluateObject(props, this.propsEvaluationContext)
 
@@ -115,26 +133,26 @@ export class RuntimeElement
     return evaluateObject(this.props, this.propsEvaluationContext)
   }
 
-  // @computed
-  // get props() {
-  //   // memorize values or else it will be lost inside callback
-  //   const registerReference = isAtomRef(this.node.renderType)
-  //   const slug = this.node.slug
-  //   const store = this.node.store.current
+  @computed
+  get props() {
+    // memorize values or else it will be lost inside callback
+    const registerReference = isAtomRef(this.node.renderType)
+    const slug = this.node.slug
+    const store = this.node.store.current
 
-  //   return {
-  //     // ...getDefaultFieldProps(this.node.renderType.current),
-  //     // ...this.node.props.values,
-  //     /**
-  //      * Internal system props for meta data, use double underline for system-defined identifiers.
-  //      */
-  //     [DATA_ELEMENT_ID]: this.node.id,
-  //     key: this.node.id,
-  //     ref: registerReference
-  //       ? (node: HTMLElement) => store.registerRef(slug, node)
-  //       : undefined,
-  //   }
-  // }
+    return {
+      // ...getDefaultFieldProps(this.node.renderType.current),
+      // ...this.node.props.values,
+      /**
+       * Internal system props for meta data, use double underline for system-defined identifiers.
+       */
+      [DATA_ELEMENT_ID]: this.node.id,
+      key: this.node.id,
+      ref: registerReference
+        ? (node: HTMLElement) => store.registerRef(slug, node)
+        : undefined,
+    }
+  }
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {
@@ -165,16 +183,5 @@ export class RuntimeElement
       ...this.propsEvaluationContext,
       props: this.evaluatedProps || {},
     }
-  }
-
-  @computed
-  get providerStore(): IStoreModel | undefined {
-    return this.renderer?.providerTree?.current.rootElement.current.store
-      .current
-  }
-
-  @computed
-  get urlProps(): IPropData | undefined {
-    return this.renderer?.urlSegments
   }
 }
