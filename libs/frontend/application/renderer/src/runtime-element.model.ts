@@ -1,13 +1,12 @@
 import type {
-  IRuntimeAction,
-  IRuntimeElementDto,
+  IRuntimeElementDTO,
   IRuntimeElementModel,
-  IRuntimeProp,
-  IRuntimeStore,
+  IRuntimeModelRef,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
   IEvaluationContext,
+  isRuntimeElementRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -17,8 +16,6 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
-  elementRef,
-  IElementTreeViewDataNode,
   isAtomRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
@@ -29,34 +26,15 @@ import {
 } from '@codelab/frontend/application/shared/core'
 import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
 import type { IPropData, IRef } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep, throwIfUndefined } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  ExtendedModel,
-  idProp,
-  Model,
-  model,
-  modelClass,
-  prop,
-} from 'mobx-keystone'
-import { RuntimeAction } from './runtime-action.model'
-import { RuntimeBase } from './runtime-base.model'
-import { RuntimeStore } from './runtime-store.model'
+import { idProp, Model, model, prop } from 'mobx-keystone'
 
-const create = (runtimeElement: IRuntimeElementDto) => {
-  const { element } = runtimeElement
-
-  return new RuntimeElement({
-    elementRef: elementRef(element),
-    runtimeActions: element.store.current.actions.map((action) =>
-      RuntimeAction.create(action.current, element.store.current),
-    ),
-    runtimeStore: RuntimeStore.create(runtimeElement),
-  })
+const create = ({ elementRef, parentRef }: IRuntimeElementDTO) => {
+  return new RuntimeElement({ elementRef, parentRef })
 }
 
 @model('@codelab/RuntimeElement')
@@ -64,8 +42,7 @@ export class RuntimeElement
   extends Model({
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
-    runtimeActions: prop<Array<IRuntimeAction>>(),
-    runtimeStore: prop<IRuntimeStore>(),
+    parentRef: prop<IRuntimeModelRef>(),
   })
   implements IRuntimeElementModel
 {
@@ -74,6 +51,25 @@ export class RuntimeElement
   @computed
   get element() {
     return this.elementRef.current
+  }
+
+  @computed
+  get parent() {
+    return this.parentRef.current
+  }
+
+  @computed
+  get closestRuntimeContainerNode() {
+    if (isRuntimeElementRef(this.parentRef)) {
+      return this.parentRef.current.closestRuntimeContainerNode
+    }
+
+    return this.parentRef.current
+  }
+
+  @computed
+  get runtimeStore() {
+    return this.closestRuntimeContainerNode.runtimeStore.current
   }
 
   @computed
@@ -203,10 +199,7 @@ export class RuntimeElement
 
     return {
       actions: this.runtimeStore.runtimeActions,
-      componentProps: component
-        ? this.renderer?.runtimeComponent(component)?.componentEvaluatedProps ??
-          {}
-        : {},
+      componentProps: this.closestRuntimeContainerNode.evaluatedProps,
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,

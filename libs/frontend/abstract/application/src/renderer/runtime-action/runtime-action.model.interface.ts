@@ -1,18 +1,17 @@
 import type {
   IActionModel,
   IElementModel,
-  IPageNode,
 } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
-import type { IRuntimeStore } from '../store/runtime-store.model.interface'
+import type { IRuntimeStoreModel } from '../runtime-store'
 
-export interface IRuntimeAction {
+export interface IRuntimeActionModel {
   actionRef: Ref<IActionModel>
   element: IElementModel
   // elementRef: Ref<IElementModel>
   fromProvider: boolean
   id: string
-  runtimeStoreRef: Ref<IRuntimeStore>
+  runtimeStoreRef: Ref<IRuntimeStoreModel>
 
   runner(...args: Array<unknown>): void
 }

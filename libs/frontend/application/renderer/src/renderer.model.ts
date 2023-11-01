@@ -4,7 +4,7 @@ import type {
   IRendererModel,
   IRenderOutput,
   IRenderPipe,
-  IRuntimeComponent,
+  IRuntimeContainerNode,
   IRuntimeElementModel,
   ITypedPropTransformer,
   RendererType,
@@ -106,8 +106,9 @@ export class Renderer
     /**
      * Props record for all components during all transformations stages
      */
-    runtimeComponents: prop<ObjectMap<IRuntimeComponent>>(() => objectMap([])),
-    runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
+    runtimeContainerNodes: prop<ObjectMap<IRuntimeContainerNode>>(() =>
+      objectMap([]),
+    ),
     // runtimeStores: prop<ObjectMap<IRuntimeStore>>(() => objectMap([])),
     /**
      * Those transform different kinds of typed values into render-ready props
@@ -227,8 +228,6 @@ export class Renderer
    * Renders a single element (without its children) to an intermediate RenderOutput
    */
   renderIntermediateElement = (element: IElementModel): IRenderOutput => {
-    // this.addRuntimeStore(element.store.current)
-
     const runtimeElement = this.addRuntimeElement(element)
 
     console.log('IntermediateElement', runtimeElement.evaluatedProps)

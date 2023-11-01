@@ -11,7 +11,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
  * @param props
  * @returns
  */
-
+// FIXME: should add runtime component
 export const cloneComponent = (
   component: IComponentModel,
   node: IPageNode,

@@ -1,25 +1,20 @@
 import type {
-  IActionModel,
   IComponentModel,
   IElementModel,
   IElementTree,
   IExpressionTransformer,
-  IStoreModel,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropData, IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
-import type { IRuntimeStore } from '../store/runtime-store.model.interface'
-import type { IRuntimeAction } from './action.runner.model.interface'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
-import type {
-  IRuntimeBase,
-  ITypedPropTransformer,
-} from './runtime.model.interface'
-import type { IRuntimeComponent } from './runtime-component.model.interface'
-import type { IRuntimeElementModel } from './runtime-element.model.interface'
+import type { ITypedPropTransformer } from './runtime.model.interface'
+import type { IRuntimeActionModel } from './runtime-action'
+import type { IRuntimeContainerNodeModel } from './runtime-container-node'
+import type { IRuntimeElementModel } from './runtime-element'
 
 export const enum RendererType {
   ComponentBuilder = 'component-builder',
@@ -36,13 +31,14 @@ export interface IRendererModel {
   providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  runtimeComponents: ObjectMap<IRuntimeComponent>
-  runtimeElements: ObjectMap<IRuntimeElementModel>
+  runtimeContainerNode: ObjectMap<IRuntimeContainerNodeModel>
   // runtimeStores: ObjectMap<IRuntimeStore>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  addRuntimeComponent(component: IComponentModel): IRuntimeComponent
+  addRuntimeContainerNode(
+    node: IComponentModel | IPageModel,
+  ): IRuntimeContainerNodeModel
   addRuntimeElement(element: IElementModel): IRuntimeElementModel
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>
@@ -52,8 +48,7 @@ export interface IRendererModel {
   renderIntermediateElement(element: IElementModel): IRenderOutput
   runPostRenderAction(element: IRuntimeElementModel): void
   runPreRenderAction(element: IRuntimeElementModel): void
-  runtimeAction(action: IRef): IRuntimeAction
-  runtimeComponent(component: IRef): IRuntimeComponent
+  runtimeAction(action: IRef): IRuntimeActionModel
   runtimeElement(element: IRef): IRuntimeElementModel
   shouldRenderElement(element: IRuntimeElementModel): boolean
 }

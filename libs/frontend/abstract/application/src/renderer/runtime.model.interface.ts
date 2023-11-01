@@ -1,14 +1,7 @@
-import type {
-  IComponentModel,
-  IElementModel,
-  IPageNode,
-  TypedProp,
-} from '@codelab/frontend/abstract/domain'
+import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
 import type { IBaseRenderPipe } from './render.interface'
-import type { IRuntimeComponent } from './runtime-component.model.interface'
 import type { IRuntimeElementModel } from './runtime-element.model.interface'
 
 /**
