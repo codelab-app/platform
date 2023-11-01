@@ -1,4 +1,4 @@
-import type { IRendererModel } from '@codelab/frontend/abstract/domain'
+import type { IRendererModel } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'

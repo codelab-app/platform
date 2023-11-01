@@ -1,7 +1,7 @@
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
 import {
   type IPageNode,
   isElement,
-  type ITypedPropTransformer,
   type TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model } from 'mobx-keystone'

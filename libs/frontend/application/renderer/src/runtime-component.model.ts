@@ -1,8 +1,9 @@
 import type {
-  IComponentModel,
   IRuntimeComponent,
+  IRuntimeComponentDto,
   IRuntimeElement,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
@@ -24,8 +25,8 @@ import { RuntimeBase } from './runtime-base.model'
  * Finds all the components that are referenced by all the children of this component as well as the children of any of these found components recursively
  */
 
-const create = (nodeRef: Ref<IComponentModel>) =>
-  new RuntimeComponent({ nodeRef })
+const create = (dto: IRuntimeComponentDto) =>
+  new RuntimeComponent({ nodeRef: dto.nodeRef })
 
 @model('@codelab/RuntimeComponent')
 export class RuntimeComponent

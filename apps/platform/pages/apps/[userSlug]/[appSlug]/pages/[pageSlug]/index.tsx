@@ -1,5 +1,5 @@
 import type { IPageProps } from '@codelab/frontend/abstract/domain'
-import { RendererType } from '@codelab/frontend/abstract/domain'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { type CodelabPage } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/application/app'
 import { PageDetailHeader } from '@codelab/frontend/application/page'

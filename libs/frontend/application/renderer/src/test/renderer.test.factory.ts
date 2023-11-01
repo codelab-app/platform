@@ -5,7 +5,7 @@ import type {
   IRendererModel,
   IRenderPipe,
 } from '@codelab/frontend/abstract/domain'
-import { RendererType } from '@codelab/frontend/abstract/domain'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import {
   PassThroughRenderPipe,
   renderPipeFactory,

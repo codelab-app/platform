@@ -7,7 +7,7 @@ import type {
   IFieldService,
   IPageApplicationService,
   IPropService,
-  IRendererApplicationService,
+  IRendererService,
   IRootStore,
   IStoreService,
   ITypeService,

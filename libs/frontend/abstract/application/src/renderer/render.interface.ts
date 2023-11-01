@@ -1,12 +1,10 @@
+import type {
+  IElementModel,
+  IPropDataByElementId,
+} from '@codelab/frontend/abstract/domain'
 import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
-import type { IElementModel } from '../element'
-import type { IPropDataByElementId } from '../prop'
 import type { IRendererModel } from './renderer.model.interface'
-
-export enum RendererTab {
-  Component = 'Component',
-  Page = 'Page',
-}
+import type { IRuntimeElement } from './runtime-element.model.interface'
 
 /**
  * This is the intermediate output from rendering a single Element
@@ -28,5 +26,6 @@ export interface IBaseRenderPipe {
 
 export interface IRenderPipe extends IBaseRenderPipe {
   next?: IRenderPipe
-  render(element: IElementModel, props: IPropData): IRenderOutput
+
+  render(element: IRuntimeElement): IRenderOutput
 }

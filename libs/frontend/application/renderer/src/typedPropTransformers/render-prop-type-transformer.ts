@@ -1,7 +1,7 @@
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IPageNode,
-  ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {

@@ -1,15 +1,21 @@
 import type {
-  IElementModel,
   IRuntimeElement,
+  IRuntimeElementDto,
+  IRuntimeStore,
+} from '@codelab/frontend/abstract/application'
+import {
+  IEvaluationContext,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IElementModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   IElementTreeViewDataNode,
-  IEvaluationContext,
   isAtomRef,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
@@ -23,14 +29,24 @@ import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, model, modelClass } from 'mobx-keystone'
+import { ExtendedModel, Model, model, modelClass, prop } from 'mobx-keystone'
 import { RuntimeBase } from './runtime-base.model'
+import { RuntimeStore } from './runtime-store.model'
 
-const create = (nodeRef: Ref<IElementModel>) => new RuntimeElement({ nodeRef })
+const create = (runtimeElement: IRuntimeElementDto) => {
+  const node = runtimeElement.nodeRef.current
+
+  return new RuntimeElement({
+    nodeRef: runtimeElement.nodeRef,
+    // store: node.store,
+  })
+}
 
 @model('@codelab/ElementRuntimeProps')
 export class RuntimeElement
-  extends ExtendedModel(modelClass<RuntimeBase<IElementModel>>(RuntimeBase), {})
+  extends Model({
+    elementRef: prop<Ref<IElementModel>>(),
+  })
   implements IRuntimeElement
 {
   static create = create
@@ -99,26 +115,26 @@ export class RuntimeElement
     return evaluateObject(this.props, this.propsEvaluationContext)
   }
 
-  @computed
-  get props() {
-    // memorize values or else it will be lost inside callback
-    const registerReference = isAtomRef(this.node.renderType)
-    const slug = this.node.slug
-    const store = this.node.store.current
+  // @computed
+  // get props() {
+  //   // memorize values or else it will be lost inside callback
+  //   const registerReference = isAtomRef(this.node.renderType)
+  //   const slug = this.node.slug
+  //   const store = this.node.store.current
 
-    return {
-      ...getDefaultFieldProps(this.node.renderType.current),
-      ...this.node.props.values,
-      /**
-       * Internal system props for meta data, use double underline for system-defined identifiers.
-       */
-      [DATA_ELEMENT_ID]: this.node.id,
-      key: this.node.id,
-      ref: registerReference
-        ? (node: HTMLElement) => store.registerRef(slug, node)
-        : undefined,
-    }
-  }
+  //   return {
+  //     // ...getDefaultFieldProps(this.node.renderType.current),
+  //     // ...this.node.props.values,
+  //     /**
+  //      * Internal system props for meta data, use double underline for system-defined identifiers.
+  //      */
+  //     [DATA_ELEMENT_ID]: this.node.id,
+  //     key: this.node.id,
+  //     ref: registerReference
+  //       ? (node: HTMLElement) => store.registerRef(slug, node)
+  //       : undefined,
+  //   }
+  // }
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {

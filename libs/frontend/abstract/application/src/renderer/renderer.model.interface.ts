@@ -1,20 +1,25 @@
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type {
+  IActionModel,
+  IComponentModel,
+  IElementModel,
+  IElementTree,
+  IExpressionTransformer,
+  IStoreModel,
+} from '@codelab/frontend/abstract/domain'
+import type { IPropData, IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
-import type { IExpressionTransformer } from '../builder'
-import type { IComponentModel } from '../component'
-import type { IElementModel, IElementTree } from '../element'
-import type { IPageNode, IPageNodeRef } from '../page'
-import type { IActionRunner } from './action.runner.model.interface'
+import type { IRuntimeStore } from '../store/runtime-store.model.interface'
+import type { IRuntimeAction } from './action.runner.model.interface'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type {
   IRuntimeBase,
-  IRuntimeComponent,
-  IRuntimeElement,
   ITypedPropTransformer,
 } from './runtime.model.interface'
+import type { IRuntimeComponent } from './runtime-component.model'
+import type { IRuntimeElement } from './runtime-element.model.interface'
 
 export const enum RendererType {
   ComponentBuilder = 'component-builder',
@@ -24,7 +29,6 @@ export const enum RendererType {
 }
 
 export interface IRendererModel {
-  actionRunners: ObjectMap<IActionRunner>
   debugMode: boolean
   elementTree: Ref<IElementTree>
   expressionTransformer: IExpressionTransformer
@@ -32,24 +36,26 @@ export interface IRendererModel {
   providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  runtimeComponents: ObjectMap<IRuntimeComponent>
+  // runtimeComponents: ObjectMap<IRuntimeComponent>
   runtimeElements: ObjectMap<IRuntimeElement>
+  runtimeStores: ObjectMap<IRuntimeStore>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  addRuntimeComponent(component: Ref<IComponentModel>): IRuntimeComponent
-  addRuntimeElement(element: Ref<IElementModel>): IRuntimeElement
+  // addRuntimeComponent(component: IComponentModel): IRuntimeComponent
+  addRuntimeElement(element: IElementModel): IRuntimeElement
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>
   getComponentInstanceChildren(element: IElementModel): Array<IElementModel>
   logRendered(rendered: IRenderOutput): void
   renderElement(element: IElementModel): Nullable<ReactElement>
   renderIntermediateElement(element: IElementModel): IRenderOutput
-  runPostRenderAction(element: IElementModel): void
-  runPreRenderAction(element: IElementModel): void
-  runtimeComponent(component: IComponentModel): IRuntimeComponent
-  runtimeElement(element: IElementModel): IRuntimeElement
-  shouldRenderElement(element: IElementModel, props: IPropData): boolean
+  runPostRenderAction(element: IRuntimeElement): void
+  runPreRenderAction(element: IRuntimeElement): void
+  runtimeAction(action: IRef): IRuntimeAction
+  // runtimeComponent(component: IRef): IRuntimeComponent
+  runtimeElement(element: IRef): IRuntimeElement
+  shouldRenderElement(element: IRuntimeElement): boolean
 }
 
 export interface ElementWrapperProps {

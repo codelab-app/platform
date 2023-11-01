@@ -5,6 +5,11 @@ export interface MoveData {
   prevSibling: IRef
 }
 
+export enum RendererTab {
+  Component = 'Component',
+  Page = 'Page',
+}
+
 export interface BuilderDragData {
   createElementInput?: IElementDTO
   icon?: string

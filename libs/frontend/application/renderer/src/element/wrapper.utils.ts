@@ -1,8 +1,8 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
+import type { IRenderOutput } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

@@ -16,10 +16,10 @@ import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IPageModel } from '../page'
 import type { IPropModel } from '../prop'
-import type { IRuntimeElement, RendererType } from '../renderer'
 import type { ICacheService, IElementTreeViewDataNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
+import type { IElementStyleModel } from './element-style.model.interface'
 import type { IElementRenderTypeModel } from './render-type'
 
 /**
@@ -45,60 +45,6 @@ export interface RenderingError {
 // regarding the element's rendering
 export interface RenderingMetadata {
   error: Nullish<RenderingError>
-}
-
-export interface IEvaluationContext {
-  actions: IPropData
-  args?: Array<unknown>
-  componentProps: IPropData
-  props: IPropData
-  refs: IPropData
-  rendererType?: RendererType
-  rootActions: IPropData
-  rootRefs: IPropData
-  rootState: IPropData
-  state: IPropData
-  url: IPropData
-}
-
-export interface IBreakpointStyle {
-  cssString?: string
-  guiString?: string
-}
-
-export type IElementStyle = Record<
-  BuilderWidthBreakPoint,
-  IBreakpointStyle | undefined
->
-
-export interface ElementCssRules {
-  [key: string]: ElementCssRules | string
-}
-
-export interface IElementStyleModel {
-  breakpointsByPrecedence: Array<BuilderWidthBreakPoint>
-  customCss?: Nullable<string>
-  /**
-   * html-ready string that includes styles for all breakpoints
-   * for production - uses media queries to apply styles
-   * for development - uses container queries, for better UX
-   */
-  guiCss?: Nullable<string>
-  styleParsed: IElementStyle
-  /**
-   * styles that are inherited from other breakpoints,
-   * for example, if we have a style for mobile, it will be inherited
-   * for desktop, and this prop will display the inherited styles
-   * when we edit the desktop breakpoint
-   */
-  stylesInheritedFromOtherBreakpoints: {
-    currentStyles: ElementCssRules
-    inheritedStyles: ElementCssRules
-  }
-
-  appendToGuiCss(css: CssMap): void
-  deleteFromGuiCss(propNames: Array<string>): void
-  setCustomCss(css: string): void
 }
 
 export interface IElementModel

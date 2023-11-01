@@ -9,7 +9,7 @@ import type {
   IFieldService,
   IPageApplicationService,
   IPropService,
-  IRendererApplicationService,
+  IRendererService,
   IResourceService,
   IRootStore,
   IStoreService,
@@ -99,7 +99,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
         () => new PageApplicationService({}),
       ),
       propService: prop<IPropService>(() => new PropService({})),
-      rendererService: prop<IRendererApplicationService>(
+      rendererService: prop<IRendererService>(
         () => new RendererApplicationService({}),
       ),
       resourceService: prop<IResourceService>(() => new ResourceService({})),

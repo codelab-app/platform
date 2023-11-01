@@ -1,5 +1,6 @@
+import type { IRuntimeBase } from '@codelab/frontend/abstract/application'
 import { getRendererService } from '@codelab/frontend/abstract/application'
-import type { IPageNode, IRuntimeBase } from '@codelab/frontend/abstract/domain'
+import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import { isTypedProp } from '@codelab/frontend/abstract/domain'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
