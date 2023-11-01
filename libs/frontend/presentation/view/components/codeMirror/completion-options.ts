@@ -1,4 +1,4 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/domain'
+import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { isCyclic } from '@codelab/shared/utils'

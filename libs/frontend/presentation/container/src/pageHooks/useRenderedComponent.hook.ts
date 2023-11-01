@@ -1,5 +1,7 @@
-import type { RendererType } from '@codelab/frontend/abstract/domain'
-import { rendererRef } from '@codelab/frontend/abstract/domain'
+import {
+  rendererRef,
+  type RendererType,
+} from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { AppProperties } from '@codelab/shared/domain/mapper'
