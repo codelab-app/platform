@@ -1,18 +1,16 @@
-import type { IRendererApplicationService } from '@codelab/frontend/abstract/application'
 import type {
-  ElementWrapperProps,
-  IElementModel,
   IRendererDto,
   IRendererModel,
+  IRendererService,
   IRenderOutput,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
-  getRendererId,
   IComponentModel,
   isAtom,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -40,7 +38,7 @@ export class RendererApplicationService
      */
     renderers: prop(() => objectMap<IRendererModel>()),
   })
-  implements IRendererApplicationService
+  implements IRendererService
 {
   runtimeElement(element: IElementModel) {
     return throwIfUndefined(
@@ -57,7 +55,7 @@ export class RendererApplicationService
 
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
-    let renderer = this.renderers.get(getRendererId(rendererDto.id))
+    let renderer = this.renderers.get(rendererDto.id)
 
     if (!renderer) {
       renderer = Renderer.create(rendererDto)
@@ -74,7 +72,7 @@ export class RendererApplicationService
   renderRoot(renderer: IRendererModel) {
     const root = renderer.elementTree.maybeCurrent?.rootElement.current
     const providerRoot = renderer.providerTree?.current.rootElement.current
-    const parentComponent = root?.parentComponent
+    const parentComponent = root?.parentComponent?.current
 
     if (!root) {
       console.warn('Renderer: No root element found')
@@ -82,15 +80,15 @@ export class RendererApplicationService
       return null
     }
 
-    if (parentComponent) {
-      /**
-       * setup runtime props for component builder
-       * this is different from the one created in component-render-pipe
-       * because the other one creates runtime props for component instances
-       * while this one doesn't pass by the component pipe at all
-       */
-      renderer.addRuntimeComponent(componentRef(parentComponent.id))
-    }
+    // if (parentComponent) {
+    //   /**
+    //    * setup runtime props for component builder
+    //    * this is different from the one created in component-render-pipe
+    //    * because the other one creates runtime props for component instances
+    //    * while this one doesn't pass by the component pipe at all
+    //    */
+    //   renderer.addRuntimeComponent(parentComponent)
+    // }
 
     return providerRoot && root.page?.current.kind === IPageKind.Regular
       ? renderer.renderElement(providerRoot)

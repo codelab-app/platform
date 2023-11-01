@@ -16,7 +16,7 @@ import type { IElementService } from '../element'
 import type { IFieldService } from '../field'
 import type { IPageApplicationService } from '../page'
 import type { IPropService } from '../prop'
-import type { IRendererApplicationService } from '../renderer'
+import type { IRendererService } from '../renderer'
 import type { IResourceService } from '../resource'
 import type { IStoreService } from '../store'
 import type { ITagService } from '../tag'
@@ -52,7 +52,7 @@ export interface IRootStore {
   fieldService: IFieldService
   pageService: IPageApplicationService
   propService: IPropService
-  rendererService: IRendererApplicationService
+  rendererService: IRendererService
   resourceService: IResourceService
   storeService: IStoreService
   tagService: ITagService
@@ -76,7 +76,7 @@ export interface IRootStoreContext {
   fieldServiceContext: MaybeContext<IFieldService>
   pageServiceContext: MaybeContext<IPageApplicationService>
   propServiceContext: MaybeContext<IPropService>
-  rendererApplicationServiceContext: MaybeContext<IRendererApplicationService>
+  rendererApplicationServiceContext: MaybeContext<IRendererService>
   resourceServiceContext: MaybeContext<IResourceService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   storeServiceContext: MaybeContext<IStoreService>

@@ -1,8 +1,6 @@
-import type {
-  ElementWrapperProps,
-  IComponentType,
-} from '@codelab/frontend/abstract/domain'
-import { RendererType } from '@codelab/frontend/abstract/domain'
+import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
+import type { IComponentType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'

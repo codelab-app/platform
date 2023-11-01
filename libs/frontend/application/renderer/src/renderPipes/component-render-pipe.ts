@@ -1,9 +1,10 @@
 import type {
-  IElementModel,
   IRendererModel,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeElement,
+} from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { componentRef, isComponent } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
@@ -16,18 +17,18 @@ export class ComponentRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
-    if (!isComponent(element.renderType.current)) {
-      return this.next.render(element, props)
-    }
+  render(runtimeElement: IRuntimeElement): IRenderOutput {
+    const element = runtimeElement.element
 
-    console.log('component props', props)
+    if (!isComponent(element.renderType.current)) {
+      return this.next.render(runtimeElement)
+    }
 
     const component = element.renderType.current
     const clonedComponent = component.clone(element.id, element.id)
     const rootElement = clonedComponent.rootElement.current
 
-    this.renderer.addRuntimeComponent(componentRef(clonedComponent.id))
+    // this.renderer.addRuntimeComponent(clonedComponent)
 
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 

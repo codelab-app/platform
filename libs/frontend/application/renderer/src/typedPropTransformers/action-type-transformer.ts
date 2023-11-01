@@ -1,11 +1,8 @@
-import type {
-  IPageNode,
-  ITypedPropTransformer,
-  TypedProp,
-} from '@codelab/frontend/abstract/domain'
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import { getRunnerId } from '@codelab/frontend/abstract/application'
+import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
-  getRunnerId,
   isComponent,
   isElement,
 } from '@codelab/frontend/abstract/domain'
@@ -38,45 +35,22 @@ export class ActionTypeTransformer
       return prop.value
     }
 
-    const componentStore = isComponent(node) ? node.store : undefined
-    const propValue = extractTypedPropValue(prop)
+    /**
+     * The prop value here is the actionId
+     *
+     * TODO: Need to make the code more self-documenting
+     */
+    const actionId = extractTypedPropValue(prop)
 
-    if (!propValue) {
+    if (!actionId) {
       return ''
     }
 
-    const providerStore = isElement(node) ? node.providerStore : undefined
+    const runner = this.renderer.runtimeAction({ id: actionId }).runner(node)
 
-    const localActionRunner = this.renderer.actionRunners.get(
-      getRunnerId(node.store.id, propValue),
-    )
+    // const fallback = () =>
+    //   console.error(`fail to call action with id ${prop.value}`)
 
-    const rootActionRunner = providerStore
-      ? this.renderer.actionRunners.get(
-          getRunnerId(providerStore.id, propValue),
-        )
-      : undefined
-
-    const componentActionRunner = componentStore
-      ? this.renderer.actionRunners.get(
-          getRunnerId(componentStore.id, propValue),
-        )
-      : undefined
-
-    const fallback = () =>
-      console.error(`fail to call action with id ${prop.value}`)
-
-    const actionRunner =
-      localActionRunner ?? rootActionRunner ?? componentActionRunner
-
-    if (actionRunner) {
-      const context = isElement(node)
-        ? this.renderer.runtimeElement(node).propsEvaluationContext
-        : {}
-
-      return actionRunner.runner.bind(context)
-    }
-
-    return fallback
+    return runner
   }
 }

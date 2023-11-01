@@ -1,4 +1,4 @@
-import type { IRenderPipe } from '@codelab/frontend/abstract/domain'
+import type { IRenderPipe } from '@codelab/frontend/abstract/application'
 import { AtomRenderPipe } from './atom-render-pipe'
 import { ComponentRenderPipe } from './component-render-pipe'
 import { ConditionalRenderPipe } from './conditional-render-pipe'

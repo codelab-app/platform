@@ -4,11 +4,11 @@ import type { IAtomModel } from '../atom'
 import type { IComponentModel } from '../component'
 import type { IElementModel, IElementTree } from '../element'
 import type { IPageNodeRef } from '../page'
-import type { RendererTab } from '../renderer'
 import type {
   BuilderDragData,
   BuilderWidth,
   BuilderWidthBreakPoint,
+  RendererTab,
 } from './builder.interface'
 
 export type IBuilderComponent = IAtomModel

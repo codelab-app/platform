@@ -1,8 +1,8 @@
-import {
-  getRunnerId,
-  type IActionRunner,
-  type IRendererModel,
-} from '@codelab/frontend/abstract/domain'
+import type {
+  IRendererModel,
+  IRuntimeAction,
+} from '@codelab/frontend/abstract/application'
+import { getRunnerId } from '@codelab/frontend/abstract/application'
 import isNil from 'lodash/isNil'
 
 export const getRunner = (
@@ -10,12 +10,12 @@ export const getRunner = (
   actionId?: string,
   storeId?: string,
   providerStoreId?: string,
-): { runner?: IActionRunner; fromProvider?: boolean } => {
+): { runner?: IRuntimeAction; fromProvider?: boolean } => {
   if (!renderer || !actionId || !storeId) {
     return {}
   }
 
-  const runner = renderer.actionRunners.get(getRunnerId(storeId, actionId))
+  const runner = renderer.runtimeStores.get(getRunnerId(storeId, actionId))
 
   if (!isNil(runner)) {
     return { fromProvider: false, runner }
@@ -25,7 +25,7 @@ export const getRunner = (
     return {}
   }
 
-  const providerRunner = renderer.actionRunners.get(
+  const providerRunner = renderer.runtimeStores.get(
     getRunnerId(providerStoreId, actionId),
   )
 

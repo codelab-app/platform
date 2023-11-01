@@ -1,10 +1,10 @@
+import type {
+  IRenderOutput,
+  IRenderPipe,
+  IRuntimeElement,
+} from '@codelab/frontend/abstract/application'
 import { getElementService } from '@codelab/frontend/abstract/application'
-import {
-  type IElementModel,
-  type IRenderOutput,
-  type IRenderPipe,
-  isAtom,
-} from '@codelab/frontend/abstract/domain'
+import { type IElementModel, isAtom } from '@codelab/frontend/abstract/domain'
 import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
@@ -19,13 +19,15 @@ export class AtomRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
+  render(runtimeElement: IRuntimeElement): IRenderOutput {
+    const element = runtimeElement.element
+
     if (!isAtom(element.renderType.current)) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
       }
 
-      return this.next.render(element, props)
+      return this.next.render(runtimeElement)
     }
 
     const atomRenderType = element.renderType.current
@@ -36,7 +38,7 @@ export class AtomRenderPipe
     const [ReactComponent, newProps] = atomFactory({
       atom: atomRenderType,
       node: element,
-      props,
+      props: runtimeElement.props,
     })
 
     if (!ReactComponent && !atomRenderType.externalSourceType) {
@@ -44,7 +46,7 @@ export class AtomRenderPipe
         `AtomRenderPipe: No RootComponent found for atom type ${atomType}`,
       )
 
-      return this.next.render(element, props)
+      return this.next.render(runtimeElement)
     }
 
     if (this.renderer.debugMode) {

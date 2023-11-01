@@ -1,4 +1,4 @@
-import { RendererType } from '@codelab/frontend/abstract/domain'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { BuilderContext } from '@codelab/frontend/application/builder'
 import { PageDetailHeader } from '@codelab/frontend/application/page'

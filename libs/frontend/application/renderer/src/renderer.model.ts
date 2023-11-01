@@ -1,40 +1,42 @@
 import type {
   ElementWrapperProps,
-  IActionRunner,
-  IComponentModel,
-  IElementTree,
-  IExpressionTransformer,
-  IPageNode,
   IRendererDto,
   IRendererModel,
   IRenderOutput,
   IRenderPipe,
-  IRuntimeBase,
   IRuntimeComponent,
   IRuntimeElement,
+  IRuntimeStore,
   ITypedPropTransformer,
   RendererType,
+} from '@codelab/frontend/abstract/application'
+import type {
+  IActionModel,
+  IElementTree,
+  IExpressionTransformer,
+  IPageModel,
+  IPageNode,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   elementRef,
   elementTreeRef,
-  getRendererId,
-  getRunnerId,
+  IComponentModel,
   IElementModel,
   IPageNodeRef,
   isElementRef,
+  IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import type { IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData, IRef } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import isObject from 'lodash/isObject'
-import type { ObjectMap } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   idProp,
   Model,
@@ -42,16 +44,15 @@ import {
   modelAction,
   objectMap,
   prop,
-  Ref,
 } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import React from 'react'
-import { ActionRunner } from './runtime-store.model'
 import { ElementWrapper } from './element/element-wrapper'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
 import { RuntimeComponent } from './runtime-component.model'
 import { RuntimeElement } from './runtime-element.model'
+import { RuntimeStore } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 import { getRunner } from './utils'
 /**
@@ -72,16 +73,12 @@ import { getRunner } from './utils'
 
 const create = ({
   elementTree,
-  id,
   providerTree,
   rendererType,
   urlSegments,
 }: IRendererDto) => {
   return new Renderer({
     elementTree: elementTreeRef(elementTree),
-    // for refs to resolve we can't use pageId/componentId alone
-    // it will resolve page/component instead
-    id: getRendererId(id),
     providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
     urlSegments,
@@ -91,7 +88,6 @@ const create = ({
 @model('@codelab/Renderer')
 export class Renderer
   extends Model({
-    actionRunners: prop<ObjectMap<IActionRunner>>(() => objectMap([])),
     /**
      * Will log the render output and render pipe info to the console
      */
@@ -119,8 +115,9 @@ export class Renderer
     /**
      * Props record for all components during all transformations stages
      */
-    runtimeComponents: prop<ObjectMap<IRuntimeComponent>>(() => objectMap([])),
+    // runtimeComponents: prop<ObjectMap<IRuntimeComponent>>(() => objectMap([])),
     runtimeElements: prop<ObjectMap<IRuntimeElement>>(() => objectMap([])),
+    // runtimeStores: prop<ObjectMap<IRuntimeStore>>(() => objectMap([])),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -134,44 +131,59 @@ export class Renderer
   static create = create
 
   @modelAction
-  addActionRunners(element: IElementModel) {
-    if (!element.isRoot) {
-      return []
-    }
+  addRuntimeStore(store: IStoreModel) {
+    // if (!element.isRoot) {
+    //   return []
+    // }
 
-    const storeActions = element.store.current.actions
+    const runtimeStore =
+      this.runtimeStores.get(store.id) ?? RuntimeStore.create(store)
 
-    const allActionsStored = storeActions.every((action) =>
-      this.actionRunners.get(getRunnerId(element.store.id, action.id)),
-    )
+    this.runtimeStores.set(store.id, runtimeStore)
 
-    // Prevents re-creating of runners which causes unnecessary re-renders
-    // when renderIntermediateElement is called again due to some re-render
-    if (allActionsStored) {
-      return storeActions.map(
-        (action) =>
-          this.actionRunners.get(
-            getRunnerId(element.store.id, action.id),
-          ) as IActionRunner,
-      )
-    }
+    return runtimeStore
 
-    const runners = ActionRunner.create(element)
+    // const storeActions = store.actions
 
-    runners.forEach((runner) => this.actionRunners.set(runner.id, runner))
+    // const allActionsStored = storeActions.map((action) => {
+    //   const runtimeStore = this.runtimeStores.get(
+    //     getRunnerId(store.id, action.id),
+    //   )
 
-    return runners
+    //   if (!runtimeStore) {
+    //     return RuntimeStore.create(store)
+    //   }
+
+    //   return runtimeStore
+    // })
+
+    // // Prevents re-creating of runners which causes unnecessary re-renders
+    // // when renderIntermediateElement is called again due to some re-render
+    // if (allActionsStored) {
+    //   return storeActions.map(
+    //     (action) =>
+    //       this.runtimeStores.get(
+    //         getRunnerId(store.id, action.id),
+    //       ) as IActionRunner,
+    //   )
+    // }
+
+    // runtimeStore.forEach((runner) => this.runtimeStores.set(runner.id, runner))
+
+    // return runtimeStore
   }
 
   @modelAction
-  addRuntimeComponent(component: Ref<IComponentModel>) {
+  addRuntimeComponent(component: IComponentModel) {
     const existingRuntimeComponent = this.runtimeComponents.get(component.id)
 
     if (existingRuntimeComponent) {
       return existingRuntimeComponent
     }
 
-    const runtimeComponent = RuntimeComponent.create(component)
+    const runtimeComponent = RuntimeComponent.create({
+      nodeRef: componentRef(component),
+    })
 
     this.runtimeComponents.set(component.id, runtimeComponent)
 
@@ -179,14 +191,16 @@ export class Renderer
   }
 
   @modelAction
-  addRuntimeElement(element: Ref<IElementModel>) {
+  addRuntimeElement(element: IElementModel) {
     const existingRuntimeElement = this.runtimeElements.get(element.id)
 
     if (existingRuntimeElement) {
       return existingRuntimeElement
     }
 
-    const runtimeElement = RuntimeElement.create(element)
+    const runtimeElement = RuntimeElement.create({
+      nodeRef: elementRef(element),
+    })
 
     this.runtimeElements.set(element.id, runtimeElement)
 
@@ -215,7 +229,7 @@ export class Renderer
           )
 
           if (!this.runtimeComponents.get(clonedComponent.id)) {
-            this.addRuntimeComponent(componentRef(clonedComponent.id))
+            this.addRuntimeComponent(clonedComponent)
           }
 
           return rootElement
@@ -265,9 +279,9 @@ export class Renderer
    * Renders a single element (without its children) to an intermediate RenderOutput
    */
   renderIntermediateElement = (element: IElementModel): IRenderOutput => {
-    this.addActionRunners(element)
+    this.addRuntimeStore(element.store.current)
 
-    const runtimeProps = this.addRuntimeElement(elementRef(element.id))
+    const runtimeProps = this.addRuntimeElement(element)
 
     console.log('IntermediateElement', runtimeProps.evaluatedProps)
 
@@ -275,21 +289,17 @@ export class Renderer
   }
 
   runPostRenderAction = (element: IElementModel) => {
-    const { postRenderAction, providerStore, store } = element
+    const { postRenderAction } = element
+    const currentPostRenderAction = postRenderAction?.current
 
-    const { runner: postRenderActionRunner } = getRunner(
-      this,
-      postRenderAction?.id,
-      store.id,
-      providerStore?.id,
-    )
+    if (currentPostRenderAction) {
+      const runtimeAction = this.runtimeAction(currentPostRenderAction)
 
-    if (postRenderActionRunner) {
-      const runner = postRenderActionRunner.runner.bind(
+      const runner = runtimeAction.runner.bind(
         this.runtimeElements.get(element.id)?.expressionEvaluationContext,
       )
 
-      runner()
+      runner(element)
     }
   }
 
@@ -309,7 +319,7 @@ export class Renderer
           this.runtimeElements.get(element.id)?.expressionEvaluationContext,
         )
 
-        runner()
+        runner(element)
       }
     }
   }
@@ -346,12 +356,26 @@ export class Renderer
     return React.createElement(ElementWrapper, wrapperProps)
   }
 
-  runtimeElement(element: IElementModel) {
+  runtimeElement(element: IRef) {
     return throwIfUndefined(this.runtimeElements.get(element.id))
   }
 
-  runtimeComponent(component: IComponentModel) {
+  runtimeComponent(component: IRef) {
     return throwIfUndefined(this.runtimeComponents.get(component.id))
+  }
+
+  runtimeStore(store: IRef) {
+    return throwIfUndefined(this.runtimeStores.get(store.id))
+  }
+
+  runtimeAction(actionRef: IRef) {
+    const actions = [...this.runtimeStores.values()].flatMap(
+      (store) => store.runtimeActions,
+    )
+
+    return throwIfUndefined(
+      actions.find((action) => (action.id = actionRef.id)),
+    )
   }
 
   shouldRenderElement(element: IElementModel, props: IPropData = {}) {

@@ -5,6 +5,7 @@ import type {
 import {
   getComponentService,
   getRendererService,
+  RendererType,
   SelectElementOptions,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -17,7 +18,6 @@ import {
   defaultBuilderWidthBreakPoints,
   elementRef,
   getBuilderDomainService,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import {

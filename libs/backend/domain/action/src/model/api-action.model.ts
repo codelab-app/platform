@@ -11,7 +11,7 @@ export class ApiAction implements IApiActionDTO {
 
   config: Prop
 
-  errorAction?: IActionRef | null
+  'errorAction?: IActionRef | null
 
   id: string
 

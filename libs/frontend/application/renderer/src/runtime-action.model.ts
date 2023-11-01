@@ -1,20 +1,29 @@
-import { getRendererService } from '@codelab/frontend/abstract/application'
+import type {
+  IRuntimeAction,
+  IRuntimeNode,
+  IRuntimeStore,
+} from '@codelab/frontend/abstract/application'
+import {
+  getRendererService,
+  getRunnerId,
+  runtimeStoreRef,
+} from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
-  IActionRunner,
   IApiActionModel,
   IBaseResourceConfigData,
   ICodeActionModel,
-  IElementModel,
-  IEvaluationContext,
   IGraphQLActionConfig,
   IRestActionConfig,
+  IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
   elementRef,
-  getRunnerId,
+  IElementModel,
+  IPageNode,
   IPropModel,
+  isElement,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -65,30 +74,29 @@ const graphqlFetch = (
   return client.request(config.query, variables, headers)
 }
 
-const create = (rootElement: IElementModel) => {
-  const store = rootElement.store.current
-  const component = rootElement.parentComponent?.current
+const create = (action: IActionModel, store: IStoreModel) => {
+  // const component = rootElement.parentComponent?.current
   // more props will be added other then component
   // const props = component?.runtimeProp?.componentEvaluatedProps || {}
-
-  return store.actions.map(
-    (action) =>
-      new ActionRunner({
-        actionRef: actionRef(action.id),
-        elementRef: elementRef(rootElement.id),
-        id: getRunnerId(store.id, action.id),
-      }),
-  )
+  return new RuntimeAction({
+    runtimeNode: null,
+    actionRef: actionRef(action.id),
+    id: getRunnerId(store.id, action.id),
+    runtimeStore: runtimeStoreRef(store.id),
+  })
 }
 
-@model('@codelab/ActionRunner')
-export class ActionRunner
+@model('@codelab/RuntimeAction')
+export class RuntimeAction
   extends Model(() => ({
     actionRef: prop<Ref<IActionModel>>(),
-    elementRef: prop<Ref<IElementModel>>(),
+    fromProvider: prop(false),
+    // elementRef: prop<Ref<IElementModel>>(),
     id: prop<string>(),
+    runtimeNode: prop<Ref<IRuntimeNode>>(),
+    runtimeStore: prop<Ref<IRuntimeStore>>(),
   }))
-  implements IActionRunner
+  implements IRuntimeAction
 {
   static create = create
 
@@ -121,7 +129,7 @@ export class ActionRunner
     const providerStoreId =
       this.renderer?.providerTree?.current.rootElement.current.store.id
 
-    const storeId = this.elementRef.current.store.id
+    const storeId = this.runtimeStore.current.store.id
 
     const { fromProvider: isSuccessRunnerFromProvider, runner: successRunner } =
       getRunner(
@@ -212,10 +220,14 @@ export class ActionRunner
   }
 
   @computed
-  get runner() {
+  runner(node: IPageNode) {
+    const propsEvaluationContext = isElement(node)
+      ? this.renderer?.runtimeElement(node)
+      : this.renderer?.runtimeComponent(node)
+
     return this.actionRef.current.type === IActionKind.ApiAction
-      ? this.apiRunner
-      : this.codeRunner
+      ? this.apiRunner.bind(propsEvaluationContext)
+      : this.codeRunner.bind(propsEvaluationContext)
   }
 
   @modelAction

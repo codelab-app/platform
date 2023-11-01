@@ -19,7 +19,6 @@ import type { IComponentModel } from '../../component'
 import type { IElementModel } from '../../element'
 import type { IPageModel } from '../../page'
 import type { IPropModel } from '../../prop'
-import type { IRendererDto, IRendererModel } from '../../renderer'
 import type { IStoreModel } from '../../store'
 import type {
   IFieldModel,
@@ -41,7 +40,6 @@ export interface DomainMap {
   props: [IPropModel, IPropDTO]
   reactNodeType: [IReactNodeTypeModel, IReactNodeTypeDTO]
   renderPropType: [IRenderPropTypeModel, IRenderPropTypeDTO]
-  renderer: [IRendererModel, IRendererDto]
   store: [IStoreModel, IStoreDTO]
 }
 

@@ -1,8 +1,9 @@
 import type {
-  IElementModel,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeElement,
+} from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { RenderOutput } from '../utils'
@@ -15,14 +16,16 @@ export class ConditionalRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
-    if (this.renderer.shouldRenderElement(element, props)) {
-      return this.next.render(element, props)
+  render(runtimeElement: IRuntimeElement): IRenderOutput {
+    const element = runtimeElement.element
+
+    if (this.renderer.shouldRenderElement(runtimeElement)) {
+      return this.next.render(runtimeElement)
     }
 
     if (this.renderer.debugMode) {
       console.info('ConditionalRenderPipe: should stop rendering', {
-        element: element.name,
+        element: runtimeElement.element.name,
         value: true,
       })
     }

@@ -1,8 +1,5 @@
-import type {
-  IPageNode,
-  ITypedPropTransformer,
-  TypedProp,
-} from '@codelab/frontend/abstract/domain'
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   extractTypedPropValue,

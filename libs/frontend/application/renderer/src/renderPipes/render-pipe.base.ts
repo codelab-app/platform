@@ -1,8 +1,6 @@
+import type { IBaseRenderPipe } from '@codelab/frontend/abstract/application'
 import { getRendererService } from '@codelab/frontend/abstract/application'
-import {
-  getComponentDomainService,
-  type IBaseRenderPipe,
-} from '@codelab/frontend/abstract/domain'
+import { getComponentDomainService } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model } from 'mobx-keystone'
 

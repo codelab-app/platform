@@ -1,23 +1,23 @@
 import type {
   IComponentModel,
   IElementModel,
-  IRendererDto,
-  IRendererModel,
-  IRenderOutput,
-  IRuntimeComponent,
-  IRuntimeElement,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
+import type { IRenderOutput } from './render.interface'
+import type { IRendererDto } from './renderer.dto.interface'
+import type { IRendererModel } from './renderer.model.interface'
+import type { IRuntimeComponent } from './runtime-component.model'
+import type { IRuntimeElement } from './runtime-element.model.interface'
 
-export interface IRendererApplicationService {
+export interface IRendererService {
   activeRenderer: Nullable<Ref<IRendererModel>>
   renderers: ObjectMap<IRendererModel>
 
   hydrate(props: IRendererDto): IRendererModel
-  // mobx transformer takes a single param
+  // mobx trans former takes a single param
   renderChildren([renderer, parentOutput]: [
     IRendererModel,
     IRenderOutput,

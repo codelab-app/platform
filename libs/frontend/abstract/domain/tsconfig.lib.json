@@ -17,6 +17,7 @@
     "**/*.jsx",
     "**/*.ts",
     "**/*.tsx",
-    "../application/src/shared/dto.factory.interface.ts"
+    "../application/src/shared/dto.factory.interface.ts",
+    "../application/src/renderer/action.runner.model.interface.ts"
   ]
 }

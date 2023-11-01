@@ -1,8 +1,9 @@
 import type {
-  IElementModel,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeElement,
+} from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { isAtom } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -18,7 +19,10 @@ export class PassThroughRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
+  render(runtimeElement: IRuntimeElement): IRenderOutput {
+    const element = runtimeElement.element
+    const props = runtimeElement.props
+
     // TODO: element.renderType cannot be component, we should throw error here
     if (this.renderer.debugMode) {
       console.info(`PassThroughRenderPipe: rendering input`, {
@@ -32,7 +36,7 @@ export class PassThroughRenderPipe
         ? element.renderType.current.type
         : IAtomType.ReactFragment,
       element,
-      props: props,
+      props,
     })
   }
 }
