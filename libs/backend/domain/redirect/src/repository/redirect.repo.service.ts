@@ -3,10 +3,13 @@ import {
   type RedirectOptions,
   type RedirectWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { OgmService } from '@codelab/backend/infra/adapter/neo4j'
-import { redirectSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
-import type { TraceService } from '@codelab/backend/infra/adapter/otel'
-import type { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import {
+  redirectSelectionSet,
+  OgmService,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   IRedirectTargetType,
@@ -17,7 +20,9 @@ import {
   disconnectAll,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class RedirectRepository extends AbstractRepository<
   IRedirectDTO,
   Redirect,
@@ -28,6 +33,7 @@ export class RedirectRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthDomainService,
   ) {
     super(traceService, validationService)
   }
@@ -37,20 +43,21 @@ export class RedirectRepository extends AbstractRepository<
       await (
         await this.ogmService.Redirect
       ).create({
-        input: redirects.map(
-          ({ authGuard, id, source, targetType, targetPage, targetUrl }) => ({
-            id,
-            targetType,
-            authGuard: connectNodeId(authGuard.id),
-            source: connectNodeId(source.id),
-            targetPage:
-              targetType === IRedirectTargetType.Page
-                ? reconnectNodeId(targetPage?.id)
-                : undefined,
-            targetUrl:
-              targetType === IRedirectTargetType.Url ? targetUrl : undefined,
-          }),
-        ),
+        input: redirects.map((redirect) => ({
+          id: redirect.id,
+          targetType: redirect.targetType,
+          authGuard: connectNodeId(redirect.authGuard.id),
+          source: connectNodeId(redirect.source.id),
+          targetPage:
+            redirect.targetType === IRedirectTargetType.Page
+              ? reconnectNodeId(redirect.targetPage?.id)
+              : undefined,
+
+          targetUrl:
+            redirect.targetType === IRedirectTargetType.Url
+              ? redirect.targetType
+              : undefined,
+        })),
       })
     ).redirects
   }

@@ -129,8 +129,6 @@ export const evaluateObject = <IContext>(
   props: IPropData,
   context: IContext,
 ) => {
-  console.log('evaluateObject', props, context)
-
   return mapDeep(
     props,
     // value mapper

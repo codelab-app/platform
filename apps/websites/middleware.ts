@@ -37,7 +37,9 @@ const middleware = async (request: NextRequest) => {
       method: 'POST',
     }).then((res) => res.json())
 
-    console.log(response)
+    if (!response.canActivate && response.redirectUrl) {
+      return NextResponse.redirect(response.redirectUrl)
+    }
   }
 
   console.log('Redirecting...', url.toString())

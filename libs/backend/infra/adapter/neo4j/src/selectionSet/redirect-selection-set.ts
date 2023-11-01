@@ -2,7 +2,6 @@ import { authGuardSelectionSet } from './auth-guard-selection-set'
 
 export const redirectSelectionSet = `
   id
-  name
   source {
     id
   }
@@ -10,6 +9,7 @@ export const redirectSelectionSet = `
 
   targetPage {
     id
+    url
   }
   targetUrl
 

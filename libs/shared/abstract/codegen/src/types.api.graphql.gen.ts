@@ -4162,7 +4162,6 @@ export type AtomsConnection = {
 }
 
 export type AuthGuard = WithOwner & {
-  __typename?: 'AuthGuard'
   config: Prop
   configAggregate?: Maybe<AuthGuardPropConfigAggregationSelection>
   configConnection: AuthGuardConfigConnection
@@ -4235,7 +4234,6 @@ export type AuthGuardResourceConnectionArgs = {
 }
 
 export type AuthGuardAggregateSelection = {
-  __typename?: 'AuthGuardAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -4270,7 +4268,6 @@ export type AuthGuardConfigConnectOrCreateFieldInputOnCreate = {
 }
 
 export type AuthGuardConfigConnection = {
-  __typename?: 'AuthGuardConfigConnection'
   edges: Array<AuthGuardConfigRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -4327,7 +4324,6 @@ export type AuthGuardConfigNodeAggregationWhereInput = {
 }
 
 export type AuthGuardConfigRelationship = {
-  __typename?: 'AuthGuardConfigRelationship'
   cursor: Scalars['String']['output']
   node: Prop
 }
@@ -4388,7 +4384,6 @@ export type AuthGuardDisconnectInput = {
 }
 
 export type AuthGuardEdge = {
-  __typename?: 'AuthGuardEdge'
   cursor: Scalars['String']['output']
   node: AuthGuard
 }
@@ -4470,13 +4465,11 @@ export type AuthGuardOwnerNodeAggregationWhereInput = {
 }
 
 export type AuthGuardPropConfigAggregationSelection = {
-  __typename?: 'AuthGuardPropConfigAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardPropConfigNodeAggregateSelection>
 }
 
 export type AuthGuardPropConfigNodeAggregateSelection = {
-  __typename?: 'AuthGuardPropConfigNodeAggregateSelection'
   data: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
 }
@@ -4516,7 +4509,6 @@ export type AuthGuardResourceConnectOrCreateFieldInputOnCreate = {
 }
 
 export type AuthGuardResourceConnection = {
-  __typename?: 'AuthGuardResourceConnection'
   edges: Array<AuthGuardResourceRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -4575,19 +4567,16 @@ export type AuthGuardResourceNodeAggregationWhereInput = {
 }
 
 export type AuthGuardResourceRelationship = {
-  __typename?: 'AuthGuardResourceRelationship'
   cursor: Scalars['String']['output']
   node: Resource
 }
 
 export type AuthGuardResourceResourceAggregationSelection = {
-  __typename?: 'AuthGuardResourceResourceAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardResourceResourceNodeAggregateSelection>
 }
 
 export type AuthGuardResourceResourceNodeAggregateSelection = {
-  __typename?: 'AuthGuardResourceResourceNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
@@ -4627,13 +4616,11 @@ export type AuthGuardUpdateInput = {
 }
 
 export type AuthGuardUserOwnerAggregationSelection = {
-  __typename?: 'AuthGuardUserOwnerAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<AuthGuardUserOwnerNodeAggregateSelection>
 }
 
 export type AuthGuardUserOwnerNodeAggregateSelection = {
-  __typename?: 'AuthGuardUserOwnerNodeAggregateSelection'
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
@@ -4680,7 +4667,6 @@ export type AuthGuardWhere = {
 }
 
 export type AuthGuardsConnection = {
-  __typename?: 'AuthGuardsConnection'
   edges: Array<AuthGuardEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -6787,7 +6773,6 @@ export type CreateAtomsMutationResponse = {
 }
 
 export type CreateAuthGuardsMutationResponse = {
-  __typename?: 'CreateAuthGuardsMutationResponse'
   authGuards: Array<AuthGuard>
   info: CreateInfo
 }
@@ -6891,7 +6876,6 @@ export type CreateReactNodeTypesMutationResponse = {
 }
 
 export type CreateRedirectsMutationResponse = {
-  __typename?: 'CreateRedirectsMutationResponse'
   info: CreateInfo
   redirects: Array<Redirect>
 }
@@ -14569,7 +14553,6 @@ export type PageRedirectConnectOrCreateFieldInputOnCreate = {
 }
 
 export type PageRedirectConnection = {
-  __typename?: 'PageRedirectConnection'
   edges: Array<PageRedirectRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -14628,19 +14611,16 @@ export type PageRedirectNodeAggregationWhereInput = {
 }
 
 export type PageRedirectRedirectAggregationSelection = {
-  __typename?: 'PageRedirectRedirectAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<PageRedirectRedirectNodeAggregateSelection>
 }
 
 export type PageRedirectRedirectNodeAggregateSelection = {
-  __typename?: 'PageRedirectRedirectNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   targetUrl: StringAggregateSelectionNullable
 }
 
 export type PageRedirectRelationship = {
-  __typename?: 'PageRedirectRelationship'
   cursor: Scalars['String']['output']
   node: Redirect
 }
@@ -16460,7 +16440,6 @@ export type ReactNodeTypesConnection = {
 }
 
 export type Redirect = {
-  __typename?: 'Redirect'
   authGuard: AuthGuard
   authGuardAggregate?: Maybe<RedirectAuthGuardAuthGuardAggregationSelection>
   authGuardConnection: RedirectAuthGuardConnection
@@ -16533,7 +16512,6 @@ export type RedirectTargetPageConnectionArgs = {
 }
 
 export type RedirectAggregateSelection = {
-  __typename?: 'RedirectAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   targetUrl: StringAggregateSelectionNullable
@@ -16552,13 +16530,11 @@ export type RedirectAuthGuardAggregateInput = {
 }
 
 export type RedirectAuthGuardAuthGuardAggregationSelection = {
-  __typename?: 'RedirectAuthGuardAuthGuardAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RedirectAuthGuardAuthGuardNodeAggregateSelection>
 }
 
 export type RedirectAuthGuardAuthGuardNodeAggregateSelection = {
-  __typename?: 'RedirectAuthGuardAuthGuardNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
   responseTransformer: StringAggregateSelectionNonNullable
@@ -16581,7 +16557,6 @@ export type RedirectAuthGuardConnectOrCreateFieldInputOnCreate = {
 }
 
 export type RedirectAuthGuardConnection = {
-  __typename?: 'RedirectAuthGuardConnection'
   edges: Array<RedirectAuthGuardRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -16659,7 +16634,6 @@ export type RedirectAuthGuardNodeAggregationWhereInput = {
 }
 
 export type RedirectAuthGuardRelationship = {
-  __typename?: 'RedirectAuthGuardRelationship'
   cursor: Scalars['String']['output']
   node: AuthGuard
 }
@@ -16720,7 +16694,6 @@ export type RedirectDisconnectInput = {
 }
 
 export type RedirectEdge = {
-  __typename?: 'RedirectEdge'
   cursor: Scalars['String']['output']
   node: Redirect
 }
@@ -16739,26 +16712,22 @@ export type RedirectOptions = {
 }
 
 export type RedirectPageSourceAggregationSelection = {
-  __typename?: 'RedirectPageSourceAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RedirectPageSourceNodeAggregateSelection>
 }
 
 export type RedirectPageSourceNodeAggregateSelection = {
-  __typename?: 'RedirectPageSourceNodeAggregateSelection'
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
 export type RedirectPageTargetPageAggregationSelection = {
-  __typename?: 'RedirectPageTargetPageAggregationSelection'
   count: Scalars['Int']['output']
   node?: Maybe<RedirectPageTargetPageNodeAggregateSelection>
 }
 
 export type RedirectPageTargetPageNodeAggregateSelection = {
-  __typename?: 'RedirectPageTargetPageNodeAggregateSelection'
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
@@ -16806,7 +16775,6 @@ export type RedirectSourceConnectOrCreateFieldInputOnCreate = {
 }
 
 export type RedirectSourceConnection = {
-  __typename?: 'RedirectSourceConnection'
   edges: Array<RedirectSourceRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -16880,7 +16848,6 @@ export type RedirectSourceNodeAggregationWhereInput = {
 }
 
 export type RedirectSourceRelationship = {
-  __typename?: 'RedirectSourceRelationship'
   cursor: Scalars['String']['output']
   node: Page
 }
@@ -16928,7 +16895,6 @@ export type RedirectTargetPageConnectOrCreateFieldInputOnCreate = {
 }
 
 export type RedirectTargetPageConnection = {
-  __typename?: 'RedirectTargetPageConnection'
   edges: Array<RedirectTargetPageRelationship>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -17002,7 +16968,6 @@ export type RedirectTargetPageNodeAggregationWhereInput = {
 }
 
 export type RedirectTargetPageRelationship = {
-  __typename?: 'RedirectTargetPageRelationship'
   cursor: Scalars['String']['output']
   node: Page
 }
@@ -17077,7 +17042,6 @@ export type RedirectWhere = {
 }
 
 export type RedirectsConnection = {
-  __typename?: 'RedirectsConnection'
   edges: Array<RedirectEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
@@ -20332,7 +20296,6 @@ export type UpdateAtomsMutationResponse = {
 }
 
 export type UpdateAuthGuardsMutationResponse = {
-  __typename?: 'UpdateAuthGuardsMutationResponse'
   authGuards: Array<AuthGuard>
   info: UpdateInfo
 }
@@ -20438,7 +20401,6 @@ export type UpdateReactNodeTypesMutationResponse = {
 }
 
 export type UpdateRedirectsMutationResponse = {
-  __typename?: 'UpdateRedirectsMutationResponse'
   info: UpdateInfo
   redirects: Array<Redirect>
 }
@@ -21853,12 +21815,11 @@ export type AtomProductionFragment = {
 }
 
 export type AuthGuardFragment = {
-  __typename?: 'AuthGuard'
   id: string
   name: string
   responseTransformer: string
-  config: { __typename?: 'Prop' } & PropFragment
-  resource: { __typename?: 'Resource' } & ResourceFragment
+  config: PropFragment
+  resource: ResourceFragment
 }
 
 export type ComponentDevelopmentFragment = {
@@ -22007,7 +21968,6 @@ export type PagePreviewFragment = {
   store: { id: string }
 }
 
-
 export type PageFragment = {
   id: string
   kind: PageKind
@@ -22048,13 +22008,12 @@ export type PageProductionFragment = {
 export type PropFragment = { data: string; id: string }
 
 export type RedirectFragment = {
-  __typename?: 'Redirect'
   id: string
   targetType: RedirectTargetType
   targetUrl?: string | null
-  source: { __typename?: 'Page'; id: string }
-  targetPage?: { __typename?: 'Page'; id: string } | null
-  authGuard: { __typename?: 'AuthGuard'; id: string }
+  source: { id: string }
+  targetPage?: { id: string } | null
+  authGuard: { id: string }
 }
 
 export type ResourceFragment = {
@@ -22408,20 +22367,6 @@ export type GetAppProductionQuery = {
   resources: Array<ResourceFragment>
 }
 
-export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetSelectAtomOptionsQuery = {
-  __typename?: 'Query'
-  atoms: Array<{
-    __typename?: 'Atom'
-    id: string
-    name: string
-    type: AtomType
-    api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-    requiredParents: Array<{ __typename?: 'Atom'; id: string; type: AtomType }>
-  }>
-}
-
 export type CreateAtomsMutationVariables = Exact<{
   input: Array<AtomCreateInput> | AtomCreateInput
 }>
@@ -22460,6 +22405,17 @@ export type UpdateAtomsMutation = {
   updateAtoms: { atoms: Array<{ id: string }> }
 }
 
+export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetSelectAtomOptionsQuery = {
+  atoms: Array<{
+    id: string
+    name: string
+    type: AtomType
+    api: InterfaceTypeFragment
+    requiredParents: Array<{ id: string; type: AtomType }>
+  }>
+}
 
 export type GetAuthGuardsQueryVariables = Exact<{
   options?: InputMaybe<AuthGuardOptions>
@@ -22467,9 +22423,8 @@ export type GetAuthGuardsQueryVariables = Exact<{
 }>
 
 export type GetAuthGuardsQuery = {
-  __typename?: 'Query'
-  aggregate: { __typename?: 'AuthGuardAggregateSelection'; count: number }
-  items: Array<{ __typename?: 'AuthGuard' } & AuthGuardFragment>
+  aggregate: { count: number }
+  items: Array<AuthGuardFragment>
 }
 
 export type CreateAuthGuardsMutationVariables = Exact<{
@@ -22477,11 +22432,7 @@ export type CreateAuthGuardsMutationVariables = Exact<{
 }>
 
 export type CreateAuthGuardsMutation = {
-  __typename?: 'Mutation'
-  createAuthGuards: {
-    __typename?: 'CreateAuthGuardsMutationResponse'
-    authGuards: Array<{ __typename?: 'AuthGuard'; id: string }>
-  }
+  createAuthGuards: { authGuards: Array<{ id: string }> }
 }
 
 export type UpdateAuthGuardMutationVariables = Exact<{
@@ -22490,11 +22441,7 @@ export type UpdateAuthGuardMutationVariables = Exact<{
 }>
 
 export type UpdateAuthGuardMutation = {
-  __typename?: 'Mutation'
-  updateAuthGuards: {
-    __typename?: 'UpdateAuthGuardsMutationResponse'
-    authGuards: Array<{ __typename?: 'AuthGuard'; id: string }>
-  }
+  updateAuthGuards: { authGuards: Array<{ id: string }> }
 }
 
 export type DeleteAuthGuardsMutationVariables = Exact<{
@@ -22503,8 +22450,7 @@ export type DeleteAuthGuardsMutationVariables = Exact<{
 }>
 
 export type DeleteAuthGuardsMutation = {
-  __typename?: 'Mutation'
-  deleteAuthGuards: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+  deleteAuthGuards: { nodesDeleted: number }
 }
 
 export type CreateComponentsMutationVariables = Exact<{
@@ -22697,52 +22643,6 @@ export type GetPropsQueryVariables = Exact<{
 export type GetPropsQuery = {
   aggregate: { count: number }
   items: Array<PropFragment>
-}
-
-export type CreateRedirectsMutationVariables = Exact<{
-  input: Array<RedirectCreateInput> | RedirectCreateInput
-}>
-
-export type CreateRedirectsMutation = {
-  __typename?: 'Mutation'
-  createRedirects: {
-    __typename?: 'CreateRedirectsMutationResponse'
-    redirects: Array<{ __typename?: 'Redirect'; id: string }>
-  }
-}
-
-export type DeleteRedirectsMutationVariables = Exact<{
-  where?: InputMaybe<RedirectWhere>
-  delete?: InputMaybe<RedirectDeleteInput>
-}>
-
-export type DeleteRedirectsMutation = {
-  __typename?: 'Mutation'
-  deleteRedirects: { __typename?: 'DeleteInfo'; nodesDeleted: number }
-}
-
-export type UpdateRedirectsMutationVariables = Exact<{
-  where?: InputMaybe<RedirectWhere>
-  update?: InputMaybe<RedirectUpdateInput>
-}>
-
-export type UpdateRedirectsMutation = {
-  __typename?: 'Mutation'
-  updateRedirects: {
-    __typename?: 'UpdateRedirectsMutationResponse'
-    redirects: Array<{ __typename?: 'Redirect'; id: string }>
-  }
-}
-
-export type GetRedirectsQueryVariables = Exact<{
-  options?: InputMaybe<RedirectOptions>
-  where?: InputMaybe<RedirectWhere>
-}>
-
-export type GetRedirectsQuery = {
-  __typename?: 'Query'
-  aggregate: { __typename?: 'RedirectAggregateSelection'; count: number }
-  items: Array<{ __typename?: 'Redirect' } & RedirectFragment>
 }
 
 export type GetResourcesQueryVariables = Exact<{
@@ -23594,4 +23494,40 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
+}
+
+export type CreateRedirectsMutationVariables = Exact<{
+  input: Array<RedirectCreateInput> | RedirectCreateInput
+}>
+
+export type CreateRedirectsMutation = {
+  createRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type DeleteRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  delete?: InputMaybe<RedirectDeleteInput>
+}>
+
+export type DeleteRedirectsMutation = {
+  deleteRedirects: { nodesDeleted: number }
+}
+
+export type UpdateRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  update?: InputMaybe<RedirectUpdateInput>
+}>
+
+export type UpdateRedirectsMutation = {
+  updateRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type GetRedirectsQueryVariables = Exact<{
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}>
+
+export type GetRedirectsQuery = {
+  aggregate: { count: number }
+  items: Array<RedirectFragment>
 }

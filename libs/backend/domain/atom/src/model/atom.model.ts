@@ -5,7 +5,10 @@ import type {
   IInterfaceTypeRef,
   IRef,
 } from '@codelab/shared/abstract/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { ValidationError } from 'class-validator'
 import { validateSync } from 'class-validator'
 
@@ -70,7 +73,10 @@ export class Atom implements IAtom {
     this.name = name
     this.icon = icon
     this.type = type
-    this.api = api
+    this.api = {
+      __typename: ITypeKind.InterfaceType,
+      ...api,
+    }
     this.tags = tags
     this.requiredParents = requiredParents
     this.suggestedChildren = suggestedChildren
