@@ -8,7 +8,6 @@ import {
   defaultBuilderWidthBreakPoints,
   getBuilderDomainService,
   IElementStyle,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'

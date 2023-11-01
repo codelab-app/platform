@@ -8,8 +8,8 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
 import type { IBaseRenderPipe } from './render.interface'
-import type { IRuntimeComponent } from './runtime-component.model'
-import type { IRuntimeElement } from './runtime-element.model.interface'
+import type { IRuntimeComponent } from './runtime-component.model.interface'
+import type { IRuntimeElementModel } from './runtime-element.model.interface'
 
 /**
  * Transforms a typed prop to a specific value
@@ -18,7 +18,7 @@ export interface ITypedPropTransformer extends IBaseRenderPipe {
   transform(prop: TypedProp, node: IPageNode): unknown
 }
 
-export type IRuntimeNode = IRuntimeComponent | IRuntimeElement
+export type IRuntimeNode = IRuntimeComponent | IRuntimeElementModel
 
 export interface IRuntimeBase<T extends IPageNode> {
   /**

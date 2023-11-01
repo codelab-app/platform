@@ -1,4 +1,4 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/domain'
+import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
 import {
   isTypedProp,
   STATE_PATH_TEMPLATE_END_REGEX,

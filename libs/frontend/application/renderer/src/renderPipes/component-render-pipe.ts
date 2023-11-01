@@ -2,7 +2,7 @@ import type {
   IRendererModel,
   IRenderOutput,
   IRenderPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { componentRef, isComponent } from '@codelab/frontend/abstract/domain'
@@ -17,7 +17,7 @@ export class ComponentRenderPipe
   })
   implements IRenderPipe
 {
-  render(runtimeElement: IRuntimeElement): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const element = runtimeElement.element
 
     if (!isComponent(element.renderType.current)) {

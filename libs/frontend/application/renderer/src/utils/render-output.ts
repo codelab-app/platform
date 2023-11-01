@@ -5,16 +5,17 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 
 // Named factory methods for convenience
 export const RenderOutput = {
-  empty: (input: Pick<IRenderOutput, 'element' | 'props'>): IRenderOutput =>
-    input,
+  empty: (
+    input: Pick<IRenderOutput, 'props' | 'runtimeElement'>,
+  ): IRenderOutput => input,
   notRenderable: (
-    input: Pick<IRenderOutput, 'element' | 'props'>,
+    input: Pick<IRenderOutput, 'props' | 'runtimeElement'>,
   ): IRenderOutput => ({ ...input, shouldRender: false }),
   overrideProps: (input: IRenderOutput, props: Nullish<IPropData>) => {
     return { ...input, props: mergeProps(input.props, props) }
   },
   withAtom: (
-    input: Pick<IRenderOutput, 'atomType' | 'element' | 'props'>,
+    input: Pick<IRenderOutput, 'atomType' | 'props' | 'runtimeElement'>,
   ): IRenderOutput => {
     return input
   },

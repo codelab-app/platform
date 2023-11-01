@@ -65,7 +65,7 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
-    this.renderer.addRuntimeComponent(componentRef(clonedComponent.id))
+    this.renderer.addRuntimeComponent(clonedComponent)
 
     const rootElement = clonedComponent.rootElement.current
 

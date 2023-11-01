@@ -5,7 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  getRunnerId,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -15,13 +14,13 @@ import type {
   ICodeActionModel,
   IElementModel,
   IGraphQLActionConfig,
+  IPageNode,
   IRestActionConfig,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   actionRef,
   elementRef,
-  IPageNode,
   IPropModel,
   isElement,
 } from '@codelab/frontend/abstract/domain'
@@ -36,8 +35,8 @@ import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { Model, model, modelAction, prop } from 'mobx-keystone'
-import { getRunner, tryParse } from './utils'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { tryParse } from './utils'
 
 const restFetch = (
   client: Axios,
@@ -74,18 +73,14 @@ const graphqlFetch = (
   return client.request(config.query, variables, headers)
 }
 
-const create = (
-  element: IElementModel,
-  action: IActionModel,
-  store: IStoreModel,
-) => {
+const create = (action: IActionModel, store: IStoreModel) => {
   // const component = rootElement.parentComponent?.current
   // more props will be added other then component
   // const props = component?.runtimeProp?.componentEvaluatedProps || {}
+
   return new RuntimeAction({
     actionRef: actionRef(action.id),
-    elementRef: elementRef(element.id),
-    id: getRunnerId(store.id, action.id),
+    runtimeStoreRef: runtimeStoreRef(store.id),
   })
 }
 
@@ -93,13 +88,23 @@ const create = (
 export class RuntimeAction
   extends Model(() => ({
     actionRef: prop<Ref<IActionModel>>(),
-    elementRef: prop<Ref<IElementModel>>(),
     fromProvider: prop(false),
-    id: prop<string>(),
+    id: idProp,
+    runtimeStoreRef: prop<Ref<IRuntimeStore>>(),
   }))
   implements IRuntimeAction
 {
   static create = create
+
+  @computed
+  get runtimeStore() {
+    return this.runtimeStoreRef.current
+  }
+
+  @computed
+  get element() {
+    return this.runtimeStore.runtimeElement.element
+  }
 
   @computed
   get _graphqlClient() {
@@ -127,21 +132,13 @@ export class RuntimeAction
   get apiRunner() {
     const action = this.actionRef.current as IApiActionModel
 
-    const providerStoreId =
-      this.renderer?.providerTree?.current.rootElement.current.store.id
+    const successAction = action.successAction
+      ? this.renderer?.runtimeAction(action.successAction)
+      : null
 
-    const storeId = this.elementRef.current.store.id
-
-    const { fromProvider: isSuccessRunnerFromProvider, runner: successRunner } =
-      getRunner(
-        this.renderer,
-        action.successAction?.id,
-        storeId,
-        providerStoreId,
-      )
-
-    const { fromProvider: isErrorRunnerFromProvider, runner: errorRunner } =
-      getRunner(this.renderer, action.errorAction?.id, storeId, providerStoreId)
+    const errorAction = action.errorAction
+      ? this.renderer?.runtimeAction(action.errorAction)
+      : null
 
     const resource = action.resource.current
     const config = action.config.values
@@ -172,18 +169,18 @@ export class RuntimeAction
         const response = await fetchPromise
 
         // actions in the provider should not have access to the state of regular pages
-        const successRunnerThis = isSuccessRunnerFromProvider
+        const successRunnerThis = successAction?.fromProvider
           ? { ..._this, state: _this.rootState }
           : _this
 
-        return successRunner?.runner.call(successRunnerThis, response)
+        return successAction?.runner.call(successRunnerThis, response)
       } catch (error) {
         // actions in the provider should not have access to the state of regular pages
-        const errorRunnerThis = isErrorRunnerFromProvider
+        const errorRunnerThis = errorAction?.fromProvider
           ? { ..._this, state: _this.rootState }
           : _this
 
-        return errorRunner?.runner.call(errorRunnerThis, error)
+        return errorAction?.runner.call(errorRunnerThis, error)
       }
     }
   }
@@ -221,10 +218,10 @@ export class RuntimeAction
   }
 
   @computed
-  runner(node: IPageNode) {
-    const propsEvaluationContext = isElement(node)
-      ? this.renderer?.runtimeElement(node)
-      : this.renderer?.runtimeComponent(node)
+  runner() {
+    const propsEvaluationContext = isElement(this.element)
+      ? this.renderer?.runtimeElement(this.element)
+      : this.renderer?.runtimeComponent(this.element)
 
     return this.actionRef.current.type === IActionKind.ApiAction
       ? this.apiRunner.bind(propsEvaluationContext)

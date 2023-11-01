@@ -25,6 +25,7 @@ export interface IEvaluationContext {
 export interface IRuntimeElementDto {
   element: IElementModel
   // store: IStoreModel
+  id: string
 }
 
 export interface IPropPipeOutput {
@@ -37,10 +38,10 @@ export interface IPropPipeOutput {
 export interface IPropPipe {
   next?: IPropPipe
 
-  merge(element: IRuntimeElement): IPropPipeOutput
+  merge(element: IRuntimeElementModel): IPropPipeOutput
 }
 
-export interface IRuntimeElement {
+export interface IRuntimeElementModel {
   element: IElementModel
   elementRef: Ref<IElementModel>
   /**
@@ -67,7 +68,7 @@ export interface IRuntimeElement {
    * This is the evaluation context for props
    */
   propsEvaluationContext: IEvaluationContext
-  // runtimeStore: IRuntimeStore
+  runtimeStore: IRuntimeStore
 
   runtimeAction(action: IRef): IRuntimeAction
 }

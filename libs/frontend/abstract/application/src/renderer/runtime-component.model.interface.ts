@@ -3,7 +3,7 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
 import type { IRuntimeBase } from './runtime.model.interface'
-import type { IRuntimeElement } from './runtime-element.model.interface'
+import type { IRuntimeElementModel } from './runtime-element.model.interface'
 
 export interface IRuntimeComponentDto {
   nodeRef: Ref<IComponentModel>
@@ -18,5 +18,5 @@ export interface IRuntimeComponent extends IRuntimeBase<IComponentModel> {
   /**
    * Runtime props for component instance
    */
-  instanceElementProps: Maybe<IRuntimeElement>
+  instanceElementProps: Maybe<IRuntimeElementModel>
 }

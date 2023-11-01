@@ -9,8 +9,8 @@ import type { ArrayOrSingle } from 'ts-essentials'
 import type { IRenderOutput } from './render.interface'
 import type { IRendererDto } from './renderer.dto.interface'
 import type { IRendererModel } from './renderer.model.interface'
-import type { IRuntimeComponent } from './runtime-component.model'
-import type { IRuntimeElement } from './runtime-element.model.interface'
+import type { IRuntimeComponent } from './runtime-component.model.interface'
+import type { IRuntimeElementModel } from './runtime-element.model.interface'
 
 export interface IRendererService {
   activeRenderer: Nullable<Ref<IRendererModel>>
@@ -25,6 +25,6 @@ export interface IRendererService {
 
   renderRoot(renderer: IRendererModel): ReactElement | null
   runtimeComponent(component: IComponentModel): IRuntimeComponent
-  runtimeElement(element: IElementModel): IRuntimeElement
+  runtimeElement(element: IElementModel): IRuntimeElementModel
   setActiveRenderer(renderer: Ref<IRendererModel>): void
 }

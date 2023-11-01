@@ -8,9 +8,11 @@ import type { IRuntimeStore } from '../store/runtime-store.model.interface'
 
 export interface IRuntimeAction {
   actionRef: Ref<IActionModel>
-  elementRef: Ref<IElementModel>
+  element: IElementModel
+  // elementRef: Ref<IElementModel>
   fromProvider: boolean
   id: string
+  runtimeStoreRef: Ref<IRuntimeStore>
 
-  runner(node: IPageNode): (...args: Array<unknown>) => void
+  runner(...args: Array<unknown>): void
 }

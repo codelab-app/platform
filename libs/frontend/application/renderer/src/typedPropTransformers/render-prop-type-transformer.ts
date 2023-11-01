@@ -81,7 +81,7 @@ export class RenderPropTypeTransformer
       }
 
       clonedComponent.props.setMany(props)
-      this.renderer.addRuntimeComponent(componentRef(clonedComponent.id))
+      this.renderer.addRuntimeComponent(clonedComponent)
 
       const rootElement = clonedComponent.rootElement.current
 

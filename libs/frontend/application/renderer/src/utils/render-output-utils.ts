@@ -1,4 +1,4 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
+import type { IRenderOutput } from '@codelab/frontend/abstract/application'
 import type { ArrayOrSingle } from 'ts-essentials'
 
 /**

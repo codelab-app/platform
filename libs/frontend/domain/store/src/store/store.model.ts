@@ -8,10 +8,8 @@ import type {
 import {
   actionRef,
   componentRef,
-  getRunnerId,
   isAtomRef,
   pageRef,
-  RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
@@ -99,30 +97,30 @@ export class Store
     }
   }
 
-  @computed
-  get actionRunners() {
-    const renderer = this.rendererService.activeRenderer?.current
+  // @computed
+  // get actionRunners() {
+  //   const renderer = this.rendererService.activeRenderer?.current
 
-    const actionRunners = this.actions
-      .map(({ current: action }) => {
-        const actionId = getRunnerId(this.id, action.id)
-        const actionRunner = renderer?.actionRunners.get(actionId)
-        const fallback = () => console.error(`fail to call ${action.name}`)
-        const runner = actionRunner?.runner || fallback
+  //   const actionRunners = this.actions
+  //     .map(({ current: action }) => {
+  //       const actionId = getRunnerId(this.id, action.id)
+  //       const actionRunner = renderer?.actionRunners.get(actionId)
+  //       const fallback = () => console.error(`fail to call ${action.name}`)
+  //       const runner = actionRunner?.runner || fallback
 
-        return { [action.name]: runner }
-      })
-      .reduce(merge, {})
+  //       return { [action.name]: runner }
+  //     })
+  //     .reduce(merge, {})
 
-    Object.keys(actionRunners).forEach((actionName) => {
-      actionRunners[actionName] = actionRunners[actionName].bind({
-        actions: actionRunners,
-        state: this.state,
-      })
-    })
+  //   Object.keys(actionRunners).forEach((actionName) => {
+  //     actionRunners[actionName] = actionRunners[actionName].bind({
+  //       actions: actionRunners,
+  //       state: this.state,
+  //     })
+  //   })
 
-    return actionRunners
-  }
+  //   return actionRunners
+  // }
 
   @computed
   get actionsTree() {
@@ -141,43 +139,6 @@ export class Store
       }))
       .filter((node) => Boolean(node))
   }
-
-  @computed
-  get jsonString() {
-    return propSafeStringify({
-      refs: this.refs,
-      state: this.state,
-    })
-  }
-
-  @computed
-  get refKeys(): Array<string> {
-    const elementTree = this.page?.current || this.component?.current
-    const elements = elementTree?.elements || []
-
-    return elements
-      .filter((element) => isAtomRef(element.renderType))
-      .map(({ slug }) => slug)
-  }
-
-  @computed
-  get state() {
-    const { rendererType } = this.rendererService.activeRenderer?.current ?? {}
-
-    const isPreviewOrProduction =
-      rendererType === RendererType.Preview ||
-      rendererType === RendererType.Production
-
-    if (isPreviewOrProduction && this.cachedState) {
-      return this.cachedState
-    }
-
-    this.cachedState = observable(this.api.maybeCurrent?.defaultValues ?? {})
-
-    return this.cachedState
-  }
-
-  refs = observable.object<IPropData>({})
 
   @modelAction
   clone(componentId: string) {
@@ -206,30 +167,6 @@ export class Store
     return this
   }
 
-  createEmptyRefs(refKeys: Array<string>) {
-    refKeys.forEach((key: string) => {
-      this.registerRef(key, null)
-    })
-  }
-
-  deleteUnusedRefs() {
-    keys(this.refs).forEach((key) => {
-      if (!this.refKeys.includes(key)) {
-        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-        delete this.refs[key]
-      }
-    })
-  }
-
-  onAttachedToRootStore() {
-    this.createEmptyRefs(this.refKeys)
-    autorun(() => this.deleteUnusedRefs())
-  }
-
-  registerRef(key: string, current: Nullable<HTMLElement>) {
-    set(this.refs, { [key]: { current } })
-  }
-
   toCreateInput(): StoreCreateInput {
     const api = this.api.current
 
@@ -243,8 +180,6 @@ export class Store
   toUpdateInput(): StoreUpdateInput {
     return { name: this.name }
   }
-
-  private cachedState: Nullable<object> = null
 
   @computed
   private get storeDomainService() {

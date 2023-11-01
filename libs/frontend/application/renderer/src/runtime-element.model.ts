@@ -1,7 +1,7 @@
 import type {
   IRuntimeAction,
-  IRuntimeElement,
   IRuntimeElementDto,
+  IRuntimeElementModel,
   IRuntimeProp,
   IRuntimeStore,
 } from '@codelab/frontend/abstract/application'
@@ -35,9 +35,17 @@ import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, Model, model, modelClass, prop } from 'mobx-keystone'
+import {
+  ExtendedModel,
+  idProp,
+  Model,
+  model,
+  modelClass,
+  prop,
+} from 'mobx-keystone'
 import { RuntimeAction } from './runtime-action.model'
 import { RuntimeBase } from './runtime-base.model'
+import { RuntimeStore } from './runtime-store.model'
 
 const create = (runtimeElement: IRuntimeElementDto) => {
   const { element } = runtimeElement
@@ -45,8 +53,9 @@ const create = (runtimeElement: IRuntimeElementDto) => {
   return new RuntimeElement({
     elementRef: elementRef(element),
     runtimeActions: element.store.current.actions.map((action) =>
-      RuntimeAction.create(element, action.current, element.store.current),
+      RuntimeAction.create(action.current, element.store.current),
     ),
+    runtimeStore: RuntimeStore.create(runtimeElement),
   })
 }
 
@@ -54,9 +63,11 @@ const create = (runtimeElement: IRuntimeElementDto) => {
 export class RuntimeElement
   extends Model({
     elementRef: prop<Ref<IElementModel>>(),
+    id: idProp,
     runtimeActions: prop<Array<IRuntimeAction>>(),
+    runtimeStore: prop<IRuntimeStore>(),
   })
-  implements IRuntimeElement
+  implements IRuntimeElementModel
 {
   static create = create
 
@@ -167,7 +178,7 @@ export class RuntimeElement
     // memorize values or else it will be lost inside callback
     const registerReference = isAtomRef(this.element.renderType)
     const slug = this.element.slug
-    const store = this.element.store.current
+    const store = this.runtimeStore
 
     return {
       ...getDefaultFieldProps(this.element.renderType.current),
@@ -188,15 +199,17 @@ export class RuntimeElement
     const component =
       this.element.closestSubTreeRootElement.parentComponent?.current
 
+    const providerStore = this.runtimeStore.store
+
     return {
-      actions: this.element.store.current.actionRunners,
+      actions: this.runtimeStore.runtimeActions,
       componentProps: component
         ? this.renderer?.runtimeComponent(component)?.componentEvaluatedProps ??
           {}
         : {},
       // pass empty object because props can't evaluated by itself
       props: {},
-      refs: this.element.store.current.refs,
+      refs: this.runtimeStore.refs,
       rendererType: this.renderer?.rendererType,
       rootActions: this.providerStore?.actionRunners ?? {},
       rootRefs: this.providerStore?.refs || {},

@@ -1,6 +1,6 @@
 import type {
   IPropPipe,
-  IRuntimeElement,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID, isAtomRef } from '@codelab/frontend/abstract/domain'
 import {
@@ -14,7 +14,7 @@ import {
 
 @model('@codelab/ElementPropsPipe')
 export class ElementPropsPipe extends Model({}) implements IPropPipe {
-  merge(runtimeElement: IRuntimeElement) {
+  merge(runtimeElement: IRuntimeElementModel) {
     const element = runtimeElement.elementRef.current
     const props = element.props.values
     const registerReference = isAtomRef(element.renderType)

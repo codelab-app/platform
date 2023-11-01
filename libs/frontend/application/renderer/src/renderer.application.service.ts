@@ -99,10 +99,11 @@ export class RendererApplicationService
    * Renders the elements children, createTransformer memoizes the function
    */
   renderChildren = createTransformer(
-    ([renderer, { element, props }]: [
+    ([renderer, { props, runtimeElement }]: [
       IRendererModel,
       IRenderOutput,
     ]): ArrayOrSingle<ReactNode> => {
+      const { element } = runtimeElement
       const childMapperChildren = renderer.getChildMapperChildren(element)
 
       const childMapperRenderIndex =

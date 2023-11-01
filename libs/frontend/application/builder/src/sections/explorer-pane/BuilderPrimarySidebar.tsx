@@ -206,7 +206,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 onChange={() => undefined}
                 singleLine={false}
                 title="Local Store"
-                value={store.jsonString}
+                // value={store.jsonString}
+                value=""
               />
             </Collapse.Panel>
             {componentStore ? (
@@ -218,7 +219,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Component Store"
-                  value={componentStore.current.jsonString}
+                  // value={componentStore.current.jsonString}
+                  value=""
                 />
               </Collapse.Panel>
             ) : (
@@ -233,7 +235,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Root Store"
-                  value={providerStore.jsonString}
+                  // value={providerStore.jsonString}
+                  value=""
                 />
               </Collapse.Panel>
             ) : (
