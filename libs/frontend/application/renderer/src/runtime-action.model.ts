@@ -13,6 +13,7 @@ import type {
   IApiActionModel,
   IBaseResourceConfigData,
   ICodeActionModel,
+  IElementModel,
   IGraphQLActionConfig,
   IRestActionConfig,
   IStoreModel,
@@ -20,7 +21,6 @@ import type {
 import {
   actionRef,
   elementRef,
-  IElementModel,
   IPageNode,
   IPropModel,
   isElement,
@@ -74,15 +74,18 @@ const graphqlFetch = (
   return client.request(config.query, variables, headers)
 }
 
-const create = (action: IActionModel, store: IStoreModel) => {
+const create = (
+  element: IElementModel,
+  action: IActionModel,
+  store: IStoreModel,
+) => {
   // const component = rootElement.parentComponent?.current
   // more props will be added other then component
   // const props = component?.runtimeProp?.componentEvaluatedProps || {}
   return new RuntimeAction({
-    runtimeNode: null,
     actionRef: actionRef(action.id),
+    elementRef: elementRef(element.id),
     id: getRunnerId(store.id, action.id),
-    runtimeStore: runtimeStoreRef(store.id),
   })
 }
 
@@ -90,11 +93,9 @@ const create = (action: IActionModel, store: IStoreModel) => {
 export class RuntimeAction
   extends Model(() => ({
     actionRef: prop<Ref<IActionModel>>(),
+    elementRef: prop<Ref<IElementModel>>(),
     fromProvider: prop(false),
-    // elementRef: prop<Ref<IElementModel>>(),
     id: prop<string>(),
-    runtimeNode: prop<Ref<IRuntimeNode>>(),
-    runtimeStore: prop<Ref<IRuntimeStore>>(),
   }))
   implements IRuntimeAction
 {
@@ -129,7 +130,7 @@ export class RuntimeAction
     const providerStoreId =
       this.renderer?.providerTree?.current.rootElement.current.store.id
 
-    const storeId = this.runtimeStore.current.store.id
+    const storeId = this.elementRef.current.store.id
 
     const { fromProvider: isSuccessRunnerFromProvider, runner: successRunner } =
       getRunner(
