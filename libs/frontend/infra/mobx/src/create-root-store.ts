@@ -28,8 +28,13 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import {
+  appDomainServiceContext,
   atomDomainServiceContext,
   builderDomainServiceContext,
+  elementDomainServiceContext,
+  fieldDomainServiceContext,
+  pageDomainServiceContext,
+  userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { AdminService } from '@codelab/frontend/application/admin'
 import { AppService } from '@codelab/frontend/application/app'
@@ -126,11 +131,14 @@ export const createRootStore = ({ user }: RootStoreData) => {
 
     protected onInit() {
       appServiceContext.set(this, this.appService)
+      appDomainServiceContext.set(this, this.appService.appDomainService)
       domainServiceContext.set(this, this.domainService)
       pageServiceContext.set(this, this.pageService)
+      pageDomainServiceContext.set(this, this.pageService.pageDomainService)
       typeServiceContext.set(this, this.typeService)
       typeDomainServiceContext.set(this, this.typeService.typeDomainService)
       atomServiceContext.set(this, this.atomService)
+      fieldDomainServiceContext.set(this, this.fieldService.fieldDomainService)
       atomDomainServiceContext.set(this, this.atomService.atomDomainService)
       componentServiceContext.set(this, this.componentService)
       storeDomainServiceContext.set(this, this.storeService.storeDomainService)
@@ -140,8 +148,13 @@ export const createRootStore = ({ user }: RootStoreData) => {
       resourceServiceContext.set(this, this.resourceService)
       propServiceContext.set(this, this.propService)
       elementServiceContext.set(this, this.elementService)
+      elementDomainServiceContext.set(
+        this,
+        this.elementService.elementDomainService,
+      )
       builderDomainServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)
+      userDomainServiceContext.set(this, this.userService.userDomainService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
       rendererServiceContext.set(this, this.rendererService)
