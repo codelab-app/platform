@@ -2,7 +2,6 @@ import type {
   IComponentDomainService,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import { IUpdateComponentData } from '@codelab/frontend/abstract/domain'
 import { IComponentDTO } from '@codelab/shared/abstract/core'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
@@ -12,7 +11,6 @@ import { Component } from './store'
 @model('@codelab/ComponentDomainService')
 export class ComponentDomainService
   extends Model({
-    clonedComponents: prop(() => objectMap<IComponentModel>()),
     components: prop(() => objectMap<IComponentModel>()),
   })
   implements IComponentDomainService
@@ -24,7 +22,7 @@ export class ComponentDomainService
 
   @modelAction
   maybeComponent(id: string) {
-    return this.components.get(id) || this.clonedComponents.get(id)
+    return this.components.get(id)
   }
 
   @modelAction
@@ -38,37 +36,9 @@ export class ComponentDomainService
     return component
   }
 
-  @modelAction
-  removeClones(componentId: string) {
-    return [...this.clonedComponents.entries()]
-      .filter(([_, component]) => component.sourceComponent?.id === componentId)
-      .forEach(([elementId]) => this.clonedComponents.delete(elementId))
-  }
-
   @computed
   get sortedComponentsList() {
     return sortBy(this.componentList, 'name')
-  }
-
-  @modelAction
-  writeCloneCache({
-    childrenContainerElement,
-    id,
-    name,
-  }: IUpdateComponentData) {
-    return [...this.clonedComponents.values()]
-      .filter((componentClone) => componentClone.sourceComponent?.id === id)
-      .map((clone) => {
-        const containerClone = clone.elements.find(
-          ({ sourceElement }) =>
-            sourceElement?.id === childrenContainerElement.id,
-        )
-
-        return clone.writeCache({
-          childrenContainerElement: containerClone,
-          name,
-        })
-      })
   }
 
   @modelAction

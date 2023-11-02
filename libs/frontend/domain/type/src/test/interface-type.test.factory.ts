@@ -1,5 +1,4 @@
 import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
-import { rootDomainStore } from '@codelab/frontend/domain/element'
 import { chance } from '@codelab/frontend/domain/shared'
 import type { IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'

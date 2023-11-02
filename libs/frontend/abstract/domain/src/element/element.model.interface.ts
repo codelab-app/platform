@@ -2,16 +2,10 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IElement,
-  IElementDTO,
-  IPropData,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IElement, IElementDTO, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
-import type { BuilderWidthBreakPoint } from '../builder'
 import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IPageModel } from '../page'
@@ -111,7 +105,6 @@ export interface IElementModel
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
-  clone(cloneIndex?: number): IElementModel
   detachFromTree(): IElementModel
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void

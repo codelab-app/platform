@@ -1,17 +1,14 @@
 import type {
+  IComponentModel,
   IElementModel,
   IInterfaceTypeModel,
   IPropModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
-  componentRef,
-  DATA_COMPONENT_ID,
   elementRef,
   ElementTree,
-  getComponentDomainService,
   getUserDomainService,
-  IComponentModel,
   isComponent,
   storeRef,
   typeRef,
@@ -22,11 +19,10 @@ import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IComponentDTO, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   api,
@@ -117,49 +113,6 @@ export class Component
     }
   }
 
-  /**
-   * @param key a unique identifier to avoid repeating clone
-   * @param instanceId instance element id
-   * Typed values doesn't have an instance element
-   * therefore the key can't be the same as instanceId
-   */
-  @modelAction
-  clone(key: string, instanceId?: string) {
-    const componentService = getComponentDomainService(this)
-
-    // if instance already created
-    if (componentService.clonedComponents.has(key)) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return componentService.clonedComponents.get(key)!
-    }
-
-    const clonedComponent: IComponentModel = clone<IComponentModel>(this)
-
-    componentService.clonedComponents.set(key, clonedComponent)
-
-    const clonesList = [...componentService.clonedComponents.values()].filter(
-      (component) => component.sourceComponent?.id === this.id,
-    )
-
-    this.cloneTree(clonedComponent, clonesList.length)
-
-    const clonedStore = this.store.current.clone(clonedComponent.id)
-
-    clonedComponent.setProps(this.props.clone())
-    clonedComponent.setSourceComponent({ id: this.id })
-    clonedComponent.setStore(storeRef(clonedStore))
-
-    clonedComponent.elements.forEach((childElement) => {
-      childElement.props.set(DATA_COMPONENT_ID, clonedComponent.id)
-    })
-
-    if (instanceId) {
-      clonedComponent.setInstanceElement(elementRef(instanceId))
-    }
-
-    return clonedComponent
-  }
-
   @modelAction
   toCreateInput(): ComponentCreateInput {
     return {
@@ -198,80 +151,6 @@ export class Component
       : this.childrenContainerElement
 
     return this
-  }
-
-  @modelAction
-  private cloneTree(clonedComponent: IComponentModel, cloneIndex: number) {
-    console.debug('ElementTreeService.cloneTree', this.elements)
-
-    const elementMap: Map<string, string> = new Map()
-
-    const elements = this.elements.map((element) => {
-      const clonedElement = element.clone(cloneIndex)
-
-      // don't move it to element model to avoid dependency issues
-      if (isComponent(element.renderType.current)) {
-        const componentClone = element.renderType.current.clone(
-          clonedElement.id,
-          clonedElement.id,
-        )
-
-        clonedElement.setRenderType(componentRef(componentClone.id))
-      }
-
-      if (element.id === this.childrenContainerElement.maybeCurrent?.id) {
-        clonedComponent.setChildrenContainerElement(
-          elementRef(clonedElement.id),
-        )
-      }
-
-      // keep trace of copies to update parents
-      elementMap.set(element.id, clonedElement.id)
-
-      return clonedElement
-    })
-
-    const rootElementId = this.rootElement.id
-      ? elementMap.get(this.rootElement.id)
-      : null
-
-    elements.forEach((element) => {
-      const { firstChild, nextSibling, parentElement, prevSibling } = element
-
-      if (parentElement) {
-        const parentId = elementMap.get(parentElement.current.id)
-
-        element.setParentElement(elementRef(parentId!))
-      }
-
-      if (firstChild) {
-        const firstChildId = elementMap.get(firstChild.current.id)
-
-        element.setFirstChild(elementRef(firstChildId!))
-      }
-
-      if (nextSibling) {
-        const nextSiblingId = elementMap.get(nextSibling.current.id)
-
-        element.setNextSibling(elementRef(nextSiblingId!))
-      }
-
-      if (prevSibling) {
-        const prevSiblingId = elementMap.get(prevSibling.current.id)
-
-        element.setPrevSibling(elementRef(prevSiblingId!))
-      }
-    })
-
-    const rootElement = elements.find((element) => element.id === rootElementId)
-
-    rootElement?.setParentComponent(componentRef(clonedComponent.id))
-
-    if (!rootElement) {
-      throw new Error('rootElement not found')
-    }
-
-    clonedComponent.setRootElement(elementRef(rootElement.id))
   }
 
   toUpdateInput(): ComponentUpdateInput {

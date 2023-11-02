@@ -9,7 +9,7 @@ import { User } from './store'
 
 const fromDto = (user: IUserDTO) => {
   return new UserDomainService({
-    user: new User(user),
+    user: User.create(user),
   })
 }
 

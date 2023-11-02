@@ -284,7 +284,6 @@ export class PageApplicationService
   }
 
   @computed
-  @computed
   private get storeDomainService() {
     return getStoreDomainService(this)
   }

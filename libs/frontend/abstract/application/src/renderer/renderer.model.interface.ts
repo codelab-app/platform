@@ -1,25 +1,19 @@
 import type {
-  IActionModel,
-  IComponentModel,
   IElementModel,
   IElementTree,
   IExpressionTransformer,
-  IStoreModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IPropData, IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
-import type { IRuntimeStore } from '../store/runtime-store.model.interface'
-import type { IRuntimeAction } from './action.runner.model.interface'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type {
-  IRuntimeBase,
-  ITypedPropTransformer,
-} from './runtime.model.interface'
-import type { IRuntimeComponent } from './runtime-component.model.interface'
-import type { IRuntimeElementModel } from './runtime-element.model.interface'
+  IRuntimeContainerNodeDTO,
+  IRuntimeContainerNodeModel,
+} from './runtime-container-node'
+import type { IRuntimeElementModel } from './runtime-element'
+import type { ITypedPropTransformer } from './typed-prop-transformer.interface'
 
 export const enum RendererType {
   ComponentBuilder = 'component-builder',
@@ -36,25 +30,28 @@ export interface IRendererModel {
   providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  runtimeComponents: ObjectMap<IRuntimeComponent>
-  runtimeElements: ObjectMap<IRuntimeElementModel>
+  runtimeContainerNodes: ObjectMap<IRuntimeContainerNodeModel>
   // runtimeStores: ObjectMap<IRuntimeStore>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  addRuntimeComponent(component: IComponentModel): IRuntimeComponent
-  addRuntimeElement(element: IElementModel): IRuntimeElementModel
+  addRuntimeContainerNode(
+    runtimeContainerNodeDTO: IRuntimeContainerNodeDTO,
+  ): IRuntimeContainerNodeModel
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>
   getComponentInstanceChildren(element: IElementModel): Array<IElementModel>
   logRendered(rendered: IRenderOutput): void
-  renderElement(element: IElementModel): Nullable<ReactElement>
-  renderIntermediateElement(element: IElementModel): IRenderOutput
+  renderElement(
+    element: IElementModel,
+    containerNode: IRuntimeContainerNodeModel,
+  ): Nullable<ReactElement>
+  renderIntermediateElement(
+    element: IElementModel,
+    runtimeContainerNode: IRuntimeContainerNodeModel,
+  ): IRenderOutput
   runPostRenderAction(element: IRuntimeElementModel): void
   runPreRenderAction(element: IRuntimeElementModel): void
-  runtimeAction(action: IRef): IRuntimeAction
-  runtimeComponent(component: IRef): IRuntimeComponent
-  runtimeElement(element: IRef): IRuntimeElementModel
   shouldRenderElement(element: IRuntimeElementModel): boolean
 }
 

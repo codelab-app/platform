@@ -3,7 +3,6 @@ import type {
   SelectElementOption,
 } from '@codelab/frontend/abstract/application'
 import {
-  getComponentService,
   getRendererService,
   RendererType,
   SelectElementOptions,
@@ -206,7 +205,6 @@ export class ElementService
     }
 
     currentElement.writeCache(newElement)
-    this.elementDomainService.writeCloneCache(newElement)
 
     yield* _await(this.elementRepository.update(currentElement))
 
