@@ -176,7 +176,6 @@ export class ComponentApplicationService
       await this.elementService.delete(rootElement)
 
       this.componentDomainService.components.delete(id)
-      this.componentDomainService.removeClones(id)
 
       await this.storeService.delete([store])
       await this.componentRepository.delete([component])
@@ -316,12 +315,6 @@ export class ComponentApplicationService
     }
 
     component.writeCache({ childrenContainerElement, keyGenerator, name })
-    this.componentDomainService.writeCloneCache({
-      childrenContainerElement,
-      id,
-      keyGenerator,
-      name,
-    })
 
     yield* _await(this.componentRepository.update(component))
 

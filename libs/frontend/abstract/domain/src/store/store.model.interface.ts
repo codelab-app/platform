@@ -3,12 +3,7 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IPropData,
-  IRef,
-  IStore,
-  IStoreDTO,
-} from '@codelab/shared/abstract/core'
+import type { IRef, IStore, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
@@ -32,6 +27,5 @@ export interface IStoreModel
   source: Nullable<IRef>
   // state: IPropData
 
-  clone(componentId: string): IStoreModel
   setComponent(componentRef: Ref<IComponentModel>): void
 }

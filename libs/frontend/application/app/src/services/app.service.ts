@@ -182,7 +182,16 @@ export class AppService
 
     atoms.forEach((atom) => this.atomService.atomDomainService.hydrate(atom))
 
-    return apps.map((app) => this.appDomainService.hydrate(app))
+    // hydrate pages to use the first page's url
+    apps
+      .flatMap((app) => app.pages)
+      .forEach((page) => {
+        this.pageService.pageDomainService.hydrate(page)
+      })
+
+    return apps.map((app) => {
+      return this.appDomainService.hydrate(app)
+    })
   })
 
   @modelFlow

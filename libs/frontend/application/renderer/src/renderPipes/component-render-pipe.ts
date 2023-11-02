@@ -5,8 +5,7 @@ import type {
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { componentRef, isComponent } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
+import { isComponent } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './render-pipe.base'
 
@@ -25,8 +24,8 @@ export class ComponentRenderPipe
     }
 
     const component = element.renderType.current
-    const clonedComponent = component.clone(element.id, element.id)
-    const rootElement = clonedComponent.rootElement.current
+    // FIXME: create a runtime component
+    const rootElement = component.rootElement.current
 
     // this.renderer.addRuntimeComponent(clonedComponent)
 

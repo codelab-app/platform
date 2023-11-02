@@ -1,4 +1,5 @@
-import { detach, rootRef } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { detach, isRefOfType, rootRef } from 'mobx-keystone'
 import type { IRuntimeElementModel } from './runtime-element.model.interface'
 
 export const runtimeElementRef = rootRef<IRuntimeElementModel>(
@@ -11,3 +12,7 @@ export const runtimeElementRef = rootRef<IRuntimeElementModel>(
     },
   },
 )
+
+export const isRuntimeElementRef = (
+  ref: Ref<object>,
+): ref is Ref<IRuntimeElementModel> => isRefOfType(ref, runtimeElementRef)

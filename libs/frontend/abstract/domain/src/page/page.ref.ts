@@ -1,4 +1,4 @@
-import type { Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import { detach, rootRef } from 'mobx-keystone'
 import { type IComponentModel } from '../component'
 import type { IElementModel } from '../element'
@@ -15,3 +15,7 @@ export const pageRef = rootRef<IPageModel>('@codelab/PageRef', {
     }
   },
 })
+
+export const isPage = (instance: AnyModel): instance is IPageModel => {
+  return instance.$modelType === '@codelab/Page'
+}
