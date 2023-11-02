@@ -1,20 +1,27 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
+import {
+  type IRootStore,
+  rendererRef,
+} from '@codelab/frontend/abstract/application'
 import {
   DATA_ELEMENT_ID,
   elementTreeRef,
   isAtomRef,
-  rendererRef,
 } from '@codelab/frontend/abstract/domain'
+import { atomFactory } from '@codelab/frontend/domain/atom'
+import { elementFactory } from '@codelab/frontend/domain/element'
+import { propFactory } from '@codelab/frontend/domain/prop'
+import { interfaceTypeFactory } from '@codelab/frontend/domain/type'
 import {
   ConditionalRenderPipe,
   PassThroughRenderPipe,
   renderPipeFactory,
-} from '@codelab/frontend/domain/renderer'
+} from '../renderPipes'
+import { rendererFactory } from './renderer.test.factory'
 import { setupPage } from './setup'
-import { dtoFactory, testRootStore } from './setup/dto.factory'
+import { rootApplicationStore, rootDomainStore } from './setup/root.test.store'
 
 describe('ConditionalRenderPipe', () => {
-  const rootStore = testRootStore as IRootStore
+  const rootStore = rootDomainStore
 
   beforeEach(() => {
     rootStore.clear()
@@ -31,25 +38,26 @@ describe('ConditionalRenderPipe', () => {
     async (expression, shouldRender) => {
       const { page, rootElement: pageRootElement } = setupPage()
 
-      const element = dtoFactory.build('element', {
+      const element = elementFactory(rootDomainStore)({
         page,
         parentElement: pageRootElement,
-        props: dtoFactory.build('props', {
+        props: propFactory(rootDomainStore)({
           data: '{ "testPropTrue": true, "testPropFalse": false }',
         }).toJson,
         renderIfExpression: expression,
-        renderType: dtoFactory.build('atom', {
-          api: dtoFactory.build('interfaceType'),
+        renderType: atomFactory(rootDomainStore)({
+          api: interfaceTypeFactory(rootDomainStore)({}),
         }),
       })
 
-      const elementModel = rootStore.elementService.element(element.id)
+      const elementModel = rootStore.elementDomainService.element(element.id)
 
-      const renderer = dtoFactory.build('renderer', {
+      const renderer = rendererFactory(
+        rootDomainStore,
+        rootApplicationStore,
+      )({
         elementTree: elementTreeRef(
-          rootStore.appService.appDomainService
-            .app(page.app.id)!
-            .page(page.id)!,
+          rootDomainStore.appDomainService.app(page.app.id)!.page(page.id)!,
         ).current,
         renderPipe: renderPipeFactory([
           PassThroughRenderPipe,
@@ -57,10 +65,12 @@ describe('ConditionalRenderPipe', () => {
         ]),
       })
 
-      rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
+      rootApplicationStore.rendererService.setActiveRenderer(
+        rendererRef(renderer.id),
+      )
 
       const output =
-        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
+        rootApplicationStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           elementModel,
         )
 

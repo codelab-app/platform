@@ -1,58 +1,63 @@
+import type { IRendererModel } from '@codelab/frontend/abstract/application'
+import {
+  rendererRef,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import type {
   IElementModel,
   IPageModel,
-  IRendererModel,
-  IRenderOutput,
   TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementTreeRef,
-  rendererRef,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
+import { elementFactory } from '@codelab/frontend/domain/element'
+import { primitiveTypeFactory } from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
+import { rendererFactory } from './renderer.test.factory'
 import { setupPage } from './setup'
-import { dtoFactory } from './setup/dto.factory'
-import { createTestRootStore } from './setup/root.test.store'
+import { rootApplicationStore, rootDomainStore } from './setup/root.test.store'
 import { TestProviderWrapper } from './TestProviderWrapper'
 
 describe('TypedPropTransformers', () => {
   const testPropValue = 'some text'
   const testOverridePropValue = 'overridden text'
   const componentId = 'component-id'
-  const rootStore = createTestRootStore()
   let page: IPageModel
   let pageRootElement: IElementModel
   let renderer: IRendererModel
 
   beforeEach(() => {
-    rootStore.clear()
+    rootDomainStore.clear()
     ;({ page, rootElement: pageRootElement } = setupPage())
 
-    renderer = dtoFactory.build('renderer', {
+    renderer = rendererFactory(
+      rootDomainStore,
+      rootApplicationStore,
+    )({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       elementTree: elementTreeRef(
-        rootStore.appService.appDomainService.apps
-          .get(page.app.id)!
-          .page(page.id)!,
+        rootDomainStore.appDomainService.apps.get(page.app.id)!.page(page.id)!,
       ).current,
       // Passing Preview renderer to replace customText prop value
       rendererType: RendererType.Preview,
     })
 
-    rootStore.rendererService.setActiveRenderer(rendererRef(renderer.id))
+    rootApplicationStore.rendererService.setActiveRenderer(
+      rendererRef(renderer.id),
+    )
   })
 
   it.only('should apply default typed prop transformer', () => {
-    const integerType = dtoFactory.build('primitiveType', {
+    const integerType = primitiveTypeFactory(rootDomainStore)({
       name: PrimitiveTypeKind.Integer,
       primitiveKind: PrimitiveTypeKind.Integer,
     })
 
-    const element = dtoFactory.build('element', {
+    const element = elementFactory(rootDomainStore)({
       page,
       parentElement: pageRootElement,
       props: dtoFactory.build('props', {

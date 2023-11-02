@@ -1,16 +1,14 @@
-import { createTestRootStore } from '@codelab/frontend/domain/element'
 import {
-  appDto,
   atomReactFragmentDto,
   elementDto,
   pageDto,
 } from '@codelab/frontend/test/data'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { rootDomainStore } from './root.test.store'
 
 describe('Create element', () => {
-  const { appDomainService, elementDomainService } = createTestRootStore()
-  const app = appDomainService.hydrate(appDto)
+  const { elementDomainService, pageDomainService } = rootDomainStore
 
   const rootElementDto: IElementDTO = {
     ...elementDto,
@@ -36,7 +34,7 @@ describe('Create element', () => {
     },
   } as const
 
-  app.addPageInCache(pageDto)
+  pageDomainService.hydrate(pageDto)
 
   const rootElement = elementDomainService.hydrate(rootElementDto)
 

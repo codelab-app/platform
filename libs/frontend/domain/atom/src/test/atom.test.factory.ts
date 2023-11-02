@@ -36,7 +36,7 @@ export const AtomTestFactory = (rootStore: Partial<IRootDomainStore>) =>
 export const atomFactory =
   (rootStore: IRootDomainStore) => (dto: Partial<IAtomDTO>) => {
     const atom: IAtomDTO = {
-      // __typename: `${IElementRenderTypeKind.Atom}`,
+      __typename: `${IElementRenderTypeKind.Atom}`,
       api: { id: dto.api?.id ?? v4() },
       externalCssSource: dto.externalCssSource ?? null,
       externalJsSource: dto.externalJsSource ?? null,

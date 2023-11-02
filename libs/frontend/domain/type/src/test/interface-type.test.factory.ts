@@ -1,7 +1,9 @@
 import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
+import { rootDomainStore } from '@codelab/frontend/domain/element'
 import { chance } from '@codelab/frontend/domain/shared'
 import type { IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { DeepPartial } from 'fishery'
 import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
@@ -21,3 +23,17 @@ export const InterfaceTypeTestFactory = (
 
     return dto
   })
+
+export const interfaceTypeFactory =
+  (rootStore: IRootDomainStore) =>
+  (dto: DeepPartial<IInterfaceTypeDTO> = {}) => {
+    const interfaceType: IInterfaceTypeDTO = {
+      __typename: `${ITypeKind.InterfaceType}`,
+      fields: [],
+      id: dto.id ?? v4(),
+      kind: ITypeKind.InterfaceType,
+      name: dto.name ?? `${chance.word({ capitalize: true })} API`,
+    }
+
+    return rootStore.typeDomainService.hydrateInterface(interfaceType)
+  }

@@ -13,7 +13,7 @@ export interface IRendererDto {
   /**
    * This is the elementTree we are rendering, could be a page tree or a component tree
    */
-  elementTree: IComponentModel | IPageModel
+  elementTree: IElementTree
   id: string
   /**
    * Optional provider tree to wrap the element tree. If we render a page we'll need this provider tree.

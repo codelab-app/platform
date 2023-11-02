@@ -10,7 +10,8 @@ import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
 export const elementFactory =
-  (rootStore: IRootDomainStore) => (dto: Partial<IElementDTO>) => {
+  (rootStore: IRootDomainStore) =>
+  (dto: Partial<IElementDTO> = {}) => {
     const element: IElementDTO = {
       closestContainerNode: {
         id: dto.closestContainerNode?.id ?? v4(),

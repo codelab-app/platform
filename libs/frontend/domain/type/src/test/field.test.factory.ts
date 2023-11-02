@@ -34,3 +34,24 @@ export const FieldTestFactory = (rootStore: Partial<IRootDomainStore>) =>
 
     return model!
   })
+
+export const fieldFactory =
+  (rootStore: IRootDomainStore) => (dto: Partial<IFieldDTO>) => {
+    const field: IFieldDTO = {
+      api: { id: dto.api?.id ?? v4() },
+      defaultValues: dto.defaultValues ?? null,
+      description: dto.description ?? null,
+      fieldType: (dto.fieldType ?? {
+        __typename: ITypeKind.PrimitiveType,
+        id: v4(),
+      }) as ITypeMaybeRef,
+      id: dto.id ?? v4(),
+      key: dto.key ?? chance.word(),
+      name: dto.name ?? null,
+      nextSibling: (dto.nextSibling ?? null) as IRef | null,
+      prevSibling: (dto.prevSibling ?? null) as IRef | null,
+      validationRules: dto.validationRules ?? null,
+    }
+
+    return rootStore.fieldDomainService.hydrate(field)
+  }

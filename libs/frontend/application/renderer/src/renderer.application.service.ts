@@ -5,11 +5,13 @@ import type {
   IRenderOutput,
 } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IComponentModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
-  IComponentModel,
   isAtom,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -46,7 +48,6 @@ export class RendererApplicationService
     )
   }
 
-  @computed
   runtimeComponent(component: IComponentModel) {
     return throwIfUndefined(
       this.activeRenderer?.current.runtimeComponent(component),

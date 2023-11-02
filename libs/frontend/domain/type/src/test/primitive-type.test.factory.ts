@@ -32,3 +32,16 @@ export const PrimitiveTypeTestFactory = (
       return model!
     },
   )
+
+export const primitiveTypeFactory =
+  (rootStore: IRootDomainStore) => (dto: Partial<IPrimitiveTypeDTO>) => {
+    const primitiveType: IPrimitiveTypeDTO = {
+      __typename: ITypeKind.PrimitiveType as const,
+      id: dto.id ?? v4(),
+      kind: ITypeKind.PrimitiveType,
+      name: dto.name ?? chance.word({ capitalize: true }),
+      primitiveKind: dto.primitiveKind ?? PrimitiveTypeKind.String,
+    }
+
+    return rootStore.typeDomainService.hydrate(primitiveType)
+  }
