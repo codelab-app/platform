@@ -5,25 +5,19 @@ import type {
   IRenderOutput,
 } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
-  componentRef,
   CUSTOM_TEXT_PROP_KEY,
-  IComponentModel,
   isAtom,
+  pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
-import type { ReactElement, ReactNode } from 'react'
-import React from 'react'
+import type { ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 import { Renderer } from './renderer.model'
 
@@ -40,19 +34,6 @@ export class RendererApplicationService
   })
   implements IRendererService
 {
-  runtimeElement(element: IElementModel) {
-    return throwIfUndefined(
-      this.activeRenderer?.current.runtimeElement(element),
-    )
-  }
-
-  @computed
-  runtimeComponent(component: IComponentModel) {
-    return throwIfUndefined(
-      this.activeRenderer?.current.runtimeComponent(component),
-    )
-  }
-
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(rendererDto.id)
@@ -90,9 +71,23 @@ export class RendererApplicationService
     //   renderer.addRuntimeComponent(parentComponent)
     // }
 
-    return providerRoot && root.page?.current.kind === IPageKind.Regular
-      ? renderer.renderElement(providerRoot)
-      : renderer.renderElement(root)
+    if (providerRoot?.page && root.page?.current.kind === IPageKind.Regular) {
+      const runtimeContainerNode = renderer.addRuntimeContainerNode({
+        containerNodeRef: pageRef(providerRoot.page.id),
+      })
+
+      return renderer.renderElement(providerRoot, runtimeContainerNode)
+    }
+
+    if (root.page?.id) {
+      const runtimeContainerNode = renderer.addRuntimeContainerNode({
+        containerNodeRef: pageRef(root.page.id),
+      })
+
+      return renderer.renderElement(root, runtimeContainerNode)
+    }
+
+    throw new Error('Page not found')
   }
 
   /**
@@ -103,7 +98,7 @@ export class RendererApplicationService
       IRendererModel,
       IRenderOutput,
     ]): ArrayOrSingle<ReactNode> => {
-      const { element } = runtimeElement
+      const { closestRuntimeContainerNode, element } = runtimeElement
       const childMapperChildren = renderer.getChildMapperChildren(element)
 
       const childMapperRenderIndex =
@@ -123,7 +118,7 @@ export class RendererApplicationService
 
       const renderedChildren = compact(
         children.map((child) => {
-          return renderer.renderElement(child)
+          return renderer.renderElement(child, closestRuntimeContainerNode)
         }),
       )
 

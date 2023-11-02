@@ -1,9 +1,11 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
-import type { RendererType } from '../renderer.model.interface'
+import type {
+  IRuntimeModel,
+  IRuntimeModelRef,
+} from '../runtime.model.interface'
 import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
-import type { IRuntimeModel, IRuntimeModelRef } from '../runtime-model'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
 export interface IEvaluationContext {
@@ -12,7 +14,6 @@ export interface IEvaluationContext {
   componentProps: IPropData
   props: IPropData
   refs: IPropData
-  rendererType: RendererType
   rootActions: IPropData
   rootRefs: IPropData
   rootState: IPropData

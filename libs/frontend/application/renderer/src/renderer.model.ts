@@ -4,29 +4,24 @@ import type {
   IRendererModel,
   IRenderOutput,
   IRenderPipe,
-  IRuntimeContainerNode,
+  IRuntimeContainerNodeModel,
   IRuntimeElementModel,
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
+import { IRuntimeContainerNodeDTO } from '@codelab/frontend/abstract/application'
 import type {
+  IElementModel,
   IElementTree,
   IExpressionTransformer,
 } from '@codelab/frontend/abstract/domain'
-import {
-  componentRef,
-  elementTreeRef,
-  IComponentModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import { elementTreeRef } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import type { IRef } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import isObject from 'lodash/isObject'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -42,8 +37,7 @@ import React from 'react'
 import { ElementWrapper } from './element/element-wrapper'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
-import { RuntimeComponent } from './runtime-component.model'
-import { RuntimeElement } from './runtime-element.model'
+import { RuntimeContainerNodeModel } from './runtime-container-node.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -106,7 +100,7 @@ export class Renderer
     /**
      * Props record for all components during all transformations stages
      */
-    runtimeContainerNodes: prop<ObjectMap<IRuntimeContainerNode>>(() =>
+    runtimeContainerNodes: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
       objectMap([]),
     ),
     // runtimeStores: prop<ObjectMap<IRuntimeStore>>(() => objectMap([])),
@@ -123,37 +117,27 @@ export class Renderer
   static create = create
 
   @modelAction
-  addRuntimeComponent(component: IComponentModel) {
-    const existingRuntimeComponent = this.runtimeComponents.get(component.id)
+  addRuntimeContainerNode(runtimeContainerNodeDTO: IRuntimeContainerNodeDTO) {
+    const { containerNodeRef } = runtimeContainerNodeDTO
 
-    if (existingRuntimeComponent) {
-      return existingRuntimeComponent
+    const existingRuntimeContainerNode = this.runtimeContainerNodes.get(
+      containerNodeRef.id,
+    )
+
+    if (existingRuntimeContainerNode) {
+      return existingRuntimeContainerNode
     }
 
-    const runtimeComponent = RuntimeComponent.create({
-      nodeRef: componentRef(component),
-    })
+    const runtimeContainerNode = RuntimeContainerNodeModel.create(
+      runtimeContainerNodeDTO,
+    )
 
-    this.runtimeComponents.set(component.id, runtimeComponent)
+    this.runtimeContainerNodes.set(
+      runtimeContainerNode.id,
+      runtimeContainerNode,
+    )
 
-    return runtimeComponent
-  }
-
-  @modelAction
-  addRuntimeElement(element: IElementModel) {
-    const existingRuntimeElement = this.runtimeElements.get(element.id)
-
-    if (existingRuntimeElement) {
-      return existingRuntimeElement
-    }
-
-    const runtimeElement = RuntimeElement.create({
-      element,
-    })
-
-    this.runtimeElements.set(element.id, runtimeElement)
-
-    return runtimeElement
+    return runtimeContainerNode
   }
 
   getChildMapperChildren(element: IElementModel) {
@@ -227,8 +211,11 @@ export class Renderer
   /**
    * Renders a single element (without its children) to an intermediate RenderOutput
    */
-  renderIntermediateElement = (element: IElementModel): IRenderOutput => {
-    const runtimeElement = this.addRuntimeElement(element)
+  renderIntermediateElement = (
+    element: IElementModel,
+    runtimeContainerNode: IRuntimeContainerNodeModel,
+  ): IRenderOutput => {
+    const runtimeElement = runtimeContainerNode.addRuntimeElement(element)
 
     console.log('IntermediateElement', runtimeElement.evaluatedProps)
 
@@ -241,40 +228,38 @@ export class Renderer
     const currentPostRenderAction = postRenderAction?.current
 
     if (currentPostRenderAction) {
-      const runtimeAction = runtimeElement.runtimeAction(
+      const runtimeAction = runtimeElement.runtimeStore.runtimeAction(
         currentPostRenderAction,
       )
 
-      // const runner = runtimeAction.runner.bind(
-      //   runtimeElement.expressionEvaluationContext,
-      // )
-
-      runtimeAction.runner(element)
+      runtimeAction?.runner(element)
     }
   }
 
   runPreRenderAction = (runtimeElement: IRuntimeElementModel) => {
     const { element } = runtimeElement
-    const { preRenderAction, providerStore, store } = element
+    const { preRenderAction } = element
 
     if (preRenderAction) {
-      const preRenderActionRunner =
-        runtimeElement.runtimeAction(preRenderAction)
+      const runtimeAction =
+        runtimeElement.runtimeStore.runtimeAction(preRenderAction)
 
-      // const runner = preRenderActionRunner.runner.bind(
-      //   this.runtimeElements.get(element.id)?.expressionEvaluationContext,
-      // )
-
-      preRenderActionRunner.runner(element)
+      runtimeAction?.runner(element)
     }
   }
 
   /**
    * Renders a single Element using the provided RenderAdapter
    */
-  renderElement = (element: IElementModel): Nullable<ReactElement> => {
+  renderElement = (
+    element: IElementModel,
+    runtimeContainerNode: IRuntimeContainerNodeModel,
+  ): Nullable<ReactElement> => {
     // Render the element to an intermediate output
-    const renderOutput = this.renderIntermediateElement(element)
+    const renderOutput = this.renderIntermediateElement(
+      element,
+      runtimeContainerNode,
+    )
 
     if (renderOutput.shouldRender === false) {
       return null
@@ -299,24 +284,6 @@ export class Renderer
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
-  }
-
-  runtimeElement(element: IRef) {
-    return throwIfUndefined(this.runtimeElements.get(element.id))
-  }
-
-  runtimeComponent(component: IRef) {
-    return throwIfUndefined(this.runtimeComponents.get(component.id))
-  }
-
-  runtimeAction(actionRef: IRef) {
-    const actions = [...this.runtimeElements.values()].flatMap((element) =>
-      element.runtimeAction(actionRef),
-    )
-
-    return throwIfUndefined(
-      actions.find((action) => (action.id = actionRef.id)),
-    )
   }
 
   shouldRenderElement(runtimeElement: IRuntimeElementModel) {

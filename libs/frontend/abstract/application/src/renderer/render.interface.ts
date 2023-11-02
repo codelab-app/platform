@@ -1,10 +1,7 @@
-import type {
-  IElementModel,
-  IPropDataByElementId,
-} from '@codelab/frontend/abstract/domain'
+import type { IPropDataByElementId } from '@codelab/frontend/abstract/domain'
 import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
 import type { IRendererModel } from './renderer.model.interface'
-import type { IRuntimeElementModel } from './runtime-element.model.interface'
+import type { IRuntimeElementModel } from './runtime-element'
 
 /**
  * This is the intermediate output from rendering a single Element

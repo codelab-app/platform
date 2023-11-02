@@ -1,10 +1,15 @@
+import type {
+  IRuntimeContainerNodeDTO,
+  IRuntimeContainerNodeModel,
+  IRuntimeElementModel,
+  IRuntimeModelRef,
+  IRuntimeStoreModel,
+} from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  type IRuntimeContainerNodeDTO,
-  type IRuntimeContainerNodeModel,
-  type IRuntimeElementModel,
-  type IRuntimeModel,
-  RendererType,
+  IEvaluationContext,
+  isRuntimeElementRef,
+  runtimeContainerNodeRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -12,30 +17,68 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   DATA_COMPONENT_ID,
-  isComponentRef,
+  elementRef,
+  IElementModel,
+  isComponent,
   isTypedProp,
+  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
+import { RuntimeElement } from './runtime-element.model'
+import { RuntimeStoreModel } from './runtime-store.model'
 
 const create = ({ containerNodeRef, parentRef }: IRuntimeContainerNodeDTO) =>
-  new RuntimeContainerNodeModel({ containerNodeRef, parentRef })
+  new RuntimeContainerNodeModel({
+    containerNodeRef,
+    parentRef,
+    runtimeStore: RuntimeStoreModel.create({
+      storeRef: storeRef(containerNodeRef.current.store.id),
+    }),
+  })
 
 @model('@codelab/RuntimeContainerNodeModel')
 export class RuntimeContainerNodeModel
   extends Model({
     containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
-    parentRef: prop<Maybe<IRuntimeModel>>(),
+    parentRef: prop<Maybe<IRuntimeModelRef>>(),
+    runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
+    runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimeContainerNodeModel
 {
   static create = create
+
+  @modelAction
+  addRuntimeElement(element: IElementModel) {
+    const existingRuntimeElement = this.runtimeElements.get(element.id)
+
+    if (existingRuntimeElement) {
+      return existingRuntimeElement
+    }
+
+    const runtimeElement = RuntimeElement.create({
+      elementRef: elementRef(element.id),
+      parentRef: runtimeContainerNodeRef(this.id),
+    })
+
+    this.runtimeElements.set(element.id, runtimeElement)
+
+    return runtimeElement
+  }
 
   @computed
   get containerNode() {
@@ -66,7 +109,7 @@ export class RuntimeContainerNodeModel
 
       const transformer = this.renderer?.typedPropTransformers.get(value.kind)
 
-      if (!transformer) {
+      if (!transformer || !isComponent(this.containerNode)) {
         return value.value
       }
 
@@ -80,12 +123,11 @@ export class RuntimeContainerNodeModel
       actions: {},
       componentProps: {},
       props: {},
-      refs: this.containerNode.store.current.refs,
-      rendererType: RendererType.Preview,
+      refs: this.runtimeStore.refs,
       rootActions: {},
       rootRefs: {},
       rootState: {},
-      state: this.containerNode.store.current.state,
+      state: this.runtimeStore.state,
       url: {},
     })
   }
@@ -96,41 +138,61 @@ export class RuntimeContainerNodeModel
       actions: {},
       componentProps: {},
       props: {},
-      refs: this.containerNode.store.current.refs,
-      rendererType: RendererType.Preview,
+      refs: this.runtimeStore.refs,
       rootActions: {},
       rootRefs: {},
       rootState: {},
-      state: this.containerNode.store.current.state,
+      state: this.runtimeStore.state,
       url: {},
     })
   }
 
   @computed
   get instanceElementProps(): Maybe<IRuntimeElementModel> {
-    if (isComponentRef(this.containerNodeRef)) {
-      const instanceElement =
-        this.containerNodeRef.current.instanceElement?.current
-
-      return instanceElement
-        ? this.renderer?.runtimeElement(instanceElement)
-        : undefined
-    }
+    return this.parentRef && isRuntimeElementRef(this.parentRef)
+      ? this.parentRef.current
+      : undefined
   }
 
   @computed
   get props() {
-    return mergeProps(
-      this.containerNode.api.current.defaultValues,
-      this.props.values,
-      /**
-       * Internal system props for meta data, use double underline for system-defined identifiers.
-       */
-      {
-        [DATA_COMPONENT_ID]: this.containerNode.id,
-        key: this.containerNode.id,
-      },
-    )
+    // only component has props
+    const props = isComponent(this.containerNode)
+      ? mergeProps(
+          this.containerNode.api.current.defaultValues,
+          this.containerNode.props.values,
+        )
+      : {}
+
+    return mergeProps({
+      ...props,
+      [DATA_COMPONENT_ID]: this.containerNode.id,
+      key: this.containerNode.id,
+    })
+  }
+
+  @computed
+  get propsEvaluationContext(): IEvaluationContext {
+    return {
+      actions: {},
+      componentProps: {},
+      // pass empty object because props can't evaluated by itself
+      props: {},
+      refs: this.runtimeStore.refs,
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: this.runtimeStore.state,
+      url: {},
+    }
+  }
+
+  @computed
+  get expressionEvaluationContext(): IEvaluationContext {
+    return {
+      ...this.propsEvaluationContext,
+      props: this.evaluatedProps,
+    }
   }
 
   @computed

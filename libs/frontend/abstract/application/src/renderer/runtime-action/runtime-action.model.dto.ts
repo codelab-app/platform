@@ -1,11 +1,8 @@
 import type { IActionModel } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
+import type { IRuntimeStoreModel } from '../runtime-store'
 
-export interface IRuntimeActionModel {
-  action: IActionModel
+export interface IRuntimeActionDTO {
   actionRef: Ref<IActionModel>
-
-  id: string
-
-  runner(...args: Array<unknown>): void
+  runtimeStoreRef: Ref<IRuntimeStoreModel>
 }

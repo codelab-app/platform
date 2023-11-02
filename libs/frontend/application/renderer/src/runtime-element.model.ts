@@ -2,6 +2,7 @@ import type {
   IRuntimeElementDTO,
   IRuntimeElementModel,
   IRuntimeModelRef,
+  IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
@@ -9,10 +10,7 @@ import {
   isRuntimeElementRef,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IElementModel,
-  IStoreModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
@@ -25,8 +23,9 @@ import {
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
 import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
-import type { IPropData, IRef } from '@codelab/shared/abstract/core'
-import { mapDeep, throwIfUndefined } from '@codelab/shared/utils'
+import type { IPropData } from '@codelab/shared/abstract/core'
+import { Maybe } from '@codelab/shared/abstract/types'
+import { mapDeep } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
@@ -69,13 +68,17 @@ export class RuntimeElement
 
   @computed
   get runtimeStore() {
-    return this.closestRuntimeContainerNode.runtimeStore.current
+    return this.closestRuntimeContainerNode.runtimeStore
   }
 
   @computed
-  get providerStore(): IStoreModel | undefined {
-    return this.renderer?.providerTree?.current.rootElement.current.store
-      .current
+  get providerStore(): Maybe<IRuntimeStoreModel> {
+    return this.runtimeStore.runtimeProviderSore
+  }
+
+  @computed
+  get renderer() {
+    return getRendererService(this).activeRenderer?.current
   }
 
   @computed
@@ -144,12 +147,10 @@ export class RuntimeElement
 
   @computed
   get evaluatedProps() {
-    const { rendererType } = this.propsEvaluationContext
-
     // Evaluate customText prop only in preview and production modes
     if (
-      rendererType === RendererType.Preview ||
-      rendererType === RendererType.Production
+      this.renderer?.rendererType === RendererType.Preview ||
+      this.renderer?.rendererType === RendererType.Production
     ) {
       return evaluateObject(
         this.renderedTypedProps,
@@ -192,22 +193,16 @@ export class RuntimeElement
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {
-    const component =
-      this.element.closestSubTreeRootElement.parentComponent?.current
-
-    const providerStore = this.runtimeStore.store
-
     return {
       actions: this.runtimeStore.runtimeActions,
       componentProps: this.closestRuntimeContainerNode.evaluatedProps,
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
-      rendererType: this.renderer?.rendererType,
-      rootActions: this.providerStore?.actionRunners ?? {},
+      rootActions: this.providerStore?.runtimeActions ?? {},
       rootRefs: this.providerStore?.refs || {},
       rootState: this.providerStore?.state || {},
-      state: this.element.store.current.state,
+      state: this.runtimeStore.state,
       url: this.urlProps ?? {},
     }
   }
@@ -218,18 +213,5 @@ export class RuntimeElement
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     }
-  }
-
-  runtimeAction(actionRef: IRef) {
-    const runtimeAction = this.runtimeActions.find(
-      (action) => action.id === actionRef.id,
-    )
-
-    return throwIfUndefined(runtimeAction)
-  }
-
-  @computed
-  get renderer() {
-    return getRendererService(this).activeRenderer?.current
   }
 }
