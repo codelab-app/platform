@@ -10,18 +10,24 @@ export let _store: IRootStore | null = null
  *
  * @param pageProps
  */
-export const initializeStore = ({ user }: IPageProps): IRootStore => {
+export const initializeStore = ({
+  routerQuery,
+  user,
+}: IPageProps): IRootStore => {
   /**
    * Using snapshot on SSR is a bit tricky, since model data may be out of sync on server-side and client side. Passing snapshot data from backend to frontend is also very costly in terms of bandwidth.
    */
   // Create the store once in the client
   if (!_store) {
     _store = createRootStore({
+      routerQuery,
       user,
     })
 
     registerRootStore(_store)
   }
+
+  _store.routerService.update(routerQuery)
 
   return _store
 }

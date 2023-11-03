@@ -17,14 +17,13 @@ const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
   const initialProps = node.current.props.jsonString
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
-
   // const lastRenderedProp = isElementRef(node)
   //   ? rendererService.runtimeElement(node.current).evaluatedProps
   //   : rendererService.runtimeComponent(node.current).evaluatedProps
-
-  const lastRenderedProp = isElementRef(node)
-    ? rendererService.runtimeElement(node.current).evaluatedProps
-    : {}
+  // const lastRenderedProp = isElementRef(node)
+  //   ? rendererService.runtimeElement(node.current).evaluatedProps
+  //   : {}
+  const lastRenderedProp = {}
 
   return (
     <div className="w-full">

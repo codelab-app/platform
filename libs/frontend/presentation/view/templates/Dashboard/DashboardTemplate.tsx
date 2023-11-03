@@ -1,3 +1,4 @@
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
 import {
   useAppQuery,
@@ -26,11 +27,14 @@ export const DashboardTemplate = observer(
     Header,
     PrimarySidebar,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
+    const { routerService } = useStore()
+    const { appSlug, componentSlug, pageSlug, userSlug } = routerService
     const { primarySidebarKey } = useRouter().query
-    const { appSlug } = useAppQuery()
-    const { pageSlug } = usePageQuery()
-    const { userSlug } = useUserQuery()
-    const { componentSlug } = useCurrentComponent()
+
+    // const { appSlug } = useAppQuery()
+    // const { pageSlug } = usePageQuery()
+    // const { userSlug } = useUserQuery()
+    // const { componentSlug } = useCurrentComponent()
 
     const navigationBarItems = useMemo(
       () =>

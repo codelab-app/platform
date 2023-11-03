@@ -12,6 +12,7 @@ import type {
   IRendererService,
   IResourceService,
   IRootStore,
+  IRouterService,
   IStoreService,
   ITagService,
   ITypeService,
@@ -58,6 +59,7 @@ import {
 } from '@codelab/frontend/application/prop'
 import { RendererApplicationService } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
+import { RouterService } from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   actionServiceContext,
@@ -80,7 +82,7 @@ import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = ({ user }: RootStoreData) => {
+export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
@@ -108,6 +110,9 @@ export const createRootStore = ({ user }: RootStoreData) => {
         () => new RendererApplicationService({}),
       ),
       resourceService: prop<IResourceService>(() => new ResourceService({})),
+      routerService: prop<IRouterService>(() =>
+        RouterService.init(routerQuery),
+      ),
       storeService: prop<IStoreService>(() => new StoreService({})),
       tagService: prop<ITagService>(() => new TagService({})),
       typeService: prop<ITypeService>(() => new TypeService({})),

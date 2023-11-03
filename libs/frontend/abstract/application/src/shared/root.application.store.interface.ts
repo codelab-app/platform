@@ -6,6 +6,8 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { Context } from 'mobx-keystone'
+import type { NextRouter } from 'next/router'
+import type { ParsedUrlQuery } from 'querystring'
 import type { IActionService } from '../action'
 import type { IAdminService } from '../admin'
 import type { IAppService } from '../app'
@@ -22,11 +24,13 @@ import type { IStoreService } from '../store'
 import type { ITagService } from '../tag'
 import type { ITypeService } from '../type'
 import type { IUserService } from '../user'
+import type { IRouterService } from './router.service.interface'
 
 /**
  * Initial data to be injected into store
  */
 export interface RootStoreData {
+  routerQuery: ParsedUrlQuery
   user: Auth0IdToken
 }
 
@@ -54,6 +58,7 @@ export interface IRootStore {
   propService: IPropService
   rendererService: IRendererService
   resourceService: IResourceService
+  routerService: IRouterService
   storeService: IStoreService
   tagService: ITagService
   typeService: ITypeService

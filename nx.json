@@ -156,7 +156,8 @@
         "^prod",
         "{projectRoot}/.storybook/**/*",
         "{projectRoot}/tsconfig.storybook.json"
-      ]
+      ],
+      "cache": true
     }
   },
   "namedInputs": {

@@ -106,7 +106,7 @@ const PageBuilder: CodelabPage = observer(() => {
         <title>{pageName} | Builder | Codelab</title>
       </Head>
 
-      <BuilderTabs error={error} isLoading={isLoading} />
+      {/* <BuilderTabs error={error} isLoading={isLoading} /> */}
     </DashboardTemplate>
   )
 })
