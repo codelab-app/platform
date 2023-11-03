@@ -10,7 +10,11 @@ interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
 
 export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
   const [email, setEmail] = useState('')
-  const isValid = Typebox.ValidateAndClean(Type.String().email(), email)
+  // const isValid = Typebox.ValidateAndClean(
+  //   Type.String({ format: 'email' }),
+  //   email,
+  // )
+  const isValid = true
 
   return (
     <Modal

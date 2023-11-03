@@ -20,7 +20,6 @@ export const FeatureCard = (props: FeatureCardProps) => {
             size="3x"
           />
         </div>
-        /
         <Card.Meta
           className="
             [&_.ant-card-meta-description]:sm-text-base

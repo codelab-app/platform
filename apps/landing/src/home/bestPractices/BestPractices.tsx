@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/pro-light-svg-icons'
 import { Col, Row, Typography } from 'antd'
 import React from 'react'
-import { alignFullGridStyle } from '../../styles/style'
+import { alignFullGridStyle } from '../../../styles/style'
 import { FeatureCard } from './FeatureCard'
 
 const { Title } = Typography

@@ -49,7 +49,6 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
   }
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Upload {...props}>
       <Button icon={<UploadOutlined />} loading={isLoading}>
         Import

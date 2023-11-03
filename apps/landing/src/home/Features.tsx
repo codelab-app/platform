@@ -5,7 +5,7 @@ import {
   // cardStyle,
   padding,
   threeGridCol,
-} from '../styles/style'
+} from '../../styles/style'
 
 export const Features = () => {
   const colProps = {

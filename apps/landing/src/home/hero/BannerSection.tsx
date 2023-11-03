@@ -1,37 +1,29 @@
 import { Fancybox } from '@codelab/frontend/presentation/view'
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { animated, useSpring } from '@react-spring/web'
 import { Button, Col, Row, Space } from 'antd'
-import $ from 'jquery'
 import React, { useEffect, useRef } from 'react'
+import styled from 'styled-components'
 import { BuilderDemo } from '../demo/BuilderDemo'
 import { CurveAccent } from './CurveAccent'
 
-// const Fancybox = dynamic<any>(
-//   () => import('@codelab/frontend/presentation/view').then((mod) => mod.Fancybox),
-//   { ssr: false },
-// )
+const words = ['Ant Design', 'Material UI', 'Semantic UI', 'HTML tags']
+// https://github.com/pmndrs/react-spring/issues/1515
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const AnimatedDiv = styled(animated.div)<any>``
 
 export const BannerSection = () => {
-  const jsRotatingRef = useRef(null)
+  const [index, setIndex] = React.useState(0)
 
-  useEffect(() => {
-    window.jQuery = $
-    window.Morphtext = require('node_modules/morphext/dist/morphext.min.js')
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;($(jsRotatingRef.current!) as any).Morphext({
-      // The [in] animation type. Refer to Animate.css for a list of available animations.
-      animation: 'animate__animated animate__fadeIn',
-
-      complete: () => {
-        // Called after the entrance animation is executed.
-      },
-
-      // An array of phrases to rotate are created based on this separator. Change it if you wish to separate the phrases differently (e.g. So Simple | Very Doge | Much Wow | Such Cool).
-      separator: ',',
-      // The delay between the changing of each phrase in milliseconds.
-      speed: 4200,
-    })
+  const props = useSpring({
+    config: { duration: 3000 },
+    from: { opacity: 0 },
+    // loop: true,
+    onRest: () => {
+      setIndex((index + 1) % words.length)
+    },
+    to: { opacity: 1 },
   })
 
   return (
@@ -43,13 +35,7 @@ export const BannerSection = () => {
               <h1 className="mb-0 text-center text-xl font-bold leading-snug sm:text-3xl md:text-4xl lg:text-5xl xl:!text-6xl">
                 Build Using&nbsp;
                 <span className="inline-block text-yellow-400">
-                  <span
-                    className="animate__animated animate__fadeIn"
-                    ref={jsRotatingRef}
-                  >
-                    Ant Design, Material UI, Semantic UI, HTML tags
-                  </span>
-                  <br />
+                  <AnimatedDiv style={props}>{words[index]}</AnimatedDiv>
                 </span>
                 <br />
                 <p className="mb-1 mt-0 md:mt-3">

@@ -104,17 +104,11 @@ export const CuiSidebar = ({
             </Typography>
             {toolbar && views?.length !== 1 ? (
               <div className="max-w-lg">
-                {
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  <CuiSidebarToolbar {...toolbar} />
-                }
+                <CuiSidebarToolbar {...toolbar} />
               </div>
             ) : views?.[0] && views[0].toolbar && views.length === 1 ? (
               <div className="max-w-lg">
-                {
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  <CuiSidebarToolbar {...views[0].toolbar} />
-                }
+                <CuiSidebarToolbar {...views[0].toolbar} />
               </div>
             ) : null}
           </div>

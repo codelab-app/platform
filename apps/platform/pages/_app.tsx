@@ -6,7 +6,7 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import { ConfigProvider } from 'antd'
+import { App as AntdApp, ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 
 // TODO: Commented out showing too many logs, enable only for builder/preview
@@ -43,7 +43,13 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
               },
             }}
           >
-            <Layout>{(props) => <Component {...props} />}</Layout>
+            <Layout>
+              {(props) => (
+                <AntdApp>
+                  <Component {...props} />
+                </AntdApp>
+              )}
+            </Layout>
           </ConfigProvider>
         </CuiProvider>
       </UserProvider>

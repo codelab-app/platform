@@ -31,10 +31,7 @@ export const CuiSidebarPopoverHeader = ({
       <Typography className="pl-4">{label}</Typography>
       {toolbar && (
         <div className="max-w-lg">
-          {
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <CuiPopoverToolbar {...toolbar} />
-          }
+          <CuiPopoverToolbar {...toolbar} />
         </div>
       )}
     </div>

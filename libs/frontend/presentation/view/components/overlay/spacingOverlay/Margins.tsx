@@ -72,7 +72,6 @@ const Margin = ({ value, ...rest }: SpacingProps & { value: string }) => {
   }
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <MarginBox {...rest}>
       {numberValue > MIN_DISPLAYABLE_VALUE && (
         <SpacingValue $backgroundColor="#d75300">{`${numberValue}px`}</SpacingValue>

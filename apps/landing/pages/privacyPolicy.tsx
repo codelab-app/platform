@@ -1,6 +1,6 @@
 import React from 'react'
-import { HomeTemplate } from '../home'
-import { SeoHead } from '../home/SeoHead'
+import { HomeTemplate } from '../src/home'
+import { SeoHead } from '../src/home/SeoHead'
 
 const PrivacyPolicy = () => {
   return (

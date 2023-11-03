@@ -59,7 +59,6 @@ export const CodeMirrorField = (mainProps?: Partial<CodeMirrorFieldProps>) => {
           <CodeMirrorEditor
             height="auto"
             maxHeight="150px"
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...merged}
             onChange={onChange}
             value={editorValue}

@@ -37,7 +37,6 @@ const ReactQuillInternal = (props: ReactQuillFieldProps) =>
       placeholder={props.placeholder}
       theme="snow"
       value={props.value ?? ''}
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...filterDOMProps(props)}
     />,
   )

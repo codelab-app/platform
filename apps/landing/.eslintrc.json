@@ -13,6 +13,7 @@
         "project": ["apps/landing/tsconfig.json"]
       },
       "rules": {
+        "react/jsx-props-no-spreading": "off",
         "@next/next/no-html-link-for-pages": ["error", "apps/landing/pages"]
       }
     },
