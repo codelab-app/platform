@@ -9,9 +9,8 @@ import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
-
-// TODO: Commented out showing too many logs, enable only for builder/preview
-// install(config)
+import config from '../twind.config'
+import { useTwindConfig } from '@codelab/frontend/shared/utils'
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()
@@ -26,6 +25,8 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
+
+  useTwindConfig(config)
 
   return (
     <StoreProvider value={store}>
