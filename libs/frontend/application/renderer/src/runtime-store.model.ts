@@ -6,7 +6,6 @@ import type {
 import {
   getRendererService,
   RendererType,
-  runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import { isAtomRef } from '@codelab/frontend/abstract/domain'
@@ -26,26 +25,14 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { RuntimeActionModel } from './runtime-action.model'
 
 const create = ({ runtimeProviderStoreRef, storeRef }: IRuntimeStoreDTO) => {
-  const runtimeStore = new RuntimeStoreModel({
+  return new RuntimeStoreModel({
+    // actions are added after creation
     runtimeActions: objectMap([]),
     runtimeProviderStoreRef,
     storeRef,
   })
-
-  storeRef.current.actions.forEach((actionRef) => {
-    runtimeStore.runtimeActions.set(
-      actionRef.id,
-      RuntimeActionModel.create({
-        actionRef,
-        runtimeStoreRef: runtimeStoreRef(runtimeStore.id),
-      }),
-    )
-  })
-
-  return runtimeStore
 }
 
 @model('@codelab/RuntimeStore')

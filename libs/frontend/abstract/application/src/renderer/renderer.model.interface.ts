@@ -1,17 +1,17 @@
 import type {
+  IComponentModel,
   IElementModel,
   IElementTree,
   IExpressionTransformer,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
-import type {
-  IRuntimeContainerNodeDTO,
-  IRuntimeContainerNodeModel,
-} from './runtime-container-node'
+import type { IRuntimeModel } from './runtime.model.interface'
+import type { IRuntimeContainerNodeModel } from './runtime-container-node'
 import type { IRuntimeElementModel } from './runtime-element'
 import type { ITypedPropTransformer } from './typed-prop-transformer.interface'
 
@@ -36,7 +36,8 @@ export interface IRendererModel {
   urlSegments?: Record<string, string>
 
   addRuntimeContainerNode(
-    runtimeContainerNodeDTO: IRuntimeContainerNodeDTO,
+    containerNode: IComponentModel | IPageModel,
+    parent?: IRuntimeModel,
   ): IRuntimeContainerNodeModel
   getChildMapperChildren(element: IElementModel): Array<IElementModel>
   getChildPageChildren(element: IElementModel): Array<IElementModel>

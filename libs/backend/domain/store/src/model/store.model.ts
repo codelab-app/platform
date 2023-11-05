@@ -3,7 +3,6 @@ import { InterfaceType } from '@codelab/backend/domain/type'
 import type {
   IAction,
   IInterfaceTypeRef,
-  IRef,
   IStore,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
@@ -36,7 +35,10 @@ export class Store implements IStore {
   name: string
 
   constructor({ actions = [], api, id, name }: IStoreDTO) {
-    this.api = api
+    this.api = {
+      ...api,
+      __typename: ITypeKind.InterfaceType,
+    }
     this.id = id
     this.actions = actions.map((action) => ActionFactory.create(action))
     this.name = name

@@ -3,13 +3,14 @@ import type {
   IRendererModel,
   IRendererService,
   IRenderOutput,
+  IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import {
-  CUSTOM_TEXT_PROP_KEY,
-  isAtom,
-  pageRef,
+import type {
+  IComponentModel,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import { CUSTOM_TEXT_PROP_KEY, isAtom } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
@@ -52,42 +53,61 @@ export class RendererApplicationService
    */
   renderRoot(renderer: IRendererModel) {
     const root = renderer.elementTree.maybeCurrent?.rootElement.current
-    const providerRoot = renderer.providerTree?.current.rootElement.current
     const parentComponent = root?.parentComponent?.current
+    const currentPage = root?.page?.current
 
     if (!root) {
-      console.warn('Renderer: No root element found')
+      console.error('Renderer: No root element found')
 
       return null
     }
 
-    // if (parentComponent) {
-    //   /**
-    //    * setup runtime props for component builder
-    //    * this is different from the one created in component-render-pipe
-    //    * because the other one creates runtime props for component instances
-    //    * while this one doesn't pass by the component pipe at all
-    //    */
-    //   renderer.addRuntimeComponent(parentComponent)
-    // }
+    if (parentComponent) {
+      // TODO: render component
 
-    if (providerRoot?.page && root.page?.current.kind === IPageKind.Regular) {
-      const runtimeContainerNode = renderer.addRuntimeContainerNode({
-        containerNodeRef: pageRef(providerRoot.page.id),
-      })
-
-      return renderer.renderElement(providerRoot, runtimeContainerNode)
+      return null
     }
 
-    if (root.page?.id) {
-      const runtimeContainerNode = renderer.addRuntimeContainerNode({
-        containerNodeRef: pageRef(root.page.id),
-      })
-
-      return renderer.renderElement(root, runtimeContainerNode)
+    if (currentPage) {
+      return this.renderPage(renderer, currentPage)
     }
 
-    throw new Error('Page not found')
+    console.error('Renderer: Neither page nor component found')
+
+    return null
+  }
+
+  renderPage(renderer: IRendererModel, page: IPageModel) {
+    if (page.kind !== IPageKind.Regular) {
+      return this.renderContainerNode(renderer, page)
+    }
+
+    const providerRoot = renderer.providerTree?.current.rootElement.current
+    const providerPage = providerRoot?.page?.current
+
+    if (!providerPage) {
+      console.error('Renderer: Provider page not found')
+
+      return null
+    }
+
+    return this.renderContainerNode(renderer, providerPage)
+  }
+
+  renderContainerNode(
+    renderer: IRendererModel,
+    containerNode: IComponentModel | IPageModel,
+    parent?: IRuntimeModel,
+  ) {
+    const runtimeContainerNode = renderer.addRuntimeContainerNode(
+      containerNode,
+      parent,
+    )
+
+    return renderer.renderElement(
+      containerNode.rootElement.current,
+      runtimeContainerNode,
+    )
   }
 
   /**

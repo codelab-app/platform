@@ -3,7 +3,7 @@ import type {
   IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
 import type {
   IRuntimeModel,
   IRuntimeModelRef,
@@ -11,7 +11,7 @@ import type {
 import type { IRuntimeElementModel, IRuntimeProp } from '../runtime-element'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
-export interface IRuntimeContainerNodeModel extends IRuntimeProp {
+export interface IRuntimeContainerNodeModel extends AnyModel, IRuntimeProp {
   containerNode: IComponentModel | IPageModel
   containerNodeRef: Ref<IComponentModel> | Ref<IPageModel>
   id: string
