@@ -49,7 +49,7 @@ const create = ({ containerNodeRef, parentRef }: IRuntimeContainerNodeDTO) =>
     }),
   })
 
-@model('@codelab/RuntimeContainerNodeModel')
+@model('@codelab/RuntimeContainerNode')
 export class RuntimeContainerNodeModel
   extends Model({
     containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
