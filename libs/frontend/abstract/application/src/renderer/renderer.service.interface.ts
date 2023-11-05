@@ -1,3 +1,4 @@
+import type { IHydrateable } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
@@ -6,11 +7,11 @@ import type { IRenderOutput } from './render.interface'
 import type { IRendererDto } from './renderer.dto.interface'
 import type { IRendererModel } from './renderer.model.interface'
 
-export interface IRendererService {
+export interface IRendererService
+  extends IHydrateable<IRendererDto, IRendererModel> {
   activeRenderer: Nullable<Ref<IRendererModel>>
   renderers: ObjectMap<IRendererModel>
 
-  hydrate(props: IRendererDto): IRendererModel
   // mobx trans former takes a single param
   renderChildren([renderer, parentOutput]: [
     IRendererModel,

@@ -1,7 +1,7 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type { IPageProps } from '@codelab/frontend/abstract/domain'
 import { registerRootStore } from 'mobx-keystone'
-import { createRootStore } from './create-root-store'
+import { createRootStore } from './root.store'
 
 export let _store: IRootStore | null = null
 

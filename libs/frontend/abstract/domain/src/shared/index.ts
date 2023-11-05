@@ -1,5 +1,5 @@
 export * from './constant'
-export * from './models/model.interface'
+export * from './models'
 export * from './routing'
 export * from './service'
 export * from './test'
