@@ -9,13 +9,27 @@ import type {
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import { IRuntimeContainerNodeDTO } from '@codelab/frontend/abstract/application'
+import {
+  IRuntimeModel,
+  isRuntimeContainerNode,
+  runtimeModelRef,
+  runtimeStoreRef,
+} from '@codelab/frontend/abstract/application'
 import type {
+  IComponentModel,
   IElementModel,
   IElementTree,
   IExpressionTransformer,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import { elementTreeRef } from '@codelab/frontend/abstract/domain'
+import {
+  actionRef,
+  componentRef,
+  elementTreeRef,
+  isPage,
+  pageRef,
+  storeRef,
+} from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
   hasStateExpression,
@@ -37,7 +51,9 @@ import React from 'react'
 import { ElementWrapper } from './element/element-wrapper'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
+import { RuntimeActionModel } from './runtime-action.model'
 import { RuntimeContainerNodeModel } from './runtime-container-node.model'
+import { RuntimeStoreModel } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -117,20 +133,51 @@ export class Renderer
   static create = create
 
   @modelAction
-  addRuntimeContainerNode(runtimeContainerNodeDTO: IRuntimeContainerNodeDTO) {
-    const { containerNodeRef } = runtimeContainerNodeDTO
-
+  addRuntimeContainerNode(
+    containerNode: IComponentModel | IPageModel,
+    parent?: IRuntimeModel,
+  ) {
     const existingRuntimeContainerNode = this.runtimeContainerNodes.get(
-      containerNodeRef.id,
+      containerNode.id,
     )
 
     if (existingRuntimeContainerNode) {
       return existingRuntimeContainerNode
     }
 
-    const runtimeContainerNode = RuntimeContainerNodeModel.create(
-      runtimeContainerNodeDTO,
+    const actions = containerNode.store.current.actions
+
+    const isParentContainerNodeProviderPage =
+      parent &&
+      isRuntimeContainerNode(parent) &&
+      isPage(parent.containerNode) &&
+      parent.containerNode.kind === IPageKind.Provider
+
+    const runtimeStore = RuntimeStoreModel.create({
+      runtimeProviderStoreRef: isParentContainerNodeProviderPage
+        ? runtimeStoreRef(parent.runtimeStore.id)
+        : undefined,
+      storeRef: storeRef(containerNode.store.current),
+    })
+
+    const runtimeActions = actions.map((action) =>
+      RuntimeActionModel.create({
+        actionRef: actionRef(action.id),
+        runtimeStoreRef: runtimeStoreRef(runtimeStore.id),
+      }),
     )
+
+    runtimeActions.forEach((runtimeAction) => {
+      runtimeStore.runtimeActions.set(runtimeAction.id, runtimeAction)
+    })
+
+    const runtimeContainerNode = RuntimeContainerNodeModel.create({
+      containerNodeRef: isPage(containerNode)
+        ? pageRef(containerNode.id)
+        : componentRef(containerNode.id),
+      parentRef: parent ? runtimeModelRef(parent) : undefined,
+      runtimeStore,
+    })
 
     this.runtimeContainerNodes.set(
       runtimeContainerNode.id,
@@ -216,8 +263,6 @@ export class Renderer
     runtimeContainerNode: IRuntimeContainerNodeModel,
   ): IRenderOutput => {
     const runtimeElement = runtimeContainerNode.addRuntimeElement(element)
-
-    console.log('IntermediateElement', runtimeElement.evaluatedProps)
 
     return this.renderPipe.render(runtimeElement)
   }

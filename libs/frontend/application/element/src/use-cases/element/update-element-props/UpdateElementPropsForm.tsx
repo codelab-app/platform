@@ -87,8 +87,19 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
             <Col span={24}>
               <PropsForm
                 autocomplete={
-                  rendererService.runtimeElement(element.current)
-                    .propsEvaluationContext
+                  // FIXME:
+                  {
+                    actions: {},
+                    args: [],
+                    componentProps: {},
+                    props: {},
+                    refs: {},
+                    rootActions: {},
+                    rootRefs: {},
+                    rootState: {},
+                    state: {},
+                    url: {},
+                  }
                 }
                 autosave
                 initialSchema={{}}

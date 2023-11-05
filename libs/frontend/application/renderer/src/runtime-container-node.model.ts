@@ -21,7 +21,6 @@ import {
   IElementModel,
   isComponent,
   isTypedProp,
-  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
@@ -38,18 +37,19 @@ import {
   prop,
 } from 'mobx-keystone'
 import { RuntimeElement } from './runtime-element.model'
-import { RuntimeStoreModel } from './runtime-store.model'
 
-const create = ({ containerNodeRef, parentRef }: IRuntimeContainerNodeDTO) =>
+const create = ({
+  containerNodeRef,
+  parentRef,
+  runtimeStore,
+}: IRuntimeContainerNodeDTO) =>
   new RuntimeContainerNodeModel({
     containerNodeRef,
     parentRef,
-    runtimeStore: RuntimeStoreModel.create({
-      storeRef: storeRef(containerNodeRef.current.store.id),
-    }),
+    runtimeStore,
   })
 
-@model('@codelab/RuntimeContainerNodeModel')
+@model('@codelab/RuntimeContainerNode')
 export class RuntimeContainerNodeModel
   extends Model({
     containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),

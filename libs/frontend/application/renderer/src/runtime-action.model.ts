@@ -1,7 +1,7 @@
-import type {
-  IRuntimeActionDTO,
-  IRuntimeActionModel,
-  IRuntimeStoreModel,
+import {
+  type IRuntimeActionDTO,
+  type IRuntimeActionModel,
+  type IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
@@ -63,7 +63,7 @@ const graphqlFetch = (
 const create = ({ actionRef, runtimeStoreRef }: IRuntimeActionDTO) =>
   new RuntimeActionModel({ actionRef, runtimeStoreRef })
 
-@model('@codelab/RuntimeActionModel')
+@model('@codelab/RuntimeAction')
 export class RuntimeActionModel
   extends Model(() => ({
     actionRef: prop<Ref<IActionModel>>(),

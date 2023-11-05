@@ -1,6 +1,6 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type {
   IRuntimeModel,
   IRuntimeModelRef,
@@ -44,10 +44,11 @@ export interface IRuntimeProp {
   propsEvaluationContext: IEvaluationContext
 }
 
-export interface IRuntimeElementModel extends IRuntimeProp {
+export interface IRuntimeElementModel extends AnyModel, IRuntimeProp {
   closestRuntimeContainerNode: IRuntimeContainerNodeModel
   element: IElementModel
   elementRef: Ref<IElementModel>
+  id: string
   parent: IRuntimeModel
   parentRef: IRuntimeModelRef
   runtimeStore: IRuntimeStoreModel

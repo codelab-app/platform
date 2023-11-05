@@ -70,7 +70,6 @@ export const loadAllTypesForElements = async (
   componentService: IComponentApplicationService,
   typeService: ITypeService,
   roots: Array<IElementModel>,
-  isProduction = false,
 ) => {
   const loadedComponentElements: Array<IElementModel> = []
 
@@ -108,14 +107,12 @@ export const loadAllTypesForElements = async (
     }
   } while (componentsBatch.length > 0)
 
-  if (isProduction) {
-    // Loading all the types of the elements that are used on the current page
-    // This will also get the types of fields, not just interface types
-    const typeIds = getTypeIdsFromElements([
-      ...elements,
-      ...loadedComponentElements,
-    ]).filter((id) => !typeService.typeDomainService.types.has(id))
+  // Loading all the types of the elements that are used on the current page
+  // This will also get the types of fields, not just interface types
+  const typeIds = getTypeIdsFromElements([
+    ...elements,
+    ...loadedComponentElements,
+  ]).filter((id) => !typeService.typeDomainService.types.has(id))
 
-    await typeService.getAll(typeIds)
-  }
+  await typeService.getAll(typeIds)
 }
