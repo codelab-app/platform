@@ -32,6 +32,7 @@ import {
   appDomainServiceContext,
   atomDomainServiceContext,
   builderDomainServiceContext,
+  componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
@@ -162,6 +163,10 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       userDomainServiceContext.set(this, this.userService.userDomainService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
+      componentDomainServiceContext.set(
+        this,
+        this.componentService.componentDomainService,
+      )
       rendererServiceContext.set(this, this.rendererService)
     }
   }
