@@ -34,11 +34,12 @@ const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
         filterOption
         label={null}
         name="childMapperPropKey"
-        options={Object.keys(
-          rendererService.runtimeElement(element).expressionEvaluationContext,
-        )
-          .sort()
-          .map((label) => ({ label, value: label }))}
+        // TODO: Renderer
+        // options={Object.keys(
+        //   rendererService.runtimeElement(element).expressionEvaluationContext,
+        // )
+        //   .sort()
+        //   .map((label) => ({ label, value: label }))}
       />
     ),
     onToggle: (showExpression, { field, onChange, value }, lastValue) => {

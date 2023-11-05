@@ -57,18 +57,20 @@ export class ReactNodeTypeTransformer
 
     // TODO: ReactNode unlike RenderProps doesn't take any props
     // figure out on what we should apply keyGenerator
-    const clonedComponent = cloneComponent(component, node, {})
+    // const clonedComponent = cloneComponent(component, node, {})
 
-    if (!clonedComponent) {
-      console.error('Failed to clone component')
+    // if (!clonedComponent) {
+    //   console.error('Failed to clone component')
 
-      return fallback
-    }
+    //   return fallback
+    // }
 
-    this.renderer.addRuntimeComponent(clonedComponent)
+    // TODO: Renderer
+    // this.renderer.addRuntimeComponent(clonedComponent)
 
-    const rootElement = clonedComponent.rootElement.current
+    // const rootElement = clonedComponent.rootElement.current
 
-    return this.renderer.renderElement(rootElement)
+    // return this.renderer.renderElement(rootElement)
+    return
   }
 }

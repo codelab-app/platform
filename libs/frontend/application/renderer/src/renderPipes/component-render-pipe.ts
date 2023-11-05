@@ -7,6 +7,7 @@ import type {
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { RenderOutput } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/ComponentRenderPipe')
@@ -31,7 +32,9 @@ export class ComponentRenderPipe
 
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 
-    return this.renderer.renderIntermediateElement(rootElement)
+    // TODO: Renderer
+    // return this.renderer.renderIntermediateElement(rootElement)
+    return RenderOutput.empty({ runtimeElement })
   }
 
   private static logRendering(

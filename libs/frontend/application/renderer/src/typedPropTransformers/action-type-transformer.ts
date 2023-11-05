@@ -45,11 +45,13 @@ export class ActionTypeTransformer
       return ''
     }
 
-    const runner = this.renderer.runtimeAction({ id: actionId }).runner(node)
+    // TODO: Renderer
+    // const runner = this.renderer.runtimeAction({ id: actionId }).runner(node)
 
     // const fallback = () =>
     //   console.error(`fail to call action with id ${prop.value}`)
 
-    return runner
+    // return runner
+    return
   }
 }

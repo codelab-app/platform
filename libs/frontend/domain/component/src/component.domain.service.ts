@@ -50,7 +50,8 @@ export class ComponentDomainService
     } else {
       component = Component.create(componentDTO)
 
-      // TODO: Need to move this out of domain layer
+      // TODO: Renderer
+      // Need to move this out of domain layer
       // this.rendererService.hydrate({
       //   elementTree: component,
       //   id: component.id,

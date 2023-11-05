@@ -24,9 +24,11 @@ export const useFieldSchema = (
       ({ api }) => api.id === interfaceId,
     )
 
-    const forbiddenValues = Object.keys(parentStore?.state ?? {}).filter(
-      (fieldName) => fieldName !== fieldService.updateForm.field?.key,
-    )
+    const forbiddenValues = {}
+    // TODO: Renderer
+    // const forbiddenValues = Object.keys(parentStore?.state ?? {}).filter(
+    //   (fieldName) => fieldName !== fieldService.updateForm.field?.key,
+    // )
 
     return {
       ...schema,

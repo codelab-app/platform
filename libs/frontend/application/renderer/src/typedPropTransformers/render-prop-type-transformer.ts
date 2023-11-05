@@ -74,18 +74,20 @@ export class RenderPropTypeTransformer
       const props = matchPropsToFields(fields, renderPropArgs)
       const clonedComponent = cloneComponent(component, node, props)
 
-      if (!clonedComponent) {
-        console.error('Failed to clone component')
+      // if (!clonedComponent) {
+      //   console.error('Failed to clone component')
 
-        return fallback
-      }
+      //   return fallback
+      // }
 
-      clonedComponent.props.setMany(props)
-      this.renderer.addRuntimeComponent(clonedComponent)
+      // clonedComponent.props.setMany(props)
+      // TODO: Renderer
+      // this.renderer.addRuntimeComponent(clonedComponent)
 
-      const rootElement = clonedComponent.rootElement.current
+      // const rootElement = clonedComponent.rootElement.current
 
-      return this.renderer.renderElement(rootElement)
+      // return this.renderer.renderElement(rootElement)
+      return
     }
   }
 }

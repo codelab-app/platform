@@ -27,9 +27,11 @@ export const cloneComponent = (
     // eslint-disable-next-line no-eval
     const keyGenerator = eval(`(${component.keyGenerator})`)
     const key = keyGenerator(props)
-    const componentClone = component.clone(`${node.id}-${component.id}-${key}`)
+    // TODO: Renderer
+    // const componentClone = component.clone(`${node.id}-${component.id}-${key}`)
 
-    return componentClone
+    // return componentClone
+    return
   } catch (error) {
     console.error(error)
 

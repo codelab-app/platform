@@ -410,12 +410,11 @@ export class Element
       ]
 
       keys.forEach((i) => {
-        const clonedComponent =
-          this.componentDomainService.clonedComponents.get(`${this.id}-${i}`)
-
-        if (clonedComponent) {
-          extraChildren.push(clonedComponent.rootElement.current)
-        }
+        // const clonedComponent =
+        //   this.componentDomainService.clonedComponents.get(`${this.id}-${i}`)
+        // if (clonedComponent) {
+        //   extraChildren.push(clonedComponent.rootElement.current)
+        // }
       })
     }
 

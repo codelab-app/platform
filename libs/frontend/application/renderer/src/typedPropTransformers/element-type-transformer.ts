@@ -37,6 +37,8 @@ export class ElementTypeTransformer
       return prop
     }
 
-    return this.renderer.renderElement(targetElement)
+    // TODO: Renderer
+    // return this.renderer.renderElement(targetElement)
+    return
   }
 }

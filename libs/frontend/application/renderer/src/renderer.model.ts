@@ -194,27 +194,29 @@ export class Renderer
       return []
     }
 
-    return (
-      this.runtimeElements
-        .get(element.id)
-        ?.evaluatedChildMapperProp.map((propValue, i) => {
-          const clonedComponent = childMapperComponent.current.clone(
-            `${element.id}-${i}`,
-          )
+    return []
+    // TODO: Renderer
+    // return (
+    //   this.runtimeElements
+    //     .get(element.id)
+    //     ?.evaluatedChildMapperProp.map((propValue, i) => {
+    //       const clonedComponent = childMapperComponent.current.clone(
+    //         `${element.id}-${i}`,
+    //       )
 
-          const rootElement = clonedComponent.rootElement.current
+    //       const rootElement = clonedComponent.rootElement.current
 
-          clonedComponent.props.setMany(
-            isObject(propValue) ? propValue : { value: propValue },
-          )
+    //       clonedComponent.props.setMany(
+    //         isObject(propValue) ? propValue : { value: propValue },
+    //       )
 
-          if (!this.runtimeComponents.get(clonedComponent.id)) {
-            this.addRuntimeComponent(clonedComponent)
-          }
+    //       if (!this.runtimeComponents.get(clonedComponent.id)) {
+    //         this.addRuntimeComponent(clonedComponent)
+    //       }
 
-          return rootElement
-        }) ?? []
-    )
+    //       return rootElement
+    //     }) ?? []
+    // )
   }
 
   getChildPageChildren(element: IElementModel) {
