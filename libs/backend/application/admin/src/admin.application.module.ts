@@ -12,7 +12,12 @@ import { CqrsModule } from '@nestjs/cqrs'
 import { AdminController } from './admin.application.controller'
 import { SeederApplicationService } from './use-case'
 import { ExportAdminDataHandler } from './use-case/export/export-admin-data.command.service'
-import { ImportAdminDataHandler } from './use-case/import/import-admin-data.command.service'
+import {
+  BullQueueModule,
+  BullRootModule,
+  QueueService,
+} from './use-case/import/bull-queue.module'
+import { ImportAdminDataService } from './use-case/import/import-admin-data.service'
 
 @Module({
   controllers: [AdminController],
@@ -33,11 +38,14 @@ import { ImportAdminDataHandler } from './use-case/import/import-admin-data.comm
     ComponentApplicationModule,
     TypeApplicationModule,
     UserApplicationModule,
+    BullRootModule,
+    BullQueueModule,
   ],
   providers: [
     SeederApplicationService,
-    ImportAdminDataHandler,
+    ImportAdminDataService,
     ExportAdminDataHandler,
+    QueueService,
   ],
 })
 export class AdminApplicationModule {}

@@ -1,39 +1,41 @@
-import { ImportAtomCommand } from '@codelab/backend/application/atom'
-import { ImportComponentsCommand } from '@codelab/backend/application/component'
-import type { IBaseDataPaths } from '@codelab/backend/application/shared'
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
+import type { AuthenticatedRequest } from '@codelab/backend/domain/shared/auth'
 import {
   Span,
   TraceService,
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
-import { IAtomBoundedContext, Stage } from '@codelab/shared/abstract/core'
+import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
+import {
+  IAtomBoundedContext,
+  ImportDto,
+  Stage,
+} from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
-import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-
-export class ImportAdminDataCommand implements IBaseDataPaths {
-  constructor(public baseDataPaths?: string) {}
-}
+import { InjectQueue } from '@nestjs/bull'
+import { Injectable } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
+import { Queue } from 'bull'
+import { QueuePayloadType } from './bull-queue.module'
 
 /**
  * During `save`, we'll want to replace the owner with the current
  */
-@CommandHandler(ImportAdminDataCommand)
-export class ImportAdminDataHandler
-  implements ICommandHandler<ImportAdminDataCommand, void>
-{
+@Injectable()
+export class ImportAdminDataService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly traceService: TraceService,
     private readonly readAdminDataService: ReadAdminDataService,
+    @InjectQueue('import-queue') private importQueue: Queue,
   ) {}
 
   @Span()
-  async execute({ baseDataPaths }: ImportAdminDataCommand) {
-    if (baseDataPaths) {
-      this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
+  async import({ adminDataPath }: ImportDto) {
+    if (adminDataPath) {
+      this.readAdminDataService.migrationDataService.basePaths = adminDataPath
     }
 
     this.readAdminDataService.partiallySeed =
@@ -57,9 +59,11 @@ export class ImportAdminDataHandler
 
     span?.setAttributes(flattenWithPrefix(atom))
 
-    await this.commandBus.execute<ImportAtomCommand>(
-      new ImportAtomCommand(atom),
-    )
+    const { user } = RequestContext.currentContext?.req as AuthenticatedRequest
+    const payload = atom
+    const type = QueuePayloadType.Atom
+
+    await this.importQueue.add({ payload, type, user })
   }
 
   private async importAtoms() {
@@ -71,8 +75,11 @@ export class ImportAdminDataHandler
   }
 
   private async importComponents() {
-    for (const component of this.readAdminDataService.components) {
-      await this.commandBus.execute(new ImportComponentsCommand(component))
+    const { user } = RequestContext.currentContext?.req as AuthenticatedRequest
+    const type = QueuePayloadType.Component
+
+    for (const payload of this.readAdminDataService.components) {
+      await this.importQueue.add({ payload, type, user })
     }
   }
 

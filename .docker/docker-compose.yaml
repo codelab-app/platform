@@ -127,6 +127,13 @@ services:
     depends_on:
       - prometheus
 
+  # Used to queue jobs using @nestjs/bull
+  redis:
+    container_name: codelab-redis
+    image: redis:7.2.3-alpine
+    ports:
+      - '6379:6379'
+
 volumes:
   codelab-neo4j:
     name: codelab-neo4j

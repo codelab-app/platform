@@ -3,7 +3,7 @@ import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
   user?: Auth0IdToken
 }
 

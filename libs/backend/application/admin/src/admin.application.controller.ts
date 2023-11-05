@@ -4,7 +4,7 @@ import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { SeederApplicationService } from './use-case'
 import { ExportAdminDataCommand } from './use-case/export/export-admin-data.command.service'
-import { ImportAdminDataCommand } from './use-case/import/import-admin-data.command.service'
+import { ImportAdminDataService } from './use-case/import/import-admin-data.service'
 
 export class ResetDataDto {
   close?: false
@@ -15,6 +15,7 @@ export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly adminRepository: AdminRepository,
+    private readonly importAdminDataService: ImportAdminDataService,
     private seederApplicationService: SeederApplicationService,
   ) {}
 
@@ -35,7 +36,7 @@ export class AdminController {
 
   @Post('import')
   async import(@Body() { adminDataPath }: ImportDto) {
-    await this.commandBus.execute(new ImportAdminDataCommand(adminDataPath))
+    await this.importAdminDataService.import({ adminDataPath })
     // if (includeUserData) {
     //   const json = fs.readFileSync(file.path, 'utf8')
     //   const userData = JSON.parse(json)
