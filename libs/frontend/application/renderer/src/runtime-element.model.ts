@@ -159,7 +159,9 @@ export class RuntimeElement
       return []
     }
 
-    return this.runtimeProps.evaluatedChildMapperProp.map((propValue, i) => {
+    const { evaluatedChildMapperProp } = this.runtimeProps
+
+    return (evaluatedChildMapperProp ?? []).map((propValue, i) => {
       const runtimeChildMapperComponent = this.addRuntimeChild(
         childMapperComponent.current,
       )
