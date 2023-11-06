@@ -38,7 +38,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     renderer.logRendered(renderOutput)
 
-    const children = runtimeElement.renderChildren()
+    const children = runtimeElement.renderChildren
 
     if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
       renderOutput.props['static'] =

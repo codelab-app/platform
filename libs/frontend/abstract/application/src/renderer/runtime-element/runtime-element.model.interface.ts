@@ -37,6 +37,8 @@ export interface IRuntimeElementModel extends AnyModel {
   parentRef: IRuntimeModelRef
 
   render: Nullable<ReactElement>
+  renderChildren: ArrayOrSingle<ReactNode>
+
   /**
    * Unlike children in IElementModel runtimeChildren
    * may come from different source other then having direct child relation
@@ -58,6 +60,4 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
-
-  renderChildren(): ArrayOrSingle<ReactNode>
 }

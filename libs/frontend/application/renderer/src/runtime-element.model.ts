@@ -43,7 +43,7 @@ import {
 } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
-import type { ArrayOrSingle } from 'ts-essentials'
+import { ArrayOrSingle } from 'ts-essentials'
 import { v4 } from 'uuid'
 import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
@@ -127,6 +127,8 @@ export class RuntimeElement
       return null
     }
 
+    console.log(this.element.slug)
+
     // Render the element to an intermediate output
     const renderOutput = this.renderer.renderPipe.render(this)
 
@@ -151,8 +153,8 @@ export class RuntimeElement
     return React.createElement(ElementWrapper, wrapperProps)
   }
 
-  @modelAction
-  addChildMapperRuntimeComponents() {
+  @computed
+  get childMapperRuntimeComponents(): Array<IRuntimeModel> {
     const { childMapperComponent } = this.element
 
     if (!childMapperComponent) {
@@ -170,8 +172,8 @@ export class RuntimeElement
     })
   }
 
-  @modelAction
-  addComponentInstanceChildren() {
+  @computed
+  get componentInstanceChildren(): Array<IRuntimeModel> {
     const parentComponent = this.element.parentComponent?.current
 
     const isContainer =
@@ -186,7 +188,8 @@ export class RuntimeElement
     )
   }
 
-  addChildPageRuntimeContainerNode() {
+  @computed
+  get childPageRuntimeContainerNode(): Array<IRuntimeModel> {
     const providerTreeRoot =
       this.renderer.providerTree?.current.rootElement.current
 
@@ -268,10 +271,8 @@ export class RuntimeElement
   /**
    * Renders the elements children
    */
-  @modelAction
-  renderChildren = (): ArrayOrSingle<ReactNode> => {
-    const childMapperRuntimeComponent = this.addChildMapperRuntimeComponents()
-
+  @computed
+  get renderChildren(): ArrayOrSingle<ReactNode> {
     const childMapperRenderIndex =
       this.element.children.findIndex(
         (child) => child.id === this.element.childMapperPreviousSibling?.id,
@@ -284,16 +285,13 @@ export class RuntimeElement
     elementChildren.splice(
       childMapperRenderIndex,
       0,
-      ...childMapperRuntimeComponent,
+      ...this.childMapperRuntimeComponents,
     )
-
-    const componentInstanceChildren = this.addComponentInstanceChildren()
-    const childPageChildren = this.addChildPageRuntimeContainerNode()
 
     const children = [
       ...elementChildren,
-      ...componentInstanceChildren,
-      ...childPageChildren,
+      ...this.componentInstanceChildren,
+      ...this.childPageRuntimeContainerNode,
     ]
 
     const renderedChildren = compact(children.map((child) => child.render))
