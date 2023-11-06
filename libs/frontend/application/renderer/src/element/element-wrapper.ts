@@ -22,22 +22,23 @@ import {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({
-    element,
     errorBoundary: { onError, onResetKeysChange },
     onRendered,
     renderer,
     renderOutput,
+    runtimeElement,
     ...rest
   }) => {
     useEffect(() => {
       onRendered()
     }, [])
 
-    const { atomService, rendererService } = useStore()
+    const { element } = runtimeElement
+    const { atomService } = useStore()
 
     renderer.logRendered(renderOutput)
 
-    const children = rendererService.renderChildren([renderer, renderOutput])
+    const children = runtimeElement.renderChildren()
 
     if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
       renderOutput.props['static'] =

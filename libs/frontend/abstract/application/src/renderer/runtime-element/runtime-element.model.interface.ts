@@ -1,6 +1,9 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
+import type { ReactElement, ReactNode } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
 import type {
   IRuntimeModel,
   IRuntimeModelRef,
@@ -52,4 +55,7 @@ export interface IRuntimeElementModel extends AnyModel, IRuntimeProp {
   parent: IRuntimeModel
   parentRef: IRuntimeModelRef
   runtimeStore: IRuntimeStoreModel
+
+  render(): Nullable<ReactElement>
+  renderChildren(): ArrayOrSingle<ReactNode>
 }

@@ -2,6 +2,7 @@ import type {
   IRuntimeContainerNodeDTO,
   IRuntimeContainerNodeModel,
   IRuntimeElementModel,
+  IRuntimeModel,
   IRuntimeModelRef,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
@@ -10,6 +11,7 @@ import {
   IEvaluationContext,
   isRuntimeElementRef,
   runtimeContainerNodeRef,
+  runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -24,6 +26,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -36,6 +39,7 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import type { ReactElement } from 'react'
 import { RuntimeElement } from './runtime-element.model'
 
 const create = ({
@@ -60,7 +64,20 @@ export class RuntimeContainerNodeModel
   })
   implements IRuntimeContainerNodeModel
 {
+  parent?: IRuntimeModel | undefined
+
   static create = create
+
+  @computed
+  get renderer() {
+    const activeRenderer = getRendererService(this).activeRenderer?.current
+
+    if (!activeRenderer) {
+      throw new Error('No active Renderer was found')
+    }
+
+    return activeRenderer
+  }
 
   @modelAction
   addRuntimeElement(element: IElementModel) {
@@ -107,7 +124,7 @@ export class RuntimeContainerNodeModel
         return undefined
       }
 
-      const transformer = this.renderer?.typedPropTransformers.get(value.kind)
+      const transformer = this.renderer.typedPropTransformers.get(value.kind)
 
       if (!transformer || !isComponent(this.containerNode)) {
         return value.value
@@ -195,8 +212,16 @@ export class RuntimeContainerNodeModel
     }
   }
 
-  @computed
-  get renderer() {
-    return getRendererService(this).activeRenderer?.current
+  render(): Nullable<ReactElement> {
+    const rootElement = this.containerNode.rootElement.current
+
+    const runtimeRootElement = RuntimeElement.create({
+      elementRef: elementRef(rootElement.id),
+      parentRef: runtimeModelRef(this),
+    })
+
+    this.runtimeElements.set(runtimeRootElement.id, runtimeRootElement)
+
+    return runtimeRootElement.render()
   }
 }

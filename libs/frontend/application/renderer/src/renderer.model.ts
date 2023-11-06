@@ -1,5 +1,4 @@
 import type {
-  ElementWrapperProps,
   IRendererDto,
   IRendererModel,
   IRenderOutput,
@@ -17,7 +16,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
-  IElementModel,
   IElementTree,
   IExpressionTransformer,
   IPageModel,
@@ -36,7 +34,6 @@ import {
 } from '@codelab/frontend/application/shared/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import isObject from 'lodash/isObject'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   idProp,
@@ -46,9 +43,6 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import type { ReactElement } from 'react'
-import React from 'react'
-import { ElementWrapper } from './element/element-wrapper'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
 import { RuntimeActionModel } from './runtime-action.model'
@@ -187,86 +181,10 @@ export class Renderer
     return runtimeContainerNode
   }
 
-  getChildMapperChildren(element: IElementModel) {
-    const { childMapperComponent } = element
-
-    if (!childMapperComponent) {
-      return []
-    }
-
-    return []
-    // TODO: Renderer
-    // return (
-    //   this.runtimeElements
-    //     .get(element.id)
-    //     ?.evaluatedChildMapperProp.map((propValue, i) => {
-    //       const clonedComponent = childMapperComponent.current.clone(
-    //         `${element.id}-${i}`,
-    //       )
-
-    //       const rootElement = clonedComponent.rootElement.current
-
-    //       clonedComponent.props.setMany(
-    //         isObject(propValue) ? propValue : { value: propValue },
-    //       )
-
-    //       if (!this.runtimeComponents.get(clonedComponent.id)) {
-    //         this.addRuntimeComponent(clonedComponent)
-    //       }
-
-    //       return rootElement
-    //     }) ?? []
-    // )
-  }
-
-  getChildPageChildren(element: IElementModel) {
-    const providerTreeRoot = this.providerTree?.current.rootElement.current
-    const providerPage = providerTreeRoot?.page?.current
-    const pageContentContainer = providerPage?.pageContentContainer?.current
-    const pageRoot = this.elementTree.current.rootElement.current
-    const pageKind = pageRoot.page?.current.kind
-
-    // 1. check if this is the element in _app page where child page needs to be rendered
-    // 2. do not self-wrap _app page, and do not wrap 404 and 500
-    if (
-      pageContentContainer?.id === element.id &&
-      pageKind === IPageKind.Regular
-    ) {
-      return [this.elementTree.current.rootElement.current]
-    }
-
-    return []
-  }
-
-  getComponentInstanceChildren(element: IElementModel) {
-    const parentComponent = element.parentComponent?.current
-
-    const isContainer =
-      element.id === parentComponent?.childrenContainerElement.id
-
-    if (!isContainer || !parentComponent.instanceElement?.current) {
-      return []
-    }
-
-    return parentComponent.instanceElement.current.children
-  }
-
   logRendered = (rendered: IRenderOutput) => {
     if (this.debugMode) {
       console.dir({ element: rendered.runtimeElement, rendered })
     }
-  }
-
-  /**
-   * Renders a single element (without its children) to an intermediate RenderOutput
-   */
-  renderIntermediateElement = (
-    element: IElementModel,
-    runtimeContainerNode: IRuntimeContainerNodeModel,
-  ): IRenderOutput => {
-    const runtimeElement = runtimeContainerNode.addRuntimeElement(element)
-
-    return this.renderPipe.render(runtimeElement)
   }
 
   runPostRenderAction = (runtimeElement: IRuntimeElementModel) => {
@@ -293,44 +211,6 @@ export class Renderer
 
       runtimeAction?.runner(element)
     }
-  }
-
-  /**
-   * Renders a single Element using the provided RenderAdapter
-   */
-  renderElement = (
-    element: IElementModel,
-    runtimeContainerNode: IRuntimeContainerNodeModel,
-  ): Nullable<ReactElement> => {
-    // Render the element to an intermediate output
-    const renderOutput = this.renderIntermediateElement(
-      element,
-      runtimeContainerNode,
-    )
-
-    if (renderOutput.shouldRender === false) {
-      return null
-    }
-
-    const wrapperProps: ElementWrapperProps = {
-      element,
-      errorBoundary: {
-        onError: ({ message, stack }) => {
-          element.setRenderingError({ message, stack })
-        },
-        onResetKeysChange: () => {
-          element.setRenderingError(null)
-        },
-      },
-      key: element.id,
-      onRendered: () => {
-        this.runPostRenderAction(renderOutput.runtimeElement)
-      },
-      renderer: this,
-      renderOutput,
-    }
-
-    return React.createElement(ElementWrapper, wrapperProps)
   }
 
   shouldRenderElement(runtimeElement: IRuntimeElementModel) {

@@ -3,7 +3,9 @@ import type {
   IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
+import type { ReactElement } from 'react'
 import type {
   IRuntimeModel,
   IRuntimeModelRef,
@@ -23,4 +25,5 @@ export interface IRuntimeContainerNodeModel extends AnyModel, IRuntimeProp {
   runtimeStore: IRuntimeStoreModel
 
   addRuntimeElement(element: IElementModel): IRuntimeElementModel
+  render(): Nullable<ReactElement>
 }

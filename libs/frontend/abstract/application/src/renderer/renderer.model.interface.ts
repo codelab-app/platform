@@ -1,13 +1,11 @@
 import type {
   IComponentModel,
-  IElementModel,
   IElementTree,
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
-import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type { IRuntimeModel } from './runtime.model.interface'
@@ -39,25 +37,13 @@ export interface IRendererModel {
     containerNode: IComponentModel | IPageModel,
     parent?: IRuntimeModel,
   ): IRuntimeContainerNodeModel
-  getChildMapperChildren(element: IElementModel): Array<IElementModel>
-  getChildPageChildren(element: IElementModel): Array<IElementModel>
-  getComponentInstanceChildren(element: IElementModel): Array<IElementModel>
   logRendered(rendered: IRenderOutput): void
-  renderElement(
-    element: IElementModel,
-    containerNode: IRuntimeContainerNodeModel,
-  ): Nullable<ReactElement>
-  renderIntermediateElement(
-    element: IElementModel,
-    runtimeContainerNode: IRuntimeContainerNodeModel,
-  ): IRenderOutput
   runPostRenderAction(element: IRuntimeElementModel): void
   runPreRenderAction(element: IRuntimeElementModel): void
   shouldRenderElement(element: IRuntimeElementModel): boolean
 }
 
 export interface ElementWrapperProps {
-  element: IElementModel
   errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
   key: string
   /**
@@ -65,5 +51,6 @@ export interface ElementWrapperProps {
    */
   renderOutput: IRenderOutput
   renderer: IRendererModel
+  runtimeElement: IRuntimeElementModel
   onRendered(): void
 }
