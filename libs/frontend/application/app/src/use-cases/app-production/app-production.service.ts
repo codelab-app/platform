@@ -22,15 +22,13 @@ import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { getSdk } from './app-production.endpoints.graphql.gen'
-
-const appApi = getSdk(client)
+import { appProductionApi } from './app-production.api'
 
 const getAppProductionData = async ({
   domain,
   pageUrl,
 }: IAppProductionArgs): Promise<IAppProductionDto> => {
-  const data = await appApi.GetAppProduction({
+  const data = await appProductionApi.GetAppProduction({
     domain,
     pageUrl,
   })

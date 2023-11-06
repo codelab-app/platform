@@ -35,8 +35,8 @@ export class PassThroughRenderPipe
       atomType: isAtom(element.renderType.current)
         ? element.renderType.current.type
         : IAtomType.ReactFragment,
-      runtimeElement,
       props,
+      runtimeElement,
     })
   }
 }

@@ -1,5 +1,5 @@
-import type { LambdaFragment } from '../../../graphql/lambda.fragment.graphql.gen'
+import type { ILambdaModel } from '@codelab/frontend/abstract/domain'
 
 export interface ActionColumnProps {
-  lambda: LambdaFragment
+  lambda: ILambdaModel
 }

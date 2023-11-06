@@ -10,9 +10,6 @@ import { Factory } from 'fishery'
 import { v4 } from 'uuid'
 
 export const AppTestFactory = (rootStore: Partial<IRootDomainStore>) => {
-  const atomFactory = AtomTestFactory(rootStore)
-  const reactFragment = atomFactory.build({ name: IAtomType.ReactFragment })
-
   return Factory.define<IAppModel, IAppDTO>(
     ({ associations, transientParams }) => {
       const dto: IAppDTO = {
@@ -23,7 +20,7 @@ export const AppTestFactory = (rootStore: Partial<IRootDomainStore>) => {
         pages: associations.pages,
       }
 
-      const model = rootStore.appDomainService?.create(dto, reactFragment!)
+      // const model = rootStore.appDomainService?.create(dto, reactFragment!)
       // const model = rootStore.appDomainService?.hydrate(dto)
 
       return model!

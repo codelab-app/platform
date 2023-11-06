@@ -1,3 +1,9 @@
+import type {
+  BaseTheme,
+  ExtractThemes,
+  TwindConfig,
+  TwindUserConfig,
+} from '@twind/core'
 import install from '@twind/with-next/app'
 import { useEffect } from 'react'
 
@@ -6,6 +12,7 @@ const suppressWarning = (event: Event) => {
   event.preventDefault()
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useTwindConfig = (config: any) => {
   useEffect(() => {
     window.addEventListener('warning', suppressWarning)

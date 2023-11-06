@@ -24,6 +24,6 @@ export class NullRenderPipe
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 
-    return RenderOutput.empty({ runtimeElement, props })
+    return RenderOutput.empty({ props, runtimeElement })
   }
 }

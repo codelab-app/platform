@@ -27,9 +27,7 @@ import {
   modelAction,
   modelFlow,
 } from 'mobx-keystone'
-import { getSdk } from './app-development.endpoints.graphql.gen'
-
-const appApi = getSdk(client)
+import { appDevelopmentApi } from './app-development.api'
 
 @model('@codelab/AppDevelopmentService')
 export class AppDevelopmentService
@@ -46,7 +44,7 @@ export class AppDevelopmentService
     })
 
     const data = yield* _await(
-      appApi.GetAppDevelopment({
+      appDevelopmentApi.GetAppDevelopment({
         appCompositeKey,
         pageName,
       }),

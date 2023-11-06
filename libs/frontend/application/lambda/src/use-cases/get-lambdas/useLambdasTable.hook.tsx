@@ -1,5 +1,5 @@
+import type { ILambdaModel } from '@codelab/frontend/abstract/domain'
 import React from 'react'
-import type { LambdaFragment } from '../../graphql/lambda.fragment.graphql.gen'
 import { ActionColumn } from './colums/ActionColumn'
 
 export const useLambdaTable = () => {
@@ -16,7 +16,7 @@ export const useLambdaTable = () => {
     },
     {
       key: 'action',
-      render: (_: string, lambda: LambdaFragment) => (
+      render: (_: string, lambda: ILambdaModel) => (
         <ActionColumn lambda={lambda} />
       ),
       title: 'Action',
