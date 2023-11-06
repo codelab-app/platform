@@ -127,8 +127,6 @@ export class RuntimeElement
       return null
     }
 
-    console.log(this.element.slug)
-
     // Render the element to an intermediate output
     const renderOutput = this.renderer.renderPipe.render(this)
 
