@@ -7,6 +7,7 @@ import type {
 import {
   getRendererService,
   IEvaluationContext,
+  isRuntimeContainerNode,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
@@ -192,15 +193,23 @@ export class RuntimeElementProps
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {
+    const isInsideComponent = isRuntimeContainerNode(
+      this.closestRuntimeContainerNode,
+    )
+
+    const componentProps = isInsideComponent
+      ? this.closestRuntimeContainerNode.runtimeProps?.evaluatedProps
+      : {}
+
     return {
       actions: this.runtimeStore.runtimeActions,
-      componentProps: {},
+      componentProps: componentProps ?? {},
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
       rootActions: this.providerStore?.runtimeActions ?? {},
-      rootRefs: this.providerStore?.refs || {},
-      rootState: this.providerStore?.state || {},
+      rootRefs: this.providerStore?.refs ?? {},
+      rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
       url: this.urlProps ?? {},
     }

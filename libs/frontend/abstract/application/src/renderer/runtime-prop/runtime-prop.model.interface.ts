@@ -17,7 +17,7 @@ export interface IRuntimePropModel {
   /**
    * Evaluated Props for child mapper
    */
-  evaluatedChildMapperProp: Array<IPropData>
+  evaluatedChildMapperProp?: Array<IPropData>
   /**
    * Final output after rendering typedProps
    */

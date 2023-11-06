@@ -14,15 +14,17 @@ import {
   elementRef,
   type IComponentModel,
   type IPageModel,
+  isComponent,
   isPage,
   pageRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { v4 } from 'uuid'
 import { RuntimeActionModel } from './runtime-action.model'
+import { RuntimeComponentProps } from './runtime-component-prop.model'
 import { RuntimeContainerNodeModel } from './runtime-container-node.model'
 import { RuntimeElement } from './runtime-element.model'
-import { RuntimeElementProps } from './runtime-prop.model'
+import { RuntimeElementProps } from './runtime-element-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
 export class RuntimeContainerNodeFactory {
@@ -55,7 +57,7 @@ export class RuntimeContainerNodeFactory {
       storeRef: storeRef(containerNode.store.current),
     })
 
-    const runtimeProps = RuntimeElementProps.create({
+    const runtimeRootElementProps = RuntimeElementProps.create({
       elementRef: elementRef(containerNode.rootElement.id),
       runtimeElementRef: runtimeElementRef(runtimeRootElementId),
     })
@@ -64,8 +66,17 @@ export class RuntimeContainerNodeFactory {
       elementRef: elementRef(containerNode.rootElement.id),
       id: runtimeRootElementId,
       parentRef: runtimeContainerNodeRef(runtimeContainerNodeId),
-      runtimeProps,
+      runtimeProps: runtimeRootElementProps,
     })
+
+    const runtimeComponentProps = isComponent(containerNode)
+      ? RuntimeComponentProps.create({
+          componentRef: componentRef(containerNode.id),
+          runtimeContainerNodeRef: runtimeContainerNodeRef(
+            runtimeContainerNodeId,
+          ),
+        })
+      : undefined
 
     const runtimeContainerNode = RuntimeContainerNodeModel.create({
       containerNodeRef: isPage(containerNode)
@@ -73,6 +84,7 @@ export class RuntimeContainerNodeFactory {
         : componentRef(containerNode.id),
       id: runtimeContainerNodeId,
       parentRef: parent ? runtimeModelRef(parent) : undefined,
+      runtimeProps: runtimeComponentProps,
       runtimeRootElement,
       runtimeStore,
     })

@@ -48,7 +48,7 @@ import { v4 } from 'uuid'
 import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
-import { RuntimeElementProps } from './runtime-prop.model'
+import { RuntimeElementProps } from './runtime-element-prop.model'
 
 const create = (runtimeElementDTO: IRuntimeElementDTO) => {
   return new RuntimeElement({
