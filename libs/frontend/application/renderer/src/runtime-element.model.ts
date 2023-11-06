@@ -4,46 +4,59 @@ import type {
   IRuntimeElementModel,
   IRuntimeModel,
   IRuntimeModelRef,
-  IRuntimeStoreModel,
+  IRuntimePropModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  IEvaluationContext,
   isRuntimeElementRef,
   RendererType,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IComponentModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  DATA_ELEMENT_ID,
+  elementRef,
+  IElementModel,
   isAtom,
-  isAtomRef,
-  isTypedProp,
+  isComponent,
+  isPage,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
-  evaluateObject,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
-import { IPageKind, type IPropData } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
-import { mapDeep } from '@codelab/shared/utils'
+import { IPageKind } from '@codelab/shared/abstract/core'
+import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
-import get from 'lodash/get'
-import omit from 'lodash/omit'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
+import { v4 } from 'uuid'
 import { ElementWrapper } from './element/element-wrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
+import { RuntimeElementProps } from './runtime-prop.model'
 
-const create = ({ elementRef, parentRef }: IRuntimeElementDTO) => {
-  return new RuntimeElement({ elementRef, parentRef })
+const create = (runtimeElementDTO: IRuntimeElementDTO) => {
+  return new RuntimeElement({
+    elementRef: runtimeElementDTO.elementRef,
+    id: runtimeElementDTO.id,
+    parentRef: runtimeElementDTO.parentRef,
+    runtimeProps: runtimeElementDTO.runtimeProps,
+  })
 }
 
 @model('@codelab/RuntimeElement')
@@ -52,6 +65,8 @@ export class RuntimeElement
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
     parentRef: prop<IRuntimeModelRef>(),
+    runtimeChildren: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
+    runtimeProps: prop<IRuntimePropModel>(),
   })
   implements IRuntimeElementModel
 {
@@ -82,11 +97,6 @@ export class RuntimeElement
   }
 
   @computed
-  get providerStore(): Maybe<IRuntimeStoreModel> {
-    return this.runtimeStore.runtimeProviderSore
-  }
-
-  @computed
   get renderer() {
     const activeRenderer = getRendererService(this).activeRenderer?.current
 
@@ -98,146 +108,27 @@ export class RuntimeElement
   }
 
   @computed
-  get urlProps(): IPropData | undefined {
-    return this.renderer.urlSegments
-  }
+  get shouldRender() {
+    const { renderIfExpression } = this.element
 
-  @computed
-  get evaluatedChildMapperProp() {
-    if (!this.element.childMapperPropKey) {
-      return []
+    if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
+      return true
     }
 
-    if (hasStateExpression(this.element.childMapperPropKey)) {
-      const evaluatedExpression = evaluateExpression(
-        this.element.childMapperPropKey,
-        this.propsEvaluationContext,
-      )
-
-      if (!Array.isArray(evaluatedExpression)) {
-        console.error('The evaluated childMapperPropKey is not an array')
-
-        return []
-      }
-
-      return evaluatedExpression
-    }
-
-    const evaluatedChildMapperProp = get(
-      this.expressionEvaluationContext,
-      this.element.childMapperPropKey,
+    return evaluateExpression(
+      renderIfExpression,
+      this.runtimeProps.expressionEvaluationContext,
     )
-
-    if (!Array.isArray(evaluatedChildMapperProp)) {
-      console.error('The evaluated childMapperPropKey is not an array')
-
-      return []
-    }
-
-    return evaluatedChildMapperProp
-  }
-
-  /**
-   * Applies all the type transformers to the props
-   */
-  @computed
-  get renderedTypedProps() {
-    return mapDeep(this.props, (value) => {
-      if (!isTypedProp(value)) {
-        return value
-      }
-
-      if (!value.value) {
-        return undefined
-      }
-
-      const transformer = this.renderer.typedPropTransformers.get(value.kind)
-
-      if (!transformer) {
-        return value.value
-      }
-
-      return transformer.transform(value, this.element)
-    })
   }
 
   @computed
-  get evaluatedProps() {
-    // Evaluate customText prop only in preview and production modes
-    if (
-      this.renderer.rendererType === RendererType.Preview ||
-      this.renderer.rendererType === RendererType.Production
-    ) {
-      return evaluateObject(
-        this.renderedTypedProps,
-        this.propsEvaluationContext,
-      )
-    }
-
-    const customTextProp = this.element.props.values[CUSTOM_TEXT_PROP_KEY]
-    const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
-    const evaluated = evaluateObject(props, this.propsEvaluationContext)
-
-    return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
-  }
-
-  @computed
-  get evaluatedPropsBeforeRender() {
-    return evaluateObject(this.props, this.propsEvaluationContext)
-  }
-
-  @computed
-  get props() {
-    // memorize values or else it will be lost inside callback
-    const registerReference = isAtomRef(this.element.renderType)
-    const slug = this.element.slug
-    const store = this.runtimeStore
-
-    return {
-      ...getDefaultFieldProps(this.element.renderType.current),
-      ...this.element.props.values,
-      /**
-       * Internal system props for meta data, use double underline for system-defined identifiers.
-       */
-      [DATA_ELEMENT_ID]: this.element.id,
-      key: this.element.id,
-      ref: registerReference
-        ? (node: HTMLElement) => store.registerRef(slug, node)
-        : undefined,
-    }
-  }
-
-  @computed
-  get propsEvaluationContext(): IEvaluationContext {
-    return {
-      actions: this.runtimeStore.runtimeActions,
-      componentProps: this.closestRuntimeContainerNode.evaluatedProps,
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: this.providerStore?.runtimeActions ?? {},
-      rootRefs: this.providerStore?.refs || {},
-      rootState: this.providerStore?.state || {},
-      state: this.runtimeStore.state,
-      url: this.urlProps ?? {},
-    }
-  }
-
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return {
-      ...this.propsEvaluationContext,
-      props: this.evaluatedProps,
-    }
-  }
-
-  render(): Nullable<ReactElement> {
-    // Render the element to an intermediate output
-    const renderOutput = this.renderer.renderPipe.render(this)
-
-    if (renderOutput.shouldRender === false) {
+  get render(): Nullable<ReactElement> {
+    if (this.shouldRender === false) {
       return null
     }
+
+    // Render the element to an intermediate output
+    const renderOutput = this.renderer.renderPipe.render(this)
 
     const wrapperProps: ElementWrapperProps = {
       errorBoundary: {
@@ -268,10 +159,9 @@ export class RuntimeElement
       return []
     }
 
-    return this.evaluatedChildMapperProp.map((propValue, i) => {
-      const runtimeChildMapperComponent = this.renderer.addRuntimeContainerNode(
+    return this.runtimeProps.evaluatedChildMapperProp.map((propValue, i) => {
+      const runtimeChildMapperComponent = this.addRuntimeChild(
         childMapperComponent.current,
-        this,
       )
 
       // TODO: set props here
@@ -291,9 +181,9 @@ export class RuntimeElement
       return []
     }
 
-    return parentComponent.instanceElement.current.children.map((child) => {
-      return this.closestRuntimeContainerNode.addRuntimeElement(child)
-    })
+    return parentComponent.instanceElement.current.children.map((child) =>
+      this.addRuntimeChild(child),
+    )
   }
 
   addChildPageRuntimeContainerNode() {
@@ -312,10 +202,67 @@ export class RuntimeElement
       pageContentContainer?.id === this.element.id &&
       pageKind === IPageKind.Regular
     ) {
-      return [this.renderer.addRuntimeContainerNode(pageRoot.page.current)]
+      return [this.addRuntimeChild(pageRoot.page.current)]
     }
 
     return []
+  }
+
+  /**
+   * Adds RuntimeContainerNode to runtime children
+   * @param child
+   * @returns RuntimeContainerNode
+   */
+  @modelAction
+  addRuntimeContainerNode(child: IComponentModel | IPageModel) {
+    const runtimeContainerNode = RuntimeContainerNodeFactory.create({
+      containerNode: child,
+      parent: this,
+      runtimeProviderStore: isPage(child) ? this.runtimeStore : undefined,
+    })
+
+    this.runtimeChildren.set(runtimeContainerNode.id, runtimeContainerNode)
+
+    return runtimeContainerNode
+  }
+
+  /**
+   * Adds a runtime element to runtime children
+   * @param child
+   * @returns RuntimeElement
+   */
+  @modelAction
+  addRuntimeElement(child: IElementModel) {
+    const runtimeChildElementId = v4()
+
+    const runtimeProps = RuntimeElementProps.create({
+      elementRef: elementRef(child.id),
+      runtimeElementRef: runtimeElementRef(runtimeChildElementId),
+    })
+
+    const runtimeChildElement = RuntimeElement.create({
+      elementRef: elementRef(child.id),
+      id: runtimeChildElementId,
+      parentRef: runtimeElementRef(this.id),
+      runtimeProps,
+    })
+
+    this.runtimeChildren.set(child.id, runtimeChildElement)
+
+    return runtimeChildElement
+  }
+
+  @modelAction
+  addRuntimeChild(child: IComponentModel | IElementModel | IPageModel) {
+    const existingRuntimeChild = this.runtimeChildren.get(child.id)
+
+    if (existingRuntimeChild) {
+      return existingRuntimeChild
+    }
+
+    return isPage(child) || isComponent(child)
+      ? this.addRuntimeContainerNode(child)
+      : this.addRuntimeElement(child)
   }
 
   /**
@@ -332,7 +279,7 @@ export class RuntimeElement
 
     const elementChildren: Array<IRuntimeModel> = [
       ...this.element.children,
-    ].map((child) => this.closestRuntimeContainerNode.addRuntimeElement(child))
+    ].map((child) => this.addRuntimeChild(child))
 
     elementChildren.splice(
       childMapperRenderIndex,
@@ -349,12 +296,13 @@ export class RuntimeElement
       ...childPageChildren,
     ]
 
-    const renderedChildren = compact(children.map((child) => child.render()))
+    const renderedChildren = compact(children.map((child) => child.render))
     const hasChildren = renderedChildren.length > 0
 
     if (!hasChildren) {
       // Inject text, but only if we have no regular children
-      const injectedText = this.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
+      const injectedText =
+        this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
 
       const shouldInjectText =
         isAtom(this.element.renderType.current) &&

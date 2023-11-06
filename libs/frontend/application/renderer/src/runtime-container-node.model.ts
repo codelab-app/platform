@@ -2,7 +2,6 @@ import type {
   IRuntimeContainerNodeDTO,
   IRuntimeContainerNodeModel,
   IRuntimeElementModel,
-  IRuntimeModel,
   IRuntimeModelRef,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
@@ -10,8 +9,6 @@ import {
   getRendererService,
   IEvaluationContext,
   isRuntimeElementRef,
-  runtimeContainerNodeRef,
-  runtimeModelRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -19,37 +16,30 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   DATA_COMPONENT_ID,
-  elementRef,
-  IElementModel,
   isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { idProp, Model, model, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
-import { RuntimeElement } from './runtime-element.model'
 
 const create = ({
   containerNodeRef,
+  id,
   parentRef,
+  runtimeRootElement,
   runtimeStore,
 }: IRuntimeContainerNodeDTO) =>
   new RuntimeContainerNodeModel({
     containerNodeRef,
+    id,
     parentRef,
+    runtimeRootElement,
     runtimeStore,
   })
 
@@ -59,13 +49,11 @@ export class RuntimeContainerNodeModel
     containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
     parentRef: prop<Maybe<IRuntimeModelRef>>(),
-    runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
+    runtimeRootElement: prop<IRuntimeElementModel>(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimeContainerNodeModel
 {
-  parent?: IRuntimeModel | undefined
-
   static create = create
 
   @computed
@@ -79,24 +67,6 @@ export class RuntimeContainerNodeModel
     return activeRenderer
   }
 
-  @modelAction
-  addRuntimeElement(element: IElementModel) {
-    const existingRuntimeElement = this.runtimeElements.get(element.id)
-
-    if (existingRuntimeElement) {
-      return existingRuntimeElement
-    }
-
-    const runtimeElement = RuntimeElement.create({
-      elementRef: elementRef(element.id),
-      parentRef: runtimeContainerNodeRef(this.id),
-    })
-
-    this.runtimeElements.set(element.id, runtimeElement)
-
-    return runtimeElement
-  }
-
   @computed
   get containerNode() {
     return this.containerNodeRef.current
@@ -106,7 +76,7 @@ export class RuntimeContainerNodeModel
   get componentEvaluatedProps() {
     return mergeProps(
       this.evaluatedProps,
-      this.instanceElementProps?.evaluatedProps,
+      this.instanceElementProps?.runtimeProps.evaluatedProps,
     )
   }
 
@@ -212,16 +182,8 @@ export class RuntimeContainerNodeModel
     }
   }
 
-  render(): Nullable<ReactElement> {
-    const rootElement = this.containerNode.rootElement.current
-
-    const runtimeRootElement = RuntimeElement.create({
-      elementRef: elementRef(rootElement.id),
-      parentRef: runtimeModelRef(this),
-    })
-
-    this.runtimeElements.set(runtimeRootElement.id, runtimeRootElement)
-
-    return runtimeRootElement.render()
+  @computed
+  get render(): Nullable<ReactElement> {
+    return this.runtimeRootElement.render
   }
 }

@@ -1,7 +1,6 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { AnyModel, Ref } from 'mobx-keystone'
+import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type {
@@ -9,53 +8,56 @@ import type {
   IRuntimeModelRef,
 } from '../runtime.model.interface'
 import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
+import type { IRuntimePropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
-export interface IEvaluationContext {
-  actions: IPropData
-  args?: Array<unknown>
-  componentProps: IPropData
-  props: IPropData
-  refs: IPropData
-  rootActions: IPropData
-  rootRefs: IPropData
-  rootState: IPropData
-  state: IPropData
-  url: IPropData
-}
-
-export interface IRuntimeProp {
+/**
+ * This model is the runtime model for IElementModel
+ * it reflects the same structure
+ */
+export interface IRuntimeElementModel extends AnyModel {
   /**
-   * Final output after rendering typedProps
+   * The runtime model for IElementModel.closestContainerNode
    */
-  evaluatedProps: IPropData
-  /**
-   * Props after substituting state expression used for form validation
-   */
-  evaluatedPropsBeforeRender: IPropData
-  /**
-   * The props used for evaluating expressions, which includes `evaluatedProps`
-   */
-  expressionEvaluationContext: IEvaluationContext
-  /**
-   * Props in initial state before any transformation
-   */
-  props: IPropData
-  /**
-   * This is the evaluation context for props
-   */
-  propsEvaluationContext: IEvaluationContext
-}
-
-export interface IRuntimeElementModel extends AnyModel, IRuntimeProp {
   closestRuntimeContainerNode: IRuntimeContainerNodeModel
+
+  /**
+   * We creating using elementRef then access element via computed values
+   */
   element: IElementModel
   elementRef: Ref<IElementModel>
+
   id: string
+
+  /**
+   * Direct parent of the element possible values runtime model for parentElement/page/component
+   * We need it to traves the tree and access closestRuntimeContainerNode
+   */
   parent: IRuntimeModel
   parentRef: IRuntimeModelRef
-  runtimeStore: IRuntimeStoreModel
 
-  render(): Nullable<ReactElement>
+  render: Nullable<ReactElement>
+  /**
+   * Unlike children in IElementModel runtimeChildren
+   * may come from different source other then having direct child relation
+   * a good example for that is instance element children rendered inside component
+   */
+  runtimeChildren: ObjectMap<IRuntimeModel>
+
+  /**
+   * Runtime version of IElementModel.prop
+   * serves props transformations and evaluation
+   */
+  runtimeProps: IRuntimePropModel
+
+  /**
+   * access runtimeStore via computed values
+   */
+  runtimeStore: IRuntimeStoreModel
+  /**
+   * Return if we should render element or not based on renderIfExpression
+   */
+  shouldRender: boolean
+
   renderChildren(): ArrayOrSingle<ReactNode>
 }

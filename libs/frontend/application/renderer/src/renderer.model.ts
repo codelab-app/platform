@@ -8,46 +8,19 @@ import type {
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import {
-  IRuntimeModel,
-  isRuntimeContainerNode,
-  runtimeModelRef,
-  runtimeStoreRef,
-} from '@codelab/frontend/abstract/application'
 import type {
-  IComponentModel,
   IElementTree,
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  actionRef,
-  componentRef,
-  elementTreeRef,
-  isPage,
-  pageRef,
-  storeRef,
-} from '@codelab/frontend/abstract/domain'
-import {
-  evaluateExpression,
-  hasStateExpression,
-} from '@codelab/frontend/application/shared/core'
+import { elementTreeRef } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
-import { RuntimeActionModel } from './runtime-action.model'
-import { RuntimeContainerNodeModel } from './runtime-container-node.model'
-import { RuntimeStoreModel } from './runtime-store.model'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -103,17 +76,18 @@ export class Renderer
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
+
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
+
     /**
-     * Props record for all components during all transformations stages
+     * We register runtimeRootContainerNode when it is created first time
+     * it is used internally to avoid creating runtime elements each time
+     * provides a way to attach runtime tree to the root store
      */
-    runtimeContainerNodes: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
-      objectMap([]),
-    ),
-    // runtimeStores: prop<ObjectMap<IRuntimeStore>>(() => objectMap([])),
+    runtimeRootContainerNode: prop<Nullable<IRuntimeContainerNodeModel>>(null),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -126,59 +100,55 @@ export class Renderer
 {
   static create = create
 
+  /**
+   * This is the entry point to start the rendering process
+   */
   @modelAction
-  addRuntimeContainerNode(
-    containerNode: IComponentModel | IPageModel,
-    parent?: IRuntimeModel,
-  ) {
-    const existingRuntimeContainerNode = this.runtimeContainerNodes.get(
-      containerNode.id,
-    )
-
-    if (existingRuntimeContainerNode) {
-      return existingRuntimeContainerNode
+  render() {
+    if (this.runtimeRootContainerNode) {
+      return this.runtimeRootContainerNode.render
     }
 
-    const actions = containerNode.store.current.actions
+    const root = this.elementTree.maybeCurrent?.rootElement.current
+    const parentComponent = root?.parentComponent?.current
+    const currentPage = root?.page?.current
 
-    const isParentContainerNodeProviderPage =
-      parent &&
-      isRuntimeContainerNode(parent) &&
-      isPage(parent.containerNode) &&
-      parent.containerNode.kind === IPageKind.Provider
+    if (!root) {
+      console.error('Renderer: No root element found')
 
-    const runtimeStore = RuntimeStoreModel.create({
-      runtimeProviderStoreRef: isParentContainerNodeProviderPage
-        ? runtimeStoreRef(parent.runtimeStore.id)
-        : undefined,
-      storeRef: storeRef(containerNode.store.current),
+      return null
+    }
+
+    const containerNode = parentComponent ?? this.getPage(currentPage)
+
+    if (!containerNode) {
+      console.error('Renderer: No page or component found')
+
+      return null
+    }
+
+    this.runtimeRootContainerNode = RuntimeContainerNodeFactory.create({
+      containerNode,
     })
 
-    const runtimeActions = actions.map((action) =>
-      RuntimeActionModel.create({
-        actionRef: actionRef(action.id),
-        runtimeStoreRef: runtimeStoreRef(runtimeStore.id),
-      }),
-    )
+    return this.runtimeRootContainerNode.render
+  }
 
-    runtimeActions.forEach((runtimeAction) => {
-      runtimeStore.runtimeActions.set(runtimeAction.id, runtimeAction)
-    })
+  getPage(page?: IPageModel) {
+    if (page?.kind !== IPageKind.Regular) {
+      return page
+    }
 
-    const runtimeContainerNode = RuntimeContainerNodeModel.create({
-      containerNodeRef: isPage(containerNode)
-        ? pageRef(containerNode.id)
-        : componentRef(containerNode.id),
-      parentRef: parent ? runtimeModelRef(parent) : undefined,
-      runtimeStore,
-    })
+    const providerRoot = this.providerTree?.current.rootElement.current
+    const providerPage = providerRoot?.page?.current
 
-    this.runtimeContainerNodes.set(
-      runtimeContainerNode.id,
-      runtimeContainerNode,
-    )
+    if (!providerPage) {
+      console.error('Renderer: Provider page not found')
 
-    return runtimeContainerNode
+      return null
+    }
+
+    return providerPage
   }
 
   logRendered = (rendered: IRenderOutput) => {
@@ -211,21 +181,5 @@ export class Renderer
 
       runtimeAction?.runner(element)
     }
-  }
-
-  shouldRenderElement(runtimeElement: IRuntimeElementModel) {
-    const { element } = runtimeElement
-
-    if (
-      !element.renderIfExpression ||
-      !hasStateExpression(element.renderIfExpression)
-    ) {
-      return true
-    }
-
-    return evaluateExpression(
-      element.renderIfExpression,
-      runtimeElement.expressionEvaluationContext,
-    )
   }
 }

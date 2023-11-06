@@ -36,8 +36,6 @@ import { mergeDeepRight } from 'ramda'
 import { mergeProps, propSafeStringify } from '../index'
 
 const create = ({ api, data = '"{}"', id }: IPropDTO) => {
-  console.log('Prop.create', { api, data, id }, typeof data)
-
   return new Prop({
     api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
     data: frozen(JSON.parse(data)),
@@ -64,7 +62,7 @@ export class Prop
   @computed
   get toJson() {
     return {
-      apI: this.api?.current,
+      api: this.api?.maybeCurrent,
       data: JSON.stringify(this.data.data),
       id: this.id,
     }
@@ -137,12 +135,7 @@ export class Prop
   }
 
   get(key: string) {
-    return get(merge(this.values, this.silentData), key)
-  }
-
-  // set data without re-rendering
-  setSilently(key: string, value: object) {
-    this.silentData[key] = value
+    return get(this.values, key)
   }
 
   toCreateInput(): PropCreateInput {
@@ -157,6 +150,4 @@ export class Prop
       data: JSON.stringify(this.data.data ?? {}),
     }
   }
-
-  private silentData: IPropData = {}
 }

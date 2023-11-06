@@ -13,7 +13,6 @@ export interface IRenderOutput {
   props?: IPropData
   /** This is the element which this RenderOutput was rendered from */
   runtimeElement: IRuntimeElementModel
-  shouldRender?: boolean
 }
 
 export interface IBaseRenderPipe {
