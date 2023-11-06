@@ -3,9 +3,7 @@ import type {
   IRenderPipe,
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { isAtom } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { RenderOutput } from '../utils'
@@ -21,7 +19,7 @@ export class PassThroughRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const element = runtimeElement.element
-    const props = runtimeElement.props
+    const props = runtimeElement.runtimeProps.evaluatedProps
 
     // TODO: element.renderType cannot be component, we should throw error here
     if (this.renderer.debugMode) {

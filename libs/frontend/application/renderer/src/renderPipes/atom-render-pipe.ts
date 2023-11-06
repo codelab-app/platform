@@ -4,8 +4,8 @@ import type {
   IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
 import { getElementService } from '@codelab/frontend/abstract/application'
-import { type IElementModel, isAtom } from '@codelab/frontend/abstract/domain'
-import type { IAtomType, IPropData } from '@codelab/shared/abstract/core'
+import { isAtom } from '@codelab/frontend/abstract/domain'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { atomFactory } from '../atoms'
@@ -38,7 +38,7 @@ export class AtomRenderPipe
     const [ReactComponent, newProps] = atomFactory({
       atom: atomRenderType,
       node: element,
-      props: runtimeElement.props,
+      props: runtimeElement.runtimeProps.evaluatedProps,
     })
 
     if (!ReactComponent && !atomRenderType.externalSourceType) {
