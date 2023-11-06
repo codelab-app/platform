@@ -162,6 +162,7 @@ export abstract class AbstractRepository<
    *
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
+  // @ts-ignore
   async update(data: Model, where?: Where): Promise<ModelData> {
     return withActiveSpan(`${this.constructor.name}.update`, async (span) => {
       const dataAttributes = flattenWithPrefix(data, 'data')

@@ -12,6 +12,7 @@ import { v4 } from 'uuid'
 
 export class Store implements IStore {
   static create(name: string) {
+    // @ts-ignore
     const api = new InterfaceType({
       fields: [] as Array<IRef>,
       id: v4(),
@@ -35,6 +36,7 @@ export class Store implements IStore {
   name: string
 
   constructor({ actions = [], api, id, name }: IStoreDTO) {
+    // @ts-ignore
     this.api = api
     this.id = id
     this.actions = actions.map((action) => ActionFactory.create(action))

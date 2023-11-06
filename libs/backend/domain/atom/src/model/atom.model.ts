@@ -70,6 +70,7 @@ export class Atom implements IAtom {
     this.name = name
     this.icon = icon
     this.type = type
+    // @ts-ignore
     this.api = api
     this.tags = tags
     this.requiredParents = requiredParents

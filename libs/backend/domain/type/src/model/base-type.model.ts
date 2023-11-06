@@ -1,5 +1,6 @@
 import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 
+// @ts-ignore
 export abstract class BaseType implements IBaseTypeDTO {
   id: string
 

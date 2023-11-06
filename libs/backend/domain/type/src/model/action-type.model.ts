@@ -6,6 +6,7 @@ export class ActionType extends BaseType implements IActionTypeDTO {
   __typename: `${ITypeKind.ActionType}` = `${ITypeKind.ActionType}`
 
   constructor({ id }: IActionTypeDTO) {
+    // @ts-ignore
     super({ id, kind: ITypeKind.ActionType, name: ITypeKind.ActionType })
   }
 }

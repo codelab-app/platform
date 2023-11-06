@@ -11,6 +11,7 @@ export class PrimitiveType extends BaseType implements IPrimitiveTypeDTO {
   primitiveKind: IPrimitiveTypeKind
 
   constructor({ id, name, primitiveKind }: IPrimitiveTypeDTO) {
+    // @ts-ignore
     super({
       id,
       kind: ITypeKind.PrimitiveType,

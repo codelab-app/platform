@@ -8,6 +8,7 @@ export class ArrayType extends BaseType implements IArrayTypeDTO {
   itemType?: IRef
 
   constructor({ id, itemType, name }: IArrayTypeDTO) {
+    // @ts-ignore
     super({ id, kind: ITypeKind.ArrayType, name })
 
     this.itemType = itemType

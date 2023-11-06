@@ -14,6 +14,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
    * Make create data from atom name
    */
   static createFromAtomName(name: string) {
+    // @ts-ignore
     return new InterfaceType({
       fields: [],
       id: v4(),
@@ -34,6 +35,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
   declare fields: Array<IRef>
 
   constructor({ fields = [], id, name }: IInterfaceTypeDTO) {
+    // @ts-ignore
     super({ id, kind: ITypeKind.InterfaceType, name })
 
     this.fields = fields

@@ -6,6 +6,7 @@ export class ReactNodeType extends BaseType implements IReactNodeTypeDTO {
   declare __typename: `${ITypeKind.ReactNodeType}`
 
   constructor({ id }: IReactNodeTypeDTO) {
+    // @ts-ignore
     super({
       id,
       kind: ITypeKind.ReactNodeType,
