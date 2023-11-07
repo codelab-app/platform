@@ -21,7 +21,6 @@ import {
   IElementTreeViewDataNode,
   isAtom,
   isAtomRef,
-  isComponent,
   isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
@@ -638,7 +637,7 @@ export class Element
         Atom: isAtomRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
-        Component: isComponent(this.renderType)
+        Component: isComponentRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
