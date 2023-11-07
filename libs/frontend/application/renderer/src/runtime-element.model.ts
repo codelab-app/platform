@@ -131,10 +131,15 @@ export class RuntimeElement
     )
   }
 
+  @modelAction
+  clearChildren() {
+    this.sortedRuntimeChildren = []
+  }
+
   @computed
   get render(): Nullable<ReactElement> {
     // reset state from last render
-    this.sortedRuntimeChildren = []
+    this.clearChildren()
 
     if (this.shouldRender === false) {
       return null
