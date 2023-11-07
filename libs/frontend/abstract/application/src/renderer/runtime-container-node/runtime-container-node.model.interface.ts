@@ -19,6 +19,8 @@ import type { IRuntimeStoreModel } from '../runtime-store'
 export interface IRuntimeContainerNodeModel extends AnyModel {
   /**
    * If runtime component is created by child mapper this sets child index
+   * this could be different from the child render index if element has children
+   * other than ones created by child mapper
    */
   childMapperIndex: Maybe<number>
   /**

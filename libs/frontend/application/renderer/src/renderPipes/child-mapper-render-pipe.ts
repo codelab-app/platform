@@ -1,8 +1,9 @@
-import type {
-  IRenderOutput,
-  IRenderPipe,
-  IRuntimeContainerNodeModel,
-  IRuntimeElementModel,
+import {
+  type IRenderOutput,
+  type IRenderPipe,
+  type IRuntimeContainerNodeModel,
+  type IRuntimeElementModel,
+  isRuntimeElement,
 } from '@codelab/frontend/abstract/application'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './render-pipe.base'
@@ -15,7 +16,8 @@ export class ChildMapperRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const { childMapperComponent } = runtimeElement.element
+    const { element } = runtimeElement
+    const { childMapperComponent } = element
 
     if (!childMapperComponent) {
       return this.next.render(runtimeElement)
@@ -23,11 +25,19 @@ export class ChildMapperRenderPipe
 
     const props = runtimeElement.runtimeProps.evaluatedChildMapperProp || []
     const component = childMapperComponent.current
+    const previousSiblingId = element.childMapperPreviousSibling?.id
+
+    const childMapperRenderIndex =
+      runtimeElement.sortedRuntimeChildren.findIndex(
+        (child) =>
+          isRuntimeElement(child) && child.element.id === previousSiblingId,
+      ) + 1
 
     for (let index = 0; index < props.length; index++) {
       // since we are adding component no problem with casting
       const runtimeComponent = runtimeElement.addRuntimeChild(
         component,
+        childMapperRenderIndex + index,
       ) as IRuntimeContainerNodeModel
 
       runtimeComponent.setChildMapperIndex(index)

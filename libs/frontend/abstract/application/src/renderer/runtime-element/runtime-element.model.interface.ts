@@ -4,7 +4,7 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { type AnyModel, type ObjectMap, type Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type {
@@ -53,13 +53,6 @@ export interface IRuntimeElementModel extends AnyModel {
   renderChildren: ArrayOrSingle<ReactNode>
 
   /**
-   * Unlike children in IElementModel runtimeChildren
-   * may come from different source other then having direct child relation
-   * a good example for that is instance element children rendered inside component
-   */
-  runtimeChildren: ObjectMap<IRuntimeModel>
-
-  /**
    * Runtime version of IElementModel.prop
    * serves props transformations and evaluation
    */
@@ -74,7 +67,15 @@ export interface IRuntimeElementModel extends AnyModel {
    */
   shouldRender: boolean
 
+  /**
+   * Unlike children in IElementModel runtimeChildren
+   * may come from different source other then having direct child relation
+   * a good example for that is instance element children rendered inside component
+   */
+  sortedRuntimeChildren: Array<IRuntimeModel>
+
   addRuntimeChild(
     containerNode: IComponentModel | IElementModel | IPageModel,
+    index?: number,
   ): IRuntimeModel
 }

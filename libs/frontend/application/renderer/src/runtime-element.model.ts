@@ -31,15 +31,8 @@ import {
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials'
@@ -64,8 +57,8 @@ export class RuntimeElement
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
     parentRef: prop<IRuntimeModelRef>(),
-    runtimeChildren: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
     runtimeProps: prop<IRuntimePropModel>(),
+    sortedRuntimeChildren: prop<Array<IRuntimeModel>>(() => []),
   })
   implements IRuntimeElementModel
 {
@@ -141,7 +134,7 @@ export class RuntimeElement
   @computed
   get render(): Nullable<ReactElement> {
     // reset state from last render
-    this.runtimeChildren.clear()
+    this.sortedRuntimeChildren = []
 
     if (this.shouldRender === false) {
       return null
@@ -177,14 +170,12 @@ export class RuntimeElement
    * @returns RuntimeContainerNode
    */
   @modelAction
-  addRuntimeContainerNode(child: IComponentModel | IPageModel) {
+  createRuntimeContainerNode(child: IComponentModel | IPageModel) {
     const runtimeContainerNode = RuntimeContainerNodeFactory.create({
       containerNode: child,
       parent: this,
       runtimeProviderStore: isPage(child) ? this.runtimeStore : undefined,
     })
-
-    this.runtimeChildren.set(runtimeContainerNode.id, runtimeContainerNode)
 
     return runtimeContainerNode
   }
@@ -195,7 +186,7 @@ export class RuntimeElement
    * @returns RuntimeElement
    */
   @modelAction
-  addRuntimeElement(child: IElementModel) {
+  createRuntimeElement(child: IElementModel) {
     const runtimeChildElementId = v4()
 
     const runtimeProps = RuntimeElementProps.create({
@@ -210,22 +201,24 @@ export class RuntimeElement
       runtimeProps,
     })
 
-    this.runtimeChildren.set(child.id, runtimeChildElement)
-
     return runtimeChildElement
   }
 
   @modelAction
-  addRuntimeChild(child: IComponentModel | IElementModel | IPageModel) {
-    const existingRuntimeChild = this.runtimeChildren.get(child.id)
+  addRuntimeChild(
+    child: IComponentModel | IElementModel | IPageModel,
+    index?: number,
+  ) {
+    const childRuntimeModel =
+      isPage(child) || isComponent(child)
+        ? this.createRuntimeContainerNode(child)
+        : this.createRuntimeElement(child)
 
-    if (existingRuntimeChild) {
-      return existingRuntimeChild
-    }
+    const insertIndex = index ?? this.sortedRuntimeChildren.length
 
-    return isPage(child) || isComponent(child)
-      ? this.addRuntimeContainerNode(child)
-      : this.addRuntimeElement(child)
+    this.sortedRuntimeChildren.splice(insertIndex, 0, childRuntimeModel)
+
+    return childRuntimeModel
   }
 
   /**
@@ -233,36 +226,12 @@ export class RuntimeElement
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
-    /*     
-    const childMapperRenderIndex =
-      this.element.children.findIndex(
-        (child) => child.id === this.element.childMapperPreviousSibling?.id,
-    ) + 1
-
-    const elementChildren: Array<IRuntimeModel> = [
-      ...this.element.children,
-    ].map((child) => this.addRuntimeChild(child))
-
-    elementChildren.splice(
-      childMapperRenderIndex,
-      0,
-      ...this.childMapperRuntimeComponents,
-    )
-
-    const children = [
-      ...elementChildren,
-    ]
-
-    const renderedChildren = compact(children.map((child) => child.render))
-    const hasChildren = renderedChildren.length > 0 */
-    const runtimeChildren = [...this.runtimeChildren.values()]
-
     const renderedChildren = compact(
-      runtimeChildren.map((child) => child.render),
+      this.sortedRuntimeChildren.map((child) => child.render),
     )
 
-    const hasNoChildren = runtimeChildren.length === 0
-    const hasOneChild = runtimeChildren.length === 1
+    const hasNoChildren = this.sortedRuntimeChildren.length === 0
+    const hasOneChild = this.sortedRuntimeChildren.length === 1
 
     if (hasNoChildren) {
       // Inject text, but only if we have no regular children
