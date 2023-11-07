@@ -11,11 +11,11 @@ import type {
 import type {
   IElementTree,
   IExpressionTransformer,
-  IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import { elementTreeRef } from '@codelab/frontend/abstract/domain'
-import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { throwIfUndefined } from '@codelab/shared/utils'
+import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { ExpressionTransformer } from './expression-transformer.service'
@@ -59,7 +59,7 @@ export class Renderer
     /**
      * Will log the render output and render pipe info to the console
      */
-    debugMode: prop(false).withSetter(),
+    debugMode: prop(true).withSetter(),
     /**
      * The tree that's being rendered, we assume that this is properly constructed
      */
@@ -100,6 +100,34 @@ export class Renderer
 {
   static create = create
 
+  @computed
+  get providerPage() {
+    const providerTree = this.providerTree?.current
+    const providerTreeRootElement = providerTree?.rootElement.current
+
+    return providerTreeRootElement?.page?.current
+  }
+
+  @computed
+  get page() {
+    return this.elementTree.current.rootElement.current.page?.current
+  }
+
+  @computed
+  get component() {
+    return this.elementTree.current.rootElement.current.parentComponent?.current
+  }
+
+  @computed
+  get containerNode() {
+    return throwIfUndefined(this.component ?? this.page)
+  }
+
+  @computed
+  get rootElement() {
+    return this.elementTree.current.rootElement.current
+  }
+
   /**
    * This is the entry point to start the rendering process
    */
@@ -109,17 +137,8 @@ export class Renderer
       return this.runtimeRootContainerNode.render
     }
 
-    const root = this.elementTree.maybeCurrent?.rootElement.current
-    const parentComponent = root?.parentComponent?.current
-    const currentPage = root?.page?.current
-
-    if (!root) {
-      console.error('Renderer: No root element found')
-
-      return null
-    }
-
-    const containerNode = parentComponent ?? this.getPage(currentPage)
+    // we render providerPage before page if exists
+    const containerNode = this.component ?? this.providerPage ?? this.page
 
     if (!containerNode) {
       console.error('Renderer: No page or component found')
@@ -132,23 +151,6 @@ export class Renderer
     })
 
     return this.runtimeRootContainerNode.render
-  }
-
-  getPage(page?: IPageModel) {
-    if (page?.kind !== IPageKind.Regular) {
-      return page
-    }
-
-    const providerRoot = this.providerTree?.current.rootElement.current
-    const providerPage = providerRoot?.page?.current
-
-    if (!providerPage) {
-      console.error('Renderer: Provider page not found')
-
-      return null
-    }
-
-    return providerPage
   }
 
   logRendered = (rendered: IRenderOutput) => {

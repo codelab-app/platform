@@ -232,7 +232,6 @@ export class Element
       this.closestSubTreeRootElement.page?.current
 
     if (!closestContainerNode) {
-      console.log(this.toTreeNode, this.closestSubTreeRootElement.toTreeNode)
       throw new Error('Element has no node attached to')
     }
 

@@ -28,7 +28,6 @@ import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import { IPageKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
@@ -122,7 +121,28 @@ export class RuntimeElement
   }
 
   @computed
+  get isPageContentContainer() {
+    const providerPage = this.renderer.providerPage
+    const containerElement = providerPage?.pageContentContainer?.current
+
+    return this.element.id === containerElement?.id
+  }
+
+  @computed
+  get isComponentInstanceChildrenContainer() {
+    const { containerNode } = this.closestRuntimeContainerNode
+
+    return (
+      !isPage(containerNode) &&
+      this.element.id === containerNode.childrenContainerElement.id
+    )
+  }
+
+  @computed
   get render(): Nullable<ReactElement> {
+    // reset state from last render
+    this.runtimeChildren.clear()
+
     if (this.shouldRender === false) {
       return null
     }
@@ -149,66 +169,6 @@ export class RuntimeElement
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
-  }
-
-  @computed
-  get childMapperRuntimeComponents(): Array<IRuntimeModel> {
-    const { childMapperComponent } = this.element
-
-    if (!childMapperComponent) {
-      return []
-    }
-
-    const { evaluatedChildMapperProp } = this.runtimeProps
-
-    return (evaluatedChildMapperProp ?? []).map((propValue, i) => {
-      const runtimeChildMapperComponent = this.addRuntimeChild(
-        childMapperComponent.current,
-      )
-
-      // TODO: set props here
-
-      return runtimeChildMapperComponent
-    })
-  }
-
-  @computed
-  get componentInstanceChildren(): Array<IRuntimeModel> {
-    const parentComponent = this.element.parentComponent?.current
-
-    const isContainer =
-      this.element.id === parentComponent?.childrenContainerElement.id
-
-    if (!isContainer || !parentComponent.instanceElement?.current) {
-      return []
-    }
-
-    return parentComponent.instanceElement.current.children.map((child) =>
-      this.addRuntimeChild(child),
-    )
-  }
-
-  @computed
-  get childPageRuntimeContainerNode(): Array<IRuntimeModel> {
-    const providerTreeRoot =
-      this.renderer.providerTree?.current.rootElement.current
-
-    const providerPage = providerTreeRoot?.page?.current
-    const pageContentContainer = providerPage?.pageContentContainer?.current
-    const pageRoot = this.renderer.elementTree.current.rootElement.current
-    const pageKind = pageRoot.page?.current.kind
-
-    // 1. check if this is the element in _app page where child page needs to be rendered
-    // 2. do not self-wrap _app page, and do not wrap 404 and 500
-    if (
-      pageRoot.page?.current &&
-      pageContentContainer?.id === this.element.id &&
-      pageKind === IPageKind.Regular
-    ) {
-      return [this.addRuntimeChild(pageRoot.page.current)]
-    }
-
-    return []
   }
 
   /**
@@ -273,10 +233,11 @@ export class RuntimeElement
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
+    /*     
     const childMapperRenderIndex =
       this.element.children.findIndex(
         (child) => child.id === this.element.childMapperPreviousSibling?.id,
-      ) + 1
+    ) + 1
 
     const elementChildren: Array<IRuntimeModel> = [
       ...this.element.children,
@@ -290,14 +251,20 @@ export class RuntimeElement
 
     const children = [
       ...elementChildren,
-      ...this.componentInstanceChildren,
-      ...this.childPageRuntimeContainerNode,
     ]
 
     const renderedChildren = compact(children.map((child) => child.render))
-    const hasChildren = renderedChildren.length > 0
+    const hasChildren = renderedChildren.length > 0 */
+    const runtimeChildren = [...this.runtimeChildren.values()]
 
-    if (!hasChildren) {
+    const renderedChildren = compact(
+      runtimeChildren.map((child) => child.render),
+    )
+
+    const hasNoChildren = runtimeChildren.length === 0
+    const hasOneChild = runtimeChildren.length === 1
+
+    if (hasNoChildren) {
       // Inject text, but only if we have no regular children
       const injectedText =
         this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
@@ -326,7 +293,7 @@ export class RuntimeElement
      * If we have only one child, just return it.
      * Ant Design doesn't handle array children well in some cases, like Forms
      */
-    if (Array.isArray(children) && children.length === 1) {
+    if (hasOneChild) {
       return renderedChildren[0]
     }
 

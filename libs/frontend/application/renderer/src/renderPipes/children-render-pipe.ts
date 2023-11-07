@@ -7,8 +7,8 @@ import { isComponent } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './render-pipe.base'
 
-@model('@codelab/ComponentRenderPipe')
-export class ComponentRenderPipe
+@model('@codelab/ChildrenRenderPipe')
+export class ChildrenRenderPipe
   extends ExtendedModel(BaseRenderPipe, {
     next: prop<IRenderPipe>(),
   })
@@ -17,18 +17,21 @@ export class ComponentRenderPipe
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
     const { element } = runtimeElement
 
-    if (!isComponent(element.renderType.current)) {
+    /**
+     * Component instance children handled by @ComponentInstanceChildrenRenderPipe
+     */
+    if (isComponent(element.renderType.current)) {
       return this.next.render(runtimeElement)
     }
 
-    const component = element.renderType.current
-
-    runtimeElement.addRuntimeChild(component)
+    for (const child of element.children) {
+      runtimeElement.addRuntimeChild(child)
+    }
 
     if (this.renderer.debugMode) {
       console.info(
-        `ComponentRenderPipe: rendering component for element:${element.slug}`,
-        { element: element.name },
+        `ChildrenRenderPipe: Creating runtime children for element: ${element.slug}`,
+        element.children.map((child) => child.slug),
       )
     }
 

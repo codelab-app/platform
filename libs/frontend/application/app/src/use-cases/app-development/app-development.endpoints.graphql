@@ -27,4 +27,7 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   resources {
     ...Resource
   }
+  components {
+    ...ComponentDevelopment
+  }
 }

@@ -22,7 +22,6 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    */
   containerNode: IComponentModel | IPageModel
   id: string
-
   /**
    * Exposed for external use by other models and to preserve structure
    */
@@ -34,4 +33,9 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
   runtimeProps?: IRuntimePropModel
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
+
+  /**
+   * If runtime component is created by child mapper this sets child index
+   */
+  setChildMapperIndex(index: number): void
 }

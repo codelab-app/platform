@@ -166,8 +166,6 @@ export class ElementService
       ...subRootElement.descendantElements,
     ]
 
-    subRootElement.detachFromTree()
-
     /**
      * Set the new node before we delete
      */
@@ -175,6 +173,8 @@ export class ElementService
       subRootElement.prevSibling?.current ??
       subRootElement.closestParentElement?.current ??
       subRootElement.closestSubTreeRootElement
+
+    subRootElement.detachFromTree()
 
     this.builderService.setSelectedNode(elementRef(selectedNode))
 

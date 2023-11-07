@@ -1,8 +1,11 @@
 import type {
+  IComponentModel,
+  IElementModel,
   IElementTree,
   IExpressionTransformer,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
@@ -18,13 +21,16 @@ export const enum RendererType {
 }
 
 export interface IRendererModel {
+  containerNode: IComponentModel | IPageModel
   debugMode: boolean
   elementTree: Ref<IElementTree>
   expressionTransformer: IExpressionTransformer
   id: string
+  providerPage: Maybe<IPageModel>
   providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
+  rootElement: IElementModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 

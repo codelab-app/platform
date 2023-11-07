@@ -1,6 +1,10 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IComponentModel,
+  IElementModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
+import { type AnyModel, type ObjectMap, type Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type {
@@ -28,6 +32,15 @@ export interface IRuntimeElementModel extends AnyModel {
   elementRef: Ref<IElementModel>
 
   id: string
+
+  /**
+   * True when element is assigned as childrenContainerElement in component
+   */
+  isComponentInstanceChildrenContainer: boolean
+  /**
+   * True when element is assigned as pageContentContainer in _app page
+   */
+  isPageContentContainer: boolean
 
   /**
    * Direct parent of the element possible values runtime model for parentElement/page/component
@@ -60,4 +73,8 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
+
+  addRuntimeChild(
+    containerNode: IComponentModel | IElementModel | IPageModel,
+  ): IRuntimeModel
 }

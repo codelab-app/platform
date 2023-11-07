@@ -37,6 +37,7 @@ const create = ({
 @model('@codelab/RuntimeContainerNode')
 export class RuntimeContainerNodeModel
   extends Model({
+    childMapperIndex: prop<Maybe<number>>().withSetter(),
     containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
     parentRef: prop<Maybe<IRuntimeModelRef>>(),
