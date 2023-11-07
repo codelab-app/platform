@@ -59,7 +59,7 @@ export class Renderer
     /**
      * Will log the render output and render pipe info to the console
      */
-    debugMode: prop(true).withSetter(),
+    debugMode: prop(false).withSetter(),
     /**
      * The tree that's being rendered, we assume that this is properly constructed
      */
