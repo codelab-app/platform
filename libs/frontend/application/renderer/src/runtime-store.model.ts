@@ -26,10 +26,17 @@ import {
   prop,
 } from 'mobx-keystone'
 
-const create = ({ runtimeProviderStoreRef, storeRef }: IRuntimeStoreDTO) => {
+const create = ({
+  id,
+  runtimeActions,
+  runtimeProviderStoreRef,
+  storeRef,
+}: IRuntimeStoreDTO) => {
   return new RuntimeStoreModel({
-    // actions are added after creation
-    runtimeActions: objectMap([]),
+    id,
+    runtimeActions: objectMap(
+      runtimeActions.map((action) => [action.id, action]),
+    ),
     runtimeProviderStoreRef,
     storeRef,
   })

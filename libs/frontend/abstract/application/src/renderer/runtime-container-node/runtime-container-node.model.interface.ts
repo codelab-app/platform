@@ -1,26 +1,37 @@
 import type {
   IComponentModel,
-  IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { AnyModel } from 'mobx-keystone'
+import type { ReactElement } from 'react'
 import type {
   IRuntimeModel,
   IRuntimeModelRef,
 } from '../runtime.model.interface'
-import type { IRuntimeElementModel, IRuntimeProp } from '../runtime-element'
+import type { IRuntimeElementModel } from '../runtime-element'
+import type { IRuntimePropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
-export interface IRuntimeContainerNodeModel extends AnyModel, IRuntimeProp {
+/**
+ * Represents runtime model for IPageModel or IComponentModel
+ */
+export interface IRuntimeContainerNodeModel extends AnyModel {
+  /**
+   * Exposed for external use by other models and to preserve structure
+   */
   containerNode: IComponentModel | IPageModel
-  containerNodeRef: Ref<IComponentModel> | Ref<IPageModel>
   id: string
 
+  /**
+   * Exposed for external use by other models and to preserve structure
+   */
   parent?: IRuntimeModel
   parentRef?: IRuntimeModelRef
 
-  runtimeElements: ObjectMap<IRuntimeElementModel>
+  render: Nullable<ReactElement>
+  // runtimeProps is available when containerNode is component
+  runtimeProps?: IRuntimePropModel
+  runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
-
-  addRuntimeElement(element: IElementModel): IRuntimeElementModel
 }

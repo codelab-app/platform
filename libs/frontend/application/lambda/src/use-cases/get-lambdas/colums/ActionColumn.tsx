@@ -10,8 +10,8 @@ export const ActionColumn = ({ lambda }: ActionColumnProps) => {
   return (
     <Space size="middle">
       <ExecuteLambdaButton {...lambda} />
-      <UpdateLambdaButton {...lambda} />
-      <DeleteLambdaButton {...lambda} />
+      <UpdateLambdaButton />
+      <DeleteLambdaButton />
     </Space>
   )
 }

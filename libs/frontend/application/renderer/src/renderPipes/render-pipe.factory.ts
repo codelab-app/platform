@@ -1,7 +1,6 @@
 import type { IRenderPipe } from '@codelab/frontend/abstract/application'
 import { AtomRenderPipe } from './atom-render-pipe'
 import { ComponentRenderPipe } from './component-render-pipe'
-import { ConditionalRenderPipe } from './conditional-render-pipe'
 import { NullRenderPipe } from './null-render-pipe'
 import type { PassThroughRenderPipe } from './pass-through-render-pipe'
 import { PreRenderPipe } from './pre-render-pipe'
@@ -9,13 +8,11 @@ import { PreRenderPipe } from './pre-render-pipe'
 export type RenderPipeClass =
   | typeof AtomRenderPipe
   | typeof ComponentRenderPipe
-  | typeof ConditionalRenderPipe
   | typeof PassThroughRenderPipe
   | typeof PreRenderPipe
 
 // define pipes in order of execution, we reverse it so that it matches the order of calling next
 export const defaultPipes: Array<RenderPipeClass> = [
-  ConditionalRenderPipe,
   PreRenderPipe,
   ComponentRenderPipe,
   AtomRenderPipe,

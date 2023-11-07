@@ -1,5 +1,4 @@
 import type {
-  ElementWrapperProps,
   IRendererDto,
   IRendererModel,
   IRenderOutput,
@@ -9,51 +8,19 @@ import type {
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import {
-  IRuntimeModel,
-  isRuntimeContainerNode,
-  runtimeModelRef,
-  runtimeStoreRef,
-} from '@codelab/frontend/abstract/application'
 import type {
-  IComponentModel,
-  IElementModel,
   IElementTree,
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  actionRef,
-  componentRef,
-  elementTreeRef,
-  isPage,
-  pageRef,
-  storeRef,
-} from '@codelab/frontend/abstract/domain'
-import {
-  evaluateExpression,
-  hasStateExpression,
-} from '@codelab/frontend/application/shared/core'
+import { elementTreeRef } from '@codelab/frontend/abstract/domain'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import isObject from 'lodash/isObject'
 import type { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
-import type { ReactElement } from 'react'
-import React from 'react'
-import { ElementWrapper } from './element/element-wrapper'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
-import { RuntimeActionModel } from './runtime-action.model'
-import { RuntimeContainerNodeModel } from './runtime-container-node.model'
-import { RuntimeStoreModel } from './runtime-store.model'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -109,17 +76,18 @@ export class Renderer
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
+
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
+
     /**
-     * Props record for all components during all transformations stages
+     * We register runtimeRootContainerNode when it is created first time
+     * it is used internally to avoid creating runtime elements each time
+     * provides a way to attach runtime tree to the root store
      */
-    runtimeContainerNodes: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
-      objectMap([]),
-    ),
-    // runtimeStores: prop<ObjectMap<IRuntimeStore>>(() => objectMap([])),
+    runtimeRootContainerNode: prop<Nullable<IRuntimeContainerNodeModel>>(null),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -132,141 +100,61 @@ export class Renderer
 {
   static create = create
 
+  /**
+   * This is the entry point to start the rendering process
+   */
   @modelAction
-  addRuntimeContainerNode(
-    containerNode: IComponentModel | IPageModel,
-    parent?: IRuntimeModel,
-  ) {
-    const existingRuntimeContainerNode = this.runtimeContainerNodes.get(
-      containerNode.id,
-    )
-
-    if (existingRuntimeContainerNode) {
-      return existingRuntimeContainerNode
+  render() {
+    if (this.runtimeRootContainerNode) {
+      return this.runtimeRootContainerNode.render
     }
 
-    const actions = containerNode.store.current.actions
+    const root = this.elementTree.maybeCurrent?.rootElement.current
+    const parentComponent = root?.parentComponent?.current
+    const currentPage = root?.page?.current
 
-    const isParentContainerNodeProviderPage =
-      parent &&
-      isRuntimeContainerNode(parent) &&
-      isPage(parent.containerNode) &&
-      parent.containerNode.kind === IPageKind.Provider
+    if (!root) {
+      console.error('Renderer: No root element found')
 
-    const runtimeStore = RuntimeStoreModel.create({
-      runtimeProviderStoreRef: isParentContainerNodeProviderPage
-        ? runtimeStoreRef(parent.runtimeStore.id)
-        : undefined,
-      storeRef: storeRef(containerNode.store.current),
+      return null
+    }
+
+    const containerNode = parentComponent ?? this.getPage(currentPage)
+
+    if (!containerNode) {
+      console.error('Renderer: No page or component found')
+
+      return null
+    }
+
+    this.runtimeRootContainerNode = RuntimeContainerNodeFactory.create({
+      containerNode,
     })
 
-    const runtimeActions = actions.map((action) =>
-      RuntimeActionModel.create({
-        actionRef: actionRef(action.id),
-        runtimeStoreRef: runtimeStoreRef(runtimeStore.id),
-      }),
-    )
-
-    runtimeActions.forEach((runtimeAction) => {
-      runtimeStore.runtimeActions.set(runtimeAction.id, runtimeAction)
-    })
-
-    const runtimeContainerNode = RuntimeContainerNodeModel.create({
-      containerNodeRef: isPage(containerNode)
-        ? pageRef(containerNode.id)
-        : componentRef(containerNode.id),
-      parentRef: parent ? runtimeModelRef(parent) : undefined,
-      runtimeStore,
-    })
-
-    this.runtimeContainerNodes.set(
-      runtimeContainerNode.id,
-      runtimeContainerNode,
-    )
-
-    return runtimeContainerNode
+    return this.runtimeRootContainerNode.render
   }
 
-  getChildMapperChildren(element: IElementModel) {
-    const { childMapperComponent } = element
-
-    if (!childMapperComponent) {
-      return []
+  getPage(page?: IPageModel) {
+    if (page?.kind !== IPageKind.Regular) {
+      return page
     }
 
-    return []
-    // TODO: Renderer
-    // return (
-    //   this.runtimeElements
-    //     .get(element.id)
-    //     ?.evaluatedChildMapperProp.map((propValue, i) => {
-    //       const clonedComponent = childMapperComponent.current.clone(
-    //         `${element.id}-${i}`,
-    //       )
+    const providerRoot = this.providerTree?.current.rootElement.current
+    const providerPage = providerRoot?.page?.current
 
-    //       const rootElement = clonedComponent.rootElement.current
+    if (!providerPage) {
+      console.error('Renderer: Provider page not found')
 
-    //       clonedComponent.props.setMany(
-    //         isObject(propValue) ? propValue : { value: propValue },
-    //       )
-
-    //       if (!this.runtimeComponents.get(clonedComponent.id)) {
-    //         this.addRuntimeComponent(clonedComponent)
-    //       }
-
-    //       return rootElement
-    //     }) ?? []
-    // )
-  }
-
-  getChildPageChildren(element: IElementModel) {
-    const providerTreeRoot = this.providerTree?.current.rootElement.current
-    const providerPage = providerTreeRoot?.page?.current
-    const pageContentContainer = providerPage?.pageContentContainer?.current
-    const pageRoot = this.elementTree.current.rootElement.current
-    const pageKind = pageRoot.page?.current.kind
-
-    // 1. check if this is the element in _app page where child page needs to be rendered
-    // 2. do not self-wrap _app page, and do not wrap 404 and 500
-    if (
-      pageContentContainer?.id === element.id &&
-      pageKind === IPageKind.Regular
-    ) {
-      return [this.elementTree.current.rootElement.current]
+      return null
     }
 
-    return []
-  }
-
-  getComponentInstanceChildren(element: IElementModel) {
-    const parentComponent = element.parentComponent?.current
-
-    const isContainer =
-      element.id === parentComponent?.childrenContainerElement.id
-
-    if (!isContainer || !parentComponent.instanceElement?.current) {
-      return []
-    }
-
-    return parentComponent.instanceElement.current.children
+    return providerPage
   }
 
   logRendered = (rendered: IRenderOutput) => {
     if (this.debugMode) {
       console.dir({ element: rendered.runtimeElement, rendered })
     }
-  }
-
-  /**
-   * Renders a single element (without its children) to an intermediate RenderOutput
-   */
-  renderIntermediateElement = (
-    element: IElementModel,
-    runtimeContainerNode: IRuntimeContainerNodeModel,
-  ): IRenderOutput => {
-    const runtimeElement = runtimeContainerNode.addRuntimeElement(element)
-
-    return this.renderPipe.render(runtimeElement)
   }
 
   runPostRenderAction = (runtimeElement: IRuntimeElementModel) => {
@@ -293,59 +181,5 @@ export class Renderer
 
       runtimeAction?.runner(element)
     }
-  }
-
-  /**
-   * Renders a single Element using the provided RenderAdapter
-   */
-  renderElement = (
-    element: IElementModel,
-    runtimeContainerNode: IRuntimeContainerNodeModel,
-  ): Nullable<ReactElement> => {
-    // Render the element to an intermediate output
-    const renderOutput = this.renderIntermediateElement(
-      element,
-      runtimeContainerNode,
-    )
-
-    if (renderOutput.shouldRender === false) {
-      return null
-    }
-
-    const wrapperProps: ElementWrapperProps = {
-      element,
-      errorBoundary: {
-        onError: ({ message, stack }) => {
-          element.setRenderingError({ message, stack })
-        },
-        onResetKeysChange: () => {
-          element.setRenderingError(null)
-        },
-      },
-      key: element.id,
-      onRendered: () => {
-        this.runPostRenderAction(renderOutput.runtimeElement)
-      },
-      renderer: this,
-      renderOutput,
-    }
-
-    return React.createElement(ElementWrapper, wrapperProps)
-  }
-
-  shouldRenderElement(runtimeElement: IRuntimeElementModel) {
-    const { element } = runtimeElement
-
-    if (
-      !element.renderIfExpression ||
-      !hasStateExpression(element.renderIfExpression)
-    ) {
-      return true
-    }
-
-    return evaluateExpression(
-      element.renderIfExpression,
-      runtimeElement.expressionEvaluationContext,
-    )
   }
 }

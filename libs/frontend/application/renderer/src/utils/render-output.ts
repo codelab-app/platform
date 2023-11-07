@@ -8,9 +8,6 @@ export const RenderOutput = {
   empty: (
     input: Pick<IRenderOutput, 'props' | 'runtimeElement'>,
   ): IRenderOutput => input,
-  notRenderable: (
-    input: Pick<IRenderOutput, 'props' | 'runtimeElement'>,
-  ): IRenderOutput => ({ ...input, shouldRender: false }),
   overrideProps: (input: IRenderOutput, props: Nullish<IPropData>) => {
     return { ...input, props: mergeProps(input.props, props) }
   },

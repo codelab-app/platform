@@ -23,7 +23,6 @@ export interface IPropModel
   get(key: string): unknown
   set(key: string, value: boolean | object | string): void
   setMany(data: IPropData): void
-  setSilently(key: string, value: object): void
 }
 
 export interface IPropDataByElementId {

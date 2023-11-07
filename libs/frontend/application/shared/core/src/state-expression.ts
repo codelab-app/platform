@@ -23,8 +23,6 @@ export const evaluateObject = (
   props: IPropData,
   context: IEvaluationContext,
 ) => {
-  console.log('evaluateObject', props, context)
-
   return mapDeep(
     props,
     // value mapper
@@ -69,8 +67,6 @@ const getByExpression = (
   expressionValue: string,
   context: IEvaluationContext,
 ) => {
-  console.log('getByExpression', expressionValue)
-
   if (!hasStateExpression(expressionValue)) {
     return expressionValue
   }
@@ -95,8 +91,6 @@ export const evaluateExpression = (
   expression: string,
   context: IEvaluationContext,
 ) => {
-  console.debug('evaluateExpression', expression, context)
-
   try {
     const code = `return ${stripStateExpression(expression)}`
 

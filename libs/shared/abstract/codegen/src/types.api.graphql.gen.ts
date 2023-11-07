@@ -20805,7 +20805,7 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
-  primitiveTypes: Array<PrimitiveTypeFragment & PrimitiveTypeFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
