@@ -20809,6 +20809,7 @@ export type GetAppDevelopmentQuery = {
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  components: Array<ComponentDevelopmentFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{

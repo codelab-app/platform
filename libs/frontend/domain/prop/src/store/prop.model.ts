@@ -35,7 +35,7 @@ import {
 import { mergeDeepRight } from 'ramda'
 import { mergeProps, propSafeStringify } from '../index'
 
-const create = ({ api, data = '"{}"', id }: IPropDTO) => {
+const create = ({ api, data = '{}', id }: IPropDTO) => {
   return new Prop({
     api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
     data: frozen(JSON.parse(data)),

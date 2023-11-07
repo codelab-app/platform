@@ -1,6 +1,10 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IComponentModel,
+  IElementModel,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type {
@@ -30,6 +34,15 @@ export interface IRuntimeElementModel extends AnyModel {
   id: string
 
   /**
+   * True when element is assigned as childrenContainerElement in component
+   */
+  isComponentInstanceChildrenContainer: boolean
+  /**
+   * True when element is assigned as pageContentContainer in _app page
+   */
+  isPageContentContainer: boolean
+
+  /**
    * Direct parent of the element possible values runtime model for parentElement/page/component
    * We need it to traves the tree and access closestRuntimeContainerNode
    */
@@ -38,13 +51,6 @@ export interface IRuntimeElementModel extends AnyModel {
 
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>
-
-  /**
-   * Unlike children in IElementModel runtimeChildren
-   * may come from different source other then having direct child relation
-   * a good example for that is instance element children rendered inside component
-   */
-  runtimeChildren: ObjectMap<IRuntimeModel>
 
   /**
    * Runtime version of IElementModel.prop
@@ -60,4 +66,16 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
+
+  /**
+   * Unlike children in IElementModel runtimeChildren
+   * may come from different source other then having direct child relation
+   * a good example for that is instance element children rendered inside component
+   */
+  sortedRuntimeChildren: Array<IRuntimeModel>
+
+  addRuntimeChild(
+    containerNode: IComponentModel | IElementModel | IPageModel,
+    index?: number,
+  ): IRuntimeModel
 }

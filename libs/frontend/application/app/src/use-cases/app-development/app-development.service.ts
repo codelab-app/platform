@@ -14,7 +14,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { getStoreDomainService } from '@codelab/frontend/domain/store'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
-import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'
@@ -57,8 +56,9 @@ export class AppDevelopmentService
     }
 
     const pages = app.pages
+    const components = data.components
 
-    const elements = pages.flatMap((page) =>
+    const pagesElements = pages.flatMap((page) =>
       [page.rootElement, ...page.rootElement.descendantElements].map(
         (element) => ({
           ...element,
@@ -68,8 +68,23 @@ export class AppDevelopmentService
       ),
     )
 
+    const componentsElements = components.flatMap((component) =>
+      [component.rootElement, ...component.rootElement.descendantElements].map(
+        (element) => ({
+          ...element,
+          closestContainerNode: { id: component.id },
+          component: { id: component.id },
+        }),
+      ),
+    )
+
+    const elements = [...pagesElements, ...componentsElements]
     const props = elements.flatMap((element) => element.props)
-    const stores = pages.flatMap((page) => page.store)
+
+    const stores = [...pages, ...components].map(
+      (containerNode) => containerNode.store,
+    )
+
     const actions = stores.flatMap((store) => store.actions)
 
     const atoms = uniqBy(
@@ -88,7 +103,11 @@ export class AppDevelopmentService
       (atom) => atom.id,
     )
 
-    const types = [...atoms.flatMap((type) => type.api)]
+    const types = [
+      ...atoms.flatMap((type) => type.api),
+      ...stores.map((store) => store.api),
+      ...components.map((component) => component.api),
+    ]
 
     const systemTypes = [
       ...data.primitiveTypes,
@@ -102,7 +121,7 @@ export class AppDevelopmentService
       actions,
       app,
       atoms,
-      components: [],
+      components,
       elements,
       fields,
       pages,
@@ -120,12 +139,12 @@ export class AppDevelopmentService
 
     data.fields.forEach((field) => this.fieldDomainService.hydrate(field))
 
-    data.components.forEach((component) =>
-      this.componentDomainService.hydrate(component),
-    )
-
     data.elements.forEach((element) =>
       this.elementDomainService.hydrate(element),
+    )
+
+    data.components.forEach((component) =>
+      this.componentDomainService.hydrate(component),
     )
 
     data.pages.forEach((page) => this.pageDomainService.hydrate(page))

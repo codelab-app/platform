@@ -69,7 +69,11 @@ export class RuntimeComponentProps
 
   @computed
   get componentEvaluatedProps() {
-    return mergeProps(this.evaluatedProps, this.instanceElementProps)
+    return mergeProps(
+      this.evaluatedProps,
+      this.instanceElementProps,
+      this.childMapperProps,
+    )
   }
 
   /**
@@ -134,6 +138,24 @@ export class RuntimeComponentProps
       isRuntimeElementRef(parentRuntimeContainerNodeRef)
       ? parentRuntimeContainerNodeRef.current.runtimeProps.evaluatedProps
       : undefined
+  }
+
+  @computed
+  get childMapperProps(): Maybe<IPropData> {
+    const parentRuntimeContainerNodeRef = this.runtimeContainerNode.parentRef
+
+    const parentIsRuntimeElement =
+      parentRuntimeContainerNodeRef &&
+      isRuntimeElementRef(parentRuntimeContainerNodeRef)
+
+    const runtimeParentElementProps = parentIsRuntimeElement
+      ? parentRuntimeContainerNodeRef.current.runtimeProps
+      : undefined
+
+    const props = runtimeParentElementProps?.evaluatedChildMapperProp || []
+    const index = this.runtimeContainerNode.childMapperIndex
+
+    return index ? props[index] : undefined
   }
 
   @computed

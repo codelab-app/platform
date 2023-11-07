@@ -21,7 +21,6 @@ import {
   IElementTreeViewDataNode,
   isAtom,
   isAtomRef,
-  isComponent,
   isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
@@ -233,7 +232,6 @@ export class Element
       this.closestSubTreeRootElement.page?.current
 
     if (!closestContainerNode) {
-      console.log(this.toTreeNode, this.closestSubTreeRootElement.toTreeNode)
       throw new Error('Element has no node attached to')
     }
 
@@ -638,7 +636,7 @@ export class Element
         Atom: isAtomRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
-        Component: isComponent(this.renderType)
+        Component: isComponentRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
