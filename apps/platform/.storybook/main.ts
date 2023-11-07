@@ -23,7 +23,10 @@ const config: StorybookConfig = {
       },
     },
   },
-  stories: ['../components/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: [
+    '../components/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    '../../../libs/frontend/application/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+  ],
 }
 
 export default config
