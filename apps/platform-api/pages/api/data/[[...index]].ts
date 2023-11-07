@@ -39,6 +39,7 @@ export const config = {
      */
     externalResolver: true,
   },
+  maxDuration: 60,
 }
 
 export default handler
