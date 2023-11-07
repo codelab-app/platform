@@ -198,7 +198,7 @@ export class CloneElementService
     ]
 
     const updatedElementProps = elementProps.map((props) => {
-      const updatedPropsData = mapDeep(props.data, (value) => {
+      const updatedPropsData = mapDeep(props.data.data ?? {}, (value) => {
         if (
           value.kind === ITypeKind.ActionType &&
           oldToNewActionIdMap.has(value.value)
@@ -209,7 +209,7 @@ export class CloneElementService
         return value
       })
 
-      return props.writeCache(updatedPropsData)
+      return props.writeCache({ data: JSON.stringify(updatedPropsData) })
     })
 
     await Promise.all(
