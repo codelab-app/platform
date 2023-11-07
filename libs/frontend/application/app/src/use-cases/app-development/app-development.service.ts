@@ -14,7 +14,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { getStoreDomainService } from '@codelab/frontend/domain/store'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
-import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'
@@ -88,7 +87,10 @@ export class AppDevelopmentService
       (atom) => atom.id,
     )
 
-    const types = [...atoms.flatMap((type) => type.api)]
+    const types = [
+      ...atoms.flatMap((type) => type.api),
+      ...stores.map((store) => store.api),
+    ]
 
     const systemTypes = [
       ...data.primitiveTypes,

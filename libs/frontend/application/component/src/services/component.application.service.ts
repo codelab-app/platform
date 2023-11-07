@@ -112,34 +112,27 @@ export class ComponentApplicationService
      * connectOrCreate can't handle sub-models like props for element
      * the only choice left is to create rootElement here if it is not provided
      * */
-    const rootElementExists =
-      rootElement &&
-      this.elementService.elementDomainService.elements.has(rootElement.id)
+    const rootElementModel: IElementModel = rootElement
+      ? this.elementService.elementDomainService.element(rootElement.id)
+      : this.elementService.elementDomainService.hydrate({
+          closestContainerNode: {
+            id,
+          },
+          id: v4(),
+          name: `${name} Root`,
+          parentComponent: { id },
+          props: {
+            data: '{}',
+            id: v4(),
+          },
+          renderType: {
+            __typename: IElementRenderTypeKind.Atom,
+            id: fragmentAtom.id,
+          },
+        })
 
-    let rootElementModel: IElementModel | null = rootElementExists
-      ? this.elementService.element(rootElement.id)
-      : null
-
-    const elementData = {
-      closestContainerNode: {
-        id,
-      },
-      id: v4(),
-      name: `${name} Root`,
-      parentComponent: { id },
-      props: {
-        data: '{}',
-        id: v4(),
-      },
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: fragmentAtom.id,
-      },
-    }
-
-    if (!rootElementModel) {
-      rootElementModel =
-        this.elementService.elementDomainService.hydrate(elementData)
+    if (!rootElement) {
+      yield* _await(this.elementService.elementRepository.add(rootElementModel))
     }
 
     const component = this.componentDomainService.hydrate({
@@ -152,8 +145,6 @@ export class ComponentApplicationService
       rootElement: rootElementModel,
       store,
     })
-
-    yield* _await(this.elementService.createElement(elementData))
 
     yield* _await(this.componentRepository.add(component))
 
