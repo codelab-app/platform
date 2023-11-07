@@ -2,7 +2,7 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type {
@@ -17,6 +17,10 @@ import type { IRuntimeStoreModel } from '../runtime-store'
  * Represents runtime model for IPageModel or IComponentModel
  */
 export interface IRuntimeContainerNodeModel extends AnyModel {
+  /**
+   * If runtime component is created by child mapper this sets child index
+   */
+  childMapperIndex: Maybe<number>
   /**
    * Exposed for external use by other models and to preserve structure
    */
@@ -34,8 +38,5 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
 
-  /**
-   * If runtime component is created by child mapper this sets child index
-   */
   setChildMapperIndex(index: number): void
 }
