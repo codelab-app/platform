@@ -25,8 +25,43 @@ resource "vercel_project" "platform_api" {
     # Auth0
     {
       target = ["production", "preview"]
+      key    = "AUTH0_M2M_CLIENT_ID"
+      value  = var.auth0_m2m_client_id
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_M2M_CLIENT_SECRET"
+      value  = var.auth0_m2m_client_secret
+    },
+    {
+      target = ["production", "preview"]
       key    = "AUTH0_ISSUER_BASE_URL"
       value  = var.auth0_issuer_base_url
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_BASE_URL"
+      value  = var.next_public_platform_api_host
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_SECRET"
+      value  = var.auth0_secret
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_CLIENT_SECRET"
+      value = var.auth0_web_client_secret
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_CLIENT_ID"
+      value = var.auth0_web_client_id
+    },
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_AUDIENCE"
+      value  = "${var.auth0_issuer_base_url}api/v2/"
     },
     # Neo4j
     {

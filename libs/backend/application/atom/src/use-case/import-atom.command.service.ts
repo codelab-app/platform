@@ -5,7 +5,6 @@ import { IAtomBoundedContext } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import omit from 'lodash/omit'
 
 @Injectable()
 export class ImportAtomCommand {
@@ -29,14 +28,6 @@ export class ImportAtomHandler
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
-    /**
-     * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
-     */
-    await this.atomRepository.save(omit(atom, ['suggestedChildren']))
-
-    /**
-     * Here we assign suggestedChildren, since all atoms must be created first
-     */
     await this.atomRepository.save(atom)
   }
 }

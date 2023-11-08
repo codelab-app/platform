@@ -12,6 +12,7 @@ import {
 import { IAtomBoundedContext, Stage } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import omit from 'lodash/omit'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
   constructor(public baseDataPaths?: string) {}
@@ -63,9 +64,27 @@ export class ImportAdminDataHandler
   }
 
   private async importAtoms() {
+    const atoms = this.readAdminDataService.atoms
+
+    /**
+     * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
+     */
     for (const atom of this.readAdminDataService.atoms) {
-      // const attributes = pick(atomData.atom, ['name'])
-      // this.traceService.getSpan()?.setAttributes(attributes)
+      const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
+
+      await withActiveSpan(`${atom.atom.name}`, () =>
+        this.importAtom(atomWithoutSuggestedChildren as IAtomBoundedContext),
+      )
+    }
+
+    /**
+     * Here we assign suggestedChildren, since all atoms must be created first
+     */
+    const atomsWithSuggestedChildren = atoms.filter(
+      ({ atom }) => atom.suggestedChildren?.length,
+    )
+
+    for (const atom of atomsWithSuggestedChildren) {
       await withActiveSpan(`${atom.atom.name}`, () => this.importAtom(atom))
     }
   }
