@@ -74,16 +74,16 @@ export class TagRepository extends AbstractRepository<
     where: TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect
-    const existing = await this.findOne(where)
+    // const existing = await this.findOne(where)
 
-    if (!existing) {
-      return undefined
-    }
+    // if (!existing) {
+    //   return undefined
+    // }
 
     /**
      * Parent
      */
-    const parentTagToConnect = parent?.id
+    // const parentTagToConnect = parent?.id
     const childrenTagsToConnect = children?.map((child) => child.id)
 
     // cLog('Existing:', tag, 'Tags to connect', parentTagToConnect)
