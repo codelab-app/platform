@@ -4,5 +4,6 @@ import type { IRuntimeStoreModel } from '../runtime-store'
 
 export interface IRuntimeActionDTO {
   actionRef: Ref<IActionModel>
+  id: string
   runtimeStoreRef: Ref<IRuntimeStoreModel>
 }

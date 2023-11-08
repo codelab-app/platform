@@ -2,7 +2,6 @@ import type { ITypedPropTransformer } from '@codelab/frontend/abstract/applicati
 import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
-  isComponent,
   isElement,
 } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/application/shared/core'
@@ -45,13 +44,17 @@ export class ActionTypeTransformer
       return ''
     }
 
-    // TODO: Renderer
-    // const runner = this.renderer.runtimeAction({ id: actionId }).runner(node)
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
 
-    // const fallback = () =>
-    //   console.error(`fail to call action with id ${prop.value}`)
+    const actionRunner = runtimeNode?.runtimeStore.runtimeAction({
+      id: actionId,
+    })
 
-    // return runner
-    return
+    const fallback = () =>
+      console.error(`fail to call action with id ${prop.value}`)
+
+    return actionRunner || fallback
   }
 }

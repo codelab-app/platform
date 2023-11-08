@@ -1,7 +1,13 @@
-import type { IPropModel } from '@codelab/frontend/abstract/domain'
-import type { IComponent, IPropData } from '@codelab/shared/abstract/core'
+import type {
+  IComponentModel,
+  IElementModel,
+  IPropModel,
+} from '@codelab/frontend/abstract/domain'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
+import type { IRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
+import type { IRuntimeElementModel } from '../runtime-element'
 
 export interface IEvaluationContext {
   actions: IPropData
@@ -38,11 +44,14 @@ export interface IBaseRuntimeProps {
    */
   propsEvaluationContext: IEvaluationContext
   /**
-   * root runtime components for RenderProps and ReactNode props
+   * Root runtime components/elements for RenderProps, ReactNode, ElementType props
    */
-  runtimeComponents: ObjectMap<IRuntimeContainerNodeModel>
+  runtimeRootNodes: ObjectMap<IRuntimeModel>
 
-  addRuntimeComponent(component: IComponent): IRuntimeContainerNodeModel
+  addRuntimeComponentModel(
+    component: IComponentModel,
+  ): IRuntimeContainerNodeModel
+  addRuntimeElementModel(element: IElementModel): IRuntimeElementModel
 }
 
 export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {

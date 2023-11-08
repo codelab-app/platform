@@ -2,15 +2,20 @@ import type {
   IRuntimeComponentPropDTO,
   IRuntimeComponentPropModel,
   IRuntimeContainerNodeModel,
+  IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
   IEvaluationContext,
   isRuntimeElementRef,
+  runtimeContainerNodeRef,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_COMPONENT_ID,
+  elementRef,
   IComponentModel,
+  IElementModel,
   IPropModel,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
@@ -29,16 +34,13 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
+import { RuntimeElement } from './runtime-element.model'
+import { RuntimeElementProps } from './runtime-element-prop.model'
 
-const create = ({
-  componentRef,
-  runtimeContainerNodeRef,
-}: IRuntimeComponentPropDTO) => {
-  return new RuntimeComponentProps({
-    componentRef,
-    runtimeContainerNodeRef,
-  })
+const create = (dto: IRuntimeComponentPropDTO) => {
+  return new RuntimeComponentProps(dto)
 }
 
 @model('@codelab/RuntimeComponentProps')
@@ -47,10 +49,8 @@ export class RuntimeComponentProps
     componentRef: prop<Ref<IComponentModel>>(),
     id: idProp,
     overrideProps: prop<Maybe<IPropModel>>(undefined),
-    runtimeComponents: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
-      objectMap([]),
-    ),
     runtimeContainerNodeRef: prop<Ref<IRuntimeContainerNodeModel>>(),
+    runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
   })
   implements IRuntimeComponentPropModel
 {
@@ -211,14 +211,35 @@ export class RuntimeComponentProps
   }
 
   @modelAction
-  addRuntimeComponent(component: IComponentModel) {
-    const runtimeComponent = RuntimeContainerNodeFactory.create({
-      containerNode: component,
+  addRuntimeComponentModel(containerNode: IComponentModel) {
+    const runtimeNode = RuntimeContainerNodeFactory.create({
+      containerNode,
     })
 
-    this.runtimeComponents.set(runtimeComponent.id, runtimeComponent)
+    this.runtimeRootNodes.set(runtimeNode.id, runtimeNode)
 
-    return runtimeComponent
+    return runtimeNode
+  }
+
+  @modelAction
+  addRuntimeElementModel(element: IElementModel) {
+    const runtimeRootElementId = v4()
+
+    const runtimeRootElementProps = RuntimeElementProps.create({
+      elementRef: elementRef(element.id),
+      runtimeElementRef: runtimeElementRef(runtimeRootElementId),
+    })
+
+    const runtimeRootElement = RuntimeElement.create({
+      elementRef: elementRef(element.id),
+      id: runtimeRootElementId,
+      parentRef: runtimeContainerNodeRef(this.id),
+      runtimeProps: runtimeRootElementProps,
+    })
+
+    this.runtimeRootNodes.set(runtimeRootElement.id, runtimeRootElement)
+
+    return runtimeRootElement
   }
 
   @modelAction

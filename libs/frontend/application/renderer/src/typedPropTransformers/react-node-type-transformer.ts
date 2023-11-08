@@ -65,7 +65,7 @@ export class ReactNodeTypeTransformer
     }
 
     const runtimeComponent =
-      runtimeNode.runtimeProps?.addRuntimeComponent(component)
+      runtimeNode.runtimeProps?.addRuntimeComponentModel(component)
 
     if (!runtimeComponent) {
       console.error('Unable to create runtime component')
