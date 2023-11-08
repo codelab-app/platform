@@ -7,7 +7,6 @@ fragment Component on Component {
     id
   }
   id
-  keyGenerator
   name
   owner {
     ...Owner
@@ -29,7 +28,6 @@ fragment ComponentProduction on Component {
     id
   }
   id
-  keyGenerator
   name
   owner {
     ...Owner

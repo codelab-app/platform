@@ -1,14 +1,8 @@
-import {
-  getComponentService,
-  getElementService,
-  getRenderService,
-} from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IAtomModel,
   IComponentModel,
   IElementRenderTypeModel,
-  IElementRuntimeProp,
   IHook,
   IPageModel,
   IPropModel,
@@ -21,12 +15,12 @@ import {
   componentRef,
   DATA_ELEMENT_ID,
   elementRef,
+  getComponentDomainService,
+  getElementDomainService,
   IElementModel,
   IElementTreeViewDataNode,
-  IEvaluationContext,
   isAtom,
   isAtomRef,
-  isComponent,
   isComponentRef,
   pageRef,
 } from '@codelab/frontend/abstract/domain'
@@ -35,14 +29,10 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IElementDTO,
-  IPropData,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IElementDTO, IRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import { Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   disconnectAll,
@@ -51,10 +41,8 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import {
-  clone,
   idProp,
   Model,
   model,
@@ -244,7 +232,6 @@ export class Element
       this.closestSubTreeRootElement.page?.current
 
     if (!closestContainerNode) {
-      console.log(this.toTreeNode, this.closestSubTreeRootElement.toTreeNode)
       throw new Error('Element has no node attached to')
     }
 
@@ -317,14 +304,6 @@ export class Element
     return descendants
   }
 
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return {
-      ...this.propsEvaluationContext,
-      props: this.runtimeProp?.evaluatedProps || {},
-    }
-  }
-
   /**
    * Only the root doesn't have a closestParent
    */
@@ -344,38 +323,6 @@ export class Element
       this.parentComponent?.maybeCurrent?.name ||
       ''
     )
-  }
-
-  @computed
-  get propsEvaluationContext(): IEvaluationContext {
-    const component = this.closestSubTreeRootElement.parentComponent?.current
-
-    return {
-      actions: this.store.current.actionRunners,
-      componentProps: component?.runtimeProp?.componentEvaluatedProps || {},
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.store.current.refs,
-      rendererType: this.renderService.activeRenderer?.current.rendererType,
-      rootActions: this.providerStore?.actionRunners ?? {},
-      rootRefs: this.providerStore?.refs || {},
-      rootState: this.providerStore?.state || {},
-      state: this.store.current.state,
-      url: this.urlProps ?? {},
-    }
-  }
-
-  @computed
-  get providerStore(): IStoreModel | undefined {
-    return this.renderService.activeRenderer?.current.providerTree?.current
-      .rootElement.current.store.current
-  }
-
-  @computed
-  get runtimeProp(): Maybe<IElementRuntimeProp> {
-    return this.renderService.activeRenderer?.current.runtimeProps.get(
-      this.id,
-    ) as Maybe<IElementRuntimeProp>
   }
 
   @computed
@@ -453,21 +400,19 @@ export class Element
     // Creates the tree node n times for the component based on the child mapper prop
     if (
       this.childMapperComponent?.id &&
-      this.childMapperPropKey &&
-      this.runtimeProp?.evaluatedChildMapperProp.length
+      this.childMapperPropKey
+      // && this.runtimeProp?.evaluatedChildMapperProp.length
     ) {
-      const keys = [
-        ...Array(this.runtimeProp.evaluatedChildMapperProp.length).keys(),
+      const keys: Array<string> = [
+        // ...Array(this.runtimeProp.evaluatedChildMapperProp.length).keys(),
       ]
 
       keys.forEach((i) => {
-        const clonedComponent = this.componentService.clonedComponents.get(
-          `${this.id}-${i}`,
-        )
-
-        if (clonedComponent) {
-          extraChildren.push(clonedComponent.rootElement.current)
-        }
+        // const clonedComponent =
+        //   this.componentDomainService.clonedComponents.get(`${this.id}-${i}`)
+        // if (clonedComponent) {
+        //   extraChildren.push(clonedComponent.rootElement.current)
+        // }
       })
     }
 
@@ -477,8 +422,9 @@ export class Element
     Object.keys(this.props.values).forEach((key, index) => {
       const propData = this.props.values[key]
 
-      const component = this.componentService.components.get(propData.value)
-        ?.rootElement.current
+      const component = this.componentDomainService.components.get(
+        propData.value,
+      )?.rootElement.current
 
       if (propData.kind === ITypeKind.ReactNodeType && component) {
         reactNodesChildren.push({
@@ -519,11 +465,6 @@ export class Element
       secondaryTitle: this.treeTitle.secondary,
       title: `${this.treeTitle.primary} (${this.treeTitle.secondary})`,
     }
-  }
-
-  @computed
-  get urlProps(): IPropData | undefined {
-    return this.renderService.activeRenderer?.current.urlSegments
   }
 
   /**
@@ -619,24 +560,6 @@ export class Element
     this.parentElement = elementRef(parentElement)
   }
 
-  @modelAction
-  clone(cloneIndex?: number) {
-    const clonedElement: IElementModel = clone<IElementModel>(this, {
-      generateNewIds: true,
-    })
-
-    // FIXME: add atom and props
-    clonedElement.setName(
-      `${this.name}${isNil(cloneIndex) ? '' : ` ${cloneIndex}`}`,
-    )
-    clonedElement.setSourceElement(elementRef(this.id))
-
-    // store elements in elementService
-    this.elementService.clonedElements.set(clonedElement.id, clonedElement)
-
-    return clonedElement
-  }
-
   /**
    * This function connects other elements together to form the new tree structure.
    *
@@ -713,7 +636,7 @@ export class Element
         Atom: isAtomRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
-        Component: isComponent(this.renderType)
+        Component: isComponentRef(this.renderType)
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
@@ -852,17 +775,12 @@ export class Element
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
-  private get elementService() {
-    return getElementService(this)
-  }
-
-  @computed
-  private get renderService() {
-    return getRenderService(this)
+  private get elementDomainService() {
+    return getElementDomainService(this)
   }
 }

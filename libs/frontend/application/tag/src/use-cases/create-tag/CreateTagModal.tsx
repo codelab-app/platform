@@ -20,7 +20,7 @@ export const CreateTagModal = observer(() => {
     return Promise.resolve()
   }
 
-  const defaultOption = tagService.selectedOption
+  const defaultOption = tagService.tagDomainService.selectedOption
   const closeModal = () => tagService.createModal.close()
 
   return (

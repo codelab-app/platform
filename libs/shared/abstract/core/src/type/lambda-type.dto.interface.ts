@@ -1,4 +1,3 @@
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import { type Static, Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'

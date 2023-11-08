@@ -1,5 +1,5 @@
-import { getUserService } from '@codelab/frontend/abstract/application'
 import {
+  getUserDomainService,
   type IBaseTypeModel,
   type ICreateTypeInput,
   type IUpdateTypeVars,
@@ -42,7 +42,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         id: this.id,
         kind: this.kind,
         name: this.name,
-        owner: connectOwner(this.userService.user),
+        owner: connectOwner(this.userDomainService.user),
       }
     }
 
@@ -56,8 +56,8 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     }
 
     @computed
-    private get userService() {
-      return getUserService(this)
+    private get userDomainService() {
+      return getUserDomainService(this)
     }
   }
 

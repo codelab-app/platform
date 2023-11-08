@@ -1,9 +1,8 @@
 import type {
-  IElementModel,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { RenderOutput } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
@@ -16,11 +15,13 @@ export class NullRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
+    const { element, runtimeProps } = runtimeElement
+
     if (this.renderer.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 
-    return RenderOutput.empty({ element, props })
+    return RenderOutput.empty({ props: runtimeProps, runtimeElement })
   }
 }

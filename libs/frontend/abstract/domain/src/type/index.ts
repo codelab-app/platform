@@ -1,5 +1,7 @@
 export * from './field'
 export * from './field.data.interface'
+export * from './field.domain.service.context'
+export * from './field.domain.service.interface'
 export * from './field.validation'
 export * from './json-schema/typed-prop.interface'
 export * from './type.data.interface'

@@ -6,25 +6,27 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
-import install from '@twind/with-next/app'
-import { ConfigProvider } from 'antd'
+import { useTwindConfig } from '@codelab/frontend/shared/utils'
+import { App as AntdApp, ConfigProvider } from 'antd'
+import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import config from '../twind.config'
 
-// TODO: Commented out showing too many logs, enable only for builder/preview
-// install(config)
-
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
+  const router = useRouter()
+
   const store = useMemo(() => {
     if (!user) {
       return null
     }
 
-    return initializeStore({ user })
+    return initializeStore({ routerQuery: router.query, user })
   }, [user])
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
+
+  useTwindConfig(config)
 
   return (
     <StoreProvider value={store}>
@@ -45,7 +47,13 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
               },
             }}
           >
-            <Layout>{(props) => <Component {...props} />}</Layout>
+            <Layout>
+              {(props) => (
+                <AntdApp>
+                  <Component {...props} />
+                </AntdApp>
+              )}
+            </Layout>
           </ConfigProvider>
         </CuiProvider>
       </UserProvider>

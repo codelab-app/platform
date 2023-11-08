@@ -1,5 +1,4 @@
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'

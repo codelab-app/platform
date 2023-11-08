@@ -1,9 +1,9 @@
 import {
   getAtomDomainService,
+  getPageDomainService,
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
-import { PageDomainFactory } from '@codelab/frontend/domain/page'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -14,7 +14,6 @@ import { App } from './store/app.model'
 export class AppDomainService
   extends Model({
     apps: prop(() => objectMap<IAppModel>()),
-    pageFactory: prop(() => new PageDomainFactory({})),
   })
   implements IAppDomainService
 {
@@ -58,9 +57,12 @@ export class AppDomainService
     const app = this.hydrate(appDto)
     const renderType = this.atomDomainService.defaultRenderType
 
-    this.pageFactory.addSystemPages(app, renderType)
+    const pages = this.pageDomainService.pageFactory.addSystemPages(
+      app,
+      renderType,
+    )
 
-    return app
+    return app.writeCache({ pages })
   }
 
   app(id: string) {
@@ -70,5 +72,10 @@ export class AppDomainService
   @computed
   private get atomDomainService() {
     return getAtomDomainService(this)
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 }

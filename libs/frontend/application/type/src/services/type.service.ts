@@ -1,7 +1,6 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type {
   ICreateTypeData,
-  IInterfaceTypeRef,
   ITypeModel,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/domain'
@@ -10,7 +9,7 @@ import {
   InlineFormService,
   ModalService,
   PaginationService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
 import { TypeDomainService, TypeFactory } from '@codelab/frontend/domain/type'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
@@ -29,7 +28,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../graphql/type.repo'
 import { getFieldService } from './field.service.context'
 import { TypeFormService } from './type-form.service'
@@ -58,7 +56,7 @@ export class TypeService
   @modelFlow
   @transaction
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
-    const type = this.typeDomainService.add(TypeFactory.mapDataToDTO(data))
+    const type = this.typeDomainService.hydrate(TypeFactory.mapDataToDTO(data))
 
     yield* _await(this.typeRepository.add(type))
 
@@ -138,11 +136,11 @@ export class TypeService
         newFragments.map((typeFragment) => {
           if (typeFragment.__typename === TypeKind.InterfaceType) {
             typeFragment.fields.forEach((fieldFragment) => {
-              this.fieldService.add(fieldFragment)
+              this.fieldService.fieldDomainService.hydrate(fieldFragment)
             })
           }
 
-          const newType = this.typeDomainService.add(typeFragment)
+          const newType = this.typeDomainService.hydrate(typeFragment)
 
           return idsToLoad?.includes(typeFragment.id) || !ids
             ? newType
@@ -169,10 +167,7 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  getInterface = _async(function* (
-    this: TypeService,
-    interfaceTypeId: IInterfaceTypeRef,
-  ) {
+  getInterface = _async(function* (this: TypeService, interfaceTypeId: string) {
     const interfaceFromStore = this.type(interfaceTypeId)
 
     if (
@@ -227,30 +222,6 @@ export class TypeService
 
     return type
   })
-
-  /**
-   * Caches all types into mobx
-   */
-  @modelAction
-  loadTypes(types: Partial<GetTypesQuery>) {
-    console.debug('TypeService.loadTypes()', types)
-
-    const flatTypes = Object.values(types).flat()
-
-    this.fieldService.load(
-      (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
-    )
-
-    const loadedTypes = flatTypes.map((fragment) =>
-      TypeFactory.create(fragment),
-    )
-
-    for (const type of loadedTypes) {
-      this.typeDomainService.types.set(type.id, type)
-    }
-
-    return loadedTypes
-  }
 
   @modelAction
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind> {

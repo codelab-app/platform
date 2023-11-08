@@ -1,6 +1,6 @@
-import type { IBuilderComponent } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDndType,
+  IBuilderComponent,
   IElementRef,
 } from '@codelab/frontend/abstract/domain'
 import type { IElementDTO } from '@codelab/shared/abstract/core'

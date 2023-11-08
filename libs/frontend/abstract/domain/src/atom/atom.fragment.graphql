@@ -1,4 +1,5 @@
 fragment Atom on Atom {
+  __typename
   api {
     ...InterfaceType
   }

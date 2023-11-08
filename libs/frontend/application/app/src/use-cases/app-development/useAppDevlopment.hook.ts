@@ -1,5 +1,5 @@
-import type { RendererType } from '@codelab/frontend/abstract/domain'
-import { rendererRef } from '@codelab/frontend/abstract/domain'
+import type { RendererType } from '@codelab/frontend/abstract/application'
+import { rendererRef } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -24,8 +24,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
     appService,
     builderService,
     componentService,
-    pageService,
-    renderService,
+    rendererService,
     typeService,
     userService,
   } = useStore()
@@ -86,17 +85,16 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         {},
       )
 
-      const renderer = renderService.addRenderer({
+      const renderer = rendererService.hydrate({
         elementTree: page,
         id: page.id,
-        providerTree: app.providerPage,
         rendererType,
         urlSegments,
       })
 
       console.debug(renderer)
 
-      renderService.setActiveRenderer(rendererRef(renderer.id))
+      rendererService.setActiveRenderer(rendererRef(renderer.id))
       await renderer.expressionTransformer.init()
 
       return {

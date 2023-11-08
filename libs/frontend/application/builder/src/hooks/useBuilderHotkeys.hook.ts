@@ -1,12 +1,10 @@
-import type {
-  IBuilderService,
-  IElementService,
-} from '@codelab/frontend/abstract/application'
-import { isElement, isElementRef } from '@codelab/frontend/abstract/domain'
+import type { IElementService } from '@codelab/frontend/abstract/application'
+import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
+import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
-  IBuilderService,
+  IBuilderDomainService,
   'selectedNode' | 'setSelectedNode'
 > &
   Pick<IElementService, 'deleteModal'>

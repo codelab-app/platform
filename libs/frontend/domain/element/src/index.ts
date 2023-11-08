@@ -1,4 +1,5 @@
 export * from './services'
 export * from './store'
-export * from './tests/root-store'
+export * from './test/element.test.factory'
+export * from './test/root.test.store'
 export * from './use-cases'

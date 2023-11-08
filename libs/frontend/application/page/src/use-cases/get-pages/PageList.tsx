@@ -14,12 +14,12 @@ interface PageListProps {
 export const PageList = observer(({ app }: PageListProps) => {
   const treeData: Array<IPagesTreeDataNode> = app.pages.map((page) => ({
     extraData: {
-      node: page,
+      node: page.current,
       type: 'page',
     },
-    key: page.slug,
-    primaryTitle: page.name,
-    title: page.slug,
+    key: page.current.slug,
+    primaryTitle: page.current.name,
+    title: page.current.slug,
   }))
 
   return (

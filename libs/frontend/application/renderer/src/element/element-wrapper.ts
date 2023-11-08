@@ -1,36 +1,19 @@
-import type {
-  IComponentType,
-  IElementModel,
-  IRenderer,
-  IRenderOutput,
-} from '@codelab/frontend/abstract/domain'
-import { RendererType } from '@codelab/frontend/abstract/domain'
+import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
+import type { IComponentType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import type { ErrorBoundaryProps } from 'react-error-boundary'
 import { ErrorBoundary } from 'react-error-boundary'
-import { useDragDropHandlers, useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
+import { useSelectionHandlers } from './useSelectionHandlers.hook'
 import {
   extractValidProps,
   generateTailwindClasses,
   getReactComponent,
 } from './wrapper.utils'
-
-export interface ElementWrapperProps {
-  element: IElementModel
-  errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
-  key: string
-  /**
-   * Props passed in from outside the component
-   */
-  renderOutput: IRenderOutput
-  renderer: IRenderer
-  onRendered(): void
-}
 
 /**
  * An observer element wrapper - this makes sure that each element is self-contained and observes only the data it needs
@@ -39,22 +22,20 @@ export interface ElementWrapperProps {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({
-    element,
     errorBoundary: { onError, onResetKeysChange },
     onRendered,
     renderer,
     renderOutput,
+    runtimeElement,
     ...rest
   }) => {
     useEffect(() => {
       onRendered()
     }, [])
 
+    const { element } = runtimeElement
     const { atomService } = useStore()
-
-    renderer.logRendered(renderOutput)
-
-    const children = renderer.renderChildren(renderOutput)
+    const children = runtimeElement.renderChildren
 
     if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
       renderOutput.props['static'] =
@@ -84,14 +65,11 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
-    const dragDropHandlers = useDragDropHandlers(element, renderer.rendererType)
-
     // leave ElementWrapper pass-through so refs are attached to correct element
     const mergedProps = mergeProps(
       extractedProps,
       rest,
       selectionHandlers,
-      dragDropHandlers,
       tailwindClassNames,
     )
 

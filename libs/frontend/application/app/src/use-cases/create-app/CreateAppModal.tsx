@@ -9,7 +9,7 @@ import { v4 } from 'uuid'
 import { createAppSchema } from './create-app.schema'
 
 export const CreateAppModal = observer(() => {
-  const { appService, atomService, userService } = useStore()
+  const { appService } = useStore()
 
   const onSubmit = async (appDTO: ICreateAppData) => {
     await appService.create(appDTO)
@@ -23,9 +23,6 @@ export const CreateAppModal = observer(() => {
 
   const model = {
     id: v4(),
-    owner: {
-      auth0Id: userService.user.auth0Id,
-    },
   }
 
   return (

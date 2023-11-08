@@ -1,4 +1,5 @@
-import type { IPageNodeRef } from '@codelab/frontend/abstract/domain'
+import { type IPageNodeRef, isElement } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
@@ -8,11 +9,17 @@ import React, { useState } from 'react'
 import { usePropsInspector } from '../../hooks'
 
 const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
+  const { rendererService } = useStore()
   const { isLoading, nodeLabel, save } = usePropsInspector(node)
   const initialProps = node.current.props.jsonString
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
-  const lastRenderedProp = node.current.runtimeProp?.evaluatedProps || {}
+
+  const runtimeModel = isElement(node.current)
+    ? rendererService.runtimeElement(node.current)
+    : rendererService.runtimeContainerNode(node.current)
+
+  const lastRenderedProp = runtimeModel?.runtimeProps?.evaluatedProps || {}
 
   return (
     <div className="w-full">

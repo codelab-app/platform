@@ -1,18 +1,13 @@
 import type {
+  IActionDomainService,
   IActionModel,
   IActionWhere,
   ICreateActionData,
   IStoreModel,
   IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  ActionFragment,
-  ApiActionOptions,
-} from '@codelab/shared/abstract/codegen'
-import type { IActionDTO, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import type { DefaultOptionType } from 'antd/lib/select'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ApiActionOptions } from '@codelab/shared/abstract/codegen'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -20,10 +15,6 @@ import type {
   IEntityFormService,
   IQueryService,
 } from '../services'
-
-export interface IActionFactory {
-  fromActionFragment(fragment: ActionFragment): IActionDTO
-}
 
 export interface IActionService
   extends ICRUDService<IActionModel, ICreateActionData, IUpdateActionData>,
@@ -33,14 +24,8 @@ export interface IActionService
       ICRUDFormService<Ref<IActionModel>, { action?: IActionModel }>,
       'createForm'
     > {
-  actionFactory: IActionFactory
-  actions: ObjectMap<IActionModel>
-  actionsList: Array<IActionModel>
+  actionDomainService: IActionDomainService
   createForm: IEntityFormService<Ref<IStoreModel>, { store?: IStoreModel }>
 
-  action(id: string): Maybe<IActionModel>
-  add<T extends IActionDTO>(action: T): IActionModel
   cloneAction(action: IActionModel, storeId: string): Promise<IActionModel>
-  getSelectActionOptions(actionEntity?: IRef): Array<DefaultOptionType>
-  load(actions: Array<ActionFragment>): Array<IActionModel>
 }

@@ -3,20 +3,26 @@ import type {
   SelectElementOption,
 } from '@codelab/frontend/abstract/application'
 import {
-  getBuilderService,
-  getComponentService,
+  getRendererService,
+  RendererType,
   SelectElementOptions,
 } from '@codelab/frontend/abstract/application'
 import type {
   IElementModel,
   IMoveElementContext,
-} from '@codelab/frontend/abstract/domain'
-import {
-  elementRef,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
+import {
+  BuilderWidthBreakPoint,
+  defaultBuilderWidthBreakPoints,
+  elementRef,
+  getBuilderDomainService,
+} from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
-import { ElementDomainService } from '@codelab/frontend/domain/element'
+import {
+  ElementDomainService,
+  jsonStringToCss,
+} from '@codelab/frontend/domain/element'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
@@ -31,11 +37,11 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
 import { CloneElementService } from './clone-element.service'
+import { ElementApplicationValidationService } from './element.application.validation.service'
 import { ElementRepository } from './element.repo'
 import {
   CreateElementFormService,
@@ -55,16 +61,17 @@ import {
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
-    clonedElements: prop(() => objectMap<IElementModel>()),
     cloneElementService: prop(() => new CloneElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
     // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
+
     elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),
     id: idProp,
     updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
+    validationService: prop(() => new ElementApplicationValidationService({})),
   })
   implements IElementService
 {
@@ -96,6 +103,10 @@ export class ElementService
 
     return element
   })
+
+  element(id: string) {
+    return this.elementDomainService.element(id)
+  }
 
   /**
    * Call this to update modified elements
@@ -155,8 +166,6 @@ export class ElementService
       ...subRootElement.descendantElements,
     ]
 
-    subRootElement.detachFromTree()
-
     /**
      * Set the new node before we delete
      */
@@ -164,6 +173,8 @@ export class ElementService
       subRootElement.prevSibling?.current ??
       subRootElement.closestParentElement?.current ??
       subRootElement.closestSubTreeRootElement
+
+    subRootElement.detachFromTree()
 
     this.builderService.setSelectedNode(elementRef(selectedNode))
 
@@ -185,7 +196,7 @@ export class ElementService
     this: ElementService,
     newElement: IUpdateElementData,
   ) {
-    const currentElement = this.element(newElement.id)
+    const currentElement = this.elementDomainService.element(newElement.id)
     const newRenderTypeId = newElement.renderType.id
     const oldRenderTypeId = currentElement.renderType.id
 
@@ -194,7 +205,6 @@ export class ElementService
     }
 
     currentElement.writeCache(newElement)
-    this.writeCloneCache(newElement)
 
     yield* _await(this.elementRepository.update(currentElement))
 
@@ -218,17 +228,6 @@ export class ElementService
       ),
     )
   })
-
-  @modelAction
-  element(id: string) {
-    const element = this.maybeElement(id)
-
-    if (!element) {
-      throw new Error('Missing element')
-    }
-
-    return element
-  }
 
   @modelAction
   getSelectElementOptions({
@@ -302,26 +301,11 @@ export class ElementService
       }),
     )
 
-    const rootElement = this.element(component.rootElement.id)
+    const rootElement = this.elementDomainService.element(
+      component.rootElement.id,
+    )
 
     return { hydratedElements, rootElement }
-  }
-
-  @modelAction
-  maybeElement(id: string) {
-    return (
-      this.elementDomainService.elements.get(id) || this.clonedElements.get(id)
-    )
-  }
-
-  @modelAction
-  removeClones(elementId: string) {
-    return [...this.clonedElements.entries()]
-      .filter(([id, component]) => component.sourceElement?.id === elementId)
-      .forEach(([id]) => {
-        // this.moveElementService.detachElementFromElementTree(id)
-        this.clonedElements.delete(id)
-      })
   }
 
   private getDescendants(
@@ -356,21 +340,51 @@ export class ElementService
     )
   }
 
-  @modelAction
-  private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
-    return [...this.clonedElements.values()]
-      .filter((clonedElement) => clonedElement.sourceElement?.id === id)
-      .map((clonedElement) => clonedElement.writeCache({ ...elementData }))
+  /**
+   * Moved here to de-couple `Element` model from `Renderer`
+   */
+  styleStringWithBreakpoints(element: IElementModel): string {
+    const parsedCss = element.style.styleParsed
+    const activeRenderer = this.rendererService.activeRenderer?.current
+    const rendererType = activeRenderer?.rendererType
+
+    const isProduction =
+      rendererType === RendererType.Production ||
+      rendererType === RendererType.Preview
+
+    const mediaQueryString = isProduction ? '@media' : '@container root'
+    const breakpointStyles = []
+
+    for (const breakpoint of element.style.breakpointsByPrecedence) {
+      const breakpointStyle = parsedCss[breakpoint]
+      const breakpointWidth = defaultBuilderWidthBreakPoints[breakpoint]
+
+      const lowerBound =
+        breakpoint === BuilderWidthBreakPoint.MobilePortrait
+          ? 0
+          : breakpointWidth.min
+
+      if (breakpointStyle) {
+        breakpointStyles.push(
+          `${mediaQueryString} (width >= ${lowerBound}px) {
+            ${breakpointStyle.cssString ?? ''}
+            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
+          }`,
+        )
+      }
+    }
+
+    return breakpointStyles.join('\n')
   }
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

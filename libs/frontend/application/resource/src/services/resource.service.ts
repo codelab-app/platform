@@ -4,14 +4,16 @@ import type {
   IResourceModel,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/domain'
-import { Resource } from '@codelab/frontend/domain/resource'
 import {
   InlineFormService,
   ModalService,
-} from '@codelab/frontend/domain/shared'
+} from '@codelab/frontend/application/shared/store'
+import {
+  Resource,
+  ResourceDomainService,
+} from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
-import type { IPropDTO } from '@codelab/shared/abstract/core'
-import { IResourceDTO } from '@codelab/shared/abstract/core'
+import type { IPropDTO, IResourceDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -35,8 +37,8 @@ export class ResourceService
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
+    resourceDomainService: prop(() => new ResourceDomainService({})),
     resourceRepository: prop(() => new ResourceRepository({})),
-    resources: prop(() => objectMap<IResourceModel>()),
     updateForm: prop(() => new ResourceFormService({})),
     updateModal: prop(() => new ResourceModalService({})),
   })
@@ -44,7 +46,7 @@ export class ResourceService
 {
   @computed
   get resourceList() {
-    return [...this.resources.values()]
+    return [...this.resourceDomainService.resources.values()]
   }
 
   @modelFlow
@@ -58,7 +60,7 @@ export class ResourceService
       id: v4(),
     }
 
-    const resource = this.add({
+    const resource = this.resourceDomainService.hydrate({
       config: configProps,
       id,
       name,
@@ -79,7 +81,7 @@ export class ResourceService
     // const { id } = resource
 
     resources.map((resource) => {
-      this.resources.delete(resource.id)
+      this.resourceDomainService.resources.delete(resource.id)
     })
 
     yield* _await(this.resourceRepository.delete(resources))
@@ -94,7 +96,9 @@ export class ResourceService
       this.resourceRepository.find(where),
     )
 
-    return resources.map((resource) => this.add(resource))
+    return resources.map((resource) =>
+      this.resourceDomainService.hydrate(resource),
+    )
   })
 
   @modelFlow
@@ -121,7 +125,7 @@ export class ResourceService
     this: ResourceService,
     { config: configData, id, name, type }: IUpdateResourceData,
   ) {
-    const resource = this.resources.get(id)!
+    const resource = this.resourceDomainService.resources.get(id)!
     const config = resource.config
 
     /**
@@ -136,25 +140,13 @@ export class ResourceService
   })
 
   @modelAction
-  add({ config, id, name, type }: IResourceDTO) {
-    const resource = Resource.create({
-      config,
-      id,
-      name,
-      type,
-    })
-
-    this.resources.set(resource.id, resource)
-
-    return resource
-  }
-
-  @modelAction
   load(resources: Array<IResourceDTO>) {
-    resources.forEach((resource) => this.add(resource))
+    resources.forEach((resource) =>
+      this.resourceDomainService.hydrate(resource),
+    )
   }
 
   resource(id: string) {
-    return this.resources.get(id)
+    return this.resourceDomainService.resources.get(id)
   }
 }

@@ -36,6 +36,22 @@ export class ElementDomainService
   }
 
   @modelAction
+  element(id: string) {
+    const element = this.maybeElement(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
+  }
+
+  @modelAction
+  maybeElement(id: string) {
+    return this.elements.get(id)
+  }
+
+  @modelAction
   addTreeNode = (elementDto: IElementDTO) => {
     const element = this.hydrate(elementDto)
 

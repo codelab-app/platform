@@ -1,7 +1,7 @@
-import { getUserService } from '@codelab/frontend/abstract/application'
-import type {
-  IPropModel,
-  IResourceModel,
+import {
+  getUserDomainService,
+  type IPropModel,
+  type IResourceModel,
 } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type {
@@ -51,7 +51,7 @@ export class Resource
       },
       id: this.id,
       name: this.name,
-      owner: connectOwner(this.userService.user),
+      owner: connectOwner(this.userDomainService.user),
       type: this.type,
     }
   }
@@ -77,7 +77,7 @@ export class Resource
   }
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

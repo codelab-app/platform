@@ -1,6 +1,7 @@
 query GetSelectAtomOptions {
   atoms {
     # Need to load API as well
+    __typename
     api {
       ...InterfaceType
     }

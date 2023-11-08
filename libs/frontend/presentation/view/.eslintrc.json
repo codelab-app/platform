@@ -6,6 +6,9 @@
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
         "project": ["libs/frontend/presentation/view/tsconfig.*?.json"]
+      },
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
       }
     },
     {

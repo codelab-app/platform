@@ -141,7 +141,6 @@ export const CuiTree = observer(
         <div className="overflow-auto">
           <CuiSkeletonWrapper isLoading={isLoading}>
             <DirectoryTree<T>
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...props}
               autoExpandParent={cuiTreeStore.autoExpandParent}
               draggable={

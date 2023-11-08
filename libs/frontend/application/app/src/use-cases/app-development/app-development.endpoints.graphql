@@ -12,11 +12,6 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   primitiveTypes {
     ...PrimitiveType
   }
-  # Load system types
-  # workaround for lack of ability to recursively fetch field's types
-  primitiveTypes {
-    ...PrimitiveType
-  }
   reactNodeTypes {
     ...ReactNodeType
   }
@@ -31,5 +26,8 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   }
   resources {
     ...Resource
+  }
+  components {
+    ...ComponentDevelopment
   }
 }

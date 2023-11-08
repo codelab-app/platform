@@ -33,7 +33,6 @@ const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   ),
   key: navBarItem.key,
   label: navBarItem.link && !navBarItem.disabled && (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <Link {...navBarItem.link} />
   ),
   onClick: () => {

@@ -1,14 +1,12 @@
 import type {
   ICreateFieldData,
+  IFieldDomainService,
   IFieldModel,
   IInterfaceTypeModel,
-  ITypeModel,
   IUpdateFieldData,
 } from '@codelab/frontend/abstract/domain'
-import type { FieldFragment } from '@codelab/shared/abstract/codegen'
-import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -39,14 +37,12 @@ export interface IFieldService
     Ref<IInterfaceTypeModel>,
     { interface?: IInterfaceTypeModel }
   >
+  fieldDomainService: IFieldDomainService
   fieldRepository: IFieldRepository
-  fields: ObjectMap<IFieldModel>
 
-  add(fieldDTO: IFieldDTO): IFieldModel
   cloneField(field: IFieldModel, apiId: string): Promise<IFieldModel>
   delete(fields: Array<IFieldModel>): Promise<number>
-  getField(id: string): Maybe<IFieldModel<ITypeModel>>
-  load(fields: Array<FieldFragment>): void
+
   moveFieldAsNextSibling(props: {
     field: IRef
     targetField: IRef

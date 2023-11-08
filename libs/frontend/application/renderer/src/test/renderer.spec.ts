@@ -1,19 +1,25 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
+import type { IRenderOutput } from '@codelab/frontend/abstract/application'
+import { rendererRef } from '@codelab/frontend/abstract/application'
+import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
+import { atomFactory } from '@codelab/frontend/domain/atom'
+import { componentFactory } from '@codelab/frontend/domain/component'
+import { elementFactory } from '@codelab/frontend/domain/element'
+import { propFactory } from '@codelab/frontend/domain/prop'
+import { storeFactory } from '@codelab/frontend/domain/store'
 import {
-  CUSTOM_TEXT_PROP_KEY,
-  rendererRef,
-} from '@codelab/frontend/abstract/domain'
-import { FactoryDto } from '@codelab/frontend/test/data'
+  fieldFactory,
+  interfaceTypeFactory,
+  primitiveTypeFactory,
+} from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { setupPage } from './setup'
-import { createTestRootStore } from './setup/test-root-store'
+import { rootApplicationStore, rootDomainStore } from './setup/root.test.store'
 
 describe('Renderer', () => {
-  const rootStore = createTestRootStore()
   const componentId = 'component-id'
   const componentName = 'The Component'
   const testPropKey = 'testPropKey'
@@ -29,7 +35,7 @@ describe('Renderer', () => {
   }
 
   beforeEach(() => {
-    rootStore.clear()
+    rootDomainStore.clear()
   })
 
   it.each([
@@ -42,111 +48,108 @@ describe('Renderer', () => {
     'should render component instance with prop expression evaluated with %s props',
     async (propSource, expectedEvaluatedValue) => {
       // mock these to skip API calls with `createElementAsFirstChild`
-      jest
-        .spyOn(rootStore.elementService.elementRepository, 'add')
-        .mockImplementation()
-
-      jest
-        .spyOn(rootStore.elementService.elementRepository, 'updateNodes')
-        .mockImplementation()
-
       const { rootElement: pageRootElement } = setupPage()
 
-      const componentRootElement = FactoryDto.build('element', {
+      const componentRootElement = elementFactory(rootDomainStore)({
         closestContainerNode: {
           id: componentId,
         },
         name: `${componentName} Root`,
         parentComponent: { id: componentId },
-        props: FactoryDto.build('props', {
+        props: propFactory(rootDomainStore)({
           data: JSON.stringify(componentRootElementPropData),
-        }),
-        renderType: FactoryDto.build('atom', {
-          api: FactoryDto.build('typeInterface'),
+        }).toJson,
+        renderType: atomFactory(rootDomainStore)({
+          api: interfaceTypeFactory(rootDomainStore)({}),
           type: componentRootElementAtomType,
         }),
       })
 
-      const componentStoreApi = FactoryDto.build('typeInterface')
+      const componentStoreApi = interfaceTypeFactory(rootDomainStore)()
 
-      const component = FactoryDto.build('component', {
-        api: FactoryDto.build('typeInterface'),
+      const component = componentFactory(rootDomainStore)({
+        api: interfaceTypeFactory(rootDomainStore)(),
         childrenContainerElement: componentRootElement,
         id: componentId,
         name: componentName,
-        props: FactoryDto.build('props', {
+        props: propFactory(rootDomainStore)({
           data: JSON.stringify({
             [testPropKey]:
               propSource === 'component' || propSource === 'all'
                 ? componentPropValue
                 : undefined,
           }),
-        }),
+        }).toJson,
         rootElement: componentRootElement,
-        store: FactoryDto.build('store', {
+        store: storeFactory(rootDomainStore)({
           api: componentStoreApi,
         }),
       })
 
       console.log('component props', component.props)
 
-      const componentStore = await rootStore.storeService.getOne(
+      const componentStore = rootDomainStore.storeDomainService.stores.get(
         component.store.id,
       )
 
       componentStore?.api.current.writeCache({
         fields: [
-          FactoryDto.build('field', {
+          fieldFactory(rootDomainStore)({
             api: componentStoreApi,
             defaultValues:
               propSource === 'store' || propSource === 'all'
                 ? componentStorePropValue
                 : undefined,
-            key: testPropKey,
-            type: FactoryDto.build('typePrimitive', {
+            fieldType: primitiveTypeFactory(rootDomainStore)({
               name: PrimitiveTypeKind.String,
               primitiveKind: PrimitiveTypeKind.String,
             }),
+            key: testPropKey,
           }),
         ],
       })
 
-      const componentElement = FactoryDto.build('element', {
+      const componentElement = elementFactory(rootDomainStore)({
         closestContainerNode: component,
         parentComponent: component,
         parentElement: pageRootElement,
-        props: FactoryDto.build('props', {
+        props: propFactory(rootDomainStore)({
           data: JSON.stringify({
             [testPropKey]:
               propSource === 'instance' || propSource === 'all'
                 ? componentInstancePropValue
                 : undefined,
           }),
-        }),
+        }).toJson,
         renderType: {
           __typename: IElementRenderTypeKind.Component,
           id: component.id,
         },
       })
 
-      const componentInstance = await rootStore.elementService.createElement(
-        componentElement,
-      )
+      const componentInstance =
+        await rootDomainStore.elementDomainService.hydrate(
+          componentElement.toJson,
+        )
 
       // The renderer for the component is already added as part of the componentService.add logic
       // so we just need to get that here, and it should already exist
-      rootStore.renderService.setActiveRenderer(
+      rootApplicationStore.rendererService.setActiveRenderer(
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        rendererRef(rootStore.renderService.renderers.get(component.id)!),
+        rendererRef(
+          rootApplicationStore.rendererService.renderers.get(component.id)!,
+        ),
       )
 
-      const { atomType, element, props } =
-        rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+      const { atomType, props, runtimeElement } =
+        rootApplicationStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           componentInstance,
         ) as IRenderOutput
 
       expect(atomType).toBe(componentRootElementAtomType)
-      expect(element.renderType.id).toBe(componentRootElement.renderType.id)
+      expect(runtimeElement.element.renderType.id).toBe(
+        componentRootElement.renderType.id,
+      )
       expect(props).toMatchObject({
         ...componentRootElementPropData,
         expressionProp: `expression value - ${expectedEvaluatedValue}`,

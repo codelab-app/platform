@@ -1,5 +1,6 @@
 import type {
   AppProductionFragment,
+  AtomProductionFragment,
   ComponentProductionFragment,
   ElementProductionFragment,
   FieldFragment,
@@ -7,7 +8,6 @@ import type {
   PropFragment,
   StoreFragment,
 } from '@codelab/shared/abstract/codegen'
-import type { AtomProductionFragment } from '../atom/atom.fragment.graphql.gen'
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppProductionArgs {

@@ -1,8 +1,8 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/domain'
+import type { IRenderOutput } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -12,11 +12,11 @@ import dynamic from 'next/dynamic'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
 
-const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
+const TextEditor = dynamic(() => import('../text-editor/TextEditor'), {
   ssr: false,
 })
 
-const TextRenderer = dynamic(() => import('./text-editor/TextRenderer'), {
+const TextRenderer = dynamic(() => import('../text-editor/TextRenderer'), {
   ssr: false,
 })
 

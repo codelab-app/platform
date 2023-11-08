@@ -1,9 +1,7 @@
-import type {
-  IBuilderService,
-  IElementService,
-} from '@codelab/frontend/abstract/application'
+import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
+  IBuilderDomainService,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
 import { BuilderDndType } from '@codelab/frontend/abstract/domain'
@@ -17,12 +15,13 @@ import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 export interface UseBuilderDnd {
   sensors: ReturnType<typeof useSensors>
+
   onDragEnd(data: DragEndEvent): void
   onDragStart(data: DragStartEvent): void
 }
 
 export const useBuilderDnd = (
-  builderService: IBuilderService,
+  builderService: IBuilderDomainService,
   elementService: IElementService,
   elementTree: Maybe<IElementTree>,
 ): UseBuilderDnd => {

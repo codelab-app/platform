@@ -33,7 +33,9 @@ const validateSchema = (node: IPageNodeRef) => {
 
   const validator = createValidator(
     nodeApiSchema,
-    node.current.store.current.state,
+    // TODO: Pass runtime node to param, so we have access to state
+    // node.current.store.current.state,
+    {},
   )
 
   return (data: IPropData) => {

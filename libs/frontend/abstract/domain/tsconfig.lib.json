@@ -12,5 +12,12 @@
     "../../../../node_modules/@nx/react/typings/image.d.ts"
   ],
   "exclude": ["jest.config.ts"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "../application/src/shared/dto.factory.interface.ts",
+    "../application/src/renderer/action.runner.model.interface.ts"
+  ]
 }

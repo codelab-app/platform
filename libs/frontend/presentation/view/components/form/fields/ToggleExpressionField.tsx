@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'

@@ -76,10 +76,7 @@ export const CuiCollapsePanelHeader = ({
             event.stopPropagation()
           }}
         >
-          {
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <CuiSidebarToolbar {...toolbar} />
-          }
+          <CuiSidebarToolbar {...toolbar} />
         </div>
       )}
     </div>

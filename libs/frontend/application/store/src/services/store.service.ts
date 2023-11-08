@@ -1,7 +1,7 @@
 import type { IStoreService } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import { getTypeService } from '@codelab/frontend/application/type'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import { StoreDomainService } from '@codelab/frontend/domain/store'
 import type {
   StoreFragment,
@@ -37,7 +37,7 @@ export class StoreService
   @modelFlow
   @transaction
   create = _async(function* (this: StoreService, data: IStoreDTO) {
-    const store = this.storeDomainService.add(data)
+    const store = this.storeDomainService.hydrate(data)
 
     yield* _await(this.storeRepository.add(store))
 
@@ -91,17 +91,19 @@ export class StoreService
   @modelAction
   load = (stores: Array<StoreFragment>) => {
     console.debug('StoreService.load()', stores)
-    this.actionService.load(stores.flatMap((store) => store.actions))
+    this.actionService.actionDomainService.load(
+      stores.flatMap((store) => store.actions),
+    )
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (stores.some((store) => store?.api)) {
-      this.typeService.loadTypes({
+      this.typeService.typeDomainService.hydrateTypes({
         interfaceTypes: stores.map((store) => store.api),
       })
     }
 
     return stores.map((store) =>
-      this.storeDomainService.add({ ...store, source: null }),
+      this.storeDomainService.hydrate({ ...store, source: null }),
     )
   }
 

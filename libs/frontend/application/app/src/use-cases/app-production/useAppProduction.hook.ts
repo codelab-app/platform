@@ -1,5 +1,8 @@
+import {
+  rendererRef,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import type { IAppProductionDto } from '@codelab/frontend/abstract/domain'
-import { rendererRef, RendererType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
@@ -9,7 +12,7 @@ import { useRouter } from 'next/router'
  * Fetch related data for rendering page, and load them into store
  */
 export const useAppProduction = (appProductionData: IAppProductionDto) => {
-  const { appService, renderService } = useStore()
+  const { appService, rendererService } = useStore()
   const { appName, pageName } = appProductionData
   const router = useRouter()
 
@@ -40,17 +43,16 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
       {},
     )
 
-    const renderer = renderService.addRenderer({
+    const renderer = rendererService.hydrate({
       elementTree: page,
       id: page.id,
-      providerTree: app.providerPage,
       rendererType: RendererType.Production,
       urlSegments,
     })
 
     console.debug(renderer)
 
-    renderService.setActiveRenderer(rendererRef(renderer.id))
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()
 
     return {

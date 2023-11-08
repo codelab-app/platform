@@ -1,11 +1,14 @@
-import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IAppModel,
   IDomainModel,
   IPageModel,
-  IUser,
+  IUserModel,
 } from '@codelab/frontend/abstract/domain'
-import { userRef } from '@codelab/frontend/abstract/domain'
+import {
+  getUserDomainService,
+  pageRef,
+  userRef,
+} from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend/domain/domain'
 import { Page } from '@codelab/frontend/domain/page'
 import type {
@@ -14,7 +17,7 @@ import type {
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
-import { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { AppProperties, connectOwner } from '@codelab/shared/domain/mapper'
 import { slugify, throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -27,7 +30,7 @@ const create = ({ domains = [], id, name, owner, pages = [] }: IAppDTO) => {
     id,
     name,
     owner: userRef(owner.id),
-    pages: pages.map((page) => Page.create(page)),
+    pages: pages.map((page) => pageRef(page.id)),
   })
 
   return app
@@ -39,8 +42,8 @@ export class App
     domains: prop<Array<IDomainModel>>(() => []),
     id: idProp,
     name: prop<string>(),
-    owner: prop<Ref<IUser>>(),
-    pages: prop<Array<IPageModel>>(() => []),
+    owner: prop<Ref<IUserModel>>(),
+    pages: prop<Array<Ref<IPageModel>>>(() => []),
   })
   implements IAppModel
 {
@@ -69,8 +72,8 @@ export class App
   @computed
   get providerPage() {
     const providerPage = this.pages.find(
-      (page) => page.kind === IPageKind.Provider,
-    )
+      (page) => page.current.kind === IPageKind.Provider,
+    )?.current
 
     if (!providerPage) {
       throw new Error('ProviderPage is required')
@@ -90,8 +93,8 @@ export class App
       domains: this.domains.map((domain) => domain.toJson),
       id: this.id,
       name: this.name,
-      owner: this.owner,
-      pages: this.pages.map((page) => page.toJson),
+      owner: this.owner.current.toJson,
+      pages: this.pages.map((page) => page.current.toJson),
     }
   }
 
@@ -99,28 +102,15 @@ export class App
   static create = create
 
   @modelAction
-  addPageInCache(pageDto: IPageDTO) {
-    const existingPage = this.page(pageDto.id)
-
-    if (existingPage) {
-      return existingPage.writeCache(pageDto)
-    } else {
-      const page: IPageModel = Page.create(pageDto)
-
-      this.pages.push(page)
-
-      return page
-    }
-  }
-
-  @modelAction
   page(id: string) {
-    return this.pages.find((page) => page.id === id)
+    return this.pages.find((page) => page.id === id)?.current
   }
 
   @modelAction
   pageByName(name: string) {
-    return throwIfUndefined(this.pages.find((page) => name === page.name))
+    return throwIfUndefined(
+      this.pages.find((page) => name === page.current.name)?.current,
+    )
   }
 
   /**
@@ -129,7 +119,7 @@ export class App
   @modelAction
   writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
     this.id = id ?? this.id
-    this.pages = pages ? pages.map((page) => Page.create(page)) : this.pages
+    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
     this.name = name ?? this.name
     this.domains = domains
       ? domains.map((domain) => Domain.create(domain))
@@ -143,13 +133,13 @@ export class App
     return {
       compositeKey: AppProperties.appCompositeKey(
         this.name,
-        this.userService.user,
+        this.userDomainService.user,
       ),
       id: this.id,
-      owner: connectOwner(this.userService.user),
+      owner: connectOwner(this.userDomainService.user),
       pages: {
         create: this.pages.map((page) => ({
-          node: page.toCreateInput(),
+          node: page.current.toCreateInput(),
         })),
       },
     }
@@ -159,13 +149,13 @@ export class App
     return {
       compositeKey: AppProperties.appCompositeKey(
         this.name,
-        this.userService.user,
+        this.userDomainService.user,
       ),
     }
   }
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

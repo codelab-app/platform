@@ -62,7 +62,7 @@ export class Prop
   @computed
   get toJson() {
     return {
-      apI: this.api?.current,
+      api: this.api?.maybeCurrent,
       data: JSON.stringify(this.data.data),
       id: this.id,
     }
@@ -135,12 +135,7 @@ export class Prop
   }
 
   get(key: string) {
-    return get(merge(this.values, this.silentData), key)
-  }
-
-  // set data without re-rendering
-  setSilently(key: string, value: object) {
-    this.silentData[key] = value
+    return get(this.values, key)
   }
 
   toCreateInput(): PropCreateInput {
@@ -155,6 +150,4 @@ export class Prop
       data: JSON.stringify(this.data.data ?? {}),
     }
   }
-
-  private silentData: IPropData = {}
 }

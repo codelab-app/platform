@@ -33,7 +33,7 @@ interface ElementTreeItemElementTitleProps {
 
 export const ElementTreeItemElementTitle = observer(
   ({ element, treeNode }: ElementTreeItemElementTitleProps) => {
-    const { elementApplicationService, elementService } = useStore()
+    const { elementService } = useStore()
     const { popover } = useCui()
     const atomName = element.atomName
 
@@ -55,7 +55,7 @@ export const ElementTreeItemElementTitle = observer(
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? `Something went wrong in a parent element`
-      : elementApplicationService.validationService.propsHaveErrors(element)
+      : elementService.validationService.propsHaveErrors(element)
       ? `Some props are not correctly set`
       : undefined
 

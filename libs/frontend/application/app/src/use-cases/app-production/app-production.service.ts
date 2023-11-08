@@ -1,35 +1,34 @@
 import {
   getAppService,
-  getComponentService,
   getElementService,
 } from '@codelab/frontend/abstract/application'
 import type {
   IAppProductionArgs,
   IAppProductionService,
 } from '@codelab/frontend/abstract/domain'
-import { IAppProductionDto } from '@codelab/frontend/abstract/domain'
+import {
+  getActionDomainService,
+  getComponentDomainService,
+  getPageDomainService,
+  IAppProductionDto,
+} from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPageService } from '@codelab/frontend/application/page'
 import { getPropService } from '@codelab/frontend/application/prop'
-import {
-  getActionService,
-  getStoreService,
-} from '@codelab/frontend/application/store'
+import { getStoreService } from '@codelab/frontend/application/store'
 import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomProductionFragment } from '@codelab/shared/abstract/codegen'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { getSdk } from './app-production.endpoints.graphql.gen'
-
-const appApi = getSdk(client)
+import { appProductionApi } from './app-production.api'
 
 const getAppProductionData = async ({
   domain,
   pageUrl,
 }: IAppProductionArgs): Promise<IAppProductionDto> => {
-  const data = await appApi.GetAppProduction({
+  const data = await appProductionApi.GetAppProduction({
     domain,
     pageUrl,
   })
@@ -106,12 +105,12 @@ export class AppProductionService
 
     // use a dummy api to avoid typing issues
     data.atoms.forEach((atom) =>
-      this.atomService.atomDomainService.add({ ...atom, api: entity }),
+      this.atomService.atomDomainService.hydrate({ ...atom, api: entity }),
     )
 
     data.components.forEach((component) =>
       // use a dummy api to avoid typing issues
-      this.componentService.add({ ...component, api: entity }),
+      this.componentDomainService.hydrate({ ...component, api: entity }),
     )
 
     data.elements.forEach((element) =>
@@ -122,20 +121,22 @@ export class AppProductionService
       }),
     )
 
+    data.pages.forEach((page) => this.pageDomainService.hydrate(page))
+
     // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) =>
-      this.storeService.storeDomainService.add(store),
+      this.storeService.storeDomainService.hydrate(store),
     )
 
-    data.actions.forEach((action) => this.actionService.add(action))
+    data.actions.forEach((action) => this.actionDomainService.hydrate(action))
 
     return this.appService.appDomainService.hydrate(data.app)
   }
 
   @computed
-  private get actionService() {
-    return getActionService(this)
+  private get actionDomainService() {
+    return getActionDomainService(this)
   }
 
   @computed
@@ -144,13 +145,18 @@ export class AppProductionService
   }
 
   @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
+  @computed
   private get atomService() {
     return getAtomService(this)
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
+  private get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed

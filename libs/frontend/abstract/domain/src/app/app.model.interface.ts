@@ -3,12 +3,8 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IApp,
-  IAppDTO,
-  IPageDTO,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IApp, IAppDTO, IRef } from '@codelab/shared/abstract/core'
+import type { Ref } from 'mobx-keystone'
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { ICacheService } from '../shared'
@@ -24,14 +20,13 @@ export interface IAppModel
   domains: Array<IDomainModel>
   name: string
   // pageRootElements: Array<Ref<IElementModel>>
-  pages: Array<IPageModel>
+  pages: Array<Ref<IPageModel>>
   /**
    * The `_app.tsx` equivalent of pages
    */
   providerPage: IPageModel
   slug: string
 
-  addPageInCache(pageDTO: IPageDTO): IPageModel
   page(id: string): IPageModel | undefined
   pageByName(name: string): IPageModel
 }

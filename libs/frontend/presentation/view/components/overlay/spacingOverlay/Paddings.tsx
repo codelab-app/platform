@@ -72,7 +72,6 @@ const Padding = ({ value, ...rest }: SpacingProps & { value: string }) => {
   }
 
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
     <PaddingBox {...rest}>
       {numberValue > MIN_DISPLAYABLE_VALUE && (
         <SpacingValue $backgroundColor="#0a9166">{`${numberValue}px`}</SpacingValue>

@@ -1,26 +1,22 @@
 import {
-  getComponentService,
   getElementService,
-  getResourceService,
-  getUserService,
   type IAppService,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IAppModel,
-  ICreateAppData,
-  IUpdateAppData,
-  IUpdatePageData,
+import {
+  getUserDomainService,
+  type IAppModel,
+  type ICreateAppData,
+  type IUpdateAppData,
+  type IUpdatePageData,
+  pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
-import { getDomainService } from '@codelab/frontend/application/domain'
 import {
   getPageService,
   PageRepository,
 } from '@codelab/frontend/application/page'
-import { getStoreService } from '@codelab/frontend/application/store'
+import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
-import { Page } from '@codelab/frontend/domain/page'
-import { ModalService } from '@codelab/frontend/domain/shared'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import type { AppWhere, PageWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
@@ -60,7 +56,7 @@ export class AppService
     const app = this.appDomainService.create({
       id,
       name,
-      owner: this.userService.user,
+      owner: this.userDomainService.user,
       pages: [],
     })
 
@@ -148,13 +144,11 @@ export class AppService
 
     const app = this.appDomainService.app(appId)
 
-    pages.forEach((page) => {
-      const pageExistsInApp = app?.pages.find(
-        (appPage) => appPage.id === page.id,
-      )
+    pages.forEach(({ id }) => {
+      const pageExistsInApp = app?.pages.find((appPage) => appPage.id === id)
 
       if (!pageExistsInApp) {
-        app?.pages.push(Page.create(page))
+        app?.pages.push(pageRef(id))
       }
     })
   })
@@ -186,9 +180,18 @@ export class AppService
   loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
     const { apps, atoms } = yield* _await(this.appRepository.appsList(where))
 
-    atoms.forEach((atom) => this.atomService.atomDomainService.add(atom))
+    atoms.forEach((atom) => this.atomService.atomDomainService.hydrate(atom))
 
-    return apps.map((app) => this.appDomainService.hydrate(app))
+    // hydrate pages to use the first page's url
+    apps
+      .flatMap((app) => app.pages)
+      .forEach((page) => {
+        this.pageService.pageDomainService.hydrate(page)
+      })
+
+    return apps.map((app) => {
+      return this.appDomainService.hydrate(app)
+    })
   })
 
   @modelFlow
@@ -209,16 +212,6 @@ export class AppService
   }
 
   @computed
-  private get componentService() {
-    return getComponentService(this)
-  }
-
-  @computed
-  private get domainService() {
-    return getDomainService(this)
-  }
-
-  @computed
   private get elementService() {
     return getElementService(this)
   }
@@ -229,17 +222,7 @@ export class AppService
   }
 
   @computed
-  private get resourceService() {
-    return getResourceService(this)
-  }
-
-  @computed
-  private get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

@@ -1,7 +1,5 @@
-import type {
-  IEvaluationContext,
-  IInterfaceTypeModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
+import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import { handleFormSubmit } from '@codelab/frontend/presentation/view'

@@ -28,7 +28,7 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
-    const { elementService } = useStore()
+    const { elementService, rendererService } = useStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -55,6 +55,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     ) {
       expandedFields.push('childMapper')
     }
+
+    const runtimeElement = rendererService.runtimeElement(element)
+    const runtimeProps = runtimeElement?.runtimeProps
 
     return (
       <Form<IUpdateBaseElementData>
@@ -92,7 +95,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             <AutoField
               component={CodeMirrorField({
                 customOptions: createAutoCompleteOptions(
-                  element.expressionEvaluationContext,
+                  runtimeProps?.expressionEvaluationContext,
                 ),
                 language: CodeMirrorLanguage.Javascript,
               })}

@@ -5122,7 +5122,6 @@ export type Component = WithOwner & {
   childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
   childrenContainerElementConnection: ComponentChildrenContainerElementConnection
   id: Scalars['ID']['output']
-  keyGenerator?: Maybe<Scalars['String']['output']>
   name: Scalars['String']['output']
   owner: User
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
@@ -5255,7 +5254,6 @@ export type ComponentStoreConnectionArgs = {
 export type ComponentAggregateSelection = {
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
-  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -5566,7 +5564,6 @@ export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementFieldInput>
   id: Scalars['ID']['input']
-  keyGenerator?: InputMaybe<Scalars['String']['input']>
   name: Scalars['String']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   props?: InputMaybe<ComponentPropsFieldInput>
@@ -5637,7 +5634,6 @@ export type ComponentInterfaceTypeApiNodeAggregateSelection = {
 
 export type ComponentOnCreateInput = {
   id: Scalars['ID']['input']
-  keyGenerator?: InputMaybe<Scalars['String']['input']>
   name: Scalars['String']['input']
 }
 
@@ -6014,7 +6010,6 @@ export type ComponentRootElementUpdateFieldInput = {
 /** Fields to sort Components by. The order in which sorts are applied is not guaranteed when specifying many fields in one ComponentSort object. */
 export type ComponentSort = {
   id?: InputMaybe<SortDirection>
-  keyGenerator?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -6141,7 +6136,6 @@ export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']['input']>
-  keyGenerator?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
@@ -6181,12 +6175,6 @@ export type ComponentWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
   id_MATCHES?: InputMaybe<Scalars['String']['input']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
-  keyGenerator?: InputMaybe<Scalars['String']['input']>
-  keyGenerator_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  keyGenerator_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  keyGenerator_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
-  keyGenerator_MATCHES?: InputMaybe<Scalars['String']['input']>
-  keyGenerator_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   name_CONTAINS?: InputMaybe<Scalars['String']['input']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
@@ -6983,21 +6971,6 @@ export type ElementChildMapperComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementChildMapperComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementChildMapperComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementChildMapperComponentNodeAggregationWhereInput>>
-  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -7225,7 +7198,6 @@ export type ElementComponentChildMapperComponentAggregationSelection = {
 
 export type ElementComponentChildMapperComponentNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
-  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -7236,7 +7208,6 @@ export type ElementComponentParentComponentAggregationSelection = {
 
 export type ElementComponentParentComponentNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
-  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -7978,21 +7949,6 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementParentComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
-  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -19376,7 +19332,6 @@ export type UserComponentComponentsAggregationSelection = {
 
 export type UserComponentComponentsNodeAggregateSelection = {
   id: IdAggregateSelectionNonNullable
-  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -19449,21 +19404,6 @@ export type UserComponentsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserComponentsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
-  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
@@ -20282,6 +20222,7 @@ export type AppProductionFragment = {
 }
 
 export type AtomFragment = {
+  __typename: 'Atom'
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
@@ -20327,7 +20268,6 @@ export type ComponentDevelopmentFragment = {
 export type ComponentFragment = {
   __typename: 'Component'
   id: string
-  keyGenerator?: string | null
   name: string
   api: InterfaceTypeFragment
   childrenContainerElement: { id: string }
@@ -20339,7 +20279,6 @@ export type ComponentFragment = {
 
 export type ComponentProductionFragment = {
   id: string
-  keyGenerator?: string | null
   name: string
   childrenContainerElement: { id: string }
   owner: OwnerFragment
@@ -20804,10 +20743,11 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
-  primitiveTypes: Array<PrimitiveTypeFragment & PrimitiveTypeFragment>
+  primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
+  components: Array<ComponentDevelopmentFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{
@@ -20863,6 +20803,7 @@ export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
   atoms: Array<{
+    __typename: 'Atom'
     id: string
     name: string
     type: AtomType

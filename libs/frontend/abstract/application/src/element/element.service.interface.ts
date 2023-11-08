@@ -12,13 +12,13 @@ import type {
   IElementTypeKind,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   IEntityModalService,
   IFormService,
-  IModalService,
 } from '../services'
+import type { IElementApplicationValidationService } from './element.application.validation.service.interface'
 import type { IElementRepository } from './element.repo.interface'
 
 /**
@@ -64,12 +64,13 @@ export interface IElementService
     'createModal'
   > {
   cloneElementService: ICloneElementService
-  clonedElements: ObjectMap<IElementModel>
   createForm: IFormService<CreateElementData, CreateElementProperties>
   elementDomainService: IElementDomainService
   elementRepository: IElementRepository
+  // Moved from element model to decouple renderer
   updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
+  validationService: IElementApplicationValidationService
 
   createElement(data: IElementDTO): Promise<IElementModel>
   delete(subRoot: IElementModel): Promise<void>
@@ -81,8 +82,8 @@ export interface IElementService
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel
   }
-  maybeElement(id: Maybe<string>): Maybe<IElementModel>
   move(context: IMoveElementContext): Promise<void>
+  styleStringWithBreakpoints(element: IElementModel): string
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>
 }

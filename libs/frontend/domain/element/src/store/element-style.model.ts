@@ -1,7 +1,3 @@
-import {
-  getBuilderService,
-  getRenderService,
-} from '@codelab/frontend/abstract/application'
 import type {
   ElementCssRules,
   IElementStyleModel,
@@ -10,8 +6,8 @@ import {
   BuilderWidthBreakPoint,
   CssMap,
   defaultBuilderWidthBreakPoints,
+  getBuilderDomainService,
   IElementStyle,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -55,43 +51,6 @@ export class ElementStyle
   @computed
   get styleParsed(): IElementStyle {
     return JSON.parse(this.style || '{}')
-  }
-
-  @computed
-  get styleStringWithBreakpoints(): string {
-    const parsedCss = this.styleParsed
-    const activeRenderer = this.renderService.activeRenderer?.current
-    const rendererType = activeRenderer?.rendererType
-
-    const isProduction =
-      rendererType === RendererType.Production ||
-      rendererType === RendererType.Preview
-
-    const mediaQueryString = isProduction ? '@media' : '@container root'
-    const breakpointStyles = []
-
-    for (const breakpoint of this.breakpointsByPrecedence) {
-      const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
-
-      const breakpointWidth =
-        defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
-
-      const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
-
-      if (breakpointStyle) {
-        breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
-            ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
-          }`,
-        )
-      }
-    }
-
-    return breakpointStyles.join('\n')
   }
 
   @computed
@@ -166,11 +125,6 @@ export class ElementStyle
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
-  }
-
-  @computed
-  private get renderService() {
-    return getRenderService(this)
+    return getBuilderDomainService(this)
   }
 }

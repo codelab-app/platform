@@ -1,59 +1,66 @@
+import type { IRendererModel } from '@codelab/frontend/abstract/application'
+import {
+  rendererRef,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import type {
-  IRenderer,
-  IRenderOutput,
+  IElementModel,
+  IPageModel,
   TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementTreeRef,
-  rendererRef,
-  RendererType,
 } from '@codelab/frontend/abstract/domain'
+import { elementFactory } from '@codelab/frontend/domain/element'
+import { primitiveTypeFactory } from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IPageDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
-import { factoryBuild } from './factory'
+import { rendererFactory } from './renderer.test.factory'
 import { setupPage } from './setup'
-import { createTestRootStore } from './setup/test-root-store'
+import { rootApplicationStore, rootDomainStore } from './setup/root.test.store'
 import { TestProviderWrapper } from './TestProviderWrapper'
 
 describe('TypedPropTransformers', () => {
   const testPropValue = 'some text'
   const testOverridePropValue = 'overridden text'
   const componentId = 'component-id'
-  const rootStore = createTestRootStore()
-  let page: IPageDTO
-  let pageRootElement: IElementDTO
-  let renderer: IRenderer
+  let page: IPageModel
+  let pageRootElement: IElementModel
+  let renderer: IRendererModel
 
   beforeEach(() => {
-    rootStore.clear()
+    rootDomainStore.clear()
     ;({ page, rootElement: pageRootElement } = setupPage())
-    renderer = factoryBuild('renderer', {
+
+    renderer = rendererFactory(
+      rootDomainStore,
+      rootApplicationStore,
+    )({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       elementTree: elementTreeRef(
-        rootStore.appService.appDomainService.apps
-          .get(page.app.id)!
-          .page(page.id)!,
-      ),
+        rootDomainStore.appDomainService.apps.get(page.app.id)!.page(page.id)!,
+      ).current,
       // Passing Preview renderer to replace customText prop value
       rendererType: RendererType.Preview,
     })
 
-    rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
+    rootApplicationStore.rendererService.setActiveRenderer(
+      rendererRef(renderer.id),
+    )
   })
 
-  it('should apply default typed prop transformer', () => {
-    const integerType = factoryBuild('typePrimitive', {
+  it.only('should apply default typed prop transformer', () => {
+    const integerType = primitiveTypeFactory(rootDomainStore)({
       name: PrimitiveTypeKind.Integer,
       primitiveKind: PrimitiveTypeKind.Integer,
     })
 
-    const element = factoryBuild('element', {
+    const element = elementFactory(rootDomainStore)({
       page,
       parentElement: pageRootElement,
-      props: factoryBuild('props', {
+      props: dtoFactory.build('props', {
         data: JSON.stringify({
           prop01: 'something',
           prop02: false,
@@ -63,16 +70,16 @@ describe('TypedPropTransformers', () => {
             value: 123,
           },
         }),
-      }),
-      renderType: factoryBuild('atom', {
-        api: factoryBuild('typeInterface'),
+      }).toJson,
+      renderType: dtoFactory.build('atom', {
+        api: dtoFactory.build('interfaceType'),
       }),
     })
 
     const elementModel = rootStore.elementService.element(element.id)
 
     const { props } =
-      rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+      rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
         elementModel,
       ) as IRenderOutput
 
@@ -84,39 +91,39 @@ describe('TypedPropTransformers', () => {
   })
 
   it('should render props when kind is ReactNodeType', async () => {
-    const componentRootElement = factoryBuild('element', {
+    const componentRootElement = dtoFactory.build('element', {
       closestContainerNode: {
         id: componentId,
       },
       parentComponent: { id: componentId },
-      props: factoryBuild('props', {
+      props: dtoFactory.build('props', {
         data: JSON.stringify({
           [CUSTOM_TEXT_PROP_KEY]: testPropValue,
         }),
-      }),
-      renderType: factoryBuild('atom', {
-        api: factoryBuild('typeInterface'),
+      }).toJson,
+      renderType: dtoFactory.build('atom', {
+        api: dtoFactory.build('interfaceType'),
         type: IAtomType.AntDesignTypographyText,
       }),
     })
 
-    const component = factoryBuild('component', {
-      api: factoryBuild('typeInterface'),
+    const component = dtoFactory.build('component', {
+      api: dtoFactory.build('interfaceType'),
       childrenContainerElement: componentRootElement,
       id: componentId,
-      props: factoryBuild('props'),
+      props: dtoFactory.build('props').toJson,
       rootElement: componentRootElement,
-      store: factoryBuild('store', {
-        api: factoryBuild('typeInterface'),
+      store: dtoFactory.build('store', {
+        api: dtoFactory.build('interfaceType'),
       }),
     })
 
-    const reactNodeType = factoryBuild('typeReactNode')
+    const reactNodeType = dtoFactory.build('reactNodeType')
 
-    const element = factoryBuild('element', {
+    const element = dtoFactory.build('element', {
       page,
       parentElement: pageRootElement,
-      props: factoryBuild('props', {
+      props: dtoFactory.build('props', {
         data: JSON.stringify({
           someNode: {
             kind: reactNodeType.kind,
@@ -124,14 +131,14 @@ describe('TypedPropTransformers', () => {
             value: component.id,
           } as TypedProp,
         }),
-      }),
-      renderType: factoryBuild('atom', {
-        api: factoryBuild('typeInterface'),
+      }).toJson,
+      renderType: dtoFactory.build('atom', {
+        api: dtoFactory.build('interfaceType'),
       }),
     })
 
     const { props } =
-      rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+      rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
         rootStore.elementService.element(element.id),
       ) as IRenderOutput
 
@@ -151,34 +158,34 @@ describe('TypedPropTransformers', () => {
   ])(
     'should transform render prop when kind is RenderPropType and render with passed argument - %s',
     async (renderedPropArgument) => {
-      const componentRootElement = factoryBuild('element', {
+      const componentRootElement = dtoFactory.build('element', {
         closestContainerNode: {
           id: componentId,
         },
         parentComponent: { id: componentId },
-        props: factoryBuild('props', {
+        props: dtoFactory.build('props', {
           data: JSON.stringify({
             [CUSTOM_TEXT_PROP_KEY]: `{{componentProps.${CUSTOM_TEXT_PROP_KEY}}}`,
           }),
-        }),
-        renderType: factoryBuild('atom', {
-          api: factoryBuild('typeInterface'),
+        }).toJson,
+        renderType: dtoFactory.build('atom', {
+          api: dtoFactory.build('interfaceType'),
           type: IAtomType.AntDesignTypographyText,
         }),
       })
 
-      const component = factoryBuild('component', {
-        api: factoryBuild('typeInterface'),
+      const component = dtoFactory.build('component', {
+        api: dtoFactory.build('interfaceType'),
         childrenContainerElement: componentRootElement,
         id: componentId,
-        props: factoryBuild('props', {
+        props: dtoFactory.build('props', {
           data: JSON.stringify({
             [CUSTOM_TEXT_PROP_KEY]: testPropValue,
           }),
-        }),
+        }).toJson,
         rootElement: componentRootElement,
-        store: factoryBuild('store', {
-          api: factoryBuild('typeInterface'),
+        store: dtoFactory.build('store', {
+          api: dtoFactory.build('interfaceType'),
         }),
       })
 
@@ -186,23 +193,23 @@ describe('TypedPropTransformers', () => {
 
       componentApi?.writeCache({
         fields: [
-          factoryBuild('field', {
+          dtoFactory.build('field', {
             api: componentApi,
-            key: CUSTOM_TEXT_PROP_KEY,
-            type: factoryBuild('typePrimitive', {
+            fieldType: dtoFactory.build('primitiveType', {
               name: PrimitiveTypeKind.String,
               primitiveKind: PrimitiveTypeKind.String,
             }),
+            key: CUSTOM_TEXT_PROP_KEY,
           }),
         ],
       })
 
-      const renderPropType = factoryBuild('typeRenderProp')
+      const renderPropType = dtoFactory.build('renderPropType')
 
-      const element = factoryBuild('element', {
+      const element = dtoFactory.build('element', {
         page,
         parentElement: pageRootElement,
-        props: factoryBuild('props', {
+        props: dtoFactory.build('props', {
           data: JSON.stringify({
             someNode: {
               kind: renderPropType.kind,
@@ -210,14 +217,14 @@ describe('TypedPropTransformers', () => {
               value: component.id,
             } as TypedProp,
           }),
-        }),
-        renderType: factoryBuild('atom', {
-          api: factoryBuild('typeInterface'),
+        }).toJson,
+        renderType: dtoFactory.build('atom', {
+          api: dtoFactory.build('interfaceType'),
         }),
       })
 
       const { props } =
-        rootStore.renderService.activeRenderer?.current.renderIntermediateElement(
+        rootStore.rendererService.activeRenderer?.current.renderIntermediateElement(
           rootStore.elementService.element(element.id),
         ) as IRenderOutput
 

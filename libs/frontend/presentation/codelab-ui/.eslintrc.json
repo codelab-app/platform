@@ -7,7 +7,9 @@
       "parserOptions": {
         "project": ["libs/frontend/presentation/codelab-ui/tsconfig.*?.json"]
       },
-      "rules": {}
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],

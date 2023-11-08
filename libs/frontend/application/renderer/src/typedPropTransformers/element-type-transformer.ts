@@ -1,11 +1,11 @@
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
 import {
   type IPageNode,
   isElement,
-  type ITypedPropTransformer,
   type TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
+import { BaseRenderPipe } from '../renderPipes'
 
 /**
  * Transforms props from the following format:
@@ -37,6 +37,27 @@ export class ElementTypeTransformer
       return prop
     }
 
-    return this.renderer.renderElement(targetElement)
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
+
+    const fallback = null
+
+    if (!runtimeNode) {
+      console.error('Runtime node not found')
+
+      return fallback
+    }
+
+    const runtimeElement =
+      runtimeNode.runtimeProps?.addRuntimeElementModel(targetElement)
+
+    if (!runtimeElement) {
+      console.error('Unable to create runtime element')
+
+      return fallback
+    }
+
+    return runtimeElement.render
   }
 }

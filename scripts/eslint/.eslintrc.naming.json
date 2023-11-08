@@ -38,7 +38,11 @@
               "camelCase": false,
               "pascalCase": true
             },
-            "ignore": [".*\\.hook\\.tsx?$"]
+            "ignore": [
+              ".*\\.hook\\.tsx?$",
+              ".*\\.stories\\.tsx?$",
+              "preview.tsx"
+            ]
           }
         ]
       }

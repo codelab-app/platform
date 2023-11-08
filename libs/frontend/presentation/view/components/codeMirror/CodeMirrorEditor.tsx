@@ -73,7 +73,6 @@ export const CodeMirrorEditor = observer((props: CodeMirrorEditorProps) => {
 
   return (
     <CodeMirrorInput
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
       expandable={expandable}
       extensions={mergedExtension}

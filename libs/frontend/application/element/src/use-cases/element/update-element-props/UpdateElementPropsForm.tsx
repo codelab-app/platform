@@ -21,8 +21,13 @@ export interface UpdateElementPropsFormProps {
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element }) => {
-    const { builderService, componentService, propService, typeService } =
-      useStore()
+    const {
+      builderService,
+      componentService,
+      propService,
+      rendererService,
+      typeService,
+    } = useStore()
 
     const currentElement = element.current
     const apiId = currentElement.renderType.current.api.id
@@ -75,13 +80,16 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       submitRef.current?.validate?.()
     }, [submitRef.current])
 
+    const runtimeElement = rendererService.runtimeElement(currentElement)
+    const runtimeProps = runtimeElement?.runtimeProps
+
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
           <Row className="mb-5" gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
-                autocomplete={element.current.propsEvaluationContext}
+                autocomplete={runtimeProps?.propsEvaluationContext}
                 autosave
                 initialSchema={{}}
                 interfaceType={interfaceType}

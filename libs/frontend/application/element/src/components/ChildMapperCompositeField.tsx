@@ -1,4 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectComponent } from '@codelab/frontend/application/type'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
@@ -15,6 +16,8 @@ interface ChildMapperFieldsProps {
 }
 
 const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
+  const { rendererService } = useStore()
+
   const [childMapperComponentFieldProps] = useField<{ value?: IRef }>(
     'childMapperComponent',
     {},
@@ -31,7 +34,10 @@ const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
         filterOption
         label={null}
         name="childMapperPropKey"
-        options={Object.keys(element.expressionEvaluationContext)
+        options={Object.keys(
+          rendererService.runtimeElement(element)?.runtimeProps
+            .expressionEvaluationContext || {},
+        )
           .sort()
           .map((label) => ({ label, value: label }))}
       />

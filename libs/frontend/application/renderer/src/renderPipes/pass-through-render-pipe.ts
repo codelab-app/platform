@@ -1,10 +1,9 @@
 import type {
-  IElementModel,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import { isAtom } from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { RenderOutput } from '../utils'
@@ -18,7 +17,10 @@ export class PassThroughRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
+    const element = runtimeElement.element
+    const props = runtimeElement.runtimeProps.evaluatedProps
+
     // TODO: element.renderType cannot be component, we should throw error here
     if (this.renderer.debugMode) {
       console.info(`PassThroughRenderPipe: rendering input`, {
@@ -31,8 +33,8 @@ export class PassThroughRenderPipe
       atomType: isAtom(element.renderType.current)
         ? element.renderType.current.type
         : IAtomType.ReactFragment,
-      element,
-      props: props,
+      props,
+      runtimeElement,
     })
   }
 }

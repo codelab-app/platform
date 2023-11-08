@@ -1,4 +1,4 @@
-import { RendererType } from '@codelab/frontend/abstract/domain'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useAsync } from '@react-hookz/web'
 import { useCurrentApp } from '../routerHooks'
@@ -7,7 +7,7 @@ import { useCurrentApp } from '../routerHooks'
  * Fetch and load the remaining app pages (that currently were not loaded from server)
  */
 export const useRemainingPages = () => {
-  const { appService, renderService } = useStore()
+  const { appService, rendererService } = useStore()
   const app = useCurrentApp()
 
   return useAsync(async () => {
@@ -24,13 +24,12 @@ export const useRemainingPages = () => {
     })
 
     app.pages.forEach((page) => {
-      const rendererExists = renderService.renderers.has(page.id)
+      const rendererExists = rendererService.renderers.has(page.id)
 
       if (!rendererExists) {
-        renderService.addRenderer({
-          elementTree: page,
+        rendererService.hydrate({
+          elementTree: page.current,
           id: page.id,
-          providerTree: app.providerPage,
           rendererType: RendererType.PageBuilder,
         })
       }

@@ -7,10 +7,8 @@ import type {
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
-import { Field } from '@codelab/frontend/domain/type'
-import type { FieldFragment } from '@codelab/shared/abstract/codegen'
-import type { IRef } from '@codelab/shared/abstract/core'
-import { IFieldDTO } from '@codelab/shared/abstract/core'
+import { FieldDomainService } from '@codelab/frontend/domain/type'
+import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
@@ -23,7 +21,6 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
@@ -42,8 +39,8 @@ export class FieldService
     createForm: prop(() => new CreateFieldFormService({})),
     createModal: prop(() => new CreateFieldModalService({})),
     deleteModal: prop(() => new FieldModalService({})),
+    fieldDomainService: prop(() => new FieldDomainService({})),
     fieldRepository: prop(() => new FieldRepository({})),
-    fields: prop(() => objectMap<IFieldModel>()),
     id: idProp,
     updateForm: prop(() => new FieldFormService({})),
     updateModal: prop(() => new FieldModalService({})),
@@ -63,7 +60,7 @@ export class FieldService
       id: v4(),
     }
 
-    const newField = this.add(fieldDto)
+    const newField = this.fieldDomainService.hydrate(fieldDto)
     const interfaceType = this.typeService.type(apiId) as IInterfaceTypeModel
 
     interfaceType.writeCache({
@@ -90,7 +87,9 @@ export class FieldService
       yield* _await(this.typeService.getOne(createFieldData.fieldType))
     }
 
-    const field = this.add(FieldService.mapDataToDTO(createFieldData))
+    const field = this.fieldDomainService.hydrate(
+      FieldService.mapDataToDTO(createFieldData),
+    )
 
     const interfaceType = this.typeService.type(
       field.api.id,
@@ -109,7 +108,7 @@ export class FieldService
   @transaction
   delete = _async(function* (this: FieldService, fields: Array<IFieldModel>) {
     // const input = { where: { id: fieldId }, interfaceId }
-    fields.forEach((field) => this.fields.delete(field.id))
+    fields.forEach((field) => this.fieldDomainService.fields.delete(field.id))
 
     const nodesDeleted = yield* _await(this.fieldRepository.delete(fields))
 
@@ -138,7 +137,7 @@ export class FieldService
       targetField,
     }: Parameters<IFieldService['moveFieldAsNextSibling']>[0],
   ) {
-    const target = this.getField(targetField.id)
+    const target = this.fieldDomainService.getField(targetField.id)
 
     if (target?.nextSibling?.getRefId() === field.id) {
       return
@@ -169,7 +168,7 @@ export class FieldService
       targetField,
     }: Parameters<IFieldService['moveFieldAsPrevSibling']>[0],
   ) {
-    const target = this.getField(targetField.id)
+    const target = this.fieldDomainService.getField(targetField.id)
 
     if (target?.nextSibling?.getRefId() === field.id) {
       return
@@ -197,7 +196,7 @@ export class FieldService
     this: FieldService,
     updateFieldData: ICreateFieldData,
   ) {
-    const field = this.getField(updateFieldData.id)!
+    const field = this.fieldDomainService.getField(updateFieldData.id)!
 
     field.writeCache(FieldService.mapDataToDTO(updateFieldData))
 
@@ -207,44 +206,14 @@ export class FieldService
   })
 
   @modelAction
-  add(fieldDTO: IFieldDTO) {
-    const existingField = this.fields.get(fieldDTO.id)
-
-    if (existingField) {
-      return existingField
-    }
-
-    const field = Field.create(fieldDTO)
-
-    this.fields.set(field.id, field)
-
-    return field
-  }
-
-  @modelAction
   field(id: string) {
-    const element = this.getField(id)
+    const element = this.fieldDomainService.getField(id)
 
     if (!element) {
       throw new Error('Missing element')
     }
 
     return element
-  }
-
-  @modelAction
-  load(fields: Array<FieldFragment>) {
-    const loadedFields = fields.map((fragment) => Field.create(fragment))
-
-    for (const field of loadedFields) {
-      this.fields.set(field.id, field)
-    }
-
-    return loadedFields
-  }
-
-  getField(id: string) {
-    return this.fields.get(id)
   }
 
   private static mapDataToDTO(fieldData: ICreateFieldData) {

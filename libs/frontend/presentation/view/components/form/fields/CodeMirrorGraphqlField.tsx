@@ -64,7 +64,6 @@ export const CodeMirrorGraphqlField = <T,>(
           ) : (
             <CodeMirrorEditor
               height="150px"
-              // eslint-disable-next-line react/jsx-props-no-spreading
               {...merged}
               extensions={extension}
               overrideExtensions

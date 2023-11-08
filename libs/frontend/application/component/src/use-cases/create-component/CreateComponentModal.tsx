@@ -7,7 +7,6 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
-import { KEY_GENERATOR } from './CreateComponentForm'
 
 export const CreateComponentModal = observer(() => {
   const { componentService, userService } = useStore()
@@ -20,7 +19,6 @@ export const CreateComponentModal = observer(() => {
 
   const model = {
     id: v4(),
-    keyGenerator: KEY_GENERATOR,
     owner: { auth0Id: userService.user.auth0Id },
   }
 

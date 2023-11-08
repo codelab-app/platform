@@ -1,10 +1,10 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { SeoHead } from 'apps/landing/home/SeoHead'
+import { SeoHead } from 'apps/landing/src/home/SeoHead'
 import { supabase } from 'apps/landing/utils/supabase'
 import type { GetStaticProps } from 'next'
 import * as React from 'react'
-import type { ITutorialsItem, TutorialsBodyProps } from '../../home'
-import { HomeTemplate, TutorialsBody, TutorialsHeader } from '../../home'
+import type { ITutorialsItem, TutorialsBodyProps } from '../../src/home'
+import { HomeTemplate, TutorialsBody, TutorialsHeader } from '../../src/home'
 
 export const getStaticProps: GetStaticProps<{
   tutorials: Array<ITutorialsItem> | null

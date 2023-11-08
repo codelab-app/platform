@@ -27,7 +27,7 @@ export class Atom implements IAtom {
     return atom
   }
 
-  api: IInterfaceTypeRef
+  api: IRef
 
   externalCssSource: string | null | undefined
 

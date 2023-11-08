@@ -1,5 +1,7 @@
-import type { RendererType } from '@codelab/frontend/abstract/domain'
-import { rendererRef } from '@codelab/frontend/abstract/domain'
+import {
+  rendererRef,
+  type RendererType,
+} from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { AppProperties } from '@codelab/shared/domain/mapper'
@@ -18,7 +20,7 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     builderService,
     componentService,
     elementService,
-    renderService,
+    rendererService,
     typeService,
     userService,
   } = useStore()
@@ -43,7 +45,10 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     }
 
     const roots = [component.rootElement.current]
-    const rootElement = elementService.maybeElement(component.rootElement.id)
+
+    const rootElement = elementService.elementDomainService.maybeElement(
+      component.rootElement.id,
+    )
 
     await loadAllTypesForElements(componentService, typeService, roots)
 
@@ -52,13 +57,13 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       builderService.selectComponentNode(component)
     }
 
-    const renderer = renderService.addRenderer({
+    const renderer = rendererService.hydrate({
       elementTree: component,
       id: component.id,
       rendererType,
     })
 
-    renderService.setActiveRenderer(rendererRef(renderer.id))
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()
 
     return { app, elementTree: component, renderer }

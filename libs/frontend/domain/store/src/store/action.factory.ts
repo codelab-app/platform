@@ -1,5 +1,5 @@
-import type { IActionFactory } from '@codelab/frontend/abstract/application'
 import type {
+  IActionFactory,
   IActionModel,
   ICreateActionData,
   IUpdateActionData,

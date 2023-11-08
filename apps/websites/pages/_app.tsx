@@ -12,6 +12,7 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { Analytics } from '@vercel/analytics/react'
+import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { v4 } from 'uuid'
 
@@ -34,8 +35,10 @@ export const user: Auth0IdToken = {
 }
 
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
+  const router = useRouter()
+
   const store = useMemo(() => {
-    return initializeStore({ user })
+    return initializeStore({ routerQuery: router.query, user })
   }, [user])
 
   return (

@@ -1,10 +1,9 @@
 import type { IUserService } from '@codelab/frontend/abstract/application'
-import type { IUser } from '@codelab/frontend/abstract/domain'
+import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
-import { User } from '@codelab/frontend/domain/user'
+import { User, UserDomainService } from '@codelab/frontend/domain/user'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -12,7 +11,6 @@ import {
   Model,
   model,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
@@ -21,42 +19,25 @@ import { userApi } from './user.api'
 const init = (data: Auth0IdToken) => {
   const user = User.fromSession(data)
 
-  return new UserService({
-    user,
-  })
+  return fromDto(user)
 }
 
 const fromDto = (user: IUserDTO) => {
   return new UserService({
-    user: new User(user),
+    userDomainService: UserDomainService.fromDto(user),
   })
 }
 
 @model('@codelab/UserService')
 export class UserService
   extends Model({
-    // Authenticated user
-    user: prop<IUser>().withSetter(),
-    /**
-     * Used by getStaticPaths for custom domain routing
-     */
-    users: prop(() => objectMap<IUser>()),
+    userDomainService: prop<IUserDomainService>(),
   })
   implements IUserService
 {
   static init = init
 
   static fromDto = fromDto
-
-  @computed
-  get auth0Id() {
-    return throwIfUndefined(this.user.auth0Id)
-  }
-
-  @computed
-  get usersList() {
-    return [...Object.values(this.users), this.user]
-  }
 
   @modelFlow
   @transaction
@@ -72,4 +53,9 @@ export class UserService
   saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
     return yield* _await(restPlatformClient.post('/user/save', data))
   })
+
+  @computed
+  get user() {
+    return this.userDomainService.user
+  }
 }

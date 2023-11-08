@@ -1,9 +1,8 @@
 import type {
-  IElementModel,
   IRenderOutput,
   IRenderPipe,
-} from '@codelab/frontend/abstract/domain'
-import type { IPropData } from '@codelab/shared/abstract/core'
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './render-pipe.base'
 
@@ -14,11 +13,9 @@ export class PreRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElementModel, props: IPropData): IRenderOutput {
-    const renderer = this.renderService.activeRenderer?.current
+  render(runtimeElement: IRuntimeElementModel): IRenderOutput {
+    runtimeElement.runPreRenderAction()
 
-    renderer?.runPreRenderAction(element)
-
-    return this.next.render(element, props)
+    return this.next.render(runtimeElement)
   }
 }

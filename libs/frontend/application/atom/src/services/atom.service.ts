@@ -5,20 +5,22 @@ import type {
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef } from '@codelab/frontend/abstract/domain'
+import {
+  InlineFormService,
+  ModalService,
+  PaginationService,
+} from '@codelab/frontend/application/shared/store'
 import { getTypeService } from '@codelab/frontend/application/type'
 import {
   AtomDomainService,
   filterAtoms,
   mapAtomOptions,
 } from '@codelab/frontend/domain/atom'
-import {
-  InlineFormService,
-  ModalService,
-  PaginationService,
-} from '@codelab/frontend/domain/shared'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {
@@ -68,13 +70,14 @@ export class AtomService
       type,
     }: ICreateAtomData,
   ) {
-    const api = this.typeService.typeDomainService.addInterface({
+    const api = this.typeService.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
     })
 
-    const atom = this.atomDomainService.add({
+    const atom = this.atomDomainService.hydrate({
+      __typename: IElementRenderTypeKind.Atom,
       api,
       externalCssSource,
       externalJsSource,
@@ -126,12 +129,12 @@ export class AtomService
     this.paginationService.totalItems = count
 
     if (!isEmpty(where) || options?.limit) {
-      this.typeService.loadTypes({
+      this.typeService.typeDomainService.hydrateTypes({
         interfaceTypes: atoms.map((atom) => atom.api),
       })
     }
 
-    return atoms.map((atom) => this.atomDomainService.add(atom))
+    return atoms.map((atom) => this.atomDomainService.hydrate(atom))
   })
 
   @modelFlow
@@ -156,8 +159,10 @@ export class AtomService
 
     atoms
       .flatMap((atom) => atom.api)
-      .forEach((type) => this.typeService.typeDomainService.addInterface(type))
-    atoms.forEach((atom) => this.atomDomainService.add(atom))
+      .forEach((type) =>
+        this.typeService.typeDomainService.hydrateInterface(type),
+      )
+    atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
 
     // const currentAtom = fieldProps.value
     //   ? this.atomDomainService.atoms.get(fieldProps.value)

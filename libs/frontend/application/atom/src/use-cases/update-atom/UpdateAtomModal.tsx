@@ -37,7 +37,7 @@ export const UpdateAtomModal = observer(() => {
     type: atom?.type,
   }
 
-  const tagListOption = tagService.tagsSelectOptions
+  const tagListOption = tagService.tagDomainService.tagsSelectOptions
 
   return (
     <ModalForm.Modal

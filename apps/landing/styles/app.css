@@ -1,5 +1,12 @@
 @import './tailwind.css';
 
 /* Vendor imports */
-@import '../../../node_modules/morphext/dist/morphext.css';
 @import 'animate.css';
+
+/*
+ apply fix for common css problems:
+ - remove default padding/margin from html and body
+ - set 100% width and height for html and body
+ - set box-sizing, remove outlines, etc
+ */
+@import 'antd/dist/reset.css';

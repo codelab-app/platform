@@ -1,5 +1,4 @@
 import {
-  getBuilderService,
   getComponentService,
   getElementService,
 } from '@codelab/frontend/abstract/application'
@@ -8,7 +7,11 @@ import type {
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import { elementRef } from '@codelab/frontend/abstract/domain'
+import {
+  componentRef,
+  elementRef,
+  getBuilderDomainService,
+} from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import {
   getActionService,
@@ -91,9 +94,7 @@ export class CloneElementService
     // is a child of the element we are converting or the element itself
     this.builderService.setSelectedNode(null)
 
-    element.detachFromTree()
-
-    // 3. create the component and pass element as rootElement for component,
+    // 2. create the component and pass element as rootElement for component,
     const createdComponent: IComponentModel = yield* _await(
       this.componentService.create({
         id: v4(),
@@ -103,9 +104,17 @@ export class CloneElementService
     )
 
     yield* _await(this.cloneElementStore(element, createdComponent))
+
+    // 3. Detach should happen only after store access is no longer needed
+    element.detachFromTree()
+
+    // 4. Attach root element to component
+    element.setParentComponent(componentRef(createdComponent.id))
+
+    // 5. persist changes occurred on elements
     yield* _await(this.elementService.syncModifiedElements())
 
-    // 5. create a new element as an instance of the component
+    // 6. create a new element as an instance of the component
     const componentId = createdComponent.id
 
     const renderType = {
@@ -189,7 +198,7 @@ export class CloneElementService
     ]
 
     const updatedElementProps = elementProps.map((props) => {
-      const updatedPropsData = mapDeep(props.data, (value) => {
+      const updatedPropsData = mapDeep(props.data.data ?? {}, (value) => {
         if (
           value.kind === ITypeKind.ActionType &&
           oldToNewActionIdMap.has(value.value)
@@ -200,7 +209,7 @@ export class CloneElementService
         return value
       })
 
-      return props.writeCache(updatedPropsData)
+      return props.writeCache({ data: JSON.stringify(updatedPropsData) })
     })
 
     await Promise.all(
@@ -303,7 +312,7 @@ export class CloneElementService
 
   @computed
   private get builderService() {
-    return getBuilderService(this)
+    return getBuilderDomainService(this)
   }
 
   @computed

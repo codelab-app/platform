@@ -29,7 +29,6 @@ export const UpdateComponentForm = observer<{ component: IComponentModel }>(
         id: component.childrenContainerElement.current.id,
       },
       id: component.id,
-      keyGenerator: component.keyGenerator,
       name: component.name,
     }
 

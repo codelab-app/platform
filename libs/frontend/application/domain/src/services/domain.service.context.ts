@@ -1,7 +1,7 @@
+import type { IDomainService } from '@codelab/frontend/abstract/application'
 import { createContext } from 'mobx-keystone'
-import type { DomainService } from './domain.service'
 
-export const domainServiceContext = createContext<DomainService>()
+export const domainServiceContext = createContext<IDomainService>()
 
 export const getDomainService = (self: object) => {
   const domainService = domainServiceContext.get(self)

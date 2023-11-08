@@ -16,9 +16,10 @@ export type SelectActionProps = Pick<
 export const SelectAction = (fieldProps: SelectActionProps) => {
   const { actionService } = useStore()
 
-  const selectActionOptions = actionService.getSelectActionOptions(
-    fieldProps.updatedAction,
-  )
+  const selectActionOptions =
+    actionService.actionDomainService.getSelectActionOptions(
+      fieldProps.updatedAction,
+    )
 
   return (
     <SelectField

@@ -2,24 +2,18 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IElement,
-  IElementDTO,
-  IPropData,
-  IRef,
-} from '@codelab/shared/abstract/core'
+import type { IElement, IElementDTO, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
-import type { BuilderWidthBreakPoint } from '../builder'
 import type { IComponentModel } from '../component'
 import type { IHook } from '../hook'
 import type { IPageModel } from '../page'
 import type { IPropModel } from '../prop'
-import type { IElementRuntimeProp, RendererType } from '../render'
 import type { ICacheService, IElementTreeViewDataNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
+import type { IElementStyleModel } from './element-style.model.interface'
 import type { IElementRenderTypeModel } from './render-type'
 
 /**
@@ -47,59 +41,6 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export interface IEvaluationContext {
-  actions: IPropData
-  args?: Array<unknown>
-  componentProps: IPropData
-  props: IPropData
-  refs: IPropData
-  rendererType?: RendererType
-  rootActions: IPropData
-  rootRefs: IPropData
-  rootState: IPropData
-  state: IPropData
-  url: IPropData
-}
-
-export interface IBreakpointStyle {
-  cssString?: string
-  guiString?: string
-}
-
-export type IElementStyle = Record<
-  BuilderWidthBreakPoint,
-  IBreakpointStyle | undefined
->
-
-export interface ElementCssRules {
-  [key: string]: ElementCssRules | string
-}
-
-export interface IElementStyleModel {
-  customCss?: Nullable<string>
-  /**
-   * html-ready string that includes styles for all breakpoints
-   * for production - uses media queries to apply styles
-   * for development - uses container queries, for better UX
-   */
-  guiCss?: Nullable<string>
-  styleStringWithBreakpoints: string
-  /**
-   * styles that are inherited from other breakpoints,
-   * for example, if we have a style for mobile, it will be inherited
-   * for desktop, and this prop will display the inherited styles
-   * when we edit the desktop breakpoint
-   */
-  stylesInheritedFromOtherBreakpoints: {
-    currentStyles: ElementCssRules
-    inheritedStyles: ElementCssRules
-  }
-
-  appendToGuiCss(css: CssMap): void
-  deleteFromGuiCss(propNames: Array<string>): void
-  setCustomCss(css: string): void
-}
-
 export interface IElementModel
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void, IElement>,
@@ -121,8 +62,6 @@ export interface IElementModel
   closestSubTreeRootElement: IElementModel
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElementModel>
-  // used for expressions evaluation
-  expressionEvaluationContext: IEvaluationContext
   firstChild?: Nullable<Ref<IElementModel>>
   hooks: Array<IHook>
   id: string
@@ -141,8 +80,6 @@ export interface IElementModel
   preRenderAction?: Nullable<Ref<IActionModel>>
   prevSibling?: Nullable<Ref<IElementModel>>
   props: IPropModel
-  // same as expressionEvaluationContext but without props
-  propsEvaluationContext: IEvaluationContext
   // store attached to the provider page
   providerStore?: IStoreModel
   renderForEachPropKey: Nullable<string>
@@ -151,7 +88,6 @@ export interface IElementModel
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
-  runtimeProp: Maybe<IElementRuntimeProp>
   slug: string
   /**
    * to render a component we create a duplicate for each element
@@ -165,12 +101,10 @@ export interface IElementModel
   toId: object
   toTreeNode: object
   treeViewNode: IElementTreeViewDataNode
-  urlProps?: IPropData
 
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
   attachAsPrevSibling(sibling: IElementModel): void
-  clone(cloneIndex?: number): IElementModel
   detachFromTree(): IElementModel
   setFirstChild(firstChild: Ref<IElementModel>): void
   setIsTextContentEditable(value: boolean): void

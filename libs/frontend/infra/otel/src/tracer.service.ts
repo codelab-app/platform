@@ -4,6 +4,9 @@ import { context, trace } from '@opentelemetry/api'
 import { Model, model } from 'mobx-keystone'
 import { PLATFORM_TRACER_NAME } from './tracer'
 
+/**
+ * @deprecated otel not working in browser
+ */
 @model('@codelab/TracerService')
 export class TracerService extends Model({}) {
   public addAttribute(key: string, value: AttributeValue) {

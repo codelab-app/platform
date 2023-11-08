@@ -1,14 +1,12 @@
 import type {
   ICreateTagData,
+  ITagDomainService,
   ITagModel,
   ITagTreeService,
   IUpdateTagData,
 } from '@codelab/frontend/abstract/domain'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import type { LabeledValue } from 'antd/es/select'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,
   ICRUDModalService,
@@ -30,17 +28,11 @@ export interface ITagService
     Array<Ref<ITagModel>>,
     { tags: Array<ITagModel> }
   >
-  selectedOption: LabeledValue
-  tags: ObjectMap<ITagModel>
-  tagsList: Array<ITagModel>
-  tagsSelectOptions: Array<LabeledValue>
+  tagDomainService: ITagDomainService
   treeService: ITagTreeService
 
-  add(tagDTO: ITagDTO): ITagModel
   delete(ids: Array<string>): Promise<number>
   deleteCheckedTags(): void
   loadTagTree(): void
   setCheckedTags(tags: Array<Ref<ITagModel>>): void
-  setSelectedTag(tag: Nullish<Ref<ITagModel>>): void
-  tag(id: string): Maybe<ITagModel>
 }

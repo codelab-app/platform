@@ -1,17 +1,19 @@
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IPageNode,
-  ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
-  componentRef,
   extractTypedPropValue,
+  isElement,
 } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import { hasStateExpression } from '@codelab/frontend/application/shared/core'
+import { Prop } from '@codelab/frontend/domain/prop'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
-import { cloneComponent } from '../utils'
+import { v4 } from 'uuid'
+import { BaseRenderPipe } from '../renderPipes'
 
 /**
  * Transforms props from the following format:
@@ -31,7 +33,7 @@ import { cloneComponent } from '../utils'
 const matchPropsToFields = (
   fields: Array<IFieldModel> = [],
   props: Array<object>,
-) =>
+): IPropData =>
   props.reduce(
     (acc, val, index) =>
       fields[index]?.key
@@ -57,7 +59,7 @@ export class RenderPropTypeTransformer
       return expressionTransformer.transpileAndEvaluateExpression(propValue)
     }
 
-    const component = this.componentService.components.get(propValue)
+    const component = this.componentDomainService.components.get(propValue)
     const fields = component?.api.current.fields
     // can't return prop object because it will be passed as React Child, which will throw an error
     const fallback = ''
@@ -68,24 +70,38 @@ export class RenderPropTypeTransformer
       return fallback
     }
 
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
+
+    if (!runtimeNode) {
+      console.error('Runtime node not found')
+
+      return fallback
+    }
+
     // spread is required to access all args not just the first one
     return (...renderPropArgs: Array<object>) => {
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
-      const clonedComponent = cloneComponent(component, node, props)
 
-      if (!clonedComponent) {
-        console.error('Failed to clone component')
+      const runtimeComponent =
+        runtimeNode.runtimeProps?.addRuntimeComponentModel(component)
+
+      if (!runtimeComponent) {
+        console.error('Unable to create runtime component')
 
         return fallback
       }
 
-      clonedComponent.props.setMany(props)
-      this.renderer.addRuntimeProps(componentRef(clonedComponent.id))
+      runtimeComponent.runtimeProps?.setOverrideProps(
+        Prop.create({
+          data: JSON.stringify(props),
+          id: v4(),
+        }),
+      )
 
-      const rootElement = clonedComponent.rootElement.current
-
-      return this.renderer.renderElement(rootElement)
+      return runtimeComponent.render
     }
   }
 }

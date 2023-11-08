@@ -1,21 +1,14 @@
 // import '../src/wdyr'
-import 'reflect-metadata'
 import '../styles/app.css'
-// apply fix for common css problems:
-// - remove default padding/margin from html and body
-// - set 100% width and height for html and body
-// - set box-sizing, remove outlines, etc
-import 'antd/dist/reset.css'
-// https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { ConfigProvider } from 'antd'
+import { App as AntdApp, ConfigProvider } from 'antd'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import { GoogleAnalytics } from '../home/GoogleAnalytics'
-import { Intercom } from '../home/Intercom'
-import { useHotjar } from '../hooks/useHotjar.hook'
+import { GoogleAnalytics } from '../src/home/GoogleAnalytics'
+import { Intercom } from '../src/home/Intercom'
+import { useHotjar } from '../src/hooks/useHotjar.hook'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
 const App = ({ Component, pageProps }: IAppProps) => {
@@ -30,35 +23,22 @@ const App = ({ Component, pageProps }: IAppProps) => {
       <Intercom />
       <RecoilRoot>
         <UserProvider>
-          <ConfigProvider>
-            {/* <GlobalStyles /> */}
-            {/* <Global
-              styles={[
-                css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                }),
-                css`
-                  img,
-                  svg,
-                  video,
-                  canvas,
-                  audio,
-                  iframe,
-                  embed,
-                  object {
-                    display: inline;
-                  }
-                `,
-              ]}
-            /> */}
+          <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: 'Nunito',
+                fontFamilyCode: 'Nunito',
+              },
+            }}
+          >
             <Layout>
               {() => (
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
-                />
+                <AntdApp>
+                  <Component
+                    // eslint-disable-next-line react/jsx-props-no-spreading
+                    {...pageProps}
+                  />
+                </AntdApp>
               )}
             </Layout>
           </ConfigProvider>

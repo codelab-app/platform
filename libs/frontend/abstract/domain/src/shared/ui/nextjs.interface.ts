@@ -1,5 +1,6 @@
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { AppProps } from 'next/app'
+import type { ParsedUrlQuery } from 'querystring'
 import type { Overwrite } from 'utility-types'
 
 /**
@@ -16,6 +17,7 @@ export type IAppProps<T = object> = Overwrite<
  * The `props` used by each page component
  */
 export interface IPageProps {
+  routerQuery: ParsedUrlQuery
   // Could be undefined during production build steps
   user: Auth0IdToken
 }

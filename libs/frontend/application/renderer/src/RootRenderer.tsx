@@ -1,6 +1,7 @@
-import type { IRenderer } from '@codelab/frontend/abstract/domain'
+import type { IRendererModel } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
@@ -30,10 +31,12 @@ import React, { useMemo } from 'react'
  */
 
 export const RootRenderer = observer<
-  WithStyleProp<{ renderer: IRenderer }>,
+  WithStyleProp<{ renderer: IRendererModel }>,
   HTMLDivElement
 >(
   React.forwardRef(({ renderer, style = {} }, ref) => {
+    const { rendererService } = useStore()
+
     const containerStyle = useMemo(
       () => ({
         minHeight: '100%',
@@ -46,7 +49,7 @@ export const RootRenderer = observer<
     return (
       <ErrorBoundary>
         <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-          {renderer.renderRoot()}
+          {rendererService.renderRoot(renderer)}
         </div>
       </ErrorBoundary>
     )

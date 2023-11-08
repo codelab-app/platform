@@ -1,17 +1,12 @@
-import type {
-  IPageNode,
-  ITypedPropTransformer,
-  TypedProp,
-} from '@codelab/frontend/abstract/domain'
+import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
-  getRunnerId,
-  isComponent,
   isElement,
 } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/shared/utils'
+import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
+import { BaseRenderPipe } from '../renderPipes'
 
 /**
  * Transforms props from the following format:
@@ -38,43 +33,28 @@ export class ActionTypeTransformer
       return prop.value
     }
 
-    const componentStore = isComponent(node) ? node.store : undefined
-    const propValue = extractTypedPropValue(prop)
+    /**
+     * The prop value here is the actionId
+     *
+     * TODO: Need to make the code more self-documenting
+     */
+    const actionId = extractTypedPropValue(prop)
 
-    if (!propValue) {
+    if (!actionId) {
       return ''
     }
 
-    const providerStore = isElement(node) ? node.providerStore : undefined
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
 
-    const localActionRunner = this.renderer.actionRunners.get(
-      getRunnerId(node.store.id, propValue),
-    )
-
-    const rootActionRunner = providerStore
-      ? this.renderer.actionRunners.get(
-          getRunnerId(providerStore.id, propValue),
-        )
-      : undefined
-
-    const componentActionRunner = componentStore
-      ? this.renderer.actionRunners.get(
-          getRunnerId(componentStore.id, propValue),
-        )
-      : undefined
+    const actionRunner = runtimeNode?.runtimeStore.runtimeAction({
+      id: actionId,
+    })
 
     const fallback = () =>
       console.error(`fail to call action with id ${prop.value}`)
 
-    const actionRunner =
-      localActionRunner ?? rootActionRunner ?? componentActionRunner
-
-    if (actionRunner) {
-      const context = isElement(node) ? node.propsEvaluationContext : {}
-
-      return actionRunner.runner.bind(context)
-    }
-
-    return fallback
+    return actionRunner || fallback
   }
 }

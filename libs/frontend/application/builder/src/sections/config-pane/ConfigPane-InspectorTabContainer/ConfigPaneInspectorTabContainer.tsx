@@ -56,13 +56,7 @@ const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const {
-    appService,
-    builderService,
-    elementApplicationService,
-    elementService,
-  } = useStore()
-
+  const { appService, builderService, elementService } = useStore()
   const elementTree = builderService.activeElementTree
   const selectedNode = builderService.selectedNode
 
@@ -116,9 +110,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
           icon={
             <SettingOutlined
               style={
-                elementApplicationService.validationService.propsHaveErrors(
-                  element,
-                )
+                elementService.validationService.propsHaveErrors(element)
                   ? { color: 'red' }
                   : {}
               }
