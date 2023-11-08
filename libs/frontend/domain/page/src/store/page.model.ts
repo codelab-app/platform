@@ -1,9 +1,11 @@
 import type {
+  IAppModel,
   IElementModel,
   IPageModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
+  appRef,
   elementRef,
   ElementTree,
   getPageDomainService,
@@ -15,7 +17,7 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import {
@@ -39,7 +41,7 @@ const create = ({
   url,
 }: IPageDTO) => {
   return new Page({
-    app: { id: app.id },
+    app: appRef(app.id),
     id,
     kind,
     name,
@@ -55,7 +57,7 @@ const create = ({
 @model('@codelab/Page')
 export class Page
   extends ExtendedModel(ElementTree, {
-    app: prop<IRef>(),
+    app: prop<Ref<IAppModel>>(),
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
@@ -106,10 +108,7 @@ export class Page
   @computed
   get providerPage() {
     return this.kind === IPageKind.Regular
-      ? this.pageDomainService.pagesList.find(
-          (page) =>
-            page.app.id === this.app.id && page.kind === IPageKind.Provider,
-        )
+      ? this.app.current.providerPage
       : undefined
   }
 
@@ -127,7 +126,7 @@ export class Page
     this.rootElement = rootElement
       ? elementRef(rootElement.id)
       : this.rootElement
-    this.app = app ? app : this.app
+    this.app = app ? appRef(app.id) : this.app
     this.pageContentContainer = pageContentContainer
       ? elementRef(pageContentContainer.id)
       : this.pageContentContainer
