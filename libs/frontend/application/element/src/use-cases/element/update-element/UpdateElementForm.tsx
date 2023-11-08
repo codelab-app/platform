@@ -56,7 +56,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('childMapper')
     }
 
-    const runtimeElement = rendererService.getRuntimeElement(element)
+    const runtimeElement = rendererService.runtimeElement(element)
     const runtimeProps = runtimeElement?.runtimeProps
 
     return (

@@ -1,10 +1,8 @@
 import type {
   IRendererDto,
   IRendererModel,
-  IRenderOutput,
   IRenderPipe,
   IRuntimeContainerNodeModel,
-  IRuntimeElementModel,
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
@@ -39,12 +37,7 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = ({
-  elementTree,
-  providerTree,
-  rendererType,
-  urlSegments,
-}: IRendererDto) => {
+const create = ({ elementTree, rendererType, urlSegments }: IRendererDto) => {
   return new Renderer({
     elementTree: elementTreeRef(elementTree),
     rendererType,
@@ -138,37 +131,5 @@ export class Renderer
     })
 
     return this.runtimeRootContainerNode.render
-  }
-
-  logRendered = (rendered: IRenderOutput) => {
-    if (this.debugMode) {
-      console.dir({ element: rendered.runtimeElement, rendered })
-    }
-  }
-
-  runPostRenderAction = (runtimeElement: IRuntimeElementModel) => {
-    const { element } = runtimeElement
-    const { postRenderAction } = element
-    const currentPostRenderAction = postRenderAction?.current
-
-    if (currentPostRenderAction) {
-      const runtimeAction = runtimeElement.runtimeStore.runtimeAction(
-        currentPostRenderAction,
-      )
-
-      runtimeAction?.runner(element)
-    }
-  }
-
-  runPreRenderAction = (runtimeElement: IRuntimeElementModel) => {
-    const { element } = runtimeElement
-    const { preRenderAction } = element
-
-    if (preRenderAction) {
-      const runtimeAction =
-        runtimeElement.runtimeStore.runtimeAction(preRenderAction)
-
-      runtimeAction?.runner(element)
-    }
   }
 }

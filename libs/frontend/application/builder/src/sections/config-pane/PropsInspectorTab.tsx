@@ -16,8 +16,8 @@ const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
   const isSaved = editedProp === initialProps
 
   const runtimeModel = isElement(node.current)
-    ? rendererService.getRuntimeElement(node.current)
-    : rendererService.getRuntimeContainerNode(node.current)
+    ? rendererService.runtimeElement(node.current)
+    : rendererService.runtimeContainerNode(node.current)
 
   const lastRenderedProp = runtimeModel?.runtimeProps?.evaluatedProps || {}
 

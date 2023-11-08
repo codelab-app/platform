@@ -2,9 +2,9 @@ import type {
   ElementWrapperProps,
   IRuntimeElementDTO,
   IRuntimeElementModel,
+  IRuntimeElementPropModel,
   IRuntimeModel,
   IRuntimeModelRef,
-  IRuntimePropModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
@@ -57,7 +57,7 @@ export class RuntimeElement
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
     parentRef: prop<IRuntimeModelRef>(),
-    runtimeProps: prop<IRuntimePropModel>(),
+    runtimeProps: prop<IRuntimeElementPropModel>(),
     sortedRuntimeChildren: prop<Array<IRuntimeModel>>(() => []),
   })
   implements IRuntimeElementModel
@@ -134,6 +134,35 @@ export class RuntimeElement
     )
   }
 
+  runPostRenderAction = () => {
+    const { postRenderAction } = this.element
+    const currentPostRenderAction = postRenderAction?.current
+
+    if (currentPostRenderAction) {
+      const runtimeAction = this.runtimeStore.runtimeAction(
+        currentPostRenderAction,
+      )
+
+      const runner = runtimeAction?.runner()
+
+      runner?.()
+    }
+  }
+
+  runPreRenderAction = (runtimeElement: IRuntimeElementModel) => {
+    const { element } = runtimeElement
+    const { preRenderAction } = element
+
+    if (preRenderAction) {
+      const runtimeAction =
+        runtimeElement.runtimeStore.runtimeAction(preRenderAction)
+
+      const runner = runtimeAction?.runner()
+
+      runner?.()
+    }
+  }
+
   @modelAction
   clearChildren() {
     this.sortedRuntimeChildren = []
@@ -162,7 +191,7 @@ export class RuntimeElement
       },
       key: this.element.id,
       onRendered: () => {
-        this.renderer.runPostRenderAction(renderOutput.runtimeElement)
+        this.runPostRenderAction()
       },
       renderer: this.renderer,
       renderOutput,

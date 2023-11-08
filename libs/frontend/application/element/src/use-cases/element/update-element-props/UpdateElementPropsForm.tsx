@@ -80,7 +80,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       submitRef.current?.validate?.()
     }, [submitRef.current])
 
-    const runtimeElement = rendererService.getRuntimeElement(currentElement)
+    const runtimeElement = rendererService.runtimeElement(currentElement)
     const runtimeProps = runtimeElement?.runtimeProps
 
     return (

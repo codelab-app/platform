@@ -18,7 +18,7 @@ import type { ComponentUpdateInput } from '@codelab/shared/abstract/codegen'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IComponentDTO, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -28,7 +28,6 @@ const create = ({
   api,
   childrenContainerElement,
   id,
-  keyGenerator,
   name,
   props,
   rootElement,
@@ -39,7 +38,6 @@ const create = ({
     childrenContainerElement: elementRef(childrenContainerElement.id),
     id,
     instanceElement: null,
-    keyGenerator,
     name,
     props: Prop.create(props),
     rootElement: elementRef(rootElement.id),
@@ -54,8 +52,6 @@ export class Component
     childrenContainerElement: prop<Ref<IElementModel>>().withSetter(),
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
-    // a function to extract component key from input
-    keyGenerator: prop<Nullish<string>>().withSetter(),
     name: prop<string>().withSetter(),
     props: prop<IPropModel>().withSetter(),
     // if this is a duplicate, trace source component id else null
@@ -105,7 +101,6 @@ export class Component
       api: this.api,
       childrenContainerElement: this.childrenContainerElement,
       id: this.id,
-      keyGenerator: this.keyGenerator,
       name: this.name,
       props: this.props.toJson,
       rootElement: this.rootElement,
@@ -119,7 +114,6 @@ export class Component
       api: { create: { node: this.api.current.toCreateInput() } },
       childrenContainerElement: connectNodeId(this.rootElement.id),
       id: this.id,
-      keyGenerator: this.keyGenerator,
       name: this.name,
       owner: connectOwner(this.userDomainService.user),
       props: { create: { node: this.props.toCreateInput() } },
@@ -132,7 +126,6 @@ export class Component
   writeCache({
     api,
     childrenContainerElement,
-    keyGenerator,
     name,
     props,
     rootElement,
@@ -145,7 +138,6 @@ export class Component
       : this.rootElement
     this.api = apiRef
     this.props = props ? Prop.create(props) : this.props
-    this.keyGenerator = keyGenerator ?? this.keyGenerator
     this.childrenContainerElement = childrenContainerElement
       ? elementRef(childrenContainerElement.id)
       : this.childrenContainerElement

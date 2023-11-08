@@ -1,14 +1,17 @@
+import type {
+  IRuntimeComponentPropDTO,
+  IRuntimeComponentPropModel,
+  IRuntimeContainerNodeModel,
+} from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
   IEvaluationContext,
-  type IRuntimeComponentPropDTO,
-  type IRuntimeContainerNodeModel,
-  type IRuntimePropModel,
   isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_COMPONENT_ID,
-  type IComponentModel,
+  IComponentModel,
+  IPropModel,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
@@ -17,8 +20,16 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
 
 const create = ({
   componentRef,
@@ -35,9 +46,13 @@ export class RuntimeComponentProps
   extends Model({
     componentRef: prop<Ref<IComponentModel>>(),
     id: idProp,
+    overrideProps: prop<Maybe<IPropModel>>(undefined),
+    runtimeComponents: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
+      objectMap([]),
+    ),
     runtimeContainerNodeRef: prop<Ref<IRuntimeContainerNodeModel>>(),
   })
-  implements IRuntimePropModel
+  implements IRuntimeComponentPropModel
 {
   static create = create
 
@@ -167,6 +182,7 @@ export class RuntimeComponentProps
         [DATA_COMPONENT_ID]: this.component.id,
         key: this.component.id,
       },
+      this.overrideProps?.values,
     )
   }
 
@@ -192,5 +208,21 @@ export class RuntimeComponentProps
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     }
+  }
+
+  @modelAction
+  addRuntimeComponent(component: IComponentModel) {
+    const runtimeComponent = RuntimeContainerNodeFactory.create({
+      containerNode: component,
+    })
+
+    this.runtimeComponents.set(runtimeComponent.id, runtimeComponent)
+
+    return runtimeComponent
+  }
+
+  @modelAction
+  setOverrideProps(overrideProps: IPropModel) {
+    this.overrideProps = overrideProps
   }
 }

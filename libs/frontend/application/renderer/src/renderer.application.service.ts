@@ -11,7 +11,7 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import { IElementModel } from '@codelab/frontend/abstract/domain'
+import { IElementModel, IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -61,7 +61,7 @@ export class RendererApplicationService
   }
 
   @modelAction
-  getRuntimeElement(element: IElementModel) {
+  runtimeElement(element: IElementModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
     return rootNode
@@ -79,7 +79,7 @@ export class RendererApplicationService
   }
 
   @modelAction
-  getRuntimeContainerNode(containerNode: IComponentModel | IPageModel) {
+  runtimeContainerNode(containerNode: IComponentModel | IPageModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
     return rootNode
@@ -89,6 +89,24 @@ export class RendererApplicationService
             isModel(child) &&
             isRuntimeContainerNode(child) &&
             containerNode.id === child.containerNode.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
+  }
+
+  @modelAction
+  runtimeStore(store: IStoreModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
+
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) &&
+            isRuntimeSt(child) &&
+            store.id === child.element.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,

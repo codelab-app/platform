@@ -18,12 +18,6 @@ export const ComponentTestFactory = (rootStore: Partial<IRootDomainStore>) =>
         id: transientParams.childrenContainerElement?.id ?? v4(),
       },
       id: transientParams.id ?? v4(),
-      keyGenerator:
-        transientParams.keyGenerator ??
-        `function run(props) {
-      // props are of type component api
-        return props.id
-    }`,
       name: transientParams.name ?? chance.word({ capitalize: true }),
       props: {
         // TODO: data here wont be used at all, we should fix the typings around the component props in the DTO
@@ -53,12 +47,6 @@ export const componentFactory =
         id: dto.childrenContainerElement?.id ?? v4(),
       },
       id: dto.id ?? v4(),
-      keyGenerator:
-        dto.keyGenerator ??
-        `function run(props) {
-    // props are of type component api
-      return props.id
-  }`,
       name: dto.name ?? chance.word({ capitalize: true }),
       props: {
         // TODO: data here wont be used at all, we should fix the typings around the component props in the DTO

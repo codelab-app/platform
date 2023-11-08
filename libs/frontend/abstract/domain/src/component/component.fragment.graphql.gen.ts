@@ -14,7 +14,6 @@ import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type ComponentFragment = {
   __typename: 'Component'
   id: string
-  keyGenerator?: string | null
   name: string
   api: InterfaceTypeFragment
   childrenContainerElement: { id: string }
@@ -26,7 +25,6 @@ export type ComponentFragment = {
 
 export type ComponentProductionFragment = {
   id: string
-  keyGenerator?: string | null
   name: string
   childrenContainerElement: { id: string }
   owner: OwnerFragment
@@ -45,7 +43,6 @@ export const ComponentFragmentDoc = gql`
       id
     }
     id
-    keyGenerator
     name
     owner {
       ...Owner
@@ -72,7 +69,6 @@ export const ComponentProductionFragmentDoc = gql`
       id
     }
     id
-    keyGenerator
     name
     owner {
       ...Owner

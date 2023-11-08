@@ -13,7 +13,7 @@ import { useMemo } from 'react'
 export const useFieldSchema = (
   schema: JSONSchemaType<ICreateFieldData | IUpdateFieldData>,
 ) => {
-  const { fieldService, storeService } = useStore()
+  const { fieldService, rendererService, storeService } = useStore()
 
   return useMemo(() => {
     const interfaceId =
@@ -24,11 +24,13 @@ export const useFieldSchema = (
       ({ api }) => api.id === interfaceId,
     )
 
-    const forbiddenValues = {}
-    // TODO: Renderer
-    // const forbiddenValues = Object.keys(parentStore?.state ?? {}).filter(
-    //   (fieldName) => fieldName !== fieldService.updateForm.field?.key,
-    // )
+    const runtimeStore = parentStore
+      ? rendererService.runtimeStore(parentStore)
+      : undefined
+
+    const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
+      (fieldName) => fieldName !== fieldService.updateForm.field?.key,
+    )
 
     return {
       ...schema,
@@ -40,6 +42,7 @@ export const useFieldSchema = (
         },
       },
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     schema,
     fieldService.createForm.interface,

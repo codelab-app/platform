@@ -1,7 +1,8 @@
 import type {
+  IRuntimeContainerNodeModel,
   IRuntimeElementModel,
   IRuntimeElementPropDTO,
-  IRuntimePropModel,
+  IRuntimeElementPropModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -14,6 +15,7 @@ import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
+  IComponentModel,
   isAtomRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
@@ -29,8 +31,16 @@ import { mapDeep } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
 
 const create = ({ elementRef, runtimeElementRef }: IRuntimeElementPropDTO) => {
   return new RuntimeElementProps({
@@ -44,9 +54,12 @@ export class RuntimeElementProps
   extends Model({
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
+    runtimeComponents: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
+      objectMap([]),
+    ),
     runtimeElementRef: prop<Ref<IRuntimeElementModel>>(),
   })
-  implements IRuntimePropModel
+  implements IRuntimeElementPropModel
 {
   static create = create
 
@@ -221,5 +234,16 @@ export class RuntimeElementProps
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     }
+  }
+
+  @modelAction
+  addRuntimeComponent(component: IComponentModel) {
+    const runtimeComponent = RuntimeContainerNodeFactory.create({
+      containerNode: component,
+    })
+
+    this.runtimeComponents.set(runtimeComponent.id, runtimeComponent)
+
+    return runtimeComponent
   }
 }

@@ -6,6 +6,7 @@ import type {
   IComponent,
   IComponentDTO,
   IElementRenderTypeKind,
+  IPropData,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
@@ -26,7 +27,6 @@ export interface IComponentModel
   childrenContainerElement: Ref<IElementModel>
   descendantComponents: Array<IComponentModel>
   instanceElement: Nullable<Ref<IElementModel>>
-  keyGenerator: Nullish<string>
   props: IPropModel
   /**
    * to render a component we create a duplicate for each instance
@@ -35,6 +35,7 @@ export interface IComponentModel
   sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
 
+  getComponentKey(prop: IPropData): Nullable<string>
   setChildrenContainerElement(element: Ref<IElementModel>): void
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void

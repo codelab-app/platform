@@ -34,10 +34,7 @@ export interface IRendererModel {
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  logRendered(rendered: IRenderOutput): void
   render(): Nullable<ReactElement>
-  runPostRenderAction(element: IRuntimeElementModel): void
-  runPreRenderAction(element: IRuntimeElementModel): void
 }
 
 export interface ElementWrapperProps {

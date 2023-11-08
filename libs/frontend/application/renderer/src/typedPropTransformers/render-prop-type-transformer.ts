@@ -5,13 +5,15 @@ import type {
   TypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
-  componentRef,
   extractTypedPropValue,
+  isElement,
 } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/application/shared/core'
+import { Prop } from '@codelab/frontend/domain/prop'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { BaseRenderPipe } from '../renderPipes'
-import { cloneComponent } from '../utils'
 
 /**
  * Transforms props from the following format:
@@ -31,7 +33,7 @@ import { cloneComponent } from '../utils'
 const matchPropsToFields = (
   fields: Array<IFieldModel> = [],
   props: Array<object>,
-) =>
+): IPropData =>
   props.reduce(
     (acc, val, index) =>
       fields[index]?.key
@@ -68,26 +70,38 @@ export class RenderPropTypeTransformer
       return fallback
     }
 
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
+
+    if (!runtimeNode) {
+      console.error('Runtime node not found')
+
+      return fallback
+    }
+
     // spread is required to access all args not just the first one
     return (...renderPropArgs: Array<object>) => {
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
-      const clonedComponent = cloneComponent(component, node, props)
 
-      // if (!clonedComponent) {
-      //   console.error('Failed to clone component')
+      const runtimeComponent =
+        runtimeNode.runtimeProps?.addRuntimeComponent(component)
 
-      //   return fallback
-      // }
+      if (!runtimeComponent) {
+        console.error('Unable to create runtime component')
 
-      // clonedComponent.props.setMany(props)
-      // TODO: Renderer
-      // this.renderer.addRuntimeComponent(clonedComponent)
+        return fallback
+      }
 
-      // const rootElement = clonedComponent.rootElement.current
+      runtimeComponent.runtimeProps?.setOverrideProps(
+        Prop.create({
+          data: JSON.stringify(props),
+          id: v4(),
+        }),
+      )
 
-      // return this.renderer.renderElement(rootElement)
-      return
+      return runtimeComponent.render
     }
   }
 }

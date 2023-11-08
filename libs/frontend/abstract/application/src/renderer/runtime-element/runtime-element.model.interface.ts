@@ -12,7 +12,7 @@ import type {
   IRuntimeModelRef,
 } from '../runtime.model.interface'
 import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
-import type { IRuntimePropModel } from '../runtime-prop'
+import type { IRuntimeElementPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
 /**
@@ -56,7 +56,7 @@ export interface IRuntimeElementModel extends AnyModel {
    * Runtime version of IElementModel.prop
    * serves props transformations and evaluation
    */
-  runtimeProps: IRuntimePropModel
+  runtimeProps: IRuntimeElementPropModel
 
   /**
    * access runtimeStore via computed values

@@ -7165,8 +7165,7 @@
       },
       "childrenContainerElement": {
         "id": "9889adbd-91d8-4311-bf07-ce904b01c4d6"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "4fd605e7-52ec-4141-bb31-7ba784b67faf",
@@ -7235,8 +7234,7 @@
       },
       "childrenContainerElement": {
         "id": "4ef80c42-8454-449d-ae2f-7df04d797ba1"
-      },
-      "keyGenerator": "function run(props) {\n    // props are of type component api\n    return props.id\n}"
+      }
     },
     {
       "id": "a2060eea-4108-4503-bece-12b355d3d09c",
@@ -7305,8 +7303,7 @@
       },
       "childrenContainerElement": {
         "id": "f4e8fc9c-3ccd-4334-9451-fe475e41e579"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "3abe59c9-0a2a-40e5-8ba3-753406d8e6b7",
@@ -7387,8 +7384,7 @@
       },
       "childrenContainerElement": {
         "id": "6fc80e06-b01d-46c5-80bb-51892f60f0e6"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "6f876a35-a20e-4237-b4d7-3dee973f7b72",
@@ -7528,8 +7524,7 @@
       },
       "childrenContainerElement": {
         "id": "24a9a760-f1a5-4f55-aa7e-fedd1a10fc0a"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "a7dcb0fd-5ed4-4d91-9ad2-0dbdb902bed4",
@@ -7656,8 +7651,7 @@
       },
       "childrenContainerElement": {
         "id": "ec8601b6-b321-4f09-a273-b95bb65aac9c"
-      },
-      "keyGenerator": null
+      }
     }
   ],
   "resources": [
