@@ -9,7 +9,7 @@ import type {
   IPageKind,
   IRef,
 } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IElementModel, IElementTree } from '../element'
 import type { ICacheService } from '../shared'
@@ -28,6 +28,7 @@ export interface IPageModel
    * A pointer to tell us where to render from app
    */
   pageContentContainer?: Nullish<Ref<IElementModel>>
+  providerPage: Maybe<IPageModel>
   rootElement: Ref<IElementModel>
   slug: string
   store: Ref<IStoreModel>

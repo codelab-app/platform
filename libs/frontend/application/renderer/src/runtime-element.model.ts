@@ -115,7 +115,10 @@ export class RuntimeElement
 
   @computed
   get isPageContentContainer() {
-    const providerPage = this.renderer.providerPage
+    const providerPage = isPage(this.renderer.containerNode)
+      ? this.renderer.containerNode.providerPage
+      : undefined
+
     const containerElement = providerPage?.pageContentContainer?.current
 
     return this.element.id === containerElement?.id

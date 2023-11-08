@@ -30,7 +30,6 @@ export const useRemainingPages = () => {
         rendererService.hydrate({
           elementTree: page.current,
           id: page.id,
-          providerTree: app.providerPage,
           rendererType: RendererType.PageBuilder,
         })
       }

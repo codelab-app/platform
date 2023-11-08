@@ -3,6 +3,7 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import { IPageDTO } from '@codelab/shared/abstract/core'
+import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Page } from '../store'
@@ -16,6 +17,11 @@ export class PageDomainService
   })
   implements IPageDomainService
 {
+  @computed
+  get pagesList() {
+    return [...this.pages.values()]
+  }
+
   @modelAction
   hydrate(pageDto: IPageDTO) {
     const existingPage = this.pages.get(pageDto.id)

@@ -8,7 +8,6 @@ import {
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
 import { PageKind } from '@codelab/shared/abstract/codegen'
-import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
@@ -86,14 +85,9 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         {},
       )
 
-      // only when rendering regular page we need providerTree
-      const providerTree =
-        page.kind === IPageKind.Regular ? app.providerPage : undefined
-
       const renderer = rendererService.hydrate({
         elementTree: page,
         id: page.id,
-        providerTree,
         rendererType,
         urlSegments,
       })

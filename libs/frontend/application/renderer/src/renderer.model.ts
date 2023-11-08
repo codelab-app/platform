@@ -47,7 +47,6 @@ const create = ({
 }: IRendererDto) => {
   return new Renderer({
     elementTree: elementTreeRef(elementTree),
-    providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
     urlSegments,
   })
@@ -68,10 +67,6 @@ export class Renderer
       () => new ExpressionTransformer({}),
     ),
     id: idProp,
-    /**
-     * Store attached to app, needed to access its actions
-     */
-    providerTree: prop<Nullable<Ref<IElementTree>>>(null),
     /**
      * Different types of renderer requires behaviors in some cases.
      */
@@ -99,14 +94,6 @@ export class Renderer
   implements IRendererModel
 {
   static create = create
-
-  @computed
-  get providerPage() {
-    const providerTree = this.providerTree?.current
-    const providerTreeRootElement = providerTree?.rootElement.current
-
-    return providerTreeRootElement?.page?.current
-  }
 
   @computed
   get page() {
@@ -138,7 +125,7 @@ export class Renderer
     }
 
     // we render providerPage before page if exists
-    const containerNode = this.component ?? this.providerPage ?? this.page
+    const containerNode = this.component ?? this.page?.providerPage ?? this.page
 
     if (!containerNode) {
       console.error('Renderer: No page or component found')

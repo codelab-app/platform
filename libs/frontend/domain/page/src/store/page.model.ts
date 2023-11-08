@@ -6,6 +6,7 @@ import type {
 import {
   elementRef,
   ElementTree,
+  getPageDomainService,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -14,7 +15,8 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO, IPageKind, IRef } from '@codelab/shared/abstract/core'
+import type { IPageDTO, IRef } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -94,6 +96,21 @@ export class Page
       store: this.store,
       url: `apps/${this.app.id}/pages/${this.id}`,
     }
+  }
+
+  @computed
+  get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
+  @computed
+  get providerPage() {
+    return this.kind === IPageKind.Regular
+      ? this.pageDomainService.pagesList.find(
+          (page) =>
+            page.app.id === this.app.id && page.kind === IPageKind.Provider,
+        )
+      : undefined
   }
 
   @modelAction
