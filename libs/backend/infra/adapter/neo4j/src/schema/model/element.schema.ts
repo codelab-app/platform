@@ -31,9 +31,15 @@ export const elementSchema = gql`
     # See interface for more details: IElementStyle
     style: String
     tailwindClassNames: [String!]
+    # one element E1 will have childMapperPropKey that points to a prop which has an array of values. for each on these values we render a component  childMapperComponent  as a child of E1 passing this value as prop for this component. because E1 will contain other children we need chose what is the rendering position of this array of components
+    # so a pointer to the array of props for the components
     childMapperPropKey: String
+    # The component that we will map over
     childMapperComponent: Component
       @relationship(type: "CHILD_MAPPER_COMPONENT", direction: OUT)
+    # Where to put the mapped children
+    # the position of mapped children relative to the other children of the same element
+    # So the host element will contain manually created elements. we need to merge them with the mapped ones so we set their position
     childMapperPreviousSibling: Element
       @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
