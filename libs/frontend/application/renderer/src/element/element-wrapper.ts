@@ -35,9 +35,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const { element } = runtimeElement
     const { atomService } = useStore()
-
-    renderer.logRendered(renderOutput)
-
     const children = runtimeElement.renderChildren
 
     if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
