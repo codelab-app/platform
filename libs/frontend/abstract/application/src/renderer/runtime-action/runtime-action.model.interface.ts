@@ -7,5 +7,5 @@ export interface IRuntimeActionModel {
 
   id: string
 
-  runner(...args: Array<unknown>): void
+  runner(): (...args: Array<unknown>) => unknown
 }

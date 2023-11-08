@@ -3056,8 +3056,7 @@
       },
       "childrenContainerElement": {
         "id": "9889adbd-91d8-4311-bf07-ce904b01c4d6"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "a2060eea-4108-4503-bece-12b355d3d09c",
@@ -3126,7 +3125,6 @@
       "childrenContainerElement": {
         "id": "f4e8fc9c-3ccd-4334-9451-fe475e41e579"
       },
-      "keyGenerator": null
     }
   ],
   "resources": [

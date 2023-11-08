@@ -44,6 +44,7 @@ export class RuntimeContainerNodeFactory {
     const runtimeActions = containerNode.store.current.actions.map((action) =>
       RuntimeActionModel.create({
         actionRef: actionRef(action.id),
+        id: v4(),
         runtimeStoreRef: runtimeStoreRef(runtimeStoreId),
       }),
     )

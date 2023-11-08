@@ -1,9 +1,9 @@
 import type {
+  IRuntimeComponentPropModel,
   IRuntimeContainerNodeDTO,
   IRuntimeContainerNodeModel,
   IRuntimeElementModel,
   IRuntimeModelRef,
-  IRuntimePropModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -41,7 +41,7 @@ export class RuntimeContainerNodeModel
     containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
     parentRef: prop<Maybe<IRuntimeModelRef>>(),
-    runtimeProps: prop<Maybe<IRuntimePropModel>>(undefined),
+    runtimeProps: prop<Maybe<IRuntimeComponentPropModel>>(undefined),
     runtimeRootElement: prop<IRuntimeElementModel>(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })

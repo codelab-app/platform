@@ -55,7 +55,6 @@ export class ComponentDomainService
       // this.rendererService.hydrate({
       //   elementTree: component,
       //   id: component.id,
-      //   providerTree: null,
       //   rendererType: RendererType.ComponentBuilder,
       // })
 

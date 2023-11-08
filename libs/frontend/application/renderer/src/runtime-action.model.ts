@@ -151,9 +151,9 @@ export class RuntimeActionModel
       try {
         const response = await fetchPromise
 
-        return successAction?.runner(response)
+        return successAction?.runner()(response)
       } catch (error) {
-        return errorAction?.runner(error)
+        return errorAction?.runner()(error)
       }
     }
   }

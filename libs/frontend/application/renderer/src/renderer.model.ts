@@ -1,10 +1,8 @@
 import type {
   IRendererDto,
   IRendererModel,
-  IRenderOutput,
   IRenderPipe,
   IRuntimeContainerNodeModel,
-  IRuntimeElementModel,
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
@@ -39,15 +37,9 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = ({
-  elementTree,
-  providerTree,
-  rendererType,
-  urlSegments,
-}: IRendererDto) => {
+const create = ({ elementTree, rendererType, urlSegments }: IRendererDto) => {
   return new Renderer({
     elementTree: elementTreeRef(elementTree),
-    providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
     urlSegments,
   })
@@ -68,10 +60,6 @@ export class Renderer
       () => new ExpressionTransformer({}),
     ),
     id: idProp,
-    /**
-     * Store attached to app, needed to access its actions
-     */
-    providerTree: prop<Nullable<Ref<IElementTree>>>(null),
     /**
      * Different types of renderer requires behaviors in some cases.
      */
@@ -99,14 +87,6 @@ export class Renderer
   implements IRendererModel
 {
   static create = create
-
-  @computed
-  get providerPage() {
-    const providerTree = this.providerTree?.current
-    const providerTreeRootElement = providerTree?.rootElement.current
-
-    return providerTreeRootElement?.page?.current
-  }
 
   @computed
   get page() {
@@ -138,7 +118,7 @@ export class Renderer
     }
 
     // we render providerPage before page if exists
-    const containerNode = this.component ?? this.providerPage ?? this.page
+    const containerNode = this.component ?? this.page?.providerPage ?? this.page
 
     if (!containerNode) {
       console.error('Renderer: No page or component found')
@@ -151,37 +131,5 @@ export class Renderer
     })
 
     return this.runtimeRootContainerNode.render
-  }
-
-  logRendered = (rendered: IRenderOutput) => {
-    if (this.debugMode) {
-      console.dir({ element: rendered.runtimeElement, rendered })
-    }
-  }
-
-  runPostRenderAction = (runtimeElement: IRuntimeElementModel) => {
-    const { element } = runtimeElement
-    const { postRenderAction } = element
-    const currentPostRenderAction = postRenderAction?.current
-
-    if (currentPostRenderAction) {
-      const runtimeAction = runtimeElement.runtimeStore.runtimeAction(
-        currentPostRenderAction,
-      )
-
-      runtimeAction?.runner(element)
-    }
-  }
-
-  runPreRenderAction = (runtimeElement: IRuntimeElementModel) => {
-    const { element } = runtimeElement
-    const { preRenderAction } = element
-
-    if (preRenderAction) {
-      const runtimeAction =
-        runtimeElement.runtimeStore.runtimeAction(preRenderAction)
-
-      runtimeAction?.runner(element)
-    }
   }
 }

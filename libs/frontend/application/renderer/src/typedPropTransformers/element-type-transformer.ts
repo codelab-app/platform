@@ -37,8 +37,27 @@ export class ElementTypeTransformer
       return prop
     }
 
-    // TODO: Renderer
-    // return this.renderer.renderElement(targetElement)
-    return
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
+
+    const fallback = null
+
+    if (!runtimeNode) {
+      console.error('Runtime node not found')
+
+      return fallback
+    }
+
+    const runtimeElement =
+      runtimeNode.runtimeProps?.addRuntimeElementModel(targetElement)
+
+    if (!runtimeElement) {
+      console.error('Unable to create runtime element')
+
+      return fallback
+    }
+
+    return runtimeElement.render
   }
 }

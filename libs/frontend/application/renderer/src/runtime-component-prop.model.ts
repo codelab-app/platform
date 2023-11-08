@@ -1,14 +1,22 @@
+import type {
+  IRuntimeComponentPropDTO,
+  IRuntimeComponentPropModel,
+  IRuntimeContainerNodeModel,
+  IRuntimeModel,
+} from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
   IEvaluationContext,
-  type IRuntimeComponentPropDTO,
-  type IRuntimeContainerNodeModel,
-  type IRuntimePropModel,
   isRuntimeElementRef,
+  runtimeContainerNodeRef,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_COMPONENT_ID,
-  type IComponentModel,
+  elementRef,
+  IComponentModel,
+  IElementModel,
+  IPropModel,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
@@ -17,17 +25,22 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
+import { v4 } from 'uuid'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
+import { RuntimeElement } from './runtime-element.model'
+import { RuntimeElementProps } from './runtime-element-prop.model'
 
-const create = ({
-  componentRef,
-  runtimeContainerNodeRef,
-}: IRuntimeComponentPropDTO) => {
-  return new RuntimeComponentProps({
-    componentRef,
-    runtimeContainerNodeRef,
-  })
+const create = (dto: IRuntimeComponentPropDTO) => {
+  return new RuntimeComponentProps(dto)
 }
 
 @model('@codelab/RuntimeComponentProps')
@@ -35,9 +48,11 @@ export class RuntimeComponentProps
   extends Model({
     componentRef: prop<Ref<IComponentModel>>(),
     id: idProp,
+    overrideProps: prop<Maybe<IPropModel>>(undefined),
     runtimeContainerNodeRef: prop<Ref<IRuntimeContainerNodeModel>>(),
+    runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
   })
-  implements IRuntimePropModel
+  implements IRuntimeComponentPropModel
 {
   static create = create
 
@@ -167,6 +182,7 @@ export class RuntimeComponentProps
         [DATA_COMPONENT_ID]: this.component.id,
         key: this.component.id,
       },
+      this.overrideProps?.values,
     )
   }
 
@@ -192,5 +208,42 @@ export class RuntimeComponentProps
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     }
+  }
+
+  @modelAction
+  addRuntimeComponentModel(containerNode: IComponentModel) {
+    const runtimeNode = RuntimeContainerNodeFactory.create({
+      containerNode,
+    })
+
+    this.runtimeRootNodes.set(runtimeNode.id, runtimeNode)
+
+    return runtimeNode
+  }
+
+  @modelAction
+  addRuntimeElementModel(element: IElementModel) {
+    const runtimeRootElementId = v4()
+
+    const runtimeRootElementProps = RuntimeElementProps.create({
+      elementRef: elementRef(element.id),
+      runtimeElementRef: runtimeElementRef(runtimeRootElementId),
+    })
+
+    const runtimeRootElement = RuntimeElement.create({
+      elementRef: elementRef(element.id),
+      id: runtimeRootElementId,
+      parentRef: runtimeContainerNodeRef(this.id),
+      runtimeProps: runtimeRootElementProps,
+    })
+
+    this.runtimeRootNodes.set(runtimeRootElement.id, runtimeRootElement)
+
+    return runtimeRootElement
+  }
+
+  @modelAction
+  setOverrideProps(overrideProps: IPropModel) {
+    this.overrideProps = overrideProps
   }
 }

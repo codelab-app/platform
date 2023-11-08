@@ -2,9 +2,9 @@ import type {
   ElementWrapperProps,
   IRuntimeElementDTO,
   IRuntimeElementModel,
+  IRuntimeElementPropModel,
   IRuntimeModel,
   IRuntimeModelRef,
-  IRuntimePropModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
@@ -57,7 +57,7 @@ export class RuntimeElement
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
     parentRef: prop<IRuntimeModelRef>(),
-    runtimeProps: prop<IRuntimePropModel>(),
+    runtimeProps: prop<IRuntimeElementPropModel>(),
     sortedRuntimeChildren: prop<Array<IRuntimeModel>>(() => []),
   })
   implements IRuntimeElementModel
@@ -115,7 +115,10 @@ export class RuntimeElement
 
   @computed
   get isPageContentContainer() {
-    const providerPage = this.renderer.providerPage
+    const providerPage = isPage(this.renderer.containerNode)
+      ? this.renderer.containerNode.providerPage
+      : undefined
+
     const containerElement = providerPage?.pageContentContainer?.current
 
     return this.element.id === containerElement?.id
@@ -129,6 +132,32 @@ export class RuntimeElement
       !isPage(containerNode) &&
       this.element.id === containerNode.childrenContainerElement.id
     )
+  }
+
+  runPostRenderAction = () => {
+    const { postRenderAction } = this.element
+    const currentPostRenderAction = postRenderAction?.current
+
+    if (currentPostRenderAction) {
+      const runtimeAction = this.runtimeStore.runtimeAction(
+        currentPostRenderAction,
+      )
+
+      const runner = runtimeAction?.runner()
+
+      runner?.()
+    }
+  }
+
+  runPreRenderAction = () => {
+    const { preRenderAction } = this.element
+
+    if (preRenderAction) {
+      const runtimeAction = this.runtimeStore.runtimeAction(preRenderAction)
+      const runner = runtimeAction?.runner()
+
+      runner?.()
+    }
   }
 
   @modelAction
@@ -159,7 +188,7 @@ export class RuntimeElement
       },
       key: this.element.id,
       onRendered: () => {
-        this.renderer.runPostRenderAction(renderOutput.runtimeElement)
+        this.runPostRenderAction()
       },
       renderer: this.renderer,
       renderOutput,

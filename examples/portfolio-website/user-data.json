@@ -2334,8 +2334,7 @@
       },
       "childrenContainerElement": {
         "id": "bf6abfe6-6700-41b7-b208-aa59a442c709"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -2417,8 +2416,7 @@
       },
       "childrenContainerElement": {
         "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
@@ -2531,8 +2529,7 @@
       },
       "childrenContainerElement": {
         "id": "4eb7f514-bba7-4faf-89e1-58538f4c4737"
-      },
-      "keyGenerator": null
+      }
     },
     {
       "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2619,8 +2616,7 @@
       },
       "childrenContainerElement": {
         "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3"
-      },
-      "keyGenerator": null
+      }
     }
   ],
   "resources": [],

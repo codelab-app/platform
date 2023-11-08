@@ -5,7 +5,7 @@ import type {
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
@@ -27,8 +27,6 @@ export interface IRendererModel {
   elementTree: Ref<IElementTree>
   expressionTransformer: IExpressionTransformer
   id: string
-  providerPage: Maybe<IPageModel>
-  providerTree: Nullable<Ref<IElementTree>>
   renderPipe: IRenderPipe
   rendererType: RendererType
   rootElement: IElementModel
@@ -36,10 +34,7 @@ export interface IRendererModel {
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  logRendered(rendered: IRenderOutput): void
   render(): Nullable<ReactElement>
-  runPostRenderAction(element: IRuntimeElementModel): void
-  runPreRenderAction(element: IRuntimeElementModel): void
 }
 
 export interface ElementWrapperProps {

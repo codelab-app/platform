@@ -46,7 +46,6 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
     const renderer = rendererService.hydrate({
       elementTree: page,
       id: page.id,
-      providerTree: app.providerPage,
       rendererType: RendererType.Production,
       urlSegments,
     })

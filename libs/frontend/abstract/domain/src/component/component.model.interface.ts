@@ -26,7 +26,6 @@ export interface IComponentModel
   childrenContainerElement: Ref<IElementModel>
   descendantComponents: Array<IComponentModel>
   instanceElement: Nullable<Ref<IElementModel>>
-  keyGenerator: Nullish<string>
   props: IPropModel
   /**
    * to render a component we create a duplicate for each instance

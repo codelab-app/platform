@@ -45,7 +45,6 @@ export const CreateComponentForm = observer(
 
     const model = {
       id: v4(),
-      keyGenerator: KEY_GENERATOR,
       owner: { auth0Id: userService.user.auth0Id },
     }
 

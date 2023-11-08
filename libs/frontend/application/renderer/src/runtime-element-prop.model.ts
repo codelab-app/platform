@@ -1,7 +1,8 @@
 import type {
   IRuntimeElementModel,
   IRuntimeElementPropDTO,
-  IRuntimePropModel,
+  IRuntimeElementPropModel,
+  IRuntimeModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -9,11 +10,14 @@ import {
   IEvaluationContext,
   isRuntimeContainerNode,
   RendererType,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
+  elementRef,
+  IComponentModel,
+  IElementModel,
   isAtomRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
@@ -29,15 +33,20 @@ import { mapDeep } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
+import { v4 } from 'uuid'
+import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
+import { RuntimeElement } from './runtime-element.model'
 
-const create = ({ elementRef, runtimeElementRef }: IRuntimeElementPropDTO) => {
-  return new RuntimeElementProps({
-    elementRef,
-    runtimeElementRef,
-  })
-}
+const create = (dto: IRuntimeElementPropDTO) => new RuntimeElementProps(dto)
 
 @model('@codelab/RuntimeElementProps')
 export class RuntimeElementProps
@@ -45,8 +54,9 @@ export class RuntimeElementProps
     elementRef: prop<Ref<IElementModel>>(),
     id: idProp,
     runtimeElementRef: prop<Ref<IRuntimeElementModel>>(),
+    runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
   })
-  implements IRuntimePropModel
+  implements IRuntimeElementPropModel
 {
   static create = create
 
@@ -221,5 +231,38 @@ export class RuntimeElementProps
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     }
+  }
+
+  // TODO: move repeated logic to a base class
+  @modelAction
+  addRuntimeComponentModel(containerNode: IComponentModel) {
+    const runtimeNode = RuntimeContainerNodeFactory.create({
+      containerNode,
+    })
+
+    this.runtimeRootNodes.set(runtimeNode.id, runtimeNode)
+
+    return runtimeNode
+  }
+
+  @modelAction
+  addRuntimeElementModel(element: IElementModel) {
+    const id = v4()
+
+    const runtimeProps = RuntimeElementProps.create({
+      elementRef: elementRef(element.id),
+      runtimeElementRef: runtimeElementRef(id),
+    })
+
+    const runtimeElement = RuntimeElement.create({
+      elementRef: elementRef(element.id),
+      id,
+      parentRef: runtimeElementRef(this.id),
+      runtimeProps,
+    })
+
+    this.runtimeRootNodes.set(runtimeElement.id, runtimeElement)
+
+    return runtimeElement
   }
 }

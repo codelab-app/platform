@@ -9,7 +9,6 @@ export const IComponentDTO = Type.Object({
   api: IRef,
   childrenContainerElement: IRef,
   id: Type.String(),
-  keyGenerator: Typebox.Nullish(Type.String()),
   name: Type.String(),
   owner: Typebox.Nullish(IRef),
   props: IPropDTO,

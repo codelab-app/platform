@@ -6,12 +6,13 @@ import {
   IRendererModel,
   isRuntimeContainerNode,
   isRuntimeElement,
+  isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
-import {
-  IPageNode,
-  isComponent,
-  isElement,
+import type {
+  IComponentModel,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import { IElementModel, IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -61,33 +62,56 @@ export class RendererApplicationService
   }
 
   @modelAction
-  getRuntimeModel(node: IPageNode) {
-    const runtimeRoot = this.activeRenderer?.current.runtimeRootContainerNode
+  runtimeElement(element: IElementModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
-    if (!runtimeRoot) {
-      return null
-    }
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) &&
+            isRuntimeElement(child) &&
+            element.id === child.element.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
+  }
 
-    return walkTree(
-      runtimeRoot,
-      (child) => {
-        if (!isModel(child)) {
-          return undefined
-        }
+  @modelAction
+  runtimeContainerNode(containerNode: IComponentModel | IPageModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
-        const isNodeComponent =
-          isComponent(node) &&
-          isRuntimeContainerNode(child) &&
-          node.id === child.containerNode.id
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) &&
+            isRuntimeContainerNode(child) &&
+            containerNode.id === child.containerNode.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
+  }
 
-        const isNodeElement =
-          isElement(node) &&
-          isRuntimeElement(child) &&
-          node.id === child.element.id
+  @modelAction
+  runtimeStore(store: IStoreModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
-        return isNodeComponent || isNodeElement ? child : undefined
-      },
-      WalkTreeMode.ParentFirst,
-    )
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) &&
+            isRuntimeStore(child) &&
+            store.id === child.store.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
   }
 }

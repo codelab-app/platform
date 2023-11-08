@@ -56,6 +56,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('childMapper')
     }
 
+    const runtimeElement = rendererService.runtimeElement(element)
+    const runtimeProps = runtimeElement?.runtimeProps
+
     return (
       <Form<IUpdateBaseElementData>
         autosave
@@ -91,11 +94,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           <Collapse.Panel header="Render Condition" key="renderCondition">
             <AutoField
               component={CodeMirrorField({
-                customOptions: [],
-                // customOptions: createAutoCompleteOptions(
-                // rendererService.runtimeElement(element)
-                //   .expressionEvaluationContext,
-                // ),
+                customOptions: createAutoCompleteOptions(
+                  runtimeProps?.expressionEvaluationContext,
+                ),
                 language: CodeMirrorLanguage.Javascript,
               })}
               name="renderIfExpression"

@@ -13,18 +13,18 @@ import { useMemo } from 'react'
 export const useActionSchema = (
   schema: JSONSchemaType<ICreateActionData | IUpdateActionData>,
 ) => {
-  const { actionService } = useStore()
+  const { actionService, rendererService } = useStore()
 
   return useMemo(() => {
     const store =
       actionService.createForm.store ??
       actionService.updateForm.action?.store.current
 
-    const forbiddenValues = {}
-    // TODO: Renderer
-    // const forbiddenValues = Object.keys(store?.state ?? {}).filter(
-    //   (fieldName) => fieldName !== actionService.updateForm.action?.name,
-    // )
+    const runtimeStore = store ? rendererService.runtimeStore(store) : undefined
+
+    const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
+      (fieldName) => fieldName !== actionService.updateForm.action?.name,
+    )
 
     return {
       ...schema,

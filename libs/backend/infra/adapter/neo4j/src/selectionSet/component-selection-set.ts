@@ -33,7 +33,6 @@ export const componentSelectionSet = `
   childrenContainerElement {
     id
   }
-  keyGenerator
 `
 
 export const exportComponentSelectionSet = `
@@ -55,5 +54,4 @@ export const exportComponentSelectionSet = `
   childrenContainerElement {
     id
   }
-  keyGenerator
 `

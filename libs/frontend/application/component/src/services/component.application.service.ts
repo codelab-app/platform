@@ -77,7 +77,7 @@ export class ComponentApplicationService
   @transaction
   create = _async(function* (
     this: ComponentApplicationService,
-    { id, keyGenerator, name, rootElement }: ICreateComponentData,
+    { id, name, rootElement }: ICreateComponentData,
   ) {
     const storeApi = this.typeService.typeDomainService.hydrateInterface({
       id: v4(),
@@ -139,7 +139,6 @@ export class ComponentApplicationService
       api,
       childrenContainerElement: { id: rootElementModel.id },
       id,
-      keyGenerator,
       name,
       props: componentProps,
       rootElement: rootElementModel,
@@ -297,7 +296,7 @@ export class ComponentApplicationService
   @transaction
   update = _async(function* (
     this: ComponentApplicationService,
-    { childrenContainerElement, id, keyGenerator, name }: IUpdateComponentData,
+    { childrenContainerElement, id, name }: IUpdateComponentData,
   ) {
     const component = this.componentDomainService.components.get(id)
 
@@ -305,7 +304,7 @@ export class ComponentApplicationService
       throw new Error('ID not found')
     }
 
-    component.writeCache({ childrenContainerElement, keyGenerator, name })
+    component.writeCache({ childrenContainerElement, name })
 
     yield* _await(this.componentRepository.update(component))
 

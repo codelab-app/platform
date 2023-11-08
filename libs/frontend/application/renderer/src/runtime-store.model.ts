@@ -103,6 +103,11 @@ export class RuntimeStoreModel
   }
 
   @computed
+  get runtimeActionsList() {
+    return [...this.runtimeActions.values()]
+  }
+
+  @computed
   get refKeys(): Array<string> {
     const elementTree =
       this.store.page?.current || this.store.component?.current
@@ -120,11 +125,12 @@ export class RuntimeStoreModel
 
   @modelAction
   runtimeAction(action: IRef): Maybe<IRuntimeActionModel> {
-    if (this.runtimeActions.has(action.id)) {
-      return this.runtimeActions.get(action.id)
-    }
-
-    return this.runtimeProviderStore?.runtimeAction(action)
+    return (
+      // either find it in here
+      this.runtimeActionsList.find((item) => item.action.id === action.id) ??
+      // or search in parent store if it has one
+      this.runtimeProviderStore?.runtimeAction(action)
+    )
   }
 
   deleteUnusedRefs() {

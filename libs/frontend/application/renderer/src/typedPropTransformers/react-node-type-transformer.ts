@@ -1,13 +1,12 @@
 import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
 import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
-  componentRef,
   extractTypedPropValue,
+  isElement,
 } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
-import { cloneComponent } from '../utils'
 
 /**
  * Transforms props from the following format:
@@ -55,22 +54,25 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
-    // TODO: ReactNode unlike RenderProps doesn't take any props
-    // figure out on what we should apply keyGenerator
-    // const clonedComponent = cloneComponent(component, node, {})
+    const runtimeNode = isElement(node)
+      ? this.rendererService.runtimeElement(node)
+      : this.rendererService.runtimeContainerNode(node)
 
-    // if (!clonedComponent) {
-    //   console.error('Failed to clone component')
+    if (!runtimeNode) {
+      console.error('Runtime node not found')
 
-    //   return fallback
-    // }
+      return fallback
+    }
 
-    // TODO: Renderer
-    // this.renderer.addRuntimeComponent(clonedComponent)
+    const runtimeComponent =
+      runtimeNode.runtimeProps?.addRuntimeComponentModel(component)
 
-    // const rootElement = clonedComponent.rootElement.current
+    if (!runtimeComponent) {
+      console.error('Unable to create runtime component')
 
-    // return this.renderer.renderElement(rootElement)
-    return
+      return fallback
+    }
+
+    return runtimeComponent.render
   }
 }
