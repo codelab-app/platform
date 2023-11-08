@@ -6,6 +6,7 @@ import {
   IRendererModel,
   isRuntimeContainerNode,
   isRuntimeElement,
+  isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -105,8 +106,8 @@ export class RendererApplicationService
           rootNode,
           (child) =>
             isModel(child) &&
-            isRuntimeSt(child) &&
-            store.id === child.element.id
+            isRuntimeStore(child) &&
+            store.id === child.store.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,

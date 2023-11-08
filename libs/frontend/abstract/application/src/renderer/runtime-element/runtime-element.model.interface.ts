@@ -78,4 +78,6 @@ export interface IRuntimeElementModel extends AnyModel {
     containerNode: IComponentModel | IElementModel | IPageModel,
     index?: number,
   ): IRuntimeModel
+  runPostRenderAction(): void
+  runPreRenderAction(): void
 }

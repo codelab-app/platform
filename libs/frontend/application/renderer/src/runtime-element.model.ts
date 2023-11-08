@@ -149,14 +149,11 @@ export class RuntimeElement
     }
   }
 
-  runPreRenderAction = (runtimeElement: IRuntimeElementModel) => {
-    const { element } = runtimeElement
-    const { preRenderAction } = element
+  runPreRenderAction = () => {
+    const { preRenderAction } = this.element
 
     if (preRenderAction) {
-      const runtimeAction =
-        runtimeElement.runtimeStore.runtimeAction(preRenderAction)
-
+      const runtimeAction = this.runtimeStore.runtimeAction(preRenderAction)
       const runner = runtimeAction?.runner()
 
       runner?.()

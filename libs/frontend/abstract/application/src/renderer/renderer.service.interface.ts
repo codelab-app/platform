@@ -24,6 +24,6 @@ export interface IRendererService
     node: IComponentModel | IPageModel,
   ): Maybe<IRuntimeContainerNodeModel>
   runtimeElement(element: IElementModel): Maybe<IRuntimeElementModel>
-  runtimeStore(storeModel: IStoreModel): IRuntimeStoreModel
+  runtimeStore(storeModel: IStoreModel): Maybe<IRuntimeStoreModel>
   setActiveRenderer(renderer: Ref<IRendererModel>): void
 }
