@@ -7,11 +7,11 @@ import {
   isRuntimeContainerNode,
   isRuntimeElement,
 } from '@codelab/frontend/abstract/application'
-import {
-  IPageNode,
-  isComponent,
-  isElement,
+import type {
+  IComponentModel,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -61,33 +61,38 @@ export class RendererApplicationService
   }
 
   @modelAction
-  getRuntimeModel(node: IPageNode) {
-    const runtimeRoot = this.activeRenderer?.current.runtimeRootContainerNode
+  getRuntimeElement(element: IElementModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
-    if (!runtimeRoot) {
-      return null
-    }
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) &&
+            isRuntimeElement(child) &&
+            element.id === child.element.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
+  }
 
-    return walkTree(
-      runtimeRoot,
-      (child) => {
-        if (!isModel(child)) {
-          return undefined
-        }
+  @modelAction
+  getRuntimeContainerNode(containerNode: IComponentModel | IPageModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
-        const isNodeComponent =
-          isComponent(node) &&
-          isRuntimeContainerNode(child) &&
-          node.id === child.containerNode.id
-
-        const isNodeElement =
-          isElement(node) &&
-          isRuntimeElement(child) &&
-          node.id === child.element.id
-
-        return isNodeComponent || isNodeElement ? child : undefined
-      },
-      WalkTreeMode.ParentFirst,
-    )
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) &&
+            isRuntimeContainerNode(child) &&
+            containerNode.id === child.containerNode.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
   }
 }
