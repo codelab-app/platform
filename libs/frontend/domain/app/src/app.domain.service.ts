@@ -28,14 +28,13 @@ export class AppDomainService
   }
 
   @modelAction
-  hydrate = ({ domains, id, name, owner, pages }: IAppDTO) => {
+  hydrate = ({ domains, id, name, owner }: IAppDTO) => {
     let app = this.apps.get(id)
 
     if (app) {
       app.writeCache({
         domains,
         name,
-        pages,
       })
     } else {
       app = App.create({
@@ -43,7 +42,6 @@ export class AppDomainService
         id,
         name,
         owner,
-        pages,
       })
     }
 

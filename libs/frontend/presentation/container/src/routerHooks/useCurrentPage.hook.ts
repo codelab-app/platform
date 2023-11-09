@@ -17,8 +17,6 @@ export const useCurrentPage = () => {
       return undefined
     }
 
-    const page = app.pages.find((_page) => _page.current.name === pageName)
-
-    return page?.current
+    return app.pages.find((_page) => _page.name === pageName)
   }, [pageName])
 }

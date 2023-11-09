@@ -7,11 +7,7 @@ import type {
   IUpdateAppData,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/domain'
-import type {
-  AppOptions,
-  AppWhere,
-  PageWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -32,7 +28,6 @@ export interface IAppService
   appRepository: IAppRepository
   buildModal: IEntityModalService<Ref<IAppModel>, { app?: IAppModel }>
 
-  getAppPages(appId: string, where: PageWhere): Promise<void>
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
   updatePage(data: IUpdatePageData): Promise<void>

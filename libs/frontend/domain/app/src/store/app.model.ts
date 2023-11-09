@@ -1,12 +1,11 @@
 import type {
   IAppModel,
   IDomainModel,
-  IPageModel,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
 import {
+  getPageDomainService,
   getUserDomainService,
-  pageRef,
   userRef,
 } from '@codelab/frontend/abstract/domain'
 import { Domain } from '@codelab/frontend/domain/domain'
@@ -24,13 +23,12 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ domains = [], id, name, owner, pages = [] }: IAppDTO) => {
+const create = ({ domains = [], id, name, owner }: IAppDTO) => {
   const app = new App({
     domains: domains.map((domain) => Domain.create(domain)),
     id,
     name,
     owner: userRef(owner.id),
-    pages: pages.map((page) => pageRef(page.id)),
   })
 
   return app
@@ -43,7 +41,6 @@ export class App
     id: idProp,
     name: prop<string>(),
     owner: prop<Ref<IUserModel>>(),
-    pages: prop<Array<Ref<IPageModel>>>(() => []),
   })
   implements IAppModel
 {
@@ -70,10 +67,22 @@ export class App
   // }
 
   @computed
+  get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
+  @computed
+  get pages() {
+    return this.pageDomainService.pagesList.filter(
+      (page) => page.app.id === this.id,
+    )
+  }
+
+  @computed
   get providerPage() {
     const providerPage = this.pages.find(
-      (page) => page.current.kind === IPageKind.Provider,
-    )?.current
+      (page) => page.kind === IPageKind.Provider,
+    )
 
     if (!providerPage) {
       throw new Error('ProviderPage is required')
@@ -94,7 +103,7 @@ export class App
       id: this.id,
       name: this.name,
       owner: this.owner.current.toJson,
-      pages: this.pages.map((page) => page.current.toJson),
+      pages: this.pages.map((page) => page.toJson),
     }
   }
 
@@ -103,23 +112,20 @@ export class App
 
   @modelAction
   page(id: string) {
-    return this.pages.find((page) => page.id === id)?.current
+    return this.pages.find((page) => page.id === id)
   }
 
   @modelAction
   pageByName(name: string) {
-    return throwIfUndefined(
-      this.pages.find((page) => name === page.current.name)?.current,
-    )
+    return throwIfUndefined(this.pages.find((page) => name === page.name))
   }
 
   /**
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
+  writeCache({ domains, id, name, owner }: Partial<IAppDTO>) {
     this.id = id ?? this.id
-    this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
     this.name = name ?? this.name
     this.domains = domains
       ? domains.map((domain) => Domain.create(domain))
@@ -139,7 +145,7 @@ export class App
       owner: connectOwner(this.userDomainService.user),
       pages: {
         create: this.pages.map((page) => ({
-          node: page.current.toCreateInput(),
+          node: page.toCreateInput(),
         })),
       },
     }

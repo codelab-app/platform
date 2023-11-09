@@ -162,37 +162,16 @@ export class PageApplicationService
   getAll = _async(function* (this: PageApplicationService, where: PageWhere) {
     const { items: pages } = yield* _await(this.pageRepository.find(where))
 
-    return pages
-
-    /**
-     * Load elements so they can be referenced
-     */
-    // return pages.map((page) => {
-    //   const elements = [
-    //     page.rootElement,
-    //     ...page.rootElement.descendantElements,
-    //   ]
-
-    //   elements.forEach((element) =>
-    //     this.elementService.elementDomainService.hydrate({
-    //       ...element,
-    //       closestContainerNode: {
-    //         id: page.id,
-    //       },
-    //     }),
-    //   )
-
-    //   return this.pageDomainService.add(page)
-    // })
+    return pages.map((page) => this.pageDomainService.hydrate(page))
   })
 
-  // @modelFlow
-  // @transaction
-  // getOne = _async(function* (this: PageApplicationService, id: string) {
-  //   const pages = yield* _await(this.getAll({ id }))
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: PageApplicationService, id: string) {
+    const pages = yield* _await(this.getAll({ id }))
 
-  //   return pages[0]
-  // })
+    return pages[0]
+  })
 
   /**
     This function fetches all data related to the specific page.

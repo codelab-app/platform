@@ -8,7 +8,6 @@ import {
   type ICreateAppData,
   type IUpdateAppData,
   type IUpdatePageData,
-  pageRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import {
@@ -18,7 +17,7 @@ import {
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
 import { VercelService } from '@codelab/frontend/domain/vercel'
-import type { AppWhere, PageWhere } from '@codelab/shared/abstract/codegen'
+import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
   _async,
@@ -125,32 +124,6 @@ export class AppService
     const { items: apps } = yield* _await(this.appRepository.find(where))
 
     return apps.map((app) => this.appDomainService.hydrate(app))
-  })
-
-  @modelFlow
-  @transaction
-  getAppPages = _async(function* (
-    this: AppService,
-    appId: string,
-    where: PageWhere,
-  ) {
-    const { items: pages } = yield* _await(
-      this.pageService.pageRepository.find({
-        AND: [{ appConnection: { node: { id: appId } } }, where],
-      }),
-    )
-
-    // this.loadPages({ pages })
-
-    const app = this.appDomainService.app(appId)
-
-    pages.forEach(({ id }) => {
-      const pageExistsInApp = app?.pages.find((appPage) => appPage.id === id)
-
-      if (!pageExistsInApp) {
-        app?.pages.push(pageRef(id))
-      }
-    })
   })
 
   @modelFlow
