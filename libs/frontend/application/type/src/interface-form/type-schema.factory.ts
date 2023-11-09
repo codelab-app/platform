@@ -97,7 +97,11 @@ export class TypeSchemaFactory {
   fromEnumType(type: IEnumType, context?: UiPropertiesContext): JsonSchema {
     const extra = this.getExtraProperties(type, context)
 
-    return { type: 'string', ...extra } as const
+    return {
+      default: context?.defaultValues || undefined,
+      type: 'string',
+      ...extra,
+    } as const
   }
 
   fromInterfaceType(
