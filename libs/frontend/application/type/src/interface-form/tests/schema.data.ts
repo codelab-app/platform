@@ -4,6 +4,7 @@ import { createTypedPropTypeExpectedSchema } from './schema.data.util'
 import {
   actionType,
   elementType,
+  enumFieldWithDefaultValue,
   enumType,
   intFieldWithRequiredValue,
   intType,
@@ -179,6 +180,13 @@ export const interfaceWithUnionExpectedSchema = {
 
 export const interfaceWithRequiredDefaultFieldValuesExpectedSchema = {
   properties: {
+    enumField: {
+      ...enumTypeExpectedSchema,
+      default: enumFieldWithDefaultValue.defaultValues,
+      label: 'Enum field',
+      type: 'string',
+      uniforms: expect.any(Object),
+    },
     intField: {
       ...intTypeExpectedSchema,
       label: 'Int field',

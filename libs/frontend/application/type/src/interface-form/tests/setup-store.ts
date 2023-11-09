@@ -1,4 +1,4 @@
-import type { IType } from '@codelab/frontend/abstract/domain'
+import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import {
   ActionType,
@@ -97,8 +97,9 @@ export const elementType = new ElementType({
 
 export const enumType = new EnumType({
   allowedValues: [
-    { id: v4(), key: 'a', label: 'A', value: 'a' },
-    { id: v4(), key: 'b', label: 'B', value: 'b' },
+    { id: v4(), key: 'Enum 1', label: 'Enum 1', value: 'Enum 1' },
+    { id: v4(), key: 'Enum 2', label: 'Enum 2', value: 'Enum 2' },
+    { id: v4(), key: 'Enum 3', label: 'Enum 3', value: 'Enum 3' },
   ],
   id: v4(),
   kind: ITypeKind.EnumType,
@@ -132,6 +133,14 @@ const stringField = new Field({
   type: typeRef(stringType),
 })
 
+const enumField = new Field({
+  api: typeRef(emptyInterface),
+  id: v4(),
+  key: 'enumField',
+  name: 'Enum field',
+  type: typeRef(enumType),
+})
+
 export const stringFieldWithDefaultValue = new Field({
   api: typeRef(emptyInterface),
   defaultValues: 'string field default value',
@@ -154,6 +163,15 @@ export const intFieldWithRequiredValue = new Field({
   },
 })
 
+export const enumFieldWithDefaultValue = new Field({
+  api: typeRef(emptyInterface),
+  defaultValues: enumType.allowedValues[0]?.value,
+  id: v4(),
+  key: 'enumField',
+  name: 'Enum field',
+  type: typeRef(enumType),
+})
+
 const unionField = new Field({
   api: typeRef(emptyInterface),
   id: v4(),
@@ -172,10 +190,20 @@ export const interfaceWithUnionField = new InterfaceType({
   name: 'Interface with union field',
 })
 
+export const interfaceWithEnumField = new InterfaceType({
+  _fields: objectMap([
+    [enumFieldWithDefaultValue.id, fieldRef(enumFieldWithDefaultValue)],
+  ]),
+  id: v4(),
+  kind: ITypeKind.InterfaceType,
+  name: 'Interface with enum field',
+})
+
 export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
   _fields: objectMap([
     [stringFieldWithDefaultValue.id, fieldRef(stringFieldWithDefaultValue)],
     [intFieldWithRequiredValue.id, fieldRef(intFieldWithRequiredValue)],
+    [enumFieldWithDefaultValue.id, fieldRef(enumFieldWithDefaultValue)],
   ]),
   id: v4(),
   kind: ITypeKind.InterfaceType,
@@ -189,10 +217,12 @@ export const rootStore = new TestRootStore({
       [unionField.id, unionField],
       [stringFieldWithDefaultValue.id, stringFieldWithDefaultValue],
       [intFieldWithRequiredValue.id, intFieldWithRequiredValue],
+      [enumField.id, enumField],
+      [enumFieldWithDefaultValue.id, enumFieldWithDefaultValue],
     ]),
   }),
   typeService: new TypeDomainService({
-    types: objectMap<IType>([
+    types: objectMap<ITypeModel>([
       [unionType.id, unionType],
       [interfaceWithUnionField.id, interfaceWithUnionField],
       [
@@ -201,6 +231,8 @@ export const rootStore = new TestRootStore({
       ],
       [intType.id, intType],
       [stringType.id, stringType],
+      [enumType.id, enumType],
+      [interfaceWithEnumField.id, interfaceWithEnumField],
     ]),
   }),
 })
