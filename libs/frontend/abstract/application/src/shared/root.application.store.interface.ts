@@ -1,12 +1,17 @@
 import type {
+  IAppDomainService,
   IAtomDomainService,
   IBuilderDomainService,
+  IComponentDomainService,
+  IElementDomainService,
+  IFieldDomainService,
+  IPageDomainService,
   IStoreDomainService,
   ITypeDomainService,
+  IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { Context } from 'mobx-keystone'
-import type { NextRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'querystring'
 import type { IActionService } from '../action'
 import type { IAdminService } from '../admin'
@@ -71,22 +76,28 @@ type MaybeContext<T> = Context<T | undefined>
 
 export interface IRootStoreContext {
   actionServiceContext: MaybeContext<IActionService>
+  appDomainServiceContext: MaybeContext<IAppDomainService>
   appServiceContext: MaybeContext<IAppService>
   atomDomainServiceContext: MaybeContext<IAtomDomainService>
   atomServiceContext: MaybeContext<IAtomService>
-  builderServiceContext: MaybeContext<IBuilderDomainService>
+  builderDomainServiceContext: MaybeContext<IBuilderDomainService>
+  componentDomainServiceContext: MaybeContext<IComponentDomainService>
   componentServiceContext: MaybeContext<IComponentApplicationService>
   domainServiceContext: MaybeContext<IDomainService>
+  elementDomainServiceContext: MaybeContext<IElementDomainService>
   elementServiceContext: MaybeContext<IElementService>
+  fieldDomainServiceContext: MaybeContext<IFieldDomainService>
   fieldServiceContext: MaybeContext<IFieldService>
+  pageDomainServiceContext: MaybeContext<IPageDomainService>
   pageServiceContext: MaybeContext<IPageApplicationService>
   propServiceContext: MaybeContext<IPropService>
-  rendererApplicationServiceContext: MaybeContext<IRendererService>
+  rendererServiceContext: MaybeContext<IRendererService>
   resourceServiceContext: MaybeContext<IResourceService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   storeServiceContext: MaybeContext<IStoreService>
   tagServiceContext: MaybeContext<ITagService>
   typeDomainServiceContext: MaybeContext<ITypeDomainService>
   typeServiceContext: MaybeContext<ITypeService>
+  userDomainServiceContext: MaybeContext<IUserDomainService>
   userServiceContext: MaybeContext<IUserService>
 }
