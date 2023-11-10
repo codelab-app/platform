@@ -1,21 +1,43 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /*
 In production the stylesheet is compiled to .next/static/style.css and served from /_next/static/style.css
 You have to include it into the page using either next/head or a custom _document.js, as is being done in this file.
 */
+import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 import type { DocumentContext } from 'next/document'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx)
+    const cache = createCache()
+    const originalRenderPage = ctx.renderPage
 
-    return { ...initialProps }
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) =>
+          (
+            <StyleProvider cache={cache}>
+              <App {...props} />
+            </StyleProvider>
+          ),
+      })
+
+    const initialProps = await Document.getInitialProps(ctx)
+    const style = extractStyle(cache, true)
+
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          <style dangerouslySetInnerHTML={{ __html: style }} />
+        </>
+      ),
+    }
   }
 
   render() {
-    // const isMenuOpen = useRecoilValue(menuState)
-
     return (
       <Html>
         <Head>
@@ -34,21 +56,6 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Nunito:wght@300;400;500;600&display=swap"
             rel="stylesheet"
           />
-          {/* <link */}
-          {/*  charSet="UTF-8" */}
-          {/*  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" */}
-          {/*  rel="stylesheet" */}
-          {/*  type="text/css" */}
-          {/*/ > */}
-          {/* <link */}
-          {/*  href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" */}
-          {/*  rel="stylesheet" */}
-          {/*  type="text/css" */}
-          {/*/ > */}
-          {/* <style */}
-          {/*  data-emotion-css={this.props.ids.join(' ')} */}
-          {/*  dangerouslySetInnerHTML={{ __html: this.props.css }} */}
-          {/*/ > */}
           <script
             dangerouslySetInnerHTML={{
               // eslint-disable-next-line @typescript-eslint/naming-convention

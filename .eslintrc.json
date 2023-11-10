@@ -121,7 +121,7 @@
       }
     },
     {
-      "files": ["*.schema.ts"],
+      "files": ["*.schema.ts", "*.schema.interface.ts"],
       "rules": {
         "canonical/sort-keys": "off"
       }

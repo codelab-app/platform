@@ -33,7 +33,6 @@
       ],
       "options": {
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
-        "passWithNoTests": true,
         "runInBand": true,
         "reporters": ["default"]
       }
@@ -45,7 +44,6 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
-        "passWithNoTests": true,
         "runInBand": true
       },
       "configurations": {
@@ -70,7 +68,6 @@
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/frontend/application/renderer/jest.config.ts",
-        "passWithNoTests": true,
         "runInBand": true
       },
       "configurations": {
@@ -79,8 +76,7 @@
         },
         "test": {
           "reporters": ["default"]
-        },
-        "ci": {}
+        }
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/application/renderer"]

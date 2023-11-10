@@ -28,7 +28,6 @@
     },
     "test": {
       "configurations": {
-        "ci": {},
         "dev": {
           "reporters": ["default"]
         },
@@ -43,7 +42,6 @@
         "jestConfig": "libs/frontend/domain/element/jest.config.ts",
         "memoryLimit": 8192,
         "parallel": 3,
-        "passWithNoTests": true,
         "runInBand": true,
         "testPathPattern": ["[^i].spec.ts"],
         "reporters": ["default"]
@@ -58,7 +56,6 @@
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/frontend/domain/element/jest.config.ts",
         "parallel": 3,
-        "passWithNoTests": true,
         "runInBand": true
       },
       "configurations": {
@@ -83,7 +80,6 @@
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/frontend/domain/element/jest.config.ts",
-        "passWithNoTests": true,
         "runInBand": true
       },
       "configurations": {
@@ -92,8 +88,7 @@
         },
         "test": {
           "reporters": ["default"]
-        },
-        "ci": {}
+        }
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]

@@ -74,7 +74,6 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true,
         "reporters": ["default"]
       },
       "configurations": {
@@ -95,8 +94,7 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/platform/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -123,8 +121,7 @@
         "memoryLimit": 8192,
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/platform/jest.config.ts"
       },
       "configurations": {
         "dev": {
