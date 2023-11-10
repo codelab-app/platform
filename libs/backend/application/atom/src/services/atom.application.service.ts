@@ -25,13 +25,14 @@ export class AtomApplicationService {
       selectionSet: `{ id }`,
     })
 
-    return await Promise.all(
-      atomIds.map(
-        async ({ id }) =>
-          await this.commandBus.execute<ExportAtomCommand, IAtomBoundedContext>(
-            new ExportAtomCommand({ id }),
-          ),
-      ),
-    )
+    const exportedAtoms = []
+
+    for (const { id } of atomIds) {
+      exportedAtoms.push(
+        await this.commandBus.execute(new ExportAtomCommand({ id })),
+      )
+    }
+
+    return exportedAtoms
   }
 }
