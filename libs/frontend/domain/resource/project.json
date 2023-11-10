@@ -31,7 +31,6 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/resource"],
       "options": {
         "jestConfig": "libs/frontend/domain/resource/jest.config.ts",
-        "passWithNoTests": true,
         "reporters": ["default"]
       }
     },
@@ -41,8 +40,7 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "libs/frontend/domain/resource/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/frontend/domain/resource/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -65,8 +63,7 @@
         "memoryLimit": 8192,
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/frontend/domain/resource/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/frontend/domain/resource/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -74,8 +71,7 @@
         },
         "test": {
           "reporters": ["default"]
-        },
-        "ci": {}
+        }
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/resource"]

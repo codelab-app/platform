@@ -16,8 +16,7 @@
 
   https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 */
-
-@import 'antd/dist/reset.css';
+@import '~antd/dist/reset.css';
 
 #__next {
   height: 100%;

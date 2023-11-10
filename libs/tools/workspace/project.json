@@ -66,16 +66,9 @@
       "outputs": ["{options.outputFile}"]
     },
     "test": {
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      },
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true,
         "reporters": ["default"]
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
@@ -86,8 +79,7 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/tools/workspace/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -97,9 +89,7 @@
           "reporters": ["default"]
         },
         "ci": {
-          "parallel": 3,
-          "ci": true,
-          "codeCoverage": true
+          "parallel": 3
         }
       },
       "executor": "@nx/jest:jest",
@@ -112,8 +102,7 @@
         "memoryLimit": 8192,
         "parallel": 3,
         "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/tools/workspace/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -121,10 +110,6 @@
         },
         "test": {
           "reporters": ["default"]
-        },
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
         }
       },
       "executor": "@nx/jest:jest",
