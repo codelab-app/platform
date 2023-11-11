@@ -8,6 +8,7 @@ import {
   ElementType,
   EnumType,
   Field,
+  FieldDomainService,
   InterfaceType,
   PageType,
   PrimitiveType,
@@ -212,14 +213,16 @@ export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
 
 export const rootStore = new TestRootStore({
   fieldService: new FieldService({
-    fields: objectMap([
-      [stringField.id, stringField],
-      [unionField.id, unionField],
-      [stringFieldWithDefaultValue.id, stringFieldWithDefaultValue],
-      [intFieldWithRequiredValue.id, intFieldWithRequiredValue],
-      [enumField.id, enumField],
-      [enumFieldWithDefaultValue.id, enumFieldWithDefaultValue],
-    ]),
+    fieldDomainService: new FieldDomainService({
+      fields: objectMap([
+        [stringField.id, stringField],
+        [unionField.id, unionField],
+        [stringFieldWithDefaultValue.id, stringFieldWithDefaultValue],
+        [intFieldWithRequiredValue.id, intFieldWithRequiredValue],
+        [enumField.id, enumField],
+        [enumFieldWithDefaultValue.id, enumFieldWithDefaultValue],
+      ]),
+    }),
   }),
   typeService: new TypeDomainService({
     types: objectMap<ITypeModel>([
