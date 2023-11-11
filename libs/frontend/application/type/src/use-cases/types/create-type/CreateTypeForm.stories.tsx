@@ -4,7 +4,7 @@ import type { Meta } from '@storybook/react'
 import { Button, ConfigProvider } from 'antd'
 import React from 'react'
 import { createRjsfTypeSchema } from './create-type.rjsf.schema'
-import type { CreateTypeForm } from './CreateTypeForm'
+import { CreateTypeForm } from './CreateTypeForm'
 
 const meta: Meta<typeof CreateTypeForm> = {
   // component: CreateTypeForm,
@@ -14,9 +14,18 @@ const meta: Meta<typeof CreateTypeForm> = {
 export default meta
 
 export const TypeForm = {
-  render: () => <CuiForm schema={createRjsfTypeSchema} />,
+  render: () => (
+    <CuiForm
+      schema={createRjsfTypeSchema}
+      // uiSchema={{
+      //   __typename: {
+      //     'ui:widget': 'hidden',
+      //   },
+      // }}
+    />
+  ),
 }
 
-export const Test = {
-  render: () => <Button>Test</Button>,
+export const UniformCreateTypeForm = {
+  render: () => <CreateTypeForm />,
 }

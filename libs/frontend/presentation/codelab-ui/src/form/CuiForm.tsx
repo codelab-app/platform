@@ -4,13 +4,15 @@ import type { FormProps } from '@rjsf/core'
 import { ThemeProps, withTheme } from '@rjsf/core'
 import validator from '@rjsf/validator-ajv8'
 import React from 'react'
+import { extractUiSchema } from './extract-ui-schema'
+import merge from 'lodash/merge'
 
 const ThemedForm = withTheme(AntDTheme)
 
 export const CuiForm = (props: FormProps) => {
-  const { onChange, onError, onSubmit, schema } = props
+  const { onChange, onError, onSubmit, schema, uiSchema = {} } = props
 
-  console.log(schema)
+  const extractedUiSchema = extractUiSchema(schema)
 
   return (
     // <StyleProvider>
@@ -19,6 +21,7 @@ export const CuiForm = (props: FormProps) => {
       // onError={onError}
       // onSubmit={onSubmit}
       schema={schema}
+      uiSchema={merge(extractedUiSchema, uiSchema)}
       validator={validator}
     />
     // </StyleProvider>
