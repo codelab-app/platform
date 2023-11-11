@@ -1,10 +1,11 @@
-import { set } from 'lodash'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import set from 'lodash/set'
 
 export const extractUiSchema = (
   jsonSchema: any,
   path: string = '',
 ): Record<string, any> => {
-  let uiSchema: Record<string, any> = {}
+  const uiSchema: Record<string, any> = {}
 
   const traverseSchema = (currentSchema: any, currentPath: string) => {
     // Handle properties

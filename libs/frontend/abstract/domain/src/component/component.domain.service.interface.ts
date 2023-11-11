@@ -1,5 +1,4 @@
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
-import type { IComputedDidChange } from 'mobx/dist/internal'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IHydrateable } from '../shared'
 import type { IComponentModel } from './component.model.interface'

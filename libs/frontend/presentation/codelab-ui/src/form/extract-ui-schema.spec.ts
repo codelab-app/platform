@@ -1,4 +1,3 @@
-import merge from 'lodash/merge'
 import {
   baseTypeSchema,
   interfaceTypeSchema,
@@ -6,6 +5,7 @@ import {
   primitiveTypeSchema,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
+import merge from 'lodash/merge'
 import { extractUiSchema } from './extract-ui-schema'
 
 interface DemoType {
@@ -64,8 +64,8 @@ describe('extractUiSchema', () => {
 
   it('should handle schemas with oneOf correctly', () => {
     const jsonSchema = {
-      type: 'object',
       oneOf: [primitiveTypeSchema, interfaceTypeSchema],
+      type: 'object',
     }
 
     const uiSchema = extractUiSchema(jsonSchema)
@@ -79,15 +79,6 @@ describe('extractUiSchema', () => {
 
   it('should handle dependencies with oneOf correctly', () => {
     const jsonSchema: JSONSchemaType<{ typeSelection: ITypeKind }> = {
-      type: 'object',
-      properties: {
-        typeSelection: {
-          title: 'Select Type',
-          type: 'string',
-          enum: Object.values(ITypeKind),
-          default: ITypeKind.PrimitiveType,
-        },
-      },
       dependencies: {
         typeSelection: {
           oneOf: [
@@ -104,7 +95,16 @@ describe('extractUiSchema', () => {
           ],
         },
       },
+      properties: {
+        typeSelection: {
+          default: ITypeKind.PrimitiveType,
+          enum: Object.values(ITypeKind),
+          title: 'Select Type',
+          type: 'string',
+        },
+      },
       required: ['typeSelection'],
+      type: 'object',
     }
 
     // Extract the uiSchema from the JSON schema
@@ -113,13 +113,13 @@ describe('extractUiSchema', () => {
     // Define the expected UI schema based on the structure of your type schemas
     // The expected UI schema here is a placeholder - you'll need to replace it with the actual expected UI schema
     const expectedUiSchema = {
+      __typename: {
+        'ui:widget': 'hidden',
+      },
       id: {
         'ui:widget': 'hidden',
       },
       kind: {
-        'ui:widget': 'hidden',
-      },
-      __typename: {
         'ui:widget': 'hidden',
       },
     }
