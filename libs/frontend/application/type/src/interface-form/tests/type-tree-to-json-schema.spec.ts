@@ -38,7 +38,7 @@ import {
 
 const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 
-describe.skip('Type tree to json schema', () => {
+describe('Type tree to json schema', () => {
   const transformer = new TypeSchemaFactory({
     extraProperties: getUiProperties,
   })
