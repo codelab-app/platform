@@ -5,80 +5,11 @@ import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import { BuilderDndType, isComponent } from '@codelab/frontend/abstract/domain'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { isComponent } from '@codelab/frontend/abstract/domain'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
 import classNames from 'classnames'
-import React, { useMemo } from 'react'
-import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable.hook'
-
-interface DraggableComponentItemProps {
-  component: IAtomModel | IComponentModel
-  selected?: boolean
-  onDelete?(id: string): void
-  onEdit?(id: string): void
-  onExport?(id: string): void
-  onSelect?(id: string): void
-}
-
-export const DraggableComponentItem = ({
-  component,
-  onDelete,
-  onEdit,
-  onExport,
-  onSelect,
-  selected,
-}: DraggableComponentItemProps) => {
-  const createElementInput = useMemo(() => {
-    return {
-      name: compoundCaseToTitleCase(component.name),
-      renderType: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        __typename: isComponent(component as IComponentModel)
-          ? IElementRenderTypeKind.Component
-          : IElementRenderTypeKind.Atom,
-        id: component.id,
-      },
-    }
-  }, [component])
-
-  const { attributes, listeners, setNodeRef } = useCreateElementDraggable({
-    component,
-    createElementInput,
-    id: component.id,
-    overlayRenderer: () => (
-      <ComponentItem
-        className="opacity-40"
-        component={component}
-        onDelete={onDelete}
-        onEdit={onEdit}
-      />
-    ),
-    type: BuilderDndType.CreateElement,
-  })
-
-  return (
-    <div
-      ref={setNodeRef}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...listeners}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...attributes}
-      className="[max-width: 350px] cursor-pointer"
-    >
-      <ComponentItem
-        component={component}
-        onDelete={onDelete}
-        onEdit={onEdit}
-        onExport={onExport}
-        onSelect={onSelect}
-        selected={selected}
-      />
-    </div>
-  )
-}
+import React from 'react'
 
 interface ComponentItemProps {
   className?: string
@@ -92,7 +23,7 @@ interface ComponentItemProps {
 
 export const antDesignIconPrefix = 'assets/atoms/antd'
 
-const ComponentItem = ({
+export const ComponentItem = ({
   className,
   component,
   onDelete,
@@ -135,51 +66,53 @@ const ComponentItem = ({
   }
 
   return (
-    <Card
-      className={classNames(
-        selected && 'border border-solid border-blue-400',
-        className,
-      )}
-      extra={
-        <>
-          {onEdit ? (
-            <Button
-              icon={<EditOutlined />}
-              onMouseDown={handleEditClick}
-              type="text"
-            />
-          ) : (
-            ''
-          )}
-          {onDelete ? (
-            <Button
-              danger
-              hidden={!onDelete}
-              icon={<DeleteOutlined />}
-              onMouseDown={handleDeleteClick}
-              type="text"
-            />
-          ) : (
-            ''
-          )}
-          {onExport ? (
-            <Button
-              hidden={!onExport}
-              icon={<ExportOutlined />}
-              onMouseDown={handleExportClick}
-              title="Export"
-              type="text"
-            />
-          ) : (
-            ''
-          )}
-        </>
-      }
-      hoverable
-      onMouseDown={handleSelectClick}
-      title={title}
-    >
-      <img alt="" className="w-full" src={src} />
-    </Card>
+    <div className="cursor-pointer">
+      <Card
+        className={classNames(
+          selected && 'border border-solid border-blue-400',
+          className,
+        )}
+        extra={
+          <>
+            {onEdit ? (
+              <Button
+                icon={<EditOutlined />}
+                onMouseDown={handleEditClick}
+                type="text"
+              />
+            ) : (
+              ''
+            )}
+            {onDelete ? (
+              <Button
+                danger
+                hidden={!onDelete}
+                icon={<DeleteOutlined />}
+                onMouseDown={handleDeleteClick}
+                type="text"
+              />
+            ) : (
+              ''
+            )}
+            {onExport ? (
+              <Button
+                hidden={!onExport}
+                icon={<ExportOutlined />}
+                onMouseDown={handleExportClick}
+                title="Export"
+                type="text"
+              />
+            ) : (
+              ''
+            )}
+          </>
+        }
+        hoverable
+        onMouseDown={handleSelectClick}
+        title={title}
+      >
+        <img alt="" className="w-full" draggable="false" src={src} />
+      </Card>
+    </div>
   )
 }

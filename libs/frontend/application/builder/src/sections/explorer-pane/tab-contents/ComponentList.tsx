@@ -10,7 +10,7 @@ import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
-import { DraggableComponentItem } from './ComponentItem'
+import { ComponentItem } from './ComponentItem'
 
 const { Search } = Input
 
@@ -44,7 +44,7 @@ export const ComponentList = observer<{
       <ErrorBoundary>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {sortBy(filteredItems, 'name').map((component) => (
-            <DraggableComponentItem
+            <ComponentItem
               component={component}
               key={component.id}
               onDelete={onDelete}

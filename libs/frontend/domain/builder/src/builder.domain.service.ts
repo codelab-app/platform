@@ -1,5 +1,4 @@
 import type {
-  BuilderDragData,
   IBuilderDomainService,
   IComponentModel,
   IElementModel,
@@ -21,7 +20,6 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
-import type { Frozen } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 export const COMPONENT_TAG_NAME = 'Component'
@@ -31,7 +29,6 @@ export class BuilderDomainService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),

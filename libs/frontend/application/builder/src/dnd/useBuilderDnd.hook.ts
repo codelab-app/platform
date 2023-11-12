@@ -1,16 +1,16 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
-  BuilderDragData,
   IBuilderDomainService,
   IElementTree,
 } from '@codelab/frontend/abstract/domain'
-import { BuilderDndType } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core'
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
-import { frozen } from 'mobx-keystone'
-import { pick } from 'ramda'
 import { useCallback } from 'react'
+import {
+  BuilderDndAction,
+  type BuilderDragData,
+} from './builder-drag-data.interface'
 import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 export interface UseBuilderDnd {
@@ -42,18 +42,7 @@ export const useBuilderDnd = (
 
   const onDragStart = useCallback(
     (event: DragStartEvent) => {
-      const data = event.active.data.current as Maybe<BuilderDragData>
-
-      if (data?.type === BuilderDndType.CreateElement) {
-        // In mobx-keystone v1.2.0, `frozen` will throw if property is not serializable
-        // e.g. `overlayRenderer` which is a function we add used for dragging effect style
-        const dragData = pick(
-          ['name', 'type', 'createElementInput', 'icon'],
-          data,
-        )
-
-        builderService.setCurrentDragData(frozen(dragData))
-      }
+      // const data = event.active.data.current as Maybe<BuilderDragData>
     },
     [builderService],
   )
@@ -63,12 +52,10 @@ export const useBuilderDnd = (
       const data = event.active.data.current as Maybe<BuilderDragData>
 
       const shouldCreate =
-        data?.type === BuilderDndType.CreateElement &&
+        data?.action === BuilderDndAction.CreateElement &&
         data.createElementInput !== undefined
 
-      const shouldMove = data?.type === BuilderDndType.MoveElement
-
-      builderService.setCurrentDragData(null)
+      const shouldMove = data?.action === BuilderDndAction.MoveElement
 
       if (shouldCreate) {
         await handleCreateElement(event)

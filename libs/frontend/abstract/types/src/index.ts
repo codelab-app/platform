@@ -1,6 +1,5 @@
 export * from './children'
 export * from './crud'
-export * from './drag-and-drop'
 export * from './explorer-pane-type'
 export * from './form/form'
 export * from './form/modal'

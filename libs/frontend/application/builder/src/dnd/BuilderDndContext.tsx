@@ -10,7 +10,7 @@ import { useBuilderDnd } from './useBuilderDnd.hook'
 /**
  * Provides the DnD context for the builder
  */
-export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
+export const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
   const { builderService, elementService } = useStore()
 
   const { onDragEnd, onDragStart, sensors } = useBuilderDnd(
@@ -59,4 +59,4 @@ export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
   )
 })
 
-BuilderContext.displayName = 'BuilderContext'
+BuilderDndContext.displayName = 'BuilderDndContext'

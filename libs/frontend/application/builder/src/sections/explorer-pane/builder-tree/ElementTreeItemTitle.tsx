@@ -6,7 +6,6 @@ import {
 import { CuiTreeItem } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { BuilderDropHandler } from '../../../dnd/BuilderDropHandler'
 import type { ElementContextMenuProps } from '../ElementContextMenu'
 import { ElementContextMenu } from '../ElementContextMenu'
 import { ElementTreeItemElementTitle } from './ElementTreeItemElementTitle'
@@ -25,16 +24,14 @@ export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
     // Add CSS to disable hover if node is un-selectable
     if (node && isElement(node)) {
       return (
-        <BuilderDropHandler element={node}>
-          <ElementContextMenu
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...elementContextMenuProps}
-            element={node}
-            treeNode={data}
-          >
-            <ElementTreeItemElementTitle element={node} treeNode={data} />
-          </ElementContextMenu>
-        </BuilderDropHandler>
+        <ElementContextMenu
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...elementContextMenuProps}
+          element={node}
+          treeNode={data}
+        >
+          <ElementTreeItemElementTitle element={node} treeNode={data} />
+        </ElementContextMenu>
       )
     }
 

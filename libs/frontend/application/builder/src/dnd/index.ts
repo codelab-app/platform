@@ -1,2 +1,2 @@
-export * from './BuilderContext'
+export * from './BuilderDndContext'
 export * from './useBuilderDnd.hook'

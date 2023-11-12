@@ -1,21 +1,14 @@
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
-  DragPosition,
 } from '@codelab/frontend/abstract/domain'
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { useDroppable } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useMemo, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks'
-import { makeDropIndicatorStyle } from '../../utils'
-import {
-  BuilderClickOverlay,
-  BuilderDragDropOverlay,
-  BuilderHoverOverlay,
-} from '../overlay-toolbar'
+import { BuilderClickOverlay, BuilderHoverOverlay } from '../overlay-toolbar'
 import { BuilderResizeHandle } from './BuilderResizeHandle'
 
 /**
@@ -27,6 +20,7 @@ export const Builder = observer(() => {
   const elementTree = builderService.activeElementTree
   const { selectedBuilderWidth, selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   useBuilderHotkeys({
     deleteModal: elementService.deleteModal,
@@ -34,28 +28,12 @@ export const Builder = observer(() => {
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })
 
-  const { isOver, node, over, setNodeRef } = useDroppable({
-    id: elementTree?.rootElement.id ?? '',
-  })
-
-  if (isOver && over) {
-    over.data.current = {
-      ...over.data.current,
-      dragPosition: DragPosition.Inside,
-    }
-  }
-
   const rootStyle = useMemo(
     () => ({
       container: 'root / inline-size',
       width: `${selectedBuilderWidth.default}px`,
-      ...(isOver
-        ? makeDropIndicatorStyle(DragPosition.Inside, {
-            backgroundColor: 'rgba(0, 255, 255, 0.2)',
-          })
-        : {}),
     }),
-    [isOver, selectedBuilderWidth.default],
+    [selectedBuilderWidth.default],
   )
 
   useEffect(() => {
@@ -87,25 +65,16 @@ export const Builder = observer(() => {
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
         >
-          <RootRenderer
-            ref={setNodeRef}
-            renderer={renderer}
-            style={rootStyle}
-          />
+          <RootRenderer ref={ref} renderer={renderer} style={rootStyle} />
           <BuilderClickOverlay
             builderService={builderService}
             elementService={elementService}
-            renderContainerRef={node}
+            renderContainerRef={ref}
           />
           <BuilderHoverOverlay
             builderService={builderService}
             elementService={elementService}
-            renderContainerRef={node}
-          />
-          <BuilderDragDropOverlay
-            builderService={builderService}
-            elementService={elementService}
-            renderContainerRef={node}
+            renderContainerRef={ref}
           />
         </StyledBuilderResizeContainer>
       </BuilderResizeHandle>

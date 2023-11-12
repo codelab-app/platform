@@ -1,14 +1,14 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
-import type {
-  BuilderDragData,
-  BuilderDropData,
-  IElementTree,
-} from '@codelab/frontend/abstract/domain'
-import { DragPosition } from '@codelab/frontend/abstract/domain'
+import type { IElementTree } from '@codelab/frontend/abstract/domain'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
+import type { BuilderDragData } from './builder-drag-data.interface'
+import {
+  type BuilderDropData,
+  DropPosition,
+} from './builder-drop-data.interface'
 
 export interface UseDndDropHandler {
   handleCreateElement(event: DragEndEvent): Promise<void>
@@ -26,7 +26,7 @@ export const useDndDropHandler = (
     const targetElementId = event.over?.id.toString()
     const data = event.active.data.current as Maybe<BuilderDragData>
     const overData = event.over?.data.current as Maybe<BuilderDropData>
-    const dragPosition = overData?.dragPosition
+    const dropPosition = overData?.dropPosition
     const createElementInput = data?.createElementInput
 
     if (!elementTree) {
@@ -41,7 +41,7 @@ export const useDndDropHandler = (
 
     const targetElement = elementService.element(targetElementId)
 
-    if (!dragPosition) {
+    if (!dropPosition) {
       console.error('Drag position is required')
 
       return
@@ -57,7 +57,7 @@ export const useDndDropHandler = (
     }
 
     const parentId =
-      dragPosition === DragPosition.Inside
+      dropPosition === DropPosition.Inside
         ? targetElement.id
         : targetElement.parentElement?.id
 
@@ -66,12 +66,12 @@ export const useDndDropHandler = (
     }
 
     // create the new element after the target element
-    if (dragPosition === DragPosition.After && createElementDTO.prevSibling) {
+    if (dropPosition === DropPosition.After && createElementDTO.prevSibling) {
       createElementDTO.prevSibling.id = targetElement.id
     }
 
     // create the new element before the target element
-    if (dragPosition === DragPosition.Before) {
+    if (dropPosition === DropPosition.Before) {
       // if theres an element before the target, create the new element next to that
       if (targetElement.prevSibling && createElementDTO.prevSibling) {
         createElementDTO.prevSibling.id = targetElement.prevSibling.id
@@ -85,7 +85,7 @@ export const useDndDropHandler = (
     }
 
     // create the new element inside the target element as a first child
-    if (dragPosition === DragPosition.Inside) {
+    if (dropPosition === DropPosition.Inside) {
       createElementDTO.parentElement = targetElement
     }
 
@@ -96,7 +96,7 @@ export const useDndDropHandler = (
     const draggedElementId = event.active.id.toString()
     const draggedElement = elementService.element(draggedElementId)
     const dropElementId = event.over?.id.toString()
-    const dragPosition = event.over?.data.current?.dragPosition
+    const dropPosition = event.over?.data.current?.dropPosition
 
     if (!dropElementId || dropElementId === draggedElement.id) {
       return
@@ -104,14 +104,14 @@ export const useDndDropHandler = (
 
     const targetElement = elementService.element(dropElementId)
 
-    if (!dragPosition) {
+    if (!dropPosition) {
       console.error('Drag position is required')
 
       return
     }
 
     const parentId =
-      dragPosition === DragPosition.Inside
+      dropPosition === DropPosition.Inside
         ? targetElement.id
         : targetElement.parentElement?.id
 
@@ -120,7 +120,7 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element after the target element
-    if (dragPosition === DragPosition.After) {
+    if (dropPosition === DropPosition.After) {
       return await elementService.move({
         element: draggedElement,
         prevSibling: targetElement,
@@ -128,7 +128,7 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element before the target element
-    if (dragPosition === DragPosition.Before) {
+    if (dropPosition === DropPosition.Before) {
       return await elementService.move({
         element: draggedElement,
         nextSibling: targetElement,
@@ -136,7 +136,7 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element inside the target element as a first child
-    if (dragPosition === DragPosition.Inside) {
+    if (dropPosition === DropPosition.Inside) {
       return await elementService.move({
         element: draggedElement,
         parentElement: targetElement,

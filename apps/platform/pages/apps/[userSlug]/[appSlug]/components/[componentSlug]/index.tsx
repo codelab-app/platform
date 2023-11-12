@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { BuilderContext } from '@codelab/frontend/application/builder'
+import { BuilderDndContext } from '@codelab/frontend/application/builder'
 import { PageDetailHeader } from '@codelab/frontend/application/page'
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
@@ -43,7 +43,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
 export const getServerSideProps = withPageAuthRedirect()
 
 ComponentRenderer.Layout = observer(({ children }) => {
-  return <BuilderContext>{children()}</BuilderContext>
+  return <BuilderDndContext>{children()}</BuilderDndContext>
 })
 
 export default ComponentRenderer
