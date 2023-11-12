@@ -1,5 +1,6 @@
 import type { ITypeModel } from '@codelab/frontend/abstract/domain'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
+import { createRootDomainStore } from '@codelab/frontend/domain/shared'
 import {
   ActionType,
   AppType,
@@ -25,8 +26,6 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { FieldService } from '../../services'
-import { TestRootStore } from './test-root-store'
 
 export const stringType = new PrimitiveType({
   id: v4(),
@@ -211,8 +210,9 @@ export const interfaceWithRequiredAndDefaultFieldValues = new InterfaceType({
   name: 'Interface with default field values',
 })
 
-export const rootStore = new TestRootStore({
-  fieldService: new FieldService({
+export const rootDomainStore = createRootDomainStore({
+  context: {},
+  store: {
     fieldDomainService: new FieldDomainService({
       fields: objectMap([
         [stringField.id, stringField],
@@ -223,19 +223,19 @@ export const rootStore = new TestRootStore({
         [enumFieldWithDefaultValue.id, enumFieldWithDefaultValue],
       ]),
     }),
-  }),
-  typeService: new TypeDomainService({
-    types: objectMap<ITypeModel>([
-      [unionType.id, unionType],
-      [interfaceWithUnionField.id, interfaceWithUnionField],
-      [
-        interfaceWithRequiredAndDefaultFieldValues.id,
-        interfaceWithRequiredAndDefaultFieldValues,
-      ],
-      [intType.id, intType],
-      [stringType.id, stringType],
-      [enumType.id, enumType],
-      [interfaceWithEnumField.id, interfaceWithEnumField],
-    ]),
-  }),
+    typeDomainService: new TypeDomainService({
+      types: objectMap<ITypeModel>([
+        [unionType.id, unionType],
+        [interfaceWithUnionField.id, interfaceWithUnionField],
+        [
+          interfaceWithRequiredAndDefaultFieldValues.id,
+          interfaceWithRequiredAndDefaultFieldValues,
+        ],
+        [intType.id, intType],
+        [stringType.id, stringType],
+        [enumType.id, enumType],
+        [interfaceWithEnumField.id, interfaceWithEnumField],
+      ]),
+    }),
+  },
 })
