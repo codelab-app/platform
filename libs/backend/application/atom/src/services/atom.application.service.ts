@@ -1,6 +1,5 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IAtomBoundedContext } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -11,7 +10,6 @@ import { ExportAtomCommand } from '../use-case'
 export class AtomApplicationService {
   constructor(
     private atomRepository: AtomRepository,
-    private interfaceTypeRepository: InterfaceTypeRepository,
     private readonly commandBus: CommandBus,
   ) {}
 
@@ -20,19 +18,21 @@ export class AtomApplicationService {
     /**
      * Get all atoms first
      */
-    const atoms = await this.atomRepository.find({
+    const atomIds = await this.atomRepository.find({
       options: {
         sort: [{ name: SortDirection.Asc }],
       },
+      selectionSet: `{ id }`,
     })
 
-    return await Promise.all(
-      atoms.map(
-        async (atom) =>
-          await this.commandBus.execute<ExportAtomCommand, IAtomBoundedContext>(
-            new ExportAtomCommand({ id: atom.id }),
-          ),
-      ),
-    )
+    const exportedAtoms = []
+
+    for (const { id } of atomIds) {
+      exportedAtoms.push(
+        await this.commandBus.execute(new ExportAtomCommand({ id })),
+      )
+    }
+
+    return exportedAtoms
   }
 }

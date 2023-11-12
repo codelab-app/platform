@@ -84,18 +84,16 @@ export class AtomRepository extends AbstractRepository<
 
   protected async _find({
     options,
+    selectionSet = `{ ${atomSelectionSet} }`,
     where,
   }: {
     where?: AtomWhere
     options?: AtomOptions
+    selectionSet?: string
   }) {
     return await (
       await this.ogmService.Atom
-    ).find({
-      options,
-      selectionSet: `{ ${atomSelectionSet} }`,
-      where,
-    })
+    ).find({ options, selectionSet, where })
   }
 
   protected async _update(

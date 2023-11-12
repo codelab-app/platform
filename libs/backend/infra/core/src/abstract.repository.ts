@@ -45,7 +45,11 @@ export abstract class AbstractRepository<
     })
   }
 
-  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
+  find(args?: {
+    where?: Where
+    options?: Options
+    selectionSet?: string
+  }): Promise<Array<ModelData>>
 
   find<T extends TAnySchema>(
     args: {
@@ -64,17 +68,19 @@ export abstract class AbstractRepository<
   async find<T extends TAnySchema>(
     {
       options,
+      selectionSet,
       where,
     }: {
       where?: Where
       options?: Options
+      selectionSet?: string
     } = {},
     schema?: T,
   ): Promise<Array<ModelData> | Array<Static<T>>> {
     return withActiveSpan(`${this.constructor.name}.find`, async (span) => {
       this.traceService.addJsonAttributes('where', where)
 
-      const results = await this._find({ options, where })
+      const results = await this._find({ options, selectionSet, where })
 
       this.traceService.addJsonAttributes('results', results)
 
@@ -184,10 +190,12 @@ export abstract class AbstractRepository<
 
   protected abstract _find({
     options,
+    selectionSet,
     where,
   }: {
     where?: Where
     options?: Options
+    selectionSet?: string
   }): Promise<Array<ModelData>>
 
   protected abstract _update(
