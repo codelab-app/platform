@@ -12,7 +12,7 @@ import {
 } from './setup-store'
 
 describe('InterfaceForm', () => {
-  test.skip('interface form select enum field value', async () => {
+  test('interface form select enum field value', async () => {
     const mockSubmit = jest.fn()
 
     const { container } = render(
