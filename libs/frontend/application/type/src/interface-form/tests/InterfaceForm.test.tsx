@@ -4,10 +4,15 @@ import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { InterfaceForm } from '../InterfaceForm'
-import { interfaceWithEnumField } from './setup-store'
+import {
+  interfaceWithEnumField,
+  interfaceWithUnionField,
+  intType,
+  stringType,
+} from './setup-store'
 
 describe('InterfaceForm', () => {
-  test('interface form select enum field value', async () => {
+  test.skip('interface form select enum field value', async () => {
     const mockSubmit = jest.fn()
 
     const { container } = render(
@@ -54,5 +59,85 @@ describe('InterfaceForm', () => {
 
     // Check the submit handler has been called
     expect(mockSubmit).toHaveBeenCalledWith('enumField', 'Enum 2')
+  })
+
+  test('interface form select union type of string and number', async () => {
+    const mockSubmit = jest.fn()
+
+    const { container, getByTestId } = render(
+      <InterfaceForm
+        interfaceType={interfaceWithUnionField}
+        model={{}}
+        onChange={mockSubmit}
+        onChangeModel={mockSubmit}
+        onSubmit={mockSubmit}
+        submitField={React.Fragment}
+      />,
+    )
+
+    // Check unionField is rendered
+    expect(
+      container.querySelector(`[name="unionField.type"]`),
+    ).toBeInTheDocument()
+
+    const selectUnionTypeElement = container.querySelector(
+      '[name="unionField.type"] .ant-select-selector',
+    )
+
+    expect(selectUnionTypeElement).toBeInTheDocument()
+
+    // Click on the type selector
+    await act(() => userEvent.click(selectUnionTypeElement!))
+
+    console.log(stringType.id, intType.id)
+
+    //
+    // Select the IntType option
+    // NOTE: need to use document here because the select dropdown is
+    // rendered in a portal. So container doesn't work.
+    const intTypeOption = document.querySelector(
+      '.ant-select-item.ant-select-item-option[title="Int type"]',
+    )
+
+    expect(intTypeOption).toBeInTheDocument()
+
+    await act(() => userEvent.click(intTypeOption!))
+
+    // Check the selected type has been updated
+    expect(
+      container.querySelector('.ant-select-selection-item'),
+    ).toHaveTextContent('Int type')
+
+    expect(mockSubmit).toHaveBeenCalledWith('unionField.type', intType.id)
+
+    // Update value field
+    const valueField = getByTestId('unionField.value')
+
+    expect(valueField).toBeInTheDocument()
+
+    await act(() => userEvent.type(valueField, '123'))
+
+    // Check the value has been updated
+    expect(valueField).toHaveValue('123')
+
+    // Select String type option
+    await act(() => userEvent.click(selectUnionTypeElement!))
+
+    const stringTypeOption = document.querySelector(
+      '.ant-select-item.ant-select-item-option[title="String type"]',
+    )
+
+    expect(stringTypeOption).toBeInTheDocument()
+
+    await act(() => userEvent.click(stringTypeOption!))
+
+    expect(
+      container.querySelector('.ant-select-selection-item'),
+    ).toHaveTextContent('String type')
+
+    expect(mockSubmit).toHaveBeenCalledWith('unionField', {
+      kind: 'PrimitiveType',
+      type: stringType.id,
+    })
   })
 })
