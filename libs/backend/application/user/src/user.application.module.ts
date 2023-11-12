@@ -21,7 +21,7 @@ import { UserApplicationController } from './user.application.controller'
     AtomDomainModule,
     AdminDomainModule,
     AtomApplicationModule,
-    Auth0Module,
+    // Auth0Module,
     CqrsModule,
     AuthModule,
   ],

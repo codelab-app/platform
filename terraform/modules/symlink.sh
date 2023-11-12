@@ -32,6 +32,8 @@ ln -s ../vercel/vars-access-token.tf ./vercel-platform-api/vars-vercel-access-to
 ln -s ../vercel/vars-team-id.tf ./vercel-platform-api/vars-vercel-team-id.symlink.tf
 ln -s ../neo4j/vars.tf ./vercel-platform-api/vars-neo4j.symlink.tf
 ln -s ../vercel-kv/vars.tf ./vercel-platform-api/vars-vercel-kv.symlink.tf
+# ln -s ../auth0-vars/vars-web-client.tf ./vercel-platform-api/vars-web-client.symlink.tf
+# ln -s ../auth0-vars/vars-auth0-secret.tf ./vercel-platform-api/vars-auth0-secret.symlink.tf
 
 # # Vercel Landing
 ln -s ../hotjar/vars.tf ./vercel-landing/vars-hotjar.symlink.tf

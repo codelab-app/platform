@@ -15,7 +15,7 @@ resource "auth0_client" "machine_client" {
 resource "auth0_client_grant" "machine_client_grant" {
   client_id = auth0_client.machine_client.id
   audience  = "${var.auth0_issuer_base_url}api/v2/"
-  scope     = ["update:users"]
+  scopes     = ["update:users"]
 }
 
 data "auth0_client" "machine_client" {

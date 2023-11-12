@@ -7,7 +7,7 @@ resource "auth0_user" "cypress_user" {
   # the roles field it is important to have this
   # block in the config, to avoid diffing issues.
   lifecycle {
-    ignore_changes = [roles, app_metadata]
+    ignore_changes = [app_metadata]
   }
 }
 

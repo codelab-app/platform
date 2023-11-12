@@ -24,7 +24,10 @@ export class CommandService {
      * --runtimeArgs doesn't allow positional args, so we pass as single string then convert back to positional
      */
     const args = hideBin(process.argv)
+
     // const args = hideBin(process.argv)[0]?.split(' ')
+
+    // console.log(args)
 
     void yargs(args)
       .scriptName('cli')
