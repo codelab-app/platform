@@ -22,9 +22,14 @@ import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 export type UnionTypeFragment = {
   typesOfUnionType: Array<
     | BaseType_ActionType_Fragment
+    | BaseType_AppType_Fragment
     | BaseType_ArrayType_Fragment
+    | BaseType_CodeMirrorType_Fragment
+    | BaseType_ElementType_Fragment
     | BaseType_EnumType_Fragment
     | BaseType_InterfaceType_Fragment
+    | BaseType_LambdaType_Fragment
+    | BaseType_PageType_Fragment
     | BaseType_PrimitiveType_Fragment
     | BaseType_ReactNodeType_Fragment
     | BaseType_RenderPropType_Fragment

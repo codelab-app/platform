@@ -342,10 +342,10 @@ export const typeSchema = gql`
     RenderPropType |
     ReactNodeType |
     EnumType |
-    ActionType
-    # ElementType |
-    # LambdaType |
-    # PageType |
-    # AppType |
-    # CodeMirrorType
+    ActionType |
+    ElementType |
+    LambdaType |
+    PageType |
+    AppType |
+    CodeMirrorType
 `
