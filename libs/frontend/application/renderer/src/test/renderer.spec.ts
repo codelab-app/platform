@@ -1,30 +1,19 @@
-import {
-  rendererRef,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
 import { unregisterRootStore } from 'mobx-keystone'
-import { defaultPipes, renderPipeFactory } from '../renderPipes'
-import { rendererFactory } from './renderer.test.factory'
 import { setupComponent, setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
+import { TestBed } from './setup/test-bed'
+
+let testbed: TestBed
 
 describe('Renderer', () => {
   beforeEach(() => {
     rootApplicationStore.clear()
+    testbed = new TestBed()
   })
 
   it('should create page runtime nodes', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage()
-
-    const renderer = rendererFactory(rendererService)({
-      elementTree: page,
-      rendererType: RendererType.PageBuilder,
-      renderPipe: renderPipeFactory(defaultPipes),
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
+    const { page } = setupPage(testbed)
 
     const runtimeProviderPage = page.providerPage
       ? rendererService.runtimeContainerNode(page.providerPage)
@@ -41,17 +30,7 @@ describe('Renderer', () => {
 
   it('should create component runtime node', () => {
     const { rendererService } = rootApplicationStore
-    const { component } = setupComponent()
-
-    const renderer = rendererFactory(rendererService)({
-      elementTree: component,
-      rendererType: RendererType.ComponentBuilder,
-      renderPipe: renderPipeFactory(defaultPipes),
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
-
+    const { component } = setupComponent(testbed)
     const runtimeComponent = rendererService.runtimeContainerNode(component)
 
     expect(runtimeComponent?.containerNode.id).toBe(component.id)

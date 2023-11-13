@@ -1,32 +1,20 @@
-import {
-  rendererRef,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
 import { unregisterRootStore } from 'mobx-keystone'
-import { defaultPipes, renderPipeFactory } from '../renderPipes'
-import { rendererFactory } from './renderer.test.factory'
 import { setupComponent, setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
+import { TestBed } from './setup/test-bed'
+
+let testbed: TestBed
 
 describe('Runtime Element', () => {
   beforeEach(() => {
     rootApplicationStore.clear()
+    testbed = new TestBed()
   })
 
   it('should create element runtime node', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage()
+    const { page } = setupPage(testbed)
     const rootElement = page.rootElement.current
-
-    const renderer = rendererFactory(rendererService)({
-      elementTree: page,
-      rendererType: RendererType.PageBuilder,
-      renderPipe: renderPipeFactory(defaultPipes),
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
-
     const runtimeElement = rendererService.runtimeElement(rootElement)
 
     // Test the creation of element node
@@ -40,18 +28,9 @@ describe('Runtime Element', () => {
 
   it('should resolve closest runtime container node', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage()
+    const { page } = setupPage(testbed)
     const pageRootElement = page.rootElement.current
     const providerPageRootElement = page.providerPage?.rootElement.current
-
-    const renderer = rendererFactory(rendererService)({
-      elementTree: page,
-      rendererType: RendererType.PageBuilder,
-      renderPipe: renderPipeFactory(defaultPipes),
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
 
     const runtimeProviderPage = page.providerPage
       ? rendererService.runtimeContainerNode(page.providerPage)
@@ -76,18 +55,9 @@ describe('Runtime Element', () => {
 
   it('should resolve page content container', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage()
+    const { page } = setupPage(testbed)
     const pageRootElement = page.rootElement.current
     const providerPageRootElement = page.providerPage?.rootElement.current
-
-    const renderer = rendererFactory(rendererService)({
-      elementTree: page,
-      rendererType: RendererType.PageBuilder,
-      renderPipe: renderPipeFactory(defaultPipes),
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
 
     const pageRuntimeRootElement =
       rendererService.runtimeElement(pageRootElement)
@@ -102,17 +72,8 @@ describe('Runtime Element', () => {
 
   it('should resolve component instance children container', () => {
     const { rendererService } = rootApplicationStore
-    const { childrenContainerElement, component } = setupComponent()
+    const { childrenContainerElement, component } = setupComponent(testbed)
     const componentRootElement = component.rootElement.current
-
-    const renderer = rendererFactory(rendererService)({
-      elementTree: component,
-      rendererType: RendererType.ComponentBuilder,
-      renderPipe: renderPipeFactory(defaultPipes),
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
 
     const componentRuntimeRootElement =
       rendererService.runtimeElement(componentRootElement)

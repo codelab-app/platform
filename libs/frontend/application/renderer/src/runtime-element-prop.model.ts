@@ -26,7 +26,7 @@ import {
   evaluateObject,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import { type IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
@@ -186,10 +186,12 @@ export class RuntimeElementProps
     const registerReference = isAtomRef(this.element.renderType)
     const slug = this.element.slug
     const store = this.runtimeStore
+    const renderType = this.element.renderType.current
+    const defaultProps = renderType.api.current.defaultValues
+    const props = mergeProps(defaultProps, this.element.props.values)
 
     return {
-      ...getDefaultFieldProps(this.element.renderType.current),
-      ...this.element.props.values,
+      ...props,
       /**
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */

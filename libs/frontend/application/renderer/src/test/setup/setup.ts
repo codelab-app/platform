@@ -1,117 +1,103 @@
-import { appFactory } from '@codelab/frontend/domain/app'
-import { atomFactory } from '@codelab/frontend/domain/atom'
-import { componentFactory } from '@codelab/frontend/domain/component'
-import { elementFactory } from '@codelab/frontend/domain/element'
-import { pageFactory } from '@codelab/frontend/domain/page'
-import { Store, storeFactory } from '@codelab/frontend/domain/store'
-import { interfaceTypeFactory } from '@codelab/frontend/domain/type'
+import { RendererType } from '@codelab/frontend/abstract/application'
+import { Store } from '@codelab/frontend/domain/store'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { defaultPipes, renderPipeFactory } from '../../renderPipes'
 import { rootApplicationStore } from './root.test.store'
+import type { TestBed } from './test-bed'
 
-export const setupPage = () => {
-  const {
-    appService,
-    atomService,
-    elementService,
-    pageService,
-    storeService,
-    typeService,
-  } = rootApplicationStore
-
+export const setupPage = (testbed: TestBed) => {
   const pageId = 'page-id'
   const pageName = 'Page Name'
+  const htmlDivAtom = testbed.addAtom({ type: IAtomType.HtmlDiv })
+  const app = testbed.addApp({})
 
-  atomFactory(atomService.atomDomainService)({
-    type: IAtomType.ReactFragment,
-  })
-
-  const HtmlDivAtom = atomFactory(atomService.atomDomainService)({
-    type: IAtomType.HtmlDiv,
-  })
-
-  const app = appFactory(appService.appDomainService)({})
-
-  const page = pageFactory(pageService.pageDomainService)({
+  const page = testbed.addPage({
     app,
     id: pageId,
     name: pageName,
-    rootElement: elementFactory(elementService.elementDomainService)({
+    rootElement: testbed.addElement({
       closestContainerNode: { id: pageId },
       name: ROOT_ELEMENT_NAME,
       page: { id: pageId },
       renderType: {
         __typename: IElementRenderTypeKind.Atom,
-        id: HtmlDivAtom.id,
+        id: htmlDivAtom.id,
       },
     }),
-    store: storeFactory(storeService.storeDomainService)({
-      api: interfaceTypeFactory(typeService.typeDomainService)({}),
+    store: testbed.addStore({
       name: Store.createName({ name: pageName }),
       page: { id: pageId },
     }),
   })
 
+  const renderer = testbed.render({
+    elementTree: page,
+    rendererType: RendererType.PageBuilder,
+    renderPipe: renderPipeFactory(defaultPipes),
+  })
+
   return {
     app,
     page,
+    renderer,
   }
 }
 
-export const setupComponent = () => {
-  const {
-    atomService,
-    componentService,
-    elementService,
-    storeService,
-    typeService,
-  } = rootApplicationStore
-
-  const { componentDomainService } = componentService
+export const setupComponent = (testbed: TestBed) => {
   const componentId = 'component-id'
   const rootElementId = 'root-element-id'
   const componentName = 'Component Name'
+  const htmlDivAtom = testbed.addAtom({ type: IAtomType.HtmlDiv })
 
-  const HtmlDivAtom = atomFactory(atomService.atomDomainService)({
-    type: IAtomType.HtmlDiv,
-  })
-
-  const childrenContainerElement = elementFactory(
-    elementService.elementDomainService,
-  )({
+  const childrenContainerElement = testbed.addElement({
     closestContainerNode: { id: componentId },
     name: 'children container',
     parentElement: { id: rootElementId },
     renderType: {
       __typename: IElementRenderTypeKind.Atom,
-      id: HtmlDivAtom.id,
+      id: htmlDivAtom.id,
     },
   })
 
-  const component = componentFactory(componentDomainService)({
-    api: interfaceTypeFactory(typeService.typeDomainService)({}),
+  const component = testbed.addComponent({
     childrenContainerElement,
     id: componentId,
     name: componentName,
-    rootElement: elementFactory(elementService.elementDomainService)({
+    rootElement: testbed.addElement({
       closestContainerNode: { id: componentId },
       firstChild: childrenContainerElement,
       name: ROOT_ELEMENT_NAME,
       parentComponent: { id: componentId },
       renderType: {
         __typename: IElementRenderTypeKind.Atom,
-        id: HtmlDivAtom.id,
+        id: htmlDivAtom.id,
       },
     }),
-    store: storeFactory(storeService.storeDomainService)({
-      api: interfaceTypeFactory(typeService.typeDomainService)({}),
+    store: testbed.addStore({
       component: { id: componentId },
       name: Store.createName({ name: componentName }),
     }),
   })
 
-  return { childrenContainerElement, component }
+  const renderer = testbed.render({
+    elementTree: component,
+    rendererType: RendererType.ComponentBuilder,
+    renderPipe: renderPipeFactory(defaultPipes),
+  })
+
+  return { childrenContainerElement, component, renderer }
+}
+
+export const setupRuntimeElement = (testbed: TestBed) => {
+  const { rendererService } = rootApplicationStore
+  const { page } = setupPage(testbed)
+
+  return {
+    element: page.rootElement.current,
+    runtimeElement: rendererService.runtimeElement(page.rootElement.current),
+  }
 }

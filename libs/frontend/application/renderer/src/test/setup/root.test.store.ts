@@ -25,7 +25,7 @@ import { ElementService } from '@codelab/frontend/application/element'
 import { PageApplicationService } from '@codelab/frontend/application/page'
 import { createRootApplicationStore } from '@codelab/frontend/application/shared/store'
 import { StoreService } from '@codelab/frontend/application/store'
-import { TypeService } from '@codelab/frontend/application/type'
+import { FieldService, TypeService } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
 import { AppDomainService } from '@codelab/frontend/domain/app'
 import { AtomDomainService } from '@codelab/frontend/domain/atom'
@@ -96,6 +96,7 @@ export const rootApplicationStore = createRootApplicationStore({
     atomService: new AtomService({}),
     componentService: new ComponentApplicationService({}),
     elementService: new ElementService({}),
+    fieldService: new FieldService({}),
     pageService: new PageApplicationService({}),
     rendererService: new RendererApplicationService({}),
     storeService: new StoreService({}),
