@@ -57,6 +57,9 @@
   "references": [
     {
       "path": "./tsconfig.storybook.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ]
 }
