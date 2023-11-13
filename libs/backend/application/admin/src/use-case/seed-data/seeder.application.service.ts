@@ -22,12 +22,6 @@ export class SeederApplicationService {
   async seedDevBootstrapData() {
     await this.seederApplicationService.seedUserFromRequest()
 
-    // in production we don't want to seed the database
-    // each time any user logs-in
-    if (process.env['NODE_ENV'] !== 'development') {
-      return
-    }
-
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
