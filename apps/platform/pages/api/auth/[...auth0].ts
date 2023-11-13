@@ -21,6 +21,12 @@ export default auth0Instance().handleAuth({
             return session
           }
 
+          // in production we don't want to seed the database
+          // each time any user logs-in
+          if (process.env['NODE_ENV'] !== 'development') {
+            return session
+          }
+
           /**
            * Cannot call frontend proxy here, since session is not created yet
            */
