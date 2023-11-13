@@ -17897,7 +17897,6 @@ __metadata:
     eslint-plugin-unicorn: ^49.0.0
     eslint-plugin-unused-imports: 3.0.0
     execa: 5.1.1
-    fishery: ^2.2.2
     flat: ^5.0.2
     framer-motion: 6.3.3
     futoin-hkdf: ^1.4.3
@@ -22955,15 +22954,6 @@ __metadata:
     micromatch: ^4.0.2
     resolve-dir: ^1.0.1
   checksum: 94131e1107ad63790ed00c4c39ca131a93ea602607bd97afeffd92b69a9a63cf2c6f57d6db88cb753fe748ac7fde79e1e76768ff784247026b7c5ebf23ede3a0
-  languageName: node
-  linkType: hard
-
-"fishery@npm:^2.2.2":
-  version: 2.2.2
-  resolution: "fishery@npm:2.2.2"
-  dependencies:
-    lodash.mergewith: ^4.6.2
-  checksum: 270a90bb69c16b73e4dc3df20e0c9d7f54feed3658114c0fcdeda726634b624b89cfa39d3858170db85d9f5ef6fe130ffb16b0056e3dbe6a1473629e754f14cb
   languageName: node
   linkType: hard
 

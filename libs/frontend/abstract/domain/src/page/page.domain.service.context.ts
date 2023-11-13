@@ -4,11 +4,11 @@ import type { IPageDomainService } from './page.domain.service.interface'
 export const pageDomainServiceContext = createContext<IPageDomainService>()
 
 export const getPageDomainService = (self: object) => {
-  const pageService = pageDomainServiceContext.get(self)
+  const pageDomainService = pageDomainServiceContext.get(self)
 
-  if (!pageService) {
+  if (!pageDomainService) {
     throw new Error('pageDomainServiceContext is not defined')
   }
 
-  return pageService
+  return pageDomainService
 }

@@ -55,6 +55,7 @@ export const createRootApplicationStore = ({
     public clear() {
       this.typeService?.typeDomainService.types.clear()
       this.appService?.appDomainService.apps.clear()
+      this.pageService?.pageDomainService.pages.clear()
       this.atomService?.atomDomainService.atoms.clear()
       this.componentService?.componentDomainService.components.clear()
       this.elementService?.elementDomainService.elements.clear()
