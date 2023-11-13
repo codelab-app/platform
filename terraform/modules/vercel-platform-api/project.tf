@@ -110,5 +110,10 @@ resource "vercel_project" "platform_api" {
       key    = "KV_REST_API_TOKEN"
       value  = var.kv_rest_api_token
     },
+    {
+      target = ["production", "preview"]
+      key    = "NX_VERCEL_REMOTE_CACHE_TOKEN"
+      value  = var.vercel_access_token
+    },
   ]
 }
