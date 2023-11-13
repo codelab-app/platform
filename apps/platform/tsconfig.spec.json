@@ -4,12 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
     "types": ["@fancyapps/ui", "jest", "node"],
-    "jsx": "react",
-    "allowJs": true,
-    "isolatedModules": false,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "jsx": "react"
   },
   "include": [
     "**/*.spec.ts",
@@ -21,5 +16,6 @@
     "**/*.spec.jsx",
     "**/*.test.jsx",
     "**/*.d.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

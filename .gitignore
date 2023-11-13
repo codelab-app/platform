@@ -54,3 +54,6 @@ Thumbs.db
 .next/
 .nx/
 .vercel/
+
+# Next.js
+.next

@@ -70,7 +70,7 @@ commands:
             sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
             sudo apt update
-            sudo apt install terraform=1.5.1
+            sudo apt install terraform=1.6.3
           name: Install Terraform
   restore-infra-workspace:
     description: Restore Infra Workspace
@@ -227,8 +227,6 @@ jobs:
           command: yarn cli tasks commitlint --stage ci
           name: Commitlint
       - store_test_results:
-          path: ./tmp/reports/lint
-      - store_artifacts:
           path: ./tmp/reports/lint
   notify-failure:
     executor: machine-ubuntu
