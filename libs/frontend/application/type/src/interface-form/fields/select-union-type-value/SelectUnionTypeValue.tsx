@@ -148,7 +148,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
           onSubmit={() => Promise.resolve()}
           schema={valueSchema as any}
         >
-          <AutoField name="value" />
+          <AutoField data-testid={valueFieldName} name="value" />
         </Form>
       </div>
     </AntdForm.Item>

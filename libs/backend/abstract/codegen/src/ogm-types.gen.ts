@@ -1846,6 +1846,11 @@ export type AnyType =
   | ReactNodeType
   | EnumType
   | ActionType
+  | ElementType
+  | LambdaType
+  | PageType
+  | AppType
+  | CodeMirrorType
 
 export type ContainerNode = Page | Component
 
@@ -7493,6 +7498,11 @@ export type AnyTypeWhere = {
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
   EnumType?: InputMaybe<EnumTypeWhere>
   ActionType?: InputMaybe<ActionTypeWhere>
+  ElementType?: InputMaybe<ElementTypeWhere>
+  LambdaType?: InputMaybe<LambdaTypeWhere>
+  PageType?: InputMaybe<PageTypeWhere>
+  AppType?: InputMaybe<AppTypeWhere>
+  CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>
 }
 
 export type ApiActionConfigAggregateInput = {
@@ -9145,6 +9155,10 @@ export type AppTypeConnectInput = {
 
 export type AppTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+}
+
+export type AppTypeConnectWhere = {
+  node: AppTypeWhere
 }
 
 export type AppTypeCreateInput = {
@@ -13331,6 +13345,10 @@ export type CodeMirrorTypeConnectInput = {
 
 export type CodeMirrorTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+}
+
+export type CodeMirrorTypeConnectWhere = {
+  node: CodeMirrorTypeWhere
 }
 
 export type CodeMirrorTypeCreateInput = {
@@ -18226,6 +18244,10 @@ export type ElementTypeConnectInput = {
 
 export type ElementTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+}
+
+export type ElementTypeConnectWhere = {
+  node: ElementTypeWhere
 }
 
 export type ElementTypeCreateInput = {
@@ -23502,6 +23524,10 @@ export type LambdaTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
+export type LambdaTypeConnectWhere = {
+  node: LambdaTypeWhere
+}
+
 export type LambdaTypeCreateInput = {
   id: Scalars['ID']['input']
   kind?: TypeKind
@@ -24878,6 +24904,10 @@ export type PageTypeConnectInput = {
 
 export type PageTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
+}
+
+export type PageTypeConnectWhere = {
+  node: PageTypeWhere
 }
 
 export type PageTypeCreateInput = {
@@ -28679,6 +28709,54 @@ export type UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput = {
   >
 }
 
+export type UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput = {
+  where?: InputMaybe<AppTypeConnectWhere>
+  connect?: InputMaybe<Array<AppTypeConnectInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeConnectionWhere = {
+  node?: InputMaybe<AppTypeWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<AppTypeWhere>
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput = {
+  node: AppTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>
+  delete?: InputMaybe<AppTypeDeleteInput>
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>
+  disconnect?: InputMaybe<AppTypeDisconnectInput>
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeFieldInput = {
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput = {
+  node?: InputMaybe<AppTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>
+  connect?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput>
+  >
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput>
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput>>
+}
+
 export type UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput = {
   where?: InputMaybe<ArrayTypeConnectWhere>
   connect?: InputMaybe<Array<ArrayTypeConnectInput>>
@@ -28731,6 +28809,66 @@ export type UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput = {
   delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput>>
 }
 
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput = {
+  where?: InputMaybe<CodeMirrorTypeConnectWhere>
+  connect?: InputMaybe<Array<CodeMirrorTypeConnectInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere = {
+  node?: InputMaybe<CodeMirrorTypeWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<CodeMirrorTypeWhere>
+  AND?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
+  >
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput = {
+  node: CodeMirrorTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
+  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
+  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput = {
+  node?: InputMaybe<CodeMirrorTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>
+  >
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>
+  >
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput>
+  delete?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput>
+  >
+}
+
 export type UnionTypeTypesOfUnionTypeConnectInput = {
   PrimitiveType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput>
@@ -28756,6 +28894,19 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
   ActionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput>
   >
+  ElementType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>
+  >
+  LambdaType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput>
+  >
+  PageType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>
+  >
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput>>
+  CodeMirrorType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput>
+  >
 }
 
 export type UnionTypeTypesOfUnionTypeConnectionWhere = {
@@ -28767,6 +28918,11 @@ export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>
   EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>
   ActionType?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeConnectionWhere>
+  ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>
+  LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
+  PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>
+  AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeConnectionWhere>
+  CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere>
 }
 
 export type UnionTypeTypesOfUnionTypeConnectOrCreateInput = {
@@ -28812,6 +28968,19 @@ export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
   ActionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput>
   >
+  ElementType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>
+  >
+  LambdaType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput>
+  >
+  PageType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>
+  >
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput>>
+  CodeMirrorType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput>
+  >
 }
 
 export type UnionTypeTypesOfUnionTypeCreateInput = {
@@ -28823,6 +28992,11 @@ export type UnionTypeTypesOfUnionTypeCreateInput = {
   ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput>
   EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeFieldInput>
   ActionType?: InputMaybe<UnionTypeTypesOfUnionTypeActionTypeFieldInput>
+  ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeFieldInput>
+  LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeFieldInput>
+  PageType?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeFieldInput>
+  AppType?: InputMaybe<UnionTypeTypesOfUnionTypeAppTypeFieldInput>
+  CodeMirrorType?: InputMaybe<UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput>
 }
 
 export type UnionTypeTypesOfUnionTypeDeleteInput = {
@@ -28850,6 +29024,19 @@ export type UnionTypeTypesOfUnionTypeDeleteInput = {
   ActionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput>
   >
+  ElementType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput>
+  >
+  LambdaType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput>
+  >
+  PageType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput>
+  >
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput>>
+  CodeMirrorType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput>
+  >
 }
 
 export type UnionTypeTypesOfUnionTypeDisconnectInput = {
@@ -28876,6 +29063,79 @@ export type UnionTypeTypesOfUnionTypeDisconnectInput = {
   >
   ActionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput>
+  >
+  ElementType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput>
+  >
+  LambdaType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput>
+  >
+  PageType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput>
+  >
+  AppType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput>
+  >
+  CodeMirrorType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput = {
+  where?: InputMaybe<ElementTypeConnectWhere>
+  connect?: InputMaybe<Array<ElementTypeConnectInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeConnectionWhere = {
+  node?: InputMaybe<ElementTypeWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<ElementTypeWhere>
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput = {
+  node: ElementTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>
+  delete?: InputMaybe<ElementTypeDeleteInput>
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>
+  disconnect?: InputMaybe<ElementTypeDisconnectInput>
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput = {
+  node?: InputMaybe<ElementTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>
+  >
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>
+  >
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput>
+  delete?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput>
   >
 }
 
@@ -28987,6 +29247,116 @@ export type UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput = {
   delete?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput>
   >
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput = {
+  where?: InputMaybe<LambdaTypeConnectWhere>
+  connect?: InputMaybe<Array<LambdaTypeConnectInput>>
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere = {
+  node?: InputMaybe<LambdaTypeWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<LambdaTypeWhere>
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput = {
+  node: LambdaTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
+  delete?: InputMaybe<LambdaTypeDeleteInput>
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
+  disconnect?: InputMaybe<LambdaTypeDisconnectInput>
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput = {
+  node?: InputMaybe<LambdaTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput>
+  >
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput>
+  >
+  create?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput>
+  >
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput>
+  delete?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput>
+  >
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeConnectFieldInput = {
+  where?: InputMaybe<PageTypeConnectWhere>
+  connect?: InputMaybe<Array<PageTypeConnectInput>>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeConnectionWhere = {
+  node?: InputMaybe<PageTypeWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<PageTypeWhere>
+  AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>>
+  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>>
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeCreateFieldInput = {
+  node: PageTypeCreateInput
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>
+  delete?: InputMaybe<PageTypeDeleteInput>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>
+  disconnect?: InputMaybe<PageTypeDisconnectInput>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeFieldInput = {
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>
+  >
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput = {
+  node?: InputMaybe<PageTypeUpdateInput>
+}
+
+export type UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeConnectionWhere>
+  connect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeConnectFieldInput>
+  >
+  disconnect?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput>
+  >
+  create?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeCreateFieldInput>>
+  update?: InputMaybe<UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput>
+  delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput>>
 }
 
 export type UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput = {
@@ -29305,6 +29675,19 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
   >
   ActionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput>
+  >
+  ElementType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput>
+  >
+  LambdaType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput>
+  >
+  PageType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput>
+  >
+  AppType?: InputMaybe<Array<UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput>>
+  CodeMirrorType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput>
   >
 }
 
