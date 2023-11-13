@@ -1,20 +1,20 @@
 terraform {
-  required_version = "1.5.1"
+  required_version = "1.6.3"
 
   required_providers {
     auth0 = {
       source  = "auth0/auth0"
-      version = ">= 0.37.1"
+      version = "0.50.2"
     }
 
     vercel = {
       source  = "vercel/vercel"
-      version = "~> 0.14.0"
+      version = "0.15.4"
     }
 
     aws = {
       source  = "hashicorp/aws"
-      version = "5.3.0"
+      version = "5.25.0"
     }
   }
 

@@ -32,23 +32,26 @@ export class ExtractHtmlFieldsService
       readFileSync(path.resolve(this.htmlDataFolder, 'html.json'), 'utf8'),
     ) as HtmlData
 
-    return atoms.reduce(async (accFieldsPromise, atom) => {
-      // Convert HtmlA to a
-      const htmlName = atom.name.toLowerCase().replace('html', '')
-      const htmlFields = htmlAttributesByName[htmlName]
+    return atoms.reduce(
+      async (accFieldsPromise, atom) => {
+        // Convert HtmlA to a
+        const htmlName = atom.name.toLowerCase().replace('html', '')
+        const htmlFields = htmlAttributesByName[htmlName]
 
-      if (!htmlFields) {
-        console.log(htmlName)
+        if (!htmlFields) {
+          console.log(htmlName)
 
-        process.exit(0)
+          process.exit(0)
 
-        return await accFieldsPromise
-      }
+          return await accFieldsPromise
+        }
 
-      const fields = await this.transformFields(atom, htmlFields)
+        const fields = await this.transformFields(atom, htmlFields)
 
-      return [...(await accFieldsPromise), ...fields]
-    }, Promise.resolve([] as Array<IFieldDTO>))
+        return [...(await accFieldsPromise), ...fields]
+      },
+      Promise.resolve([] as Array<IFieldDTO>),
+    )
   }
 
   private async createOrUpdateField(

@@ -14,11 +14,11 @@ import { CommandService } from './command.service'
 @Module({
   exports: [CommandService],
   imports: [
-    ConfigModule.forRoot({
-      ignoreEnvVars: true,
-      isGlobal: true,
-      load: [neo4jConfig],
-    }),
+    // ConfigModule.forRoot({
+    //   ignoreEnvVars: true,
+    //   isGlobal: true,
+    //   load: [neo4jConfig],
+    // }),
     // Lazy load this when needed for codegen instead, since it requires docker connection
     // OgmModule,
   ],

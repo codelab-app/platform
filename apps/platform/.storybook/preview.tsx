@@ -26,7 +26,7 @@ const preview: Preview = {
 
       return (
         <StoreProvider value={store}>
-          <ConfigProvider theme={{ token: { colorPrimary: '#00b96b' } }}>
+          <ConfigProvider theme={{ token: {} }}>
             <Story />
           </ConfigProvider>
         </StoreProvider>

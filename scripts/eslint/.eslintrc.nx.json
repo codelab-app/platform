@@ -1,10 +1,12 @@
 {
   "overrides": [
     {
-      "plugins": ["@codelab"],
+      "plugins": ["@codelab", "@nx"],
       "files": ["*.ts", "*.tsx", "*.graphql"],
+      "extends": ["plugin:@nx/typescript"],
       "rules": {
         "@codelab/domain-layer-constraint": "error",
+        "@typescript-eslint/no-unused-vars": "off",
         "@nx/enforce-module-boundaries": [
           "error",
           {
@@ -135,6 +137,13 @@
             ]
           }
         ]
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ]

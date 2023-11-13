@@ -240,11 +240,14 @@ export class ElementService
       (element) => element.value === targetElementId,
     )
 
-    const elementMap = allElementOptions.reduce((acc, element) => {
-      acc[element.value] = element
+    const elementMap = allElementOptions.reduce(
+      (acc, element) => {
+        acc[element.value] = element
 
-      return acc
-    }, {} as Record<string, SelectElementOption>)
+        return acc
+      },
+      {} as Record<string, SelectElementOption>,
+    )
 
     let selectOptions: Array<SelectElementOption>
 

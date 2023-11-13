@@ -12,7 +12,6 @@ export enum PageType {
   ComponentDetail = '/components/[componentId]',
   ComponentDetailV2 = '/library/[libraryId]/component/[componentId]',
   ComponentExport = '/api/export/component',
-  ComponentList = '/components',
   Home = '/',
   LambdaList = '/lambdas',
   LibraryDetail = '/apps/[userSlug]/[appSlug]/library/[libraryId]',
