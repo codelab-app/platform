@@ -71,19 +71,34 @@ export const setupComponent = () => {
   } = rootApplicationStore
 
   const { componentDomainService } = componentService
-  const componentId = 'componentId'
+  const componentId = 'component-id'
+  const rootElementId = 'root-element-id'
   const componentName = 'Component Name'
 
   const HtmlDivAtom = atomFactory(atomService.atomDomainService)({
     type: IAtomType.HtmlDiv,
   })
 
+  const childrenContainerElement = elementFactory(
+    elementService.elementDomainService,
+  )({
+    closestContainerNode: { id: componentId },
+    name: 'children container',
+    parentElement: { id: rootElementId },
+    renderType: {
+      __typename: IElementRenderTypeKind.Atom,
+      id: HtmlDivAtom.id,
+    },
+  })
+
   const component = componentFactory(componentDomainService)({
     api: interfaceTypeFactory(typeService.typeDomainService)({}),
+    childrenContainerElement,
     id: componentId,
     name: componentName,
     rootElement: elementFactory(elementService.elementDomainService)({
       closestContainerNode: { id: componentId },
+      firstChild: childrenContainerElement,
       name: ROOT_ELEMENT_NAME,
       parentComponent: { id: componentId },
       renderType: {
@@ -98,5 +113,5 @@ export const setupComponent = () => {
     }),
   })
 
-  return { component }
+  return { childrenContainerElement, component }
 }

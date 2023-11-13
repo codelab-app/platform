@@ -5,7 +5,7 @@ import {
 import { unregisterRootStore } from 'mobx-keystone'
 import { defaultPipes, renderPipeFactory } from '../renderPipes'
 import { rendererFactory } from './renderer.test.factory'
-import { setupPage } from './setup'
+import { setupComponent, setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 
 describe('Runtime Element', () => {
@@ -62,6 +62,36 @@ describe('Runtime Element', () => {
 
     expect(pageRuntimeRootElement?.isPageContentContainer).toBe(false)
     expect(providerPageRuntimeRootElement?.isPageContentContainer).toBe(true)
+  })
+
+  it('should resolve component instance children container', () => {
+    const { rendererService } = rootApplicationStore
+    const { childrenContainerElement, component } = setupComponent()
+    const componentRootElement = component.rootElement.current
+
+    const renderer = rendererFactory(rendererService)({
+      elementTree: component,
+      rendererType: RendererType.ComponentBuilder,
+      renderPipe: renderPipeFactory(defaultPipes),
+    })
+
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
+    renderer.render()
+
+    const componentRuntimeRootElement =
+      rendererService.runtimeElement(componentRootElement)
+
+    const childrenContainerRuntimeElement = rendererService.runtimeElement(
+      childrenContainerElement,
+    )
+
+    expect(
+      componentRuntimeRootElement?.isComponentInstanceChildrenContainer,
+    ).toBe(false)
+
+    expect(
+      childrenContainerRuntimeElement?.isComponentInstanceChildrenContainer,
+    ).toBe(true)
   })
 
   afterAll(() => {

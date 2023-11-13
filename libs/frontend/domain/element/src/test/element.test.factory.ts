@@ -12,8 +12,10 @@ export const elementFactory =
       closestContainerNode: {
         id: dto.closestContainerNode?.id ?? v4(),
       },
+      firstChild: dto.firstChild ? { id: dto.firstChild.id } : null,
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),
+      nextSibling: dto.nextSibling ? { id: dto.nextSibling.id } : null,
       page: dto.page?.id ? { id: dto.page.id } : null,
       parentComponent: dto.parentComponent?.id
         ? { id: dto.parentComponent.id }
@@ -21,6 +23,7 @@ export const elementFactory =
       parentElement: dto.parentElement?.id
         ? { id: dto.parentElement.id }
         : null,
+      prevSibling: dto.prevSibling ? { id: dto.prevSibling.id } : null,
       props: propFactory(dto.props).toJson,
       renderIfExpression: dto.renderIfExpression ?? null,
       renderType: {
