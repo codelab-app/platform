@@ -63,3 +63,7 @@ AdminPage.Layout = ({ children }) => {
     <DashboardTemplate Header={AdminHeader}>{children()}</DashboardTemplate>
   )
 }
+
+export const config = {
+  maxDuration: 60,
+}
