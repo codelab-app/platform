@@ -38,6 +38,42 @@ describe('Runtime Element', () => {
     )
   })
 
+  it('should resolve closest runtime container node', () => {
+    const { rendererService } = rootApplicationStore
+    const { page } = setupPage()
+    const pageRootElement = page.rootElement.current
+    const providerPageRootElement = page.providerPage?.rootElement.current
+
+    const renderer = rendererFactory(rendererService)({
+      elementTree: page,
+      rendererType: RendererType.PageBuilder,
+      renderPipe: renderPipeFactory(defaultPipes),
+    })
+
+    rendererService.setActiveRenderer(rendererRef(renderer.id))
+    renderer.render()
+
+    const runtimeProviderPage = page.providerPage
+      ? rendererService.runtimeContainerNode(page.providerPage)
+      : undefined
+
+    const runtimePage = rendererService.runtimeContainerNode(page)
+
+    const pageRuntimeRootElement =
+      rendererService.runtimeElement(pageRootElement)
+
+    const providerPageRuntimeRootElement = providerPageRootElement
+      ? rendererService.runtimeElement(providerPageRootElement)
+      : undefined
+
+    expect(pageRuntimeRootElement?.closestRuntimeContainerNode.id).toBe(
+      runtimePage?.id,
+    )
+    expect(providerPageRuntimeRootElement?.closestRuntimeContainerNode.id).toBe(
+      runtimeProviderPage?.id,
+    )
+  })
+
   it('should resolve page content container', () => {
     const { rendererService } = rootApplicationStore
     const { page } = setupPage()
