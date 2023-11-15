@@ -18,6 +18,8 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
   return { props: {} }
 }
 
+AppsPage.Layout = ({ children }) => <>{children()}</>
+
 export const config = {
   maxDuration: 60,
 }
