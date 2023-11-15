@@ -17931,8 +17931,8 @@ __metadata:
     madge: 5.0.1
     memfs: ^4.2.0
     micro: ^10.0.1
-    mobx: 6.10.2
-    mobx-keystone: 1.6.5
+    mobx: 6.11.0
+    mobx-keystone: 1.7.1
     mobx-react-lite: 4.0.5
     mobx-utils: 6.0.8
     moment: 2.29.4
@@ -29541,16 +29541,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx-keystone@npm:1.6.5":
-  version: 1.6.5
-  resolution: "mobx-keystone@npm:1.6.5"
+"mobx-keystone@npm:1.7.1":
+  version: 1.7.1
+  resolution: "mobx-keystone@npm:1.7.1"
   dependencies:
     fast-deep-equal: ^3.1.3
     ts-toolbelt: ^9.6.0
-    tslib: ^2.6.1
+    tslib: ^2.6.2
   peerDependencies:
     mobx: ^6.0.0 || ^5.0.0 || ^4.0.0
-  checksum: 5c31ebb00290576ea81fa1f6bba6b8c89ce406a0e36fd3b2b0287210b8548fc88848a103ef696eeeee9c1d10afe975e1e95b91eb27e695aa7f987673c35e68bb
+  checksum: 75503717c81afd299db4c8c5c2d9efea20d0200c5cda2192f3ffeb07484855cbd62be0e2cab9ecd314dddbe454973167a35db2c49fc9e05b0fa4cb38cbf4f8b6
   languageName: node
   linkType: hard
 
@@ -29580,10 +29580,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx@npm:6.10.2":
-  version: 6.10.2
-  resolution: "mobx@npm:6.10.2"
-  checksum: 14d6f1db4e3a61c823510ea130229c96bd4958b77d81057ac1abc6a439703eaf3ea2289192ef205b4250d3adb1d83a439ad56d5e53f2b967c6e62a6bccc23d8a
+"mobx@npm:6.11.0":
+  version: 6.11.0
+  resolution: "mobx@npm:6.11.0"
+  checksum: d6decf113449bb02000e443dc61538cab992fda5aa56582bbd6178b8d85150550cc6c656dcf582fe756be7d88e025e16f19e3dd98df55fef1288ec4d4998da45
   languageName: node
   linkType: hard
 
@@ -37932,7 +37932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.4.1, tslib@npm:^2.5.0, tslib@npm:^2.6.1":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.4.1, tslib@npm:^2.5.0, tslib@npm:^2.6.1, tslib@npm:^2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
