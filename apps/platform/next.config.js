@@ -35,6 +35,7 @@ const nextConfig = {
   },
   experimental: {
     instrumentationHook: true,
+    runtime: 'experimental-edge',
     // instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
   },
   nx: { svgr: true },
