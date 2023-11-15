@@ -7,12 +7,15 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
+import { logDatetime } from '@codelab/shared/infra/logging'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import config from '../twind.config'
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
+  logDatetime('_app.tsx')
+
   const router = useRouter()
 
   const store = useMemo(() => {
@@ -20,13 +23,19 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
       return null
     }
 
-    return initializeStore({ routerQuery: router.query, user })
-  }, [user])
+    logDatetime('beforeInitStore')
+
+    const _store = initializeStore({ routerQuery: router.query, user })
+
+    logDatetime('afterInitStore')
+
+    return _store
+  }, [])
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
 
-  useTwindConfig(config)
+  // useTwindConfig(config)
 
   return (
     <StoreProvider value={store}>
