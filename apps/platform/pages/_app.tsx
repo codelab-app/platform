@@ -26,7 +26,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
 
-  useTwindConfig(config)
+  // useTwindConfig(config)
 
   return (
     <StoreProvider value={store}>
