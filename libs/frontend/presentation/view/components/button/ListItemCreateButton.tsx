@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import React from 'react'
 import type { ListItemButtonProps } from './ListItemButton'
 import { ListItemButton } from './ListItemButton'

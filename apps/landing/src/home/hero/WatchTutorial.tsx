@@ -1,4 +1,4 @@
-import { PlayCircleOutlined } from '@ant-design/icons'
+import PlayCircleOutlined from '@ant-design/icons/PlayCircleOutlined'
 import { Image } from 'antd'
 import React from 'react'
 

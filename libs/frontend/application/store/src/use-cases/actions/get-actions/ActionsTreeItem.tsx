@@ -1,9 +1,7 @@
-import {
-  ApiOutlined,
-  CodeOutlined,
-  DeleteOutlined,
-  EditOutlined,
-} from '@ant-design/icons'
+import ApiOutlined from '@ant-design/icons/ApiOutlined'
+import CodeOutlined from '@ant-design/icons/CodeOutlined'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import {
   actionRef,
   type IActionsTreeDataNode,

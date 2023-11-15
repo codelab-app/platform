@@ -1,4 +1,6 @@
-import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import type {
   IAtomModel,
   IComponentModel,

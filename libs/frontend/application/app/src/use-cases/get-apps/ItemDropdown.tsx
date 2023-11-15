@@ -1,11 +1,9 @@
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-  ExportOutlined,
-  GlobalOutlined,
-  ToolOutlined,
-} from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
+import ExportOutlined from '@ant-design/icons/ExportOutlined'
+import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
+import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { MenuProps } from 'antd'

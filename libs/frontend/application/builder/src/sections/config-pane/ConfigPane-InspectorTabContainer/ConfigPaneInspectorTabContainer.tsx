@@ -1,10 +1,8 @@
-import {
-  CodeOutlined,
-  FileOutlined,
-  FormatPainterOutlined,
-  NodeIndexOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
+import CodeOutlined from '@ant-design/icons/CodeOutlined'
+import FileOutlined from '@ant-design/icons/FileOutlined'
+import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
+import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
+import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
   isAtomRef,
   isComponentRef,

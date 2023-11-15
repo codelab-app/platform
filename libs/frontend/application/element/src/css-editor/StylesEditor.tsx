@@ -1,4 +1,4 @@
-import { CaretRightOutlined } from '@ant-design/icons'
+import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
 import { Collapse, ConfigProvider, Typography } from 'antd'
 import React from 'react'
 import { BackgroundEditor } from './background'

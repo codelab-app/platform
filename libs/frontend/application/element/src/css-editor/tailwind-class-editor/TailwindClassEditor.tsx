@@ -1,4 +1,4 @@
-import { CloseOutlined } from '@ant-design/icons'
+import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { Select, Space } from 'antd'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect'

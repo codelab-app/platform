@@ -1,4 +1,5 @@
-import { LogoutOutlined, PlusOutlined } from '@ant-design/icons'
+import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,

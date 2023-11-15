@@ -1,4 +1,4 @@
-import { UploadOutlined } from '@ant-design/icons'
+import UploadOutlined from '@ant-design/icons/UploadOutlined'
 import type { UploadProps } from 'antd'
 import { Button, Upload } from 'antd'
 import type { RcFile } from 'antd/lib/upload'

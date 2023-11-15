@@ -30,7 +30,8 @@
     "./scripts/eslint/.eslintrc.globals.json",
     "./scripts/eslint/.eslintrc.spacing.json",
     "./scripts/eslint/.eslintrc.naming.json",
-    "./scripts/eslint/.eslintrc.cypress.json"
+    "./scripts/eslint/.eslintrc.cypress.json",
+    "./scripts/eslint/.eslintrc.codelab.json"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
     // "plugin:import/recommended"

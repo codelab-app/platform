@@ -1,4 +1,4 @@
-import { UndoOutlined } from '@ant-design/icons'
+import UndoOutlined from '@ant-design/icons/UndoOutlined'
 import { Button, Col, Row, Slider } from 'antd'
 import clsx from 'clsx'
 import React from 'react'

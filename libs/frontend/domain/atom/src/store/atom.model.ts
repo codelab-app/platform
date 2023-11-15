@@ -1,4 +1,5 @@
-import { AntDesignOutlined, Html5Outlined } from '@ant-design/icons'
+import AntDesignOutlined from '@ant-design/icons/AntDesignOutlined'
+import Html5Outlined from '@ant-design/icons/Html5Outlined'
 import type {
   IAtomModel,
   IInterfaceTypeModel,

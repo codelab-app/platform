@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IInterfaceTypeModel,
   IPageNode,

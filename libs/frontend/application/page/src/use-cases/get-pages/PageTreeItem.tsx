@@ -1,12 +1,10 @@
-import {
-  BuildOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  FileOutlined,
-  FileTextOutlined,
-  LoadingOutlined,
-  ToolOutlined,
-} from '@ant-design/icons'
+import BuildOutlined from '@ant-design/icons/BuildOutlined'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import EditOutlined from '@ant-design/icons/EditOutlined'
+import FileOutlined from '@ant-design/icons/FileOutlined'
+import FileTextOutlined from '@ant-design/icons/FileTextOutlined'
+import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
+import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import {
   type IAppModel,
   type IPagesTreeDataNode,

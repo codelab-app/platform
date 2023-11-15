@@ -1,4 +1,5 @@
-import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
+import CloseOutlined from '@ant-design/icons/CloseOutlined'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IElementService,
   IEntityFormService,

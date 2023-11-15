@@ -1,9 +1,7 @@
-import {
-  CloseOutlined,
-  DashOutlined,
-  MinusOutlined,
-  SmallDashOutlined,
-} from '@ant-design/icons'
+import CloseOutlined from '@ant-design/icons/CloseOutlined'
+import DashOutlined from '@ant-design/icons/DashOutlined'
+import MinusOutlined from '@ant-design/icons/MinusOutlined'
+import SmallDashOutlined from '@ant-design/icons/SmallDashOutlined'
 import { Col, Divider, Row } from 'antd'
 import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'

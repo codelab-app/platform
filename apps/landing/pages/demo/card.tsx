@@ -1,4 +1,5 @@
-import { ShoppingOutlined } from '@ant-design/icons'
+// import { ShoppingOutlined } from '@ant-design/icons'
+import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Button, Card, Typography } from 'antd'
 import React from 'react'
 

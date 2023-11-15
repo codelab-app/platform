@@ -1,8 +1,6 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
+import MenuFoldOutlined from '@ant-design/icons/MenuFoldOutlined'
+import MenuUnfoldOutlined from '@ant-design/icons/MenuUnfoldOutlined'
+import UserOutlined from '@ant-design/icons/UserOutlined'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
 import { Button, Menu } from 'antd'
