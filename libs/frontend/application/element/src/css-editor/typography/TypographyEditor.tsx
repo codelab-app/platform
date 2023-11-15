@@ -1,12 +1,10 @@
-import {
-  AlignCenterOutlined,
-  AlignLeftOutlined,
-  AlignRightOutlined,
-  CloseOutlined,
-  FontColorsOutlined,
-  StrikethroughOutlined,
-  UnderlineOutlined,
-} from '@ant-design/icons'
+import AlignCenterOutlined from '@ant-design/icons/AlignCenterOutlined'
+import AlignLeftOutlined from '@ant-design/icons/AlignLeftOutlined'
+import AlignRightOutlined from '@ant-design/icons/AlignRightOutlined'
+import CloseOutlined from '@ant-design/icons/CloseOutlined'
+import FontColorsOutlined from '@ant-design/icons/FontColorsOutlined'
+import StrikethroughOutlined from '@ant-design/icons/StrikethroughOutlined'
+import UnderlineOutlined from '@ant-design/icons/UnderlineOutlined'
 import { Col } from 'antd'
 import React from 'react'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'

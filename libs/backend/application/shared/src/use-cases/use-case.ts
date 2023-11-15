@@ -7,6 +7,7 @@ export abstract class UseCase<IRequest = void, IResponse = void>
 {
   execute(request: IRequest): MaybePromise<IResponse> {
     return withActiveSpan<IResponse>(`${this.constructor.name}.execute()`, () =>
+      // @ts-ignore
       this._execute(request),
     )
   }

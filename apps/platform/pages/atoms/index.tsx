@@ -80,7 +80,7 @@ const AtomsHeader = observer(() => {
 
 export default AtomsPage
 
-export const getServerSideProps = withPageAuthRedirect()
+// export const getServerSideProps = withPageAuthRedirect()
 
 AtomsPage.Layout = ({ children }) => {
   return (

@@ -32,7 +32,10 @@
           "lint",
           "e2e",
           "build-storybook"
-        ]
+        ],
+        "canTrackAnalytics": true,
+        "showUsageWarnings": true,
+        "parallel": 3
       }
     }
   },

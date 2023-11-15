@@ -1,4 +1,4 @@
-import { ExpandAltOutlined } from '@ant-design/icons'
+import ExpandAltOutlined from '@ant-design/icons/ExpandAltOutlined'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { closeCompletion, startCompletion } from '@codemirror/autocomplete'
 import type { EditorView, ViewUpdate } from '@codemirror/view'

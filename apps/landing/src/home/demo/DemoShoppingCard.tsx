@@ -1,8 +1,6 @@
-import {
-  ShopOutlined,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
-} from '@ant-design/icons'
+import ShopOutlined from '@ant-design/icons/ShopOutlined'
+import ShoppingCartOutlined from '@ant-design/icons/ShoppingCartOutlined'
+import ShoppingOutlined from '@ant-design/icons/ShoppingOutlined'
 import { Button, Card, Typography } from 'antd'
 import React from 'react'
 import { useRecoilValue } from 'recoil'

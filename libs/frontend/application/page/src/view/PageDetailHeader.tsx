@@ -1,4 +1,5 @@
-import { EyeOutlined, ToolOutlined } from '@ant-design/icons'
+import EyeOutlined from '@ant-design/icons/EyeOutlined'
+import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {

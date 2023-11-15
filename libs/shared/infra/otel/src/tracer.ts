@@ -13,12 +13,12 @@ export const withTracerActiveSpan =
   (tracerName: string) =>
   <T>(
     operationName: string,
-    callback: Callback<MaybePromise<T>>,
+    callback: Callback<Promise<T>>,
     /**
      * Allow explicit context so concurrency doesn't mess up the nesting
      */
     parentContext?: Context,
-  ): MaybePromise<T> => {
+  ): Promise<T> => {
     const activeContext = parentContext ?? context.active()
 
     return trace
@@ -35,25 +35,19 @@ export const withTracerActiveSpan =
           const boundFunction = context.bind(ctx, callback)
           const result = boundFunction(span)
 
-          if (result instanceof Promise) {
-            return result
-              .then((value) => {
-                span.end()
-
-                return value
-              })
-              .catch((error) => {
-                console.error(error)
-                span.recordException(toError(error))
-                span.setStatus({ code: SpanStatusCode.ERROR })
-                span.end()
-                throw error
-              })
-          } else {
-            span.end()
-          }
-
           return result
+            .then((value) => {
+              span.end()
+
+              return value
+            })
+            .catch((error) => {
+              console.error(error)
+              span.recordException(toError(error))
+              span.setStatus({ code: SpanStatusCode.ERROR })
+              span.end()
+              throw error
+            })
         } catch (error) {
           console.error(error)
           span.recordException(toError(error))

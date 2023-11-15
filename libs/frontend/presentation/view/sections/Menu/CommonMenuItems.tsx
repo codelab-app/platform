@@ -1,10 +1,8 @@
-import {
-  AppstoreOutlined,
-  BuildOutlined,
-  CloudServerOutlined,
-  CodeSandboxOutlined,
-  FileOutlined,
-} from '@ant-design/icons'
+import AppstoreOutlined from '@ant-design/icons/AppstoreOutlined'
+import BuildOutlined from '@ant-design/icons/BuildOutlined'
+import CloudServerOutlined from '@ant-design/icons/CloudServerOutlined'
+import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
+import FileOutlined from '@ant-design/icons/FileOutlined'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import type { Nullish } from '@codelab/shared/abstract/types'

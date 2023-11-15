@@ -24,6 +24,7 @@ ln -s ../vercel-platform-api/vars.tf ./vercel-platform/vars-platform-api.symlink
 ln -s ../auth0/vars.tf ./vercel-platform/vars-auth0.symlink.tf
 ln -s ../auth0-vars/vars-web-client.tf ./vercel-platform/vars-auth0-web-client.symlink.tf
 ln -s ../auth0-vars/vars-auth0-secret.tf ./vercel-platform/vars-auth0-secret.symlink.tf
+ln -s ../vercel/vars-access-token.tf ./vercel-platform/vars-vercel-access-token.symlink.tf
 ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf
 
 # Vercel Platform API

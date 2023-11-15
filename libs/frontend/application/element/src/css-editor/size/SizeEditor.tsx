@@ -1,8 +1,6 @@
-import {
-  BarcodeOutlined,
-  EyeInvisibleOutlined,
-  EyeOutlined,
-} from '@ant-design/icons'
+import BarcodeOutlined from '@ant-design/icons/BarcodeOutlined'
+import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined'
+import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import { Col, Divider, Row } from 'antd'
 import React from 'react'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'

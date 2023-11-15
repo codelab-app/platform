@@ -1,4 +1,4 @@
-import { ImportOutlined } from '@ant-design/icons'
+import ImportOutlined from '@ant-design/icons/ImportOutlined'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

@@ -1,4 +1,4 @@
-import { EllipsisOutlined } from '@ant-design/icons'
+import EllipsisOutlined from '@ant-design/icons/EllipsisOutlined'
 import { Button, Dropdown, Menu } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ToolbarItem, ToolbarProps } from '../../abstract'

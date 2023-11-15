@@ -6,5 +6,5 @@ echo $PWD
 # cd ../../ && npx nx-ignore@15.5.0 --root platform --verbose
 
 # return 1 to build
-exit 1
+exit 0
 # cd ../../ && npx nx-ignore@15.5.0 --root platform-api --verbose

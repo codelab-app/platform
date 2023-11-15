@@ -71,6 +71,11 @@ resource "vercel_project" "platform" {
       key    = "AUTH0_AUDIENCE"
       value  = "${var.auth0_issuer_base_url}api/v2/"
     },
+    {
+      target = ["production", "preview"]
+      key    = "NX_VERCEL_REMOTE_CACHE_TOKEN"
+      value  = var.vercel_access_token
+    },
     # {
     #   target = ["production"]
     #   key    = "VERCEL_FORCE_NO_BUILD_CACHE"

@@ -1,10 +1,8 @@
-import {
-  BorderBottomOutlined,
-  BorderLeftOutlined,
-  BorderOuterOutlined,
-  BorderRightOutlined,
-  BorderTopOutlined,
-} from '@ant-design/icons'
+import BorderBottomOutlined from '@ant-design/icons/BorderBottomOutlined'
+import BorderLeftOutlined from '@ant-design/icons/BorderLeftOutlined'
+import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
+import BorderRightOutlined from '@ant-design/icons/BorderRightOutlined'
+import BorderTopOutlined from '@ant-design/icons/BorderTopOutlined'
 import { Radio } from 'antd'
 import clsx from 'clsx'
 import React from 'react'

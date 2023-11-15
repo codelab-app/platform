@@ -1,4 +1,4 @@
-import { DownOutlined } from '@ant-design/icons'
+import DownOutlined from '@ant-design/icons/DownOutlined'
 import { faHtml5 } from '@fortawesome/free-brands-svg-icons'
 import { faAtom } from '@fortawesome/pro-light-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

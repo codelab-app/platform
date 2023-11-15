@@ -1,4 +1,5 @@
-import { CloseOutlined, SaveOutlined } from '@ant-design/icons'
+import CloseOutlined from '@ant-design/icons/CloseOutlined'
+import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'

@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import {
   type IResourcesTreeDataNode,
   resourceRef,

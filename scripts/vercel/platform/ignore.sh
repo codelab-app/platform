@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 echo $PWD
 
 # Must use 15.5.0 https://github.com/nrwl/nx-labs/issues/178#issuecomment-1476516764

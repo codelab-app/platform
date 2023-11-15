@@ -1,3 +1,4 @@
+import { antDesignIconImport } from './rules/ant-design-icon-import'
 import { domainLayerConstraint } from './rules/domain-layer-constraint'
 
 /**
@@ -5,6 +6,7 @@ import { domainLayerConstraint } from './rules/domain-layer-constraint'
  */
 module.exports = {
   rules: {
+    'ant-design-icon-import': antDesignIconImport,
     'domain-layer-constraint': domainLayerConstraint,
   },
 }

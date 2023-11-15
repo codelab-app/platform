@@ -1,10 +1,8 @@
-import {
-  BorderOuterOutlined,
-  CodeSandboxOutlined,
-  DeploymentUnitOutlined,
-  ExclamationCircleOutlined,
-  PlusOutlined,
-} from '@ant-design/icons'
+import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
+import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
+import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
+import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
   IElementModel,
   IElementTreeViewDataNode,

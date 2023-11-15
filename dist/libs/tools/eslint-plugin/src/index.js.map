@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../libs/tools/eslint-plugin/src/index.ts"],"names":[],"mappings":";;AAAA,6EAAuE;AAEvE;;GAEG;AACH,MAAM,CAAC,OAAO,GAAG;IACf,KAAK,EAAE;QACL,yBAAyB,EAAE,+CAAqB;KACjD;CACF,CAAA"}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../../libs/tools/eslint-plugin/src/index.ts"],"names":[],"mappings":";;AAAA,2EAAoE;AACpE,6EAAuE;AAEvE;;GAEG;AACH,MAAM,CAAC,OAAO,GAAG;IACf,KAAK,EAAE;QACL,wBAAwB,EAAE,4CAAmB;QAC7C,yBAAyB,EAAE,+CAAqB;KACjD;CACF,CAAA"}

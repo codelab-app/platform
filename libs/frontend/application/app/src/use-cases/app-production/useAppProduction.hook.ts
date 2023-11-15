@@ -19,10 +19,9 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
   return useAsync(async () => {
     console.debug('useAppProduction', { appName, pageName })
 
-    const app =
-      await appService.appProductionService.hydrateAppProductionData(
-        appProductionData,
-      )
+    const app = await appService.appProductionService.hydrateAppProductionData(
+      appProductionData,
+    )
 
     const page = app.pageByName(pageName)
 

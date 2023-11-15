@@ -1,9 +1,7 @@
-import {
-  ApiOutlined,
-  DeploymentUnitOutlined,
-  TagOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
+import ApiOutlined from '@ant-design/icons/ApiOutlined'
+import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
+import TagOutlined from '@ant-design/icons/TagOutlined'
+import UserOutlined from '@ant-design/icons/UserOutlined'
 import { PageType } from '@codelab/frontend/abstract/types'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import React from 'react'

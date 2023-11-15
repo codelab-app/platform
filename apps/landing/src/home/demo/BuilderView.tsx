@@ -1,8 +1,6 @@
-import {
-  FormatPainterOutlined,
-  PartitionOutlined,
-  SettingOutlined,
-} from '@ant-design/icons'
+import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
+import PartitionOutlined from '@ant-design/icons/PartitionOutlined'
+import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import { Tabs } from 'antd'
 import React from 'react'
 import { ButtonPropsForm } from './ButtonDemoProps'

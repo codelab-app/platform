@@ -1,6 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
+import { trace } from '@opentelemetry/api'
 import { Button } from 'antd'
 import Link from 'next/link'
 import React from 'react'
@@ -10,13 +11,13 @@ const HomePage: CodelabPage<DashboardTemplateProps> = () => {
 
   return (
     <div>
+      Remove _app.tsx test
       {/* <Link href="http://127.0.0.1:16686" target="_blank">
         Jaeger
       </Link>
       <Link href="http://127.0.0.1:9090/targets" target="_blank">
         Prometheus
       </Link> */}
-      {}
       {user ? (
         <Link href="/api/auth/logout">
           <Button id="logout" type="primary">

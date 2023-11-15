@@ -1,11 +1,9 @@
-import {
-  MinusCircleOutlined,
-  RadiusBottomleftOutlined,
-  RadiusBottomrightOutlined,
-  RadiusSettingOutlined,
-  RadiusUpleftOutlined,
-  RadiusUprightOutlined,
-} from '@ant-design/icons'
+import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined'
+import RadiusBottomleftOutlined from '@ant-design/icons/RadiusBottomleftOutlined'
+import RadiusBottomrightOutlined from '@ant-design/icons/RadiusBottomrightOutlined'
+import RadiusSettingOutlined from '@ant-design/icons/RadiusSettingOutlined'
+import RadiusUpleftOutlined from '@ant-design/icons/RadiusUpleftOutlined'
+import RadiusUprightOutlined from '@ant-design/icons/RadiusUprightOutlined'
 import { Col, Row } from 'antd'
 import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'

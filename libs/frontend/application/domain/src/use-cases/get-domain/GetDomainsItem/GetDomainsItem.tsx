@@ -1,4 +1,4 @@
-import { LinkOutlined } from '@ant-design/icons'
+import LinkOutlined from '@ant-design/icons/LinkOutlined'
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import { Alert, Card } from 'antd'
 import { observer } from 'mobx-react-lite'

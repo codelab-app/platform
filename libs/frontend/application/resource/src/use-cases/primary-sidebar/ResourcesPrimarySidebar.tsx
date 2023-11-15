@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { FormNames } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'

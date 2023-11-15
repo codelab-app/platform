@@ -1,4 +1,4 @@
-import { MoreOutlined } from '@ant-design/icons'
+import MoreOutlined from '@ant-design/icons/MoreOutlined'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'

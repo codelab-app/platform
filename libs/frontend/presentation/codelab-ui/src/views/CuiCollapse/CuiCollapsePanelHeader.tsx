@@ -1,4 +1,5 @@
-import { DownOutlined, RightOutlined } from '@ant-design/icons'
+import DownOutlined from '@ant-design/icons/DownOutlined'
+import RightOutlined from '@ant-design/icons/RightOutlined'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Typography } from 'antd'
 import React, { useState } from 'react'

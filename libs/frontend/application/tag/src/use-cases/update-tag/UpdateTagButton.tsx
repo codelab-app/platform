@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons'
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'

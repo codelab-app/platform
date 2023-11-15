@@ -1,4 +1,4 @@
-import { SearchOutlined } from '@ant-design/icons'
+import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import { Input } from 'antd'
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'

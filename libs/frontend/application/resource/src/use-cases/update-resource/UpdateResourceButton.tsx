@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons'
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import { resourceRef } from '@codelab/frontend/abstract/domain'
 import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'

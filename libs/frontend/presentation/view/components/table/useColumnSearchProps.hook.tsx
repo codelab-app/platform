@@ -1,4 +1,4 @@
-import { SearchOutlined } from '@ant-design/icons'
+import SearchOutlined from '@ant-design/icons/SearchOutlined'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InputRef } from 'antd'
 import { Button, Input, Space } from 'antd'

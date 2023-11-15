@@ -1,4 +1,5 @@
-import { CheckCircleOutlined, WarningOutlined } from '@ant-design/icons'
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined'
+import WarningOutlined from '@ant-design/icons/WarningOutlined'
 import classNames from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
