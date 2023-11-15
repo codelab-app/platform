@@ -43,11 +43,3 @@ resource "auth0_client_credentials" "web_client_credentials" {
   authentication_method = "${terraform.workspace}" == "prod" ? "client_secret_basic" : "none"
   # authentication_method = "client_secret_basic"
 }
-
-data "auth0_client" "web_client" {
-  client_id = auth0_client.web_client.id
-}
-
-output "demo" {
-  value = auth0_client.web_client
-}

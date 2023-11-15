@@ -10,6 +10,7 @@ const HomePage: CodelabPage<DashboardTemplateProps> = () => {
 
   return (
     <div>
+      Test-02
       {/* <Link href="http://127.0.0.1:16686" target="_blank">
         Jaeger
       </Link>

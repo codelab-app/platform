@@ -68,7 +68,7 @@ exports.onExecutePostLogin = async (event, api) => {
   const variables = {
     input: [
       {
-        id: v4(),
+        id: event.user.app_metadata.neo4j_user_id,
         auth0Id: event.user.user_id,
         email: event.user.email,
         username: event.user.nickname,

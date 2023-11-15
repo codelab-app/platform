@@ -8,4 +8,7 @@ set -x
 # rm -rf node_modules/.cache/nx
 cd ../..
 du -sh * | sort -h
-npx nx build platform -c prod --runner default --verbose
+
+# https://github.com/nrwl/nx/issues/10256#issuecomment-1233292721
+
+npx nx build platform -c prod --runner vercel --verbose
