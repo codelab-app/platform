@@ -11,5 +11,3 @@ const AppsPage: CodelabPage = () => {
 }
 
 export default AppsPage
-
-AppsPage.Layout = ({ children }) => <>{children()}</>

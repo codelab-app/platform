@@ -17,5 +17,3 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 
   return { props: {} }
 }
-
-AppsPage.Layout = ({ children }) => <>{children()}</>
