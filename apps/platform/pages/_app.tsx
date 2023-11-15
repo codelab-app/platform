@@ -5,8 +5,13 @@ import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
+import { withActiveSpan } from '@codelab/frontend/infra/otel'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
+import {
+  withTracerActiveSpanSync,
+  withTracerSpan,
+} from '@codelab/shared/infra/otel'
 import { trace } from '@opentelemetry/api'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
@@ -29,15 +34,9 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
       return null
     }
 
-    return trace
-      .getTracer('default')
-      .startActiveSpan('initializeStore', (span) => {
-        try {
-          return initializeStore({ routerQuery: router.query, user })
-        } finally {
-          span.end()
-        }
-      })
+    return withTracerSpan('initializeStore', () =>
+      initializeStore({ routerQuery: router.query, user }),
+    )
   }, [])
 
   const { Layout = ({ children }) => <>{children}</> } =

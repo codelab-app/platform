@@ -9,21 +9,21 @@ type Callback<Return> = (span: Span) => Return
 /**
  * Re-used by frontend and backend
  */
-export const withTracerActiveSpan =
+export const withTracerActiveSpanSync =
   (tracerName: string) =>
   <T>(
     operationName: string,
-    callback: Callback<Promise<T>>,
+    callback: Callback<T>,
     /**
      * Allow explicit context so concurrency doesn't mess up the nesting
      */
     parentContext?: Context,
-  ): Promise<T> => {
+  ): T => {
     const activeContext = parentContext ?? context.active()
 
     return trace
       .getTracer(tracerName)
-      .startActiveSpan(operationName, {}, activeContext, async (span) => {
+      .startActiveSpan(operationName, {}, activeContext, (span) => {
         try {
           // Create a new context with the current span, linking it to the current context
           const ctx = setSpan(activeContext, span)
@@ -35,19 +35,9 @@ export const withTracerActiveSpan =
           const boundFunction = context.bind(ctx, callback)
           const result = boundFunction(span)
 
-          return result
-            .then((value) => {
-              span.end()
+          span.end()
 
-              return value
-            })
-            .catch((error) => {
-              console.error(error)
-              span.recordException(toError(error))
-              span.setStatus({ code: SpanStatusCode.ERROR })
-              span.end()
-              throw error
-            })
+          return result
         } catch (error) {
           console.error(error)
           span.recordException(toError(error))
@@ -56,3 +46,5 @@ export const withTracerActiveSpan =
         }
       })
   }
+
+export const withTracerSpan = withTracerActiveSpanSync('platform')

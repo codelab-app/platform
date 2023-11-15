@@ -1,5 +1,6 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type { IPageProps } from '@codelab/frontend/abstract/domain'
+import { withTracerSpan } from '@codelab/shared/infra/otel'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './root.store'
 
@@ -19,12 +20,16 @@ export const initializeStore = ({
    */
   // Create the store once in the client
   if (!_store) {
-    _store = createRootStore({
-      routerQuery,
-      user,
-    })
+    const store = withTracerSpan('createRootStore', () =>
+      createRootStore({
+        routerQuery,
+        user,
+      }),
+    )
 
-    registerRootStore(_store)
+    withTracerSpan('registerRootStore', () => registerRootStore(store))
+
+    _store = store
   }
 
   _store.routerService.update(routerQuery)
