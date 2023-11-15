@@ -82,7 +82,7 @@
     "@nestjs/passport": "^10.0.2",
     "@nestjs/platform-express": "10.0.4",
     "@nestjs/swagger": "^7.1.2",
-    "@next/bundle-analyzer": "13.4.6",
+    "@next/bundle-analyzer": "14.0.2",
     "@opentelemetry/api": "^1.4.1",
     "@opentelemetry/auto-instrumentations-node": "0.38.0",
     "@opentelemetry/core": "^1.15.2",

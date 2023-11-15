@@ -17,3 +17,7 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
 
   return { props: {} }
 }
+
+export const config = {
+  maxDuration: 60,
+}

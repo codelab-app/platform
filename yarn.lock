@@ -6403,12 +6403,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/bundle-analyzer@npm:13.4.6":
-  version: 13.4.6
-  resolution: "@next/bundle-analyzer@npm:13.4.6"
+"@next/bundle-analyzer@npm:14.0.2":
+  version: 14.0.2
+  resolution: "@next/bundle-analyzer@npm:14.0.2"
   dependencies:
     webpack-bundle-analyzer: 4.7.0
-  checksum: 97ea3868a9540927d56c0668ebd635cddcb2f1ac2b2c2064aba77f35ea58b78cbca1b7c3a5d0d871fc7d948fe5219b4174aa109be7e0332d23cd20d384023818
+  checksum: 444ddd92f36520b1c4885ab38ee171686319157121680045e82122b98261b8f87a278fa31f4c5be447a155cd7b4625b06fff9dc1d140b5509fe2d2d1f0c5f909
   languageName: node
   linkType: hard
 
@@ -17438,7 +17438,7 @@ __metadata:
     "@nestjs/schematics": 10.0.1
     "@nestjs/swagger": ^7.1.2
     "@nestjs/testing": 10.0.4
-    "@next/bundle-analyzer": 13.4.6
+    "@next/bundle-analyzer": 14.0.2
     "@nx/cypress": 17.1.1
     "@nx/devkit": 17.1.1
     "@nx/eslint": 17.1.1
