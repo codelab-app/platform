@@ -10,6 +10,8 @@ import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
+import { BuilderDndAction } from '../../../dnd/builder-dnd-action'
+import { MakeChildrenDraggable } from '../../../dnd/MakeChildrenDraggable'
 import { ComponentItem } from './ComponentItem'
 
 const { Search } = Input
@@ -44,15 +46,22 @@ export const ComponentList = observer<{
       <ErrorBoundary>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {sortBy(filteredItems, 'name').map((component) => (
-            <ComponentItem
-              component={component}
-              key={component.id}
-              onDelete={onDelete}
-              onEdit={onEdit}
-              onExport={onExport}
-              onSelect={onSelect}
-              selected={selectedIds?.includes(component.id)}
-            />
+            <MakeChildrenDraggable
+              data={{
+                action: BuilderDndAction.CreateElement,
+              }}
+              id={component.id}
+            >
+              <ComponentItem
+                component={component}
+                key={component.id}
+                onDelete={onDelete}
+                onEdit={onEdit}
+                onExport={onExport}
+                onSelect={onSelect}
+                selected={selectedIds?.includes(component.id)}
+              />
+            </MakeChildrenDraggable>
           ))}
         </Space>
       </ErrorBoundary>

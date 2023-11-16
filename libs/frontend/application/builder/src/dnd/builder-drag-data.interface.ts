@@ -1,13 +1,11 @@
 import type { IElementDTO } from '@codelab/shared/abstract/core'
-
-export enum BuilderDndAction {
-  CreateElement = 'CreateElement',
-  MoveElement = 'MoveElement',
-}
+import type { ReactNode } from 'react'
+import type { BuilderDndAction } from './builder-dnd-action'
 
 export interface BuilderDragData {
   action: BuilderDndAction
   createElementInput?: IElementDTO
   icon?: string
   name?: string
+  overlayRenderer(): ReactNode
 }

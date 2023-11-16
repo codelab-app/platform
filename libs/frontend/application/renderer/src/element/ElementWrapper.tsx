@@ -1,13 +1,14 @@
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { IComponentType } from '@codelab/frontend/abstract/domain'
+import { MakeComponentDroppable } from '@codelab/frontend/application/builder'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { renderComponentWithStyles } from './get-styled-components'
+import { MakeStyledComponent } from './MakeStyledComponent'
 import { useSelectionHandlers } from './useSelectionHandlers.hook'
 import {
   extractValidProps,
@@ -73,21 +74,27 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       tailwindClassNames,
     )
 
-    const renderedElement = renderComponentWithStyles(
-      ReactComponent,
-      mergedProps,
-      children,
-    )
-
-    return React.createElement(
-      ErrorBoundary,
-      {
-        fallbackRender: () => null,
-        onError,
-        onResetKeysChange,
-        resetKeys: [renderOutput],
-      },
-      renderedElement,
+    return (
+      <ErrorBoundary
+        fallbackRender={() => null}
+        onError={onError}
+        onResetKeysChange={onResetKeysChange}
+        resetKeys={[renderOutput]}
+      >
+        <MakeComponentDroppable
+          ReactComponent={MakeStyledComponent}
+          componentProps={{
+            componentProps: mergedProps,
+            ReactComponent,
+          }}
+          data={{
+            parentId: element.closestParentElement?.current.id || '#ABCDAB',
+          }}
+          id={element.id}
+        >
+          {children}
+        </MakeComponentDroppable>
+      </ErrorBoundary>
     )
   },
 )

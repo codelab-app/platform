@@ -5,10 +5,21 @@ import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import type { BuilderDragData } from './builder-drag-data.interface'
-import {
-  type BuilderDropData,
-  DropPosition,
-} from './builder-drop-data.interface'
+import type { BuilderDropData } from './builder-drop-data.interface'
+import type { CollisionData } from './collision-detection/collision-data.interface'
+import { DropLocation } from './drop-location'
+
+const getDropLocation = (collisionData: CollisionData) => {
+  if (collisionData.before) {
+    return DropLocation.Before
+  }
+
+  if (collisionData.after) {
+    return DropLocation.After
+  }
+
+  return DropLocation.Inside
+}
 
 export interface UseDndDropHandler {
   handleCreateElement(event: DragEndEvent): Promise<void>
@@ -26,7 +37,7 @@ export const useDndDropHandler = (
     const targetElementId = event.over?.id.toString()
     const data = event.active.data.current as Maybe<BuilderDragData>
     const overData = event.over?.data.current as Maybe<BuilderDropData>
-    const dropPosition = overData?.dropPosition
+    const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
     const createElementInput = data?.createElementInput
 
     if (!elementTree) {
@@ -35,17 +46,12 @@ export const useDndDropHandler = (
       return
     }
 
-    if (!targetElementId || !createElementInput) {
+    if (!targetElementId || !createElementInput || !collisionData) {
       return
     }
 
+    const dropPosition = getDropLocation(collisionData)
     const targetElement = elementService.element(targetElementId)
-
-    if (!dropPosition) {
-      console.error('Drag position is required')
-
-      return
-    }
 
     // for not mutating the actual input from the components tab
     const createElementDTO = {
@@ -57,7 +63,7 @@ export const useDndDropHandler = (
     }
 
     const parentId =
-      dropPosition === DropPosition.Inside
+      dropPosition === DropLocation.Inside
         ? targetElement.id
         : targetElement.parentElement?.id
 
@@ -66,12 +72,12 @@ export const useDndDropHandler = (
     }
 
     // create the new element after the target element
-    if (dropPosition === DropPosition.After && createElementDTO.prevSibling) {
+    if (dropPosition === DropLocation.After && createElementDTO.prevSibling) {
       createElementDTO.prevSibling.id = targetElement.id
     }
 
     // create the new element before the target element
-    if (dropPosition === DropPosition.Before) {
+    if (dropPosition === DropLocation.Before) {
       // if theres an element before the target, create the new element next to that
       if (targetElement.prevSibling && createElementDTO.prevSibling) {
         createElementDTO.prevSibling.id = targetElement.prevSibling.id
@@ -85,7 +91,7 @@ export const useDndDropHandler = (
     }
 
     // create the new element inside the target element as a first child
-    if (dropPosition === DropPosition.Inside) {
+    if (dropPosition === DropLocation.Inside) {
       createElementDTO.parentElement = targetElement
     }
 
@@ -96,22 +102,21 @@ export const useDndDropHandler = (
     const draggedElementId = event.active.id.toString()
     const draggedElement = elementService.element(draggedElementId)
     const dropElementId = event.over?.id.toString()
-    const dropPosition = event.over?.data.current?.dropPosition
+    const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
 
-    if (!dropElementId || dropElementId === draggedElement.id) {
+    if (
+      !dropElementId ||
+      dropElementId === draggedElement.id ||
+      !collisionData
+    ) {
       return
     }
 
+    const dropPosition = getDropLocation(collisionData)
     const targetElement = elementService.element(dropElementId)
 
-    if (!dropPosition) {
-      console.error('Drag position is required')
-
-      return
-    }
-
     const parentId =
-      dropPosition === DropPosition.Inside
+      dropPosition === DropLocation.Inside
         ? targetElement.id
         : targetElement.parentElement?.id
 
@@ -120,7 +125,7 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element after the target element
-    if (dropPosition === DropPosition.After) {
+    if (dropPosition === DropLocation.After) {
       return await elementService.move({
         element: draggedElement,
         prevSibling: targetElement,
@@ -128,7 +133,7 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element before the target element
-    if (dropPosition === DropPosition.Before) {
+    if (dropPosition === DropLocation.Before) {
       return await elementService.move({
         element: draggedElement,
         nextSibling: targetElement,
@@ -136,12 +141,10 @@ export const useDndDropHandler = (
     }
 
     // move the dragged element inside the target element as a first child
-    if (dropPosition === DropPosition.Inside) {
-      return await elementService.move({
-        element: draggedElement,
-        parentElement: targetElement,
-      })
-    }
+    return await elementService.move({
+      element: draggedElement,
+      parentElement: targetElement,
+    })
   }
 
   return {

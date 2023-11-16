@@ -1,4 +1,4 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import { DeleteOutlined, DragOutlined } from '@ant-design/icons'
 import type { IElementService } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
@@ -9,6 +9,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
+import { BuilderDndAction } from '../../dnd/builder-dnd-action'
+import { MakeChildrenDraggable } from '../../dnd/MakeChildrenDraggable'
 import { queryRenderedElementById } from '../../utils'
 
 const StyledOverlayContainer = styled.div`
@@ -70,6 +72,21 @@ export const BuilderClickOverlay = observer<{
           size="small"
           type="text"
         />
+        <MakeChildrenDraggable
+          data={{
+            action: BuilderDndAction.MoveElement,
+          }}
+          id={selectedNode.id}
+        >
+          <div className="flex h-7 w-7 justify-center align-middle">
+            <div
+              className="flex h-5 w-5 justify-center rounded-full align-middle"
+              style={{ backgroundColor: 'rgb(7, 62, 78)', color: 'white' }}
+            >
+              <DragOutlined color="white" />
+            </div>
+          </div>
+        </MakeChildrenDraggable>
       </StyledOverlayButtonGroup>
     </StyledOverlayContainer>
   )

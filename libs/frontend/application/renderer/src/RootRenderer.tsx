@@ -5,6 +5,7 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
+import { MakeChildrenDroppable } from '../../builder/src/dnd'
 
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
@@ -48,9 +49,11 @@ export const RootRenderer = observer<
 
     return (
       <ErrorBoundary>
-        <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-          {rendererService.renderRoot(renderer)}
-        </div>
+        <MakeChildrenDroppable data={{}} id="#ABCDAB">
+          <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
+            {rendererService.renderRoot(renderer)}
+          </div>
+        </MakeChildrenDroppable>
       </ErrorBoundary>
     )
   }),

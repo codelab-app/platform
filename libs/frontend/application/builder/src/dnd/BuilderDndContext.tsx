@@ -1,26 +1,31 @@
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { Active, DragStartEvent } from '@dnd-kit/core'
-import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Active, DragEndEvent } from '@dnd-kit/core'
+import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React, { useCallback, useMemo } from 'react'
-import { useBuilderDnd } from './useBuilderDnd.hook'
+import React, { useCallback, useMemo, useState } from 'react'
+import { BuilderDndAction } from './builder-dnd-action'
+import { type BuilderDragData } from './builder-drag-data.interface'
+import { BuilderCollisionDetector } from './collision-detection'
+import { DropIndicator } from './DropIndicator'
+import { DropOverlay } from './DropOverlay'
+import { useDndDropHandler } from './useDndDropHandlers.hook'
+
+const builderCollisionDetector = new BuilderCollisionDetector()
 
 /**
  * Provides the DnD context for the builder
  */
-export const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
+const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
   const { builderService, elementService } = useStore()
+  const [active, setActive] = useState<Active | null>(null)
 
-  const { onDragEnd, onDragStart, sensors } = useBuilderDnd(
-    builderService,
+  const { handleCreateElement, handleMoveElement } = useDndDropHandler(
     elementService,
-    builderService.activeElementTree,
-  )
-
-  const [draggedElement, setDraggedElement] = React.useState<Active | null>(
-    null,
+    // TODO: figure out of elementTree is needed here
+    undefined,
   )
 
   const autoScroll = useMemo(
@@ -34,29 +39,42 @@ export const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
     [],
   )
 
-  const onDragStartHandler = useCallback(
-    (event: DragStartEvent) => {
-      setDraggedElement(event.active)
-      onDragStart(event)
+  const onDragEnd = useCallback(
+    async (event: DragEndEvent) => {
+      const data = event.active.data.current as Maybe<BuilderDragData>
+
+      const shouldCreate =
+        data?.action === BuilderDndAction.CreateElement &&
+        data.createElementInput !== undefined
+
+      const shouldMove = data?.action === BuilderDndAction.MoveElement
+
+      if (shouldCreate) {
+        await handleCreateElement(event)
+      } else if (shouldMove) {
+        await handleMoveElement(event)
+      }
     },
-    [onDragStart],
+    [builderService, elementService],
   )
 
   return (
     <DndContext
-      autoScroll={autoScroll}
-      collisionDetection={pointerWithin}
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStartHandler}
-      sensors={sensors}
+      // autoScroll={autoScroll}
+      // onDragEnd={onDragEnd}
+      collisionDetection={builderCollisionDetector.detectCollisions.bind(
+        builderCollisionDetector,
+      )}
+      onDragStart={(event) => setActive(event.active)}
     >
       {children}
 
-      <DragOverlay dropAnimation={null}>
-        {draggedElement && draggedElement.data.current?.overlayRenderer()}
-      </DragOverlay>
+      <DropIndicator />
+      <DropOverlay />
+      <DragOverlay>{active?.data.current?.overlayRenderer?.()}</DragOverlay>
     </DndContext>
   )
 })
 
 BuilderDndContext.displayName = 'BuilderDndContext'
+export default BuilderDndContext
