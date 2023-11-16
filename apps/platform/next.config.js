@@ -1,8 +1,5 @@
-const { composePlugins, withNx } = require('@nx/next')
-
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE_BUNDLE === 'true',
-})
+import withBundleAnalyzer from '@next/bundle-analyzer'
+import { composePlugins, withNx } from '@nx/next'
 
 /** Allows importing cypher files */
 const withRawCypherFiles = (nextConfig = {}) =>
@@ -24,23 +21,30 @@ const withRawCypherFiles = (nextConfig = {}) =>
     },
   })
 
-const plugins = [withBundleAnalyzer, withRawCypherFiles]
+const plugins = [
+  withBundleAnalyzer({
+    enabled: process.env.ANALYZE_BUNDLE === 'true',
+  }),
+  withRawCypherFiles,
+]
 
-/**
- * @type {WithNxOptions}
- */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   compiler: {
     styledComponents: true,
   },
   experimental: {
-    instrumentationHook: true,
+    esmExternals: 'loose',
+    // instrumentationHook: true,
     // instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
   },
   nx: { svgr: true },
+  serverRuntimeConfig: {
+    runtime: 'edge',
+  },
 }
 
-module.exports = (phase, context) => {
+export default (phase, context) => {
   const config = plugins.reduce((acc, fn) => fn(acc), nextConfig)
 
   return withNx(config)(phase, context)
