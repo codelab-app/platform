@@ -857,12 +857,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth0/nextjs-auth0@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@auth0/nextjs-auth0@npm:3.1.0"
+"@auth0/nextjs-auth0@npm:3.3.0":
+  version: 3.3.0
+  resolution: "@auth0/nextjs-auth0@npm:3.3.0"
   dependencies:
     "@panva/hkdf": ^1.0.2
-    cookie: ^0.5.0
+    cookie: ^0.6.0
     debug: ^4.3.4
     joi: ^17.6.0
     jose: ^4.9.2
@@ -872,7 +872,7 @@ __metadata:
     url-join: ^4.0.1
   peerDependencies:
     next: ">=10"
-  checksum: e55409d69c49185737f69856b641d5df073099421e4eb61bbbbf0fafa78fe5a50a8376c90edc6ae1993a38468f320513708704a7f98748b4847bfe9556816e25
+  checksum: 607ca1ae44cbd94a678ee96572bd5c5de8186cdbc9d9ce97cc9a134a125230a67af6b885719362b85d38f2e6c583cb1ab91e6c70297646a81c84e79515c69229
   languageName: node
   linkType: hard
 
@@ -12607,17 +12607,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/auth0-js@npm:^9.21.1":
-  version: 9.21.1
-  resolution: "@types/auth0-js@npm:9.21.1"
-  checksum: eccaf42bbf9a1c9466d6771505cf9705fed628eb74d3dcdbb880c1702c40ea3079043cd79b3cab871859f06bc982b68c2be474825abded4c6579fe8afd248215
+"@types/auth0-js@npm:^9.21.4":
+  version: 9.21.4
+  resolution: "@types/auth0-js@npm:9.21.4"
+  checksum: 92d631a8ae589a0405ad80263ec098026c653cd39200beabfcb074481c9fc15b7320a2ba1d6a59ca5335e295c9cf45b7616aa38001dbef9da92416813d79b5bb
   languageName: node
   linkType: hard
 
-"@types/auth0@npm:3.3.6":
-  version: 3.3.6
-  resolution: "@types/auth0@npm:3.3.6"
-  checksum: 14d98fe1bf40c780b6e26d5f62da82f4cc7bfb25388ef93386fe4bcc7506cd46b485ed2c17137daa51fd5eaa72518551234d666737f986d85eb0deeb8ab3b8cb
+"@types/auth0@npm:3.3.9":
+  version: 3.3.9
+  resolution: "@types/auth0@npm:3.3.9"
+  checksum: ef14e2ee6b2754f39a9758842e23403dd1eb8b2f02e1d0128a0b06db55e90dabfc631daa6bd9063e4659081a8ff730ff61ff3834396dcf2714d1d27403c97117
   languageName: node
   linkType: hard
 
@@ -15827,7 +15827,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auth0-js@npm:^9.19.0, auth0-js@npm:^9.22.1":
+"auth0-js@npm:^9.19.0":
   version: 9.22.1
   resolution: "auth0-js@npm:9.22.1"
   dependencies:
@@ -15843,13 +15843,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auth0@npm:4.0.1":
-  version: 4.0.1
-  resolution: "auth0@npm:4.0.1"
+"auth0-js@npm:^9.23.3":
+  version: 9.23.3
+  resolution: "auth0-js@npm:9.23.3"
+  dependencies:
+    base64-js: ^1.5.1
+    idtoken-verifier: ^2.2.4
+    js-cookie: ^2.2.0
+    minimist: ^1.2.5
+    qs: ^6.10.1
+    superagent: ^7.1.5
+    url-join: ^4.0.1
+    winchan: ^0.2.2
+  checksum: 327a521c497545a65bae819c119b952029faed562256f46fac296468d5dacf674203285b079a588a3e3f1124e491ae241ba53671fe190fc69f58e49751c52ce2
+  languageName: node
+  linkType: hard
+
+"auth0@npm:4.1.0":
+  version: 4.1.0
+  resolution: "auth0@npm:4.1.0"
   dependencies:
     jose: ^4.13.2
     uuid: ^9.0.0
-  checksum: 7dd0445505f7d2b890f2baffd1f38940dc65a3be2f307af327008d67711bc8142c732b68e47cb40cf4e03b8b453a7d3100e16521bcd82c5ceca5972f01ba2d27
+  checksum: 22b367979065afdcd40db8ac775567c8ec481ba0ae08b121151fc57ef3170422b4a1bdcda17206dafad990cf89cb13ec66bdc748b3851e5b086608d21dbbef57
   languageName: node
   linkType: hard
 
@@ -17625,7 +17641,7 @@ __metadata:
     "@apollo/client": 3.7.15
     "@apollo/server": 4.7.2
     "@as-integrations/next": 2.0.0
-    "@auth0/nextjs-auth0": 3.1.0
+    "@auth0/nextjs-auth0": 3.3.0
     "@codelab/eslint-plugin": "file:./dist/libs/tools/eslint-plugin"
     "@codelab/tools-workspace": "file:./dist/libs/tools/workspace"
     "@codemirror/autocomplete": ^6.9.0
@@ -17769,8 +17785,8 @@ __metadata:
     "@twind/preset-tailwind": ^1.1.4
     "@twind/with-next": ^1.2.2
     "@types/adm-zip": ^0.5.0
-    "@types/auth0": 3.3.6
-    "@types/auth0-js": ^9.21.1
+    "@types/auth0": 3.3.9
+    "@types/auth0-js": ^9.21.4
     "@types/aws-lambda": ^8.10.116
     "@types/buble": ^0.20.1
     "@types/chance": ^1.1.4
@@ -17831,8 +17847,8 @@ __metadata:
     amqplib: ^0.10.3
     animate.css: 4.1.1
     antd: ^5.11.0
-    auth0: 4.0.1
-    auth0-js: ^9.22.1
+    auth0: 4.1.0
+    auth0-js: ^9.23.3
     autoprefixer: 10.4.14
     aws-lambda: ^1.0.7
     axios: ^1.5.0
@@ -18686,6 +18702,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: f56a7d32a07db5458e79c726b77e3c2eff655c36792f2b6c58d351fb5f61531e5b1ab7f46987150136e366c65213cbe31729e02a3eaed630c3bf7334635fb410
+  languageName: node
+  linkType: hard
+
 "cookiejar@npm:^2.1.0, cookiejar@npm:^2.1.3, cookiejar@npm:^2.1.4":
   version: 2.1.4
   resolution: "cookiejar@npm:2.1.4"
@@ -19045,6 +19068,13 @@ __metadata:
   version: 4.1.1
   resolution: "crypto-js@npm:4.1.1"
   checksum: b3747c12ee3a7632fab3b3e171ea50f78b182545f0714f6d3e7e2858385f0f4101a15f2517e033802ce9d12ba50a391575ff4638c9de3dd9b2c4bc47768d5425
+  languageName: node
+  linkType: hard
+
+"crypto-js@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "crypto-js@npm:4.2.0"
+  checksum: f051666dbc077c8324777f44fbd3aaea2986f198fe85092535130d17026c7c2ccf2d23ee5b29b36f7a4a07312db2fae23c9094b644cc35f7858b1b4fcaf27774
   languageName: node
   linkType: hard
 
@@ -24976,6 +25006,20 @@ __metadata:
     unfetch: ^4.2.0
     url-join: ^4.0.1
   checksum: d8335975349bc7b1110c5169c2eb6adb0377bdfbf49fc96a6f857173442f6dd0500c659b40e494d12584f580a0b86e50abea563acf0cfa354a44f5aa2ad369f3
+  languageName: node
+  linkType: hard
+
+"idtoken-verifier@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "idtoken-verifier@npm:2.2.4"
+  dependencies:
+    base64-js: ^1.5.1
+    crypto-js: ^4.2.0
+    es6-promise: ^4.2.8
+    jsbn: ^1.1.0
+    unfetch: ^4.2.0
+    url-join: ^4.0.1
+  checksum: ed69f6b518a60d2dc332b2aabc90320de83f8e29758a8ee613a28e5b31fdbcca89255c764b5dcac8eedc767f6bd3d708c469151601b1f966848b969de2a5c296
   languageName: node
   linkType: hard
 

@@ -1,4 +1,4 @@
-import type { Session } from '@auth0/nextjs-auth0'
+import type { Session } from '@auth0/nextjs-auth0/edge'
 
 export const checkExpiry = (session: Session | null | undefined): boolean => {
   if (!session) {
