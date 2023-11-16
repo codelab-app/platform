@@ -1,5 +1,8 @@
-import withBundleAnalyzer from '@next/bundle-analyzer'
-import { composePlugins, withNx } from '@nx/next'
+const { composePlugins, withNx } = require('@nx/next')
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE_BUNDLE === 'true',
+})
 
 /** Allows importing cypher files */
 const withRawCypherFiles = (nextConfig = {}) =>
@@ -21,12 +24,7 @@ const withRawCypherFiles = (nextConfig = {}) =>
     },
   })
 
-const plugins = [
-  withBundleAnalyzer({
-    enabled: process.env.ANALYZE_BUNDLE === 'true',
-  }),
-  withRawCypherFiles,
-]
+const plugins = [withBundleAnalyzer, withRawCypherFiles]
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -35,16 +33,17 @@ const nextConfig = {
   },
   experimental: {
     esmExternals: 'loose',
-    // instrumentationHook: true,
+    instrumentationHook: true,
     // instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
   },
   nx: { svgr: true },
   serverRuntimeConfig: {
     runtime: 'edge',
   },
+  transpilePackages: ['@auth0/nextjs-auth0', 'oauth4webapi'],
 }
 
-export default (phase, context) => {
+module.exports = (phase, context) => {
   const config = plugins.reduce((acc, fn) => fn(acc), nextConfig)
 
   return withNx(config)(phase, context)

@@ -5,7 +5,6 @@
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
-  "type": "module",
   "packageManager": "yarn@3.5.1",
   "version": "0.0.1",
   "license": "MIT",
