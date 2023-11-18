@@ -1,0 +1,35 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../../dist/out-tsc",
+    "types": [
+      "node",
+
+      "@nx/react/typings/cssmodule.d.ts",
+      "@nx/react/typings/image.d.ts"
+    ]
+  },
+  "exclude": [
+    "jest.config.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.tsx",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.js",
+    "src/**/*.test.js",
+    "src/**/*.spec.jsx",
+    "src/**/*.test.jsx"
+  ],
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../../abstract/application/src/builder/dnd/builder-drop-data.interface.ts",
+    "../../abstract/application/src/builder/dnd/builder-drag-data.interface.ts",
+    "../../abstract/application/src/builder/dnd/builder-dnd-action.ts",
+    "../builder/src/dnd/BuilderDndContext.tsx",
+    "../builder/src/dnd/useDndDropHandlers.hook.ts",
+    "../builder/src/dnd/drop-location.ts"
+  ]
+}

@@ -1,6 +1,5 @@
 import { useDndContext } from '@dnd-kit/core'
-import type React from 'react'
-import type { BuilderCollision } from './collision-detection'
+import type { HierarchicalCollision } from './collision-detection'
 
 const DROP_INDICATOR_ID = '__drop__indicator__'
 
@@ -15,7 +14,7 @@ const makeDropIndicatorDiv = () => {
 
 export const DropIndicator = () => {
   const { collisions, droppableContainers } = useDndContext()
-  const collision = collisions?.[0] as BuilderCollision | undefined
+  const collision = collisions?.[0] as HierarchicalCollision | undefined
 
   // remove the highlight div if already exist
   document.getElementById(DROP_INDICATOR_ID)?.remove()
@@ -25,7 +24,10 @@ export const DropIndicator = () => {
   }
 
   const {
-    data: { after, before },
+    data: {
+      childDroppableAfterPointer: after,
+      childDroppableBeforePointer: before,
+    },
   } = collision
 
   const dropIndicator = makeDropIndicatorDiv()

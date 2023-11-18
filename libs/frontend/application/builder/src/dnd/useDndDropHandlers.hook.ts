@@ -1,20 +1,22 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
+import type {
+  BuilderDragData,
+  BuilderDropData,
+  IElementService,
+} from '@codelab/frontend/abstract/application'
 import type { IElementTree } from '@codelab/frontend/abstract/domain'
+import { type CollisionData } from '@codelab/frontend/application/dnd'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
-import type { BuilderDragData } from './builder-drag-data.interface'
-import type { BuilderDropData } from './builder-drop-data.interface'
-import type { CollisionData } from './collision-detection/collision-data.interface'
 import { DropLocation } from './drop-location'
 
 const getDropLocation = (collisionData: CollisionData) => {
-  if (collisionData.before) {
+  if (collisionData.childDroppableBeforePointer) {
     return DropLocation.Before
   }
 
-  if (collisionData.after) {
+  if (collisionData.childDroppableAfterPointer) {
     return DropLocation.After
   }
 

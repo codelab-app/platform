@@ -1,4 +1,3 @@
-import type { AnyData } from '@codelab/shared/abstract/types'
 import { useDraggable } from '@dnd-kit/core'
 
 export const useTypedDraggable = <T>({

@@ -1,26 +1,28 @@
+import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
+import {
+  AutoDragOverlay,
+  DropIndicator,
+  DropOverlay,
+  HierarchicalCollisionDetector,
+} from '@codelab/frontend/application/dnd'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { Active, DragEndEvent } from '@dnd-kit/core'
-import { DndContext, DragOverlay } from '@dnd-kit/core'
+import type { DragEndEvent } from '@dnd-kit/core'
+import { DndContext } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
-import React, { useCallback, useMemo, useState } from 'react'
-import { BuilderDndAction } from './builder-dnd-action'
-import { type BuilderDragData } from './builder-drag-data.interface'
-import { BuilderCollisionDetector } from './collision-detection'
-import { DropIndicator } from './DropIndicator'
-import { DropOverlay } from './DropOverlay'
+import React, { useCallback, useMemo } from 'react'
 import { useDndDropHandler } from './useDndDropHandlers.hook'
 
-const builderCollisionDetector = new BuilderCollisionDetector()
+const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
 
 /**
  * Provides the DnD context for the builder
  */
 const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
   const { builderService, elementService } = useStore()
-  const [active, setActive] = useState<Active | null>(null)
 
   const { handleCreateElement, handleMoveElement } = useDndDropHandler(
     elementService,
@@ -62,16 +64,15 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
     <DndContext
       // autoScroll={autoScroll}
       // onDragEnd={onDragEnd}
-      collisionDetection={builderCollisionDetector.detectCollisions.bind(
-        builderCollisionDetector,
+      collisionDetection={hierarchicalCollisionDetector.detectCollisions.bind(
+        hierarchicalCollisionDetector,
       )}
-      onDragStart={(event) => setActive(event.active)}
     >
       {children}
 
       <DropIndicator />
       <DropOverlay />
-      <DragOverlay>{active?.data.current?.overlayRenderer?.()}</DragOverlay>
+      <AutoDragOverlay />
     </DndContext>
   )
 })

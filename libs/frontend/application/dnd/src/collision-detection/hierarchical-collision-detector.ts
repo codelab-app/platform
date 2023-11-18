@@ -5,23 +5,24 @@ import type {
 } from '@dnd-kit/core'
 import type { Point, Rect } from '../geometry'
 import { findDistance, isAboveLine, Rectangle } from '../geometry'
-import type { BuilderCollision } from './builder-collision.interface'
-import type { BuilderDroppableContainer } from './builder-collision-node.interface'
+import type { WithInternalDropData } from '../internal-drop-data.interface'
+import type { HierarchicalCollision } from './hierarchical-collision.interface'
+import type { HierarchicalDroppableContainer } from './hierarchical-droppable-container.interface'
 
-export class BuilderCollisionDetector {
+export class HierarchicalCollisionDetector {
   public detectCollisions = ({
     active,
     droppableContainers,
     pointerCoordinates,
-  }: Parameters<CollisionDetection>[0]): Array<BuilderCollision> => {
+  }: Parameters<CollisionDetection>[0]): Array<HierarchicalCollision> => {
     if (!pointerCoordinates) {
       return []
     }
 
-    const builderDroppableContainers =
-      this.makeBuilderDroppableContainers(droppableContainers)
+    const hierarchicalDroppableContainers =
+      this.makeHierarchicalDroppableContainers(droppableContainers)
 
-    const eligibleDroppableContainers = builderDroppableContainers.filter(
+    const eligibleDroppableContainers = hierarchicalDroppableContainers.filter(
       (container) => {
         return (
           !container.ancestors.includes(active.id) && active.id !== container.id
@@ -39,13 +40,15 @@ export class BuilderCollisionDetector {
     )
 
     // if id has children, find before and after
-    const childrenIds = builderDroppableContainers.find(
+    const childrenIds = hierarchicalDroppableContainers.find(
       (hid) => hid.id === collisionId,
     )?.children
 
-    const children = builderDroppableContainers.filter((droppableContainer) => {
-      return childrenIds?.includes(droppableContainer.id)
-    })
+    const children = hierarchicalDroppableContainers.filter(
+      (droppableContainer) => {
+        return childrenIds?.includes(droppableContainer.id)
+      },
+    )
 
     const sblings = this.findPotentialSblings(pointerCoordinates, children)
 
@@ -54,23 +57,29 @@ export class BuilderCollisionDetector {
       : [
           {
             data: {
-              after: sblings?.after?.id,
-              before: sblings?.before?.id,
+              childDroppableAfterPointer: sblings?.after?.id,
+              childDroppableBeforePointer: sblings?.before?.id,
             },
             id: collisionId,
           },
         ]
   }
 
-  private makeBuilderDroppableContainers(
+  private makeHierarchicalDroppableContainers(
     droppableContainers: Array<DroppableContainer>,
   ) {
-    const builderDroppableContainer: Array<BuilderDroppableContainer> = []
+    const HierarchicalDroppableContainer: Array<HierarchicalDroppableContainer> =
+      []
 
     droppableContainers.forEach((droppable) => {
-      const parentId = droppable.data.current?.parentId || ''
+      const dropData = droppable.data.current as
+        | WithInternalDropData<unknown>
+        | undefined
 
-      builderDroppableContainer.push({
+      const parentId =
+        dropData?.internalUseOnlyDropData.hierarchy.parentId || ''
+
+      HierarchicalDroppableContainer.push({
         ancestors: [],
         children: [],
         id: droppable.id,
@@ -79,8 +88,8 @@ export class BuilderCollisionDetector {
       })
     })
 
-    builderDroppableContainer.forEach((hNode) => {
-      const parent = builderDroppableContainer.find(
+    HierarchicalDroppableContainer.forEach((hNode) => {
+      const parent = HierarchicalDroppableContainer.find(
         (node) => node.id === hNode.parentId,
       )
 
@@ -89,10 +98,10 @@ export class BuilderCollisionDetector {
       }
     })
 
-    builderDroppableContainer.forEach((hNode) => {
+    HierarchicalDroppableContainer.forEach((hNode) => {
       let level = 0
 
-      let parent = builderDroppableContainer.find(
+      let parent = HierarchicalDroppableContainer.find(
         (node) => node.id === hNode.parentId,
       )
 
@@ -101,7 +110,7 @@ export class BuilderCollisionDetector {
 
         hNode.ancestors.push(parent.id)
 
-        parent = builderDroppableContainer.find(
+        parent = HierarchicalDroppableContainer.find(
           (node) => node.id === parent?.parentId,
         )
       }
@@ -109,12 +118,12 @@ export class BuilderCollisionDetector {
       hNode.level = level
     })
 
-    return builderDroppableContainer
+    return HierarchicalDroppableContainer
   }
 
   private findNearestBoundingBox(
     point: Point,
-    hierarchy: Array<BuilderDroppableContainer>,
+    hierarchy: Array<HierarchicalDroppableContainer>,
   ): UniqueIdentifier | undefined {
     let foundRect
 
@@ -132,7 +141,7 @@ export class BuilderCollisionDetector {
   }
 
   private shrinkContainersByLevel(
-    containers: Array<BuilderDroppableContainer>,
+    containers: Array<HierarchicalDroppableContainer>,
   ) {
     const shrinkedContainers = containers.map((container) => {
       const shrinkedRect = Rectangle.shrink(
@@ -172,7 +181,7 @@ export class BuilderCollisionDetector {
 
   private findPotentialSblings(
     pointer: Point,
-    children: Array<BuilderDroppableContainer>,
+    children: Array<HierarchicalDroppableContainer>,
   ) {
     const closestChild = this.findClosestDroppable(pointer, children)
 
@@ -190,8 +199,8 @@ export class BuilderCollisionDetector {
 
   private findClosestDroppable(
     point: Point,
-    droppables: Array<BuilderDroppableContainer>,
-  ): BuilderDroppableContainer | undefined {
+    droppables: Array<HierarchicalDroppableContainer>,
+  ): HierarchicalDroppableContainer | undefined {
     let foundRect
     let smallestDistance
 

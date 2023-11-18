@@ -1,7 +1,10 @@
+import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
+import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
 import { ErrorBoundary } from '@codelab/frontend/presentation/view'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
@@ -10,8 +13,6 @@ import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
-import { BuilderDndAction } from '../../../dnd/builder-dnd-action'
-import { MakeChildrenDraggable } from '../../../dnd/MakeChildrenDraggable'
 import { ComponentItem } from './ComponentItem'
 
 const { Search } = Input
@@ -46,7 +47,7 @@ export const ComponentList = observer<{
       <ErrorBoundary>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {sortBy(filteredItems, 'name').map((component) => (
-            <MakeChildrenDraggable
+            <MakeChildrenDraggable<BuilderDragData>
               data={{
                 action: BuilderDndAction.CreateElement,
               }}

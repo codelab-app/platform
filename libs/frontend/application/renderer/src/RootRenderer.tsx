@@ -1,11 +1,11 @@
 import type { IRendererModel } from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
+import { MakeChildrenDroppable } from '@codelab/frontend/application/dnd'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
-import { MakeChildrenDroppable } from '../../builder/src/dnd'
 
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.

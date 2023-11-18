@@ -1,7 +1,7 @@
 import type { UniqueIdentifier } from '@dnd-kit/core'
 import type { Rect } from '../geometry'
 
-export interface BuilderDroppableContainer {
+export interface HierarchicalDroppableContainer {
   ancestors: Array<UniqueIdentifier>
   children: Array<UniqueIdentifier>
   id: UniqueIdentifier

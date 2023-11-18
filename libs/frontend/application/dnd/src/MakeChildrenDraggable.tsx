@@ -1,31 +1,34 @@
 import type { PropsWithChildren } from 'react'
 import React from 'react'
-import type { BuilderDragData } from './builder-drag-data.interface'
+import type { WithInternalDragData } from './internal-drag-data.interface'
 import { useTypedDraggable } from './use-typed-draggable'
 
-interface MakeDraggableProps {
-  data: Omit<BuilderDragData, 'overlayRenderer'>
+interface MakeDraggableProps<DragDataType> {
+  data: DragDataType
   id: string
   wrapper?: React.FC
   // customOverlay // TODO:otherwise the children are used for overlay
 }
 
-export const MakeChildrenDraggable = ({
+export const MakeChildrenDraggable = <DragDataType,>({
   children,
   data,
   id,
   wrapper,
-}: PropsWithChildren<MakeDraggableProps>) => {
+}: PropsWithChildren<MakeDraggableProps<DragDataType>>) => {
   const WrapperElement = wrapper || 'div'
 
-  const { active, attributes, listeners, setNodeRef } =
-    useTypedDraggable<BuilderDragData>({
-      data: {
-        ...data,
+  const { active, attributes, listeners, setNodeRef } = useTypedDraggable<
+    WithInternalDragData<DragDataType>
+  >({
+    data: {
+      ...data,
+      internalUseOnlyDragData: {
         overlayRenderer: () => <WrapperElement>{children}</WrapperElement>,
       },
-      id,
-    })
+    },
+    id,
+  })
 
   const style = {
     opacity: active?.id === id ? 0.5 : 1,
