@@ -6727,6 +6727,7 @@ type Element {
   slug: String!
   style: String
   tailwindClassNames: [String!]
+  types: [AnyType!]!
 }
 
 type ElementAggregateSelection {

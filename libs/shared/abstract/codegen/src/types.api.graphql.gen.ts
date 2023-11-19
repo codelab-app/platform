@@ -6697,6 +6697,7 @@ export type Element = {
   slug: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
   tailwindClassNames?: Maybe<Array<Scalars['String']['output']>>
+  types: Array<AnyType>
 }
 
 export type ElementChildMapperComponentArgs = {
@@ -20700,6 +20701,21 @@ export type ElementFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
     | { __typename: 'Component'; id: string }
+  types: Array<
+    | Type_ActionType_Fragment
+    | Type_AppType_Fragment
+    | Type_ArrayType_Fragment
+    | Type_CodeMirrorType_Fragment
+    | Type_ElementType_Fragment
+    | Type_EnumType_Fragment
+    | Type_InterfaceType_Fragment
+    | Type_LambdaType_Fragment
+    | Type_PageType_Fragment
+    | Type_PrimitiveType_Fragment
+    | Type_ReactNodeType_Fragment
+    | Type_RenderPropType_Fragment
+    | Type_UnionType_Fragment
+  >
 }
 
 export type ElementProductionFragment = {
@@ -20731,6 +20747,21 @@ export type ElementProductionFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomProductionFragment)
     | { __typename: 'Component'; id: string }
+  types: Array<
+    | Type_ActionType_Fragment
+    | Type_AppType_Fragment
+    | Type_ArrayType_Fragment
+    | Type_CodeMirrorType_Fragment
+    | Type_ElementType_Fragment
+    | Type_EnumType_Fragment
+    | Type_InterfaceType_Fragment
+    | Type_LambdaType_Fragment
+    | Type_PageType_Fragment
+    | Type_PrimitiveType_Fragment
+    | Type_ReactNodeType_Fragment
+    | Type_RenderPropType_Fragment
+    | Type_UnionType_Fragment
+  >
 }
 
 export type HookPropFragment = { data: string; id: string }
