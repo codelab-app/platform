@@ -6662,6 +6662,7 @@ export type Element = {
   childMapperPropKey?: Maybe<Scalars['String']['output']>
   closestContainerNode: ContainerNode
   compositeKey: Scalars['String']['output']
+  dependantTypes: Array<AnyType>
   descendantElements: Array<Element>
   firstChild?: Maybe<Element>
   firstChildAggregate?: Maybe<ElementElementFirstChildAggregationSelection>
@@ -6697,7 +6698,6 @@ export type Element = {
   slug: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
   tailwindClassNames?: Maybe<Array<Scalars['String']['output']>>
-  types: Array<AnyType>
 }
 
 export type ElementChildMapperComponentArgs = {
@@ -20701,7 +20701,7 @@ export type ElementFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
     | { __typename: 'Component'; id: string }
-  types: Array<
+  dependantTypes: Array<
     | Type_ActionType_Fragment
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
@@ -20747,7 +20747,7 @@ export type ElementProductionFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomProductionFragment)
     | { __typename: 'Component'; id: string }
-  types: Array<
+  dependantTypes: Array<
     | Type_ActionType_Fragment
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment

@@ -11,7 +11,6 @@ import {
   elementSelectionSet,
   exportActionTypeSelectionSet,
   exportArrayTypeSelectionSet,
-  exportElementSelectionSet,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
@@ -31,7 +30,7 @@ export const ElementResolverProvider: FactoryProvider<
     const descendantElements: IFieldResolver<IRef, unknown> = (parent) =>
       getDescendantElements(neo4jService, ogmService, parent)
 
-    const types: IFieldResolver<IRef, unknown> = (parent) =>
+    const dependantTypes: IFieldResolver<IRef, unknown> = (parent) =>
       neo4jService.withReadTransaction(async (txn) => {
         const elements = await ogmService.Element.find({
           selectionSet: `{ ${elementSelectionSet} }`,
@@ -45,98 +44,108 @@ export const ElementResolverProvider: FactoryProvider<
           id: apiId,
         })
 
-        const getType = async (typeName: string, typeId: string) => {
-          switch (typeName) {
-            case ITypeKind.ArrayType:
-              return ogmService.ArrayType.find({
-                selectionSet: `{ ${exportArrayTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+        const getTypes = (
+          typesList: Array<{ id: string; typeName: string }>,
+        ) => {
+          const promises = []
 
-            case ITypeKind.EnumType:
-              return ogmService.EnumType.find({
-                selectionSet: `{ ${exportEnumTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          const getByType = (typeName: string) =>
+            typesList
+              .filter((type) => type.typeName === typeName)
+              .map((type) => type.id)
 
-            case ITypeKind.InterfaceType:
-              return ogmService.InterfaceType.find({
-                selectionSet: `{ ${exportInterfaceTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.ArrayType.find({
+              selectionSet: `{ ${exportArrayTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.ArrayType) },
+            }),
+          )
 
-            case ITypeKind.UnionType:
-              return ogmService.UnionType.find({
-                selectionSet: `{ ${exportUnionTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.EnumType.find({
+              selectionSet: `{ ${exportEnumTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.EnumType) },
+            }),
+          )
 
-            case ITypeKind.PrimitiveType:
-              return ogmService.PrimitiveType.find({
-                selectionSet: `{ ${exportPrimitiveTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.InterfaceType.find({
+              selectionSet: `{ ${exportInterfaceTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.InterfaceType) },
+            }),
+          )
 
-            case ITypeKind.ReactNodeType:
-              return ogmService.ReactNodeType.find({
-                selectionSet: `{ ${exportReactNodeTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.UnionType.find({
+              selectionSet: `{ ${exportUnionTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.UnionType) },
+            }),
+          )
 
-            case ITypeKind.RenderPropType:
-              return ogmService.RenderPropType.find({
-                selectionSet: `{ ${exportRenderPropTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.PrimitiveType.find({
+              selectionSet: `{ ${exportPrimitiveTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.PrimitiveType) },
+            }),
+          )
 
-            case ITypeKind.ActionType:
-              return ogmService.ActionType.find({
-                selectionSet: `{ ${exportActionTypeSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.ReactNodeType.find({
+              selectionSet: `{ ${exportReactNodeTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.ReactNodeType) },
+            }),
+          )
 
-            case ITypeKind.ElementType:
-              return ogmService.ElementType.find({
-                selectionSet: `{ ${exportElementSelectionSet} }`,
-                where: { id: typeId },
-              })
+          promises.push(
+            ogmService.RenderPropType.find({
+              selectionSet: `{ ${exportRenderPropTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.RenderPropType) },
+            }),
+          )
 
-            default:
-              throw new Error(`Unknown type: ${typeName} = ${typeId}`)
-          }
+          promises.push(
+            ogmService.ActionType.find({
+              selectionSet: `{ ${exportActionTypeSelectionSet} }`,
+              where: { id_IN: getByType(ITypeKind.ActionType) },
+            }),
+          )
+
+          return promises
         }
 
-        const getFieldType = async (id: string) => {
-          const fields = await ogmService.Field.find({
-            selectionSet: `{ ${fieldSelectionSet} }`,
-            where: { id },
-          })
+        const typesAndFields = records.map((rec) => ({
+          id: rec.get(0).id,
+          typeName: rec.get(0).__typename,
+        }))
 
-          const field = fields[0]!
-
-          return getType(field.fieldType.kind, field.fieldType.id)
-        }
-
-        const dependentTypes = await Promise.all(
-          records.map(async (record) => {
-            const typeId = record.get(0).id
-            const typeName = record.get(0).__typename
-
-            if (typeName === 'Field') {
-              return getFieldType(typeId)
-            }
-
-            return getType(typeName, typeId)
-          }),
+        const typesList = typesAndFields.filter(
+          (type) => type.typeName !== 'Field',
         )
+
+        const fieldsList = typesAndFields.filter(
+          (type) => type.typeName === 'Field',
+        )
+
+        const fields = await ogmService.Field.find({
+          selectionSet: `{ ${fieldSelectionSet} }`,
+          where: { id_IN: fieldsList.map((field) => field.id) },
+        })
+
+        const fieldTypesList = fields.map((field) => ({
+          id: field.fieldType.id,
+          typeName: field.fieldType.kind,
+        }))
+
+        const allTypes = [...typesList, ...fieldTypesList]
+        const dependentTypes = await Promise.all(getTypes(allTypes))
 
         return dependentTypes.flat()
       })
 
     return {
       Element: {
+        dependantTypes,
         descendantElements,
-        types,
       },
     }
   },

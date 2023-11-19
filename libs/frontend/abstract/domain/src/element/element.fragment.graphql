@@ -53,7 +53,7 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  types {
+  dependantTypes {
     ...Type
   }
 }
@@ -113,7 +113,7 @@ fragment ElementProduction on Element {
   }
   style
   tailwindClassNames
-  types {
+  dependantTypes {
     ...Type
   }
 }

@@ -3774,7 +3774,7 @@ export type Element = {
   renderIfExpression?: Maybe<Scalars['String']['output']>
   descendantElements: Array<Element>
   closestContainerNode: ContainerNode
-  types: Array<AnyType>
+  dependantTypes: Array<AnyType>
   nextSiblingAggregate?: Maybe<ElementElementNextSiblingAggregationSelection>
   nextSibling?: Maybe<Element>
   prevSiblingAggregate?: Maybe<ElementElementPrevSiblingAggregationSelection>

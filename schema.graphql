@@ -6580,6 +6580,7 @@ type Element {
   childMapperPropKey: String
   closestContainerNode: ContainerNode!
   compositeKey: String!
+  dependantTypes: [AnyType!]!
   descendantElements: [Element!]!
   firstChild(
     directed: Boolean = true
@@ -6727,7 +6728,6 @@ type Element {
   slug: String!
   style: String
   tailwindClassNames: [String!]
-  types: [AnyType!]!
 }
 
 type ElementAggregateSelection {

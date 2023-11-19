@@ -55,6 +55,6 @@ export const elementSchema = gql`
     # This is a custom field resolver
     descendantElements: [Element!]!
     closestContainerNode: ContainerNode!
-    types: [AnyType!]! @customResolver(requires: "id")
+    dependantTypes: [AnyType!]! @customResolver(requires: "id")
   }
 `

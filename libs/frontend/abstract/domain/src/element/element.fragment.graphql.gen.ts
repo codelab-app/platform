@@ -58,7 +58,7 @@ export type ElementFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
     | { __typename: 'Component'; id: string }
-  types: Array<
+  dependantTypes: Array<
     | Type_ActionType_Fragment
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
@@ -104,7 +104,7 @@ export type ElementProductionFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomProductionFragment)
     | { __typename: 'Component'; id: string }
-  types: Array<
+  dependantTypes: Array<
     | Type_ActionType_Fragment
     | Type_AppType_Fragment
     | Type_ArrayType_Fragment
@@ -177,7 +177,7 @@ export const ElementFragmentDoc = gql`
     }
     style
     tailwindClassNames
-    types {
+    dependantTypes {
       ...Type
     }
   }
@@ -241,7 +241,7 @@ export const ElementProductionFragmentDoc = gql`
     }
     style
     tailwindClassNames
-    types {
+    dependantTypes {
       ...Type
     }
   }
