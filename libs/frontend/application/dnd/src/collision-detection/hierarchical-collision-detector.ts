@@ -192,8 +192,8 @@ export class HierarchicalCollisionDetector {
     const isBeforeChild = this.isBefore(pointer, closestChild.rect)
 
     return {
-      after: isBeforeChild ? undefined : closestChild,
-      before: isBeforeChild ? closestChild : undefined,
+      after: isBeforeChild ? closestChild : undefined,
+      before: isBeforeChild ? undefined : closestChild,
     }
   }
 

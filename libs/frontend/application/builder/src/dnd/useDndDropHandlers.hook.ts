@@ -3,7 +3,8 @@ import type {
   BuilderDropData,
   IElementService,
 } from '@codelab/frontend/abstract/application'
-import type { IElementTree } from '@codelab/frontend/abstract/domain'
+import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import { type CollisionData } from '@codelab/frontend/application/dnd'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
@@ -13,11 +14,11 @@ import { DropLocation } from './drop-location'
 
 const getDropLocation = (collisionData: CollisionData) => {
   if (collisionData.childDroppableBeforePointer) {
-    return DropLocation.Before
+    return DropLocation.After
   }
 
   if (collisionData.childDroppableAfterPointer) {
-    return DropLocation.After
+    return DropLocation.Before
   }
 
   return DropLocation.Inside
@@ -30,8 +31,10 @@ export interface UseDndDropHandler {
 
 export const useDndDropHandler = (
   elementService: IElementService,
-  elementTree: Maybe<IElementTree>,
+  builderService: IBuilderDomainService,
 ): UseDndDropHandler => {
+  const elementTree = builderService.activeElementTree
+
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
@@ -102,50 +105,53 @@ export const useDndDropHandler = (
 
   const handleMoveElement = async (event: DragEndEvent) => {
     const draggedElementId = event.active.id.toString()
-    const draggedElement = elementService.element(draggedElementId)
-    const dropElementId = event.over?.id.toString()
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
 
+    const prevSiblingId =
+      collisionData?.childDroppableBeforePointer as Maybe<string>
+
+    const nextSiblingId =
+      collisionData?.childDroppableAfterPointer as Maybe<string>
+
+    const dropTargetId = event.over?.id.toString()
+
+    const parentElementId =
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
+        ? elementTree?.rootElement.current.id
+        : dropTargetId
+
     if (
-      !dropElementId ||
-      dropElementId === draggedElement.id ||
-      !collisionData
+      !parentElementId ||
+      !collisionData ||
+      prevSiblingId === draggedElementId ||
+      nextSiblingId === draggedElementId ||
+      !validateParentForMove(draggedElementId, parentElementId)
     ) {
       return
     }
 
-    const dropPosition = getDropLocation(collisionData)
-    const targetElement = elementService.element(dropElementId)
+    const draggedElement = elementService.element(draggedElementId)
+    const prevSibling = prevSiblingId && elementService.element(prevSiblingId)
+    const nextSibling = nextSiblingId && elementService.element(nextSiblingId)
+    const parentElement = elementService.element(parentElementId)
 
-    const parentId =
-      dropPosition === DropLocation.Inside
-        ? targetElement.id
-        : targetElement.parentElement?.id
-
-    if (!validateParentForMove(draggedElement.id, parentId)) {
-      return
-    }
-
-    // move the dragged element after the target element
-    if (dropPosition === DropLocation.After) {
+    if (prevSibling) {
       return await elementService.move({
         element: draggedElement,
-        prevSibling: targetElement,
+        prevSibling,
       })
     }
 
-    // move the dragged element before the target element
-    if (dropPosition === DropLocation.Before) {
+    if (nextSibling) {
       return await elementService.move({
         element: draggedElement,
-        nextSibling: targetElement,
+        nextSibling,
       })
     }
 
-    // move the dragged element inside the target element as a first child
     return await elementService.move({
       element: draggedElement,
-      parentElement: targetElement,
+      parentElement,
     })
   }
 

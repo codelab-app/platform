@@ -31,18 +31,22 @@ export const DropIndicator = () => {
   } = collision
 
   const dropIndicator = makeDropIndicatorDiv()
-  const beforeElement = droppableContainers.get(before)?.node.current
-  const afterElement = droppableContainers.get(after)?.node.current
+  const prevElement = droppableContainers.get(before)?.node.current
+  const nextElement = droppableContainers.get(after)?.node.current
+  const parentElement = prevElement?.parentElement || nextElement?.parentElement
 
-  const parentElement =
-    beforeElement?.parentElement || afterElement?.parentElement
-
-  if (parentElement && beforeElement) {
-    parentElement.insertBefore(dropIndicator, beforeElement)
+  if (parentElement && prevElement) {
+    /**
+     * insert indicator after previous element
+     */
+    parentElement.insertBefore(dropIndicator, prevElement.nextSibling)
   }
 
-  if (parentElement && afterElement) {
-    parentElement.insertBefore(dropIndicator, afterElement.nextSibling)
+  if (parentElement && nextElement) {
+    /**
+     * insert indicator before next element
+     */
+    parentElement.insertBefore(dropIndicator, nextElement)
   }
 
   return null

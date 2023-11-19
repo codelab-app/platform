@@ -49,7 +49,7 @@ export const RootRenderer = observer<
 
     return (
       <ErrorBoundary>
-        <MakeChildrenDroppable data={{}} id="#ABCDAB">
+        <MakeChildrenDroppable data={{}} id={ROOT_RENDER_CONTAINER_ID}>
           <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
             {rendererService.renderRoot(renderer)}
           </div>

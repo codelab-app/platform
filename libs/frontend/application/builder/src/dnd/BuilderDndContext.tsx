@@ -26,8 +26,7 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
 
   const { handleCreateElement, handleMoveElement } = useDndDropHandler(
     elementService,
-    // TODO: figure out of elementTree is needed here
-    undefined,
+    builderService,
   )
 
   const autoScroll = useMemo(
@@ -45,16 +44,14 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
     async (event: DragEndEvent) => {
       const data = event.active.data.current as Maybe<BuilderDragData>
 
-      const shouldCreate =
-        data?.action === BuilderDndAction.CreateElement &&
-        data.createElementInput !== undefined
+      switch (data?.action) {
+        case BuilderDndAction.CreateElement:
+          await handleCreateElement(event)
+          break
 
-      const shouldMove = data?.action === BuilderDndAction.MoveElement
-
-      if (shouldCreate) {
-        await handleCreateElement(event)
-      } else if (shouldMove) {
-        await handleMoveElement(event)
+        case BuilderDndAction.MoveElement:
+          await handleMoveElement(event)
+          break
       }
     },
     [builderService, elementService],
@@ -63,10 +60,10 @@ const BuilderDndContext = observer<PropsWithChildren>(({ children }) => {
   return (
     <DndContext
       // autoScroll={autoScroll}
-      // onDragEnd={onDragEnd}
       collisionDetection={hierarchicalCollisionDetector.detectCollisions.bind(
         hierarchicalCollisionDetector,
       )}
+      onDragEnd={onDragEnd}
     >
       {children}
 
