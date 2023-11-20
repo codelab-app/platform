@@ -1,7 +1,7 @@
 import { unregisterRootStore } from 'mobx-keystone'
 import { setupComponent, setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
-import { TestBed } from './setup/test-bed'
+import { TestBed } from './setup/testbed'
 
 let testbed: TestBed
 

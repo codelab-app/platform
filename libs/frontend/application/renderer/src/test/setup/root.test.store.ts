@@ -17,6 +17,7 @@ import {
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
+  storeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { AppService } from '@codelab/frontend/application/app'
@@ -37,10 +38,7 @@ import { ComponentDomainService } from '@codelab/frontend/domain/component'
 import { ElementDomainService } from '@codelab/frontend/domain/element'
 import { PageDomainService } from '@codelab/frontend/domain/page'
 import { createRootDomainStore } from '@codelab/frontend/domain/shared'
-import {
-  StoreDomainService,
-  storeDomainServiceContext,
-} from '@codelab/frontend/domain/store'
+import { StoreDomainService } from '@codelab/frontend/domain/store'
 import {
   FieldDomainService,
   TypeDomainService,
