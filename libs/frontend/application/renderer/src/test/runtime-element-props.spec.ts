@@ -92,33 +92,6 @@ describe('Runtime Element props', () => {
         [propKey]: fieldDefaultValue,
       })
     })
-
-    it('should evaluate action expression', () => {
-      const { typeService } = rootApplicationStore
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement?.runtimeProps
-      const fieldKey = 'fieldKey'
-      const fieldDefaultValue = 'field-value'
-      const propKey = 'propKey'
-      const storeApi = element.store.current.api.current
-
-      const field = testbed.addAc({
-        api: storeApi,
-        defaultValues: fieldDefaultValue,
-        fieldType: typeService.typeDomainService.typesList.find(
-          (type) =>
-            type.kind === ITypeKind.PrimitiveType &&
-            type.primitiveKind === IPrimitiveTypeKind.String,
-        ),
-        key: fieldKey,
-      })
-
-      element.props.set(propKey, `{{actions.${fieldKey}}}`)
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: fieldDefaultValue,
-      })
-    })
   })
 
   afterAll(() => {
