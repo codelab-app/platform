@@ -50,6 +50,11 @@ export const ComponentList = observer<{
             <MakeChildrenDraggable<BuilderDragData>
               data={{
                 action: BuilderDndAction.CreateElement,
+                elementRenderType: {
+                  __typename: component.__typename,
+                  id: component.id,
+                },
+                name: component.name,
               }}
               id={component.id}
             >

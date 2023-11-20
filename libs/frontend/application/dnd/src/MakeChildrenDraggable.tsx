@@ -1,17 +1,21 @@
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import type { WithInternalDragData } from './internal-drag-data.interface'
 import { useTypedDraggable } from './use-typed-draggable'
 
 interface MakeDraggableProps<DragDataType> {
+  /**
+   * otherwise the children are used for overlay
+   */
+  customOverlay?: ReactNode
   data: DragDataType
   id: string
   wrapper?: React.FC
-  // customOverlay // TODO:otherwise the children are used for overlay
 }
 
 export const MakeChildrenDraggable = <DragDataType,>({
   children,
+  customOverlay,
   data,
   id,
   wrapper,
@@ -24,7 +28,9 @@ export const MakeChildrenDraggable = <DragDataType,>({
     data: {
       ...data,
       internalUseOnlyDragData: {
-        overlayRenderer: () => <WrapperElement>{children}</WrapperElement>,
+        overlayRenderer: () => (
+          <WrapperElement>{customOverlay ?? children}</WrapperElement>
+        ),
       },
     },
     id,

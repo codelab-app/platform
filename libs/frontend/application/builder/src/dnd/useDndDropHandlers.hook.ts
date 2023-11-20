@@ -1,28 +1,15 @@
 import type {
   BuilderDragData,
-  BuilderDropData,
   IElementService,
 } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
-import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
-import { type CollisionData } from '@codelab/frontend/application/dnd'
+import type { CollisionData } from '@codelab/frontend/application/dnd'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
-import { DropLocation } from './drop-location'
-
-const getDropLocation = (collisionData: CollisionData) => {
-  if (collisionData.childDroppableBeforePointer) {
-    return DropLocation.After
-  }
-
-  if (collisionData.childDroppableAfterPointer) {
-    return DropLocation.Before
-  }
-
-  return DropLocation.Inside
-}
+import { v4 } from 'uuid'
 
 export interface UseDndDropHandler {
   handleCreateElement(event: DragEndEvent): Promise<void>
@@ -33,71 +20,65 @@ export const useDndDropHandler = (
   elementService: IElementService,
   builderService: IBuilderDomainService,
 ): UseDndDropHandler => {
-  const elementTree = builderService.activeElementTree
-
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
   const handleCreateElement = async (event: DragEndEvent) => {
-    const targetElementId = event.over?.id.toString()
-    const data = event.active.data.current as Maybe<BuilderDragData>
-    const overData = event.over?.data.current as Maybe<BuilderDropData>
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
-    const createElementInput = data?.createElementInput
+    const data = event.active.data.current as Maybe<BuilderDragData>
 
-    if (!elementTree) {
-      console.error('Element Tree is missing')
+    const prevSiblingId =
+      collisionData?.childDroppableBeforePointer as Maybe<string>
 
+    const nextSiblingId =
+      collisionData?.childDroppableAfterPointer as Maybe<string>
+
+    const dropTargetId = event.over?.id.toString()
+    const parentElementId = dropTargetId
+    const renderType = data?.elementRenderType
+
+    console.log('parent id: ', parentElementId)
+
+    if (
+      !parentElementId ||
+      !renderType ||
+      !collisionData ||
+      !data.name ||
+      !validateParentForCreate(renderType.id, parentElementId)
+    ) {
       return
     }
 
-    if (!targetElementId || !createElementInput || !collisionData) {
-      return
-    }
+    const parentElement = elementService.element(parentElementId)
+    const elementTree = parentElement.closestContainerNode
 
-    const dropPosition = getDropLocation(collisionData)
-    const targetElement = elementService.element(targetElementId)
-
-    // for not mutating the actual input from the components tab
-    const createElementDTO = {
-      ...createElementInput,
+    const createElementDTO: IElementDTO = {
+      closestContainerNode: {
+        id: parentElement.closestContainerNode.id,
+      },
+      id: v4(),
       name: makeAutoIncrementedName(
         elementTree.elements.map((element) => element.name),
-        createElementInput.name,
+        data.name,
       ),
-    }
-
-    const parentId =
-      dropPosition === DropLocation.Inside
-        ? targetElement.id
-        : targetElement.parentElement?.id
-
-    if (!validateParentForCreate(createElementDTO.renderType.id, parentId)) {
-      return
-    }
-
-    // create the new element after the target element
-    if (dropPosition === DropLocation.After && createElementDTO.prevSibling) {
-      createElementDTO.prevSibling.id = targetElement.id
-    }
-
-    // create the new element before the target element
-    if (dropPosition === DropLocation.Before) {
-      // if theres an element before the target, create the new element next to that
-      if (targetElement.prevSibling && createElementDTO.prevSibling) {
-        createElementDTO.prevSibling.id = targetElement.prevSibling.id
-      }
-
-      // if theres no element before the target, create the new element
-      // as the first child of the target's parent element
-      if (!targetElement.prevSibling && targetElement.parentElement?.id) {
-        createElementDTO.parentElement = targetElement.parentElement
-      }
-    }
-
-    // create the new element inside the target element as a first child
-    if (dropPosition === DropLocation.Inside) {
-      createElementDTO.parentElement = targetElement
+      nextSibling: nextSiblingId
+        ? {
+            id: nextSiblingId,
+          }
+        : undefined,
+      parentElement: {
+        id: parentElement.id,
+      },
+      prevSibling: prevSiblingId
+        ? {
+            id: prevSiblingId,
+          }
+        : undefined,
+      props: {
+        data: '{}',
+        id: v4(),
+      },
+      renderType,
     }
 
     await elementService.createElement(createElementDTO)
@@ -114,11 +95,7 @@ export const useDndDropHandler = (
       collisionData?.childDroppableAfterPointer as Maybe<string>
 
     const dropTargetId = event.over?.id.toString()
-
-    const parentElementId =
-      dropTargetId === ROOT_RENDER_CONTAINER_ID
-        ? elementTree?.rootElement.current.id
-        : dropTargetId
+    const parentElementId = dropTargetId
 
     if (
       !parentElementId ||
