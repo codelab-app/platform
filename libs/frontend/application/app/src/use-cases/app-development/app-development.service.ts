@@ -109,9 +109,6 @@ export class AppDevelopmentService
       .map((element) => element.dependantTypes)
       .flat()
 
-    console.log('elementDependantTypes', elementsDependantTypes)
-    console.log('data', data)
-
     const systemTypes = [
       ...data.primitiveTypes,
       ...data.reactNodeTypes,
