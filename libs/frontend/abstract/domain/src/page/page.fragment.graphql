@@ -38,6 +38,9 @@ fragment Page on Page {
     ...Store
   }
   url
+  elements {
+    ...Element
+  }
 }
 
 fragment PageDevelopment on Page {
@@ -61,6 +64,9 @@ fragment PageDevelopment on Page {
     ...Store
   }
   url
+  elements {
+    ...Element
+  }
 }
 
 fragment PageProduction on Page {
@@ -84,4 +90,7 @@ fragment PageProduction on Page {
     ...Store
   }
   url
+  elements {
+    ...ElementProduction
+  }
 }

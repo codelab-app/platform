@@ -32,6 +32,7 @@ export type PageFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
+  elements: Array<ElementFragment>
 }
 
 export type PageDevelopmentFragment = {
@@ -43,6 +44,7 @@ export type PageDevelopmentFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
+  elements: Array<ElementFragment>
 }
 
 export type PageProductionFragment = {
@@ -57,6 +59,7 @@ export type PageProductionFragment = {
     descendantElements: Array<ElementProductionFragment>
   } & ElementProductionFragment
   store: StoreFragment
+  elements: Array<ElementProductionFragment>
 }
 
 export const PagePreviewFragmentDoc = gql`
@@ -97,6 +100,9 @@ export const PageFragmentDoc = gql`
       ...Store
     }
     url
+    elements {
+      ...Element
+    }
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -122,6 +128,9 @@ export const PageDevelopmentFragmentDoc = gql`
       ...Store
     }
     url
+    elements {
+      ...Element
+    }
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -148,6 +157,9 @@ export const PageProductionFragmentDoc = gql`
       ...Store
     }
     url
+    elements {
+      ...ElementProduction
+    }
   }
   ${ElementProductionFragmentDoc}
   ${StoreFragmentDoc}

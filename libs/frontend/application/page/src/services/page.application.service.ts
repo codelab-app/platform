@@ -138,10 +138,7 @@ export class PageApplicationService
     /**
      * Need to fetch and delete all elements, since page only has references to the rootElement
      */
-    const elements = existingPages.flatMap((page) => [
-      page.rootElement,
-      ...page.rootElement.descendantElements,
-    ])
+    const elements = existingPages.flatMap((page) => page.elements)
 
     elements.forEach((element) =>
       this.elementService.elementDomainService.elements.delete(element.id),

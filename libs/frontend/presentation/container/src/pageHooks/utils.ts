@@ -92,12 +92,7 @@ export const loadAllTypesForElements = async (
         id_IN: componentsBatch,
       })
 
-      const componentElements = [
-        ...components.map((comp) => comp.rootElement.current),
-        ...flatMap(
-          components.map((comp) => comp.rootElement.current.descendantElements),
-        ),
-      ]
+      const componentElements = flatMap(components.map((comp) => comp.elements))
 
       loadedComponentElements.push(...componentElements)
 
