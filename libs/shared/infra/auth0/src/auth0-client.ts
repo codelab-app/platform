@@ -1,4 +1,4 @@
-import { initAuth0 } from '@auth0/nextjs-auth0/edge'
+import * as auth0 from '@auth0/nextjs-auth0/edge'
 import { getEnv } from '@codelab/shared/config'
 
 /**
@@ -7,7 +7,7 @@ import { getEnv } from '@codelab/shared/config'
  * Cypress manages env differently
  */
 export const auth0Instance = () => {
-  return initAuth0({
+  return auth0.initAuth0({
     baseURL: getEnv().auth0.baseUrl,
     clientID: getEnv().auth0.clientId,
     clientSecret: getEnv().auth0.clientSecret,

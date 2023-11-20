@@ -23,73 +23,91 @@ export const connectUniformSubmitRef =
     }
   }
 
-const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
+class AjvSingleton {
+  private static instance: Ajv | null
 
-addFormats(ajv)
-addKeywords(ajv, ['typeof', 'transform'])
-// we can add custom type definitions here that may be too complex to do in the actual schema
-ajv.addSchema({
-  $id: 'customTypes',
-  definitions: {
-    // this allows validation on array or object type that references itself
-    fieldDefaultValues: {
-      anyOf: [
-        {
-          type: 'string',
+  private constructor() {}
+
+  public static getInstance(): Ajv {
+    if (!AjvSingleton.instance) {
+      AjvSingleton.instance = AjvSingleton.init()
+    }
+
+    return AjvSingleton.instance
+  }
+
+  private static init() {
+    const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
+
+    addFormats(ajv)
+    addKeywords(ajv, ['typeof', 'transform'])
+    // we can add custom type definitions here that may be too complex to do in the actual schema
+    ajv.addSchema({
+      $id: 'customTypes',
+      definitions: {
+        // this allows validation on array or object type that references itself
+        fieldDefaultValues: {
+          anyOf: [
+            {
+              type: 'string',
+            },
+            {
+              type: 'boolean',
+            },
+            {
+              type: ['number', 'integer'],
+            },
+            {
+              items: { $ref: '#/definitions/fieldDefaultValues' },
+              type: 'array',
+            },
+            {
+              patternProperties: {
+                '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
+              },
+              type: 'object',
+            },
+          ],
         },
-        {
-          type: 'boolean',
+        // Adding these definitions here to avoid type errors because
+        // JSONSchemaType does not support unions although json schema does
+        fieldDefaultValuesOrNullableFieldDefaultValues: {
+          anyOf: [
+            {
+              $ref: '#/definitions/fieldDefaultValues',
+            },
+            {
+              $ref: '#/definitions/nullableFieldDefaultValues',
+            },
+          ],
         },
-        {
-          type: ['number', 'integer'],
+        nullableFieldDefaultValues: {
+          anyOf: [
+            {
+              $ref: '#/definitions/fieldDefaultValues',
+            },
+            {
+              type: 'null',
+            },
+          ],
         },
-        {
-          items: { $ref: '#/definitions/fieldDefaultValues' },
-          type: 'array',
-        },
-        {
-          patternProperties: {
-            '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
-          },
-          type: 'object',
-        },
-      ],
-    },
-    // Adding these definitions here to avoid type errors because
-    // JSONSchemaType does not support unions although json schema does
-    fieldDefaultValuesOrNullableFieldDefaultValues: {
-      anyOf: [
-        {
-          $ref: '#/definitions/fieldDefaultValues',
-        },
-        {
-          $ref: '#/definitions/nullableFieldDefaultValues',
-        },
-      ],
-    },
-    nullableFieldDefaultValues: {
-      anyOf: [
-        {
-          $ref: '#/definitions/fieldDefaultValues',
-        },
-        {
-          type: 'null',
-        },
-      ],
-    },
-  },
-})
-ajv.addKeyword({
-  errors: false,
-  keyword: 'forbiddenValues',
-  schema: true,
-  validate: (forbiddenValues: Array<string>, data: string) => {
-    return !forbiddenValues.includes(data)
-  },
-})
+      },
+    })
+    ajv.addKeyword({
+      errors: false,
+      keyword: 'forbiddenValues',
+      schema: true,
+      validate: (forbiddenValues: Array<string>, data: string) => {
+        return !forbiddenValues.includes(data)
+      },
+    })
+
+    return ajv
+  }
+}
 
 export const createValidator = (schema: Schema, state?: IPropData) => {
-  const validator = ajv.compile(schema)
+  const validator = AjvSingleton.getInstance().compile(schema)
 
   return (model: Record<string, unknown>) => {
     const context: IEvaluationContext = {

@@ -16,16 +16,25 @@ export default auth0Instance().handleAuth({
             throw new Error('Missing access token')
           }
 
+          console.log(
+            `process.env['NX_CYPRESS_TARGET_CONFIGURATION']`,
+            process.env['NX_CYPRESS_TARGET_CONFIGURATION'],
+          )
+
           // Can't find other way to see if we're running in Cypress
           if (process.env['NX_CYPRESS_TARGET_CONFIGURATION']) {
             return session
           }
+
+          console.log(`process.env['NODE_ENV']`, process.env['NODE_ENV'])
 
           // in production we don't want to seed the database
           // each time any user logs-in
           if (process.env['NODE_ENV'] !== 'development') {
             return session
           }
+
+          console.log('setup-dev')
 
           /**
            * Cannot call frontend proxy here, since session is not created yet
