@@ -45,6 +45,7 @@ jobs:
             - master
       requires:
         - setup-workspace
+        - codegen
   - e2e:
       filters:
         branches:

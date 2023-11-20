@@ -13,7 +13,7 @@ export class Neo4jService {
     const session = this.driver.session()
 
     return session
-      .executeWrite((txn) => readTransaction(txn))
+      .executeRead((txn) => readTransaction(txn))
       .catch((error) => {
         console.error(error)
         throw error

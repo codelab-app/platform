@@ -5139,6 +5139,7 @@ export type Component = WithOwner & {
   childrenContainerElement: Element
   childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
   childrenContainerElementConnection: ComponentChildrenContainerElementConnection
+  elements: Array<Element>
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   owner: User
@@ -13432,6 +13433,7 @@ export type Page = {
   appAggregate?: Maybe<PageAppAppAggregationSelection>
   appConnection: PageAppConnection
   compositeKey: Scalars['String']['output']
+  elements: Array<Element>
   id: Scalars['ID']['output']
   kind: PageKind
   name: Scalars['String']['output']
@@ -21121,11 +21123,11 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
+  components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
-  components: Array<ComponentDevelopmentFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{
