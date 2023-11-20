@@ -176,11 +176,6 @@ export class RuntimeElementProps
   }
 
   @computed
-  get evaluatedPropsBeforeRender() {
-    return evaluateObject(this.props, this.propsEvaluationContext)
-  }
-
-  @computed
   get props() {
     // memorize values or else it will be lost inside callback
     const registerReference = isAtomRef(this.element.renderType)

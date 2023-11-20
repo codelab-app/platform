@@ -28,10 +28,6 @@ export interface IBaseRuntimeProps {
    */
   evaluatedProps: IPropData
   /**
-   * Props after substituting state expression used for form validation
-   */
-  evaluatedPropsBeforeRender: IPropData
-  /**
    * The props used for evaluating expressions, which includes `evaluatedProps`
    */
   expressionEvaluationContext: IEvaluationContext

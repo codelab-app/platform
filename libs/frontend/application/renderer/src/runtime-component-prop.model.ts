@@ -131,21 +131,6 @@ export class RuntimeComponentProps
   }
 
   @computed
-  get evaluatedPropsBeforeRender() {
-    return evaluateObject(this.props, {
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: this.runtimeStore.state,
-      url: {},
-    })
-  }
-
-  @computed
   get instanceElementProps(): Maybe<IPropData> {
     const parentRuntimeContainerNodeRef = this.runtimeContainerNode.parentRef
 

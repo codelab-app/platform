@@ -4,7 +4,7 @@ import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { PropsForm } from '@codelab/frontend/application/type'
-import { getDefaultFieldProps, mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import { loadAllTypesForElements } from '@codelab/frontend/presentation/container'
 import { Spinner } from '@codelab/frontend/presentation/view'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -50,10 +50,11 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const onSubmit = (data: IPropData) => {
       const props = element.current.props
+      const renderTypeApi = currentElement.renderType.current.api.current
 
       return propService.updateWithDefaultValuesApplied(props, {
         data,
-        defaultValues: getDefaultFieldProps(currentElement.renderType.current),
+        defaultValues: renderTypeApi.defaultValues,
         id: props.id,
       })
     }
