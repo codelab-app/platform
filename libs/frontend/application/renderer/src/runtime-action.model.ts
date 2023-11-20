@@ -184,7 +184,7 @@ export class RuntimeActionModel
   }
 
   @computed
-  runner() {
+  get runner() {
     return this.actionRef.current.type === IActionKind.ApiAction
       ? this.apiRunner.bind(this.runtimeContext)
       : this.codeRunner.bind(this.runtimeContext)
