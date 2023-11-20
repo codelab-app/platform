@@ -209,12 +209,12 @@ export class RuntimeElementProps
       : {}
 
     return {
-      actions: this.runtimeStore.runtimeActions,
+      actions: this.runtimeStore.actionRunnersMap,
       componentProps: componentProps ?? {},
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
-      rootActions: this.providerStore?.runtimeActions ?? {},
+      rootActions: this.providerStore?.actionRunnersMap ?? {},
       rootRefs: this.providerStore?.refs ?? {},
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,

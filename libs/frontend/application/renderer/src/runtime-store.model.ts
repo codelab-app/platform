@@ -108,6 +108,17 @@ export class RuntimeStoreModel
   }
 
   @computed
+  get actionRunnersMap() {
+    return this.runtimeActionsList.reduce(
+      (all, current) => ({
+        ...all,
+        [current.action.name]: current.runner,
+      }),
+      {},
+    )
+  }
+
+  @computed
   get refKeys(): Array<string> {
     const elementTree =
       this.store.page?.current || this.store.component?.current

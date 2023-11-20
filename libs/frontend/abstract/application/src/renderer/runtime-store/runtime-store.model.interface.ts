@@ -5,6 +5,7 @@ import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
 import type { IRuntimeActionModel } from '../runtime-action'
 
 export interface IRuntimeStoreModel extends AnyModel {
+  actionRunnersMap: IPropData
   id: string
   jsonString: string
   refs: IPropData
