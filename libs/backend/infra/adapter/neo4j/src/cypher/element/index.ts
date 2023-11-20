@@ -1,11 +1,11 @@
 import duplicateElement from './duplicateElement.cypher'
 import getClosestContainerNodeCypher from './getClosestContainerNode.cypher'
 import getDescendantsCypher from './getDescendants.cypher'
-import getElementTypes from './getElementTypes.cypher'
+import getElementDependantTypes from './getElementDependantTypes.cypher'
 
 export {
   duplicateElement,
   getClosestContainerNodeCypher,
   getDescendantsCypher,
-  getElementTypes,
+  getElementDependantTypes,
 }
