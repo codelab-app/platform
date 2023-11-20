@@ -130,7 +130,7 @@ export const getDependantTypes = (
             ITypeKind.ReactNodeType,
             ITypeKind.RenderPropType,
             ITypeKind.PrimitiveType,
-            // ITypeKind.ActionType,
+            ITypeKind.ActionType,
           ].includes(field.fieldType.kind),
       )
       .map((field) => ({

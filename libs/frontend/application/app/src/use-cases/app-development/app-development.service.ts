@@ -116,6 +116,7 @@ export class AppDevelopmentService
       ...data.primitiveTypes,
       ...data.reactNodeTypes,
       ...data.renderPropTypes,
+      ...data.actionTypes,
     ]
 
     const fields = types.flatMap((type) => type.fields)

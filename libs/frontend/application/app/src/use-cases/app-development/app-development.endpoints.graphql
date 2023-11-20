@@ -27,6 +27,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   renderPropTypes {
     ...RenderPropType
   }
+  actionTypes {
+    ...ActionType
+  }
   resources {
     ...Resource
   }
