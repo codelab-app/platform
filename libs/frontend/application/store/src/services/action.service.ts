@@ -1,6 +1,5 @@
 import { type IActionService } from '@codelab/frontend/abstract/application'
 import {
-  actionRef,
   type IActionModel,
   type IActionWhere,
   type ICreateActionData,
@@ -12,7 +11,7 @@ import { getTypeService } from '@codelab/frontend/application/type'
 import {
   ActionDomainService,
   ActionFactory,
-} from '@codelab/frontend/domain/store'
+} from '@codelab/frontend/domain/action'
 import type { IActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -62,10 +61,6 @@ export class ActionService
     const action = this.actionDomainService.hydrate(
       ActionFactory.mapDataToDTO(data),
     )
-
-    const store = action.store.current
-
-    store.actions.push(actionRef(action))
 
     yield* _await(this.actionRepository.add(action))
 

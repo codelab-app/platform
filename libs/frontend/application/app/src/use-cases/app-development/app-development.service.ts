@@ -10,9 +10,9 @@ import {
   getElementDomainService,
   getFieldDomainService,
   getPageDomainService,
+  getStoreDomainService,
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
-import { getStoreDomainService } from '@codelab/frontend/domain/store'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { AppProperties } from '@codelab/shared/domain/mapper'

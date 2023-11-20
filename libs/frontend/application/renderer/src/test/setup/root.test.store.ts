@@ -10,6 +10,7 @@ import type {
   IRootDomainStoreDto,
 } from '@codelab/frontend/abstract/domain'
 import {
+  actionDomainServiceContext,
   appDomainServiceContext,
   atomDomainServiceContext,
   componentDomainServiceContext,
@@ -24,7 +25,10 @@ import { ComponentApplicationService } from '@codelab/frontend/application/compo
 import { ElementService } from '@codelab/frontend/application/element'
 import { PageApplicationService } from '@codelab/frontend/application/page'
 import { createRootApplicationStore } from '@codelab/frontend/application/shared/store'
-import { StoreService } from '@codelab/frontend/application/store'
+import {
+  ActionService,
+  StoreService,
+} from '@codelab/frontend/application/store'
 import { FieldService, TypeService } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
 import { AppDomainService } from '@codelab/frontend/domain/app'
@@ -78,6 +82,7 @@ export const rootDomainStore = createRootDomainStore(
 
 export const rootApplicationStore = createRootApplicationStore({
   context: {
+    actionDomainServiceContext,
     appDomainServiceContext,
     atomDomainServiceContext,
     componentDomainServiceContext,
@@ -92,6 +97,7 @@ export const rootApplicationStore = createRootApplicationStore({
     userDomainServiceContext,
   },
   store: {
+    actionService: new ActionService({}),
     appService: new AppService({}),
     atomService: new AtomService({}),
     componentService: new ComponentApplicationService({}),

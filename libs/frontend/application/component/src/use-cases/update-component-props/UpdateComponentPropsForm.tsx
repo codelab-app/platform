@@ -2,7 +2,7 @@ import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { PropsForm } from '@codelab/frontend/application/type'
-import { getDefaultFieldProps, mergeProps } from '@codelab/frontend/domain/prop'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import { Spinner } from '@codelab/frontend/presentation/view'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'
@@ -40,7 +40,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     // We only set the `defaultValues` as an initial value, not as `defaultValue` in the schema
     // so that the value of `defaultValues` wont show when the field is cleared
     const propsModel = mergeProps(
-      getDefaultFieldProps(component),
+      component.api.current.defaultValues,
       component.props.values,
     )
 

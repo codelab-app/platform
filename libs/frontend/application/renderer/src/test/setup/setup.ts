@@ -7,7 +7,7 @@ import {
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { defaultPipes, renderPipeFactory } from '../../renderPipes'
 import { rootApplicationStore } from './root.test.store'
-import type { TestBed } from './test-bed'
+import type { TestBed } from './testbed'
 
 export const setupPage = (testbed: TestBed) => {
   const pageId = 'page-id'

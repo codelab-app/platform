@@ -1,4 +1,5 @@
 import type {
+  IActionDomainService,
   IAppDomainService,
   IAtomDomainService,
   IBuilderDomainService,
@@ -75,6 +76,7 @@ export interface IRootStore {
 type MaybeContext<T> = Context<T | undefined>
 
 export interface IRootStoreContext {
+  actionDomainServiceContext: MaybeContext<IActionDomainService>
   actionServiceContext: MaybeContext<IActionService>
   appDomainServiceContext: MaybeContext<IAppDomainService>
   appServiceContext: MaybeContext<IAppService>

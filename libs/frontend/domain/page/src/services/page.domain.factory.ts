@@ -5,12 +5,13 @@ import type {
 import {
   getElementDomainService,
   getPageDomainService,
+  getStoreDomainService,
   getUserDomainService,
   IAppModel,
   ICreatePageData,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { getStoreDomainService, Store } from '@codelab/frontend/domain/store'
+import { Store } from '@codelab/frontend/domain/store'
 import {
   getTypeDomainService,
   InterfaceType,

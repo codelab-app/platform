@@ -1,12 +1,10 @@
 import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
 import {
-  isTypedProp,
   STATE_PATH_TEMPLATE_END_REGEX,
   STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START_REGEX,
 } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 import {
@@ -26,24 +24,7 @@ export const evaluateObject = (
   return mapDeep(
     props,
     // value mapper
-    (value) => {
-      if (isString(value)) {
-        return getByExpression(value, context)
-      }
-
-      // ReactNodeType can accept a string and will be rendered as a normal html node
-      // FIXME: this validation should be in transformer
-      if (
-        isTypedProp(value) &&
-        value.kind === ITypeKind.ReactNodeType &&
-        isString(value.value) &&
-        hasStateExpression(value.value)
-      ) {
-        return value.value
-      }
-
-      return value
-    },
+    (value) => (isString(value) ? getByExpression(value, context) : value),
     // key mapper
     (_, key) => (isString(key) ? getByExpression(key, context) : key) as string,
   )

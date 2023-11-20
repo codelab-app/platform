@@ -174,7 +174,7 @@ export class CloneElementService
     // Duplicate actions into the component store
     const clonedActions = await Promise.all(
       elementStore.actions.map((action) =>
-        this.actionService.cloneAction(action.current, componentStore.id),
+        this.actionService.cloneAction(action, componentStore.id),
       ),
     )
 

@@ -12,6 +12,7 @@ import type {
 import {
   elementRef,
   getAtomDomainService,
+  getStoreDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -19,7 +20,7 @@ import {
   ModalService,
 } from '@codelab/frontend/application/shared/store'
 import { PageDomainService } from '@codelab/frontend/domain/page'
-import { getStoreDomainService, Store } from '@codelab/frontend/domain/store'
+import { Store } from '@codelab/frontend/domain/store'
 import {
   getTypeDomainService,
   InterfaceType,
