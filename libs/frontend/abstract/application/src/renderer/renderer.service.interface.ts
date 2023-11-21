@@ -1,6 +1,7 @@
 import type {
   IComponentModel,
   IElementModel,
+  IElementTree,
   IHydrateable,
   IPageModel,
   IStoreModel,
@@ -16,6 +17,7 @@ import type { IRuntimeStoreModel } from './runtime-store'
 
 export interface IRendererService
   extends IHydrateable<IRendererDto, IRendererModel> {
+  activeElementTree: Maybe<IElementTree>
   activeRenderer: Nullable<Ref<IRendererModel>>
   renderers: ObjectMap<IRendererModel>
 

@@ -1,8 +1,9 @@
 import type {
   BuilderDragData,
   IElementService,
+  IRendererService,
 } from '@codelab/frontend/abstract/application'
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { CollisionData } from '@codelab/frontend/application/dnd'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
@@ -18,7 +19,7 @@ export interface UseDndDropHandler {
 
 export const useDndDropHandler = (
   elementService: IElementService,
-  builderService: IBuilderDomainService,
+  rendererService: IRendererService,
 ): UseDndDropHandler => {
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
@@ -26,6 +27,7 @@ export const useDndDropHandler = (
   const handleCreateElement = async (event: DragEndEvent) => {
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
     const data = event.active.data.current as Maybe<BuilderDragData>
+    const activeElementTree = rendererService.activeElementTree
 
     const prevSiblingId =
       collisionData?.childDroppableBeforePointer as Maybe<string>
@@ -34,12 +36,15 @@ export const useDndDropHandler = (
       collisionData?.childDroppableAfterPointer as Maybe<string>
 
     const dropTargetId = event.over?.id.toString()
-    const parentElementId = dropTargetId
     const renderType = data?.elementRenderType
 
-    console.log('parent id: ', parentElementId)
+    const parentElementId =
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
+        ? activeElementTree?.rootElement.current.id
+        : dropTargetId
 
     if (
+      !activeElementTree ||
       !parentElementId ||
       !renderType ||
       !collisionData ||
@@ -50,7 +55,6 @@ export const useDndDropHandler = (
     }
 
     const parentElement = elementService.element(parentElementId)
-    const elementTree = parentElement.closestContainerNode
 
     const createElementDTO: IElementDTO = {
       closestContainerNode: {
@@ -58,7 +62,7 @@ export const useDndDropHandler = (
       },
       id: v4(),
       name: makeAutoIncrementedName(
-        elementTree.elements.map((element) => element.name),
+        activeElementTree.elements.map((element) => element.name),
         data.name,
       ),
       nextSibling: nextSiblingId
@@ -87,6 +91,7 @@ export const useDndDropHandler = (
   const handleMoveElement = async (event: DragEndEvent) => {
     const draggedElementId = event.active.id.toString()
     const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
+    const activeElementTree = rendererService.activeElementTree
 
     const prevSiblingId =
       collisionData?.childDroppableBeforePointer as Maybe<string>
@@ -95,7 +100,13 @@ export const useDndDropHandler = (
       collisionData?.childDroppableAfterPointer as Maybe<string>
 
     const dropTargetId = event.over?.id.toString()
-    const parentElementId = dropTargetId
+
+    const parentElementId =
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
+        ? activeElementTree?.rootElement.current.id
+        : dropTargetId
+
+    const draggedElement = elementService.element(draggedElementId)
 
     if (
       !parentElementId ||
@@ -107,29 +118,30 @@ export const useDndDropHandler = (
       return
     }
 
-    const draggedElement = elementService.element(draggedElementId)
     const prevSibling = prevSiblingId && elementService.element(prevSiblingId)
     const nextSibling = nextSiblingId && elementService.element(nextSiblingId)
     const parentElement = elementService.element(parentElementId)
 
-    if (prevSibling) {
+    if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
       return await elementService.move({
         element: draggedElement,
         prevSibling,
       })
     }
 
-    if (nextSibling) {
+    if (nextSibling && draggedElement.nextSibling?.id !== nextSiblingId) {
       return await elementService.move({
         element: draggedElement,
         nextSibling,
       })
     }
 
-    return await elementService.move({
-      element: draggedElement,
-      parentElement,
-    })
+    if (draggedElement.closestParentElement?.id !== parentElementId) {
+      return await elementService.move({
+        element: draggedElement,
+        parentElement,
+      })
+    }
   }
 
   return {

@@ -1,9 +1,6 @@
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import {
-  type IComponentType,
-  ROOT_RENDER_CONTAINER_ID,
-} from '@codelab/frontend/abstract/domain'
+import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { MakeComponentDroppable } from '@codelab/frontend/application/dnd'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
@@ -92,9 +89,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           }}
           data={{}}
           id={element.id}
-          parentDroppableContainerId={
-            element.closestParentElement?.current.id || ROOT_RENDER_CONTAINER_ID
-          }
+          parentDroppableContainerId={element.closestParentElement?.current.id}
         >
           {children}
         </MakeComponentDroppable>
