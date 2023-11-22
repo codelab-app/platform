@@ -3,4 +3,4 @@
 MATCH (this {id: $id})
 -[:ARRAY_ITEM_TYPE|INTERFACE_FIELD|FIELD_TYPE|UNION_TYPE_CHILD*1..10]->(type)
 WHERE NOT type.id = $id AND NOT (type:PrimitiveType OR type:ReactNodeType OR type:ActionType OR type:RenderPropType)
-RETURN {id: type.id, __typename: LAST(labels(type))}
+RETURN DISTINCT {id: type.id, __typename: LAST(labels(type))}
