@@ -39,8 +39,9 @@ export const exportActionTypeSelectionSet = `
 export const exportArrayTypeSelectionSet = `
   ${exportBaseTypeSelection}
   itemType {
-    id
-    kind
+    ... on IBaseType {
+      ${exportBaseTypeSelection}
+    }
   }
 `
 

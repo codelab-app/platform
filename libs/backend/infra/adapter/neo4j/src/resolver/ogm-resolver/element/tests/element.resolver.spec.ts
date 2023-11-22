@@ -57,7 +57,7 @@ describe('ElementResolvers', () => {
     }
   })
 
-  it('should fetch a element', async () => {
+  it('should fetch Element.dependantTypes', async () => {
     const owner = (
       await ogmService.User.create({
         input: [
@@ -155,7 +155,7 @@ describe('ElementResolvers', () => {
             id: v4(),
             name: 'Atom',
             owner: connectOwner(owner),
-            type: AtomType.ReactFragment,
+            type: AtomType.HtmlSpan,
           },
         ],
       })
@@ -211,10 +211,17 @@ describe('ElementResolvers', () => {
       })
       .expect(200)
       .expect(async ({ body }) => {
-        expect(body.data).not.toBeNull()
         expect(body.data.elements).toEqual([
           {
             dependantTypes: [
+              {
+                id: arrayType.id,
+                itemType: {
+                  id: unionType.id,
+                  name: unionType.name,
+                },
+                name: arrayType.name,
+              },
               {
                 id: enumTypes[0]!.id,
                 name: enumTypes[0]!.name,
@@ -223,6 +230,7 @@ describe('ElementResolvers', () => {
                 id: enumTypes[1]!.id,
                 name: enumTypes[1]!.name,
               },
+              {},
             ],
           },
         ])
