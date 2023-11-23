@@ -199,10 +199,10 @@ describe('ElementResolvers', () => {
                 ... on ArrayType {
                   id
                   name
-                  itemType {
-                    id
-                    name
-                  }
+                }
+                ... on UnionType {
+                  id
+                  name
                 }
               }
             }
@@ -216,10 +216,6 @@ describe('ElementResolvers', () => {
             dependantTypes: [
               {
                 id: arrayType.id,
-                itemType: {
-                  id: unionType.id,
-                  name: unionType.name,
-                },
                 name: arrayType.name,
               },
               {
@@ -230,7 +226,10 @@ describe('ElementResolvers', () => {
                 id: enumTypes[1]!.id,
                 name: enumTypes[1]!.name,
               },
-              {},
+              {
+                id: unionType.id,
+                name: unionType.name,
+              },
             ],
           },
         ])
