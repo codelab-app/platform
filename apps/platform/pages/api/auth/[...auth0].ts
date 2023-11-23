@@ -5,12 +5,17 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 export const config = {
   maxDuration: 60,
+  runtime: 'experimental-edge',
 }
 
-export default auth0Instance().handleAuth({
+const instance = auth0Instance()
+
+export default instance.handleAuth({
   callback: async (req: NextApiRequest, res: NextApiResponse) => {
+    console.log('callback')
+
     try {
-      await auth0Instance().handleCallback(req, res, {
+      await instance.handleCallback(req, res, {
         afterCallback: async (_req, _res, session, state) => {
           if (!session.accessToken) {
             throw new Error('Missing access token')
@@ -58,7 +63,8 @@ export default auth0Instance().handleAuth({
     }
   },
   login: async (req: NextApiRequest, res: NextApiResponse) => {
-    await auth0Instance().handleLogin(req, res, {
+    console.log('login')
+    await instance.handleLogin(req, res, {
       returnTo: new URL('/apps', getEnv().auth0.baseUrl).toString(),
     })
   },

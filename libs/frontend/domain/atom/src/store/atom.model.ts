@@ -26,7 +26,7 @@ import {
   codelabAtoms,
   htmlAtoms,
   reactAtoms,
-} from '@codelab/shared/config'
+} from '@codelab/shared/atom'
 import {
   connectNodeId,
   connectNodeIds,

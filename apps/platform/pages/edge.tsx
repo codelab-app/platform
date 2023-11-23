@@ -1,6 +1,4 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { logDatetime } from '@codelab/shared/infra/logging'
 import type { GetServerSidePropsContext } from 'next'
 import React from 'react'
@@ -23,4 +21,5 @@ AppsPage.Layout = ({ children }) => <>{children()}</>
 
 export const config = {
   maxDuration: 60,
+  runtime: 'experimental-edge',
 }

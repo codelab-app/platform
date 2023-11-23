@@ -345,6 +345,7 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
+      "@codelab/shared/atom": ["libs/shared/atom/src/index.ts"],
       "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],

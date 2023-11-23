@@ -2,6 +2,10 @@ import { getEnv } from '@codelab/shared/config'
 import type { NextApiHandler } from 'next'
 import url from 'url'
 
+export const config = {
+  runtime: 'experimental-edge',
+}
+
 export const vercelDomainProxy: NextApiHandler = async (req, res) => {
   const { vercel } = getEnv()
 
