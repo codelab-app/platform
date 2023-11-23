@@ -9,7 +9,7 @@ import type { IRuntimeComponentPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
 export interface IRuntimeContainerNodeDTO {
-  containerNodeRef: Ref<IComponentModel> | Ref<IPageModel>
+  containerNode: Ref<IComponentModel> | Ref<IPageModel>
   id: string
   parentRef?: IRuntimeModelRef
   runtimeProps?: IRuntimeComponentPropModel

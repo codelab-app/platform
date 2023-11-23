@@ -35,7 +35,7 @@ export const setupPage = (testbed: TestBed) => {
   })
 
   const renderer = testbed.render({
-    elementTree: page,
+    containerNode: page,
     rendererType: RendererType.PageBuilder,
     renderPipe: renderPipeFactory(defaultPipes),
   })
@@ -84,7 +84,7 @@ export const setupComponent = (testbed: TestBed) => {
   })
 
   const renderer = testbed.render({
-    elementTree: component,
+    containerNode: component,
     rendererType: RendererType.ComponentBuilder,
     renderPipe: renderPipeFactory(defaultPipes),
   })

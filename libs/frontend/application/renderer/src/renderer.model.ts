@@ -7,15 +7,18 @@ import type {
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import type {
-  IElementTree,
+  IComponentModel,
   IExpressionTransformer,
+  IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import { elementTreeRef } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { throwIfUndefined } from '@codelab/shared/utils'
+import {
+  componentRef,
+  isPage,
+  pageRef,
+} from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import { idProp, Model, model, prop } from 'mobx-keystone'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
 import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
@@ -37,10 +40,18 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = ({ elementTree, rendererType, urlSegments }: IRendererDto) => {
+const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
   return new Renderer({
-    elementTree: elementTreeRef(elementTree),
+    containerNode: isPage(containerNode)
+      ? pageRef(containerNode)
+      : componentRef(containerNode),
     rendererType,
+    runtimeRootContainerNode: RuntimeContainerNodeFactory.create({
+      containerNode:
+        isPage(containerNode) && containerNode.providerPage
+          ? containerNode.providerPage
+          : containerNode,
+    }),
     urlSegments,
   })
 }
@@ -49,13 +60,14 @@ const create = ({ elementTree, rendererType, urlSegments }: IRendererDto) => {
 export class Renderer
   extends Model({
     /**
+     * The tree that's being rendered, we assume that this is properly constructed
+     */
+    containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
+
+    /**
      * Will log the render output and render pipe info to the console
      */
     debugMode: prop(false).withSetter(),
-    /**
-     * The tree that's being rendered, we assume that this is properly constructed
-     */
-    elementTree: prop<Ref<IElementTree>>(),
     expressionTransformer: prop<IExpressionTransformer>(
       () => new ExpressionTransformer({}),
     ),
@@ -75,7 +87,7 @@ export class Renderer
      * it is used internally to avoid creating runtime elements each time
      * provides a way to attach runtime tree to the root store
      */
-    runtimeRootContainerNode: prop<Nullable<IRuntimeContainerNodeModel>>(null),
+    runtimeRootContainerNode: prop<IRuntimeContainerNodeModel>(),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -89,47 +101,15 @@ export class Renderer
   static create = create
 
   @computed
-  get page() {
-    return this.elementTree.current.rootElement.current.page?.current
-  }
-
-  @computed
-  get component() {
-    return this.elementTree.current.rootElement.current.parentComponent?.current
-  }
-
-  @computed
-  get containerNode() {
-    return throwIfUndefined(this.component ?? this.page)
-  }
-
-  @computed
   get rootElement() {
-    return this.elementTree.current.rootElement.current
+    return this.containerNode.current.rootElement.current
   }
 
   /**
    * This is the entry point to start the rendering process
    */
-  @modelAction
-  render() {
-    if (this.runtimeRootContainerNode) {
-      return this.runtimeRootContainerNode.render
-    }
-
-    // we render providerPage before page if exists
-    const containerNode = this.component ?? this.page?.providerPage ?? this.page
-
-    if (!containerNode) {
-      console.error('Renderer: No page or component found')
-
-      return null
-    }
-
-    this.runtimeRootContainerNode = RuntimeContainerNodeFactory.create({
-      containerNode,
-    })
-
+  @computed
+  get render() {
     return this.runtimeRootContainerNode.render
   }
 }

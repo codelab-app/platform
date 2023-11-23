@@ -3,7 +3,6 @@ import type {
   IRuntimeElementPropDTO,
   IRuntimeElementPropModel,
   IRuntimeModel,
-  IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
@@ -28,7 +27,6 @@ import {
 } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { type IPropData } from '@codelab/shared/abstract/core'
-import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import omit from 'lodash/omit'
@@ -51,9 +49,9 @@ const create = (dto: IRuntimeElementPropDTO) => new RuntimeElementProps(dto)
 @model('@codelab/RuntimeElementProps')
 export class RuntimeElementProps
   extends Model({
-    elementRef: prop<Ref<IElementModel>>(),
+    element: prop<Ref<IElementModel>>(),
     id: idProp,
-    runtimeElementRef: prop<Ref<IRuntimeElementModel>>(),
+    runtimeElement: prop<Ref<IRuntimeElementModel>>(),
     runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
   })
   implements IRuntimeElementPropModel
@@ -61,13 +59,8 @@ export class RuntimeElementProps
   static create = create
 
   @computed
-  get element() {
-    return this.elementRef.current
-  }
-
-  @computed
   get closestRuntimeContainerNode() {
-    return this.runtimeElementRef.current.closestRuntimeContainerNode
+    return this.runtimeElement.current.closestRuntimeContainerNode
   }
 
   @computed
@@ -76,8 +69,8 @@ export class RuntimeElementProps
   }
 
   @computed
-  get providerStore(): Maybe<IRuntimeStoreModel> {
-    return this.runtimeStore.runtimeProviderSore
+  get providerStore() {
+    return this.runtimeStore.runtimeProviderSore?.current
   }
 
   @computed
@@ -98,13 +91,13 @@ export class RuntimeElementProps
 
   @computed
   get evaluatedChildMapperProp() {
-    if (!this.element.childMapperPropKey) {
+    if (!this.element.current.childMapperPropKey) {
       return []
     }
 
-    if (hasStateExpression(this.element.childMapperPropKey)) {
+    if (hasStateExpression(this.element.current.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
-        this.element.childMapperPropKey,
+        this.element.current.childMapperPropKey,
         this.propsEvaluationContext,
       )
 
@@ -119,7 +112,7 @@ export class RuntimeElementProps
 
     const evaluatedChildMapperProp = get(
       this.expressionEvaluationContext,
-      this.element.childMapperPropKey,
+      this.element.current.childMapperPropKey,
     )
 
     if (!Array.isArray(evaluatedChildMapperProp)) {
@@ -151,7 +144,7 @@ export class RuntimeElementProps
         return value.value
       }
 
-      return transformer.transform(value, this.element)
+      return transformer.transform(value, this.element.current)
     })
   }
 
@@ -168,7 +161,9 @@ export class RuntimeElementProps
       )
     }
 
-    const customTextProp = this.element.props.values[CUSTOM_TEXT_PROP_KEY]
+    const customTextProp =
+      this.element.current.props.values[CUSTOM_TEXT_PROP_KEY]
+
     const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
     const evaluated = evaluateObject(props, this.propsEvaluationContext)
 
@@ -178,12 +173,12 @@ export class RuntimeElementProps
   @computed
   get props() {
     // memorize values or else it will be lost inside callback
-    const registerReference = isAtomRef(this.element.renderType)
-    const slug = this.element.slug
+    const registerReference = isAtomRef(this.element.current.renderType)
+    const slug = this.element.current.slug
     const store = this.runtimeStore
-    const renderType = this.element.renderType.current
+    const renderType = this.element.current.renderType.current
     const defaultProps = renderType.api.current.defaultValues
-    const props = mergeProps(defaultProps, this.element.props.values)
+    const props = mergeProps(defaultProps, this.element.current.props.values)
 
     return {
       ...props,
@@ -208,13 +203,31 @@ export class RuntimeElementProps
       ? this.closestRuntimeContainerNode.runtimeProps?.evaluatedProps
       : {}
 
+    const actions = this.runtimeStore.runtimeActionsList.reduce(
+      (all, current) => {
+        return {
+          ...all,
+          [current.action.current.name]: current.runner,
+        }
+      },
+      {},
+    )
+
+    const rootActions = this.providerStore?.runtimeActionsList.reduce(
+      (all, current) => ({
+        ...all,
+        [current.action.current.name]: current.runner,
+      }),
+      {},
+    )
+
     return {
-      actions: this.runtimeStore.actionRunnersMap,
+      actions,
       componentProps: componentProps ?? {},
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
-      rootActions: this.providerStore?.actionRunnersMap ?? {},
+      rootActions: rootActions ?? {},
       rootRefs: this.providerStore?.refs ?? {},
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
@@ -247,14 +260,14 @@ export class RuntimeElementProps
     const id = v4()
 
     const runtimeProps = RuntimeElementProps.create({
-      elementRef: elementRef(element.id),
-      runtimeElementRef: runtimeElementRef(id),
+      element: elementRef(element.id),
+      runtimeElement: runtimeElementRef(id),
     })
 
     const runtimeElement = RuntimeElement.create({
-      elementRef: elementRef(element.id),
+      element: elementRef(element.id),
       id,
-      parentRef: runtimeElementRef(this.id),
+      parent: runtimeElementRef(this.id),
       runtimeProps,
     })
 

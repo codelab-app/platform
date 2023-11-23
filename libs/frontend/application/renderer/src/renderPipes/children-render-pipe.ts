@@ -15,7 +15,7 @@ export class ChildrenRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const { element } = runtimeElement
+    const element = runtimeElement.element.current
 
     /**
      * Component instance children handled by @ComponentInstanceChildrenRenderPipe

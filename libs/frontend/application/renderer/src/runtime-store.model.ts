@@ -6,9 +6,10 @@ import type {
 import {
   getRendererService,
   RendererType,
+  runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
-import { isAtomRef } from '@codelab/frontend/abstract/domain'
+import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IRef } from '@codelab/shared/abstract/core'
@@ -25,20 +26,14 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
+import { RuntimeActionModel } from './runtime-action.model'
 
-const create = ({
-  id,
-  runtimeActions,
-  runtimeProviderStoreRef,
-  storeRef,
-}: IRuntimeStoreDTO) => {
+const create = ({ id, runtimeProviderStore, store }: IRuntimeStoreDTO) => {
   return new RuntimeStoreModel({
     id,
-    runtimeActions: objectMap(
-      runtimeActions.map((action) => [action.id, action]),
-    ),
-    runtimeProviderStoreRef,
-    storeRef,
+    runtimeProviderStore,
+    store,
   })
 }
 
@@ -46,9 +41,9 @@ const create = ({
 export class RuntimeStoreModel
   extends Model(() => ({
     id: idProp,
-    runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(),
-    runtimeProviderStoreRef: prop<Maybe<Ref<IRuntimeStoreModel>>>(),
-    storeRef: prop<Ref<IStoreModel>>(),
+    runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(() => objectMap()),
+    runtimeProviderStore: prop<Maybe<Ref<IRuntimeStoreModel>>>(),
+    store: prop<Ref<IStoreModel>>(),
   }))
   implements IRuntimeStoreModel
 {
@@ -66,16 +61,6 @@ export class RuntimeStoreModel
   }
 
   @computed
-  get store() {
-    return this.storeRef.current
-  }
-
-  @computed
-  get runtimeProviderStore() {
-    return this.runtimeProviderStoreRef?.current
-  }
-
-  @computed
   get state() {
     const { rendererType } = this.renderer ?? {}
 
@@ -88,7 +73,7 @@ export class RuntimeStoreModel
     }
 
     this.cachedState = observable(
-      this.store.api.maybeCurrent?.defaultValues ?? {},
+      this.store.current.api.maybeCurrent?.defaultValues ?? {},
     )
 
     return this.cachedState
@@ -103,25 +88,9 @@ export class RuntimeStoreModel
   }
 
   @computed
-  get runtimeActionsList() {
-    return [...this.runtimeActions.values()]
-  }
-
-  @computed
-  get actionRunnersMap() {
-    return this.runtimeActionsList.reduce(
-      (all, current) => ({
-        ...all,
-        [current.action.name]: current.runner,
-      }),
-      {},
-    )
-  }
-
-  @computed
   get refKeys(): Array<string> {
     const elementTree =
-      this.store.page?.current || this.store.component?.current
+      this.store.current.page?.current || this.store.current.component?.current
 
     const elements = elementTree?.elements || []
 
@@ -140,7 +109,7 @@ export class RuntimeStoreModel
       // either find it in here
       this.runtimeActionsList.find((item) => item.action.id === action.id) ??
       // or search in parent store if it has one
-      this.runtimeProviderStore?.runtimeAction(action)
+      this.runtimeProviderStore?.current.runtimeAction(action)
     )
   }
 
@@ -157,6 +126,23 @@ export class RuntimeStoreModel
     refKeys.forEach((key: string) => {
       this.registerRef(key, null)
     })
+  }
+
+  @computed
+  get runtimeActionsList() {
+    this.runtimeActions.clear()
+
+    this.store.current.actions.forEach((action) => {
+      const runtimeAction = RuntimeActionModel.create({
+        action: actionRef(action),
+        id: v4(),
+        runtimeStore: runtimeStoreRef(this.id),
+      })
+
+      this.runtimeActions.set(runtimeAction.id, runtimeAction)
+    })
+
+    return [...this.runtimeActions.values()]
   }
 
   onAttachedToRootStore() {

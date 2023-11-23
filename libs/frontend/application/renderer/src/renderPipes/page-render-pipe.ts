@@ -19,11 +19,11 @@ export class PageRenderPipe
     }
 
     // Add regular page to container element's runtime children
-    runtimeElement.addRuntimeChild(this.renderer.containerNode)
+    runtimeElement.addRuntimeChild(this.renderer.containerNode.current)
 
     if (this.renderer.debugMode) {
       console.info(
-        `PageRenderPipe: rendering page  ${this.renderer.containerNode.name}`,
+        `PageRenderPipe: rendering page  ${this.renderer.containerNode.current.name}`,
       )
     }
 

@@ -1,7 +1,6 @@
 import type {
   IComponentModel,
   IElementModel,
-  IElementTree,
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
@@ -22,19 +21,17 @@ export const enum RendererType {
 }
 
 export interface IRendererModel {
-  containerNode: IComponentModel | IPageModel
+  containerNode: Ref<IComponentModel> | Ref<IPageModel>
   debugMode: boolean
-  elementTree: Ref<IElementTree>
   expressionTransformer: IExpressionTransformer
   id: string
+  render: Nullable<ReactElement>
   renderPipe: IRenderPipe
   rendererType: RendererType
   rootElement: IElementModel
-  runtimeRootContainerNode: Nullable<IRuntimeContainerNodeModel>
+  runtimeRootContainerNode: IRuntimeContainerNodeModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
-
-  render(): Nullable<ReactElement>
 }
 
 export interface ElementWrapperProps {

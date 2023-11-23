@@ -69,13 +69,13 @@ describe('Runtime Element props', () => {
       const { element, runtimeElement } = setupRuntimeElement(testbed)
       const runtimeProps = runtimeElement?.runtimeProps
       const fieldKey = 'fieldKey'
-      const fieldDefaultValue = 'field-value'
+      const fieldDefaultValue = 'some-value'
       const propKey = 'propKey'
       const storeApi = element.store.current.api.current
 
       const field = testbed.addField({
         api: storeApi,
-        defaultValues: fieldDefaultValue,
+        defaultValues: JSON.stringify(fieldDefaultValue),
         fieldType: typeService.typeDomainService.typesList.find(
           (type) =>
             type.kind === ITypeKind.PrimitiveType &&
@@ -91,6 +91,37 @@ describe('Runtime Element props', () => {
       expect(runtimeProps?.evaluatedProps).toMatchObject({
         [propKey]: fieldDefaultValue,
       })
+
+      field.writeCache({ defaultValues: JSON.stringify('another-value') })
+
+      expect(runtimeProps?.evaluatedProps).toMatchObject({
+        [propKey]: 'another-value',
+      })
+    })
+
+    it('should evaluate action expression', () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const actionName = 'sum'
+      const propKey = 'propKey'
+
+      testbed.addCodeAction({
+        code: `function run(a,b){
+          return a + b;
+        }`,
+        name: actionName,
+        store: element.store,
+      })
+
+      element.props.set(propKey, `{{actions.${actionName}}}`)
+
+      expect(runtimeProps?.evaluatedProps).toMatchObject({
+        [propKey]: expect.any(Function),
+      })
+
+      const actionRunner = runtimeProps?.evaluatedProps[propKey]
+
+      expect(actionRunner(5, 9)).toBe(14)
     })
   })
 

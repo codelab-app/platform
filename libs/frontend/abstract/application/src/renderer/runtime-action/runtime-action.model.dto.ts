@@ -3,7 +3,7 @@ import type { Ref } from 'mobx-keystone'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
 export interface IRuntimeActionDTO {
-  actionRef: Ref<IActionModel>
+  action: Ref<IActionModel>
   id: string
-  runtimeStoreRef: Ref<IRuntimeStoreModel>
+  runtimeStore: Ref<IRuntimeStoreModel>
 }

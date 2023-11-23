@@ -107,8 +107,7 @@ export class TestBed {
     const renderer = rendererFactory(rendererService)(dto)
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
-    renderer.render()
 
-    return renderer
+    return renderer.render
   }
 }

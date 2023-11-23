@@ -18,7 +18,7 @@ import { idProp, Model, model, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 
 const create = ({
-  containerNodeRef,
+  containerNode,
   id,
   parentRef,
   runtimeProps,
@@ -26,7 +26,7 @@ const create = ({
   runtimeStore,
 }: IRuntimeContainerNodeDTO) =>
   new RuntimeContainerNodeModel({
-    containerNodeRef,
+    containerNode,
     id,
     parentRef,
     runtimeProps,
@@ -38,7 +38,7 @@ const create = ({
 export class RuntimeContainerNodeModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
-    containerNodeRef: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
+    containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
     parentRef: prop<Maybe<IRuntimeModelRef>>(),
     runtimeProps: prop<Maybe<IRuntimeComponentPropModel>>(undefined),
@@ -48,16 +48,6 @@ export class RuntimeContainerNodeModel
   implements IRuntimeContainerNodeModel
 {
   static create = create
-
-  @computed
-  get containerNode() {
-    return this.containerNodeRef.current
-  }
-
-  @computed
-  get parent() {
-    return this.parentRef?.current
-  }
 
   @computed
   get render(): Nullable<ReactElement> {

@@ -53,7 +53,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const tailwindClassNames = {
       className: generateTailwindClasses(
-        element.tailwindClassNames,
+        element.current.tailwindClassNames,
         renderer.rendererType,
       ),
     }
@@ -61,7 +61,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
     const selectionHandlers = useSelectionHandlers(
-      element,
+      element.current,
       renderer.rendererType,
     )
 

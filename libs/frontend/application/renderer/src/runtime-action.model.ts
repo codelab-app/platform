@@ -60,34 +60,19 @@ const graphqlFetch = (
   return client.request(config.query, variables, headers)
 }
 
-const create = ({ actionRef, runtimeStoreRef }: IRuntimeActionDTO) =>
-  new RuntimeActionModel({ actionRef, runtimeStoreRef })
+const create = ({ action, runtimeStore }: IRuntimeActionDTO) =>
+  new RuntimeActionModel({ action, runtimeStore })
 
 @model('@codelab/RuntimeAction')
 export class RuntimeActionModel
   extends Model(() => ({
-    actionRef: prop<Ref<IActionModel>>(),
+    action: prop<Ref<IActionModel>>(),
     id: idProp,
-    runtimeStoreRef: prop<Ref<IRuntimeStoreModel>>(),
+    runtimeStore: prop<Ref<IRuntimeStoreModel>>(),
   }))
   implements IRuntimeActionModel
 {
   static create = create
-
-  @computed
-  get action() {
-    return this.actionRef.current
-  }
-
-  @computed
-  get runtimeStore() {
-    return this.runtimeStoreRef.current
-  }
-
-  @computed
-  get runtimeContext() {
-    return this.runtimeStoreRef.current
-  }
 
   @computed
   get _graphqlClient() {
@@ -100,7 +85,7 @@ export class RuntimeActionModel
   @computed
   get _resourceConfig() {
     return this.replaceStateInConfig(
-      (this.action as IApiActionModel).resource.current.config,
+      (this.action.current as IApiActionModel).resource.current.config,
     ) as IBaseResourceConfigData
   }
 
@@ -113,14 +98,14 @@ export class RuntimeActionModel
 
   @computed
   get apiRunner() {
-    const action = this.actionRef.current as IApiActionModel
+    const action = this.action.current as IApiActionModel
 
     const successAction = action.successAction
-      ? this.runtimeStore.runtimeAction(action.successAction)
+      ? this.runtimeStore.current.runtimeAction(action.successAction)
       : null
 
     const errorAction = action.errorAction
-      ? this.runtimeStore.runtimeAction(action.errorAction)
+      ? this.runtimeStore.current.runtimeAction(action.errorAction)
       : null
 
     const resource = action.resource.current
@@ -173,7 +158,7 @@ export class RuntimeActionModel
           const url = this.url;
           const props = this.props;
           const componentProps = this.componentProps;
-          return ${(this.action as ICodeActionModel).code}(...args)
+          return ${(this.action.current as ICodeActionModel).code}(...args)
         }`,
       )()
     } catch (error) {
@@ -185,9 +170,10 @@ export class RuntimeActionModel
 
   @computed
   get runner() {
-    return this.actionRef.current.type === IActionKind.ApiAction
-      ? this.apiRunner.bind(this.runtimeContext)
-      : this.codeRunner.bind(this.runtimeContext)
+    // get run context
+    return this.action.current.type === IActionKind.ApiAction
+      ? this.apiRunner
+      : this.codeRunner
   }
 
   @modelAction

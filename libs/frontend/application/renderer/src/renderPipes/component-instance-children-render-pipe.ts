@@ -19,10 +19,10 @@ export class ComponentInstanceChildrenRenderPipe
       return this.next.render(runtimeElement)
     }
 
-    const { element } = runtimeElement
+    const element = runtimeElement.element.current
     const { containerNode } = runtimeElement.closestRuntimeContainerNode
     // we cast safely because isComponentInstanceChildrenContainer is true
-    const { instanceElement } = containerNode as IComponentModel
+    const { instanceElement } = containerNode.current as IComponentModel
     const instanceChildren = instanceElement?.current.children || []
 
     for (const child of instanceChildren) {

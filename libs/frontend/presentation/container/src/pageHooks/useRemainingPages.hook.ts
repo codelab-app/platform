@@ -29,7 +29,7 @@ export const useRemainingPages = () => {
 
       if (!rendererExists) {
         rendererService.hydrate({
-          elementTree: page,
+          containerNode: page,
           id: page.id,
           rendererType: RendererType.PageBuilder,
         })

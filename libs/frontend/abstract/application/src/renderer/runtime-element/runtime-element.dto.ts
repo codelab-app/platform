@@ -4,8 +4,8 @@ import type { IRuntimeModelRef } from '../runtime.model.interface'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
 
 export interface IRuntimeElementDTO {
-  elementRef: Ref<IElementModel>
+  element: Ref<IElementModel>
   id: string
-  parentRef: IRuntimeModelRef
+  parent: IRuntimeModelRef
   runtimeProps: IRuntimeElementPropModel
 }

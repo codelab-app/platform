@@ -16,8 +16,8 @@ export class ChildMapperRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const { element } = runtimeElement
-    const { childMapperComponent } = element
+    const element = runtimeElement.element.current
+    const childMapperComponent = element.childMapperComponent
 
     if (!childMapperComponent) {
       return this.next.render(runtimeElement)
@@ -45,7 +45,7 @@ export class ChildMapperRenderPipe
 
     if (this.renderer.debugMode) {
       console.info(
-        `ChildMapperRenderPipe: Creating runtime component for: ${runtimeElement.element.slug}`,
+        `ChildMapperRenderPipe: Creating runtime component for: ${runtimeElement.element.current.slug}`,
       )
     }
 

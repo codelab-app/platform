@@ -69,7 +69,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       component && rendererService.renderers.get(component.id)
 
     const pageTree = (pageBuilderRenderer ?? componentBuilderRenderer)
-      ?.elementTree.maybeCurrent
+      ?.containerNode.maybeCurrent
 
     const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.treeViewNode
