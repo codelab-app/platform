@@ -8,6 +8,7 @@
   "packageManager": "yarn@3.5.1",
   "version": "0.0.1",
   "license": "MIT",
+  "sideEffects": false,
   "scripts": {
     "postinstall": "nx run-many build --target=tools-workspace,eslint-plugin",
     "e2e": "yarn nx e2e platform-e2e",

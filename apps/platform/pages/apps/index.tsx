@@ -120,3 +120,9 @@ AppsPage.Layout = ({ children }) => {
     <DashboardTemplate Header={AppsPageHeader}>{children()}</DashboardTemplate>
   )
 }
+
+export const config = {
+  // after login this is the page where user is redirected to,
+  // cold start may take longer than default 15s on first login
+  maxDuration: 30,
+}
