@@ -20,7 +20,7 @@ export class AtomRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const element = runtimeElement.element
+    const element = runtimeElement.element.current
 
     if (!isAtom(element.renderType.current)) {
       if (this.renderer.debugMode) {

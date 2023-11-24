@@ -4,13 +4,11 @@ import {
   atomDomainServiceContext,
   elementDomainServiceContext,
   pageDomainServiceContext,
-  rendererDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { AtomDomainService } from '@codelab/frontend/domain/atom'
 import { ElementDomainService } from '@codelab/frontend/domain/element'
 import { PageDomainService } from '@codelab/frontend/domain/page'
-import { RendererDomainService } from '@codelab/frontend/domain/renderer'
 import { createRootDomainStore } from '@codelab/frontend/domain/shared'
 import {
   StoreDomainService,

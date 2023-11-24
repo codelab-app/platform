@@ -1,12 +1,5 @@
-import { isTypedProp } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { ErrorObject } from 'ajv'
-import get from 'lodash/get'
-import isString from 'lodash/isString'
 import type { MouseEvent } from 'react'
 import type { DeepPartial } from 'uniforms'
 
@@ -60,44 +53,4 @@ export const handleSubmitRefModalOk = (
       onOk(event)
     }
   }
-}
-
-/**
- * Skips validation errors if they are all expressions to allow setting an expression values
- * to the field types e.g. ArrayType can have `{{this.products}}`.
- */
-export const bypassExpressionErrors = (
-  formData: Record<string, unknown>,
-  errors?: { details: Array<ErrorObject> },
-) => {
-  const allExpressionErrors = errors?.details.every((err) => {
-    // instancePath has "/" at the start and every sub-property
-    // wrapping prop keys with [] is easier and works in case a sub-property is an array
-    // e.g. `object.items[0].title` will also work with `object['items'][0]['title']`
-    const propPath = err.instancePath
-      .slice(1)
-      .split('/')
-      .map((path) => `[${path}]`)
-      .join('')
-
-    const errorValue = get(formData, propPath)
-    const possiblyTypedPropValue = errorValue as IPropData
-
-    // Accept a react node type that has an expression value
-    if (
-      isTypedProp(possiblyTypedPropValue) &&
-      possiblyTypedPropValue.kind === ITypeKind.ReactNodeType &&
-      isString(possiblyTypedPropValue.value)
-    ) {
-      return hasStateExpression(possiblyTypedPropValue.value)
-    }
-
-    return hasStateExpression(errorValue)
-  })
-
-  if (allExpressionErrors) {
-    return null
-  }
-
-  return errors
 }

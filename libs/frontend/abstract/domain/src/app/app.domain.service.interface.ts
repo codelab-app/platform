@@ -14,5 +14,5 @@ export interface IAppDomainService extends IHydrateable<IAppDTO, IAppModel> {
   appsList: Array<IAppModel>
 
   app(id: string): Maybe<IAppModel>
-  create(appDto: IAppDTO, renderType: IElementRenderTypeDto): IAppModel
+  create(appDto: IAppDTO): IAppModel
 }

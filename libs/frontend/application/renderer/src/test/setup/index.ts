@@ -1,1 +1,1 @@
-export * from './setup-page'
+export * from './setup'

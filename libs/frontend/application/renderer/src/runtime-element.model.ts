@@ -44,9 +44,9 @@ import { RuntimeElementProps } from './runtime-element-prop.model'
 
 const create = (runtimeElementDTO: IRuntimeElementDTO) => {
   return new RuntimeElement({
-    elementRef: runtimeElementDTO.elementRef,
+    element: runtimeElementDTO.element,
     id: runtimeElementDTO.id,
-    parentRef: runtimeElementDTO.parentRef,
+    parent: runtimeElementDTO.parent,
     runtimeProps: runtimeElementDTO.runtimeProps,
   })
 }
@@ -54,9 +54,9 @@ const create = (runtimeElementDTO: IRuntimeElementDTO) => {
 @model('@codelab/RuntimeElement')
 export class RuntimeElement
   extends Model({
-    elementRef: prop<Ref<IElementModel>>(),
+    element: prop<Ref<IElementModel>>(),
     id: idProp,
-    parentRef: prop<IRuntimeModelRef>(),
+    parent: prop<IRuntimeModelRef>(),
     runtimeProps: prop<IRuntimeElementPropModel>(),
     sortedRuntimeChildren: prop<Array<IRuntimeModel>>(() => []),
   })
@@ -65,22 +65,12 @@ export class RuntimeElement
   static create = create
 
   @computed
-  get element() {
-    return this.elementRef.current
-  }
-
-  @computed
-  get parent() {
-    return this.parentRef.current
-  }
-
-  @computed
   get closestRuntimeContainerNode() {
-    if (isRuntimeElementRef(this.parentRef)) {
-      return this.parentRef.current.closestRuntimeContainerNode
+    if (isRuntimeElementRef(this.parent)) {
+      return this.parent.current.closestRuntimeContainerNode
     }
 
-    return this.parentRef.current
+    return this.parent.current
   }
 
   @computed
@@ -101,7 +91,7 @@ export class RuntimeElement
 
   @computed
   get shouldRender() {
-    const { renderIfExpression } = this.element
+    const { renderIfExpression } = this.element.current
 
     if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
       return true
@@ -115,8 +105,8 @@ export class RuntimeElement
 
   @computed
   get isPageContentContainer() {
-    const providerPage = isPage(this.renderer.containerNode)
-      ? this.renderer.containerNode.providerPage
+    const providerPage = isPage(this.renderer.containerNode.current)
+      ? this.renderer.containerNode.current.providerPage
       : undefined
 
     const containerElement = providerPage?.pageContentContainer?.current
@@ -126,7 +116,7 @@ export class RuntimeElement
 
   @computed
   get isComponentInstanceChildrenContainer() {
-    const { containerNode } = this.closestRuntimeContainerNode
+    const containerNode = this.closestRuntimeContainerNode.containerNode.current
 
     return (
       !isPage(containerNode) &&
@@ -135,7 +125,7 @@ export class RuntimeElement
   }
 
   runPostRenderAction = () => {
-    const { postRenderAction } = this.element
+    const { postRenderAction } = this.element.current
     const currentPostRenderAction = postRenderAction?.current
 
     if (currentPostRenderAction) {
@@ -150,7 +140,7 @@ export class RuntimeElement
   }
 
   runPreRenderAction = () => {
-    const { preRenderAction } = this.element
+    const { preRenderAction } = this.element.current
 
     if (preRenderAction) {
       const runtimeAction = this.runtimeStore.runtimeAction(preRenderAction)
@@ -180,10 +170,10 @@ export class RuntimeElement
     const wrapperProps: ElementWrapperProps = {
       errorBoundary: {
         onError: ({ message, stack }) => {
-          this.element.setRenderingError({ message, stack })
+          this.element.current.setRenderingError({ message, stack })
         },
         onResetKeysChange: () => {
-          this.element.setRenderingError(null)
+          this.element.current.setRenderingError(null)
         },
       },
       key: this.element.id,
@@ -224,14 +214,14 @@ export class RuntimeElement
     const runtimeChildElementId = v4()
 
     const runtimeProps = RuntimeElementProps.create({
-      elementRef: elementRef(child.id),
-      runtimeElementRef: runtimeElementRef(runtimeChildElementId),
+      element: elementRef(child.id),
+      runtimeElement: runtimeElementRef(runtimeChildElementId),
     })
 
     const runtimeChildElement = RuntimeElement.create({
-      elementRef: elementRef(child.id),
+      element: elementRef(child.id),
       id: runtimeChildElementId,
-      parentRef: runtimeElementRef(this.id),
+      parent: runtimeElementRef(this.id),
       runtimeProps,
     })
 
@@ -273,11 +263,11 @@ export class RuntimeElement
         this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
 
       const shouldInjectText =
-        isAtom(this.element.renderType.current) &&
-        this.element.renderType.current.allowCustomTextInjection
+        isAtom(this.element.current.renderType.current) &&
+        this.element.current.renderType.current.allowCustomTextInjection
 
       if (shouldInjectText) {
-        const readOnly = !this.element.isTextContentEditable
+        const readOnly = !this.element.current.isTextContentEditable
 
         return this.renderer.rendererType === RendererType.Preview ||
           this.renderer.rendererType === RendererType.Production

@@ -1,13 +1,12 @@
 import type {
-  IActionModel,
   IComponentModel,
   IInterfaceTypeModel,
   IPageModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
-  actionRef,
   componentRef,
+  getActionDomainService,
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -17,24 +16,15 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAction, IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { getStoreDomainService } from '../services/store.domain.service.context'
 
-const create = ({
-  actions = [],
-  api,
-  component,
-  id,
-  name,
-  page,
-}: IStoreDTO): IStoreModel =>
+const create = ({ api, component, id, name, page }: IStoreDTO): IStoreModel =>
   new Store({
-    actions: actions.map((action) => actionRef(action.id)),
     api: typeRef(api.id) as Ref<IInterfaceTypeModel>,
     component: component?.id ? componentRef(component.id) : null,
     id,
@@ -49,14 +39,11 @@ const createName = (app: Pick<IAppDTO, 'name'>) => {
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
-    actions: prop<Array<Ref<IActionModel>>>(),
     api: prop<Ref<IInterfaceTypeModel>>(),
     component: prop<Nullable<Ref<IComponentModel>>>().withSetter(),
     id: idProp,
     name: prop<string>(),
     page: prop<Nullable<Ref<IPageModel>>>(),
-    // if this is a duplicate, source store id else null
-    source: prop<Nullable<Ref<IStoreModel>>>(null).withSetter(),
   }))
   implements IStoreModel
 {
@@ -75,68 +62,52 @@ export class Store
   }
 
   @computed
+  get actionsDomainService() {
+    return getActionDomainService(this)
+  }
+
+  @computed
+  get actions() {
+    return this.actionsDomainService.actionsList.filter(
+      (action) => action.store.id === this.id,
+    )
+  }
+
+  @computed
   get toJson() {
     return {
-      actions: this.actions.map((action) => action.current as IAction),
+      actions: this.actions.map((action) => action.toJson),
       api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
       component: this.component,
       id: this.id,
       name: this.name,
       page: this.page,
-      source: this.source,
     }
   }
-
-  // @computed
-  // get actionRunners() {
-  //   const renderer = this.rendererService.activeRenderer?.current
-
-  //   const actionRunners = this.actions
-  //     .map(({ current: action }) => {
-  //       const actionId = getRunnerId(this.id, action.id)
-  //       const actionRunner = renderer?.actionRunners.get(actionId)
-  //       const fallback = () => console.error(`fail to call ${action.name}`)
-  //       const runner = actionRunner?.runner || fallback
-
-  //       return { [action.name]: runner }
-  //     })
-  //     .reduce(merge, {})
-
-  //   Object.keys(actionRunners).forEach((actionName) => {
-  //     actionRunners[actionName] = actionRunners[actionName].bind({
-  //       actions: actionRunners,
-  //       state: this.state,
-  //     })
-  //   })
-
-  //   return actionRunners
-  // }
 
   @computed
   get actionsTree() {
     return this.actions
       .map((action) => ({
         extraData: {
-          node: action.current,
+          node: action,
           type: 'action' as const,
         },
         isLeaf: true,
         key: action.id,
-        primaryTitle: action.current.name,
-        secondaryTitle: action.current.type,
+        primaryTitle: action.name,
+        secondaryTitle: action.type,
         selectable: true,
-        title: `${action.current.name} (${action.current.type})`,
+        title: `${action.name} (${action.type})`,
       }))
       .filter((node) => Boolean(node))
   }
 
   @modelAction
-  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
+  writeCache({ api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceTypeModel>) : this.api
-    this.actions =
-      actions?.map((action) => actionRef(action.id)) ?? this.actions
 
     return this
   }
@@ -153,10 +124,5 @@ export class Store
 
   toUpdateInput(): StoreUpdateInput {
     return { name: this.name }
-  }
-
-  @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
   }
 }

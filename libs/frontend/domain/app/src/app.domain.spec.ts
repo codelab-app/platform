@@ -8,7 +8,7 @@ describe('App domain', () => {
 
   it('can add an app', async () => {
     const reactFragment = atomDomainService.hydrate(atomReactFragmentDto)
-    const app = appDomainService.create(appDto, reactFragment.toJson)
+    const app = appDomainService.create(appDto)
 
     // App
     expect(app.toJson).toMatchObject(appDto)
@@ -16,7 +16,7 @@ describe('App domain', () => {
     // Page
     const pages = app.pages.map((page) => {
       return {
-        name: page.current.name,
+        name: page.name,
       }
     })
 
@@ -36,7 +36,7 @@ describe('App domain', () => {
 
     // Store
     app.pages.forEach((page) => {
-      const store = page.current.store.current
+      const store = page.store.current
 
       expect(store.name).toBe(store.name)
       expect(store.api.current.name).toBe(store.api.current.name)

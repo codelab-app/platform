@@ -25,11 +25,7 @@ export interface IRuntimeElementModel extends AnyModel {
    */
   closestRuntimeContainerNode: IRuntimeContainerNodeModel
 
-  /**
-   * We creating using elementRef then access element via computed values
-   */
-  element: IElementModel
-  elementRef: Ref<IElementModel>
+  element: Ref<IElementModel>
 
   id: string
 
@@ -46,8 +42,7 @@ export interface IRuntimeElementModel extends AnyModel {
    * Direct parent of the element possible values runtime model for parentElement/page/component
    * We need it to traves the tree and access closestRuntimeContainerNode
    */
-  parent: IRuntimeModel
-  parentRef: IRuntimeModelRef
+  parent: IRuntimeModelRef
 
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>

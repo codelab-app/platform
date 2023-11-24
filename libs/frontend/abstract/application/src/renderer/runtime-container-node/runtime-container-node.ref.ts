@@ -3,7 +3,7 @@ import { detach, isRefOfType, rootRef } from 'mobx-keystone'
 import type { IRuntimeContainerNodeModel } from './runtime-container-node.model.interface'
 
 export const runtimeContainerNodeRef = rootRef<IRuntimeContainerNodeModel>(
-  '@codelab/RuntimeContainerNode',
+  '@codelab/RuntimeContainerNodeRef',
   {
     onResolvedValueChange: (ref, newContainerNode, oldContainerNode) => {
       if (oldContainerNode && !newContainerNode) {

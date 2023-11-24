@@ -4,7 +4,6 @@ import type {
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IApp, IAppDTO, IRef } from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { ICacheService } from '../shared'
@@ -20,7 +19,7 @@ export interface IAppModel
   domains: Array<IDomainModel>
   name: string
   // pageRootElements: Array<Ref<IElementModel>>
-  pages: Array<Ref<IPageModel>>
+  pages: Array<IPageModel>
   /**
    * The `_app.tsx` equivalent of pages
    */

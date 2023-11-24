@@ -16,12 +16,15 @@ export class NullRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const { element, runtimeProps } = runtimeElement
+    const element = runtimeElement.element.current
 
     if (this.renderer.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }
 
-    return RenderOutput.empty({ props: runtimeProps, runtimeElement })
+    return RenderOutput.empty({
+      props: runtimeElement.runtimeProps,
+      runtimeElement,
+    })
   }
 }

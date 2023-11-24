@@ -1,7 +1,9 @@
 import {
   type IPageNodeRef,
+  isElement,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
+import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { schemaTransformer } from '@codelab/frontend/application/type'
 import { createValidator } from '@codelab/frontend/presentation/view'
@@ -30,13 +32,7 @@ const validateSchema = (node: IPageNodeRef) => {
     : node.current.api.current
 
   const nodeApiSchema = schemaTransformer.transform(interfaceType)
-
-  const validator = createValidator(
-    nodeApiSchema,
-    // TODO: Pass runtime node to param, so we have access to state
-    // node.current.store.current.state,
-    {},
-  )
+  const validator = createValidator(nodeApiSchema)
 
   return (data: IPropData) => {
     const validation = validator(data)
@@ -61,15 +57,28 @@ const validateSchema = (node: IPageNodeRef) => {
  * If node is IComponent, that means we are viewing it in the component builder only.
  */
 export const usePropsInspector = (node: IPageNodeRef) => {
-  const { propService } = useStore()
+  const { propService, rendererService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
   const validator = validateSchema(node)
   const nodeLabel = isElementRef(node) ? 'Element' : 'Component'
 
+  const runtimeModel = isElement(node.current)
+    ? rendererService.runtimeElement(node.current)
+    : rendererService.runtimeContainerNode(node.current)
+
+  const evaluationContext = runtimeModel!.runtimeProps!.propsEvaluationContext
+  const lastRenderedProp = runtimeModel!.runtimeProps!.evaluatedProps
+
   const save = async (data: string) => {
     const jsonValue = validateJson(data)
 
-    if (!jsonValue || !validator(jsonValue)) {
+    if (!jsonValue) {
+      return
+    }
+
+    const evaluated = evaluateObject(jsonValue, evaluationContext)
+
+    if (!validator(evaluated)) {
       return
     }
 
@@ -89,5 +98,5 @@ export const usePropsInspector = (node: IPageNodeRef) => {
     })
   }
 
-  return { isLoading, nodeLabel, save }
+  return { isLoading, lastRenderedProp, nodeLabel, save }
 }

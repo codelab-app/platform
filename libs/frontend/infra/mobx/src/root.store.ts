@@ -36,6 +36,7 @@ import {
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
+  storeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { AdminService } from '@codelab/frontend/application/admin'
@@ -79,7 +80,6 @@ import {
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
 import { BuilderDomainService } from '@codelab/frontend/domain/builder'
-import { storeDomainServiceContext } from '@codelab/frontend/domain/store'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop } from 'mobx-keystone'
 

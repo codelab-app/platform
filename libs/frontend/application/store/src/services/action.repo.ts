@@ -4,7 +4,7 @@ import type {
   IActionOptions,
   IActionWhere,
 } from '@codelab/frontend/abstract/domain'
-import { ApiAction, CodeAction } from '@codelab/frontend/domain/store'
+import { ApiAction, CodeAction } from '@codelab/frontend/domain/action'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {

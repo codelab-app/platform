@@ -393,7 +393,6 @@
     "eslint-plugin-unicorn": "^49.0.0",
     "eslint-plugin-unused-imports": "3.0.0",
     "execa": "5.1.1",
-    "fishery": "^2.2.2",
     "futoin-hkdf": "^1.4.3",
     "git-changed-files": "1.0.0",
     "globby": "11.1.0",

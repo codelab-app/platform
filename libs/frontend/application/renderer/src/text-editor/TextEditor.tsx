@@ -1,6 +1,5 @@
 import './editorjs.overrides.css'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { getDefaultFieldProps } from '@codelab/frontend/domain/prop'
 import type { OutputData } from '@editorjs/editorjs'
 import EditorJS from '@editorjs/editorjs'
 import React, { memo, useEffect } from 'react'
@@ -20,10 +19,11 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
   const onChange = (output: OutputData) => {
     const element = elementService.element(elementId)
     const props = element.props
+    const renderType = element.renderType.current
 
     return propService.updateWithDefaultValuesApplied(props, {
       data: { ...props.data.data, customText: JSON.stringify(output) },
-      defaultValues: getDefaultFieldProps(element.renderType.current),
+      defaultValues: renderType.api.current.defaultValues,
       id: props.id,
     })
   }

@@ -15,7 +15,7 @@ export const GetAppsItem = observer<ItemMenuProps>(({ app }) => {
     pathname: PageType.PageBuilder,
     query: {
       appSlug: app.slug,
-      pageSlug: app.pages[0]?.current.slug,
+      pageSlug: app.pages[0]?.slug,
       primarySidebarKey: ExplorerPaneType.PageList,
       userSlug: userService.user.username,
     },

@@ -58,7 +58,7 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     }
 
     const renderer = rendererService.hydrate({
-      elementTree: component,
+      containerNode: component,
       id: component.id,
       rendererType,
     })

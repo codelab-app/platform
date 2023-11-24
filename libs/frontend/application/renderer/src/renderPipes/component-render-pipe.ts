@@ -15,7 +15,7 @@ export class ComponentRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const { element } = runtimeElement
+    const element = runtimeElement.element.current
 
     if (!isComponent(element.renderType.current)) {
       return this.next.render(runtimeElement)

@@ -9,7 +9,6 @@ import {
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import {
-  actionRef,
   componentRef,
   elementRef,
   type IComponentModel,
@@ -20,7 +19,6 @@ import {
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { v4 } from 'uuid'
-import { RuntimeActionModel } from './runtime-action.model'
 import { RuntimeComponentProps } from './runtime-component-prop.model'
 import { RuntimeContainerNodeModel } from './runtime-container-node.model'
 import { RuntimeElement } from './runtime-element.model'
@@ -41,46 +39,35 @@ export class RuntimeContainerNodeFactory {
     const runtimeRootElementId = v4()
     const runtimeStoreId = v4()
 
-    const runtimeActions = containerNode.store.current.actions.map((action) =>
-      RuntimeActionModel.create({
-        actionRef: actionRef(action.id),
-        id: v4(),
-        runtimeStoreRef: runtimeStoreRef(runtimeStoreId),
-      }),
-    )
-
     const runtimeStore = RuntimeStoreModel.create({
       id: runtimeStoreId,
-      runtimeActions,
-      runtimeProviderStoreRef: runtimeProviderStore
+      runtimeProviderStore: runtimeProviderStore
         ? runtimeStoreRef(runtimeProviderStore.id)
         : undefined,
-      storeRef: storeRef(containerNode.store.current),
+      store: storeRef(containerNode.store.current),
     })
 
     const runtimeRootElementProps = RuntimeElementProps.create({
-      elementRef: elementRef(containerNode.rootElement.id),
-      runtimeElementRef: runtimeElementRef(runtimeRootElementId),
+      element: elementRef(containerNode.rootElement.id),
+      runtimeElement: runtimeElementRef(runtimeRootElementId),
     })
 
     const runtimeRootElement = RuntimeElement.create({
-      elementRef: elementRef(containerNode.rootElement.id),
+      element: elementRef(containerNode.rootElement.id),
       id: runtimeRootElementId,
-      parentRef: runtimeContainerNodeRef(runtimeContainerNodeId),
+      parent: runtimeContainerNodeRef(runtimeContainerNodeId),
       runtimeProps: runtimeRootElementProps,
     })
 
     const runtimeComponentProps = isComponent(containerNode)
       ? RuntimeComponentProps.create({
-          componentRef: componentRef(containerNode.id),
-          runtimeContainerNodeRef: runtimeContainerNodeRef(
-            runtimeContainerNodeId,
-          ),
+          component: componentRef(containerNode.id),
+          runtimeContainerNode: runtimeContainerNodeRef(runtimeContainerNodeId),
         })
       : undefined
 
     const runtimeContainerNode = RuntimeContainerNodeModel.create({
-      containerNodeRef: isPage(containerNode)
+      containerNode: isPage(containerNode)
         ? pageRef(containerNode.id)
         : componentRef(containerNode.id),
       id: runtimeContainerNodeId,

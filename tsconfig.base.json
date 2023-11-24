@@ -283,6 +283,9 @@
       "@codelab/frontend/domain/store": [
         "libs/frontend/domain/store/src/index.ts"
       ],
+      "@codelab/frontend/domain/action": [
+        "libs/frontend/domain/action/src/index.ts"
+      ],
       "@codelab/frontend/domain/style": [
         "libs/frontend/domain/style/src/index.ts"
       ],

@@ -86,7 +86,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
       )
 
       const renderer = rendererService.hydrate({
-        elementTree: page,
+        containerNode: page,
         id: page.id,
         rendererType,
         urlSegments,

@@ -18,7 +18,7 @@ export class PassThroughRenderPipe
   implements IRenderPipe
 {
   render(runtimeElement: IRuntimeElementModel): IRenderOutput {
-    const element = runtimeElement.element
+    const element = runtimeElement.element.current
     const props = runtimeElement.runtimeProps.evaluatedProps
 
     // TODO: element.renderType cannot be component, we should throw error here

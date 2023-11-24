@@ -39,7 +39,7 @@ describe('TypedPropTransformers', () => {
       rootApplicationStore,
     )({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      elementTree: elementTreeRef(
+      containerNode: elementTreeRef(
         rootDomainStore.appDomainService.apps.get(page.app.id)!.page(page.id)!,
       ).current,
       // Passing Preview renderer to replace customText prop value

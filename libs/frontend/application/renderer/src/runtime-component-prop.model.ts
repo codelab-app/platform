@@ -46,10 +46,10 @@ const create = (dto: IRuntimeComponentPropDTO) => {
 @model('@codelab/RuntimeComponentProps')
 export class RuntimeComponentProps
   extends Model({
-    componentRef: prop<Ref<IComponentModel>>(),
+    component: prop<Ref<IComponentModel>>(),
     id: idProp,
     overrideProps: prop<Maybe<IPropModel>>(undefined),
-    runtimeContainerNodeRef: prop<Ref<IRuntimeContainerNodeModel>>(),
+    runtimeContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
     runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
   })
   implements IRuntimeComponentPropModel
@@ -57,18 +57,8 @@ export class RuntimeComponentProps
   static create = create
 
   @computed
-  get component() {
-    return this.componentRef.current
-  }
-
-  @computed
-  get runtimeContainerNode() {
-    return this.runtimeContainerNodeRef.current
-  }
-
-  @computed
   get runtimeStore() {
-    return this.runtimeContainerNode.runtimeStore
+    return this.runtimeContainerNode.current.runtimeStore
   }
 
   @computed
@@ -111,7 +101,7 @@ export class RuntimeComponentProps
         return value.value
       }
 
-      return transformer.transform(value, this.component)
+      return transformer.transform(value, this.component.current)
     })
   }
 
@@ -131,44 +121,25 @@ export class RuntimeComponentProps
   }
 
   @computed
-  get evaluatedPropsBeforeRender() {
-    return evaluateObject(this.props, {
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: this.runtimeStore.state,
-      url: {},
-    })
-  }
-
-  @computed
   get instanceElementProps(): Maybe<IPropData> {
-    const parentRuntimeContainerNodeRef = this.runtimeContainerNode.parentRef
+    const { parent } = this.runtimeContainerNode.current
 
-    return parentRuntimeContainerNodeRef &&
-      isRuntimeElementRef(parentRuntimeContainerNodeRef)
-      ? parentRuntimeContainerNodeRef.current.runtimeProps.evaluatedProps
+    return parent && isRuntimeElementRef(parent)
+      ? parent.current.runtimeProps.evaluatedProps
       : undefined
   }
 
   @computed
   get childMapperProps(): Maybe<IPropData> {
-    const parentRuntimeContainerNodeRef = this.runtimeContainerNode.parentRef
-
-    const parentIsRuntimeElement =
-      parentRuntimeContainerNodeRef &&
-      isRuntimeElementRef(parentRuntimeContainerNodeRef)
+    const { parent } = this.runtimeContainerNode.current
+    const parentIsRuntimeElement = parent && isRuntimeElementRef(parent)
 
     const runtimeParentElementProps = parentIsRuntimeElement
-      ? parentRuntimeContainerNodeRef.current.runtimeProps
+      ? parent.current.runtimeProps
       : undefined
 
     const props = runtimeParentElementProps?.evaluatedChildMapperProp || []
-    const index = this.runtimeContainerNode.childMapperIndex
+    const index = this.runtimeContainerNode.current.childMapperIndex
 
     return index ? props[index] : undefined
   }
@@ -176,8 +147,8 @@ export class RuntimeComponentProps
   @computed
   get props() {
     return mergeProps(
-      this.component.api.current.defaultValues,
-      this.component.props.values,
+      this.component.current.api.current.defaultValues,
+      this.component.current.props.values,
       {
         [DATA_COMPONENT_ID]: this.component.id,
         key: this.component.id,
@@ -226,14 +197,14 @@ export class RuntimeComponentProps
     const runtimeRootElementId = v4()
 
     const runtimeRootElementProps = RuntimeElementProps.create({
-      elementRef: elementRef(element.id),
-      runtimeElementRef: runtimeElementRef(runtimeRootElementId),
+      element: elementRef(element.id),
+      runtimeElement: runtimeElementRef(runtimeRootElementId),
     })
 
     const runtimeRootElement = RuntimeElement.create({
-      elementRef: elementRef(element.id),
+      element: elementRef(element.id),
       id: runtimeRootElementId,
-      parentRef: runtimeContainerNodeRef(this.id),
+      parent: runtimeContainerNodeRef(this.id),
       runtimeProps: runtimeRootElementProps,
     })
 

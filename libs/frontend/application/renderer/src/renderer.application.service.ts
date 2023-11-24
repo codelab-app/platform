@@ -58,7 +58,7 @@ export class RendererApplicationService
    */
   @modelAction
   renderRoot(renderer: IRendererModel) {
-    return renderer.render()
+    return renderer.render
   }
 
   @modelAction

@@ -7,7 +7,7 @@ import { useCurrentApp } from '../routerHooks'
  * Fetch and load the remaining app pages (that currently were not loaded from server)
  */
 export const useRemainingPages = () => {
-  const { appService, rendererService } = useStore()
+  const { pageService, rendererService } = useStore()
   const app = useCurrentApp()
 
   return useAsync(async () => {
@@ -15,12 +15,13 @@ export const useRemainingPages = () => {
       return
     }
 
-    const notAlreadyLoadedPages = app.pages
-      .map((page) => page.id)
-      .map((id) => ({ NOT: { id } }))
+    const notAlreadyLoadedPages = app.pages.map((page) => page.id)
 
-    await appService.getAppPages(app.id, {
-      AND: notAlreadyLoadedPages,
+    await pageService.getAll({
+      AND: [
+        { appConnection: { node: { id: app.id } } },
+        { NOT: { id_IN: notAlreadyLoadedPages } },
+      ],
     })
 
     app.pages.forEach((page) => {
@@ -28,7 +29,7 @@ export const useRemainingPages = () => {
 
       if (!rendererExists) {
         rendererService.hydrate({
-          elementTree: page.current,
+          containerNode: page,
           id: page.id,
           rendererType: RendererType.PageBuilder,
         })

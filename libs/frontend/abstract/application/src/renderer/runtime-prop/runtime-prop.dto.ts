@@ -7,11 +7,11 @@ import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
 import type { IRuntimeElementModel } from '../runtime-element'
 
 export interface IRuntimeElementPropDTO {
-  elementRef: Ref<IElementModel>
-  runtimeElementRef: Ref<IRuntimeElementModel>
+  element: Ref<IElementModel>
+  runtimeElement: Ref<IRuntimeElementModel>
 }
 
 export interface IRuntimeComponentPropDTO {
-  componentRef: Ref<IComponentModel>
-  runtimeContainerNodeRef: Ref<IRuntimeContainerNodeModel>
+  component: Ref<IComponentModel>
+  runtimeContainerNode: Ref<IRuntimeContainerNodeModel>
 }
