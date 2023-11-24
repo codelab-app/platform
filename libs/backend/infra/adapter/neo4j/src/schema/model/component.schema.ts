@@ -5,6 +5,8 @@ export const componentSchema = gql`
     id: ID! @unique
     name: String!
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
+    # contains the rootElement, and its descendants
+    elements: [Element!]!
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
     owner: User!
     store: Store! @relationship(type: "STORE_CONTAINER_NODE", direction: OUT)

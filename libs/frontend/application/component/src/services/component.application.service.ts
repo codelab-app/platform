@@ -207,12 +207,7 @@ export class ComponentApplicationService
         interfaceTypes: [component.api],
       })
 
-      const allElements = [
-        component.rootElement,
-        ...component.rootElement.descendantElements,
-      ]
-
-      allElements.forEach((elementData) => {
+      component.elements.forEach((elementData) => {
         /**
          * Element comes with `component` or `atom` data that we need to load as well
          * TODO: Need to handle component case, refactor reuse

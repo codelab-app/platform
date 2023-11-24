@@ -287,12 +287,7 @@ export class ElementService
 
   @modelAction
   loadComponentTree(component: ComponentDevelopmentFragment) {
-    const elements = [
-      component.rootElement,
-      ...component.rootElement.descendantElements,
-    ]
-
-    const hydratedElements = elements.map((element) =>
+    const hydratedElements = component.elements.map((element) =>
       this.elementDomainService.hydrate({
         ...element,
         closestContainerNode: {

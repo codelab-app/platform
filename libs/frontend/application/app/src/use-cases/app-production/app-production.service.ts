@@ -48,13 +48,11 @@ const getAppProductionData = async ({
   }
 
   const elements = pages.flatMap((page) =>
-    [page.rootElement, ...page.rootElement.descendantElements].map(
-      (element) => ({
-        ...element,
-        closestContainerNode: { id: page.id },
-        page: { id: page.id },
-      }),
-    ),
+    page.elements.map((element) => ({
+      ...element,
+      closestContainerNode: { id: page.id },
+      page: { id: page.id },
+    })),
   )
 
   const props = elements.flatMap((element) => element.props)

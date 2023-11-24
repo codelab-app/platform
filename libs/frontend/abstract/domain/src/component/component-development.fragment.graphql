@@ -6,4 +6,7 @@ fragment ComponentDevelopment on Component {
     }
     ...Element
   }
+  elements {
+    ...Element
+  }
 }

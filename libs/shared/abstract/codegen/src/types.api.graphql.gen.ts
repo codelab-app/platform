@@ -5139,6 +5139,7 @@ export type Component = WithOwner & {
   childrenContainerElement: Element
   childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
   childrenContainerElementConnection: ComponentChildrenContainerElementConnection
+  elements: Array<Element>
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
   owner: User
@@ -13432,6 +13433,7 @@ export type Page = {
   appAggregate?: Maybe<PageAppAppAggregationSelection>
   appConnection: PageAppConnection
   compositeKey: Scalars['String']['output']
+  elements: Array<Element>
   id: Scalars['ID']['output']
   kind: PageKind
   name: Scalars['String']['output']
@@ -20636,6 +20638,7 @@ export type AtomProductionFragment = {
 
 export type ComponentDevelopmentFragment = {
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  elements: Array<ElementFragment>
 } & ComponentFragment
 
 export type ComponentFragment = {
@@ -20758,6 +20761,7 @@ export type PageFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
+  elements: Array<ElementFragment>
 }
 
 export type PageDevelopmentFragment = {
@@ -20769,6 +20773,7 @@ export type PageDevelopmentFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   store: StoreFragment
+  elements: Array<ElementFragment>
 }
 
 export type PageProductionFragment = {
@@ -20783,6 +20788,7 @@ export type PageProductionFragment = {
     descendantElements: Array<ElementProductionFragment>
   } & ElementProductionFragment
   store: StoreFragment
+  elements: Array<ElementProductionFragment>
 }
 
 export type PropFragment = { data: string; id: string }
@@ -21121,11 +21127,11 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
+  components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
   resources: Array<ResourceFragment>
-  components: Array<ComponentDevelopmentFragment>
 }
 
 export type GetAppProductionQueryVariables = Exact<{

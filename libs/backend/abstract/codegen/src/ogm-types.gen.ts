@@ -3168,6 +3168,7 @@ export type Component = WithOwner & {
   __typename: 'Component'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
+  elements: Array<Element>
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   rootElement: Element
   apiAggregate?: Maybe<ComponentInterfaceTypeApiAggregationSelection>
@@ -5412,6 +5413,7 @@ export type Page = {
   compositeKey: Scalars['String']['output']
   name: Scalars['String']['output']
   slug: Scalars['String']['output']
+  elements: Array<Element>
   kind: PageKind
   url: Scalars['String']['output']
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>

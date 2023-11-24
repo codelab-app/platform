@@ -15,6 +15,7 @@ import {
 } from '../element/element.fragment.graphql.gen'
 export type ComponentDevelopmentFragment = {
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  elements: Array<ElementFragment>
 } & ComponentFragment
 
 export const ComponentDevelopmentFragmentDoc = gql`
@@ -24,6 +25,9 @@ export const ComponentDevelopmentFragmentDoc = gql`
       descendantElements {
         ...Element
       }
+      ...Element
+    }
+    elements {
       ...Element
     }
   }

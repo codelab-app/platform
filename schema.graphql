@@ -5109,6 +5109,7 @@ type Component implements WithOwner {
     sort: [ComponentChildrenContainerElementConnectionSort!]
     where: ComponentChildrenContainerElementConnectionWhere
   ): ComponentChildrenContainerElementConnection!
+  elements: [Element!]!
   id: ID!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
@@ -12923,6 +12924,7 @@ type Page {
     where: PageAppConnectionWhere
   ): PageAppConnection!
   compositeKey: String!
+  elements: [Element!]!
   id: ID!
   kind: PageKind!
   name: String!

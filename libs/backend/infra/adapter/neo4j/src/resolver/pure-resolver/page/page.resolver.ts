@@ -7,7 +7,6 @@ export const pageResolver: IResolvers = {
   Page: {
     name: pageName,
     slug: pageSlug,
-    // elements:
   },
   Query: {},
 }
