@@ -1,4 +1,4 @@
-import type { Session } from '@auth0/nextjs-auth0'
+import type { Session } from '@auth0/nextjs-auth0/edge'
 
 export const checkExpiry = (session: Session | null | undefined): boolean => {
   if (!session) {
@@ -14,6 +14,5 @@ export const checkExpiry = (session: Session | null | undefined): boolean => {
 
   const sessionExpiryTime = new Date(accessTokenExpiresAt * 1000)
 
-  // return true
   return currentTime.getTime() > sessionExpiryTime.getTime()
 }

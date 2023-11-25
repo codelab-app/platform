@@ -358,6 +358,9 @@
         "libs/shared/domain/mapper/src/index.ts"
       ],
       "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
+      "@codelab/shared/infra/auth0-edge": [
+        "libs/shared/infra/auth0-edge/src/index.ts"
+      ],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"

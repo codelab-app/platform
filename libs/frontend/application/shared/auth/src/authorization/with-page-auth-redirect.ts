@@ -1,4 +1,4 @@
-import { auth0Instance, checkExpiry } from '@codelab/shared/infra/auth0'
+import { auth0Instance, checkExpiry } from '@codelab/shared/infra/auth0-edge'
 
 export const withPageAuthRedirect = () =>
   auth0Instance().withPageAuthRequired({
