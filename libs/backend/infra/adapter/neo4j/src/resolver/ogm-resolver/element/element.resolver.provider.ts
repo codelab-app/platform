@@ -1,11 +1,9 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
-import type { Node } from 'neo4j-driver'
-import { getDescendantsCypher } from '../../../cypher'
 import { OgmService } from '../../../infra'
 import { Neo4jService } from '../../../infra/neo4j.service'
-import { elementSelectionSet } from '../../../selectionSet'
+import { getDescendantElements } from '../../utils'
 import { ELEMENT_RESOLVER_PROVIDER } from './element.constant'
 import { getDependantTypes } from './util/get-dependant-types'
 
