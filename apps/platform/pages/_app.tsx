@@ -10,7 +10,7 @@ import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
-import config from '../twind.config'
+import twConfig from '../twind.config'
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()
@@ -26,7 +26,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
 
-  useTwindConfig(config)
+  useTwindConfig(twConfig)
 
   return (
     <StoreProvider value={store}>
@@ -62,3 +62,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
 }
 
 export default App
+
+export const config = {
+  runtime: 'experimental-edge',
+}

@@ -9,6 +9,7 @@ import {
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/application/app'
+import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -22,7 +23,6 @@ import {
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import type { IRef } from '@codelab/shared/abstract/core'
-import { auth0Instance } from '@codelab/shared/infra/auth0-edge'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -113,7 +113,7 @@ export default AppsPage
 /**
  * This gets called on SSR, and props are passed to _app
  */
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 AppsPage.Layout = ({ children }) => {
   return (
@@ -122,8 +122,5 @@ AppsPage.Layout = ({ children }) => {
 }
 
 export const config = {
-  // after login this is the page where user is redirected to,
-  // cold start may take longer than default 15s on first login
-  // maxDuration: 30,
   runtime: 'experimental-edge',
 }
