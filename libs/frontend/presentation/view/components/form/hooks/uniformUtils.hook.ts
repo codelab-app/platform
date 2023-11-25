@@ -3,8 +3,8 @@ import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
-// import addFormats from 'ajv-formats'
-// import addKeywords from 'ajv-keywords'
+import addFormats from 'ajv-formats'
+import addKeywords from 'ajv-keywords'
 import type { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 
@@ -20,74 +20,91 @@ export const connectUniformSubmitRef =
     }
   }
 
-// const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
+class AjvSingleton {
+  private constructor() {}
 
-// addFormats(ajv)
-// addKeywords(ajv, ['typeof', 'transform'])
-// we can add custom type definitions here that may be too complex to do in the actual schema
-// ajv.addSchema({
-//   $id: 'customTypes',
-//   definitions: {
-//     // this allows validation on array or object type that references itself
-//     fieldDefaultValues: {
-//       anyOf: [
-//         {
-//           type: 'string',
-//         },
-//         {
-//           type: 'boolean',
-//         },
-//         {
-//           type: ['number', 'integer'],
-//         },
-//         {
-//           items: { $ref: '#/definitions/fieldDefaultValues' },
-//           type: 'array',
-//         },
-//         {
-//           patternProperties: {
-//             '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
-//           },
-//           type: 'object',
-//         },
-//       ],
-//     },
-//     // Adding these definitions here to avoid type errors because
-//     // JSONSchemaType does not support unions although json schema does
-//     fieldDefaultValuesOrNullableFieldDefaultValues: {
-//       anyOf: [
-//         {
-//           $ref: '#/definitions/fieldDefaultValues',
-//         },
-//         {
-//           $ref: '#/definitions/nullableFieldDefaultValues',
-//         },
-//       ],
-//     },
-//     nullableFieldDefaultValues: {
-//       anyOf: [
-//         {
-//           $ref: '#/definitions/fieldDefaultValues',
-//         },
-//         {
-//           type: 'null',
-//         },
-//       ],
-//     },
-//   },
-// })
-// ajv.addKeyword({
-//   errors: false,
-//   keyword: 'forbiddenValues',
-//   schema: true,
-//   validate: (forbiddenValues: Array<string>, data: string) => {
-//     return !forbiddenValues.includes(data)
-//   },
-// })
+  private static _instance: Ajv | null = null
+
+  public static get instance() {
+    if (!AjvSingleton._instance) {
+      AjvSingleton._instance = AjvSingleton.create()
+    }
+
+    return AjvSingleton._instance
+  }
+
+  private static create() {
+    const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
+
+    addFormats(ajv)
+    addKeywords(ajv, ['typeof', 'transform'])
+    // we can add custom type definitions here that may be too complex to do in the actual schema
+    ajv.addSchema({
+      $id: 'customTypes',
+      definitions: {
+        // this allows validation on array or object type that references itself
+        fieldDefaultValues: {
+          anyOf: [
+            {
+              type: 'string',
+            },
+            {
+              type: 'boolean',
+            },
+            {
+              type: ['number', 'integer'],
+            },
+            {
+              items: { $ref: '#/definitions/fieldDefaultValues' },
+              type: 'array',
+            },
+            {
+              patternProperties: {
+                '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
+              },
+              type: 'object',
+            },
+          ],
+        },
+        // Adding these definitions here to avoid type errors because
+        // JSONSchemaType does not support unions although json schema does
+        fieldDefaultValuesOrNullableFieldDefaultValues: {
+          anyOf: [
+            {
+              $ref: '#/definitions/fieldDefaultValues',
+            },
+            {
+              $ref: '#/definitions/nullableFieldDefaultValues',
+            },
+          ],
+        },
+        nullableFieldDefaultValues: {
+          anyOf: [
+            {
+              $ref: '#/definitions/fieldDefaultValues',
+            },
+            {
+              type: 'null',
+            },
+          ],
+        },
+      },
+    })
+    ajv.addKeyword({
+      errors: false,
+      keyword: 'forbiddenValues',
+      schema: true,
+      validate: (forbiddenValues: Array<string>, data: string) => {
+        return !forbiddenValues.includes(data)
+      },
+    })
+
+    return ajv
+  }
+}
 
 export const createValidator = (schema: Schema) => {
-  const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
-  const validator = ajv.compile(schema)
+  const validator = AjvSingleton.instance.compile(schema)
 
   return (model: Record<string, unknown>) => {
     validator(model)
