@@ -34,10 +34,12 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
+    esmExternals: 'loose',
     instrumentationHook: true,
     // instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
   },
   nx: { svgr: true },
+  transpilePackages: ['@auth0/nextjs-auth0', 'oauth4webapi'],
 }
 
 module.exports = (phase, context) => {

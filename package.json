@@ -39,7 +39,7 @@
     "@apollo/client": "3.7.15",
     "@apollo/server": "4.7.2",
     "@as-integrations/next": "2.0.0",
-    "@auth0/nextjs-auth0": "3.1.0",
+    "@auth0/nextjs-auth0": "^3.3.0",
     "@codelab/eslint-plugin": "file:./dist/libs/tools/eslint-plugin",
     "@codelab/tools-workspace": "file:./dist/libs/tools/workspace",
     "@codemirror/autocomplete": "^6.9.0",

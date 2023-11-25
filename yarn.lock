@@ -857,12 +857,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@auth0/nextjs-auth0@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@auth0/nextjs-auth0@npm:3.1.0"
+"@auth0/nextjs-auth0@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@auth0/nextjs-auth0@npm:3.3.0"
   dependencies:
     "@panva/hkdf": ^1.0.2
-    cookie: ^0.5.0
+    cookie: ^0.6.0
     debug: ^4.3.4
     joi: ^17.6.0
     jose: ^4.9.2
@@ -872,7 +872,7 @@ __metadata:
     url-join: ^4.0.1
   peerDependencies:
     next: ">=10"
-  checksum: e55409d69c49185737f69856b641d5df073099421e4eb61bbbbf0fafa78fe5a50a8376c90edc6ae1993a38468f320513708704a7f98748b4847bfe9556816e25
+  checksum: 607ca1ae44cbd94a678ee96572bd5c5de8186cdbc9d9ce97cc9a134a125230a67af6b885719362b85d38f2e6c583cb1ab91e6c70297646a81c84e79515c69229
   languageName: node
   linkType: hard
 
@@ -17649,7 +17649,7 @@ __metadata:
     "@apollo/client": 3.7.15
     "@apollo/server": 4.7.2
     "@as-integrations/next": 2.0.0
-    "@auth0/nextjs-auth0": 3.1.0
+    "@auth0/nextjs-auth0": ^3.3.0
     "@codelab/eslint-plugin": "file:./dist/libs/tools/eslint-plugin"
     "@codelab/tools-workspace": "file:./dist/libs/tools/workspace"
     "@codemirror/autocomplete": ^6.9.0
@@ -18707,6 +18707,13 @@ __metadata:
   version: 0.4.2
   resolution: "cookie@npm:0.4.2"
   checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: f56a7d32a07db5458e79c726b77e3c2eff655c36792f2b6c58d351fb5f61531e5b1ab7f46987150136e366c65213cbe31729e02a3eaed630c3bf7334635fb410
   languageName: node
   linkType: hard
 

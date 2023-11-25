@@ -1,5 +1,6 @@
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { initAuth0 } from '@auth0/nextjs-auth0/edge'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
@@ -9,7 +10,6 @@ import {
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/application/app'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -109,6 +109,18 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
 export default AppsPage
 
+export const auth0Instance = () => {
+  return initAuth0({
+    baseURL: process.env['NEXT_PUBLIC_PLATFORM_HOST'],
+    clientID: process.env['AUTH0_CLIENT_ID'],
+    clientSecret: process.env['AUTH0_CLIENT_SECRET'],
+    issuerBaseURL: process.env['AUTH0_ISSUER_BASE_URL'],
+    secret: process.env['AUTH0_SECRET'],
+  })
+}
+
+export const withPageAuthRedirect = () => auth0Instance().withPageAuthRequired()
+
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 /**
  * This gets called on SSR, and props are passed to _app
@@ -125,4 +137,5 @@ export const config = {
   // after login this is the page where user is redirected to,
   // cold start may take longer than default 15s on first login
   maxDuration: 30,
+  runtime: 'experimental-edge',
 }
