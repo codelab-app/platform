@@ -105,10 +105,17 @@ export class AppDevelopmentService
       ...components.map((component) => component.api),
     ]
 
+    const elementsDependantTypes = elements
+      .map((element) => element.dependantTypes)
+      .flat()
+
+    console.log('elementsDependantTypes', elementsDependantTypes)
+
     const systemTypes = [
       ...data.primitiveTypes,
       ...data.reactNodeTypes,
       ...data.renderPropTypes,
+      ...data.actionTypes,
     ]
 
     const fields = types.flatMap((type) => type.fields)
@@ -123,7 +130,7 @@ export class AppDevelopmentService
       pages,
       props,
       stores,
-      types: [...types, ...systemTypes],
+      types: [...types, ...elementsDependantTypes, ...systemTypes],
     }
   })
 

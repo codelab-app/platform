@@ -1,4 +1,5 @@
 import type {
+  AnyType,
   IBaseType,
   QueryBaseTypesArgs,
 } from '@codelab/shared/abstract/codegen'
@@ -58,6 +59,9 @@ export const TypeResolverProvider: FactoryProvider<
       })
 
     return {
+      AnyType: {
+        __resolveType: (type: AnyType) => type.kind,
+      },
       IBaseType: {
         __resolveType: (type: IBaseType) => type.kind,
       },

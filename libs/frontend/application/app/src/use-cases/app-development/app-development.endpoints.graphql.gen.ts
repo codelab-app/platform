@@ -7,6 +7,7 @@ import {
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
+import { ActionTypeFragment } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
@@ -20,6 +21,7 @@ import {
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
 import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
+import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/render-prop.fragment.graphql.gen'
@@ -31,11 +33,12 @@ export type GetAppDevelopmentQueryVariables = Types.Exact<{
 export type GetAppDevelopmentQuery = {
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
-  components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
+  actionTypes: Array<ActionTypeFragment>
   resources: Array<ResourceFragment>
+  components: Array<ComponentDevelopmentFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
@@ -45,9 +48,6 @@ export const GetAppDevelopmentDocument = gql`
     }
     atoms(where: { type: ReactFragment }) {
       ...AtomDevelopment
-    }
-    components {
-      ...ComponentDevelopment
     }
     primitiveTypes {
       ...PrimitiveType
@@ -64,17 +64,24 @@ export const GetAppDevelopmentDocument = gql`
     renderPropTypes {
       ...RenderPropType
     }
+    actionTypes {
+      ...ActionType
+    }
     resources {
       ...Resource
+    }
+    components {
+      ...ComponentDevelopment
     }
   }
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
-  ${ComponentDevelopmentFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
   ${RenderPropTypeFragmentDoc}
+  ${ActionTypeFragmentDoc}
   ${ResourceFragmentDoc}
+  ${ComponentDevelopmentFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

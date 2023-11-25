@@ -3,7 +3,6 @@ import { rendererRef } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
-  loadAllTypesForElements,
   useAppQuery,
   usePageQuery,
 } from '@codelab/frontend/presentation/container'
@@ -63,7 +62,7 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         page.rootElement.current,
       ]
 
-      await loadAllTypesForElements(componentService, typeService, roots)
+      // await loadAllTypesForElements(componentService, typeService, roots)
 
       // const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
