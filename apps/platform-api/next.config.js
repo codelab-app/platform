@@ -21,7 +21,6 @@ const withRawCypherFiles = (nextConfig = {}) =>
 
 const nextConfig = {
   experimental: {
-    esmExternals: 'loose',
     instrumentationHook: false,
     // instrumentationHook: process.env.NEXT_PLATFORM_API_ENABLE_OTEL
     //   ? true
@@ -33,7 +32,6 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
-  transpilePackages: ['@auth0/nextjs-auth0', 'oauth4webapi'],
 }
 
 const plugins = [
