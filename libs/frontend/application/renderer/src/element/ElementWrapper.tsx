@@ -90,6 +90,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           data={{}}
           id={element.id}
           parentDroppableContainerId={element.closestParentElement?.current.id}
+          wrapComponent={ReactComponent === React.Fragment}
         >
           {children}
         </MakeComponentDroppable>

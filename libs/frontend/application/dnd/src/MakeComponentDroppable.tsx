@@ -5,13 +5,22 @@ import React from 'react'
 import type { WithInternalDropData } from './internal-drop-data.interface'
 import { useTypedDroppable } from './use-typed-droppable'
 
-interface MakeDroppableComponentProps<dataType> {
+type ReactComponentWithRef = React.ComponentType<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ReactComponent: React.ComponentType<React.ComponentPropsWithRef<any>>
+  React.ComponentPropsWithRef<any>
+>
+
+interface MakeDroppableComponentProps<dataType> {
+  ReactComponent: ReactComponentWithRef
   componentProps: IPropData
   data: dataType
   id: string
   parentDroppableContainerId?: string
+  /**
+   * whether or not to wrap the droppable component.
+   * mainly used in case the component itself cannot be droppable
+   */
+  wrapComponent?: boolean
 }
 
 export const MakeComponentDroppable = <DropDataType extends AnyData>({
@@ -21,6 +30,7 @@ export const MakeComponentDroppable = <DropDataType extends AnyData>({
   id,
   parentDroppableContainerId,
   ReactComponent,
+  wrapComponent,
 }: PropsWithChildren<MakeDroppableComponentProps<DropDataType>>) => {
   const { setNodeRef } = useTypedDroppable<WithInternalDropData<DropDataType>>({
     data: {
@@ -34,12 +44,15 @@ export const MakeComponentDroppable = <DropDataType extends AnyData>({
     id,
   })
 
-  return (
-    <>
+  return wrapComponent ? (
+    <div ref={setNodeRef}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <ReactComponent ref={setNodeRef} {...componentProps}>
-        {children}
-      </ReactComponent>
-    </>
+      <ReactComponent {...componentProps}>{children}</ReactComponent>
+    </div>
+  ) : (
+    /* eslint-disable-next-line react/jsx-props-no-spreading */
+    <ReactComponent ref={setNodeRef} {...componentProps}>
+      {children}
+    </ReactComponent>
   )
 }
