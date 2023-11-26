@@ -1,12 +1,22 @@
 import { DragOverlay, useDndContext } from '@dnd-kit/core'
-import React from 'react'
+import { snapCenterToCursor } from '@dnd-kit/modifiers'
+import React, { useRef } from 'react'
 import type { WithInternalDragData } from './internal-drag-data.interface'
 
 export const AutoDragOverlay = () => {
   const { active } = useDndContext()
   const data = active?.data.current as WithInternalDragData<unknown> | undefined
+  const overlayContainerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <DragOverlay>{data?.internalUseOnlyDragData.overlayRenderer()}</DragOverlay>
+    <DragOverlay
+      modifiers={[snapCenterToCursor]}
+      style={{
+        height: overlayContainerRef.current?.style.height,
+        width: overlayContainerRef.current?.style.height,
+      }}
+    >
+      {data?.internalUseOnlyDragData.overlayRenderer(overlayContainerRef)}
+    </DragOverlay>
   )
 }

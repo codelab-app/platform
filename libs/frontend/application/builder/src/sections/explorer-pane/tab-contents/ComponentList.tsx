@@ -13,6 +13,7 @@ import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
+import { ComponentDragOverlay } from './ComponentDragOverlay'
 import { ComponentItem } from './ComponentItem'
 
 const { Search } = Input
@@ -48,6 +49,7 @@ export const ComponentList = observer<{
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {sortBy(filteredItems, 'name').map((component) => (
             <MakeChildrenDraggable<BuilderDragData>
+              customOverlay={<ComponentDragOverlay component={component} />}
               data={{
                 action: BuilderDndAction.CreateElement,
                 elementRenderType: {

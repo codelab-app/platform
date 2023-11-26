@@ -5,11 +5,11 @@ import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import { isComponent } from '@codelab/frontend/abstract/domain'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
 import classNames from 'classnames'
 import React from 'react'
+import { ComponentIcon } from './ComponentIcon'
 
 interface ComponentItemProps {
   className?: string
@@ -20,8 +20,6 @@ interface ComponentItemProps {
   onExport?(id: string): void
   onSelect?(id: string): void
 }
-
-export const antDesignIconPrefix = 'assets/atoms/antd'
 
 export const ComponentItem = ({
   className,
@@ -37,14 +35,6 @@ export const ComponentItem = ({
       <b className="text-sm">{component.name}</b>
     </Tooltip>
   )
-
-  // TODO: update this once we show snapshots for custom components as well
-  const isCustomComponent = isComponent(component)
-
-  const src =
-    !isCustomComponent && component.icon
-      ? `/${antDesignIconPrefix}/${component.icon}.svg`
-      : '/codelab-logo-default.svg'
 
   const handleEditClick = (event: React.MouseEvent) => {
     event.stopPropagation()
@@ -111,7 +101,7 @@ export const ComponentItem = ({
         onMouseDown={handleSelectClick}
         title={title}
       >
-        <img alt="" className="w-full" draggable="false" src={src} />
+        <ComponentIcon component={component} />
       </Card>
     </div>
   )

@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react'
+import type { ReactNode, RefObject } from 'react'
 
 export interface InternalDragData {
-  overlayRenderer(): ReactNode
+  overlayRenderer(ref?: RefObject<HTMLDivElement>): ReactNode
 }
 
 export type WithInternalDragData<T> = T & {
