@@ -5,7 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 import type { OverlayProps } from './overlay.interface'
 
-const TOOLBAR_HEIGHT = 25
+const TOOLBAR_HEIGHT = 30
 
 export const ClickOverlay = ({
   content,
@@ -77,10 +77,11 @@ export const ClickOverlay = ({
     return {
       alignItems: 'center',
       backgroundColor: '#43669A',
-      borderRadius: isToolbarVisible ? '10px 10px 0 0' : '0 0 10px 10px',
+      borderRadius: isToolbarVisible ? '12px 12px 12px 0' : '0 12px 12px 12px',
       color: 'rgb(255, 255, 255)',
       display: 'flex',
       fontSize: '0.8rem',
+      height: TOOLBAR_HEIGHT,
       justifyContent: 'center',
       marginLeft: '-2px',
       padding: '0.1rem 0.3rem 0.1rem 0.3rem',

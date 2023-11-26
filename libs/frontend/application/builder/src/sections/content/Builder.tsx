@@ -88,7 +88,8 @@ const StyledBuilderResizeContainer = styled.div`
   position: relative;
   height: 100%;
   background: transparent;
-  border: 3px dotted rgba(0, 0, 0, 1);
+  border: 2px dotted rgba(170, 170, 170);
+  padding: 2px;
   overflow: scroll !important;
   box-sizing: border-box;
 `
