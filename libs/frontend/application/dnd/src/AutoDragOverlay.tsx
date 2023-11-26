@@ -12,6 +12,7 @@ export const AutoDragOverlay = () => {
     <DragOverlay
       modifiers={[snapCenterToCursor]}
       style={{
+        cursor: 'grabbing',
         height: overlayContainerRef.current?.style.height,
         width: overlayContainerRef.current?.style.height,
       }}

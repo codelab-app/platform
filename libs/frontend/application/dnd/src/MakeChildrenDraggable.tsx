@@ -39,6 +39,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
   })
 
   const style = {
+    cursor: 'grab',
     opacity: active?.id === id ? 0.5 : 1,
   }
 
