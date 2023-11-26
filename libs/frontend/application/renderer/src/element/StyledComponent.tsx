@@ -9,18 +9,18 @@ const ReusableStyledComponent = styled('placeholder')`
   ${(props: IPropData) => camelCaseToKebabCaseOnlyKeys(props['css'])}
 `
 
-interface MakeStyledComponentProps {
+export interface StyledComponentProps {
   ReactComponent: IComponentType
   componentProps: IPropData
 }
 
-export const MakeStyledComponent = forwardRef(
+export const StyledComponent = forwardRef(
   (
     {
       children,
       componentProps,
       ReactComponent,
-    }: PropsWithChildren<MakeStyledComponentProps>,
+    }: PropsWithChildren<StyledComponentProps>,
     ref,
   ) => {
     // do not wrap with styled() if it's React.Fragment

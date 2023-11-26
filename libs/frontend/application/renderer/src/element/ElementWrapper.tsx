@@ -1,14 +1,13 @@
 import type { ElementWrapperProps } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
-import { MakeComponentDroppable } from '@codelab/frontend/application/dnd'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { MakeStyledComponent } from './MakeStyledComponent'
+import { DroppableStyledComponent } from './DroppableStyledComponent'
 import { useSelectionHandlers } from './useSelectionHandlers.hook'
 import {
   extractValidProps,
@@ -81,19 +80,15 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         onResetKeysChange={onResetKeysChange}
         resetKeys={[renderOutput]}
       >
-        <MakeComponentDroppable
-          ReactComponent={MakeStyledComponent}
-          componentProps={{
-            componentProps: mergedProps,
-            ReactComponent,
-          }}
-          data={{}}
+        <DroppableStyledComponent
+          ReactComponent={ReactComponent}
+          componentProps={mergedProps}
           id={element.id}
-          parentDroppableContainerId={element.closestParentElement?.current.id}
-          wrapComponent={ReactComponent === React.Fragment}
+          isDroppable={renderer.rendererType !== RendererType.Production}
+          parentId={element.closestParentElement?.current.id}
         >
           {children}
-        </MakeComponentDroppable>
+        </DroppableStyledComponent>
       </ErrorBoundary>
     )
   },

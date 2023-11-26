@@ -1,8 +1,12 @@
-import type { IRendererModel } from '@codelab/frontend/abstract/application'
+import {
+  type IRendererModel,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
 import { MakeChildrenDroppable } from '@codelab/frontend/application/dnd'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { WrapIf } from '@codelab/frontend/presentation/view'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
@@ -49,11 +53,15 @@ export const RootRenderer = observer<
 
     return (
       <ErrorBoundary>
-        <MakeChildrenDroppable data={{}} id={ROOT_RENDER_CONTAINER_ID}>
+        <WrapIf
+          Wrapper={MakeChildrenDroppable}
+          condition={renderer.rendererType !== RendererType.Production}
+          wrapperProps={{ data: {}, id: ROOT_RENDER_CONTAINER_ID }}
+        >
           <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
             {rendererService.renderRoot(renderer)}
           </div>
-        </MakeChildrenDroppable>
+        </WrapIf>
       </ErrorBoundary>
     )
   }),
