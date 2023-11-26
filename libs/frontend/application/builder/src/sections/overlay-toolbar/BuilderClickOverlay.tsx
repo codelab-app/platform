@@ -31,7 +31,6 @@ const StyledSpan = styled.p`
   height: 20px;
   min-width: 50px;
   margin: 0;
-  font-size: 15px;
   overflow: hidden;
   white-space: nowrap;
 `
@@ -81,10 +80,10 @@ export const BuilderClickOverlay = observer<{
           }}
           id={selectedNode.id}
         >
-          <div className="flex h-7 w-7 justify-center align-middle">
+          <div className="flex h-7 w-7 items-center justify-center align-middle">
             <div
-              className="flex h-5 w-5 justify-center rounded-full align-middle"
-              style={{ backgroundColor: 'rgb(7, 62, 78)', color: 'white' }}
+              className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
+              style={{ backgroundColor: '#375583', color: 'white' }}
             >
               <DragOutlined color="white" />
             </div>
