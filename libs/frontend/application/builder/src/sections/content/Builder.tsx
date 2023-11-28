@@ -17,7 +17,7 @@ import { BuilderResizeHandle } from './BuilderResizeHandle'
 export const Builder = observer(() => {
   const { builderService, elementService, rendererService } = useStore()
   const renderer = rendererService.activeRenderer?.current
-  const elementTree = builderService.activeElementTree
+  const elementTree = rendererService.activeElementTree
   const { selectedBuilderWidth, selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)
   const ref = useRef<HTMLDivElement>(null)

@@ -1,6 +1,7 @@
 import {
   getComponentService,
   getElementService,
+  getRendererService,
 } from '@codelab/frontend/abstract/application'
 import type {
   ICloneElementService,
@@ -228,8 +229,9 @@ export class CloneElementService
     parentElement: IElementModel,
   ) {
     const duplicateName = makeAutoIncrementedName(
-      this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
-        [],
+      this.rendererService.activeElementTree?.elements.map(
+        ({ name }) => name,
+      ) || [],
       element.name,
       true,
     )
@@ -313,6 +315,11 @@ export class CloneElementService
   @computed
   private get builderService() {
     return getBuilderDomainService(this)
+  }
+
+  @computed
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

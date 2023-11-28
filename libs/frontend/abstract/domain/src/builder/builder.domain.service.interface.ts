@@ -1,8 +1,8 @@
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IAtomModel } from '../atom'
 import type { IComponentModel } from '../component'
-import type { IElementModel, IElementTree } from '../element'
+import type { IElementModel } from '../element'
 import type { IPageNodeRef } from '../page'
 import type {
   BuilderWidth,
@@ -17,7 +17,6 @@ export interface IBuilderDomainService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<Ref<IComponentModel>>
-  activeElementTree: Maybe<IElementTree>
   /**
    * Tells us which tree we are selecting in the main pane
    */
