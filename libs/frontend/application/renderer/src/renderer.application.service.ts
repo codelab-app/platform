@@ -54,7 +54,7 @@ export class RendererApplicationService
   }
 
   get activeElementTree() {
-    return this.activeRenderer?.current.elementTree.current
+    return this.activeRenderer?.current.containerNode.current
   }
 
   /**

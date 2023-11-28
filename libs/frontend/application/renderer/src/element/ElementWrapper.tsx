@@ -85,7 +85,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           componentProps={mergedProps}
           id={element.id}
           isDroppable={renderer.rendererType !== RendererType.Production}
-          parentId={element.closestParentElement?.current.id}
+          parentId={element.current.closestParentElement?.current.id}
         >
           {children}
         </DroppableStyledComponent>

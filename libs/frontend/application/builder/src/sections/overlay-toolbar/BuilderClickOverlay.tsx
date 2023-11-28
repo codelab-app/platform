@@ -1,4 +1,5 @@
-import { DeleteOutlined, DragOutlined } from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import DragOutlined from '@ant-design/icons/DragOutlined'
 import type {
   BuilderDragData,
   IElementService,
