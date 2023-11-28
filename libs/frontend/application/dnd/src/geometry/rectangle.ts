@@ -40,4 +40,15 @@ export class Rectangle {
   static zeroRect() {
     return { bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0 }
   }
+
+  static createRect(left: number, top: number, width: number, height: number) {
+    return {
+      bottom: top + height,
+      height,
+      left,
+      right: left + width,
+      top,
+      width,
+    }
+  }
 }

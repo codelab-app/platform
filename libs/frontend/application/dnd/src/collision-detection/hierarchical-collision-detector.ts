@@ -9,12 +9,34 @@ import type { WithInternalDropData } from '../internal-drop-data.interface'
 import type { HierarchicalCollision } from './hierarchical-collision.interface'
 import type { HierarchicalDroppableContainer } from './hierarchical-droppable-container.interface'
 
+interface HierarchicalCollisionDetectorOptions {
+  /**
+   * The number of pixels to shrink the bounding box of each droppable container by.
+   * @default 2
+   */
+  spacing?: number
+}
+
 export class HierarchicalCollisionDetector {
+  options: HierarchicalCollisionDetectorOptions = {
+    spacing: 2,
+  }
+
+  constructor(options?: HierarchicalCollisionDetectorOptions) {
+    this.options = {
+      ...this.options,
+      ...options,
+    }
+  }
+
   public detectCollisions = ({
     active,
     droppableContainers,
     pointerCoordinates,
-  }: Parameters<CollisionDetection>[0]): Array<HierarchicalCollision> => {
+  }: Pick<
+    Parameters<CollisionDetection>[0],
+    'active' | 'droppableContainers' | 'pointerCoordinates'
+  >): Array<HierarchicalCollision> => {
     if (!pointerCoordinates) {
       return []
     }
@@ -30,7 +52,7 @@ export class HierarchicalCollisionDetector {
       },
     )
 
-    const shrunkDroppableContainers = this.shrinkContainersByLevel(
+    const shrunkDroppableContainers = this.shrinkContainers(
       eligibleDroppableContainers,
     )
 
@@ -140,22 +162,61 @@ export class HierarchicalCollisionDetector {
     return foundRect?.id
   }
 
-  private shrinkContainersByLevel(
-    containers: Array<HierarchicalDroppableContainer>,
-  ) {
-    const shrinkedContainers = containers.map((container) => {
-      const shrinkedRect = Rectangle.shrink(
-        container.rect,
-        container.level || 0,
-      )
+  private shrinkContainers(containers: Array<HierarchicalDroppableContainer>) {
+    const spacing = this.options.spacing
+
+    // Shrink all containers except for the root by the same constant value
+    const uniformallyShrunkContainers = containers.map((container) => {
+      const shrunkRect =
+        container.ancestors.length > 0
+          ? Rectangle.shrink(container.rect, spacing || 0)
+          : container.rect
 
       return {
         ...container,
-        rect: shrinkedRect,
+        rect: shrunkRect,
       }
     })
 
-    return shrinkedContainers
+    // shrink only containers that obacure their parents
+    const shrunkContainers = uniformallyShrunkContainers.map(
+      (shrunkContainer) => {
+        const shrunkRect = shrunkContainer.rect
+
+        const parent = uniformallyShrunkContainers.find(
+          (potentialParent) => potentialParent.id === shrunkContainer.parentId,
+        )
+
+        const parentRect = parent?.rect
+
+        if (parentRect && spacing) {
+          const leftSpace = Math.abs(shrunkRect.left - parentRect.left)
+          const rightSpace = Math.abs(shrunkRect.right - parentRect.right)
+          const topSpace = Math.abs(shrunkRect.top - parentRect.top)
+          const bottomSpace = Math.abs(shrunkRect.bottom - parentRect.bottom)
+          const shrinkLeftBy = leftSpace < spacing ? spacing - leftSpace : 0
+          const shrinkRightBy = rightSpace < spacing ? spacing - rightSpace : 0
+          const shrinkTopBy = topSpace < spacing ? spacing - topSpace : 0
+
+          const shrinkBottomBy =
+            bottomSpace < spacing ? spacing - bottomSpace : 0
+
+          shrunkRect.width = shrunkRect.width - shrinkLeftBy - shrinkRightBy
+          shrunkRect.height = shrunkRect.height - shrinkTopBy - shrinkBottomBy
+          shrunkRect.left = shrunkRect.left + shrinkLeftBy
+          shrunkRect.right = shrunkRect.right - shrinkRightBy
+          shrunkRect.top = shrunkRect.top + shrinkTopBy
+          shrunkRect.bottom = shrunkRect.bottom - shrinkBottomBy
+        }
+
+        return {
+          ...shrunkContainer,
+          rect: shrunkRect,
+        }
+      },
+    )
+
+    return shrunkContainers
   }
 
   /**
