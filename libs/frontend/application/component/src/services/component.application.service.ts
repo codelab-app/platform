@@ -131,10 +131,6 @@ export class ComponentApplicationService
           },
         })
 
-    if (!rootElement) {
-      yield* _await(this.elementService.elementRepository.add(rootElementModel))
-    }
-
     const component = this.componentDomainService.hydrate({
       api,
       childrenContainerElement: { id: rootElementModel.id },
@@ -144,6 +140,10 @@ export class ComponentApplicationService
       rootElement: rootElementModel,
       store,
     })
+
+    if (!rootElement) {
+      yield* _await(this.elementService.elementRepository.add(rootElementModel))
+    }
 
     yield* _await(this.componentRepository.add(component))
 
