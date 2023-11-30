@@ -1,18 +1,18 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import {
   ElementFragment,
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
-import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
-import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
@@ -30,7 +30,7 @@ export type PageFragment = {
   url: string
   app: { id: string }
   pageContentContainer?: { id: string } | null
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  rootElement: { id: string }
   store: StoreFragment
   elements: Array<ElementFragment>
 }
@@ -42,7 +42,7 @@ export type PageDevelopmentFragment = {
   url: string
   app: { id: string }
   pageContentContainer?: { id: string } | null
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  rootElement: { id: string }
   store: StoreFragment
   elements: Array<ElementFragment>
 }
@@ -55,9 +55,7 @@ export type PageProductionFragment = {
   url: string
   app: { id: string }
   pageContentContainer?: { id: string } | null
-  rootElement: {
-    descendantElements: Array<ElementProductionFragment>
-  } & ElementProductionFragment
+  rootElement: { id: string }
   store: StoreFragment
   elements: Array<ElementProductionFragment>
 }
@@ -91,10 +89,7 @@ export const PageFragmentDoc = gql`
       id
     }
     rootElement {
-      descendantElements {
-        ...Element
-      }
-      ...Element
+      id
     }
     store {
       ...Store
@@ -104,8 +99,8 @@ export const PageFragmentDoc = gql`
       ...Element
     }
   }
-  ${ElementFragmentDoc}
   ${StoreFragmentDoc}
+  ${ElementFragmentDoc}
 `
 export const PageDevelopmentFragmentDoc = gql`
   fragment PageDevelopment on Page {
@@ -119,10 +114,7 @@ export const PageDevelopmentFragmentDoc = gql`
       id
     }
     rootElement {
-      descendantElements {
-        ...Element
-      }
-      ...Element
+      id
     }
     store {
       ...Store
@@ -132,8 +124,8 @@ export const PageDevelopmentFragmentDoc = gql`
       ...Element
     }
   }
-  ${ElementFragmentDoc}
   ${StoreFragmentDoc}
+  ${ElementFragmentDoc}
 `
 export const PageProductionFragmentDoc = gql`
   fragment PageProduction on Page {
@@ -147,10 +139,7 @@ export const PageProductionFragmentDoc = gql`
       id
     }
     rootElement {
-      descendantElements {
-        ...ElementProduction
-      }
-      ...ElementProduction
+      id
     }
     slug
     store {
@@ -161,8 +150,8 @@ export const PageProductionFragmentDoc = gql`
       ...ElementProduction
     }
   }
-  ${ElementProductionFragmentDoc}
   ${StoreFragmentDoc}
+  ${ElementProductionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

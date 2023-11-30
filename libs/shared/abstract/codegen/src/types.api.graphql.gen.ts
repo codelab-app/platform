@@ -20638,7 +20638,7 @@ export type AtomProductionFragment = {
 }
 
 export type ComponentDevelopmentFragment = {
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  rootElement: { id: string }
   elements: Array<ElementFragment>
 } & ComponentFragment
 
@@ -20790,7 +20790,7 @@ export type PageFragment = {
   url: string
   app: { id: string }
   pageContentContainer?: { id: string } | null
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  rootElement: { id: string }
   store: StoreFragment
   elements: Array<ElementFragment>
 }
@@ -20802,7 +20802,7 @@ export type PageDevelopmentFragment = {
   url: string
   app: { id: string }
   pageContentContainer?: { id: string } | null
-  rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
+  rootElement: { id: string }
   store: StoreFragment
   elements: Array<ElementFragment>
 }
@@ -20815,9 +20815,7 @@ export type PageProductionFragment = {
   url: string
   app: { id: string }
   pageContentContainer?: { id: string } | null
-  rootElement: {
-    descendantElements: Array<ElementProductionFragment>
-  } & ElementProductionFragment
+  rootElement: { id: string }
   store: StoreFragment
   elements: Array<ElementProductionFragment>
 }

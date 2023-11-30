@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import {
   elementSelectionSet,
-  getDescendantsCypher,
+  getElementWithDescendants,
   Neo4jService,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
@@ -23,7 +23,6 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
-import type { Node } from 'neo4j-driver'
 
 @Injectable()
 export class ElementRepository extends AbstractRepository<
@@ -42,17 +41,8 @@ export class ElementRepository extends AbstractRepository<
   }
 
   async getElementWithDescendants(rootId: string) {
-    return this.neo4jService.withReadTransaction(async (txn) => {
-      const { records } = await txn.run(getDescendantsCypher, { rootId })
-      const descendants = records[0]?.get(0)
-
-      const descendantIds = descendants.map(
-        ({ properties }: Node) => properties.id,
-      )
-
-      return await this.find({
-        where: { id_IN: [rootId, ...descendantIds] },
-      })
+    return getElementWithDescendants(this.neo4jService, this.ogmService, {
+      id: rootId,
     })
   }
 

@@ -44,13 +44,15 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       return null
     }
 
-    const roots = [component.rootElement.current]
-
     const rootElement = elementService.elementDomainService.maybeElement(
       component.rootElement.id,
     )
 
-    await loadAllTypesForElements(componentService, typeService, roots)
+    await loadAllTypesForElements(
+      componentService,
+      typeService,
+      component.elements,
+    )
 
     if (rootElement) {
       builderService.selectElementNode(rootElement)

@@ -4,7 +4,7 @@ import { getDescendantsCypher } from '../../cypher'
 import type { Neo4jService, OgmService } from '../../infra'
 import { elementSelectionSet } from '../../selectionSet'
 
-export const getDescendantElements = async (
+export const getElementWithDescendants = async (
   neo4jService: Neo4jService,
   ogmService: OgmService,
   parent: IRef,
@@ -23,10 +23,10 @@ export const getDescendantElements = async (
     },
   )
 
-  const decendants = await ogmService.Element.find({
+  const elements = await ogmService.Element.find({
     selectionSet: `{ ${elementSelectionSet} }`,
-    where: { id_IN: descendantIds },
+    where: { id_IN: [parent.id, ...descendantIds] },
   })
 
-  return decendants
+  return elements
 }
