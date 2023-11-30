@@ -1,2 +1,5 @@
-export * from './BuilderContext'
-export * from './useBuilderDnd.hook'
+import dynamic from 'next/dynamic'
+
+export const BuilderDndContext = dynamic(() => import('./BuilderDndContext'), {
+  ssr: false,
+})

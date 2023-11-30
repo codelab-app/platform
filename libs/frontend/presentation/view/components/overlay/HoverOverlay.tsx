@@ -19,10 +19,12 @@ export const HoverOverlay = ({
 
   const rootStyle: CSSProperties = useMemo(
     () => ({
-      border: '1px solid black',
+      borderRadius: '3px',
       bottom: `${rect.bottom}px`,
+
       height: `${rect.height}px`,
       left: `${rect.left - containerRect.left}px`,
+      outline: `2px solid #43669A`,
       pointerEvents: 'none',
       position: 'fixed',
       right: `${rect.right}px`,

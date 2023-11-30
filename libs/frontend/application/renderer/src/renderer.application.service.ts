@@ -53,6 +53,10 @@ export class RendererApplicationService
     return renderer
   }
 
+  get activeElementTree() {
+    return this.activeRenderer?.current.containerNode.current
+  }
+
   /**
    * This is the entry point to start the rendering process
    */

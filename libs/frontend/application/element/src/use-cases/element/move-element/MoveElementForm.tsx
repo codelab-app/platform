@@ -27,8 +27,8 @@ export interface MoveElementFormProps {
  * Not intended to be used in a modal
  */
 export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
-  const { atomService, builderService, elementService } = useStore()
-  const elementTree = builderService.activeElementTree
+  const { atomService, elementService, rendererService } = useStore()
+  const elementTree = rendererService.activeElementTree
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
   const { current: model } = useRef({

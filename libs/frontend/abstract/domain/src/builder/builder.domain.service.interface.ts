@@ -1,11 +1,10 @@
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { Frozen, Ref } from 'mobx-keystone'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
 import type { IAtomModel } from '../atom'
 import type { IComponentModel } from '../component'
-import type { IElementModel, IElementTree } from '../element'
+import type { IElementModel } from '../element'
 import type { IPageNodeRef } from '../page'
 import type {
-  BuilderDragData,
   BuilderWidth,
   BuilderWidthBreakPoint,
   RendererTab,
@@ -18,7 +17,6 @@ export interface IBuilderDomainService {
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<Ref<IComponentModel>>
-  activeElementTree: Maybe<IElementTree>
   /**
    * Tells us which tree we are selecting in the main pane
    */
@@ -26,7 +24,6 @@ export interface IBuilderDomainService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  currentDragData: Nullable<Frozen<BuilderDragData>>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IPageNodeRef>
@@ -39,7 +36,6 @@ export interface IBuilderDomainService {
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void

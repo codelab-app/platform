@@ -24,7 +24,7 @@ type AutoComputedElementNameProps = FieldProps<
  */
 const AutoComputedElementName = observer<AutoComputedElementNameProps>(
   (props) => {
-    const { atomService, builderService, componentService } = useStore()
+    const { atomService, componentService, rendererService } = useStore()
     const { name, onChange, value } = props
 
     const [renderTypeField] = useField<{
@@ -55,7 +55,7 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
 
       renderTypeName = renderTypeName
         ? makeAutoIncrementedName(
-            builderService.activeElementTree?.elements.map(
+            rendererService.activeElementTree?.elements.map(
               (element) => element.name,
             ) || [],
             compoundCaseToTitleCase(renderTypeName),

@@ -1,10 +1,15 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import type { IElementService } from '@codelab/frontend/abstract/application'
+import DragOutlined from '@ant-design/icons/DragOutlined'
+import type {
+  BuilderDragData,
+  IElementService,
+} from '@codelab/frontend/abstract/application'
+import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
+import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
-import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
@@ -25,8 +30,7 @@ const StyledOverlayContainer = styled.div`
 const StyledSpan = styled.p`
   height: 20px;
   min-width: 50px;
-  margin: 0;
-  font-size: 15px;
+  margin: 2px;
   overflow: hidden;
   white-space: nowrap;
 `
@@ -34,9 +38,6 @@ const StyledSpan = styled.p`
 const StyledOverlayButtonGroup = styled.div`
   display: flex;
   flex-direction: row;
-  & > *:not(:last-child) {
-    margin-right: 0.2rem;
-  }
 `
 
 export const BuilderClickOverlay = observer<{
@@ -58,19 +59,38 @@ export const BuilderClickOverlay = observer<{
 
   const content = (
     <StyledOverlayContainer>
-      <StyledSpan>{selectedNode.current.name}</StyledSpan>
       <StyledOverlayButtonGroup>
-        <Button
-          danger
-          icon={<DeleteOutlined />}
+        <div
+          className="flex h-7 w-7 cursor-pointer items-center justify-center align-middle"
           onClick={(event) => {
             event.stopPropagation()
             elementService.deleteModal.open(selectedNode)
           }}
-          size="small"
-          type="text"
-        />
+        >
+          <div
+            className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
+            style={{ backgroundColor: '#375583', color: 'red' }}
+          >
+            <DeleteOutlined />
+          </div>
+        </div>
+        <MakeChildrenDraggable<BuilderDragData>
+          data={{
+            action: BuilderDndAction.MoveElement,
+          }}
+          id={selectedNode.id}
+        >
+          <div className="flex h-7 w-7 items-center justify-center align-middle">
+            <div
+              className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
+              style={{ backgroundColor: '#375583', color: 'white' }}
+            >
+              <DragOutlined color="white" />
+            </div>
+          </div>
+        </MakeChildrenDraggable>
       </StyledOverlayButtonGroup>
+      <StyledSpan>{selectedNode.current.name}</StyledSpan>
     </StyledOverlayContainer>
   )
 

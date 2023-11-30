@@ -2,7 +2,7 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
-  BuilderContext,
+  BuilderDndContext,
   BuilderPrimarySidebar,
   BuilderTabs,
   ComponentsPrimarySidebar,
@@ -79,7 +79,7 @@ const ComponentBuilder: CodelabPage = observer(() => {
 export const getServerSideProps = withPageAuthRedirect()
 
 ComponentBuilder.Layout = observer(({ children }) => {
-  return <BuilderContext>{children()}</BuilderContext>
+  return <BuilderDndContext>{children()}</BuilderDndContext>
 })
 
 export default ComponentBuilder

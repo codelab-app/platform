@@ -3,7 +3,7 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/application/app'
 import {
-  BuilderContext,
+  BuilderDndContext,
   BuilderPrimarySidebar,
   BuilderTabs,
   ComponentsPrimarySidebar,
@@ -14,7 +14,6 @@ import {
   PagesPrimarySidebar,
 } from '@codelab/frontend/application/page'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import { usePageQuery } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
@@ -22,15 +21,12 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const router = useRouter()
-  const { appService, pageService } = useStore()
   const { pageName } = usePageQuery()
 
-  const [{ error, result, status }, loadDevelopmentPage] = useAppDevelopment({
+  const [{ error, status }, loadDevelopmentPage] = useAppDevelopment({
     rendererType: RendererType.PageBuilder,
   })
 
@@ -114,7 +110,7 @@ const PageBuilder: CodelabPage = observer(() => {
 export const getServerSideProps = withPageAuthRedirect()
 
 PageBuilder.Layout = observer(({ children }) => {
-  return <BuilderContext>{children()}</BuilderContext>
+  return <BuilderDndContext>{children()}</BuilderDndContext>
 })
 
 export default PageBuilder

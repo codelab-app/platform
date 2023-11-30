@@ -1,7 +1,10 @@
+import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import type {
   IAtomModel,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
+import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
 import { ErrorBoundary } from '@codelab/frontend/presentation/view'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
@@ -10,7 +13,8 @@ import filter from 'lodash/filter'
 import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useRef, useState } from 'react'
-import { DraggableComponentItem } from './ComponentItem'
+import { ComponentDragOverlay } from './ComponentDragOverlay'
+import { ComponentItem } from './ComponentItem'
 
 const { Search } = Input
 
@@ -44,15 +48,28 @@ export const ComponentList = observer<{
       <ErrorBoundary>
         <Space direction="vertical" size="small" style={{ display: 'flex' }}>
           {sortBy(filteredItems, 'name').map((component) => (
-            <DraggableComponentItem
-              component={component}
-              key={component.id}
-              onDelete={onDelete}
-              onEdit={onEdit}
-              onExport={onExport}
-              onSelect={onSelect}
-              selected={selectedIds?.includes(component.id)}
-            />
+            <MakeChildrenDraggable<BuilderDragData>
+              customOverlay={<ComponentDragOverlay component={component} />}
+              data={{
+                action: BuilderDndAction.CreateElement,
+                elementRenderType: {
+                  __typename: component.__typename,
+                  id: component.id,
+                },
+                name: component.name,
+              }}
+              id={component.id}
+            >
+              <ComponentItem
+                component={component}
+                key={component.id}
+                onDelete={onDelete}
+                onEdit={onEdit}
+                onExport={onExport}
+                onSelect={onSelect}
+                selected={selectedIds?.includes(component.id)}
+              />
+            </MakeChildrenDraggable>
           ))}
         </Space>
       </ErrorBoundary>

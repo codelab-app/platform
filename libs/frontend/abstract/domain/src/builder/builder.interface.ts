@@ -1,4 +1,4 @@
-import type { IElementDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface MoveData {
   parentElement: IRef
@@ -8,17 +8,6 @@ export interface MoveData {
 export enum RendererTab {
   Component = 'Component',
   Page = 'Page',
-}
-
-export interface BuilderDragData {
-  createElementInput?: IElementDTO
-  icon?: string
-  name?: string
-  type: BuilderDndType
-}
-
-export interface BuilderDropData {
-  dragPosition?: DragPosition
 }
 
 export interface BuilderWidth {
@@ -32,17 +21,6 @@ export const enum BuilderWidthBreakPoint {
   MobilePortrait = 'mobile-portrait',
   MobileLandscape = 'mobile-landscape',
   Tablet = 'tablet',
-}
-
-export enum BuilderDndType {
-  CreateElement = 'CreateElement',
-  MoveElement = 'MoveElement',
-}
-
-export enum DragPosition {
-  After = 'After',
-  Before = 'Before',
-  Inside = 'Inside',
 }
 
 export const defaultBuilderWidthBreakPoints: Record<

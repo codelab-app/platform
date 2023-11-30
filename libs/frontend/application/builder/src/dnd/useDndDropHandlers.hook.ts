@@ -1,14 +1,16 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   BuilderDragData,
-  BuilderDropData,
-  IElementTree,
-} from '@codelab/frontend/abstract/domain'
-import { DragPosition } from '@codelab/frontend/abstract/domain'
+  IElementService,
+  IRendererService,
+} from '@codelab/frontend/abstract/application'
+import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
+import type { CollisionData } from '@codelab/frontend/application/dnd'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
+import { v4 } from 'uuid'
 
 export interface UseDndDropHandler {
   handleCreateElement(event: DragEndEvent): Promise<void>
@@ -17,76 +19,70 @@ export interface UseDndDropHandler {
 
 export const useDndDropHandler = (
   elementService: IElementService,
-  elementTree: Maybe<IElementTree>,
+  rendererService: IRendererService,
 ): UseDndDropHandler => {
   const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
   const handleCreateElement = async (event: DragEndEvent) => {
-    const targetElementId = event.over?.id.toString()
+    const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
     const data = event.active.data.current as Maybe<BuilderDragData>
-    const overData = event.over?.data.current as Maybe<BuilderDropData>
-    const dragPosition = overData?.dragPosition
-    const createElementInput = data?.createElementInput
+    const activeElementTree = rendererService.activeElementTree
 
-    if (!elementTree) {
-      console.error('Element Tree is missing')
+    const prevSiblingId =
+      collisionData?.childDroppableBeforePointer as Maybe<string>
 
+    const nextSiblingId =
+      collisionData?.childDroppableAfterPointer as Maybe<string>
+
+    const dropTargetId = event.over?.id.toString()
+    const renderType = data?.elementRenderType
+
+    const parentElementId =
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
+        ? activeElementTree?.rootElement.current.id
+        : dropTargetId
+
+    if (
+      !activeElementTree ||
+      !parentElementId ||
+      !renderType ||
+      !collisionData ||
+      !data.name ||
+      !validateParentForCreate(renderType.id, parentElementId)
+    ) {
       return
     }
 
-    if (!targetElementId || !createElementInput) {
-      return
-    }
+    const parentElement = elementService.element(parentElementId)
 
-    const targetElement = elementService.element(targetElementId)
-
-    if (!dragPosition) {
-      console.error('Drag position is required')
-
-      return
-    }
-
-    // for not mutating the actual input from the components tab
-    const createElementDTO = {
-      ...createElementInput,
+    const createElementDTO: IElementDTO = {
+      closestContainerNode: {
+        id: parentElement.closestContainerNode.id,
+      },
+      id: v4(),
       name: makeAutoIncrementedName(
-        elementTree.elements.map((element) => element.name),
-        createElementInput.name,
+        activeElementTree.elements.map((element) => element.name),
+        data.name,
       ),
-    }
-
-    const parentId =
-      dragPosition === DragPosition.Inside
-        ? targetElement.id
-        : targetElement.parentElement?.id
-
-    if (!validateParentForCreate(createElementDTO.renderType.id, parentId)) {
-      return
-    }
-
-    // create the new element after the target element
-    if (dragPosition === DragPosition.After && createElementDTO.prevSibling) {
-      createElementDTO.prevSibling.id = targetElement.id
-    }
-
-    // create the new element before the target element
-    if (dragPosition === DragPosition.Before) {
-      // if theres an element before the target, create the new element next to that
-      if (targetElement.prevSibling && createElementDTO.prevSibling) {
-        createElementDTO.prevSibling.id = targetElement.prevSibling.id
-      }
-
-      // if theres no element before the target, create the new element
-      // as the first child of the target's parent element
-      if (!targetElement.prevSibling && targetElement.parentElement?.id) {
-        createElementDTO.parentElement = targetElement.parentElement
-      }
-    }
-
-    // create the new element inside the target element as a first child
-    if (dragPosition === DragPosition.Inside) {
-      createElementDTO.parentElement = targetElement
+      nextSibling: nextSiblingId
+        ? {
+            id: nextSiblingId,
+          }
+        : undefined,
+      parentElement: {
+        id: parentElement.id,
+      },
+      prevSibling: prevSiblingId
+        ? {
+            id: prevSiblingId,
+          }
+        : undefined,
+      props: {
+        data: '{}',
+        id: v4(),
+      },
+      renderType,
     }
 
     await elementService.createElement(createElementDTO)
@@ -94,52 +90,56 @@ export const useDndDropHandler = (
 
   const handleMoveElement = async (event: DragEndEvent) => {
     const draggedElementId = event.active.id.toString()
+    const collisionData = event.collisions?.[0]?.data as Maybe<CollisionData>
+    const activeElementTree = rendererService.activeElementTree
+
+    const prevSiblingId =
+      collisionData?.childDroppableBeforePointer as Maybe<string>
+
+    const nextSiblingId =
+      collisionData?.childDroppableAfterPointer as Maybe<string>
+
+    const dropTargetId = event.over?.id.toString()
+
+    const parentElementId =
+      dropTargetId === ROOT_RENDER_CONTAINER_ID
+        ? activeElementTree?.rootElement.current.id
+        : dropTargetId
+
     const draggedElement = elementService.element(draggedElementId)
-    const dropElementId = event.over?.id.toString()
-    const dragPosition = event.over?.data.current?.dragPosition
 
-    if (!dropElementId || dropElementId === draggedElement.id) {
+    if (
+      !parentElementId ||
+      !collisionData ||
+      prevSiblingId === draggedElementId ||
+      nextSiblingId === draggedElementId ||
+      !validateParentForMove(draggedElementId, parentElementId)
+    ) {
       return
     }
 
-    const targetElement = elementService.element(dropElementId)
+    const prevSibling = prevSiblingId && elementService.element(prevSiblingId)
+    const nextSibling = nextSiblingId && elementService.element(nextSiblingId)
+    const parentElement = elementService.element(parentElementId)
 
-    if (!dragPosition) {
-      console.error('Drag position is required')
-
-      return
-    }
-
-    const parentId =
-      dragPosition === DragPosition.Inside
-        ? targetElement.id
-        : targetElement.parentElement?.id
-
-    if (!validateParentForMove(draggedElement.id, parentId)) {
-      return
-    }
-
-    // move the dragged element after the target element
-    if (dragPosition === DragPosition.After) {
+    if (prevSibling && draggedElement.prevSibling?.id !== prevSiblingId) {
       return await elementService.move({
         element: draggedElement,
-        prevSibling: targetElement,
+        prevSibling,
       })
     }
 
-    // move the dragged element before the target element
-    if (dragPosition === DragPosition.Before) {
+    if (nextSibling && draggedElement.nextSibling?.id !== nextSiblingId) {
       return await elementService.move({
         element: draggedElement,
-        nextSibling: targetElement,
+        nextSibling,
       })
     }
 
-    // move the dragged element inside the target element as a first child
-    if (dragPosition === DragPosition.Inside) {
+    if (draggedElement.closestParentElement?.id !== parentElementId) {
       return await elementService.move({
         element: draggedElement,
-        parentElement: targetElement,
+        parentElement,
       })
     }
   }

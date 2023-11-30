@@ -54,8 +54,10 @@ const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { appService, builderService, elementService } = useStore()
-  const elementTree = builderService.activeElementTree
+  const { appService, builderService, elementService, rendererService } =
+    useStore()
+
+  const elementTree = rendererService.activeElementTree
   const selectedNode = builderService.selectedNode
 
   if (!selectedNode) {

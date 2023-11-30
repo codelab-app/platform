@@ -192,6 +192,9 @@
       "@codelab/frontend/application/component": [
         "libs/frontend/application/component/src/index.ts"
       ],
+      "@codelab/frontend/application/dnd": [
+        "libs/frontend/application/dnd/src/index.ts"
+      ],
       "@codelab/frontend/application/domain": [
         "libs/frontend/application/domain/src/index.ts"
       ],
