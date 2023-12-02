@@ -49,7 +49,13 @@ export class TypeDomainService
 
   @modelAction
   hydrateInterface(data: ICreateTypeData) {
-    const interfaceType = new InterfaceType({
+    let interfaceType = this.types.get(data.id) as InterfaceType | undefined
+
+    if (interfaceType) {
+      return interfaceType
+    }
+
+    interfaceType = new InterfaceType({
       id: data.id,
       name: data.name,
     })
