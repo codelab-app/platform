@@ -69,14 +69,9 @@ const getTypeIdsFromElements = (elements: Array<IElementModel>) => {
 export const loadAllTypesForElements = async (
   componentService: IComponentApplicationService,
   typeService: ITypeService,
-  roots: Array<IElementModel>,
+  elements: Array<IElementModel>,
 ) => {
   const loadedComponentElements: Array<IElementModel> = []
-
-  const elements = [
-    ...roots,
-    ...flatMap(roots.map((root) => root.descendantElements)),
-  ]
 
   // Loading custom components
   let componentsBatch = getComponentIdsFromElements(elements).filter(

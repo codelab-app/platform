@@ -29,10 +29,7 @@ fragment Page on Page {
     id
   }
   rootElement {
-    descendantElements {
-      ...Element
-    }
-    ...Element
+    id
   }
   store {
     ...Store
@@ -55,10 +52,7 @@ fragment PageDevelopment on Page {
   }
   # slug
   rootElement {
-    descendantElements {
-      ...Element
-    }
-    ...Element
+    id
   }
   store {
     ...Store
@@ -80,10 +74,7 @@ fragment PageProduction on Page {
     id
   }
   rootElement {
-    descendantElements {
-      ...ElementProduction
-    }
-    ...ElementProduction
+    id
   }
   slug
   store {

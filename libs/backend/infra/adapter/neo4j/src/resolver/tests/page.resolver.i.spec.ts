@@ -236,9 +236,6 @@ describe('ComponentResolvers', () => {
               slug
               rootElement {
                 id
-                descendantElements {
-                  id
-                }
               }
               elements {
                 id
@@ -262,11 +259,6 @@ describe('ComponentResolvers', () => {
             id: testPage.id,
             name: IPageKindName.Provider,
             rootElement: {
-              descendantElements: [
-                {
-                  id: childElement.id,
-                },
-              ],
               id: rootElement.id,
             },
             slug: IPageKindName.Provider,

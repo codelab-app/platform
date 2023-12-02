@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'test') {
   const envPath = path.resolve(__dirname, '../../.env.test')
 
   if (fs.existsSync(envPath)) {
-    config({ path: envPath })
+    config({ path: envPath, override: true })
   }
 
   const platformApiEnvPath = path.resolve(
@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'test') {
   )
 
   if (fs.existsSync(platformApiEnvPath)) {
-    config({ path: platformApiEnvPath })
+    config({ path: platformApiEnvPath, override: true })
   }
 }
 

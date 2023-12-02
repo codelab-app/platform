@@ -240,9 +240,6 @@ describe('PageResolvers', () => {
               name
               rootElement {
                 id
-                descendantElements {
-                  id
-                }
               }
               elements {
                 id
@@ -266,11 +263,6 @@ describe('PageResolvers', () => {
             id: component.id,
             name: component.name,
             rootElement: {
-              descendantElements: [
-                {
-                  id: childElement.id,
-                },
-              ],
               id: rootElement.id,
             },
           },
