@@ -991,8 +991,10 @@
         "__typename": "ArrayType",
         "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
         "itemType": {
+          "__typename": "InterfaceType",
           "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
-          "kind": "InterfaceType"
+          "kind": "InterfaceType",
+          "name": "AntDesignSelect Option"
         },
         "kind": "ArrayType",
         "name": "AntDesignSelect Options"

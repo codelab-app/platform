@@ -2929,8 +2929,10 @@
         "__typename": "ArrayType",
         "id": "896be646-32e8-4046-9fe0-0f25a60714f7",
         "itemType": {
+          "__typename": "UnionType",
           "id": "12c8df17-1186-491a-87be-ddeba08c6583",
-          "kind": "UnionType"
+          "kind": "UnionType",
+          "name": "Google Fonts Option"
         },
         "kind": "ArrayType",
         "name": "Google Fonts Option Array"
