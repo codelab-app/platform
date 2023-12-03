@@ -1,5 +1,8 @@
 # Page name only gives us a rough filter, but requiring pageCompositeKey requires the app id, which we don't have unless fetched
 query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+  actionTypes {
+    ...ActionType
+  }
   apps(where: { compositeKey: $appCompositeKey }) {
     ...AppDevelopment
   }
@@ -26,9 +29,6 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   }
   renderPropTypes {
     ...RenderPropType
-  }
-  actionTypes {
-    ...ActionType
   }
   resources {
     ...Resource

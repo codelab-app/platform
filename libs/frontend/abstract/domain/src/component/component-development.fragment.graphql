@@ -1,9 +1,9 @@
 fragment ComponentDevelopment on Component {
   ...Component
-  rootElement {
-    id
-  }
   elements {
     ...Element
+  }
+  rootElement {
+    id
   }
 }

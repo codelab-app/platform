@@ -14,18 +14,18 @@ import {
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 export type ComponentDevelopmentFragment = {
-  rootElement: { id: string }
   elements: Array<ElementFragment>
+  rootElement: { id: string }
 } & ComponentFragment
 
 export const ComponentDevelopmentFragmentDoc = gql`
   fragment ComponentDevelopment on Component {
     ...Component
-    rootElement {
-      id
-    }
     elements {
       ...Element
+    }
+    rootElement {
+      id
     }
   }
   ${ComponentFragmentDoc}

@@ -1,10 +1,5 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { PropFragment } from '../prop/prop.fragment.graphql.gen'
-import {
-  AtomDevelopmentFragment,
-  AtomProductionFragment,
-} from '../atom/atom.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -20,15 +15,20 @@ import {
   Type_RenderPropType_Fragment,
   Type_UnionType_Fragment,
 } from '../type/fragments/type.fragment.graphql.gen'
+import { PropFragment } from '../prop/prop.fragment.graphql.gen'
+import {
+  AtomDevelopmentFragment,
+  AtomProductionFragment,
+} from '../atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
+import { TypeFragmentDoc } from '../type/fragments/type.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
 } from '../atom/atom.fragment.graphql.gen'
-import { TypeFragmentDoc } from '../type/fragments/type.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   childMapperPropKey?: string | null
@@ -40,6 +40,21 @@ export type ElementFragment = {
   tailwindClassNames?: Array<string> | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
+  dependantTypes: Array<
+    | Type_ActionType_Fragment
+    | Type_AppType_Fragment
+    | Type_ArrayType_Fragment
+    | Type_CodeMirrorType_Fragment
+    | Type_ElementType_Fragment
+    | Type_EnumType_Fragment
+    | Type_InterfaceType_Fragment
+    | Type_LambdaType_Fragment
+    | Type_PageType_Fragment
+    | Type_PrimitiveType_Fragment
+    | Type_ReactNodeType_Fragment
+    | Type_RenderPropType_Fragment
+    | Type_UnionType_Fragment
+  >
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
   page?: { id: string } | null
@@ -58,6 +73,19 @@ export type ElementFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
     | { __typename: 'Component'; id: string }
+}
+
+export type ElementProductionFragment = {
+  __typename: 'Element'
+  childMapperPropKey?: string | null
+  id: string
+  name: string
+  renderForEachPropKey?: string | null
+  renderIfExpression?: string | null
+  style?: string | null
+  tailwindClassNames?: Array<string> | null
+  childMapperComponent?: { id: string; name: string } | null
+  childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
     | Type_ActionType_Fragment
     | Type_AppType_Fragment
@@ -73,19 +101,6 @@ export type ElementFragment = {
     | Type_RenderPropType_Fragment
     | Type_UnionType_Fragment
   >
-}
-
-export type ElementProductionFragment = {
-  __typename: 'Element'
-  childMapperPropKey?: string | null
-  id: string
-  name: string
-  renderForEachPropKey?: string | null
-  renderIfExpression?: string | null
-  style?: string | null
-  tailwindClassNames?: Array<string> | null
-  childMapperComponent?: { id: string; name: string } | null
-  childMapperPreviousSibling?: { id: string } | null
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
   page?: { id: string } | null
@@ -104,21 +119,6 @@ export type ElementProductionFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomProductionFragment)
     | { __typename: 'Component'; id: string }
-  dependantTypes: Array<
-    | Type_ActionType_Fragment
-    | Type_AppType_Fragment
-    | Type_ArrayType_Fragment
-    | Type_CodeMirrorType_Fragment
-    | Type_ElementType_Fragment
-    | Type_EnumType_Fragment
-    | Type_InterfaceType_Fragment
-    | Type_LambdaType_Fragment
-    | Type_PageType_Fragment
-    | Type_PrimitiveType_Fragment
-    | Type_ReactNodeType_Fragment
-    | Type_RenderPropType_Fragment
-    | Type_UnionType_Fragment
-  >
 }
 
 export const ElementFragmentDoc = gql`
@@ -132,6 +132,9 @@ export const ElementFragmentDoc = gql`
       id
     }
     childMapperPropKey
+    dependantTypes {
+      ...Type
+    }
     firstChild {
       id
     }
@@ -177,13 +180,10 @@ export const ElementFragmentDoc = gql`
     }
     style
     tailwindClassNames
-    dependantTypes {
-      ...Type
-    }
   }
+  ${TypeFragmentDoc}
   ${PropFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
-  ${TypeFragmentDoc}
 `
 export const ElementProductionFragmentDoc = gql`
   fragment ElementProduction on Element {
@@ -196,6 +196,9 @@ export const ElementProductionFragmentDoc = gql`
       id
     }
     childMapperPropKey
+    dependantTypes {
+      ...Type
+    }
     firstChild {
       id
     }
@@ -241,13 +244,10 @@ export const ElementProductionFragmentDoc = gql`
     }
     style
     tailwindClassNames
-    dependantTypes {
-      ...Type
-    }
   }
+  ${TypeFragmentDoc}
   ${PropFragmentDoc}
   ${AtomProductionFragmentDoc}
-  ${TypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
