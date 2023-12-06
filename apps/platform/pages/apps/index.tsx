@@ -1,5 +1,6 @@
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0/client'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
@@ -9,7 +10,6 @@ import {
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/application/app'
-import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -107,13 +107,13 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   )
 }
 
-export default AppsPage
+export default withPageAuthRequired(AppsPage)
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 /**
  * This gets called on SSR, and props are passed to _app
  */
-export const getServerSideProps = withPageAuthRedirect()
+// export const getServerSideProps = withPageAuthRedirect()
 
 AppsPage.Layout = ({ children }) => {
   return (
@@ -121,8 +121,8 @@ AppsPage.Layout = ({ children }) => {
   )
 }
 
-export const config = {
-  // after login this is the page where user is redirected to,
-  // cold start may take longer than default 15s on first login
-  maxDuration: 30,
-}
+// export const config = {
+//   // after login this is the page where user is redirected to,
+//   // cold start may take longer than default 15s on first login
+//   maxDuration: 30,
+// }
