@@ -73,41 +73,43 @@ const AppsPageHeader = observer(() => {
   )
 })
 
-const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService, userService } = useStore()
-  const user = userService.user
+const AppsPage: CodelabPage<DashboardTemplateProps> = withPageAuthRequired(
+  (props) => {
+    const { appService, userService } = useStore()
+    const user = userService.user
 
-  const [{ status }, loadAppsPreview] = useAsync((owner: IRef) =>
-    appService.loadAppsPreview({ owner }),
-  )
+    const [{ status }, loadAppsPreview] = useAsync((owner: IRef) =>
+      appService.loadAppsPreview({ owner }),
+    )
 
-  useEffect(() => {
-    void loadAppsPreview.execute({ id: user.id })
-  }, [user, loadAppsPreview])
+    useEffect(() => {
+      void loadAppsPreview.execute({ id: user.id })
+    }, [user, loadAppsPreview])
 
-  return (
-    <>
-      <Head>
-        <title>Apps | Codelab</title>
-      </Head>
+    return (
+      <>
+        <Head>
+          <title>Apps | Codelab</title>
+        </Head>
 
-      <BuildAppModal />
-      <CreateAppModal />
-      <UpdateAppModal />
-      <DeleteAppModal />
+        <BuildAppModal />
+        <CreateAppModal />
+        <UpdateAppModal />
+        <DeleteAppModal />
 
-      <ContentSection>
-        {status === 'loading' || status === 'not-executed' ? (
-          <Spin />
-        ) : (
-          <GetAppsList />
-        )}
-      </ContentSection>
-    </>
-  )
-}
+        <ContentSection>
+          {status === 'loading' || status === 'not-executed' ? (
+            <Spin />
+          ) : (
+            <GetAppsList />
+          )}
+        </ContentSection>
+      </>
+    )
+  },
+)
 
-export default withPageAuthRequired(AppsPage)
+export default AppsPage
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 /**

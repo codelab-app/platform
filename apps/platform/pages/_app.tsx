@@ -13,7 +13,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
 
   return (
     <UserProvider>
-      <DynamicProvidersTree user={user}>
+      <DynamicProvidersTree>
         <Layout>
           {(props) => (
             <AntdApp className="h-full w-full">
