@@ -1,18 +1,18 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import {
   ElementFragment,
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
@@ -29,10 +29,10 @@ export type PageFragment = {
   name: string
   url: string
   app: { id: string }
+  elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type PageDevelopmentFragment = {
@@ -41,10 +41,10 @@ export type PageDevelopmentFragment = {
   name: string
   url: string
   app: { id: string }
+  elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type PageProductionFragment = {
@@ -54,10 +54,10 @@ export type PageProductionFragment = {
   slug: string
   url: string
   app: { id: string }
+  elements: Array<ElementProductionFragment>
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  elements: Array<ElementProductionFragment>
 }
 
 export const PagePreviewFragmentDoc = gql`
@@ -82,6 +82,9 @@ export const PageFragmentDoc = gql`
     app {
       id
     }
+    elements {
+      ...Element
+    }
     id
     kind
     name
@@ -95,18 +98,18 @@ export const PageFragmentDoc = gql`
       ...Store
     }
     url
-    elements {
-      ...Element
-    }
   }
-  ${StoreFragmentDoc}
   ${ElementFragmentDoc}
+  ${StoreFragmentDoc}
 `
 export const PageDevelopmentFragmentDoc = gql`
   fragment PageDevelopment on Page {
     app {
       id
     }
+    elements {
+      ...Element
+    }
     id
     kind
     name
@@ -120,17 +123,17 @@ export const PageDevelopmentFragmentDoc = gql`
       ...Store
     }
     url
-    elements {
-      ...Element
-    }
   }
-  ${StoreFragmentDoc}
   ${ElementFragmentDoc}
+  ${StoreFragmentDoc}
 `
 export const PageProductionFragmentDoc = gql`
   fragment PageProduction on Page {
     app {
       id
+    }
+    elements {
+      ...ElementProduction
     }
     id
     kind
@@ -146,12 +149,9 @@ export const PageProductionFragmentDoc = gql`
       ...Store
     }
     url
-    elements {
-      ...ElementProduction
-    }
   }
-  ${StoreFragmentDoc}
   ${ElementProductionFragmentDoc}
+  ${StoreFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

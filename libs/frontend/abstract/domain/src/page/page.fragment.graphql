@@ -22,6 +22,9 @@ fragment Page on Page {
   app {
     id
   }
+  elements {
+    ...Element
+  }
   id
   kind
   name
@@ -35,14 +38,14 @@ fragment Page on Page {
     ...Store
   }
   url
-  elements {
-    ...Element
-  }
 }
 
 fragment PageDevelopment on Page {
   app {
     id
+  }
+  elements {
+    ...Element
   }
   id
   kind
@@ -58,14 +61,14 @@ fragment PageDevelopment on Page {
     ...Store
   }
   url
-  elements {
-    ...Element
-  }
 }
 
 fragment PageProduction on Page {
   app {
     id
+  }
+  elements {
+    ...ElementProduction
   }
   id
   kind
@@ -81,7 +84,4 @@ fragment PageProduction on Page {
     ...Store
   }
   url
-  elements {
-    ...ElementProduction
-  }
 }

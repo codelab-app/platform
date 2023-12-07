@@ -8,6 +8,9 @@ fragment Element on Element {
     id
   }
   childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
   firstChild {
     id
   }
@@ -53,9 +56,6 @@ fragment Element on Element {
   }
   style
   tailwindClassNames
-  dependantTypes {
-    ...Type
-  }
 }
 
 fragment ElementProduction on Element {
@@ -68,6 +68,9 @@ fragment ElementProduction on Element {
     id
   }
   childMapperPropKey
+  dependantTypes {
+    ...Type
+  }
   firstChild {
     id
   }
@@ -113,7 +116,4 @@ fragment ElementProduction on Element {
   }
   style
   tailwindClassNames
-  dependantTypes {
-    ...Type
-  }
 }

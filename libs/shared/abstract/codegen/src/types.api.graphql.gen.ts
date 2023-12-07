@@ -20638,8 +20638,8 @@ export type AtomProductionFragment = {
 }
 
 export type ComponentDevelopmentFragment = {
-  rootElement: { id: string }
   elements: Array<ElementFragment>
+  rootElement: { id: string }
 } & ComponentFragment
 
 export type ComponentFragment = {
@@ -20683,6 +20683,21 @@ export type ElementFragment = {
   tailwindClassNames?: Array<string> | null
   childMapperComponent?: { id: string; name: string } | null
   childMapperPreviousSibling?: { id: string } | null
+  dependantTypes: Array<
+    | Type_ActionType_Fragment
+    | Type_AppType_Fragment
+    | Type_ArrayType_Fragment
+    | Type_CodeMirrorType_Fragment
+    | Type_ElementType_Fragment
+    | Type_EnumType_Fragment
+    | Type_InterfaceType_Fragment
+    | Type_LambdaType_Fragment
+    | Type_PageType_Fragment
+    | Type_PrimitiveType_Fragment
+    | Type_ReactNodeType_Fragment
+    | Type_RenderPropType_Fragment
+    | Type_UnionType_Fragment
+  >
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
   page?: { id: string } | null
@@ -20701,6 +20716,19 @@ export type ElementFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomDevelopmentFragment)
     | { __typename: 'Component'; id: string }
+}
+
+export type ElementProductionFragment = {
+  __typename: 'Element'
+  childMapperPropKey?: string | null
+  id: string
+  name: string
+  renderForEachPropKey?: string | null
+  renderIfExpression?: string | null
+  style?: string | null
+  tailwindClassNames?: Array<string> | null
+  childMapperComponent?: { id: string; name: string } | null
+  childMapperPreviousSibling?: { id: string } | null
   dependantTypes: Array<
     | Type_ActionType_Fragment
     | Type_AppType_Fragment
@@ -20716,19 +20744,6 @@ export type ElementFragment = {
     | Type_RenderPropType_Fragment
     | Type_UnionType_Fragment
   >
-}
-
-export type ElementProductionFragment = {
-  __typename: 'Element'
-  childMapperPropKey?: string | null
-  id: string
-  name: string
-  renderForEachPropKey?: string | null
-  renderIfExpression?: string | null
-  style?: string | null
-  tailwindClassNames?: Array<string> | null
-  childMapperComponent?: { id: string; name: string } | null
-  childMapperPreviousSibling?: { id: string } | null
   firstChild?: { id: string } | null
   nextSibling?: { id: string } | null
   page?: { id: string } | null
@@ -20747,21 +20762,6 @@ export type ElementProductionFragment = {
   renderType:
     | ({ __typename: 'Atom' } & AtomProductionFragment)
     | { __typename: 'Component'; id: string }
-  dependantTypes: Array<
-    | Type_ActionType_Fragment
-    | Type_AppType_Fragment
-    | Type_ArrayType_Fragment
-    | Type_CodeMirrorType_Fragment
-    | Type_ElementType_Fragment
-    | Type_EnumType_Fragment
-    | Type_InterfaceType_Fragment
-    | Type_LambdaType_Fragment
-    | Type_PageType_Fragment
-    | Type_PrimitiveType_Fragment
-    | Type_ReactNodeType_Fragment
-    | Type_RenderPropType_Fragment
-    | Type_UnionType_Fragment
-  >
 }
 
 export type HookPropFragment = { data: string; id: string }
@@ -20789,10 +20789,10 @@ export type PageFragment = {
   name: string
   url: string
   app: { id: string }
+  elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type PageDevelopmentFragment = {
@@ -20801,10 +20801,10 @@ export type PageDevelopmentFragment = {
   name: string
   url: string
   app: { id: string }
+  elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  elements: Array<ElementFragment>
 }
 
 export type PageProductionFragment = {
@@ -20814,10 +20814,10 @@ export type PageProductionFragment = {
   slug: string
   url: string
   app: { id: string }
+  elements: Array<ElementProductionFragment>
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  elements: Array<ElementProductionFragment>
 }
 
 export type PropFragment = { data: string; id: string }
@@ -21154,13 +21154,13 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 }>
 
 export type GetAppDevelopmentQuery = {
+  actionTypes: Array<ActionTypeFragment>
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
   renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
-  actionTypes: Array<ActionTypeFragment>
   resources: Array<ResourceFragment>
 }
 

@@ -492,8 +492,10 @@
         "__typename": "ArrayType",
         "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
         "itemType": {
+          "__typename": "InterfaceType",
           "id": "8baae515-020d-422e-a1bc-340c20490dd2",
-          "kind": "InterfaceType"
+          "kind": "InterfaceType",
+          "name": "AntDesignMenuItemType"
         },
         "kind": "ArrayType",
         "name": "AntDesignMenuItemTypeArray"
