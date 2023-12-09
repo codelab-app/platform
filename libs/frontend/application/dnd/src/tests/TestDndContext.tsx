@@ -7,7 +7,11 @@ import { HierarchicalCollisionDetector } from '../collision-detection'
 import { DropIndicator } from '../DropIndicator'
 import { DropOverlay } from '../DropOverlay'
 
-const hierarchicalCollisionDetector = new HierarchicalCollisionDetector()
+export const COLLISION_ALGORITHM_SPACING = 5
+
+const hierarchicalCollisionDetector = new HierarchicalCollisionDetector({
+  spacing: COLLISION_ALGORITHM_SPACING,
+})
 
 interface TestDndContextProps {
   onDragEnd?(event: DragEndEvent): void

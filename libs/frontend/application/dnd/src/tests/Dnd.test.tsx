@@ -6,7 +6,7 @@ import React from 'react'
 import type { Point } from '../geometry'
 import { MakeChildrenDraggable } from '../MakeChildrenDraggable'
 import { MakeChildrenDroppable } from '../MakeChildrenDroppable'
-import { TestDndContext } from './TestDndContext'
+import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
 
 interface WrapIfProps<T> {
   Wrapper: ComponentType<T>
@@ -66,39 +66,33 @@ const formatHTMLElement = (element: Element, indent = 0): string => {
 }
 
 const populateParentId = (hierarchy: Hierarchy): Hierarchy => {
-  const keys = Object.keys(hierarchy)
+  const recursivelyPopulateParentId = (
+    subTree: Hierarchy,
+    parentId: number | string,
+    entireHierarchy: Hierarchy,
+  ) => {
+    const keys = Object.keys(subTree)
 
-  return keys.reduce((acc, key) => {
-    const node = hierarchy[key]
+    keys.forEach((key) => {
+      const node = subTree[key]
 
-    if (!node) {
-      return acc
-    }
-
-    const { children, parentId } = node
-
-    if (children) {
-      acc[key] = {
-        ...node,
-        children: populateParentId(children),
-      }
-    }
-
-    if (parentId) {
-      const parent = hierarchy[parentId]
-
-      if (!parent) {
-        return acc
+      if (!node) {
+        return
       }
 
-      acc[key] = {
-        ...node,
-        parentId,
-      }
-    }
+      const { children } = node
 
-    return acc
-  }, {} as Hierarchy)
+      if (children) {
+        recursivelyPopulateParentId(children, key, entireHierarchy)
+      }
+
+      node.parentId = parentId
+    })
+  }
+
+  recursivelyPopulateParentId(hierarchy, '', hierarchy)
+
+  return hierarchy
 }
 
 const MakeElementTree = ({ hierarchy }: MakeElementTreeProps) => {
@@ -149,7 +143,7 @@ const MakeElementTree = ({ hierarchy }: MakeElementTreeProps) => {
   })
 }
 
-const dragDropElement = async (
+const dragElementOver = async (
   element: HTMLElement,
   dragPosition: Point,
   dropPosiotion: Point,
@@ -175,6 +169,19 @@ const dragDropElement = async (
     clientY: dropPosiotion.y,
   })
 
+  await waitFor(() => {
+    fireEvent(element, mouseDownEvent)
+    fireEvent(element, mouseMoveEvent)
+  })
+}
+
+const dragDropElement = async (
+  element: HTMLElement,
+  dragPosition: Point,
+  dropPosiotion: Point,
+) => {
+  await dragElementOver(element, dragPosition, dropPosiotion)
+
   const mouseUpEvent = new MouseEvent('pointerup', {
     bubbles: true,
     clientX: dropPosiotion.x,
@@ -182,8 +189,6 @@ const dragDropElement = async (
   })
 
   await waitFor(() => {
-    fireEvent(element, mouseDownEvent)
-    fireEvent(element, mouseMoveEvent)
     fireEvent(element, mouseUpEvent)
   })
 }
@@ -267,13 +272,13 @@ describe('Dnd', () => {
         container.querySelector<HTMLDivElement>('[id="3"]')
 
       if (!draggableElement) {
-        return
+        throw new Error('draggable element not found')
       }
 
       await dragDropElement(
         draggableElement,
         { x: 100, y: 250 },
-        { x: 100, y: 5 },
+        { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
       )
 
       expect(dragTarget).toHaveBeenCalledWith('1')
