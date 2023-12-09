@@ -8,6 +8,7 @@ interface MakeDroppableProps<DropDataType> {
   id: string
   parentDroppableContainerId?: string
   wrapper?: React.FC
+  wrapperStyles?: React.CSSProperties
 }
 
 export const MakeChildrenDroppable = <
@@ -18,6 +19,7 @@ export const MakeChildrenDroppable = <
   id,
   parentDroppableContainerId,
   wrapper,
+  wrapperStyles,
 }: PropsWithChildren<MakeDroppableProps<DropDataType>>) => {
   const WrapperElement = wrapper || 'div'
 
@@ -34,7 +36,11 @@ export const MakeChildrenDroppable = <
   })
 
   return (
-    <WrapperElement className="h-full w-full" ref={setNodeRef}>
+    <WrapperElement
+      className="h-full w-full"
+      ref={setNodeRef}
+      style={wrapperStyles}
+    >
       {children}
     </WrapperElement>
   )

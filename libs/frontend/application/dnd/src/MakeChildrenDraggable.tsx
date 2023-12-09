@@ -11,6 +11,7 @@ interface MakeDraggableProps<DragDataType> {
   data: DragDataType
   id: string
   wrapper?: React.FC
+  wrapperStyles?: React.CSSProperties
 }
 
 export const MakeChildrenDraggable = <DragDataType,>({
@@ -19,6 +20,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
   data,
   id,
   wrapper,
+  wrapperStyles,
 }: PropsWithChildren<MakeDraggableProps<DragDataType>>) => {
   const WrapperElement = wrapper || 'div'
 
@@ -39,6 +41,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
   })
 
   const style = {
+    ...wrapperStyles,
     cursor: 'grab',
     opacity: active?.id === id ? 0.5 : 1,
   }
