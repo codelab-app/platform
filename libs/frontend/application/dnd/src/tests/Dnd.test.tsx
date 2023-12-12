@@ -240,6 +240,48 @@ describe('Dnd', () => {
     },
   })
 
+  const horizontalSimpleTree: Hierarchy = {
+    ...simpleTree,
+    root: {
+      ...simpleTree.root,
+      children: {
+        ...simpleTree.root?.children,
+        '1-parent': {
+          ...simpleTree.root?.children?.['1-parent'],
+          children: {
+            ...simpleTree.root?.children?.['1-parent']?.children,
+            'first-child': {
+              ...simpleTree.root?.children?.['1-parent']?.children?.[
+                'first-child'
+              ],
+              style: {
+                height: 500,
+                left: 0,
+                top: 0,
+                width: 100,
+              },
+              tobe: 'droppable',
+            },
+            'second-child': {
+              ...simpleTree.root?.children?.['1-parent']?.children?.[
+                'second-child'
+              ],
+              style: {
+                height: 500,
+                left: 100,
+                top: 0,
+                width: 100,
+              },
+              tobe: 'droppable',
+            },
+          },
+          tobe: 'droppable',
+        },
+      },
+      tobe: 'droppable',
+    },
+  }
+
   beforeAll(() => {
     // Mocking the getBoundingClientRect method for HTMLElement
     HTMLElement.prototype.getBoundingClientRect = jest.fn(function () {
@@ -366,12 +408,41 @@ describe('Dnd', () => {
       })
     })
 
-    describe('Drop indicator', () => {
-      describe('With Vertical Layout', () => {
-        it('should show a drop overlay around the parent and a drop indicator at the top of the target element when dragging before it', async () => {
+    describe.each([
+      {
+        description: 'With Vertical Layout',
+        dropPositions: {
+          afterFirst: {
+            coordinates: { x: 100, y: 250 },
+            positionName: 'bellow',
+          },
+          beforeFirst: {
+            coordinates: { x: 100, y: COLLISION_ALGORITHM_SPACING + 1 },
+            positionName: 'above',
+          },
+        },
+        tree: simpleTree,
+      },
+      {
+        description: 'With Horizontal Layout',
+        dropPositions: {
+          afterFirst: {
+            coordinates: { x: 100, y: 250 },
+            positionName: 'to the right of',
+          },
+          beforeFirst: {
+            coordinates: { x: COLLISION_ALGORITHM_SPACING + 1, y: 250 },
+            positionName: 'to the left of',
+          },
+        },
+        tree: horizontalSimpleTree,
+      },
+    ])('Drop indicator', ({ description, dropPositions, tree }) => {
+      describe(description, () => {
+        it(`should show a drop indicator before the target element when dragging ${dropPositions.beforeFirst.positionName} it`, async () => {
           const { container } = render(
             <TestDndContext>
-              <MakeElementTree hierarchy={simpleTree} />
+              <MakeElementTree hierarchy={tree} />
             </TestDndContext>,
           )
 
@@ -383,10 +454,10 @@ describe('Dnd', () => {
           }
 
           // drag before the first child
-          await dragElementOver(draggableElement, {
-            x: 100,
-            y: COLLISION_ALGORITHM_SPACING + 1,
-          })
+          await dragElementOver(
+            draggableElement,
+            dropPositions.beforeFirst.coordinates,
+          )
 
           const dropIndicator = document.querySelector<HTMLDivElement>(
             `[id="${DROP_INDICATOR_ID}"]`,
@@ -416,10 +487,10 @@ describe('Dnd', () => {
           expect(targetElement.children[0]?.id).toBe(DROP_INDICATOR_ID)
         })
 
-        it('should show a drop overlay around the parent and a drop indicator at the bottom of the target element when dragging after it', async () => {
+        it(`should show a drop indicator after the target element when dragging ${dropPositions.afterFirst.positionName} it`, async () => {
           const { container } = render(
             <TestDndContext>
-              <MakeElementTree hierarchy={simpleTree} />
+              <MakeElementTree hierarchy={tree} />
             </TestDndContext>,
           )
 
@@ -431,10 +502,10 @@ describe('Dnd', () => {
           }
 
           // drag into between the first and second child
-          await dragElementOver(draggableElement, {
-            x: 100,
-            y: 250,
-          })
+          await dragElementOver(
+            draggableElement,
+            dropPositions.afterFirst.coordinates,
+          )
 
           const dropIndicator = document.querySelector<HTMLDivElement>(
             `[id="${DROP_INDICATOR_ID}"]`,
@@ -463,12 +534,6 @@ describe('Dnd', () => {
           // drop indicator should be second element
           expect(targetElement.children[1]?.id).toBe(DROP_INDICATOR_ID)
         })
-      })
-
-      describe('With Horizontal Layout', () => {
-        it('should show a drop overlay around the parent and a drop indicator to the left of the target element when dragging before it', () => {})
-
-        it('should show a drop overlay around the parent and a drop indicator to the right of the target element when dragging after it', () => {})
       })
     })
 
