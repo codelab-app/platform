@@ -3,6 +3,8 @@ import React from 'react'
 import { createPortal } from 'react-dom'
 import { Rectangle } from './geometry'
 
+export const DROP_OVERLAY_ID = '__drop__overlay__'
+
 export const DropOverlay = () => {
   const { active, over } = useDndContext()
   const currentRect = over?.rect || Rectangle.zeroRect()
@@ -17,5 +19,5 @@ export const DropOverlay = () => {
     ...currentRect,
   }
 
-  return createPortal(<div style={style} />, document.body)
+  return createPortal(<div id={DROP_OVERLAY_ID} style={style} />, document.body)
 }

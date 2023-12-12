@@ -14,6 +14,8 @@ interface MakeDraggableProps<DragDataType> {
   wrapperStyles?: React.CSSProperties
 }
 
+export const DRAG_OVERLAY_ID = '__drag__overlay__'
+
 export const MakeChildrenDraggable = <DragDataType,>({
   children,
   customOverlay,
@@ -31,7 +33,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
       ...data,
       internalUseOnlyDragData: {
         overlayRenderer: (ref?: RefObject<HTMLDivElement>) => (
-          <div ref={ref}>
+          <div id={DRAG_OVERLAY_ID} ref={ref}>
             <WrapperElement>{customOverlay ?? children}</WrapperElement>
           </div>
         ),

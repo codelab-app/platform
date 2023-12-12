@@ -3,8 +3,12 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { ComponentType, PropsWithChildren } from 'react'
 import React from 'react'
+import { DROP_OVERLAY_ID } from '../DropOverlay'
 import type { Point } from '../geometry'
-import { MakeChildrenDraggable } from '../MakeChildrenDraggable'
+import {
+  DRAG_OVERLAY_ID,
+  MakeChildrenDraggable,
+} from '../MakeChildrenDraggable'
 import { MakeChildrenDroppable } from '../MakeChildrenDroppable'
 import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
 
@@ -33,6 +37,7 @@ interface Hierarchy {
     children?: Hierarchy
     parentId?: number | string
     style?: React.CSSProperties
+    descriptor?: string
     tobe: 'both' | 'draggable' | 'droppable'
   }
 }
@@ -194,6 +199,44 @@ const dragDropElement = async (
 }
 
 describe('Dnd', () => {
+  const simpleTree: Hierarchy = populateParentId({
+    parent: {
+      children: {
+        'first-child': {
+          style: {
+            bottom: 250,
+            height: 250,
+            left: 0,
+            right: 200,
+            top: 0,
+            width: 200,
+          },
+          tobe: 'droppable',
+        },
+        'second-child': {
+          style: {
+            bottom: 500,
+            height: 250,
+            left: 0,
+            right: 200,
+            top: 250,
+            width: 200,
+          },
+          tobe: 'draggable',
+        },
+      },
+      style: {
+        bottom: 500,
+        height: 500,
+        left: 0,
+        right: 200,
+        top: 0,
+        width: 200,
+      },
+      tobe: 'droppable',
+    },
+  })
+
   beforeAll(() => {
     // Mocking the getBoundingClientRect method for HTMLElement
     HTMLElement.prototype.getBoundingClientRect = jest.fn(function () {
@@ -222,54 +265,16 @@ describe('Dnd', () => {
     it('should be able to drop a draggable element into a droppable one', async () => {
       const dragTarget = jest.fn()
 
-      const hierarchy: Hierarchy = {
-        1: {
-          children: {
-            2: {
-              style: {
-                bottom: 250,
-                height: 250,
-                left: 0,
-                right: 200,
-                top: 0,
-                width: 200,
-              },
-              tobe: 'droppable',
-            },
-            3: {
-              style: {
-                bottom: 500,
-                height: 250,
-                left: 0,
-                right: 200,
-                top: 250,
-                width: 200,
-              },
-              tobe: 'draggable',
-            },
-          },
-          style: {
-            bottom: 500,
-            height: 500,
-            left: 0,
-            right: 200,
-            top: 0,
-            width: 200,
-          },
-          tobe: 'droppable',
-        },
-      }
-
       const { container } = render(
         <TestDndContext
           onDragEnd={(dragEndEvent) => dragTarget(dragEndEvent.over?.id)}
         >
-          <MakeElementTree hierarchy={populateParentId(hierarchy)} />
+          <MakeElementTree hierarchy={simpleTree} />
         </TestDndContext>,
       )
 
       const draggableElement =
-        container.querySelector<HTMLDivElement>('[id="3"]')
+        container.querySelector<HTMLDivElement>(`[id="second-child"]`)
 
       if (!draggableElement) {
         throw new Error('draggable element not found')
@@ -281,24 +286,90 @@ describe('Dnd', () => {
         { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
       )
 
-      expect(dragTarget).toHaveBeenCalledWith('1')
+      expect(dragTarget).toHaveBeenCalledWith('parent')
     })
   })
 
   describe('drag and drop hints', () => {
     describe('Drag overlay', () => {
-      it('should show the draggable element as a drag overlay when the element is dragged', () => {})
+      it('should show the draggable element as a drag overlay when the element is dragged', async () => {
+        const { container } = render(
+          <TestDndContext>
+            <MakeElementTree hierarchy={simpleTree} />
+          </TestDndContext>,
+        )
 
-      it('should show a custom drag overlay when the draggable element is dragged and a custom overlay is provided', () => {})
+        const draggableElement =
+          container.querySelector<HTMLDivElement>(`[id="second-child"]`)
+
+        if (!draggableElement) {
+          throw new Error('draggable element not found')
+        }
+
+        // Trigger the drag operation.
+        await dragElementOver(
+          draggableElement,
+          { x: 100, y: 250 },
+          { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
+        )
+
+        const dragOverlay = document.querySelector<HTMLDivElement>(
+          `[id="${DRAG_OVERLAY_ID}"]`,
+        )
+
+        expect(dragOverlay).toBeDefined()
+
+        // Check that the children of the drag overlay are the draggable element itself.
+        expect(dragOverlay?.innerHTML).toContain(draggableElement.innerHTML)
+      })
+
+      it.skip('should show a custom drag overlay when the draggable element is dragged and a custom overlay is provided', () => {})
     })
 
     describe('Drop overlay', () => {
-      it('show show a drop overlay around the target element when dragging within it', () => {})
+      it('should show a drop overlay around the target element when dragging within it', async () => {
+        const { container } = render(
+          <TestDndContext>
+            <MakeElementTree hierarchy={simpleTree} />
+          </TestDndContext>,
+        )
+
+        const draggableElement =
+          container.querySelector<HTMLDivElement>(`[id="second-child"]`)
+
+        if (!draggableElement) {
+          throw new Error('draggable element not found')
+        }
+
+        // Trigger the drag operation.
+        await dragElementOver(
+          draggableElement,
+          { x: 100, y: 250 },
+          { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
+        )
+
+        const targetElement =
+          container.querySelector<HTMLDivElement>(`[id="parent"]`)
+
+        const dropOverlay = document.querySelector<HTMLDivElement>(
+          `[id="${DROP_OVERLAY_ID}"]`,
+        )
+
+        if (!targetElement || !dropOverlay) {
+          throw new Error('target element or drop overlay not found')
+        }
+
+        const targetRect = targetElement.getBoundingClientRect()
+        const dropOverlayRect = dropOverlay.getBoundingClientRect()
+
+        expect(dropOverlayRect.width).toBeCloseTo(targetRect.width || 0, 0)
+        expect(dropOverlayRect.height).toBeCloseTo(targetRect.height || 0, 0)
+      })
     })
 
     describe('Drop indicator', () => {
       describe('With Vertical Layout', () => {
-        it('should show a drop overlay around the parent and a drop indicator at the top of the target element when dragging before it', () => {})
+        it('should show a drop overlay around the parent and a drop indicator at the top of the target element when dragging before it', async () => {})
 
         it('should show a drop overlay around the parent and a drop indicator at the bottom of the target element when dragging after it', () => {})
       })
@@ -308,6 +379,10 @@ describe('Dnd', () => {
 
         it('should show a drop overlay around the parent and a drop indicator to the right of the target element when dragging after it', () => {})
       })
+    })
+
+    describe('cleanup', () => {
+      it('should remove all hints when the drag operation is complete', () => {})
     })
   })
 
