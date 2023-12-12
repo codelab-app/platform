@@ -3,6 +3,7 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { ComponentType, PropsWithChildren } from 'react'
 import React from 'react'
+import { DROP_INDICATOR_ID } from '../DropIndicator'
 import { DROP_OVERLAY_ID } from '../DropOverlay'
 import type { Point } from '../geometry'
 import {
@@ -148,17 +149,9 @@ const MakeElementTree = ({ hierarchy }: MakeElementTreeProps) => {
   })
 }
 
-const dragElementOver = async (
-  element: HTMLElement,
-  dragPosition: Point,
-  dropPosiotion: Point,
-) => {
+const dragElementOver = async (element: HTMLElement, dropPosiotion: Point) => {
   // Simulate mouse events for dragging and dropping
-  const mouseDownEvent = new MouseEvent('pointerdown', {
-    bubbles: true,
-    clientX: dragPosition.x,
-    clientY: dragPosition.y,
-  })
+  const mouseDownEvent = new MouseEvent('pointerdown', { bubbles: true })
 
   /**
    * Have to set it to primary because dndKit ignores non-primary input devices.
@@ -180,12 +173,8 @@ const dragElementOver = async (
   })
 }
 
-const dragDropElement = async (
-  element: HTMLElement,
-  dragPosition: Point,
-  dropPosiotion: Point,
-) => {
-  await dragElementOver(element, dragPosition, dropPosiotion)
+const dragDropElement = async (element: HTMLElement, dropPosiotion: Point) => {
+  await dragElementOver(element, dropPosiotion)
 
   const mouseUpEvent = new MouseEvent('pointerup', {
     bubbles: true,
@@ -200,38 +189,52 @@ const dragDropElement = async (
 
 describe('Dnd', () => {
   const simpleTree: Hierarchy = populateParentId({
-    parent: {
+    root: {
       children: {
-        'first-child': {
+        '1-parent': {
+          children: {
+            'first-child': {
+              style: {
+                height: 250,
+                left: 0,
+                top: 0,
+                width: 200,
+              },
+              tobe: 'droppable',
+            },
+            'second-child': {
+              style: {
+                height: 250,
+                left: 0,
+                top: 250,
+                width: 200,
+              },
+              tobe: 'droppable',
+            },
+          },
           style: {
-            bottom: 250,
-            height: 250,
+            height: 500,
             left: 0,
-            right: 200,
             top: 0,
             width: 200,
           },
           tobe: 'droppable',
         },
-        'second-child': {
+        '2-draggable': {
           style: {
-            bottom: 500,
-            height: 250,
-            left: 0,
-            right: 200,
-            top: 250,
+            height: 500,
+            left: 200,
+            top: 0,
             width: 200,
           },
           tobe: 'draggable',
         },
       },
       style: {
-        bottom: 500,
         height: 500,
         left: 0,
-        right: 200,
         top: 0,
-        width: 200,
+        width: 400,
       },
       tobe: 'droppable',
     },
@@ -244,14 +247,13 @@ describe('Dnd', () => {
       const width = parseFloat(style.width)
       const height = parseFloat(style.height)
       const left = parseFloat(style.left)
-      const right = parseFloat(style.right)
       const top = parseFloat(style.top)
 
       return {
-        bottom: height,
+        bottom: top + height,
         height,
         left,
-        right,
+        right: left + width,
         toJSON: () => '',
         top,
         width,
@@ -274,19 +276,18 @@ describe('Dnd', () => {
       )
 
       const draggableElement =
-        container.querySelector<HTMLDivElement>(`[id="second-child"]`)
+        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
 
       if (!draggableElement) {
         throw new Error('draggable element not found')
       }
 
-      await dragDropElement(
-        draggableElement,
-        { x: 100, y: 250 },
-        { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
-      )
+      await dragDropElement(draggableElement, {
+        x: 100,
+        y: COLLISION_ALGORITHM_SPACING + 1,
+      })
 
-      expect(dragTarget).toHaveBeenCalledWith('parent')
+      expect(dragTarget).toHaveBeenCalledWith('1-parent')
     })
   })
 
@@ -300,18 +301,17 @@ describe('Dnd', () => {
         )
 
         const draggableElement =
-          container.querySelector<HTMLDivElement>(`[id="second-child"]`)
+          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
 
         if (!draggableElement) {
           throw new Error('draggable element not found')
         }
 
         // Trigger the drag operation.
-        await dragElementOver(
-          draggableElement,
-          { x: 100, y: 250 },
-          { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
-        )
+        await dragElementOver(draggableElement, {
+          x: 100,
+          y: COLLISION_ALGORITHM_SPACING + 1,
+        })
 
         const dragOverlay = document.querySelector<HTMLDivElement>(
           `[id="${DRAG_OVERLAY_ID}"]`,
@@ -335,21 +335,20 @@ describe('Dnd', () => {
         )
 
         const draggableElement =
-          container.querySelector<HTMLDivElement>(`[id="second-child"]`)
+          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
 
         if (!draggableElement) {
           throw new Error('draggable element not found')
         }
 
         // Trigger the drag operation.
-        await dragElementOver(
-          draggableElement,
-          { x: 100, y: 250 },
-          { x: 100, y: COLLISION_ALGORITHM_SPACING - 1 },
-        )
+        await dragElementOver(draggableElement, {
+          x: 100,
+          y: COLLISION_ALGORITHM_SPACING + 1,
+        })
 
         const targetElement =
-          container.querySelector<HTMLDivElement>(`[id="parent"]`)
+          container.querySelector<HTMLDivElement>(`[id="1-parent"]`)
 
         const dropOverlay = document.querySelector<HTMLDivElement>(
           `[id="${DROP_OVERLAY_ID}"]`,
@@ -369,9 +368,101 @@ describe('Dnd', () => {
 
     describe('Drop indicator', () => {
       describe('With Vertical Layout', () => {
-        it('should show a drop overlay around the parent and a drop indicator at the top of the target element when dragging before it', async () => {})
+        it('should show a drop overlay around the parent and a drop indicator at the top of the target element when dragging before it', async () => {
+          const { container } = render(
+            <TestDndContext>
+              <MakeElementTree hierarchy={simpleTree} />
+            </TestDndContext>,
+          )
 
-        it('should show a drop overlay around the parent and a drop indicator at the bottom of the target element when dragging after it', () => {})
+          const draggableElement =
+            container.querySelector<HTMLDivElement>('[id="2-draggable"]')
+
+          if (!draggableElement) {
+            throw new Error('draggable element not found')
+          }
+
+          // drag before the first child
+          await dragElementOver(draggableElement, {
+            x: 100,
+            y: COLLISION_ALGORITHM_SPACING + 1,
+          })
+
+          const dropIndicator = document.querySelector<HTMLDivElement>(
+            `[id="${DROP_INDICATOR_ID}"]`,
+          )
+
+          const dropOverlay = document.querySelector<HTMLDivElement>(
+            `[id="${DROP_OVERLAY_ID}"]`,
+          )
+
+          const targetElement =
+            container.querySelector<HTMLDivElement>('[id="1-parent"]')
+
+          if (!targetElement || !dropIndicator || !dropOverlay) {
+            throw new Error(
+              'target element, drop indicator, or drop overlay not found',
+            )
+          }
+
+          const targetRect = targetElement.getBoundingClientRect()
+          const dropOverlayRect = dropOverlay.getBoundingClientRect()
+
+          // drop overlay should be around parent
+          expect(dropOverlayRect.width).toBeCloseTo(targetRect.width || 0, 0)
+          expect(dropOverlayRect.height).toBeCloseTo(targetRect.height || 0, 0)
+
+          // drop indicator should be first child
+          expect(targetElement.children[0]?.id).toBe(DROP_INDICATOR_ID)
+        })
+
+        it('should show a drop overlay around the parent and a drop indicator at the bottom of the target element when dragging after it', async () => {
+          const { container } = render(
+            <TestDndContext>
+              <MakeElementTree hierarchy={simpleTree} />
+            </TestDndContext>,
+          )
+
+          const draggableElement =
+            container.querySelector<HTMLDivElement>('[id="2-draggable"]')
+
+          if (!draggableElement) {
+            throw new Error('draggable element not found')
+          }
+
+          // drag into between the first and second child
+          await dragElementOver(draggableElement, {
+            x: 100,
+            y: 250,
+          })
+
+          const dropIndicator = document.querySelector<HTMLDivElement>(
+            `[id="${DROP_INDICATOR_ID}"]`,
+          )
+
+          const dropOverlay = document.querySelector<HTMLDivElement>(
+            `[id="${DROP_OVERLAY_ID}"]`,
+          )
+
+          const targetElement =
+            container.querySelector<HTMLDivElement>('[id="1-parent"]')
+
+          if (!targetElement || !dropIndicator || !dropOverlay) {
+            throw new Error(
+              'target element, drop indicator, or drop overlay not found',
+            )
+          }
+
+          const targetRect = targetElement.getBoundingClientRect()
+          const dropOverlayRect = dropOverlay.getBoundingClientRect()
+
+          // drop overlay should be around parent
+          expect(dropOverlayRect.width).toBeCloseTo(targetRect.width || 0, 0)
+          expect(dropOverlayRect.height).toBeCloseTo(targetRect.height || 0, 0)
+
+          // drop indicator should be second element
+          expect(targetElement.children[1]?.id).toBe(DROP_INDICATOR_ID)
+        })
       })
 
       describe('With Horizontal Layout', () => {
