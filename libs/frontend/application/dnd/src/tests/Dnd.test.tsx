@@ -11,6 +11,14 @@ import {
   MakeChildrenDraggable,
 } from '../MakeChildrenDraggable'
 import { MakeChildrenDroppable } from '../MakeChildrenDroppable'
+import { MakeComponentDroppable } from '../MakeComponentDroppable'
+import type { Hierarchy } from './test-data'
+import {
+  horizontalSimpleTree,
+  nonDraggableSimpleTree,
+  nonDroppableSimpleTree,
+  simpleTree,
+} from './test-data'
 import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
 
 interface WrapIfProps<T> {
@@ -33,18 +41,9 @@ export const WrapIf = <T,>({
   return children
 }
 
-interface Hierarchy {
-  [key: number | string]: {
-    children?: Hierarchy
-    parentId?: number | string
-    style?: React.CSSProperties
-    descriptor?: string
-    tobe: 'both' | 'draggable' | 'droppable'
-  }
-}
-
 interface MakeElementTreeProps {
   hierarchy: Hierarchy
+  makeComponentDroppable?: boolean
 }
 
 // helper function for debugging (TODO: remove later or move somewhere else)
@@ -71,37 +70,10 @@ const formatHTMLElement = (element: Element, indent = 0): string => {
   return `${indentation}${openingTag}\n${children}\n${indentation}${closingTag}`
 }
 
-const populateParentId = (hierarchy: Hierarchy): Hierarchy => {
-  const recursivelyPopulateParentId = (
-    subTree: Hierarchy,
-    parentId: number | string,
-    entireHierarchy: Hierarchy,
-  ) => {
-    const keys = Object.keys(subTree)
-
-    keys.forEach((key) => {
-      const node = subTree[key]
-
-      if (!node) {
-        return
-      }
-
-      const { children } = node
-
-      if (children) {
-        recursivelyPopulateParentId(children, key, entireHierarchy)
-      }
-
-      node.parentId = parentId
-    })
-  }
-
-  recursivelyPopulateParentId(hierarchy, '', hierarchy)
-
-  return hierarchy
-}
-
-const MakeElementTree = ({ hierarchy }: MakeElementTreeProps) => {
+const MakeElementTree = ({
+  hierarchy,
+  makeComponentDroppable,
+}: MakeElementTreeProps) => {
   const keys = Object.keys(hierarchy)
 
   return keys.map((key) => {
@@ -116,7 +88,9 @@ const MakeElementTree = ({ hierarchy }: MakeElementTreeProps) => {
     return (
       <WrapIf
         Wrapper={MakeChildrenDroppable}
-        condition={tobe === 'droppable' || tobe === 'both'}
+        condition={
+          !makeComponentDroppable && (tobe === 'droppable' || tobe === 'both')
+        }
         wrapperProps={{
           data: {},
           id: key,
@@ -133,16 +107,46 @@ const MakeElementTree = ({ hierarchy }: MakeElementTreeProps) => {
             wrapperStyles: style,
           }}
         >
-          <div
-            children={
-              children && (
-                <MakeElementTree hierarchy={children} key={`subtree-${key}`} />
-              )
-            }
-            id={key}
-            key={key}
-            style={style}
-          />
+          {makeComponentDroppable &&
+          (tobe === 'droppable' || tobe === 'both') ? (
+            <MakeComponentDroppable
+              ReactComponent={(props: PropsWithChildren) => (
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                <div {...props}>{props.children}</div>
+              )}
+              children={
+                children && (
+                  <MakeElementTree
+                    hierarchy={children}
+                    key={`subtree-${key}`}
+                    makeComponentDroppable={true}
+                  />
+                )
+              }
+              componentProps={{
+                id: key,
+                key,
+                style,
+              }}
+              data={{}}
+              id={key}
+              parentDroppableContainerId={`${parentId}` || ''}
+            />
+          ) : (
+            <div
+              children={
+                children && (
+                  <MakeElementTree
+                    hierarchy={children}
+                    key={`subtree-${key}`}
+                  />
+                )
+              }
+              id={key}
+              key={key}
+              style={style}
+            />
+          )}
         </WrapIf>
       </WrapIf>
     )
@@ -173,9 +177,7 @@ const dragElementOver = async (element: HTMLElement, dropPosiotion: Point) => {
   })
 }
 
-const dragDropElement = async (element: HTMLElement, dropPosiotion: Point) => {
-  await dragElementOver(element, dropPosiotion)
-
+const dropElement = async (element: HTMLElement, dropPosiotion: Point) => {
   const mouseUpEvent = new MouseEvent('pointerup', {
     bubbles: true,
     clientX: dropPosiotion.x,
@@ -187,101 +189,12 @@ const dragDropElement = async (element: HTMLElement, dropPosiotion: Point) => {
   })
 }
 
+const dragDropElement = async (element: HTMLElement, dropPosiotion: Point) => {
+  await dragElementOver(element, dropPosiotion)
+  await dropElement(element, dropPosiotion)
+}
+
 describe('Dnd', () => {
-  const simpleTree: Hierarchy = populateParentId({
-    root: {
-      children: {
-        '1-parent': {
-          children: {
-            'first-child': {
-              style: {
-                height: 250,
-                left: 0,
-                top: 0,
-                width: 200,
-              },
-              tobe: 'droppable',
-            },
-            'second-child': {
-              style: {
-                height: 250,
-                left: 0,
-                top: 250,
-                width: 200,
-              },
-              tobe: 'droppable',
-            },
-          },
-          style: {
-            height: 500,
-            left: 0,
-            top: 0,
-            width: 200,
-          },
-          tobe: 'droppable',
-        },
-        '2-draggable': {
-          style: {
-            height: 500,
-            left: 200,
-            top: 0,
-            width: 200,
-          },
-          tobe: 'draggable',
-        },
-      },
-      style: {
-        height: 500,
-        left: 0,
-        top: 0,
-        width: 400,
-      },
-      tobe: 'droppable',
-    },
-  })
-
-  const horizontalSimpleTree: Hierarchy = {
-    ...simpleTree,
-    root: {
-      ...simpleTree.root,
-      children: {
-        ...simpleTree.root?.children,
-        '1-parent': {
-          ...simpleTree.root?.children?.['1-parent'],
-          children: {
-            ...simpleTree.root?.children?.['1-parent']?.children,
-            'first-child': {
-              ...simpleTree.root?.children?.['1-parent']?.children?.[
-                'first-child'
-              ],
-              style: {
-                height: 500,
-                left: 0,
-                top: 0,
-                width: 100,
-              },
-              tobe: 'droppable',
-            },
-            'second-child': {
-              ...simpleTree.root?.children?.['1-parent']?.children?.[
-                'second-child'
-              ],
-              style: {
-                height: 500,
-                left: 100,
-                top: 0,
-                width: 100,
-              },
-              tobe: 'droppable',
-            },
-          },
-          tobe: 'droppable',
-        },
-      },
-      tobe: 'droppable',
-    },
-  }
-
   beforeAll(() => {
     // Mocking the getBoundingClientRect method for HTMLElement
     HTMLElement.prototype.getBoundingClientRect = jest.fn(function () {
@@ -290,6 +203,8 @@ describe('Dnd', () => {
       const height = parseFloat(style.height)
       const left = parseFloat(style.left)
       const top = parseFloat(style.top)
+
+      console.log('getting bounding client rect for', this.id, style)
 
       return {
         bottom: top + height,
@@ -305,7 +220,7 @@ describe('Dnd', () => {
     })
   })
 
-  describe('simple functionality', () => {
+  describe('basic functionality', () => {
     it('should be able to drop a draggable element into a droppable one', async () => {
       const dragTarget = jest.fn()
 
@@ -314,6 +229,93 @@ describe('Dnd', () => {
           onDragEnd={(dragEndEvent) => dragTarget(dragEndEvent.over?.id)}
         >
           <MakeElementTree hierarchy={simpleTree} />
+        </TestDndContext>,
+      )
+
+      const draggableElement =
+        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+
+      if (!draggableElement) {
+        throw new Error('draggable element not found')
+      }
+
+      await dragDropElement(draggableElement, {
+        x: 100,
+        y: COLLISION_ALGORITHM_SPACING + 1,
+      })
+
+      expect(dragTarget).toHaveBeenCalledWith('1-parent')
+    })
+
+    it('should not drag a non-draggable item', async () => {
+      const dragTarget = jest.fn()
+      const dragStart = jest.fn()
+
+      const { container } = render(
+        <TestDndContext
+          onDragEnd={(dragEndEvent) => dragTarget(dragEndEvent.over?.id)}
+          onDragStart={dragStart}
+        >
+          <MakeElementTree hierarchy={nonDraggableSimpleTree} />
+        </TestDndContext>,
+      )
+
+      const draggableElement =
+        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+
+      if (!draggableElement) {
+        throw new Error('draggable element not found')
+      }
+
+      await dragDropElement(draggableElement, {
+        x: 100,
+        y: COLLISION_ALGORITHM_SPACING + 1,
+      })
+
+      expect(dragStart).not.toHaveBeenCalled()
+      expect(dragTarget).not.toHaveBeenCalled()
+    })
+
+    it('should not drop into a non-droppable item', async () => {
+      const dragTarget = jest.fn()
+      const dragStart = jest.fn()
+
+      const { container } = render(
+        <TestDndContext
+          onDragEnd={(dragEndEvent) => dragTarget(dragEndEvent.over?.id)}
+          onDragStart={dragStart}
+        >
+          <MakeElementTree hierarchy={nonDroppableSimpleTree} />
+        </TestDndContext>,
+      )
+
+      const draggableElement =
+        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+
+      if (!draggableElement) {
+        throw new Error('draggable element not found')
+      }
+
+      await dragDropElement(draggableElement, {
+        x: 100,
+        y: COLLISION_ALGORITHM_SPACING + 1,
+      })
+
+      expect(dragStart).toHaveBeenCalledTimes(1)
+      expect(dragTarget).toHaveBeenCalledWith(undefined)
+    })
+
+    it.skip('should be able to make a component droppable', async () => {
+      const dragTarget = jest.fn()
+
+      const { container } = render(
+        <TestDndContext
+          onDragEnd={(dragEndEvent) => dragTarget(dragEndEvent.over?.id)}
+        >
+          <MakeElementTree
+            hierarchy={simpleTree}
+            makeComponentDroppable={true}
+          />
         </TestDndContext>,
       )
 
@@ -538,21 +540,56 @@ describe('Dnd', () => {
     })
 
     describe('cleanup', () => {
-      it('should remove all hints when the drag operation is complete', () => {})
+      it('should remove all hints when the drag operation is complete', async () => {
+        const { container } = render(
+          <TestDndContext>
+            <MakeElementTree hierarchy={simpleTree} />
+          </TestDndContext>,
+        )
+
+        const draggableElement =
+          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+
+        if (!draggableElement) {
+          throw new Error('draggable element not found')
+        }
+
+        // Trigger the drag operation.
+        await dragElementOver(draggableElement, {
+          x: 100,
+          y: COLLISION_ALGORITHM_SPACING + 1,
+        })
+
+        expect(
+          document.querySelector<HTMLDivElement>(`[id="${DRAG_OVERLAY_ID}"]`),
+        ).toBeDefined()
+        expect(
+          document.querySelector<HTMLDivElement>(`[id="${DROP_INDICATOR_ID}"]`),
+        ).toBeDefined()
+        expect(
+          document.querySelector<HTMLDivElement>(`[id="${DROP_OVERLAY_ID}"]`)
+            ?.style.display,
+        ).not.toBe('none')
+
+        // Trigger the drop operation.
+        await dropElement(draggableElement, {
+          x: 100,
+          y: COLLISION_ALGORITHM_SPACING + 1,
+        })
+
+        expect(
+          document.querySelector<HTMLDivElement>(`[id="${DRAG_OVERLAY_ID}"]`),
+        ).toBeNull()
+
+        expect(
+          document.querySelector<HTMLDivElement>(`[id="${DROP_INDICATOR_ID}"]`),
+        ).toBeNull()
+
+        expect(
+          document.querySelector<HTMLDivElement>(`[id="${DROP_OVERLAY_ID}"]`)
+            ?.style.display,
+        ).toBe('none')
+      })
     })
   })
-
-  describe('complex dnd', () => {
-    it('should be able to drop into the farthest child from the root element', () => {})
-
-    it('should drop into the parent element when attempting to drop into the element itself', () => {})
-
-    it("should drop into the parent element when attempting to drop into the element's children", () => {})
-  })
 })
-
-// TODO: add these tests too
-// non draggable item should not be dragged
-// non droppable item should not be dropped onto
-
-// should be able to both make a droppable "component" or droppable "children"
