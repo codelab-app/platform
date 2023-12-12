@@ -1,28 +1,19 @@
 {
   "extends": "../../tsconfig.base.json",
+  "files": [],
   "compilerOptions": {
-    "jsx": "preserve",
-    "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
+    "outDir": "../../dist/out-tsc",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "target": "es2021",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "types": ["jest", "node", "cypher"]
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node", "cypher"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
-  "exclude": [
-    "node_modules",
-    "jest.config.ts",
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts"
-  ]
+  "exclude": ["jest.config.ts"],
+  "include": ["webpack.config.js", "src/**/*.ts"]
 }

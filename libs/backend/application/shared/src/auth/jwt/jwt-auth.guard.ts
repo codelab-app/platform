@@ -5,10 +5,16 @@ import type { Request } from 'express'
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  override canActivate(context: ExecutionContext) {
-    const request = context.switchToHttp().getRequest<Request>()
+  private readonly publicRoutes: Array<string> = ['/api/healthcheck']
 
-    return super.canActivate(context)
+  private isPublicRoute(url: string) {
+    return this.publicRoutes.includes(url)
+  }
+
+  override canActivate(context: ExecutionContext) {
+    const { url } = context.switchToHttp().getRequest<Request>()
+
+    return this.isPublicRoute(url) || super.canActivate(context)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
