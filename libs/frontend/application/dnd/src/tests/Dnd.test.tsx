@@ -1,18 +1,12 @@
 /* eslint-disable unicorn/filename-case */
 
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { ComponentType, PropsWithChildren } from 'react'
 import React from 'react'
 import { DROP_INDICATOR_ID } from '../DropIndicator'
 import { DROP_OVERLAY_ID } from '../DropOverlay'
 import type { Point } from '../geometry'
-import {
-  DRAG_OVERLAY_ID,
-  MakeChildrenDraggable,
-} from '../MakeChildrenDraggable'
-import { MakeChildrenDroppable } from '../MakeChildrenDroppable'
-import { MakeComponentDroppable } from '../MakeComponentDroppable'
-import type { Hierarchy } from './test-data'
+import { DRAG_OVERLAY_ID } from '../MakeChildrenDraggable'
+import { MakeElementTree } from './MakeElementTree'
 import {
   horizontalSimpleTree,
   nonDraggableSimpleTree,
@@ -20,138 +14,6 @@ import {
   simpleTree,
 } from './test-data'
 import { COLLISION_ALGORITHM_SPACING, TestDndContext } from './TestDndContext'
-
-interface WrapIfProps<T> {
-  Wrapper: ComponentType<T>
-  condition: boolean
-  wrapperProps: T
-}
-
-export const WrapIf = <T,>({
-  children,
-  condition,
-  Wrapper,
-  wrapperProps,
-}: PropsWithChildren<WrapIfProps<T>>) => {
-  if (condition) {
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Wrapper {...wrapperProps}>{children}</Wrapper>
-  }
-
-  return children
-}
-
-interface MakeElementTreeProps {
-  hierarchy: Hierarchy
-  makeComponentDroppable?: boolean
-}
-
-// helper function for debugging (TODO: remove later or move somewhere else)
-const formatHTMLElement = (element: Element, indent = 0): string => {
-  const { className, id, tagName } = element
-  const attributes = []
-
-  if (id) {
-    attributes.push(`id='${id}'`)
-  }
-
-  if (className) {
-    attributes.push(`class='${className}'`)
-  }
-
-  const openingTag = `<${tagName.toLowerCase()} ${attributes.join(' ')}>`
-  const closingTag = `</${tagName.toLowerCase()}>`
-  const indentation = ' '.repeat(indent)
-
-  const children = Array.from(element.children)
-    .map((child) => formatHTMLElement(child, indent + 2))
-    .join('\n')
-
-  return `${indentation}${openingTag}\n${children}\n${indentation}${closingTag}`
-}
-
-const MakeElementTree = ({
-  hierarchy,
-  makeComponentDroppable,
-}: MakeElementTreeProps) => {
-  const keys = Object.keys(hierarchy)
-
-  return keys.map((key) => {
-    const node = hierarchy[key]
-
-    if (!node) {
-      return null
-    }
-
-    const { children, parentId, style, tobe } = node
-
-    return (
-      <WrapIf
-        Wrapper={MakeChildrenDroppable}
-        condition={
-          !makeComponentDroppable && (tobe === 'droppable' || tobe === 'both')
-        }
-        wrapperProps={{
-          data: {},
-          id: key,
-          parentDroppableContainerId: `${parentId}` || '',
-          wrapperStyles: style,
-        }}
-      >
-        <WrapIf
-          Wrapper={MakeChildrenDraggable}
-          condition={tobe === 'draggable' || tobe === 'both'}
-          wrapperProps={{
-            data: {},
-            id: key,
-            wrapperStyles: style,
-          }}
-        >
-          {makeComponentDroppable &&
-          (tobe === 'droppable' || tobe === 'both') ? (
-            <MakeComponentDroppable
-              ReactComponent={(props: PropsWithChildren) => (
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                <div {...props}>{props.children}</div>
-              )}
-              children={
-                children && (
-                  <MakeElementTree
-                    hierarchy={children}
-                    key={`subtree-${key}`}
-                    makeComponentDroppable={true}
-                  />
-                )
-              }
-              componentProps={{
-                id: key,
-                key,
-                style,
-              }}
-              data={{}}
-              id={key}
-              parentDroppableContainerId={`${parentId}` || ''}
-            />
-          ) : (
-            <div
-              children={
-                children && (
-                  <MakeElementTree
-                    hierarchy={children}
-                    key={`subtree-${key}`}
-                  />
-                )
-              }
-              id={key}
-              key={key}
-              style={style}
-            />
-          )}
-        </WrapIf>
-      </WrapIf>
-    )
-  })
-}
 
 const dragElementOver = async (element: HTMLElement, dropPosiotion: Point) => {
   // Simulate mouse events for dragging and dropping
@@ -196,15 +58,17 @@ const dragDropElement = async (element: HTMLElement, dropPosiotion: Point) => {
 
 describe('Dnd', () => {
   beforeAll(() => {
-    // Mocking the getBoundingClientRect method for HTMLElement
+    /**
+     * JsDom doesn't support layout (https://github.com/testing-library/react-testing-library/issues/353#issuecomment-481248489)
+     * hence all measurments are always 0. to go around that we're
+     * mocking the getBoundingClientRect method for HTMLElement.
+     */
     HTMLElement.prototype.getBoundingClientRect = jest.fn(function () {
       const style = window.getComputedStyle(this)
       const width = parseFloat(style.width)
       const height = parseFloat(style.height)
       const left = parseFloat(style.left)
       const top = parseFloat(style.top)
-
-      console.log('getting bounding client rect for', this.id, style)
 
       return {
         bottom: top + height,
@@ -305,7 +169,7 @@ describe('Dnd', () => {
       expect(dragTarget).toHaveBeenCalledWith(undefined)
     })
 
-    it.skip('should be able to make a component droppable', async () => {
+    it('should be able to make a component droppable', async () => {
       const dragTarget = jest.fn()
 
       const { container } = render(
@@ -367,7 +231,42 @@ describe('Dnd', () => {
         expect(dragOverlay?.innerHTML).toContain(draggableElement.innerHTML)
       })
 
-      it.skip('should show a custom drag overlay when the draggable element is dragged and a custom overlay is provided', () => {})
+      it('should show a custom drag overlay when a custom overlay is provided', async () => {
+        const { container } = render(
+          <TestDndContext>
+            <MakeElementTree
+              customDragOverlay={<div id="custom-drag-overlay"></div>}
+              hierarchy={simpleTree}
+            />
+          </TestDndContext>,
+        )
+
+        const draggableElement =
+          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+
+        if (!draggableElement) {
+          throw new Error('draggable element not found')
+        }
+
+        // Trigger the drag operation.
+        await dragElementOver(draggableElement, {
+          x: 100,
+          y: COLLISION_ALGORITHM_SPACING + 1,
+        })
+
+        const dragOverlay = document.querySelector<HTMLDivElement>(
+          `[id="${DRAG_OVERLAY_ID}"]`,
+        )
+
+        const customDragOverlay = document.querySelector<HTMLDivElement>(
+          '[id="custom-drag-overlay"]',
+        )
+
+        expect(dragOverlay).toBeDefined()
+        expect(customDragOverlay).toBeDefined()
+
+        expect(dragOverlay?.contains(customDragOverlay)).toBe(true)
+      })
     })
 
     describe('Drop overlay', () => {
