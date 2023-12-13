@@ -1,77 +1,66 @@
 {
-  "name": "platform-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/platform-api",
+  "name": "platform-api",
   "projectType": "application",
+  "sourceRoot": "apps/platform-api/src",
+  "tags": ["projectType:application", "type:concrete"],
   "targets": {
     "build": {
-      "executor": "@nx/next:build",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "prod",
-      "options": {
-        "outputPath": "dist/apps/platform-api"
-      },
       "configurations": {
-        "dev": {},
         "ci": {},
+        "dev": {},
+        "prod": {
+          "optimization": true
+        },
         "test": {
           "outputPath": "dist/apps/platform-api-test"
-        },
-        "prod": {}
-      }
-    },
-    "serve": {
-      "executor": "@nx/next:server",
-      "defaultConfiguration": "dev",
-      "options": {
-        "port": 4000,
-        "buildTarget": "platform-api:build:dev",
-        "dev": true
-      },
-      "configurations": {
-        "ci": {
-          "buildTarget": "platform-api:build:ci",
-          "dev": false
-        },
-        "dev": {},
-        "test": {
-          "port": 4001,
-          "buildTarget": "platform-api:build:test"
-        },
-        "prod": {
-          "buildTarget": "platform-api:build:prod",
-          "dev": false
         }
-      }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      },
+      "defaultConfiguration": "prod",
+      "executor": "@nx/webpack:webpack",
       "options": {
-        "jestConfig": "apps/platform-api/jest.config.ts",
-        "reporters": ["default"]
-      }
-    },
-    "export": {
-      "executor": "@nx/next:export",
-      "options": {
-        "buildTarget": "platform-api:build:prod"
-      }
+        "compiler": "tsc",
+        "isolatedConfig": true,
+        "main": "apps/platform-api/src/main.ts",
+        "outputPath": "dist/apps/platform-api",
+        "target": "node",
+        "tsConfig": "apps/platform-api/tsconfig.json",
+        "webpackConfig": "apps/platform-api/webpack.config.js"
+      },
+      "outputs": ["{options.outputPath}"]
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/platform-api/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/platform-api.xml",
           "quiet": true
         }
+      },
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["apps/platform-api/**/*.{ts,tsx,js,jsx,graphql}"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "serve": {
+      "configurations": {
+        "ci": {
+          "buildTarget": "platform-api:build:ci"
+        },
+        "dev": {},
+        "prod": {
+          "buildTarget": "platform-api:build:prod"
+        },
+        "test": {
+          "buildTarget": "platform-api:build:test"
+        }
+      },
+      "defaultConfiguration": "dev",
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "platform-api:build:dev"
       }
     }
-  },
-  "tags": ["projectType:application", "type:concrete"]
+  }
 }

@@ -1,29 +1,13 @@
 {
-  "extends": [
-    "plugin:@nx/react-typescript",
-    "next",
-    "next/core-web-vitals",
-    "../../.eslintrc.json"
-  ],
-  "ignorePatterns": ["!**/*", ".next/**/*"],
+  "extends": ["plugin:@nx/react-typescript", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
         "project": ["apps/platform-api/tsconfig(.*)?.json"]
       },
-      "rules": {
-        "@next/next/no-html-link-for-pages": [
-          "error",
-          "apps/platform-api/pages"
-        ]
-      }
-    },
-    {
-      "files": ["**/pages/api/**"],
-      "rules": {
-        "@nx/enforce-module-boundaries": "off"
-      }
+      "rules": {}
     },
     {
       "files": ["*.ts", "*.tsx"],
@@ -37,11 +21,5 @@
       "files": ["*.graphql"],
       "rules": {}
     }
-  ],
-  "rules": {
-    "@next/next/no-html-link-for-pages": "off"
-  },
-  "env": {
-    "jest": true
-  }
+  ]
 }
