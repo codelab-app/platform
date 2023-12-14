@@ -11,7 +11,10 @@ interface MakeDraggableProps<DragDataType> {
   data: DragDataType
   id: string
   wrapper?: React.FC
+  wrapperStyles?: React.CSSProperties
 }
+
+export const DRAG_OVERLAY_ID = '__drag__overlay__'
 
 export const MakeChildrenDraggable = <DragDataType,>({
   children,
@@ -19,6 +22,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
   data,
   id,
   wrapper,
+  wrapperStyles,
 }: PropsWithChildren<MakeDraggableProps<DragDataType>>) => {
   const WrapperElement = wrapper || 'div'
 
@@ -29,7 +33,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
       ...data,
       internalUseOnlyDragData: {
         overlayRenderer: (ref?: RefObject<HTMLDivElement>) => (
-          <div ref={ref}>
+          <div id={DRAG_OVERLAY_ID} ref={ref}>
             <WrapperElement>{customOverlay ?? children}</WrapperElement>
           </div>
         ),
@@ -39,6 +43,7 @@ export const MakeChildrenDraggable = <DragDataType,>({
   })
 
   const style = {
+    ...wrapperStyles,
     cursor: 'grab',
     opacity: active?.id === id ? 0.5 : 1,
   }

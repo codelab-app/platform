@@ -1,7 +1,7 @@
 import { useDndContext } from '@dnd-kit/core'
 import type { HierarchicalCollision } from './collision-detection'
 
-const DROP_INDICATOR_ID = '__drop__indicator__'
+export const DROP_INDICATOR_ID = '__drop__indicator__'
 
 const makeDropIndicatorDiv = () => {
   const dropIndicator = document.createElement('div')
