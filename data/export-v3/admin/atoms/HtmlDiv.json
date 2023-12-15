@@ -1,7 +1,24 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "fields": [],
+    "fields": [
+      {
+        "api": {
+          "id": "b3054c85-a130-4e3e-b889-13bf286acbc2"
+        },
+        "defaultValues": "null",
+        "description": "Binds a component prop into the current element's children",
+        "fieldType": {
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+        },
+        "id": "374be3ad-e7ad-4367-8ef7-c83bd7ff3e2d",
+        "key": "codelab_internal_prop_binding_children",
+        "name": "Children (Prop Binding)",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      }
+    ],
     "id": "b3054c85-a130-4e3e-b889-13bf286acbc2",
     "kind": "InterfaceType",
     "name": "HtmlDiv API",
@@ -27,7 +44,7 @@
     "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e",
     "name": "HtmlDiv",
     "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      "id": "78b08172-d643-4adf-9044-cd2dc5e2a47a"
     },
     "requiredParents": [],
     "suggestedChildren": [],
