@@ -1,11 +1,11 @@
 import {
+  hasStateExpression,
+  isComponentPropsStateExpression,
+} from '@codelab/frontend/application/shared/core'
+import {
   createAutoCompleteOptions,
   ToggleExpressionField,
 } from '@codelab/frontend/presentation/view'
-import {
-  hasStateExpression,
-  isComponentPropsStateExpression,
-} from '@codelab/frontend/shared/utils'
 import { SelectComponent } from '../fields'
 import type { UiPropertiesFn } from '../types'
 
