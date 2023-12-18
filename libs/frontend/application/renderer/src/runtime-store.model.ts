@@ -96,7 +96,8 @@ export class RuntimeStoreModel
   @computed
   get refKeys(): Array<string> {
     const elementTree =
-      this.store.current.page?.current || this.store.current.component?.current
+      this.store.current.page?.maybeCurrent ||
+      this.store.current.component?.maybeCurrent
 
     const elements = elementTree?.elements || []
 
