@@ -26,9 +26,10 @@ import {
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import { type IPropData } from '@codelab/shared/abstract/core'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { mapDeep } from '@codelab/shared/utils'
 import get from 'lodash/get'
+import merge from 'lodash/merge'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -194,7 +195,7 @@ export class RuntimeElementProps
   }
 
   @modelAction
-  getBoundedActionRunner(actionName: string) {
+  getActionRunner(actionName: string) {
     return (
       this.expressionEvaluationContext.actions[actionName] ??
       this.expressionEvaluationContext.rootActions[actionName] ??
@@ -203,6 +204,29 @@ export class RuntimeElementProps
   }
 
   @modelAction
+  private addBoundedActionRunner(
+    context: Omit<IEvaluationContext, 'actions' | 'rootActions'>,
+  ): IEvaluationContext {
+    const actions = this.runtimeStore.runtimeActionsList
+      .map((action) => ({
+        [action.action.current.name]: action.runner.bind(context),
+      }))
+      .reduce(merge, {})
+
+    const rootActions =
+      this.runtimeStore.runtimeProviderSore?.current.runtimeActionsList
+        .map((action) => ({
+          [action.action.current.name]: action.runner.bind(context),
+        }))
+        .reduce(merge, {}) ?? {}
+
+    return {
+      ...context,
+      actions,
+      rootActions,
+    }
+  }
+
   @computed
   get propsEvaluationContext(): IEvaluationContext {
     const isInsideComponent = isRuntimeContainerNode(
@@ -213,7 +237,7 @@ export class RuntimeElementProps
       ? this.closestRuntimeContainerNode.runtimeProps?.evaluatedProps
       : {}
 
-    return this.addBoundedRuntimeActions({
+    return this.addBoundedActionRunner({
       componentProps: componentProps ?? {},
       // pass empty object because props can't evaluated by itself
       props: {},
@@ -227,7 +251,7 @@ export class RuntimeElementProps
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    return this.addBoundedRuntimeActions({
+    return this.addBoundedActionRunner({
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     })

@@ -42,7 +42,7 @@ describe('Runtime Element props', () => {
       const runtimeProps = runtimeElement?.runtimeProps
       const atom = element.renderType.current
       const fieldKey = 'fieldKey'
-      const fieldDefaultValue = 'field-value'
+      const fieldDefaultValue = '"field-value"'
 
       const field = testbed.addField({
         api: atom.api.current,
@@ -58,7 +58,7 @@ describe('Runtime Element props', () => {
       atom.api.current.writeCache({ fields: [field] })
 
       expect(runtimeProps?.props).toMatchObject({
-        [fieldKey]: fieldDefaultValue,
+        [fieldKey]: JSON.parse(fieldDefaultValue),
       })
     })
   })
@@ -148,7 +148,7 @@ describe('Runtime Element props', () => {
 
       element.props.set(propKey, `{{actions.${actionName}}}`)
 
-      const actionRunner = runtimeProps?.evaluatedProps[propKey]
+      const actionRunner = runtimeProps?.getActionRunner(actionName)
 
       expect(actionRunner?.()).toMatchObject({
         actions: {
