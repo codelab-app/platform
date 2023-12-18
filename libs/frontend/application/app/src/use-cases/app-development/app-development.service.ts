@@ -78,10 +78,17 @@ export class AppDevelopmentService
     const elements = [...pagesElements, ...componentsElements]
     const props = elements.flatMap((element) => element.props)
 
-    const stores = [...pages, ...components].map(
-      (containerNode) => containerNode.store,
-    )
+    const pageStores = pages.map((page) => ({
+      ...page.store,
+      page: { id: page.id },
+    }))
 
+    const componentStores = pages.map((component) => ({
+      ...component.store,
+      component: { id: component.id },
+    }))
+
+    const stores = [...pageStores, ...componentStores]
     const actions = stores.flatMap((store) => store.actions)
 
     const atoms = uniqBy(
@@ -153,8 +160,6 @@ export class AppDevelopmentService
     )
 
     data.pages.forEach((page) => this.pageDomainService.hydrate(page))
-
-    // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) => this.storeDomainService.hydrate(store))
 

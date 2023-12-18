@@ -8,7 +8,6 @@ import {
   elementTreeRef,
   isComponent,
   isElement,
-  isElementRef,
   RendererTab,
   storeRef,
   typeRef,
@@ -63,6 +62,20 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const { popover } = useCui()
     const page = useCurrentPage()
     const { component } = useCurrentComponent()
+    const containerNode = page ?? component
+    const root = !isLoading ? containerNode?.rootElement : undefined
+    const antdTree = root?.current.treeViewNode
+    const store = containerNode?.store.current
+
+    const runtimeContainerNode = containerNode
+      ? rendererService.runtimeContainerNode(containerNode)
+      : undefined
+
+    const runtimeStore = runtimeContainerNode?.runtimeStore
+    const providerStore = runtimeStore?.runtimeProviderSore?.current
+    /*
+    const store = builderService.selectedNode?.current.store.current
+    const runtimeStore = runtimeContainerNode?.runtimeStore
     const pageBuilderRenderer = page && rendererService.renderers.get(page.id)
 
     const componentBuilderRenderer =
@@ -87,6 +100,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       isComponent(builderService.selectedNode.current.renderType.current)
         ? builderService.selectedNode.current.renderType.current.store
         : undefined
+    */
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponent(node)) {
@@ -100,7 +114,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
-        content: pageTree && isPageTree && (
+        content: antdTree && (
           <ElementTreeView
             expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
             selectTreeNode={selectTreeNode}
@@ -111,7 +125,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
             treeData={antdTree}
           />
         ),
-        isLoading: isLoading || !pageTree,
+        isLoading: isLoading || !containerNode,
         key: 'ElementTree',
         label: 'Elements Tree',
         toolbar: {
@@ -120,7 +134,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               icon: <PlusOutlined />,
               key: 'Add Element',
               onClick: () => {
-                if (!pageTree) {
+                if (!containerNode) {
                   return
                 }
 
@@ -131,8 +145,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   : undefined
 
                 elementService.createForm.open({
-                  elementOptions: pageTree.elements.map(mapElementOption),
-                  elementTree: elementTreeRef(pageTree.id),
+                  elementOptions: containerNode.elements.map(mapElementOption),
+                  elementTree: elementTreeRef(containerNode.id),
                   selectedElement,
                 })
                 popover.open(FormNames.CreateElement)
@@ -206,11 +220,10 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 onChange={() => undefined}
                 singleLine={false}
                 title="Local Store"
-                // value={store.jsonString}
-                value=""
+                value={runtimeStore?.jsonString}
               />
             </Collapse.Panel>
-            {componentStore ? (
+            {isComponent(containerNode) ? (
               <Collapse.Panel header="Component Store" key="componentStore">
                 <CodeMirrorEditor
                   className="mt-1"
@@ -219,8 +232,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Component Store"
-                  // value={componentStore.current.jsonString}
-                  value=""
+                  value={runtimeStore?.jsonString}
                 />
               </Collapse.Panel>
             ) : (
@@ -235,8 +247,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Root Store"
-                  // value={providerStore.jsonString}
-                  value=""
+                  value={providerStore.jsonString}
                 />
               </Collapse.Panel>
             ) : (

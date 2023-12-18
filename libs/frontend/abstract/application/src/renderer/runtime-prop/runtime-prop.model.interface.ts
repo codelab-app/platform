@@ -44,9 +44,6 @@ export interface IBaseRuntimeProps {
     component: IComponentModel,
   ): IRuntimeContainerNodeModel
   addRuntimeElementModel(element: IElementModel): IRuntimeElementModel
-
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  getActionRunner(actionName: string): Function
 }
 
 export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
@@ -63,4 +60,7 @@ export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
    * Evaluated Props for child mapper
    */
   evaluatedChildMapperProp?: Array<IPropData>
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  getActionRunner(actionName: string): Function
 }

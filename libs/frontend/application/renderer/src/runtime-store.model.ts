@@ -5,7 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  RendererType,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
@@ -66,13 +65,13 @@ export class RuntimeStoreModel
 
   @computed
   get state() {
+    /* 
     const { rendererType } = this.renderer ?? {}
 
     const isPreviewOrProduction =
       rendererType === RendererType.Preview ||
       rendererType === RendererType.Production
-
-    /*  
+ 
     if (isPreviewOrProduction && this.cachedState) {
       return this.cachedState
     }
@@ -82,7 +81,7 @@ export class RuntimeStoreModel
     )
 
     return this.cachedState
-*/
+  */
     return this.store.current.api.maybeCurrent?.defaultValues ?? {}
   }
 
@@ -96,10 +95,8 @@ export class RuntimeStoreModel
 
   @computed
   get refKeys(): Array<string> {
-    // refs might fail to resolve at the beginning
     const elementTree =
-      this.store.maybeCurrent?.page?.maybeCurrent ||
-      this.store.maybeCurrent?.component?.maybeCurrent
+      this.store.current.page?.current || this.store.current.component?.current
 
     const elements = elementTree?.elements || []
 
@@ -133,6 +130,7 @@ export class RuntimeStoreModel
     })
   }
 
+  @modelAction
   createEmptyRefs(refKeys: Array<string>) {
     refKeys.forEach((key: string) => {
       this.registerRef(key, null)
