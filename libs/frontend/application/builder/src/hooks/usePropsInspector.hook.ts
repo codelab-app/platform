@@ -66,7 +66,9 @@ export const usePropsInspector = (node: IPageNodeRef) => {
     ? rendererService.runtimeElement(node.current)
     : rendererService.runtimeContainerNode(node.current)
 
-  const evaluationContext = runtimeModel!.runtimeProps!.propsEvaluationContext
+  const evaluationContext =
+    runtimeModel!.runtimeProps!.expressionEvaluationContext
+
   const lastRenderedProp = runtimeModel!.runtimeProps!.evaluatedProps
 
   const save = async (data: string) => {

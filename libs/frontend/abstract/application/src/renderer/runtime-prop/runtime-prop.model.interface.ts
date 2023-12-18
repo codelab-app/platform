@@ -36,10 +36,6 @@ export interface IBaseRuntimeProps {
    */
   props: IPropData
   /**
-   * This is the evaluation context for props
-   */
-  propsEvaluationContext: IEvaluationContext
-  /**
    * Root runtime components/elements for RenderProps, ReactNode, ElementType props
    */
   runtimeRootNodes: ObjectMap<IRuntimeModel>
@@ -48,6 +44,9 @@ export interface IBaseRuntimeProps {
     component: IComponentModel,
   ): IRuntimeContainerNodeModel
   addRuntimeElementModel(element: IElementModel): IRuntimeElementModel
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  getBoundedActionRunner(actionName: string): Function
 }
 
 export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {

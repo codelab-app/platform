@@ -193,6 +193,16 @@ export class RuntimeElementProps
     }
   }
 
+  @modelAction
+  getBoundedActionRunner(actionName: string) {
+    return (
+      this.expressionEvaluationContext.actions[actionName] ??
+      this.expressionEvaluationContext.rootActions[actionName] ??
+      (() => console.log(`No Runner found for ${actionName} `))
+    )
+  }
+
+  @modelAction
   @computed
   get propsEvaluationContext(): IEvaluationContext {
     const isInsideComponent = isRuntimeContainerNode(
@@ -203,46 +213,24 @@ export class RuntimeElementProps
       ? this.closestRuntimeContainerNode.runtimeProps?.evaluatedProps
       : {}
 
-    const actions = this.runtimeStore.runtimeActionsList.reduce(
-      (all, current) => {
-        return {
-          ...all,
-          [current.action.current.name]: (...args: Array<unknown>) =>
-            current.runner.apply(this.propsEvaluationContext, args),
-        }
-      },
-      {},
-    )
-
-    const rootActions = this.providerStore?.runtimeActionsList.reduce(
-      (all, current) => ({
-        ...all,
-        [current.action.current.name]: (...args: Array<unknown>) =>
-          current.runner.apply(this.propsEvaluationContext, args),
-      }),
-      {},
-    )
-
-    return {
-      actions,
+    return this.addBoundedRuntimeActions({
       componentProps: componentProps ?? {},
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
-      rootActions: rootActions ?? {},
       rootRefs: this.providerStore?.refs ?? {},
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
       url: this.urlProps ?? {},
-    }
+    })
   }
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    return {
+    return this.addBoundedRuntimeActions({
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
-    }
+    })
   }
 
   // TODO: move repeated logic to a base class
