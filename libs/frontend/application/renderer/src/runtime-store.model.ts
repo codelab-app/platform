@@ -13,8 +13,7 @@ import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IRef } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
-import { Maybe } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import keys from 'lodash/keys'
 import { autorun, computed, observable, set } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -49,9 +48,14 @@ export class RuntimeStoreModel
 {
   static create = create
 
-  private cachedState: Nullable<object> = null
-
   refs = observable.object<IPropData>({})
+
+  onAttachedToRootStore() {
+    this.createEmptyRefs(this.refKeys)
+    autorun(() => this.deleteUnusedRefs())
+  }
+
+  // private cachedState: Nullable<object> = null
 
   @computed
   get renderer() {
@@ -68,6 +72,7 @@ export class RuntimeStoreModel
       rendererType === RendererType.Preview ||
       rendererType === RendererType.Production
 
+    /*  
     if (isPreviewOrProduction && this.cachedState) {
       return this.cachedState
     }
@@ -77,6 +82,8 @@ export class RuntimeStoreModel
     )
 
     return this.cachedState
+*/
+    return this.store.current.api.maybeCurrent?.defaultValues ?? {}
   }
 
   @computed
@@ -89,8 +96,10 @@ export class RuntimeStoreModel
 
   @computed
   get refKeys(): Array<string> {
+    // refs might fail to resolve at the beginning
     const elementTree =
-      this.store.current.page?.current || this.store.current.component?.current
+      this.store.maybeCurrent?.page?.maybeCurrent ||
+      this.store.maybeCurrent?.component?.maybeCurrent
 
     const elements = elementTree?.elements || []
 
@@ -99,6 +108,7 @@ export class RuntimeStoreModel
       .map(({ slug }) => slug)
   }
 
+  @modelAction
   registerRef(key: string, current: Nullable<HTMLElement>) {
     set(this.refs, { [key]: { current } })
   }
@@ -113,6 +123,7 @@ export class RuntimeStoreModel
     )
   }
 
+  @modelAction
   deleteUnusedRefs() {
     keys(this.refs).forEach((key) => {
       if (!this.refKeys.includes(key)) {
@@ -154,10 +165,5 @@ export class RuntimeStoreModel
     })
 
     return [...this.runtimeActions.values()]
-  }
-
-  onAttachedToRootStore() {
-    this.createEmptyRefs(this.refKeys)
-    autorun(() => this.deleteUnusedRefs())
   }
 }
