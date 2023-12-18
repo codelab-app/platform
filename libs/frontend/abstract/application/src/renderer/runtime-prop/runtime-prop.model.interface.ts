@@ -46,7 +46,7 @@ export interface IBaseRuntimeProps {
   addRuntimeElementModel(element: IElementModel): IRuntimeElementModel
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  getBoundedActionRunner(actionName: string): Function
+  getActionRunner(actionName: string): Function
 }
 
 export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {

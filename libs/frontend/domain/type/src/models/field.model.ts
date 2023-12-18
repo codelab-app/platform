@@ -38,7 +38,7 @@ const create = ({
       ? JSON.parse(parsedDefaultValues)
       : null
   } catch (err) {
-    console.log(`Failed to parse default value for field: ${name}`)
+    console.log(`Failed to parse default value for field: ${key}`)
   }
 
   return new Field({
