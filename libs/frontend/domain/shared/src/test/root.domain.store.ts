@@ -1,16 +1,16 @@
-import {
-  type IAppDomainService,
-  type IAtomDomainService,
-  type IComponentDomainService,
-  type IElementDomainService,
-  type IFieldDomainService,
-  type IPageDomainService,
-  type IResourceDomainService,
-  type IRootDomainStore,
-  type IRootDomainStoreDto,
-  type IStoreDomainService,
-  type ITypeDomainService,
-  type IUserDomainService,
+import type {
+  IAppDomainService,
+  IAtomDomainService,
+  IComponentDomainService,
+  IElementDomainService,
+  IFieldDomainService,
+  IPageDomainService,
+  IResourceDomainService,
+  IRootDomainStore,
+  IRootDomainStoreDto,
+  IStoreDomainService,
+  ITypeDomainService,
+  IUserDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 

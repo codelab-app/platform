@@ -15,14 +15,12 @@ export type StoreFragment = {
   name: string
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
   api: InterfaceTypeFragment
-  container: { id: string } | { id: string }
 }
 
 export type ProductionStoreFragment = {
   id: string
   name: string
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
-  container: { id: string } | { id: string }
 }
 
 export const StoreFragmentDoc = gql`
@@ -32,14 +30,6 @@ export const StoreFragmentDoc = gql`
     }
     api {
       ...InterfaceType
-    }
-    container {
-      ... on Page {
-        id
-      }
-      ... on Component {
-        id
-      }
     }
     id
     name
@@ -51,14 +41,6 @@ export const ProductionStoreFragmentDoc = gql`
   fragment ProductionStore on Store {
     actions {
       ...Action
-    }
-    container {
-      ... on Page {
-        id
-      }
-      ... on Component {
-        id
-      }
     }
     id
     name

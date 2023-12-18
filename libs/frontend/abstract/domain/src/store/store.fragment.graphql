@@ -5,14 +5,16 @@ fragment Store on Store {
   api {
     ...InterfaceType
   }
-  container {
-    ... on Page {
-      id
-    }
-    ... on Component {
-      id
-    }
-  }
+  #  container {
+  #    ... on Page {
+  #      __typename
+  #      id
+  #    }
+  #    ... on Component {
+  #      __typename
+  #      id
+  #    }
+  #  }
   id
   name
 }
@@ -21,14 +23,16 @@ fragment ProductionStore on Store {
   actions {
     ...Action
   }
-  container {
-    ... on Page {
-      id
-    }
-    ... on Component {
-      id
-    }
-  }
+  #  container {
+  #    ... on Page {
+  #      __typename
+  #      id
+  #    }
+  #    ... on Component {
+  #      __typename
+  #      id
+  #    }
+  # }
   id
   name
 }
