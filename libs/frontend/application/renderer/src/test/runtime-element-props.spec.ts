@@ -159,6 +159,21 @@ describe('Runtime Element props', () => {
         },
       })
     })
+
+    it('should evaluate ref expression', () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const propKey = 'propKey'
+
+      element.props.set(propKey, `{{refs.${element.slug}}}`)
+
+      expect(runtimeProps?.evaluatedProps).toMatchObject({
+        [propKey]: {
+          // we get a null because we are not rendering
+          current: null,
+        },
+      })
+    })
   })
 
   afterAll(() => {
