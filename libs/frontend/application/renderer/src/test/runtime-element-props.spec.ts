@@ -121,7 +121,43 @@ describe('Runtime Element props', () => {
 
       const actionRunner = runtimeProps?.evaluatedProps[propKey]
 
-      expect(actionRunner(5, 9)).toBe(14)
+      expect(actionRunner?.(5, 9)).toBe(14)
+    })
+
+    it('should bind action with context', () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const actionName = 'sum'
+      const propKey = 'propKey'
+
+      testbed.addCodeAction({
+        code: `function run(){
+          return {
+            props,
+            state,
+            refs,
+            actions,
+            rootState,
+            rootActions,
+            rootRefs
+          };
+        }`,
+        name: actionName,
+        store: element.store,
+      })
+
+      element.props.set(propKey, `{{actions.${actionName}}}`)
+
+      const actionRunner = runtimeProps?.evaluatedProps[propKey]
+
+      expect(actionRunner?.()).toMatchObject({
+        actions: {
+          [actionName]: expect.any(Function),
+        },
+        props: {
+          [propKey]: expect.any(Function),
+        },
+      })
     })
   })
 

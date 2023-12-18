@@ -48,20 +48,19 @@ export class ActionTypeTransformer
       ? this.rendererService.runtimeElement(node)
       : this.rendererService.runtimeContainerNode(node)
 
-    const actionRunner = runtimeNode?.runtimeStore.runtimeAction({
+    const runtimeAction = runtimeNode?.runtimeStore.runtimeAction({
       id: actionId,
     })
 
+    const name = runtimeAction?.action.current.name
+
     const fallback = () =>
-      console.error(`fail to call action with id ${prop.value}`)
+      console.error(`fail to get action with id ${prop.value}`)
+
+    const actionRunner = name
+      ? runtimeNode?.runtimeProps?.getBoundedActionRunner(name)
+      : fallback
 
     return actionRunner
-      ? (...args: Array<unknown>) => {
-          const expressionContext =
-            runtimeNode?.runtimeProps?.propsEvaluationContext
-
-          return actionRunner.runner.apply(expressionContext, args)
-        }
-      : fallback
   }
 }
