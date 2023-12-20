@@ -9,6 +9,9 @@ const renderElementType = `
     ... on Component {
       id
       __typename
+      api {
+        id
+      }
     }
 }
 `
