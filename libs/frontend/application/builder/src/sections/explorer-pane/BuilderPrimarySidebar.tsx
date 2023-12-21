@@ -72,35 +72,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       : undefined
 
     const runtimeStore = runtimeContainerNode?.runtimeStore
-    const providerStore = runtimeStore?.runtimeProviderSore?.current
-    /*
-    const store = builderService.selectedNode?.current.store.current
-    const runtimeStore = runtimeContainerNode?.runtimeStore
-    const pageBuilderRenderer = page && rendererService.renderers.get(page.id)
-
-    const componentBuilderRenderer =
-      component && rendererService.renderers.get(component.id)
-
-    const pageTree = (pageBuilderRenderer ?? componentBuilderRenderer)
-      ?.containerNode.maybeCurrent
-
-    const root = !isLoading ? pageTree?.rootElement : undefined
-    const antdTree = root?.current.treeViewNode
-    const isPageTree = antdTree && pageTree
-    const store = builderService.selectedNode?.current.store.current
-
-    const providerStore =
-      builderService.selectedNode && isElementRef(builderService.selectedNode)
-        ? builderService.selectedNode.current.providerStore
-        : undefined
-
-    const componentStore =
-      builderService.selectedNode &&
-      isElementRef(builderService.selectedNode) &&
-      isComponent(builderService.selectedNode.current.renderType.current)
-        ? builderService.selectedNode.current.renderType.current.store
-        : undefined
-    */
+    const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponent(node)) {
@@ -210,7 +182,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         },
       },
       {
-        content: store && (
+        content: runtimeStore && (
           <Collapse ghost size="small">
             <Collapse.Panel header="Local Store" key="localStore">
               <CodeMirrorEditor
@@ -220,10 +192,10 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 onChange={() => undefined}
                 singleLine={false}
                 title="Local Store"
-                value={runtimeStore?.jsonString}
+                value={runtimeStore.jsonString}
               />
             </Collapse.Panel>
-            {isComponent(containerNode) ? (
+            {containerNode && isComponent(containerNode) ? (
               <Collapse.Panel header="Component Store" key="componentStore">
                 <CodeMirrorEditor
                   className="mt-1"
@@ -232,13 +204,13 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Component Store"
-                  value={runtimeStore?.jsonString}
+                  value={runtimeStore.jsonString}
                 />
               </Collapse.Panel>
             ) : (
               ''
             )}
-            {providerStore && page?.kind === IPageKind.Regular ? (
+            {runtimeProviderStore && page?.kind === IPageKind.Regular ? (
               <Collapse.Panel header="Root Store" key="rootStore">
                 <CodeMirrorEditor
                   className="mt-1"
@@ -247,7 +219,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   onChange={() => undefined}
                   singleLine={false}
                   title="Root Store"
-                  value={providerStore.jsonString}
+                  value={runtimeProviderStore.jsonString}
                 />
               </Collapse.Panel>
             ) : (
