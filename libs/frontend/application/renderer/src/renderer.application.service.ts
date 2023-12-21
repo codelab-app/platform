@@ -1,18 +1,19 @@
 import type {
   IRendererDto,
+  IRendererModel,
   IRendererService,
 } from '@codelab/frontend/abstract/application'
 import {
-  IRendererModel,
   isRuntimeContainerNode,
   isRuntimeElement,
   isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
+  IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import { IElementModel, IStoreModel } from '@codelab/frontend/abstract/domain'
+import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -63,12 +64,10 @@ export class RendererApplicationService
   /**
    * This is the entry point to start the rendering process
    */
-  @modelAction
   renderRoot(renderer: IRendererModel) {
     return renderer.render
   }
 
-  @modelAction
   runtimeElement(element: IElementModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
@@ -86,7 +85,6 @@ export class RendererApplicationService
       : undefined
   }
 
-  @modelAction
   runtimeContainerNode(containerNode: IComponentModel | IPageModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 

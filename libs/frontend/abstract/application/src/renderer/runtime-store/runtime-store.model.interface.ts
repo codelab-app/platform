@@ -9,7 +9,7 @@ export interface IRuntimeStoreModel extends AnyModel {
   jsonString: string
   refs: IPropData
   runtimeActionsList: Array<IRuntimeActionModel>
-  runtimeProviderSore?: Ref<IRuntimeStoreModel>
+  runtimeProviderStore?: Ref<IRuntimeStoreModel>
   state: IPropData
 
   store: Ref<IStoreModel>

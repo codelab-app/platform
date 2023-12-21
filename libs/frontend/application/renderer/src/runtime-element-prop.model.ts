@@ -71,7 +71,7 @@ export class RuntimeElementProps
 
   @computed
   get providerStore() {
-    return this.runtimeStore.runtimeProviderSore?.current
+    return this.runtimeStore.runtimeProviderStore?.current
   }
 
   @computed
@@ -214,7 +214,7 @@ export class RuntimeElementProps
       .reduce(merge, {})
 
     const rootActions =
-      this.runtimeStore.runtimeProviderSore?.current.runtimeActionsList
+      this.runtimeStore.runtimeProviderStore?.current.runtimeActionsList
         .map((action) => ({
           [action.action.current.name]: action.runner.bind(context),
         }))
