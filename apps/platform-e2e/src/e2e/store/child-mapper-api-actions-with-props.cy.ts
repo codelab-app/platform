@@ -155,11 +155,6 @@ describe('Element Child Mapper', () => {
       .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
-    cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignButton,

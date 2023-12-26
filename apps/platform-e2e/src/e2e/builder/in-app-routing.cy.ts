@@ -79,11 +79,6 @@ describe('Routing between app pages within the builder', () => {
       .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
-    cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
@@ -142,11 +137,6 @@ describe('Routing between app pages within the builder', () => {
       .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
-    cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
@@ -187,12 +177,6 @@ describe('Routing between app pages within the builder', () => {
       .getCuiToolbarItem('Add Element')
       .first()
       .click()
-
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
@@ -246,11 +230,6 @@ describe('Routing between app pages within the builder', () => {
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
