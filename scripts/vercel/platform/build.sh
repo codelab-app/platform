@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exit 1
+
 set -x
 
 # script to compile/build app
