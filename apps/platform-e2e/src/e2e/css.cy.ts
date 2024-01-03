@@ -96,8 +96,7 @@ describe('CSS CRUD', () => {
     it('should be able to add styling through GUI', () => {
       cy.getSpinner().should('not.exist')
 
-      cy.get('.ant-collapse-item-active .ant-btn').click()
-      cy.findByText(display).click()
+      cy.get('[data-test-id="gui-display"] [title="None"]').click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',

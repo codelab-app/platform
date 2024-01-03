@@ -28,6 +28,7 @@ export const SegmentedSelect = ({
     <Row
       align="middle"
       className="overflow-hidden"
+      data-test-id="gui-display"
       justify="space-between"
       wrap={false}
     >
