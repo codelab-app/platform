@@ -236,11 +236,6 @@ describe('Running nested API and code actions', () => {
       .click()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
-    cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
@@ -282,11 +277,6 @@ describe('Running nested API and code actions', () => {
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,

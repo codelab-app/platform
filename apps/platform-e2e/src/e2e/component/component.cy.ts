@@ -106,11 +106,6 @@ describe('Component CRUD', () => {
           .click()
 
         cy.findByTestId('create-element-form').setFormFieldValue({
-          label: 'Render Type',
-          type: FIELD_TYPE.SELECT,
-          value: 'Atom',
-        })
-        cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Atom',
           type: FIELD_TYPE.SELECT,
           value: child.atom,
@@ -222,12 +217,6 @@ describe('Component CRUD', () => {
 
     it('should be able to add children to component instance', () => {
       cy.getCuiSidebar('Explorer').getCuiToolbarItem('Add Element').click()
-
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Render Type',
-        type: FIELD_TYPE.SELECT,
-        value: 'Atom',
-      })
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Atom',
