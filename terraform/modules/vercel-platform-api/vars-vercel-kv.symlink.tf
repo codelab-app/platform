@@ -1,1 +1,0 @@
-../vercel-kv/vars.tf
