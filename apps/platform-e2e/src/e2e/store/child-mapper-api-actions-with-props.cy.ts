@@ -211,6 +211,7 @@ describe('Element Child Mapper', () => {
 
     cy.createElementTree([
       {
+        atom: IAtomType.ReactFragment,
         name: ELEMENT_ROW,
         parentElement: ROOT_ELEMENT_NAME,
       },

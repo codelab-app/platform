@@ -12,10 +12,12 @@ const ELEMENT_TEXT_1 = 'Text 1'
 
 const elements = [
   {
+    atom: IAtomType.ReactFragment,
     name: ELEMENT_CONTAINER,
     parentElement: ROOT_ELEMENT_NAME,
   },
   {
+    atom: IAtomType.ReactFragment,
     name: ELEMENT_ROW,
     parentElement: ELEMENT_CONTAINER,
   },
