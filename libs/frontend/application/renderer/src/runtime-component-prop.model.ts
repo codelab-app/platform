@@ -182,6 +182,15 @@ export class RuntimeComponentProps
   }
 
   @modelAction
+  getActionRunner(actionName: string) {
+    return (
+      this.expressionEvaluationContext.actions[actionName] ??
+      this.expressionEvaluationContext.rootActions[actionName] ??
+      (() => console.log(`No Runner found for ${actionName} `))
+    )
+  }
+
+  @modelAction
   addRuntimeComponentModel(containerNode: IComponentModel) {
     const runtimeNode = RuntimeContainerNodeFactory.create({
       containerNode,
