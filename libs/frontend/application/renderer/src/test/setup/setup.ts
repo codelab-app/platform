@@ -98,6 +98,7 @@ export const setupRuntimeElement = (testbed: TestBed) => {
 
   return {
     element: page.rootElement.current,
+    page,
     runtimeElement: rendererService.runtimeElement(page.rootElement.current),
   }
 }
