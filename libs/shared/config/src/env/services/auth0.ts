@@ -9,7 +9,6 @@ export interface IAuth0EnvVars {
   cypressUsername: string
   cypressPassword: string
   issuerBaseUrl: string
-  audience: string
   secret: string
 }
 
@@ -31,8 +30,6 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   private _issuerBaseUrl?: string
 
   private _secret?: string
-
-  private _audience?: string
 
   constructor(private readonly endpoint: IEndpointEnvVars) {}
 
@@ -70,10 +67,6 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   get secret(): string {
     return (this._secret ??= env.get('AUTH0_SECRET').required().asString())
-  }
-
-  get audience(): string {
-    return (this._audience ??= env.get('AUTH0_AUDIENCE').required().asString())
   }
 
   get baseUrl() {

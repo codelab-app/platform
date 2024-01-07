@@ -16,7 +16,8 @@ export const Auth0ManagementClientProvider: FactoryProvider<ManagementClient> =
       const client = new ManagementClient({
         clientId: m2mConfig.clientId,
         clientSecret: m2mConfig.clientSecret,
-        domain: config.audience.hostname,
+        // domain: config.audience.hostname,
+        domain: '',
       })
 
       return client
