@@ -75,8 +75,13 @@ export class RuntimeElementProps
   }
 
   @computed
+  private get rendererService() {
+    return getRendererService(this)
+  }
+
+  @computed
   get renderer() {
-    const activeRenderer = getRendererService(this).activeRenderer?.current
+    const activeRenderer = this.rendererService.activeRenderer?.current
 
     if (!activeRenderer) {
       throw new Error('No active Renderer was found')
@@ -273,16 +278,10 @@ export class RuntimeElementProps
   addRuntimeElementModel(element: IElementModel) {
     const id = v4()
 
-    const runtimeProps = RuntimeElementProps.create({
-      element: elementRef(element.id),
-      runtimeElement: runtimeElementRef(id),
-    })
-
     const runtimeElement = RuntimeElement.create({
       element: elementRef(element.id),
       id,
       parent: runtimeElementRef(this.id),
-      runtimeProps,
     })
 
     this.runtimeRootNodes.set(runtimeElement.id, runtimeElement)

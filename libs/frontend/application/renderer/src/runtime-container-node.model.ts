@@ -1,14 +1,17 @@
-import type {
-  IRuntimeComponentPropModel,
-  IRuntimeContainerNodeDTO,
-  IRuntimeContainerNodeModel,
-  IRuntimeElementModel,
-  IRuntimeModelRef,
-  IRuntimeStoreModel,
+import {
+  type IRuntimeComponentPropModel,
+  type IRuntimeContainerNodeDTO,
+  type IRuntimeContainerNodeModel,
+  type IRuntimeElementModel,
+  type IRuntimeModelRef,
+  type IRuntimeStoreModel,
+  runtimeContainerNodeRef,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IPageModel,
+import {
+  componentRef,
+  type IComponentModel,
+  type IPageModel,
+  isComponent,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -16,23 +19,30 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
+import { v4 } from 'uuid'
+import { RuntimeComponentProps } from './runtime-component-prop.model'
 
 const create = ({
   containerNode,
-  id,
+  id = v4(),
   parentRef,
-  runtimeProps,
   runtimeRootElement,
   runtimeStore,
-}: IRuntimeContainerNodeDTO) =>
-  new RuntimeContainerNodeModel({
+}: IRuntimeContainerNodeDTO) => {
+  return new RuntimeContainerNodeModel({
     containerNode,
     id,
     parentRef,
-    runtimeProps,
+    runtimeProps: isComponent(containerNode)
+      ? RuntimeComponentProps.create({
+          component: componentRef(containerNode.id),
+          runtimeContainerNode: runtimeContainerNodeRef(id),
+        })
+      : undefined,
     runtimeRootElement,
     runtimeStore,
   })
+}
 
 @model('@codelab/RuntimeContainerNode')
 export class RuntimeContainerNodeModel

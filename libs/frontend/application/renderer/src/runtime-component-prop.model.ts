@@ -9,7 +9,6 @@ import {
   IEvaluationContext,
   isRuntimeElementRef,
   runtimeContainerNodeRef,
-  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   DATA_COMPONENT_ID,
@@ -37,7 +36,6 @@ import {
 import { v4 } from 'uuid'
 import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
 import { RuntimeElement } from './runtime-element.model'
-import { RuntimeElementProps } from './runtime-element-prop.model'
 
 const create = (dto: IRuntimeComponentPropDTO) => {
   return new RuntimeComponentProps(dto)
@@ -205,16 +203,10 @@ export class RuntimeComponentProps
   addRuntimeElementModel(element: IElementModel) {
     const runtimeRootElementId = v4()
 
-    const runtimeRootElementProps = RuntimeElementProps.create({
-      element: elementRef(element.id),
-      runtimeElement: runtimeElementRef(runtimeRootElementId),
-    })
-
     const runtimeRootElement = RuntimeElement.create({
       element: elementRef(element.id),
       id: runtimeRootElementId,
       parent: runtimeContainerNodeRef(this.id),
-      runtimeProps: runtimeRootElementProps,
     })
 
     this.runtimeRootNodes.set(runtimeRootElement.id, runtimeRootElement)
