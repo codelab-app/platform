@@ -29,26 +29,33 @@ import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
-import { ArrayOrSingle } from 'ts-essentials'
+import type { ArrayOrSingle } from 'ts-essentials'
 import { v4 } from 'uuid'
 import { ElementWrapper } from './element/ElementWrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
 import { RuntimeElementProps } from './runtime-element-prop.model'
 
-const create = (runtimeElementDTO: IRuntimeElementDTO) => {
+const create = ({
+  element,
+  id = v4(),
+  parent,
+}: IRuntimeElementDTO): IRuntimeElementModel => {
   return new RuntimeElement({
-    element: runtimeElementDTO.element,
-    id: runtimeElementDTO.id,
-    parent: runtimeElementDTO.parent,
-    runtimeProps: runtimeElementDTO.runtimeProps,
+    element: elementRef(element.id),
+    id,
+    parent,
+    runtimeProps: RuntimeElementProps.create({
+      element: elementRef(element.id),
+      runtimeElement: runtimeElementRef(id),
+    }),
   })
 }
 
@@ -147,16 +154,7 @@ export class RuntimeElement
     }
   }
 
-  @modelAction
-  clearChildren() {
-    this.sortedRuntimeChildren = []
-  }
-
-  @computed
   get render(): Nullable<ReactElement> {
-    // reset state from last render
-    this.clearChildren()
-
     if (this.shouldRender === false) {
       return null
     }
@@ -210,16 +208,10 @@ export class RuntimeElement
   createRuntimeElement(child: IElementModel) {
     const runtimeChildElementId = v4()
 
-    const runtimeProps = RuntimeElementProps.create({
-      element: elementRef(child.id),
-      runtimeElement: runtimeElementRef(runtimeChildElementId),
-    })
-
     const runtimeChildElement = RuntimeElement.create({
       element: elementRef(child.id),
       id: runtimeChildElementId,
       parent: runtimeElementRef(this.id),
-      runtimeProps,
     })
 
     return runtimeChildElement
@@ -245,7 +237,6 @@ export class RuntimeElement
   /**
    * Renders the elements children
    */
-  @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
     if (
       this.element.current.children.length !==
