@@ -11,13 +11,14 @@ provider "digitalocean" {
   token = var.do_token
 }
 
-resource "digitalocean_app" "codelab" {
+resource "digitalocean_app" "platform-web" {
   spec {
-    name = "codelab"
+    name = "platform-web"
     region = "sfo"
 
     domain {
-      name = "codelab.ai"
+      name = "admin.codelab.app"
+      zone = "codelab.app"
     }
 
     ingress {
@@ -32,22 +33,11 @@ resource "digitalocean_app" "codelab" {
           }
         }
       }
-
-      rule {
-        component {
-          name = "platform-api"
-        }
-
-        match {
-          path {
-            prefix = "/api"
-          }
-        }
-      }
     }
 
     service {
       name = "platform-web"
+      http_port = 443
 
       github {
         branch         = "terraform-do"
@@ -86,45 +76,6 @@ resource "digitalocean_app" "codelab" {
       env {
         key   = "NEXT_PUBLIC_PLATFORM_API_HOST"
         value = var.next_public_platform_api_host
-      }
-
-    }
-
-    service {
-      name = "platform-api"
-
-      github {
-        branch         = "terraform-do"
-        deploy_on_push = true
-        repo           = "codelab-app/platform"
-      }
-
-      build_command = "scripts/digitalocean/platform-api/build.sh"
-      run_command = "scripts/digitalocean/platform-api/run.sh"
-
-      env {
-        key   = "NEO4J_USER"
-        value = var.neo4j_user
-      }
-
-      env {
-        key   = "NEO4J_URI"
-        value = var.neo4j_uri
-      }
-
-      env {
-        key   = "NEO4J_PASSWORD"
-        value = var.neo4j_password
-      }
-
-      env {
-        key   = "NEXT_PUBLIC_PLATFORM_API_HOST"
-        value = var.next_public_platform_api_host
-      }
-
-      env {
-        key   = "AUTH0_ISSUER_BASE_URL"
-        value = var.auth0_issuer_base_url
       }
     }
   }
