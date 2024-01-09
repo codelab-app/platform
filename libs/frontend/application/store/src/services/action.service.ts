@@ -73,17 +73,13 @@ export class ActionService
     this: ActionService,
     actions: Array<IActionModel>,
   ) {
-    const deleteAction = async (action: IActionModel) => {
+    for (const action of actions) {
       const { id } = action
 
       this.actionDomainService.actions.delete(id)
-
-      await Promise.resolve()
     }
 
     yield* _await(this.actionRepository.delete(actions))
-
-    return
   })
 
   @modelFlow
