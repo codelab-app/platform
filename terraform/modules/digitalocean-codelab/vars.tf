@@ -11,6 +11,8 @@ variable "auth0_client_secret" {}
 
 variable "auth0_client_id" {}
 
+variable "auth0_audience" {}
+
 variable "next_public_platform_host" {}
 
 variable "next_public_platform_api_host" {}

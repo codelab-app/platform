@@ -37,6 +37,11 @@ resource "digitalocean_app" "platform-web" {
       }
 
       env {
+        key = "AUTH0_AUDIENCE"
+        value = var.auth0_audience
+      }
+
+      env {
         key   = "AUTH0_CLIENT_ID"
         value = var.auth0_client_id
       }

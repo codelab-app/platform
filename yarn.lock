@@ -10218,28 +10218,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rjsf/antd@npm:^5.13.5":
-  version: 5.13.5
-  resolution: "@rjsf/antd@npm:5.13.5"
+"@rjsf/antd@npm:^5.15.1":
+  version: 5.15.1
+  resolution: "@rjsf/antd@npm:5.15.1"
   dependencies:
     classnames: ^2.3.2
     lodash: ^4.17.21
     lodash-es: ^4.17.21
     rc-picker: ^2.7.6
   peerDependencies:
-    "@ant-design/icons": ^4.0.0
+    "@ant-design/icons": ^4.0.0 || ^5.0.0
     "@rjsf/core": ^5.12.x
     "@rjsf/utils": ^5.12.x
     antd: ^4.24.0 || ^5.8.5
     dayjs: ^1.8.0
     react: ^16.14.0 || >=17
-  checksum: 36a665124744ce832233ffdf8277ea481c81cba8f4611dd0e09900edc1a07558627def4a0fbea06bc15fbb01dc0e38a166079c63e36540a89f86e8cd24197183
+  checksum: bdfc8a5139307c2d565239135d7bbcf822d05e5ca99e28e0f41548a2ce32af555bae7a67f58d0a95d6f49bf1f8ddb438052e1a1227c054ece5ca513995d62244
   languageName: node
   linkType: hard
 
-"@rjsf/core@npm:^5.13.5":
-  version: 5.13.5
-  resolution: "@rjsf/core@npm:5.13.5"
+"@rjsf/core@npm:^5.15.1":
+  version: 5.15.1
+  resolution: "@rjsf/core@npm:5.15.1"
   dependencies:
     lodash: ^4.17.21
     lodash-es: ^4.17.21
@@ -10249,13 +10249,13 @@ __metadata:
   peerDependencies:
     "@rjsf/utils": ^5.12.x
     react: ^16.14.0 || >=17
-  checksum: a592ecf69c427b05a3ed9f1dd6174b56f7ce9f3814eb014e73aac73f1d0bec173d773458dee98209a073a3aaf6d77bb6e565cedc0135f15ce0c8beb688e0efc9
+  checksum: d03f05563e7eafbcb3ea72b41867ec1b95547ed95609b10d0af6c09e880f119d50ad3bd76d2c6a903fa7c6c3286007684d43ce0a0c318d910f0e2a35cd7ef8de
   languageName: node
   linkType: hard
 
-"@rjsf/utils@npm:^5.13.5":
-  version: 5.13.5
-  resolution: "@rjsf/utils@npm:5.13.5"
+"@rjsf/utils@npm:^5.15.1":
+  version: 5.15.1
+  resolution: "@rjsf/utils@npm:5.15.1"
   dependencies:
     json-schema-merge-allof: ^0.8.1
     jsonpointer: ^5.0.1
@@ -10264,13 +10264,13 @@ __metadata:
     react-is: ^18.2.0
   peerDependencies:
     react: ^16.14.0 || >=17
-  checksum: f3205c7f3ec2832aef62526ca84cf64722bbc1402e7591fc497805973289d434f7094b59759242b682a26b275408c69aa5349d2c22393364a7d0685ae0bb29ba
+  checksum: ec0d56bf2627d55759a59090db0d59402244a6fae64528f66dde1f5de2eaaf2a6841dea7bbb185eb36fd344b3abd4825b2b422f3b1b0bb05365847073aa1e790
   languageName: node
   linkType: hard
 
-"@rjsf/validator-ajv8@npm:^5.13.5":
-  version: 5.13.5
-  resolution: "@rjsf/validator-ajv8@npm:5.13.5"
+"@rjsf/validator-ajv8@npm:^5.15.1":
+  version: 5.15.1
+  resolution: "@rjsf/validator-ajv8@npm:5.15.1"
   dependencies:
     ajv: ^8.12.0
     ajv-formats: ^2.1.1
@@ -10278,7 +10278,7 @@ __metadata:
     lodash-es: ^4.17.21
   peerDependencies:
     "@rjsf/utils": ^5.12.x
-  checksum: 2ee34e8dfe29c11440175de53f2fb98299c89d2dfbaaf6d15d2cbfdad25f2aadc2432af56e2c54b5725d9fcc2d852947ce1f626da086155aad525f67db243c19
+  checksum: d32538968d9a9a664a44ffee1b24a835142aaacda3c1ad4671f6d6a4ed564e68e5dea4f37d1c62ee2c03f8a5b55174c0815040eff3c7814260c1181f945adced
   languageName: node
   linkType: hard
 
@@ -17731,10 +17731,10 @@ __metadata:
     "@react-hook/window-size": 3.0.7
     "@react-hookz/web": 22.0.0
     "@react-spring/web": ^9.7.3
-    "@rjsf/antd": ^5.13.5
-    "@rjsf/core": ^5.13.5
-    "@rjsf/utils": ^5.13.5
-    "@rjsf/validator-ajv8": ^5.13.5
+    "@rjsf/antd": ^5.15.1
+    "@rjsf/core": ^5.15.1
+    "@rjsf/utils": ^5.15.1
+    "@rjsf/validator-ajv8": ^5.15.1
     "@sinclair/typebox": 0.31.23
     "@sotaproject/strikethrough": ^1.0.1
     "@storybook/addon-essentials": 7.5.3

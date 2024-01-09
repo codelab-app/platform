@@ -3,6 +3,7 @@ import {
   type ITypeDTO,
   ITypeKind,
   primitiveTypeSchema,
+  primitiveTypeSelectionSchema,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import merge from 'lodash/merge'
@@ -22,7 +23,7 @@ export const createRjsfTypeSchema: JSONSchemaType<{
   dependencies: {
     typeSelection: {
       oneOf: [
-        merge(primitiveTypeSchema, {
+        merge(primitiveTypeSelectionSchema, {
           properties: {
             typeSelection: { enum: [ITypeKind.PrimitiveType] },
           },

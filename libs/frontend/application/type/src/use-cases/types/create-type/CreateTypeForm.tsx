@@ -1,7 +1,6 @@
 import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { typeSelectOptions } from '@codelab/frontend/domain/type'
 import {
   DisplayIf,
   Form,
@@ -70,12 +69,8 @@ export const CreateTypeForm = observer(
         </DisplayIfKind>
 
         <DisplayIfKind kind={ITypeKind.UnionType}>
-          <AutoField
-            createTypeOptions={typeSelectOptions}
-            name="unionTypeIds"
-          />
+          <AutoField name="unionTypeIds" />
         </DisplayIfKind>
-        {/* <ListField name="unionTypes" />; */}
 
         <DisplayIfKind kind={ITypeKind.EnumType}>
           <AutoField name="allowedValues" />
