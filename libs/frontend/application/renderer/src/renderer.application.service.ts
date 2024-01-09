@@ -48,6 +48,9 @@ export class RendererApplicationService
       renderer = Renderer.create(rendererDto)
 
       this.renderers.set(rendererDto.id, renderer)
+    } else {
+      // existing renderer may change type when switching between builder and preview modes
+      renderer.rendererType = rendererDto.rendererType
     }
 
     return renderer
