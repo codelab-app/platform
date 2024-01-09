@@ -4,11 +4,13 @@ resource "digitalocean_app" "platform-web" {
     region = "sfo"
 
     domain {
-      name = "admin.codelab.ai"
+      name = "admin.codelab.app"
+      zone = "codelab.app"
     }
 
     service {
       name = "platform-web"
+      http_port = 443
 
       github {
         branch         = "terraform-do"
