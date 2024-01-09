@@ -9,6 +9,7 @@ import { Test } from '@nestjs/testing'
 import type { TSchema } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import affixJson from 'data/export-v3/admin/atoms/AntDesignAffix.json'
+import omit from 'lodash/omit'
 import { ValidationService } from './validation.service'
 
 describe('ValidationService', () => {
@@ -38,7 +39,10 @@ describe('ValidationService', () => {
         affixJson,
       )
 
-      expect(result).toEqual(affixJson)
+      expect(result).toEqual({
+        api: omit(affixJson.api, 'kind', 'name', '__typename'),
+        atom: omit(affixJson.atom, 'owner'),
+      })
     })
 
     it('should throw an error for invalid input', () => {
