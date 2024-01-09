@@ -10,6 +10,7 @@ import {
   getElementDomainService,
   getFieldDomainService,
   getPageDomainService,
+  getResourceDomainService,
   getStoreDomainService,
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
@@ -129,6 +130,7 @@ export class AppDevelopmentService
       fields,
       pages,
       props,
+      resources: data.resources,
       stores,
       types: [...types, ...elementsDependantTypes, ...systemTypes],
     }
@@ -157,6 +159,10 @@ export class AppDevelopmentService
     data.stores.forEach((store) => this.storeDomainService.hydrate(store))
 
     data.actions.forEach((action) => this.actionDomainService.hydrate(action))
+
+    data.resources.forEach((resource) =>
+      this.resourceDomainService.hydrate(resource),
+    )
 
     this.elementDomainService.logElementTreeState()
 
@@ -206,5 +212,10 @@ export class AppDevelopmentService
   @computed
   private get typeDomainService() {
     return getTypeDomainService(this)
+  }
+
+  @computed
+  private get resourceDomainService() {
+    return getResourceDomainService(this)
   }
 }

@@ -41,6 +41,7 @@ import {
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
+  resourceDomainServiceContext,
   storeDomainServiceContext,
   tagDomainServiceContext,
   userDomainServiceContext,
@@ -164,6 +165,10 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       storeServiceContext.set(this, this.storeService)
       storeDomainServiceContext.set(this, this.storeService.storeDomainService)
       resourceServiceContext.set(this, this.resourceService)
+      resourceDomainServiceContext.set(
+        this,
+        this.resourceService.resourceDomainService,
+      )
       propServiceContext.set(this, this.propService)
       elementServiceContext.set(this, this.elementService)
       elementDomainServiceContext.set(
