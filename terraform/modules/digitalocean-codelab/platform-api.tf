@@ -13,7 +13,7 @@ resource "digitalocean_app" "platform-api" {
       http_port = 443
 
       github {
-        branch         = "terraform-do"
+        branch         = "master"
         deploy_on_push = true
         repo           = "codelab-app/platform"
       }
