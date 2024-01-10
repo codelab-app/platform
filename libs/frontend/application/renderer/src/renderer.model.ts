@@ -15,13 +15,15 @@ import {
   componentRef,
   isPage,
   pageRef,
+  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
-import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
+import { RuntimeContainerNodeModel } from './runtime-container-node.model'
+import { RuntimeStoreModel } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -46,11 +48,22 @@ const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeRootContainerNode: RuntimeContainerNodeFactory.create({
-      containerNode:
+    runtimeRootContainerNode: new RuntimeContainerNodeModel({
+      containerNode: isPage(containerNode)
+        ? pageRef(containerNode.providerPage?.id || containerNode.id)
+        : componentRef(containerNode.id),
+      runtimeStore: RuntimeStoreModel.create({
+        store: storeRef(
+          (isPage(containerNode) && containerNode.providerPage
+            ? containerNode.providerPage
+            : containerNode
+          ).store.id,
+        ),
+      }),
+      subTrees:
         isPage(containerNode) && containerNode.providerPage
-          ? containerNode.providerPage
-          : containerNode,
+          ? [pageRef(containerNode.id)]
+          : undefined,
     }),
     urlSegments,
   })

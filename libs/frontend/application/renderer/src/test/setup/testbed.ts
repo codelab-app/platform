@@ -103,11 +103,11 @@ export class TestBed {
     return interfaceTypeFactory(typeService.typeDomainService)(dto)
   }
 
-  render(dto: Partial<IRendererDto>) {
+  addRenderer(dto: Partial<IRendererDto>) {
     const renderer = rendererFactory(rendererService)(dto)
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
-    return renderer.render
+    return renderer
   }
 }

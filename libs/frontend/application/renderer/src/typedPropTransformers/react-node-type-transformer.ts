@@ -31,6 +31,8 @@ export class ReactNodeTypeTransformer
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
+    return propValue
+
     if (!propValue) {
       return ''
     }

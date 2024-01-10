@@ -1,13 +1,5 @@
-import type {
-  IComponentModel,
-  IElementModel,
-  IPropModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { ObjectMap } from 'mobx-keystone'
-import type { IRuntimeModel } from '../runtime.model.interface'
-import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
-import type { IRuntimeElementModel } from '../runtime-element'
 
 export interface IEvaluationContext {
   actions: IPropData
@@ -38,12 +30,8 @@ export interface IBaseRuntimeProps {
   /**
    * Root runtime components/elements for RenderProps, ReactNode, ElementType props
    */
-  runtimeRootNodes: ObjectMap<IRuntimeModel>
+  // runtimeRootNodes: ObjectMap<IRuntimeModel>
 
-  addRuntimeComponentModel(
-    component: IComponentModel,
-  ): IRuntimeContainerNodeModel
-  addRuntimeElementModel(element: IElementModel): IRuntimeElementModel
   // eslint-disable-next-line @typescript-eslint/ban-types
   getActionRunner(actionName: string): Function
 }
