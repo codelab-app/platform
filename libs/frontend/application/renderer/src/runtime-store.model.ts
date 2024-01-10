@@ -1,10 +1,7 @@
-import type {
-  IRuntimeActionModel,
-  IRuntimeStoreDTO,
-  IRuntimeStoreModel,
-} from '@codelab/frontend/abstract/application'
 import {
-  getRendererService,
+  type IRuntimeActionModel,
+  type IRuntimeStoreDTO,
+  type IRuntimeStoreModel,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
@@ -12,9 +9,10 @@ import { actionRef, isAtomRef } from '@codelab/frontend/abstract/domain'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IRef } from '@codelab/shared/abstract/core'
-import { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
+import { Nullable } from '@codelab/shared/abstract/types'
 import keys from 'lodash/keys'
-import { autorun, computed, observable, set } from 'mobx'
+import { computed, observable, set } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   idProp,
@@ -24,12 +22,10 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { RuntimeActionModel } from './runtime-action.model'
 
-const create = ({ id, runtimeProviderStore, store }: IRuntimeStoreDTO) => {
+const create = ({ runtimeProviderStore, store }: IRuntimeStoreDTO) => {
   return new RuntimeStoreModel({
-    id,
     runtimeProviderStore,
     store,
   })
@@ -39,7 +35,7 @@ const create = ({ id, runtimeProviderStore, store }: IRuntimeStoreDTO) => {
 export class RuntimeStoreModel
   extends Model(() => ({
     id: idProp,
-    runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(() => objectMap()),
+    runtimeActions: prop<ObjectMap<IRuntimeActionModel>>(() => objectMap([])),
     runtimeProviderStore: prop<Maybe<Ref<IRuntimeStoreModel>>>(),
     store: prop<Ref<IStoreModel>>(),
   }))
@@ -49,40 +45,34 @@ export class RuntimeStoreModel
 
   refs = observable.object<IPropData>({})
 
-  onAttachedToRootStore() {
-    this.createEmptyRefs(this.refKeys)
-    autorun(() => this.deleteUnusedRefs())
-  }
-
-  // private cachedState: Nullable<object> = null
-
-  @computed
-  get renderer() {
-    const renderService = getRendererService(this)
-
-    return renderService.activeRenderer?.current
-  }
-
   @computed
   get state() {
-    /* 
-    const { rendererType } = this.renderer ?? {}
+    return this.store.current.api.maybeCurrent?.defaultValues ?? {}
+  }
 
-    const isPreviewOrProduction =
-      rendererType === RendererType.Preview ||
-      rendererType === RendererType.Production
- 
-    if (isPreviewOrProduction && this.cachedState) {
-      return this.cachedState
-    }
+  @computed
+  get runtimeActionsList() {
+    return this.store.current.actions.map((action) => {
+      const runtimeAction = RuntimeActionModel.create({
+        action: actionRef(action.id),
+        runtimeStore: runtimeStoreRef(this.id),
+      })
 
-    this.cachedState = observable(
-      this.store.current.api.maybeCurrent?.defaultValues ?? {},
+      this.runtimeActions.set(runtimeAction.id, runtimeAction)
+
+      return runtimeAction
+    })
+  }
+
+  @modelAction
+  runtimeAction(action: IRef) {
+    const foundAction = this.runtimeActionsList.find(
+      (runtimeAction) => runtimeAction.action.id === action.id,
     )
 
-    return this.cachedState
-  */
-    return this.store.current.api.maybeCurrent?.defaultValues ?? {}
+    return (
+      foundAction || this.runtimeProviderStore?.current.runtimeAction(action)
+    )
   }
 
   @computed
@@ -112,16 +102,6 @@ export class RuntimeStoreModel
   }
 
   @modelAction
-  runtimeAction(action: IRef): Maybe<IRuntimeActionModel> {
-    return (
-      // either find it in here
-      this.runtimeActionsList.find((item) => item.action.id === action.id) ??
-      // or search in parent store if it has one
-      this.runtimeProviderStore?.current.runtimeAction(action)
-    )
-  }
-
-  @modelAction
   deleteUnusedRefs() {
     keys(this.refs).forEach((key) => {
       if (!this.refKeys.includes(key)) {
@@ -136,33 +116,5 @@ export class RuntimeStoreModel
     refKeys.forEach((key: string) => {
       this.registerRef(key, null)
     })
-  }
-
-  @computed
-  get runtimeActionsList() {
-    const storeActions = this.store.current.actions
-    const actionsChanged = this.runtimeActions.size !== storeActions.length
-
-    if (!actionsChanged) {
-      // need to return if no actions were added or removed.
-      // otherwise we will get an infinite loop, when `runtimeActionsList`
-      // is computed during rendering and it updates the MobX store that
-      // causes another render and so on.
-      return [...this.runtimeActions.values()]
-    }
-
-    this.runtimeActions.clear()
-
-    storeActions.forEach((action) => {
-      const runtimeAction = RuntimeActionModel.create({
-        action: actionRef(action),
-        id: v4(),
-        runtimeStore: runtimeStoreRef(this.id),
-      })
-
-      this.runtimeActions.set(runtimeAction.id, runtimeAction)
-    })
-
-    return [...this.runtimeActions.values()]
   }
 }

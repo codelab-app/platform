@@ -1,14 +1,19 @@
 import type {
   IComponentModel,
+  IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import type { AnyModel, Ref } from 'mobx-keystone'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
-import type { IRuntimeModelRef } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
+
+export type SubTree =
+  | Ref<IComponentModel>
+  | Ref<IElementModel>
+  | Ref<IPageModel>
 
 /**
  * Represents runtime model for IPageModel or IComponentModel
@@ -19,7 +24,7 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    * this could be different from the child render index if element has children
    * other than ones created by child mapper
    */
-  childMapperIndex: Maybe<number>
+  // childMapperIndex: Maybe<number>
   /**
    * Exposed for external use by other models and to preserve structure
    */
@@ -28,13 +33,14 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
   /**
    * Exposed for external use by other models and to preserve structure
    */
-  parent?: IRuntimeModelRef
+  // parent?: IRuntimeModelRef
 
   render: Nullable<ReactElement>
   // runtimeProps is available when containerNode is component
+  runtimeElements: ObjectMap<IRuntimeElementModel>
   runtimeProps?: IRuntimeComponentPropModel
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
 
-  setChildMapperIndex(index: number): void
+  // setChildMapperIndex(index: number): void
 }

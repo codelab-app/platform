@@ -8,9 +8,9 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
+import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type { IRuntimeContainerNodeModel } from './runtime-container-node'
-import type { IRuntimeElementModel } from './runtime-element'
 import type { ITypedPropTransformer } from './typed-prop-transformer.interface'
 
 export const enum RendererType {
@@ -35,6 +35,8 @@ export interface IRendererModel {
 }
 
 export interface ElementWrapperProps {
+  children: ArrayOrSingle<React.ReactNode>
+  element: IElementModel
   errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
   key: string
   /**
@@ -42,6 +44,6 @@ export interface ElementWrapperProps {
    */
   renderOutput: IRenderOutput
   renderer: IRendererModel
-  runtimeElement: IRuntimeElementModel
+  runtimeId: string
   onRendered(): void
 }

@@ -1,23 +1,18 @@
 import type {
+  IRuntimeActionModel,
   IRuntimeElementModel,
-  IRuntimeElementPropDTO,
   IRuntimeElementPropModel,
-  IRuntimeModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
   IEvaluationContext,
-  isRuntimeContainerNode,
   RendererType,
-  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
-  elementRef,
-  IComponentModel,
-  IElementModel,
   isAtomRef,
+  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -32,36 +27,25 @@ import get from 'lodash/get'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
-import { v4 } from 'uuid'
-import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
-import { RuntimeElement } from './runtime-element.model'
+import type { Ref } from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = (dto: IRuntimeElementPropDTO) => new RuntimeElementProps(dto)
-
-@model('@codelab/RuntimeElementProps')
-export class RuntimeElementProps
+@model('@codelab/RuntimeProps')
+export class RuntimeElementPropsModel
   extends Model({
-    element: prop<Ref<IElementModel>>(),
     id: idProp,
     runtimeElement: prop<Ref<IRuntimeElementModel>>(),
-    runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
   })
   implements IRuntimeElementPropModel
 {
-  static create = create
+  @computed
+  get element() {
+    return this.runtimeElement.current.element.current
+  }
 
   @computed
   get closestRuntimeContainerNode() {
-    return this.runtimeElement.current.closestRuntimeContainerNode
+    return this.runtimeElement.current.closestContainerNode.current
   }
 
   @computed
@@ -97,13 +81,13 @@ export class RuntimeElementProps
 
   @computed
   get evaluatedChildMapperProp() {
-    if (!this.element.current.childMapperPropKey) {
+    if (!this.element.childMapperPropKey) {
       return []
     }
 
-    if (hasStateExpression(this.element.current.childMapperPropKey)) {
+    if (hasStateExpression(this.element.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
-        this.element.current.childMapperPropKey,
+        this.element.childMapperPropKey,
         this.propsEvaluationContext,
       )
 
@@ -118,7 +102,7 @@ export class RuntimeElementProps
 
     const evaluatedChildMapperProp = get(
       this.expressionEvaluationContext,
-      this.element.current.childMapperPropKey,
+      this.element.childMapperPropKey,
     )
 
     if (!Array.isArray(evaluatedChildMapperProp)) {
@@ -150,7 +134,7 @@ export class RuntimeElementProps
         return value.value
       }
 
-      return transformer.transform(value, this.element.current)
+      return transformer.transform(value, this.element)
     })
   }
 
@@ -167,24 +151,58 @@ export class RuntimeElementProps
       )
     }
 
-    const customTextProp =
-      this.element.current.props.values[CUSTOM_TEXT_PROP_KEY]
-
+    const customTextProp = this.element.props.values[CUSTOM_TEXT_PROP_KEY]
     const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
     const evaluated = evaluateObject(props, this.propsEvaluationContext)
 
     return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
   }
 
+  transformRuntimeActions(
+    runtimeActions: Array<IRuntimeActionModel>,
+    context: IEvaluationContext,
+  ) {
+    return runtimeActions
+      .map((runtimeAction) => ({
+        [runtimeAction.action.current.name]: runtimeAction.runner.bind(context),
+      }))
+      .reduce(merge, {})
+  }
+
+  addActions(context: IEvaluationContext) {
+    context['actions'] = this.transformRuntimeActions(
+      this.runtimeStore.runtimeActionsList,
+      context,
+    )
+
+    context['rootActions'] = this.providerStore?.runtimeActionsList
+      ? this.transformRuntimeActions(
+          this.providerStore.runtimeActionsList,
+          context,
+        )
+      : {}
+
+    return context
+  }
+
+  @modelAction
+  getActionRunner(actionName: string) {
+    return (
+      this.expressionEvaluationContext.actions[actionName] ??
+      this.expressionEvaluationContext.rootActions[actionName] ??
+      (() => console.log(`No Runner found for ${actionName} `))
+    )
+  }
+
   @computed
   get props() {
     // memorize values or else it will be lost inside callback
-    const registerReference = isAtomRef(this.element.current.renderType)
-    const slug = this.element.current.slug
+    const registerReference = isAtomRef(this.element.renderType)
+    const slug = this.element.slug
     const store = this.runtimeStore
-    const renderType = this.element.current.renderType.current
+    const renderType = this.element.renderType.current
     const defaultProps = renderType.api.current.defaultValues
-    const props = mergeProps(defaultProps, this.element.current.props.values)
+    const props = mergeProps(defaultProps, this.element.props.values)
 
     return {
       ...props,
@@ -199,54 +217,24 @@ export class RuntimeElementProps
     }
   }
 
-  @modelAction
-  getActionRunner(actionName: string) {
-    return (
-      this.expressionEvaluationContext.actions[actionName] ??
-      this.expressionEvaluationContext.rootActions[actionName] ??
-      (() => console.log(`No Runner found for ${actionName} `))
-    )
-  }
-
-  @modelAction
-  private addBoundedActionRunner(
-    context: Omit<IEvaluationContext, 'actions' | 'rootActions'>,
-  ): IEvaluationContext {
-    const actions = this.runtimeStore.runtimeActionsList
-      .map((action) => ({
-        [action.action.current.name]: action.runner.bind(context),
-      }))
-      .reduce(merge, {})
-
-    const rootActions =
-      this.runtimeStore.runtimeProviderStore?.current.runtimeActionsList
-        .map((action) => ({
-          [action.action.current.name]: action.runner.bind(context),
-        }))
-        .reduce(merge, {}) ?? {}
-
-    return {
-      ...context,
-      actions,
-      rootActions,
-    }
-  }
-
   @computed
   get propsEvaluationContext(): IEvaluationContext {
-    const isInsideComponent = isRuntimeContainerNode(
-      this.closestRuntimeContainerNode,
+    const componentProps = isComponent(
+      this.closestRuntimeContainerNode.containerNode,
     )
-
-    const componentProps = isInsideComponent
-      ? this.closestRuntimeContainerNode.runtimeProps?.evaluatedProps
+      ? this.closestRuntimeContainerNode.containerNode.props.values
       : {}
 
-    return this.addBoundedActionRunner({
-      componentProps: componentProps ?? {},
+    return this.addActions({
+      actions: {},
+
+      args: [],
+
+      componentProps: {},
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
+      rootActions: {},
       rootRefs: this.providerStore?.refs ?? {},
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
@@ -256,36 +244,9 @@ export class RuntimeElementProps
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    return this.addBoundedActionRunner({
+    return this.addActions({
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     })
-  }
-
-  // TODO: move repeated logic to a base class
-  @modelAction
-  addRuntimeComponentModel(containerNode: IComponentModel) {
-    const runtimeNode = RuntimeContainerNodeFactory.create({
-      containerNode,
-    })
-
-    this.runtimeRootNodes.set(runtimeNode.id, runtimeNode)
-
-    return runtimeNode
-  }
-
-  @modelAction
-  addRuntimeElementModel(element: IElementModel) {
-    const id = v4()
-
-    const runtimeElement = RuntimeElement.create({
-      element: elementRef(element.id),
-      id,
-      parent: runtimeElementRef(this.id),
-    })
-
-    this.runtimeRootNodes.set(runtimeElement.id, runtimeElement)
-
-    return runtimeElement
   }
 }

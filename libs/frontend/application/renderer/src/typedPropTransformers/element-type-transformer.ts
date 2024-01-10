@@ -33,6 +33,8 @@ export class ElementTypeTransformer
 
     const targetElement = elements.find((el) => el.id === prop.value)
 
+    return prop
+
     if (!targetElement) {
       return prop
     }
