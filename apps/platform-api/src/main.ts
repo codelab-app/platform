@@ -1,11 +1,22 @@
-import { RootModule } from '@codelab/backend/infra/adapter/codelab'
+import type { endpointConfig } from '@codelab/backend/infra/adapter/codelab'
+import {
+  ENDPOINT_CONFIG_KEY,
+  RootModule,
+} from '@codelab/backend/infra/adapter/codelab'
 import { Logger } from '@nestjs/common'
+import type { ConfigType } from '@nestjs/config'
+import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(RootModule)
   const globalPrefix = 'api'
-  const port = process.env.PORT || 4000
+  const configService = app.get(ConfigService)
+
+  const config: ConfigType<typeof endpointConfig> =
+    configService.getOrThrow(ENDPOINT_CONFIG_KEY)
+
+  const port = config.graphqlApiPort
 
   app.setGlobalPrefix(globalPrefix)
 

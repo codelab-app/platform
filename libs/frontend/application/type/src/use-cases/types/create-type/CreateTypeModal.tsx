@@ -1,6 +1,5 @@
 import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { typeSelectOptions } from '@codelab/frontend/domain/type'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -56,12 +55,8 @@ export const CreateTypeModal = observer(() => {
         </DisplayIfKind>
 
         <DisplayIfKind kind={ITypeKind.UnionType}>
-          <AutoField
-            createTypeOptions={typeSelectOptions}
-            name="unionTypeIds"
-          />
+          <AutoField name="unionTypeIds" />
         </DisplayIfKind>
-        {/* <ListField name="unionTypes" />; */}
 
         <DisplayIfKind kind={ITypeKind.EnumType}>
           <AutoField name="allowedValues" />

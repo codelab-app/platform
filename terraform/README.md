@@ -32,3 +32,7 @@ terraform init environment/stage
 - In Terraform cloud set working directory from the root `environments/prod` for example, then call `terraform -chdir=environments/prod` locally
 
 To symlink var into another folder, go to the target folder first `ln -s ../../source.tf vars-*.symlink.tf`
+
+## Destroying
+
+Sometimes you need to manually destroy by deleting the state list.

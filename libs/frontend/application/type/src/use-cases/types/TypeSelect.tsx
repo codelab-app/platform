@@ -1,5 +1,4 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { CreateTypeOptions } from '@codelab/frontend/domain/type'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'
@@ -9,50 +8,45 @@ import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
 export interface TypeSelectProps {
-  createTypeOptions?: CreateTypeOptions
   label: string
   name: string
 }
 
-export const TypeSelect = observer<TypeSelectProps>(
-  ({ createTypeOptions, label, name }) => {
-    const { typeService } = useStore()
-    const [fieldProps] = useField<{ value?: string }>(name, {})
+export const TypeSelect = observer<TypeSelectProps>(({ label, name }) => {
+  const { typeService } = useStore()
+  const [fieldProps] = useField<{ value?: string }>(name, {})
 
-    const [{ error, result = [], status }, getTypes] = useAsync(() =>
-      typeService.getOptions(),
-    )
+  const [{ error, result = [], status }, getTypes] = useAsync(() =>
+    typeService.getOptions(),
+  )
 
-    // On update mode, the current selected type can be used
-    // to show the type name instead of showing just the id
-    const currentType = fieldProps.value
-      ? typeService.typeDomainService.types.get(fieldProps.value)
-      : undefined
+  // On update mode, the current selected type can be used
+  // to show the type name instead of showing just the id
+  const currentType = fieldProps.value
+    ? typeService.typeDomainService.types.get(fieldProps.value)
+    : undefined
 
-    const typeOptions = createTypeOptions
-      ? createTypeOptions(result)
-      : uniqBy(compact([currentType, ...result]), 'id').map(
-          ({ id, name: optionLabel }) => ({
-            label: optionLabel,
-            value: id,
-          }),
-        )
+  const typeOptions = uniqBy(compact([currentType, ...result]), 'id').map(
+    ({ id, name: optionLabel }) => ({
+      label: optionLabel,
+      value: id,
+    }),
+  )
 
-    return (
-      <SelectField
-        error={error}
-        label={label}
-        loading={status === 'loading'}
-        name={name}
-        onDropdownVisibleChange={async (open) => {
-          if (open && status === 'not-executed') {
-            await getTypes.execute()
-          }
-        }}
-        optionFilterProp="label"
-        options={typeOptions}
-        showSearch
-      />
-    )
-  },
-)
+  return (
+    <SelectField
+      error={error}
+      label={label}
+      loading={status === 'loading'}
+      name={name}
+      onDropdownVisibleChange={async (open) => {
+        if (open && status === 'not-executed') {
+          await getTypes.execute()
+        }
+      }}
+      optionFilterProp="label"
+      options={typeOptions}
+      showSearch
+    />
+  )
+})

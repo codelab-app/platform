@@ -73,13 +73,6 @@ resource "circleci_environment_variable" "AUTH0_ISSUER_BASE_URL" {
   organization = local.organization
 }
 
-resource "circleci_environment_variable" "AUTH0_AUDIENCE" {
-  name         = "AUTH0_AUDIENCE"
-  value        = "${var.auth0_issuer_base_url}api/v2/"
-  project      = local.project_name
-  organization = local.organization
-}
-
 resource "circleci_environment_variable" "AUTH0_SECRET" {
   name         = "AUTH0_SECRET"
   value        = var.auth0_secret
@@ -139,27 +132,6 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_SUPABASE_KEY" {
 resource "circleci_environment_variable" "NX_CLOUD_ACCESS_TOKEN" {
   name         = "NX_CLOUD_ACCESS_TOKEN"
   value        = var.nx_cloud_access_token
-  project      = local.project_name
-  organization = local.organization
-}
-
-# resource "circleci_environment_variable" "VERCEL_ACCESS_TOKEN" {
-#   name         = "VERCEL_ACCESS_TOKEN"
-#   value        = var.vercel_access_token
-#   project      = local.project_name
-#   organization = local.organization
-# }
-
-resource "circleci_environment_variable" "KV_REST_API_URL" {
-  name         = "KV_REST_API_URL"
-  value        = var.kv_rest_api_url
-  project      = local.project_name
-  organization = local.organization
-}
-
-resource "circleci_environment_variable" "KV_REST_API_TOKEN" {
-  name         = "KV_REST_API_TOKEN"
-  value        = var.kv_rest_api_token
   project      = local.project_name
   organization = local.organization
 }

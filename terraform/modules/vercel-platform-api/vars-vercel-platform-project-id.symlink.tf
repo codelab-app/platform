@@ -1,1 +1,0 @@
-../vercel/vars-platform-project-id.tf
