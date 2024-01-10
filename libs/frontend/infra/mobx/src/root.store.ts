@@ -28,7 +28,6 @@ import {
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
 import type {
-  IActionDomainService,
   IBuilderDomainService,
   ITagDomainService,
 } from '@codelab/frontend/abstract/domain'
@@ -85,7 +84,6 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
-import { ActionDomainService } from '@codelab/frontend/domain/action'
 import { BuilderDomainService } from '@codelab/frontend/domain/builder'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
@@ -95,9 +93,6 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
-      actionDomainService: prop<IActionDomainService>(
-        () => new ActionDomainService({}),
-      ),
       actionService: prop<IActionService>(() => new ActionService({})),
       adminService: prop<IAdminService>(() => new AdminService({})),
       appService: prop<IAppService>(() => new AppService({})),
@@ -180,7 +175,10 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this.componentService.componentDomainService,
       )
       rendererServiceContext.set(this, this.rendererService)
-      actionDomainServiceContext.set(this, this.actionDomainService)
+      actionDomainServiceContext.set(
+        this,
+        this.actionService.actionDomainService,
+      )
       tagDomainServiceContext.set(this, this.tagDomainService)
     }
   }
