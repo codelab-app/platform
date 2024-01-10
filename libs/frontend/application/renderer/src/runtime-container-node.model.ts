@@ -1,4 +1,5 @@
 import type {
+  IRuntimeContainerNodeDTO,
   IRuntimeContainerNodeModel,
   IRuntimeElementModel,
   IRuntimeStoreModel,
@@ -34,6 +35,9 @@ import { RuntimeElementModel } from './runtime-element.model'
 import { RuntimeElementPropsModel } from './runtime-element-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
+const create = (dto: IRuntimeContainerNodeDTO) =>
+  new RuntimeContainerNodeModel(dto)
+
 @model('@codelab/RuntimeContainerNode')
 export class RuntimeContainerNodeModel
   extends Model({
@@ -48,6 +52,8 @@ export class RuntimeContainerNodeModel
   })
   implements IRuntimeContainerNodeModel
 {
+  static create = create
+
   @computed
   get runtimeContainerNodesList() {
     return [...this.runtimeContainerNodes.values()]
@@ -70,7 +76,7 @@ export class RuntimeContainerNodeModel
       return foundNode
     }
 
-    const runtimeNode = new RuntimeContainerNodeModel({
+    const runtimeNode = RuntimeContainerNodeModel.create({
       containerNode: isPage(node) ? pageRef(node.id) : componentRef(node.id),
       runtimeStore: RuntimeStoreModel.create({
         runtimeProviderStore: isPage(node)
@@ -131,7 +137,7 @@ export class RuntimeContainerNodeModel
 
     const id = v4()
 
-    const runtimeElement = new RuntimeElementModel({
+    const runtimeElement = RuntimeElementModel.create({
       children: children.map((child) => runtimeModelRef(child)),
       closestContainerNode: runtimeContainerNodeRef(this.id),
       element: elementRef(node.id),

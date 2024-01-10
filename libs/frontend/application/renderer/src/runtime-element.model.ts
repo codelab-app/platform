@@ -1,6 +1,7 @@
 import type {
   ElementWrapperProps,
   IRuntimeContainerNodeModel,
+  IRuntimeElementDTO,
   IRuntimeElementModel,
   IRuntimeElementPropModel,
 } from '@codelab/frontend/abstract/application'
@@ -29,6 +30,8 @@ import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from './element/ElementWrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 
+const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
+
 @model('@codelab/RuntimeElement')
 export class RuntimeElementModel
   extends Model({
@@ -43,6 +46,8 @@ export class RuntimeElementModel
   })
   implements IRuntimeElementModel
 {
+  static create = create
+
   @computed
   get renderer() {
     const activeRenderer = getRendererService(this).activeRenderer?.current
