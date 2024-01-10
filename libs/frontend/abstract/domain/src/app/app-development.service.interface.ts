@@ -7,6 +7,7 @@ import type {
   FieldFragment,
   PageDevelopmentFragment,
   PropFragment,
+  ResourceFragment,
   StoreFragment,
   TypeFragment,
 } from '@codelab/shared/abstract/codegen'
@@ -27,6 +28,7 @@ export interface IAppDevelopmentDto {
   fields: Array<FieldFragment>
   pages: Array<PageDevelopmentFragment>
   props: Array<PropFragment>
+  resources: Array<ResourceFragment>
   stores: Array<StoreFragment>
   types: Array<TypeFragment>
 }
