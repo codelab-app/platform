@@ -1,6 +1,7 @@
 import {
   getAppService,
   getElementService,
+  getRendererService,
   getUserService,
   type IPageApplicationService,
 } from '@codelab/frontend/abstract/application'
@@ -145,9 +146,12 @@ export class PageApplicationService
       this.elementService.elementDomainService.elements.delete(element.id),
     )
 
-    yield* _await(this.elementService.elementRepository.delete(elements))
+    pagesModel.forEach((page) => {
+      this.rendererService.renderers.delete(page.id)
+      this.pageDomainService.pages.delete(page.id)
+    })
 
-    // pagesModel.forEach((page) => this.pageDomainService.pages.delete(page.id))
+    yield* _await(this.elementService.elementRepository.delete(elements))
 
     /**
      * Page can delete all other info
@@ -273,5 +277,9 @@ export class PageApplicationService
   @computed
   private get userService() {
     return getUserService(this)
+  }
+
+  @computed get rendererService() {
+    return getRendererService(this)
   }
 }

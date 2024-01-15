@@ -130,9 +130,20 @@ export class RuntimeStoreModel
 
   @computed
   get runtimeActionsList() {
+    const storeActions = this.store.current.actions
+    const actionsChanged = this.runtimeActions.size !== storeActions.length
+
+    if (!actionsChanged) {
+      // need to return if no actions were added or removed.
+      // otherwise we will get an infinite loop, when `runtimeActionsList`
+      // is computed during rendering and it updates the MobX store that
+      // causes another render and so on.
+      return [...this.runtimeActions.values()]
+    }
+
     this.runtimeActions.clear()
 
-    this.store.current.actions.forEach((action) => {
+    storeActions.forEach((action) => {
       const runtimeAction = RuntimeActionModel.create({
         action: actionRef(action),
         id: v4(),
