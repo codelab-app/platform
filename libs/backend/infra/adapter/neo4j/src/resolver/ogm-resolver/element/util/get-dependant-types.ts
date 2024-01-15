@@ -6,7 +6,7 @@ import {
   exportActionTypeSelectionSet,
   exportArrayTypeSelectionSet,
   exportEnumTypeSelectionSet,
-  exportInterfaceTypeSelectionSet,
+  exportInterfaceTypeWithFieldsSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
   exportRenderPropTypeSelectionSet,
@@ -74,7 +74,7 @@ const fetchTypes = async (
 
   promises.push(
     ogmService.InterfaceType.find({
-      selectionSet: `{ ${exportInterfaceTypeSelectionSet} }`,
+      selectionSet: `{ ${exportInterfaceTypeWithFieldsSelectionSet} }`,
       where: { id_IN: filterByType(ITypeKind.InterfaceType, types) },
     }),
   )
