@@ -53,7 +53,6 @@
           "buildTarget": "platform-api:build:prod"
         },
         "test": {
-          "port": 4001,
           "buildTarget": "platform-api:build:test"
         }
       },

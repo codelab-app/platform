@@ -1,4 +1,4 @@
-import { PlatformServerlessModule } from '@codelab/backend/infra/adapter/codelab'
+import { GraphqlModule } from '@codelab/backend/infra/adapter/codelab'
 import type { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import type { Server } from 'http'
@@ -8,7 +8,7 @@ let app: INestApplication | undefined
 
 export const getPlatformListener = async () => {
   if (!app) {
-    app = await NestFactory.create(PlatformServerlessModule, {
+    app = await NestFactory.create(GraphqlModule, {
       // bodyParser: false,
     })
     // This must match the nextjs api path

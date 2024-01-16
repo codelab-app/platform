@@ -86,4 +86,4 @@ export interface GqlContext {
     }),
   ],
 })
-export class PlatformServerlessModule {}
+export class GraphqlModule {}

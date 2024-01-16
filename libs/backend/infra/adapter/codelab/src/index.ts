@@ -1,4 +1,3 @@
-export * from './data/data.serverless.module'
-export * from './platform/endpoint.config'
-export * from './platform/platform.serverless.module'
-export * from './root/root.module'
+export * from './data/data.module'
+export * from './graphql/endpoint.config'
+export * from './graphql/graphql.module'
