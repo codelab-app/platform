@@ -59,6 +59,7 @@ export const ComponentList = observer<{
                 name: component.name,
               }}
               id={component.id}
+              key={component.id}
             >
               <ComponentItem
                 component={component}
