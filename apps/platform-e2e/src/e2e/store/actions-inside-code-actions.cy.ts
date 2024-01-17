@@ -331,21 +331,18 @@ describe('Running actions inside code action with arguments', () => {
   })
 
   it('should run the code action that calls another call action and an API action with arguments when the button is clicked', () => {
+    cy.openPreview()
+
     cy.intercept('POST', `${resourceUrl}${urlSegment}`, {
       statusCode: 200,
     }).as('apiAction')
 
     cy.get('#render-root').findByText('Click button to run actions').click()
 
-    cy.wait('@apiAction')
-    cy.get('@apiAction').should(({ request }: any) => {
-      expect(request.body).toMatchObject({
-        firstArg: 'yo',
-        secondArg: 456,
-      })
+    cy.wait('@apiAction').its('request.body').should('deep.equal', {
+      firstArg: 'yo',
+      secondArg: 456,
     })
-
-    cy.openPreview()
     cy.get('#render-root').contains(`${stateKey1} - hey, ${stateKey2} - 123`)
   })
 })
