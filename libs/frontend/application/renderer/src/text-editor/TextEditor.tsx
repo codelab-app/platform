@@ -31,13 +31,13 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
   // This is for being backwards compatible with the old text editor
   const getInitialData = (): OutputData => {
     if (!data) {
-      return emptyBlock
+      return createEditorContent()
     }
 
     try {
       return JSON.parse(data)
     } catch {
-      return emptyBlock
+      return createEditorContent(data)
     }
   }
 
@@ -87,7 +87,9 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
 
         if (editor.blocks.getBlocksCount() === 0) {
           // without a placeholder text, adding a new text is a little difficult
-          await editor.render(placholderBlock)
+          const placeholderBlock = createEditorContent('Text')
+
+          await editor.render(placeholderBlock)
         }
 
         selectAllTextInTheElement(elementId)
@@ -121,15 +123,15 @@ const selectAllTextInTheElement = (elementId: string) => {
   selection?.addRange(range)
 }
 
-const placholderBlock = {
-  blocks: [
-    {
-      data: {
-        text: 'Text',
+const createEditorContent = (text = '') => {
+  return {
+    blocks: [
+      {
+        data: {
+          text,
+        },
+        type: 'paragraph',
       },
-      type: 'paragraph',
-    },
-  ],
+    ],
+  }
 }
-
-const emptyBlock = { blocks: [{ data: { text: '' }, type: 'paragraph' }] }
