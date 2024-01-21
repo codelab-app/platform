@@ -109,7 +109,7 @@ export class RuntimeActionModel
       : null
 
     const resource = action.resource.current
-    const config = action.config.values
+    const config = action.config.values['data']
     const graphQLClient = this._graphqlClient
     const restClient = this._restClient
 
@@ -136,9 +136,9 @@ export class RuntimeActionModel
       try {
         const response = await fetchPromise
 
-        return successAction?.runner()(response)
+        return successAction?.runner.call(_this, response)
       } catch (error) {
-        return errorAction?.runner()(error)
+        return errorAction?.runner.call(_this, error)
       }
     }
   }

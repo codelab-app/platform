@@ -127,16 +127,12 @@ export class RuntimeElement
 
   runPostRenderAction = () => {
     const { postRenderAction } = this.element.current
-    const currentPostRenderAction = postRenderAction?.current
 
-    if (currentPostRenderAction) {
-      const runtimeAction = this.runtimeStore.runtimeAction(
-        currentPostRenderAction,
-      )
+    if (postRenderAction) {
+      const runtimeAction = this.runtimeStore.runtimeAction(postRenderAction)
+      const runner = runtimeAction?.runner
 
-      const runner = runtimeAction?.runner()
-
-      runner?.()
+      runner?.call(this.runtimeProps.expressionEvaluationContext)
     }
   }
 
@@ -145,9 +141,9 @@ export class RuntimeElement
 
     if (preRenderAction) {
       const runtimeAction = this.runtimeStore.runtimeAction(preRenderAction)
-      const runner = runtimeAction?.runner()
+      const runner = runtimeAction?.runner
 
-      runner?.()
+      runner?.call(this.runtimeProps.expressionEvaluationContext)
     }
   }
 

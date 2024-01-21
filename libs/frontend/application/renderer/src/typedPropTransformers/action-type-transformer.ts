@@ -55,6 +55,13 @@ export class ActionTypeTransformer
     const fallback = () =>
       console.error(`fail to call action with id ${prop.value}`)
 
-    return actionRunner || fallback
+    return actionRunner
+      ? (...args: Array<unknown>) => {
+          const expressionContext =
+            runtimeNode?.runtimeProps?.propsEvaluationContext
+
+          return actionRunner.runner.apply(expressionContext, args)
+        }
+      : fallback
   }
 }

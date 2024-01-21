@@ -204,7 +204,9 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.waitForApiCalls()
 
     cy.openPreview()
-    cy.get('#render-root').contains(`response from api - null`).should('exist')
+    cy.get('#render-root')
+      .contains(`response from api - undefined`)
+      .should('exist')
     cy.openBuilder()
 
     // set pre-render action
@@ -227,7 +229,6 @@ describe('Running API action and setting state on element pre-render', () => {
     )
     cy.reload()
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait('@preRenderAction')
     cy.get('#render-root')
       .contains(`response from api - ${mockResponse}`)
