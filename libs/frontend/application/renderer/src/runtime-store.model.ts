@@ -24,12 +24,7 @@ import {
 } from 'mobx-keystone'
 import { RuntimeActionModel } from './runtime-action.model'
 
-const create = ({ runtimeProviderStore, store }: IRuntimeStoreDTO) => {
-  return new RuntimeStoreModel({
-    runtimeProviderStore,
-    store,
-  })
-}
+const create = (dto: IRuntimeStoreDTO) => new RuntimeStoreModel(dto)
 
 @model('@codelab/RuntimeStore')
 export class RuntimeStoreModel
@@ -52,7 +47,15 @@ export class RuntimeStoreModel
 
   @computed
   get runtimeActionsList() {
+    const actions = [...this.runtimeActions.values()]
+
     return this.store.current.actions.map((action) => {
+      const found = actions.find((existing) => existing.action.id === action.id)
+
+      if (found) {
+        return found
+      }
+
       const runtimeAction = RuntimeActionModel.create({
         action: actionRef(action.id),
         runtimeStore: runtimeStoreRef(this.id),

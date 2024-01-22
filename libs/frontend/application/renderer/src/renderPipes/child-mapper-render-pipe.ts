@@ -1,7 +1,6 @@
 import {
   type IRenderOutput,
   type IRenderPipe,
-  type IRuntimeContainerNodeModel,
   type IRuntimeElementModel,
   isRuntimeElement,
 } from '@codelab/frontend/abstract/application'
@@ -38,7 +37,7 @@ export class ChildMapperRenderPipe
       const runtimeComponent = runtimeElement.addRuntimeChild(
         component,
         childMapperRenderIndex + index,
-      ) as IRuntimeContainerNodeModel
+      )
 
       runtimeComponent.setChildMapperIndex(index)
     }

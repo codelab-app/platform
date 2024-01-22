@@ -58,7 +58,7 @@ export class ActionTypeTransformer
       console.error(`fail to get action with id ${prop.value}`)
 
     const actionRunner = name
-      ? runtimeNode?.runtimeProps?.getActionRunner(name)
+      ? runtimeNode?.componentRuntimeProps?.getActionRunner(name)
       : fallback
 
     return actionRunner
