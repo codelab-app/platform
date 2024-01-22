@@ -93,9 +93,12 @@ describe('Converting an element to a component', () => {
       .getButton({ icon: 'edit' })
       .click()
 
-    // the element descendants of a component should show on the custom component builder
+    // the element descendants of a component should show on the custom component builder,
+    // first level children available right away, more nested ones need to be expanded
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_ROW).should('exist')
+    cy.toggleTreeNodeSwitcher(ELEMENT_ROW)
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_COL_A).should('exist')
+    cy.toggleTreeNodeSwitcher(ELEMENT_COL_A)
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_TEXT_1).should('exist')
   })
 })
