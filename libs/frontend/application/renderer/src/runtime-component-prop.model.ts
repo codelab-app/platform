@@ -59,7 +59,7 @@ export class RuntimeComponentPropModel
     return mergeProps(
       this.evaluatedProps,
       this.instanceElementProps,
-      this.childMapperProps,
+      this.childMapperProp,
     )
   }
 
@@ -88,18 +88,24 @@ export class RuntimeComponentPropModel
   }
 
   @computed
-  get evaluatedProps() {
-    return evaluateObject(this.renderedTypedProps, {
+  get propsEvaluationContext() {
+    return {
       actions: {},
       componentProps: {},
       props: {},
-      refs: this.runtimeStore.refs,
+      refs: {},
       rootActions: {},
       rootRefs: {},
       rootState: {},
-      state: this.runtimeStore.state,
+      state: {},
       url: {},
-    })
+    }
+  }
+
+  @computed
+  get evaluatedProps() {
+    // evaluate expressions but with empty context
+    return evaluateObject(this.renderedTypedProps, this.propsEvaluationContext)
   }
 
   @computed
@@ -112,18 +118,16 @@ export class RuntimeComponentPropModel
   }
 
   @computed
-  get childMapperProps(): Maybe<IPropData> {
-    const { runtimeParent } = this.runtimeComponent.current
+  get childMapperProp(): Maybe<IPropData> {
+    const { childMapperIndex, runtimeParent } = this.runtimeComponent.current
 
     const runtimeParentElementProps = runtimeParent
       ? runtimeParent.current.runtimeProps
       : undefined
 
-    const props = runtimeParentElementProps?.evaluatedChildMapperProp || []
-    // this.component.childMapperIndex
-    const index = 2
+    const props = runtimeParentElementProps?.evaluatedChildMapperProps || []
 
-    return undefined
+    return props[Number(childMapperIndex)]
   }
 
   @computed
@@ -136,22 +140,6 @@ export class RuntimeComponentPropModel
         key: this.component.id,
       },
     )
-  }
-
-  @computed
-  get propsEvaluationContext(): IEvaluationContext {
-    return {
-      actions: {},
-      componentProps: {},
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: this.runtimeStore.state,
-      url: {},
-    }
   }
 
   @computed

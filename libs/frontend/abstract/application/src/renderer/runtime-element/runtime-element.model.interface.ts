@@ -15,7 +15,7 @@ export interface IRuntimeElementModel extends AnyModel {
   /**
    * Runtime children
    */
-  children: Array<Ref<IRuntimeContainerNodeModel> | Ref<IRuntimeElementModel>>
+  children: Array<IRuntimeContainerNodeModel | IRuntimeElementModel>
   /**
    * The runtime model for IElementModel.closestContainerNode
    */
@@ -33,7 +33,6 @@ export interface IRuntimeElementModel extends AnyModel {
    * serves props transformations and evaluation
    */
   runtimeProps: IRuntimeElementPropModel
-
   /**
    * access runtimeStore via computed values
    */

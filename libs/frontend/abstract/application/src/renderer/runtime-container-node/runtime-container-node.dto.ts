@@ -9,10 +9,11 @@ import type { IRuntimeStoreModel } from '../runtime-store'
 import type { SubTree } from './runtime-container-node.model.interface'
 
 export interface IRuntimeContainerNodeDTO {
+  childMapperIndex?: number
   componentRuntimeProp?: IRuntimeComponentPropModel
   containerNode: Ref<IComponentModel> | Ref<IPageModel>
   id?: string
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeStore: IRuntimeStoreModel
-  subTrees: Array<SubTree>
+  subTrees?: Array<SubTree>
 }

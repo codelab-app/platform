@@ -1,40 +1,45 @@
 import type {
   IRuntimeComponentPropModel,
   IRuntimeContainerNodeDTO,
-  IRuntimeContainerNodeModel,
-  IRuntimeElementModel,
   IRuntimeStoreModel,
   SubTree,
 } from '@codelab/frontend/abstract/application'
 import {
+  IRuntimeContainerNodeModel,
+  IRuntimeElementModel,
   runtimeContainerNodeRef,
   runtimeElementRef,
-  runtimeModelRef,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
-  IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
   elementRef,
+  IElementModel,
   isComponent,
   isPage,
   pageRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
-import { idProp, Model, model, objectMap, prop } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import { v4 } from 'uuid'
-import { RuntimeComponentPropModel } from './runtime-componentr-prop.model'
+import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimeElementModel } from './runtime-element.model'
 import { RuntimeElementPropsModel } from './runtime-element-prop.model'
 import { RuntimeStoreModel } from './runtime-store.model'
@@ -45,6 +50,7 @@ const create = (dto: IRuntimeContainerNodeDTO) =>
 @model('@codelab/RuntimeContainerNode')
 export class RuntimeContainerNodeModel
   extends Model({
+    childMapperIndex: prop<Maybe<number>>().withSetter(),
     componentRuntimeProp: prop<Maybe<IRuntimeComponentPropModel>>(),
     containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
@@ -70,13 +76,18 @@ export class RuntimeContainerNodeModel
     return [...this.runtimeElements.values()]
   }
 
-  private transformContainerNode(
+  @modelAction
+  addContainerNode(
     node: IComponentModel | IPageModel,
     runtimeParent: IRef,
     subTrees: Array<SubTree> = [],
+    childMapperIndex?: number,
   ): IRuntimeContainerNodeModel {
     const foundNode = this.runtimeContainerNodesList.find(
-      (runtimeNode) => runtimeNode.containerNode.id === node.id,
+      (runtimeNode) =>
+        runtimeNode.containerNode.id === node.id &&
+        (!childMapperIndex ||
+          runtimeNode.childMapperIndex === childMapperIndex),
     )
 
     if (foundNode) {
@@ -86,12 +97,14 @@ export class RuntimeContainerNodeModel
     const id = v4()
 
     const runtimeNode = RuntimeContainerNodeModel.create({
-      componentRuntimeProp: isPage(node)
+      childMapperIndex,
+      componentRuntimeProp: isComponent(node)
         ? RuntimeComponentPropModel.create({
             runtimeComponent: runtimeContainerNodeRef(id),
           })
         : undefined,
       containerNode: isPage(node) ? pageRef(node.id) : componentRef(node.id),
+      id,
       runtimeParent: runtimeElementRef(runtimeParent.id),
       runtimeStore: RuntimeStoreModel.create({
         runtimeProviderStore: isPage(node)
@@ -107,10 +120,8 @@ export class RuntimeContainerNodeModel
     return runtimeNode
   }
 
-  private transformElement(
-    node: IElementModel,
-    subTrees: Array<SubTree> = [],
-  ): IRuntimeElementModel {
+  @modelAction
+  addElement(node: IElementModel): IRuntimeElementModel {
     const foundElement = this.runtimeElementsList.find(
       (runtimeNode) => runtimeNode.element.id === node.id,
     )
@@ -120,40 +131,8 @@ export class RuntimeContainerNodeModel
     }
 
     const id = v4()
-    const renderType = node.renderType.current
-
-    const shouldRenderComponent =
-      renderType.__typename === IElementRenderTypeKind.Component
-
-    const children: Array<IRuntimeContainerNodeModel | IRuntimeElementModel> =
-      shouldRenderComponent
-        ? [
-            // put component as a child instead of instance element children
-            this.transformContainerNode(
-              renderType,
-              { id },
-              // pass instance element children as subTrees to be transformed later
-              node.children.map((child) => elementRef(child.id)),
-            ),
-          ]
-        : node.children.map((child) => this.transformElement(child))
-
-    const shouldAttachSubTrees = isPage(this.containerNode.current)
-      ? this.containerNode.current.pageContentContainer?.id === node.id
-      : this.containerNode.current.childrenContainerElement.id === node.id
-
-    if (shouldAttachSubTrees) {
-      const runtimeSubTrees = subTrees.map((child) =>
-        isPage(child.current) || isComponent(child.current)
-          ? this.transformContainerNode(child.current, { id })
-          : this.transformElement(child.current),
-      )
-
-      children.push(...runtimeSubTrees)
-    }
 
     const runtimeElement = RuntimeElementModel.create({
-      children: children.map((child) => runtimeModelRef(child)),
       closestContainerNode: runtimeContainerNodeRef(this.id),
       element: elementRef(node.id),
       id,
@@ -169,10 +148,7 @@ export class RuntimeContainerNodeModel
 
   @computed
   get runtimeRootElement() {
-    return this.transformElement(
-      this.containerNode.current.rootElement.current,
-      this.subTrees,
-    )
+    return this.addElement(this.containerNode.current.rootElement.current)
   }
 
   @computed

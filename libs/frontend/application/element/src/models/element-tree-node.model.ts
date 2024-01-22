@@ -50,11 +50,11 @@ export class TreeNode
     if (
       this.element.childMapperComponent?.id &&
       this.element.childMapperPropKey &&
-      this.element.runtimeProp?.evaluatedChildMapperProp.length
+      this.element.runtimeProp?.evaluatedChildMapperProps.length
     ) {
       const keys = [
         ...Array(
-          this.element.runtimeProp.evaluatedChildMapperProp.length,
+          this.element.runtimeProp.evaluatedChildMapperProps.length,
         ).keys(),
       ]
 

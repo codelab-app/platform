@@ -12,7 +12,6 @@ export type RenderPipeClass =
 // define pipes in order of execution, we reverse it so that it matches the order of calling next
 export const defaultPipes: Array<RenderPipeClass> = [
   PreRenderPipe,
-  // ChildMapperRenderPipe,
   AtomRenderPipe,
 ].reverse()
 

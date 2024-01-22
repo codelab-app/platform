@@ -12,13 +12,17 @@ import {
 } from '@codelab/frontend/abstract/application'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  elementRef,
   type IElementModel,
   isAtom,
+  isComponent,
+  isPage,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
@@ -35,10 +39,6 @@ const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
 @model('@codelab/RuntimeElement')
 export class RuntimeElementModel
   extends Model({
-    children:
-      prop<
-        Array<Ref<IRuntimeContainerNodeModel> | Ref<IRuntimeElementModel>>
-      >(),
     closestContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
     element: prop<Ref<IElementModel>>(),
     id: idProp,
@@ -62,6 +62,96 @@ export class RuntimeElementModel
   @computed
   get runtimeStore() {
     return this.closestContainerNode.current.runtimeStore
+  }
+
+  @computed
+  get children() {
+    const renderType = this.element.current.renderType.current
+
+    const shouldRenderComponent =
+      renderType.__typename === IElementRenderTypeKind.Component
+
+    const children: Array<IRuntimeContainerNodeModel | IRuntimeElementModel> =
+      shouldRenderComponent
+        ? [
+            // put component as a child instead of instance element children
+            this.closestContainerNode.current.addContainerNode(
+              renderType,
+              this,
+              // pass instance element children as subTrees to be transformed later
+              this.element.current.children.map((child) =>
+                elementRef(child.id),
+              ),
+            ),
+          ]
+        : this.element.current.children.map((child) =>
+            this.closestContainerNode.current.addElement(child),
+          )
+
+    const shouldAttachSubTrees = isPage(
+      this.closestContainerNode.current.containerNode.current,
+    )
+      ? this.closestContainerNode.current.containerNode.current
+          .pageContentContainer?.id === this.element.id
+      : this.closestContainerNode.current.containerNode.current
+          .childrenContainerElement.id === this.element.id
+
+    if (shouldAttachSubTrees) {
+      const runtimeSubTrees = this.closestContainerNode.current.subTrees.map(
+        (child) =>
+          isPage(child.current) || isComponent(child.current)
+            ? this.closestContainerNode.current.addContainerNode(
+                child.current,
+                { id: this.id },
+              )
+            : this.closestContainerNode.current.addElement(child.current),
+      )
+
+      children.push(...runtimeSubTrees)
+    }
+
+    const previousSibling = this.element.current.childMapperPreviousSibling
+
+    if (previousSibling) {
+      const previousSiblingIndex = children.findIndex((child) => {
+        return (
+          isRuntimeElement(child) && child.element.id === previousSibling.id
+        )
+      })
+
+      children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
+    } else {
+      children.push(...this.childMapperChildren)
+    }
+
+    return children
+  }
+
+  @computed
+  get childMapperChildren() {
+    const childMapperComponent = this.element.current.childMapperComponent
+
+    if (!childMapperComponent) {
+      return []
+    }
+
+    const props = this.runtimeProps.evaluatedChildMapperProps || []
+    const component = childMapperComponent.current
+    const childMapperChildren = []
+
+    for (let index = 0; index < props.length; index++) {
+      const runtimeComponent =
+        this.closestContainerNode.current.addContainerNode(
+          component,
+          { id: this.id },
+          undefined,
+          index,
+        )
+
+      childMapperChildren.push(runtimeComponent)
+    }
+
+    return childMapperChildren
   }
 
   @computed
@@ -137,10 +227,7 @@ export class RuntimeElementModel
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
-    const renderedChildren = compact(
-      this.children.map((child) => child.current.render),
-    )
-
+    const renderedChildren = compact(this.children.map((child) => child.render))
     const hasNoChildren = this.children.length === 0
     const hasOneChild = this.children.length === 1
 
