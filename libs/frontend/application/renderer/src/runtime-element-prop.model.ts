@@ -86,7 +86,7 @@ export class RuntimeElementPropsModel
   }
 
   @computed
-  get evaluatedChildMapperProp() {
+  get evaluatedChildMapperProps() {
     if (!this.element.childMapperPropKey) {
       return []
     }
@@ -106,18 +106,18 @@ export class RuntimeElementPropsModel
       return evaluatedExpression
     }
 
-    const evaluatedChildMapperProp = get(
+    const evaluatedChildMapperProps = get(
       this.expressionEvaluationContext,
       this.element.childMapperPropKey,
     )
 
-    if (!Array.isArray(evaluatedChildMapperProp)) {
+    if (!Array.isArray(evaluatedChildMapperProps)) {
       console.error('The evaluated childMapperPropKey is not an array')
 
       return []
     }
 
-    return evaluatedChildMapperProp
+    return evaluatedChildMapperProps
   }
 
   /**

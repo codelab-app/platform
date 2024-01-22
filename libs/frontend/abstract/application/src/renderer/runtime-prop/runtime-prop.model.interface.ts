@@ -32,13 +32,19 @@ export interface IBaseRuntimeProps {
   // runtimeRootNodes: ObjectMap<IRuntimeModel>
 }
 
-export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {}
+export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
+  /**
+   * Evaluated Props for child mapper
+   */
+  childMapperProp?: IPropData
+  instanceElementProps?: IPropData
+}
 
 export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
   /**
    * Evaluated Props for child mapper
    */
-  evaluatedChildMapperProp?: Array<IPropData>
+  evaluatedChildMapperProps?: Array<IPropData>
 
   propsEvaluationContext: IEvaluationContext
 

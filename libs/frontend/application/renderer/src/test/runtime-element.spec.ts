@@ -1,3 +1,4 @@
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { unregisterRootStore } from 'mobx-keystone'
 import { setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
@@ -24,6 +25,25 @@ describe('Runtime Element', () => {
     expect(runtimeElement?.closestContainerNode.current.containerNode.id).toBe(
       page.id,
     )
+  })
+
+  it('should add element runtime child', () => {
+    const { rendererService } = rootApplicationStore
+    const { page } = setupPage(testbed)
+    const rootElement = page.rootElement.current
+    const runtimeElement = rendererService.runtimeElement(rootElement)
+
+    const childElement = testbed.addElement({
+      name: 'child-element',
+      parentElement: rootElement,
+    })
+
+    rootElement.writeCache({ firstChild: childElement })
+
+    const runtimeChildElement = runtimeElement
+      ?.children[0] as IRuntimeElementModel
+
+    expect(runtimeChildElement.element.id).toBe(childElement.id)
   })
 
   it('should resolve closest runtime container node', () => {

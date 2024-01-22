@@ -1,7 +1,12 @@
+import type { IRuntimeContainerNodeModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  IPrimitiveTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupComponent } from './setup'
+import { setupComponent, setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -66,7 +71,7 @@ describe('Runtime Component props', () => {
   })
 
   describe('RuntimeProps.evaluatedProps', () => {
-    // most expressions aren't allowed
+    // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
       const { rendererService } = rootApplicationStore
       const { component } = setupComponent(testbed)
@@ -80,6 +85,84 @@ describe('Runtime Component props', () => {
       ).toMatchObject({
         [fieldKey]: 8,
       })
+    })
+  })
+
+  describe('RuntimeProps.instanceElementProps', () => {
+    it('should resolve instance element props', () => {
+      const { runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const component = testbed.addComponent({ name: 'component' })
+
+      runtimeElement?.element.current.writeCache({
+        renderType: {
+          __typename: IElementRenderTypeKind.Component,
+          id: component.id,
+        },
+      })
+
+      const runtimeComponent = runtimeElement
+        ?.children[0] as IRuntimeContainerNodeModel
+
+      const componentRuntimeProps = runtimeComponent.componentRuntimeProp
+
+      expect(componentRuntimeProps?.instanceElementProps).toEqual(
+        runtimeProps?.evaluatedProps,
+      )
+    })
+
+    it('should resolve child mapper prop', () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const component = testbed.addComponent({ name: 'component' })
+      const propKey = 'childMapperProp'
+      const propsArray = ['p01', 'p02', 'p03']
+
+      element.writeCache({
+        childMapperComponent: component,
+        childMapperPropKey: `props.${propKey}`,
+      })
+
+      element.props.set(propKey, propsArray)
+
+      const runtimeChildren =
+        runtimeElement?.children as Array<IRuntimeContainerNodeModel>
+
+      expect(runtimeChildren[0]?.componentRuntimeProp?.childMapperProp).toBe(
+        propsArray[0],
+      )
+      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
+        propsArray[1],
+      )
+      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
+        propsArray[1],
+      )
+    })
+
+    it('should resolve child mapper prop', () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const component = testbed.addComponent({ name: 'component' })
+      const propKey = 'childMapperProp'
+      const propsArray = ['p01', 'p02', 'p03']
+
+      element.writeCache({
+        childMapperComponent: component,
+        childMapperPropKey: `props.${propKey}`,
+      })
+
+      element.props.set(propKey, propsArray)
+
+      const runtimeChildren =
+        runtimeElement?.children as Array<IRuntimeContainerNodeModel>
+
+      expect(runtimeChildren[0]?.componentRuntimeProp?.childMapperProp).toBe(
+        propsArray[0],
+      )
+      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
+        propsArray[1],
+      )
+      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
+        propsArray[1],
+      )
     })
   })
 

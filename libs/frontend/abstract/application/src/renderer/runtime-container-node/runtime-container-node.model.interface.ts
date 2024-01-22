@@ -3,7 +3,8 @@ import type {
   IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { IRuntimeElementModel } from '../runtime-element'
@@ -24,7 +25,7 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    * this could be different from the child render index if element has children
    * other than ones created by child mapper
    */
-  // childMapperIndex: Maybe<number>
+  childMapperIndex: Maybe<number>
   componentRuntimeProp?: IRuntimeComponentPropModel
   /**
    * Exposed for external use by other models and to preserve structure
@@ -40,8 +41,15 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    */
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeRootElement: IRuntimeElementModel
-
   runtimeStore: IRuntimeStoreModel
+  subTrees: Array<SubTree>
 
-  // setChildMapperIndex(index: number): void
+  addContainerNode(
+    node: IComponentModel | IPageModel,
+    runtimeParent: IRef,
+    subTrees?: Array<SubTree>,
+    childMapperIndex?: number,
+  ): IRuntimeContainerNodeModel
+  addElement(node: IElementModel): IRuntimeElementModel
+  setChildMapperIndex(index: number): void
 }
