@@ -34,8 +34,8 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
   id: string
 
   render: Nullable<ReactElement>
-  // runtimeProps is available when containerNode is component
   runtimeElements: ObjectMap<IRuntimeElementModel>
+  runtimeElementsList: Array<IRuntimeElementModel>
   /**
    * Exposed for external use by other models and to preserve structure
    */

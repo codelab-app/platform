@@ -13,7 +13,6 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   isAtomRef,
-  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -225,18 +224,16 @@ export class RuntimeElementPropsModel
 
   @computed
   get propsEvaluationContext(): IEvaluationContext {
-    const componentProps = isComponent(
-      this.closestRuntimeContainerNode.containerNode,
-    )
-      ? this.closestRuntimeContainerNode.containerNode.props.values
+    const { componentRuntimeProp } = this.closestRuntimeContainerNode
+
+    const componentProps = componentRuntimeProp
+      ? componentRuntimeProp.componentEvaluatedProps
       : {}
 
     return this.addActions({
       actions: {},
-
       args: [],
-
-      componentProps: {},
+      componentProps,
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.runtimeStore.refs,
