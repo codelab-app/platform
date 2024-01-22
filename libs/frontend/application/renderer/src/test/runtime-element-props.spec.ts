@@ -1,3 +1,4 @@
+import type { IRuntimeContainerNodeModel } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import {
@@ -403,11 +404,12 @@ describe('Runtime Element props', () => {
         },
       })
 
-      const childElement = rendererService.runtimeElement(
-        component.rootElement.current,
-      )
+      const runtimeComponent = runtimeElement
+        ?.children[0] as IRuntimeContainerNodeModel
 
-      expect(childElement?.runtimeProps.evaluatedProps).toMatchObject({
+      expect(
+        runtimeComponent.runtimeRootElement.runtimeProps.evaluatedProps,
+      ).toMatchObject({
         [propKey]: propValue,
       })
     })
