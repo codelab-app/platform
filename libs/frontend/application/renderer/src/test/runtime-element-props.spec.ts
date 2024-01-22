@@ -9,6 +9,7 @@ import {
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
+import { v4 } from 'uuid'
 import { setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
@@ -366,6 +367,48 @@ describe('Runtime Element props', () => {
         [propKey]: {
           current: expect.any(HTMLSpanElement),
         },
+      })
+    })
+
+    it('should evaluate component expression', () => {
+      const { rendererService } = rootApplicationStore
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const propKey = 'propKey'
+      const propValue = 'propValue'
+      const id = v4()
+
+      const component = testbed.addComponent({
+        id,
+        name: 'component',
+        rootElement: testbed.addElement({
+          parentComponent: { id },
+          renderType: {
+            __typename: IElementRenderTypeKind.Atom,
+            id: element.renderType.id,
+          },
+        }),
+        store: testbed.addStore({}),
+      })
+
+      component.props.set(propKey, propValue)
+      component.rootElement.current.props.set(
+        propKey,
+        `{{componentProps.${propKey}}}`,
+      )
+
+      runtimeElement?.element.current.writeCache({
+        renderType: {
+          __typename: IElementRenderTypeKind.Component,
+          id: component.id,
+        },
+      })
+
+      const childElement = rendererService.runtimeElement(
+        component.rootElement.current,
+      )
+
+      expect(childElement?.runtimeProps.evaluatedProps).toMatchObject({
+        [propKey]: propValue,
       })
     })
   })
