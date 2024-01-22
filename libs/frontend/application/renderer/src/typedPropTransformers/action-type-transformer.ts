@@ -1,4 +1,7 @@
-import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
@@ -57,9 +60,10 @@ export class ActionTypeTransformer
     const fallback = () =>
       console.error(`fail to get action with id ${prop.value}`)
 
-    const actionRunner = name
-      ? runtimeNode?.componentRuntimeProps?.getActionRunner(name)
-      : fallback
+    const actionRunner =
+      runtimeNode && isRuntimeElement(runtimeNode) && name
+        ? runtimeNode.runtimeProps.getActionRunner(name)
+        : fallback
 
     return actionRunner
   }

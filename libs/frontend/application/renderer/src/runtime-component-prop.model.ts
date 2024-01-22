@@ -5,6 +5,7 @@ import {
   type IRuntimeComponentPropModel,
   type IRuntimeContainerNodeModel,
 } from '@codelab/frontend/abstract/application'
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import {
   DATA_COMPONENT_ID,
   IComponentModel,
@@ -25,6 +26,7 @@ const create = (dto: IRuntimeComponentPropDTO) =>
 @model('@codelab/RuntimeComponentProp')
 export class RuntimeComponentPropModel
   extends Model({
+    customProps: prop<Maybe<IPropModel>>(() => undefined).withSetter(),
     id: idProp,
     runtimeComponent: prop<Ref<IRuntimeContainerNodeModel>>(),
   })
@@ -135,6 +137,7 @@ export class RuntimeComponentPropModel
     return mergeProps(
       this.component.api.current.defaultValues,
       this.component.props.values,
+      this.customProps?.values,
       {
         [DATA_COMPONENT_ID]: this.component.id,
         key: this.component.id,

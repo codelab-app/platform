@@ -1,4 +1,7 @@
-import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import type {
   IFieldModel,
   IPageNode,
@@ -51,8 +54,6 @@ export class RenderPropTypeTransformer
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
-    return propValue
-
     if (!propValue) {
       return ''
     }
@@ -87,16 +88,14 @@ export class RenderPropTypeTransformer
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
 
-      const runtimeComponent =
-        runtimeNode.componentRuntimeProps?.addRuntimeComponentModel(component)
+      const runtimeComponent = isRuntimeElement(runtimeNode)
+        ? runtimeNode.closestContainerNode.current.addContainerNode(
+            component,
+            runtimeNode,
+          )
+        : runtimeNode.addContainerNode(component, runtimeNode)
 
-      if (!runtimeComponent) {
-        console.error('Unable to create runtime component')
-
-        return fallback
-      }
-
-      runtimeComponent.runtimeProps?.setOverrideProps(
+      runtimeComponent.componentRuntimeProp?.setCustomProps(
         Prop.create({
           data: JSON.stringify(props),
           id: v4(),

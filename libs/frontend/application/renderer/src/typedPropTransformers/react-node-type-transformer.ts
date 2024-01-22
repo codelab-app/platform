@@ -1,4 +1,7 @@
-import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
@@ -30,8 +33,6 @@ export class ReactNodeTypeTransformer
   public transform(prop: TypedProp, node: IPageNode) {
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
-
-    return propValue
 
     if (!propValue) {
       return ''
@@ -66,14 +67,12 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
-    const runtimeComponent =
-      runtimeNode.componentRuntimeProps?.addRuntimeComponentModel(component)
-
-    if (!runtimeComponent) {
-      console.error('Unable to create runtime component')
-
-      return fallback
-    }
+    const runtimeComponent = isRuntimeElement(runtimeNode)
+      ? runtimeNode.closestContainerNode.current.addContainerNode(
+          component,
+          runtimeNode,
+        )
+      : runtimeNode.addContainerNode(component, runtimeNode)
 
     return runtimeComponent.render
   }
