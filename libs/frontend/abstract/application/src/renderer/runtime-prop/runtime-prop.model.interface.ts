@@ -1,3 +1,4 @@
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
 
@@ -27,10 +28,6 @@ export interface IBaseRuntimeProps {
    * Props in initial state before any transformation
    */
   props: IPropData
-  /**
-   * Root runtime components/elements for RenderProps, ReactNode, ElementType props
-   */
-  // runtimeRootNodes: ObjectMap<IRuntimeModel>
 }
 
 export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
@@ -39,7 +36,10 @@ export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
    */
   childMapperProp?: IPropData
   componentEvaluatedProps: IPropData
+  customProps?: IPropModel
   instanceElementProps?: IPropData
+
+  setCustomProps(props: IPropModel): void
 }
 
 export interface IRuntimeElementPropModel extends IBaseRuntimeProps {

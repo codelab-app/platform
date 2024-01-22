@@ -1,4 +1,7 @@
-import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeElement,
+  type ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
 import {
   type IPageNode,
   isElement,
@@ -33,8 +36,6 @@ export class ElementTypeTransformer
 
     const targetElement = elements.find((el) => el.id === prop.value)
 
-    return prop
-
     if (!targetElement) {
       return prop
     }
@@ -51,14 +52,9 @@ export class ElementTypeTransformer
       return fallback
     }
 
-    const runtimeElement =
-      runtimeNode.componentRuntimeProps?.addRuntimeElementModel(targetElement)
-
-    if (!runtimeElement) {
-      console.error('Unable to create runtime element')
-
-      return fallback
-    }
+    const runtimeElement = isRuntimeElement(runtimeNode)
+      ? runtimeNode.closestContainerNode.current.addElement(targetElement)
+      : runtimeNode.addElement(targetElement)
 
     return runtimeElement.render
   }
