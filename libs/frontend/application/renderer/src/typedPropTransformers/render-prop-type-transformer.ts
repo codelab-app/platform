@@ -88,7 +88,7 @@ export class RenderPropTypeTransformer
       const props = matchPropsToFields(fields, renderPropArgs)
 
       const runtimeComponent =
-        runtimeNode.runtimeProps?.addRuntimeComponentModel(component)
+        runtimeNode.componentRuntimeProps?.addRuntimeComponentModel(component)
 
       if (!runtimeComponent) {
         console.error('Unable to create runtime component')

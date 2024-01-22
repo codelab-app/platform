@@ -127,7 +127,6 @@ export class RuntimeElementModel
       },
       renderer: this.renderer,
       renderOutput,
-      runtimeId: this.id,
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

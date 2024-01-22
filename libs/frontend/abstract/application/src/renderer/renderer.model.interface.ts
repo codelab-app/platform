@@ -44,6 +44,5 @@ export interface ElementWrapperProps {
    */
   renderOutput: IRenderOutput
   renderer: IRendererModel
-  runtimeId: string
   onRendered(): void
 }

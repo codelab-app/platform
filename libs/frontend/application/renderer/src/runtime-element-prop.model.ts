@@ -1,6 +1,7 @@
 import type {
   IRuntimeActionModel,
   IRuntimeElementModel,
+  IRuntimeElementPropDTO,
   IRuntimeElementPropModel,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -30,7 +31,10 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-@model('@codelab/RuntimeProps')
+const create = (dto: IRuntimeElementPropDTO) =>
+  new RuntimeElementPropsModel(dto)
+
+@model('@codelab/RuntimeElementProps')
 export class RuntimeElementPropsModel
   extends Model({
     id: idProp,
@@ -38,6 +42,8 @@ export class RuntimeElementPropsModel
   })
   implements IRuntimeElementPropModel
 {
+  static create = create
+
   @computed
   get element() {
     return this.runtimeElement.current.element.current

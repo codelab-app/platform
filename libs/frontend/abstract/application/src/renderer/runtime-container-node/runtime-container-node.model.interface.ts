@@ -25,21 +25,22 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    * other than ones created by child mapper
    */
   // childMapperIndex: Maybe<number>
+  componentRuntimeProp?: IRuntimeComponentPropModel
   /**
    * Exposed for external use by other models and to preserve structure
    */
   containerNode: Ref<IComponentModel> | Ref<IPageModel>
   id: string
-  /**
-   * Exposed for external use by other models and to preserve structure
-   */
-  // parent?: IRuntimeModelRef
 
   render: Nullable<ReactElement>
   // runtimeProps is available when containerNode is component
   runtimeElements: ObjectMap<IRuntimeElementModel>
-  runtimeProps?: IRuntimeComponentPropModel
+  /**
+   * Exposed for external use by other models and to preserve structure
+   */
+  runtimeParent?: Ref<IRuntimeElementModel>
   runtimeRootElement: IRuntimeElementModel
+
   runtimeStore: IRuntimeStoreModel
 
   // setChildMapperIndex(index: number): void

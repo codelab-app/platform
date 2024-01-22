@@ -1,4 +1,3 @@
-import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 
 export interface IEvaluationContext {
@@ -31,19 +30,9 @@ export interface IBaseRuntimeProps {
    * Root runtime components/elements for RenderProps, ReactNode, ElementType props
    */
   // runtimeRootNodes: ObjectMap<IRuntimeModel>
-
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  getActionRunner(actionName: string): Function
 }
 
-export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
-  /**
-   * Props to inject on runtime to override all other props
-   * Main use case is passing props in RenderProps to runtime component
-   */
-  overrideProps?: IPropModel
-  setOverrideProps(props: IPropModel): void
-}
+export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {}
 
 export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
   /**
@@ -52,4 +41,7 @@ export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
   evaluatedChildMapperProp?: Array<IPropData>
 
   propsEvaluationContext: IEvaluationContext
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  getActionRunner(actionName: string): Function
 }

@@ -52,7 +52,7 @@ export class ElementTypeTransformer
     }
 
     const runtimeElement =
-      runtimeNode.runtimeProps?.addRuntimeElementModel(targetElement)
+      runtimeNode.componentRuntimeProps?.addRuntimeElementModel(targetElement)
 
     if (!runtimeElement) {
       console.error('Unable to create runtime element')
