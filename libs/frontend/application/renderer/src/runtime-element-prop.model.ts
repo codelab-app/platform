@@ -70,7 +70,7 @@ export class RuntimeElementProps
 
   @computed
   get providerStore() {
-    return this.runtimeStore.runtimeProviderSore?.current
+    return this.runtimeStore.runtimeProviderStore?.current
   }
 
   @computed
