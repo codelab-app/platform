@@ -232,6 +232,8 @@ describe('Testing the Form atom', () => {
   })
 
   it('should populate the form fields - input, select, and checkbox', () => {
+    cy.openPreview()
+
     cy.get(`#render-root #${ELEMENT_INPUT_NAME}`).type('testing')
     cy.get(`#render-root #${ELEMENT_SELECT_NAME}`).click()
     cy.findByText('Select Option B').click()
@@ -245,14 +247,10 @@ describe('Testing the Form atom', () => {
 
     cy.get('#render-root button').first().click({ force: true })
 
-    cy.wait('@submitData')
-
-    cy.get('@submitData').should(({ request }: any) => {
-      expect(request.body).toMatchObject({
-        checkboxField: true,
-        inputField: 'testing',
-        selectField: 'selectOptionB',
-      })
+    cy.wait('@submitData').its('request.body').should('deep.equal', {
+      checkboxField: true,
+      inputField: 'testing',
+      selectField: 'selectOptionB',
     })
   })
 })

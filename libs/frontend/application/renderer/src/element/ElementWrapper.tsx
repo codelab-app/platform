@@ -73,6 +73,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       tailwindClassNames,
     )
 
+    const isDroppable =
+      renderer.rendererType !== RendererType.Production &&
+      renderer.rendererType !== RendererType.Preview
+
     return (
       <ErrorBoundary
         fallbackRender={() => null}
@@ -84,7 +88,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           ReactComponent={ReactComponent}
           componentProps={mergedProps}
           id={element.id}
-          isDroppable={renderer.rendererType !== RendererType.Production}
+          isDroppable={isDroppable}
           parentId={element.current.closestParentElement?.current.id}
         >
           {children}

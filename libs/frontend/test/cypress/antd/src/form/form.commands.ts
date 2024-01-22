@@ -549,32 +549,18 @@ export const setFormFieldValue = (
 
       // This should also work for dropdowns where the items are only fetched upon opening it
       // e.g. selecting an atom or type
+      getField().findByLabelText(label).click({ force: true })
+
+      // wait for the options to be fetched
+      cy.get('.ant-select-arrow-loading', { timeout: 10000 }).should(
+        'not.exist',
+      )
+
       getField()
         .findByLabelText(label)
+        .type(`${value}`, { force: true })
+        .get(`.ant-select-item-option[title="${value}"]`)
         .click({ force: true })
-        .get('body')
-        .then((body) => {
-          // This is for awaiting the options in case they are fetched upon opening the dropdown
-          cy.get(`.ant-select-item-option-content`, { timeout: 5000 }).should(
-            'be.visible',
-          )
-
-          if (
-            body.find(`.ant-select-item-option[title="${value}"]`).length > 0
-          ) {
-            // Just click the option if its already visible in the dropdown
-            cy.get(`.ant-select-item-option[title="${value}"]`).click({
-              force: true,
-            })
-          } else {
-            // Types the value so that the option will show in case it is needed to scroll down
-            getField()
-              .findByLabelText(label)
-              .type(`${value}`, { force: true })
-              .get(`.ant-select-item-option[title="${value}"]`)
-              .click({ force: true })
-          }
-        })
 
       return
     case FIELD_TYPE.MULTISELECT:

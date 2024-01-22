@@ -316,6 +316,7 @@ describe('Running nested API and code actions', () => {
   })
 
   it('should run the POST api, GET api, and code action in order when the button is clicked', () => {
+    cy.openPreview()
     cy.intercept('POST', `${resourceUrl}${urlPostSegment}`, {
       statusCode: 200,
     }).as('updateData')
@@ -330,7 +331,6 @@ describe('Running nested API and code actions', () => {
     cy.wait('@updateData')
     cy.wait('@getData')
 
-    cy.openPreview()
     cy.get('#render-root')
       .contains(`response from api - ${mockGetResponse}`)
       .should('exist')
