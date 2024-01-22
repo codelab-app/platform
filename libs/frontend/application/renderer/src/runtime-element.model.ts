@@ -8,6 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
+  isRuntimeElement,
   isRuntimeElementRef,
   RendererType,
   runtimeElementRef,
@@ -250,6 +251,17 @@ export class RuntimeElement
    */
   @computed
   get renderChildren(): ArrayOrSingle<ReactNode> {
+    if (
+      this.element.current.children.length !==
+      this.sortedRuntimeChildren.filter(isRuntimeElement).length
+    ) {
+      // if the number of runtime children differs from number of data model children,
+      // re-render current element, and re-populate runtime children.
+      // otherwise, when we add child on a page, it will not be rendered until page refresh
+      this.clearChildren()
+      this.renderer.renderPipe.render(this)
+    }
+
     const renderedChildren = compact(
       this.sortedRuntimeChildren.map((child) => child.render),
     )
