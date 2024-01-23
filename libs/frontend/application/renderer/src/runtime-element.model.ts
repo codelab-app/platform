@@ -22,7 +22,6 @@ import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/application/shared/core'
-import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
@@ -66,51 +65,40 @@ export class RuntimeElementModel
 
   @computed
   get children() {
-    const renderType = this.element.current.renderType.current
-
-    const shouldRenderComponent =
-      renderType.__typename === IElementRenderTypeKind.Component
+    const runtimeContainer = this.closestContainerNode.current
+    const containerNode = runtimeContainer.containerNode.current
+    const element = this.element.current
+    const renderType = element.renderType.current
+    const shouldRenderComponent = isComponent(renderType)
 
     const children: Array<IRuntimeContainerNodeModel | IRuntimeElementModel> =
       shouldRenderComponent
         ? [
             // put component as a child instead of instance element children
-            this.closestContainerNode.current.addContainerNode(
+            runtimeContainer.addContainerNode(
               renderType,
               this,
               // pass instance element children as subTrees to be transformed later
-              this.element.current.children.map((child) =>
-                elementRef(child.id),
-              ),
+              element.children.map((child) => elementRef(child.id)),
             ),
           ]
-        : this.element.current.children.map((child) =>
-            this.closestContainerNode.current.addElement(child),
-          )
+        : element.children.map((child) => runtimeContainer.addElement(child))
 
-    const shouldAttachSubTrees = isPage(
-      this.closestContainerNode.current.containerNode.current,
-    )
-      ? this.closestContainerNode.current.containerNode.current
-          .pageContentContainer?.id === this.element.id
-      : this.closestContainerNode.current.containerNode.current
-          .childrenContainerElement.id === this.element.id
+    const shouldAttachSubTrees = isPage(containerNode)
+      ? containerNode.pageContentContainer?.id === this.element.id
+      : containerNode.childrenContainerElement.id === this.element.id
 
     if (shouldAttachSubTrees) {
-      const runtimeSubTrees = this.closestContainerNode.current.subTrees.map(
-        (child) =>
-          isPage(child.current) || isComponent(child.current)
-            ? this.closestContainerNode.current.addContainerNode(
-                child.current,
-                { id: this.id },
-              )
-            : this.closestContainerNode.current.addElement(child.current),
+      const runtimeSubTrees = runtimeContainer.subTrees.map((child) =>
+        isPage(child.current) || isComponent(child.current)
+          ? runtimeContainer.addContainerNode(child.current, { id: this.id })
+          : runtimeContainer.addElement(child.current),
       )
 
       children.push(...runtimeSubTrees)
     }
 
-    const previousSibling = this.element.current.childMapperPreviousSibling
+    const previousSibling = element.childMapperPreviousSibling
 
     if (previousSibling) {
       const previousSiblingIndex = children.findIndex((child) => {
