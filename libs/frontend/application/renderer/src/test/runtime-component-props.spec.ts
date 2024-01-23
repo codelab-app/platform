@@ -1,10 +1,6 @@
 import type { IRuntimeContainerNodeModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
-import {
-  IElementRenderTypeKind,
-  IPrimitiveTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 import { setupComponent, setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
@@ -14,11 +10,8 @@ let testbed: TestBed
 
 describe('Runtime Component props', () => {
   beforeEach(() => {
-    testbed = new TestBed()
-  })
-
-  afterEach(() => {
     rootApplicationStore.clear()
+    testbed = new TestBed()
   })
 
   describe('RuntimeProps.props', () => {
@@ -44,7 +37,7 @@ describe('Runtime Component props', () => {
     })
 
     it('should contain default props', () => {
-      const { rendererService, typeService } = rootApplicationStore
+      const { rendererService } = rootApplicationStore
       const { component } = setupComponent(testbed)
       const runtimeComponent = rendererService.runtimeContainerNode(component)
       const runtimeProps = runtimeComponent?.componentRuntimeProp
@@ -54,11 +47,7 @@ describe('Runtime Component props', () => {
       const field = testbed.addField({
         api: component.api.current,
         defaultValues: fieldDefaultValue,
-        fieldType: typeService.typeDomainService.typesList.find(
-          (type) =>
-            type.kind === ITypeKind.PrimitiveType &&
-            type.primitiveKind === IPrimitiveTypeKind.String,
-        ),
+        fieldType: testbed.getStringType(),
         key: fieldKey,
       })
 
@@ -80,21 +69,19 @@ describe('Runtime Component props', () => {
 
       component.props.set(fieldKey, '{{10 - 2}}')
 
-      expect(
-        runtimeComponent?.componentRuntimeProp?.evaluatedProps,
-      ).toMatchObject({
-        [fieldKey]: 8,
-      })
+      const runtimeProps = runtimeComponent?.componentRuntimeProp
+
+      expect(runtimeProps?.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
     })
   })
 
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
-      const { runtimeElement } = setupRuntimeElement(testbed)
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
       const runtimeProps = runtimeElement?.runtimeProps
       const component = testbed.addComponent({ name: 'component' })
 
-      runtimeElement?.element.current.writeCache({
+      element.writeCache({
         renderType: {
           __typename: IElementRenderTypeKind.Component,
           id: component.id,

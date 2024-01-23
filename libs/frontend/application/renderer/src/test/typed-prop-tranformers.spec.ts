@@ -1,10 +1,8 @@
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import {
-  IAtomType,
   IElementRenderTypeKind,
   IPrimitiveTypeKind,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { screen } from '@testing-library/dom'
 import { render } from '@testing-library/react'
@@ -86,13 +84,8 @@ describe('TypedPropTransformers', () => {
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
+    const customTextExpression = `{{componentProps.${textPropKey}}}`
     const renderPropsType = testbed.addRenderProps({})
-
-    const fieldType = testbed.addPrimitiveType({
-      __typename: ITypeKind.PrimitiveType,
-      primitiveKind: IPrimitiveTypeKind.String,
-    })
-
     const api = testbed.addInterfaceType({})
 
     api.writeCache({
@@ -100,7 +93,7 @@ describe('TypedPropTransformers', () => {
         testbed.addField({
           api,
           defaultValues: JSON.stringify('some default value'),
-          fieldType,
+          fieldType: testbed.getStringType(),
           key: textPropKey,
         }),
       ],
@@ -108,24 +101,15 @@ describe('TypedPropTransformers', () => {
 
     const component = testbed.addComponent({ api })
 
-    const divAtom = testbed.addAtom({
-      __typename: 'Atom',
-      type: IAtomType.HtmlDiv,
-    })
-
     const childElement = testbed.addElement({
       parentElement: component.rootElement.current,
-
       renderType: {
         __typename: IElementRenderTypeKind.Atom,
-        id: divAtom.id,
+        id: testbed.getDivAtom()!.id,
       },
     })
 
-    childElement.props.set(
-      CUSTOM_TEXT_PROP_KEY,
-      `{{componentProps.${textPropKey}}}`,
-    )
+    childElement.props.set(CUSTOM_TEXT_PROP_KEY, customTextExpression)
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
