@@ -71,8 +71,17 @@ export class ReactNodeTypeTransformer
       ? runtimeNode.closestContainerNode.current.addContainerNode(
           component,
           runtimeNode,
+          undefined,
+          undefined,
+          true,
         )
-      : runtimeNode.addContainerNode(component, runtimeNode)
+      : runtimeNode.addContainerNode(
+          component,
+          runtimeNode,
+          undefined,
+          undefined,
+          true,
+        )
 
     return runtimeComponent.render
   }

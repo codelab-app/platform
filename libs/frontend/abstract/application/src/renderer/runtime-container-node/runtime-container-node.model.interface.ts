@@ -32,8 +32,10 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    */
   containerNode: Ref<IComponentModel> | Ref<IPageModel>
   id: string
+  isTypedProp?: boolean
 
   render: Nullable<ReactElement>
+  runtimeContainerNodesList: Array<IRuntimeContainerNodeModel>
   runtimeElements: ObjectMap<IRuntimeElementModel>
   runtimeElementsList: Array<IRuntimeElementModel>
   /**
@@ -49,6 +51,7 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
     runtimeParent: IRef,
     subTrees?: Array<SubTree>,
     childMapperIndex?: number,
+    isTypedProp?: boolean,
   ): IRuntimeContainerNodeModel
   addElement(node: IElementModel): IRuntimeElementModel
   setChildMapperIndex(index: number): void

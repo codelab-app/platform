@@ -6,7 +6,7 @@ import type {
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import { v4 } from 'uuid'
-import { PassThroughRenderPipe, renderPipeFactory } from '../renderPipes'
+import { PassThroughRenderPipe, renderPipeFactory } from '../../renderPipes'
 
 export const rendererFactory =
   (rendererService: IRendererService) => (dto: Partial<IRendererDto>) => {

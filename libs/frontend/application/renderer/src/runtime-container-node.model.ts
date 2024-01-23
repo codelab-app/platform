@@ -54,6 +54,7 @@ export class RuntimeContainerNodeModel
     componentRuntimeProp: prop<Maybe<IRuntimeComponentPropModel>>(),
     containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
+    isTypedProp: prop<Maybe<boolean>>(false),
     runtimeContainerNodes: prop<ObjectMap<IRuntimeContainerNodeModel>>(() =>
       objectMap([]),
     ),
@@ -82,6 +83,7 @@ export class RuntimeContainerNodeModel
     runtimeParent: IRef,
     subTrees: Array<SubTree> = [],
     childMapperIndex?: number,
+    isTypedProp?: boolean,
   ): IRuntimeContainerNodeModel {
     const foundNode = this.runtimeContainerNodesList.find(
       (runtimeNode) =>
@@ -105,6 +107,7 @@ export class RuntimeContainerNodeModel
         : undefined,
       containerNode: isPage(node) ? pageRef(node.id) : componentRef(node.id),
       id,
+      isTypedProp,
       runtimeParent: runtimeElementRef(runtimeParent.id),
       runtimeStore: RuntimeStoreModel.create({
         runtimeProviderStore: isPage(node)

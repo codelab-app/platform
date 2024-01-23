@@ -13,6 +13,7 @@ export interface IRuntimeContainerNodeDTO {
   componentRuntimeProp?: IRuntimeComponentPropModel
   containerNode: Ref<IComponentModel> | Ref<IPageModel>
   id?: string
+  isTypedProp?: boolean
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeStore: IRuntimeStoreModel
   subTrees?: Array<SubTree>
