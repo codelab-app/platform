@@ -137,33 +137,6 @@ describe('Runtime Component props', () => {
         propsArray[1],
       )
     })
-
-    it('should resolve child mapper prop', () => {
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
-      const component = testbed.addComponent({ name: 'component' })
-      const propKey = 'childMapperProp'
-      const propsArray = ['p01', 'p02', 'p03']
-
-      element.writeCache({
-        childMapperComponent: component,
-        childMapperPropKey: `props.${propKey}`,
-      })
-
-      element.props.set(propKey, propsArray)
-
-      const runtimeChildren =
-        runtimeElement?.children as Array<IRuntimeContainerNodeModel>
-
-      expect(runtimeChildren[0]?.componentRuntimeProp?.childMapperProp).toBe(
-        propsArray[0],
-      )
-      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
-        propsArray[1],
-      )
-      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
-        propsArray[1],
-      )
-    })
   })
 
   afterAll(() => {
