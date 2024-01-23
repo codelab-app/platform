@@ -10,7 +10,6 @@ import {
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { v4 } from 'uuid'
 import { setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
@@ -19,11 +18,8 @@ let testbed: TestBed
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    testbed = new TestBed()
-  })
-
-  afterEach(() => {
     rootApplicationStore.clear()
+    testbed = new TestBed()
   })
 
   describe('RuntimeProps.props', () => {
@@ -372,23 +368,12 @@ describe('Runtime Element props', () => {
     })
 
     it('should evaluate component expression', () => {
-      const { rendererService } = rootApplicationStore
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const { runtimeElement } = setupRuntimeElement(testbed)
       const propKey = 'propKey'
       const propValue = 'propValue'
-      const id = v4()
 
       const component = testbed.addComponent({
-        id,
         name: 'component',
-        rootElement: testbed.addElement({
-          parentComponent: { id },
-          renderType: {
-            __typename: IElementRenderTypeKind.Atom,
-            id: element.renderType.id,
-          },
-        }),
-        store: testbed.addStore({}),
       })
 
       component.props.set(propKey, propValue)
@@ -407,11 +392,10 @@ describe('Runtime Element props', () => {
       const runtimeComponent = runtimeElement
         ?.children[0] as IRuntimeContainerNodeModel
 
-      expect(
-        runtimeComponent.runtimeRootElement.runtimeProps.evaluatedProps,
-      ).toMatchObject({
-        [propKey]: propValue,
-      })
+      const { runtimeProps } = runtimeComponent.runtimeRootElement
+      const { evaluatedProps } = runtimeProps
+
+      expect(evaluatedProps).toMatchObject({ [propKey]: propValue })
     })
   })
 

@@ -42,7 +42,7 @@ export const setupPage = (testbed: TestBed) => {
 
   const renderer = testbed.addRenderer({
     containerNode: page,
-    rendererType: RendererType.PageBuilder,
+    rendererType: RendererType.Preview,
     renderPipe: renderPipeFactory(defaultPipes),
   })
 
@@ -96,7 +96,7 @@ export const setupComponent = (testbed: TestBed) => {
 
   const renderer = testbed.addRenderer({
     containerNode: component,
-    rendererType: RendererType.ComponentBuilder,
+    rendererType: RendererType.Preview,
     renderPipe: renderPipeFactory(defaultPipes),
   })
 

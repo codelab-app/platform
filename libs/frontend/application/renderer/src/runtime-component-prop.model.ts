@@ -112,6 +112,10 @@ export class RuntimeComponentPropModel
 
   @computed
   get instanceElementProps(): Maybe<IPropData> {
+    if (this.runtimeComponent.current.isTypedProp) {
+      return undefined
+    }
+
     const { runtimeParent } = this.runtimeComponent.current
 
     return runtimeParent

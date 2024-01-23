@@ -14,6 +14,9 @@ import { storeFactory } from '@codelab/frontend/domain/store'
 import {
   fieldFactory,
   interfaceTypeFactory,
+  primitiveTypeFactory,
+  reactNodeTypeFactory,
+  renderPropsTypeFactory,
 } from '@codelab/frontend/domain/type'
 import type {
   IApiActionDTO,
@@ -25,11 +28,18 @@ import type {
   IFieldDTO,
   IInterfaceTypeDTO,
   IPageDTO,
+  IPrimitiveTypeDTO,
   IPropDTO,
+  IReactNodeType,
+  IRenderPropTypeDTO,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
-import { rendererFactory } from '../renderer.test.factory'
+import {
+  IAtomType,
+  IElementRenderTypeKind,
+} from '@codelab/shared/abstract/core'
+import { v4 } from 'uuid'
+import { rendererFactory } from '../setup/renderer.test.factory'
 import { rootApplicationStore } from './root.test.store'
 
 const {
@@ -70,9 +80,20 @@ export class TestBed {
   }
 
   addComponent(dto: Partial<IComponentDTO>) {
+    const id = dto.id ?? v4()
+
     return componentFactory(componentService.componentDomainService)({
       ...dto,
       api: dto.api ?? this.addInterfaceType({}),
+      id,
+      rootElement: this.addElement({
+        parentComponent: { id },
+        renderType: {
+          __typename: IElementRenderTypeKind.Atom,
+          id: this.addAtom({ type: IAtomType.ReactFragment }).id,
+        },
+      }),
+      store: this.addStore({}),
     })
   }
 
@@ -101,6 +122,18 @@ export class TestBed {
 
   addInterfaceType(dto: Partial<IInterfaceTypeDTO>) {
     return interfaceTypeFactory(typeService.typeDomainService)(dto)
+  }
+
+  addPrimitiveType(dto: Partial<IPrimitiveTypeDTO>) {
+    return primitiveTypeFactory(typeService.typeDomainService)(dto)
+  }
+
+  addReactNode(dto: Partial<IReactNodeType>) {
+    return reactNodeTypeFactory(typeService.typeDomainService)(dto)
+  }
+
+  addRenderProps(dto: Partial<IRenderPropTypeDTO>) {
+    return renderPropsTypeFactory(typeService.typeDomainService)(dto)
   }
 
   addRenderer(dto: Partial<IRendererDto>) {

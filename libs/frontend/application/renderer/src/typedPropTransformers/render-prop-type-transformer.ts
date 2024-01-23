@@ -92,8 +92,17 @@ export class RenderPropTypeTransformer
         ? runtimeNode.closestContainerNode.current.addContainerNode(
             component,
             runtimeNode,
+            undefined,
+            undefined,
+            true,
           )
-        : runtimeNode.addContainerNode(component, runtimeNode)
+        : runtimeNode.addContainerNode(
+            component,
+            runtimeNode,
+            undefined,
+            undefined,
+            true,
+          )
 
       runtimeComponent.componentRuntimeProp?.setCustomProps(
         Prop.create({
