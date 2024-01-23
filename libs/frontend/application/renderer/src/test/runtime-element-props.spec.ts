@@ -4,8 +4,6 @@ import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import {
   IAtomType,
   IElementRenderTypeKind,
-  IPrimitiveTypeKind,
-  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
@@ -46,7 +44,6 @@ describe('Runtime Element props', () => {
     })
 
     it('should contain default props', () => {
-      const { typeService } = rootApplicationStore
       const { element, runtimeElement } = setupRuntimeElement(testbed)
       const runtimeProps = runtimeElement?.runtimeProps
       const atom = element.renderType.current
@@ -56,11 +53,7 @@ describe('Runtime Element props', () => {
       const field = testbed.addField({
         api: atom.api.current,
         defaultValues: fieldDefaultValue,
-        fieldType: typeService.typeDomainService.typesList.find(
-          (type) =>
-            type.kind === ITypeKind.PrimitiveType &&
-            type.primitiveKind === IPrimitiveTypeKind.String,
-        ),
+        fieldType: testbed.getStringType(),
         key: fieldKey,
       })
 
@@ -85,11 +78,7 @@ describe('Runtime Element props', () => {
       const field = testbed.addField({
         api: storeApi,
         defaultValues: JSON.stringify(fieldDefaultValue),
-        fieldType: typeService.typeDomainService.typesList.find(
-          (type) =>
-            type.kind === ITypeKind.PrimitiveType &&
-            type.primitiveKind === IPrimitiveTypeKind.String,
-        ),
+        fieldType: testbed.getStringType(),
         key: fieldKey,
       })
 
@@ -109,7 +98,7 @@ describe('Runtime Element props', () => {
     })
 
     it('should evaluate root state field expression', () => {
-      const { rendererService, typeService } = rootApplicationStore
+      const { typeService } = rootApplicationStore
       const { element, page, runtimeElement } = setupRuntimeElement(testbed)
       const runtimeProps = runtimeElement?.runtimeProps
       const fieldKey = 'fieldKey'
@@ -120,11 +109,7 @@ describe('Runtime Element props', () => {
       const field = testbed.addField({
         api: storeApi,
         defaultValues: JSON.stringify(fieldDefaultValue),
-        fieldType: typeService.typeDomainService.typesList.find(
-          (type) =>
-            type.kind === ITypeKind.PrimitiveType &&
-            type.primitiveKind === IPrimitiveTypeKind.String,
-        ),
+        fieldType: testbed.getStringType(),
         key: fieldKey,
       })
 

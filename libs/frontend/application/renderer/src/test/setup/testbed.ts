@@ -37,6 +37,8 @@ import type {
 import {
   IAtomType,
   IElementRenderTypeKind,
+  IPrimitiveTypeKind,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { rendererFactory } from '../setup/renderer.test.factory'
@@ -142,5 +144,19 @@ export class TestBed {
     rendererService.setActiveRenderer(rendererRef(renderer.id))
 
     return renderer
+  }
+
+  getStringType() {
+    return typeService.typeDomainService.typesList.find(
+      (type) =>
+        type.kind === ITypeKind.PrimitiveType &&
+        type.primitiveKind === IPrimitiveTypeKind.String,
+    )
+  }
+
+  getDivAtom() {
+    return atomService.atomDomainService.atomsList.find(
+      (atom) => atom.type === IAtomType.HtmlDiv,
+    )
   }
 }
