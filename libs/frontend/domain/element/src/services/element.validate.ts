@@ -33,7 +33,6 @@ export const validateElementDto = (element: IElementDTO) => {
 
     // These are mutually exclusive
     assertContainsAtMostOne([prevSibling, parentElement])
-    assertContainsAtMostOne([nextSibling, parentElement])
   } else {
     assertContainsExactlyOne([parentComponent, page], {
       message: 'Can only have 1 container',
