@@ -28,12 +28,16 @@ export const StyledComponent = forwardRef(
       return children
     }
 
+    // in builder mode, we use ref that is responsible for DnD,
+    // in preview or production, we use the ref from props that provides DOM node pointer in store
+    const elementRef = ref ?? componentProps['ref']
+
     return (
       <ReusableStyledComponent
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...componentProps}
         as={ReactComponent}
-        ref={ref}
+        ref={elementRef}
       >
         {children}
       </ReusableStyledComponent>

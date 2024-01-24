@@ -122,20 +122,20 @@ export class RuntimeComponentProps
 
   @computed
   get instanceElementProps(): Maybe<IPropData> {
-    const { parent } = this.runtimeContainerNode.current
+    const { parentRef } = this.runtimeContainerNode.current
 
-    return parent && isRuntimeElementRef(parent)
-      ? parent.current.runtimeProps.evaluatedProps
+    return parentRef && isRuntimeElementRef(parentRef)
+      ? parentRef.current.runtimeProps.evaluatedProps
       : undefined
   }
 
   @computed
   get childMapperProps(): Maybe<IPropData> {
-    const { parent } = this.runtimeContainerNode.current
-    const parentIsRuntimeElement = parent && isRuntimeElementRef(parent)
+    const { parentRef } = this.runtimeContainerNode.current
+    const parentIsRuntimeElement = parentRef && isRuntimeElementRef(parentRef)
 
     const runtimeParentElementProps = parentIsRuntimeElement
-      ? parent.current.runtimeProps
+      ? parentRef.current.runtimeProps
       : undefined
 
     const props = runtimeParentElementProps?.evaluatedChildMapperProp || []

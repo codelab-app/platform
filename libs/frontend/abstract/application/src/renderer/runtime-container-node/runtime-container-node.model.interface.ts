@@ -28,7 +28,7 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
   /**
    * Exposed for external use by other models and to preserve structure
    */
-  parent?: IRuntimeModelRef
+  parentRef?: IRuntimeModelRef
 
   render: Nullable<ReactElement>
   // runtimeProps is available when containerNode is component

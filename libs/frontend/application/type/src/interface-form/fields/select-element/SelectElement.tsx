@@ -26,6 +26,13 @@ export const SelectElement = ({
   const { elementTree } = useFormContext()
   const { elementService } = useStore()
 
+  allElementOptions ??=
+    elementTree?.elements.map(({ children, id, label }) => ({
+      childrenIds: children.map((child) => child.id),
+      label: label,
+      value: id,
+    })) ?? []
+
   const selectOptions = elementService.getSelectElementOptions({
     allElementOptions,
     elementTree,
