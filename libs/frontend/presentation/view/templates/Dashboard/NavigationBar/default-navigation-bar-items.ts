@@ -1,3 +1,4 @@
+import type { IRouterPath } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
@@ -8,19 +9,12 @@ import {
   resourceMenuItem,
 } from '../../../sections'
 
-interface SidebarNavigationRequirements {
-  appSlug: string
-  componentSlug: string
-  pageSlug: string
-  userSlug: string
-}
-
 export const defaultNavigationBarItems = ({
   appSlug,
   componentSlug,
   pageSlug,
   userSlug,
-}: SidebarNavigationRequirements): {
+}: IRouterPath): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({
