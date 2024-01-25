@@ -8,9 +8,8 @@ import type {
   ICodeAction,
   ICodeActionDTO,
 } from '@codelab/shared/abstract/core'
-import type { ICacheService } from '../../../shared'
-import type { IModel } from '../../../shared/models/model.interface'
-import type { IBaseAction } from '../../base-action.interface'
+import type { ICacheService, IModel } from '../../shared'
+import type { IBaseAction } from '../base-action.interface'
 
 export interface ICodeActionModel
   extends IBaseAction,

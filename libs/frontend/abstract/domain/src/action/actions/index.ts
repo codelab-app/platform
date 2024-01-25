@@ -1,2 +1,2 @@
-export * from './api-action'
-export * from './code-action'
+export * from './api-action.model.interface'
+export * from './code-action.model.interface'

@@ -1,11 +1,13 @@
 import type { IRuntimeContainerNodeModel } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
+import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
 import { setupRuntimeElement } from './setup'
@@ -212,6 +214,215 @@ describe('Runtime Element props', () => {
           [propKey]: expect.any(Function),
         },
       })
+    })
+
+    it('should bind success action with context', async () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const apiActionName = 'apiAction'
+      const successActionName = 'successAction'
+      const propKey = 'propKey'
+
+      const successAction = testbed.addCodeAction({
+        code: `function run(response){
+          return {
+            props,
+            state,
+            refs,
+            actions,
+            rootState,
+            rootActions,
+            rootRefs
+          };
+        }`,
+        name: successActionName,
+        store: element.store,
+      })
+
+      configure({ safeDescriptors: false })
+
+      const resource = testbed.addResource({})
+
+      jest.spyOn(resource, 'client', 'get').mockReturnValue({
+        fetch: (config: IResourceFetchConfig) => {
+          return Promise.resolve({
+            data: {},
+          })
+        },
+      })
+
+      testbed.addApiAction({
+        name: apiActionName,
+        resource: { id: resource.id },
+        store: element.store,
+        successAction: {
+          __typename: 'CodeAction',
+          id: successAction.id,
+        },
+      })
+
+      element.props.set(propKey, `{{actions.${apiActionName}}}`)
+
+      const actionRunner = runtimeProps?.getActionRunner(apiActionName)
+
+      expect(await actionRunner?.()).toMatchObject({
+        actions: {
+          [apiActionName]: expect.any(Function),
+          [successActionName]: expect.any(Function),
+        },
+        props: {
+          [propKey]: expect.any(Function),
+        },
+      })
+
+      configure({ safeDescriptors: true })
+    })
+
+    it('should pass response as args to success action', async () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const response = { data: 35 }
+      const propKey = 'propKey'
+      const apiActionName = 'apiAction'
+      const successActionName = 'successAction'
+
+      const successAction = testbed.addCodeAction({
+        code: `function run(response){
+          return response;
+        }`,
+        name: successActionName,
+        store: element.store,
+      })
+
+      configure({ safeDescriptors: false })
+
+      const resource = testbed.addResource({})
+
+      jest.spyOn(resource, 'client', 'get').mockReturnValue({
+        fetch: (config: IResourceFetchConfig) => {
+          return Promise.resolve(response)
+        },
+      })
+
+      testbed.addApiAction({
+        name: apiActionName,
+        resource: { id: resource.id },
+        store: element.store,
+        successAction: {
+          __typename: 'CodeAction',
+          id: successAction.id,
+        },
+      })
+
+      element.props.set(propKey, `{{actions.${apiActionName}}}`)
+
+      const actionRunner = runtimeProps?.getActionRunner(apiActionName)
+
+      expect(await actionRunner?.()).toMatchObject(response)
+
+      configure({ safeDescriptors: true })
+    })
+
+    it('should bind error action with context', async () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const apiActionName = 'apiAction'
+      const errorActionName = 'errorAction'
+      const propKey = 'propKey'
+
+      const errorAction = testbed.addCodeAction({
+        code: `function run(error){
+          return {
+            props,
+            state,
+            refs,
+            actions,
+            rootState,
+            rootActions,
+            rootRefs
+          };
+        }`,
+        name: errorActionName,
+        store: element.store,
+      })
+
+      configure({ safeDescriptors: false })
+
+      const resource = testbed.addResource({})
+
+      jest.spyOn(resource, 'client', 'get').mockReturnValue({
+        fetch: (config: IResourceFetchConfig) => {
+          return Promise.resolve({ error: 'some error' })
+        },
+      })
+
+      testbed.addApiAction({
+        errorAction: {
+          __typename: 'CodeAction',
+          id: errorAction.id,
+        },
+        name: apiActionName,
+        resource: { id: resource.id },
+        store: element.store,
+      })
+
+      element.props.set(propKey, `{{actions.${apiActionName}}}`)
+
+      const actionRunner = runtimeProps?.getActionRunner(apiActionName)
+
+      expect(await actionRunner?.()).toMatchObject({
+        actions: {
+          [apiActionName]: expect.any(Function),
+          [errorActionName]: expect.any(Function),
+        },
+        props: {
+          [propKey]: expect.any(Function),
+        },
+      })
+
+      configure({ safeDescriptors: true })
+    })
+
+    it('should pass error response as args to error action', async () => {
+      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const apiActionName = 'apiAction'
+      const errorActionName = 'errorAction'
+      const error = { error: 'some error' }
+
+      const errorAction = testbed.addCodeAction({
+        code: `function run(error){
+          return error;
+        }`,
+        name: errorActionName,
+        store: element.store,
+      })
+
+      configure({ safeDescriptors: false })
+
+      const resource = testbed.addResource({})
+
+      jest.spyOn(resource, 'client', 'get').mockReturnValue({
+        fetch: (config: IResourceFetchConfig) => {
+          return Promise.resolve(error)
+        },
+      })
+
+      testbed.addApiAction({
+        errorAction: {
+          __typename: 'CodeAction',
+          id: errorAction.id,
+        },
+        name: apiActionName,
+        resource: { id: resource.id },
+        store: element.store,
+      })
+
+      const actionRunner = runtimeProps?.getActionRunner(apiActionName)
+
+      expect(await actionRunner?.()).toMatchObject(error)
+
+      configure({ safeDescriptors: true })
     })
 
     it('should bind root action with context', () => {

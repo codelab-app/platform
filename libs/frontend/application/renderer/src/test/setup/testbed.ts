@@ -10,6 +10,7 @@ import { componentFactory } from '@codelab/frontend/domain/component'
 import { elementFactory } from '@codelab/frontend/domain/element'
 import { pageFactory } from '@codelab/frontend/domain/page'
 import { propFactory } from '@codelab/frontend/domain/prop'
+import { resourceFactory } from '@codelab/frontend/domain/resource'
 import { storeFactory } from '@codelab/frontend/domain/store'
 import {
   fieldFactory,
@@ -53,6 +54,7 @@ const {
   fieldService,
   pageService,
   rendererService,
+  resourceService,
   storeService,
   typeService,
 } = rootApplicationStore
@@ -120,6 +122,10 @@ export class TestBed {
       ...dto,
       api: dto.api ?? this.addInterfaceType({}),
     })
+  }
+
+  addResource(dto: Partial<IStoreDTO>) {
+    return resourceFactory(resourceService.resourceDomainService)({})
   }
 
   addInterfaceType(dto: Partial<IInterfaceTypeDTO>) {

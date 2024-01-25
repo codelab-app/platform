@@ -1,4 +1,4 @@
-import type { IProp, IPropDTO } from './prop.dto.interface'
+import type { IProp, IPropDTO } from '../prop.dto.interface'
 import type { IResourceType } from './resource-type.enum'
 
 export interface IResourceDTO {

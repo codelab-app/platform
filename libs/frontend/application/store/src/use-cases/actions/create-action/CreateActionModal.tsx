@@ -2,7 +2,6 @@ import type {
   ICreateActionData,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
-import { HttpMethod } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -11,7 +10,7 @@ import {
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
