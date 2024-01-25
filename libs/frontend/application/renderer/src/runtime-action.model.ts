@@ -57,7 +57,7 @@ export class RuntimeActionModel
         evaluatedConfig as IResourceFetchConfig,
       )
 
-      // errors are handled by the client
+      // errors are handled by resource client
       const response = await fetchPromise
 
       if (response.error) {
