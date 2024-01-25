@@ -1,3 +1,4 @@
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { unregisterRootStore } from 'mobx-keystone'
 import { setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
