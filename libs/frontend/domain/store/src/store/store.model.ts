@@ -23,13 +23,13 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ api, component, id, name, page }: IStoreDTO): IStoreModel =>
+const create = ({ api, container, id, name }: IStoreDTO): IStoreModel =>
   new Store({
     api: typeRef(api.id) as Ref<IInterfaceTypeModel>,
-    component: component?.id ? componentRef(component.id) : null,
+    component: container?.id ? componentRef(container.id) : null,
     id,
     name,
-    page: page?.id ? pageRef(page.id) : null,
+    page: container?.id ? pageRef(container.id) : null,
   })
 
 const createName = (app: Pick<IAppDTO, 'name'>) => {

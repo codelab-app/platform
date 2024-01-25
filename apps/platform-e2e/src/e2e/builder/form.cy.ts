@@ -244,8 +244,9 @@ describe('Testing the Form atom', () => {
     cy.intercept('POST', `${resourceUrl}/data`, { statusCode: 200 }).as(
       'submitData',
     )
-
+    // cy.wait(1000)
     cy.get('#render-root button').first().click({ force: true })
+    // cy.wait(1000)
 
     cy.wait('@submitData').its('request.body').should('deep.equal', {
       checkboxField: true,

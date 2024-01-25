@@ -8,10 +8,9 @@ import { IInterfaceTypeRef } from './type'
 export const IStoreDTO = Type.Object({
   actions: Type.Optional(Type.Array(IActionDTO)),
   api: IRef,
-  component: Typebox.Nullish(IRef),
+  container: Typebox.Nullish(IRef),
   id: Type.String(),
   name: Type.String(),
-  page: Typebox.Nullish(IRef),
   source: Typebox.Nullish(IRef),
 })
 
