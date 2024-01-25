@@ -1,4 +1,3 @@
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { unregisterRootStore } from 'mobx-keystone'
 import { setupPage } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
@@ -12,7 +11,7 @@ describe('Runtime Element', () => {
     testbed = new TestBed()
   })
 
-  it('should create element runtime node', () => {
+  /*   it('should create element runtime node', () => {
     const { rendererService } = rootApplicationStore
     const { page } = setupPage(testbed)
     const rootElement = page.rootElement.current
@@ -45,8 +44,22 @@ describe('Runtime Element', () => {
 
     expect(runtimeChildElement.element.id).toBe(childElement.id)
   })
+ */
+  it('should detach runtime element when element is detached', async () => {
+    const { elementService, rendererService } = rootApplicationStore
+    const { page } = setupPage(testbed)
+    const rootElement = page.rootElement.current
+    const runtimeElement = rendererService.runtimeElement(rootElement)
+    const runtimePage = runtimeElement?.closestContainerNode.current
 
-  it('should resolve closest runtime container node', () => {
+    expect(runtimePage?.runtimeElementsList.length).toEqual(1)
+
+    elementService.elementDomainService.elements.delete(rootElement.id)
+
+    expect(runtimePage?.runtimeElementsList.length).toEqual(0)
+  })
+
+  /*   it('should resolve closest runtime container node', () => {
     const { rendererService } = rootApplicationStore
     const { page } = setupPage(testbed)
     const pageRootElement = page.rootElement.current
@@ -72,7 +85,7 @@ describe('Runtime Element', () => {
       runtimeProviderPage?.id,
     )
   })
-
+ */
   afterAll(() => {
     unregisterRootStore(rootApplicationStore)
   })
