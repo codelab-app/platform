@@ -26,7 +26,14 @@ import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, prop } from 'mobx-keystone'
+import {
+  detach,
+  idProp,
+  Model,
+  model,
+  patchRecorder,
+  prop,
+} from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
@@ -45,6 +52,22 @@ export class RuntimeElementModel
   })
   implements IRuntimeElementModel
 {
+  onAttachedToRootStore() {
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // record when patches are setting 'element'
+        return patches.some((patch) => patch.path.includes('element'))
+      },
+      onPatches: (patches, inversePatches) => {
+        // destroy runtime element
+        detach(this)
+      },
+      recording: true,
+    })
+
+    return () => recorder.dispose()
+  }
+
   static create = create
 
   @computed
