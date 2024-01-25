@@ -4,6 +4,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IResource,
+  IResourceClient,
   IResourceDTO,
   IResourceType,
 } from '@codelab/shared/abstract/core'
@@ -17,6 +18,7 @@ export interface IResourceModel
       'toDeleteInput'
     >,
     ICacheService<IResourceDTO, IResourceModel> {
+  client: IResourceClient
   config: IPropModel
   name: string
   type: IResourceType

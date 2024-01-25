@@ -7,6 +7,7 @@ import type {
   IElementDomainService,
   IFieldDomainService,
   IPageDomainService,
+  IResourceDomainService,
   IStoreDomainService,
   ITypeDomainService,
   IUserDomainService,
@@ -94,6 +95,7 @@ export interface IRootStoreContext {
   pageServiceContext: MaybeContext<IPageApplicationService>
   propServiceContext: MaybeContext<IPropService>
   rendererServiceContext: MaybeContext<IRendererService>
+  resourceDomainServiceContext: MaybeContext<IResourceDomainService>
   resourceServiceContext: MaybeContext<IResourceService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   storeServiceContext: MaybeContext<IStoreService>

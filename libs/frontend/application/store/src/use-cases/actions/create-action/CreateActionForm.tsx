@@ -1,5 +1,4 @@
 import type { ICreateActionData } from '@codelab/frontend/abstract/domain'
-import { HttpMethod } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -14,7 +13,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
