@@ -109,7 +109,7 @@ export class RuntimeActionModel
       : null
 
     const resource = action.resource.current
-    const config = action.config.values['data']
+    const config = action.config.values
     const graphQLClient = this._graphqlClient
     const restClient = this._restClient
 
