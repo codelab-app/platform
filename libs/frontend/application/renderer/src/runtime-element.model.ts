@@ -59,7 +59,6 @@ export class RuntimeElementModel
         return patches.some((patch) => patch.path.includes('element'))
       },
       onPatches: (patches, inversePatches) => {
-        // destroy runtime element
         detach(this)
       },
       recording: true,
@@ -181,23 +180,27 @@ export class RuntimeElementModel
 
   runPostRenderAction = () => {
     const { postRenderAction } = this.element.current
+    const currentPostRenderAction = postRenderAction?.current
 
-    if (postRenderAction) {
-      const runtimeAction = this.runtimeStore.runtimeAction(postRenderAction)
-      const runner = runtimeAction?.runner
+    if (currentPostRenderAction) {
+      const runner = this.runtimeProps.getActionRunner(
+        currentPostRenderAction.name,
+      )
 
-      runner?.call(this.runtimeProps.expressionEvaluationContext)
+      runner()
     }
   }
 
   runPreRenderAction = () => {
     const { preRenderAction } = this.element.current
+    const currentPreRenderAction = preRenderAction?.current
 
-    if (preRenderAction) {
-      const runtimeAction = this.runtimeStore.runtimeAction(preRenderAction)
-      const runner = runtimeAction?.runner
+    if (currentPreRenderAction) {
+      const runner = this.runtimeProps.getActionRunner(
+        preRenderAction.current.name,
+      )
 
-      runner?.call(this.runtimeProps.expressionEvaluationContext)
+      runner()
     }
   }
 
