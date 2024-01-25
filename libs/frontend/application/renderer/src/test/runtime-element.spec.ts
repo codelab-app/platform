@@ -11,7 +11,7 @@ describe('Runtime Element', () => {
     testbed = new TestBed()
   })
 
-  /*   it('should create element runtime node', () => {
+  it('should create element runtime node', () => {
     const { rendererService } = rootApplicationStore
     const { page } = setupPage(testbed)
     const rootElement = page.rootElement.current
@@ -44,7 +44,7 @@ describe('Runtime Element', () => {
 
     expect(runtimeChildElement.element.id).toBe(childElement.id)
   })
- */
+
   it('should detach runtime element when element is detached', async () => {
     const { elementService, rendererService } = rootApplicationStore
     const { page } = setupPage(testbed)
