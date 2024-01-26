@@ -131,9 +131,6 @@
       "@codelab/backend/infra/adapter/codelab": [
         "libs/backend/infra/adapter/codelab/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/graphql": [
-        "libs/backend/infra/adapter/graphql/src/index.ts"
-      ],
       "@codelab/backend/infra/adapter/logger": [
         "libs/backend/infra/adapter/logger/src/index.ts"
       ],
@@ -148,9 +145,6 @@
       ],
       "@codelab/backend/infra/adapter/request-context": [
         "libs/backend/infra/adapter/request-context/src/index.ts"
-      ],
-      "@codelab/backend/infra/adapter/serverless": [
-        "libs/backend/infra/adapter/serverless/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
@@ -246,6 +240,9 @@
       "@codelab/frontend/application/vercel": [
         "libs/frontend/application/vercel/src/index.ts"
       ],
+      "@codelab/frontend/domain/action": [
+        "libs/frontend/domain/action/src/index.ts"
+      ],
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
       ],
@@ -285,9 +282,6 @@
       ],
       "@codelab/frontend/domain/store": [
         "libs/frontend/domain/store/src/index.ts"
-      ],
-      "@codelab/frontend/domain/action": [
-        "libs/frontend/domain/action/src/index.ts"
       ],
       "@codelab/frontend/domain/style": [
         "libs/frontend/domain/style/src/index.ts"

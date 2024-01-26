@@ -44,17 +44,7 @@ describe('ElementResolvers', () => {
   })
 
   beforeEach(async () => {
-    const driver = neo4jService.driver
-    const session = driver.session()
-
-    try {
-      await session.executeWrite((txn) => txn.run('MATCH (n) DETACH DELETE n'))
-    } catch (error) {
-      console.log(error)
-      throw error
-    } finally {
-      await session.close()
-    }
+    await neo4jService.resetData()
   })
 
   it('should fetch Element.dependantTypes', async () => {

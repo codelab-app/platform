@@ -19,6 +19,7 @@ import {
   getBuilderDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
+import { getTypeService } from '@codelab/frontend/application/type'
 import {
   ElementDomainService,
   jsonStringToCss,
@@ -65,7 +66,6 @@ export class ElementService
     createForm: prop(() => new CreateElementFormService({})),
     // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
-
     elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),
     id: idProp,
@@ -229,6 +229,16 @@ export class ElementService
     )
   })
 
+  /**
+   * Load the types for this element. An element could be `atom` or `component` type, and we want to load the corresponding types.
+   */
+  @modelFlow
+  loadTypes = _async(function* (this: ElementService, element: IElementModel) {
+    const apiId = element.renderType.current.api.id
+
+    yield* _await(this.typeService.getInterface(apiId))
+  })
+
   @modelAction
   getSelectElementOptions({
     allElementOptions = [],
@@ -385,5 +395,10 @@ export class ElementService
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  private get typeService() {
+    return getTypeService(this)
   }
 }

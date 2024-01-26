@@ -16,7 +16,9 @@ import { GRAPHQL_SCHEMA_PROVIDER, GraphQLSchemaProvider } from './schema'
   providers: [
     TypeResolverProvider,
     PureResolverProvider,
+    //
     OgmResolverProvider,
+    // Required for OGM resolver above
     ComponentResolverProvider,
     ElementResolverProvider,
     PageResolverProvider,

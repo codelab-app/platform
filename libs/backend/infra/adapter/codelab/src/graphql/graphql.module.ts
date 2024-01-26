@@ -36,7 +36,10 @@ export interface GqlContext {
     //   port: 4000,
     // }),
     RequestContextModule,
-    CodelabLoggerModule,
+    /**
+     * Don't include logger, since pino automatically logs all HTTP calls.
+     */
+    // CodelabLoggerModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,
@@ -66,12 +69,12 @@ export interface GqlContext {
             formattedError: GraphQLFormattedError,
             error: unknown,
           ) => {
-            console.log(formattedError)
+            // console.error(formattedError)
 
             return formattedError
           },
           formatResponse: (response: unknown) => {
-            console.log(response)
+            // console.log(response)
 
             return response
           },

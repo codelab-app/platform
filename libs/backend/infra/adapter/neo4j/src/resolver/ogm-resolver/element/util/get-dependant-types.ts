@@ -14,15 +14,18 @@ import {
   fieldSelectionSet,
 } from '../../../../selectionSet'
 
+/**
+ * This attempts to get all dependent types for an element
+ */
 export const getDependantTypes = (
   neo4jService: Neo4jService,
   ogmService: OgmService,
-  parent: IRef,
+  elementRef: IRef,
 ) => {
   return neo4jService.withReadTransaction(async (txn) => {
     const elements = await ogmService.Element.find({
       selectionSet: `{ ${elementSelectionSet} }`,
-      where: { id: parent.id },
+      where: { id: elementRef.id },
     })
 
     const element = elements[0]

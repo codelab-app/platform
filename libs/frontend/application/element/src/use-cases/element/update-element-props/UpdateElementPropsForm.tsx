@@ -19,15 +19,13 @@ export interface UpdateElementPropsFormProps {
   element: Ref<IElementModel>
 }
 
+/**
+ * A `element` is associated with either `atom` api or `component` api, we load the API type so the prop form shows up.
+ */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element }) => {
-    const {
-      builderService,
-      componentService,
-      propService,
-      rendererService,
-      typeService,
-    } = useStore()
+    const { componentService, propService, rendererService, typeService } =
+      useStore()
 
     const currentElement = element.current
     const apiId = currentElement.renderType.current.api.id
