@@ -5,17 +5,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  prop,
-  transaction,
-} from 'mobx-keystone'
-import type { NextRouter } from 'next/router'
+import { Model, model, modelAction, prop } from 'mobx-keystone'
 import { ParsedUrlQuery } from 'querystring'
 
 const init = (routerQuery: ParsedUrlQuery) => {
@@ -54,22 +44,22 @@ export class RouterService
 
   @computed
   get appSlug() {
-    return throwIfUndefined(this.path.appSlug)
+    return this.path.appSlug
   }
 
   @computed
   get componentSlug() {
-    return throwIfUndefined(this.path.componentSlug)
+    return this.path.componentSlug
   }
 
   @computed
   get pageSlug() {
-    return throwIfUndefined(this.path.pageSlug)
+    return this.path.pageSlug
   }
 
   @computed
   get userSlug() {
-    return throwIfUndefined(this.path.userSlug)
+    return this.path.userSlug
   }
 
   @computed
@@ -83,10 +73,10 @@ export class RouterService
       routerQuery
 
     this.setPath({
-      appSlug: `${appSlug}`,
-      componentSlug: `${componentSlug}`,
-      pageSlug: `${pageSlug}`,
-      userSlug: `${userSlug}`,
+      appSlug: appSlug ? `${appSlug}` : undefined,
+      componentSlug: componentSlug ? `${componentSlug}` : undefined,
+      pageSlug: pageSlug ? `${pageSlug}` : undefined,
+      userSlug: userSlug ? `${userSlug} ` : undefined,
     })
 
     this.setQuery({

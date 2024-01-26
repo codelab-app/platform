@@ -11,7 +11,7 @@ export interface IRouterQuery {
   primarySidebarKey?: string
 }
 
-export type IRouterService = Required<IRouterPath> &
+export type IRouterService = IRouterPath &
   Required<IRouterQuery> & {
     path: IRouterPath
     query: IRouterQuery
