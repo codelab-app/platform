@@ -87,33 +87,35 @@ export class AppService
   @modelFlow
   @transaction
   delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
-    const deleteApp = _async(function* (this: AppService, app: IAppModel) {
+    const deleteApp = async (app: IAppModel) => {
       /**
-       * Optimistic update
+       * Optimistic update.
+       * Detach pages before detaching app from root store to avoid script error.
        */
+      app.pages.forEach((page) => {
+        this.pageService.pageDomainService.pages.delete(page.id)
+      })
       this.appDomainService.apps.delete(app.id)
 
       /**
        * Get all pages to delete
        */
-      const { items: pages } = yield* _await(
-        this.pageRepository.find({
-          appConnection: { node: { id: app.id } },
-        }),
-      )
+      const { items: pages } = await this.pageRepository.find({
+        appConnection: { node: { id: app.id } },
+      })
 
       // Need to load elements as well
       const elements = pages.flatMap((page) => page.rootElement)
 
-      yield* _await(this.elementService.elementRepository.delete(elements))
-      yield* _await(this.appRepository.delete([app]))
+      await this.elementService.elementRepository.delete(elements)
+      await this.appRepository.delete([app])
 
       for (const domain of app.domains) {
-        yield* _await(this.vercelService.delete(domain.name))
+        await this.vercelService.delete(domain.name)
       }
 
       return app
-    })
+    }
 
     yield* _await(Promise.all(apps.map((app) => deleteApp(app))))
   })
