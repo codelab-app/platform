@@ -207,7 +207,8 @@ export class RuntimeElementProps
       (all, current) => {
         return {
           ...all,
-          [current.action.current.name]: current.runner,
+          [current.action.current.name]: (...args: Array<unknown>) =>
+            current.runner.apply(this.propsEvaluationContext, args),
         }
       },
       {},
@@ -216,7 +217,8 @@ export class RuntimeElementProps
     const rootActions = this.providerStore?.runtimeActionsList.reduce(
       (all, current) => ({
         ...all,
-        [current.action.current.name]: current.runner,
+        [current.action.current.name]: (...args: Array<unknown>) =>
+          current.runner.apply(this.propsEvaluationContext, args),
       }),
       {},
     )

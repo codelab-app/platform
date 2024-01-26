@@ -268,7 +268,9 @@ describe('Running nested API and code actions', () => {
     cy.typeIntoTextEditor('response from api - {{state.localData}}')
 
     cy.openPreview()
-    cy.get('#render-root').contains(`response from api - null`).should('exist')
+    cy.get('#render-root')
+      .contains(`response from api - undefined`)
+      .should('exist')
     cy.openBuilder()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })

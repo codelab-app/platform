@@ -86,7 +86,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
         return {
           ...data,
           __typename: IActionKind.ApiAction,
-          config: { data: JSON.stringify(data.config), id: data.id },
+          config: { data: JSON.stringify(data.config.data), id: data.id },
           errorAction: data.errorActionId
             ? { __typename: IActionKind.ApiAction, id: data.errorActionId }
             : undefined,
