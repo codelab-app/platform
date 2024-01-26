@@ -46,23 +46,7 @@ describe('PageResolvers', () => {
   })
 
   beforeEach(async () => {
-    const driver = neo4jService.driver
-    const session = driver.session()
-
-    await session
-      .executeWrite((txn) =>
-        txn.run(`
-        MATCH (n)
-        DETACH DELETE n
-      `),
-      )
-      .catch((error) => {
-        console.error(error)
-        throw error
-      })
-      .finally(async () => {
-        await session.close()
-      })
+    await neo4jService.resetData()
   })
 
   it('should fetch a component with elements resolver', async () => {

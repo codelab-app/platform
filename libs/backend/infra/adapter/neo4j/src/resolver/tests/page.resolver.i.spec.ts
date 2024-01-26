@@ -46,27 +46,12 @@ describe('ComponentResolvers', () => {
     neo4jService = module.get(Neo4jService)
     ogmService = module.get(OgmService)
     app = module.createNestApplication()
+
     await app.init()
   })
 
   beforeEach(async () => {
-    const driver = neo4jService.driver
-    const session = driver.session()
-
-    await session
-      .executeWrite((txn) =>
-        txn.run(`
-        MATCH (n)
-        DETACH DELETE n
-      `),
-      )
-      .catch((error) => {
-        console.error(error)
-        throw error
-      })
-      .finally(async () => {
-        await session.close()
-      })
+    await neo4jService.resetData()
   })
 
   it('should fetch a page with field resolvers - name, slug, elements', async () => {

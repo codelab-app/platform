@@ -5,7 +5,7 @@ import { showFieldOnDev } from './show-field-on-dev'
 
 export const appSchema: PropertiesSchema<IAppSchema> = {
   app: {
-    label: '',
+    label: 'App Ref',
     properties: {
       ...idSchema(),
     },

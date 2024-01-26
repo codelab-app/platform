@@ -32,4 +32,13 @@ export class Neo4jService {
       })
       .finally(() => session.close())
   }
+
+  async resetData() {
+    return this.withWriteTransaction((txn) =>
+      txn.run(`
+        MATCH (n)
+        DETACH DELETE n
+      `),
+    )
+  }
 }

@@ -14,7 +14,6 @@ export const BASIC_LOGGING: ApolloServerPlugin = {
     logger.info(
       `Processing request ${JSON.stringify(requestContext.request, null, 2)}`,
     )
-
     // logger.info(JSON.stringify(requestContext.req.query || {}, null, 2))
     // logger.info(JSON.stringify(requestContext.req.variables || {}, null, 2))
 

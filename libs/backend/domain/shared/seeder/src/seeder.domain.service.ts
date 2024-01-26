@@ -9,6 +9,9 @@ export class SeederDomainService {
     private userRepository: UserRepository,
   ) {}
 
+  /**
+   * Seed a user from currently authenticated user, takes user from request object
+   */
   async seedUserFromRequest() {
     const currentUser = this.authService.currentUser
 

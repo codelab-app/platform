@@ -19,6 +19,15 @@
           "quiet": true
         }
       }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/backend/application/user/jest.config.ts",
+        "reporters": ["default"],
+        "runInBand": true
+      }
     }
   },
   "tags": [
