@@ -13045,6 +13045,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/http-proxy@npm:1.17.3":
+  version: 1.17.3
+  resolution: "@types/http-proxy@npm:1.17.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: 92edcd434a8933575acd341a3076ecb8591db4e1aeaec35d55979b77047b3bca0f8f5900a9c7aa75de2dbb2eb2a8a6cb9406277b290b58532ec4488a2bc237a1
+  languageName: node
+  linkType: hard
+
 "@types/http-proxy@npm:^1.17.8":
   version: 1.17.11
   resolution: "@types/http-proxy@npm:1.17.11"
@@ -17821,6 +17830,7 @@ __metadata:
     neo4j-driver: 5.16.0
     nestjs-pino: ^3.2.0
     next: 13.5.3
+    next-http-proxy-middleware: ^1.2.6
     next-seo: 5.15.0
     node-fetch: 3.1.0
     nx: 17.1.1
@@ -29630,6 +29640,16 @@ __metadata:
     "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
     pino-http: ^6.4.0 || ^7.0.0 || ^8.0.0
   checksum: 6d1ed087d5aaed56faa8bcc54249bd0638a40a6f19f313153711d6dfbc052724acada11a5ea39a756d70c8b64d1f2ed1ba09cdd5b80807a31142393c8395c051
+  languageName: node
+  linkType: hard
+
+"next-http-proxy-middleware@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "next-http-proxy-middleware@npm:1.2.6"
+  dependencies:
+    "@types/http-proxy": 1.17.3
+    http-proxy: ^1.18.1
+  checksum: 567f752294a1e812e92cdc9275b559ac13b623ca7c6fe229ccd31d0ec0547835cf563c524d311e86603ebb0f8f9d3dcddc39fdaf0ffeed34aa55b22b0c076e0d
   languageName: node
   linkType: hard
 
