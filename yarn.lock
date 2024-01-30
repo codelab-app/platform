@@ -4638,18 +4638,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/merge@npm:8.2.11":
-  version: 8.2.11
-  resolution: "@graphql-tools/merge@npm:8.2.11"
-  dependencies:
-    "@graphql-tools/utils": 8.6.10
-    tslib: ~2.4.0
-  peerDependencies:
-    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
-  checksum: cfc77d6d8bb426a1deb0b7763d58d183827a7f1727d0778c829f0824f2b36192543ef7190a5a5620f9e6e8f5627082688ac243884fcb6c570f664a4016435a16
-  languageName: node
-  linkType: hard
-
 "@graphql-tools/merge@npm:9.0.0, @graphql-tools/merge@npm:^9.0.0":
   version: 9.0.0
   resolution: "@graphql-tools/merge@npm:9.0.0"
@@ -4790,7 +4778,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/schema@npm:10.0.2":
+"@graphql-tools/schema@npm:10.0.2, @graphql-tools/schema@npm:^10.0.2":
   version: 10.0.2
   resolution: "@graphql-tools/schema@npm:10.0.2"
   dependencies:
@@ -4876,25 +4864,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/utils@npm:8.12.0":
-  version: 8.12.0
-  resolution: "@graphql-tools/utils@npm:8.12.0"
+"@graphql-tools/utils@npm:10.0.13, @graphql-tools/utils@npm:^10.0.10":
+  version: 10.0.13
+  resolution: "@graphql-tools/utils@npm:10.0.13"
   dependencies:
+    "@graphql-typed-document-node/core": ^3.1.1
+    cross-inspect: 1.0.0
+    dset: ^3.1.2
     tslib: ^2.4.0
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: 24edc6ba3bcfa9a4c1d1d37117c3f96d847beed9638325083c32c6ec9674729dc89fc8cc389d317ae5d9dba22e91443bd9788f1dc8de91a1b6f1e592112bd48f
-  languageName: node
-  linkType: hard
-
-"@graphql-tools/utils@npm:8.6.10":
-  version: 8.6.10
-  resolution: "@graphql-tools/utils@npm:8.6.10"
-  dependencies:
-    tslib: ~2.4.0
-  peerDependencies:
-    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
-  checksum: fd020ef2efe98436e86335af37b9d703b2ca937179ce5d4988853c233824bd69ae01b3e2414586edd132501c042c0c582f63f6e3853ad91a59194483c248f416
+  checksum: 1e09f2dc5700a1d4be19a63024f9bc0edbeec5eaeb8bca31c95d0a1d2934b9a33adf7f2205800d8c58ec91656f3ecac954c1c9126eddc7f25600586d5eb23eb5
   languageName: node
   linkType: hard
 
@@ -4908,20 +4888,6 @@ __metadata:
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: 1eae5ff2056930edf1b5a6aa38a2b28c2b3da0260d4d6babbd3fb25f8638b04c7ea8a481b3e1d4d965d81f2123b577646afb0fe20da87e76362d6f7f099e4be9
-  languageName: node
-  linkType: hard
-
-"@graphql-tools/utils@npm:^10.0.10":
-  version: 10.0.13
-  resolution: "@graphql-tools/utils@npm:10.0.13"
-  dependencies:
-    "@graphql-typed-document-node/core": ^3.1.1
-    cross-inspect: 1.0.0
-    dset: ^3.1.2
-    tslib: ^2.4.0
-  peerDependencies:
-    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: 1e09f2dc5700a1d4be19a63024f9bc0edbeec5eaeb8bca31c95d0a1d2934b9a33adf7f2205800d8c58ec91656f3ecac954c1c9126eddc7f25600586d5eb23eb5
   languageName: node
   linkType: hard
 
@@ -17572,8 +17538,9 @@ __metadata:
     "@graphql-codegen/typescript-graphql-request": 5.0.0
     "@graphql-codegen/typescript-operations": 4.0.0
     "@graphql-eslint/eslint-plugin": ^3.20.1
-    "@graphql-tools/merge": 8.2.11
-    "@graphql-tools/utils": 8.12.0
+    "@graphql-tools/merge": ^9.0.1
+    "@graphql-tools/schema": ^10.0.2
+    "@graphql-tools/utils": 10.0.13
     "@hon2a/cypress-without": 2.1.0
     "@ls-lint/ls-lint": 2.0.0
     "@mailchimp/mailchimp_marketing": 3.0.80
