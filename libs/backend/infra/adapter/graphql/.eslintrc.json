@@ -1,0 +1,17 @@
+{
+  "extends": ["../../../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["libs/backend/infra/adapter/graphql/tsconfig.*?.json"]
+      },
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {}
+    }
+  ]
+}
