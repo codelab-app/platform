@@ -1,8 +1,9 @@
 import UndoOutlined from '@ant-design/icons/UndoOutlined'
-import { Button, Col, Row, Slider } from 'antd'
+import { Button, Col, Row } from 'antd'
 import clsx from 'clsx'
 import React from 'react'
 import { ValuePicker } from '../components'
+import { ValueSlider } from '../components/ValueSlider'
 import { CssUnit, parseCssValue } from '../utils'
 
 const commonValues = ['auto', '0', '10', '20', '40', '60', '100', '140', '220']
@@ -26,12 +27,7 @@ export const SpacingPopover = ({
     <div className="space-y-2">
       <Row align="middle" justify="space-between" wrap={false}>
         <Col span={12}>
-          <Slider
-            onChange={(val) =>
-              onChange?.(`${val}${unit === CssUnit.Auto ? CssUnit.PX : unit}`)
-            }
-            value={currentValue}
-          />
+          <ValueSlider onChange={onChange} unit={unit} value={currentValue} />
         </Col>
         <ValuePicker currentValue={value} onChange={onChange} />
       </Row>
@@ -41,6 +37,7 @@ export const SpacingPopover = ({
             className={clsx(
               'flex cursor-pointer items-center justify-center bg-gray-100 p-2',
               {
+                'bg-sky-100': String(currentValue) === val || unit === val,
                 // eslint-disable-next-line @typescript-eslint/naming-convention
                 'row-span-2': idx === 0,
               },

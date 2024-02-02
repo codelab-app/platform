@@ -357,7 +357,7 @@ export const DefaultCssProperties: Record<
   },
 
   [CssProperty.TextAlign]: {
-    defaultValue: 'inherit',
+    defaultValue: 'left',
     key: CssProperty.TextAlign,
   },
 

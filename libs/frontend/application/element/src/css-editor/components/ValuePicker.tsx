@@ -7,7 +7,6 @@ import React from 'react'
 import { CssUnit, parseCssValue } from '../utils'
 import { ResetLabel } from './ResetLabel'
 
-// TODO: revisit auto and '-'
 const selectAfter = (
   size: SizeType,
   onChange: (val: CssUnit) => void,
@@ -124,7 +123,7 @@ export const ValuePicker = ({
           controls={false}
           max={max}
           min={min}
-          onChange={debounce((val) => onChanged(unit, val), 300)}
+          onChange={debounce((val) => onChanged(fixedUnit ?? unit, val), 300)}
           placeholder={isAuto ? 'Auto' : undefined}
           size={size}
           value={isAuto ? undefined : value}
