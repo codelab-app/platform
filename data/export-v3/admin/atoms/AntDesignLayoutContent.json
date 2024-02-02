@@ -1,0 +1,37 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [],
+    "id": "d757497a-ed0e-4d23-a3d8-37b8e52510a1",
+    "kind": "InterfaceType",
+    "name": "AntDesignLayoutContent API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "d757497a-ed0e-4d23-a3d8-37b8e52510a1",
+        "kind": "InterfaceType",
+        "name": "AntDesignLayoutContent API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "d757497a-ed0e-4d23-a3d8-37b8e52510a1"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "67b35abd-5fd3-44ad-a7a5-966ff9805f7e",
+    "name": "AntDesignLayoutContent",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [],
+    "type": "AntDesignLayoutContent"
+  }
+}

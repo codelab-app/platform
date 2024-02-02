@@ -3545,6 +3545,7 @@ enum AtomType {
   AntDesignImage
   AntDesignInput
   AntDesignInputNumber
+  AntDesignInputSearch
   AntDesignLayout
   AntDesignLayoutContent
   AntDesignLayoutFooter

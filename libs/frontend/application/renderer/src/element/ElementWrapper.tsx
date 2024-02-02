@@ -65,10 +65,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     )
 
     // leave ElementWrapper pass-through so refs are attached to correct element
+    // selectionHandlers should be first so they will be overridden if
+    // a prop contains an action such as `onClick`, `onSelect`, etc.
     const mergedProps = mergeProps(
+      selectionHandlers,
       extractedProps,
       rest,
-      selectionHandlers,
       tailwindClassNames,
     )
 

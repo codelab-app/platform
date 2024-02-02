@@ -3655,6 +3655,7 @@ export enum AtomType {
   AntDesignImage = 'AntDesignImage',
   AntDesignInput = 'AntDesignInput',
   AntDesignInputNumber = 'AntDesignInputNumber',
+  AntDesignInputSearch = 'AntDesignInputSearch',
   AntDesignLayout = 'AntDesignLayout',
   AntDesignLayoutContent = 'AntDesignLayoutContent',
   AntDesignLayoutFooter = 'AntDesignLayoutFooter',

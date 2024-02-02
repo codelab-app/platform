@@ -18,7 +18,7 @@ export const Builder = observer(() => {
   const { builderService, elementService, rendererService } = useStore()
   const renderer = rendererService.activeRenderer?.current
   const elementTree = rendererService.activeElementTree
-  const { selectedBuilderWidth, selectedNode } = builderService
+  const { selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -27,14 +27,6 @@ export const Builder = observer(() => {
     selectedNode,
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })
-
-  const rootStyle = useMemo(
-    () => ({
-      container: 'root / inline-size',
-      width: `${selectedBuilderWidth.default}px`,
-    }),
-    [selectedBuilderWidth.default],
-  )
 
   useEffect(() => {
     if (!containerRef.current) {
@@ -65,7 +57,7 @@ export const Builder = observer(() => {
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
         >
-          <RootRenderer ref={ref} renderer={renderer} style={rootStyle} />
+          <RootRenderer ref={ref} renderer={renderer} />
           <BuilderClickOverlay
             builderService={builderService}
             elementService={elementService}

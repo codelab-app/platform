@@ -1,12 +1,10 @@
-import {
-  isRuntimeElement,
-  type ITypedPropTransformer,
+import type {
+  IRuntimeModel,
+  ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
-import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
-import {
-  extractTypedPropValue,
-  isElement,
-} from '@codelab/frontend/abstract/domain'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import type { TypedProp } from '@codelab/frontend/abstract/domain'
+import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
@@ -30,7 +28,7 @@ export class ReactNodeTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, node: IPageNode) {
+  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
@@ -53,16 +51,6 @@ export class ReactNodeTypeTransformer
 
     if (!component) {
       console.error('Component not found')
-
-      return fallback
-    }
-
-    const runtimeNode = isElement(node)
-      ? this.rendererService.runtimeElement(node)
-      : this.rendererService.runtimeContainerNode(node)
-
-    if (!runtimeNode) {
-      console.error('Runtime node not found')
 
       return fallback
     }

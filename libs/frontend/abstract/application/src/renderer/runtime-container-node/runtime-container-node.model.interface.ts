@@ -54,5 +54,6 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
     isTypedProp?: boolean,
   ): IRuntimeContainerNodeModel
   addElement(node: IElementModel): IRuntimeElementModel
+  cleanupChildMapperNodes(validNodes: Array<IRuntimeContainerNodeModel>): void
   setChildMapperIndex(index: number): void
 }

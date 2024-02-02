@@ -13,6 +13,7 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   isAtomRef,
+  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -139,7 +140,7 @@ export class RuntimeElementPropsModel
         return value.value
       }
 
-      return transformer.transform(value, this.element)
+      return transformer.transform(value, this.runtimeElement.current)
     })
   }
 
@@ -180,11 +181,12 @@ export class RuntimeElementPropsModel
       context,
     )
 
+    // If a root action is called in a regular page, the `state` should be from the provider's page store
     context['rootActions'] = this.providerStore?.runtimeActionsList
-      ? this.transformRuntimeActions(
-          this.providerStore.runtimeActionsList,
-          context,
-        )
+      ? this.transformRuntimeActions(this.providerStore.runtimeActionsList, {
+          ...context,
+          state: context.rootState,
+        })
       : {}
 
     return context
@@ -193,8 +195,8 @@ export class RuntimeElementPropsModel
   @modelAction
   getActionRunner(actionName: string) {
     return (
-      this.expressionEvaluationContext.actions[actionName] ??
-      this.expressionEvaluationContext.rootActions[actionName] ??
+      this.propsEvaluationContext.actions[actionName] ??
+      this.propsEvaluationContext.rootActions[actionName] ??
       (() => console.log(`No Runner found for ${actionName} `))
     )
   }

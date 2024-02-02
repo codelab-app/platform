@@ -38,11 +38,19 @@ export class RuntimeStoreModel
 {
   static create = create
 
+  private cachedState: Nullable<object> = null
+
   refs = observable.object<IPropData>({})
 
   @computed
   get state() {
-    return this.store.current.api.maybeCurrent?.defaultValues ?? {}
+    if (!this.cachedState) {
+      this.cachedState = observable(
+        this.store.current.api.maybeCurrent?.defaultValues ?? {},
+      )
+    }
+
+    return this.cachedState
   }
 
   @computed

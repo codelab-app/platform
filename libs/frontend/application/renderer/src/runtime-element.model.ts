@@ -69,6 +69,10 @@ export class RuntimeElementModel
 
   static create = create
 
+  private preRenderActionDone = false
+
+  private postRenderActionDone = false
+
   @computed
   get renderer() {
     const activeRenderer = getRendererService(this).activeRenderer?.current
@@ -161,6 +165,10 @@ export class RuntimeElementModel
       childMapperChildren.push(runtimeComponent)
     }
 
+    this.closestContainerNode.current.cleanupChildMapperNodes(
+      childMapperChildren,
+    )
+
     return childMapperChildren
   }
 
@@ -179,6 +187,10 @@ export class RuntimeElementModel
   }
 
   runPostRenderAction = () => {
+    if (this.postRenderActionDone) {
+      return
+    }
+
     const { postRenderAction } = this.element.current
     const currentPostRenderAction = postRenderAction?.current
 
@@ -188,10 +200,16 @@ export class RuntimeElementModel
       )
 
       runner()
+
+      this.postRenderActionDone = true
     }
   }
 
   runPreRenderAction = () => {
+    if (this.preRenderActionDone) {
+      return
+    }
+
     const { preRenderAction } = this.element.current
     const currentPreRenderAction = preRenderAction?.current
 
@@ -201,6 +219,8 @@ export class RuntimeElementModel
       )
 
       runner()
+
+      this.preRenderActionDone = true
     }
   }
 
@@ -226,8 +246,8 @@ export class RuntimeElementModel
         },
       },
       key: this.element.id,
-      onRendered: () => {
-        this.runPostRenderAction()
+      onRendered: async () => {
+        await this.runPostRenderAction()
       },
       renderer: this.renderer,
       renderOutput,

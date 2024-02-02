@@ -61,6 +61,10 @@ export const CreateElementForm = observer(
         return Promise.reject()
       }
 
+      if (data.prevSibling) {
+        delete data.parentElement
+      }
+
       await elementService.createElement(data)
 
       closeForm()

@@ -16,6 +16,7 @@ import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
@@ -85,7 +86,7 @@ export class RuntimeComponentPropModel
         return value.value
       }
 
-      return transformer.transform(value, this.component)
+      return transformer.transform(value, this.runtimeComponent.current)
     })
   }
 

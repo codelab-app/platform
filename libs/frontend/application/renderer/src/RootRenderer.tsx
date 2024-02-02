@@ -39,16 +39,18 @@ export const RootRenderer = observer<
   WithStyleProp<{ renderer: IRendererModel }>,
   HTMLDivElement
 >(
-  React.forwardRef(({ renderer, style = {} }, ref) => {
-    const { rendererService } = useStore()
+  React.forwardRef(({ renderer }, ref) => {
+    const { builderService, rendererService } = useStore()
+    const { selectedBuilderWidth } = builderService
 
     const containerStyle = useMemo(
       () => ({
+        container: 'root / inline-size',
         minHeight: '100%',
         transform: 'translatex(0)',
-        ...style,
+        width: `${selectedBuilderWidth.default}px`,
       }),
-      [style],
+      [selectedBuilderWidth.default],
     )
 
     return (

@@ -16,6 +16,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
@@ -83,7 +84,7 @@ export class AppDevelopmentService
       page: { id: page.id },
     }))
 
-    const componentStores = pages.map((component) => ({
+    const componentStores = components.map((component) => ({
       ...component.store,
       component: { id: component.id },
     }))
@@ -107,17 +108,18 @@ export class AppDevelopmentService
       (atom) => atom.id,
     )
 
-    const types = [
-      ...atoms.flatMap((type) => type.api),
-      ...stores.map((store) => store.api),
-      ...components.map((component) => component.api),
-    ]
-
     const elementsDependantTypes = elements
       .map((element) => element.dependantTypes)
       .flat()
 
-    console.log('elementsDependantTypes', elementsDependantTypes)
+    const types = [
+      ...atoms.flatMap((type) => type.api),
+      ...stores.map((store) => store.api),
+      ...components.map((component) => component.api),
+      ...elementsDependantTypes.filter(
+        (type) => type.kind === ITypeKind.InterfaceType,
+      ),
+    ]
 
     const systemTypes = [
       ...data.primitiveTypes,

@@ -5,7 +5,7 @@ import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
 export interface IEvaluationContext {
   actions: IPropData
   args?: Array<unknown>
-  componentProps: IPropData
+  componentProps?: IPropData
   props: IPropData
   refs: IPropData
   rootActions: IPropData

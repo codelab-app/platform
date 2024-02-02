@@ -1,12 +1,10 @@
-import {
-  isRuntimeElement,
-  type ITypedPropTransformer,
+import type {
+  IRuntimeModel,
+  ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
-import type { IPageNode, TypedProp } from '@codelab/frontend/abstract/domain'
-import {
-  extractTypedPropValue,
-  isElement,
-} from '@codelab/frontend/abstract/domain'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import type { TypedProp } from '@codelab/frontend/abstract/domain'
+import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
@@ -30,7 +28,7 @@ export class ActionTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, node: IPageNode) {
+  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
     // unwrap custom action code so it is evaluated later
     if (hasStateExpression(prop.value)) {
       return prop.value
@@ -47,11 +45,7 @@ export class ActionTypeTransformer
       return ''
     }
 
-    const runtimeNode = isElement(node)
-      ? this.rendererService.runtimeElement(node)
-      : this.rendererService.runtimeContainerNode(node)
-
-    const runtimeAction = runtimeNode?.runtimeStore.runtimeAction({
+    const runtimeAction = runtimeNode.runtimeStore.runtimeAction({
       id: actionId,
     })
 
@@ -61,7 +55,7 @@ export class ActionTypeTransformer
       console.error(`fail to get action with id ${prop.value}`)
 
     const actionRunner =
-      runtimeNode && isRuntimeElement(runtimeNode) && name
+      isRuntimeElement(runtimeNode) && name
         ? runtimeNode.runtimeProps.getActionRunner(name)
         : fallback
 

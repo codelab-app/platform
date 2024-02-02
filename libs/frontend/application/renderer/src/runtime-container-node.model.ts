@@ -27,6 +27,7 @@ import {
 import { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -77,6 +78,27 @@ export class RuntimeContainerNodeModel
     return [...this.runtimeElements.values()]
   }
 
+  /**
+   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
+   * e.g. when child mapper element depends on a filtered data
+   * @param validNodes new evaluated child mapper prop
+   */
+  @modelAction
+  cleanupChildMapperNodes(validNodes: Array<IRuntimeContainerNodeModel>) {
+    const nodes = [...this.runtimeContainerNodes.values()]
+
+    nodes.forEach((node) => {
+      if (
+        !isNil(node.childMapperIndex) &&
+        !validNodes.some(
+          (validNode) => validNode.childMapperIndex === node.childMapperIndex,
+        )
+      ) {
+        this.runtimeContainerNodes.delete(node.id)
+      }
+    })
+  }
+
   @modelAction
   addContainerNode(
     node: IComponentModel | IPageModel,
@@ -87,9 +109,7 @@ export class RuntimeContainerNodeModel
   ): IRuntimeContainerNodeModel {
     const foundNode = this.runtimeContainerNodesList.find(
       (runtimeNode) =>
-        runtimeNode.containerNode.id === node.id &&
-        (!childMapperIndex ||
-          runtimeNode.childMapperIndex === childMapperIndex),
+        runtimeNode.containerNode.id === node.id && isNil(childMapperIndex),
     )
 
     if (foundNode) {
