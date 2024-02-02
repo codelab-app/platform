@@ -78,7 +78,6 @@ export class RuntimeActionModel
       // eslint-disable-next-line no-new-func
       return new Function(
         `return function run(...args) {
-          console.log('this inside code runner', this)
           const actions = this.actions;
           const rootActions = this.rootActions;
           const state = this.state;
