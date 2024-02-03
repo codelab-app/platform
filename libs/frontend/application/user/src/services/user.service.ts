@@ -1,6 +1,6 @@
 import type { IUserService } from '@codelab/frontend/abstract/application'
 import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
-import { restPlatformClient } from '@codelab/frontend/application/axios'
+import { restPlatformApiClient } from '@codelab/frontend/application/axios'
 import { User, UserDomainService } from '@codelab/frontend/domain/user'
 import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
@@ -56,6 +56,6 @@ export class UserService
 
   @modelFlow
   saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
-    return yield* _await(restPlatformClient.post('/user/save', data))
+    return yield* _await(restPlatformApiClient.post('/user/save', data))
   })
 }

@@ -12497,6 +12497,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie-parser@npm:^1.4.6":
+  version: 1.4.7
+  resolution: "@types/cookie-parser@npm:1.4.7"
+  dependencies:
+    "@types/express": "*"
+  checksum: 7b87c59420598e686a57e240be6e0db53967c3c8814be9326bf86609ee2fc39c4b3b9f2263e1deba43526090121d1df88684b64c19f7b494a80a4437caf3d40b
+  languageName: node
+  linkType: hard
+
 "@types/cookie@npm:0.5.1":
   version: 0.5.1
   resolution: "@types/cookie@npm:0.5.1"
@@ -17486,6 +17495,7 @@ __metadata:
     "@types/chance": 1.1.4
     "@types/concurrently": 6.4.0
     "@types/cookie": 0.5.1
+    "@types/cookie-parser": ^1.4.6
     "@types/diff": 5.0.3
     "@types/express": 4.17.13
     "@types/flat": 5.0.2
@@ -17553,6 +17563,7 @@ __metadata:
     commitlint-plugin-function-rules: 1.7.1
     concurrently: 7.0.0
     cookie: 0.5.0
+    cookie-parser: ^1.4.6
     core-js: 3.20.2
     cross-env: 7.0.3
     cross-fetch: 3.1.4
@@ -18361,10 +18372,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie-parser@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "cookie-parser@npm:1.4.6"
+  dependencies:
+    cookie: 0.4.1
+    cookie-signature: 1.0.6
+  checksum: 1e5a63aa82e8eb4e02d2977c6902983dee87b02e87ec5ec43ac3cb1e72da354003716570cd5190c0ad9e8a454c9d3237f4ad6e2f16d0902205a96a1c72b77ba5
+  languageName: node
+  linkType: hard
+
 "cookie-signature@npm:1.0.6":
   version: 1.0.6
   resolution: "cookie-signature@npm:1.0.6"
   checksum: f4e1b0a98a27a0e6e66fd7ea4e4e9d8e038f624058371bf4499cfcd8f3980be9a121486995202ba3fca74fbed93a407d6d54d43a43f96fd28d0bd7a06761591a
+  languageName: node
+  linkType: hard
+
+"cookie@npm:0.4.1":
+  version: 0.4.1
+  resolution: "cookie@npm:0.4.1"
+  checksum: bd7c47f5d94ab70ccdfe8210cde7d725880d2fcda06d8e375afbdd82de0c8d3b73541996e9ce57d35f67f672c4ee6d60208adec06b3c5fc94cebb85196084cf8
   languageName: node
   linkType: hard
 

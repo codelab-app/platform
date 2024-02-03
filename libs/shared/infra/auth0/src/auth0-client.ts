@@ -13,5 +13,10 @@ export const auth0Instance = () => {
     clientSecret: getEnv().auth0.clientSecret,
     issuerBaseURL: getEnv().auth0.issuerBaseUrl,
     secret: getEnv().auth0.secret,
+    session: {
+      cookie: {
+        domain: getEnv().auth0.cookieDomain,
+      },
+    },
   })
 }

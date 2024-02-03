@@ -5,7 +5,7 @@ import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
-import { restPlatformClient } from '@codelab/frontend/application/axios'
+import { restPlatformApiClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import type { MenuProps } from 'antd'
@@ -32,7 +32,7 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 const downloadExportedData = async (app: IAppModel) => {
-  const res = await restPlatformClient.get<IAppAggregate>(
+  const res = await restPlatformApiClient.get<IAppAggregate>(
     `app/export?id=${app.id}`,
   )
 

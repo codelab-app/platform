@@ -1,7 +1,7 @@
 import { auth0Instance } from '@codelab/shared/infra/auth0'
-import type { NextApiHandler } from 'next'
+import type { RequestHandler } from 'express'
 
-export const authMiddleware: NextApiHandler = async (req, res) => {
+export const authMiddleware: RequestHandler = async (req, res, next) => {
   try {
     /**
      * Requires `headers.cookie` to be set by client
@@ -27,9 +27,11 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     const idToken = session?.idToken
 
     if (idToken) {
-      req.headers['X-ID-TOKEN'] = idToken
+      req.headers['x-id-token'] = idToken
     }
   } catch (error) {
     console.log('error when getting session', error)
+  } finally {
+    next()
   }
 }
