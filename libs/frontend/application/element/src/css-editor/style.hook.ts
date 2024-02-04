@@ -1,6 +1,6 @@
 import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
@@ -9,9 +9,9 @@ export const useStyle = () => {
 
   const [currentStyles, setCurrentStyles] = useState<{
     [key: string]: string
-  }>({})
+  }>()
 
-  useEffect(() => {
+  const loadCurrentStyles = () => {
     if (
       builderService.selectedNode &&
       isElementRef(builderService.selectedNode)
@@ -21,13 +21,19 @@ export const useStyle = () => {
       )
 
       setCurrentStyles(newStyles)
+
+      return newStyles
     }
-  }, [builderService.selectedNode])
+  }
 
   const getCurrentStyle = (property: CssProperty) => {
-    return (
-      currentStyles[property] ?? DefaultCssProperties[property].defaultValue
-    )
+    let styles = currentStyles
+
+    if (styles === undefined) {
+      styles = loadCurrentStyles()
+    }
+
+    return styles?.[property] ?? DefaultCssProperties[property].defaultValue
   }
 
   // Set a new style value and update memoized styles
@@ -42,7 +48,7 @@ export const useStyle = () => {
 
     setCurrentStyles(updatedStyles)
 
-    selectedNode.current.style.appendToGuiCss(updatedStyles)
+    selectedNode.current.style.appendToGuiCss({ [key]: value })
   }
 
   const resetStyle = (property: CssProperty) => {
@@ -55,14 +61,27 @@ export const useStyle = () => {
     const { defaultValue } = DefaultCssProperties[property]
 
     return (
-      currentStyles[property] !== undefined &&
+      currentStyles?.[property] !== undefined &&
       currentStyles[property] !== defaultValue
     )
+  }
+
+  const removeStyles = (properties: Array<CssProperty>) => {
+    const { selectedNode } = builderService
+
+    if (!selectedNode || !isElementRef(selectedNode)) {
+      return
+    }
+
+    selectedNode.current.style.deleteFromGuiCss(properties)
+
+    loadCurrentStyles()
   }
 
   return {
     canReset,
     getCurrentStyle,
+    removeStyles,
     resetStyle,
     setStyle,
   }

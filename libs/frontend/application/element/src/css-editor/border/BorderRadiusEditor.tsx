@@ -23,25 +23,24 @@ const sideOptions = [
   },
 ]
 
-// TODO: revisit not working properly
 export const BorderRadiusEditor = () => {
-  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, removeStyles, resetStyle, setStyle } =
+    useStyle()
 
-  const expanded = (): boolean => {
-    const res = [
+  const areAllSidesNotTheSame = (): boolean => {
+    return [
       getCurrentStyle(CssProperty.BorderTopLeftRadius),
       getCurrentStyle(CssProperty.BorderTopRightRadius),
       getCurrentStyle(CssProperty.BorderBottomLeftRadius),
       getCurrentStyle(CssProperty.BorderBottomRightRadius),
     ].some((val) => val !== getCurrentStyle(CssProperty.BorderRadius))
-
-    return res
   }
 
-  const [selectedSide, setSelectedSide] = useState(expanded() ? 'side' : 'all')
+  const [selectedSide, setSelectedSide] = useState(
+    areAllSidesNotTheSame() ? 'side' : 'all',
+  )
 
   const resetAll = () => {
-    console.log('reset all')
     resetStyle(CssProperty.BorderTopLeftRadius)
     resetStyle(CssProperty.BorderTopRightRadius)
     resetStyle(CssProperty.BorderBottomLeftRadius)
@@ -49,15 +48,22 @@ export const BorderRadiusEditor = () => {
     resetStyle(CssProperty.BorderRadius)
   }
 
-  const setAll = (value: string) => {
-    if (expanded()) {
-      setStyle(CssProperty.BorderTopLeftRadius, value)
-      setStyle(CssProperty.BorderTopRightRadius, value)
-      setStyle(CssProperty.BorderBottomLeftRadius, value)
-      setStyle(CssProperty.BorderBottomRightRadius, value)
+  const setAllSidesRadius = (value: string) => {
+    setStyle(CssProperty.BorderTopLeftRadius, value)
+    setStyle(CssProperty.BorderTopRightRadius, value)
+    setStyle(CssProperty.BorderBottomLeftRadius, value)
+    setStyle(CssProperty.BorderBottomRightRadius, value)
+    setStyle(CssProperty.BorderRadius, value)
+  }
+
+  const setSideRadius = (side: CssProperty, value: string) => {
+    const allSidesRadius = getCurrentStyle(CssProperty.BorderRadius)
+
+    if (value !== allSidesRadius) {
+      removeStyles([CssProperty.BorderRadius])
     }
 
-    setStyle(CssProperty.BorderRadius, value)
+    setStyle(side, value)
   }
 
   return (
@@ -65,7 +71,9 @@ export const BorderRadiusEditor = () => {
       <Row align="middle" justify="space-between" wrap={false}>
         <Col span={12}>
           <SegmentedSelect
-            canReset={canReset(CssProperty.BorderRadius) || expanded()}
+            canReset={
+              canReset(CssProperty.BorderRadius) || areAllSidesNotTheSame()
+            }
             label="Radius"
             onChange={setSelectedSide}
             onReset={resetAll}
@@ -78,7 +86,7 @@ export const BorderRadiusEditor = () => {
         <Col span={11}>
           <ValuePicker
             currentValue={getCurrentStyle(CssProperty.BorderRadius)}
-            onChange={setAll}
+            onChange={setAllSidesRadius}
           />
           {/* </Row> */}
         </Col>
@@ -89,7 +97,7 @@ export const BorderRadiusEditor = () => {
             <ValuePicker
               currentValue={getCurrentStyle(CssProperty.BorderTopLeftRadius)}
               onChange={(value) =>
-                setStyle(CssProperty.BorderTopLeftRadius, value)
+                setSideRadius(CssProperty.BorderTopLeftRadius, value)
               }
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderTopLeftRadius),
@@ -100,7 +108,7 @@ export const BorderRadiusEditor = () => {
             <ValuePicker
               currentValue={getCurrentStyle(CssProperty.BorderTopRightRadius)}
               onChange={(value) =>
-                setStyle(CssProperty.BorderTopRightRadius, value)
+                setSideRadius(CssProperty.BorderTopRightRadius, value)
               }
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderTopRightRadius),
@@ -113,7 +121,7 @@ export const BorderRadiusEditor = () => {
             <ValuePicker
               currentValue={getCurrentStyle(CssProperty.BorderBottomLeftRadius)}
               onChange={(value) =>
-                setStyle(CssProperty.BorderBottomLeftRadius, value)
+                setSideRadius(CssProperty.BorderBottomLeftRadius, value)
               }
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderBottomLeftRadius),
@@ -126,7 +134,7 @@ export const BorderRadiusEditor = () => {
                 CssProperty.BorderBottomRightRadius,
               )}
               onChange={(value) =>
-                setStyle(CssProperty.BorderBottomRightRadius, value)
+                setSideRadius(CssProperty.BorderBottomRightRadius, value)
               }
               prefix={ResetIcon({
                 canReset: canReset(CssProperty.BorderBottomRightRadius),
