@@ -28,7 +28,7 @@ const create = ({
   targetType,
   targetUrl,
 }: IRedirectDTO) =>
-  new Redirect({
+  new RedirectModel({
     authGuard: authGuardRef(authGuard.id),
     id,
     source: pageRef(source.id),
@@ -38,7 +38,7 @@ const create = ({
   })
 
 @model('@codelab/Redirect')
-export class Redirect
+export class RedirectModel
   extends Model({
     authGuard: prop<Ref<IAuthGuardModel>>(),
     id: idProp,

@@ -19,6 +19,7 @@ import type { IActionService } from '../action'
 import type { IAdminService } from '../admin'
 import type { IAppService } from '../app'
 import type { IAtomService } from '../atom'
+import type { IAuthGuardService } from '../auth-guard'
 import type { IComponentApplicationService } from '../component'
 import type { IDomainService } from '../domain'
 import type { IElementService } from '../element'
@@ -56,6 +57,7 @@ export interface IRootStore {
   adminService: IAdminService
   appService: IAppService
   atomService: IAtomService
+  authGuardService: IAuthGuardService
   builderService: IBuilderDomainService
   componentService: IComponentApplicationService
   domainService: IDomainService

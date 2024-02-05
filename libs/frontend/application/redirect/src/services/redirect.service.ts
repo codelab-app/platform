@@ -4,21 +4,18 @@ import type {
   IRedirectModel,
   IUpdateRedirectData,
 } from '@codelab/frontend/abstract/domain'
+import { RedirectDomainService } from '@codelab/frontend/domain/redirect'
 import type { RedirectWhere } from '@codelab/shared/abstract/codegen'
-import type { IRedirectDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
   _await,
   Model,
   model,
-  modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
-import { Redirect } from './redirect.model'
 import { RedirectRepository } from './redirect.repo'
 import {
   CreateRedirectFormService,
@@ -30,15 +27,15 @@ export class RedirectService
   extends Model({
     createForm: prop(() => new CreateRedirectFormService({})),
     deleteModal: prop(() => new RedirectFormService({})),
+    redirectDomainService: prop(() => new RedirectDomainService({})),
     redirectRepository: prop(() => new RedirectRepository({})),
-    redirects: prop(() => objectMap<IRedirectModel>()),
     updateForm: prop(() => new RedirectFormService({})),
   })
   implements IRedirectService
 {
   @computed
   get redirectList() {
-    return [...this.redirects.values()]
+    return [...this.redirectDomainService.redirects.values()]
   }
 
   @modelFlow
@@ -47,9 +44,7 @@ export class RedirectService
     this: RedirectService,
     redirectDto: ICreateRedirectData,
   ) {
-    const redirect = this.add(redirectDto)
-
-    this.redirects.set(redirect.id, redirect)
+    const redirect = this.redirectDomainService.hydrate(redirectDto)
 
     yield* _await(this.redirectRepository.add(redirect))
 
@@ -62,7 +57,9 @@ export class RedirectService
     this: RedirectService,
     redirectsModel: Array<IRedirectModel>,
   ) {
-    redirectsModel.forEach((redirect) => this.redirects.delete(redirect.id))
+    redirectsModel.forEach((redirect) =>
+      this.redirectDomainService.redirects.delete(redirect.id),
+    )
 
     /**
      * Redirect can delete all other info
@@ -77,7 +74,9 @@ export class RedirectService
       this.redirectRepository.find(where),
     )
 
-    return redirects.map((redirect) => this.add(redirect))
+    return redirects.map((redirect) =>
+      this.redirectDomainService.hydrate(redirect),
+    )
   })
 
   @modelFlow
@@ -94,7 +93,7 @@ export class RedirectService
     this: RedirectService,
     redirectDTO: IUpdateRedirectData,
   ) {
-    const redirect = this.redirects.get(redirectDTO.id)!
+    const redirect = this.redirectDomainService.redirects.get(redirectDTO.id)!
 
     redirect.writeCache(redirectDTO)
 
@@ -103,23 +102,7 @@ export class RedirectService
     return redirect!
   })
 
-  @modelAction
-  add = (redirectDTO: IRedirectDTO) => {
-    console.debug('RedirectService.add()', redirectDTO)
-
-    let redirect = this.redirects.get(redirectDTO.id)
-
-    if (redirect) {
-      redirect.writeCache(redirectDTO)
-    } else {
-      redirect = Redirect.create(redirectDTO)
-      this.redirects.set(redirect.id, redirect)
-    }
-
-    return redirect
-  }
-
   redirect(id: string) {
-    return this.redirects.get(id)
+    return this.redirectDomainService.redirects.get(id)
   }
 }

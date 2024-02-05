@@ -10,9 +10,8 @@ import {
   AtomProductionFragment,
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
-import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
 import { AuthGuardFragment } from '../../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
-import { ActionTypeFragment } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
+import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
 import { RedirectFragment } from '../../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
@@ -27,9 +26,8 @@ import {
   AtomProductionFragmentDoc,
 } from '../../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource/resource.fragment.graphql.gen'
-import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
 import { AuthGuardFragmentDoc } from '../../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
-import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
+import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
 import { RedirectFragmentDoc } from '../../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
@@ -37,18 +35,23 @@ export type GetAppDevelopmentQueryVariables = Types.Exact<{
 }>
 
 export type GetAppDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment>
+  actionTypes: Array<ActionTypeFragment & ActionTypeFragment>
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
-  renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
+  redirects: Array<RedirectFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
 }
 
 export const GetAppDevelopmentDocument = gql`
   query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
+    actionTypes {
+      ...ActionType
+    }
     actionTypes {
       ...ActionType
     }
@@ -58,6 +61,9 @@ export const GetAppDevelopmentDocument = gql`
     atoms(where: { type: ReactFragment }) {
       ...AtomDevelopment
     }
+    authGuards {
+      ...AuthGuard
+    }
     components {
       ...ComponentDevelopment
     }
@@ -66,6 +72,12 @@ export const GetAppDevelopmentDocument = gql`
     }
     reactNodeTypes {
       ...ReactNodeType
+    }
+    reactNodeTypes {
+      ...ReactNodeType
+    }
+    redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
+      ...Redirect
     }
     renderPropTypes {
       ...RenderPropType
@@ -77,9 +89,11 @@ export const GetAppDevelopmentDocument = gql`
   ${ActionTypeFragmentDoc}
   ${AppDevelopmentFragmentDoc}
   ${AtomDevelopmentFragmentDoc}
+  ${AuthGuardFragmentDoc}
   ${ComponentDevelopmentFragmentDoc}
   ${PrimitiveTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
+  ${RedirectFragmentDoc}
   ${RenderPropTypeFragmentDoc}
   ${ResourceFragmentDoc}
 `

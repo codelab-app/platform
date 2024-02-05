@@ -1,7 +1,3 @@
-import {
-  getAuthGuardService,
-  getRedirectService,
-} from '@codelab/frontend/abstract/application'
 import type {
   IAppDevelopmentArgs,
   IAppDevelopmentService,
@@ -10,16 +6,21 @@ import {
   getActionDomainService,
   getAppDomainService,
   getAtomDomainService,
+  getAuthGuardDomainService,
   getComponentDomainService,
   getElementDomainService,
   getFieldDomainService,
   getPageDomainService,
+  getRedirectDomainService,
   getResourceDomainService,
   getStoreDomainService,
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
-import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
+import type {
+  AtomDevelopmentFragment,
+  InterfaceTypeFragment,
+} from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'
@@ -83,6 +84,7 @@ export class AppDevelopmentService
     const elements = [...pagesElements, ...componentsElements]
     const resources = data.resources
     const authGuards = data.authGuards
+    const redirects = data.redirects
 
     const props = elements
       .flatMap((element) => element.props)
@@ -148,6 +150,7 @@ export class AppDevelopmentService
       actions,
       app,
       atoms,
+      authGuards,
       components,
       elements,
       fields,
@@ -186,7 +189,13 @@ export class AppDevelopmentService
       this.resourceDomainService.hydrate(resource),
     )
 
-    data.redirects.forEach((redirect) => this.redirectService.hydrate(redirect))
+    data.authGuards.forEach((authGuard) =>
+      this.authGuardDomainService.hydrate(authGuard),
+    )
+
+    data.redirects.forEach((redirect) =>
+      this.redirectDomainService.hydrate(redirect),
+    )
 
     this.elementDomainService.logElementTreeState()
 
@@ -211,11 +220,6 @@ export class AppDevelopmentService
   @computed
   private get atomDomainService() {
     return getAtomDomainService(this)
-  }
-
-  @computed
-  private get authGuardService() {
-    return getAuthGuardService(this)
   }
 
   @computed
@@ -246,6 +250,11 @@ export class AppDevelopmentService
   @computed
   private get redirectDomainService() {
     return getRedirectDomainService(this)
+  }
+
+  @computed
+  private get authGuardDomainService() {
+    return getAuthGuardDomainService(this)
   }
 
   @computed

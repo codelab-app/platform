@@ -7,13 +7,16 @@ export type RedirectFragment = {
   id: string
   targetType: Types.RedirectTargetType
   targetUrl?: string | null
+  authGuard: { id: string }
   source: { id: string }
   targetPage?: { id: string } | null
-  authGuard: { id: string }
 }
 
 export const RedirectFragmentDoc = gql`
   fragment Redirect on Redirect {
+    authGuard {
+      id
+    }
     id
     source {
       id
@@ -23,9 +26,6 @@ export const RedirectFragmentDoc = gql`
     }
     targetType
     targetUrl
-    authGuard {
-      id
-    }
   }
 `
 

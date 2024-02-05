@@ -1,6 +1,7 @@
 import type {
   ICreateRedirectData,
   IPageModel,
+  IRedirectDomainService,
   IRedirectModel,
   IRedirectRef,
   IUpdateRedirectData,
@@ -9,7 +10,6 @@ import type {
   RedirectOptions,
   RedirectWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IRedirectDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -39,7 +39,8 @@ export interface IRedirectService
     Ref<IPageModel>,
     { selectedPage: Ref<IPageModel> }
   >
+  redirectDomainService: IRedirectDomainService
   redirectList: Array<IRedirectModel>
-  add(redirect: IRedirectDTO): IRedirectModel
+
   redirect(redirect: IRedirectRef): Maybe<IRedirectModel>
 }

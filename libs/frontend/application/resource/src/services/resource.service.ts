@@ -8,10 +8,7 @@ import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/application/shared/store'
-import {
-  Resource,
-  ResourceDomainService,
-} from '@codelab/frontend/domain/resource'
+import { ResourceDomainService } from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type { IPropDTO, IResourceDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -22,7 +19,6 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'

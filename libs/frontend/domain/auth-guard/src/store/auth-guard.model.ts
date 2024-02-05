@@ -1,10 +1,12 @@
-import { getUserService } from '@codelab/frontend/abstract/application'
 import type {
   IAuthGuardModel,
   IPropModel,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import { resourceRef } from '@codelab/frontend/abstract/domain'
+import {
+  getUserDomainService,
+  resourceRef,
+} from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type {
   AuthGuardCreateInput,
@@ -45,8 +47,8 @@ export class AuthGuardModel
   static create = create
 
   @computed
-  private get userService() {
-    return getUserService(this)
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 
   @computed
@@ -78,7 +80,7 @@ export class AuthGuardModel
       },
       id: this.id,
       name: this.name,
-      owner: connectOwner(this.userService.user),
+      owner: connectOwner(this.userDomainService.user),
       resource: connectNodeId(this.resource.id),
       responseTransformer: this.responseTransformer,
     }

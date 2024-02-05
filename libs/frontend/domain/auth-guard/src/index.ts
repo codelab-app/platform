@@ -1,1 +1,3 @@
-export * from './store/auth-guard.model'
+export * from './auth-guard.domain.service'
+export * from './store'
+export * from './test'

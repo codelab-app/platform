@@ -17,15 +17,15 @@ export type AuthGuardFragment = {
 
 export const AuthGuardFragmentDoc = gql`
   fragment AuthGuard on AuthGuard {
-    id
-    name
-    responseTransformer
     config {
       ...Prop
     }
+    id
+    name
     resource {
       ...Resource
     }
+    responseTransformer
   }
   ${PropFragmentDoc}
   ${ResourceFragmentDoc}

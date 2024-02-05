@@ -22011,9 +22011,9 @@ export type RedirectFragment = {
   id: string
   targetType: RedirectTargetType
   targetUrl?: string | null
+  authGuard: { id: string }
   source: { id: string }
   targetPage?: { id: string } | null
-  authGuard: { id: string }
 }
 
 export type ResourceFragment = {
@@ -22346,13 +22346,15 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 }>
 
 export type GetAppDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment>
+  actionTypes: Array<ActionTypeFragment & ActionTypeFragment>
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
-  renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
+  redirects: Array<RedirectFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
 }
 
@@ -22409,6 +22411,7 @@ export type GetSelectAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetSelectAtomOptionsQuery = {
   atoms: Array<{
+    __typename: 'Atom'
     id: string
     name: string
     type: AtomType
@@ -22643,6 +22646,42 @@ export type GetPropsQueryVariables = Exact<{
 export type GetPropsQuery = {
   aggregate: { count: number }
   items: Array<PropFragment>
+}
+
+export type CreateRedirectsMutationVariables = Exact<{
+  input: Array<RedirectCreateInput> | RedirectCreateInput
+}>
+
+export type CreateRedirectsMutation = {
+  createRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type DeleteRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  delete?: InputMaybe<RedirectDeleteInput>
+}>
+
+export type DeleteRedirectsMutation = {
+  deleteRedirects: { nodesDeleted: number }
+}
+
+export type UpdateRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  update?: InputMaybe<RedirectUpdateInput>
+}>
+
+export type UpdateRedirectsMutation = {
+  updateRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type GetRedirectsQueryVariables = Exact<{
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}>
+
+export type GetRedirectsQuery = {
+  aggregate: { count: number }
+  items: Array<RedirectFragment>
 }
 
 export type GetResourcesQueryVariables = Exact<{
@@ -23494,40 +23533,4 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = {
   createUsers: { users: Array<{ email: string; id: string }> }
-}
-
-export type CreateRedirectsMutationVariables = Exact<{
-  input: Array<RedirectCreateInput> | RedirectCreateInput
-}>
-
-export type CreateRedirectsMutation = {
-  createRedirects: { redirects: Array<{ id: string }> }
-}
-
-export type DeleteRedirectsMutationVariables = Exact<{
-  where?: InputMaybe<RedirectWhere>
-  delete?: InputMaybe<RedirectDeleteInput>
-}>
-
-export type DeleteRedirectsMutation = {
-  deleteRedirects: { nodesDeleted: number }
-}
-
-export type UpdateRedirectsMutationVariables = Exact<{
-  where?: InputMaybe<RedirectWhere>
-  update?: InputMaybe<RedirectUpdateInput>
-}>
-
-export type UpdateRedirectsMutation = {
-  updateRedirects: { redirects: Array<{ id: string }> }
-}
-
-export type GetRedirectsQueryVariables = Exact<{
-  options?: InputMaybe<RedirectOptions>
-  where?: InputMaybe<RedirectWhere>
-}>
-
-export type GetRedirectsQuery = {
-  aggregate: { count: number }
-  items: Array<RedirectFragment>
 }
