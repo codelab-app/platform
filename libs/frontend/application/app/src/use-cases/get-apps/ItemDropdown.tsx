@@ -5,6 +5,7 @@ import ExportOutlined from '@ant-design/icons/ExportOutlined'
 import GlobalOutlined from '@ant-design/icons/GlobalOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
+import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
@@ -28,6 +29,26 @@ const menuItemStyle: CSSProperties = {
 
 const menuItemIconStyle: CSSProperties = {
   marginLeft: '1rem',
+}
+
+const downloadExportedData = async (app: IAppModel) => {
+  console.log('running downloadExportedData')
+
+  const res: any = await restPlatformClient.get(`app/export?id=${app.id}`)
+  const filename = 'export.json'
+  const contentType = 'application/json;charset=utf-8;'
+  const a = document.createElement('a')
+
+  a.download = filename
+  a.href =
+    'data:' +
+    contentType +
+    ',' +
+    encodeURIComponent(JSON.stringify(res.data[0], null, 2))
+  a.target = '_blank'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
 }
 
 export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
@@ -77,11 +98,10 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
     {
       icon: <ExportOutlined style={menuItemIconStyle} />,
       key: 'export',
-      label: (
-        <Link href={`/api/data/app/export?id=${app.id}`}>
-          <span>Export</span>
-        </Link>
-      ),
+      label: 'Export',
+      onClick: async () => {
+        await downloadExportedData(app)
+      },
       style: menuItemStyle,
     },
   ]

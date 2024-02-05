@@ -7,7 +7,6 @@ export const basePageSelectionSet = `
   app {
     id
     name
-    _compoundName
     owner {
       auth0Id
     }
@@ -25,7 +24,6 @@ export const basePageSelectionSet = `
     name
   }
   url
-  _compoundName
 `
 
 export const pageSelectionSet = `
