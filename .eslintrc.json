@@ -126,7 +126,6 @@
         "canonical/sort-keys": "off"
       }
     },
-
     {
       "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
       "rules": {

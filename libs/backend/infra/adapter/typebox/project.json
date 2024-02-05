@@ -1,98 +1,65 @@
 {
+  "name": "backend-infra-adapter-typebox",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "name": "backend-infra-adapter-codelab",
+  "sourceRoot": "libs/backend/infra/adapter/typebox/src",
   "projectType": "library",
-  "sourceRoot": "libs/backend/infra/adapter/codelab/src",
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "layer:infra",
-    "scope:backend"
-  ],
   "targets": {
     "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-infra-adapter-typebox.xml",
-          "quiet": true
-        }
-      },
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/infra/adapter/codelab/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
-    }
-  },
-  "targets": {
-    "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-infra-adapter-typebox.xml",
-          "quiet": true
-        }
-      },
-      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "libs/backend/infra/adapter/typebox/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
-      "outputs": ["{options.outputFile}"]
-    },
-    "test": {
       "configurations": {
         "ci": {
-          "ci": true,
-          "codeCoverage": true
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-typebox.xml",
+          "quiet": true
         }
-      },
+      }
+    },
+    "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts",
         "reporters": ["default"]
       }
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts"
+      },
       "configurations": {
-        "ci": {
-          "parallel": 3
-        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
         }
       },
-      "defaultConfiguration": "dev",
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts",
-        "memoryLimit": 8192,
-        "testPathPattern": ["[i].spec.ts"]
-      },
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts",
-        "memoryLimit": 8192,
-        "passWithNoTests": true,
-        "testPathPattern": ["[i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts"
+      },
       "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        },
         "dev": {
           "reporters": ["default"]
         },
@@ -100,25 +67,14 @@
           "reporters": ["default"]
         }
       },
-      "defaultConfiguration": "dev",
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/infra/adapter/typebox/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "passWithNoTests": true,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
-  }
+  },
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:backend"
+  ]
 }

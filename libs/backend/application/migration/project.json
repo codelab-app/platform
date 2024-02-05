@@ -1,110 +1,65 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "backend-application-migration",
-  "projectType": "library",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/backend/application/migration/src",
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:backend",
-    "layer:application"
-  ],
+  "projectType": "library",
   "targets": {
     "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/application/migration/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/backend-application-migration.xml",
           "quiet": true
         }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/backend/application/migration/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/backend/application/migration/jest.config.ts",
         "reporters": ["default"]
-      },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
-    },
-    "test:integration": {
-      "configurations": {
-        "ci": {
-          "parallel": 3
-        },
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        }
-      },
-      "defaultConfiguration": "dev",
-      "defaultConfiguration": "dev",
-      "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/application/migration/jest.config.ts",
-        "memoryLimit": 8192,
-        "testPathPattern": ["[i].spec.ts"]
-      },
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/application/migration/jest.config.ts",
-        "memoryLimit": 8192,
-        "passWithNoTests": true,
-        "testPathPattern": ["[i].spec.ts"]
-      },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
-    },
-    "test:integration": {
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true,
-          "parallel": 3
-        },
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        }
-      },
-      "defaultConfiguration": "dev",
-      "defaultConfiguration": "dev",
-      "defaultConfiguration": "dev",
-      "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/application/migration/jest.config.ts",
-        "memoryLimit": 8192,
-        "passWithNoTests": true,
-        "testPathPattern": ["[i].spec.ts"]
-      },
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
-    },
-    "test:unit": {
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
       }
     },
-    "test:unit": {
+    "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "libs/backend/application/migration/jest.config.ts"
+      },
       "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
+        "dev": {
+          "reporters": ["default"]
         },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/backend/application/migration/jest.config.ts"
+      },
+      "configurations": {
         "dev": {
           "reporters": ["default"]
         },
@@ -112,23 +67,14 @@
           "reporters": ["default"]
         }
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
-      "options": {
-        "color": true,
-        "jestConfig": "libs/backend/application/migration/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "passWithNoTests": true,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
-  }
+  },
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ]
 }
