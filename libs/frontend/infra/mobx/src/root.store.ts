@@ -23,8 +23,10 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
+  authGuardServiceContext,
   componentServiceContext,
   elementServiceContext,
+  redirectServiceContext,
   rendererServiceContext,
   resourceServiceContext,
   userServiceContext,
@@ -37,11 +39,13 @@ import {
   actionDomainServiceContext,
   appDomainServiceContext,
   atomDomainServiceContext,
+  authGuardDomainServiceContext,
   builderDomainServiceContext,
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
+  redirectDomainServiceContext,
   resourceDomainServiceContext,
   storeDomainServiceContext,
   tagDomainServiceContext,
@@ -152,6 +156,11 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
     protected onInit() {
       appServiceContext.set(this, this.appService)
       appDomainServiceContext.set(this, this.appService.appDomainService)
+      authGuardServiceContext.set(this, this.authGuardService)
+      authGuardDomainServiceContext.set(
+        this,
+        this.authGuardService.authGuardDomainService,
+      )
       domainServiceContext.set(this, this.domainService)
       pageServiceContext.set(this, this.pageService)
       pageDomainServiceContext.set(this, this.pageService.pageDomainService)
@@ -185,6 +194,11 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.componentService.componentDomainService,
       )
+      redirectDomainServiceContext.set(
+        this,
+        this.redirectService.redirectDomainService,
+      )
+      redirectServiceContext.set(this, this.redirectService)
       rendererServiceContext.set(this, this.rendererService)
       actionDomainServiceContext.set(
         this,

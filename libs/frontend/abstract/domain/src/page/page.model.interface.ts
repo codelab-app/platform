@@ -26,7 +26,11 @@ export interface IPageModel
    */
   pageContentContainer?: Nullish<Ref<IElementModel>>
   providerPage: Maybe<IPageModel>
-  redirect: Nullish<Ref<IRedirectModel>>
+  /**
+   * computed property which return a redirect if there is one attached to page
+   * because redirect maybe added/updated/deleted without changing page
+   */
+  redirect?: IRedirectModel
   rootElement: Ref<IElementModel>
   slug: string
   store: Ref<IStoreModel>

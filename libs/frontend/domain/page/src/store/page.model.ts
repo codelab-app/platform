@@ -2,7 +2,6 @@ import type {
   IAppModel,
   IElementModel,
   IPageModel,
-  IRedirectModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -10,7 +9,7 @@ import {
   elementRef,
   ElementTree,
   getPageDomainService,
-  redirectRef,
+  getRedirectDomainService,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -21,7 +20,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   PageProperties,
@@ -38,7 +37,6 @@ const create = ({
   kind,
   name,
   pageContentContainer,
-  redirect,
   rootElement,
   store,
   url,
@@ -51,7 +49,6 @@ const create = ({
     pageContentContainer: pageContentContainer?.id
       ? elementRef(pageContentContainer.id)
       : undefined,
-    redirect: redirect ? redirectRef(redirect.id) : undefined,
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
     url,
@@ -65,7 +62,6 @@ export class Page
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
-    redirect: prop<Nullish<Ref<IRedirectModel>>>(),
     store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),
   })
@@ -112,10 +108,22 @@ export class Page
   }
 
   @computed
+  get redirectDomainService() {
+    return getRedirectDomainService(this)
+  }
+
+  @computed
   get providerPage() {
     return this.kind === IPageKind.Regular
       ? this.app.current.providerPage
       : undefined
+  }
+
+  @computed
+  get redirect() {
+    const redirects = [...this.redirectDomainService.redirects.values()]
+
+    return redirects.find((redirect) => redirect.source.id === this.id)
   }
 
   @modelAction
@@ -124,7 +132,6 @@ export class Page
     kind,
     name,
     pageContentContainer,
-    redirect,
     rootElement,
     store,
     url,
@@ -134,7 +141,6 @@ export class Page
       ? elementRef(rootElement.id)
       : this.rootElement
     this.app = app ? appRef(app.id) : this.app
-    this.redirect = redirect ? redirectRef(redirect.id) : this.redirect
     this.pageContentContainer = pageContentContainer
       ? elementRef(pageContentContainer.id)
       : this.pageContentContainer

@@ -28,7 +28,6 @@ export const CreateRedirectForm = observer<CreateRedirectFormProps>(
     const closeForm = () => redirectService.createForm.close()
 
     const onSubmit = async (redirectDTO: ICreateRedirectData) => {
-      console.log(redirectDTO)
       await redirectService.create(redirectDTO)
 
       closeForm()

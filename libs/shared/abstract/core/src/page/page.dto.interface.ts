@@ -12,7 +12,6 @@ export const IPageDTO = Type.Object({
   // The container element of the page
   pageContentContainer: Typebox.Nullish(IRef),
 
-  redirect: Typebox.Nullish(IRef),
   rootElement: IRef,
   store: IRef,
   url: Type.String(),
