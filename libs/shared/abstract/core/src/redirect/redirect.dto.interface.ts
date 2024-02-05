@@ -1,9 +1,8 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRedirectTargetType } from './redirect-target-type.enum'
 import { IRef } from '../model/node-type.interface'
-import { IProp } from '../prop.dto.interface'
+import { IRedirectTargetType } from './redirect-target-type.enum'
 
 export const IRedirectDTO = Type.Object({
   authGuard: IRef,

@@ -1,3 +1,4 @@
+import type { IAuthGuardRepository } from '@codelab/frontend/abstract/application'
 import { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { AuthGuardUniqueWhere } from '@codelab/shared/abstract/codegen'
@@ -7,7 +8,6 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { authGuardApi } from './auth-guard.api'
-import { IAuthGuardRepository } from '@codelab/frontend/abstract/application'
 
 @model('@codelab/AuthGuardRepository')
 export class AuthGuardRepository

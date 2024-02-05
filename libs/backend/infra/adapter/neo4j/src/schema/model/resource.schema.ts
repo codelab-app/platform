@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 
-
 export const resourceSchema = gql`
   enum ResourceType {
     GraphQl

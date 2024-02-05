@@ -7,7 +7,7 @@ import type { IAuthGuard, IAuthGuardDTO } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { IPropModel } from '../prop'
 import type { IResourceModel } from '../resource'
-import { ICacheService, IModel } from '../shared'
+import type { ICacheService, IModel } from '../shared'
 
 export interface IAuthGuardModel
   extends IModel<

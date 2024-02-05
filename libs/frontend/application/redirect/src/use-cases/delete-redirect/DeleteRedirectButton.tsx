@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import { redirectRef } from '@codelab/frontend/abstract/domain'
 import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'

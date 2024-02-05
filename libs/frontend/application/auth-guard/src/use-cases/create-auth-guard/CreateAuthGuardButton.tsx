@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -9,7 +9,7 @@ export const CreateAuthGuardButton = observer(() => {
 
   return (
     <Button
-      className="h-full w-full"
+      className="size-full"
       icon={<PlusOutlined />}
       onClick={() => authGuardService.createModal.open()}
       type="primary"

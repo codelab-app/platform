@@ -54,12 +54,12 @@ export class Redirect
   @computed
   get toJson() {
     return {
+      authGuard: this.authGuard,
       id: this.id,
       source: this.source,
-      targetType: this.targetType,
       targetPage: this.targetPage,
+      targetType: this.targetType,
       targetUrl: this.targetUrl,
-      authGuard: this.authGuard,
     }
   }
 

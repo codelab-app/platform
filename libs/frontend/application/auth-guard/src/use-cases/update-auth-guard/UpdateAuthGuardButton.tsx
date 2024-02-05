@@ -1,4 +1,4 @@
-import { EditOutlined } from '@ant-design/icons'
+import EditOutlined from '@ant-design/icons/EditOutlined'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -8,6 +8,7 @@ import React from 'react'
 
 export const UpdateAuthGuardButton = observer<UpdateButtonProps>(({ id }) => {
   const { authGuardService } = useStore()
+
   return (
     <Button
       ghost

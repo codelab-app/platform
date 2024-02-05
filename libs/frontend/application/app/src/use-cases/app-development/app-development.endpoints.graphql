@@ -3,6 +3,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   actionTypes {
     ...ActionType
   }
+  actionTypes {
+    ...ActionType
+  }
   apps(where: { compositeKey: $appCompositeKey }) {
     ...AppDevelopment
   }
@@ -10,11 +13,11 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   atoms(where: { type: ReactFragment }) {
     ...AtomDevelopment
   }
-  components {
-    ...ComponentDevelopment
-  }
   authGuards {
     ...AuthGuard
+  }
+  components {
+    ...ComponentDevelopment
   }
   # Load system types
   # workaround for lack of ability to recursively fetch field's types
@@ -27,17 +30,14 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   reactNodeTypes {
     ...ReactNodeType
   }
+  # load all redirects of app
+  redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
+    ...Redirect
+  }
   renderPropTypes {
     ...RenderPropType
   }
   resources {
     ...Resource
-  }
-  actionTypes {
-    ...ActionType
-  }
-  # load all redirects of app
-  redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
-    ...Redirect
   }
 }

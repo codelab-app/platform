@@ -1,6 +1,6 @@
 import { type Static, Type } from '@sinclair/typebox'
-import { IStore } from './store.dto.interface'
 import { IApi } from '../type'
+import { IStore } from './store.dto.interface'
 
 export const IStoreBoundedContext = Type.Object({
   api: IApi,

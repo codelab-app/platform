@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { IAuthGuardsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'

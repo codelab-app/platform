@@ -37,7 +37,7 @@ export const MakeChildrenDroppable = <
 
   return (
     <WrapperElement
-      className="h-full w-full"
+      className="size-full"
       ref={setNodeRef}
       style={wrapperStyles}
     >

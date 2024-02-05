@@ -38,8 +38,8 @@ export const CuiCollapse = ({
   }
 
   return (
-    <div className="flex h-full w-full flex-col overflow-y-auto overflow-x-hidden">
-      <div className="flex h-full w-full flex-col py-1">
+    <div className="size-full flex flex-col overflow-y-auto overflow-x-hidden">
+      <div className="size-full flex flex-col py-1">
         {panels.map((view) => (
           <React.Fragment key={view.key}>
             <CuiCollapsePanelHeader

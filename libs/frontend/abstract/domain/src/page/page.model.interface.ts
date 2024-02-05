@@ -12,7 +12,6 @@ import type { IRedirectModel } from '../redirect'
 import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
-import { IRedirectModel } from '../redirect'
 
 export interface IPageModel
   extends IModel<PageCreateInput, PageUpdateInput, PageDeleteInput, IPage>,

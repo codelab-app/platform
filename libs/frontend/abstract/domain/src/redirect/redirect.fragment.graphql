@@ -1,4 +1,7 @@
 fragment Redirect on Redirect {
+  authGuard {
+    id
+  }
   id
   source {
     id
@@ -8,7 +11,4 @@ fragment Redirect on Redirect {
   }
   targetType
   targetUrl
-  authGuard {
-    id
-  }
 }

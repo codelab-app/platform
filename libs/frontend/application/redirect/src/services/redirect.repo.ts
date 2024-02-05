@@ -1,3 +1,4 @@
+import type { IRedirectRepository } from '@codelab/frontend/abstract/application'
 import type { IRedirectModel } from '@codelab/frontend/abstract/domain'
 import type {
   RedirectOptions,
@@ -5,7 +6,6 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { redirectApi } from './redirect.api'
-import { IRedirectRepository } from '@codelab/frontend/abstract/application'
 
 @model('@codelab/RedirectRepository')
 export class RedirectRepository

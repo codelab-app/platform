@@ -1,8 +1,8 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElement } from '../element'
-import { IPage } from './page.dto.interface'
 import { IStoreBoundedContext } from '../store'
+import { IPage } from './page.dto.interface'
 
 export const IPageBoundedContext = Type.Object({
   elements: Type.Array(IElement),

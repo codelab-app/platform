@@ -1,4 +1,4 @@
-import { IAuthGuardModel } from '../../auth-guard'
+import type { IAuthGuardModel } from '../../auth-guard'
 import type { ITreeDataNode } from './tree-data-node.interface'
 
 export type IAuthGuardsTreeDataNode = ITreeDataNode<{

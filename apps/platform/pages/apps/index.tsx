@@ -61,7 +61,7 @@ const AppsPageHeader = observer(() => {
       logo={
         <Image
           alt="codelab logo"
-          className="h-full w-full"
+          className="size-full"
           preview={false}
           src="/logo.png"
         />

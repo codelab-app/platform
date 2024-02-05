@@ -1,10 +1,10 @@
+import type { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
 import type {
   AuthGuardFragment,
   AuthGuardOptions,
   AuthGuardWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IRepository } from '../services'
-import { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
+import type { IRepository } from '../services'
 
 export type IAuthGuardRepository = IRepository<
   IAuthGuardModel,

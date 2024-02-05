@@ -1,8 +1,8 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IProp, IPropDTO } from './prop.dto.interface'
 import { IRef } from './model/node-type.interface'
-import { Typebox } from '@codelab/shared/abstract/typebox'
+import { IProp, IPropDTO } from './prop.dto.interface'
 
 export const IAuthGuardDTO = Type.Object({
   config: IPropDTO,

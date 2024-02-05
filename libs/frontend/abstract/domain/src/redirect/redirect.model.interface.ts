@@ -12,7 +12,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IAuthGuardModel } from '../auth-guard'
 import type { IPageModel } from '../page'
-import { ICacheService, IModel } from '../shared'
+import type { ICacheService, IModel } from '../shared'
 
 export interface IRedirectModel
   extends Omit<

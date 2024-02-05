@@ -5,15 +5,15 @@ import {
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
-  redirectSelectionSet,
   OgmService,
+  redirectSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
-  IRedirectTargetType,
   type IRedirectDTO,
+  IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
@@ -44,14 +44,14 @@ export class RedirectRepository extends AbstractRepository<
         await this.ogmService.Redirect
       ).create({
         input: redirects.map((redirect) => ({
-          id: redirect.id,
-          targetType: redirect.targetType,
           authGuard: connectNodeId(redirect.authGuard.id),
+          id: redirect.id,
           source: connectNodeId(redirect.source.id),
           targetPage:
             redirect.targetType === IRedirectTargetType.Page
               ? reconnectNodeId(redirect.targetPage?.id)
               : undefined,
+          targetType: redirect.targetType,
 
           targetUrl:
             redirect.targetType === IRedirectTargetType.Url
@@ -81,8 +81,8 @@ export class RedirectRepository extends AbstractRepository<
   protected async _update({
     authGuard,
     source,
-    targetType,
     targetPage,
+    targetType,
     targetUrl,
   }: IRedirectDTO) {
     return (
@@ -92,11 +92,11 @@ export class RedirectRepository extends AbstractRepository<
         update: {
           authGuard: reconnectNodeId(authGuard.id),
           source: reconnectNodeId(source.id),
-          targetType,
           targetPage:
             targetType === IRedirectTargetType.Page
               ? reconnectNodeId(targetPage?.id)
               : disconnectAll(),
+          targetType,
           targetUrl:
             targetType === IRedirectTargetType.Url ? targetUrl : undefined,
         },

@@ -1,8 +1,12 @@
+import type { IAuthGuardService } from '@codelab/frontend/abstract/application'
+import { getResourceService } from '@codelab/frontend/abstract/application'
 import type {
   IAuthGuardModel,
   ICreateAuthGuardData,
   IUpdateAuthGuardData,
 } from '@codelab/frontend/abstract/domain'
+import { getPropService } from '@codelab/frontend/application/prop'
+import { AuthGuardModel } from '@codelab/frontend/domain/auth-guard'
 import {
   InlineFormService,
   ModalService,
@@ -26,9 +30,6 @@ import { v4 } from 'uuid'
 import { AuthGuardRepository } from './auth-guard.repo'
 import { AuthGuardFormService } from './auth-guard-form.service'
 import { AuthGuardModalService } from './auth-guard-modal.service'
-import { IAuthGuardService, getResourceService } from '@codelab/frontend/abstract/application'
-import { getPropService } from '@codelab/frontend/application/prop'
-import { AuthGuardModel } from '@codelab/frontend/domain/auth-guard'
 
 @model('@codelab/AuthGuardService')
 export class AuthGuardService

@@ -1,5 +1,6 @@
 import type { IUpdateActionData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -19,7 +20,6 @@ import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useActionSchema } from '../hooks'
 import { updateActionSchema } from './update-action.schema'
-import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
 
 interface UpdateActionFormProps {
   showFormControl?: boolean

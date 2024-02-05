@@ -1,3 +1,4 @@
+import type { IRedirectService } from '@codelab/frontend/abstract/application'
 import type {
   ICreateRedirectData,
   IRedirectModel,
@@ -23,7 +24,6 @@ import {
   CreateRedirectFormService,
   RedirectFormService,
 } from './redirect-form.service'
-import { IRedirectService } from '@codelab/frontend/abstract/application'
 
 @model('@codelab/RedirectService')
 export class RedirectService

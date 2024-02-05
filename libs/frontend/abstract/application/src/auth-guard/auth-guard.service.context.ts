@@ -1,5 +1,5 @@
 import { createContext } from 'mobx-keystone'
-import { IAuthGuardService } from './auth-guard.service.interface'
+import type { IAuthGuardService } from './auth-guard.service.interface'
 
 export const authGuardServiceContext = createContext<IAuthGuardService>()
 

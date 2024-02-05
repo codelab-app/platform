@@ -1,7 +1,5 @@
-import { IEntityModalService } from '@codelab/frontend/abstract/application'
-import type {
-  IAuthGuardModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IEntityModalService } from '@codelab/frontend/abstract/application'
+import type { IAuthGuardModel } from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/domain/shared'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

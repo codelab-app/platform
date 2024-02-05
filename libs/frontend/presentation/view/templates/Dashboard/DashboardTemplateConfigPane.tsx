@@ -9,7 +9,7 @@ export const DashboardTemplateConfigPane = ({
   ConfigPane,
 }: ConfigPaneProps) => {
   return (
-    <div className="h-full w-full overflow-y-auto bg-white">
+    <div className="size-full overflow-y-auto bg-white">
       <ConfigPane />
     </div>
   )

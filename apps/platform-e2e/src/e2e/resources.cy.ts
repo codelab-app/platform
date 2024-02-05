@@ -1,11 +1,11 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import {
   resourceName,
   resourcesUrl,
   updatedResourceName,
 } from './resource.data'
-import { IResourceType } from '@codelab/shared/abstract/core'
 
 describe('Resource CRUD', () => {
   before(() => {

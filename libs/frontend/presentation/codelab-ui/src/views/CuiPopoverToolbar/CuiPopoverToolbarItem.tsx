@@ -17,8 +17,7 @@ export const CuiPopoverToolbarItem = ({
   return (
     <div
       className="
-        h-full
-        w-full
+        size-full
         cursor-pointer
       "
       data-cy={CY_DATA.cuiToolbarItem(title)}
@@ -27,9 +26,8 @@ export const CuiPopoverToolbarItem = ({
       <Tooltip title={title}>
         <div
           className={`
+          size-full
           flex
-          h-full
-          w-full
           flex-col
           items-center
           justify-center

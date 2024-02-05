@@ -52,9 +52,9 @@ export class AuthGuardModel
   @computed
   get toJson() {
     return {
-      name: this.name,
       config: this.config.toJson,
       id: this.id,
+      name: this.name,
       resource: this.resource,
       responseTransformer: this.responseTransformer,
     }

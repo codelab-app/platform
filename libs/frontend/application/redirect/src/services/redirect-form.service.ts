@@ -1,4 +1,4 @@
-import { IEntityFormService } from '@codelab/frontend/abstract/application'
+import type { IEntityFormService } from '@codelab/frontend/abstract/application'
 import type {
   IPageModel,
   IRedirectModel,

@@ -1,5 +1,5 @@
-import { DeleteOutlined } from '@ant-design/icons'
-import { IAuthGuardService } from '@codelab/frontend/abstract/application'
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
+import type { IAuthGuardService } from '@codelab/frontend/abstract/application'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'

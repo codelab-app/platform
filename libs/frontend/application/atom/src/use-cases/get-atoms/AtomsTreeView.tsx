@@ -38,7 +38,7 @@ export const AtomsTreeView = observer(
     }))
 
     return (
-      <div className="h-full w-full">
+      <div className="size-full">
         <CuiTree<IAtomsTreeDataNode>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
