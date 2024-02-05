@@ -6,59 +6,15 @@ import {
 import type {
   IActionModel,
   IApiActionModel,
-  IBaseResourceConfigData,
   ICodeActionModel,
-  IGraphQLActionConfig,
-  IRestActionConfig,
 } from '@codelab/frontend/abstract/domain'
-import { IPropModel } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
-import type { Axios, Method } from 'axios'
-import axios from 'axios'
-import { GraphQLClient } from 'graphql-request'
-import isString from 'lodash/isString'
+import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { tryParse } from './utils'
-
-const restFetch = (
-  client: Axios,
-  config: IRestActionConfig,
-  overrideConfig?: IPropData,
-) => {
-  const data = merge(tryParse(config.body), overrideConfig?.['body'])
-  const headers = merge(tryParse(config.headers), overrideConfig?.['headers'])
-  const parsedParams = tryParse(config.queryParams)
-
-  return client.request({
-    data,
-    headers,
-    method: config.method as Method,
-    // params should be an object to be properly used as url params
-    params: isString(parsedParams) ? undefined : parsedParams,
-    responseType: config.responseType,
-    url: config.urlSegment,
-  })
-}
-
-const graphqlFetch = (
-  client: GraphQLClient,
-  config: IGraphQLActionConfig,
-  overrideConfig?: IPropData,
-) => {
-  const headers = merge(tryParse(config.headers), overrideConfig?.['headers'])
-
-  const variables = merge(
-    tryParse(config.variables),
-    overrideConfig?.['variables'],
-  )
-
-  return client.request(config.query, variables, headers)
-}
+import { idProp, Model, model, prop } from 'mobx-keystone'
 
 const create = ({ action, runtimeStore }: IRuntimeActionDTO) =>
   new RuntimeActionModel({ action, runtimeStore })
@@ -75,28 +31,6 @@ export class RuntimeActionModel
   static create = create
 
   @computed
-  get _graphqlClient() {
-    const { headers, url } = this._resourceConfig
-    const options = { headers: tryParse(headers) }
-
-    return new GraphQLClient(url, options)
-  }
-
-  @computed
-  get _resourceConfig() {
-    return this.replaceStateInConfig(
-      (this.action.current as IApiActionModel).resource.current.config,
-    ) as IBaseResourceConfigData
-  }
-
-  @computed
-  get _restClient() {
-    const { headers, url } = this._resourceConfig
-
-    return axios.create({ baseURL: url, headers: tryParse(headers) })
-  }
-
-  @computed
   get apiRunner() {
     const action = this.action.current as IApiActionModel
 
@@ -109,37 +43,32 @@ export class RuntimeActionModel
       : null
 
     const resource = action.resource.current
-    const config = action.config.values
-    const graphQLClient = this._graphqlClient
-    const restClient = this._restClient
 
     // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
     return async function (...args: Array<unknown>) {
-      const overrideConfig = args[1] as IPropData
+      const overrideConfig = args[1]
+      const config = merge(action.config.values, overrideConfig)
       // @ts-expect-error: due to not using arrow function
       const _this = this as IEvaluationContext
-      const evaluatedConfig = evaluateObject(config, { ..._this, args })
+      const context = { ..._this, args }
+      const evaluatedConfig = evaluateObject(config, context)
 
-      const fetchPromise =
-        resource.type === IResourceType.GraphQl
-          ? graphqlFetch(
-              graphQLClient,
-              evaluatedConfig as IGraphQLActionConfig,
-              overrideConfig,
-            )
-          : restFetch(
-              restClient,
-              evaluatedConfig as IRestActionConfig,
-              overrideConfig,
-            )
+      const fetchPromise = resource.client.fetch(
+        evaluatedConfig as IResourceFetchConfig,
+      )
 
-      try {
-        const response = await fetchPromise
+      // errors are handled by resource client
+      const response = await fetchPromise
 
-        return successAction?.runner.call(_this, response)
-      } catch (error) {
-        return errorAction?.runner.call(_this, error)
+      if (response.error) {
+        const runner = errorAction?.runner.bind(_this)
+
+        return runner?.(response)
       }
+
+      const runner = successAction?.runner.bind(_this)
+
+      return runner?.(response)
     }
   }
 
@@ -164,7 +93,7 @@ export class RuntimeActionModel
     } catch (error) {
       console.log(error)
 
-      return () => () => undefined
+      return () => undefined
     }
   }
 
@@ -174,20 +103,5 @@ export class RuntimeActionModel
     return this.action.current.type === IActionKind.ApiAction
       ? this.apiRunner
       : this.codeRunner
-  }
-
-  @modelAction
-  private replaceStateInConfig(config: IPropModel) {
-    return evaluateObject(config.values, {
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: {},
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: {},
-      url: {},
-    })
   }
 }

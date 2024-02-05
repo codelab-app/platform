@@ -11,6 +11,7 @@ import type {
   StoreFragment,
   TypeFragment,
 } from '@codelab/shared/abstract/codegen'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { IAppModel } from './app.model.interface'
 
 export interface IAppDevelopmentArgs {
@@ -29,7 +30,7 @@ export interface IAppDevelopmentDto {
   pages: Array<PageDevelopmentFragment>
   props: Array<PropFragment>
   resources: Array<ResourceFragment>
-  stores: Array<StoreFragment>
+  stores: Array<StoreFragment & { component?: IRef; page?: IRef }>
   types: Array<TypeFragment>
 }
 

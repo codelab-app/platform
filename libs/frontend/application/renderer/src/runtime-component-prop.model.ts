@@ -1,22 +1,14 @@
-import type {
-  IRuntimeComponentPropDTO,
-  IRuntimeComponentPropModel,
-  IRuntimeContainerNodeModel,
-  IRuntimeModel,
-} from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  IEvaluationContext,
-  isRuntimeElementRef,
-  runtimeContainerNodeRef,
-  runtimeElementRef,
+  type IEvaluationContext,
+  type IRuntimeComponentPropDTO,
+  type IRuntimeComponentPropModel,
+  type IRuntimeContainerNodeModel,
 } from '@codelab/frontend/abstract/application'
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import {
   DATA_COMPONENT_ID,
-  elementRef,
   IComponentModel,
-  IElementModel,
-  IPropModel,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { evaluateObject } from '@codelab/frontend/application/shared/core'
@@ -24,41 +16,34 @@ import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import {
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
-import { v4 } from 'uuid'
-import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
-import { RuntimeElement } from './runtime-element.model'
-import { RuntimeElementProps } from './runtime-element-prop.model'
+import type { Ref } from 'mobx-keystone'
+import { idProp, Model, model, prop } from 'mobx-keystone'
 
-const create = (dto: IRuntimeComponentPropDTO) => {
-  return new RuntimeComponentProps(dto)
-}
+const create = (dto: IRuntimeComponentPropDTO) =>
+  new RuntimeComponentPropModel(dto)
 
-@model('@codelab/RuntimeComponentProps')
-export class RuntimeComponentProps
+@model('@codelab/RuntimeComponentProp')
+export class RuntimeComponentPropModel
   extends Model({
-    component: prop<Ref<IComponentModel>>(),
+    customProps: prop<Maybe<IPropModel>>(() => undefined).withSetter(),
     id: idProp,
-    overrideProps: prop<Maybe<IPropModel>>(undefined),
-    runtimeContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
-    runtimeRootNodes: prop<ObjectMap<IRuntimeModel>>(() => objectMap([])),
+    runtimeComponent: prop<Ref<IRuntimeContainerNodeModel>>(),
   })
   implements IRuntimeComponentPropModel
 {
   static create = create
 
   @computed
+  get component(): IComponentModel {
+    return this.runtimeComponent.current.containerNode
+      .current as IComponentModel
+  }
+
+  @computed
   get runtimeStore() {
-    return this.runtimeContainerNode.current.runtimeStore
+    return this.runtimeComponent.current.runtimeStore
   }
 
   @computed
@@ -77,7 +62,7 @@ export class RuntimeComponentProps
     return mergeProps(
       this.evaluatedProps,
       this.instanceElementProps,
-      this.childMapperProps,
+      this.childMapperProp,
     )
   }
 
@@ -101,76 +86,68 @@ export class RuntimeComponentProps
         return value.value
       }
 
-      return transformer.transform(value, this.component.current)
+      return transformer.transform(value, this.runtimeComponent.current)
     })
+  }
+
+  @computed
+  get propsEvaluationContext() {
+    return {
+      actions: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      url: {},
+    }
   }
 
   @computed
   get evaluatedProps() {
-    return evaluateObject(this.renderedTypedProps, {
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: this.runtimeStore.state,
-      url: {},
-    })
+    // evaluate expressions but with empty context
+    return evaluateObject(this.renderedTypedProps, this.propsEvaluationContext)
   }
 
   @computed
   get instanceElementProps(): Maybe<IPropData> {
-    const { parent } = this.runtimeContainerNode.current
+    if (this.runtimeComponent.current.isTypedProp) {
+      return undefined
+    }
 
-    return parent && isRuntimeElementRef(parent)
-      ? parent.current.runtimeProps.evaluatedProps
+    const { runtimeParent } = this.runtimeComponent.current
+
+    return runtimeParent
+      ? runtimeParent.current.runtimeProps.evaluatedProps
       : undefined
   }
 
   @computed
-  get childMapperProps(): Maybe<IPropData> {
-    const { parent } = this.runtimeContainerNode.current
-    const parentIsRuntimeElement = parent && isRuntimeElementRef(parent)
+  get childMapperProp(): Maybe<IPropData> {
+    const { childMapperIndex, runtimeParent } = this.runtimeComponent.current
 
-    const runtimeParentElementProps = parentIsRuntimeElement
-      ? parent.current.runtimeProps
+    const runtimeParentElementProps = runtimeParent
+      ? runtimeParent.current.runtimeProps
       : undefined
 
-    const props = runtimeParentElementProps?.evaluatedChildMapperProp || []
-    const index = this.runtimeContainerNode.current.childMapperIndex
+    const props = runtimeParentElementProps?.evaluatedChildMapperProps || []
 
-    return index ? props[index] : undefined
+    return props[Number(childMapperIndex)]
   }
 
   @computed
   get props() {
     return mergeProps(
-      this.component.current.api.current.defaultValues,
-      this.component.current.props.values,
+      this.component.api.current.defaultValues,
+      this.component.props.values,
+      this.customProps?.values,
       {
         [DATA_COMPONENT_ID]: this.component.id,
         key: this.component.id,
       },
-      this.overrideProps?.values,
     )
-  }
-
-  @computed
-  get propsEvaluationContext(): IEvaluationContext {
-    return {
-      actions: {},
-      componentProps: {},
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: this.runtimeStore.state,
-      url: {},
-    }
   }
 
   @computed
@@ -179,42 +156,5 @@ export class RuntimeComponentProps
       ...this.propsEvaluationContext,
       props: this.evaluatedProps,
     }
-  }
-
-  @modelAction
-  addRuntimeComponentModel(containerNode: IComponentModel) {
-    const runtimeNode = RuntimeContainerNodeFactory.create({
-      containerNode,
-    })
-
-    this.runtimeRootNodes.set(runtimeNode.id, runtimeNode)
-
-    return runtimeNode
-  }
-
-  @modelAction
-  addRuntimeElementModel(element: IElementModel) {
-    const runtimeRootElementId = v4()
-
-    const runtimeRootElementProps = RuntimeElementProps.create({
-      element: elementRef(element.id),
-      runtimeElement: runtimeElementRef(runtimeRootElementId),
-    })
-
-    const runtimeRootElement = RuntimeElement.create({
-      element: elementRef(element.id),
-      id: runtimeRootElementId,
-      parent: runtimeContainerNodeRef(this.id),
-      runtimeProps: runtimeRootElementProps,
-    })
-
-    this.runtimeRootNodes.set(runtimeRootElement.id, runtimeRootElement)
-
-    return runtimeRootElement
-  }
-
-  @modelAction
-  setOverrideProps(overrideProps: IPropModel) {
-    this.overrideProps = overrideProps
   }
 }

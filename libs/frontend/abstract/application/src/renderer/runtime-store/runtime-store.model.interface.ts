@@ -1,15 +1,16 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { AnyModel, Ref } from 'mobx-keystone'
+import type { AnyModel, ObjectMap, Ref } from 'mobx-keystone'
 import type { IRuntimeActionModel } from '../runtime-action'
 
 export interface IRuntimeStoreModel extends AnyModel {
   id: string
   jsonString: string
   refs: IPropData
+  runtimeActions: ObjectMap<IRuntimeActionModel>
   runtimeActionsList: Array<IRuntimeActionModel>
-  runtimeProviderSore?: Ref<IRuntimeStoreModel>
+  runtimeProviderStore?: Ref<IRuntimeStoreModel>
   state: IPropData
 
   store: Ref<IStoreModel>

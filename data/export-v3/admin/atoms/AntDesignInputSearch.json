@@ -1,0 +1,70 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "385516e2-6922-4211-95ae-fcd28a8b89e8"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "64ee05db-9586-4c03-b1af-e1e2643c40d2",
+        "key": "allowClear",
+        "name": "Allow Clear",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "385516e2-6922-4211-95ae-fcd28a8b89e8"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "ccdbcddd-8d80-4312-aebf-a75f2e3617b3",
+        "key": "placeholder",
+        "name": "Placeholder",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      }
+    ],
+    "id": "385516e2-6922-4211-95ae-fcd28a8b89e8",
+    "kind": "InterfaceType",
+    "name": "AntDesignInputSearch API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "385516e2-6922-4211-95ae-fcd28a8b89e8",
+        "kind": "InterfaceType",
+        "name": "AntDesignInputSearch API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "385516e2-6922-4211-95ae-fcd28a8b89e8"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "9a5812e2-aa2b-4988-8c83-dd1366cc44ca",
+    "name": "AntDesignInputSearch",
+    "owner": {
+      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [],
+    "type": "AntDesignInputSearch"
+  }
+}

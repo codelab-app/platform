@@ -3545,6 +3545,7 @@ enum AtomType {
   AntDesignImage
   AntDesignInput
   AntDesignInputNumber
+  AntDesignInputSearch
   AntDesignLayout
   AntDesignLayoutContent
   AntDesignLayoutFooter
@@ -6115,11 +6116,6 @@ type ComponentsConnection {
 }
 
 union ContainerNode = Component | Page
-
-input ContainerNodeWhere {
-  Component: ComponentWhere
-  Page: PageWhere
-}
 
 type CreateActionTypesMutationResponse {
   actionTypes: [ActionType!]!
@@ -12871,7 +12867,6 @@ type Mutation {
   ): UpdateResourcesMutationResponse!
   updateStores(
     connect: StoreConnectInput
-    connectOrCreate: StoreConnectOrCreateInput
     create: StoreRelationInput
     delete: StoreDeleteInput
     disconnect: StoreDisconnectInput
@@ -15416,17 +15411,6 @@ type Store {
     sort: [StoreApiConnectionSort!]
     where: StoreApiConnectionWhere
   ): StoreApiConnection!
-  container(
-    directed: Boolean = true
-    options: QueryOptions
-    where: ContainerNodeWhere
-  ): ContainerNode!
-  containerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    where: StoreContainerConnectionWhere
-  ): StoreContainerConnection!
   id: ID!
   name: String!
 }
@@ -15671,11 +15655,6 @@ input StoreApiUpdateFieldInput {
 input StoreConnectInput {
   actions: StoreActionsConnectInput
   api: StoreApiConnectFieldInput
-  container: StoreContainerConnectInput
-}
-
-input StoreConnectOrCreateInput {
-  container: StoreContainerConnectOrCreateInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -15686,171 +15665,9 @@ input StoreConnectWhere {
   node: StoreWhere!
 }
 
-input StoreContainerComponentConnectFieldInput {
-  connect: ComponentConnectInput
-  where: ComponentConnectWhere
-}
-
-input StoreContainerComponentConnectOrCreateFieldInput {
-  onCreate: StoreContainerComponentConnectOrCreateFieldInputOnCreate!
-  where: ComponentConnectOrCreateWhere!
-}
-
-input StoreContainerComponentConnectOrCreateFieldInputOnCreate {
-  node: ComponentOnCreateInput!
-}
-
-input StoreContainerComponentConnectionWhere {
-  AND: [StoreContainerComponentConnectionWhere!]
-  NOT: StoreContainerComponentConnectionWhere
-  OR: [StoreContainerComponentConnectionWhere!]
-  node: ComponentWhere
-}
-
-input StoreContainerComponentCreateFieldInput {
-  node: ComponentCreateInput!
-}
-
-input StoreContainerComponentDeleteFieldInput {
-  delete: ComponentDeleteInput
-  where: StoreContainerComponentConnectionWhere
-}
-
-input StoreContainerComponentDisconnectFieldInput {
-  disconnect: ComponentDisconnectInput
-  where: StoreContainerComponentConnectionWhere
-}
-
-input StoreContainerComponentFieldInput {
-  connect: StoreContainerComponentConnectFieldInput
-  connectOrCreate: StoreContainerComponentConnectOrCreateFieldInput
-  create: StoreContainerComponentCreateFieldInput
-}
-
-input StoreContainerComponentUpdateConnectionInput {
-  node: ComponentUpdateInput
-}
-
-input StoreContainerComponentUpdateFieldInput {
-  connect: StoreContainerComponentConnectFieldInput
-  connectOrCreate: StoreContainerComponentConnectOrCreateFieldInput
-  create: StoreContainerComponentCreateFieldInput
-  delete: StoreContainerComponentDeleteFieldInput
-  disconnect: StoreContainerComponentDisconnectFieldInput
-  update: StoreContainerComponentUpdateConnectionInput
-  where: StoreContainerComponentConnectionWhere
-}
-
-input StoreContainerConnectInput {
-  Component: StoreContainerComponentConnectFieldInput
-  Page: StoreContainerPageConnectFieldInput
-}
-
-input StoreContainerConnectOrCreateInput {
-  Component: StoreContainerComponentConnectOrCreateFieldInput
-  Page: StoreContainerPageConnectOrCreateFieldInput
-}
-
-type StoreContainerConnection {
-  edges: [StoreContainerRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input StoreContainerConnectionWhere {
-  Component: StoreContainerComponentConnectionWhere
-  Page: StoreContainerPageConnectionWhere
-}
-
-input StoreContainerCreateFieldInput {
-  Component: StoreContainerComponentCreateFieldInput
-  Page: StoreContainerPageCreateFieldInput
-}
-
-input StoreContainerCreateInput {
-  Component: StoreContainerComponentFieldInput
-  Page: StoreContainerPageFieldInput
-}
-
-input StoreContainerDeleteInput {
-  Component: StoreContainerComponentDeleteFieldInput
-  Page: StoreContainerPageDeleteFieldInput
-}
-
-input StoreContainerDisconnectInput {
-  Component: StoreContainerComponentDisconnectFieldInput
-  Page: StoreContainerPageDisconnectFieldInput
-}
-
-input StoreContainerPageConnectFieldInput {
-  connect: PageConnectInput
-  where: PageConnectWhere
-}
-
-input StoreContainerPageConnectOrCreateFieldInput {
-  onCreate: StoreContainerPageConnectOrCreateFieldInputOnCreate!
-  where: PageConnectOrCreateWhere!
-}
-
-input StoreContainerPageConnectOrCreateFieldInputOnCreate {
-  node: PageOnCreateInput!
-}
-
-input StoreContainerPageConnectionWhere {
-  AND: [StoreContainerPageConnectionWhere!]
-  NOT: StoreContainerPageConnectionWhere
-  OR: [StoreContainerPageConnectionWhere!]
-  node: PageWhere
-}
-
-input StoreContainerPageCreateFieldInput {
-  node: PageCreateInput!
-}
-
-input StoreContainerPageDeleteFieldInput {
-  delete: PageDeleteInput
-  where: StoreContainerPageConnectionWhere
-}
-
-input StoreContainerPageDisconnectFieldInput {
-  disconnect: PageDisconnectInput
-  where: StoreContainerPageConnectionWhere
-}
-
-input StoreContainerPageFieldInput {
-  connect: StoreContainerPageConnectFieldInput
-  connectOrCreate: StoreContainerPageConnectOrCreateFieldInput
-  create: StoreContainerPageCreateFieldInput
-}
-
-input StoreContainerPageUpdateConnectionInput {
-  node: PageUpdateInput
-}
-
-input StoreContainerPageUpdateFieldInput {
-  connect: StoreContainerPageConnectFieldInput
-  connectOrCreate: StoreContainerPageConnectOrCreateFieldInput
-  create: StoreContainerPageCreateFieldInput
-  delete: StoreContainerPageDeleteFieldInput
-  disconnect: StoreContainerPageDisconnectFieldInput
-  update: StoreContainerPageUpdateConnectionInput
-  where: StoreContainerPageConnectionWhere
-}
-
-type StoreContainerRelationship {
-  cursor: String!
-  node: ContainerNode!
-}
-
-input StoreContainerUpdateInput {
-  Component: StoreContainerComponentUpdateFieldInput
-  Page: StoreContainerPageUpdateFieldInput
-}
-
 input StoreCreateInput {
   actions: StoreActionsCreateInput
   api: StoreApiFieldInput
-  container: StoreContainerCreateInput
   id: ID!
   name: String!
 }
@@ -15858,13 +15675,11 @@ input StoreCreateInput {
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
   api: StoreApiDeleteFieldInput
-  container: StoreContainerDeleteInput
 }
 
 input StoreDisconnectInput {
   actions: StoreActionsDisconnectInput
   api: StoreApiDisconnectFieldInput
-  container: StoreContainerDisconnectInput
 }
 
 type StoreEdge {
@@ -15900,7 +15715,6 @@ input StoreOptions {
 input StoreRelationInput {
   actions: StoreActionsCreateFieldInput
   api: StoreApiCreateFieldInput
-  container: StoreContainerCreateFieldInput
 }
 
 """
@@ -15918,7 +15732,6 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: StoreActionsUpdateInput
   api: StoreApiUpdateFieldInput
-  container: StoreContainerUpdateInput
   id: ID
   name: String
 }
@@ -15952,8 +15765,6 @@ input StoreWhere {
   apiConnection: StoreApiConnectionWhere
   apiConnection_NOT: StoreApiConnectionWhere
   api_NOT: InterfaceTypeWhere
-  containerConnection: StoreContainerConnectionWhere
-  containerConnection_NOT: StoreContainerConnectionWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

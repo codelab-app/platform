@@ -56,6 +56,7 @@ export const createRootApplicationStore = ({
       this.typeService?.typeDomainService.types.clear()
       this.actionService?.actionDomainService.actions.clear()
       this.appService?.appDomainService.apps.clear()
+      this.resourceService?.resourceDomainService.resources.clear()
       this.pageService?.pageDomainService.pages.clear()
       this.atomService?.atomDomainService.atoms.clear()
       this.componentService?.componentDomainService.components.clear()
@@ -88,6 +89,7 @@ export const createRootApplicationStore = ({
         pageServiceContext,
         propServiceContext,
         rendererServiceContext,
+        resourceDomainServiceContext,
         resourceServiceContext,
         storeDomainServiceContext,
         storeServiceContext,
@@ -128,6 +130,10 @@ export const createRootApplicationStore = ({
         this.storeService?.storeDomainService,
       )
       resourceServiceContext?.set(this, this.resourceService)
+      resourceDomainServiceContext?.set(
+        this,
+        this.resourceService?.resourceDomainService,
+      )
       propServiceContext?.set(this, this.propService)
       elementServiceContext?.set(this, this.elementService)
       elementDomainServiceContext?.set(

@@ -1,13 +1,10 @@
-import type { ITypedPropTransformer } from '@codelab/frontend/abstract/application'
 import type {
-  IFieldModel,
-  IPageNode,
-  TypedProp,
-} from '@codelab/frontend/abstract/domain'
-import {
-  extractTypedPropValue,
-  isElement,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeModel,
+  ITypedPropTransformer,
+} from '@codelab/frontend/abstract/application'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
+import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -47,7 +44,7 @@ export class RenderPropTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, node: IPageNode) {
+  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
@@ -70,31 +67,28 @@ export class RenderPropTypeTransformer
       return fallback
     }
 
-    const runtimeNode = isElement(node)
-      ? this.rendererService.runtimeElement(node)
-      : this.rendererService.runtimeContainerNode(node)
-
-    if (!runtimeNode) {
-      console.error('Runtime node not found')
-
-      return fallback
-    }
-
     // spread is required to access all args not just the first one
     return (...renderPropArgs: Array<object>) => {
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
 
-      const runtimeComponent =
-        runtimeNode.runtimeProps?.addRuntimeComponentModel(component)
+      const runtimeComponent = isRuntimeElement(runtimeNode)
+        ? runtimeNode.closestContainerNode.current.addContainerNode(
+            component,
+            runtimeNode,
+            undefined,
+            undefined,
+            true,
+          )
+        : runtimeNode.addContainerNode(
+            component,
+            runtimeNode,
+            undefined,
+            undefined,
+            true,
+          )
 
-      if (!runtimeComponent) {
-        console.error('Unable to create runtime component')
-
-        return fallback
-      }
-
-      runtimeComponent.runtimeProps?.setOverrideProps(
+      runtimeComponent.componentRuntimeProp?.setCustomProps(
         Prop.create({
           data: JSON.stringify(props),
           id: v4(),

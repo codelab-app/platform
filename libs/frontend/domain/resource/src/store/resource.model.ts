@@ -8,8 +8,12 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import type {
+  IResourceConfigData,
+  IResourceDTO,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
+import { connectOwner, getResourceClient } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -64,6 +68,14 @@ export class Resource
       name: this.name,
       type: this.type,
     }
+  }
+
+  @computed
+  get client() {
+    return getResourceClient(
+      this.type,
+      this.config.values as IResourceConfigData,
+    )
   }
 
   toUpdateInput(): ResourceUpdateInput {

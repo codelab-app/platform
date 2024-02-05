@@ -241,6 +241,11 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignInput,
     tag: IAtomType.AntDesignInput,
   },
+  [IAtomType.AntDesignInputSearch]: {
+    file: null,
+    icon: IAtomType.AntDesignInputSearch,
+    tag: IAtomType.AntDesignInputSearch,
+  },
   [IAtomType.AntDesignInputNumber]: {
     file: null,
     icon: IAtomType.AntDesignInputNumber,

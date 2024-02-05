@@ -16,6 +16,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
@@ -78,10 +79,17 @@ export class AppDevelopmentService
     const elements = [...pagesElements, ...componentsElements]
     const props = elements.flatMap((element) => element.props)
 
-    const stores = [...pages, ...components].map(
-      (containerNode) => containerNode.store,
-    )
+    const pageStores = pages.map((page) => ({
+      ...page.store,
+      page: { id: page.id },
+    }))
 
+    const componentStores = components.map((component) => ({
+      ...component.store,
+      component: { id: component.id },
+    }))
+
+    const stores = [...pageStores, ...componentStores]
     const actions = stores.flatMap((store) => store.actions)
 
     const atoms = uniqBy(
@@ -100,17 +108,18 @@ export class AppDevelopmentService
       (atom) => atom.id,
     )
 
-    const types = [
-      ...atoms.flatMap((type) => type.api),
-      ...stores.map((store) => store.api),
-      ...components.map((component) => component.api),
-    ]
-
     const elementsDependantTypes = elements
       .map((element) => element.dependantTypes)
       .flat()
 
-    console.log('elementsDependantTypes', elementsDependantTypes)
+    const types = [
+      ...atoms.flatMap((type) => type.api),
+      ...stores.map((store) => store.api),
+      ...components.map((component) => component.api),
+      ...elementsDependantTypes.filter(
+        (type) => type.kind === ITypeKind.InterfaceType,
+      ),
+    ]
 
     const systemTypes = [
       ...data.primitiveTypes,
@@ -153,8 +162,6 @@ export class AppDevelopmentService
     )
 
     data.pages.forEach((page) => this.pageDomainService.hydrate(page))
-
-    // data.props.forEach((prop) => this.propService.add(prop))
 
     data.stores.forEach((store) => this.storeDomainService.hydrate(store))
 

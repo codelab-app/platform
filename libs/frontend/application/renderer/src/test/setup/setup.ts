@@ -12,7 +12,13 @@ import type { TestBed } from './testbed'
 export const setupPage = (testbed: TestBed) => {
   const pageId = 'page-id'
   const pageName = 'Page Name'
-  const htmlDivAtom = testbed.addAtom({ type: IAtomType.HtmlDiv })
+
+  const htmlDivAtom = testbed.addAtom({
+    __typename: 'Atom',
+    name: 'HtmlDiv',
+    type: IAtomType.HtmlDiv,
+  })
+
   const app = testbed.addApp({})
 
   const page = testbed.addPage({
@@ -34,16 +40,16 @@ export const setupPage = (testbed: TestBed) => {
     }),
   })
 
-  const renderer = testbed.render({
+  const renderer = testbed.addRenderer({
     containerNode: page,
-    rendererType: RendererType.PageBuilder,
+    rendererType: RendererType.Preview,
     renderPipe: renderPipeFactory(defaultPipes),
   })
 
   return {
     app,
     page,
-    renderer,
+    rendered: renderer.render,
   }
 }
 
@@ -51,7 +57,12 @@ export const setupComponent = (testbed: TestBed) => {
   const componentId = 'component-id'
   const rootElementId = 'root-element-id'
   const componentName = 'Component Name'
-  const htmlDivAtom = testbed.addAtom({ type: IAtomType.HtmlDiv })
+
+  const htmlDivAtom = testbed.addAtom({
+    __typename: 'Atom',
+    name: 'HtmlDiv',
+    type: IAtomType.HtmlDiv,
+  })
 
   const childrenContainerElement = testbed.addElement({
     closestContainerNode: { id: componentId },
@@ -83,9 +94,9 @@ export const setupComponent = (testbed: TestBed) => {
     }),
   })
 
-  const renderer = testbed.render({
+  const renderer = testbed.addRenderer({
     containerNode: component,
-    rendererType: RendererType.ComponentBuilder,
+    rendererType: RendererType.Preview,
     renderPipe: renderPipeFactory(defaultPipes),
   })
 
@@ -94,10 +105,12 @@ export const setupComponent = (testbed: TestBed) => {
 
 export const setupRuntimeElement = (testbed: TestBed) => {
   const { rendererService } = rootApplicationStore
-  const { page } = setupPage(testbed)
+  const { page, rendered } = setupPage(testbed)
 
   return {
     element: page.rootElement.current,
+    page,
+    rendered,
     runtimeElement: rendererService.runtimeElement(page.rootElement.current),
   }
 }

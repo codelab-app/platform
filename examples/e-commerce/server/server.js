@@ -63,10 +63,10 @@ app.get('/products', (req, res) => {
   }
 
   switch (sortBy) {
-    case 'price-low-to-high':
+    case 'priceLowHigh':
       filteredProducts = _.sortBy(filteredProducts, 'price')
       break
-    case 'price-high-to-low':
+    case 'priceHighLow':
       filteredProducts = _.sortBy(filteredProducts, 'price').reverse()
       break
     default:
@@ -90,10 +90,10 @@ app.get('/products/:tag', (req, res) => {
   }
 
   switch (sortBy) {
-    case 'price-low-to-high':
+    case 'priceLowHigh':
       filteredProducts = _.sortBy(filteredProducts, 'price')
       break
-    case 'price-high-to-low':
+    case 'priceHighLow':
       filteredProducts = _.sortBy(filteredProducts, 'price').reverse()
       break
     default:

@@ -73,6 +73,9 @@ export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignInputNumber]: dynamicLoader(
     () => import('antd/lib/input-number'),
   ),
+  [IAtomType.AntDesignInputSearch]: dynamicLoader(() =>
+    import('antd/lib/input').then((mod) => mod.default.Search),
+  ),
   [IAtomType.AntDesignSelect]: dynamicLoader(() => import('antd/lib/select')),
   [IAtomType.AntDesignSelectOption]: dynamicLoader(() =>
     import('antd/lib/select').then((mod) => mod.default.Option),

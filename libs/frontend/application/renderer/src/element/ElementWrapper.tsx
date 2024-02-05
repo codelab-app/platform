@@ -22,20 +22,19 @@ import {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({
+    children,
+    element,
     errorBoundary: { onError, onResetKeysChange },
     onRendered,
     renderer,
     renderOutput,
-    runtimeElement,
     ...rest
   }) => {
     useEffect(() => {
       onRendered()
     }, [])
 
-    const { element } = runtimeElement
     const { atomService } = useStore()
-    const children = runtimeElement.renderChildren
 
     if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
       renderOutput.props['static'] =
@@ -53,7 +52,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const tailwindClassNames = {
       className: generateTailwindClasses(
-        element.current.tailwindClassNames,
+        element.tailwindClassNames,
         renderer.rendererType,
       ),
     }
@@ -61,15 +60,17 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
     const selectionHandlers = useSelectionHandlers(
-      element.current,
+      element,
       renderer.rendererType,
     )
 
     // leave ElementWrapper pass-through so refs are attached to correct element
+    // selectionHandlers should be first so they will be overridden if
+    // a prop contains an action such as `onClick`, `onSelect`, etc.
     const mergedProps = mergeProps(
+      selectionHandlers,
       extractedProps,
       rest,
-      selectionHandlers,
       tailwindClassNames,
     )
 
@@ -89,7 +90,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           componentProps={mergedProps}
           id={element.id}
           isDroppable={isDroppable}
-          parentId={element.current.closestParentElement?.current.id}
+          parentId={element.closestParentElement?.current.id}
         >
           {children}
         </DroppableStyledComponent>

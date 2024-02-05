@@ -3655,6 +3655,7 @@ export enum AtomType {
   AntDesignImage = 'AntDesignImage',
   AntDesignInput = 'AntDesignInput',
   AntDesignInputNumber = 'AntDesignInputNumber',
+  AntDesignInputSearch = 'AntDesignInputSearch',
   AntDesignLayout = 'AntDesignLayout',
   AntDesignLayoutContent = 'AntDesignLayoutContent',
   AntDesignLayoutFooter = 'AntDesignLayoutFooter',
@@ -6229,11 +6230,6 @@ export type ComponentsConnection = {
 }
 
 export type ContainerNode = Component | Page
-
-export type ContainerNodeWhere = {
-  Component?: InputMaybe<ComponentWhere>
-  Page?: InputMaybe<PageWhere>
-}
 
 export type CreateActionTypesMutationResponse = {
   actionTypes: Array<ActionType>
@@ -13386,7 +13382,6 @@ export type MutationUpdateResourcesArgs = {
 
 export type MutationUpdateStoresArgs = {
   connect?: InputMaybe<StoreConnectInput>
-  connectOrCreate?: InputMaybe<StoreConnectOrCreateInput>
   create?: InputMaybe<StoreRelationInput>
   delete?: InputMaybe<StoreDeleteInput>
   disconnect?: InputMaybe<StoreDisconnectInput>
@@ -16327,8 +16322,6 @@ export type Store = {
   api: InterfaceType
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>
   apiConnection: StoreApiConnection
-  container: ContainerNode
-  containerConnection: StoreContainerConnection
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
 }
@@ -16363,19 +16356,6 @@ export type StoreApiConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<StoreApiConnectionSort>>
   where?: InputMaybe<StoreApiConnectionWhere>
-}
-
-export type StoreContainerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  options?: InputMaybe<QueryOptions>
-  where?: InputMaybe<ContainerNodeWhere>
-}
-
-export type StoreContainerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  where?: InputMaybe<StoreContainerConnectionWhere>
 }
 
 export type StoreActionsApiActionConnectFieldInput = {
@@ -16615,11 +16595,6 @@ export type StoreApiUpdateFieldInput = {
 export type StoreConnectInput = {
   actions?: InputMaybe<StoreActionsConnectInput>
   api?: InputMaybe<StoreApiConnectFieldInput>
-  container?: InputMaybe<StoreContainerConnectInput>
-}
-
-export type StoreConnectOrCreateInput = {
-  container?: InputMaybe<StoreContainerConnectOrCreateInput>
 }
 
 export type StoreConnectOrCreateWhere = {
@@ -16630,171 +16605,9 @@ export type StoreConnectWhere = {
   node: StoreWhere
 }
 
-export type StoreContainerComponentConnectFieldInput = {
-  connect?: InputMaybe<ComponentConnectInput>
-  where?: InputMaybe<ComponentConnectWhere>
-}
-
-export type StoreContainerComponentConnectOrCreateFieldInput = {
-  onCreate: StoreContainerComponentConnectOrCreateFieldInputOnCreate
-  where: ComponentConnectOrCreateWhere
-}
-
-export type StoreContainerComponentConnectOrCreateFieldInputOnCreate = {
-  node: ComponentOnCreateInput
-}
-
-export type StoreContainerComponentConnectionWhere = {
-  AND?: InputMaybe<Array<StoreContainerComponentConnectionWhere>>
-  NOT?: InputMaybe<StoreContainerComponentConnectionWhere>
-  OR?: InputMaybe<Array<StoreContainerComponentConnectionWhere>>
-  node?: InputMaybe<ComponentWhere>
-}
-
-export type StoreContainerComponentCreateFieldInput = {
-  node: ComponentCreateInput
-}
-
-export type StoreContainerComponentDeleteFieldInput = {
-  delete?: InputMaybe<ComponentDeleteInput>
-  where?: InputMaybe<StoreContainerComponentConnectionWhere>
-}
-
-export type StoreContainerComponentDisconnectFieldInput = {
-  disconnect?: InputMaybe<ComponentDisconnectInput>
-  where?: InputMaybe<StoreContainerComponentConnectionWhere>
-}
-
-export type StoreContainerComponentFieldInput = {
-  connect?: InputMaybe<StoreContainerComponentConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreContainerComponentConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreContainerComponentCreateFieldInput>
-}
-
-export type StoreContainerComponentUpdateConnectionInput = {
-  node?: InputMaybe<ComponentUpdateInput>
-}
-
-export type StoreContainerComponentUpdateFieldInput = {
-  connect?: InputMaybe<StoreContainerComponentConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreContainerComponentConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreContainerComponentCreateFieldInput>
-  delete?: InputMaybe<StoreContainerComponentDeleteFieldInput>
-  disconnect?: InputMaybe<StoreContainerComponentDisconnectFieldInput>
-  update?: InputMaybe<StoreContainerComponentUpdateConnectionInput>
-  where?: InputMaybe<StoreContainerComponentConnectionWhere>
-}
-
-export type StoreContainerConnectInput = {
-  Component?: InputMaybe<StoreContainerComponentConnectFieldInput>
-  Page?: InputMaybe<StoreContainerPageConnectFieldInput>
-}
-
-export type StoreContainerConnectOrCreateInput = {
-  Component?: InputMaybe<StoreContainerComponentConnectOrCreateFieldInput>
-  Page?: InputMaybe<StoreContainerPageConnectOrCreateFieldInput>
-}
-
-export type StoreContainerConnection = {
-  edges: Array<StoreContainerRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']['output']
-}
-
-export type StoreContainerConnectionWhere = {
-  Component?: InputMaybe<StoreContainerComponentConnectionWhere>
-  Page?: InputMaybe<StoreContainerPageConnectionWhere>
-}
-
-export type StoreContainerCreateFieldInput = {
-  Component?: InputMaybe<StoreContainerComponentCreateFieldInput>
-  Page?: InputMaybe<StoreContainerPageCreateFieldInput>
-}
-
-export type StoreContainerCreateInput = {
-  Component?: InputMaybe<StoreContainerComponentFieldInput>
-  Page?: InputMaybe<StoreContainerPageFieldInput>
-}
-
-export type StoreContainerDeleteInput = {
-  Component?: InputMaybe<StoreContainerComponentDeleteFieldInput>
-  Page?: InputMaybe<StoreContainerPageDeleteFieldInput>
-}
-
-export type StoreContainerDisconnectInput = {
-  Component?: InputMaybe<StoreContainerComponentDisconnectFieldInput>
-  Page?: InputMaybe<StoreContainerPageDisconnectFieldInput>
-}
-
-export type StoreContainerPageConnectFieldInput = {
-  connect?: InputMaybe<PageConnectInput>
-  where?: InputMaybe<PageConnectWhere>
-}
-
-export type StoreContainerPageConnectOrCreateFieldInput = {
-  onCreate: StoreContainerPageConnectOrCreateFieldInputOnCreate
-  where: PageConnectOrCreateWhere
-}
-
-export type StoreContainerPageConnectOrCreateFieldInputOnCreate = {
-  node: PageOnCreateInput
-}
-
-export type StoreContainerPageConnectionWhere = {
-  AND?: InputMaybe<Array<StoreContainerPageConnectionWhere>>
-  NOT?: InputMaybe<StoreContainerPageConnectionWhere>
-  OR?: InputMaybe<Array<StoreContainerPageConnectionWhere>>
-  node?: InputMaybe<PageWhere>
-}
-
-export type StoreContainerPageCreateFieldInput = {
-  node: PageCreateInput
-}
-
-export type StoreContainerPageDeleteFieldInput = {
-  delete?: InputMaybe<PageDeleteInput>
-  where?: InputMaybe<StoreContainerPageConnectionWhere>
-}
-
-export type StoreContainerPageDisconnectFieldInput = {
-  disconnect?: InputMaybe<PageDisconnectInput>
-  where?: InputMaybe<StoreContainerPageConnectionWhere>
-}
-
-export type StoreContainerPageFieldInput = {
-  connect?: InputMaybe<StoreContainerPageConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreContainerPageConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreContainerPageCreateFieldInput>
-}
-
-export type StoreContainerPageUpdateConnectionInput = {
-  node?: InputMaybe<PageUpdateInput>
-}
-
-export type StoreContainerPageUpdateFieldInput = {
-  connect?: InputMaybe<StoreContainerPageConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreContainerPageConnectOrCreateFieldInput>
-  create?: InputMaybe<StoreContainerPageCreateFieldInput>
-  delete?: InputMaybe<StoreContainerPageDeleteFieldInput>
-  disconnect?: InputMaybe<StoreContainerPageDisconnectFieldInput>
-  update?: InputMaybe<StoreContainerPageUpdateConnectionInput>
-  where?: InputMaybe<StoreContainerPageConnectionWhere>
-}
-
-export type StoreContainerRelationship = {
-  cursor: Scalars['String']['output']
-  node: ContainerNode
-}
-
-export type StoreContainerUpdateInput = {
-  Component?: InputMaybe<StoreContainerComponentUpdateFieldInput>
-  Page?: InputMaybe<StoreContainerPageUpdateFieldInput>
-}
-
 export type StoreCreateInput = {
   actions?: InputMaybe<StoreActionsCreateInput>
   api?: InputMaybe<StoreApiFieldInput>
-  container?: InputMaybe<StoreContainerCreateInput>
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
 }
@@ -16802,13 +16615,11 @@ export type StoreCreateInput = {
 export type StoreDeleteInput = {
   actions?: InputMaybe<StoreActionsDeleteInput>
   api?: InputMaybe<StoreApiDeleteFieldInput>
-  container?: InputMaybe<StoreContainerDeleteInput>
 }
 
 export type StoreDisconnectInput = {
   actions?: InputMaybe<StoreActionsDisconnectInput>
   api?: InputMaybe<StoreApiDisconnectFieldInput>
-  container?: InputMaybe<StoreContainerDisconnectInput>
 }
 
 export type StoreEdge = {
@@ -16841,7 +16652,6 @@ export type StoreOptions = {
 export type StoreRelationInput = {
   actions?: InputMaybe<StoreActionsCreateFieldInput>
   api?: InputMaybe<StoreApiCreateFieldInput>
-  container?: InputMaybe<StoreContainerCreateFieldInput>
 }
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -16857,7 +16667,6 @@ export type StoreUniqueWhere = {
 export type StoreUpdateInput = {
   actions?: InputMaybe<StoreActionsUpdateInput>
   api?: InputMaybe<StoreApiUpdateFieldInput>
-  container?: InputMaybe<StoreContainerUpdateInput>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
@@ -16879,8 +16688,6 @@ export type StoreWhere = {
   apiConnection?: InputMaybe<StoreApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<StoreApiConnectionWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
-  containerConnection?: InputMaybe<StoreContainerConnectionWhere>
-  containerConnection_NOT?: InputMaybe<StoreContainerConnectionWhere>
   id?: InputMaybe<Scalars['ID']['input']>
   id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
@@ -20834,14 +20641,12 @@ export type StoreFragment = {
   name: string
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
   api: InterfaceTypeFragment
-  container: { id: string } | { id: string }
 }
 
 export type ProductionStoreFragment = {
   id: string
   name: string
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
-  container: { id: string } | { id: string }
 }
 
 export type TagFragment = {

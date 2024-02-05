@@ -7,8 +7,8 @@ import {
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
-import type { IActionDTO, IRef } from '@codelab/shared/abstract/core'
-import { IActionKind } from '@codelab/shared/abstract/core'
+import type { IActionDTO } from '@codelab/shared/abstract/core'
+import { IActionKind, IRef } from '@codelab/shared/abstract/core'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -63,6 +63,7 @@ export class ActionDomainService
     return this.actions.get(id)
   }
 
+  @modelAction
   getSelectActionOptions(actionEntity?: IRef) {
     const { selectedNode } = this.builderService
     const selectedNodeStore = selectedNode?.current.store.current

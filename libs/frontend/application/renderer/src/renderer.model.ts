@@ -1,10 +1,11 @@
-import type {
-  IRendererDto,
-  IRendererModel,
-  IRenderPipe,
-  IRuntimeContainerNodeModel,
-  ITypedPropTransformer,
-  RendererType,
+import {
+  type IRendererDto,
+  type IRendererModel,
+  type IRenderPipe,
+  type IRuntimeContainerNodeModel,
+  type ITypedPropTransformer,
+  type RendererType,
+  runtimeContainerNodeRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -13,15 +14,20 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
+  isComponent,
   isPage,
   pageRef,
+  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
-import { RuntimeContainerNodeFactory } from './runtime-container-node.factory'
+import { RuntimeComponentPropModel } from './runtime-component-prop.model'
+import { RuntimeContainerNodeModel } from './runtime-container-node.model'
+import { RuntimeStoreModel } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -41,16 +47,35 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
  */
 
 const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
+  const runtimeContainerNodeId = v4()
+
   return new Renderer({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeRootContainerNode: RuntimeContainerNodeFactory.create({
-      containerNode:
+    runtimeRootContainerNode: new RuntimeContainerNodeModel({
+      componentRuntimeProp: isComponent(containerNode)
+        ? RuntimeComponentPropModel.create({
+            runtimeComponent: runtimeContainerNodeRef(runtimeContainerNodeId),
+          })
+        : undefined,
+      containerNode: isPage(containerNode)
+        ? pageRef(containerNode.providerPage?.id || containerNode.id)
+        : componentRef(containerNode.id),
+      id: runtimeContainerNodeId,
+      runtimeStore: RuntimeStoreModel.create({
+        store: storeRef(
+          (isPage(containerNode) && containerNode.providerPage
+            ? containerNode.providerPage
+            : containerNode
+          ).store.id,
+        ),
+      }),
+      subTrees:
         isPage(containerNode) && containerNode.providerPage
-          ? containerNode.providerPage
-          : containerNode,
+          ? [pageRef(containerNode.id)]
+          : undefined,
     }),
     urlSegments,
   })

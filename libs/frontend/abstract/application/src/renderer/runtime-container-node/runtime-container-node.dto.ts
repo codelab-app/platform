@@ -3,16 +3,18 @@ import type {
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
-import type { IRuntimeModelRef } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
+import type { SubTree } from './runtime-container-node.model.interface'
 
 export interface IRuntimeContainerNodeDTO {
+  childMapperIndex?: number
+  componentRuntimeProp?: IRuntimeComponentPropModel
   containerNode: Ref<IComponentModel> | Ref<IPageModel>
-  id: string
-  parentRef?: IRuntimeModelRef
-  runtimeProps?: IRuntimeComponentPropModel
-  runtimeRootElement: IRuntimeElementModel
+  id?: string
+  isTypedProp?: boolean
+  runtimeParent?: Ref<IRuntimeElementModel>
   runtimeStore: IRuntimeStoreModel
+  subTrees?: Array<SubTree>
 }

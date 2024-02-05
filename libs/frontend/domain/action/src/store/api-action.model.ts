@@ -18,7 +18,7 @@ import type {
 import type { IApiActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId, disconnectAll } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -141,7 +141,7 @@ export class ApiAction
           }
         : undefined,
       name: this.name,
-      resource: connectNodeId(this.resource.id),
+      resource: { ...connectNodeId(this.resource.id), ...disconnectAll() },
       // empty object successAction: {} causes validation error
       successAction: this.successAction?.id
         ? {

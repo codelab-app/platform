@@ -3,11 +3,8 @@ import {
   type IRuntimeContainerNodeModel,
   runtimeContainerNodeRef,
 } from './runtime-container-node'
-import {
-  type IRuntimeElementModel,
-  isRuntimeElement,
-  runtimeElementRef,
-} from './runtime-element'
+import type { IRuntimeElementModel } from './runtime-element'
+import { isRuntimeElement, runtimeElementRef } from './runtime-element'
 
 export type IRuntimeModel = IRuntimeContainerNodeModel | IRuntimeElementModel
 

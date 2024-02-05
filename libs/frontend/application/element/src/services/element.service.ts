@@ -23,6 +23,7 @@ import { getTypeService } from '@codelab/frontend/application/type'
 import {
   ElementDomainService,
   jsonStringToCss,
+  mapElementOption,
 } from '@codelab/frontend/domain/element'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
@@ -241,29 +242,35 @@ export class ElementService
 
   @modelAction
   getSelectElementOptions({
-    allElementOptions = [],
+    allElementOptions,
     elementTree,
     kind,
     targetElementId,
   }: SelectElementOptions) {
-    const targetElement = allElementOptions.find(
+    const targetElement = allElementOptions?.find(
       (element) => element.value === targetElementId,
     )
 
-    const elementMap = allElementOptions.reduce((acc, element) => {
+    const allActiveTreeElements =
+      this.rendererService.activeElementTree?.elements ?? []
+
+    const allActiveTreeElementOptions =
+      allActiveTreeElements.map(mapElementOption)
+
+    const elementMap = (allElementOptions ?? []).reduce((acc, element) => {
       acc[element.value] = element
 
       return acc
     }, {} as Record<string, SelectElementOption>)
 
-    let selectOptions: Array<SelectElementOption>
+    let selectOptions: Array<SelectElementOption> = []
 
     if (!targetElement) {
-      selectOptions = allElementOptions
+      selectOptions = allElementOptions ?? allActiveTreeElementOptions
     } else {
       switch (kind) {
         case IElementTypeKind.AllElements: {
-          selectOptions = allElementOptions
+          selectOptions = allElementOptions ?? allActiveTreeElementOptions
           break
         }
 
