@@ -13,13 +13,12 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   isAtomRef,
-  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
   evaluateObject,
-  hasStateExpression,
+  hasExpression,
 } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -91,7 +90,7 @@ export class RuntimeElementPropsModel
       return []
     }
 
-    if (hasStateExpression(this.element.childMapperPropKey)) {
+    if (hasExpression(this.element.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
         this.element.childMapperPropKey,
         this.expressionEvaluationContext,

@@ -2,6 +2,7 @@ import type {
   IAppModel,
   IElementModel,
   IPageModel,
+  IRedirectModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -9,6 +10,7 @@ import {
   elementRef,
   ElementTree,
   getPageDomainService,
+  redirectRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -19,7 +21,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   PageProperties,
@@ -36,6 +38,7 @@ const create = ({
   kind,
   name,
   pageContentContainer,
+  redirect,
   rootElement,
   store,
   url,
@@ -48,6 +51,7 @@ const create = ({
     pageContentContainer: pageContentContainer?.id
       ? elementRef(pageContentContainer.id)
       : undefined,
+    redirect: redirect ? redirectRef(redirect.id) : undefined,
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
     url,
@@ -61,6 +65,7 @@ export class Page
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
+    redirect: prop<Nullish<Ref<IRedirectModel>>>(),
     store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),
   })
@@ -93,6 +98,7 @@ export class Page
       kind: this.kind,
       name: this.name,
       pageContentContainer: this.pageContentContainer,
+      redirect: this.redirect,
       rootElement: this.rootElement,
       slug: this.slug,
       store: this.store,
@@ -118,6 +124,7 @@ export class Page
     kind,
     name,
     pageContentContainer,
+    redirect,
     rootElement,
     store,
     url,
@@ -127,6 +134,7 @@ export class Page
       ? elementRef(rootElement.id)
       : this.rootElement
     this.app = app ? appRef(app.id) : this.app
+    this.redirect = redirect ? redirectRef(redirect.id) : this.redirect
     this.pageContentContainer = pageContentContainer
       ? elementRef(pageContentContainer.id)
       : this.pageContentContainer

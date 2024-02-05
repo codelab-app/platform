@@ -3,12 +3,14 @@ import type {
   IAdminService,
   IAppService,
   IAtomService,
+  IAuthGuardService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
   IFieldService,
   IPageApplicationService,
   IPropService,
+  IRedirectService,
   IRendererService,
   IResourceService,
   IRootStore,
@@ -51,6 +53,7 @@ import {
   AtomService,
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
+import { AuthGuardService } from '@codelab/frontend/application/auth-guard'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
@@ -65,6 +68,7 @@ import {
   PropService,
   propServiceContext,
 } from '@codelab/frontend/application/prop'
+import { RedirectService } from '@codelab/frontend/application/redirect'
 import { RendererApplicationService } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { RouterService } from '@codelab/frontend/application/shared/store'
@@ -98,6 +102,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       adminService: prop<IAdminService>(() => new AdminService({})),
       appService: prop<IAppService>(() => new AppService({})),
       atomService: prop<IAtomService>(() => new AtomService({})),
+      authGuardService: prop<IAuthGuardService>(() => new AuthGuardService({})),
       builderService: prop<IBuilderDomainService>(
         () => new BuilderDomainService({}),
       ),
@@ -114,6 +119,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         () => new PageApplicationService({}),
       ),
       propService: prop<IPropService>(() => new PropService({})),
+      redirectService: prop<IRedirectService>(() => new RedirectService({})),
       rendererService: prop<IRendererService>(
         () => new RendererApplicationService({}),
       ),

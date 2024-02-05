@@ -17,10 +17,7 @@ import {
   IAppDevelopmentDto,
 } from '@codelab/frontend/abstract/domain'
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
-import type {
-  AtomDevelopmentFragment,
-  InterfaceTypeFragment,
-} from '@codelab/shared/abstract/codegen'
+import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { AppProperties } from '@codelab/shared/domain/mapper'
 import uniqBy from 'lodash/uniqBy'

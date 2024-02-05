@@ -20,7 +20,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import {
   evaluateExpression,
-  hasStateExpression,
+  hasExpression,
 } from '@codelab/frontend/application/shared/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
@@ -176,7 +176,7 @@ export class RuntimeElementModel
   get shouldRender() {
     const { renderIfExpression } = this.element.current
 
-    if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
+    if (!renderIfExpression || !hasExpression(renderIfExpression)) {
       return true
     }
 

@@ -2,11 +2,13 @@ import type {
   IActionDomainService,
   IAppDomainService,
   IAtomDomainService,
+  IAuthGuardDomainService,
   IBuilderDomainService,
   IComponentDomainService,
   IElementDomainService,
   IFieldDomainService,
   IPageDomainService,
+  IRedirectDomainService,
   IResourceDomainService,
   IStoreDomainService,
   ITypeDomainService,
@@ -26,6 +28,7 @@ import type { IElementService } from '../element'
 import type { IFieldService } from '../field'
 import type { IPageApplicationService } from '../page'
 import type { IPropService } from '../prop'
+import type { IRedirectService } from '../redirect'
 import type { IRendererService } from '../renderer'
 import type { IResourceService } from '../resource'
 import type { IStoreService } from '../store'
@@ -65,6 +68,7 @@ export interface IRootStore {
   fieldService: IFieldService
   pageService: IPageApplicationService
   propService: IPropService
+  redirectService: IRedirectService
   rendererService: IRendererService
   resourceService: IResourceService
   routerService: IRouterService
@@ -85,6 +89,8 @@ export interface IRootStoreContext {
   appServiceContext: MaybeContext<IAppService>
   atomDomainServiceContext: MaybeContext<IAtomDomainService>
   atomServiceContext: MaybeContext<IAtomService>
+  authGuardDomainServiceContext: MaybeContext<IAuthGuardDomainService>
+  authGuardServiceContext: MaybeContext<IAuthGuardService>
   builderDomainServiceContext: MaybeContext<IBuilderDomainService>
   componentDomainServiceContext: MaybeContext<IComponentDomainService>
   componentServiceContext: MaybeContext<IComponentApplicationService>
@@ -96,6 +102,8 @@ export interface IRootStoreContext {
   pageDomainServiceContext: MaybeContext<IPageDomainService>
   pageServiceContext: MaybeContext<IPageApplicationService>
   propServiceContext: MaybeContext<IPropService>
+  redirectDomainServiceContext: MaybeContext<IRedirectDomainService>
+  redirectServiceContext: MaybeContext<IRedirectService>
   rendererServiceContext: MaybeContext<IRendererService>
   resourceDomainServiceContext: MaybeContext<IResourceDomainService>
   resourceServiceContext: MaybeContext<IResourceService>
