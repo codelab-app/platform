@@ -12,11 +12,11 @@ import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { ExportPageHandler } from './use-case'
+import { ExportPageHandler, ImportPageHandler } from './use-case'
 
 @Module({
   controllers: [],
-  exports: [ExportPageHandler],
+  exports: [ExportPageHandler, ImportPageHandler],
   imports: [
     AtomDomainModule,
     AuthDomainModule,
@@ -32,6 +32,6 @@ import { ExportPageHandler } from './use-case'
     AuthModule,
     CqrsModule,
   ],
-  providers: [ExportPageHandler],
+  providers: [ExportPageHandler, ImportPageHandler],
 })
 export class PageApplicationModule {}

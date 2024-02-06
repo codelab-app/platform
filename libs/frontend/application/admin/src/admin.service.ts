@@ -35,10 +35,16 @@ export class AdminService
   })
 
   @modelFlow
-  importApp = _async(function* (this: AdminService, appData: string) {
+  importApp = _async(function* (this: AdminService, appDataFile: File) {
+    const formData = new FormData()
+
+    formData.append('file', appDataFile)
+
     return yield* _await(
       restPlatformClient
-        .post<ImportAppResponse>('/import/app', appData)
+        .post<ImportAppResponse>('/app/import', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
         .then(({ data }) => {
           const appId = data.apps[0]?.app.id
 

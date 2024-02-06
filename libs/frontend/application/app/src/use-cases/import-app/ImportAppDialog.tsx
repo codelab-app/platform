@@ -34,10 +34,10 @@ export const ImportAppDialog = observer(() => {
 
   const onFileChange = async () => {
     const files = inputFile.current?.files
-    const appData = await files?.[0]?.text()
+    const appDataFile = files?.[0]
 
-    if (appData) {
-      await importApp.execute(appData).then(onSuccess).catch(onError)
+    if (appDataFile) {
+      await importApp.execute(appDataFile).then(onSuccess).catch(onError)
     }
   }
 

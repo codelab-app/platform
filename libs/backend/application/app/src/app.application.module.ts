@@ -1,6 +1,7 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import {
   ExportPageHandler,
+  ImportPageHandler,
   PageApplicationModule,
 } from '@codelab/backend/application/page'
 import { AuthModule } from '@codelab/backend/application/shared'
@@ -30,6 +31,7 @@ import {
     ExportAppsHandler,
     ExportPageHandler,
     ImportAppHandler,
+    ImportPageHandler,
   ],
   imports: [
     AtomDomainModule,
@@ -52,6 +54,7 @@ import {
     ExportAppsHandler,
     ExportPageHandler,
     ImportAppHandler,
+    ImportPageHandler,
   ],
 })
 export class AppApplicationModule {}

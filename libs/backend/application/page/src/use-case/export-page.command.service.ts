@@ -36,8 +36,7 @@ export class ExportPageHandler
 
         return {
           ...page,
-          descendantElements: elements.slice(1, 0),
-          rootElement: elements[0]!,
+          elements,
           slug: page.slug,
           store,
         }

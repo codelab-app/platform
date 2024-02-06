@@ -4,7 +4,7 @@ import type {
   ApiActionWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  actionSelectionSet,
+  exportApiActionSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -37,6 +37,7 @@ export class ApiActionRepository extends AbstractRepository<
       ).create({
         input: actions.map(
           ({
+            __typename,
             config,
             errorAction,
             resource,
@@ -81,7 +82,7 @@ export class ApiActionRepository extends AbstractRepository<
       await this.ogmService.ApiAction
     ).find({
       options,
-      selectionSet: actionSelectionSet,
+      selectionSet: exportApiActionSelectionSet,
       where,
     })
   }
