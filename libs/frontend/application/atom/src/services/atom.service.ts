@@ -157,24 +157,11 @@ export class AtomService
   ) {
     const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
 
-    atoms
-      .flatMap((atom) => atom.api)
-      .forEach((type) =>
-        this.typeService.typeDomainService.hydrateInterface(type),
-      )
+    this.typeService.typeDomainService.hydrateTypes({
+      interfaceTypes: atoms.flatMap((atom) => atom.api),
+    })
+
     atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
-
-    // const currentAtom = fieldProps.value
-    //   ? this.atomDomainService.atoms.get(fieldProps.value)
-    //   : undefined
-
-    // So we don't modify the current atom, and the select won't flash
-    // const atoms = uniqBy(compact([currentAtom, ...result]), 'id')
-
-    // for (const atom of atoms) {
-    //   console.debug('AtomService.getSelectAtomOptions()', atom)
-    //   this.atomDomainService.add(atom)
-    // }
 
     const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
 
