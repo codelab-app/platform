@@ -23,15 +23,6 @@ export const DATA_GRID = 'DATA-GRID'
 
 export const ROOT_RENDER_CONTAINER_ID = 'render-root'
 
-export const STATE_PATH_TEMPLATE_START_REGEX = /\{\{/g
-
-// start bracket that is not closed with }}
-export const STATE_PATH_TEMPLATE_START_OPEN_REGEX = /\{\{(?!(.+)?}})/g
-
-export const STATE_PATH_TEMPLATE_END_REGEX = /}}/g
-
-export const STATE_PATH_TEMPLATE_REGEX = /\{\{.*?\}\}/g
-
 export const LAST_WORD_AFTER_DOT_REGEX = /\.\w+$/
 
 export const WORD_BEFORE_DOT_REGEX = /\w*(\.)?/

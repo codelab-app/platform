@@ -15,14 +15,14 @@ import {
   isAtomRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
+import { mergeProps } from '@codelab/frontend/domain/prop'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
   hasExpression,
-} from '@codelab/frontend/application/shared/core'
-import { mergeProps } from '@codelab/frontend/domain/prop'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import { mapDeep } from '@codelab/shared/utils'
+  mapDeep,
+} from '@codelab/shared/utils'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'

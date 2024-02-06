@@ -66,6 +66,9 @@
       "@codelab/backend/application/page": [
         "libs/backend/application/page/src/index.ts"
       ],
+      "@codelab/backend/application/redirect": [
+        "libs/backend/application/redirect/src/index.ts"
+      ],
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
       ],

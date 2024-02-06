@@ -8,7 +8,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   /**
    * We use `APP_GUARD` which guards entire app, Nest.js doesn't offer a way to opt-out of a specific route, this seems the best way to omit a route from the auth guard.
    */
-  private readonly publicRoutes: Array<string> = ['/api/healthcheck']
+  private readonly publicRoutes: Array<string> = [
+    '/api/healthcheck',
+    '/api/can-activate',
+  ]
 
   private isPublicRoute(url: string) {
     return this.publicRoutes.includes(url)

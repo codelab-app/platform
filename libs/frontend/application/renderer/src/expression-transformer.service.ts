@@ -1,6 +1,6 @@
 import type { IExpressionTransformer } from '@codelab/frontend/abstract/domain'
-import { stripExpression } from '@codelab/frontend/application/shared/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { stripExpression } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import {
   _async,

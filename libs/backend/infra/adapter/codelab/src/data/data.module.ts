@@ -1,6 +1,7 @@
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { RedirectApplicationModule } from '@codelab/backend/application/redirect'
 import { JwtAuthGuard } from '@codelab/backend/application/shared'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { UserApplicationModule } from '@codelab/backend/application/user'
@@ -21,6 +22,7 @@ import { endpointConfig } from '../graphql/endpoint.config'
     AdminApplicationModule,
     AtomApplicationModule,
     UserApplicationModule,
+    RedirectApplicationModule,
     TagApplicationModule,
     AppApplicationModule,
     ConfigModule.forRoot({

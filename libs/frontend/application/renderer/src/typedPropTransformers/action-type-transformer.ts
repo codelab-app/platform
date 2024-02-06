@@ -5,7 +5,7 @@ import type {
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
-import { hasExpression } from '@codelab/frontend/application/shared/core'
+import { hasExpression } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
 

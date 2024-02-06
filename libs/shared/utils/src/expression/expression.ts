@@ -1,27 +1,24 @@
-import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
-import {
-  STATE_PATH_TEMPLATE_END_REGEX,
-  STATE_PATH_TEMPLATE_REGEX,
-  STATE_PATH_TEMPLATE_START_REGEX,
-} from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import { mapDeep } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import isString from 'lodash/isString'
 import keys from 'lodash/keys'
+import { mapDeep } from '../mapDeep'
 import {
-  STATE_PATH_TEMPLATE_END,
-  STATE_PATH_TEMPLATE_START,
-} from './state-expression.constants'
+  EXP_PATH_TEMPLATE_END,
+  EXP_PATH_TEMPLATE_END_REGEX,
+  EXP_PATH_TEMPLATE_REGEX,
+  EXP_PATH_TEMPLATE_START,
+  EXP_PATH_TEMPLATE_START_REGEX,
+} from './constants'
 
 export const hasExpression = (str: unknown): boolean =>
   isString(str) &&
-  str.includes(STATE_PATH_TEMPLATE_START) &&
-  str.includes(STATE_PATH_TEMPLATE_END)
+  str.includes(EXP_PATH_TEMPLATE_START) &&
+  str.includes(EXP_PATH_TEMPLATE_END)
 
-export const evaluateObject = (
+export const evaluateObject = <IContext>(
   props: IPropData,
-  context: IEvaluationContext,
+  context: IContext,
 ) => {
   return mapDeep(
     props,
@@ -33,22 +30,22 @@ export const evaluateObject = (
 }
 
 export const isSingleExpression = (str: string) =>
-  str.startsWith(STATE_PATH_TEMPLATE_START) &&
-  str.endsWith(STATE_PATH_TEMPLATE_END) &&
-  str.match(STATE_PATH_TEMPLATE_START_REGEX)?.length === 1 &&
-  str.match(STATE_PATH_TEMPLATE_END_REGEX)?.length === 1
+  str.startsWith(EXP_PATH_TEMPLATE_START) &&
+  str.endsWith(EXP_PATH_TEMPLATE_END) &&
+  str.match(EXP_PATH_TEMPLATE_START_REGEX)?.length === 1 &&
+  str.match(EXP_PATH_TEMPLATE_END_REGEX)?.length === 1
 
 export const stripExpression = (expression: string) => {
   return isSingleExpression(expression)
     ? expression.substring(2, expression.length - 2).trim()
-    : expression.replace(STATE_PATH_TEMPLATE_REGEX, (subExpression) =>
+    : expression.replace(EXP_PATH_TEMPLATE_REGEX, (subExpression) =>
         subExpression.substring(2, subExpression.length - 2).trim(),
       )
 }
 
-const getByExpression = (
+const getByExpression = <IContext>(
   expressionValue: string,
-  context: IEvaluationContext,
+  context: IContext,
 ) => {
   if (!hasExpression(expressionValue)) {
     return expressionValue
@@ -61,7 +58,7 @@ const getByExpression = (
     return evaluateExpression(expressionValue, context)
   }
 
-  const data = expressionValue.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
+  const data = expressionValue.replace(EXP_PATH_TEMPLATE_REGEX, (value) =>
     evaluateExpression(value, context),
   )
 

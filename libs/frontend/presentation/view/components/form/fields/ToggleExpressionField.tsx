@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { hasExpression } from '@codelab/frontend/application/shared/core'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import { hasExpression } from '@codelab/shared/utils'
 import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'
 import { Button, Space, Tooltip } from 'antd'

@@ -18,3 +18,11 @@ export type IRedirectDTO = Static<typeof IRedirectDTO>
 export const IRedirect = IRedirectDTO
 
 export type IRedirect = Static<typeof IRedirect>
+
+export const ICanActivate = Type.Object({
+  authorization: Typebox.Nullish(Type.String()),
+  domain: Type.String(),
+  pageUrl: Type.String(),
+})
+
+export type ICanActivate = Static<typeof ICanActivate>

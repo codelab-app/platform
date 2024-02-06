@@ -18,11 +18,8 @@ import {
   isComponent,
   isPage,
 } from '@codelab/frontend/abstract/domain'
-import {
-  evaluateExpression,
-  hasExpression,
-} from '@codelab/frontend/application/shared/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

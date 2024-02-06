@@ -8,9 +8,9 @@ import type {
   IApiActionModel,
   ICodeActionModel,
 } from '@codelab/frontend/abstract/domain'
-import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { evaluateObject } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
