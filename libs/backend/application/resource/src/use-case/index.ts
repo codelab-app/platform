@@ -1,2 +1,2 @@
-export * from './export-resource.command.service'
+export * from './export-resources.command.service'
 // export * from './import-resource.command.service'

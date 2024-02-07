@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common'
-import { ExportResourceHandler } from './use-case'
 import { ResourceDomainModule } from '@codelab/backend/domain/resource'
+import { Module } from '@nestjs/common'
+import { ExportResourcesHandler } from './use-case'
 
 @Module({
   controllers: [],
-  exports: [ExportResourceHandler],
+  exports: [ExportResourcesHandler],
   imports: [ResourceDomainModule],
-  providers: [ExportResourceHandler],
+  providers: [ExportResourcesHandler],
 })
 export class ResourceApplicationModule {}

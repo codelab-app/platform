@@ -4,14 +4,18 @@ import {
   type ResourceWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import type { OgmService } from '@codelab/backend/infra/adapter/neo4j'
-import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
-import type { TraceService } from '@codelab/backend/infra/adapter/otel'
-import type { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import {
+  OgmService,
+  resourceSelectionSet,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IResourceDTO } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class ResourceRepository extends AbstractRepository<
   IResourceDTO,
   Resource,
