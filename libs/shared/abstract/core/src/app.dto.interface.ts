@@ -1,9 +1,9 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IComponent } from './component.dto.interface'
+import { IComponentExport } from './component.dto.interface'
 import { IDomain, IDomainDTO } from './domain.dto.interface'
-import { IPage, IPageDTO } from './page.dto.interface'
+import { IPage, IPageDTO, IPageExport } from './page.dto.interface'
 import { IResource } from './resource.dto.interface'
 import { IOwner } from './user.interface'
 
@@ -35,7 +35,8 @@ export type IApp = Static<typeof IApp>
 export const IAppExport = Typebox.Overwrite(
   IApp,
   Type.Object({
-    components: Type.Optional(Type.Array(IComponent)),
+    components: Type.Optional(Type.Array(IComponentExport)),
+    pages: Type.Array(IPageExport),
     resources: Type.Optional(Type.Array(IResource)),
   }),
 )

@@ -1,7 +1,8 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IComponent } from './component.dto.interface'
+import { IComponentExport } from './component.dto.interface'
+import { IElement } from './element.dto.interface'
 import { IRef } from './model/node-type.interface'
 import { IPageKind } from './page-kind.enum'
 import { IStoreExport } from './store.dto.interface'
@@ -32,7 +33,8 @@ export type IPage = Static<typeof IPage>
 export const IPageExport = Typebox.Overwrite(
   IPage,
   Type.Object({
-    components: Type.Optional(Type.Array(IComponent)),
+    components: Type.Optional(Type.Array(IComponentExport)),
+    elements: Type.Array(IElement),
     store: IStoreExport,
   }),
 )

@@ -4,12 +4,12 @@ import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
+import type { IComponentExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly componentAggregate: IComponentBoundedContext) {}
+  constructor(public readonly component: IComponentExport) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -25,30 +25,23 @@ export class ImportComponentsHandler
   ) {}
 
   async execute(command: ImportComponentsCommand) {
-    const {
-      componentAggregate: { api, component, descendantElements, store },
-    } = command
-
-    const { rootElement } = component
+    const { component } = command
 
     await this.propRepository.save(component.props)
 
-    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
-
-    await this.commandBus.execute<ImportStoreCommand>(
-      new ImportStoreCommand(store),
+    await this.commandBus.execute<ImportApiCommand>(
+      new ImportApiCommand(component.api),
     )
 
-    for await (const element of [...descendantElements, rootElement]) {
+    await this.commandBus.execute<ImportStoreCommand>(
+      new ImportStoreCommand(component.store),
+    )
+
+    for await (const element of component.elements) {
       await this.propRepository.save(element.props)
       await this.elementRepository.save(element)
     }
 
-    await this.componentRepository.save({
-      ...component,
-      api,
-      owner: this.authDomainService.currentUser,
-      store: store.store,
-    })
+    await this.componentRepository.save(component)
   }
 }

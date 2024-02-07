@@ -1,9 +1,11 @@
 import type { Page, PageWhere } from '@codelab/backend/abstract/codegen'
 import { ExportStoreCommand } from '@codelab/backend/application/store'
+import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import type {
+  IComponentExport,
   IElement,
   IPageExport,
   IStoreExport,
@@ -13,6 +15,7 @@ import { throwIfUndefined, uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import flatMap from 'lodash/flatMap'
+import uniq from 'lodash/uniq'
 
 export class ExportPageCommand {
   constructor(public where: PageWhere) {}
@@ -63,33 +66,69 @@ export class ExportPageHandler
       },
     }))
 
-    const componentIds = flatMap(elements, (element) => [
-      element.parentComponent?.id,
-      element.renderType.__typename === IElementRenderTypeKind.Component
-        ? element.renderType.id
-        : null,
-      element.childMapperComponent?.id,
-      ...((element.props.data as string).match(uuidRegex) || []),
-    ]).filter((element): element is string => Boolean(element))
+    let elementsCurrentBatch = elements
+    const components: Array<IComponentExport> = []
+    let currentRun = 0
+    const maxRuns = 10
 
-    const components = await this.componentRepository.find({
-      where: { id_IN: componentIds },
-    })
+    do {
+      const componentIds = uniq(
+        flatMap(elementsCurrentBatch, (element) => [
+          element.parentComponent?.id,
+          element.renderType.__typename === IElementRenderTypeKind.Component
+            ? element.renderType.id
+            : null,
+          element.childMapperComponent?.id,
+          ...((element.props.data as string).match(uuidRegex) || []),
+        ]).filter(
+          (id): id is string =>
+            Boolean(id) && !components.some((comp) => comp.id === id),
+        ),
+      )
 
-    for (const { id, rootElement } of components) {
-      const componentDescendants = (
-        await this.elementRepository.getElementWithDescendants(rootElement.id)
-      ).map((element) => ({
-        ...element,
-        closestContainerNode: { id },
-        renderType: {
-          __typename: throwIfUndefined(element.renderType.__typename),
-          id: element.renderType.id,
-        },
-      }))
+      const currentComponents = await this.componentRepository.find({
+        where: { id_IN: componentIds },
+      })
 
-      elements.push(...componentDescendants)
-    }
+      const currentElements: Array<IElement> = []
+
+      for (const currentComponent of currentComponents) {
+        const componentDescendants =
+          await this.elementRepository.getElementWithDescendants(
+            currentComponent.rootElement.id,
+          )
+
+        const componentDescendants2 = componentDescendants.map((element) => ({
+          ...element,
+          closestContainerNode: { id: currentComponent.id },
+          renderType: {
+            __typename: throwIfUndefined(element.renderType.__typename),
+            id: element.renderType.id,
+          },
+        }))
+
+        const componentStore = await this.commandBus.execute<
+          ExportStoreCommand,
+          IStoreExport
+        >(new ExportStoreCommand({ id: currentComponent.store.id }))
+
+        const componentApi = await this.commandBus.execute<ExportApiCommand>(
+          new ExportApiCommand(currentComponent.api),
+        )
+
+        components.push({
+          ...currentComponent,
+          api: componentApi,
+          elements: componentDescendants,
+          store: componentStore,
+        })
+        currentElements.push(...componentDescendants2)
+      }
+
+      elementsCurrentBatch = currentElements
+
+      currentRun++
+    } while (elementsCurrentBatch.length > 0 && currentRun < maxRuns)
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,

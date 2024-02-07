@@ -4,7 +4,7 @@ import { Type } from '@sinclair/typebox'
 import { IAction, IActionDTO } from './action'
 import { IRef } from './model/node-type.interface'
 import { IResource } from './resource.dto.interface'
-import { IInterfaceTypeRef } from './type'
+import { IApi, IInterfaceTypeRef } from './type'
 
 export const IStoreDTO = Type.Object({
   actions: Type.Optional(Type.Array(IActionDTO)),
@@ -31,6 +31,7 @@ export type IStore = Static<typeof IStore>
 export const IStoreExport = Typebox.Overwrite(
   IStore,
   Type.Object({
+    api: IApi,
     resources: Type.Optional(Type.Array(IResource)),
   }),
 )

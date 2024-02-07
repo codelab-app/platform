@@ -3,7 +3,7 @@ import { ExportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
 import type {
   IAppExport,
-  IComponent,
+  IComponentExport,
   IPageExport,
   IResource,
 } from '@codelab/shared/abstract/core'
@@ -48,7 +48,7 @@ export class ExportAppsHandler
         return acc
       }, [])
 
-      const components = pages.reduce<Array<IComponent>>((acc, page) => {
+      const components = pages.reduce<Array<IComponentExport>>((acc, page) => {
         const { components: pageComponents } = page
 
         if (pageComponents && pageComponents.length > 0) {

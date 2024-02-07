@@ -32,8 +32,6 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    console.log('running exportApp')
-
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new ExportAppsCommand({ id: req.query.id as string }),
     )
@@ -43,17 +41,10 @@ export class AppApplicationController {
   @Post('import')
   async importApp(@UploadedFile() file: any) {
     const json = file.buffer.toString('utf8')
-
-    const parsedJson = JSON.parse(json)
-
-    const data = {
-      app: parsedJson,
-      components: parsedJson.components ?? [],
-      pages: parsedJson.pages ?? [],
-    }
+    const data = JSON.parse(json)
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-      new ImportAppCommand(data, { owner: parsedJson.owner }),
+      new ImportAppCommand(data, { owner: data.owner }),
     )
   }
 }

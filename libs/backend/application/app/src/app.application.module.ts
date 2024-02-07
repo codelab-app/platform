@@ -12,6 +12,7 @@ import { DomainDomainModule } from '@codelab/backend/domain/domain'
 import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PageDomainModule } from '@codelab/backend/domain/page'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
+import { ResourceDomainModule } from '@codelab/backend/domain/resource'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
@@ -44,6 +45,7 @@ import {
     ComponentDomainModule,
     ElementDomainModule,
     StoreDomainModule,
+    ResourceDomainModule,
     TypeDomainModule,
     DomainDomainModule,
     AuthModule,

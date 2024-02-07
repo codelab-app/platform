@@ -1,12 +1,12 @@
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { ActionService } from '@codelab/backend/domain/action'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import type { IStoreBoundedContext } from '@codelab/shared/abstract/core'
+import type { IStoreExport } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportStoreCommand {
-  constructor(public store: IStoreBoundedContext) {}
+  constructor(public store: IStoreExport) {}
 }
 
 @CommandHandler(ImportStoreCommand)
@@ -18,13 +18,11 @@ export class ImportStoreHandler implements ICommandHandler<ImportStoreCommand> {
   ) {}
 
   async execute(command: ImportStoreCommand) {
-    const {
-      store: { api, store },
-    } = command
+    const { actions, resources, ...store } = command.store
 
-    const { actions } = store
-
-    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
+    await this.commandBus.execute<ImportApiCommand>(
+      new ImportApiCommand(store.api),
+    )
 
     await this.storeRepository.save(store)
 

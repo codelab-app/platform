@@ -12,7 +12,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IResourceDTO } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -36,7 +36,8 @@ export class ResourceRepository extends AbstractRepository<
       await (
         await this.ogmService.Resource
       ).create({
-        input: resources.map(({ id, name, type }) => ({
+        input: resources.map(({ config, id, name, type }) => ({
+          config: connectNodeId(config.id),
           id,
           name,
           owner: connectOwner(this.authService.currentUser),
