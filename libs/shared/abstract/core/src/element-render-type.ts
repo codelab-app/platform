@@ -17,3 +17,5 @@ export const IElementRenderTypeDto = Type.Union([
 ])
 
 export type IElementRenderTypeDto = Static<typeof IElementRenderTypeDto>
+
+export const IElementAtomRenderType = {}

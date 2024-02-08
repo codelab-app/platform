@@ -19,6 +19,9 @@ import { tagSchema } from './model/tag.schema'
 import { userSchema } from './model/user.schema'
 import { fieldSchema, typeSchema } from './type'
 
+/**
+ * `mergeTypeDefs` allow schema merging for type re-declaration
+ */
 export const ogmTypeDefs = mergeTypeDefs([
   commonSchema,
   userSchema,

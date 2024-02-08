@@ -1,10 +1,11 @@
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { Module } from '@nestjs/common'
 import { AtomRepository } from './repository'
+import { AtomDomainService } from './service/atom.domain.service'
 
 @Module({
-  exports: [AtomRepository],
+  exports: [AtomRepository, AtomDomainService],
   imports: [SharedDomainModule],
-  providers: [AtomRepository],
+  providers: [AtomRepository, AtomDomainService],
 })
 export class AtomDomainModule {}
