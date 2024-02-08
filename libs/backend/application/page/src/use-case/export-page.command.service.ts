@@ -135,6 +135,16 @@ export class ExportPageHandler
       IStoreExport
     >(new ExportStoreCommand({ id: page.store.id }))
 
-    return { components, elements, store }
+    const sortedComponents = components.sort((a, b) => {
+      // put components that are referenced from an element via field childMapperComponent first
+      // so that they are imported before the elements or another component's root element that reference them
+      return elements.some(
+        (element) => element.childMapperComponent?.id === a.id,
+      )
+        ? 1
+        : -1
+    })
+
+    return { components: sortedComponents, elements, store }
   }
 }

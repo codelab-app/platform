@@ -48,22 +48,14 @@ export class ApiActionRepository extends AbstractRepository<
             ...action,
             config: connectNodeId(config.id),
             errorAction: {
-              ApiAction: connectNodeId(
-                this.filterBy(errorAction, IActionKind.ApiAction),
-              ),
-              CodeAction: connectNodeId(
-                this.filterBy(errorAction, IActionKind.CodeAction),
-              ),
+              ApiAction: connectNodeId(errorAction?.id),
+              CodeAction: connectNodeId(errorAction?.id),
             },
             resource: connectNodeId(resource.id),
             store: connectNodeId(store.id),
             successAction: {
-              ApiAction: connectNodeId(
-                this.filterBy(successAction, IActionKind.ApiAction),
-              ),
-              CodeAction: connectNodeId(
-                this.filterBy(successAction, IActionKind.CodeAction),
-              ),
+              ApiAction: connectNodeId(successAction?.id),
+              CodeAction: connectNodeId(successAction?.id),
             },
           }),
         ),

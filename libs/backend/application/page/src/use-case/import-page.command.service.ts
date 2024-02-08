@@ -22,14 +22,14 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
   async execute(command: ImportPageCommand) {
     const { page } = command
 
+    await this.commandBus.execute<ImportStoreCommand>(
+      new ImportStoreCommand(page.store),
+    )
+
     for (const element of page.elements) {
       await this.propRepository.save(element.props)
       await this.elementRepository.save(element as IElementDTO)
     }
-
-    await this.commandBus.execute<ImportStoreCommand>(
-      new ImportStoreCommand(page.store),
-    )
 
     await this.pageRepository.save(page)
   }

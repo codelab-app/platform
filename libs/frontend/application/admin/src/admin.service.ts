@@ -17,10 +17,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 
-interface ImportAppResponse {
-  apps: Array<{ app: App }>
-}
-
 @model('@codelab/AdminService')
 export class AdminService
   extends Model({
@@ -42,13 +38,11 @@ export class AdminService
 
     return yield* _await(
       restPlatformClient
-        .post<ImportAppResponse>('/app/import', formData, {
+        .post<App>('/app/import', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(({ data }) => {
-          const appId = data.apps[0]?.app.id
-
-          return this.appService.loadAppsPreview({ id: appId })
+          return this.appService.loadAppsPreview({ id: data.id })
         }),
     )
   })

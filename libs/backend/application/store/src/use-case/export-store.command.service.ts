@@ -46,6 +46,15 @@ export class ExportStoreHandler
       [],
     )
 
+    const sortedActions = store.actions.sort((a, b) => {
+      // put actions that are referenced from another action via field successAction or errorAction first
+      // so that they are imported before the actions that reference them
+      return a.type === IActionKind.ApiAction &&
+        ((a as ApiAction).successAction || (a as ApiAction).errorAction)
+        ? 1
+        : -1
+    })
+
     const resources = await this.commandBus.execute<
       ExportResourcesCommand,
       Array<IResource>
@@ -53,6 +62,7 @@ export class ExportStoreHandler
 
     return {
       ...store,
+      actions: sortedActions,
       api,
       resources,
     }

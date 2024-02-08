@@ -24,7 +24,7 @@ export const ImportAppDialog = observer(() => {
 
   const onSuccess = useSuccessNotify({
     description: (event: Array<IAppModel>) => {
-      return `${event.length} of apps imported`
+      return `App ${event[0]!.name} imported successfully`
     },
     title: 'App imported successfully',
   })
