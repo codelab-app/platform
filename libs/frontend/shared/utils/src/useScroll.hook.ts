@@ -4,21 +4,11 @@
  *    const { scrollX, scrollY, scrollDirection } = useScroll();
  * Original Source: https://gist.github.com/joshuacerbito/ea318a6a7ca4336e9fadb9ae5bbb87f4
  */
+import type { Rectangle } from '@codelab/frontend/abstract/types'
 import { isServer } from '@codelab/shared/utils'
 import { useEffect, useState } from 'react'
 
-interface SSRRect {
-  bottom: number
-  height: number
-  left: number
-  right: number
-  top: number
-  width: number
-  x: number
-  y: number
-}
-
-const EmptySSRRect: SSRRect = {
+const EmptySSRRect: Rectangle = {
   bottom: 0,
   height: 0,
   left: 0,
@@ -59,18 +49,42 @@ const isElementInScrollParentViewport = (
   )
 }
 
-const useScrollIntoView = (element: HTMLElement, root: HTMLElement) => {
+export const useScrollIntoView = (
+  target: { x: number; y: number },
+  root: HTMLElement,
+) => {
   useEffect(() => {
+    const element = document.createElement('div')
+
+    element.style.position = 'absolute'
+    element.style.top = `${target.y}px`
+    element.style.left = `${target.x}px`
+    element.style.width = '0px'
+    element.style.height = '0px'
+    element.style.zIndex = '99999'
+    element.id = 'scroll-into-view-element'
+    element.style.pointerEvents = 'none'
+
+    root.appendChild(element)
+
     if (!isElementInScrollParentViewport(element, root)) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      })
     }
-  }, [element, root])
+
+    return () => {
+      root.removeChild(element)
+    }
+  }, [root, target])
 }
 
-const useScroll = () => {
+export const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
 
-  const [bodyOffset, setBodyOffset] = useState<DOMRect | SSRRect>(
+  const [bodyOffset, setBodyOffset] = useState<DOMRect | Rectangle>(
     isServer ? EmptySSRRect : document.body.getBoundingClientRect(),
   )
 
@@ -105,5 +119,3 @@ const useScroll = () => {
     scrollY,
   }
 }
-
-export { useScroll, useScrollIntoView }
