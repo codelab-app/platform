@@ -128,7 +128,9 @@ export class AppDevelopmentService
       ...data.actionTypes,
     ]
 
-    const fields = types.flatMap((type) => type.fields)
+    const fields = types.flatMap((type) =>
+      'fields' in type ? type.fields : [],
+    )
 
     return {
       actions,
