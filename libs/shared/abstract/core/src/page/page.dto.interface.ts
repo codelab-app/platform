@@ -1,7 +1,7 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from './model/node-type.interface'
+import { IRef } from '../model/node-type.interface'
 import { IPageKind } from './page-kind.enum'
 
 export const IPageDTO = Type.Object({
@@ -26,3 +26,11 @@ export const IPage = Typebox.Overwrite(
 )
 
 export type IPage = Static<typeof IPage>
+
+/**
+ * IOwnerSchema is required for store api
+ */
+export type ICreatePageData = Pick<
+  IPage,
+  'app' | 'id' | 'kind' | 'name' | 'url'
+>

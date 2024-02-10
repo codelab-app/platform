@@ -1,16 +1,18 @@
 import type {
-  ICreateTypeData,
   IInterfaceTypeModel,
   ITypeDomainService,
   ITypeModel,
-  IUpdateTypeData,
+  IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import type {
   IBaseType,
   IBaseTypeOptions,
   IBaseTypeWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import type {
+  ICreateTypeDto,
+  IPrimitiveTypeKind,
+} from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -23,7 +25,7 @@ import type {
 import type { ITypeRepository } from './type.repo.interface'
 
 export interface ITypeService
-  extends ICRUDService<ITypeModel, ICreateTypeData, IUpdateTypeData>,
+  extends ICRUDService<ITypeModel, ICreateTypeDto, IUpdateTypeDto>,
     Omit<IQueryService<ITypeModel, IBaseTypeWhere, IBaseTypeOptions>, 'getAll'>,
     ICRUDModalService<Ref<ITypeModel>, { type?: ITypeModel }>,
     ICRUDFormService<Ref<ITypeModel>, { type?: ITypeModel }>,

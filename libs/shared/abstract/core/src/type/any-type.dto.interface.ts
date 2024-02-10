@@ -1,8 +1,8 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IDiscriminatedRef } from '../model/node-type.interface'
-import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'
+import { ITypeKind } from './type-kind.enum'
 
 export const IAnyBaseType = Type.Union([
   IBaseTypeDTO(Type.Literal(`${ITypeKind.ActionType}`)),

@@ -1,9 +1,9 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IDomain, IDomainDTO } from './domain.dto.interface'
-import { IPage, IPageDTO } from './page.dto.interface'
-import { IOwner } from './user.interface'
+import { IDomain, IDomainDTO } from '../domain/domain.dto.interface'
+import { IPage, IPageDTO } from '../page/page.dto.interface'
+import { IOwner } from '../user/user.interface'
 
 export const IAppDTO = Type.Composite([
   /**

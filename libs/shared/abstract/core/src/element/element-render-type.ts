@@ -1,6 +1,6 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IDiscriminatedRef } from './model/node-type.interface'
+import { IDiscriminatedRef } from '../model/node-type.interface'
 
 export enum IElementRenderTypeKind {
   Atom = 'Atom',

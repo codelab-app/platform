@@ -6,7 +6,6 @@ import {
   type IPageApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  ICreatePageData,
   IInterfaceTypeModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
@@ -27,7 +26,11 @@ import {
   InterfaceType,
 } from '@codelab/frontend/domain/type'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
+import type {
+  ICreatePageData,
+  IElementDTO,
+  IPropDTO,
+} from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   IPageKind,

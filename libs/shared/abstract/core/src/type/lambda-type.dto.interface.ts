@@ -1,6 +1,6 @@
 import { type Static, Type } from '@sinclair/typebox'
-import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'
+import { ITypeKind } from './type-kind.enum'
 
 export const ILambdaTypeDTO = Type.Composite([
   IBaseTypeDTO(Type.Literal(`${ITypeKind.LambdaType}`)),

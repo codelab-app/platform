@@ -1,5 +1,4 @@
 import type {
-  ICreatePageData,
   IPageDomainService,
   IPageModel,
   IUpdatePageData,
@@ -9,7 +8,10 @@ import type {
   PageOptions,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type {
+  ICreatePageData,
+  IElementDTO,
+} from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {

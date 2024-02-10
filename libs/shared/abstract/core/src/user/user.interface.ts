@@ -1,6 +1,6 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from './model/node-type.interface'
+import { IRef } from '../model/node-type.interface'
 import { IRole } from './role.enum'
 
 export const IUserDTO = Type.Object({

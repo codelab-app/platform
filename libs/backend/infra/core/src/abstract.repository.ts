@@ -22,6 +22,9 @@ export abstract class AbstractRepository<
     protected validationService: ValidationService,
   ) {}
 
+  /**
+   * Array adds complexity, create an optional `addMany` if needed
+   */
   public async add(data: Array<Model>): Promise<Array<ModelData>> {
     const span = this.traceService.getSpan()
     const attributes = flattenWithPrefix(data[0] ?? {}, 'data')

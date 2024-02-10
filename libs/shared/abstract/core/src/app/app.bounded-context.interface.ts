@@ -1,5 +1,7 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IComponentBoundedContext } from '../component/component.bounded-context.interface'
+import { IPageBoundedContext } from '../page/page.bounded-context.interface'
 import { IApp } from './app.dto.interface'
 import { IComponentBoundedContext } from './component.bounded-context.interface'
 import { IPageBoundedContext } from './page.bounded-context.interface'

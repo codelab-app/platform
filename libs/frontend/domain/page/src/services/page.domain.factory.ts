@@ -8,7 +8,6 @@ import {
   getStoreDomainService,
   getUserDomainService,
   IAppModel,
-  ICreatePageData,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -17,6 +16,7 @@ import {
   InterfaceType,
 } from '@codelab/frontend/domain/type'
 import {
+  ICreatePageData,
   IElementRenderTypeDto,
   IPageKind,
   IPageKindName,

@@ -1,4 +1,4 @@
-import type { IUpdateTypeData } from '@codelab/frontend/abstract/domain'
+import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -20,7 +20,7 @@ export const UpdateTypeForm = observer(() => {
     typeService.updateForm.type?.id ?? '',
   )
 
-  const handleSubmit = async (submitData: IUpdateTypeData) => {
+  const handleSubmit = async (submitData: IUpdateTypeDto) => {
     const data = {
       ...submitData,
       allowedValues: submitData.allowedValues?.map((val) => ({
@@ -71,7 +71,7 @@ export const UpdateTypeForm = observer(() => {
   }
 
   return (
-    <Form<IUpdateTypeData>
+    <Form<IUpdateTypeDto>
       model={model}
       onSubmit={handleSubmit}
       onSubmitError={createFormErrorNotificationHandler({

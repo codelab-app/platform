@@ -1,9 +1,9 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IElementRenderTypeKind } from '../element/element-render-type'
+import { IRef } from '../model/node-type.interface'
 import { IAtomType } from './atom-type.enum'
-import { IElementRenderTypeKind } from './element-render-type'
-import { IRef } from './model/node-type.interface'
 
 export const IAtomDTO = Type.Object({
   __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),

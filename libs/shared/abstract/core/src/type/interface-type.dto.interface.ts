@@ -3,8 +3,8 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IField } from '../field/field.dto.interface'
 import { IDiscriminatedRef, IRef } from '../model/node-type.interface'
-import { ITypeKind } from '../type-kind.enum'
 import { IBaseTypeDTO } from './base-type.dto.interface'
+import { ITypeKind } from './type-kind.enum'
 
 export const IInterfaceTypeDTO = Type.Composite([
   IBaseTypeDTO(Type.Literal(`${ITypeKind.InterfaceType}`)),

@@ -1,6 +1,6 @@
 import type { Static, TLiteral } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ITypeKind } from '../type-kind.enum'
+import { ITypeKind } from './type-kind.enum'
 
 export const IBaseType = Type.Object({
   __typename: Type.Literal(`${ITypeKind}`),

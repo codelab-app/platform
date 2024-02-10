@@ -1,5 +1,7 @@
 import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { PageRepository } from '@codelab/backend/domain/page'
+import { StoreDomainService } from '@codelab/backend/domain/store'
+import { TypeDomainService } from '@codelab/backend/domain/type'
 import {
   type IElementDTO,
   IElementRenderTypeKind,
@@ -22,6 +24,8 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
   constructor(
     private readonly pageRepository: PageRepository,
     private atomDomainService: AtomDomainService,
+    private storeDomainService: StoreDomainService,
+    private typeDomainService: TypeDomainService,
   ) {}
 
   async execute(command: SeedPageCommand) {
@@ -40,11 +44,14 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
       renderType: await this.atomDomainService.defaultRenderType(),
     }
 
-    const pageDto: IPageDTO = {
-      ...page,
-      rootElement,
-    }
+    // const pageStoreApi = this.typeDomainService.createInterface()
+    // const pageStore = this.storeDomainService.create({})
 
-    await this.pageRepository.add([pageDto])
+    // const pageDto: IPageDTO = {
+    //   ...page,
+    //   rootElement,
+    // }
+
+    // await this.pageRepository.add([pageDto])
   }
 }

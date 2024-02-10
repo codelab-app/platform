@@ -1,5 +1,4 @@
-import type { ICreatePageData } from '@codelab/frontend/abstract/domain'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDTO, ICreatePageData } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { PageRepository } from '../repository'
 
@@ -7,7 +6,7 @@ import { PageRepository } from '../repository'
 export class PageDomainService {
   constructor(private pageRepository: PageRepository) {}
 
-  private addPage(
+  private create(
     app: Pick<IAppDTO, 'name'>,
     { id, kind, name, url }: ICreatePageData,
   ) {

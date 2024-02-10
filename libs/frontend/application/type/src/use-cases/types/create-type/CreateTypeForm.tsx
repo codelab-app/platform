@@ -1,4 +1,3 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -7,6 +6,7 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -32,7 +32,7 @@ export const CreateTypeForm = observer(
     const { typeService } = useStore()
     const closeForm = () => typeService.createForm.close()
 
-    const onSubmit = async (data: ICreateTypeData) => {
+    const onSubmit = async (data: ICreateTypeDto) => {
       const input = {
         ...data,
         allowedValues: data.allowedValues?.map((val) => ({
@@ -49,7 +49,7 @@ export const CreateTypeForm = observer(
     }
 
     return (
-      <Form<ICreateTypeData>
+      <Form<ICreateTypeDto>
         model={{
           id: v4(),
         }}

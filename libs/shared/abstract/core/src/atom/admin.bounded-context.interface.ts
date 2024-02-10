@@ -1,9 +1,9 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IComponentBoundedContext } from '../component/component.bounded-context.interface'
+import { ITag } from '../tag/tag.dto.interface'
+import { IType } from '../type'
 import { IAtomBoundedContext } from './atom.bounded-context.interface'
-import { IComponentBoundedContext } from './component.bounded-context.interface'
-import { ITag } from './tag.dto.interface'
-import { IType } from './type'
 
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.

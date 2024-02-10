@@ -1,11 +1,11 @@
 import type {
-  ICreateTypeData,
   ITypeModel,
-  IUpdateTypeData,
+  IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
   IArrayTypeDTO,
+  ICreateTypeDto,
   IInterfaceTypeDTO,
   ITypeDTO,
   IUnionTypeDTO,
@@ -72,7 +72,7 @@ export class TypeFactory {
     }
   }
 
-  static mapDataToDTO(data: ICreateTypeData | IUpdateTypeData): ITypeDTO {
+  static mapDataToDTO(data: ICreateTypeDto | IUpdateTypeDto): ITypeDTO {
     switch (data.kind) {
       case ITypeKind.InterfaceType:
         return {

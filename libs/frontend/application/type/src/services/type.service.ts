@@ -1,8 +1,7 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
 import type {
-  ICreateTypeData,
   ITypeModel,
-  IUpdateTypeData,
+  IUpdateTypeDto,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import {
@@ -12,7 +11,10 @@ import {
 } from '@codelab/frontend/application/shared/store'
 import { TypeDomainService, TypeFactory } from '@codelab/frontend/domain/type'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
-import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import type {
+  ICreateTypeDto,
+  IPrimitiveTypeKind,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
@@ -55,7 +57,7 @@ export class TypeService
 {
   @modelFlow
   @transaction
-  create = _async(function* (this: TypeService, data: ICreateTypeData) {
+  create = _async(function* (this: TypeService, data: ICreateTypeDto) {
     const type = this.typeDomainService.hydrate(TypeFactory.mapDataToDTO(data))
 
     yield* _await(this.typeRepository.add(type))
@@ -212,7 +214,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: TypeService, data: IUpdateTypeData) {
+  update = _async(function* (this: TypeService, data: IUpdateTypeDto) {
     const type = this.typeDomainService.types.get(data.id)!
     const typeDTO = TypeFactory.mapDataToDTO(data)
 

@@ -1,7 +1,7 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IApi } from '../type'
 import { IAtom } from './atom.dto.interface'
-import { IApi } from './type'
 
 /**
  * Aggregate is used to group data together, not 1-to-1 mapping to models
