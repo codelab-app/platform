@@ -1,3 +1,2 @@
-export * from './ClickOverlay'
-export * from './HoverOverlay'
+export * from './elementOverlay'
 export * from './spacingOverlay'

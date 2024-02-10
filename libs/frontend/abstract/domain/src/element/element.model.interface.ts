@@ -54,6 +54,7 @@ export interface IElementModel
   childMapperPreviousSibling?: Nullable<Ref<IElementModel>>
   childMapperPropKey?: Nullable<string>
   children: Array<IElementModel>
+  closestConcreteParent: Nullable<Ref<IElementModel>>
   // the closest container node that element belongs to
   closestContainerNode: IComponentModel | IPageModel
   // closestPage: Nullable<Ref<IPageModel>>
@@ -65,6 +66,8 @@ export interface IElementModel
   firstChild?: Nullable<Ref<IElementModel>>
   hooks: Array<IHook>
   id: string
+  // elements with corresponding dom elements are concrete
+  isConcreteElement: boolean
   isRoot: boolean
   isTextContentEditable: boolean
   label: string
@@ -89,6 +92,10 @@ export interface IElementModel
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   slug: string
+  // The smallest subtree that can visually represent the current element.
+  // it may include the element itself or descendant elements.
+  smallestConcreteRepresentativeSubtree: Array<IElementModel>
+
   /**
    * to render a component we create a duplicate for each element
    * keeps track of source element in case this is a duplicate

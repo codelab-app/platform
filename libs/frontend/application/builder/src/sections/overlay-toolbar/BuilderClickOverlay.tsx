@@ -1,122 +1,77 @@
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import DragOutlined from '@ant-design/icons/DragOutlined'
 import type {
-  BuilderDragData,
+  IComponentApplicationService,
   IElementService,
 } from '@codelab/frontend/abstract/application'
-import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import { isElementRef } from '@codelab/frontend/abstract/domain'
-import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
-import { ClickOverlay } from '@codelab/frontend/presentation/view'
+import { ElementOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { createPortal } from 'react-dom'
-import styled from 'styled-components'
 import { queryRenderedElementById } from '../../utils'
-
-const StyledOverlayContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  max-height: 20px;
-  justify-content: space-between;
-  & > *:not(:last-child) {
-    margin-right: 0.3rem;
-  }
-`
-
-const StyledSpan = styled.p`
-  height: 20px;
-  min-width: 50px;
-  margin: 2px;
-  overflow: hidden;
-  white-space: nowrap;
-`
-
-const StyledOverlayButtonGroup = styled.div`
-  display: flex;
-  flex-direction: row;
-`
+import { useVirtualBoundingRect } from './hooks/use-virtual-bounding-rect'
 
 export const BuilderClickOverlay = observer<{
   builderService: IBuilderDomainService
   elementService: IElementService
+  componentService: IComponentApplicationService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
-}>(({ builderService, elementService, renderContainerRef }) => {
-  const selectedNode = builderService.selectedNode
+}>(
+  ({
+    builderService,
+    componentService,
+    elementService,
+    renderContainerRef,
+  }) => {
+    const selectedNode = builderService.selectedNode
+    const renderContainer = renderContainerRef.current
 
-  if (isServer || !selectedNode || !isElementRef(selectedNode)) {
-    return null
-  }
+    const boundingRect = useVirtualBoundingRect({
+      activeNode: selectedNode,
+      renderContainer,
+    })
 
-  const element = queryRenderedElementById(selectedNode.id)
+    if (
+      renderContainerRef.current === null ||
+      isServer ||
+      !selectedNode ||
+      !isElementRef(selectedNode) ||
+      !boundingRect
+    ) {
+      return null
+    }
 
-  if (!element || !renderContainerRef.current) {
-    return null
-  }
+    const parentElement = selectedNode.current.closestConcreteParent?.current
 
-  const content = (
-    <StyledOverlayContainer>
-      <StyledOverlayButtonGroup>
-        <div
-          className="flex h-7 w-7 cursor-pointer items-center justify-center align-middle"
-          onClick={(event) => {
+    const parentHtmlElement =
+      parentElement && queryRenderedElementById(parentElement.id)
+
+    return createPortal(
+      <ElementOverlay
+        autoScroll
+        parentContainer={parentHtmlElement}
+        rootContainer={renderContainerRef.current}
+        targetBoundingRect={boundingRect}
+        toolbar={{
+          draggable: {
+            id: selectedNode.current.id,
+          },
+          onDelete: (event) => {
             event.stopPropagation()
-            elementService.deleteModal.open(selectedNode)
-          }}
-        >
-          <div
-            className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
-            style={{ backgroundColor: '#375583', color: 'red' }}
-          >
-            <DeleteOutlined />
-          </div>
-        </div>
-        <MakeChildrenDraggable<BuilderDragData>
-          data={{
-            action: BuilderDndAction.MoveElement,
-          }}
-          id={selectedNode.id}
-        >
-          <div className="flex h-7 w-7 items-center justify-center align-middle">
-            <div
-              className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
-              style={{ backgroundColor: '#375583', color: 'white' }}
-            >
-              <DragOutlined color="white" />
-            </div>
-          </div>
-        </MakeChildrenDraggable>
-      </StyledOverlayButtonGroup>
-      <StyledSpan>{selectedNode.current.name}</StyledSpan>
-    </StyledOverlayContainer>
-  )
 
-  const { closestParentElement, nextSibling } = selectedNode.current
-  const breakpoint = builderService.selectedBuilderBreakpoint
-  const props = selectedNode.current.props.values
-  const parentId = closestParentElement?.id
-  const nextSiblingId = nextSibling?.id
-  const dependencies = [props, nextSiblingId, breakpoint, parentId]
-
-  return createPortal(
-    <ClickOverlay
-      content={content}
-      dependencies={[
-        selectedNode.current.style.guiCss,
-        selectedNode.current.style.customCss,
-        selectedNode.current.tailwindClassNames,
-        selectedNode.current.props.values,
-        selectedNode.current.nextSibling?.id,
-        selectedNode.current.parentElement?.id,
-      ]}
-      element={element}
-      renderContainer={renderContainerRef.current}
-    />,
-    renderContainerRef.current,
-  )
-})
+            if (isElementRef(selectedNode)) {
+              elementService.deleteModal.open(selectedNode)
+            } else {
+              componentService.deleteModal.open(selectedNode)
+            }
+          },
+          title: selectedNode.current.name,
+        }}
+      />,
+      renderContainerRef.current,
+    )
+  },
+)
 
 BuilderClickOverlay.displayName = 'BuilderClickOverlay'
