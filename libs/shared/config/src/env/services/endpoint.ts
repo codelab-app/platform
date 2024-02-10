@@ -5,6 +5,7 @@ import * as env from 'env-var'
  */
 const { get } = env.from({
   NEXT_PUBLIC_PLATFORM_API_HOST: process.env['NEXT_PUBLIC_PLATFORM_API_HOST'],
+  NEXT_PUBLIC_PLATFORM_API_PORT: process.env['NEXT_PUBLIC_PLATFORM_API_PORT'],
   NEXT_PUBLIC_PLATFORM_HOST: process.env['NEXT_PUBLIC_PLATFORM_HOST'],
 })
 
@@ -47,9 +48,14 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * http://127.0.0.1:4000
    */
   get platformApiHost(): string {
-    return (this._platformApiHost ??= get('NEXT_PUBLIC_PLATFORM_API_HOST')
-      .required()
-      .asUrlString())
+    if (this._platformApiHost) {
+      return this._platformApiHost
+    }
+
+    const port = get('NEXT_PUBLIC_PLATFORM_API_PORT').required().asPortNumber()
+    const url = get('NEXT_PUBLIC_PLATFORM_API_HOST').required().asUrlObject()
+
+    return (this._platformApiHost = new URL(`${url.origin}:${port}`).toString())
   }
 
   /**
