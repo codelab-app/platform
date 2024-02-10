@@ -16,6 +16,7 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
+import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -91,7 +92,9 @@ export class InterfaceType
   get defaultValues(): IPropData {
     return compact(
       this.fields.map((field) =>
-        field.defaultValues ? { [field.key]: field.defaultValues } : undefined,
+        !isNil(field.defaultValues)
+          ? { [field.key]: field.defaultValues }
+          : undefined,
       ),
     ).reduce(merge, {})
   }
