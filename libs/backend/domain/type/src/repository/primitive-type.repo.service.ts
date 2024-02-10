@@ -32,7 +32,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(primitiveTypes: Array<IPrimitiveTypeDTO>) {
+  protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDTO>) {
     return (
       await (
         await this.ogmService.PrimitiveType

@@ -36,7 +36,7 @@ export class EnumTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(enumTypes: Array<IEnumTypeDTO>) {
+  protected async _addMany(enumTypes: Array<IEnumTypeDTO>) {
     return (
       await (
         await this.ogmService.EnumType

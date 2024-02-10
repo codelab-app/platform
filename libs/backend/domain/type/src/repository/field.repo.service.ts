@@ -29,7 +29,7 @@ export class FieldRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(fields: Array<IFieldDTO>) {
+  protected async _addMany(fields: Array<IFieldDTO>) {
     return (
       await (
         await this.ogmService.Field

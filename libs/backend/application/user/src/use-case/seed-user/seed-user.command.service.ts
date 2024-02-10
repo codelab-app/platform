@@ -14,6 +14,6 @@ export class SeedUserHandler implements ICommandHandler<SeedUserCommand> {
   async execute(command: SeedUserCommand) {
     const { user } = command
 
-    await this.userRepository.add([user])
+    await this.userRepository.add(user)
   }
 }

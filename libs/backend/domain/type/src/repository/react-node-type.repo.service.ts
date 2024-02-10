@@ -31,7 +31,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(reactNodeTypes: Array<IReactNodeTypeDTO>) {
+  protected async _addMany(reactNodeTypes: Array<IReactNodeTypeDTO>) {
     return (
       await (
         await this.ogmService.ReactNodeType

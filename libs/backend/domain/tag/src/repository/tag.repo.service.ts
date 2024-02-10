@@ -38,7 +38,7 @@ export class TagRepository extends AbstractRepository<
   /**
    * If parent or children exists, then we should connect them
    */
-  protected async _add(tags: Array<ITagDTO>) {
+  protected async _addMany(tags: Array<ITagDTO>) {
     return (
       await (
         await this.ogmService.Tag

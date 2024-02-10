@@ -28,7 +28,7 @@ export class UserRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(users: Array<IUserDTO>) {
+  protected async _addMany(users: Array<IUserDTO>) {
     return (
       await (
         await this.ogmService.User

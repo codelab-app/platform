@@ -39,7 +39,7 @@ export class AppRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(apps: Array<IAppDTO>) {
+  protected async _addMany(apps: Array<IAppDTO>) {
     return (
       await (
         await this.ogmService.App

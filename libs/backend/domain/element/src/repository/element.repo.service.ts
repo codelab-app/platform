@@ -49,7 +49,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(elements: Array<ICreateElementDTO>) {
+  protected async _addMany(elements: Array<ICreateElementDTO>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map(

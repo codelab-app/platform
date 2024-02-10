@@ -51,7 +51,7 @@ export class ArrayTypeRepository extends AbstractRepository<
     })
   }
 
-  protected async _add(primitiveTypes: Array<IArrayTypeDTO>) {
+  protected async _addMany(primitiveTypes: Array<IArrayTypeDTO>) {
     return (
       await (
         await this.ogmService.ArrayType

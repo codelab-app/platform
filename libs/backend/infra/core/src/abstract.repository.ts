@@ -25,13 +25,24 @@ export abstract class AbstractRepository<
   /**
    * Array adds complexity, create an optional `addMany` if needed
    */
-  public async add(data: Array<Model>): Promise<Array<ModelData>> {
+  public async add(data: Model): Promise<ModelData> {
+    const results = await this._addMany([data])
+    const result = results[0]
+
+    if (!result) {
+      throw new Error('Add failed')
+    }
+
+    return result
+  }
+
+  public async addMany(data: Array<Model>): Promise<Array<ModelData>> {
     const span = this.traceService.getSpan()
     const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
 
     span?.setAttributes(attributes)
 
-    return this._add(data)
+    return this._addMany(data)
   }
 
   async exists(data: Model, where: Where) {
@@ -155,11 +166,7 @@ export abstract class AbstractRepository<
           return await this.update(data, computedWhere)
         }
 
-        const results = (await this.add([data]))[0]
-
-        if (!results) {
-          throw new Error('Save failed')
-        }
+        const results = await this.add(data)
 
         return results
       },
@@ -189,7 +196,7 @@ export abstract class AbstractRepository<
     })
   }
 
-  protected abstract _add(data: Array<Model>): Promise<Array<ModelData>>
+  protected abstract _addMany(data: Array<Model>): Promise<Array<ModelData>>
 
   protected abstract _find({
     options,

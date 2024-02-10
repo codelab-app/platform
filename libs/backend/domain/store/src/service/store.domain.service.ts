@@ -7,6 +7,6 @@ export class StoreDomainService {
   constructor(private storeRepository: StoreRepository) {}
 
   async create(dto: IStoreDTO) {
-    return this.storeRepository.add([dto])
+    return this.storeRepository.add(dto)
   }
 }

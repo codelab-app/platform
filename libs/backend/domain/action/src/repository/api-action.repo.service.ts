@@ -30,7 +30,7 @@ export class ApiActionRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(actions: Array<IApiActionDTO>) {
+  protected async _addMany(actions: Array<IApiActionDTO>) {
     return (
       await (
         await this.ogmService.ApiAction

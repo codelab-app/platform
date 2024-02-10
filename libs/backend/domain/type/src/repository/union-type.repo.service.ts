@@ -56,7 +56,7 @@ export class UnionTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(unionTypes: Array<IUnionTypeDTO>) {
+  protected async _addMany(unionTypes: Array<IUnionTypeDTO>) {
     return (
       await (
         await this.ogmService.UnionType

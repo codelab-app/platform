@@ -29,7 +29,7 @@ export class CodeActionRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(actions: Array<ICodeActionDTO>) {
+  protected async _addMany(actions: Array<ICodeActionDTO>) {
     return (
       await (
         await this.ogmService.CodeAction

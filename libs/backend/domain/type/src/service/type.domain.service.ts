@@ -10,6 +10,6 @@ export class TypeDomainService {
   constructor(private interfaceTypeRepository: InterfaceTypeRepository) {}
 
   async createInterface(dto: IInterfaceTypeDTO) {
-    return await this.interfaceTypeRepository.add([dto])
+    return await this.interfaceTypeRepository.add(dto)
   }
 }

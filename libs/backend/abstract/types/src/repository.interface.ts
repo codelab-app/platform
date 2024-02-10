@@ -7,7 +7,8 @@ export interface IRepository<
   Where extends { id?: string | null },
   Options,
 > {
-  add(data: Array<Model>): Promise<Array<ModelData>>
+  add(data: Model): Promise<ModelData>
+  addMany(data: Array<Model>): Promise<Array<ModelData>>
   exists(data: Model, where?: Where): Promise<boolean>
   /**
    * Overload with schema for data validation

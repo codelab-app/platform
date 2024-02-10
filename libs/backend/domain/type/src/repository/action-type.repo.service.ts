@@ -47,7 +47,7 @@ export class ActionTypeRepository extends AbstractRepository<
     })
   }
 
-  protected async _add(actionTypes: Array<IActionTypeDTO>) {
+  protected async _addMany(actionTypes: Array<IActionTypeDTO>) {
     return (
       await (
         await this.ogmService.ActionType

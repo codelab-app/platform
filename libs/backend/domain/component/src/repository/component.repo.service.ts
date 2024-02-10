@@ -31,7 +31,7 @@ export class ComponentRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  async _add(components: Array<IComponentDTO>) {
+  async _addMany(components: Array<IComponentDTO>) {
     return (
       await (
         await this.ogmService.Component

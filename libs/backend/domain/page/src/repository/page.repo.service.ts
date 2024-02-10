@@ -36,7 +36,7 @@ export class PageRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(pages: Array<IPageDTO>) {
+  protected async _addMany(pages: Array<IPageDTO>) {
     return (
       await (
         await this.ogmService.Page

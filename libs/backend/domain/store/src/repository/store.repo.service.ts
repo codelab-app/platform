@@ -32,7 +32,7 @@ export class StoreRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(stores: Array<IStoreDTO>) {
+  protected async _addMany(stores: Array<IStoreDTO>) {
     return (
       await (
         await this.ogmService.Store

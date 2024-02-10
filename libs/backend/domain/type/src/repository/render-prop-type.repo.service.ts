@@ -31,7 +31,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(renderPropTypes: Array<IRenderPropTypeDTO>) {
+  protected async _addMany(renderPropTypes: Array<IRenderPropTypeDTO>) {
     return (
       await (
         await this.ogmService.RenderPropType

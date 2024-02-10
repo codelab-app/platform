@@ -67,7 +67,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    *
    * Even if interface was deleted & fields are not, it is no harm to leave those old fields un-attached. We could run a clean up process for un-attached fields
    */
-  protected async _add(interfaceTypes: Array<IInterfaceTypeDTO>) {
+  protected async _addMany(interfaceTypes: Array<IInterfaceTypeDTO>) {
     return (
       await (
         await this.ogmService.InterfaceType

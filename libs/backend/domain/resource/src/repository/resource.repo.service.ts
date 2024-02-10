@@ -31,7 +31,7 @@ export class ResourceRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(resources: Array<IResourceDTO>) {
+  protected async _addMany(resources: Array<IResourceDTO>) {
     return (
       await (
         await this.ogmService.Resource

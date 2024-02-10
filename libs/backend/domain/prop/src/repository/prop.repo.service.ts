@@ -31,7 +31,7 @@ export class PropRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(props: Array<IPropDTO>) {
+  protected async _addMany(props: Array<IPropDTO>) {
     return (
       await (
         await this.ogmService.Prop

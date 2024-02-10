@@ -28,7 +28,7 @@ export class DomainRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(domains: Array<IDomainDTO>) {
+  protected async _addMany(domains: Array<IDomainDTO>) {
     return (
       await (
         await this.ogmService.Domain
