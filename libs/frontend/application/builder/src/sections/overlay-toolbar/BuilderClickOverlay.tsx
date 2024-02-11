@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import { BuilderDndAction } from '@codelab/frontend/abstract/application'
 import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
-import { isElementRef } from '@codelab/frontend/abstract/domain'
+import { elementRef, isElementRef } from '@codelab/frontend/abstract/domain'
 import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
@@ -64,7 +64,7 @@ export const BuilderClickOverlay = observer<{
           className="flex h-7 w-7 cursor-pointer items-center justify-center align-middle"
           onClick={(event) => {
             event.stopPropagation()
-            elementService.deleteModal.open(selectedNode)
+            elementService.deleteModal.open(elementRef(selectedNode.id))
           }}
         >
           <div
