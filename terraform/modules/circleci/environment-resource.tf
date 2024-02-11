@@ -17,9 +17,9 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_HOST" {
   organization = local.organization
 }
 
-resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_API_HOST" {
-  name         = "NEXT_PUBLIC_PLATFORM_API_HOST"
-  value        = var.next_public_platform_api_host
+resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_API_HOSTNAME" {
+  name         = "NEXT_PUBLIC_PLATFORM_API_HOSTNAME"
+  value        = var.next_public_platform_api_hostname
   project      = local.project_name
   organization = local.organization
 }

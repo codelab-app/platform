@@ -12,10 +12,9 @@ resource "digitalocean_app" "platform-web" {
       name = "platform-web"
       http_port = 443
 
-      github {
+      git {
         branch         = "master"
-        deploy_on_push = true
-        repo           = "codelab-app/platform"
+        repo_clone_url = "https://github.com/codelab-app/platform"
       }
 
       build_command = "scripts/digitalocean/platform/build.sh"
@@ -52,8 +51,8 @@ resource "digitalocean_app" "platform-web" {
       }
 
       env {
-        key   = "NEXT_PUBLIC_PLATFORM_API_HOST"
-        value = var.next_public_platform_api_host
+        key   = "NEXT_PUBLIC_PLATFORM_API_HOSTNAME"
+        value = var.next_public_platform_api_hostname
       }
 
       env {

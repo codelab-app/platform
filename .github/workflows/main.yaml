@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-platform-web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: platform-web deployment
+        uses: digitalocean/app_action@v1.1.6
+        with:
+          app_name: platform-web
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+  deploy-platform-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: platform-api deployment
+        uses: digitalocean/app_action@v1.1.6
+        with:
+          app_name: platform-api
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
