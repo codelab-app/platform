@@ -1,8 +1,8 @@
-import type { IProp, IPropDTO } from '../prop/prop.dto.interface'
+import type { IProp, IPropDto } from '../prop/prop.dto.interface'
 import type { IResourceType } from './resource-type.enum'
 
 export interface IResourceDTO {
-  config: IPropDTO
+  config: IPropDto
   id: string
   name: string
   type: IResourceType

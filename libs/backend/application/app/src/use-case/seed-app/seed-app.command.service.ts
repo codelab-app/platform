@@ -1,7 +1,7 @@
 import { AppRepository } from '@codelab/backend/domain/app'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { UserRepository } from '@codelab/backend/domain/user'
-import type { IAppDTO, IPageDTO, IUserDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto, IPageDto, IUserDto } from '@codelab/shared/abstract/core'
 import { userDto } from '@codelab/shared/data/test'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -10,8 +10,8 @@ import { v4 } from 'uuid'
 
 export class SeedAppCommand {
   constructor(
-    public readonly owner: Pick<IUserDTO, 'id' | 'username'>,
-    public readonly app: Pick<IAppDTO, 'id' | 'name' | 'pages'>,
+    public readonly owner: Pick<IUserDto, 'id' | 'username'>,
+    public readonly app: Pick<IAppDto, 'id' | 'name' | 'pages'>,
   ) {}
 }
 

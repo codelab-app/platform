@@ -1,4 +1,4 @@
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { UserRepository } from './user.repo.service'
 
@@ -6,7 +6,7 @@ import { UserRepository } from './user.repo.service'
 export class UserDomainService {
   constructor(private userRepository: UserRepository) {}
 
-  async seedUser(user: IUserDTO) {
+  async seedUser(user: IUserDto) {
     return this.userRepository.add(user)
   }
 }

@@ -11,7 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   connectNodeIds,
@@ -24,7 +24,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AtomRepository extends AbstractRepository<
-  IAtomDTO,
+  IAtomDto,
   Atom,
   AtomWhere,
   AtomOptions
@@ -41,7 +41,7 @@ export class AtomRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(atoms: Array<IAtomDTO>) {
+  protected async _addMany(atoms: Array<IAtomDto>) {
     return (
       await (
         await this.ogmService.Atom
@@ -97,7 +97,7 @@ export class AtomRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { api, requiredParents = [], suggestedChildren = [], tags }: IAtomDTO,
+    { api, requiredParents = [], suggestedChildren = [], tags }: IAtomDto,
     where: AtomWhere,
   ) {
     return (

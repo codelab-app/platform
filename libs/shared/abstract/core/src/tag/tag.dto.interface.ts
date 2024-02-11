@@ -3,7 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 
-export const ITagDTO = Type.Object({
+export const ITagDto = Type.Object({
   children: Type.Optional(Type.Array(IRef)),
   // This is computed property
   descendants: Type.Optional(Type.Array(IRef)),
@@ -13,8 +13,8 @@ export const ITagDTO = Type.Object({
   parent: Typebox.Nullish(IRef),
 })
 
-export type ITagDTO = Static<typeof ITagDTO>
+export type ITagDto = Static<typeof ITagDto>
 
-export const ITag = ITagDTO
+export const ITag = ITagDto
 
 export type ITag = Static<typeof ITag>

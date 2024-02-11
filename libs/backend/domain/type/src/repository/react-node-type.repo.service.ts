@@ -11,13 +11,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IReactNodeTypeDTO } from '@codelab/shared/abstract/core'
+import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ReactNodeTypeRepository extends AbstractRepository<
-  IReactNodeTypeDTO,
+  IReactNodeTypeDto,
   ReactNodeType,
   ReactNodeTypeWhere,
   ReactNodeTypeOptions
@@ -31,7 +31,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _addMany(reactNodeTypes: Array<IReactNodeTypeDTO>) {
+  protected async _addMany(reactNodeTypes: Array<IReactNodeTypeDto>) {
     return (
       await (
         await this.ogmService.ReactNodeType
@@ -61,7 +61,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, name }: IReactNodeTypeDTO,
+    { __typename, id, name }: IReactNodeTypeDto,
     where: ReactNodeTypeWhere,
   ) {
     return (

@@ -1,6 +1,6 @@
 import type {
   IAtom,
-  IAtomDTO,
+  IAtomDto,
   IAtomType,
   IInterfaceTypeRef,
   IRef,
@@ -12,7 +12,7 @@ import { validateSync } from 'class-validator'
 export class Atom implements IAtom {
   __typename = `${IElementRenderTypeKind.Atom}` as const
 
-  static create(data: IAtomDTO): Atom {
+  static create(data: IAtomDto): Atom {
     const atom = new Atom(data)
     const errors = validateSync(atom)
 
@@ -62,7 +62,7 @@ export class Atom implements IAtom {
     suggestedChildren = [],
     tags = [],
     type,
-  }: IAtomDTO) {
+  }: IAtomDto) {
     this.id = id
     this.externalJsSource = externalJsSource
     this.externalCssSource = externalCssSource

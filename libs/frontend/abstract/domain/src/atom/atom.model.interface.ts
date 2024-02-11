@@ -2,7 +2,7 @@ import type {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAtom, IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtom, IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ReactNode } from 'react'
 import type { ICacheService } from '../shared'
@@ -11,12 +11,12 @@ import type { ITagModel } from '../tag'
 import type { IInterfaceTypeModel } from '../type'
 
 export interface IAtomModel
-  extends ICacheService<IAtomDTO, IAtomModel>,
+  extends ICacheService<IAtomDto, IAtomModel>,
     Omit<
       IModel<AtomCreateInput, AtomUpdateInput, void, IAtom>,
       'toDeleteInput'
     >,
-    IAtomDTO {
+    IAtomDto {
   allowCustomTextInjection: boolean
   api: Ref<IInterfaceTypeModel>
   library: {

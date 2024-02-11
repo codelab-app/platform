@@ -1,5 +1,5 @@
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
@@ -21,11 +21,11 @@ const clickEditor = () => {
 }
 
 describe('CSS CRUD', () => {
-  let app: IAppDTO
+  let app: IAppDto
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })

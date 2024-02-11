@@ -14,7 +14,7 @@ import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
-  type IInterfaceTypeDTO,
+  type IInterfaceTypeDto,
   ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
 import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
@@ -23,7 +23,7 @@ import type { Static, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<
-  IInterfaceTypeDTO,
+  IInterfaceTypeDto,
   InterfaceType,
   InterfaceTypeWhere,
   InterfaceTypeOptions
@@ -67,7 +67,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    *
    * Even if interface was deleted & fields are not, it is no harm to leave those old fields un-attached. We could run a clean up process for un-attached fields
    */
-  protected async _addMany(interfaceTypes: Array<IInterfaceTypeDTO>) {
+  protected async _addMany(interfaceTypes: Array<IInterfaceTypeDto>) {
     return (
       await (
         await this.ogmService.InterfaceType
@@ -106,7 +106,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { __typename, fields, id, name, ...data }: IInterfaceTypeDTO,
+    { __typename, fields, id, name, ...data }: IInterfaceTypeDto,
     where: InterfaceTypeWhere,
   ) {
     return (

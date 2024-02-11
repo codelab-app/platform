@@ -3,7 +3,7 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPage, IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
+import type { IPage, IPageDto, IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
@@ -14,7 +14,7 @@ import type { IStoreModel } from '../store'
 
 export interface IPageModel
   extends IModel<PageCreateInput, PageUpdateInput, PageDeleteInput, IPage>,
-    ICacheService<IPageDTO, IPageModel>,
+    ICacheService<IPageDto, IPageModel>,
     IElementTree {
   app: Ref<IAppModel>
   elements: Array<IElementModel>

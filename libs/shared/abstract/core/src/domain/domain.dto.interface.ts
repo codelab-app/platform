@@ -2,7 +2,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 
-export const IDomainDTO = Type.Object({
+export const IDomainDto = Type.Object({
   app: IRef,
   /**
    * https://stackoverflow.com/a/74650249/2159920
@@ -23,8 +23,8 @@ export const IDomainDTO = Type.Object({
   ]),
 })
 
-export type IDomainDTO = Static<typeof IDomainDTO>
+export type IDomainDto = Static<typeof IDomainDto>
 
-export const IDomain = IDomainDTO
+export const IDomain = IDomainDto
 
 export type IDomain = Static<typeof IDomain>

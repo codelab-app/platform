@@ -1,8 +1,8 @@
-import type { IPropData, IPropDTO } from '@codelab/shared/abstract/core'
+import type { IPropData, IPropDto } from '@codelab/shared/abstract/core'
 
-export type ICreatePropData = IPropDTO
+export type ICreatePropData = IPropDto
 
-export type IUpdatePropData = IPropDTO
+export type IUpdatePropData = IPropDto
 
 export interface IUpdatePropDataWithDefaultValues {
   data: IPropData

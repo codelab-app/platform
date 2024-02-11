@@ -1,7 +1,7 @@
 import type { IFieldDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
 import type {
-  IFieldDTO,
+  IFieldDto,
   IRef,
   ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
@@ -9,8 +9,8 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const fieldFactory =
-  (fieldDomainService: IFieldDomainService) => (dto: Partial<IFieldDTO>) => {
-    const field: IFieldDTO = {
+  (fieldDomainService: IFieldDomainService) => (dto: Partial<IFieldDto>) => {
+    const field: IFieldDto = {
       api: { id: dto.api?.id ?? v4() },
       defaultValues: dto.defaultValues ?? null,
       description: dto.description ?? null,

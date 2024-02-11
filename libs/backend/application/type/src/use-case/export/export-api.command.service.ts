@@ -7,16 +7,16 @@ import {
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type {
   IApi,
-  IEnumTypeDTO,
+  IEnumTypeDto,
   IInterfaceType,
   IInterfaceTypeRef,
   IType,
   ITypeRef,
-  IUnionTypeDTO,
+  IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import {
-  IFieldDTO,
-  IInterfaceTypeDTO,
+  IFieldDto,
+  IInterfaceTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -48,7 +48,7 @@ export class ExportApiHandler
       {
         id: api.id,
       },
-      IInterfaceTypeDTO,
+      IInterfaceTypeDto,
     )
 
     if (!interfaceType) {
@@ -62,7 +62,7 @@ export class ExportApiHandler
         },
         where: { id_IN: interfaceType.fields.map(({ id }) => id) },
       },
-      IFieldDTO,
+      IFieldDto,
     )
 
     /**
@@ -129,7 +129,7 @@ export class ExportApiHandler
     dependentTypes
       .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
       .forEach((unionType) =>
-        (unionType as IUnionTypeDTO).typesOfUnionType.sort((a, b) =>
+        (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
           a.id.localeCompare(b.id),
         ),
       )
@@ -139,7 +139,7 @@ export class ExportApiHandler
     dependentTypes
       .filter((type) => type.__typename === `${ITypeKind.EnumType}`)
       .forEach((unionType) =>
-        (unionType as IEnumTypeDTO).allowedValues.sort((a, b) =>
+        (unionType as IEnumTypeDto).allowedValues.sort((a, b) =>
           a.key.localeCompare(b.key),
         ),
       )

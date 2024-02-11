@@ -11,7 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import { type ITagDTO } from '@codelab/shared/abstract/core'
+import { type ITagDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeIds,
   connectOwner,
@@ -21,7 +21,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class TagRepository extends AbstractRepository<
-  ITagDTO,
+  ITagDto,
   Tag,
   TagWhere,
   TagOptions
@@ -38,7 +38,7 @@ export class TagRepository extends AbstractRepository<
   /**
    * If parent or children exists, then we should connect them
    */
-  protected async _addMany(tags: Array<ITagDTO>) {
+  protected async _addMany(tags: Array<ITagDto>) {
     return (
       await (
         await this.ogmService.Tag
@@ -70,7 +70,7 @@ export class TagRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { children, descendants, id, parent, ...tag }: ITagDTO,
+    { children, descendants, id, parent, ...tag }: ITagDto,
     where: TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect

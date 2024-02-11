@@ -2,7 +2,7 @@ import type {
   IPageDomainService,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import { IPageDTO } from '@codelab/shared/abstract/core'
+import { IPageDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -23,7 +23,7 @@ export class PageDomainService
   }
 
   @modelAction
-  hydrate(pageDto: IPageDTO) {
+  hydrate(pageDto: IPageDto) {
     const existingPage = this.pages.get(pageDto.id)
 
     if (existingPage) {

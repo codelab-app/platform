@@ -4,11 +4,11 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type {
-  IArrayTypeDTO,
+  IArrayTypeDto,
   ICreateTypeDto,
-  IInterfaceTypeDTO,
-  ITypeDTO,
-  IUnionTypeDTO,
+  IInterfaceTypeDto,
+  ITypeDto,
+  IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ActionType } from './action-type.model'
@@ -26,7 +26,7 @@ import { RenderPropType } from './render-prop-type.model'
 import { UnionType } from './union-type.model'
 
 export class TypeFactory {
-  static create(typeDTO: ITypeDTO): ITypeModel {
+  static create(typeDTO: ITypeDto): ITypeModel {
     switch (typeDTO.__typename) {
       case ITypeKind.AppType:
         return AppType.create(typeDTO)
@@ -72,14 +72,14 @@ export class TypeFactory {
     }
   }
 
-  static mapDataToDTO(data: ICreateTypeDto | IUpdateTypeDto): ITypeDTO {
+  static mapDataToDTO(data: ICreateTypeDto | IUpdateTypeDto): ITypeDto {
     switch (data.kind) {
       case ITypeKind.InterfaceType:
         return {
           ...data,
           __typename: data.kind,
           fields: [],
-        } as IInterfaceTypeDTO
+        } as IInterfaceTypeDto
 
       case ITypeKind.ArrayType:
         return {
@@ -88,7 +88,7 @@ export class TypeFactory {
           itemType: {
             id: data.arrayTypeId as string,
           },
-        } as IArrayTypeDTO
+        } as IArrayTypeDto
 
       case ITypeKind.UnionType:
         return {
@@ -97,14 +97,14 @@ export class TypeFactory {
           typesOfUnionType: data.unionTypeIds?.map((id) => ({
             id,
           })),
-        } as IUnionTypeDTO
+        } as IUnionTypeDto
 
       default:
-        return { ...data, __typename: data.kind } as ITypeDTO
+        return { ...data, __typename: data.kind } as ITypeDto
     }
   }
 
-  static writeCache(typeDTO: ITypeDTO, model: ITypeModel): ITypeModel {
+  static writeCache(typeDTO: ITypeDto, model: ITypeModel): ITypeModel {
     switch (typeDTO.__typename) {
       case ITypeKind.AppType:
         model.kind === ITypeKind.AppType && model.writeCache(typeDTO)

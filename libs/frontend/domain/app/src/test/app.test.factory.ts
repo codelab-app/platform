@@ -1,11 +1,11 @@
 import type { IAppDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import { type IAppDTO } from '@codelab/shared/abstract/core'
+import { type IAppDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const appFactory =
-  (appDomainService: IAppDomainService) => (dto: Partial<IAppDTO>) => {
-    const app: IAppDTO = {
+  (appDomainService: IAppDomainService) => (dto: Partial<IAppDto>) => {
+    const app: IAppDto = {
       domains: dto.domains ?? [],
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),

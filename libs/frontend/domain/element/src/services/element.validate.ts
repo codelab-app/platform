@@ -1,5 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import {
   assertContainsAtLeastOne,
   assertContainsAtMostOne,
@@ -17,7 +17,7 @@ export const validateElement = (element: IElementModel) => {
   }
 }
 
-export const validateElementDto = (element: IElementDTO) => {
+export const validateElementDto = (element: IElementDto) => {
   const { nextSibling, page, parentComponent, parentElement, prevSibling } =
     element
 

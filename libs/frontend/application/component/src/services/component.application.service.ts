@@ -29,7 +29,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IPropDTO } from '@codelab/shared/abstract/core'
+import type { IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -101,7 +101,7 @@ export class ComponentApplicationService
       name: InterfaceType.createName(name),
     })
 
-    const componentProps: IPropDTO = {
+    const componentProps: IPropDto = {
       data: '{}',
       id: v4(),
     }

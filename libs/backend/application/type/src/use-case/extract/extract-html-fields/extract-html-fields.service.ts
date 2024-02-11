@@ -6,7 +6,7 @@ import {
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import { type IAtomDTO, type IFieldDTO } from '@codelab/shared/abstract/core'
+import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { readFileSync } from 'fs'
@@ -18,7 +18,7 @@ export type HtmlData = Record<string, Array<HtmlField>>
 
 @Injectable()
 export class ExtractHtmlFieldsService
-  implements IUseCase<Array<IAtomDTO>, Array<IFieldDTO>>
+  implements IUseCase<Array<IAtomDto>, Array<IFieldDto>>
 {
   constructor(
     private typeFactory: TypeFactory,
@@ -27,7 +27,7 @@ export class ExtractHtmlFieldsService
     private authService: AuthDomainService,
   ) {}
 
-  async execute(atoms: Array<IAtomDTO>) {
+  async execute(atoms: Array<IAtomDto>) {
     const htmlAttributesByName = JSON.parse(
       readFileSync(path.resolve(this.htmlDataFolder, 'html.json'), 'utf8'),
     ) as HtmlData
@@ -48,13 +48,13 @@ export class ExtractHtmlFieldsService
       const fields = await this.transformFields(atom, htmlFields)
 
       return [...(await accFieldsPromise), ...fields]
-    }, Promise.resolve([] as Array<IFieldDTO>))
+    }, Promise.resolve([] as Array<IFieldDto>))
   }
 
   private async createOrUpdateField(
-    atom: IAtomDTO,
+    atom: IAtomDto,
     field: HtmlField,
-  ): Promise<IFieldDTO | undefined> {
+  ): Promise<IFieldDto | undefined> {
     const existingField = await this.fieldRepository.findOne({
       api: {
         id: atom.api.id,
@@ -66,18 +66,18 @@ export class ExtractHtmlFieldsService
       return existingField
     }
 
-    const fieldTypeDTO = await this.htmlTypeAdapterService.execute({
+    const fieldTypeDto = await this.htmlTypeAdapterService.execute({
       atom,
       field,
       type: field.type,
     })
 
-    if (!fieldTypeDTO) {
+    if (!fieldTypeDto) {
       return undefined
     }
 
-    const type = await this.typeFactory.save(fieldTypeDTO, {
-      name: fieldTypeDTO.name,
+    const type = await this.typeFactory.save(fieldTypeDto, {
+      name: fieldTypeDto.name,
     })
 
     return Field.create({
@@ -93,8 +93,8 @@ export class ExtractHtmlFieldsService
 
   private htmlDataFolder = `${process.cwd()}/data/html/`
 
-  private async transformFields(atom: IAtomDTO, fields: Array<HtmlField>) {
-    return fields.reduce<Promise<Array<IFieldDTO>>>(
+  private async transformFields(atom: IAtomDto, fields: Array<HtmlField>) {
+    return fields.reduce<Promise<Array<IFieldDto>>>(
       async (accFields, field) => {
         const existingOrNewField = await this.createOrUpdateField(atom, field)
 

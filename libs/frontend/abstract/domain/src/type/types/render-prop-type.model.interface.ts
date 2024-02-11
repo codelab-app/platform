@@ -3,7 +3,7 @@ import type {
   UpdateRenderPropTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IRenderPropTypeDTO,
+  IRenderPropTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
@@ -19,7 +19,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IRenderPropTypeModel
   extends IBaseTypeModel<
-    IRenderPropTypeDTO,
+    IRenderPropTypeDto,
     RenderPropTypeCreateInput,
     UpdateRenderPropTypesMutationVariables
   > {

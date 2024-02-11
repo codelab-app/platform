@@ -5,14 +5,14 @@ import {
   CodeActionDeleteInput,
   CodeActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { ICodeActionDTO } from '@codelab/shared/abstract/core'
+import type { ICodeActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction } from './base-action.model'
 
-const create = ({ code, id, name, store }: ICodeActionDTO) =>
+const create = ({ code, id, name, store }: ICodeActionDto) =>
   new CodeAction({
     code,
     id,
@@ -66,7 +66,7 @@ export class CodeAction
   }
 
   @modelAction
-  writeCache({ code, name }: Partial<ICodeActionDTO>) {
+  writeCache({ code, name }: Partial<ICodeActionDto>) {
     this.name = name ?? this.name
     this.code = code ?? this.code
 

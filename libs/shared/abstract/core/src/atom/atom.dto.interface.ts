@@ -5,7 +5,7 @@ import { IElementRenderTypeKind } from '../element/element-render-type'
 import { IRef } from '../model/node-type.interface'
 import { IAtomType } from './atom-type.enum'
 
-export const IAtomDTO = Type.Object({
+export const IAtomDto = Type.Object({
   __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),
   api: IRef,
   externalCssSource: Typebox.Nullish(Type.String()),
@@ -20,13 +20,13 @@ export const IAtomDTO = Type.Object({
   type: Type.Enum(IAtomType),
 })
 
-export type IAtomDTO = Static<typeof IAtomDTO>
+export type IAtomDto = Static<typeof IAtomDto>
 
 export const IAtom = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IElementRenderTypeKind.Atom}`),
   }),
-  IAtomDTO,
+  IAtomDto,
 ])
 
 export type IAtom = Static<typeof IAtom>

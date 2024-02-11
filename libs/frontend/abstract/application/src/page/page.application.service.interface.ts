@@ -10,7 +10,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   ICreatePageData,
-  IElementDTO,
+  IElementDto,
 } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
@@ -35,5 +35,5 @@ export interface IPageApplicationService
 
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<DefaultOptionType>>
-  loadElements(elements: Array<IElementDTO>): void
+  loadElements(elements: Array<IElementDto>): void
 }

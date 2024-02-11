@@ -7,7 +7,7 @@ import {
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
-import type { IActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
@@ -40,7 +40,7 @@ export class ActionDomainService
   }
 
   @modelAction
-  hydrate<T extends IActionDTO>(actionDTO: T) {
+  hydrate<T extends IActionDto>(actionDTO: T) {
     let action: IActionModel
 
     switch (actionDTO.__typename) {

@@ -28,8 +28,8 @@ import {
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type {
   ICreatePageData,
-  IElementDTO,
-  IPropDTO,
+  IElementDto,
+  IPropDto,
 } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
@@ -74,7 +74,7 @@ export class PageApplicationService
     this: PageApplicationService,
     { app, id, name, url }: ICreatePageData,
   ) {
-    const rootElementProps: IPropDTO = {
+    const rootElementProps: IPropDto = {
       data: '{}',
       id: v4(),
     }
@@ -229,7 +229,7 @@ export class PageApplicationService
    * Since elements are
    */
   @modelAction
-  loadElements = (elements: Array<IElementDTO>) => {
+  loadElements = (elements: Array<IElementDto>) => {
     elements.forEach((element) => {
       /**
        * Element comes with `component` or `atom` data that we need to load as well

@@ -11,7 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   AppProperties,
   connectNodeIds,
@@ -22,7 +22,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AppRepository extends AbstractRepository<
-  IAppDTO,
+  IAppDto,
   App,
   AppWhere,
   AppOptions
@@ -39,7 +39,7 @@ export class AppRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(apps: Array<IAppDTO>) {
+  protected async _addMany(apps: Array<IAppDto>) {
     return (
       await (
         await this.ogmService.App
@@ -73,7 +73,7 @@ export class AppRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ name, pages }: IAppDTO, where: AppWhere) {
+  protected async _update({ name, pages }: IAppDto, where: AppWhere) {
     return (
       await (
         await this.ogmService.App

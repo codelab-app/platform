@@ -4,7 +4,7 @@ import type {
   IComponentType,
 } from '@codelab/frontend/abstract/domain'
 import { dynamicLoader } from '@codelab/frontend/shared/utils'
-import { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed, observable } from 'mobx'
 import {
@@ -41,7 +41,7 @@ export class AtomDomainService
   }
 
   @modelAction
-  hydrate(atomDto: IAtomDTO) {
+  hydrate(atomDto: IAtomDto) {
     // console.debug('AtomService.add()', atomDto)
 
     let atom = this.atoms.get(atomDto.id)

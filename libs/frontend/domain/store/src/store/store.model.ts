@@ -16,14 +16,14 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto, IStoreDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ api, component, id, name, page }: IStoreDTO): IStoreModel =>
+const create = ({ api, component, id, name, page }: IStoreDto): IStoreModel =>
   new Store({
     api: typeRef(api.id) as Ref<IInterfaceTypeModel>,
     component: component?.id ? componentRef(component.id) : null,
@@ -32,7 +32,7 @@ const create = ({ api, component, id, name, page }: IStoreDTO): IStoreModel =>
     page: page?.id ? pageRef(page.id) : null,
   })
 
-const createName = (app: Pick<IAppDTO, 'name'>) => {
+const createName = (app: Pick<IAppDto, 'name'>) => {
   return `${app.name} Store`
 }
 
@@ -104,7 +104,7 @@ export class Store
   }
 
   @modelAction
-  writeCache({ api, id, name }: Partial<IStoreDTO>) {
+  writeCache({ api, id, name }: Partial<IStoreDto>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceTypeModel>) : this.api

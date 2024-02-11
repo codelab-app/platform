@@ -10,13 +10,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IFieldDTO } from '@codelab/shared/abstract/core'
+import type { IFieldDto } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class FieldRepository extends AbstractRepository<
-  IFieldDTO,
+  IFieldDto,
   Field,
   FieldWhere,
   FieldOptions
@@ -29,7 +29,7 @@ export class FieldRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _addMany(fields: Array<IFieldDTO>) {
+  protected async _addMany(fields: Array<IFieldDto>) {
     return (
       await (
         await this.ogmService.Field
@@ -67,7 +67,7 @@ export class FieldRepository extends AbstractRepository<
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { api, fieldType, id, ...field }: IFieldDTO,
+    { api, fieldType, id, ...field }: IFieldDto,
     where: FieldWhere,
   ) {
     return (

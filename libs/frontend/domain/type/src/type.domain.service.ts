@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { getFieldDomainService } from '@codelab/frontend/abstract/domain'
 import type { GetTypesQuery } from '@codelab/shared/abstract/codegen'
-import { ICreateTypeDto, ITypeDTO } from '@codelab/shared/abstract/core'
+import { ICreateTypeDto, ITypeDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { InterfaceType, TypeFactory } from './models'
@@ -30,7 +30,7 @@ export class TypeDomainService
   }
 
   @modelAction
-  hydrate(typeDTO: ITypeDTO) {
+  hydrate(typeDTO: ITypeDto) {
     const existingType = this.types.get(typeDTO.id)
 
     if (existingType) {

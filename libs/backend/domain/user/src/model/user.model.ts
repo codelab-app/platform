@@ -1,7 +1,7 @@
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
-export class User implements IUserDTO {
+export class User implements IUserDto {
   static fromSession({ email, nickname, sub, ...session }: Auth0IdToken) {
     const auth0Id = sub
     const id = session[JWT_CLAIMS].neo4j_user_id
@@ -26,7 +26,7 @@ export class User implements IUserDTO {
 
   username: string
 
-  constructor({ auth0Id, email, id, roles = [], username }: IUserDTO) {
+  constructor({ auth0Id, email, id, roles = [], username }: IUserDto) {
     this.id = id
     this.auth0Id = auth0Id
     this.email = email

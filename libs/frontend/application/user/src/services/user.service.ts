@@ -2,7 +2,7 @@ import type { IUserService } from '@codelab/frontend/abstract/application'
 import type { IUserDomainService } from '@codelab/frontend/abstract/domain'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { User, UserDomainService } from '@codelab/frontend/domain/user'
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -22,7 +22,7 @@ const init = (data: Auth0IdToken) => {
   return fromDto(user)
 }
 
-const fromDto = (user: IUserDTO) => {
+const fromDto = (user: IUserDto) => {
   return new UserService({
     userDomainService: UserDomainService.fromDto(user),
   })

@@ -1,12 +1,12 @@
 import type { IComponentDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const componentFactory =
   (componentDomainService: IComponentDomainService) =>
-  (dto: Partial<IComponentDTO>) => {
-    const component: IComponentDTO = {
+  (dto: Partial<IComponentDto>) => {
+    const component: IComponentDto = {
       api: {
         id: dto.api?.id ?? v4(),
       },

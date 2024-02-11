@@ -3,7 +3,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IApp, IAppDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDto, IRef } from '@codelab/shared/abstract/core'
 import type { IDomainModel } from '../domain'
 import type { IPageModel } from '../page'
 import type { ICacheService } from '../shared'
@@ -15,7 +15,7 @@ import type { IModel } from '../shared/models/model.interface'
 
 export interface IAppModel
   extends IModel<AppCreateInput, AppUpdateInput, AppDeleteInput, IApp>,
-    ICacheService<IAppDTO, IAppModel> {
+    ICacheService<IAppDto, IAppModel> {
   domains: Array<IDomainModel>
   name: string
   // pageRootElements: Array<Ref<IElementModel>>

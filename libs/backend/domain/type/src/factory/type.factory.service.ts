@@ -13,7 +13,7 @@ import {
   getTypeDescendantsOGM,
   NEO4J_DRIVER_PROVIDER,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { ITypeDTO, ITypeMaybeRef } from '@codelab/shared/abstract/core'
+import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
 import { context } from '@opentelemetry/api'
@@ -117,7 +117,7 @@ export class TypeFactory {
     }
   }
 
-  async save<T extends IType>(type: ITypeDTO, where?: ITypeWhere): Promise<T> {
+  async save<T extends IType>(type: ITypeDto, where?: ITypeWhere): Promise<T> {
     const activeContext = context.active()
 
     /**

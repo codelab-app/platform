@@ -2,13 +2,13 @@ import { HttpResponseType } from '@codelab/frontend/abstract/domain'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { ActionKind, ResourceType } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 
 describe('Running API action and setting state on element pre-render', () => {
-  let app: IAppDTO
+  let app: IAppDto
   const resourceName = 'Fetch Data'
   const resourceUrl = 'http://some-api.com/api'
   const urlGetSegment = '/data/some-id'
@@ -19,7 +19,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })

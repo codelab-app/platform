@@ -1,4 +1,4 @@
-import type { IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { StoreRepository } from '../repository'
 
@@ -6,7 +6,7 @@ import { StoreRepository } from '../repository'
 export class StoreDomainService {
   constructor(private storeRepository: StoreRepository) {}
 
-  async create(dto: IStoreDTO) {
+  async create(dto: IStoreDto) {
     return this.storeRepository.add(dto)
   }
 }

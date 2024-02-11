@@ -1,11 +1,11 @@
 import type { IStoreDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import type { IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const storeFactory =
-  (storeDomainService: IStoreDomainService) => (dto: Partial<IStoreDTO>) => {
-    const store: IStoreDTO = {
+  (storeDomainService: IStoreDomainService) => (dto: Partial<IStoreDto>) => {
+    const store: IStoreDto = {
       api: { id: dto.api?.id ?? v4() },
       component: dto.component ?? { id: v4() },
       id: dto.id ?? v4(),

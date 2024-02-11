@@ -22,7 +22,7 @@ import {
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import { auth0IdToken, userDto } from '@codelab/shared/data/test'
 import type { INestApplication } from '@nestjs/common'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'

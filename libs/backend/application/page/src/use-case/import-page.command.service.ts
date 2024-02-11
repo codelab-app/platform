@@ -3,7 +3,7 @@ import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import type {
-  IElementDTO,
+  IElementDto,
   IPageBoundedContext,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'

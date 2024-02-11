@@ -2,61 +2,61 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import type { ICodeMirrorLanguage } from '../code-mirror-language.enum'
 import type { IElementTypeKind } from '../element'
-import { IActionType, IActionTypeDTO } from './action-type.dto.interface'
-import { IAppType, IAppTypeDTO } from './app-type.dto.interface'
-import { IArrayType, IArrayTypeDTO } from './array-type.dto.interface'
+import { IActionType, IActionTypeDto } from './action-type.dto.interface'
+import { IAppType, IAppTypeDto } from './app-type.dto.interface'
+import { IArrayType, IArrayTypeDto } from './array-type.dto.interface'
 import {
   ICodeMirrorType,
-  ICodeMirrorTypeDTO,
+  ICodeMirrorTypeDto,
 } from './code-mirror-type.dto.interface'
-import { IElementType, IElementTypeDTO } from './element-type.dto.interface'
+import { IElementType, IElementTypeDto } from './element-type.dto.interface'
 import {
   IEnumType,
-  IEnumTypeDTO,
-  type IEnumTypeValueDTO,
+  IEnumTypeDto,
+  type IEnumTypeValueDto,
 } from './enum-type.dto.interface'
 import {
   IInterfaceType,
-  IInterfaceTypeDTO,
+  IInterfaceTypeDto,
 } from './interface-type.dto.interface'
-import { ILambdaType, ILambdaTypeDTO } from './lambda-type.dto.interface'
-import { IPageType, IPageTypeDTO } from './page-type.dto.interface'
+import { ILambdaType, ILambdaTypeDto } from './lambda-type.dto.interface'
+import { IPageType, IPageTypeDto } from './page-type.dto.interface'
 import {
   IPrimitiveType,
-  IPrimitiveTypeDTO,
+  IPrimitiveTypeDto,
 } from './primitive-type.dto.interface'
 import type { IPrimitiveTypeKind } from './primitive-type.enum'
 import {
   IReactNodeType,
-  IReactNodeTypeDTO,
+  IReactNodeTypeDto,
 } from './react-node-type.dto.interface'
 import {
   IRenderPropType,
-  IRenderPropTypeDTO,
+  IRenderPropTypeDto,
 } from './render-prop-type.dto.interface'
 import type { ITypeKind } from './type-kind.enum'
-import { IUnionType, IUnionTypeDTO } from './union-type.dto.interface'
+import { IUnionType, IUnionTypeDto } from './union-type.dto.interface'
 
-export const ITypeDTO = Type.Union(
+export const ITypeDto = Type.Union(
   [
-    IActionTypeDTO,
-    IAppTypeDTO,
-    IArrayTypeDTO,
-    ICodeMirrorTypeDTO,
-    IElementTypeDTO,
-    IEnumTypeDTO,
-    IInterfaceTypeDTO,
-    ILambdaTypeDTO,
-    IPageTypeDTO,
-    IPrimitiveTypeDTO,
-    IReactNodeTypeDTO,
-    IRenderPropTypeDTO,
-    IUnionTypeDTO,
+    IActionTypeDto,
+    IAppTypeDto,
+    IArrayTypeDto,
+    ICodeMirrorTypeDto,
+    IElementTypeDto,
+    IEnumTypeDto,
+    IInterfaceTypeDto,
+    ILambdaTypeDto,
+    IPageTypeDto,
+    IPrimitiveTypeDto,
+    IReactNodeTypeDto,
+    IRenderPropTypeDto,
+    IUnionTypeDto,
   ],
   { discriminantKey: '__typename', errorMessage: 'Unknown type' },
 )
 
-export type ITypeDTO = Static<typeof ITypeDTO>
+export type ITypeDto = Static<typeof ITypeDto>
 
 export const IType = Type.Union(
   [
@@ -85,7 +85,7 @@ export type IType = Static<typeof IType>
  * For the backend, we'll create a type for each sub-type.
  */
 export interface ICreateTypeDto {
-  allowedValues?: Array<IEnumTypeValueDTO>
+  allowedValues?: Array<IEnumTypeValueDto>
   arrayTypeId?: string
   elementKind?: IElementTypeKind
   id: string

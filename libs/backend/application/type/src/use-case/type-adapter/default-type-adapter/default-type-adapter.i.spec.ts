@@ -1,4 +1,4 @@
-import type { IUnionTypeDTO } from '@codelab/shared/abstract/core'
+import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'
 
@@ -29,7 +29,7 @@ describe.skip('DefaultTypeAdapterService', () => {
   })
 
   it('should create a union type with boolean and interface type for given input', async () => {
-    const result = (await service.execute({ type })) as IUnionTypeDTO
+    const result = (await service.execute({ type })) as IUnionTypeDto
 
     expect(result).toBeDefined()
     expect(result.kind).toEqual(ITypeKind.UnionType)

@@ -3,7 +3,7 @@ import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 import { IRole } from './role.enum'
 
-export const IUserDTO = Type.Object({
+export const IUserDto = Type.Object({
   apps: Type.Optional(Type.Array(IRef)),
   auth0Id: Type.String(),
   email: Type.String(),
@@ -12,9 +12,9 @@ export const IUserDTO = Type.Object({
   username: Type.String(),
 })
 
-export type IUserDTO = Static<typeof IUserDTO>
+export type IUserDto = Static<typeof IUserDto>
 
-export const IUser = IUserDTO
+export const IUser = IUserDto
 
 export type IUser = Static<typeof IUser>
 

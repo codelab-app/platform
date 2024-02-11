@@ -1,6 +1,6 @@
 import {
   interfaceTypeSchema,
-  type ITypeDTO,
+  type ITypeDto,
   ITypeKind,
   primitiveTypeSchema,
   primitiveTypeSelectionSchema,

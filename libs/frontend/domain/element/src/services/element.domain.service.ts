@@ -3,7 +3,7 @@ import type {
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
 import { IMoveElementContext } from '@codelab/frontend/abstract/domain'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Element } from '../store'
@@ -52,7 +52,7 @@ export class ElementDomainService
   }
 
   @modelAction
-  addTreeNode = (elementDto: IElementDTO) => {
+  addTreeNode = (elementDto: IElementDto) => {
     const element = this.hydrate(elementDto)
 
     this.move({
@@ -71,7 +71,7 @@ export class ElementDomainService
    * But when we are adding a new node, it requires the move function to be called
    */
   @modelAction
-  hydrate = (elementDto: IElementDTO): IElementModel => {
+  hydrate = (elementDto: IElementDto): IElementModel => {
     console.debug('ElementDomainService.hydrate()', elementDto)
 
     validateElementDto(elementDto)

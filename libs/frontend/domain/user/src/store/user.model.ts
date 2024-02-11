@@ -1,10 +1,10 @@
 import type { IUserModel } from '@codelab/frontend/abstract/domain'
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
-const fromSession = (user: Auth0IdToken): IUserDTO => {
+const fromSession = (user: Auth0IdToken): IUserDto => {
   return {
     auth0Id: user.sub,
     email: user.email,
@@ -14,7 +14,7 @@ const fromSession = (user: Auth0IdToken): IUserDTO => {
   }
 }
 
-const create = (user: IUserDTO) => {
+const create = (user: IUserDto) => {
   return new User({
     auth0Id: user.auth0Id,
     email: user.email,

@@ -1,12 +1,12 @@
 import type { IPageDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const pageFactory =
-  (pageDomainService: IPageDomainService) => (dto: Partial<IPageDTO>) => {
-    const page: IPageDTO = {
+  (pageDomainService: IPageDomainService) => (dto: Partial<IPageDto>) => {
+    const page: IPageDto = {
       app: { id: dto.app?.id ?? v4() },
       id: dto.id ?? v4(),
       kind: dto.kind ?? IPageKind.Regular,

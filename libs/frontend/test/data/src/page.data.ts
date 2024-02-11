@@ -1,7 +1,7 @@
-import { type IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
+import { type IPageDto, IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const pageDto: IPageDTO = {
+export const pageDto: IPageDto = {
   app: { id: v4() },
   id: v4(),
   kind: IPageKind.Regular,

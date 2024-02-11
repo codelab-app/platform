@@ -1,9 +1,9 @@
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
-import { IAtomDTO } from '@codelab/shared/abstract/core'
+import { IAtomDto } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
-export const ICreateAtomData = Type.Pick(IAtomDTO, [
+export const ICreateAtomData = Type.Pick(IAtomDto, [
   'externalCssSource',
   'externalJsSource',
   'externalSourceType',
@@ -18,5 +18,3 @@ export const ICreateAtomData = Type.Pick(IAtomDTO, [
 export type ICreateAtomData = Static<typeof ICreateAtomData>
 
 export type IUpdateAtomData = ICreateAtomData
-
-export type IRenderAtomDTO = AtomDevelopmentFragment

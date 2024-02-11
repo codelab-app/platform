@@ -8,7 +8,7 @@ import {
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
 import {
-  type IAtomDTO,
+  type IAtomDto,
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
@@ -19,7 +19,7 @@ import { v4 } from 'uuid'
 @Injectable()
 export class SeedAtomsService extends UseCase<
   Partial<IAtomRecords>,
-  Array<IAtomDTO>
+  Array<IAtomDto>
 > {
   constructor(
     private atomRepository: AtomRepository,
@@ -60,7 +60,7 @@ export class SeedAtomsService extends UseCase<
   /**
    * Assume all tags have already been created
    */
-  async createAtomsData(data: IAtomRecords): Promise<Array<IAtomDTO>> {
+  async createAtomsData(data: IAtomRecords): Promise<Array<IAtomDto>> {
     const existingInterfaceTypes = new Map(
       (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,

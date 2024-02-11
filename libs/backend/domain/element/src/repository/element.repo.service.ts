@@ -13,8 +13,8 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
-  type ICreateElementDTO,
-  type IElementDTO,
+  type ICreateElementDto,
+  type IElementDto,
 } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
@@ -26,7 +26,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ElementRepository extends AbstractRepository<
-  IElementDTO,
+  IElementDto,
   Element,
   ElementWhere,
   ElementOptions
@@ -49,7 +49,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(elements: Array<ICreateElementDTO>) {
+  protected async _addMany(elements: Array<ICreateElementDto>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map(
@@ -137,7 +137,7 @@ export class ElementRepository extends AbstractRepository<
       name,
       props,
       renderType,
-    }: ICreateElementDTO,
+    }: ICreateElementDto,
     where: ElementWhere,
   ) {
     return (

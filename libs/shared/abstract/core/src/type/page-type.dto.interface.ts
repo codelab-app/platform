@@ -1,14 +1,14 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IBaseTypeDTO } from './base-type.dto.interface'
+import { IBaseTypeDto } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IPageTypeDTO = Type.Composite([
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.PageType}`)),
+export const IPageTypeDto = Type.Composite([
+  IBaseTypeDto(Type.Literal(`${ITypeKind.PageType}`)),
 ])
 
-export type IPageTypeDTO = Static<typeof IPageTypeDTO>
+export type IPageTypeDto = Static<typeof IPageTypeDto>
 
-export const IPageType = IPageTypeDTO
+export const IPageType = IPageTypeDto
 
 export type IPageType = Static<typeof IPageType>

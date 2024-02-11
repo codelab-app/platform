@@ -1,4 +1,4 @@
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IHydrateable } from '../shared'
@@ -12,11 +12,11 @@ export interface IMoveElementContext {
 }
 
 export interface IElementDomainService
-  extends IHydrateable<IElementDTO, IElementModel> {
+  extends IHydrateable<IElementDto, IElementModel> {
   elements: ObjectMap<IElementModel>
   modifiedElements: Array<IElementModel>
 
-  addTreeNode(elementDto: IElementDTO): IElementModel
+  addTreeNode(elementDto: IElementDto): IElementModel
   element(id: string): IElementModel
   logElementTreeState(): void
   maybeElement(id: Maybe<string>): Maybe<IElementModel>

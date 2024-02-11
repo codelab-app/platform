@@ -20,7 +20,7 @@ import {
 } from '@codelab/frontend/application/store'
 import { getFieldService } from '@codelab/frontend/application/type'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
-import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto, IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -123,7 +123,7 @@ export class CloneElementService
       id: componentId,
     }
 
-    const props: IPropDTO = {
+    const props: IPropDto = {
       data: '{}',
       id: v4(),
     }
@@ -236,12 +236,12 @@ export class CloneElementService
       true,
     )
 
-    const propsDto: IPropDTO = {
+    const propsDto: IPropDto = {
       data: element.props.jsonString,
       id: v4(),
     }
 
-    const cloneElementDto: IElementDTO = {
+    const cloneElementDto: IElementDto = {
       childMapperComponent: element.childMapperComponent
         ? { id: element.childMapperComponent.id }
         : null,

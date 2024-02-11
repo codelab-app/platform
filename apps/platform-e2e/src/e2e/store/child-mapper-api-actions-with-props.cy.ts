@@ -6,13 +6,13 @@ import {
   ResourceType,
   TypeKind,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 
 describe('Element Child Mapper', () => {
-  let app: IAppDTO
+  let app: IAppDto
   let apiGetActionId: string
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
@@ -43,7 +43,7 @@ describe('Element Child Mapper', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })

@@ -2,7 +2,7 @@ import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IProp, IPropData, IPropDTO } from '@codelab/shared/abstract/core'
+import type { IProp, IPropData, IPropDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { IElementModel } from '../element'
@@ -12,7 +12,7 @@ import type { IInterfaceTypeModel } from '../type'
 
 export interface IPropModel
   extends IModel<PropCreateInput, PropUpdateInput, void, IProp>,
-    ICacheService<IPropDTO, IPropModel> {
+    ICacheService<IPropDto, IPropModel> {
   api?: Nullable<Ref<IInterfaceTypeModel>>
   data: Frozen<Nullable<IPropData>>
   jsonString: string

@@ -1,10 +1,10 @@
 import { UserRepository } from '@codelab/backend/domain/user'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class SeedUserCommand {
-  constructor(public readonly user: IUserDTO) {}
+  constructor(public readonly user: IUserDto) {}
 }
 
 @CommandHandler(SeedUserCommand)

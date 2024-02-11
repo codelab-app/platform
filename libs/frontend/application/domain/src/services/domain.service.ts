@@ -8,7 +8,7 @@ import { ModalService } from '@codelab/frontend/application/shared/store'
 import { Domain } from '@codelab/frontend/domain/domain'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
-import type { IDomainDTO } from '@codelab/shared/abstract/core'
+import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -111,7 +111,7 @@ export class DomainService
   })
 
   @modelAction
-  add = (domain: IDomainDTO) => {
+  add = (domain: IDomainDto) => {
     let domainModel = this.domains.get(domain.id)
 
     domainModel = domainModel

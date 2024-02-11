@@ -2,12 +2,12 @@ import type {
   IUserDomainService,
   IUserModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, objectMap, prop } from 'mobx-keystone'
 import { User } from './store'
 
-const fromDto = (user: IUserDTO) => {
+const fromDto = (user: IUserDto) => {
   return new UserDomainService({
     user: User.create(user),
   })

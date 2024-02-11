@@ -15,7 +15,7 @@ export class ActionService {
     private readonly propRepository: PropRepository,
   ) {}
 
-  async save(action: IActionDTO) {
+  async save(action: IActionDto) {
     switch (action.__typename) {
       case IActionKind.ApiAction: {
         const apiAction = new ApiAction(action)

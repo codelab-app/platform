@@ -3,7 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 
-export const IFieldDTO = Type.Object({
+export const IFieldDto = Type.Object({
   api: IRef,
   defaultValues: Typebox.Nullish(Type.Any()),
   description: Typebox.Nullish(Type.String()),
@@ -16,8 +16,8 @@ export const IFieldDTO = Type.Object({
   validationRules: Typebox.Nullish(Type.Any()),
 })
 
-export type IFieldDTO = Static<typeof IFieldDTO>
+export type IFieldDto = Static<typeof IFieldDto>
 
-export const IField = IFieldDTO
+export const IField = IFieldDto
 
 export type IField = Static<typeof IField>

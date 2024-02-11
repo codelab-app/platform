@@ -1,6 +1,6 @@
 import type {
   IBaseType,
-  IBaseTypeDTO,
+  IBaseTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../shared'
@@ -20,7 +20,7 @@ import type { IRenderPropTypeModel } from './render-prop-type.model.interface'
 import type { IUnionTypeModel } from './union-type.model.interface'
 
 export interface IBaseTypeModel<
-  DTO extends IBaseTypeDTO,
+  DTO extends IBaseTypeDto,
   CreateInput,
   UpdateInput,
 > extends Omit<

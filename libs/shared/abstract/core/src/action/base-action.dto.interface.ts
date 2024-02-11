@@ -3,7 +3,7 @@ import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 import { IActionKind } from './action-kind.enum'
 
-export const IBaseActionDTO = Type.Object({
+export const IBaseActionDto = Type.Object({
   __typename: Type.Optional(
     Type.Union([
       Type.Literal(`${IActionKind.ApiAction}`),
@@ -15,4 +15,4 @@ export const IBaseActionDTO = Type.Object({
   store: IRef,
 })
 
-export type IBaseActionDTO = Static<typeof IBaseActionDTO>
+export type IBaseActionDto = Static<typeof IBaseActionDto>

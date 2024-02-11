@@ -2,7 +2,7 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IElement, IElementDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IElement, IElementDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
@@ -46,7 +46,7 @@ export interface IElementModel
       IModel<ElementCreateInput, ElementUpdateInput, void, IElement>,
       'toDeleteInput'
     >,
-    ICacheService<IElementDTO, IElementModel> {
+    ICacheService<IElementDto, IElementModel> {
   _modified: boolean
   ancestorError: Nullish<RenderingError>
   atomName: string

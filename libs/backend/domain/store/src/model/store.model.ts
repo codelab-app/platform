@@ -4,7 +4,7 @@ import type {
   IAction,
   IInterfaceTypeRef,
   IStore,
-  IStoreDTO,
+  IStoreDto,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -34,7 +34,7 @@ export class Store implements IStore {
 
   name: string
 
-  constructor({ actions = [], api, id, name }: IStoreDTO) {
+  constructor({ actions = [], api, id, name }: IStoreDto) {
     this.api = {
       ...api,
       __typename: ITypeKind.InterfaceType,

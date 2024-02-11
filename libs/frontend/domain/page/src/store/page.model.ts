@@ -17,7 +17,7 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import {
@@ -39,7 +39,7 @@ const create = ({
   rootElement,
   store,
   url,
-}: IPageDTO) => {
+}: IPageDto) => {
   return new Page({
     app: appRef(app.id),
     id,
@@ -121,7 +121,7 @@ export class Page
     rootElement,
     store,
     url,
-  }: Partial<IPageDTO>) {
+  }: Partial<IPageDto>) {
     this.name = name ?? this.name
     this.rootElement = rootElement
       ? elementRef(rootElement.id)

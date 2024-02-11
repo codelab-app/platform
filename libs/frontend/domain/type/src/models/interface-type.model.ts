@@ -11,7 +11,7 @@ import type {
 import type { IRef } from '@codelab/shared/abstract/core'
 import {
   assertIsTypeKind,
-  IInterfaceTypeDTO,
+  IInterfaceTypeDto,
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -36,7 +36,7 @@ const create = ({
   id,
   kind,
   name,
-}: IInterfaceTypeDTO): InterfaceType => {
+}: IInterfaceTypeDto): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
@@ -130,7 +130,7 @@ export class InterfaceType
   }
 
   @modelAction
-  writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
+  writeCache(interfaceTypeDTO: IInterfaceTypeDto) {
     super.writeCache(interfaceTypeDTO)
 
     this.writeFieldCache(interfaceTypeDTO.fields)

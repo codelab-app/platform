@@ -10,12 +10,12 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IDomainDTO } from '@codelab/shared/abstract/core'
+import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class DomainRepository extends AbstractRepository<
-  IDomainDTO,
+  IDomainDto,
   Domain,
   DomainWhere,
   DomainOptions
@@ -28,7 +28,7 @@ export class DomainRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _addMany(domains: Array<IDomainDTO>) {
+  protected async _addMany(domains: Array<IDomainDto>) {
     return (
       await (
         await this.ogmService.Domain
@@ -57,7 +57,7 @@ export class DomainRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ id, name }: IDomainDTO, where: DomainWhere) {
+  protected async _update({ id, name }: IDomainDto, where: DomainWhere) {
     return (
       await (
         await this.ogmService.Domain

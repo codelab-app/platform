@@ -17,7 +17,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ComponentRepository extends AbstractRepository<
-  IComponentDTO,
+  IComponentDto,
   Component,
   ComponentWhere,
   ComponentOptions
@@ -31,7 +31,7 @@ export class ComponentRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  async _addMany(components: Array<IComponentDTO>) {
+  async _addMany(components: Array<IComponentDto>) {
     return (
       await (
         await this.ogmService.Component
@@ -88,7 +88,7 @@ export class ComponentRepository extends AbstractRepository<
       props,
       rootElement,
       store,
-    }: IComponentDTO,
+    }: IComponentDto,
     where: ComponentWhere,
   ) {
     return (

@@ -1,6 +1,6 @@
 import { IModel } from '@codelab/backend/abstract/types'
 import type { PageKind } from '@codelab/shared/abstract/codegen'
-import type { IPage, IPageDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IPage, IPageDto, IRef } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { slugify } from 'voca'
 
@@ -34,7 +34,7 @@ export class Page extends IModel implements IPage {
     rootElement,
     store,
     url,
-  }: IPageDTO) {
+  }: IPageDto) {
     super()
 
     this.id = id

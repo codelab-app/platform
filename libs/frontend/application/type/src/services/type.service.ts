@@ -216,9 +216,9 @@ export class TypeService
   @transaction
   update = _async(function* (this: TypeService, data: IUpdateTypeDto) {
     const type = this.typeDomainService.types.get(data.id)!
-    const typeDTO = TypeFactory.mapDataToDTO(data)
+    const typeDto = TypeFactory.mapDataToDTO(data)
 
-    TypeFactory.writeCache(typeDTO, type)
+    TypeFactory.writeCache(typeDto, type)
 
     yield* _await(this.typeRepository.update(type))
 

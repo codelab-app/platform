@@ -1,8 +1,8 @@
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { userDto } from './user.data'
 
-export const appDto: IAppDTO = {
+export const appDto: IAppDto = {
   id: v4(),
   name: 'Codelab App',
   owner: userDto,

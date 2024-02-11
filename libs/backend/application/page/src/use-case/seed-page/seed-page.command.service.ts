@@ -3,9 +3,9 @@ import { PageRepository } from '@codelab/backend/domain/page'
 import { StoreDomainService } from '@codelab/backend/domain/store'
 import { TypeDomainService } from '@codelab/backend/domain/type'
 import {
-  type IElementDTO,
+  type IElementDto,
   IElementRenderTypeKind,
-  type IPageDTO,
+  type IPageDto,
   IRenderPropType,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -13,7 +13,7 @@ import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
 
 export class SeedPageCommand {
-  constructor(public readonly page: Pick<IPageDTO, 'app' | 'id' | 'name'>) {}
+  constructor(public readonly page: Pick<IPageDto, 'app' | 'id' | 'name'>) {}
 }
 
 /**
@@ -31,7 +31,7 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
   async execute(command: SeedPageCommand) {
     const { page } = command
 
-    const rootElement: IElementDTO = {
+    const rootElement: IElementDto = {
       closestContainerNode: {
         id: page.id,
       },
@@ -44,7 +44,9 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
       renderType: await this.atomDomainService.defaultRenderType(),
     }
 
-    // const pageStoreApi = this.typeDomainService.createInterface()
+    const pageStoreApi = this.typeDomainService.createInterface({
+      id: v4(),
+    })
     // const pageStore = this.storeDomainService.create({})
 
     // const pageDto: IPageDTO = {

@@ -1,10 +1,10 @@
 import { TagRepository } from '@codelab/backend/domain/tag'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDto } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ImportTagsCommand {
-  constructor(public tags: Array<ITagDTO>) {}
+  constructor(public tags: Array<ITagDto>) {}
 }
 
 @CommandHandler(ImportTagsCommand)

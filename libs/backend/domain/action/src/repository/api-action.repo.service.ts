@@ -10,14 +10,14 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IActionRef, IApiActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionRef, IApiActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ApiActionRepository extends AbstractRepository<
-  IApiActionDTO,
+  IApiActionDto,
   ApiAction,
   ApiActionWhere,
   ApiActionOptions
@@ -30,7 +30,7 @@ export class ApiActionRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _addMany(actions: Array<IApiActionDTO>) {
+  protected async _addMany(actions: Array<IApiActionDto>) {
     return (
       await (
         await this.ogmService.ApiAction
@@ -88,7 +88,7 @@ export class ApiActionRepository extends AbstractRepository<
       store,
       successAction,
       ...action
-    }: IApiActionDTO,
+    }: IApiActionDto,
     where: ApiActionWhere,
   ) {
     return (

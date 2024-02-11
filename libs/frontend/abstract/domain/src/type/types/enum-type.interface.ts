@@ -2,7 +2,7 @@ import type {
   EnumTypeCreateInput,
   UpdateEnumTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import type { IEnumTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IEnumTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 export interface IEnumTypeValue {
@@ -21,7 +21,7 @@ export interface IEnumTypeValue {
  */
 export interface IEnumType
   extends IBaseTypeModel<
-    IEnumTypeDTO,
+    IEnumTypeDto,
     EnumTypeCreateInput,
     UpdateEnumTypesMutationVariables
   > {

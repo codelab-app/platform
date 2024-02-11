@@ -10,7 +10,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   PageProperties,
@@ -20,7 +20,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PageRepository extends AbstractRepository<
-  IPageDTO,
+  IPageDto,
   Page,
   PageWhere,
   PageOptions
@@ -36,7 +36,7 @@ export class PageRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(pages: Array<IPageDTO>) {
+  protected async _addMany(pages: Array<IPageDto>) {
     return (
       await (
         await this.ogmService.Page
@@ -83,7 +83,7 @@ export class PageRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { app, name, pageContentContainer, rootElement, url }: IPageDTO,
+    { app, name, pageContentContainer, rootElement, url }: IPageDto,
     where: PageWhere,
   ) {
     return (

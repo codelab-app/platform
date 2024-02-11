@@ -1,7 +1,7 @@
-import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
-export class Field implements IFieldDTO {
+export class Field implements IFieldDto {
   /**
    * Used to get composite key, fieldKey is
    */
@@ -9,7 +9,7 @@ export class Field implements IFieldDTO {
     return `${apiName}-${fieldKey}`
   }
 
-  static create({ api, fieldType, id, key }: IFieldDTO) {
+  static create({ api, fieldType, id, key }: IFieldDto) {
     return new Field({
       api,
       fieldType,
@@ -50,7 +50,7 @@ export class Field implements IFieldDTO {
     nextSibling = null,
     prevSibling = null,
     validationRules = null,
-  }: IFieldDTO) {
+  }: IFieldDto) {
     this.api = { id: api.id }
     this.defaultValues = defaultValues
     this.description = description

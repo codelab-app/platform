@@ -1,15 +1,15 @@
 import type {
-  IAppDTO,
-  IElementDTO,
-  IInterfaceTypeDTO,
+  IAppDto,
+  IElementDto,
+  IInterfaceTypeDto,
   IInterfaceTypeRef,
   IRef,
-  IStoreDTO,
+  IStoreDto,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const storeApiData = (): IInterfaceTypeDTO => ({
+export const storeApiData = (): IInterfaceTypeDto => ({
   __typename: `${ITypeKind.InterfaceType}`,
   fields: [],
   id: v4(),
@@ -17,19 +17,19 @@ export const storeApiData = (): IInterfaceTypeDTO => ({
   name: `Test Store API`,
 })
 
-export const storeData = (api: IInterfaceTypeRef): IStoreDTO => ({
+export const storeData = (api: IInterfaceTypeRef): IStoreDto => ({
   api,
   id: v4(),
   name: 'Test Store',
 })
 
-export const appData = (owner: IRef): IAppDTO => ({
+export const appData = (owner: IRef): IAppDto => ({
   id: v4(),
   name: 'Codelab App',
   owner,
 })
 
-export const buttonElementData: Pick<IElementDTO, 'id' | 'name'> = {
+export const buttonElementData: Pick<IElementDto, 'id' | 'name'> = {
   id: v4(),
   name: 'Button',
 }

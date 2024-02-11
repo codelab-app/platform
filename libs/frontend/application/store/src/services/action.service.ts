@@ -12,7 +12,7 @@ import {
   ActionDomainService,
   ActionFactory,
 } from '@codelab/frontend/domain/action'
-import type { IActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -104,7 +104,7 @@ export class ActionService
   @transaction
   update = _async(function* (this: ActionService, data: IUpdateActionData) {
     const action = this.actionDomainService.actions.get(data.id)!
-    const actionDTO = ActionFactory.mapDataToDTO(data)
+    const actionDto = ActionFactory.mapDataToDTO(data)
 
     if (action.type === IActionKind.ApiAction) {
       action.config.writeCache({
@@ -112,7 +112,7 @@ export class ActionService
       })
     }
 
-    ActionFactory.writeCache(actionDTO, action)
+    ActionFactory.writeCache(actionDto, action)
 
     yield* _await(this.actionRepository.update(action))
 
@@ -122,7 +122,7 @@ export class ActionService
   private async recursiveClone(action: IActionModel, storeId: string) {
     const actionDto = ActionFactory.mapActionToDTO(action)
 
-    let newActionDto: IActionDTO = {
+    let newActionDto: IActionDto = {
       ...actionDto,
       id: v4(),
       store: { id: storeId },
@@ -138,7 +138,7 @@ export class ActionService
         newActionDto = {
           ...newActionDto,
           successAction: { id: successActionCloned.id },
-        } as IActionDTO
+        } as IActionDto
       }
 
       if (action.errorAction?.current) {
@@ -150,7 +150,7 @@ export class ActionService
         newActionDto = {
           ...newActionDto,
           errorAction: { id: errorActionCloned.id },
-        } as IActionDTO
+        } as IActionDto
       }
     }
 

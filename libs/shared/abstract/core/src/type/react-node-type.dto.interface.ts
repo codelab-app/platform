@@ -1,14 +1,14 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IBaseTypeDTO } from './base-type.dto.interface'
+import { IBaseTypeDto } from './base-type.dto.interface'
 import { ITypeKind } from './type-kind.enum'
 
-export const IReactNodeTypeDTO = Type.Composite([
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.ReactNodeType}`)),
+export const IReactNodeTypeDto = Type.Composite([
+  IBaseTypeDto(Type.Literal(`${ITypeKind.ReactNodeType}`)),
 ])
 
-export type IReactNodeTypeDTO = Static<typeof IReactNodeTypeDTO>
+export type IReactNodeTypeDto = Static<typeof IReactNodeTypeDto>
 
-export const IReactNodeType = IReactNodeTypeDTO
+export const IReactNodeType = IReactNodeTypeDto
 
 export type IReactNodeType = Static<typeof IReactNodeType>

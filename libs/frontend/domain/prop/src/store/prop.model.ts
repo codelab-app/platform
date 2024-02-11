@@ -10,7 +10,7 @@ import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPropDTO } from '@codelab/shared/abstract/core'
+import type { IPropDto } from '@codelab/shared/abstract/core'
 import { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import get from 'lodash/get'
@@ -35,7 +35,7 @@ import {
 import { mergeDeepRight } from 'ramda'
 import { mergeProps, propSafeStringify } from '../index'
 
-const create = ({ api, data = '{}', id }: IPropDTO) => {
+const create = ({ api, data = '{}', id }: IPropDto) => {
   return new Prop({
     api: api ? typeRef<IInterfaceTypeModel>(api.id) : null,
     data: frozen(JSON.parse(data)),
@@ -126,7 +126,7 @@ export class Prop
   }
 
   @modelAction
-  writeCache({ api, data, id }: Partial<IPropDTO>) {
+  writeCache({ api, data, id }: Partial<IPropDto>) {
     this.id = id ?? this.id
     this.data = data ? frozen(JSON.parse(data)) : this.data
     this.api = api ? typeRef<IInterfaceTypeModel>(api.id) : this.api

@@ -11,14 +11,14 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
+import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PrimitiveTypeRepository extends AbstractRepository<
-  IPrimitiveTypeDTO,
+  IPrimitiveTypeDto,
   PrimitiveType,
   PrimitiveTypeWhere,
   PrimitiveTypeOptions
@@ -32,7 +32,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDTO>) {
+  protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDto>) {
     return (
       await (
         await this.ogmService.PrimitiveType
@@ -62,7 +62,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, name, primitiveKind }: IPrimitiveTypeDTO,
+    { __typename, id, name, primitiveKind }: IPrimitiveTypeDto,
     where: BaseTypeUniqueWhere,
   ) {
     return (

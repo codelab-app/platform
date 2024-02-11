@@ -9,9 +9,9 @@ import {
 } from '@codelab/backend/application/type'
 import { withActiveSpan } from '@codelab/backend/infra/adapter/otel'
 import {
-  type IAtomDTO,
+  type IAtomDto,
   type IAtomType,
-  type IFieldDTO,
+  type IFieldDto,
   IOwner,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -22,7 +22,7 @@ interface FrameworkData {
   tags: TagNode
 
   // This is a callback since we require atom data for fields to connect
-  fields(atoms: Array<IAtomDTO>): Promise<Array<IFieldDTO>>
+  fields(atoms: Array<IAtomDto>): Promise<Array<IFieldDto>>
 }
 
 /**
@@ -64,7 +64,7 @@ export class SeedFrameworkService extends UseCase<FrameworkData, void> {
     )
   }
 
-  private async seedApis(fields: Array<IFieldDTO>) {
+  private async seedApis(fields: Array<IFieldDto>) {
     return this.typeSeederService.seedFields(fields)
   }
 

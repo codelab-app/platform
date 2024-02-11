@@ -17,11 +17,11 @@ import {
   UnionType,
 } from '@codelab/backend/domain/type'
 import type {
-  IAtomDTO,
-  IEnumTypeDTO,
-  IFieldDTO,
-  IInterfaceTypeDTO,
-  IUnionTypeDTO,
+  IAtomDto,
+  IEnumTypeDto,
+  IFieldDto,
+  IInterfaceTypeDto,
+  IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { throwIfUndefined } from '@codelab/shared/utils'
@@ -34,8 +34,8 @@ import {
 } from '../../../parser'
 
 interface Request {
-  atom: Pick<IAtomDTO, 'name'>
-  field: Pick<IFieldDTO, 'key'>
+  atom: Pick<IAtomDto, 'name'>
+  field: Pick<IFieldDto, 'key'>
   /**
    * Type of the field from framework
    */
@@ -188,12 +188,12 @@ export class DefaultTypeAdapterService
 
   async enumType(
     type: string,
-    atom: Pick<IAtomDTO, 'name'>,
-    field: Pick<IFieldDTO, 'key'>,
+    atom: Pick<IAtomDto, 'name'>,
+    field: Pick<IFieldDto, 'key'>,
   ) {
     const values = parseSeparators({ type })
 
-    const enumType: IEnumTypeDTO = {
+    const enumType: IEnumTypeDto = {
       __typename: ITypeKind.EnumType,
       allowedValues: values.map((value) => ({
         id: v4(),
@@ -218,10 +218,10 @@ export class DefaultTypeAdapterService
 
   async interfaceType(
     type: string,
-    atom: Pick<IAtomDTO, 'name'>,
-    field: Pick<IFieldDTO, 'key'>,
+    atom: Pick<IAtomDto, 'name'>,
+    field: Pick<IFieldDto, 'key'>,
   ) {
-    const interfaceType: IInterfaceTypeDTO = {
+    const interfaceType: IInterfaceTypeDto = {
       __typename: ITypeKind.InterfaceType,
       fields: [],
       id: v4(),
@@ -268,8 +268,8 @@ export class DefaultTypeAdapterService
 
   async unionType(
     type: string,
-    atom: Pick<IAtomDTO, 'name'>,
-    field: Pick<IFieldDTO, 'key'>,
+    atom: Pick<IAtomDto, 'name'>,
+    field: Pick<IFieldDto, 'key'>,
   ) {
     const typesOfUnionType = parseSeparators({ type })
 
@@ -294,7 +294,7 @@ export class DefaultTypeAdapterService
       }),
     )
 
-    const unionType: IUnionTypeDTO = {
+    const unionType: IUnionTypeDto = {
       __typename: ITypeKind.UnionType,
       id: v4(),
       kind: ITypeKind.UnionType,

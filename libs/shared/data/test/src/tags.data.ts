@@ -1,7 +1,7 @@
-import type { ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-type PartialTagDTO = Partial<ITagDTO> & Pick<ITagDTO, 'name'>
+type PartialTagDto = Partial<ITagDto> & Pick<ITagDto, 'name'>
 
 const delete_table_tag_0_id = v4()
 const delete_table_tag_0_0_id = v4()
@@ -35,7 +35,7 @@ export enum DeleteTreeData {
   tag_1_0 = 'Delete-Tree-Tag-1-0',
 }
 
-const partialTagData: Array<PartialTagDTO> = [
+const partialTagData: Array<PartialTagDto> = [
   { name: UpdateData['tag_0'] },
   {
     children: [{ id: delete_table_tag_0_0_id }],
@@ -70,7 +70,7 @@ const partialTagData: Array<PartialTagDTO> = [
   },
 ]
 
-export const createTagsData = (): Array<ITagDTO> =>
+export const createTagsData = (): Array<ITagDto> =>
   partialTagData
     // add missing pieces
     .map(({ children, id, name, parent }) => ({
