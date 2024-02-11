@@ -42,6 +42,11 @@ resource "digitalocean_app" "platform-api" {
       }
 
       env {
+        key   = "NEXT_PUBLIC_PLATFORM_API_PORT"
+        value = var.next_public_platform_api_port
+      }
+
+      env {
         key   = "AUTH0_ISSUER_BASE_URL"
         value = var.auth0_issuer_base_url
       }

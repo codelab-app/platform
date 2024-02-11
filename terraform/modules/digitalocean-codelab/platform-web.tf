@@ -55,6 +55,11 @@ resource "digitalocean_app" "platform-web" {
         key   = "NEXT_PUBLIC_PLATFORM_API_HOST"
         value = var.next_public_platform_api_host
       }
+
+      env {
+        key   = "NEXT_PUBLIC_PLATFORM_API_PORT"
+        value = var.next_public_platform_api_port
+      }
     }
   }
 }

@@ -24,6 +24,13 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_API_HOST" {
   organization = local.organization
 }
 
+resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_API_PORT" {
+  name         = "NEXT_PUBLIC_PLATFORM_API_PORT"
+  value        = var.next_public_platform_api_port
+  project      = local.project_name
+  organization = local.organization
+}
+
 resource "circleci_environment_variable" "AUTH0_CLIENT_ID" {
   name         = "AUTH0_CLIENT_ID"
   value        = var.auth0_web_client_id
