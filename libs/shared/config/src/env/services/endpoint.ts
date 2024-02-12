@@ -4,7 +4,8 @@ import * as env from 'env-var'
  * https://github.com/evanshortiss/env-var/issues/162
  */
 const { get } = env.from({
-  NEXT_PUBLIC_PLATFORM_API_HOST: process.env['NEXT_PUBLIC_PLATFORM_API_HOST'],
+  NEXT_PUBLIC_PLATFORM_API_HOSTNAME:
+    process.env['NEXT_PUBLIC_PLATFORM_API_HOSTNAME'],
   NEXT_PUBLIC_PLATFORM_API_PORT: process.env['NEXT_PUBLIC_PLATFORM_API_PORT'],
   NEXT_PUBLIC_PLATFORM_HOST: process.env['NEXT_PUBLIC_PLATFORM_HOST'],
 })
@@ -53,7 +54,10 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     }
 
     const port = get('NEXT_PUBLIC_PLATFORM_API_PORT').required().asPortNumber()
-    const url = get('NEXT_PUBLIC_PLATFORM_API_HOST').required().asUrlObject()
+
+    const url = get('NEXT_PUBLIC_PLATFORM_API_HOSTNAME')
+      .required()
+      .asUrlObject()
 
     return (this._platformApiHost = new URL(`${url.origin}:${port}`).toString())
   }

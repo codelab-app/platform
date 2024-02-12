@@ -1,4 +1,4 @@
-variable "NEXT_PUBLIC_PLATFORM_API_HOST" {
+variable "NEXT_PUBLIC_PLATFORM_API_HOSTNAME" {
   type = string
 }
 
