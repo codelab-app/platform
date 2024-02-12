@@ -11,7 +11,7 @@ import { evaluateObject, tryParse } from '@codelab/shared/utils'
 import { Body, Controller, Post } from '@nestjs/common'
 
 @Controller()
-export class CanActivateController {
+export class RedirectController {
   constructor(private redirectRepository: RedirectRepository) {}
 
   @Post('can-activate')
@@ -29,7 +29,7 @@ export class CanActivateController {
 
     // either a regular page with no redirect attached to or a system page
     if (!redirect) {
-      return { canActivate: true, status: 200 }
+      return { canActivate: true, message: 'No redirect found!', status: 200 }
     }
 
     const { authGuard, targetPage, targetType } = redirect

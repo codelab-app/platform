@@ -13,7 +13,7 @@ import { ClientError, GraphQLClient } from 'graphql-request'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 
-class ResourceGraphQlClient implements IResourceClient {
+export class ResourceGraphQlClient implements IResourceClient {
   constructor(resourceConfig: IResourceConfigData) {
     const { headers, url } = resourceConfig
     const options = { headers: tryParse(headers) }
@@ -48,7 +48,7 @@ class ResourceGraphQlClient implements IResourceClient {
   }
 }
 
-class ResourceRestClient implements IResourceClient {
+export class ResourceRestClient implements IResourceClient {
   constructor(resourceConfig: IResourceConfigData) {
     const { headers, url } = resourceConfig
 

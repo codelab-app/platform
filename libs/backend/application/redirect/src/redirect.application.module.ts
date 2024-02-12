@@ -1,9 +1,9 @@
 import { RedirectDomainModule } from '@codelab/backend/domain/redirect'
 import { Module } from '@nestjs/common'
-import { CanActivateController } from './redirect.controller'
+import { RedirectController } from './redirect.controller'
 
 @Module({
-  controllers: [CanActivateController],
+  controllers: [RedirectController],
   imports: [RedirectDomainModule],
 })
 export class RedirectApplicationModule {}
