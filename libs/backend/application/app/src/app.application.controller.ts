@@ -39,7 +39,7 @@ export class AppApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor, FileInterceptor('file'))
   @Post('import')
-  async importApp(@UploadedFile() file: any) {
+  async importApp(@UploadedFile() file: Express.Multer.File) {
     const json = file.buffer.toString('utf8')
     const data = JSON.parse(json)
 

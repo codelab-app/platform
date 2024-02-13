@@ -1,4 +1,8 @@
-import type { Page, PageWhere } from '@codelab/backend/abstract/codegen'
+import type {
+  Element,
+  Page,
+  PageWhere,
+} from '@codelab/backend/abstract/codegen'
 import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
@@ -6,7 +10,6 @@ import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import type {
   IComponentExport,
-  IElement,
   IPageExport,
   IStoreExport,
 } from '@codelab/shared/abstract/core'
@@ -16,6 +19,17 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import flatMap from 'lodash/flatMap'
 import uniq from 'lodash/uniq'
+
+/**
+ * used for slimming down the renderType of an element
+ */
+const toExportElement = (element: Element) => ({
+  ...element,
+  renderType: {
+    __typename: throwIfUndefined(element.renderType.__typename),
+    id: element.renderType.id,
+  },
+})
 
 export class ExportPageCommand {
   constructor(public where: PageWhere) {}
@@ -53,24 +67,16 @@ export class ExportPageHandler
   }
 
   private async getPageData(page: Page) {
-    const elements: Array<IElement> = (
+    const elements = (
       await this.elementRepository.getElementWithDescendants(
         page.rootElement.id,
       )
-    ).map((element) => ({
-      ...element,
-      closestContainerNode: { id: page.id },
-      renderType: {
-        __typename: throwIfUndefined(element.renderType.__typename),
-        id: element.renderType.id,
-      },
-    }))
+    ).map(toExportElement)
 
     let elementsCurrentBatch = elements
     const components: Array<IComponentExport> = []
-    let currentRun = 0
-    const maxRuns = 10
 
+    // get all components and nested components that are used in the page including their elements
     do {
       const componentIds = uniq(
         flatMap(elementsCurrentBatch, (element) => [
@@ -90,22 +96,14 @@ export class ExportPageHandler
         where: { id_IN: componentIds },
       })
 
-      const currentElements: Array<IElement> = []
+      elementsCurrentBatch = []
 
       for (const currentComponent of currentComponents) {
-        const componentDescendants =
+        const componentDescendants = (
           await this.elementRepository.getElementWithDescendants(
             currentComponent.rootElement.id,
           )
-
-        const componentDescendants2 = componentDescendants.map((element) => ({
-          ...element,
-          closestContainerNode: { id: currentComponent.id },
-          renderType: {
-            __typename: throwIfUndefined(element.renderType.__typename),
-            id: element.renderType.id,
-          },
-        }))
+        ).map(toExportElement)
 
         const componentStore = await this.commandBus.execute<
           ExportStoreCommand,
@@ -122,13 +120,9 @@ export class ExportPageHandler
           elements: componentDescendants,
           store: componentStore,
         })
-        currentElements.push(...componentDescendants2)
+        elementsCurrentBatch.push(...componentDescendants)
       }
-
-      elementsCurrentBatch = currentElements
-
-      currentRun++
-    } while (elementsCurrentBatch.length > 0 && currentRun < maxRuns)
+    } while (elementsCurrentBatch.length > 0)
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,

@@ -12,7 +12,7 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node", "cypher"]
+    "types": ["node", "cypher", "Multer"]
   },
   "exclude": ["jest.config.ts"],
   "include": ["webpack.config.js", "src/**/*.ts"]
