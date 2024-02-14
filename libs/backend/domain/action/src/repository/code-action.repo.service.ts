@@ -4,7 +4,7 @@ import type {
   CodeActionWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  exportCodeActionSelectionSet,
+  codeActionSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -53,7 +53,7 @@ export class CodeActionRepository extends AbstractRepository<
       await this.ogmService.CodeAction
     ).find({
       options,
-      selectionSet: exportCodeActionSelectionSet,
+      selectionSet: `{ ${codeActionSelectionSet} }`,
       where,
     })
   }

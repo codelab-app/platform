@@ -7,10 +7,10 @@ import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import type { IAppExport } from '@codelab/shared/abstract/core'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { CSSProperties } from 'react'
 import React from 'react'
@@ -32,19 +32,18 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 const downloadExportedData = async (app: IAppModel) => {
-  console.log('running downloadExportedData')
+  const res = await restPlatformClient.get<IAppExport>(
+    `app/export?id=${app.id}`,
+  )
 
-  const res: any = await restPlatformClient.get(`app/export?id=${app.id}`)
-  const filename = 'export.json'
+  const filename = `${app.slug}.json`
   const contentType = 'application/json;charset=utf-8;'
   const a = document.createElement('a')
 
   a.download = filename
-  a.href =
-    'data:' +
-    contentType +
-    ',' +
-    encodeURIComponent(JSON.stringify(res.data[0], null, 2))
+  a.href = `data:${contentType},${encodeURIComponent(
+    JSON.stringify(res.data, null, 2),
+  )}`
   a.target = '_blank'
   document.body.appendChild(a)
   a.click()

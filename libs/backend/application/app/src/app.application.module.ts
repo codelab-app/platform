@@ -20,7 +20,7 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { AppApplicationController } from './app.application.controller'
 import {
-  ExportAppsHandler,
+  ExportAppHandler,
   ImportAppHandler,
   SeedCypressAppHandler,
 } from './use-case'
@@ -29,7 +29,7 @@ import {
   controllers: [AppApplicationController],
   exports: [
     SeedCypressAppHandler,
-    ExportAppsHandler,
+    ExportAppHandler,
     ExportPageHandler,
     ImportAppHandler,
     ImportPageHandler,
@@ -53,7 +53,7 @@ import {
   ],
   providers: [
     SeedCypressAppHandler,
-    ExportAppsHandler,
+    ExportAppHandler,
     ExportPageHandler,
     ImportAppHandler,
     ImportPageHandler,

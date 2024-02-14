@@ -40,6 +40,7 @@ export const IComponentExport = Typebox.Overwrite(
   Type.Object({
     api: IApi,
     elements: Type.Array(IElement),
+    rootElement: IElement,
     store: IStoreExport,
   }),
 )

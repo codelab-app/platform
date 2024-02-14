@@ -1,6 +1,6 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
-import { ExportResourcesCommand } from '@codelab/backend/application/resource'
 import { ExportApiCommand } from '@codelab/backend/application/type'
+import { ResourceRepository } from '@codelab/backend/domain/resource'
 import { StoreRepository } from '@codelab/backend/domain/store'
 import type { ApiAction } from '@codelab/shared/abstract/codegen'
 import type { IResource, IStoreExport } from '@codelab/shared/abstract/core'
@@ -18,6 +18,7 @@ export class ExportStoreHandler
 {
   constructor(
     private readonly storeRepository: StoreRepository,
+    private readonly resourceRepository: ResourceRepository,
     private readonly commandBus: CommandBus,
   ) {}
 
@@ -55,10 +56,9 @@ export class ExportStoreHandler
         : -1
     })
 
-    const resources = await this.commandBus.execute<
-      ExportResourcesCommand,
-      Array<IResource>
-    >(new ExportResourcesCommand({ id_IN: resourceIds }))
+    const resources = await this.resourceRepository.find({
+      where: { id_IN: resourceIds },
+    })
 
     return {
       ...store,

@@ -118,6 +118,7 @@ export class ExportPageHandler
           ...currentComponent,
           api: componentApi,
           elements: componentDescendants,
+          rootElement: toExportElement(currentComponent.rootElement),
           store: componentStore,
         })
         elementsCurrentBatch.push(...componentDescendants)

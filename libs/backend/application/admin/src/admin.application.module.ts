@@ -1,6 +1,5 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { ComponentApplicationModule } from '@codelab/backend/application/component'
-import { ResourceApplicationModule } from '@codelab/backend/application/resource'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { StoreApplicationModule } from '@codelab/backend/application/store'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
@@ -32,7 +31,6 @@ import { ImportAdminDataHandler } from './use-case/import/import-admin-data.comm
     AtomApplicationModule,
     StoreApplicationModule,
     ComponentApplicationModule,
-    ResourceApplicationModule,
     TypeApplicationModule,
     UserApplicationModule,
   ],
