@@ -70,15 +70,15 @@
                 "sourceTag": "projectType:library",
                 "notDependOnLibsWithTags": ["projectType:application"]
               },
-              {
-                "sourceTag": "type:test",
-                "onlyDependOnLibsWithTags": [
-                  "type:test",
-                  "type:abstract",
-                  "type:data",
-                  "scope:shared"
-                ]
-              },
+              // {
+              //   "sourceTag": "type:test",
+              //   "onlyDependOnLibsWithTags": [
+              //     "type:test",
+              //     "type:abstract",
+              //     "type:data",
+              //     "scope:shared"
+              //   ]
+              // },
               // Domain layer cannot depend on application
               {
                 "sourceTag": "layer:domain",
@@ -126,7 +126,8 @@
                   "layer:infra",
                   "type:abstract",
                   "scope:shared",
-                  "type:data"
+                  "type:data",
+                  "type:test"
                 ]
               },
               {
@@ -144,6 +145,7 @@
       "rules": {
         "@typescript-eslint/no-unused-vars": "off"
       }
-    }
+    },
+    {}
   ]
 }

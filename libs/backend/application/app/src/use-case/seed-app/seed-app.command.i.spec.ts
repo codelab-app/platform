@@ -22,6 +22,7 @@ import {
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { initUserContext } from '@codelab/backend/test'
 import type { IPageDto } from '@codelab/shared/abstract/core'
 import { auth0IdToken, userDto } from '@codelab/shared/data/test'
 import type { INestApplication } from '@nestjs/common'
@@ -45,6 +46,8 @@ describe('SeedAppCommand', () => {
   let authService: AuthDomainService
 
   beforeAll(async () => {
+    const context = await initUserContext()
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         RequestContextModule,
@@ -97,7 +100,7 @@ describe('SeedAppCommand', () => {
       // pages: [page],
     }
 
-    const command = new SeedAppCommand(owner, app)
+    // const command = new SeedAppCommand(owner, app)
 
     await commandBus.execute(command)
 
