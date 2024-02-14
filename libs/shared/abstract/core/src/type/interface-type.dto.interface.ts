@@ -24,6 +24,11 @@ export const IInterfaceType = Typebox.Overwrite(
 
 export type IInterfaceType = Static<typeof IInterfaceType>
 
+export interface ICreateInterfaceTypeDto {
+  id: string
+  name: string
+}
+
 /**
  * Entity
  */

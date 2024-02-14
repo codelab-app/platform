@@ -1,6 +1,8 @@
-import type {
-  ICreateTypeDto,
-  IInterfaceTypeDto,
+import {
+  type ICreateInterfaceTypeDto,
+  type ICreateTypeDto,
+  type IInterfaceTypeDto,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { InterfaceTypeRepository } from '../repository'
@@ -9,7 +11,12 @@ import { InterfaceTypeRepository } from '../repository'
 export class TypeDomainService {
   constructor(private interfaceTypeRepository: InterfaceTypeRepository) {}
 
-  async createInterface(dto: IInterfaceTypeDto) {
-    return await this.interfaceTypeRepository.add(dto)
+  async createInterface(dto: ICreateInterfaceTypeDto) {
+    return await this.interfaceTypeRepository.add({
+      ...dto,
+      __typename: ITypeKind.InterfaceType,
+      fields: [],
+      kind: ITypeKind.InterfaceType,
+    })
   }
 }

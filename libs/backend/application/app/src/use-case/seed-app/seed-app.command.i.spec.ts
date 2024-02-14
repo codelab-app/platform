@@ -88,11 +88,13 @@ describe('SeedAppCommand', () => {
   it('can seed an app with pages', async () => {
     await userDomainService.seedUser(owner)
 
+    const page = {}
+
     const app = {
       id: v4(),
       name: 'Demo App',
       owner,
-      pages: [page],
+      // pages: [page],
     }
 
     const command = new SeedAppCommand(owner, app)

@@ -354,6 +354,7 @@
       "@codelab/shared/domain/mapper": [
         "libs/shared/domain/mapper/src/index.ts"
       ],
+      "@codelab/shared/domain/model": ["libs/shared/domain/model/src/index.ts"],
       "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [

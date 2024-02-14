@@ -7,7 +7,7 @@ import {
   type IAppModel,
   type ICreateAppData,
   type IUpdateAppData,
-  type IUpdatePageData,
+  type IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import {
@@ -28,8 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { AppProductionService } from '../use-cases'
-import { AppDevelopmentService } from '../use-cases/app-development'
+import { AppDevelopmentService, AppProductionService } from '../use-cases'
 import { AppRepository } from './app.repo'
 import { AppModalService } from './app-modal.service'
 
@@ -65,7 +64,7 @@ export class AppService
   })
 
   @modelFlow
-  updatePage = _async(function* (this: AppService, data: IUpdatePageData) {
+  updatePage = _async(function* (this: AppService, data: IUpdatePageFormData) {
     const app = this.appDomainService.apps.get(data.app.id)
     const page = app?.page(data.id)
     const { name, pageContentContainer, url } = data

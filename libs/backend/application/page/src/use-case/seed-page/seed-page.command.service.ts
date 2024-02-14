@@ -44,9 +44,10 @@ export class SeedPageHandler implements ICommandHandler<SeedPageCommand> {
       renderType: await this.atomDomainService.defaultRenderType(),
     }
 
-    const pageStoreApi = this.typeDomainService.createInterface({
-      id: v4(),
-    })
+    // const pageStoreApi = this.typeDomainService.createInterface({
+    //   id: v4(),
+    // })
+
     // const pageStore = this.storeDomainService.create({})
 
     // const pageDto: IPageDTO = {

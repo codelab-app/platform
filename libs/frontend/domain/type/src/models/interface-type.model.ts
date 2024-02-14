@@ -15,6 +15,7 @@ import {
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { createInterfaceTypeName } from '@codelab/shared/domain/model'
 import compact from 'lodash/compact'
 import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
@@ -50,20 +51,6 @@ const create = ({
   return interfaceType
 }
 
-const createName = (name: string) => {
-  return `${name} API`
-}
-
-const createApiNode = ({
-  name,
-}: Pick<IAppModel, 'name'>): InterfaceTypeCreateInput => {
-  return {
-    id: v4(),
-    kind: ITypeKind.InterfaceType,
-    name: `${name} Store API`,
-  }
-}
-
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
@@ -73,9 +60,7 @@ export class InterfaceType
 {
   static create = create
 
-  static createApiNode = createApiNode
-
-  static createName = createName
+  static createName = createInterfaceTypeName
 
   static toDeleteInput(): InterfaceTypeDeleteInput {
     return {

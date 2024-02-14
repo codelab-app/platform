@@ -6,6 +6,7 @@ import {
   type IPageApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
+  ICreatePageFormData,
   IInterfaceTypeModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
@@ -26,11 +27,7 @@ import {
   InterfaceType,
 } from '@codelab/frontend/domain/type'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import type {
-  ICreatePageData,
-  IElementDto,
-  IPropDto,
-} from '@codelab/shared/abstract/core'
+import type { IElementDto, IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   IPageKind,
@@ -72,7 +69,7 @@ export class PageApplicationService
   @transaction
   create = _async(function* (
     this: PageApplicationService,
-    { app, id, name, url }: ICreatePageData,
+    { app, id, name, url }: ICreatePageFormData,
   ) {
     const rootElementProps: IPropDto = {
       data: '{}',

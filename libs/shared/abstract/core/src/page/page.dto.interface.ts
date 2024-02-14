@@ -27,10 +27,4 @@ export const IPage = Typebox.Overwrite(
 
 export type IPage = Static<typeof IPage>
 
-/**
- * IOwnerSchema is required for store api
- */
-export type ICreatePageData = Pick<
-  IPage,
-  'app' | 'id' | 'kind' | 'name' | 'url'
->
+export type ICreatePageDto = Omit<IPageDto, 'rootElement' | 'store'>

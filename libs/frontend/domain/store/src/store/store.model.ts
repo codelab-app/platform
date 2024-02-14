@@ -19,6 +19,7 @@ import type {
 import type { IAppDto, IStoreDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { createStoreName } from '@codelab/shared/domain/model'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -31,10 +32,6 @@ const create = ({ api, component, id, name, page }: IStoreDto): IStoreModel =>
     name,
     page: page?.id ? pageRef(page.id) : null,
   })
-
-const createName = (app: Pick<IAppDto, 'name'>) => {
-  return `${app.name} Store`
-}
 
 @model('@codelab/Store')
 export class Store
@@ -49,7 +46,7 @@ export class Store
 {
   static create = create
 
-  static createName = createName
+  static createName = createStoreName
 
   static toDeleteInput(): StoreDeleteInput {
     return {

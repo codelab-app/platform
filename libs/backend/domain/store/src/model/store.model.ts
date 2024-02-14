@@ -7,6 +7,7 @@ import type {
   IStoreDto,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { createStoreName } from '@codelab/shared/domain/model'
 import { v4 } from 'uuid'
 
 export class Store implements IStore {
@@ -25,6 +26,8 @@ export class Store implements IStore {
       name,
     })
   }
+
+  static createName = createStoreName
 
   actions: Array<IAction>
 

@@ -5,6 +5,7 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { createInterfaceTypeName } from '@codelab/shared/domain/model'
 import { v4 } from 'uuid'
 import capitalize from 'voca/capitalize'
 import { BaseType } from './base-type.model'
@@ -29,6 +30,8 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDto {
   ) {
     return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
   }
+
+  static createName = createInterfaceTypeName
 
   __typename = `${ITypeKind.InterfaceType}` as const
 

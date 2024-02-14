@@ -8,6 +8,8 @@ IAppModel uses ref only, this allows us partial construction of models.
 
 IApp is serialized data, contains full data.
 
+IAppData is for form data, while dto for models. Data usually needs to be combined with some other data to become dto
+
 When should dto use reference id? It really only matters on frontend, since it is a data limitation. Backend we can more easily load all data at once.
 
 Take Page/Component for example.
