@@ -1,9 +1,9 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IComponentBoundedContext } from '../component/component.bounded-context.interface'
+import { IComponentAggregate } from '../component'
 import { ITag } from '../tag/tag.dto.interface'
 import { IType } from '../type'
-import { IAtomBoundedContext } from './atom.bounded-context.interface'
+import { IAtomAggregate } from './atom.aggregate.interface'
 
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.
@@ -20,12 +20,12 @@ import { IAtomBoundedContext } from './atom.bounded-context.interface'
 /**
  * This is the final complete data that is passed into our import function
  */
-export const IAdminBoundedContext = Type.Object({
-  atoms: Type.Array(IAtomBoundedContext),
-  components: Type.Array(IComponentBoundedContext),
+export const IAdminAggregate = Type.Object({
+  atoms: Type.Array(IAtomAggregate),
+  components: Type.Array(IComponentAggregate),
   // resources: Array<IResourceOutputDto>
   systemTypes: Type.Array(IType),
   tags: Type.Array(ITag),
 })
 
-export type IAdminBoundedContext = Static<typeof IAdminBoundedContext>
+export type IAdminAggregate = Static<typeof IAdminAggregate>

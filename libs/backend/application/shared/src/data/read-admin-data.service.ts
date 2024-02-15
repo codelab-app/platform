@@ -1,6 +1,6 @@
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
-import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
-import { IAtomBoundedContext, ITag, IType } from '@codelab/shared/abstract/core'
+import type { IComponentAggregate } from '@codelab/shared/abstract/core'
+import { IAtomAggregate, ITag, IType } from '@codelab/shared/abstract/core'
 import { Injectable, Scope } from '@nestjs/common'
 import fs from 'fs'
 import path from 'path'
@@ -45,14 +45,11 @@ export class ReadAdminDataService {
 
       const atomExport = JSON.parse(content.toString())
 
-      return this.validationService.validateAndClean(
-        IAtomBoundedContext,
-        atomExport,
-      )
+      return this.validationService.validateAndClean(IAtomAggregate, atomExport)
     })
   }
 
-  get components(): Array<IComponentBoundedContext> {
+  get components(): Array<IComponentAggregate> {
     const componentFilenames = fs.existsSync(
       this.migrationDataService.componentsPath,
     )

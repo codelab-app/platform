@@ -20,23 +20,29 @@ import {
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { userDto } from '@codelab/shared/data/test'
+import type { ModuleMetadata } from '@nestjs/common'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 
-export const initUserContext = async () => {
+export const initUserContext = async (metadata: ModuleMetadata) => {
   const module: TestingModule = await Test.createTestingModule({
     imports: [
       RequestContextModule,
       UserDomainModule,
       AuthDomainModule,
-      AppDomainModule,
       OtelModule,
       ValidationModule,
       SharedApplicationModule,
       CqrsModule,
       OgmModule,
+      ...(metadata.imports ?? []),
     ],
-    providers: [UserRepository, AppRepository, PageRepository],
+    providers: [
+      UserRepository,
+      AppRepository,
+      PageRepository,
+      ...(metadata.providers ?? []),
+    ],
   }).compile()
 
   const nestApp = module.createNestApplication()
@@ -44,21 +50,32 @@ export const initUserContext = async () => {
   const userDomainService = module.get(UserDomainService)
   const requestContextMiddleware = module.get(RequestContextMiddleware)
   const neo4jService = module.get(Neo4jService)
-  const appRepository = module.get(AppRepository)
   const authService = module.get(AuthDomainService)
+  const owner = userDto
 
-  jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
+  const afterAll = async () => {
+    await neo4jService.driver.close()
+    await nestApp.close()
+  }
 
-  await nestApp.init()
-  await neo4jService.resetData()
+  const beforeAll = async () => {
+    await nestApp.init()
+    await neo4jService.resetData()
+
+    jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
+    await userDomainService.seedUser(owner)
+  }
 
   return {
-    module,
-    appRepository,
+    afterAll,
     authService,
+    beforeAll,
     commandBus,
+    module,
     neo4jService,
     nestApp,
+    owner,
+    requestContextMiddleware,
     userDomainService,
   }
 }

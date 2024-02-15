@@ -9,7 +9,7 @@ import {
   TraceService,
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
-import { IAtomBoundedContext, Stage } from '@codelab/shared/abstract/core'
+import { IAtomAggregate, Stage } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import omit from 'lodash/omit'
@@ -53,7 +53,7 @@ export class ImportAdminDataHandler
   }
 
   @Span()
-  private async importAtom(atom: IAtomBoundedContext) {
+  private async importAtom(atom: IAtomAggregate) {
     const span = this.traceService.getSpan()
 
     span?.setAttributes(flattenWithPrefix(atom))
@@ -73,7 +73,7 @@ export class ImportAdminDataHandler
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
 
       await withActiveSpan(`${atom.atom.name}`, () =>
-        this.importAtom(atomWithoutSuggestedChildren as IAtomBoundedContext),
+        this.importAtom(atomWithoutSuggestedChildren as IAtomAggregate),
       )
     }
 

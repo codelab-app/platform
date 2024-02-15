@@ -1,4 +1,5 @@
 import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
+import { SeedCypressAppCommand } from '@codelab/backend/application/app'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
 import { UseCase } from '@codelab/backend/application/shared'
 import { SeedTagsService } from '@codelab/backend/application/tag'
@@ -15,6 +16,7 @@ import {
   IOwner,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { CommandBus } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'
 
 interface FrameworkData {
@@ -38,13 +40,14 @@ export class SeedFrameworkService extends UseCase<FrameworkData, void> {
     private seedEmptyApiService: SeedEmptyApiService,
     protected readonly owner: IOwner,
     private seedAtomsService: SeedAtomsService,
+    private commandBus: CommandBus,
   ) {
     super()
   }
 
   async _execute(data: FrameworkData) {
     await withActiveSpan('SeedFrameworkService.seedSystemTypes()', () =>
-      this.seedSystemTypes(),
+      this.commandBus.execute(new SeedCypressAppCommand()),
     )
 
     await withActiveSpan('SeedFrameworkService.seedTags()', () =>
@@ -74,12 +77,6 @@ export class SeedFrameworkService extends UseCase<FrameworkData, void> {
 
   private async seedEmptyApi(atoms: Array<IAtomType>) {
     return this.seedEmptyApiService.execute(atoms)
-  }
-
-  private seedSystemTypes() {
-    const types = Object.values(systemTypesData())
-
-    return this.typeSeederService.seedTypes(types)
   }
 
   private seedTags(tags: FrameworkData['tags']) {

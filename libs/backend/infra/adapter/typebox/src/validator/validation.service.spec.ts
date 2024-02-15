@@ -1,7 +1,7 @@
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   IActionType,
-  IAtomBoundedContext,
+  IAtomAggregate,
   IPrimitiveType,
 } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
@@ -35,7 +35,7 @@ describe('ValidationService', () => {
   describe('validateAndClean', () => {
     it('should validate and clean the input correctly', () => {
       const result = validationService.validateAndClean(
-        IAtomBoundedContext,
+        IAtomAggregate,
         affixJson,
       )
 

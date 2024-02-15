@@ -4,17 +4,14 @@ import {
 } from '@codelab/backend/application/shared'
 import { SeedUserCommand } from '@codelab/backend/application/user'
 import { AppDomainModule, AppRepository } from '@codelab/backend/domain/app'
-import { PageRepository } from '@codelab/backend/domain/page'
+import { PageDomainModule, PageRepository } from '@codelab/backend/domain/page'
 import {
   AuthDomainModule,
   AuthDomainService,
   mapAuth0IdTokenToUserDto,
 } from '@codelab/backend/domain/shared/auth'
-import {
-  UserDomainModule,
-  UserDomainService,
-  UserRepository,
-} from '@codelab/backend/domain/user'
+import type { UserDomainService } from '@codelab/backend/domain/user'
+import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
 import { Neo4jService, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import {
@@ -23,74 +20,39 @@ import {
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { initUserContext } from '@codelab/backend/test'
-import type { IPageDto } from '@codelab/shared/abstract/core'
+import type { IPageDto, IUserDto } from '@codelab/shared/abstract/core'
 import { auth0IdToken, userDto } from '@codelab/shared/data/test'
 import type { INestApplication } from '@nestjs/common'
-import { CommandBus, CqrsModule } from '@nestjs/cqrs'
+import type { CommandBus } from '@nestjs/cqrs'
+import { CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { SeedAppCommand, SeedAppHandler } from './seed-app.command.service'
 
-const mockRequest = {
-  user: auth0IdToken,
-}
-
-describe('SeedAppCommand', () => {
-  const owner = userDto
+describe('SeedAppCommand', async () => {
+  let owner: IUserDto
   let commandBus: CommandBus
-  let nestApp: INestApplication
   let userDomainService: UserDomainService
-  let neo4jService: Neo4jService
-  let requestContextMiddleware: RequestContextMiddleware
   let appRepository: AppRepository
-  let authService: AuthDomainService
 
   beforeAll(async () => {
-    const context = await initUserContext()
-
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        RequestContextModule,
-        UserDomainModule,
-        AuthDomainModule,
-        AppDomainModule,
-        OtelModule,
-        ValidationModule,
-        SharedApplicationModule,
-        CqrsModule,
-        OgmModule,
-      ],
+    const context = await initUserContext({
+      imports: [AppDomainModule, PageDomainModule],
       providers: [
         SeedAppHandler,
         UserRepository,
         AppRepository,
         PageRepository,
       ],
-    }).compile()
+    })
 
-    nestApp = module.createNestApplication()
-    commandBus = module.get<CommandBus>(CommandBus)
-    userDomainService = module.get(UserDomainService)
-    requestContextMiddleware = module.get(RequestContextMiddleware)
-    neo4jService = module.get(Neo4jService)
-    appRepository = module.get(AppRepository)
-    authService = module.get(AuthDomainService)
-
-    jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
-
-    await nestApp.init()
-
-    await neo4jService.resetData()
-  })
-
-  afterAll(async () => {
-    await neo4jService.driver.close()
-    await nestApp.close()
+    commandBus = context.commandBus
+    appRepository = context.module.get(AppRepository)
+    userDomainService = context.userDomainService
+    owner = context.owner
   })
 
   it('can seed an app with pages', async () => {
-    await userDomainService.seedUser(owner)
-
     const page = {}
 
     const app = {
@@ -100,7 +62,7 @@ describe('SeedAppCommand', () => {
       // pages: [page],
     }
 
-    // const command = new SeedAppCommand(owner, app)
+    const command = new SeedAppCommand(app, [])
 
     await commandBus.execute(command)
 

@@ -6,7 +6,7 @@ import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import type {
-  IAdminBoundedContext,
+  IAdminAggregate,
   ITag,
   IType,
 } from '@codelab/shared/abstract/core'
@@ -23,7 +23,7 @@ export class ExportAdminDataCommand implements IBaseDataPaths {
  */
 @CommandHandler(ExportAdminDataCommand)
 export class ExportAdminDataHandler
-  implements ICommandHandler<ExportAdminDataCommand, IAdminBoundedContext>
+  implements ICommandHandler<ExportAdminDataCommand, IAdminAggregate>
 {
   constructor(
     private writeAdminDataService: WriteAdminDataService,
@@ -60,7 +60,7 @@ export class ExportAdminDataHandler
     const components =
       await this.componentApplicationService.exportComponentsForAdmin()
 
-    const data: IAdminBoundedContext = {
+    const data: IAdminAggregate = {
       atoms,
       components,
       systemTypes,

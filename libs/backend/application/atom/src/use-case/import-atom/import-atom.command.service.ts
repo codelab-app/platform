@@ -1,14 +1,13 @@
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import { IAtomBoundedContext } from '@codelab/shared/abstract/core'
+import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
-@Injectable()
 export class ImportAtomCommand {
-  constructor(public atomAggregate: IAtomBoundedContext) {}
+  constructor(public atomAggregate: IAtomAggregate) {}
 }
 
 @CommandHandler(ImportAtomCommand)
