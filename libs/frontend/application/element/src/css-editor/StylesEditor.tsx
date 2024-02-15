@@ -1,5 +1,8 @@
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
-import { Collapse, ConfigProvider, Typography } from 'antd'
+import { ElementStyleSelector } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
+import { Collapse, ConfigProvider, Select, Typography } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { BackgroundEditor } from './background'
 import { BorderEditor } from './border'
@@ -17,8 +20,9 @@ const panelHeader = (title: string) => {
   return <Typography className="text-[12px] font-semibold">{title}</Typography>
 }
 
-export const StylesEditor = () => {
+export const StylesEditor = observer(() => {
   const className = '[&>*:first-child]:bg-gray-100 [&>*:first-child]:!py-1.5'
+  const { elementService } = useStore()
 
   return (
     <ConfigProvider
@@ -40,6 +44,17 @@ export const StylesEditor = () => {
         },
       }}
     >
+      <div>Style Selector: </div>
+      <Select
+        className="mb-2 w-full"
+        onSelect={(value) => elementService.setCurrentStyleSelector(value)}
+        options={[
+          { label: 'None', value: ElementStyleSelector.None },
+          { label: 'Focused', value: ElementStyleSelector.Hover },
+          { label: 'Hover', value: ElementStyleSelector.Focus },
+        ]}
+        value={elementService.currentStyleSelector}
+      />
       <Collapse
         bordered={false}
         defaultActiveKey={['1', '2', '3', '4', '5', '6', '7', '8']}
@@ -79,4 +94,4 @@ export const StylesEditor = () => {
       </Collapse>
     </ConfigProvider>
   )
-}
+})

@@ -2,9 +2,15 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { BuilderWidthBreakPoint } from '../builder'
 import type { CssMap } from './element.model.interface'
 
+export enum ElementStyleSelector {
+  None = 'none',
+  Hover = 'hover',
+  Focus = 'focus',
+}
+
 export interface IBreakpointStyle {
   cssString?: string
-  guiString?: string
+  guiString?: { [key in ElementStyleSelector]?: string }
 }
 
 export type IElementStyle = Record<
@@ -24,7 +30,6 @@ export interface IElementStyleModel {
    * for production - uses media queries to apply styles
    * for development - uses container queries, for better UX
    */
-  guiCss?: Nullable<string>
   styleParsed: IElementStyle
   /**
    * styles that are inherited from other breakpoints,
@@ -37,7 +42,11 @@ export interface IElementStyleModel {
     inheritedStyles: ElementCssRules
   }
 
-  appendToGuiCss(css: CssMap): void
-  deleteFromGuiCss(propNames: Array<string>): void
+  appendToGuiCss(selector: ElementStyleSelector, css: CssMap): void
+  deleteFromGuiCss(
+    selector: ElementStyleSelector,
+    propNames: Array<string>,
+  ): void
+  guiCss(selector: ElementStyleSelector): Nullable<string>
   setCustomCss(css: string): void
 }
