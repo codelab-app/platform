@@ -31,6 +31,7 @@ export interface IPageApplicationService
   pageDomainService: IPageDomainService
   pageRepository: IPageRepository
 
+  getPagesByApp(appId: string): Array<IPageModel>
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   getSelectPageOptions(appId?: string): Promise<Array<DefaultOptionType>>
   loadElements(elements: Array<IElementDTO>): void

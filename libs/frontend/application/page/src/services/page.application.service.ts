@@ -249,6 +249,13 @@ export class PageApplicationService
     })
   }
 
+  @modelAction
+  getPagesByApp = (appId: string) => {
+    return this.pageDomainService.pagesList.filter(
+      (page) => page.app.id === appId,
+    )
+  }
+
   @computed
   private get appService() {
     return getAppService(this)
