@@ -1,4 +1,4 @@
-import type { IApp, IAppExport } from '@codelab/shared/abstract/core'
+import type { IApp, IAppBoundedContext } from '@codelab/shared/abstract/core'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -32,7 +32,7 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<SeedCypressAppCommand, IAppExport>(
+    return this.commandBus.execute<SeedCypressAppCommand, IAppBoundedContext>(
       new ExportAppCommand({ id: req.query.id as string }),
     )
   }

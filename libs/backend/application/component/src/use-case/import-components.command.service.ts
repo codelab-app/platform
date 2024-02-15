@@ -3,12 +3,12 @@ import { ImportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropRepository } from '@codelab/backend/domain/prop'
-import type { IComponentExport } from '@codelab/shared/abstract/core'
+import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly component: IComponentExport) {}
+  constructor(public readonly componentContext: IComponentBoundedContext) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -23,19 +23,17 @@ export class ImportComponentsHandler
   ) {}
 
   async execute(command: ImportComponentsCommand) {
-    const { component } = command
+    const { api, component, elements, store } = command.componentContext
 
     await this.propRepository.save(component.props)
 
-    await this.commandBus.execute<ImportApiCommand>(
-      new ImportApiCommand(component.api),
-    )
+    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
     await this.commandBus.execute<ImportStoreCommand>(
-      new ImportStoreCommand(component.store),
+      new ImportStoreCommand(store),
     )
 
-    for (const element of component.elements) {
+    for (const element of elements) {
       await this.propRepository.save(element.props)
       await this.elementRepository.save(element)
     }

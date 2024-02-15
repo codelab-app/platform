@@ -2,12 +2,15 @@ import { ImportStoreCommand } from '@codelab/backend/application/store'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { PropRepository } from '@codelab/backend/domain/prop'
-import type { IElementDTO, IPageExport } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  IPageBoundedContext,
+} from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportPageCommand {
-  constructor(public page: IPageExport) {}
+  constructor(public pageContext: IPageBoundedContext) {}
 }
 
 @CommandHandler(ImportPageCommand)
@@ -20,13 +23,13 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
   ) {}
 
   async execute(command: ImportPageCommand) {
-    const { page } = command
+    const { elements, page, store } = command.pageContext
 
     await this.commandBus.execute<ImportStoreCommand>(
-      new ImportStoreCommand(page.store),
+      new ImportStoreCommand(store),
     )
 
-    for (const element of page.elements) {
+    for (const element of elements) {
       await this.propRepository.save(element.props)
       await this.elementRepository.save(element as IElementDTO)
     }

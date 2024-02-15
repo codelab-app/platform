@@ -4,11 +4,11 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
-import type { IAppExport } from '@codelab/shared/abstract/core'
+import type { IAppBoundedContext } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
-  constructor(public readonly app: IAppExport) {}
+  constructor(public readonly appContext: IAppBoundedContext) {}
 }
 
 @CommandHandler(ImportAppCommand)
@@ -22,13 +22,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
   ) {}
 
   async execute(command: ImportAppCommand) {
-    const {
-      components = [],
-      domains,
-      pages,
-      resources = [],
-      ...app
-    } = command.app
+    const { app, components, pages, resources } = command.appContext
 
     await this.appRepository.save(app)
 
@@ -43,7 +37,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
       )
     }
 
-    for (const domain of domains) {
+    for (const domain of app.domains) {
       await this.domainRepository.save(domain)
     }
 

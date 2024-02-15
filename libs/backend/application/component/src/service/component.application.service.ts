@@ -1,6 +1,6 @@
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import type { IComponent } from '@codelab/shared/abstract/core'
+import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
 import { IRole } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -17,7 +17,7 @@ export class ComponentApplicationService {
    * Export all components owned by admins
    */
   @Span()
-  async exportComponentsForAdmin(): Promise<Array<IComponent>> {
+  async exportComponentsForAdmin(): Promise<Array<IComponentBoundedContext>> {
     const components = await this.componentRepository.find({
       where: {
         owner: {
@@ -26,12 +26,12 @@ export class ComponentApplicationService {
       },
     })
 
-    const results: Array<IComponent> = []
+    const results: Array<IComponentBoundedContext> = []
 
     for (const component of components) {
       const result = await this.commandBus.execute<
         ExportComponentCommand,
-        IComponent
+        IComponentBoundedContext
       >(new ExportComponentCommand(component.id))
 
       results.push(result)

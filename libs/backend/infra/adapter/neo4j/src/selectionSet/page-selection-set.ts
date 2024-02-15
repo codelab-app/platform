@@ -29,7 +29,7 @@ export const basePageSelectionSet = `
 export const pageSelectionSet = `
   ${basePageSelectionSet}
   store {
-    ${storeSelectionSet}
+    id
   }
 `
 
