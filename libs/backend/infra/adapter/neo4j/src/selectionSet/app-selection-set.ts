@@ -12,6 +12,9 @@ export const baseAppSelectionSet = `
       id
     }
   }
+  pages {
+    id
+  }
 `
 
 export const appSelectionSet = `

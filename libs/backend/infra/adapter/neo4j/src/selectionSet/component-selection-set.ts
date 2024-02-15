@@ -3,14 +3,8 @@ import {
   exportElementSelectionSet,
 } from './element-selection-set'
 import { propSelectionSet } from './prop-selection-set'
-import {
-  exportStoreSelectionSet,
-  storeSelectionSet,
-} from './store-selection-set'
-import {
-  exportInterfaceTypeWithFieldsSelectionSet,
-  interfaceTypeSelectionSet,
-} from './type-selection-set'
+import { exportStoreSelectionSet } from './store-selection-set'
+import { exportInterfaceTypeWithFieldsSelectionSet } from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
 export const componentSelectionSet = `
@@ -19,16 +13,16 @@ export const componentSelectionSet = `
   name
   ${ownerFieldSelectionSet}
   rootElement {
-    ${elementSelectionSet}
+    id
   }
   props {
     ${propSelectionSet}
   }
   store {
-    ${storeSelectionSet}
+    id
   }
   api {
-    ${interfaceTypeSelectionSet}
+    id
   }
   childrenContainerElement {
     id

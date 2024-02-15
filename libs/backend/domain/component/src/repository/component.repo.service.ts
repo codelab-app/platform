@@ -3,6 +3,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   componentSelectionSet,
   OgmService,
@@ -11,7 +12,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -22,6 +23,7 @@ export class ComponentRepository extends AbstractRepository<
   ComponentOptions
 > {
   constructor(
+    private authService: AuthDomainService,
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
@@ -51,7 +53,7 @@ export class ComponentRepository extends AbstractRepository<
             ),
             id,
             name,
-            owner: connectNodeId(owner?.id),
+            owner: connectOwner(this.authService.currentUser),
             props: connectNodeId(props.id),
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),

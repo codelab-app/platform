@@ -54,6 +54,9 @@ export class ElementRepository extends AbstractRepository<
       await this.ogmService.Element.create({
         input: elements.map(
           ({
+            childMapperComponent,
+            childMapperPreviousSibling,
+            childMapperPropKey,
             closestContainerNode,
             compositeKey,
             firstChild,
@@ -71,6 +74,11 @@ export class ElementRepository extends AbstractRepository<
             style,
             tailwindClassNames,
           }) => ({
+            childMapperComponent: connectNodeId(childMapperComponent?.id),
+            childMapperPreviousSibling: connectNodeId(
+              childMapperPreviousSibling?.id,
+            ),
+            childMapperPropKey,
             compositeKey:
               compositeKey ??
               ElementProperties.elementCompositeKey(name, closestContainerNode),
@@ -120,6 +128,9 @@ export class ElementRepository extends AbstractRepository<
 
   protected async _update(
     {
+      childMapperComponent,
+      childMapperPreviousSibling,
+      childMapperPropKey,
       closestContainerNode,
       compositeKey,
       id,
@@ -134,6 +145,11 @@ export class ElementRepository extends AbstractRepository<
         await this.ogmService.Element
       ).update({
         update: {
+          childMapperComponent: connectNodeId(childMapperComponent?.id),
+          childMapperPreviousSibling: connectNodeId(
+            childMapperPreviousSibling?.id,
+          ),
+          childMapperPropKey,
           compositeKey:
             compositeKey ??
             ElementProperties.elementCompositeKey(name, closestContainerNode),

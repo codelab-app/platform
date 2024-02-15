@@ -8,7 +8,7 @@ export interface IAdminService {
   importDataModal: IModalService
 
   exportData(data: ExportDto): Promise<unknown>
-  importApp(appData: string): Promise<Array<IAppModel>>
+  importApp(appDataFile: File): Promise<Array<IAppModel>>
   importData(data: ImportDto): Promise<unknown>
   resetDatabase(): Promise<AxiosResponse>
   resetDatabaseExceptUser(): Promise<AxiosResponse>

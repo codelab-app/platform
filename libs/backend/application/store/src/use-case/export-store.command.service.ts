@@ -1,6 +1,9 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { StoreRepository } from '@codelab/backend/domain/store'
+import type { ApiAction } from '@codelab/shared/abstract/codegen'
+import type { IStoreBoundedContext } from '@codelab/shared/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -9,7 +12,9 @@ export class ExportStoreCommand {
 }
 
 @CommandHandler(ExportStoreCommand)
-export class ExportStoreHandler implements ICommandHandler<ExportStoreCommand> {
+export class ExportStoreHandler
+  implements ICommandHandler<ExportStoreCommand, IStoreBoundedContext>
+{
   constructor(
     private readonly storeRepository: StoreRepository,
     private readonly commandBus: CommandBus,
@@ -26,8 +31,16 @@ export class ExportStoreHandler implements ICommandHandler<ExportStoreCommand> {
       new ExportApiCommand(store.api),
     )
 
+    // put actions that are referenced from another action via field successAction or errorAction first
+    // so that they are imported before the actions that reference them
+    store.actions.sort((a) => {
+      return a.type === IActionKind.ApiAction &&
+        ((a as ApiAction).successAction || (a as ApiAction).errorAction)
+        ? 1
+        : -1
+    })
+
     return {
-      actions: store.actions,
       api,
       store,
     }

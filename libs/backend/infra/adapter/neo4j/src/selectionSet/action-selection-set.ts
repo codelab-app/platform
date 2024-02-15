@@ -3,6 +3,9 @@ const baseActionSelectionSet = `
   id
   name
   type
+  store {
+    id
+  }
 `
 
 const edgeSelectionProperties = `

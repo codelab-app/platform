@@ -1,4 +1,4 @@
-import { ExportAppsCommand } from '@codelab/backend/application/app'
+import { ExportAppCommand } from '@codelab/backend/application/app'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { UserRepository } from '@codelab/backend/domain/user'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -45,7 +45,7 @@ export class ExportUserDataHandler
 
     const appIds = user?.apps.map((app) => app.id)
 
-    await this.commandBus.execute(new ExportAppsCommand({ id_IN: appIds }))
+    await this.commandBus.execute(new ExportAppCommand({ id_IN: appIds }))
 
     /**
      * Export user types

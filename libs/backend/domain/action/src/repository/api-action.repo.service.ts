@@ -4,7 +4,7 @@ import type {
   ApiActionWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  actionSelectionSet,
+  apiActionSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -37,6 +37,7 @@ export class ApiActionRepository extends AbstractRepository<
       ).create({
         input: actions.map(
           ({
+            __typename,
             config,
             errorAction,
             resource,
@@ -47,22 +48,14 @@ export class ApiActionRepository extends AbstractRepository<
             ...action,
             config: connectNodeId(config.id),
             errorAction: {
-              ApiAction: connectNodeId(
-                this.filterBy(errorAction, IActionKind.ApiAction),
-              ),
-              CodeAction: connectNodeId(
-                this.filterBy(errorAction, IActionKind.CodeAction),
-              ),
+              ApiAction: connectNodeId(errorAction?.id),
+              CodeAction: connectNodeId(errorAction?.id),
             },
             resource: connectNodeId(resource.id),
             store: connectNodeId(store.id),
             successAction: {
-              ApiAction: connectNodeId(
-                this.filterBy(successAction, IActionKind.ApiAction),
-              ),
-              CodeAction: connectNodeId(
-                this.filterBy(successAction, IActionKind.CodeAction),
-              ),
+              ApiAction: connectNodeId(successAction?.id),
+              CodeAction: connectNodeId(successAction?.id),
             },
           }),
         ),
@@ -81,7 +74,7 @@ export class ApiActionRepository extends AbstractRepository<
       await this.ogmService.ApiAction
     ).find({
       options,
-      selectionSet: actionSelectionSet,
+      selectionSet: `{ ${apiActionSelectionSet} }`,
       where,
     })
   }

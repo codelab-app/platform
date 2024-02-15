@@ -4,7 +4,7 @@ import type {
   CodeActionWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  actionSelectionSet,
+  codeActionSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -34,7 +34,7 @@ export class CodeActionRepository extends AbstractRepository<
       await (
         await this.ogmService.CodeAction
       ).create({
-        input: actions.map(({ store, ...action }) => ({
+        input: actions.map(({ __typename, store, ...action }) => ({
           ...action,
           store: connectNodeId(store.id),
         })),
@@ -53,7 +53,7 @@ export class CodeActionRepository extends AbstractRepository<
       await this.ogmService.CodeAction
     ).find({
       options,
-      selectionSet: actionSelectionSet,
+      selectionSet: `{ ${codeActionSelectionSet} }`,
       where,
     })
   }

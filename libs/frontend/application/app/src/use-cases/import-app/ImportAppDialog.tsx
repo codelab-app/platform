@@ -24,7 +24,7 @@ export const ImportAppDialog = observer(() => {
 
   const onSuccess = useSuccessNotify({
     description: (event: Array<IAppModel>) => {
-      return `${event.length} of apps imported`
+      return `App ${event[0]!.name} imported successfully`
     },
     title: 'App imported successfully',
   })
@@ -34,10 +34,10 @@ export const ImportAppDialog = observer(() => {
 
   const onFileChange = async () => {
     const files = inputFile.current?.files
-    const appData = await files?.[0]?.text()
+    const appDataFile = files?.[0]
 
-    if (appData) {
-      await importApp.execute(appData).then(onSuccess).catch(onError)
+    if (appDataFile) {
+      await importApp.execute(appDataFile).then(onSuccess).catch(onError)
     }
   }
 
