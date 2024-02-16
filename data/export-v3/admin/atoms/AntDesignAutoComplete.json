@@ -26,9 +26,6 @@
     "icon": "AutoComplete",
     "id": "8ec79857-b3ea-4092-ae82-3de6665adfab",
     "name": "AntDesignAutoComplete",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

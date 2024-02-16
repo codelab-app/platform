@@ -215,9 +215,6 @@
     "icon": null,
     "id": "6f02fd24-b794-4fae-9bbf-6aeaaf1ce7fc",
     "name": "HtmlArea",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

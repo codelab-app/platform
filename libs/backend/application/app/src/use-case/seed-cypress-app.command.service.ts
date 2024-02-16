@@ -82,7 +82,9 @@ export class SeedCypressAppHandler
     )
 
     const atomReactFragment = await this.atomRepository.findOne({
-      name: IAtomType.ReactFragment,
+      where: {
+        name: IAtomType.ReactFragment,
+      },
     })
 
     if (!atomReactFragment) {

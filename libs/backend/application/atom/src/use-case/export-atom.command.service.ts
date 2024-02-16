@@ -22,7 +22,7 @@ export class ExportAtomHandler
   @Span()
   async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
     const { where } = command
-    const existingAtom = await this.atomRepository.findOne(where)
+    const existingAtom = await this.atomRepository.findOne({ where })
 
     if (!existingAtom) {
       throw new Error('Atom not found')
@@ -34,8 +34,10 @@ export class ExportAtomHandler
       new ExportApiCommand(existingAtom.api),
     )
 
+    const { owner, ...existingAtomWithoutOwner } = existingAtom
+
     const atom: IAtom = {
-      ...existingAtom,
+      ...existingAtomWithoutOwner,
       __typename: 'Atom' as const,
       api: { id: api.id },
       tags: existingAtom.tags.map((tag) => ({ id: tag.id })),

@@ -43,9 +43,6 @@
     "icon": null,
     "id": "c0322351-8b41-4ca8-9f55-64cb938dd70f",
     "name": "HtmlBlockquote",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

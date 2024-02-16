@@ -287,9 +287,6 @@
     "icon": null,
     "id": "63ba5f86-6c30-477d-8d19-294e7727ca2d",
     "name": "HtmlTextarea",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

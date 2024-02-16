@@ -43,9 +43,6 @@
     "icon": null,
     "id": "ebad6e06-ce65-4d18-9802-7cd9fd68bf58",
     "name": "HtmlMap",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

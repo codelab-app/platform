@@ -26,9 +26,6 @@
     "icon": "Rate",
     "id": "bd05ca0b-36c0-43c7-95c5-e56578f842ce",
     "name": "AntDesignRate",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

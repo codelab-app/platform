@@ -43,9 +43,6 @@
     "icon": "Slider",
     "id": "6daf0b25-2bdb-4367-9bdb-65cd3f33a669",
     "name": "AntDesignSlider",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -424,9 +424,6 @@
     "icon": "Table",
     "id": "694ca90d-dbd9-4285-944c-fe04706773a7",
     "name": "AntDesignTable",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

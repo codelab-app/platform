@@ -21,7 +21,7 @@ export class ExportStoreHandler
   ) {}
 
   async execute({ where }: ExportStoreCommand) {
-    const store = await this.storeRepository.findOne(where)
+    const store = await this.storeRepository.findOne({ where })
 
     if (!store) {
       throw new Error('Cannot find Component Store')

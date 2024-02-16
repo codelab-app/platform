@@ -174,14 +174,18 @@ export class DefaultTypeAdapterService
 
   async actionType() {
     return throwIfUndefined(
-      await this.actionTypeRepository.findOne({ name: ITypeKind.ActionType }),
+      await this.actionTypeRepository.findOne({
+        where: { name: ITypeKind.ActionType },
+      }),
     )
   }
 
   async booleanType() {
     return throwIfUndefined(
       await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.Boolean,
+        where: {
+          name: IPrimitiveTypeKind.Boolean,
+        },
       }),
     )
   }
@@ -211,7 +215,9 @@ export class DefaultTypeAdapterService
   async integerType() {
     return throwIfUndefined(
       await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.Integer,
+        where: {
+          name: IPrimitiveTypeKind.Integer,
+        },
       }),
     )
   }
@@ -237,7 +243,9 @@ export class DefaultTypeAdapterService
   async numberType() {
     return throwIfUndefined(
       await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.Number,
+        where: {
+          name: IPrimitiveTypeKind.Number,
+        },
       }),
     )
   }
@@ -245,7 +253,9 @@ export class DefaultTypeAdapterService
   async reactNodeType() {
     return throwIfUndefined(
       await this.reactNodeTypeRepository.findOne({
-        name: ITypeKind.ReactNodeType,
+        where: {
+          name: ITypeKind.ReactNodeType,
+        },
       }),
     )
   }
@@ -253,7 +263,9 @@ export class DefaultTypeAdapterService
   async renderPropType() {
     return throwIfUndefined(
       await this.renderPropTypeRepository.findOne({
-        name: ITypeKind.RenderPropType,
+        where: {
+          name: ITypeKind.RenderPropType,
+        },
       }),
     )
   }
@@ -261,7 +273,9 @@ export class DefaultTypeAdapterService
   async stringType() {
     return throwIfUndefined(
       await this.primitiveTypeRepository.findOne({
-        name: IPrimitiveTypeKind.String,
+        where: {
+          name: IPrimitiveTypeKind.String,
+        },
       }),
     )
   }

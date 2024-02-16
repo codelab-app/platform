@@ -376,9 +376,6 @@
     "icon": "Input",
     "id": "8d669da3-4198-494a-8018-851f6a802bf2",
     "name": "AntDesignInput",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

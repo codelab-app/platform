@@ -30,7 +30,9 @@ export class ExportComponentHandler
   async execute({ componentId }: ExportComponentCommand) {
     const component = throwIfUndefined(
       await this.componentRepository.findOne({
-        id: componentId,
+        where: {
+          id: componentId,
+        },
       }),
     )
 

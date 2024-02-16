@@ -11,7 +11,9 @@ export class TypeApplicationService {
 
   async getApiByAtomName(name: IAtomType) {
     const api = await this.interfaceTypeRepository.findOne({
-      name: InterfaceType.createName(name),
+      where: {
+        name: InterfaceType.createName(name),
+      },
     })
 
     return api

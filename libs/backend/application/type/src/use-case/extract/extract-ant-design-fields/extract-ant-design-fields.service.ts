@@ -64,10 +64,12 @@ export class ExtractAntDesignFieldsService extends UseCase<
     field: AntDesignField,
   ): Promise<IFieldDto | undefined> {
     const existingField = await this.fieldRepository.findOne({
-      api: {
-        id: atom.api.id,
+      where: {
+        api: {
+          id: atom.api.id,
+        },
+        key: field.property,
       },
-      key: field.property,
     })
 
     if (existingField) {

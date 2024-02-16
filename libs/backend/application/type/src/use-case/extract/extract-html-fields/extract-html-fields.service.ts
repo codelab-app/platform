@@ -56,10 +56,12 @@ export class ExtractHtmlFieldsService
     field: HtmlField,
   ): Promise<IFieldDto | undefined> {
     const existingField = await this.fieldRepository.findOne({
-      api: {
-        id: atom.api.id,
+      where: {
+        api: {
+          id: atom.api.id,
+        },
+        key: field.key,
       },
-      key: field.key,
     })
 
     if (existingField) {

@@ -49,53 +49,45 @@ export class ExportSystemTypesHandler
     /**
      * Export all primitive types
      */
-    const primitiveTypes = await this.primitiveTypeRepository.find(
-      {
-        options: {
-          sort: [{ name: SortDirection.Asc }],
-        },
+    const primitiveTypes = await this.primitiveTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
       },
-      IPrimitiveType,
-    )
+      schema: IPrimitiveType,
+    })
 
     /**
      * React Node Type
      */
     // Only 1 here
-    const reactNodeTypes = await this.reactNodeTypeRepository.find(
-      {
-        options: {
-          sort: [{ name: SortDirection.Asc }],
-        },
+    const reactNodeTypes = await this.reactNodeTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
       },
-      IReactNodeType,
-    )
+      schema: IReactNodeType,
+    })
 
     /**
      * Render Props Type
      */
     // Only 1 here
-    const renderPropTypes = await this.renderPropTypeRepository.find(
-      {
-        options: {
-          sort: [{ name: SortDirection.Asc }],
-        },
+    const renderPropTypes = await this.renderPropTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
       },
-      IRenderPropType,
-    )
+      schema: IRenderPropType,
+    })
 
     /**
      * ActionType
      */
 
-    const actionTypes = await this.actionTypeRepository.find(
-      {
-        options: {
-          sort: [{ name: SortDirection.Asc }],
-        },
+    const actionTypes = await this.actionTypeRepository.find({
+      options: {
+        sort: [{ name: SortDirection.Asc }],
       },
-      IActionType,
-    )
+      schema: IActionType,
+    })
 
     /**
      * Here we create the interface dependency tree order

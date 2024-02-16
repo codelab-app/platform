@@ -512,9 +512,6 @@
     "icon": "Drawer",
     "id": "fd5d7747-12a7-4861-8215-eef991e8144e",
     "name": "AntDesignDrawer",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

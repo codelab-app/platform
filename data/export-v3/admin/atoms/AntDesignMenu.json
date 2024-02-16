@@ -406,10 +406,7 @@
         ],
         "id": "8baae515-020d-422e-a1bc-340c20490dd2",
         "kind": "InterfaceType",
-        "name": "AntDesignMenuItemType",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignMenuItemType"
       },
       {
         "__typename": "EnumType",
@@ -513,9 +510,6 @@
     "icon": "Menu",
     "id": "b390b521-50f7-4973-92b5-5fc42624f560",
     "name": "AntDesignMenu",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -109,9 +109,6 @@
     "icon": "Select",
     "id": "d3085e79-5291-4910-aa06-bc28ab992f01",
     "name": "AntDesignSelectOption",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

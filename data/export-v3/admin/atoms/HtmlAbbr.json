@@ -43,9 +43,6 @@
     "icon": null,
     "id": "bf157f42-6090-4c69-bd69-359a4c20fd11",
     "name": "HtmlAbbr",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -168,9 +168,6 @@
     "icon": null,
     "id": "9f9deec1-7be5-44b4-bd4b-010c5ca27220",
     "name": "HtmlTr",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

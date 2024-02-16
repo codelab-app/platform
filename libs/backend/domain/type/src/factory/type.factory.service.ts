@@ -79,35 +79,35 @@ export class TypeFactory {
   async findOne({ __typename, id }: ITypeMaybeRef) {
     switch (__typename) {
       case ITypeKind.PrimitiveType: {
-        return (await this.primitiveTypeRepository).findOne({ id })
+        return (await this.primitiveTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.EnumType: {
-        return (await this.enumTypeRepository).findOne({ id })
+        return (await this.enumTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.InterfaceType: {
-        return (await this.interfaceTypeRepository).findOne({ id })
+        return (await this.interfaceTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.ReactNodeType: {
-        return (await this.reactNodeTypeRepository).findOne({ id })
+        return (await this.reactNodeTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.RenderPropType: {
-        return (await this.renderPropTypeRepository).findOne({ id })
+        return (await this.renderPropTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.ActionType: {
-        return (await this.actionTypeRepository).findOne({ id })
+        return (await this.actionTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.UnionType: {
-        return (await this.unionTypeRepository).findOne({ id })
+        return (await this.unionTypeRepository).findOne({ where: { id } })
       }
 
       case ITypeKind.ArrayType: {
-        return (await this.arrayTypeRepository).findOne({ id })
+        return (await this.arrayTypeRepository).findOne({ where: { id } })
       }
 
       default: {

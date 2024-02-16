@@ -95,9 +95,6 @@
     "icon": "Segmented",
     "id": "f3c0b4bc-c42c-4406-b74b-d9ed36bab387",
     "name": "AntDesignSegmented",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

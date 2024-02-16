@@ -188,9 +188,6 @@
     "icon": null,
     "id": "491b7c97-70b5-41db-9586-eeb51dd60213",
     "name": "HtmlTh",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

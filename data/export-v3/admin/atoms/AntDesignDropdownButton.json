@@ -26,9 +26,6 @@
     "icon": "Dropdown",
     "id": "c25fb809-c22d-40e4-87b4-2303ff61e847",
     "name": "AntDesignDropdownButton",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

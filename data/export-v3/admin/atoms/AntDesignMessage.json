@@ -26,9 +26,6 @@
     "icon": "Message",
     "id": "f7c9e900-5c6c-4673-bc47-f4e5df7ee80a",
     "name": "AntDesignMessage",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

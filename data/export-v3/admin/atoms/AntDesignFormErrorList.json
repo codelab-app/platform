@@ -26,9 +26,6 @@
     "icon": "Form",
     "id": "05e7e1c8-6a73-4014-8795-36e4077b6138",
     "name": "AntDesignFormErrorList",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

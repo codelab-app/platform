@@ -26,9 +26,6 @@
     "icon": "Transfer",
     "id": "3bec0258-169c-480b-87d7-2065d57d04f7",
     "name": "AntDesignTransfer",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

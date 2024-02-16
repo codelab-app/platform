@@ -665,9 +665,6 @@
     "icon": "Tree",
     "id": "2a670dfd-fd55-44f2-95bc-3f3c5bb5bc7c",
     "name": "AntDesignTree",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

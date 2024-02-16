@@ -63,6 +63,8 @@ describe('Seed, import, & export data', () => {
       const sourceContent = fs.readFileSync(sourceFile, 'utf8')
       const exportedContent = fs.readFileSync(exportedFile, 'utf8')
 
+      console.log(sourceContent)
+
       expect(exportedContent).toEqual(sourceContent)
     }
   })

@@ -26,9 +26,6 @@
     "icon": "Checkbox",
     "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b",
     "name": "AntDesignCheckbox",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

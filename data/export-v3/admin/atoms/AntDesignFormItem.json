@@ -237,9 +237,6 @@
     "icon": "Form",
     "id": "14b1cbfb-b0c1-411e-9953-0f20165dd44e",
     "name": "AntDesignFormItem",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -205,9 +205,6 @@
     "icon": "Calendar",
     "id": "8b5fd41f-dbe7-40c4-999e-7d74b2636a53",
     "name": "AntDesignCalendar",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

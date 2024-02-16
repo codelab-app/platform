@@ -81,7 +81,9 @@ export class SeedAtomsService extends UseCase<
 
         // Get tags by name, they always match up
         const existingTag = await this.tagRepository.findOne({
-          name: atomData.tag,
+          where: {
+            name: atomData.tag,
+          },
         })
 
         if (!existingTag) {

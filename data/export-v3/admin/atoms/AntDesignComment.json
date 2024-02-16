@@ -123,9 +123,6 @@
     "icon": "Comment",
     "id": "73524649-df58-404e-bff9-97ee9448baa6",
     "name": "AntDesignComment",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

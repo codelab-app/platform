@@ -59,9 +59,6 @@
     "icon": null,
     "id": "f069cc92-ff06-4020-ac09-3ff4bcac2b2c",
     "name": "HtmlCanvas",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

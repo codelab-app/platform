@@ -21,6 +21,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
+import omit from 'lodash/omit'
 
 export class ExportApiCommand {
   constructor(public api: IInterfaceTypeRef) {}
@@ -44,26 +45,24 @@ export class ExportApiHandler
     /**
      * (1) Get itself
      */
-    const interfaceType = await this.interfaceTypeRepository.findOne(
-      {
+    const interfaceType = await this.interfaceTypeRepository.findOne({
+      schema: IInterfaceTypeDto,
+      where: {
         id: api.id,
       },
-      IInterfaceTypeDto,
-    )
+    })
 
     if (!interfaceType) {
       throw new Error('InterfaceType not found')
     }
 
-    const fields = await this.fieldRepository.find(
-      {
-        options: {
-          sort: [{ key: SortDirection.Asc }],
-        },
-        where: { id_IN: interfaceType.fields.map(({ id }) => id) },
+    const fields = await this.fieldRepository.find({
+      options: {
+        sort: [{ key: SortDirection.Asc }],
       },
-      IFieldDto,
-    )
+      schema: IFieldDto,
+      where: { id_IN: interfaceType.fields.map(({ id }) => id) },
+    })
 
     /**
      * (2) Get all dependent types first

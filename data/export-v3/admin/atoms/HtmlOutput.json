@@ -75,9 +75,6 @@
     "icon": null,
     "id": "0e97b7f1-d299-45ef-b3de-bb9d29eb13b2",
     "name": "HtmlOutput",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [
