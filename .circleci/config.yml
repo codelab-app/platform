@@ -4,7 +4,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+            - nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
             - nx-cache
           name: Restore NX Cache
       - run:
@@ -12,11 +12,10 @@ commands:
           name: Monitor NX Cache Size
       - run: npx nx run-many --target=build --projects=platform,platform-api,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
       - save_cache:
-          key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+          key: nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
           name: Save Cache
           paths:
             - ~/project/dist/apps/platform/.next/cache
-            - ~/project/dist/apps/platform-api/.next/cache
             - ~/project/dist/apps/landing/.next/cache
             - ~/project/dist/apps/websites/.next/cache
       - save_cache:
