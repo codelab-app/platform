@@ -1,7 +1,9 @@
 import {
+  getRendererService,
   type IRuntimeActionModel,
   type IRuntimeStoreDTO,
   type IRuntimeStoreModel,
+  RendererType,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
@@ -43,7 +45,24 @@ export class RuntimeStoreModel
   refs = observable.object<IPropData>({})
 
   @computed
+  get renderService() {
+    return getRendererService(this)
+  }
+
+  @computed
+  get renderer() {
+    return this.renderService.activeRenderer?.current
+  }
+
+  @computed
   get state() {
+    if (
+      this.renderer?.rendererType === RendererType.PageBuilder ||
+      this.renderer?.rendererType === RendererType.ComponentBuilder
+    ) {
+      return this.store.current.api.maybeCurrent?.defaultValues ?? {}
+    }
+
     // To update the cache if a new state variable is added
     const apiFieldsLength = this.store.current.api.maybeCurrent?.fields.length
     const cachedStateKeysLength = Object.keys(this.cachedState ?? {}).length

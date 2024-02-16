@@ -1,4 +1,7 @@
-import type { IRuntimeContainerNodeModel } from '@codelab/frontend/abstract/application'
+import {
+  type IRuntimeContainerNodeModel,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
@@ -69,8 +72,12 @@ describe('Runtime Element props', () => {
 
   describe('RuntimeProps.evaluatedProps', () => {
     it('should evaluate state field expression', () => {
-      const { typeService } = rootApplicationStore
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
+      const { element, runtimeElement } = setupRuntimeElement(
+        testbed,
+        // set renderType to builder for state to update when changing field default values
+        RendererType.PageBuilder,
+      )
+
       const runtimeProps = runtimeElement?.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = 'some-value'
@@ -101,7 +108,13 @@ describe('Runtime Element props', () => {
 
     it('should evaluate root state field expression', () => {
       const { typeService } = rootApplicationStore
-      const { element, page, runtimeElement } = setupRuntimeElement(testbed)
+
+      const { element, page, runtimeElement } = setupRuntimeElement(
+        testbed,
+        // set renderType to builder for state to update when changing field default values
+        RendererType.PageBuilder,
+      )
+
       const runtimeProps = runtimeElement?.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = 'some-value'

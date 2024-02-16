@@ -51,14 +51,8 @@ export class ActionTypeTransformer
 
     const name = runtimeAction?.action.current.name
 
-    const fallback = () =>
-      console.error(`fail to get action with id ${prop.value}`)
-
-    const actionRunner =
-      isRuntimeElement(runtimeNode) && name
-        ? runtimeNode.runtimeProps.getActionRunner(name)
-        : fallback
-
-    return actionRunner
+    return runtimeNode.runtimeStore.runtimeActions.has(actionId)
+      ? `{{actions.${name}}}`
+      : `{{rootActions.${name}}}`
   }
 }
