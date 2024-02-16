@@ -9,7 +9,10 @@ import { defaultPipes, renderPipeFactory } from '../../renderPipes'
 import { rootApplicationStore } from './root.test.store'
 import type { TestBed } from './testbed'
 
-export const setupPage = (testbed: TestBed) => {
+export const setupPage = (
+  testbed: TestBed,
+  rendererType: RendererType = RendererType.Preview,
+) => {
   const pageId = 'page-id'
   const pageName = 'Page Name'
 
@@ -42,7 +45,7 @@ export const setupPage = (testbed: TestBed) => {
 
   const renderer = testbed.addRenderer({
     containerNode: page,
-    rendererType: RendererType.Preview,
+    rendererType,
     renderPipe: renderPipeFactory(defaultPipes),
   })
 
@@ -103,9 +106,12 @@ export const setupComponent = (testbed: TestBed) => {
   return { childrenContainerElement, component, renderer }
 }
 
-export const setupRuntimeElement = (testbed: TestBed) => {
+export const setupRuntimeElement = (
+  testbed: TestBed,
+  rendererType?: RendererType,
+) => {
   const { rendererService } = rootApplicationStore
-  const { page, rendered } = setupPage(testbed)
+  const { page, rendered } = setupPage(testbed, rendererType)
 
   return {
     element: page.rootElement.current,

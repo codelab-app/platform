@@ -94,7 +94,7 @@ export class RuntimeElementPropsModel
     if (hasStateExpression(this.element.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
         this.element.childMapperPropKey,
-        this.propsEvaluationContext,
+        this.expressionEvaluationContext,
       )
 
       if (!Array.isArray(evaluatedExpression)) {
@@ -146,20 +146,21 @@ export class RuntimeElementPropsModel
 
   @computed
   get evaluatedProps() {
+    return this.expressionEvaluationContext.props
+  }
+
+  evaluateProps(context: IEvaluationContext) {
     // Evaluate customText prop only in preview and production modes
     if (
       this.renderer.rendererType === RendererType.Preview ||
       this.renderer.rendererType === RendererType.Production
     ) {
-      return evaluateObject(
-        this.renderedTypedProps,
-        this.propsEvaluationContext,
-      )
+      return evaluateObject(this.renderedTypedProps, context)
     }
 
     const customTextProp = this.element.props.values[CUSTOM_TEXT_PROP_KEY]
     const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
-    const evaluated = evaluateObject(props, this.propsEvaluationContext)
+    const evaluated = evaluateObject(props, context)
 
     return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
   }
@@ -175,19 +176,22 @@ export class RuntimeElementPropsModel
       .reduce(merge, {})
   }
 
-  addActions(context: IEvaluationContext) {
+  addAndBind(context: IEvaluationContext) {
     context['actions'] = this.transformRuntimeActions(
       this.runtimeStore.runtimeActionsList,
       context,
     )
 
-    // If a root action is called in a regular page, the `state` should be from the provider's page store
-    context['rootActions'] = this.providerStore?.runtimeActionsList
-      ? this.transformRuntimeActions(this.providerStore.runtimeActionsList, {
-          ...context,
-          state: context.rootState,
-        })
-      : {}
+    if (this.providerStore) {
+      // If a root action is called in a regular page, the `state` should be from the provider's page store
+      // context['state'] = context.rootState
+      context['rootActions'] = this.transformRuntimeActions(
+        this.providerStore.runtimeActionsList,
+        context,
+      )
+    }
+
+    context['props'] = this.evaluateProps(context)
 
     return context
   }
@@ -195,8 +199,8 @@ export class RuntimeElementPropsModel
   @modelAction
   getActionRunner(actionName: string) {
     return (
-      this.propsEvaluationContext.actions[actionName] ??
-      this.propsEvaluationContext.rootActions[actionName] ??
+      this.expressionEvaluationContext.actions[actionName] ??
+      this.expressionEvaluationContext.rootActions[actionName] ??
       (() => console.log(`No Runner found for ${actionName} `))
     )
   }
@@ -225,14 +229,14 @@ export class RuntimeElementPropsModel
   }
 
   @computed
-  get propsEvaluationContext(): IEvaluationContext {
+  get expressionEvaluationContext(): IEvaluationContext {
     const { componentRuntimeProp } = this.closestRuntimeContainerNode
 
     const componentProps = componentRuntimeProp
       ? componentRuntimeProp.componentEvaluatedProps
       : {}
 
-    return this.addActions({
+    return this.addAndBind({
       actions: {},
       args: [],
       componentProps,
@@ -244,14 +248,6 @@ export class RuntimeElementPropsModel
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
       url: this.urlProps ?? {},
-    })
-  }
-
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return this.addActions({
-      ...this.propsEvaluationContext,
-      props: this.evaluatedProps,
     })
   }
 }

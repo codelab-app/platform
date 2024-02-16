@@ -90,25 +90,14 @@ export class RuntimeComponentPropModel
     })
   }
 
-  @computed
-  get propsEvaluationContext() {
-    return {
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: {},
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: {},
-      url: {},
-    }
+  evaluateProps(context: IEvaluationContext) {
+    // evaluate expressions but with empty context
+    return evaluateObject(this.renderedTypedProps, context)
   }
 
   @computed
   get evaluatedProps() {
-    // evaluate expressions but with empty context
-    return evaluateObject(this.renderedTypedProps, this.propsEvaluationContext)
+    return this.expressionEvaluationContext.props
   }
 
   @computed
@@ -150,11 +139,24 @@ export class RuntimeComponentPropModel
     )
   }
 
+  addAndBind(context: IEvaluationContext) {
+    context['props'] = this.evaluateProps(context)
+
+    return context
+  }
+
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    return {
-      ...this.propsEvaluationContext,
-      props: this.evaluatedProps,
-    }
+    return this.addAndBind({
+      actions: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      url: {},
+    })
   }
 }
