@@ -2,11 +2,9 @@ commands:
   build-repo:
     description: Build Repo
     steps:
-      - restore_cache:
-          keys:
-            - nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
-            - nx-cache
-          name: Restore NX Cache
+      - run:
+          command: nx reset
+          name: Reset NX Cache
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
