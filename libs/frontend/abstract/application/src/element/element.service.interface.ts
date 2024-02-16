@@ -1,5 +1,5 @@
 import type {
-  ElementStyleSelector,
+  ElementStylePseudoClass,
   ICloneElementService,
   IElementDomainService,
   IElementModel,
@@ -66,7 +66,7 @@ export interface IElementService
   > {
   cloneElementService: ICloneElementService
   createForm: IFormService<CreateElementData, CreateElementProperties>
-  currentStyleSelector: ElementStyleSelector
+  currentStylePseudoClass: ElementStylePseudoClass
   elementDomainService: IElementDomainService
   elementRepository: IElementRepository
   // Moved from element model to decouple renderer
@@ -85,7 +85,7 @@ export interface IElementService
     rootElement: IElementModel
   }
   move(context: IMoveElementContext): Promise<void>
-  setCurrentStyleSelector(selector: ElementStyleSelector): void
+  setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
   styleStringWithBreakpoints(element: IElementModel): string
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>

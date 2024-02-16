@@ -11,11 +11,11 @@ export const useStyle = () => {
     [key: string]: string
   }>()
 
-  const selector = elementService.currentStyleSelector
+  const currentStylePseudoClass = elementService.currentStylePseudoClass
 
   useEffect(() => {
     loadCurrentStyles()
-  }, [elementService.currentStyleSelector])
+  }, [elementService.currentStylePseudoClass])
 
   const loadCurrentStyles = () => {
     if (
@@ -23,7 +23,9 @@ export const useStyle = () => {
       isElementRef(builderService.selectedNode)
     ) {
       const newStyles = JSON.parse(
-        builderService.selectedNode.current.style.guiCss(selector) || '{}',
+        builderService.selectedNode.current.style.guiCss(
+          currentStylePseudoClass,
+        ) || '{}',
       )
 
       setCurrentStyles(newStyles)
@@ -54,7 +56,9 @@ export const useStyle = () => {
 
     setCurrentStyles(updatedStyles)
 
-    selectedNode.current.style.appendToGuiCss(selector, { [key]: value })
+    selectedNode.current.style.appendToGuiCss(currentStylePseudoClass, {
+      [key]: value,
+    })
 
     console.log(selectedNode.current.style.styleParsed)
   }
@@ -81,7 +85,10 @@ export const useStyle = () => {
       return
     }
 
-    selectedNode.current.style.deleteFromGuiCss(selector, properties)
+    selectedNode.current.style.deleteFromGuiCss(
+      currentStylePseudoClass,
+      properties,
+    )
 
     loadCurrentStyles()
   }

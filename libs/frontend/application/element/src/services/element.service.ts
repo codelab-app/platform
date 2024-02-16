@@ -16,7 +16,7 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
   elementRef,
-  ElementStyleSelector,
+  ElementStylePseudoClass,
   getBuilderDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
@@ -66,7 +66,9 @@ export class ElementService
   extends Model({
     cloneElementService: prop(() => new CloneElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
-    currentStyleSelector: prop(() => ElementStyleSelector.None).withSetter(),
+    currentStylePseudoClass: prop(
+      () => ElementStylePseudoClass.None,
+    ).withSetter(),
     // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
     elementDomainService: prop(() => new ElementDomainService({})),
@@ -382,16 +384,18 @@ export class ElementService
           `@container root (min-width: ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
             ${jsonStringToCss(
-              breakpointStyle.guiString?.[ElementStyleSelector.None] ?? '{}',
+              breakpointStyle.guiString?.[ElementStylePseudoClass.None] ?? '{}',
             )}
             &:hover {
               ${jsonStringToCss(
-                breakpointStyle.guiString?.[ElementStyleSelector.Hover] ?? '{}',
+                breakpointStyle.guiString?.[ElementStylePseudoClass.Hover] ??
+                  '{}',
               )}
             }
             &:focus {
               ${jsonStringToCss(
-                breakpointStyle.guiString?.[ElementStyleSelector.Focus] ?? '{}',
+                breakpointStyle.guiString?.[ElementStylePseudoClass.Focus] ??
+                  '{}',
               )}
             }
 

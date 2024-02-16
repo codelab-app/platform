@@ -5,7 +5,7 @@ import type {
 import {
   BuilderWidthBreakPoint,
   CssMap,
-  ElementStyleSelector,
+  ElementStylePseudoClass,
   getBuilderDomainService,
   IElementStyle,
 } from '@codelab/frontend/abstract/domain'
@@ -42,11 +42,11 @@ export class ElementStyle
 
   @computed
   get guiCss() {
-    return (selector: ElementStyleSelector) => {
+    return (pseudoClass: ElementStylePseudoClass) => {
       const breakpoint = this.builderService.selectedBuilderBreakpoint
       const { guiString } = this.styleParsed[breakpoint] ?? {}
 
-      return guiString?.[selector] ?? '{}'
+      return guiString?.[pseudoClass] ?? '{}'
     }
   }
 
@@ -82,10 +82,10 @@ export class ElementStyle
   }
 
   @modelAction
-  appendToGuiCss(selector: ElementStyleSelector, css: CssMap) {
+  appendToGuiCss(pseudoClass: ElementStylePseudoClass, css: CssMap) {
     const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss(selector) || '{}')
+    const curGuiCss = JSON.parse(this.guiCss(pseudoClass) || '{}')
     const newGuiCss = { ...curGuiCss, ...css }
     const guiString = JSON.stringify(newGuiCss)
 
@@ -93,17 +93,20 @@ export class ElementStyle
       ...styleObject[breakpoint],
       guiString: {
         ...styleObject[breakpoint]?.guiString,
-        [selector]: guiString,
+        [pseudoClass]: guiString,
       },
     }
     this.style = JSON.stringify(styleObject)
   }
 
   @modelAction
-  deleteFromGuiCss(selector: ElementStyleSelector, propNames: Array<string>) {
+  deleteFromGuiCss(
+    pseudoClass: ElementStylePseudoClass,
+    propNames: Array<string>,
+  ) {
     const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss(selector) || '{}')
+    const curGuiCss = JSON.parse(this.guiCss(pseudoClass) || '{}')
 
     propNames.forEach((propName) => {
       if (curGuiCss[propName]) {
@@ -118,7 +121,7 @@ export class ElementStyle
       ...styleObject[breakpoint],
       guiString: {
         ...styleObject[breakpoint]?.guiString,
-        [selector]: guiString,
+        [pseudoClass]: guiString,
       },
     }
     this.style = JSON.stringify(styleObject)

@@ -2,7 +2,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { BuilderWidthBreakPoint } from '../builder'
 import type { CssMap } from './element.model.interface'
 
-export enum ElementStyleSelector {
+export enum ElementStylePseudoClass {
   None = 'none',
   Hover = 'hover',
   Focus = 'focus',
@@ -10,7 +10,7 @@ export enum ElementStyleSelector {
 
 export interface IBreakpointStyle {
   cssString?: string
-  guiString?: { [key in ElementStyleSelector]?: string }
+  guiString?: { [key in ElementStylePseudoClass]?: string }
 }
 
 export type IElementStyle = Record<
@@ -42,11 +42,11 @@ export interface IElementStyleModel {
     inheritedStyles: ElementCssRules
   }
 
-  appendToGuiCss(selector: ElementStyleSelector, css: CssMap): void
+  appendToGuiCss(selector: ElementStylePseudoClass, css: CssMap): void
   deleteFromGuiCss(
-    selector: ElementStyleSelector,
+    selector: ElementStylePseudoClass,
     propNames: Array<string>,
   ): void
-  guiCss(selector: ElementStyleSelector): Nullable<string>
+  guiCss(selector: ElementStylePseudoClass): Nullable<string>
   setCustomCss(css: string): void
 }
