@@ -7,7 +7,7 @@ steps:
   #       - nx-cache
   - run:
       name: 'Reset NX Cache'
-      command: nx reset
+      command: npx nx reset
   - run:
       name: 'Monitor NX Cache Size'
       command: ./scripts/nx/reset-cache.sh

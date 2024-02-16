@@ -3,7 +3,7 @@ commands:
     description: Build Repo
     steps:
       - run:
-          command: nx reset
+          command: npx nx reset
           name: Reset NX Cache
       - run:
           command: ./scripts/nx/reset-cache.sh
