@@ -26,15 +26,8 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Model): Promise<ModelData> {
-    let result
-
-    try {
-      const results = await this._addMany([data])
-
-      result = results[0]
-    } catch (error) {
-      console.log(data)
-    }
+    const results = await this._addMany([data])
+    const result = results[0]
 
     if (!result) {
       throw new Error('Add failed')

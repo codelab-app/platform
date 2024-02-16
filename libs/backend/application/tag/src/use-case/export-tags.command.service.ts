@@ -27,9 +27,10 @@ export class ExportTagsHandler
           where,
         })
       )
-        // Sort children values
-        .map((tag) => ({
+        // We don't need owner for now
+        .map(({ owner, ...tag }) => ({
           ...tag,
+          // Sort children values
           children: tag.children.sort((a, b) => a.name.localeCompare(b.name)),
         }))
     )
