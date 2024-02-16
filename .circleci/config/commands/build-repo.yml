@@ -1,13 +1,13 @@
 description: 'Build Repo'
 steps:
-  # - restore_cache:
-  #     name: 'Restore NX Cache'
-  #     keys:
-  #       - nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
-  #       - nx-cache
-  - run:
-      name: 'Reset NX Cache'
-      command: npx nx reset
+  - restore_cache:
+      name: 'Restore NX Cache'
+      keys:
+        - nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
+        - nx-cache
+  # - run:
+  #     name: 'Reset NX Cache'
+  #     command: npx nx reset
   - run:
       name: 'Monitor NX Cache Size'
       command: ./scripts/nx/reset-cache.sh
