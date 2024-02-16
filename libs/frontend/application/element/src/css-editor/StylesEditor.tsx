@@ -50,8 +50,8 @@ export const StylesEditor = observer(() => {
         onSelect={(value) => elementService.setCurrentStyleSelector(value)}
         options={[
           { label: 'None', value: ElementStyleSelector.None },
-          { label: 'Focused', value: ElementStyleSelector.Hover },
-          { label: 'Hover', value: ElementStyleSelector.Focus },
+          { label: 'Hover', value: ElementStyleSelector.Hover },
+          { label: 'Focused', value: ElementStyleSelector.Focus },
         ]}
         value={elementService.currentStyleSelector}
       />

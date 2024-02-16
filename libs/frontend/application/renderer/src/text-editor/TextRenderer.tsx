@@ -1,11 +1,5 @@
-// import Output from 'editorjs-react-renderer'
-import dynamic from 'next/dynamic'
+import Output from 'editorjs-react-renderer'
 import React, { memo, useMemo } from 'react'
-
-const Output = dynamic(
-  async () => (await import('editorjs-react-renderer')).default,
-  { ssr: false },
-)
 
 interface Props {
   data?: string

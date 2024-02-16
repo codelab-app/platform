@@ -366,7 +366,6 @@ export class ElementService
       rendererType === RendererType.Production ||
       rendererType === RendererType.Preview
 
-    const mediaQueryString = isProduction ? '@media' : '@container root'
     const breakpointStyles = []
 
     for (const breakpoint of element.style.breakpointsByPrecedence) {
@@ -380,7 +379,7 @@ export class ElementService
 
       if (breakpointStyle) {
         breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
+          `@container root (min-width: ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
             ${jsonStringToCss(
               breakpointStyle.guiString?.[ElementStyleSelector.None] ?? '{}',
