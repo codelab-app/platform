@@ -380,7 +380,7 @@ jobs:
           path: ./tmp/reports/test-unit
 orbs:
   node: circleci/node@5.1.0
-  nx: nrwl/nx@1.6.1
+  nx: nrwl/nx@1.6.2
   queue: eddiewebb/queue@2.2.1
   slack: circleci/slack@4.12.5
   swissknife: roopakv/swissknife@0.69.0
