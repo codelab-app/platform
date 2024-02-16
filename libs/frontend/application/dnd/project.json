@@ -3,21 +3,11 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/application/dnd/src",
   "projectType": "library",
-  "tags": [
-    "scope:frontend",
-    "type:concrete",
-    "scope:frontend",
-    "layer:application"
-  ],
+  "tags": ["scope:frontend", "type:concrete", "layer:application"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/dnd/**/*.{ts,tsx,js,jsx}"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",

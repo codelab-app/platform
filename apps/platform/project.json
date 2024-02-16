@@ -58,10 +58,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/platform/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",

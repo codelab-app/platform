@@ -55,10 +55,6 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/websites/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",
