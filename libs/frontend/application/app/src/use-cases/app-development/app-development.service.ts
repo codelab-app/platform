@@ -141,8 +141,6 @@ export class AppDevelopmentService
       'fields' in type ? type.fields : [],
     )
 
-    const redirects = data.redirects
-
     return {
       actions,
       app,
