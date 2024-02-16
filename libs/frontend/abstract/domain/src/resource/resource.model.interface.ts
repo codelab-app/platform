@@ -5,7 +5,7 @@ import type {
 import type {
   IResource,
   IResourceClient,
-  IResourceDTO,
+  IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import type { IPropModel } from '../prop'
@@ -17,7 +17,7 @@ export interface IResourceModel
       IModel<ResourceCreateInput, ResourceUpdateInput, void, IResource>,
       'toDeleteInput'
     >,
-    ICacheService<IResourceDTO, IResourceModel> {
+    ICacheService<IResourceDto, IResourceModel> {
   client: IResourceClient
   config: IPropModel
   name: string

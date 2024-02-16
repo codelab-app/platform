@@ -5,14 +5,13 @@ import type {
 import {
   BuilderWidthBreakPoint,
   CssMap,
-  defaultBuilderWidthBreakPoints,
   getBuilderDomainService,
   IElementStyle,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
-import { jsonStringToCss, parseCssStringIntoObject } from './utils'
+import { parseCssStringIntoObject } from './utils'
 
 @model('@codelab/ElementStyle')
 export class ElementStyle

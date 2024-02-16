@@ -1,7 +1,7 @@
 /// <reference types="jest" />
 
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
-import { AppDomainModule, AppRepository } from '@codelab/backend/domain/app'
+import { AppRepository } from '@codelab/backend/domain/app'
 import { PageRepository } from '@codelab/backend/domain/page'
 import {
   AuthDomainModule,
@@ -43,7 +43,12 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
       PageRepository,
       ...(metadata.providers ?? []),
     ],
-  }).compile()
+  })
+    .overrideProvider(AuthDomainService)
+    .useValue({
+      currentUser: userDto,
+    })
+    .compile()
 
   const nestApp = module.createNestApplication()
   const commandBus = module.get<CommandBus>(CommandBus)
@@ -53,17 +58,22 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
   const authService = module.get(AuthDomainService)
   const owner = userDto
 
-  const afterAll = async () => {
-    await neo4jService.driver.close()
-    await nestApp.close()
-  }
-
   const beforeAll = async () => {
+    /**
+     * Need this for the CQRS handler to be loaded
+     *
+     * https://github.com/nestjs/cqrs/issues/119#issuecomment-1181596376
+     */
     await nestApp.init()
     await neo4jService.resetData()
 
-    jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
+    // jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
     await userDomainService.seedUser(owner)
+  }
+
+  const afterAll = async () => {
+    // await neo4jService.driver.close()
+    await nestApp.close()
   }
 
   return {

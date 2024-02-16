@@ -55,9 +55,7 @@ export class WriteAdminDataService {
     }
   }
 
-  private async writeComponentsData(
-    components: IAdminBoundedContext['components'],
-  ) {
+  private async writeComponentsData(components: IAdminAggregate['components']) {
     for (const { api, component, elements, store } of components) {
       // Component name can have spaces, which can cause issues with file names
       const name = component.name.replace(/ /g, '')

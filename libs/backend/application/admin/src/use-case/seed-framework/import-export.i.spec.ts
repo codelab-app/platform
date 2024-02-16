@@ -5,6 +5,7 @@ import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Auth0Module } from '@codelab/backend/infra/adapter/auth0'
+import { Neo4jService } from '@codelab/backend/infra/adapter/neo4j'
 import { IRole } from '@codelab/shared/abstract/core'
 import { Module } from '@nestjs/common'
 import type { TestingModule } from '@nestjs/testing'
@@ -33,6 +34,8 @@ const exportTestPath = path.resolve('./tmp/data/export-v3')
 let adminController: AdminController
 
 describe('Seed, import, & export data', () => {
+  let neo4jService: Neo4jService
+
   beforeAll(async () => {
     fs.rmSync(exportTestPath, { force: true, recursive: true })
 
@@ -45,21 +48,26 @@ describe('Seed, import, & export data', () => {
       ],
       providers: [AdminRepository, SeederDomainService, Auth0ModuleMock],
     })
-      .overrideProvider(AuthDomainService)
-      .useValue({ currentUser })
       .overrideModule(Auth0Module)
       .useModule(Auth0ModuleMock)
+      .overrideProvider(AuthDomainService)
+      .useValue({ currentUser })
       .compile()
 
     await module.init()
 
     adminController = module.get<AdminController>(AdminController)
+    neo4jService = module.get(Neo4jService)
 
     const adminRepository = module.get<AdminRepository>(AdminRepository)
     const seederService = module.get<SeederDomainService>(SeederDomainService)
 
     await adminRepository.resetDatabase(false)
     await seederService.seedUserFromRequest()
+  })
+
+  afterAll(async () => {
+    await neo4jService.driver.close()
   })
 
   it('should import and export Ant Design data without changes', async () => {

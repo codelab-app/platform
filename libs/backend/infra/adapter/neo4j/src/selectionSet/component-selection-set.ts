@@ -1,7 +1,4 @@
-import {
-  elementSelectionSet,
-  exportElementSelectionSet,
-} from './element-selection-set'
+import { exportElementSelectionSet } from './element-selection-set'
 import { propSelectionSet } from './prop-selection-set'
 import { exportStoreSelectionSet } from './store-selection-set'
 import { exportInterfaceTypeWithFieldsSelectionSet } from './type-selection-set'

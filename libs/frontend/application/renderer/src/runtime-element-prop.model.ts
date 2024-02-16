@@ -13,7 +13,6 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   isAtomRef,
-  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import {

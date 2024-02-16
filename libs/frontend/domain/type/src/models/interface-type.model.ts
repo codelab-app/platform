@@ -1,13 +1,9 @@
 import type {
-  IAppModel,
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
-import type {
-  InterfaceTypeCreateInput,
-  InterfaceTypeDeleteInput,
-} from '@codelab/shared/abstract/codegen'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/abstract/codegen'
 import type { IRef } from '@codelab/shared/abstract/core'
 import {
   assertIsTypeKind,
@@ -28,7 +24,6 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { sortFieldsArray } from '../shared'
 import { createBaseType } from './base-type.model'
 

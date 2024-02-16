@@ -2,7 +2,7 @@ import type { StoreWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { StoreRepository } from '@codelab/backend/domain/store'
 import type { ApiAction } from '@codelab/shared/abstract/codegen'
-import type { IStoreBoundedContext } from '@codelab/shared/abstract/core'
+import type { IStoreAggregate } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -13,7 +13,7 @@ export class ExportStoreCommand {
 
 @CommandHandler(ExportStoreCommand)
 export class ExportStoreHandler
-  implements ICommandHandler<ExportStoreCommand, IStoreBoundedContext>
+  implements ICommandHandler<ExportStoreCommand, IStoreAggregate>
 {
   constructor(
     private readonly storeRepository: StoreRepository,

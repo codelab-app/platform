@@ -11,7 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 

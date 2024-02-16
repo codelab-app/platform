@@ -1,9 +1,3 @@
-import type {
-  BaseTheme,
-  ExtractThemes,
-  TwindConfig,
-  TwindUserConfig,
-} from '@twind/core'
 import install from '@twind/with-next/app'
 import { useEffect } from 'react'
 

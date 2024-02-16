@@ -1,5 +1,4 @@
 import {
-  baseTypeSchema,
   interfaceTypeSchema,
   ITypeKind,
   primitiveTypeSchema,

@@ -1,12 +1,12 @@
 import type { IResourceDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import { type IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
+import { type IResourceDto, IResourceType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const resourceFactory =
   (resourceDomainService: IResourceDomainService) =>
-  (dto: Partial<IResourceDTO>) => {
-    const resource: IResourceDTO = {
+  (dto: Partial<IResourceDto>) => {
+    const resource: IResourceDto = {
       config: dto.config ?? {
         api: { id: v4() },
         data: JSON.stringify({}),

@@ -1,7 +1,5 @@
 import {
   type ICreateInterfaceTypeDto,
-  type ICreateTypeDto,
-  type IInterfaceTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'

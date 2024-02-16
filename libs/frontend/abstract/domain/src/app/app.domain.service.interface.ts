@@ -1,8 +1,4 @@
-import type {
-  IAppDto,
-  IElementRenderTypeDto,
-  IPropData,
-} from '@codelab/shared/abstract/core'
+import type { IAppDto, IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IHydrateable } from '../shared'

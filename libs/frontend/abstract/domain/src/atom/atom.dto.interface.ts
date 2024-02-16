@@ -1,4 +1,3 @@
-import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { IAtomDto } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'

@@ -1,8 +1,5 @@
 import { AtomDomainService } from '@codelab/backend/domain/atom'
-import {
-  type IElementDto,
-  IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
+import { type IElementDto } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'

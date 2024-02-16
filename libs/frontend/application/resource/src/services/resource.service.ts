@@ -8,12 +8,9 @@ import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/application/shared/store'
-import {
-  Resource,
-  ResourceDomainService,
-} from '@codelab/frontend/domain/resource'
+import { ResourceDomainService } from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
-import type { IPropDto, IResourceDTO } from '@codelab/shared/abstract/core'
+import type { IPropDto, IResourceDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -22,7 +19,6 @@ import {
   model,
   modelAction,
   modelFlow,
-  objectMap,
   prop,
   transaction,
 } from 'mobx-keystone'
@@ -140,7 +136,7 @@ export class ResourceService
   })
 
   @modelAction
-  load(resources: Array<IResourceDTO>) {
+  load(resources: Array<IResourceDto>) {
     resources.forEach((resource) =>
       this.resourceDomainService.hydrate(resource),
     )

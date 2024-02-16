@@ -1,5 +1,5 @@
-import { PageDomainService, PageRepository } from '@codelab/backend/domain/page'
-import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
+import { PageDomainService } from '@codelab/backend/domain/page'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { AppRepository } from '../repository'
 
@@ -11,7 +11,7 @@ export class AppDomainService {
   ) {}
 
   async createApp({ domains, id, name, owner }: IAppDto) {
-    await this.pageDomainService.createSystemPages({ id, name })
+    // await this.pageDomainService.createSystemPages({ id, name })
 
     return this.appRepository.add({
       domains,

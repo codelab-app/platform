@@ -1,11 +1,5 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiNavigationBar } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  useAppQuery,
-  useCurrentComponent,
-  usePageQuery,
-  useUserQuery,
-} from '@codelab/frontend/presentation/container'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'

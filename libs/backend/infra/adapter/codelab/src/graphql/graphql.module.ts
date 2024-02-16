@@ -1,5 +1,4 @@
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,

@@ -1,7 +1,4 @@
-import { gql } from '@apollo/client'
 import { mergeTypeDefs } from '@graphql-tools/merge'
-import { makeExecutableSchema, mergeSchemas } from '@graphql-tools/schema'
-import { print } from 'graphql'
 import { commonSchema } from './common.schema'
 import { actionSchema } from './model/action.schema'
 import { appSchema } from './model/app.schema'

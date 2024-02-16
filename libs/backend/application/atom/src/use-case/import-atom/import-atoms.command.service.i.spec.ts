@@ -1,22 +1,16 @@
 import {
   ImportApiHandler,
   ImportSystemTypesCommand,
-  SeedSystemTypesCommand,
   SeedSystemTypesHandler,
   TypeApplicationModule,
   TypeSeederService,
 } from '@codelab/backend/application/type'
-import type { AppRepository } from '@codelab/backend/domain/app'
-import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule, AtomRepository } from '@codelab/backend/domain/atom'
-import { PageDomainModule, PageRepository } from '@codelab/backend/domain/page'
 import {
   InterfaceType,
   InterfaceTypeRepository,
   TypeDomainModule,
 } from '@codelab/backend/domain/type'
-import type { UserDomainService } from '@codelab/backend/domain/user'
-import { UserRepository } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { CommandBus } from '@nestjs/cqrs'

@@ -4,13 +4,11 @@ import type { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import type { FactoryProvider } from '@nestjs/common'
 import type { GraphQLSchema } from 'graphql'
-import { printSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
 import { PURE_RESOLVER_PROVIDER } from '../resolver'
 import { OGM_RESOLVER_PROVIDER } from '../resolver/ogm-resolver/ogm-resolver.constant'
 import { ogmTypeDefs } from './ogm.type-defs'
-import { pureTypeDefs } from './pure.type-defs'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 
 /**

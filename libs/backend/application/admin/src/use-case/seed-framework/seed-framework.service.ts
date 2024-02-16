@@ -5,7 +5,6 @@ import { UseCase } from '@codelab/backend/application/shared'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
   SeedEmptyApiService,
-  systemTypesData,
   TypeSeederService,
 } from '@codelab/backend/application/type'
 import { withActiveSpan } from '@codelab/backend/infra/adapter/otel'

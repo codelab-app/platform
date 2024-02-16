@@ -6,7 +6,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportStoreCommand {
-  constructor(public storeContext: IStoreBoundedContext) {}
+  constructor(public storeAggregate: IStoreAggregate) {}
 }
 
 @CommandHandler(ImportStoreCommand)
@@ -18,7 +18,7 @@ export class ImportStoreHandler implements ICommandHandler<ImportStoreCommand> {
   ) {}
 
   async execute(command: ImportStoreCommand) {
-    const { api, store } = command.storeContext
+    const { api, store } = command.storeAggregate
 
     await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 

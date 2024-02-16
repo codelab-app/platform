@@ -7,8 +7,8 @@ import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import type {
-  IPageBoundedContext,
-  IStoreBoundedContext,
+  IPageAggregate,
+  IStoreAggregate,
 } from '@codelab/shared/abstract/core'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -20,7 +20,7 @@ export class ExportPageCommand {
 
 @CommandHandler(ExportPageCommand)
 export class ExportPageHandler
-  implements ICommandHandler<ExportPageCommand, Array<IPageBoundedContext>>
+  implements ICommandHandler<ExportPageCommand, Array<IPageAggregate>>
 {
   constructor(
     private readonly pageRepository: PageRepository,
@@ -31,7 +31,7 @@ export class ExportPageHandler
   async execute({ where }: ExportPageCommand) {
     const pages = await this.pageRepository.find({ where })
 
-    const pagesExport: Array<IPageBoundedContext> = await Promise.all(
+    const pagesExport: Array<IPageAggregate> = await Promise.all(
       pages.map(async (page) => {
         const { elements, store } = await this.getPageData(page)
 
@@ -61,7 +61,7 @@ export class ExportPageHandler
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,
-      IStoreBoundedContext
+      IStoreAggregate
     >(new ExportStoreCommand({ id: page.store.id }))
 
     return { elements, store }

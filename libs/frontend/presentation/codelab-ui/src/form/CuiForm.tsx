@@ -1,7 +1,7 @@
 import { StyleProvider } from '@ant-design/cssinjs'
 import Form, { Theme as AntDTheme } from '@rjsf/antd'
 import type { FormProps } from '@rjsf/core'
-import { ThemeProps, withTheme } from '@rjsf/core'
+import { withTheme } from '@rjsf/core'
 import validator from '@rjsf/validator-ajv8'
 import { Button } from 'antd'
 import merge from 'lodash/merge'

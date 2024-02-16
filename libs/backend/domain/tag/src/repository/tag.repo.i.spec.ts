@@ -70,7 +70,7 @@ describe('Tag repository.', () => {
     /**
      * First create 2 tags that aren't connected
      */
-    await tagRepository.add([childTag, parentTag])
+    await tagRepository.addMany([childTag, parentTag])
 
     let savedParentTag = await tagRepository.findOne({ id: parentTag.id })
     let savedChildTag = await tagRepository.findOne({ id: childTag.id })

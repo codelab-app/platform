@@ -86,8 +86,6 @@ export class TagRepository extends AbstractRepository<
     // const parentTagToConnect = parent?.id
     const childrenTagsToConnect = children?.map((child) => child.id)
 
-    // cLog('Existing:', tag, 'Tags to connect', parentTagToConnect)
-
     return (
       await (
         await this.ogmService.Tag

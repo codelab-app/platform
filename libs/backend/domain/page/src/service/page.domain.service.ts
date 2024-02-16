@@ -5,7 +5,6 @@ import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
 import type {
   IAppDto,
   ICreatePageDto,
-  IPageDto,
   IUserDto,
 } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'

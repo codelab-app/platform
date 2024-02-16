@@ -1,8 +1,6 @@
 import {
   interfaceTypeSchema,
-  type ITypeDto,
   ITypeKind,
-  primitiveTypeSchema,
   primitiveTypeSelectionSchema,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

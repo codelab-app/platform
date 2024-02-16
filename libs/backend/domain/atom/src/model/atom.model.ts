@@ -2,7 +2,6 @@ import type {
   IAtom,
   IAtomDto,
   IAtomType,
-  IInterfaceTypeRef,
   IRef,
 } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'

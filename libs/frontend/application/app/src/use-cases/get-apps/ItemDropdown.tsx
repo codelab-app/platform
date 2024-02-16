@@ -7,7 +7,7 @@ import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { IAppBoundedContext } from '@codelab/shared/abstract/core'
+import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -32,7 +32,7 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 const downloadExportedData = async (app: IAppModel) => {
-  const res = await restPlatformClient.get<IAppBoundedContext>(
+  const res = await restPlatformClient.get<IAppAggregate>(
     `app/export?id=${app.id}`,
   )
 
