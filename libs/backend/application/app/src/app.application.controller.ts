@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Request as ExpressRequest } from 'express'
+import { Express, Request as ExpressRequest } from 'express'
 import {
   ExportAppCommand,
   ImportAppCommand,
