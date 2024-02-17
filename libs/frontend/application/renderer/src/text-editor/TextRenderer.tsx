@@ -14,7 +14,14 @@ const TextRenderer = ({ data }: Props) => {
     }
   }, [data])
 
-  return <Output data={parsedData} />
+  return (
+    <Output
+      data={parsedData}
+      // TODO: the renderer adds some margin and text align, which can conflict
+      // with the element's styles. Find out why this happens.
+      style={{ paragraph: { margin: 'initial', textAlign: 'unset' } }}
+    />
+  )
 }
 
 export default memo(TextRenderer)

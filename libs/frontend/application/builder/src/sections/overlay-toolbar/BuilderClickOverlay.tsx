@@ -105,7 +105,9 @@ export const BuilderClickOverlay = observer<{
     <ClickOverlay
       content={content}
       dependencies={[
-        selectedNode.current.style.guiCss,
+        selectedNode.current.style.guiCss(
+          elementService.currentStylePseudoClass,
+        ),
         selectedNode.current.style.customCss,
         selectedNode.current.tailwindClassNames,
         selectedNode.current.props.values,

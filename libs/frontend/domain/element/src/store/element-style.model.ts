@@ -5,14 +5,14 @@ import type {
 import {
   BuilderWidthBreakPoint,
   CssMap,
-  defaultBuilderWidthBreakPoints,
+  ElementStylePseudoClass,
   getBuilderDomainService,
   IElementStyle,
 } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
-import { jsonStringToCss, parseCssStringIntoObject } from './utils'
+import { parseCssStringIntoObject } from './utils'
 
 @model('@codelab/ElementStyle')
 export class ElementStyle
@@ -42,10 +42,12 @@ export class ElementStyle
 
   @computed
   get guiCss() {
-    const breakpoint = this.builderService.selectedBuilderBreakpoint
-    const { guiString } = this.styleParsed[breakpoint] ?? {}
+    return (pseudoClass: ElementStylePseudoClass) => {
+      const breakpoint = this.builderService.selectedBuilderBreakpoint
+      const { guiString } = this.styleParsed[breakpoint] ?? {}
 
-    return guiString
+      return guiString?.[pseudoClass] ?? '{}'
+    }
   }
 
   @computed
@@ -66,36 +68,45 @@ export class ElementStyle
 
       const { cssString, guiString } = parsedStyle[breakpoint] ?? {}
       const cssObject = parseCssStringIntoObject(cssString ?? '')
-      const guiObject = JSON.parse(guiString ?? '{}')
+      const guiObject = JSON.parse(guiString?.none ?? '{}')
 
       inheritedStyles = { ...inheritedStyles, ...cssObject, ...guiObject }
     }
 
     const { cssString, guiString } = parsedStyle[currentBreakpoint] ?? {}
     const cssObject = parseCssStringIntoObject(cssString ?? '')
-    const guiObject = JSON.parse(guiString ?? '{}')
+    const guiObject = JSON.parse(guiString?.none ?? '{}')
     const currentStyles = { ...cssObject, ...guiObject }
 
     return { currentStyles, inheritedStyles }
   }
 
   @modelAction
-  appendToGuiCss(css: CssMap) {
+  appendToGuiCss(pseudoClass: ElementStylePseudoClass, css: CssMap) {
     const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss || '{}')
+    const curGuiCss = JSON.parse(this.guiCss(pseudoClass) || '{}')
     const newGuiCss = { ...curGuiCss, ...css }
     const guiString = JSON.stringify(newGuiCss)
 
-    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
+    styleObject[breakpoint] = {
+      ...styleObject[breakpoint],
+      guiString: {
+        ...styleObject[breakpoint]?.guiString,
+        [pseudoClass]: guiString,
+      },
+    }
     this.style = JSON.stringify(styleObject)
   }
 
   @modelAction
-  deleteFromGuiCss(propNames: Array<string>) {
+  deleteFromGuiCss(
+    pseudoClass: ElementStylePseudoClass,
+    propNames: Array<string>,
+  ) {
     const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
-    const curGuiCss = JSON.parse(this.guiCss || '{}')
+    const curGuiCss = JSON.parse(this.guiCss(pseudoClass) || '{}')
 
     propNames.forEach((propName) => {
       if (curGuiCss[propName]) {
@@ -106,7 +117,13 @@ export class ElementStyle
 
     const guiString = JSON.stringify(curGuiCss)
 
-    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
+    styleObject[breakpoint] = {
+      ...styleObject[breakpoint],
+      guiString: {
+        ...styleObject[breakpoint]?.guiString,
+        [pseudoClass]: guiString,
+      },
+    }
     this.style = JSON.stringify(styleObject)
   }
 

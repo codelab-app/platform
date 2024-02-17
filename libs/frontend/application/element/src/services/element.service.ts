@@ -16,6 +16,7 @@ import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
   elementRef,
+  ElementStylePseudoClass,
   getBuilderDomainService,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
@@ -65,6 +66,9 @@ export class ElementService
   extends Model({
     cloneElementService: prop(() => new CloneElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
+    currentStylePseudoClass: prop(
+      () => ElementStylePseudoClass.None,
+    ).withSetter(),
     // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
     elementDomainService: prop(() => new ElementDomainService({})),
@@ -364,7 +368,6 @@ export class ElementService
       rendererType === RendererType.Production ||
       rendererType === RendererType.Preview
 
-    const mediaQueryString = isProduction ? '@media' : '@container root'
     const breakpointStyles = []
 
     for (const breakpoint of element.style.breakpointsByPrecedence) {
@@ -378,9 +381,25 @@ export class ElementService
 
       if (breakpointStyle) {
         breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
+          `@container root (min-width: ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
+            ${jsonStringToCss(
+              breakpointStyle.guiString?.[ElementStylePseudoClass.None] ?? '{}',
+            )}
+            &:hover {
+              ${jsonStringToCss(
+                breakpointStyle.guiString?.[ElementStylePseudoClass.Hover] ??
+                  '{}',
+              )}
+            }
+            &:focus {
+              ${jsonStringToCss(
+                breakpointStyle.guiString?.[ElementStylePseudoClass.Focus] ??
+                  '{}',
+              )}
+            }
+
+            .ce-inline-toolbar { color: initial; }
           }`,
         )
       }

@@ -1,15 +1,21 @@
 import { isElementRef } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
 export const useStyle = () => {
-  const { builderService } = useStore()
+  const { builderService, elementService } = useStore()
 
   const [currentStyles, setCurrentStyles] = useState<{
     [key: string]: string
   }>()
+
+  const currentStylePseudoClass = elementService.currentStylePseudoClass
+
+  useEffect(() => {
+    loadCurrentStyles()
+  }, [elementService.currentStylePseudoClass])
 
   const loadCurrentStyles = () => {
     if (
@@ -17,7 +23,9 @@ export const useStyle = () => {
       isElementRef(builderService.selectedNode)
     ) {
       const newStyles = JSON.parse(
-        builderService.selectedNode.current.style.guiCss || '{}',
+        builderService.selectedNode.current.style.guiCss(
+          currentStylePseudoClass,
+        ) || '{}',
       )
 
       setCurrentStyles(newStyles)
@@ -48,13 +56,17 @@ export const useStyle = () => {
 
     setCurrentStyles(updatedStyles)
 
-    selectedNode.current.style.appendToGuiCss({ [key]: value })
+    selectedNode.current.style.appendToGuiCss(currentStylePseudoClass, {
+      [key]: value,
+    })
+
+    console.log(selectedNode.current.style.styleParsed)
   }
 
   const resetStyle = (property: CssProperty) => {
-    const { defaultValue } = DefaultCssProperties[property]
+    // const { defaultValue } = DefaultCssProperties[property]
 
-    setStyle(property, defaultValue)
+    removeStyles([property])
   }
 
   const canReset = (property: CssProperty) => {
@@ -73,7 +85,10 @@ export const useStyle = () => {
       return
     }
 
-    selectedNode.current.style.deleteFromGuiCss(properties)
+    selectedNode.current.style.deleteFromGuiCss(
+      currentStylePseudoClass,
+      properties,
+    )
 
     loadCurrentStyles()
   }
