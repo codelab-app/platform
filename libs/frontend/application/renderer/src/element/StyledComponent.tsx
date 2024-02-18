@@ -37,7 +37,7 @@ export const StyledComponent = forwardRef(
         ref={(node: Nullable<HTMLElement>) => {
           componentProps['ref']?.(node)
 
-          if (ref) {
+          if (ref && node instanceof HTMLElement) {
             if (typeof ref === 'function') {
               ref(node)
             } else {
