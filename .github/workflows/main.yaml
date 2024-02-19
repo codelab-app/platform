@@ -19,3 +19,11 @@ jobs:
         with:
           app_name: platform-api
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+  deploy-platform-websites:
+    runs-on: ubuntu-latest
+    steps:
+      - name: platform-websites deployment
+        uses: digitalocean/app_action@v1.1.6
+        with:
+          app_name: platform-websites
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
