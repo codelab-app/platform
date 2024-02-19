@@ -1,4 +1,4 @@
-import type { IUpdatePageData } from '@codelab/frontend/abstract/domain'
+import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -29,7 +29,7 @@ export const UpdatePageForm = observer(
     const pageToUpdate = pageService.updateForm.page
     const closeForm = () => pageService.updateForm.close()
 
-    const onSubmit = (data: IUpdatePageData) => {
+    const onSubmit = (data: IUpdatePageFormData) => {
       void appService.updatePage(data)
       closeForm()
       onSubmitSuccess?.()

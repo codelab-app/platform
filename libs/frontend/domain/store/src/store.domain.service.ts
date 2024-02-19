@@ -2,7 +2,7 @@ import type {
   IStoreDomainService,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
-import { IStoreDTO } from '@codelab/shared/abstract/core'
+import { IStoreDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Store } from './store'
@@ -20,7 +20,7 @@ export class StoreDomainService
   }
 
   @modelAction
-  hydrate(storeDTO: IStoreDTO) {
+  hydrate(storeDTO: IStoreDto) {
     let store = this.stores.get(storeDTO.id)
 
     if (store) {

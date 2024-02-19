@@ -1,12 +1,12 @@
 import type { IPrimitiveTypeModel } from '@codelab/frontend/abstract/domain'
 import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
+import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name, primitiveKind }: IPrimitiveTypeDTO) => {
+const create = ({ id, kind, name, primitiveKind }: IPrimitiveTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.PrimitiveType)
 
   return new PrimitiveType({
@@ -27,7 +27,7 @@ export class PrimitiveType
   public static create = create
 
   @modelAction
-  writeCache(primitiveTypeDTO: Partial<IPrimitiveTypeDTO>) {
+  writeCache(primitiveTypeDTO: Partial<IPrimitiveTypeDto>) {
     super.writeCache(primitiveTypeDTO)
 
     this.primitiveKind = primitiveTypeDTO.primitiveKind ?? this.primitiveKind

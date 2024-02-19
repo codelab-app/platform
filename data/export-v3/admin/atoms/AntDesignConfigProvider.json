@@ -275,50 +275,35 @@
         "fields": [],
         "id": "aca546b6-3200-47c7-a142-61bf75ea48ba",
         "kind": "InterfaceType",
-        "name": "AntDesignConfigProvider Csp API",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignConfigProvider Csp API"
       },
       {
         "__typename": "InterfaceType",
         "fields": [],
         "id": "3bc1a470-3cc4-45e4-bc86-bc11f21b967e",
         "kind": "InterfaceType",
-        "name": "AntDesignConfigProvider Form API",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignConfigProvider Form API"
       },
       {
         "__typename": "InterfaceType",
         "fields": [],
         "id": "1f11c9dd-7e48-4beb-8d59-f54b8d11e0ac",
         "kind": "InterfaceType",
-        "name": "AntDesignConfigProvider Input API",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignConfigProvider Input API"
       },
       {
         "__typename": "InterfaceType",
         "fields": [],
         "id": "816374c1-3cdd-45ef-bb13-c2e84e88df51",
         "kind": "InterfaceType",
-        "name": "AntDesignConfigProvider PageHeader API",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignConfigProvider PageHeader API"
       },
       {
         "__typename": "InterfaceType",
         "fields": [],
         "id": "4b9cb637-d6dc-4a58-ab84-24cfe3c3d106",
         "kind": "InterfaceType",
-        "name": "AntDesignConfigProvider Space API",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignConfigProvider Space API"
       },
       {
         "__typename": "EnumType",
@@ -392,9 +377,6 @@
     "icon": "ConfigProvider",
     "id": "273fca5a-5268-45e6-a1f1-bf27176857cb",
     "name": "AntDesignConfigProvider",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

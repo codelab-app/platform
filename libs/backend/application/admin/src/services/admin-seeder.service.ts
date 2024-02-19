@@ -3,7 +3,7 @@ import {
   ExtractHtmlFieldsService,
 } from '@codelab/backend/application/type'
 import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
 import { Injectable } from '@nestjs/common'
 import { SeedFrameworkService } from '../use-case'
@@ -17,7 +17,7 @@ export class AdminSeederService {
   ) {}
 
   async seedAntDesign() {
-    const fields = async (atoms: Array<IAtomDTO>) =>
+    const fields = async (atoms: Array<IAtomDto>) =>
       this.extractAntDesignFieldService.execute(atoms)
 
     await this.seedFrameworkService.execute({
@@ -28,7 +28,7 @@ export class AdminSeederService {
   }
 
   async seedHtml() {
-    const fields = async (atoms: Array<IAtomDTO>) =>
+    const fields = async (atoms: Array<IAtomDto>) =>
       this.extractHtmlFieldsService.execute(atoms)
 
     await this.seedFrameworkService.execute({

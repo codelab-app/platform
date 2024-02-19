@@ -150,9 +150,6 @@
     "icon": "Result",
     "id": "2e0d5a64-0c59-4e88-90be-3a636b35c5c8",
     "name": "AntDesignResult",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

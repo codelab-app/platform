@@ -2,7 +2,7 @@ import type {
   ITagDomainService,
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -43,7 +43,7 @@ export class TagDomainService
   }
 
   @modelAction
-  hydrate = ({ children, descendants, id, isRoot, name, parent }: ITagDTO) => {
+  hydrate = ({ children, descendants, id, isRoot, name, parent }: ITagDto) => {
     const tag = new Tag({
       children: children?.map((child) => tagRef(child.id)),
       descendants: descendants?.map((child) => tagRef(child.id)),

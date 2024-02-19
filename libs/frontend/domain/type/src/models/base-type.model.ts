@@ -4,7 +4,7 @@ import {
   type ICreateTypeInput,
   type IUpdateTypeVars,
 } from '@codelab/frontend/abstract/domain'
-import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -18,10 +18,10 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       kind: prop<T>(() => typeKind),
       name: prop<string>(),
     })
-    implements IBaseTypeModel<IBaseTypeDTO, ICreateTypeInput, IUpdateTypeVars>
+    implements IBaseTypeModel<IBaseTypeDto, ICreateTypeInput, IUpdateTypeVars>
   {
     @modelAction
-    writeCache({ name }: Partial<IBaseTypeDTO>) {
+    writeCache({ name }: Partial<IBaseTypeDto>) {
       this.name = name ?? this.name
 
       return this

@@ -259,9 +259,6 @@
     "icon": null,
     "id": "2bfc8a8b-2cbb-4946-aee9-51c1e995245b",
     "name": "HtmlImg",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

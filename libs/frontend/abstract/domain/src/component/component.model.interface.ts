@@ -4,7 +4,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IComponent,
-  IComponentDTO,
+  IComponentDto,
   IElementRenderTypeKind,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -17,9 +17,9 @@ import type { IStoreModel } from '../store'
 import type { IInterfaceTypeModel } from '../type'
 
 export interface IComponentModel
-  extends ICacheService<IComponentDTO, IComponentModel>,
+  extends ICacheService<IComponentDto, IComponentModel>,
     IElementTree,
-    Omit<IComponentDTO, 'props' | 'rootElement'>,
+    Omit<IComponentDto, 'props' | 'rootElement'>,
     IModel<ComponentCreateInput, ComponentUpdateInput, void, IComponent> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceTypeModel>
@@ -44,8 +44,8 @@ export interface IComponentModel
 
 export type IComponentRef = string
 
-export const isComponentDTO = (
-  component: Nullish<IComponentDTO>,
-): component is IComponentDTO => {
+export const isComponentDto = (
+  component: Nullish<IComponentDto>,
+): component is IComponentDto => {
   return component !== undefined && component !== null
 }

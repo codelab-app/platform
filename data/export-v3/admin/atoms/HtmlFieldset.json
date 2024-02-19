@@ -75,9 +75,6 @@
     "icon": null,
     "id": "9ae5602b-7d1f-4c7e-9cc3-aa4c241f699f",
     "name": "HtmlFieldset",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

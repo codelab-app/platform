@@ -59,9 +59,6 @@
     "icon": "Card",
     "id": "b07be954-6da1-4ef3-b2fa-ac2bae541a7e",
     "name": "AntDesignCardGrid",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

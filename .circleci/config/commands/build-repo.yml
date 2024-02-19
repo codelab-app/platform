@@ -3,8 +3,11 @@ steps:
   - restore_cache:
       name: 'Restore NX Cache'
       keys:
-        - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+        - nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
         - nx-cache
+  # - run:
+  #     name: 'Reset NX Cache'
+  #     command: npx nx reset
   - run:
       name: 'Monitor NX Cache Size'
       command: ./scripts/nx/reset-cache.sh
@@ -12,10 +15,9 @@ steps:
   - run: npx nx run-many --target=build --projects=platform,platform-api,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
   - save_cache:
       name: 'Save Cache'
-      key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+      key: nx-cache-{{ checksum "node_modules/.nx/cache/lockfile.hash" }}
       paths:
         - ~/project/dist/apps/platform/.next/cache
-        - ~/project/dist/apps/platform-api/.next/cache
         - ~/project/dist/apps/landing/.next/cache
         - ~/project/dist/apps/websites/.next/cache
     # This step needs to be after reset-cache

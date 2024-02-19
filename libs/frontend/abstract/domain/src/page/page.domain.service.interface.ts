@@ -1,6 +1,6 @@
 import type {
   IElementRenderTypeDto,
-  IPageDTO,
+  IPageDto,
 } from '@codelab/shared/abstract/core'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IAppModel } from '../app'
@@ -16,7 +16,7 @@ export interface IPageFactory {
   ): Array<IPageModel>
 }
 
-export interface IPageDomainService extends IHydrateable<IPageDTO, IPageModel> {
+export interface IPageDomainService extends IHydrateable<IPageDto, IPageModel> {
   pageFactory: IPageFactory
   pages: ObjectMap<IPageModel>
   pagesList: Array<IPageModel>

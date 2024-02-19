@@ -27,7 +27,7 @@ import {
   mapElementOption,
 } from '@codelab/frontend/domain/element'
 import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'
 import uniqBy from 'lodash/uniqBy'
@@ -81,7 +81,7 @@ export class ElementService
   implements IElementService
 {
   @modelFlow
-  createElement = _async(function* (this: ElementService, data: IElementDTO) {
+  createElement = _async(function* (this: ElementService, data: IElementDto) {
     const element = this.elementDomainService.addTreeNode(data)
 
     yield* _await(this.elementRepository.add(element))

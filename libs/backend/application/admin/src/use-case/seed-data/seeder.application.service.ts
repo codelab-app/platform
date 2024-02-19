@@ -41,6 +41,8 @@ export class SeederApplicationService {
     }
   }
 
+  async seedTestApp() {}
+
   /**
    * The minimum required data
    */

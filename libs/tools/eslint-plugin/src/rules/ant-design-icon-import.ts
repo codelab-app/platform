@@ -1,5 +1,4 @@
 import { ESLintUtils } from '@typescript-eslint/utils'
-import path from 'path'
 
 export const createESLintRule = ESLintUtils.RuleCreator(() => ``)
 

@@ -109,9 +109,6 @@
     "icon": "Breadcrumb",
     "id": "fa6ddeba-6610-43a7-907c-80c9c5305665",
     "name": "AntDesignBreadcrumbItem",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

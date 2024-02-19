@@ -4,14 +4,14 @@ import type {
   UpdateCodeMirrorTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  ICodeMirrorTypeDTO,
+  ICodeMirrorTypeDto,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 export interface ICodeMirrorTypeModel
   extends IBaseTypeModel<
-    ICodeMirrorTypeDTO,
+    ICodeMirrorTypeDto,
     CodeMirrorTypeCreateInput,
     UpdateCodeMirrorTypesMutationVariables
   > {

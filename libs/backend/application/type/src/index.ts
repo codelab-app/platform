@@ -1,6 +1,6 @@
 export * from './data'
 export * from './mapper'
 export * from './parser'
-export * from './services'
+export * from './service'
 export * from './type.application.module'
 export * from './use-case'

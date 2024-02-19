@@ -2,16 +2,16 @@ import type { IActionDomainService } from '@codelab/frontend/abstract/domain'
 import { propFactory } from '@codelab/frontend/domain/prop'
 import { chance } from '@codelab/frontend/domain/shared'
 import type {
-  IApiActionDTO,
-  ICodeActionDTO,
+  IApiActionDto,
+  ICodeActionDto,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const codeActionFactory =
   (actionDomainService: IActionDomainService) =>
-  (dto: Partial<ICodeActionDTO>) => {
-    const action: ICodeActionDTO = {
+  (dto: Partial<ICodeActionDto>) => {
+    const action: ICodeActionDto = {
       __typename: IActionKind.CodeAction,
       code: dto.code ?? 'function run(){}',
       id: dto.id ?? v4(),
@@ -24,8 +24,8 @@ export const codeActionFactory =
 
 export const apiActionFactory =
   (actionDomainService: IActionDomainService) =>
-  (dto: Partial<IApiActionDTO>) => {
-    const action: IApiActionDTO = {
+  (dto: Partial<IApiActionDto>) => {
+    const action: IApiActionDto = {
       __typename: IActionKind.ApiAction,
       config: propFactory(dto.config).toJson,
       errorAction: dto.errorAction,

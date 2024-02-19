@@ -26,9 +26,6 @@
     "icon": null,
     "id": "10567f68-be24-4bb4-9e64-1be3108c301b",
     "name": "HtmlKbd",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

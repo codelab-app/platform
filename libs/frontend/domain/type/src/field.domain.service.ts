@@ -2,7 +2,7 @@ import type {
   IFieldDomainService,
   IFieldModel,
 } from '@codelab/frontend/abstract/domain'
-import { IFieldDTO } from '@codelab/shared/abstract/core'
+import { IFieldDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Field } from './models'
 
@@ -14,7 +14,7 @@ export class FieldDomainService
   implements IFieldDomainService
 {
   @modelAction
-  hydrate(fieldDTO: IFieldDTO) {
+  hydrate(fieldDTO: IFieldDto) {
     const existingField = this.fields.get(fieldDTO.id)
 
     if (existingField) {

@@ -304,10 +304,7 @@
         ],
         "id": "c83e828d-c476-4921-84b4-014147462750",
         "kind": "InterfaceType",
-        "name": "AntDesignSteps Item",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignSteps Item"
       },
       {
         "__typename": "ArrayType",
@@ -352,9 +349,6 @@
     "icon": "Steps",
     "id": "b483b120-c425-4230-add0-187ab337ecdb",
     "name": "AntDesignSteps",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

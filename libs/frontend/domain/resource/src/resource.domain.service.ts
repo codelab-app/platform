@@ -2,18 +2,8 @@ import type {
   IResourceDomainService,
   IResourceModel,
 } from '@codelab/frontend/abstract/domain'
-import { IResourceDTO } from '@codelab/shared/abstract/core'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelAction,
-  modelFlow,
-  objectMap,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { IResourceDto } from '@codelab/shared/abstract/core'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Resource } from './store'
 
 @model('@codelab/ResourceDomainService')
@@ -24,7 +14,7 @@ export class ResourceDomainService
   implements IResourceDomainService
 {
   @modelAction
-  hydrate({ config, id, name, type }: IResourceDTO) {
+  hydrate({ config, id, name, type }: IResourceDto) {
     let resource = this.resources.get(id)
 
     if (resource) {

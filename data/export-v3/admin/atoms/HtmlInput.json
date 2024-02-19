@@ -582,9 +582,6 @@
     "icon": null,
     "id": "21813e35-eb46-489c-9f27-8742ec170b0f",
     "name": "HtmlInput",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

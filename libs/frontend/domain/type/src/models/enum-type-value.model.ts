@@ -1,8 +1,8 @@
 import type { IEnumTypeValue } from '@codelab/frontend/abstract/domain'
-import type { IEnumTypeValueDTO } from '@codelab/shared/abstract/core'
+import type { IEnumTypeValueDto } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
-const create = (fragment: IEnumTypeValueDTO) =>
+const create = (fragment: IEnumTypeValueDto) =>
   new EnumTypeValue({
     ...fragment,
     key: fragment.key,

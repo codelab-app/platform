@@ -29,7 +29,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'
@@ -55,7 +55,7 @@ import { validateElement } from '../services/element.validate'
 import { getRenderType } from './element-render-type.field'
 import { ElementStyle } from './element-style.model'
 
-const create = (element: IElementDTO): IElementModel => {
+const create = (element: IElementDto): IElementModel => {
   const {
     childMapperComponent,
     childMapperPreviousSibling,
@@ -732,7 +732,7 @@ export class Element
     renderIfExpression,
     renderType,
     style,
-  }: Partial<IElementDTO>) {
+  }: Partial<IElementDto>) {
     this.name = name ?? this.name
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null

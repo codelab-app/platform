@@ -2,7 +2,7 @@ import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import { SelectAtom } from '@codelab/frontend/application/atom'
 import { SelectComponent } from '@codelab/frontend/application/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 import type { GuaranteedProps } from 'uniforms'
@@ -13,7 +13,7 @@ const RenderTypeFields = ({
   error,
   onChange,
   parentAtom,
-}: GuaranteedProps<Partial<IElementDTO['renderType']>> & {
+}: GuaranteedProps<Partial<IElementDto['renderType']>> & {
   parentAtom?: IAtomModel
 }) => {
   return (
@@ -26,7 +26,6 @@ const RenderTypeFields = ({
           // when the type changes, the selected atom or component has to be
           // removed since they share the same field name `renderType.id`
           if (value) {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             onChange({ __typename: value })
           }
         }}
@@ -42,7 +41,7 @@ const RenderTypeFields = ({
         ]}
         required={false}
       />
-      <DisplayIfField<IElementDTO>
+      <DisplayIfField<IElementDto>
         condition={(context) =>
           context.model.renderType?.__typename === IElementRenderTypeKind.Atom
         }
@@ -53,7 +52,7 @@ const RenderTypeFields = ({
          */}
         <SelectAtom error={error} label="Atom" name="id" parent={parentAtom} />
       </DisplayIfField>
-      <DisplayIfField<IElementDTO>
+      <DisplayIfField<IElementDto>
         condition={(context) =>
           context.model.renderType?.__typename ===
           IElementRenderTypeKind.Component

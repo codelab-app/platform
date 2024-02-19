@@ -1,10 +1,10 @@
-import type { IComponentDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 
-export type ICreateComponentData = Pick<IComponentDTO, 'id' | 'name'> & {
+export type ICreateComponentData = Pick<IComponentDto, 'id' | 'name'> & {
   rootElement?: IRef
 }
 
 export type IUpdateComponentData = Pick<
-  IComponentDTO,
+  IComponentDto,
   'childrenContainerElement' | 'id' | 'name'
 >

@@ -3,7 +3,7 @@ import type {
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { typeRef } from '@codelab/frontend/abstract/domain'
-import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
@@ -12,7 +12,7 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, itemType, kind, name }: IArrayTypeDTO): ArrayType => {
+const create = ({ id, itemType, kind, name }: IArrayTypeDto): ArrayType => {
   assertIsTypeKind(kind, ITypeKind.ArrayType)
 
   return new ArrayType({
@@ -33,7 +33,7 @@ export class ArrayType
   static create = create
 
   @modelAction
-  writeCache(arrayTypeDTO: Partial<IArrayTypeDTO>) {
+  writeCache(arrayTypeDTO: Partial<IArrayTypeDto>) {
     super.writeCache(arrayTypeDTO)
 
     this.itemType = arrayTypeDTO.itemType

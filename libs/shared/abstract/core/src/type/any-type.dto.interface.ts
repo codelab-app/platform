@@ -1,23 +1,23 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IDiscriminatedRef } from '../model/node-type.interface'
-import { ITypeKind } from '../type-kind.enum'
-import { IBaseTypeDTO } from './base-type.dto.interface'
+import { IBaseTypeDto } from './base-type.dto.interface'
+import { ITypeKind } from './type-kind.enum'
 
 export const IAnyBaseType = Type.Union([
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.ActionType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.AppType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.ArrayType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.CodeMirrorType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.ElementType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.EnumType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.InterfaceType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.LambdaType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.PageType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.PrimitiveType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.ReactNodeType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.RenderPropType}`)),
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.UnionType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.ActionType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.AppType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.ArrayType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.CodeMirrorType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.ElementType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.EnumType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.InterfaceType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.LambdaType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.PageType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.PrimitiveType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.ReactNodeType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.RenderPropType}`)),
+  IBaseTypeDto(Type.Literal(`${ITypeKind.UnionType}`)),
 ])
 
 export type IAnyBaseType = Static<typeof IAnyBaseType>

@@ -2,7 +2,7 @@ import type {
   ActionTypeCreateInput,
   UpdateActionTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import type { IActionTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IActionTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**
@@ -10,7 +10,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IActionTypeModel
   extends IBaseTypeModel<
-    IActionTypeDTO,
+    IActionTypeDto,
     ActionTypeCreateInput,
     UpdateActionTypesMutationVariables
   > {

@@ -61,9 +61,6 @@
     "icon": null,
     "id": "31bb6cd5-7280-4e18-9fe7-0a446addf984",
     "name": "HtmlBdo",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

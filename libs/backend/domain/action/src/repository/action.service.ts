@@ -1,5 +1,5 @@
 import { PropRepository } from '@codelab/backend/domain/prop'
-import type { IActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { ApiAction } from '../model/api-action.model'
@@ -15,7 +15,7 @@ export class ActionService {
     private readonly propRepository: PropRepository,
   ) {}
 
-  async save(action: IActionDTO) {
+  async save(action: IActionDto) {
     switch (action.__typename) {
       case IActionKind.ApiAction: {
         const apiAction = new ApiAction(action)

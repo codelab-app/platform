@@ -1,7 +1,4 @@
-import {
-  exportStoreSelectionSet,
-  storeSelectionSet,
-} from './store-selection-set'
+import { exportStoreSelectionSet } from './store-selection-set'
 
 export const basePageSelectionSet = `
   app {

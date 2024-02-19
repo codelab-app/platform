@@ -1,6 +1,6 @@
 import { CurrentUser } from '@codelab/backend/application/shared'
 import { UserRepository } from '@codelab/backend/domain/user'
-import { IUserDTO } from '@codelab/shared/abstract/core'
+import { IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Post } from '@nestjs/common'
 
 @Controller('data/user')
@@ -13,7 +13,7 @@ export class UserApplicationController {
    * @returns
    */
   @Post('save')
-  async save(@CurrentUser() userDto: IUserDTO) {
+  async save(@CurrentUser() userDto: IUserDto) {
     const user = await this.userRepository.save(userDto, {
       auth0Id: userDto.auth0Id,
     })

@@ -1,4 +1,4 @@
-import type { IUpdateTypeData } from '@codelab/frontend/abstract/domain'
+import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import {
   hideField,
   idSchema,
@@ -14,7 +14,7 @@ import type { JSONSchemaType } from 'ajv'
 import { TypeSelect } from '../TypeSelect'
 
 export const updateTypeSchema: JSONSchemaType<
-  Omit<IUpdateTypeData, 'defaultValue'>
+  Omit<IUpdateTypeDto, 'defaultValue'>
 > = {
   properties: {
     allowedValues: {

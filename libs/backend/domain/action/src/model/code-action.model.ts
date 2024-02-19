@@ -1,7 +1,7 @@
-import type { ICodeActionDTO, IRef } from '@codelab/shared/abstract/core'
+import type { ICodeActionDto, IRef } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 
-export class CodeAction implements ICodeActionDTO {
+export class CodeAction implements ICodeActionDto {
   __typename: `${IActionKind.CodeAction}` = `${IActionKind.CodeAction}`
 
   code: string
@@ -12,7 +12,7 @@ export class CodeAction implements ICodeActionDTO {
 
   store: IRef
 
-  constructor({ code, id, name, store }: ICodeActionDTO) {
+  constructor({ code, id, name, store }: ICodeActionDto) {
     this.id = id
     this.name = name
     this.code = code

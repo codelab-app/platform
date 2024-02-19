@@ -42,6 +42,7 @@ describe('PageResolvers', () => {
     neo4jService = module.get(Neo4jService)
     ogmService = module.get(OgmService)
     app = module.createNestApplication()
+
     await app.init()
   })
 

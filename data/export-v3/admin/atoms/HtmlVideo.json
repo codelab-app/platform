@@ -228,9 +228,6 @@
     "icon": null,
     "id": "fd726ef4-3f72-40ec-9793-0cbb381e4ee6",
     "name": "HtmlVideo",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

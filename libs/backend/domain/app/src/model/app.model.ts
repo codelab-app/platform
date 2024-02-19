@@ -3,7 +3,7 @@ import { Domain } from '@codelab/backend/domain/domain'
 import { Page } from '@codelab/backend/domain/page'
 import type {
   IApp,
-  IAppDTO,
+  IAppDto,
   IDomain,
   IPage,
   IRef,
@@ -27,7 +27,7 @@ export class App extends IModel implements IApp {
 
   pages: Array<IPage>
 
-  constructor({ domains = [], id, name, owner, pages = [] }: IAppDTO) {
+  constructor({ domains = [], id, name, owner, pages = [] }: IAppDto) {
     super()
 
     this.id = id

@@ -8,7 +8,7 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { FieldDomainService } from '@codelab/frontend/domain/type'
-import type { IFieldDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
@@ -230,7 +230,7 @@ export class FieldService
     }
   }
 
-  private static mapFieldToDTO(field: IFieldModel): IFieldDTO {
+  private static mapFieldToDTO(field: IFieldModel): IFieldDto {
     return {
       api: { id: field.api.id },
       defaultValues: field.defaultValues

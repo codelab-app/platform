@@ -1,6 +1,6 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
 import type { AtomType } from '@codelab/shared/abstract/codegen'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 
 export const filterAtoms = (
   allAtoms: Array<
@@ -50,7 +50,7 @@ export const filterAtoms = (
 
 export const mapAtomOptions = (
   atom:
-    | IAtomDTO
+    | IAtomDto
     | {
         id: string
         name: string

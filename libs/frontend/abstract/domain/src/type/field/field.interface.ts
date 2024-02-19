@@ -3,7 +3,7 @@ import type {
   FieldDeleteInput,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IFieldDTO } from '@codelab/shared/abstract/core'
+import type { IFieldDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../shared'
@@ -23,7 +23,7 @@ export interface IField<T extends ITypeModel = ITypeModel>
       IModel<FieldCreateInput, FieldUpdateInput, FieldDeleteInput>,
       'toDeleteInput'
     >,
-    ICacheService<IFieldDTO, IField> {
+    ICacheService<IFieldDto, IField> {
   api: Ref<IInterfaceTypeModel>
   defaultValues: Nullish<IFieldDefaultValue>
   description: Nullish<string>

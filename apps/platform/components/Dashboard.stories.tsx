@@ -1,6 +1,5 @@
 import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
 import type { Meta, StoryObj } from '@storybook/react'
-import { Button } from 'antd'
 import React from 'react'
 
 const meta: Meta<typeof DynamicDashboardTemplate> = {

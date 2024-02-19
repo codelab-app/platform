@@ -43,9 +43,6 @@
     "icon": null,
     "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
     "name": "NextLink",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [],

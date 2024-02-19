@@ -4,7 +4,7 @@ import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 import { IPageKind } from './page-kind.enum'
 
-export const IPageDTO = Type.Object({
+export const IPageDto = Type.Object({
   app: IRef,
   id: Type.String(),
   kind: Type.Enum(IPageKind),
@@ -17,13 +17,15 @@ export const IPageDTO = Type.Object({
   url: Type.String(),
 })
 
-export type IPageDTO = Static<typeof IPageDTO>
+export type IPageDto = Static<typeof IPageDto>
 
 export const IPage = Typebox.Overwrite(
-  IPageDTO,
+  IPageDto,
   Type.Object({
     slug: Type.String(),
   }),
 )
 
 export type IPage = Static<typeof IPage>
+
+export type ICreatePageDto = Omit<IPageDto, 'rootElement' | 'store'>

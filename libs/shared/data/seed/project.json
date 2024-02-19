@@ -14,12 +14,13 @@
         }
       },
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/shared-data-seed.xml",
+          "quiet": true
+        }
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

@@ -4,11 +4,11 @@ import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
-import type { IAppBoundedContext } from '@codelab/shared/abstract/core'
+import type { IAppAggregate } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
-  constructor(public readonly appContext: IAppBoundedContext) {}
+  constructor(public readonly appAggregate: IAppAggregate) {}
 }
 
 @CommandHandler(ImportAppCommand)
@@ -22,7 +22,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
   ) {}
 
   async execute(command: ImportAppCommand) {
-    const { app, components, pages, resources } = command.appContext
+    const { app, components, pages, resources } = command.appAggregate
 
     await this.appRepository.save(app)
 

@@ -91,9 +91,6 @@
     "icon": null,
     "id": "f8102a58-59c7-4857-9551-363de8a5c933",
     "name": "HtmlMeta",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

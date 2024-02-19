@@ -2,7 +2,7 @@ import type {
   IComponentDomainService,
   IComponentModel,
 } from '@codelab/frontend/abstract/domain'
-import { IComponentDTO } from '@codelab/shared/abstract/core'
+import { IComponentDto } from '@codelab/shared/abstract/core'
 import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -42,7 +42,7 @@ export class ComponentDomainService
   }
 
   @modelAction
-  hydrate(componentDTO: IComponentDTO) {
+  hydrate(componentDTO: IComponentDto) {
     let component = this.components.get(componentDTO.id)
 
     if (component) {

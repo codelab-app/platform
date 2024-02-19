@@ -3,12 +3,12 @@ import { ImportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropRepository } from '@codelab/backend/domain/prop'
-import type { IComponentBoundedContext } from '@codelab/shared/abstract/core'
+import type { IComponentAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(public readonly componentContext: IComponentBoundedContext) {}
+  constructor(public readonly componentAggregate: IComponentAggregate) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -23,7 +23,7 @@ export class ImportComponentsHandler
   ) {}
 
   async execute(command: ImportComponentsCommand) {
-    const { api, component, elements, store } = command.componentContext
+    const { api, component, elements, store } = command.componentAggregate
 
     await this.propRepository.save(component.props)
 

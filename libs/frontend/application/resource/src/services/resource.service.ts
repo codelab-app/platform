@@ -10,7 +10,7 @@ import {
 } from '@codelab/frontend/application/shared/store'
 import { ResourceDomainService } from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
-import type { IPropDTO, IResourceDTO } from '@codelab/shared/abstract/core'
+import type { IPropDto, IResourceDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -51,7 +51,7 @@ export class ResourceService
     this: ResourceService,
     { config: configData, id, name, type }: ICreateResourceData,
   ) {
-    const configProps: IPropDTO = {
+    const configProps: IPropDto = {
       data: JSON.stringify(configData),
       id: v4(),
     }
@@ -136,7 +136,7 @@ export class ResourceService
   })
 
   @modelAction
-  load(resources: Array<IResourceDTO>) {
+  load(resources: Array<IResourceDto>) {
     resources.forEach((resource) =>
       this.resourceDomainService.hydrate(resource),
     )

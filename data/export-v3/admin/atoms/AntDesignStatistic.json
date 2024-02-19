@@ -26,9 +26,6 @@
     "icon": "Statistic",
     "id": "2d95149c-6c51-4870-a209-97672e56ed21",
     "name": "AntDesignStatistic",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

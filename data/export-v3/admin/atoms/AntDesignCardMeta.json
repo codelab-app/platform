@@ -91,9 +91,6 @@
     "icon": "Card",
     "id": "c74b6e84-7886-4655-84d4-86db56ef6f37",
     "name": "AntDesignCardMeta",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

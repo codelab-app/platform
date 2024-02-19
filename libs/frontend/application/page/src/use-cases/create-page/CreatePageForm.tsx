@@ -1,4 +1,4 @@
-import type { ICreatePageData } from '@codelab/frontend/abstract/domain'
+import type { ICreatePageFormData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
@@ -41,7 +41,7 @@ export const CreatePageForm = observer(
 
     const closeForm = () => pageService.createForm.close()
 
-    const onSubmit = async (data: ICreatePageData) => {
+    const onSubmit = async (data: ICreatePageFormData) => {
       await pageService.create(data)
       closeForm()
       onSubmitSuccess?.()
@@ -50,7 +50,7 @@ export const CreatePageForm = observer(
     }
 
     return (
-      <Form<ICreatePageData>
+      <Form<ICreatePageFormData>
         data-testid="create-page-form"
         model={model}
         onSubmit={onSubmit}

@@ -59,9 +59,6 @@
     "icon": "Descriptions",
     "id": "2457b030-e43e-462e-b174-ef005f549733",
     "name": "AntDesignDescriptionsItem",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

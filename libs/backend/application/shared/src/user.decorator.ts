@@ -1,5 +1,5 @@
 import { User } from '@codelab/backend/domain/user'
-import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDto } from '@codelab/shared/abstract/core'
 import type { ExecutionContext } from '@nestjs/common'
 import { createParamDecorator } from '@nestjs/common'
 import { GqlExecutionContext } from '@nestjs/graphql'
@@ -7,7 +7,7 @@ import { GqlExecutionContext } from '@nestjs/graphql'
 export const CurrentUser = createParamDecorator<
   unknown,
   ExecutionContext,
-  IUserDTO
+  IUserDto
 >((data: unknown, ctx: ExecutionContext) => {
   const gqlContext = GqlExecutionContext.create(ctx)
 

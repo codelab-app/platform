@@ -40,7 +40,9 @@ export class ExportUserDataHandler
      * Get all apps of user
      */
     const user = await this.userRepository.findOne({
-      id: this.authService.currentUser.id,
+      where: {
+        id: this.authService.currentUser.id,
+      },
     })
 
     const appIds = user?.apps.map((app) => app.id)

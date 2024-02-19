@@ -2,7 +2,7 @@ import type {
   ArrayTypeCreateInput,
   UpdateArrayTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import type { IArrayTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { IBaseTypeModel, ITypeModel } from './base-type.model.interface'
 
@@ -13,7 +13,7 @@ import type { IBaseTypeModel, ITypeModel } from './base-type.model.interface'
  */
 export interface IArrayTypeModel
   extends IBaseTypeModel<
-    IArrayTypeDTO,
+    IArrayTypeDto,
     ArrayTypeCreateInput,
     UpdateArrayTypesMutationVariables
   > {

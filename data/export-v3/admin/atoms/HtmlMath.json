@@ -77,9 +77,6 @@
     "icon": null,
     "id": "5f80e0f2-063a-4bb5-ab72-7c67c902fbbc",
     "name": "HtmlMath",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

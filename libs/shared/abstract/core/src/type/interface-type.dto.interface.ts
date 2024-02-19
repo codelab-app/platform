@@ -3,26 +3,31 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IField } from '../field/field.dto.interface'
 import { IDiscriminatedRef, IRef } from '../model/node-type.interface'
-import { ITypeKind } from '../type-kind.enum'
-import { IBaseTypeDTO } from './base-type.dto.interface'
+import { IBaseTypeDto } from './base-type.dto.interface'
+import { ITypeKind } from './type-kind.enum'
 
-export const IInterfaceTypeDTO = Type.Composite([
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.InterfaceType}`)),
+export const IInterfaceTypeDto = Type.Composite([
+  IBaseTypeDto(Type.Literal(`${ITypeKind.InterfaceType}`)),
   Type.Object({
     fields: Type.Array(IRef),
   }),
 ])
 
-export type IInterfaceTypeDTO = Static<typeof IInterfaceTypeDTO>
+export type IInterfaceTypeDto = Static<typeof IInterfaceTypeDto>
 
 export const IInterfaceType = Typebox.Overwrite(
-  IInterfaceTypeDTO,
+  IInterfaceTypeDto,
   Type.Object({
     fields: Type.Array(IField),
   }),
 )
 
 export type IInterfaceType = Static<typeof IInterfaceType>
+
+export interface ICreateInterfaceTypeDto {
+  id: string
+  name: string
+}
 
 /**
  * Entity

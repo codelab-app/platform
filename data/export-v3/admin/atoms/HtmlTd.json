@@ -75,9 +75,6 @@
     "icon": null,
     "id": "4f1edcad-ece4-4d0a-b8e8-c516d685a189",
     "name": "HtmlTd",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

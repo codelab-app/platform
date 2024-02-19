@@ -20,20 +20,20 @@ import {
   renderPropsTypeFactory,
 } from '@codelab/frontend/domain/type'
 import type {
-  IApiActionDTO,
-  IAppDTO,
-  IAtomDTO,
-  ICodeActionDTO,
-  IComponentDTO,
-  IElementDTO,
-  IFieldDTO,
-  IInterfaceTypeDTO,
-  IPageDTO,
-  IPrimitiveTypeDTO,
-  IPropDTO,
+  IApiActionDto,
+  IAppDto,
+  IAtomDto,
+  ICodeActionDto,
+  IComponentDto,
+  IElementDto,
+  IFieldDto,
+  IInterfaceTypeDto,
+  IPageDto,
+  IPrimitiveTypeDto,
+  IPropDto,
   IReactNodeType,
-  IRenderPropTypeDTO,
-  IStoreDTO,
+  IRenderPropTypeDto,
+  IStoreDto,
 } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
@@ -64,26 +64,26 @@ export class TestBed {
     this.addAtom({ type: IAtomType.ReactFragment })
   }
 
-  addCodeAction(dto: Partial<ICodeActionDTO>) {
+  addCodeAction(dto: Partial<ICodeActionDto>) {
     return codeActionFactory(actionService.actionDomainService)(dto)
   }
 
-  addApiAction(dto: Partial<IApiActionDTO>) {
+  addApiAction(dto: Partial<IApiActionDto>) {
     return apiActionFactory(actionService.actionDomainService)(dto)
   }
 
-  addApp(dto: Partial<IAppDTO>) {
+  addApp(dto: Partial<IAppDto>) {
     return appFactory(appService.appDomainService)(dto)
   }
 
-  addAtom(dto: Partial<IAtomDTO>) {
+  addAtom(dto: Partial<IAtomDto>) {
     return atomFactory(atomService.atomDomainService)({
       ...dto,
       api: dto.api ?? this.addInterfaceType({}),
     })
   }
 
-  addComponent(dto: Partial<IComponentDTO>) {
+  addComponent(dto: Partial<IComponentDto>) {
     const id = dto.id ?? v4()
 
     return componentFactory(componentService.componentDomainService)({
@@ -101,38 +101,38 @@ export class TestBed {
     })
   }
 
-  addField(dto: Partial<IFieldDTO>) {
+  addField(dto: Partial<IFieldDto>) {
     return fieldFactory(fieldService.fieldDomainService)(dto)
   }
 
-  addElement(dto: Partial<IElementDTO>) {
+  addElement(dto: Partial<IElementDto>) {
     return elementFactory(elementService.elementDomainService)(dto)
   }
 
-  addPage(dto: Partial<IPageDTO>) {
+  addPage(dto: Partial<IPageDto>) {
     return pageFactory(pageService.pageDomainService)(dto)
   }
 
-  addProp(dto: Partial<IPropDTO>) {
+  addProp(dto: Partial<IPropDto>) {
     return propFactory(dto)
   }
 
-  addStore(dto: Partial<IStoreDTO>) {
+  addStore(dto: Partial<IStoreDto>) {
     return storeFactory(storeService.storeDomainService)({
       ...dto,
       api: dto.api ?? this.addInterfaceType({}),
     })
   }
 
-  addResource(dto: Partial<IStoreDTO>) {
+  addResource(dto: Partial<IStoreDto>) {
     return resourceFactory(resourceService.resourceDomainService)({})
   }
 
-  addInterfaceType(dto: Partial<IInterfaceTypeDTO>) {
+  addInterfaceType(dto: Partial<IInterfaceTypeDto>) {
     return interfaceTypeFactory(typeService.typeDomainService)(dto)
   }
 
-  addPrimitiveType(dto: Partial<IPrimitiveTypeDTO>) {
+  addPrimitiveType(dto: Partial<IPrimitiveTypeDto>) {
     return primitiveTypeFactory(typeService.typeDomainService)(dto)
   }
 
@@ -140,7 +140,7 @@ export class TestBed {
     return reactNodeTypeFactory(typeService.typeDomainService)(dto)
   }
 
-  addRenderProps(dto: Partial<IRenderPropTypeDTO>) {
+  addRenderProps(dto: Partial<IRenderPropTypeDto>) {
     return renderPropsTypeFactory(typeService.typeDomainService)(dto)
   }
 

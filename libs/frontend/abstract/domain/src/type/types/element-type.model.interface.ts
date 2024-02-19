@@ -3,7 +3,7 @@ import type {
   UpdateElementTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IElementTypeDTO,
+  IElementTypeDto,
   IElementTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -26,7 +26,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IElementTypeModel
   extends IBaseTypeModel<
-    IElementTypeDTO,
+    IElementTypeDto,
     ElementTypeCreateInput,
     UpdateElementTypesMutationVariables
   > {

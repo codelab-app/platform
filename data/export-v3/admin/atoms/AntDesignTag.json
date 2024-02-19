@@ -107,9 +107,6 @@
     "icon": "Tag",
     "id": "5538885f-2b1f-471f-a72b-7d9568d55921",
     "name": "AntDesignTag",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

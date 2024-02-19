@@ -1,7 +1,7 @@
-import type { IUpdateTypeData } from '@codelab/frontend/abstract/domain'
+import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { typeApi } from '../../../graphql/type.api'
 
-const getInnerTypeIds = (submitData: IUpdateTypeData) => [
+const getInnerTypeIds = (submitData: IUpdateTypeDto) => [
   ...(submitData.unionTypeIds ?? []),
 ]
 
@@ -9,7 +9,7 @@ const getInnerTypeIds = (submitData: IUpdateTypeData) => [
 // because this would cause a circular dependency between them and
 export const validateNonRecursive = async (
   updateId: string | undefined,
-  submitData: IUpdateTypeData,
+  submitData: IUpdateTypeDto,
 ) => {
   if (!updateId) {
     throw new Error('Missing type id')

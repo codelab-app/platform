@@ -180,9 +180,6 @@
     "icon": "Descriptions",
     "id": "5ed5bb6d-8024-49cc-9493-5007a91c687e",
     "name": "AntDesignDescriptions",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

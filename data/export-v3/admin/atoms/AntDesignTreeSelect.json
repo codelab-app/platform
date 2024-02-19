@@ -959,9 +959,6 @@
     "icon": "TreeSelect",
     "id": "8b512154-239d-407d-a174-e17e6d597724",
     "name": "AntDesignTreeSelect",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

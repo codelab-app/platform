@@ -26,9 +26,6 @@
     "icon": "Notification",
     "id": "27b2ff87-ea42-4bc4-951e-2e55916bdb8e",
     "name": "AntDesignNotification",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

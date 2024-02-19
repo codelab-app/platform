@@ -4,7 +4,7 @@ import {
   type IAppDomainService,
   type IAppModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -28,7 +28,7 @@ export class AppDomainService
   }
 
   @modelAction
-  hydrate = ({ domains, id, name, owner }: IAppDTO) => {
+  hydrate = ({ domains, id, name, owner }: IAppDto) => {
     let app = this.apps.get(id)
 
     if (app) {
@@ -51,7 +51,7 @@ export class AppDomainService
   }
 
   @modelAction
-  create = (appDto: IAppDTO) => {
+  create = (appDto: IAppDto) => {
     const app = this.hydrate(appDto)
     const renderType = this.atomDomainService.defaultRenderType
 

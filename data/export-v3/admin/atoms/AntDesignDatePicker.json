@@ -217,9 +217,6 @@
     "icon": "DatePicker",
     "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4",
     "name": "AntDesignDatePicker",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -5,7 +5,7 @@ import {
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import { type IAtomDTO, type IFieldDTO } from '@codelab/shared/abstract/core'
+import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import find from 'lodash/find'
@@ -20,8 +20,8 @@ import { readAntDesignApis } from './read-ant-design-apis'
  */
 @Injectable()
 export class ExtractAntDesignFieldsService extends UseCase<
-  Array<IAtomDTO>,
-  Array<IFieldDTO>
+  Array<IAtomDto>,
+  Array<IFieldDto>
 > {
   constructor(
     private fieldRepository: FieldRepository,
@@ -34,7 +34,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
-  protected async _execute(atoms: Array<IAtomDTO>) {
+  protected async _execute(atoms: Array<IAtomDto>) {
     const antDesignApis = await readAntDesignApis(this.antdDataFolder)
     const fieldsByAtom = []
 
@@ -60,32 +60,34 @@ export class ExtractAntDesignFieldsService extends UseCase<
   private antdDataFolder = `${process.cwd()}/data/antd-v5/`
 
   private async createOrUpdateField(
-    atom: IAtomDTO,
+    atom: IAtomDto,
     field: AntDesignField,
-  ): Promise<IFieldDTO | undefined> {
+  ): Promise<IFieldDto | undefined> {
     const existingField = await this.fieldRepository.findOne({
-      api: {
-        id: atom.api.id,
+      where: {
+        api: {
+          id: atom.api.id,
+        },
+        key: field.property,
       },
-      key: field.property,
     })
 
     if (existingField) {
       return existingField
     }
 
-    const fieldTypeDTO = await this.antTypeAdapterService.execute({
+    const fieldTypeDto = await this.antTypeAdapterService.execute({
       atom,
       field: { key: field.property },
       type: field.type,
     })
 
-    if (!fieldTypeDTO) {
+    if (!fieldTypeDto) {
       return undefined
     }
 
-    const type = await this.typeFactory.save(fieldTypeDTO, {
-      name: fieldTypeDTO.name,
+    const type = await this.typeFactory.save(fieldTypeDto, {
+      name: fieldTypeDto.name,
     })
 
     return Field.create({
@@ -100,10 +102,10 @@ export class ExtractAntDesignFieldsService extends UseCase<
   }
 
   private async transformFields(
-    atom: IAtomDTO,
+    atom: IAtomDto,
     atomFields: Array<AntDesignField>,
   ) {
-    const result: Array<IFieldDTO> = []
+    const result: Array<IFieldDto> = []
 
     for (const field of atomFields) {
       const existingOrNewField = await this.createOrUpdateField(atom, field)

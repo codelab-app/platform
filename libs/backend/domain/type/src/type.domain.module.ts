@@ -12,32 +12,23 @@ import {
   RenderPropTypeRepository,
   UnionTypeRepository,
 } from './repository'
+import { TypeDomainService } from './service'
+
+const typeRepositories = [
+  ActionTypeRepository,
+  ArrayTypeRepository,
+  EnumTypeRepository,
+  FieldRepository,
+  InterfaceTypeRepository,
+  PrimitiveTypeRepository,
+  ReactNodeTypeRepository,
+  RenderPropTypeRepository,
+  UnionTypeRepository,
+]
 
 @Module({
-  exports: [
-    TypeFactory,
-    ActionTypeRepository,
-    ArrayTypeRepository,
-    EnumTypeRepository,
-    FieldRepository,
-    InterfaceTypeRepository,
-    PrimitiveTypeRepository,
-    ReactNodeTypeRepository,
-    RenderPropTypeRepository,
-    UnionTypeRepository,
-  ],
+  exports: [TypeFactory, ...typeRepositories, TypeDomainService],
   imports: [SharedDomainModule],
-  providers: [
-    TypeFactory,
-    ActionTypeRepository,
-    ArrayTypeRepository,
-    EnumTypeRepository,
-    FieldRepository,
-    InterfaceTypeRepository,
-    PrimitiveTypeRepository,
-    ReactNodeTypeRepository,
-    RenderPropTypeRepository,
-    UnionTypeRepository,
-  ],
+  providers: [TypeFactory, ...typeRepositories, TypeDomainService],
 })
 export class TypeDomainModule {}

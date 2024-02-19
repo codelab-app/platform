@@ -225,9 +225,6 @@
     "icon": "Image",
     "id": "4f202913-d847-48dd-bb91-19753114a52d",
     "name": "AntDesignImage",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

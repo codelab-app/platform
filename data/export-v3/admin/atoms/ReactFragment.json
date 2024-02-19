@@ -43,9 +43,6 @@
     "icon": null,
     "id": "4a9dd961-501b-4246-8770-48fee5dc5852",
     "name": "ReactFragment",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

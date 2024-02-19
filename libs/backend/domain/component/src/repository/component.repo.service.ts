@@ -11,13 +11,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IComponentDTO } from '@codelab/shared/abstract/core'
+import type { IComponentDto } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ComponentRepository extends AbstractRepository<
-  IComponentDTO,
+  IComponentDto,
   Component,
   ComponentWhere,
   ComponentOptions
@@ -31,7 +31,7 @@ export class ComponentRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  async _add(components: Array<IComponentDTO>) {
+  async _addMany(components: Array<IComponentDto>) {
     return (
       await (
         await this.ogmService.Component
@@ -88,7 +88,7 @@ export class ComponentRepository extends AbstractRepository<
       props,
       rootElement,
       store,
-    }: IComponentDTO,
+    }: IComponentDto,
     where: ComponentWhere,
   ) {
     return (

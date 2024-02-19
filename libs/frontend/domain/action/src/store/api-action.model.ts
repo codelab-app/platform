@@ -15,7 +15,7 @@ import type {
   ApiActionDeleteInput,
   ApiActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IApiActionDTO } from '@codelab/shared/abstract/core'
+import type { IApiActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, disconnectAll } from '@codelab/shared/domain/mapper'
@@ -32,7 +32,7 @@ const create = ({
   resource,
   store,
   successAction,
-}: IApiActionDTO) =>
+}: IApiActionDto) =>
   new ApiAction({
     config: Prop.create(config),
     errorAction: errorAction?.id ? actionRef(errorAction.id) : null,
@@ -70,7 +70,7 @@ export class ApiAction
     name,
     resource,
     successAction,
-  }: Partial<IApiActionDTO>) {
+  }: Partial<IApiActionDto>) {
     this.name = name ?? this.name
     this.resource = resource ? resourceRef(resource.id) : this.resource
     this.config = config ? Prop.create(config) : this.config

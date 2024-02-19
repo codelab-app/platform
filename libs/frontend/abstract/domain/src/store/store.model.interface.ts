@@ -3,7 +3,7 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IStore, IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStore, IStoreDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IActionModel } from '../action'
@@ -15,7 +15,7 @@ import type { IInterfaceTypeModel } from '../type'
 
 export interface IStoreModel
   extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput, IStore>,
-    ICacheService<IStoreDTO, IStoreModel> {
+    ICacheService<IStoreDto, IStoreModel> {
   actions: Array<IActionModel>
   actionsTree: Array<IActionsTreeDataNode>
   api: Ref<IInterfaceTypeModel>

@@ -1,18 +1,18 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
-import { ITypeKind } from '../type-kind.enum'
-import { IBaseTypeDTO } from './base-type.dto.interface'
+import { IBaseTypeDto } from './base-type.dto.interface'
+import { ITypeKind } from './type-kind.enum'
 
-export const IArrayTypeDTO = Type.Composite([
-  IBaseTypeDTO(Type.Literal(`${ITypeKind.ArrayType}`)),
+export const IArrayTypeDto = Type.Composite([
+  IBaseTypeDto(Type.Literal(`${ITypeKind.ArrayType}`)),
   Type.Object({
     itemType: Type.Optional(IRef),
   }),
 ])
 
-export type IArrayTypeDTO = Static<typeof IArrayTypeDTO>
+export type IArrayTypeDto = Static<typeof IArrayTypeDto>
 
-export const IArrayType = IArrayTypeDTO
+export const IArrayType = IArrayTypeDto
 
 export type IArrayType = Static<typeof IArrayType>

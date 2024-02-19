@@ -1,6 +1,6 @@
 import type { IAtomDomainService } from '@codelab/frontend/abstract/domain'
 import { chance } from '@codelab/frontend/domain/shared'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import type { IAtomDto } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
   IElementRenderTypeKind,
@@ -8,8 +8,8 @@ import {
 import { v4 } from 'uuid'
 
 export const atomFactory =
-  (atomDomainService: IAtomDomainService) => (dto: Partial<IAtomDTO>) => {
-    const atom: IAtomDTO = {
+  (atomDomainService: IAtomDomainService) => (dto: Partial<IAtomDto>) => {
+    const atom: IAtomDto = {
       __typename: `${IElementRenderTypeKind.Atom}`,
       api: { id: dto.api?.id ?? v4() },
       externalCssSource: dto.externalCssSource ?? null,

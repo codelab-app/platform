@@ -107,9 +107,6 @@
     "icon": "Spin",
     "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
     "name": "AntDesignSpin",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

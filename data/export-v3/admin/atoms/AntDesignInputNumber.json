@@ -26,9 +26,6 @@
     "icon": "InputNumber",
     "id": "4a938130-6b46-442b-8b3e-b77aba219dc7",
     "name": "AntDesignInputNumber",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

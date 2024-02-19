@@ -10,12 +10,12 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IPropDTO } from '@codelab/shared/abstract/core'
+import type { IPropDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class PropRepository extends AbstractRepository<
-  IPropDTO,
+  IPropDto,
   Prop,
   PropWhere,
   PropOptions
@@ -31,7 +31,7 @@ export class PropRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(props: Array<IPropDTO>) {
+  protected async _addMany(props: Array<IPropDto>) {
     return (
       await (
         await this.ogmService.Prop
@@ -60,7 +60,7 @@ export class PropRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ data, id }: IPropDTO, where: PropWhere) {
+  protected async _update({ data, id }: IPropDto, where: PropWhere) {
     return (
       await (
         await this.ogmService.Prop

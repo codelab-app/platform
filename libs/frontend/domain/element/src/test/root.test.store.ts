@@ -1,11 +1,4 @@
 import type { IRootDomainStore } from '@codelab/frontend/abstract/domain'
-import {
-  appDomainServiceContext,
-  atomDomainServiceContext,
-  elementDomainServiceContext,
-  pageDomainServiceContext,
-  userDomainServiceContext,
-} from '@codelab/frontend/abstract/domain'
 import { AtomDomainService } from '@codelab/frontend/domain/atom'
 import { PageDomainService } from '@codelab/frontend/domain/page'
 import { createRootDomainStore } from '@codelab/frontend/domain/shared'

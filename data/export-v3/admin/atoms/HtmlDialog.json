@@ -43,9 +43,6 @@
     "icon": null,
     "id": "780cdb9b-f7f6-4b07-86a0-c58d79b39a5e",
     "name": "HtmlDialog",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -2,13 +2,13 @@ import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
   Pick<
-    IElementDTO,
+    IElementDto,
     | 'id'
     | 'name'
     | 'parentElement'

@@ -59,9 +59,6 @@
     "icon": "Alert",
     "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64",
     "name": "AntDesignAlert",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

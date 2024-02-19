@@ -5,25 +5,25 @@ import { IElementRenderTypeKind } from '../element'
 import { IRef } from '../model/node-type.interface'
 import { IProp, IPropDTO } from '../prop.dto.interface'
 
-export const IComponentDTO = Type.Object({
+export const IComponentDto = Type.Object({
   api: IRef,
   childrenContainerElement: IRef,
   id: Type.String(),
   name: Type.String(),
   owner: Typebox.Nullish(IRef),
-  props: IPropDTO,
+  props: IPropDto,
   rootElement: IRef,
   store: IRef,
 })
 
-export type IComponentDTO = Static<typeof IComponentDTO>
+export type IComponentDto = Static<typeof IComponentDto>
 
 export const IComponent = Type.Composite([
   Type.Object({
     __typename: Type.Literal(`${IElementRenderTypeKind.Component}`),
   }),
   Typebox.Overwrite(
-    IComponentDTO,
+    IComponentDto,
     Type.Object({
       props: IProp,
     }),

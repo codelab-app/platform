@@ -14,7 +14,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 
 describe('Running nested API and code actions', () => {
-  let app: IAppDTO
+  let app: IAppDto
   let apiPostActionId: string
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
@@ -31,7 +31,7 @@ describe('Running nested API and code actions', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })

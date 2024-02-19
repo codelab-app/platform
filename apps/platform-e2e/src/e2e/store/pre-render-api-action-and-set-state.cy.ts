@@ -12,7 +12,7 @@ import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 
 describe('Running API action and setting state on element pre-render', () => {
-  let app: IAppDTO
+  let app: IAppDto
   const resourceName = 'Fetch Data'
   const resourceUrl = 'http://some-api.com/api'
   const urlGetSegment = '/data/some-id'
@@ -23,7 +23,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })

@@ -18,13 +18,7 @@
           "quiet": true
         }
       },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/domain/element/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "configurations": {

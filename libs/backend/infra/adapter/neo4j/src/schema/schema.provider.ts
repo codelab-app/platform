@@ -8,8 +8,8 @@ import type { Driver } from 'neo4j-driver'
 import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
 import { PURE_RESOLVER_PROVIDER } from '../resolver'
 import { OGM_RESOLVER_PROVIDER } from '../resolver/ogm-resolver/ogm-resolver.constant'
+import { ogmTypeDefs } from './ogm.type-defs'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
-import { typeDefs } from './type-defs'
 
 /**
  * Your web app has a session (that’s the cookie) used to verify the user.
@@ -65,7 +65,7 @@ export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
           },
         },
         resolvers: mergeResolvers([pureResolvers, ogmResolvers]),
-        typeDefs,
+        typeDefs: ogmTypeDefs,
       })
 
       const schema = await neo4jGraphQL.getSchema()

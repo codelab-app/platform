@@ -4,11 +4,6 @@ export const elementSchema = gql`
   union ElementRenderType = Atom | Component
   union ContainerNode = Page | Component
 
-  # __typename codegen is optional, making it difficult to use as discriminated union
-  #enum NodeType {
-  #
-  #  }
-
   type Element {
     id: ID! @unique
     compositeKey: String! @unique
@@ -55,6 +50,5 @@ export const elementSchema = gql`
     # This is a custom field resolver
     descendantElements: [Element!]!
     closestContainerNode: ContainerNode!
-    dependantTypes: [AnyType!]! @customResolver(requires: "id")
   }
 `

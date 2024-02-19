@@ -26,9 +26,6 @@
     "icon": null,
     "id": "6772c4d1-7671-4e99-ab16-0fe289850e9d",
     "name": "HtmlVar",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -2,13 +2,13 @@
 
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
-import type { ITagDTO, IUserDTO } from '@codelab/shared/abstract/core'
+import type { ITagDto, IUserDto } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'
 import { ExportAdminDataService } from '../export-admin-data.command.service'
 import { ImportAdminDataCommand } from '../import-admin-data.command.service'
 
-export const importData = async ({ auth0Id }: IUserDTO, path: string) =>
+export const importData = async ({ auth0Id }: IUserDto, path: string) =>
   new ImportAdminDataCommand(path).execute({
     auth0Id,
   })
@@ -24,9 +24,9 @@ export const exportAndAssert = async (exportPath: string) => {
    */
   const allAtomNames = Object.values(IAtomType)
 
-  const assignedTags = atoms.reduce<Array<ITagDTO>>(
+  const assignedTags = atoms.reduce<Array<ITagDto>>(
     (atomTags, { atom }) => [
-      ...(atom.tags ?? []).filter((tag): tag is ITagDTO => Boolean(tag)),
+      ...(atom.tags ?? []).filter((tag): tag is ITagDto => Boolean(tag)),
       ...atomTags,
     ],
     [],

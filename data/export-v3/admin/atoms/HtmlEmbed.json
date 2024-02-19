@@ -91,9 +91,6 @@
     "icon": null,
     "id": "ff79703a-0bf7-4d44-981d-e3e7afdfbfed",
     "name": "HtmlEmbed",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

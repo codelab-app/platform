@@ -2,12 +2,8 @@
 export default {
   displayName: 'backend-application-admin',
   preset: '../../../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
-  testEnvironment: 'jsdom',
+  globals: {},
+  testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

@@ -262,9 +262,6 @@
     "icon": "Dropdown",
     "id": "0effd5bb-ac49-4a9d-bcb0-9f999d9fcd39",
     "name": "AntDesignDropdown",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

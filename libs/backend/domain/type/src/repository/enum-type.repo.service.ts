@@ -14,15 +14,15 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type {
-  IEnumTypeDTO,
-  IEnumTypeValueDTO,
+  IEnumTypeDto,
+  IEnumTypeValueDto,
 } from '@codelab/shared/abstract/core'
 import { connectOwner, whereNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class EnumTypeRepository extends AbstractRepository<
-  IEnumTypeDTO,
+  IEnumTypeDto,
   EnumType,
   EnumTypeWhere,
   EnumTypeOptions
@@ -36,7 +36,7 @@ export class EnumTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(enumTypes: Array<IEnumTypeDTO>) {
+  protected async _addMany(enumTypes: Array<IEnumTypeDto>) {
     return (
       await (
         await this.ogmService.EnumType
@@ -67,7 +67,7 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, allowedValues, id, name, ...enumType }: IEnumTypeDTO,
+    { __typename, allowedValues, id, name, ...enumType }: IEnumTypeDto,
     where: EnumTypeWhere,
   ) {
     return (
@@ -84,7 +84,7 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   private mapCreateEnumTypeValues(
-    enumTypeValues: Array<IEnumTypeValueDTO>,
+    enumTypeValues: Array<IEnumTypeValueDto>,
   ): EnumTypeAllowedValuesFieldInput {
     return {
       create: enumTypeValues.map((enumTypeValue) => ({
@@ -96,7 +96,7 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   private mapUpdateEnumTypeValues(
-    enumTypeValues: Array<IEnumTypeValueDTO>,
+    enumTypeValues: Array<IEnumTypeValueDto>,
   ): Array<EnumTypeAllowedValuesUpdateFieldInput> {
     return enumTypeValues.map(({ id, ...enumTypeValue }) => ({
       ...whereNodeId(id),

@@ -299,9 +299,6 @@
     "icon": "Button",
     "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
     "name": "AntDesignButton",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

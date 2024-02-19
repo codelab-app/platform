@@ -139,9 +139,6 @@
     "icon": null,
     "id": "9d774c57-10ba-42c2-8084-1be6128a89ae",
     "name": "HtmlSelect",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

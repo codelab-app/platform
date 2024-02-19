@@ -1,9 +1,9 @@
 import { componentRef, pageRef } from '@codelab/frontend/abstract/domain'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementParentContainerKind } from '@codelab/shared/abstract/core'
 
 export const getParentContainer = (
-  parentContainer: IElementDTO['parentContainer'],
+  parentContainer: IElementDto['parentContainer'],
 ) => {
   if (!parentContainer) {
     return null

@@ -7,6 +7,9 @@ import { OGM_RESOLVER_PROVIDER } from './ogm-resolver.constant'
 import { PAGE_RESOLVER_PROVIDER } from './page'
 import { TAG_RESOLVER_PROVIDER } from './tag'
 
+/**
+ * These resolvers depend on OGM provider
+ */
 export const OgmResolverProvider: FactoryProvider<Promise<IResolvers>> = {
   inject: [
     COMPONENT_RESOLVER_PROVIDER,

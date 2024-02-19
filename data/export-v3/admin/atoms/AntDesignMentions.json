@@ -415,9 +415,6 @@
     "icon": "Mentions",
     "id": "08f8da41-c94c-44af-a38f-607cd74836ab",
     "name": "AntDesignMentions",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

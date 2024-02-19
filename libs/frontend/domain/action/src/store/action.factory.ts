@@ -10,15 +10,15 @@ import {
   CodeActionFragment,
 } from '@codelab/shared/abstract/codegen'
 import {
-  IActionDTO,
+  IActionDto,
   IActionKind,
-  IApiActionDTO,
-  ICodeActionDTO,
+  IApiActionDto,
+  ICodeActionDto,
 } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction } from 'mobx-keystone'
 
 const writeCache = (
-  actionDTO: IActionDTO,
+  actionDTO: IActionDto,
   action: IActionModel,
 ): IActionModel => {
   switch (actionDTO.__typename) {
@@ -41,7 +41,7 @@ const writeCache = (
 
 @model('@codelab/ActionFactory')
 export class ActionFactory extends Model({}) implements IActionFactory {
-  static mapActionToDTO(action: IActionModel): IActionDTO {
+  static mapActionToDTO(action: IActionModel): IActionDto {
     switch (action.type) {
       case IActionKind.CodeAction:
         return {
@@ -73,7 +73,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     }
   }
 
-  static mapDataToDTO(data: ICreateActionData | IUpdateActionData): IActionDTO {
+  static mapDataToDTO(data: ICreateActionData | IUpdateActionData): IActionDto {
     switch (data.type) {
       case IActionKind.CodeAction:
         return {
@@ -102,7 +102,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
   static writeCache = writeCache
 
   @modelAction
-  fromActionFragment(actionFragment: ActionFragment): IActionDTO {
+  fromActionFragment(actionFragment: ActionFragment): IActionDto {
     switch (actionFragment.__typename) {
       case IActionKind.ApiAction: {
         return this.fromApiActionFragment(actionFragment)
@@ -124,7 +124,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     errorAction,
     successAction,
     ...apiActionFragment
-  }: ApiActionFragment): IApiActionDTO {
+  }: ApiActionFragment): IApiActionDto {
     return {
       ...apiActionFragment,
       config,
@@ -140,7 +140,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
   @modelAction
   private fromCodeActionFragment(
     codeAction: CodeActionFragment,
-  ): ICodeActionDTO {
+  ): ICodeActionDto {
     return codeAction
   }
 }

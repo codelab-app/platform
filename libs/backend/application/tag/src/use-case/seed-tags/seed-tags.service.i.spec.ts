@@ -2,7 +2,7 @@ import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDto } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared/domain/mapper'
 import { CqrsModule } from '@nestjs/cqrs'
@@ -12,7 +12,7 @@ import { TagTreeUtils } from './seed-tags.util'
 
 describe('Tag Parser', () => {
   let seedTagsService: SeedTagsService
-  let antdTagTreeData: Array<ITagDTO>
+  let antdTagTreeData: Array<ITagDto>
   let getIdFromName: (atomType: IAtomType) => string | undefined
 
   beforeAll(async () => {
