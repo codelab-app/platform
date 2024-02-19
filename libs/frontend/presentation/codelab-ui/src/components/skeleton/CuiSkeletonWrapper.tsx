@@ -11,14 +11,14 @@ export const CuiSkeletonWrapper = ({
   children,
   isLoading,
 }: CuiSkeletonWrapperProps) => (
-  <div className="h-full w-full">
+  <div className="size-full">
     <div
-      className={`h-full w-full ${isLoading ? 'block' : 'hidden'}`}
+      className={`size-full ${isLoading ? 'block' : 'hidden'}`}
       data-cy={CY_DATA.cuiSkeleton()}
     >
       <Skeleton active loading style={{ padding: 5 }} />
     </div>
-    <div className={`h-full w-full ${isLoading ? 'hidden' : 'block'}`}>
+    <div className={`size-full ${isLoading ? 'hidden' : 'block'}`}>
       {children}
     </div>
   </div>

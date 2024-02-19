@@ -9,10 +9,7 @@ import {
 import { AtomDomainService } from '@codelab/frontend/domain/atom'
 import { PageDomainService } from '@codelab/frontend/domain/page'
 import { createRootDomainStore } from '@codelab/frontend/domain/shared'
-import {
-  StoreDomainService,
-  storeDomainServiceContext,
-} from '@codelab/frontend/domain/store'
+import { StoreDomainService } from '@codelab/frontend/domain/store'
 import {
   TypeDomainService,
   typeDomainServiceContext,

@@ -3,12 +3,18 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   actionTypes {
     ...ActionType
   }
+  actionTypes {
+    ...ActionType
+  }
   apps(where: { compositeKey: $appCompositeKey }) {
     ...AppDevelopment
   }
   # Need to load all dependent types
   atoms(where: { type: ReactFragment }) {
     ...AtomDevelopment
+  }
+  authGuards {
+    ...AuthGuard
   }
   components {
     ...ComponentDevelopment
@@ -24,8 +30,9 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   reactNodeTypes {
     ...ReactNodeType
   }
-  renderPropTypes {
-    ...RenderPropType
+  # load all redirects of app
+  redirects(where: { source: { app: { compositeKey: $appCompositeKey } } }) {
+    ...Redirect
   }
   renderPropTypes {
     ...RenderPropType

@@ -3,12 +3,14 @@ import type {
   IAdminService,
   IAppService,
   IAtomService,
+  IAuthGuardService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
   IFieldService,
   IPageApplicationService,
   IPropService,
+  IRedirectService,
   IRendererService,
   IResourceService,
   IRootStore,
@@ -34,6 +36,7 @@ export const createRootApplicationStore = ({
       adminService: prop<Maybe<IAdminService>>(undefined),
       appService: prop<Maybe<IAppService>>(undefined),
       atomService: prop<Maybe<IAtomService>>(undefined),
+      authGuardService: prop<Maybe<IAuthGuardService>>(() => undefined),
       builderService: prop<Maybe<IBuilderDomainService>>(undefined),
       componentService: prop<Maybe<IComponentApplicationService>>(undefined),
       domainService: prop<Maybe<IDomainService>>(undefined),
@@ -42,6 +45,7 @@ export const createRootApplicationStore = ({
       fieldService: prop<Maybe<IFieldService>>(undefined),
       pageService: prop<Maybe<IPageApplicationService>>(undefined),
       propService: prop<Maybe<IPropService>>(undefined),
+      redirectService: prop<Maybe<IRedirectService>>(() => undefined),
       rendererService: prop<Maybe<IRendererService>>(undefined),
       resourceService: prop<Maybe<IResourceService>>(undefined),
       routerService: prop<Maybe<IRouterService>>(undefined),
@@ -54,6 +58,8 @@ export const createRootApplicationStore = ({
   {
     public clear() {
       this.typeService?.typeDomainService.types.clear()
+      this.authGuardService?.authGuardDomainService.authGuards.clear()
+      this.redirectService?.redirectDomainService.redirects.clear()
       this.actionService?.actionDomainService.actions.clear()
       this.appService?.appDomainService.apps.clear()
       this.resourceService?.resourceDomainService.resources.clear()

@@ -1,13 +1,12 @@
-import { HttpResponseType } from '@codelab/frontend/abstract/domain'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import {
-  ActionKind,
-  ResourceType,
-  TypeKind,
-} from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
-import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import {
+  IActionKind,
+  IAtomType,
+  IPageKindName,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 
@@ -60,7 +59,7 @@ describe('Element Child Mapper', () => {
     cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
-      value: ResourceType.Rest,
+      value: IResourceType.Rest,
     })
 
     cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
@@ -117,7 +116,7 @@ describe('Element Child Mapper', () => {
     cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
-      value: ActionKind.ApiAction,
+      value: IActionKind.ApiAction,
     })
 
     cy.setFormFieldValue({

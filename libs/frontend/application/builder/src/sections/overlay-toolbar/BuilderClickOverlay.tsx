@@ -61,14 +61,14 @@ export const BuilderClickOverlay = observer<{
     <StyledOverlayContainer>
       <StyledOverlayButtonGroup>
         <div
-          className="flex h-7 w-7 cursor-pointer items-center justify-center align-middle"
+          className="size-7 flex cursor-pointer items-center justify-center align-middle"
           onClick={(event) => {
             event.stopPropagation()
             elementService.deleteModal.open(elementRef(selectedNode.id))
           }}
         >
           <div
-            className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
+            className="size-5 flex items-center justify-center rounded-full align-middle"
             style={{ backgroundColor: '#375583', color: 'red' }}
           >
             <DeleteOutlined />
@@ -80,9 +80,9 @@ export const BuilderClickOverlay = observer<{
           }}
           id={selectedNode.id}
         >
-          <div className="flex h-7 w-7 items-center justify-center align-middle">
+          <div className="size-7 flex items-center justify-center align-middle">
             <div
-              className="flex h-5 w-5 items-center justify-center rounded-full align-middle"
+              className="size-5 flex items-center justify-center rounded-full align-middle"
               style={{ backgroundColor: '#375583', color: 'white' }}
             >
               <DragOutlined color="white" />

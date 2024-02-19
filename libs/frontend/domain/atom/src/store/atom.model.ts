@@ -24,13 +24,11 @@ import {
 import {
   antdAtoms,
   codelabAtoms,
-  htmlAtoms,
-  reactAtoms,
-} from '@codelab/shared/config'
-import {
   connectNodeId,
   connectNodeIds,
   connectOwner,
+  htmlAtoms,
+  reactAtoms,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'

@@ -49,7 +49,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
           >
             <Layout>
               {(props) => (
-                <AntdApp className="h-full w-full">
+                <AntdApp className="size-full">
                   <Component {...props} />
                 </AntdApp>
               )}

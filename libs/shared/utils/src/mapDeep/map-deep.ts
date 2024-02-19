@@ -3,15 +3,14 @@ import isArray from 'lodash/isArray'
 import isObjectLike from 'lodash/isObjectLike'
 import map from 'lodash/map'
 import toPairsIn from 'lodash/toPairsIn'
-import type { Key } from 'react'
 import { isCyclic } from '../isCyclic'
-import type { IKeyMapper, IOutput, IValueMapper } from './abstract'
+import type { IKeyMapper, IOutput, IValueMapper, ObjectKey } from './abstract'
 
 export const mapDeep = (
   obj: IPropData,
   valueMapper: IValueMapper,
   keyMapper: IKeyMapper = (value, key) => key,
-  key: Key = '',
+  key: ObjectKey = '',
 ): IOutput => {
   obj = valueMapper(obj, key) as IOutput
 

@@ -44,7 +44,7 @@ export const TypesTreeView = observer(
     }))
 
     return (
-      <div className="h-full w-full">
+      <div className="size-full">
         <CuiTree<ITypesTreeDataNode>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {

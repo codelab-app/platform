@@ -9,6 +9,7 @@ import {
   elementRef,
   ElementTree,
   getPageDomainService,
+  getRedirectDomainService,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -93,6 +94,7 @@ export class Page
       kind: this.kind,
       name: this.name,
       pageContentContainer: this.pageContentContainer,
+      redirect: this.redirect,
       rootElement: this.rootElement,
       slug: this.slug,
       store: this.store,
@@ -106,10 +108,22 @@ export class Page
   }
 
   @computed
+  get redirectDomainService() {
+    return getRedirectDomainService(this)
+  }
+
+  @computed
   get providerPage() {
     return this.kind === IPageKind.Regular
       ? this.app.current.providerPage
       : undefined
+  }
+
+  @computed
+  get redirect() {
+    const redirects = [...this.redirectDomainService.redirects.values()]
+
+    return redirects.find((redirect) => redirect.source.id === this.id)
   }
 
   @modelAction

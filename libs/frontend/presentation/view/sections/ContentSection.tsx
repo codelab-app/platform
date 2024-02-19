@@ -8,7 +8,7 @@ export const ContentSection = ({
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
 >) => {
   return (
-    <section className="h-full w-full" style={{ marginTop: padding.sm }}>
+    <section className="size-full" style={{ marginTop: padding.sm }}>
       {children}
     </section>
   )

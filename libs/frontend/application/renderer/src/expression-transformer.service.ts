@@ -1,6 +1,6 @@
 import type { IExpressionTransformer } from '@codelab/frontend/abstract/domain'
-import { stripStateExpression } from '@codelab/frontend/application/shared/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { stripExpression } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import {
   _async,
@@ -47,7 +47,7 @@ export class ExpressionTransformer
       const wrappedExpression = `(function getResult() {
         const { React } = this
 
-        return ${stripStateExpression(expression)}
+        return ${stripExpression(expression)}
       }).call(this)`
 
       const { code } = this.transform(wrappedExpression, {

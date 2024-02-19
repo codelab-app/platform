@@ -11,16 +11,16 @@ import {
   isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { hasExpression } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import isObject from 'lodash/isObject'
 import isString from 'lodash/isString'
 import values from 'lodash/values'
 
 const hasComponentId = (prop: TypedProp): boolean =>
-  !hasStateExpression(prop.value) &&
+  !hasExpression(prop.value) &&
   [ITypeKind.ReactNodeType, ITypeKind.RenderPropType].includes(prop.kind)
 
 const getComponentIdsFromProp = (prop: IPropData): Array<string> =>

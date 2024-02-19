@@ -66,8 +66,14 @@
       "@codelab/backend/application/page": [
         "libs/backend/application/page/src/index.ts"
       ],
+      "@codelab/backend/application/redirect": [
+        "libs/backend/application/redirect/src/index.ts"
+      ],
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
+      ],
+      "@codelab/backend/application/auth-guard": [
+        "libs/backend/application/auth-guard/src/index.ts"
       ],
       "@codelab/backend/application/shared": [
         "libs/backend/application/shared/src/index.ts"
@@ -106,6 +112,12 @@
       "@codelab/backend/domain/prop": ["libs/backend/domain/prop/src/index.ts"],
       "@codelab/backend/domain/resource": [
         "libs/backend/domain/resource/src/index.ts"
+      ],
+      "@codelab/backend/domain/redirect": [
+        "libs/backend/domain/redirect/src/index.ts"
+      ],
+      "@codelab/backend/domain/auth-guard": [
+        "libs/backend/domain/auth-guard/src/index.ts"
       ],
       "@codelab/backend/domain/shared/auth": [
         "libs/backend/domain/shared/auth/src/index.ts"
@@ -177,6 +189,9 @@
       "@codelab/frontend/application/app": [
         "libs/frontend/application/app/src/index.ts"
       ],
+      "@codelab/frontend/application/auth-guard": [
+        "libs/frontend/application/auth-guard/src/index.ts"
+      ],
       "@codelab/frontend/application/atom": [
         "libs/frontend/application/atom/src/index.ts"
       ],
@@ -207,11 +222,15 @@
       "@codelab/frontend/application/prop": [
         "libs/frontend/application/prop/src/index.ts"
       ],
+
       "@codelab/frontend/application/renderer": [
         "libs/frontend/application/renderer/src/index.ts"
       ],
       "@codelab/frontend/application/resource": [
         "libs/frontend/application/resource/src/index.ts"
+      ],
+      "@codelab/frontend/application/redirect": [
+        "libs/frontend/application/redirect/src/index.ts"
       ],
       "@codelab/frontend/application/shared/auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
@@ -253,6 +272,9 @@
       "@codelab/frontend/domain/atom": [
         "libs/frontend/domain/atom/src/index.ts"
       ],
+      "@codelab/frontend/domain/auth-guard": [
+        "libs/frontend/domain/auth-guard/src/index.ts"
+      ],
       "@codelab/frontend/domain/builder": [
         "libs/frontend/domain/builder/src/index.ts"
       ],
@@ -276,6 +298,9 @@
       ],
       "@codelab/frontend/domain/renderer": [
         "libs/frontend/domain/renderer/src/index.ts"
+      ],
+      "@codelab/frontend/domain/redirect": [
+        "libs/frontend/domain/redirect/src/index.ts"
       ],
       "@codelab/frontend/domain/resource": [
         "libs/frontend/domain/resource/src/index.ts"

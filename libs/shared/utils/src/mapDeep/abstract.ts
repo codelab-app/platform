@@ -1,8 +1,9 @@
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { Key } from 'react'
+
+export type ObjectKey = number | string
 
 export type IOutput = IPropData
 
-export type IValueMapper = (value: IPropData, key: Key) => unknown
+export type IValueMapper = (value: IPropData, key: ObjectKey) => unknown
 
-export type IKeyMapper = (value: IPropData, key: Key) => Key
+export type IKeyMapper = (value: IPropData, key: ObjectKey) => ObjectKey

@@ -1,7 +1,7 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IActionKind } from '../action-kind.enum'
 import { IDiscriminatedRef } from '../model/node-type.interface'
+import { IActionKind } from './action-kind.enum'
 
 /**
  * This is typed entity, otherwise ID isn't enough for factory

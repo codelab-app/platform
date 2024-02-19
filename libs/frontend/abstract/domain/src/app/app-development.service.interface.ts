@@ -2,11 +2,13 @@ import type {
   AppDevelopmentFragment,
   AtomDevelopmentFragment,
   AtomFragment,
+  AuthGuardFragment,
   ComponentDevelopmentFragment,
   ElementFragment,
   FieldFragment,
   PageDevelopmentFragment,
   PropFragment,
+  RedirectFragment,
   ResourceFragment,
   StoreFragment,
   TypeFragment,
@@ -24,11 +26,13 @@ export interface IAppDevelopmentDto {
   actions: StoreFragment['actions']
   app: AppDevelopmentFragment
   atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   elements: Array<ElementFragment & { closestContainerNode: { id: string } }>
   fields: Array<FieldFragment>
   pages: Array<PageDevelopmentFragment>
   props: Array<PropFragment>
+  redirects: Array<RedirectFragment>
   resources: Array<ResourceFragment>
   stores: Array<StoreFragment & { component?: IRef; page?: IRef }>
   types: Array<TypeFragment>

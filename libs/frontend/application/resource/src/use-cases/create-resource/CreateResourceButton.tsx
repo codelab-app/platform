@@ -36,7 +36,7 @@ export const CreateResourceButton = observer(() => {
 
   return (
     <Dropdown menu={{ items: menuItems }}>
-      <Button className="h-full w-full" icon={<PlusOutlined />} type="primary">
+      <Button className="size-full" icon={<PlusOutlined />} type="primary">
         Connect
       </Button>
     </Dropdown>

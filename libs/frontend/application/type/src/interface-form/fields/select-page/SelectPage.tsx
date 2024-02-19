@@ -7,7 +7,7 @@ import { SelectField } from 'uniforms-antd'
 
 export type SelectPageProps = UniformSelectFieldProps
 
-export const SelectPage = ({ error, name }: SelectPageProps) => {
+export const SelectPage = ({ error, label, name }: SelectPageProps) => {
   const app = useCurrentApp()
   const { pageService } = useStore()
 
@@ -26,7 +26,7 @@ export const SelectPage = ({ error, name }: SelectPageProps) => {
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      label="Page"
+      label={label}
       loading={status === 'loading'}
       name={name}
       onDropdownVisibleChange={async (open) => {

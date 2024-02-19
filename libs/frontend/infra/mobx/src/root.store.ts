@@ -3,12 +3,14 @@ import type {
   IAdminService,
   IAppService,
   IAtomService,
+  IAuthGuardService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
   IFieldService,
   IPageApplicationService,
   IPropService,
+  IRedirectService,
   IRendererService,
   IResourceService,
   IRootStore,
@@ -21,8 +23,10 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   appServiceContext,
+  authGuardServiceContext,
   componentServiceContext,
   elementServiceContext,
+  redirectServiceContext,
   rendererServiceContext,
   resourceServiceContext,
   userServiceContext,
@@ -35,11 +39,13 @@ import {
   actionDomainServiceContext,
   appDomainServiceContext,
   atomDomainServiceContext,
+  authGuardDomainServiceContext,
   builderDomainServiceContext,
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
   pageDomainServiceContext,
+  redirectDomainServiceContext,
   resourceDomainServiceContext,
   storeDomainServiceContext,
   tagDomainServiceContext,
@@ -51,6 +57,7 @@ import {
   AtomService,
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
+import { AuthGuardService } from '@codelab/frontend/application/auth-guard'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
@@ -65,6 +72,7 @@ import {
   PropService,
   propServiceContext,
 } from '@codelab/frontend/application/prop'
+import { RedirectService } from '@codelab/frontend/application/redirect'
 import { RendererApplicationService } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { RouterService } from '@codelab/frontend/application/shared/store'
@@ -98,6 +106,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       adminService: prop<IAdminService>(() => new AdminService({})),
       appService: prop<IAppService>(() => new AppService({})),
       atomService: prop<IAtomService>(() => new AtomService({})),
+      authGuardService: prop<IAuthGuardService>(() => new AuthGuardService({})),
       builderService: prop<IBuilderDomainService>(
         () => new BuilderDomainService({}),
       ),
@@ -114,6 +123,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         () => new PageApplicationService({}),
       ),
       propService: prop<IPropService>(() => new PropService({})),
+      redirectService: prop<IRedirectService>(() => new RedirectService({})),
       rendererService: prop<IRendererService>(
         () => new RendererApplicationService({}),
       ),
@@ -146,6 +156,11 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
     protected onInit() {
       appServiceContext.set(this, this.appService)
       appDomainServiceContext.set(this, this.appService.appDomainService)
+      authGuardServiceContext.set(this, this.authGuardService)
+      authGuardDomainServiceContext.set(
+        this,
+        this.authGuardService.authGuardDomainService,
+      )
       domainServiceContext.set(this, this.domainService)
       pageServiceContext.set(this, this.pageService)
       pageDomainServiceContext.set(this, this.pageService.pageDomainService)
@@ -179,6 +194,11 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.componentService.componentDomainService,
       )
+      redirectDomainServiceContext.set(
+        this,
+        this.redirectService.redirectDomainService,
+      )
+      redirectServiceContext.set(this, this.redirectService)
       rendererServiceContext.set(this, this.rendererService)
       actionDomainServiceContext.set(
         this,

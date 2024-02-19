@@ -4,13 +4,13 @@ import {
   isElement,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
-import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { schemaTransformer } from '@codelab/frontend/application/type'
 import { createValidator } from '@codelab/frontend/presentation/view'
 import { notify } from '@codelab/frontend/shared/utils'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { evaluateObject } from '@codelab/shared/utils'
 import { useState } from 'react'
 
 const validateJson = (value: string): Nullable<IPropData> => {

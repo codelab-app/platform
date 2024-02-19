@@ -4161,6 +4161,517 @@ export type AtomsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
+export type AuthGuard = WithOwner & {
+  config: Prop
+  configAggregate?: Maybe<AuthGuardPropConfigAggregationSelection>
+  configConnection: AuthGuardConfigConnection
+  id: Scalars['ID']['output']
+  name: Scalars['String']['output']
+  owner: User
+  ownerAggregate?: Maybe<AuthGuardUserOwnerAggregationSelection>
+  ownerConnection: WithOwnerOwnerConnection
+  resource: Resource
+  resourceAggregate?: Maybe<AuthGuardResourceResourceAggregationSelection>
+  resourceConnection: AuthGuardResourceConnection
+  responseTransformer: Scalars['String']['output']
+}
+
+export type AuthGuardConfigArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<PropOptions>
+  where?: InputMaybe<PropWhere>
+}
+
+export type AuthGuardConfigAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<PropWhere>
+}
+
+export type AuthGuardConfigConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<AuthGuardConfigConnectionSort>>
+  where?: InputMaybe<AuthGuardConfigConnectionWhere>
+}
+
+export type AuthGuardOwnerArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<UserOptions>
+  where?: InputMaybe<UserWhere>
+}
+
+export type AuthGuardOwnerAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<UserWhere>
+}
+
+export type AuthGuardOwnerConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
+  where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type AuthGuardResourceArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<ResourceOptions>
+  where?: InputMaybe<ResourceWhere>
+}
+
+export type AuthGuardResourceAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<ResourceWhere>
+}
+
+export type AuthGuardResourceConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<AuthGuardResourceConnectionSort>>
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+}
+
+export type AuthGuardAggregateSelection = {
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  responseTransformer: StringAggregateSelectionNonNullable
+}
+
+export type AuthGuardConfigAggregateInput = {
+  AND?: InputMaybe<Array<AuthGuardConfigAggregateInput>>
+  NOT?: InputMaybe<AuthGuardConfigAggregateInput>
+  OR?: InputMaybe<Array<AuthGuardConfigAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<AuthGuardConfigNodeAggregationWhereInput>
+}
+
+export type AuthGuardConfigConnectFieldInput = {
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<PropConnectWhere>
+}
+
+export type AuthGuardConfigConnectOrCreateFieldInput = {
+  onCreate: AuthGuardConfigConnectOrCreateFieldInputOnCreate
+  where: PropConnectOrCreateWhere
+}
+
+export type AuthGuardConfigConnectOrCreateFieldInputOnCreate = {
+  node: PropOnCreateInput
+}
+
+export type AuthGuardConfigConnection = {
+  edges: Array<AuthGuardConfigRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type AuthGuardConfigConnectionSort = {
+  node?: InputMaybe<PropSort>
+}
+
+export type AuthGuardConfigConnectionWhere = {
+  AND?: InputMaybe<Array<AuthGuardConfigConnectionWhere>>
+  NOT?: InputMaybe<AuthGuardConfigConnectionWhere>
+  OR?: InputMaybe<Array<AuthGuardConfigConnectionWhere>>
+  node?: InputMaybe<PropWhere>
+}
+
+export type AuthGuardConfigCreateFieldInput = {
+  node: PropCreateInput
+}
+
+export type AuthGuardConfigDeleteFieldInput = {
+  where?: InputMaybe<AuthGuardConfigConnectionWhere>
+}
+
+export type AuthGuardConfigDisconnectFieldInput = {
+  where?: InputMaybe<AuthGuardConfigConnectionWhere>
+}
+
+export type AuthGuardConfigFieldInput = {
+  connect?: InputMaybe<AuthGuardConfigConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardConfigCreateFieldInput>
+}
+
+export type AuthGuardConfigNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AuthGuardConfigNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AuthGuardConfigNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AuthGuardConfigNodeAggregationWhereInput>>
+  data_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  data_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  data_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  data_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  data_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  data_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  data_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  data_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  data_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  data_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  data_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  data_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  data_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  data_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  data_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AuthGuardConfigRelationship = {
+  cursor: Scalars['String']['output']
+  node: Prop
+}
+
+export type AuthGuardConfigUpdateConnectionInput = {
+  node?: InputMaybe<PropUpdateInput>
+}
+
+export type AuthGuardConfigUpdateFieldInput = {
+  connect?: InputMaybe<AuthGuardConfigConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardConfigCreateFieldInput>
+  delete?: InputMaybe<AuthGuardConfigDeleteFieldInput>
+  disconnect?: InputMaybe<AuthGuardConfigDisconnectFieldInput>
+  update?: InputMaybe<AuthGuardConfigUpdateConnectionInput>
+  where?: InputMaybe<AuthGuardConfigConnectionWhere>
+}
+
+export type AuthGuardConnectInput = {
+  config?: InputMaybe<AuthGuardConfigConnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
+  resource?: InputMaybe<AuthGuardResourceConnectFieldInput>
+}
+
+export type AuthGuardConnectOrCreateInput = {
+  config?: InputMaybe<AuthGuardConfigConnectOrCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
+  resource?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
+}
+
+export type AuthGuardConnectOrCreateWhere = {
+  node: AuthGuardUniqueWhere
+}
+
+export type AuthGuardConnectWhere = {
+  node: AuthGuardWhere
+}
+
+export type AuthGuardCreateInput = {
+  config?: InputMaybe<AuthGuardConfigFieldInput>
+  id: Scalars['ID']['input']
+  name: Scalars['String']['input']
+  owner?: InputMaybe<WithOwnerOwnerFieldInput>
+  resource?: InputMaybe<AuthGuardResourceFieldInput>
+  responseTransformer: Scalars['String']['input']
+}
+
+export type AuthGuardDeleteInput = {
+  config?: InputMaybe<AuthGuardConfigDeleteFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+  resource?: InputMaybe<AuthGuardResourceDeleteFieldInput>
+}
+
+export type AuthGuardDisconnectInput = {
+  config?: InputMaybe<AuthGuardConfigDisconnectFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
+  resource?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
+}
+
+export type AuthGuardEdge = {
+  cursor: Scalars['String']['output']
+  node: AuthGuard
+}
+
+export type AuthGuardOnCreateInput = {
+  id: Scalars['ID']['input']
+  name: Scalars['String']['input']
+  responseTransformer: Scalars['String']['input']
+}
+
+export type AuthGuardOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more AuthGuardSort objects to sort AuthGuards by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<AuthGuardSort>>
+}
+
+export type AuthGuardOwnerAggregateInput = {
+  AND?: InputMaybe<Array<AuthGuardOwnerAggregateInput>>
+  NOT?: InputMaybe<AuthGuardOwnerAggregateInput>
+  OR?: InputMaybe<Array<AuthGuardOwnerAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<AuthGuardOwnerNodeAggregationWhereInput>
+}
+
+export type AuthGuardOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AuthGuardOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AuthGuardOwnerNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AuthGuardOwnerNodeAggregationWhereInput>>
+  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AuthGuardPropConfigAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<AuthGuardPropConfigNodeAggregateSelection>
+}
+
+export type AuthGuardPropConfigNodeAggregateSelection = {
+  data: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+}
+
+export type AuthGuardRelationInput = {
+  config?: InputMaybe<AuthGuardConfigCreateFieldInput>
+  owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
+  resource?: InputMaybe<AuthGuardResourceCreateFieldInput>
+}
+
+export type AuthGuardResourceAggregateInput = {
+  AND?: InputMaybe<Array<AuthGuardResourceAggregateInput>>
+  NOT?: InputMaybe<AuthGuardResourceAggregateInput>
+  OR?: InputMaybe<Array<AuthGuardResourceAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<AuthGuardResourceNodeAggregationWhereInput>
+}
+
+export type AuthGuardResourceConnectFieldInput = {
+  connect?: InputMaybe<ResourceConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<ResourceConnectWhere>
+}
+
+export type AuthGuardResourceConnectOrCreateFieldInput = {
+  onCreate: AuthGuardResourceConnectOrCreateFieldInputOnCreate
+  where: ResourceConnectOrCreateWhere
+}
+
+export type AuthGuardResourceConnectOrCreateFieldInputOnCreate = {
+  node: ResourceOnCreateInput
+}
+
+export type AuthGuardResourceConnection = {
+  edges: Array<AuthGuardResourceRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type AuthGuardResourceConnectionSort = {
+  node?: InputMaybe<ResourceSort>
+}
+
+export type AuthGuardResourceConnectionWhere = {
+  AND?: InputMaybe<Array<AuthGuardResourceConnectionWhere>>
+  NOT?: InputMaybe<AuthGuardResourceConnectionWhere>
+  OR?: InputMaybe<Array<AuthGuardResourceConnectionWhere>>
+  node?: InputMaybe<ResourceWhere>
+}
+
+export type AuthGuardResourceCreateFieldInput = {
+  node: ResourceCreateInput
+}
+
+export type AuthGuardResourceDeleteFieldInput = {
+  delete?: InputMaybe<ResourceDeleteInput>
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+}
+
+export type AuthGuardResourceDisconnectFieldInput = {
+  disconnect?: InputMaybe<ResourceDisconnectInput>
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+}
+
+export type AuthGuardResourceFieldInput = {
+  connect?: InputMaybe<AuthGuardResourceConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardResourceCreateFieldInput>
+}
+
+export type AuthGuardResourceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AuthGuardResourceNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AuthGuardResourceNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AuthGuardResourceNodeAggregationWhereInput>>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type AuthGuardResourceRelationship = {
+  cursor: Scalars['String']['output']
+  node: Resource
+}
+
+export type AuthGuardResourceResourceAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<AuthGuardResourceResourceNodeAggregateSelection>
+}
+
+export type AuthGuardResourceResourceNodeAggregateSelection = {
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type AuthGuardResourceUpdateConnectionInput = {
+  node?: InputMaybe<ResourceUpdateInput>
+}
+
+export type AuthGuardResourceUpdateFieldInput = {
+  connect?: InputMaybe<AuthGuardResourceConnectFieldInput>
+  connectOrCreate?: InputMaybe<AuthGuardResourceConnectOrCreateFieldInput>
+  create?: InputMaybe<AuthGuardResourceCreateFieldInput>
+  delete?: InputMaybe<AuthGuardResourceDeleteFieldInput>
+  disconnect?: InputMaybe<AuthGuardResourceDisconnectFieldInput>
+  update?: InputMaybe<AuthGuardResourceUpdateConnectionInput>
+  where?: InputMaybe<AuthGuardResourceConnectionWhere>
+}
+
+/** Fields to sort AuthGuards by. The order in which sorts are applied is not guaranteed when specifying many fields in one AuthGuardSort object. */
+export type AuthGuardSort = {
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+  responseTransformer?: InputMaybe<SortDirection>
+}
+
+export type AuthGuardUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type AuthGuardUpdateInput = {
+  config?: InputMaybe<AuthGuardConfigUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+  resource?: InputMaybe<AuthGuardResourceUpdateFieldInput>
+  responseTransformer?: InputMaybe<Scalars['String']['input']>
+}
+
+export type AuthGuardUserOwnerAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<AuthGuardUserOwnerNodeAggregateSelection>
+}
+
+export type AuthGuardUserOwnerNodeAggregateSelection = {
+  auth0Id: StringAggregateSelectionNonNullable
+  email: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  username: StringAggregateSelectionNonNullable
+}
+
+export type AuthGuardWhere = {
+  AND?: InputMaybe<Array<AuthGuardWhere>>
+  NOT?: InputMaybe<AuthGuardWhere>
+  OR?: InputMaybe<Array<AuthGuardWhere>>
+  config?: InputMaybe<PropWhere>
+  configAggregate?: InputMaybe<AuthGuardConfigAggregateInput>
+  configConnection?: InputMaybe<AuthGuardConfigConnectionWhere>
+  configConnection_NOT?: InputMaybe<AuthGuardConfigConnectionWhere>
+  config_NOT?: InputMaybe<PropWhere>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  name?: InputMaybe<Scalars['String']['input']>
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  name_MATCHES?: InputMaybe<Scalars['String']['input']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  owner?: InputMaybe<UserWhere>
+  ownerAggregate?: InputMaybe<AuthGuardOwnerAggregateInput>
+  ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
+  owner_NOT?: InputMaybe<UserWhere>
+  resource?: InputMaybe<ResourceWhere>
+  resourceAggregate?: InputMaybe<AuthGuardResourceAggregateInput>
+  resourceConnection?: InputMaybe<AuthGuardResourceConnectionWhere>
+  resourceConnection_NOT?: InputMaybe<AuthGuardResourceConnectionWhere>
+  resource_NOT?: InputMaybe<ResourceWhere>
+  responseTransformer?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  responseTransformer_MATCHES?: InputMaybe<Scalars['String']['input']>
+  responseTransformer_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
+export type AuthGuardsConnection = {
+  edges: Array<AuthGuardEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
 export type BaseAction = {
   element?: Maybe<Element>
   elementConnection: BaseActionElementConnection
@@ -6261,6 +6772,11 @@ export type CreateAtomsMutationResponse = {
   info: CreateInfo
 }
 
+export type CreateAuthGuardsMutationResponse = {
+  authGuards: Array<AuthGuard>
+  info: CreateInfo
+}
+
 export type CreateCodeActionsMutationResponse = {
   codeActions: Array<CodeAction>
   info: CreateInfo
@@ -6357,6 +6873,11 @@ export type CreatePropsMutationResponse = {
 export type CreateReactNodeTypesMutationResponse = {
   info: CreateInfo
   reactNodeTypes: Array<ReactNodeType>
+}
+
+export type CreateRedirectsMutationResponse = {
+  info: CreateInfo
+  redirects: Array<Redirect>
 }
 
 export type CreateRenderPropTypesMutationResponse = {
@@ -12766,6 +13287,7 @@ export type Mutation = {
   createApps: CreateAppsMutationResponse
   createArrayTypes: CreateArrayTypesMutationResponse
   createAtoms: CreateAtomsMutationResponse
+  createAuthGuards: CreateAuthGuardsMutationResponse
   createCodeActions: CreateCodeActionsMutationResponse
   createCodeMirrorTypes: CreateCodeMirrorTypesMutationResponse
   createComponents: CreateComponentsMutationResponse
@@ -12784,6 +13306,7 @@ export type Mutation = {
   createPrimitiveTypes: CreatePrimitiveTypesMutationResponse
   createProps: CreatePropsMutationResponse
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
+  createRedirects: CreateRedirectsMutationResponse
   createRenderPropTypes: CreateRenderPropTypesMutationResponse
   createResources: CreateResourcesMutationResponse
   createStores: CreateStoresMutationResponse
@@ -12797,6 +13320,7 @@ export type Mutation = {
   deleteApps: DeleteInfo
   deleteArrayTypes: DeleteInfo
   deleteAtoms: DeleteInfo
+  deleteAuthGuards: DeleteInfo
   deleteCodeActions: DeleteInfo
   deleteCodeMirrorTypes: DeleteInfo
   deleteComponents: DeleteInfo
@@ -12815,6 +13339,7 @@ export type Mutation = {
   deletePrimitiveTypes: DeleteInfo
   deleteProps: DeleteInfo
   deleteReactNodeTypes: DeleteInfo
+  deleteRedirects: DeleteInfo
   deleteRenderPropTypes: DeleteInfo
   deleteResources: DeleteInfo
   deleteStores: DeleteInfo
@@ -12828,6 +13353,7 @@ export type Mutation = {
   updateApps: UpdateAppsMutationResponse
   updateArrayTypes: UpdateArrayTypesMutationResponse
   updateAtoms: UpdateAtomsMutationResponse
+  updateAuthGuards: UpdateAuthGuardsMutationResponse
   updateCodeActions: UpdateCodeActionsMutationResponse
   updateCodeMirrorTypes: UpdateCodeMirrorTypesMutationResponse
   updateComponents: UpdateComponentsMutationResponse
@@ -12846,6 +13372,7 @@ export type Mutation = {
   updatePrimitiveTypes: UpdatePrimitiveTypesMutationResponse
   updateProps: UpdatePropsMutationResponse
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
+  updateRedirects: UpdateRedirectsMutationResponse
   updateRenderPropTypes: UpdateRenderPropTypesMutationResponse
   updateResources: UpdateResourcesMutationResponse
   updateStores: UpdateStoresMutationResponse
@@ -12877,6 +13404,10 @@ export type MutationCreateArrayTypesArgs = {
 
 export type MutationCreateAtomsArgs = {
   input: Array<AtomCreateInput>
+}
+
+export type MutationCreateAuthGuardsArgs = {
+  input: Array<AuthGuardCreateInput>
 }
 
 export type MutationCreateCodeActionsArgs = {
@@ -12951,6 +13482,10 @@ export type MutationCreateReactNodeTypesArgs = {
   input: Array<ReactNodeTypeCreateInput>
 }
 
+export type MutationCreateRedirectsArgs = {
+  input: Array<RedirectCreateInput>
+}
+
 export type MutationCreateRenderPropTypesArgs = {
   input: Array<RenderPropTypeCreateInput>
 }
@@ -13007,6 +13542,11 @@ export type MutationDeleteArrayTypesArgs = {
 export type MutationDeleteAtomsArgs = {
   delete?: InputMaybe<AtomDeleteInput>
   where?: InputMaybe<AtomWhere>
+}
+
+export type MutationDeleteAuthGuardsArgs = {
+  delete?: InputMaybe<AuthGuardDeleteInput>
+  where?: InputMaybe<AuthGuardWhere>
 }
 
 export type MutationDeleteCodeActionsArgs = {
@@ -13095,6 +13635,11 @@ export type MutationDeletePropsArgs = {
 export type MutationDeleteReactNodeTypesArgs = {
   delete?: InputMaybe<ReactNodeTypeDeleteInput>
   where?: InputMaybe<ReactNodeTypeWhere>
+}
+
+export type MutationDeleteRedirectsArgs = {
+  delete?: InputMaybe<RedirectDeleteInput>
+  where?: InputMaybe<RedirectWhere>
 }
 
 export type MutationDeleteRenderPropTypesArgs = {
@@ -13189,6 +13734,16 @@ export type MutationUpdateAtomsArgs = {
   disconnect?: InputMaybe<AtomDisconnectInput>
   update?: InputMaybe<AtomUpdateInput>
   where?: InputMaybe<AtomWhere>
+}
+
+export type MutationUpdateAuthGuardsArgs = {
+  connect?: InputMaybe<AuthGuardConnectInput>
+  connectOrCreate?: InputMaybe<AuthGuardConnectOrCreateInput>
+  create?: InputMaybe<AuthGuardRelationInput>
+  delete?: InputMaybe<AuthGuardDeleteInput>
+  disconnect?: InputMaybe<AuthGuardDisconnectInput>
+  update?: InputMaybe<AuthGuardUpdateInput>
+  where?: InputMaybe<AuthGuardWhere>
 }
 
 export type MutationUpdateCodeActionsArgs = {
@@ -13360,6 +13915,16 @@ export type MutationUpdateReactNodeTypesArgs = {
   where?: InputMaybe<ReactNodeTypeWhere>
 }
 
+export type MutationUpdateRedirectsArgs = {
+  connect?: InputMaybe<RedirectConnectInput>
+  connectOrCreate?: InputMaybe<RedirectConnectOrCreateInput>
+  create?: InputMaybe<RedirectRelationInput>
+  delete?: InputMaybe<RedirectDeleteInput>
+  disconnect?: InputMaybe<RedirectDisconnectInput>
+  update?: InputMaybe<RedirectUpdateInput>
+  where?: InputMaybe<RedirectWhere>
+}
+
 export type MutationUpdateRenderPropTypesArgs = {
   connect?: InputMaybe<RenderPropTypeConnectInput>
   connectOrCreate?: InputMaybe<RenderPropTypeConnectOrCreateInput>
@@ -13436,6 +14001,9 @@ export type Page = {
   pageContentContainer?: Maybe<Element>
   pageContentContainerAggregate?: Maybe<PageElementPageContentContainerAggregationSelection>
   pageContentContainerConnection: PagePageContentContainerConnection
+  redirect?: Maybe<Redirect>
+  redirectAggregate?: Maybe<PageRedirectRedirectAggregationSelection>
+  redirectConnection: PageRedirectConnection
   rootElement: Element
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   rootElementConnection: PageRootElementConnection
@@ -13482,6 +14050,25 @@ export type PagePageContentContainerConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<PagePageContentContainerConnectionSort>>
   where?: InputMaybe<PagePageContentContainerConnectionWhere>
+}
+
+export type PageRedirectArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}
+
+export type PageRedirectAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<RedirectWhere>
+}
+
+export type PageRedirectConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<PageRedirectConnectionSort>>
+  where?: InputMaybe<PageRedirectConnectionWhere>
 }
 
 export type PageRootElementArgs = {
@@ -13647,6 +14234,7 @@ export type PageAppUpdateFieldInput = {
 export type PageConnectInput = {
   app?: InputMaybe<PageAppConnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectFieldInput>
+  redirect?: InputMaybe<PageRedirectConnectFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectFieldInput>
   store?: InputMaybe<PageStoreConnectFieldInput>
 }
@@ -13654,6 +14242,7 @@ export type PageConnectInput = {
 export type PageConnectOrCreateInput = {
   app?: InputMaybe<PageAppConnectOrCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerConnectOrCreateFieldInput>
+  redirect?: InputMaybe<PageRedirectConnectOrCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementConnectOrCreateFieldInput>
   store?: InputMaybe<PageStoreConnectOrCreateFieldInput>
 }
@@ -13672,6 +14261,7 @@ export type PageCreateInput = {
   id: Scalars['ID']['input']
   kind: PageKind
   pageContentContainer?: InputMaybe<PagePageContentContainerFieldInput>
+  redirect?: InputMaybe<PageRedirectFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
   store?: InputMaybe<PageStoreFieldInput>
   url: Scalars['String']['input']
@@ -13680,6 +14270,7 @@ export type PageCreateInput = {
 export type PageDeleteInput = {
   app?: InputMaybe<PageAppDeleteFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDeleteFieldInput>
+  redirect?: InputMaybe<PageRedirectDeleteFieldInput>
   rootElement?: InputMaybe<PageRootElementDeleteFieldInput>
   store?: InputMaybe<PageStoreDeleteFieldInput>
 }
@@ -13687,6 +14278,7 @@ export type PageDeleteInput = {
 export type PageDisconnectInput = {
   app?: InputMaybe<PageAppDisconnectFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerDisconnectFieldInput>
+  redirect?: InputMaybe<PageRedirectDisconnectFieldInput>
   rootElement?: InputMaybe<PageRootElementDisconnectFieldInput>
   store?: InputMaybe<PageStoreDisconnectFieldInput>
 }
@@ -13932,9 +14524,125 @@ export type PagePageContentContainerUpdateFieldInput = {
   where?: InputMaybe<PagePageContentContainerConnectionWhere>
 }
 
+export type PageRedirectAggregateInput = {
+  AND?: InputMaybe<Array<PageRedirectAggregateInput>>
+  NOT?: InputMaybe<PageRedirectAggregateInput>
+  OR?: InputMaybe<Array<PageRedirectAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<PageRedirectNodeAggregationWhereInput>
+}
+
+export type PageRedirectConnectFieldInput = {
+  connect?: InputMaybe<RedirectConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<RedirectConnectWhere>
+}
+
+export type PageRedirectConnectOrCreateFieldInput = {
+  onCreate: PageRedirectConnectOrCreateFieldInputOnCreate
+  where: RedirectConnectOrCreateWhere
+}
+
+export type PageRedirectConnectOrCreateFieldInputOnCreate = {
+  node: RedirectOnCreateInput
+}
+
+export type PageRedirectConnection = {
+  edges: Array<PageRedirectRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type PageRedirectConnectionSort = {
+  node?: InputMaybe<RedirectSort>
+}
+
+export type PageRedirectConnectionWhere = {
+  AND?: InputMaybe<Array<PageRedirectConnectionWhere>>
+  NOT?: InputMaybe<PageRedirectConnectionWhere>
+  OR?: InputMaybe<Array<PageRedirectConnectionWhere>>
+  node?: InputMaybe<RedirectWhere>
+}
+
+export type PageRedirectCreateFieldInput = {
+  node: RedirectCreateInput
+}
+
+export type PageRedirectDeleteFieldInput = {
+  delete?: InputMaybe<RedirectDeleteInput>
+  where?: InputMaybe<PageRedirectConnectionWhere>
+}
+
+export type PageRedirectDisconnectFieldInput = {
+  disconnect?: InputMaybe<RedirectDisconnectInput>
+  where?: InputMaybe<PageRedirectConnectionWhere>
+}
+
+export type PageRedirectFieldInput = {
+  connect?: InputMaybe<PageRedirectConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageRedirectConnectOrCreateFieldInput>
+  create?: InputMaybe<PageRedirectCreateFieldInput>
+}
+
+export type PageRedirectNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PageRedirectNodeAggregationWhereInput>>
+  NOT?: InputMaybe<PageRedirectNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<PageRedirectNodeAggregationWhereInput>>
+  targetUrl_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  targetUrl_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  targetUrl_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  targetUrl_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  targetUrl_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  targetUrl_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  targetUrl_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type PageRedirectRedirectAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<PageRedirectRedirectNodeAggregateSelection>
+}
+
+export type PageRedirectRedirectNodeAggregateSelection = {
+  id: IdAggregateSelectionNonNullable
+  targetUrl: StringAggregateSelectionNullable
+}
+
+export type PageRedirectRelationship = {
+  cursor: Scalars['String']['output']
+  node: Redirect
+}
+
+export type PageRedirectUpdateConnectionInput = {
+  node?: InputMaybe<RedirectUpdateInput>
+}
+
+export type PageRedirectUpdateFieldInput = {
+  connect?: InputMaybe<PageRedirectConnectFieldInput>
+  connectOrCreate?: InputMaybe<PageRedirectConnectOrCreateFieldInput>
+  create?: InputMaybe<PageRedirectCreateFieldInput>
+  delete?: InputMaybe<PageRedirectDeleteFieldInput>
+  disconnect?: InputMaybe<PageRedirectDisconnectFieldInput>
+  update?: InputMaybe<PageRedirectUpdateConnectionInput>
+  where?: InputMaybe<PageRedirectConnectionWhere>
+}
+
 export type PageRelationInput = {
   app?: InputMaybe<PageAppCreateFieldInput>
   pageContentContainer?: InputMaybe<PagePageContentContainerCreateFieldInput>
+  redirect?: InputMaybe<PageRedirectCreateFieldInput>
   rootElement?: InputMaybe<PageRootElementCreateFieldInput>
   store?: InputMaybe<PageStoreCreateFieldInput>
 }
@@ -14452,6 +15160,7 @@ export type PageUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   kind?: InputMaybe<PageKind>
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
+  redirect?: InputMaybe<PageRedirectUpdateFieldInput>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   store?: InputMaybe<PageStoreUpdateFieldInput>
   url?: InputMaybe<Scalars['String']['input']>
@@ -14485,6 +15194,11 @@ export type PageWhere = {
   pageContentContainerConnection?: InputMaybe<PagePageContentContainerConnectionWhere>
   pageContentContainerConnection_NOT?: InputMaybe<PagePageContentContainerConnectionWhere>
   pageContentContainer_NOT?: InputMaybe<ElementWhere>
+  redirect?: InputMaybe<RedirectWhere>
+  redirectAggregate?: InputMaybe<PageRedirectAggregateInput>
+  redirectConnection?: InputMaybe<PageRedirectConnectionWhere>
+  redirectConnection_NOT?: InputMaybe<PageRedirectConnectionWhere>
+  redirect_NOT?: InputMaybe<RedirectWhere>
   rootElement?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<PageRootElementAggregateInput>
   rootElementConnection?: InputMaybe<PageRootElementConnectionWhere>
@@ -14837,6 +15551,9 @@ export type Query = {
   atoms: Array<Atom>
   atomsAggregate: AtomAggregateSelection
   atomsConnection: AtomsConnection
+  authGuards: Array<AuthGuard>
+  authGuardsAggregate: AuthGuardAggregateSelection
+  authGuardsConnection: AuthGuardsConnection
   baseTypes: GetBaseTypesReturn
   codeActions: Array<CodeAction>
   codeActionsAggregate: CodeActionAggregateSelection
@@ -14899,6 +15616,9 @@ export type Query = {
   reactNodeTypes: Array<ReactNodeType>
   reactNodeTypesAggregate: ReactNodeTypeAggregateSelection
   reactNodeTypesConnection: ReactNodeTypesConnection
+  redirects: Array<Redirect>
+  redirectsAggregate: RedirectAggregateSelection
+  redirectsConnection: RedirectsConnection
   renderPropTypes: Array<RenderPropType>
   renderPropTypesAggregate: RenderPropTypeAggregateSelection
   renderPropTypesConnection: RenderPropTypesConnection
@@ -15016,6 +15736,22 @@ export type QueryAtomsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<InputMaybe<AtomSort>>>
   where?: InputMaybe<AtomWhere>
+}
+
+export type QueryAuthGuardsArgs = {
+  options?: InputMaybe<AuthGuardOptions>
+  where?: InputMaybe<AuthGuardWhere>
+}
+
+export type QueryAuthGuardsAggregateArgs = {
+  where?: InputMaybe<AuthGuardWhere>
+}
+
+export type QueryAuthGuardsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<InputMaybe<AuthGuardSort>>>
+  where?: InputMaybe<AuthGuardWhere>
 }
 
 export type QueryBaseTypesArgs = {
@@ -15317,6 +16053,22 @@ export type QueryReactNodeTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>
   sort?: InputMaybe<Array<InputMaybe<ReactNodeTypeSort>>>
   where?: InputMaybe<ReactNodeTypeWhere>
+}
+
+export type QueryRedirectsArgs = {
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}
+
+export type QueryRedirectsAggregateArgs = {
+  where?: InputMaybe<RedirectWhere>
+}
+
+export type QueryRedirectsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<InputMaybe<RedirectSort>>>
+  where?: InputMaybe<RedirectWhere>
 }
 
 export type QueryRenderPropTypesArgs = {
@@ -15683,6 +16435,614 @@ export type ReactNodeTypeWhere = {
 
 export type ReactNodeTypesConnection = {
   edges: Array<ReactNodeTypeEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type Redirect = {
+  authGuard: AuthGuard
+  authGuardAggregate?: Maybe<RedirectAuthGuardAuthGuardAggregationSelection>
+  authGuardConnection: RedirectAuthGuardConnection
+  id: Scalars['ID']['output']
+  source: Page
+  sourceAggregate?: Maybe<RedirectPageSourceAggregationSelection>
+  sourceConnection: RedirectSourceConnection
+  targetPage?: Maybe<Page>
+  targetPageAggregate?: Maybe<RedirectPageTargetPageAggregationSelection>
+  targetPageConnection: RedirectTargetPageConnection
+  targetType: RedirectTargetType
+  targetUrl?: Maybe<Scalars['String']['output']>
+}
+
+export type RedirectAuthGuardArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<AuthGuardOptions>
+  where?: InputMaybe<AuthGuardWhere>
+}
+
+export type RedirectAuthGuardAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<AuthGuardWhere>
+}
+
+export type RedirectAuthGuardConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<RedirectAuthGuardConnectionSort>>
+  where?: InputMaybe<RedirectAuthGuardConnectionWhere>
+}
+
+export type RedirectSourceArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}
+
+export type RedirectSourceAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<PageWhere>
+}
+
+export type RedirectSourceConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<RedirectSourceConnectionSort>>
+  where?: InputMaybe<RedirectSourceConnectionWhere>
+}
+
+export type RedirectTargetPageArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  options?: InputMaybe<PageOptions>
+  where?: InputMaybe<PageWhere>
+}
+
+export type RedirectTargetPageAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  where?: InputMaybe<PageWhere>
+}
+
+export type RedirectTargetPageConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>
+  directed?: InputMaybe<Scalars['Boolean']['input']>
+  first?: InputMaybe<Scalars['Int']['input']>
+  sort?: InputMaybe<Array<RedirectTargetPageConnectionSort>>
+  where?: InputMaybe<RedirectTargetPageConnectionWhere>
+}
+
+export type RedirectAggregateSelection = {
+  count: Scalars['Int']['output']
+  id: IdAggregateSelectionNonNullable
+  targetUrl: StringAggregateSelectionNullable
+}
+
+export type RedirectAuthGuardAggregateInput = {
+  AND?: InputMaybe<Array<RedirectAuthGuardAggregateInput>>
+  NOT?: InputMaybe<RedirectAuthGuardAggregateInput>
+  OR?: InputMaybe<Array<RedirectAuthGuardAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<RedirectAuthGuardNodeAggregationWhereInput>
+}
+
+export type RedirectAuthGuardAuthGuardAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<RedirectAuthGuardAuthGuardNodeAggregateSelection>
+}
+
+export type RedirectAuthGuardAuthGuardNodeAggregateSelection = {
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  responseTransformer: StringAggregateSelectionNonNullable
+}
+
+export type RedirectAuthGuardConnectFieldInput = {
+  connect?: InputMaybe<AuthGuardConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<AuthGuardConnectWhere>
+}
+
+export type RedirectAuthGuardConnectOrCreateFieldInput = {
+  onCreate: RedirectAuthGuardConnectOrCreateFieldInputOnCreate
+  where: AuthGuardConnectOrCreateWhere
+}
+
+export type RedirectAuthGuardConnectOrCreateFieldInputOnCreate = {
+  node: AuthGuardOnCreateInput
+}
+
+export type RedirectAuthGuardConnection = {
+  edges: Array<RedirectAuthGuardRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type RedirectAuthGuardConnectionSort = {
+  node?: InputMaybe<AuthGuardSort>
+}
+
+export type RedirectAuthGuardConnectionWhere = {
+  AND?: InputMaybe<Array<RedirectAuthGuardConnectionWhere>>
+  NOT?: InputMaybe<RedirectAuthGuardConnectionWhere>
+  OR?: InputMaybe<Array<RedirectAuthGuardConnectionWhere>>
+  node?: InputMaybe<AuthGuardWhere>
+}
+
+export type RedirectAuthGuardCreateFieldInput = {
+  node: AuthGuardCreateInput
+}
+
+export type RedirectAuthGuardDeleteFieldInput = {
+  delete?: InputMaybe<AuthGuardDeleteInput>
+  where?: InputMaybe<RedirectAuthGuardConnectionWhere>
+}
+
+export type RedirectAuthGuardDisconnectFieldInput = {
+  disconnect?: InputMaybe<AuthGuardDisconnectInput>
+  where?: InputMaybe<RedirectAuthGuardConnectionWhere>
+}
+
+export type RedirectAuthGuardFieldInput = {
+  connect?: InputMaybe<RedirectAuthGuardConnectFieldInput>
+  connectOrCreate?: InputMaybe<RedirectAuthGuardConnectOrCreateFieldInput>
+  create?: InputMaybe<RedirectAuthGuardCreateFieldInput>
+}
+
+export type RedirectAuthGuardNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RedirectAuthGuardNodeAggregationWhereInput>>
+  NOT?: InputMaybe<RedirectAuthGuardNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<RedirectAuthGuardNodeAggregationWhereInput>>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_AVERAGE_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Float']['input']
+  >
+  responseTransformer_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  responseTransformer_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_EQUAL?: InputMaybe<
+    Scalars['Int']['input']
+  >
+  responseTransformer_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  responseTransformer_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type RedirectAuthGuardRelationship = {
+  cursor: Scalars['String']['output']
+  node: AuthGuard
+}
+
+export type RedirectAuthGuardUpdateConnectionInput = {
+  node?: InputMaybe<AuthGuardUpdateInput>
+}
+
+export type RedirectAuthGuardUpdateFieldInput = {
+  connect?: InputMaybe<RedirectAuthGuardConnectFieldInput>
+  connectOrCreate?: InputMaybe<RedirectAuthGuardConnectOrCreateFieldInput>
+  create?: InputMaybe<RedirectAuthGuardCreateFieldInput>
+  delete?: InputMaybe<RedirectAuthGuardDeleteFieldInput>
+  disconnect?: InputMaybe<RedirectAuthGuardDisconnectFieldInput>
+  update?: InputMaybe<RedirectAuthGuardUpdateConnectionInput>
+  where?: InputMaybe<RedirectAuthGuardConnectionWhere>
+}
+
+export type RedirectConnectInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardConnectFieldInput>
+  source?: InputMaybe<RedirectSourceConnectFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageConnectFieldInput>
+}
+
+export type RedirectConnectOrCreateInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardConnectOrCreateFieldInput>
+  source?: InputMaybe<RedirectSourceConnectOrCreateFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageConnectOrCreateFieldInput>
+}
+
+export type RedirectConnectOrCreateWhere = {
+  node: RedirectUniqueWhere
+}
+
+export type RedirectConnectWhere = {
+  node: RedirectWhere
+}
+
+export type RedirectCreateInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardFieldInput>
+  id: Scalars['ID']['input']
+  source?: InputMaybe<RedirectSourceFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageFieldInput>
+  targetType: RedirectTargetType
+  targetUrl?: InputMaybe<Scalars['String']['input']>
+}
+
+export type RedirectDeleteInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardDeleteFieldInput>
+  source?: InputMaybe<RedirectSourceDeleteFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageDeleteFieldInput>
+}
+
+export type RedirectDisconnectInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardDisconnectFieldInput>
+  source?: InputMaybe<RedirectSourceDisconnectFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageDisconnectFieldInput>
+}
+
+export type RedirectEdge = {
+  cursor: Scalars['String']['output']
+  node: Redirect
+}
+
+export type RedirectOnCreateInput = {
+  id: Scalars['ID']['input']
+  targetType: RedirectTargetType
+  targetUrl?: InputMaybe<Scalars['String']['input']>
+}
+
+export type RedirectOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  /** Specify one or more RedirectSort objects to sort Redirects by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<RedirectSort>>
+}
+
+export type RedirectPageSourceAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<RedirectPageSourceNodeAggregateSelection>
+}
+
+export type RedirectPageSourceNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
+}
+
+export type RedirectPageTargetPageAggregationSelection = {
+  count: Scalars['Int']['output']
+  node?: Maybe<RedirectPageTargetPageNodeAggregateSelection>
+}
+
+export type RedirectPageTargetPageNodeAggregateSelection = {
+  compositeKey: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
+}
+
+export type RedirectRelationInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardCreateFieldInput>
+  source?: InputMaybe<RedirectSourceCreateFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageCreateFieldInput>
+}
+
+/** Fields to sort Redirects by. The order in which sorts are applied is not guaranteed when specifying many fields in one RedirectSort object. */
+export type RedirectSort = {
+  id?: InputMaybe<SortDirection>
+  targetType?: InputMaybe<SortDirection>
+  targetUrl?: InputMaybe<SortDirection>
+}
+
+export type RedirectSourceAggregateInput = {
+  AND?: InputMaybe<Array<RedirectSourceAggregateInput>>
+  NOT?: InputMaybe<RedirectSourceAggregateInput>
+  OR?: InputMaybe<Array<RedirectSourceAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<RedirectSourceNodeAggregationWhereInput>
+}
+
+export type RedirectSourceConnectFieldInput = {
+  connect?: InputMaybe<PageConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<PageConnectWhere>
+}
+
+export type RedirectSourceConnectOrCreateFieldInput = {
+  onCreate: RedirectSourceConnectOrCreateFieldInputOnCreate
+  where: PageConnectOrCreateWhere
+}
+
+export type RedirectSourceConnectOrCreateFieldInputOnCreate = {
+  node: PageOnCreateInput
+}
+
+export type RedirectSourceConnection = {
+  edges: Array<RedirectSourceRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type RedirectSourceConnectionSort = {
+  node?: InputMaybe<PageSort>
+}
+
+export type RedirectSourceConnectionWhere = {
+  AND?: InputMaybe<Array<RedirectSourceConnectionWhere>>
+  NOT?: InputMaybe<RedirectSourceConnectionWhere>
+  OR?: InputMaybe<Array<RedirectSourceConnectionWhere>>
+  node?: InputMaybe<PageWhere>
+}
+
+export type RedirectSourceCreateFieldInput = {
+  node: PageCreateInput
+}
+
+export type RedirectSourceDeleteFieldInput = {
+  delete?: InputMaybe<PageDeleteInput>
+  where?: InputMaybe<RedirectSourceConnectionWhere>
+}
+
+export type RedirectSourceDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageDisconnectInput>
+  where?: InputMaybe<RedirectSourceConnectionWhere>
+}
+
+export type RedirectSourceFieldInput = {
+  connect?: InputMaybe<RedirectSourceConnectFieldInput>
+  connectOrCreate?: InputMaybe<RedirectSourceConnectOrCreateFieldInput>
+  create?: InputMaybe<RedirectSourceCreateFieldInput>
+}
+
+export type RedirectSourceNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RedirectSourceNodeAggregationWhereInput>>
+  NOT?: InputMaybe<RedirectSourceNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<RedirectSourceNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type RedirectSourceRelationship = {
+  cursor: Scalars['String']['output']
+  node: Page
+}
+
+export type RedirectSourceUpdateConnectionInput = {
+  node?: InputMaybe<PageUpdateInput>
+}
+
+export type RedirectSourceUpdateFieldInput = {
+  connect?: InputMaybe<RedirectSourceConnectFieldInput>
+  connectOrCreate?: InputMaybe<RedirectSourceConnectOrCreateFieldInput>
+  create?: InputMaybe<RedirectSourceCreateFieldInput>
+  delete?: InputMaybe<RedirectSourceDeleteFieldInput>
+  disconnect?: InputMaybe<RedirectSourceDisconnectFieldInput>
+  update?: InputMaybe<RedirectSourceUpdateConnectionInput>
+  where?: InputMaybe<RedirectSourceConnectionWhere>
+}
+
+export type RedirectTargetPageAggregateInput = {
+  AND?: InputMaybe<Array<RedirectTargetPageAggregateInput>>
+  NOT?: InputMaybe<RedirectTargetPageAggregateInput>
+  OR?: InputMaybe<Array<RedirectTargetPageAggregateInput>>
+  count?: InputMaybe<Scalars['Int']['input']>
+  count_GT?: InputMaybe<Scalars['Int']['input']>
+  count_GTE?: InputMaybe<Scalars['Int']['input']>
+  count_LT?: InputMaybe<Scalars['Int']['input']>
+  count_LTE?: InputMaybe<Scalars['Int']['input']>
+  node?: InputMaybe<RedirectTargetPageNodeAggregationWhereInput>
+}
+
+export type RedirectTargetPageConnectFieldInput = {
+  connect?: InputMaybe<PageConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input']
+  where?: InputMaybe<PageConnectWhere>
+}
+
+export type RedirectTargetPageConnectOrCreateFieldInput = {
+  onCreate: RedirectTargetPageConnectOrCreateFieldInputOnCreate
+  where: PageConnectOrCreateWhere
+}
+
+export type RedirectTargetPageConnectOrCreateFieldInputOnCreate = {
+  node: PageOnCreateInput
+}
+
+export type RedirectTargetPageConnection = {
+  edges: Array<RedirectTargetPageRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']['output']
+}
+
+export type RedirectTargetPageConnectionSort = {
+  node?: InputMaybe<PageSort>
+}
+
+export type RedirectTargetPageConnectionWhere = {
+  AND?: InputMaybe<Array<RedirectTargetPageConnectionWhere>>
+  NOT?: InputMaybe<RedirectTargetPageConnectionWhere>
+  OR?: InputMaybe<Array<RedirectTargetPageConnectionWhere>>
+  node?: InputMaybe<PageWhere>
+}
+
+export type RedirectTargetPageCreateFieldInput = {
+  node: PageCreateInput
+}
+
+export type RedirectTargetPageDeleteFieldInput = {
+  delete?: InputMaybe<PageDeleteInput>
+  where?: InputMaybe<RedirectTargetPageConnectionWhere>
+}
+
+export type RedirectTargetPageDisconnectFieldInput = {
+  disconnect?: InputMaybe<PageDisconnectInput>
+  where?: InputMaybe<RedirectTargetPageConnectionWhere>
+}
+
+export type RedirectTargetPageFieldInput = {
+  connect?: InputMaybe<RedirectTargetPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<RedirectTargetPageConnectOrCreateFieldInput>
+  create?: InputMaybe<RedirectTargetPageCreateFieldInput>
+}
+
+export type RedirectTargetPageNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RedirectTargetPageNodeAggregationWhereInput>>
+  NOT?: InputMaybe<RedirectTargetPageNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<RedirectTargetPageNodeAggregationWhereInput>>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+}
+
+export type RedirectTargetPageRelationship = {
+  cursor: Scalars['String']['output']
+  node: Page
+}
+
+export type RedirectTargetPageUpdateConnectionInput = {
+  node?: InputMaybe<PageUpdateInput>
+}
+
+export type RedirectTargetPageUpdateFieldInput = {
+  connect?: InputMaybe<RedirectTargetPageConnectFieldInput>
+  connectOrCreate?: InputMaybe<RedirectTargetPageConnectOrCreateFieldInput>
+  create?: InputMaybe<RedirectTargetPageCreateFieldInput>
+  delete?: InputMaybe<RedirectTargetPageDeleteFieldInput>
+  disconnect?: InputMaybe<RedirectTargetPageDisconnectFieldInput>
+  update?: InputMaybe<RedirectTargetPageUpdateConnectionInput>
+  where?: InputMaybe<RedirectTargetPageConnectionWhere>
+}
+
+export enum RedirectTargetType {
+  /** Redirect to a page in the same app */
+  Page = 'Page',
+  /** Redirect responsible for fetching data from a resource */
+  Url = 'Url',
+}
+
+export type RedirectUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']['input']>
+}
+
+export type RedirectUpdateInput = {
+  authGuard?: InputMaybe<RedirectAuthGuardUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']['input']>
+  source?: InputMaybe<RedirectSourceUpdateFieldInput>
+  targetPage?: InputMaybe<RedirectTargetPageUpdateFieldInput>
+  targetType?: InputMaybe<RedirectTargetType>
+  targetUrl?: InputMaybe<Scalars['String']['input']>
+}
+
+export type RedirectWhere = {
+  AND?: InputMaybe<Array<RedirectWhere>>
+  NOT?: InputMaybe<RedirectWhere>
+  OR?: InputMaybe<Array<RedirectWhere>>
+  authGuard?: InputMaybe<AuthGuardWhere>
+  authGuardAggregate?: InputMaybe<RedirectAuthGuardAggregateInput>
+  authGuardConnection?: InputMaybe<RedirectAuthGuardConnectionWhere>
+  authGuardConnection_NOT?: InputMaybe<RedirectAuthGuardConnectionWhere>
+  authGuard_NOT?: InputMaybe<AuthGuardWhere>
+  id?: InputMaybe<Scalars['ID']['input']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
+  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
+  id_MATCHES?: InputMaybe<Scalars['String']['input']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
+  source?: InputMaybe<PageWhere>
+  sourceAggregate?: InputMaybe<RedirectSourceAggregateInput>
+  sourceConnection?: InputMaybe<RedirectSourceConnectionWhere>
+  sourceConnection_NOT?: InputMaybe<RedirectSourceConnectionWhere>
+  source_NOT?: InputMaybe<PageWhere>
+  targetPage?: InputMaybe<PageWhere>
+  targetPageAggregate?: InputMaybe<RedirectTargetPageAggregateInput>
+  targetPageConnection?: InputMaybe<RedirectTargetPageConnectionWhere>
+  targetPageConnection_NOT?: InputMaybe<RedirectTargetPageConnectionWhere>
+  targetPage_NOT?: InputMaybe<PageWhere>
+  targetType?: InputMaybe<RedirectTargetType>
+  targetType_IN?: InputMaybe<Array<RedirectTargetType>>
+  targetUrl?: InputMaybe<Scalars['String']['input']>
+  targetUrl_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  targetUrl_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  targetUrl_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>
+  targetUrl_MATCHES?: InputMaybe<Scalars['String']['input']>
+  targetUrl_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+}
+
+export type RedirectsConnection = {
+  edges: Array<RedirectEdge>
   pageInfo: PageInfo
   totalCount: Scalars['Int']['output']
 }
@@ -18935,6 +20295,11 @@ export type UpdateAtomsMutationResponse = {
   info: UpdateInfo
 }
 
+export type UpdateAuthGuardsMutationResponse = {
+  authGuards: Array<AuthGuard>
+  info: UpdateInfo
+}
+
 export type UpdateCodeActionsMutationResponse = {
   codeActions: Array<CodeAction>
   info: UpdateInfo
@@ -19033,6 +20398,11 @@ export type UpdatePropsMutationResponse = {
 export type UpdateReactNodeTypesMutationResponse = {
   info: UpdateInfo
   reactNodeTypes: Array<ReactNodeType>
+}
+
+export type UpdateRedirectsMutationResponse = {
+  info: UpdateInfo
+  redirects: Array<Redirect>
 }
 
 export type UpdateRenderPropTypesMutationResponse = {
@@ -20444,6 +21814,14 @@ export type AtomProductionFragment = {
   suggestedChildren: Array<{ id: string; name: string; type: AtomType }>
 }
 
+export type AuthGuardFragment = {
+  id: string
+  name: string
+  responseTransformer: string
+  config: PropFragment
+  resource: ResourceFragment
+}
+
 export type ComponentDevelopmentFragment = {
   elements: Array<ElementFragment>
   rootElement: { id: string }
@@ -20628,6 +22006,15 @@ export type PageProductionFragment = {
 }
 
 export type PropFragment = { data: string; id: string }
+
+export type RedirectFragment = {
+  id: string
+  targetType: RedirectTargetType
+  targetUrl?: string | null
+  authGuard: { id: string }
+  source: { id: string }
+  targetPage?: { id: string } | null
+}
 
 export type ResourceFragment = {
   id: string
@@ -20959,13 +22346,15 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 }>
 
 export type GetAppDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment>
+  actionTypes: Array<ActionTypeFragment & ActionTypeFragment>
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
+  authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
   reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
-  renderPropTypes: Array<RenderPropTypeFragment & RenderPropTypeFragment>
+  redirects: Array<RedirectFragment>
+  renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
 }
 
@@ -21029,6 +22418,42 @@ export type GetSelectAtomOptionsQuery = {
     api: InterfaceTypeFragment
     requiredParents: Array<{ id: string; type: AtomType }>
   }>
+}
+
+export type GetAuthGuardsQueryVariables = Exact<{
+  options?: InputMaybe<AuthGuardOptions>
+  where?: InputMaybe<AuthGuardWhere>
+}>
+
+export type GetAuthGuardsQuery = {
+  aggregate: { count: number }
+  items: Array<AuthGuardFragment>
+}
+
+export type CreateAuthGuardsMutationVariables = Exact<{
+  input: Array<AuthGuardCreateInput> | AuthGuardCreateInput
+}>
+
+export type CreateAuthGuardsMutation = {
+  createAuthGuards: { authGuards: Array<{ id: string }> }
+}
+
+export type UpdateAuthGuardMutationVariables = Exact<{
+  where?: InputMaybe<AuthGuardWhere>
+  update?: InputMaybe<AuthGuardUpdateInput>
+}>
+
+export type UpdateAuthGuardMutation = {
+  updateAuthGuards: { authGuards: Array<{ id: string }> }
+}
+
+export type DeleteAuthGuardsMutationVariables = Exact<{
+  where?: InputMaybe<AuthGuardWhere>
+  delete?: InputMaybe<AuthGuardDeleteInput>
+}>
+
+export type DeleteAuthGuardsMutation = {
+  deleteAuthGuards: { nodesDeleted: number }
 }
 
 export type CreateComponentsMutationVariables = Exact<{
@@ -21223,6 +22648,42 @@ export type GetPropsQuery = {
   items: Array<PropFragment>
 }
 
+export type CreateRedirectsMutationVariables = Exact<{
+  input: Array<RedirectCreateInput> | RedirectCreateInput
+}>
+
+export type CreateRedirectsMutation = {
+  createRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type DeleteRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  delete?: InputMaybe<RedirectDeleteInput>
+}>
+
+export type DeleteRedirectsMutation = {
+  deleteRedirects: { nodesDeleted: number }
+}
+
+export type UpdateRedirectsMutationVariables = Exact<{
+  where?: InputMaybe<RedirectWhere>
+  update?: InputMaybe<RedirectUpdateInput>
+}>
+
+export type UpdateRedirectsMutation = {
+  updateRedirects: { redirects: Array<{ id: string }> }
+}
+
+export type GetRedirectsQueryVariables = Exact<{
+  options?: InputMaybe<RedirectOptions>
+  where?: InputMaybe<RedirectWhere>
+}>
+
+export type GetRedirectsQuery = {
+  aggregate: { count: number }
+  items: Array<RedirectFragment>
+}
+
 export type GetResourcesQueryVariables = Exact<{
   options?: InputMaybe<ResourceOptions>
   where?: InputMaybe<ResourceWhere>
@@ -21252,6 +22713,7 @@ export type UpdateResourceMutation = {
 
 export type DeleteResourcesMutationVariables = Exact<{
   where?: InputMaybe<ResourceWhere>
+  delete?: InputMaybe<ResourceDeleteInput>
 }>
 
 export type DeleteResourcesMutation = {

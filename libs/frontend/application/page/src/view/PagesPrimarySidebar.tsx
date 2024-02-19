@@ -1,5 +1,10 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import { FormNames } from '@codelab/frontend/abstract/types'
+import {
+  CreateRedirectPopover,
+  DeleteRedirectModal,
+  UpdateRedirectPopover,
+} from '@codelab/frontend/application/redirect'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
@@ -27,6 +32,9 @@ export const PagesPrimarySidebar = observer(() => {
           <>
             <CreatePagePopover />
             <UpdatePagePopover />
+            <CreateRedirectPopover />
+            <UpdateRedirectPopover />
+            <DeleteRedirectModal />
           </>
         }
         views={[

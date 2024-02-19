@@ -13,17 +13,16 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   isAtomRef,
-  isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
+import { mergeProps } from '@codelab/frontend/domain/prop'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
-  hasStateExpression,
-} from '@codelab/frontend/application/shared/core'
-import { mergeProps } from '@codelab/frontend/domain/prop'
-import type { IPropData } from '@codelab/shared/abstract/core'
-import { mapDeep } from '@codelab/shared/utils'
+  hasExpression,
+  mapDeep,
+} from '@codelab/shared/utils'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
@@ -91,7 +90,7 @@ export class RuntimeElementPropsModel
       return []
     }
 
-    if (hasStateExpression(this.element.childMapperPropKey)) {
+    if (hasExpression(this.element.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
         this.element.childMapperPropKey,
         this.expressionEvaluationContext,

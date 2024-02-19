@@ -1,12 +1,10 @@
 import { gql } from '@apollo/client'
-import { __ResourceType } from '@codelab/shared/abstract/core'
-
-const resourceTypeEnum = `enum ResourceType {
-  ${Object.values(__ResourceType).join('\n')}
-}`
 
 export const resourceSchema = gql`
-  ${resourceTypeEnum}
+  enum ResourceType {
+    GraphQl
+    Rest
+  }
 
   type Resource implements WithOwner {
     id: ID! @unique

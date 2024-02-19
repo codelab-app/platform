@@ -5,9 +5,9 @@ import type {
 import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
-import { hasStateExpression } from '@codelab/frontend/application/shared/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import { hasExpression } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { BaseRenderPipe } from '../renderPipes'
@@ -52,7 +52,7 @@ export class RenderPropTypeTransformer
       return ''
     }
 
-    if (hasStateExpression(propValue) && expressionTransformer.initialized) {
+    if (hasExpression(propValue) && expressionTransformer.initialized) {
       return expressionTransformer.transpileAndEvaluateExpression(propValue)
     }
 

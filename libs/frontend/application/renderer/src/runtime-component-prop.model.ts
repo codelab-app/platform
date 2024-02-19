@@ -11,12 +11,10 @@ import {
   IComponentModel,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import { mergeProps } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { mapDeep } from '@codelab/shared/utils'
-import isNil from 'lodash/isNil'
+import { evaluateObject, mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'

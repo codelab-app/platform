@@ -4141,6 +4141,505 @@ type AtomsConnection {
   totalCount: Int!
 }
 
+type AuthGuard implements WithOwner {
+  config(
+    directed: Boolean = true
+    options: PropOptions
+    where: PropWhere
+  ): Prop!
+  configAggregate(
+    directed: Boolean = true
+    where: PropWhere
+  ): AuthGuardPropConfigAggregationSelection
+  configConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AuthGuardConfigConnectionSort!]
+    where: AuthGuardConfigConnectionWhere
+  ): AuthGuardConfigConnection!
+  id: ID!
+  name: String!
+  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
+  ownerAggregate(
+    directed: Boolean = true
+    where: UserWhere
+  ): AuthGuardUserOwnerAggregationSelection
+  ownerConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
+  resource(
+    directed: Boolean = true
+    options: ResourceOptions
+    where: ResourceWhere
+  ): Resource!
+  resourceAggregate(
+    directed: Boolean = true
+    where: ResourceWhere
+  ): AuthGuardResourceResourceAggregationSelection
+  resourceConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AuthGuardResourceConnectionSort!]
+    where: AuthGuardResourceConnectionWhere
+  ): AuthGuardResourceConnection!
+  responseTransformer: String!
+}
+
+type AuthGuardAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+  responseTransformer: StringAggregateSelectionNonNullable!
+}
+
+input AuthGuardConfigAggregateInput {
+  AND: [AuthGuardConfigAggregateInput!]
+  NOT: AuthGuardConfigAggregateInput
+  OR: [AuthGuardConfigAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AuthGuardConfigNodeAggregationWhereInput
+}
+
+input AuthGuardConfigConnectFieldInput {
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: PropConnectWhere
+}
+
+input AuthGuardConfigConnectOrCreateFieldInput {
+  onCreate: AuthGuardConfigConnectOrCreateFieldInputOnCreate!
+  where: PropConnectOrCreateWhere!
+}
+
+input AuthGuardConfigConnectOrCreateFieldInputOnCreate {
+  node: PropOnCreateInput!
+}
+
+type AuthGuardConfigConnection {
+  edges: [AuthGuardConfigRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AuthGuardConfigConnectionSort {
+  node: PropSort
+}
+
+input AuthGuardConfigConnectionWhere {
+  AND: [AuthGuardConfigConnectionWhere!]
+  NOT: AuthGuardConfigConnectionWhere
+  OR: [AuthGuardConfigConnectionWhere!]
+  node: PropWhere
+}
+
+input AuthGuardConfigCreateFieldInput {
+  node: PropCreateInput!
+}
+
+input AuthGuardConfigDeleteFieldInput {
+  where: AuthGuardConfigConnectionWhere
+}
+
+input AuthGuardConfigDisconnectFieldInput {
+  where: AuthGuardConfigConnectionWhere
+}
+
+input AuthGuardConfigFieldInput {
+  connect: AuthGuardConfigConnectFieldInput
+  connectOrCreate: AuthGuardConfigConnectOrCreateFieldInput
+  create: AuthGuardConfigCreateFieldInput
+}
+
+input AuthGuardConfigNodeAggregationWhereInput {
+  AND: [AuthGuardConfigNodeAggregationWhereInput!]
+  NOT: AuthGuardConfigNodeAggregationWhereInput
+  OR: [AuthGuardConfigNodeAggregationWhereInput!]
+  data_AVERAGE_LENGTH_EQUAL: Float
+  data_AVERAGE_LENGTH_GT: Float
+  data_AVERAGE_LENGTH_GTE: Float
+  data_AVERAGE_LENGTH_LT: Float
+  data_AVERAGE_LENGTH_LTE: Float
+  data_LONGEST_LENGTH_EQUAL: Int
+  data_LONGEST_LENGTH_GT: Int
+  data_LONGEST_LENGTH_GTE: Int
+  data_LONGEST_LENGTH_LT: Int
+  data_LONGEST_LENGTH_LTE: Int
+  data_SHORTEST_LENGTH_EQUAL: Int
+  data_SHORTEST_LENGTH_GT: Int
+  data_SHORTEST_LENGTH_GTE: Int
+  data_SHORTEST_LENGTH_LT: Int
+  data_SHORTEST_LENGTH_LTE: Int
+}
+
+type AuthGuardConfigRelationship {
+  cursor: String!
+  node: Prop!
+}
+
+input AuthGuardConfigUpdateConnectionInput {
+  node: PropUpdateInput
+}
+
+input AuthGuardConfigUpdateFieldInput {
+  connect: AuthGuardConfigConnectFieldInput
+  connectOrCreate: AuthGuardConfigConnectOrCreateFieldInput
+  create: AuthGuardConfigCreateFieldInput
+  delete: AuthGuardConfigDeleteFieldInput
+  disconnect: AuthGuardConfigDisconnectFieldInput
+  update: AuthGuardConfigUpdateConnectionInput
+  where: AuthGuardConfigConnectionWhere
+}
+
+input AuthGuardConnectInput {
+  config: AuthGuardConfigConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
+  resource: AuthGuardResourceConnectFieldInput
+}
+
+input AuthGuardConnectOrCreateInput {
+  config: AuthGuardConfigConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
+  resource: AuthGuardResourceConnectOrCreateFieldInput
+}
+
+input AuthGuardConnectOrCreateWhere {
+  node: AuthGuardUniqueWhere!
+}
+
+input AuthGuardConnectWhere {
+  node: AuthGuardWhere!
+}
+
+input AuthGuardCreateInput {
+  config: AuthGuardConfigFieldInput
+  id: ID!
+  name: String!
+  owner: WithOwnerOwnerFieldInput
+  resource: AuthGuardResourceFieldInput
+  responseTransformer: String!
+}
+
+input AuthGuardDeleteInput {
+  config: AuthGuardConfigDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
+  resource: AuthGuardResourceDeleteFieldInput
+}
+
+input AuthGuardDisconnectInput {
+  config: AuthGuardConfigDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
+  resource: AuthGuardResourceDisconnectFieldInput
+}
+
+type AuthGuardEdge {
+  cursor: String!
+  node: AuthGuard!
+}
+
+input AuthGuardOnCreateInput {
+  id: ID!
+  name: String!
+  responseTransformer: String!
+}
+
+input AuthGuardOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more AuthGuardSort objects to sort AuthGuards by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [AuthGuardSort!]
+}
+
+input AuthGuardOwnerAggregateInput {
+  AND: [AuthGuardOwnerAggregateInput!]
+  NOT: AuthGuardOwnerAggregateInput
+  OR: [AuthGuardOwnerAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AuthGuardOwnerNodeAggregationWhereInput
+}
+
+input AuthGuardOwnerNodeAggregationWhereInput {
+  AND: [AuthGuardOwnerNodeAggregationWhereInput!]
+  NOT: AuthGuardOwnerNodeAggregationWhereInput
+  OR: [AuthGuardOwnerNodeAggregationWhereInput!]
+  auth0Id_AVERAGE_LENGTH_EQUAL: Float
+  auth0Id_AVERAGE_LENGTH_GT: Float
+  auth0Id_AVERAGE_LENGTH_GTE: Float
+  auth0Id_AVERAGE_LENGTH_LT: Float
+  auth0Id_AVERAGE_LENGTH_LTE: Float
+  auth0Id_LONGEST_LENGTH_EQUAL: Int
+  auth0Id_LONGEST_LENGTH_GT: Int
+  auth0Id_LONGEST_LENGTH_GTE: Int
+  auth0Id_LONGEST_LENGTH_LT: Int
+  auth0Id_LONGEST_LENGTH_LTE: Int
+  auth0Id_SHORTEST_LENGTH_EQUAL: Int
+  auth0Id_SHORTEST_LENGTH_GT: Int
+  auth0Id_SHORTEST_LENGTH_GTE: Int
+  auth0Id_SHORTEST_LENGTH_LT: Int
+  auth0Id_SHORTEST_LENGTH_LTE: Int
+  email_AVERAGE_LENGTH_EQUAL: Float
+  email_AVERAGE_LENGTH_GT: Float
+  email_AVERAGE_LENGTH_GTE: Float
+  email_AVERAGE_LENGTH_LT: Float
+  email_AVERAGE_LENGTH_LTE: Float
+  email_LONGEST_LENGTH_EQUAL: Int
+  email_LONGEST_LENGTH_GT: Int
+  email_LONGEST_LENGTH_GTE: Int
+  email_LONGEST_LENGTH_LT: Int
+  email_LONGEST_LENGTH_LTE: Int
+  email_SHORTEST_LENGTH_EQUAL: Int
+  email_SHORTEST_LENGTH_GT: Int
+  email_SHORTEST_LENGTH_GTE: Int
+  email_SHORTEST_LENGTH_LT: Int
+  email_SHORTEST_LENGTH_LTE: Int
+  username_AVERAGE_LENGTH_EQUAL: Float
+  username_AVERAGE_LENGTH_GT: Float
+  username_AVERAGE_LENGTH_GTE: Float
+  username_AVERAGE_LENGTH_LT: Float
+  username_AVERAGE_LENGTH_LTE: Float
+  username_LONGEST_LENGTH_EQUAL: Int
+  username_LONGEST_LENGTH_GT: Int
+  username_LONGEST_LENGTH_GTE: Int
+  username_LONGEST_LENGTH_LT: Int
+  username_LONGEST_LENGTH_LTE: Int
+  username_SHORTEST_LENGTH_EQUAL: Int
+  username_SHORTEST_LENGTH_GT: Int
+  username_SHORTEST_LENGTH_GTE: Int
+  username_SHORTEST_LENGTH_LT: Int
+  username_SHORTEST_LENGTH_LTE: Int
+}
+
+type AuthGuardPropConfigAggregationSelection {
+  count: Int!
+  node: AuthGuardPropConfigNodeAggregateSelection
+}
+
+type AuthGuardPropConfigNodeAggregateSelection {
+  data: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+}
+
+input AuthGuardRelationInput {
+  config: AuthGuardConfigCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
+  resource: AuthGuardResourceCreateFieldInput
+}
+
+input AuthGuardResourceAggregateInput {
+  AND: [AuthGuardResourceAggregateInput!]
+  NOT: AuthGuardResourceAggregateInput
+  OR: [AuthGuardResourceAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AuthGuardResourceNodeAggregationWhereInput
+}
+
+input AuthGuardResourceConnectFieldInput {
+  connect: ResourceConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: ResourceConnectWhere
+}
+
+input AuthGuardResourceConnectOrCreateFieldInput {
+  onCreate: AuthGuardResourceConnectOrCreateFieldInputOnCreate!
+  where: ResourceConnectOrCreateWhere!
+}
+
+input AuthGuardResourceConnectOrCreateFieldInputOnCreate {
+  node: ResourceOnCreateInput!
+}
+
+type AuthGuardResourceConnection {
+  edges: [AuthGuardResourceRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AuthGuardResourceConnectionSort {
+  node: ResourceSort
+}
+
+input AuthGuardResourceConnectionWhere {
+  AND: [AuthGuardResourceConnectionWhere!]
+  NOT: AuthGuardResourceConnectionWhere
+  OR: [AuthGuardResourceConnectionWhere!]
+  node: ResourceWhere
+}
+
+input AuthGuardResourceCreateFieldInput {
+  node: ResourceCreateInput!
+}
+
+input AuthGuardResourceDeleteFieldInput {
+  delete: ResourceDeleteInput
+  where: AuthGuardResourceConnectionWhere
+}
+
+input AuthGuardResourceDisconnectFieldInput {
+  disconnect: ResourceDisconnectInput
+  where: AuthGuardResourceConnectionWhere
+}
+
+input AuthGuardResourceFieldInput {
+  connect: AuthGuardResourceConnectFieldInput
+  connectOrCreate: AuthGuardResourceConnectOrCreateFieldInput
+  create: AuthGuardResourceCreateFieldInput
+}
+
+input AuthGuardResourceNodeAggregationWhereInput {
+  AND: [AuthGuardResourceNodeAggregationWhereInput!]
+  NOT: AuthGuardResourceNodeAggregationWhereInput
+  OR: [AuthGuardResourceNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type AuthGuardResourceRelationship {
+  cursor: String!
+  node: Resource!
+}
+
+type AuthGuardResourceResourceAggregationSelection {
+  count: Int!
+  node: AuthGuardResourceResourceNodeAggregateSelection
+}
+
+type AuthGuardResourceResourceNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input AuthGuardResourceUpdateConnectionInput {
+  node: ResourceUpdateInput
+}
+
+input AuthGuardResourceUpdateFieldInput {
+  connect: AuthGuardResourceConnectFieldInput
+  connectOrCreate: AuthGuardResourceConnectOrCreateFieldInput
+  create: AuthGuardResourceCreateFieldInput
+  delete: AuthGuardResourceDeleteFieldInput
+  disconnect: AuthGuardResourceDisconnectFieldInput
+  update: AuthGuardResourceUpdateConnectionInput
+  where: AuthGuardResourceConnectionWhere
+}
+
+"""
+Fields to sort AuthGuards by. The order in which sorts are applied is not guaranteed when specifying many fields in one AuthGuardSort object.
+"""
+input AuthGuardSort {
+  id: SortDirection
+  name: SortDirection
+  responseTransformer: SortDirection
+}
+
+input AuthGuardUniqueWhere {
+  id: ID
+}
+
+input AuthGuardUpdateInput {
+  config: AuthGuardConfigUpdateFieldInput
+  id: ID
+  name: String
+  owner: WithOwnerOwnerUpdateFieldInput
+  resource: AuthGuardResourceUpdateFieldInput
+  responseTransformer: String
+}
+
+type AuthGuardUserOwnerAggregationSelection {
+  count: Int!
+  node: AuthGuardUserOwnerNodeAggregateSelection
+}
+
+type AuthGuardUserOwnerNodeAggregateSelection {
+  auth0Id: StringAggregateSelectionNonNullable!
+  email: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  username: StringAggregateSelectionNonNullable!
+}
+
+input AuthGuardWhere {
+  AND: [AuthGuardWhere!]
+  NOT: AuthGuardWhere
+  OR: [AuthGuardWhere!]
+  config: PropWhere
+  configAggregate: AuthGuardConfigAggregateInput
+  configConnection: AuthGuardConfigConnectionWhere
+  configConnection_NOT: AuthGuardConfigConnectionWhere
+  config_NOT: PropWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  owner: UserWhere
+  ownerAggregate: AuthGuardOwnerAggregateInput
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
+  resource: ResourceWhere
+  resourceAggregate: AuthGuardResourceAggregateInput
+  resourceConnection: AuthGuardResourceConnectionWhere
+  resourceConnection_NOT: AuthGuardResourceConnectionWhere
+  resource_NOT: ResourceWhere
+  responseTransformer: String
+  responseTransformer_CONTAINS: String
+  responseTransformer_ENDS_WITH: String
+  responseTransformer_IN: [String!]
+  responseTransformer_MATCHES: String
+  responseTransformer_STARTS_WITH: String
+}
+
+type AuthGuardsConnection {
+  edges: [AuthGuardEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 interface BaseAction {
   element(
     directed: Boolean = true
@@ -6147,6 +6646,11 @@ type CreateAtomsMutationResponse {
   info: CreateInfo!
 }
 
+type CreateAuthGuardsMutationResponse {
+  authGuards: [AuthGuard!]!
+  info: CreateInfo!
+}
+
 type CreateCodeActionsMutationResponse {
   codeActions: [CodeAction!]!
   info: CreateInfo!
@@ -6247,6 +6751,11 @@ type CreatePropsMutationResponse {
 type CreateReactNodeTypesMutationResponse {
   info: CreateInfo!
   reactNodeTypes: [ReactNodeType!]!
+}
+
+type CreateRedirectsMutationResponse {
+  info: CreateInfo!
+  redirects: [Redirect!]!
 }
 
 type CreateRenderPropTypesMutationResponse {
@@ -12503,6 +13012,9 @@ type Mutation {
     input: [ArrayTypeCreateInput!]!
   ): CreateArrayTypesMutationResponse!
   createAtoms(input: [AtomCreateInput!]!): CreateAtomsMutationResponse!
+  createAuthGuards(
+    input: [AuthGuardCreateInput!]!
+  ): CreateAuthGuardsMutationResponse!
   createCodeActions(
     input: [CodeActionCreateInput!]!
   ): CreateCodeActionsMutationResponse!
@@ -12545,6 +13057,9 @@ type Mutation {
   createReactNodeTypes(
     input: [ReactNodeTypeCreateInput!]!
   ): CreateReactNodeTypesMutationResponse!
+  createRedirects(
+    input: [RedirectCreateInput!]!
+  ): CreateRedirectsMutationResponse!
   createRenderPropTypes(
     input: [RenderPropTypeCreateInput!]!
   ): CreateRenderPropTypesMutationResponse!
@@ -12575,6 +13090,10 @@ type Mutation {
     where: ArrayTypeWhere
   ): DeleteInfo!
   deleteAtoms(delete: AtomDeleteInput, where: AtomWhere): DeleteInfo!
+  deleteAuthGuards(
+    delete: AuthGuardDeleteInput
+    where: AuthGuardWhere
+  ): DeleteInfo!
   deleteCodeActions(
     delete: CodeActionDeleteInput
     where: CodeActionWhere
@@ -12625,6 +13144,10 @@ type Mutation {
   deleteReactNodeTypes(
     delete: ReactNodeTypeDeleteInput
     where: ReactNodeTypeWhere
+  ): DeleteInfo!
+  deleteRedirects(
+    delete: RedirectDeleteInput
+    where: RedirectWhere
   ): DeleteInfo!
   deleteRenderPropTypes(
     delete: RenderPropTypeDeleteInput
@@ -12696,6 +13219,15 @@ type Mutation {
     update: AtomUpdateInput
     where: AtomWhere
   ): UpdateAtomsMutationResponse!
+  updateAuthGuards(
+    connect: AuthGuardConnectInput
+    connectOrCreate: AuthGuardConnectOrCreateInput
+    create: AuthGuardRelationInput
+    delete: AuthGuardDeleteInput
+    disconnect: AuthGuardDisconnectInput
+    update: AuthGuardUpdateInput
+    where: AuthGuardWhere
+  ): UpdateAuthGuardsMutationResponse!
   updateCodeActions(
     connect: CodeActionConnectInput
     connectOrCreate: CodeActionConnectOrCreateInput
@@ -12847,6 +13379,15 @@ type Mutation {
     update: ReactNodeTypeUpdateInput
     where: ReactNodeTypeWhere
   ): UpdateReactNodeTypesMutationResponse!
+  updateRedirects(
+    connect: RedirectConnectInput
+    connectOrCreate: RedirectConnectOrCreateInput
+    create: RedirectRelationInput
+    delete: RedirectDeleteInput
+    disconnect: RedirectDisconnectInput
+    update: RedirectUpdateInput
+    where: RedirectWhere
+  ): UpdateRedirectsMutationResponse!
   updateRenderPropTypes(
     connect: RenderPropTypeConnectInput
     connectOrCreate: RenderPropTypeConnectOrCreateInput
@@ -12940,6 +13481,22 @@ type Page {
     sort: [PagePageContentContainerConnectionSort!]
     where: PagePageContentContainerConnectionWhere
   ): PagePageContentContainerConnection!
+  redirect(
+    directed: Boolean = true
+    options: RedirectOptions
+    where: RedirectWhere
+  ): Redirect
+  redirectAggregate(
+    directed: Boolean = true
+    where: RedirectWhere
+  ): PageRedirectRedirectAggregationSelection
+  redirectConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [PageRedirectConnectionSort!]
+    where: PageRedirectConnectionWhere
+  ): PageRedirectConnection!
   rootElement(
     directed: Boolean = true
     options: ElementOptions
@@ -13104,6 +13661,7 @@ input PageAppUpdateFieldInput {
 input PageConnectInput {
   app: PageAppConnectFieldInput
   pageContentContainer: PagePageContentContainerConnectFieldInput
+  redirect: PageRedirectConnectFieldInput
   rootElement: PageRootElementConnectFieldInput
   store: PageStoreConnectFieldInput
 }
@@ -13111,6 +13669,7 @@ input PageConnectInput {
 input PageConnectOrCreateInput {
   app: PageAppConnectOrCreateFieldInput
   pageContentContainer: PagePageContentContainerConnectOrCreateFieldInput
+  redirect: PageRedirectConnectOrCreateFieldInput
   rootElement: PageRootElementConnectOrCreateFieldInput
   store: PageStoreConnectOrCreateFieldInput
 }
@@ -13129,6 +13688,7 @@ input PageCreateInput {
   id: ID!
   kind: PageKind!
   pageContentContainer: PagePageContentContainerFieldInput
+  redirect: PageRedirectFieldInput
   rootElement: PageRootElementFieldInput
   store: PageStoreFieldInput
   url: String!
@@ -13137,6 +13697,7 @@ input PageCreateInput {
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
   pageContentContainer: PagePageContentContainerDeleteFieldInput
+  redirect: PageRedirectDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
   store: PageStoreDeleteFieldInput
 }
@@ -13144,6 +13705,7 @@ input PageDeleteInput {
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
   pageContentContainer: PagePageContentContainerDisconnectFieldInput
+  redirect: PageRedirectDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
   store: PageStoreDisconnectFieldInput
 }
@@ -13383,9 +13945,128 @@ input PagePageContentContainerUpdateFieldInput {
   where: PagePageContentContainerConnectionWhere
 }
 
+input PageRedirectAggregateInput {
+  AND: [PageRedirectAggregateInput!]
+  NOT: PageRedirectAggregateInput
+  OR: [PageRedirectAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageRedirectNodeAggregationWhereInput
+}
+
+input PageRedirectConnectFieldInput {
+  connect: RedirectConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: RedirectConnectWhere
+}
+
+input PageRedirectConnectOrCreateFieldInput {
+  onCreate: PageRedirectConnectOrCreateFieldInputOnCreate!
+  where: RedirectConnectOrCreateWhere!
+}
+
+input PageRedirectConnectOrCreateFieldInputOnCreate {
+  node: RedirectOnCreateInput!
+}
+
+type PageRedirectConnection {
+  edges: [PageRedirectRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input PageRedirectConnectionSort {
+  node: RedirectSort
+}
+
+input PageRedirectConnectionWhere {
+  AND: [PageRedirectConnectionWhere!]
+  NOT: PageRedirectConnectionWhere
+  OR: [PageRedirectConnectionWhere!]
+  node: RedirectWhere
+}
+
+input PageRedirectCreateFieldInput {
+  node: RedirectCreateInput!
+}
+
+input PageRedirectDeleteFieldInput {
+  delete: RedirectDeleteInput
+  where: PageRedirectConnectionWhere
+}
+
+input PageRedirectDisconnectFieldInput {
+  disconnect: RedirectDisconnectInput
+  where: PageRedirectConnectionWhere
+}
+
+input PageRedirectFieldInput {
+  connect: PageRedirectConnectFieldInput
+  connectOrCreate: PageRedirectConnectOrCreateFieldInput
+  create: PageRedirectCreateFieldInput
+}
+
+input PageRedirectNodeAggregationWhereInput {
+  AND: [PageRedirectNodeAggregationWhereInput!]
+  NOT: PageRedirectNodeAggregationWhereInput
+  OR: [PageRedirectNodeAggregationWhereInput!]
+  targetUrl_AVERAGE_LENGTH_EQUAL: Float
+  targetUrl_AVERAGE_LENGTH_GT: Float
+  targetUrl_AVERAGE_LENGTH_GTE: Float
+  targetUrl_AVERAGE_LENGTH_LT: Float
+  targetUrl_AVERAGE_LENGTH_LTE: Float
+  targetUrl_LONGEST_LENGTH_EQUAL: Int
+  targetUrl_LONGEST_LENGTH_GT: Int
+  targetUrl_LONGEST_LENGTH_GTE: Int
+  targetUrl_LONGEST_LENGTH_LT: Int
+  targetUrl_LONGEST_LENGTH_LTE: Int
+  targetUrl_SHORTEST_LENGTH_EQUAL: Int
+  targetUrl_SHORTEST_LENGTH_GT: Int
+  targetUrl_SHORTEST_LENGTH_GTE: Int
+  targetUrl_SHORTEST_LENGTH_LT: Int
+  targetUrl_SHORTEST_LENGTH_LTE: Int
+}
+
+type PageRedirectRedirectAggregationSelection {
+  count: Int!
+  node: PageRedirectRedirectNodeAggregateSelection
+}
+
+type PageRedirectRedirectNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  targetUrl: StringAggregateSelectionNullable!
+}
+
+type PageRedirectRelationship {
+  cursor: String!
+  node: Redirect!
+}
+
+input PageRedirectUpdateConnectionInput {
+  node: RedirectUpdateInput
+}
+
+input PageRedirectUpdateFieldInput {
+  connect: PageRedirectConnectFieldInput
+  connectOrCreate: PageRedirectConnectOrCreateFieldInput
+  create: PageRedirectCreateFieldInput
+  delete: PageRedirectDeleteFieldInput
+  disconnect: PageRedirectDisconnectFieldInput
+  update: PageRedirectUpdateConnectionInput
+  where: PageRedirectConnectionWhere
+}
+
 input PageRelationInput {
   app: PageAppCreateFieldInput
   pageContentContainer: PagePageContentContainerCreateFieldInput
+  redirect: PageRedirectCreateFieldInput
   rootElement: PageRootElementCreateFieldInput
   store: PageStoreCreateFieldInput
 }
@@ -13891,6 +14572,7 @@ input PageUpdateInput {
   id: ID
   kind: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
+  redirect: PageRedirectUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
   store: PageStoreUpdateFieldInput
   url: String
@@ -13924,6 +14606,11 @@ input PageWhere {
   pageContentContainerConnection: PagePageContentContainerConnectionWhere
   pageContentContainerConnection_NOT: PagePageContentContainerConnectionWhere
   pageContentContainer_NOT: ElementWhere
+  redirect: RedirectWhere
+  redirectAggregate: PageRedirectAggregateInput
+  redirectConnection: PageRedirectConnectionWhere
+  redirectConnection_NOT: PageRedirectConnectionWhere
+  redirect_NOT: RedirectWhere
   rootElement: ElementWhere
   rootElementAggregate: PageRootElementAggregateInput
   rootElementConnection: PageRootElementConnectionWhere
@@ -14308,6 +14995,14 @@ type Query {
     sort: [AtomSort]
     where: AtomWhere
   ): AtomsConnection!
+  authGuards(options: AuthGuardOptions, where: AuthGuardWhere): [AuthGuard!]!
+  authGuardsAggregate(where: AuthGuardWhere): AuthGuardAggregateSelection!
+  authGuardsConnection(
+    after: String
+    first: Int
+    sort: [AuthGuardSort]
+    where: AuthGuardWhere
+  ): AuthGuardsConnection!
   baseTypes(options: GetBaseTypesOptions): GetBaseTypesReturn!
   codeActions(
     options: CodeActionOptions
@@ -14503,6 +15198,14 @@ type Query {
     sort: [ReactNodeTypeSort]
     where: ReactNodeTypeWhere
   ): ReactNodeTypesConnection!
+  redirects(options: RedirectOptions, where: RedirectWhere): [Redirect!]!
+  redirectsAggregate(where: RedirectWhere): RedirectAggregateSelection!
+  redirectsConnection(
+    after: String
+    first: Int
+    sort: [RedirectSort]
+    where: RedirectWhere
+  ): RedirectsConnection!
   renderPropTypes(
     options: RenderPropTypeOptions
     where: RenderPropTypeWhere
@@ -14790,6 +15493,611 @@ input ReactNodeTypeWhere {
 
 type ReactNodeTypesConnection {
   edges: [ReactNodeTypeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Redirect {
+  authGuard(
+    directed: Boolean = true
+    options: AuthGuardOptions
+    where: AuthGuardWhere
+  ): AuthGuard!
+  authGuardAggregate(
+    directed: Boolean = true
+    where: AuthGuardWhere
+  ): RedirectAuthGuardAuthGuardAggregationSelection
+  authGuardConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [RedirectAuthGuardConnectionSort!]
+    where: RedirectAuthGuardConnectionWhere
+  ): RedirectAuthGuardConnection!
+  id: ID!
+  source(
+    directed: Boolean = true
+    options: PageOptions
+    where: PageWhere
+  ): Page!
+  sourceAggregate(
+    directed: Boolean = true
+    where: PageWhere
+  ): RedirectPageSourceAggregationSelection
+  sourceConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [RedirectSourceConnectionSort!]
+    where: RedirectSourceConnectionWhere
+  ): RedirectSourceConnection!
+  targetPage(
+    directed: Boolean = true
+    options: PageOptions
+    where: PageWhere
+  ): Page
+  targetPageAggregate(
+    directed: Boolean = true
+    where: PageWhere
+  ): RedirectPageTargetPageAggregationSelection
+  targetPageConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [RedirectTargetPageConnectionSort!]
+    where: RedirectTargetPageConnectionWhere
+  ): RedirectTargetPageConnection!
+  targetType: RedirectTargetType!
+  targetUrl: String
+}
+
+type RedirectAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  targetUrl: StringAggregateSelectionNullable!
+}
+
+input RedirectAuthGuardAggregateInput {
+  AND: [RedirectAuthGuardAggregateInput!]
+  NOT: RedirectAuthGuardAggregateInput
+  OR: [RedirectAuthGuardAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RedirectAuthGuardNodeAggregationWhereInput
+}
+
+type RedirectAuthGuardAuthGuardAggregationSelection {
+  count: Int!
+  node: RedirectAuthGuardAuthGuardNodeAggregateSelection
+}
+
+type RedirectAuthGuardAuthGuardNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+  responseTransformer: StringAggregateSelectionNonNullable!
+}
+
+input RedirectAuthGuardConnectFieldInput {
+  connect: AuthGuardConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: AuthGuardConnectWhere
+}
+
+input RedirectAuthGuardConnectOrCreateFieldInput {
+  onCreate: RedirectAuthGuardConnectOrCreateFieldInputOnCreate!
+  where: AuthGuardConnectOrCreateWhere!
+}
+
+input RedirectAuthGuardConnectOrCreateFieldInputOnCreate {
+  node: AuthGuardOnCreateInput!
+}
+
+type RedirectAuthGuardConnection {
+  edges: [RedirectAuthGuardRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input RedirectAuthGuardConnectionSort {
+  node: AuthGuardSort
+}
+
+input RedirectAuthGuardConnectionWhere {
+  AND: [RedirectAuthGuardConnectionWhere!]
+  NOT: RedirectAuthGuardConnectionWhere
+  OR: [RedirectAuthGuardConnectionWhere!]
+  node: AuthGuardWhere
+}
+
+input RedirectAuthGuardCreateFieldInput {
+  node: AuthGuardCreateInput!
+}
+
+input RedirectAuthGuardDeleteFieldInput {
+  delete: AuthGuardDeleteInput
+  where: RedirectAuthGuardConnectionWhere
+}
+
+input RedirectAuthGuardDisconnectFieldInput {
+  disconnect: AuthGuardDisconnectInput
+  where: RedirectAuthGuardConnectionWhere
+}
+
+input RedirectAuthGuardFieldInput {
+  connect: RedirectAuthGuardConnectFieldInput
+  connectOrCreate: RedirectAuthGuardConnectOrCreateFieldInput
+  create: RedirectAuthGuardCreateFieldInput
+}
+
+input RedirectAuthGuardNodeAggregationWhereInput {
+  AND: [RedirectAuthGuardNodeAggregationWhereInput!]
+  NOT: RedirectAuthGuardNodeAggregationWhereInput
+  OR: [RedirectAuthGuardNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  responseTransformer_AVERAGE_LENGTH_EQUAL: Float
+  responseTransformer_AVERAGE_LENGTH_GT: Float
+  responseTransformer_AVERAGE_LENGTH_GTE: Float
+  responseTransformer_AVERAGE_LENGTH_LT: Float
+  responseTransformer_AVERAGE_LENGTH_LTE: Float
+  responseTransformer_LONGEST_LENGTH_EQUAL: Int
+  responseTransformer_LONGEST_LENGTH_GT: Int
+  responseTransformer_LONGEST_LENGTH_GTE: Int
+  responseTransformer_LONGEST_LENGTH_LT: Int
+  responseTransformer_LONGEST_LENGTH_LTE: Int
+  responseTransformer_SHORTEST_LENGTH_EQUAL: Int
+  responseTransformer_SHORTEST_LENGTH_GT: Int
+  responseTransformer_SHORTEST_LENGTH_GTE: Int
+  responseTransformer_SHORTEST_LENGTH_LT: Int
+  responseTransformer_SHORTEST_LENGTH_LTE: Int
+}
+
+type RedirectAuthGuardRelationship {
+  cursor: String!
+  node: AuthGuard!
+}
+
+input RedirectAuthGuardUpdateConnectionInput {
+  node: AuthGuardUpdateInput
+}
+
+input RedirectAuthGuardUpdateFieldInput {
+  connect: RedirectAuthGuardConnectFieldInput
+  connectOrCreate: RedirectAuthGuardConnectOrCreateFieldInput
+  create: RedirectAuthGuardCreateFieldInput
+  delete: RedirectAuthGuardDeleteFieldInput
+  disconnect: RedirectAuthGuardDisconnectFieldInput
+  update: RedirectAuthGuardUpdateConnectionInput
+  where: RedirectAuthGuardConnectionWhere
+}
+
+input RedirectConnectInput {
+  authGuard: RedirectAuthGuardConnectFieldInput
+  source: RedirectSourceConnectFieldInput
+  targetPage: RedirectTargetPageConnectFieldInput
+}
+
+input RedirectConnectOrCreateInput {
+  authGuard: RedirectAuthGuardConnectOrCreateFieldInput
+  source: RedirectSourceConnectOrCreateFieldInput
+  targetPage: RedirectTargetPageConnectOrCreateFieldInput
+}
+
+input RedirectConnectOrCreateWhere {
+  node: RedirectUniqueWhere!
+}
+
+input RedirectConnectWhere {
+  node: RedirectWhere!
+}
+
+input RedirectCreateInput {
+  authGuard: RedirectAuthGuardFieldInput
+  id: ID!
+  source: RedirectSourceFieldInput
+  targetPage: RedirectTargetPageFieldInput
+  targetType: RedirectTargetType!
+  targetUrl: String
+}
+
+input RedirectDeleteInput {
+  authGuard: RedirectAuthGuardDeleteFieldInput
+  source: RedirectSourceDeleteFieldInput
+  targetPage: RedirectTargetPageDeleteFieldInput
+}
+
+input RedirectDisconnectInput {
+  authGuard: RedirectAuthGuardDisconnectFieldInput
+  source: RedirectSourceDisconnectFieldInput
+  targetPage: RedirectTargetPageDisconnectFieldInput
+}
+
+type RedirectEdge {
+  cursor: String!
+  node: Redirect!
+}
+
+input RedirectOnCreateInput {
+  id: ID!
+  targetType: RedirectTargetType!
+  targetUrl: String
+}
+
+input RedirectOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more RedirectSort objects to sort Redirects by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [RedirectSort!]
+}
+
+type RedirectPageSourceAggregationSelection {
+  count: Int!
+  node: RedirectPageSourceNodeAggregateSelection
+}
+
+type RedirectPageSourceNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  url: StringAggregateSelectionNonNullable!
+}
+
+type RedirectPageTargetPageAggregationSelection {
+  count: Int!
+  node: RedirectPageTargetPageNodeAggregateSelection
+}
+
+type RedirectPageTargetPageNodeAggregateSelection {
+  compositeKey: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  url: StringAggregateSelectionNonNullable!
+}
+
+input RedirectRelationInput {
+  authGuard: RedirectAuthGuardCreateFieldInput
+  source: RedirectSourceCreateFieldInput
+  targetPage: RedirectTargetPageCreateFieldInput
+}
+
+"""
+Fields to sort Redirects by. The order in which sorts are applied is not guaranteed when specifying many fields in one RedirectSort object.
+"""
+input RedirectSort {
+  id: SortDirection
+  targetType: SortDirection
+  targetUrl: SortDirection
+}
+
+input RedirectSourceAggregateInput {
+  AND: [RedirectSourceAggregateInput!]
+  NOT: RedirectSourceAggregateInput
+  OR: [RedirectSourceAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RedirectSourceNodeAggregationWhereInput
+}
+
+input RedirectSourceConnectFieldInput {
+  connect: PageConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: PageConnectWhere
+}
+
+input RedirectSourceConnectOrCreateFieldInput {
+  onCreate: RedirectSourceConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input RedirectSourceConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+type RedirectSourceConnection {
+  edges: [RedirectSourceRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input RedirectSourceConnectionSort {
+  node: PageSort
+}
+
+input RedirectSourceConnectionWhere {
+  AND: [RedirectSourceConnectionWhere!]
+  NOT: RedirectSourceConnectionWhere
+  OR: [RedirectSourceConnectionWhere!]
+  node: PageWhere
+}
+
+input RedirectSourceCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input RedirectSourceDeleteFieldInput {
+  delete: PageDeleteInput
+  where: RedirectSourceConnectionWhere
+}
+
+input RedirectSourceDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: RedirectSourceConnectionWhere
+}
+
+input RedirectSourceFieldInput {
+  connect: RedirectSourceConnectFieldInput
+  connectOrCreate: RedirectSourceConnectOrCreateFieldInput
+  create: RedirectSourceCreateFieldInput
+}
+
+input RedirectSourceNodeAggregationWhereInput {
+  AND: [RedirectSourceNodeAggregationWhereInput!]
+  NOT: RedirectSourceNodeAggregationWhereInput
+  OR: [RedirectSourceNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  url_AVERAGE_LENGTH_EQUAL: Float
+  url_AVERAGE_LENGTH_GT: Float
+  url_AVERAGE_LENGTH_GTE: Float
+  url_AVERAGE_LENGTH_LT: Float
+  url_AVERAGE_LENGTH_LTE: Float
+  url_LONGEST_LENGTH_EQUAL: Int
+  url_LONGEST_LENGTH_GT: Int
+  url_LONGEST_LENGTH_GTE: Int
+  url_LONGEST_LENGTH_LT: Int
+  url_LONGEST_LENGTH_LTE: Int
+  url_SHORTEST_LENGTH_EQUAL: Int
+  url_SHORTEST_LENGTH_GT: Int
+  url_SHORTEST_LENGTH_GTE: Int
+  url_SHORTEST_LENGTH_LT: Int
+  url_SHORTEST_LENGTH_LTE: Int
+}
+
+type RedirectSourceRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input RedirectSourceUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input RedirectSourceUpdateFieldInput {
+  connect: RedirectSourceConnectFieldInput
+  connectOrCreate: RedirectSourceConnectOrCreateFieldInput
+  create: RedirectSourceCreateFieldInput
+  delete: RedirectSourceDeleteFieldInput
+  disconnect: RedirectSourceDisconnectFieldInput
+  update: RedirectSourceUpdateConnectionInput
+  where: RedirectSourceConnectionWhere
+}
+
+input RedirectTargetPageAggregateInput {
+  AND: [RedirectTargetPageAggregateInput!]
+  NOT: RedirectTargetPageAggregateInput
+  OR: [RedirectTargetPageAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: RedirectTargetPageNodeAggregationWhereInput
+}
+
+input RedirectTargetPageConnectFieldInput {
+  connect: PageConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties.
+  """
+  overwrite: Boolean! = true
+  where: PageConnectWhere
+}
+
+input RedirectTargetPageConnectOrCreateFieldInput {
+  onCreate: RedirectTargetPageConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input RedirectTargetPageConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+type RedirectTargetPageConnection {
+  edges: [RedirectTargetPageRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input RedirectTargetPageConnectionSort {
+  node: PageSort
+}
+
+input RedirectTargetPageConnectionWhere {
+  AND: [RedirectTargetPageConnectionWhere!]
+  NOT: RedirectTargetPageConnectionWhere
+  OR: [RedirectTargetPageConnectionWhere!]
+  node: PageWhere
+}
+
+input RedirectTargetPageCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input RedirectTargetPageDeleteFieldInput {
+  delete: PageDeleteInput
+  where: RedirectTargetPageConnectionWhere
+}
+
+input RedirectTargetPageDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: RedirectTargetPageConnectionWhere
+}
+
+input RedirectTargetPageFieldInput {
+  connect: RedirectTargetPageConnectFieldInput
+  connectOrCreate: RedirectTargetPageConnectOrCreateFieldInput
+  create: RedirectTargetPageCreateFieldInput
+}
+
+input RedirectTargetPageNodeAggregationWhereInput {
+  AND: [RedirectTargetPageNodeAggregationWhereInput!]
+  NOT: RedirectTargetPageNodeAggregationWhereInput
+  OR: [RedirectTargetPageNodeAggregationWhereInput!]
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
+  url_AVERAGE_LENGTH_EQUAL: Float
+  url_AVERAGE_LENGTH_GT: Float
+  url_AVERAGE_LENGTH_GTE: Float
+  url_AVERAGE_LENGTH_LT: Float
+  url_AVERAGE_LENGTH_LTE: Float
+  url_LONGEST_LENGTH_EQUAL: Int
+  url_LONGEST_LENGTH_GT: Int
+  url_LONGEST_LENGTH_GTE: Int
+  url_LONGEST_LENGTH_LT: Int
+  url_LONGEST_LENGTH_LTE: Int
+  url_SHORTEST_LENGTH_EQUAL: Int
+  url_SHORTEST_LENGTH_GT: Int
+  url_SHORTEST_LENGTH_GTE: Int
+  url_SHORTEST_LENGTH_LT: Int
+  url_SHORTEST_LENGTH_LTE: Int
+}
+
+type RedirectTargetPageRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input RedirectTargetPageUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input RedirectTargetPageUpdateFieldInput {
+  connect: RedirectTargetPageConnectFieldInput
+  connectOrCreate: RedirectTargetPageConnectOrCreateFieldInput
+  create: RedirectTargetPageCreateFieldInput
+  delete: RedirectTargetPageDeleteFieldInput
+  disconnect: RedirectTargetPageDisconnectFieldInput
+  update: RedirectTargetPageUpdateConnectionInput
+  where: RedirectTargetPageConnectionWhere
+}
+
+enum RedirectTargetType {
+  """
+  Redirect to a page in the same app
+  """
+  Page
+
+  """
+  Redirect responsible for fetching data from a resource
+  """
+  Url
+}
+
+input RedirectUniqueWhere {
+  id: ID
+}
+
+input RedirectUpdateInput {
+  authGuard: RedirectAuthGuardUpdateFieldInput
+  id: ID
+  source: RedirectSourceUpdateFieldInput
+  targetPage: RedirectTargetPageUpdateFieldInput
+  targetType: RedirectTargetType
+  targetUrl: String
+}
+
+input RedirectWhere {
+  AND: [RedirectWhere!]
+  NOT: RedirectWhere
+  OR: [RedirectWhere!]
+  authGuard: AuthGuardWhere
+  authGuardAggregate: RedirectAuthGuardAggregateInput
+  authGuardConnection: RedirectAuthGuardConnectionWhere
+  authGuardConnection_NOT: RedirectAuthGuardConnectionWhere
+  authGuard_NOT: AuthGuardWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  source: PageWhere
+  sourceAggregate: RedirectSourceAggregateInput
+  sourceConnection: RedirectSourceConnectionWhere
+  sourceConnection_NOT: RedirectSourceConnectionWhere
+  source_NOT: PageWhere
+  targetPage: PageWhere
+  targetPageAggregate: RedirectTargetPageAggregateInput
+  targetPageConnection: RedirectTargetPageConnectionWhere
+  targetPageConnection_NOT: RedirectTargetPageConnectionWhere
+  targetPage_NOT: PageWhere
+  targetType: RedirectTargetType
+  targetType_IN: [RedirectTargetType!]
+  targetUrl: String
+  targetUrl_CONTAINS: String
+  targetUrl_ENDS_WITH: String
+  targetUrl_IN: [String]
+  targetUrl_MATCHES: String
+  targetUrl_STARTS_WITH: String
+}
+
+type RedirectsConnection {
+  edges: [RedirectEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -17769,6 +19077,11 @@ type UpdateAtomsMutationResponse {
   info: UpdateInfo!
 }
 
+type UpdateAuthGuardsMutationResponse {
+  authGuards: [AuthGuard!]!
+  info: UpdateInfo!
+}
+
 type UpdateCodeActionsMutationResponse {
   codeActions: [CodeAction!]!
   info: UpdateInfo!
@@ -17871,6 +19184,11 @@ type UpdatePropsMutationResponse {
 type UpdateReactNodeTypesMutationResponse {
   info: UpdateInfo!
   reactNodeTypes: [ReactNodeType!]!
+}
+
+type UpdateRedirectsMutationResponse {
+  info: UpdateInfo!
+  redirects: [Redirect!]!
 }
 
 type UpdateRenderPropTypesMutationResponse {

@@ -4,7 +4,7 @@ export const CurveAccent = () => (
   <div className="relative top-2 lg:top-14">
     {/* Generated from https://getwaves.io/ */}
     <svg
-      className="h-full w-full"
+      className="size-full"
       viewBox="0 0 1440 320"
       xmlns="http://www.w3.org/2000/svg"
     >

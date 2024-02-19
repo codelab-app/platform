@@ -1,6 +1,6 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import { ResourceType } from '@codelab/shared/abstract/codegen'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import {
   resourceName,
   resourcesUrl,
@@ -24,7 +24,7 @@ describe('Resource CRUD', () => {
       cy.setFormFieldValue({
         label: 'Type',
         type: FIELD_TYPE.SELECT,
-        value: ResourceType.GraphQl,
+        value: IResourceType.GraphQl,
       })
       cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 

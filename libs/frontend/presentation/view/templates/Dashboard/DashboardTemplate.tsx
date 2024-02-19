@@ -74,7 +74,7 @@ export const DashboardTemplate = observer(
                 <>
                   <Panel defaultSize={20} order={1}>
                     <div
-                      className="h-full w-full"
+                      className="size-full"
                       data-cy="temp-primary-panel-wrapper"
                     >
                       <ActivePrimarySidebar />
@@ -85,7 +85,7 @@ export const DashboardTemplate = observer(
               )}
 
               <Panel defaultSize={60} order={2}>
-                <main className="mt-3 h-full w-full overflow-auto px-3 pb-6">
+                <main className="size-full mt-3 overflow-auto px-3 pb-6">
                   {children}
                 </main>
               </Panel>

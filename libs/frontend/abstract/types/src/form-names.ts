@@ -16,4 +16,7 @@ export enum FormNames {
   CreateTag = 'Create Tag',
   UpdateTag = 'Update Tag',
   CreateResource = 'Create Resource',
+  CreateRedirect = 'Create Redirect',
+  UpdateRedirect = 'Update Redirect',
+  CreateAuthGuard = 'Create Auth Guard',
 }

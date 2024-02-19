@@ -1,16 +1,16 @@
-import {
-  type IRuntimeActionDTO,
-  type IRuntimeActionModel,
-  type IRuntimeStoreModel,
+import type {
+  IRuntimeActionDTO,
+  IRuntimeActionModel,
+  IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import type {
   IActionModel,
   IApiActionModel,
   ICodeActionModel,
 } from '@codelab/frontend/abstract/domain'
-import { evaluateObject } from '@codelab/frontend/application/shared/core'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import { evaluateObject } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

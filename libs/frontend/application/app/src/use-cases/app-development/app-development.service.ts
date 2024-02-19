@@ -6,10 +6,12 @@ import {
   getActionDomainService,
   getAppDomainService,
   getAtomDomainService,
+  getAuthGuardDomainService,
   getComponentDomainService,
   getElementDomainService,
   getFieldDomainService,
   getPageDomainService,
+  getRedirectDomainService,
   getResourceDomainService,
   getStoreDomainService,
   IAppDevelopmentDto,
@@ -77,7 +79,14 @@ export class AppDevelopmentService
     )
 
     const elements = [...pagesElements, ...componentsElements]
-    const props = elements.flatMap((element) => element.props)
+    const resources = data.resources
+    const authGuards = data.authGuards
+    const redirects = data.redirects
+
+    const props = elements
+      .flatMap((element) => element.props)
+      .concat(resources.map((resource) => resource.config))
+      .concat(authGuards.map((authGuard) => authGuard.config))
 
     const pageStores = pages.map((page) => ({
       ...page.store,
@@ -136,11 +145,13 @@ export class AppDevelopmentService
       actions,
       app,
       atoms,
+      authGuards,
       components,
       elements,
       fields,
       pages,
       props,
+      redirects,
       resources: data.resources,
       stores,
       types: [...types, ...elementsDependantTypes, ...systemTypes],
@@ -171,6 +182,14 @@ export class AppDevelopmentService
 
     data.resources.forEach((resource) =>
       this.resourceDomainService.hydrate(resource),
+    )
+
+    data.authGuards.forEach((authGuard) =>
+      this.authGuardDomainService.hydrate(authGuard),
+    )
+
+    data.redirects.forEach((redirect) =>
+      this.redirectDomainService.hydrate(redirect),
     )
 
     this.elementDomainService.logElementTreeState()
@@ -221,6 +240,16 @@ export class AppDevelopmentService
   @computed
   private get typeDomainService() {
     return getTypeDomainService(this)
+  }
+
+  @computed
+  private get redirectDomainService() {
+    return getRedirectDomainService(this)
+  }
+
+  @computed
+  private get authGuardDomainService() {
+    return getAuthGuardDomainService(this)
   }
 
   @computed

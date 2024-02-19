@@ -12,7 +12,7 @@ interface FeatureCardProps {
 export const FeatureCard = (props: FeatureCardProps) => {
   return (
     <Card className="shadow-[rgba(99, 99, 0.2) 0px 2px 8px 0px] flex min-h-fit w-full items-start rounded-lg border-none p-4 sm:h-[270px] sm:p-2 md:h-[260px] md:p-4 lg:h-[300px] xl:h-[280px] 2xl:h-[300px]">
-      <div className="h-full w-full">
+      <div className="size-full">
         <div className="mb-5 flex w-fit rounded-2xl bg-violet-100 p-2 text-right text-xs sm:p-4 sm:text-center 2xl:!text-sm">
           <FontAwesomeIcon
             className="[&_path]:fill-violet-7000"

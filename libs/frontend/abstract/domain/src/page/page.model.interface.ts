@@ -8,6 +8,7 @@ import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'
+import type { IRedirectModel } from '../redirect'
 import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
@@ -25,6 +26,11 @@ export interface IPageModel
    */
   pageContentContainer?: Nullish<Ref<IElementModel>>
   providerPage: Maybe<IPageModel>
+  /**
+   * computed property which return a redirect if there is one attached to page
+   * because redirect maybe added/updated/deleted without changing page
+   */
+  redirect?: IRedirectModel
   rootElement: Ref<IElementModel>
   slug: string
   store: Ref<IStoreModel>

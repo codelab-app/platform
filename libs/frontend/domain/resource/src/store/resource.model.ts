@@ -70,14 +70,6 @@ export class Resource
     }
   }
 
-  @computed
-  get client() {
-    return getResourceClient(
-      this.type,
-      this.config.values as IResourceConfigData,
-    )
-  }
-
   toUpdateInput(): ResourceUpdateInput {
     return {
       config: {
@@ -91,5 +83,13 @@ export class Resource
   @computed
   private get userDomainService() {
     return getUserDomainService(this)
+  }
+
+  @computed
+  get client() {
+    return getResourceClient(
+      this.type,
+      this.config.values as IResourceConfigData,
+    )
   }
 }
