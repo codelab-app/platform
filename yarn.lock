@@ -13085,7 +13085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/multer@npm:^1.4.7":
+"@types/multer@npm:^1.4.11":
   version: 1.4.11
   resolution: "@types/multer@npm:1.4.11"
   dependencies:
@@ -17432,7 +17432,7 @@ __metadata:
     "@types/jwt-decode": 3.1.0
     "@types/lodash": 4.14.186
     "@types/mailchimp__mailchimp_marketing": ^3.0.8
-    "@types/multer": ^1.4.7
+    "@types/multer": ^1.4.11
     "@types/node": 18.14.2
     "@types/passport-jwt": ^3.0.9
     "@types/passport-local": ^1.0.35
