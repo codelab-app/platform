@@ -1,3 +1,4 @@
+import 'multer'
 import type { IApp, IAppBoundedContext } from '@codelab/shared/abstract/core'
 import {
   ClassSerializerInterceptor,

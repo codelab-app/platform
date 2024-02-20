@@ -76,8 +76,8 @@ export const evaluateExpression = <IContext>(
     const contextKeys = keys(context).sort()
 
     // eslint-disable-next-line no-new-func
-    return new Function(contextKeys.join(','), code)(
-      contextKeys.map((key) => get(context, key)),
+    return new Function(...contextKeys, code)(
+      ...contextKeys.map((key) => get(context, key)),
     )
   } catch (error) {
     console.log(error)

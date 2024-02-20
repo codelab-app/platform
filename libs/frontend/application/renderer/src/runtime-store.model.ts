@@ -3,7 +3,6 @@ import {
   type IRuntimeActionModel,
   type IRuntimeStoreDTO,
   type IRuntimeStoreModel,
-  RendererType,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
@@ -56,17 +55,11 @@ export class RuntimeStoreModel
 
   @computed
   get state() {
-    if (
-      this.renderer?.rendererType === RendererType.PageBuilder ||
-      this.renderer?.rendererType === RendererType.ComponentBuilder
-    ) {
-      return this.store.current.api.maybeCurrent?.defaultValues ?? {}
-    }
-
     // To update the cache if a new state variable is added
     const apiFieldsLength = this.store.current.api.maybeCurrent?.fields.length
     const cachedStateKeysLength = Object.keys(this.cachedState ?? {}).length
 
+    // cachedState is for persisting state when navigating between pages
     if (!this.cachedState || apiFieldsLength !== cachedStateKeysLength) {
       this.cachedState = observable(
         this.store.current.api.maybeCurrent?.defaultValues ?? {},
