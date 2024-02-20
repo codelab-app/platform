@@ -73,6 +73,13 @@ resource "circleci_environment_variable" "AUTH0_CYPRESS_PASSWORD" {
   organization = local.organization
 }
 
+resource "circleci_environment_variable" "AUTH0_AUDIENCE" {
+  name         = "AUTH0_AUDIENCE"
+  value        = var.auth0_audience
+  project      = local.project_name
+  organization = local.organization
+}
+
 resource "circleci_environment_variable" "AUTH0_ISSUER_BASE_URL" {
   name         = "AUTH0_ISSUER_BASE_URL"
   value        = var.auth0_issuer_base_url
