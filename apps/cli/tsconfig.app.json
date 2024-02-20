@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "ESNext",
-    "types": ["node", "cypher", "Multer"],
+    "types": ["node", "cypher"],
     "moduleResolution": "node",
     "target": "es2021",
     "strictNullChecks": true,
