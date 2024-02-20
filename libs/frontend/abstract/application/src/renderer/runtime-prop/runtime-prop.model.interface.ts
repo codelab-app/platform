@@ -12,7 +12,7 @@ export interface IEvaluationContext {
   rootRefs: IPropData
   rootState: IPropData
   state: IPropData
-  url: IPropData
+  urlProps: IPropData
 }
 
 export interface IBaseRuntimeProps {

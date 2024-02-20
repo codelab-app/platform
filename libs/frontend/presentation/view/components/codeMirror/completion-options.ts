@@ -54,7 +54,7 @@ export const createAutoCompleteOptions = (
   ...getOptions(ctx?.refs, 'refs', 'References'),
   ...getOptions(ctx?.rootState, 'rootState', 'Root State'),
   ...getOptions(ctx?.rootRefs, 'rootRefs', 'Root References'),
-  ...getOptions(ctx?.url, 'url', 'Urls'),
+  ...getOptions(ctx?.urlProps, 'urlProps', 'Url Props'),
   ...getOptions(ctx?.rootActions, 'rootActions', 'Root Actions'),
   ...getOptions(ctx?.actions, 'actions', 'Actions'),
   ...getOptions(ctx?.args, 'args', 'Args'),

@@ -154,7 +154,7 @@ export class RuntimeComponentPropModel
       rootRefs: {},
       rootState: {},
       state: {},
-      url: {},
+      urlProps: {},
     })
   }
 }
