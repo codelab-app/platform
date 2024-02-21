@@ -38,7 +38,7 @@ export class RedirectRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(redirects: Array<IRedirectDTO>) {
+  protected async _addMany(redirects: Array<IRedirectDTO>) {
     return (
       await (
         await this.ogmService.Redirect

@@ -3,7 +3,7 @@ import { Prop } from '@codelab/backend/domain/prop'
 import type {
   IProp,
   IResource,
-  IResourceDTO,
+  IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 
@@ -16,7 +16,7 @@ export class Resource extends IModel implements IResource {
 
   type: IResourceType
 
-  constructor({ config, id, name, type }: IResourceDTO) {
+  constructor({ config, id, name, type }: IResourceDto) {
     super()
 
     this.id = id

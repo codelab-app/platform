@@ -5,7 +5,7 @@ import { IRef } from '../model/node-type.interface'
 import { IPropDto } from '../prop/prop.dto.interface'
 import { IActionRef } from './action-entity.dto.interface'
 import { IActionKind } from './action-kind.enum'
-import { IBaseActionDTO } from './base-action.dto.interface'
+import { IBaseActionDto } from './base-action.dto.interface'
 
 export const IApiActionDto = Type.Composite([
   IBaseActionDto,

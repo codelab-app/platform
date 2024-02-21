@@ -17,13 +17,15 @@ export class RedirectController {
   @Post('can-activate')
   async canActivate(@Body() { authorization, domain, pageUrl }: ICanActivate) {
     const redirect = await this.redirectRepository.findOne({
-      source: {
-        AND: [
-          { app: { domains_SINGLE: { name: domain } } },
-          { url: pageUrl },
-          // system page doesn't have auth guard
-          { kind: IPageKind.Regular },
-        ],
+      where: {
+        source: {
+          AND: [
+            { app: { domains_SINGLE: { name: domain } } },
+            { url: pageUrl },
+            // system page doesn't have auth guard
+            { kind: IPageKind.Regular },
+          ],
+        },
       },
     })
 

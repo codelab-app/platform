@@ -3,7 +3,7 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IElementRenderTypeKind } from '../element'
 import { IRef } from '../model/node-type.interface'
-import { IProp, IPropDTO } from '../prop.dto.interface'
+import { IProp, IPropDto } from '../prop/prop.dto.interface'
 
 export const IComponentDto = Type.Object({
   api: IRef,

@@ -2,7 +2,7 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
-import { IProp, IPropDTO } from '../prop.dto.interface'
+import { IProp, IPropDto } from '../prop/prop.dto.interface'
 import { IElementRenderTypeDto } from './element-render-type'
 
 export const IElementDto = Type.Object({

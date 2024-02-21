@@ -1,7 +1,7 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IActionKind } from './action-kind.enum'
-import { IBaseActionDTO } from './base-action.dto.interface'
+import { IBaseActionDto } from './base-action.dto.interface'
 
 export const ICodeActionDto = Type.Composite([
   IBaseActionDto,

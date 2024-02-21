@@ -1,16 +1,9 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-<<<<<<<< HEAD:libs/shared/abstract/core/src/admin/admin.bounded-context.interface.ts
-import { IAtomBoundedContext } from '../atom'
-import { IComponentBoundedContext } from '../component'
-import { ITag } from '../tag.dto.interface'
-import { IType } from '../type'
-========
+import { IAtomAggregate } from '../atom'
 import { IComponentAggregate } from '../component'
 import { ITag } from '../tag/tag.dto.interface'
 import { IType } from '../type'
-import { IAtomAggregate } from './atom.aggregate.interface'
->>>>>>>> 63f7f0aa8 (refactor: split ogm and pure resolvers):libs/shared/abstract/core/src/atom/admin.aggregate.interface.ts
 
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.
