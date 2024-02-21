@@ -41,6 +41,11 @@ resource "digitalocean_app" "platform-web" {
       }
 
       env {
+        key   = "AUTH0_AUDIENCE"
+        value = var.auth0_audience
+      }
+
+      env {
         key   = "NEXT_PUBLIC_PLATFORM_HOST"
         value = var.next_public_platform_host
       }
