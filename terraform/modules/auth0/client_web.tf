@@ -3,18 +3,10 @@ resource "auth0_client" "web_client" {
   # description         = var.app_description
   app_type        = "regular_web"
   oidc_conformant = true
-  callbacks = [
-    "${var.next_public_platform_host}/api/auth/callback",
-  "https://*.vercel.app/api/auth/callback"]
-  allowed_logout_urls = [
-    "${var.next_public_platform_host}",
-  "https://*.vercel.app"]
-  web_origins = [
-    "${var.next_public_platform_host}",
-  "https://*.vercel.app"]
-  allowed_origins = [
-    "${var.next_public_platform_host}",
-  "https://*.vercel.app"]
+  callbacks = ["${var.next_public_platform_host}/api/auth/callback"]
+  allowed_logout_urls = ["${var.next_public_platform_host}"]
+  web_origins = ["${var.next_public_platform_host}"]
+  allowed_origins = ["${var.next_public_platform_host}"]
   grant_types = ["authorization_code", "implicit", "password", "refresh_token"]
 
   cross_origin_auth = true
