@@ -2,27 +2,11 @@
 export default {
   displayName: 'backend-application-redirect',
   preset: '../../../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   transform: {
-    '^.+.[tj]sx?$': [
-      '@swc/jest',
-      {
-        jsc: {
-          parser: { syntax: 'typescript', tsx: true, decorators: true },
-          transform: {
-            decoratorMetadata: true,
-            react: { runtime: 'automatic' },
-          },
-        },
-      },
-    ],
+    '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  moduleFileExtensions: ['ts', 'js', 'html','node'],
+  moduleFileExtensions: ['ts', 'js', 'html', 'node'],
   coverageDirectory: '../../../../coverage/libs/backend/application/redirect',
   reporters: [
     'default',

@@ -29,6 +29,8 @@ export class RedirectController {
       },
     })
 
+    console.log(redirect)
+
     // either a regular page with no redirect attached to or a system page
     if (!redirect) {
       return { canActivate: true, message: 'No redirect found!', status: 200 }
@@ -74,6 +76,8 @@ export class RedirectController {
       }
     }
 
+    console.log(responseTransformer, response)
+
     try {
       const canActivate = await safeEval(responseTransformer, response)
 
@@ -83,6 +87,8 @@ export class RedirectController {
         status: 200,
       }
     } catch (error) {
+      console.log(error)
+
       return {
         canActivate: false,
         message: `Unable to transform response`,

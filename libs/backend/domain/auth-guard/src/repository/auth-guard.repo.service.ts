@@ -35,7 +35,7 @@ export class AuthGuardRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(authGuards: Array<IAuthGuardDto>) {
+  protected async _addMany(authGuards: Array<IAuthGuardDto>) {
     return (
       await (
         await this.ogmService.AuthGuard

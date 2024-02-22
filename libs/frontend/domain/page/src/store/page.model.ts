@@ -95,11 +95,6 @@ export class Page
   }
 
   @computed
-  get redirectDomainService() {
-    return getRedirectDomainService(this)
-  }
-
-  @computed
   get slug() {
     return slugify(this.name)
   }
@@ -178,5 +173,10 @@ export class Page
       ),
       url: this.url,
     }
+  }
+
+  @computed
+  private get redirectDomainService() {
+    return getRedirectDomainService(this)
   }
 }
