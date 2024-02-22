@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-abstract-codegen.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/abstract/codegen/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

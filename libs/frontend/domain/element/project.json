@@ -18,7 +18,12 @@
           "quiet": true
         }
       },
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/domain/element/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      }
     },
     "test": {
       "configurations": {
@@ -82,7 +87,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]

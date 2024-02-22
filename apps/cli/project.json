@@ -46,6 +46,9 @@
           "outputFile": "tmp/reports/lint/cli.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["apps/cli/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     },
     "test": {
@@ -93,7 +96,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

@@ -57,7 +57,12 @@
           "quiet": true
         }
       },
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/workspace/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -104,7 +109,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

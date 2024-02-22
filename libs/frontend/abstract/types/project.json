@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-abstract-types.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

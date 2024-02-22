@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-infra-otel.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/infra/otel/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

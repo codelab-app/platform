@@ -1,5 +1,5 @@
 import { RedirectRepository } from '@codelab/backend/domain/redirect'
-import { safeEval } from '@codelab/backend/shared/util'
+import { safeEval } from '@codelab/backend/shared/eval'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import {
   ICanActivate,

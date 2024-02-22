@@ -12,6 +12,10 @@
     {
       "files": ["*.ts"],
       "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
+      "rules": {}
     }
   ]
 }

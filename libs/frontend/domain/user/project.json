@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-domain-user.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/domain/user/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

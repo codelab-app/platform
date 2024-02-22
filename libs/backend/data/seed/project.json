@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-data-seed.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/data/seed/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

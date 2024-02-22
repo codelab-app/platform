@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-abstract-codegen.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/abstract/codegen/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

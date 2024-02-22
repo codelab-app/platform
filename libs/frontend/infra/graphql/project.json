@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-infra-graphql.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/infra/graphql/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

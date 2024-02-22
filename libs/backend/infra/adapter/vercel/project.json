@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-vercel.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/vercel/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

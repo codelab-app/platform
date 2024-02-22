@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-abstract-types.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

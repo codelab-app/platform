@@ -82,6 +82,9 @@
           "outputFile": "tmp/reports/lint/platform-e2e.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["apps/platform-e2e/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

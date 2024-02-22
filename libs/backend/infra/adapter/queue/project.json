@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-queue.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/queue/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

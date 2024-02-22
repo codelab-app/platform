@@ -23,6 +23,11 @@
           "outputFile": "tmp/reports/lint/eslint-plugin.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/tools/eslint-plugin/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

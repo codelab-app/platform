@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-test-data.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/data/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

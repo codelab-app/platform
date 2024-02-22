@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-application-atom.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/application/atom/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-application-resource.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/application/resource/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

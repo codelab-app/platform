@@ -18,6 +18,11 @@
           "outputFile": "tmp/reports/lint/frontend-application-renderer.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/application/renderer/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     },
     "test": {
@@ -70,7 +75,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/application/renderer"]

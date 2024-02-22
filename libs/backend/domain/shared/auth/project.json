@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-domain-shared-auth.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/domain/shared/auth/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

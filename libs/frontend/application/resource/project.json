@@ -18,6 +18,11 @@
           "outputFile": "tmp/reports/lint/frontend-application-resource.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/application/resource/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     },
     "test": {
@@ -65,7 +70,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

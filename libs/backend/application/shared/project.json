@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-application-shared.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/application/shared/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

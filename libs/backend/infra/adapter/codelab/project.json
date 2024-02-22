@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-codelab.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/codelab/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-data-test.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/data/test/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

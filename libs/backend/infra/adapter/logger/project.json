@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-logger.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/logger/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

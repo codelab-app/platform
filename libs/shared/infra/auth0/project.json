@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-infra-auth0.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/infra/auth0/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

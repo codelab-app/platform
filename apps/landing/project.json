@@ -55,6 +55,9 @@
           "outputFile": "tmp/reports/lint/landing.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

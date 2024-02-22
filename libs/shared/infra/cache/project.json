@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-infra-cache.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/infra/cache/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

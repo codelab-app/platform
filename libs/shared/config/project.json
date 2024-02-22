@@ -12,6 +12,9 @@
           "outputFile": "tmp/reports/lint/shared-config.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["libs/shared/config/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

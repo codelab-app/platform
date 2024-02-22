@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-test-cypress-utils.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/utils/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

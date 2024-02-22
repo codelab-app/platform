@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-infra-otel.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/infra/otel/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

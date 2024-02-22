@@ -1,5 +1,8 @@
 import { ExternalCopy, Isolate } from 'isolated-vm'
 
+/**
+ * Moved to own package after facing issue with `jest`, where `node` extension needs to be added for specs to run, due to `isolated-vm`
+ */
 export const safeEval = (code: string, response: object) => {
   const isolate = new Isolate({ memoryLimit: 8 })
   const context = isolate.createContextSync()

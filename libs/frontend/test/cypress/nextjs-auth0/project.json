@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-test-cypress-nextjs-auth0.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/nextjs-auth0/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

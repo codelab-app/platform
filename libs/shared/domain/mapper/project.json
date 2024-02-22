@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-domain-mapper.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/domain/mapper/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

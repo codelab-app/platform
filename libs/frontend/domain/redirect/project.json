@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "frontend-domain-redirect",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/frontend/domain/redirect/src",
   "tags": [
@@ -36,48 +36,48 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/redirect"]
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
+        "passWithNoTests": true
+      },
       "configurations": {
-        "ci": {
-          "parallel": 3
-        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
         }
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
-        "memoryLimit": 8192,
-        "passWithNoTests": true,
-        "testPathPattern": ["[i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/redirect"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
+        "passWithNoTests": true
+      },
       "configurations": {
-        "ci": {},
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "passWithNoTests": true,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/redirect"]
     }
   }

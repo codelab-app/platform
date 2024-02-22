@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-abstract-core.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/abstract/core/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-abstract-typebox.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/abstract/typebox/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

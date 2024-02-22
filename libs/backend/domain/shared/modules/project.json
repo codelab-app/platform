@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-domain-shared-modules.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/domain/shared/modules/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

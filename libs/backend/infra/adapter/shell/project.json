@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-shell.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/shell/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

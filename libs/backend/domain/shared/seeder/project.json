@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-domain-shared-seeder.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/domain/shared/seeder/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

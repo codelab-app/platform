@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-domain-page.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/domain/page/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     },
     "test": {
@@ -59,7 +64,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/page"]

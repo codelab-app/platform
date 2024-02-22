@@ -5,6 +5,7 @@ import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IApi, IAtom, IAtomAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+import omit from 'lodash/omit'
 
 export class ExportAtomCommand {
   constructor(readonly where: AtomWhere) {}
@@ -34,10 +35,8 @@ export class ExportAtomHandler
       new ExportApiCommand(existingAtom.api),
     )
 
-    const { owner, ...existingAtomWithoutOwner } = existingAtom
-
     const atom: IAtom = {
-      ...existingAtomWithoutOwner,
+      ...existingAtom,
       __typename: 'Atom' as const,
       api: { id: api.id },
       tags: existingAtom.tags.map((tag) => ({ id: tag.id })),
@@ -46,8 +45,8 @@ export class ExportAtomHandler
     // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
 
     return {
-      api,
-      atom,
+      api: omit(api, 'owner'),
+      atom: omit(atom, 'owner'),
     }
   }
 }

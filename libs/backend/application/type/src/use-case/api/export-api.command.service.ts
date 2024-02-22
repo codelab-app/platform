@@ -112,11 +112,11 @@ export class ExportApiHandler
 
         if (type?.__typename === `${ITypeKind.InterfaceType}`) {
           dependentTypes.push({
-            ...type,
+            ...omit(type, 'owner'),
             fields: (type as IInterfaceType).fields,
           } as IType)
         } else if (type) {
-          dependentTypes.push(type as IType)
+          dependentTypes.push(omit(type, 'owner') as IType)
         }
       }
     }

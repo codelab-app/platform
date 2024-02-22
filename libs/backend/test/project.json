@@ -12,6 +12,9 @@
           "outputFile": "tmp/reports/lint/backend-test.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["libs/backend/test/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

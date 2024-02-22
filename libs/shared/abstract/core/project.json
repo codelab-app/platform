@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/shared-abstract-core.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/abstract/core/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

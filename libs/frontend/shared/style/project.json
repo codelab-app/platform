@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-shared-style.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/shared/style/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

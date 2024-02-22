@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-infra-mobx.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/infra/mobx/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

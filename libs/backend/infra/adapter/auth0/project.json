@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-auth0.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/auth0/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

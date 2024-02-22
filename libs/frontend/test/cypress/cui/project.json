@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-test-cypress-codelab.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/cui/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

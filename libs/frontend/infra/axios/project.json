@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-infra-axios.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/infra/axios/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

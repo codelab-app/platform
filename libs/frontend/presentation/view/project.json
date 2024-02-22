@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/frontend-presentation-view.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/presentation/view/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

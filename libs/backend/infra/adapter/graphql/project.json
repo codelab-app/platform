@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-infra-adapter-graphql.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/graphql/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

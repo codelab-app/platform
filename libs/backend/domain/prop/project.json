@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-domain-prop.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/domain/prop/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

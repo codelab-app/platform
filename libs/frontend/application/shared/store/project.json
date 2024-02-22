@@ -18,6 +18,11 @@
           "outputFile": "tmp/reports/lint/frontend-application-shared-store.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/application/shared/store/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   }

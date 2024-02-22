@@ -12,6 +12,11 @@
           "outputFile": "tmp/reports/lint/backend-domain-element.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/domain/element/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     },
     "test": {
@@ -59,7 +64,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
