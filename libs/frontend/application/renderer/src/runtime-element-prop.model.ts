@@ -182,13 +182,10 @@ export class RuntimeElementPropsModel
     )
 
     if (this.providerStore) {
+      // If a root action is called in a regular page, the `state` should be from the provider's page store
       context['rootActions'] = this.transformRuntimeActions(
         this.providerStore.runtimeActionsList,
-        {
-          ...context,
-          // If a root action is called in a regular page, the `state` should be from the provider's page store
-          state: context.rootState,
-        },
+        merge(context, { state: context.rootState }),
       )
     }
 
