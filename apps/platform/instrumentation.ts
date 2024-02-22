@@ -1,7 +1,7 @@
-import { registerOTel } from '@vercel/otel'
+// import { registerOTel } from '@vercel/otel'
 
 export const register = async () => {
-  registerOTel('platform')
+  // registerOTel('platform')
 
   console.log('next_runtime', process.env.NEXT_RUNTIME)
 

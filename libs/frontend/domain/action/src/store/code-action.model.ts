@@ -30,6 +30,17 @@ export class CodeAction
 {
   static create = create
 
+  @computed
+  get toJson() {
+    return {
+      __typename: IActionKind.CodeAction as const,
+      code: this.code,
+      id: this.id,
+      name: this.name,
+      store: this.store,
+    }
+  }
+
   @modelAction
   toCreateInput(): CodeActionCreateInput {
     return {
@@ -51,17 +62,6 @@ export class CodeAction
     return {
       code: this.code,
       name: this.name,
-    }
-  }
-
-  @computed
-  get toJson() {
-    return {
-      __typename: IActionKind.CodeAction as const,
-      code: this.code,
-      id: this.id,
-      name: this.name,
-      store: this.store,
     }
   }
 

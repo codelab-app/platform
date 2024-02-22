@@ -59,11 +59,6 @@ export class Store
   }
 
   @computed
-  get actionsDomainService() {
-    return getActionDomainService(this)
-  }
-
-  @computed
   get actions() {
     return this.actionsDomainService.actionsList.filter(
       (action) => action.store.id === this.id,
@@ -71,15 +66,8 @@ export class Store
   }
 
   @computed
-  get toJson() {
-    return {
-      actions: this.actions.map((action) => action.toJson),
-      api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
-      component: this.component,
-      id: this.id,
-      name: this.name,
-      page: this.page,
-    }
+  get actionsDomainService() {
+    return getActionDomainService(this)
   }
 
   @computed
@@ -98,6 +86,18 @@ export class Store
         title: `${action.name} (${action.type})`,
       }))
       .filter((node) => Boolean(node))
+  }
+
+  @computed
+  get toJson() {
+    return {
+      actions: this.actions.map((action) => action.toJson),
+      api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
+      component: this.component,
+      id: this.id,
+      name: this.name,
+      page: this.page,
+    }
   }
 
   @modelAction

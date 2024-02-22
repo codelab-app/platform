@@ -142,6 +142,11 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   }
 
   @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
+  @computed
   private get storeDomainService() {
     return getStoreDomainService(this)
   }
@@ -154,10 +159,5 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   @computed
   private get userDomainService() {
     return getUserDomainService(this)
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
   }
 }

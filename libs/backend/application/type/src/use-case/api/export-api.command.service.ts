@@ -124,16 +124,6 @@ export class ExportApiHandler
     return this.sortTypesBeforeExport(dependentTypes)
   }
 
-  private sortUnionTypesBeforeExport(dependentTypes: Array<IType>) {
-    dependentTypes
-      .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
-      .forEach((unionType) =>
-        (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
-          a.id.localeCompare(b.id),
-        ),
-      )
-  }
-
   private sortEnumValuesBeforeExport(dependentTypes: Array<IType>) {
     dependentTypes
       .filter((type) => type.__typename === `${ITypeKind.EnumType}`)
@@ -165,5 +155,15 @@ export class ExportApiHandler
     })
 
     return [...interfaces, ...unions, ...remainingTypes]
+  }
+
+  private sortUnionTypesBeforeExport(dependentTypes: Array<IType>) {
+    dependentTypes
+      .filter((type) => type.__typename === `${ITypeKind.UnionType}`)
+      .forEach((unionType) =>
+        (unionType as IUnionTypeDto).typesOfUnionType.sort((a, b) =>
+          a.id.localeCompare(b.id),
+        ),
+      )
   }
 }

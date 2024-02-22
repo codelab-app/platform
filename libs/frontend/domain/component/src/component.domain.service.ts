@@ -20,9 +20,9 @@ export class ComponentDomainService
     return [...this.components.values()]
   }
 
-  @modelAction
-  maybeComponent(id: string) {
-    return this.components.get(id)
+  @computed
+  get sortedComponentsList() {
+    return sortBy(this.componentList, 'name')
   }
 
   @modelAction
@@ -34,11 +34,6 @@ export class ComponentDomainService
     }
 
     return component
-  }
-
-  @computed
-  get sortedComponentsList() {
-    return sortBy(this.componentList, 'name')
   }
 
   @modelAction
@@ -62,5 +57,10 @@ export class ComponentDomainService
     }
 
     return component
+  }
+
+  @modelAction
+  maybeComponent(id: string) {
+    return this.components.get(id)
   }
 }

@@ -1,21 +1,21 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IRef } from './model/node-type.interface'
-import { IProp, IPropDTO } from './prop.dto.interface'
+import { IRef } from '../model/node-type.interface'
+import { IProp, IPropDto } from '../prop/prop.dto.interface'
 
-export const IAuthGuardDTO = Type.Object({
-  config: IPropDTO,
+export const IAuthGuardDto = Type.Object({
+  config: IPropDto,
   id: Type.String(),
   name: Type.String(),
   resource: IRef,
   responseTransformer: Type.String(),
 })
 
-export type IAuthGuardDTO = Static<typeof IAuthGuardDTO>
+export type IAuthGuardDto = Static<typeof IAuthGuardDto>
 
 export const IAuthGuard = Typebox.Overwrite(
-  IAuthGuardDTO,
+  IAuthGuardDto,
   Type.Object({
     config: IProp,
   }),

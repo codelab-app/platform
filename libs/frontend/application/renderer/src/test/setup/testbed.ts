@@ -64,10 +64,6 @@ export class TestBed {
     this.addAtom({ type: IAtomType.ReactFragment })
   }
 
-  addCodeAction(dto: Partial<ICodeActionDto>) {
-    return codeActionFactory(actionService.actionDomainService)(dto)
-  }
-
   addApiAction(dto: Partial<IApiActionDto>) {
     return apiActionFactory(actionService.actionDomainService)(dto)
   }
@@ -81,6 +77,10 @@ export class TestBed {
       ...dto,
       api: dto.api ?? this.addInterfaceType({}),
     })
+  }
+
+  addCodeAction(dto: Partial<ICodeActionDto>) {
+    return codeActionFactory(actionService.actionDomainService)(dto)
   }
 
   addComponent(dto: Partial<IComponentDto>) {
@@ -101,39 +101,28 @@ export class TestBed {
     })
   }
 
-  addField(dto: Partial<IFieldDto>) {
-    return fieldFactory(fieldService.fieldDomainService)(dto)
-  }
-
   addElement(dto: Partial<IElementDto>) {
     return elementFactory(elementService.elementDomainService)(dto)
   }
 
-  addPage(dto: Partial<IPageDto>) {
-    return pageFactory(pageService.pageDomainService)(dto)
-  }
-
-  addProp(dto: Partial<IPropDto>) {
-    return propFactory(dto)
-  }
-
-  addStore(dto: Partial<IStoreDto>) {
-    return storeFactory(storeService.storeDomainService)({
-      ...dto,
-      api: dto.api ?? this.addInterfaceType({}),
-    })
-  }
-
-  addResource(dto: Partial<IStoreDto>) {
-    return resourceFactory(resourceService.resourceDomainService)({})
+  addField(dto: Partial<IFieldDto>) {
+    return fieldFactory(fieldService.fieldDomainService)(dto)
   }
 
   addInterfaceType(dto: Partial<IInterfaceTypeDto>) {
     return interfaceTypeFactory(typeService.typeDomainService)(dto)
   }
 
+  addPage(dto: Partial<IPageDto>) {
+    return pageFactory(pageService.pageDomainService)(dto)
+  }
+
   addPrimitiveType(dto: Partial<IPrimitiveTypeDto>) {
     return primitiveTypeFactory(typeService.typeDomainService)(dto)
+  }
+
+  addProp(dto: Partial<IPropDto>) {
+    return propFactory(dto)
   }
 
   addReactNode(dto: Partial<IReactNodeType>) {
@@ -152,17 +141,28 @@ export class TestBed {
     return renderer
   }
 
-  getStringType() {
-    return typeService.typeDomainService.typesList.find(
-      (type) =>
-        type.kind === ITypeKind.PrimitiveType &&
-        type.primitiveKind === IPrimitiveTypeKind.String,
-    )
+  addResource(dto: Partial<IStoreDto>) {
+    return resourceFactory(resourceService.resourceDomainService)({})
+  }
+
+  addStore(dto: Partial<IStoreDto>) {
+    return storeFactory(storeService.storeDomainService)({
+      ...dto,
+      api: dto.api ?? this.addInterfaceType({}),
+    })
   }
 
   getDivAtom() {
     return atomService.atomDomainService.atomsList.find(
       (atom) => atom.type === IAtomType.HtmlDiv,
+    )
+  }
+
+  getStringType() {
+    return typeService.typeDomainService.typesList.find(
+      (type) =>
+        type.kind === ITypeKind.PrimitiveType &&
+        type.primitiveKind === IPrimitiveTypeKind.String,
     )
   }
 }

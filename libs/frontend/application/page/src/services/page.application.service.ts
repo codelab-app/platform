@@ -272,6 +272,11 @@ export class PageApplicationService
   }
 
   @computed
+  private get rendererService() {
+    return getRendererService(this)
+  }
+
+  @computed
   private get storeDomainService() {
     return getStoreDomainService(this)
   }
@@ -284,9 +289,5 @@ export class PageApplicationService
   @computed
   private get userService() {
     return getUserService(this)
-  }
-
-  @computed get rendererService() {
-    return getRendererService(this)
   }
 }

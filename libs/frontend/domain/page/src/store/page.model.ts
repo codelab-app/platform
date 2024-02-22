@@ -81,6 +81,25 @@ export class Page
   }
 
   @computed
+  get providerPage() {
+    return this.kind === IPageKind.Regular
+      ? this.app.current.providerPage
+      : undefined
+  }
+
+  @computed
+  get redirect() {
+    const redirects = [...this.redirectDomainService.redirects.values()]
+
+    return redirects.find((redirect) => redirect.source.id === this.id)
+  }
+
+  @computed
+  get redirectDomainService() {
+    return getRedirectDomainService(this)
+  }
+
+  @computed
   get slug() {
     return slugify(this.name)
   }
@@ -100,30 +119,6 @@ export class Page
       store: this.store,
       url: `apps/${this.app.id}/pages/${this.id}`,
     }
-  }
-
-  @computed
-  get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
-  get redirectDomainService() {
-    return getRedirectDomainService(this)
-  }
-
-  @computed
-  get providerPage() {
-    return this.kind === IPageKind.Regular
-      ? this.app.current.providerPage
-      : undefined
-  }
-
-  @computed
-  get redirect() {
-    const redirects = [...this.redirectDomainService.redirects.values()]
-
-    return redirects.find((redirect) => redirect.source.id === this.id)
   }
 
   @modelAction

@@ -64,26 +64,6 @@ export class AppService
   })
 
   @modelFlow
-  updatePage = _async(function* (this: AppService, data: IUpdatePageFormData) {
-    const app = this.appDomainService.apps.get(data.app.id)
-    const page = app?.page(data.id)
-    const { name, pageContentContainer, url } = data
-
-    page?.writeCache({
-      app,
-      name,
-      pageContentContainer,
-      url,
-    })
-
-    if (page) {
-      yield* _await(this.pageRepository.update(page))
-    }
-
-    return
-  })
-
-  @modelFlow
   @transaction
   delete = _async(function* (this: AppService, apps: Array<IAppModel>) {
     const deleteApp = async (app: IAppModel) => {
@@ -178,6 +158,26 @@ export class AppService
     yield* _await(this.appRepository.update(app))
 
     return app
+  })
+
+  @modelFlow
+  updatePage = _async(function* (this: AppService, data: IUpdatePageFormData) {
+    const app = this.appDomainService.apps.get(data.app.id)
+    const page = app?.page(data.id)
+    const { name, pageContentContainer, url } = data
+
+    page?.writeCache({
+      app,
+      name,
+      pageContentContainer,
+      url,
+    })
+
+    if (page) {
+      yield* _await(this.pageRepository.update(page))
+    }
+
+    return
   })
 
   @computed

@@ -12,8 +12,6 @@ const RANDOM_ATOMS_COUNT = 25
   scope: Scope.TRANSIENT,
 })
 export class ReadAdminDataService {
-  partiallySeed = false
-
   constructor(
     public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
@@ -94,4 +92,6 @@ export class ReadAdminDataService {
       this.validationService.validateAndClean(ITag, tag),
     )
   }
+
+  partiallySeed = false
 }

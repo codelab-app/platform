@@ -20,13 +20,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     })
     implements IBaseTypeModel<IBaseTypeDto, ICreateTypeInput, IUpdateTypeVars>
   {
-    @modelAction
-    writeCache({ name }: Partial<IBaseTypeDto>) {
-      this.name = name ?? this.name
-
-      return this
-    }
-
     @computed
     get toJson() {
       return {
@@ -35,6 +28,13 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         kind: this.kind,
         name: this.name,
       }
+    }
+
+    @modelAction
+    writeCache({ name }: Partial<IBaseTypeDto>) {
+      this.name = name ?? this.name
+
+      return this
     }
 
     toCreateInput() {

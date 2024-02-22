@@ -142,11 +142,6 @@ export class AppProductionService
   }
 
   @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
   private get atomService() {
     return getAtomService(this)
   }
@@ -159,6 +154,11 @@ export class AppProductionService
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 
   @computed

@@ -35,5 +35,5 @@ export const pureTypeDefs = mergeTypeDefs([
   resourceSchema,
   domainSchema,
   authGuardSchema,
-  redirectSchema
+  redirectSchema,
 ])

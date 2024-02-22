@@ -35,9 +35,14 @@ export class UserService
   })
   implements IUserService
 {
+  static fromDto = fromDto
+
   static init = init
 
-  static fromDto = fromDto
+  @computed
+  get user() {
+    return this.userDomainService.user
+  }
 
   @modelFlow
   @transaction
@@ -53,9 +58,4 @@ export class UserService
   saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
     return yield* _await(restPlatformClient.post('/user/save', data))
   })
-
-  @computed
-  get user() {
-    return this.userDomainService.user
-  }
 }

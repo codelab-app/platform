@@ -40,6 +40,9 @@ export class AtomDomainService
     return throwIfUndefined(renderType)
   }
 
+  @observable
+  dynamicComponents: Record<string, IComponentType> = {}
+
   @modelAction
   hydrate(atomDto: IAtomDto) {
     // console.debug('AtomService.add()', atomDto)
@@ -110,7 +113,4 @@ export class AtomDomainService
 
     return atom
   }
-
-  @observable
-  dynamicComponents: Record<string, IComponentType> = {}
 }

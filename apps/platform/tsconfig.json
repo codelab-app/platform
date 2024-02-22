@@ -1,11 +1,22 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "jsx": "preserve",
     "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "lib": ["es2021"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "types": [
       "node",
       "worker-loader",
@@ -14,20 +25,7 @@
       "styled-components",
       "@editorjs"
     ],
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": false,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "module": "esnext",
-    "useDefineForClassFields": true,
-    "esModuleInterop": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "jsx": "preserve"
   },
   "include": [
     "**/*.ts",

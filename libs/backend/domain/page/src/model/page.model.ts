@@ -5,6 +5,10 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 import { slugify } from 'voca'
 
 export class Page extends IModel implements IPage {
+  get slug() {
+    return slugify(this.name)
+  }
+
   app: IRef
 
   id: string
@@ -20,10 +24,6 @@ export class Page extends IModel implements IPage {
   store: IRef
 
   url: string
-
-  get slug() {
-    return slugify(this.name)
-  }
 
   constructor({
     app,

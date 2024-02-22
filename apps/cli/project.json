@@ -15,7 +15,6 @@
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
         "assets": ["apps/cli/src/assets"],
-        "isolatedConfig": true,
         "webpackConfig": "apps/cli/webpack.config.js"
       },
       "configurations": {

@@ -2,7 +2,7 @@ import { IModel } from '@codelab/backend/abstract/types'
 import { Prop } from '@codelab/backend/domain/prop'
 import type {
   IAuthGuard,
-  IAuthGuardDTO,
+  IAuthGuardDto,
   IProp,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -24,7 +24,7 @@ export class AuthGuard extends IModel implements IAuthGuard {
     name,
     resource,
     responseTransformer,
-  }: IAuthGuardDTO) {
+  }: IAuthGuardDto) {
     super()
 
     this.config = new Prop(config)

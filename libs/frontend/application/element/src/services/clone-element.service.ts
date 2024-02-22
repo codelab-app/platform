@@ -318,11 +318,6 @@ export class CloneElementService
   }
 
   @computed
-  private get rendererService() {
-    return getRendererService(this)
-  }
-
-  @computed
   private get componentService() {
     return getComponentService(this)
   }
@@ -340,6 +335,11 @@ export class CloneElementService
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

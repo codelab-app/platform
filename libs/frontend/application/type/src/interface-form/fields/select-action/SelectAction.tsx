@@ -9,8 +9,9 @@ export type SelectActionProps = Pick<
   UniformSelectFieldProps,
   'error' | 'label' | 'name' | 'required' | 'value'
 > & {
-  onChange(value: unknown): void
   updatedAction?: IRef
+
+  onChange(value: unknown): void
 }
 
 export const SelectAction = (fieldProps: SelectActionProps) => {

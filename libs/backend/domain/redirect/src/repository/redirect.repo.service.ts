@@ -12,7 +12,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
-  type IRedirectDTO,
+  type IRedirectDto,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
 import {
@@ -24,7 +24,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RedirectRepository extends AbstractRepository<
-  IRedirectDTO,
+  IRedirectDto,
   Redirect,
   RedirectWhere,
   RedirectOptions
@@ -38,7 +38,7 @@ export class RedirectRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _addMany(redirects: Array<IRedirectDTO>) {
+  protected async _addMany(redirects: Array<IRedirectDto>) {
     return (
       await (
         await this.ogmService.Redirect
@@ -84,7 +84,7 @@ export class RedirectRepository extends AbstractRepository<
     targetPage,
     targetType,
     targetUrl,
-  }: IRedirectDTO) {
+  }: IRedirectDto) {
     return (
       await (
         await this.ogmService.Redirect

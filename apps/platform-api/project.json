@@ -20,7 +20,6 @@
       "executor": "@nx/webpack:webpack",
       "options": {
         "compiler": "tsc",
-        "isolatedConfig": true,
         "main": "apps/platform-api/src/main.ts",
         "outputPath": "dist/apps/platform-api",
         "target": "node",

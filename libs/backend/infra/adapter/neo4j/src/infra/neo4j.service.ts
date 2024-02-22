@@ -9,6 +9,15 @@ type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 export class Neo4jService {
   constructor(@Inject(NEO4J_DRIVER_PROVIDER) public driver: Driver) {}
 
+  async resetData() {
+    return this.withWriteTransaction((txn) =>
+      txn.run(`
+        MATCH (n)
+        DETACH DELETE n
+      `),
+    )
+  }
+
   async withReadTransaction<T>(readTransaction: ManagedTransactionWork<T>) {
     const session = this.driver.session()
 
@@ -31,14 +40,5 @@ export class Neo4jService {
         throw error
       })
       .finally(() => session.close())
-  }
-
-  async resetData() {
-    return this.withWriteTransaction((txn) =>
-      txn.run(`
-        MATCH (n)
-        DETACH DELETE n
-      `),
-    )
   }
 }

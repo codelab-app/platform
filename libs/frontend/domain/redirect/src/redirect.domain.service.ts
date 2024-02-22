@@ -2,7 +2,7 @@ import type {
   IRedirectDomainService,
   IRedirectModel,
 } from '@codelab/frontend/abstract/domain'
-import { IRedirectDTO } from '@codelab/shared/abstract/core'
+import { IRedirectDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { RedirectModel } from './store'
 
@@ -21,7 +21,7 @@ export class RedirectDomainService
     targetPage,
     targetType,
     targetUrl,
-  }: IRedirectDTO) {
+  }: IRedirectDto) {
     let redirect = this.redirects.get(id)
 
     if (redirect) {

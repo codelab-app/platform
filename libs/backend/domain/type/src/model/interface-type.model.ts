@@ -24,14 +24,14 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDto {
     })
   }
 
+  static createName = createInterfaceTypeName
+
   static getApiName(
     { name }: Pick<IAtomDto, 'name'>,
     field?: Pick<IFieldDto, 'key'>,
   ) {
     return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
   }
-
-  static createName = createInterfaceTypeName
 
   __typename = `${ITypeKind.InterfaceType}` as const
 

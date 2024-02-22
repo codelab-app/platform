@@ -26,12 +26,6 @@ export class PageDomainService {
     private authService: AuthDomainService,
   ) {}
 
-  async createSystemPages(app: ICreatePageAppDto) {
-    await this.addProviderPage(app)
-    await this.addNotFoundPage(app)
-    await this.addInternalServerErrorPage(app)
-  }
-
   async createPage(
     page: ICreatePageDto,
     user: ICreatePageUserDto,
@@ -44,43 +38,10 @@ export class PageDomainService {
     await this.addDefaultPage(page, app)
   }
 
-  private async addProviderPage(app: ICreatePageAppDto) {
-    return this.addDefaultPage(
-      {
-        app,
-        id: v4(),
-        kind: IPageKind.Provider,
-        name: IPageKindName.Provider,
-        url: `/${IPageKindName.Provider}`,
-      },
-      app,
-    )
-  }
-
-  private addNotFoundPage(app: ICreatePageAppDto) {
-    return this.addDefaultPage(
-      {
-        app,
-        id: v4(),
-        kind: IPageKind.NotFound,
-        name: IPageKindName.NotFound,
-        url: `/${IPageKindName.NotFound}`,
-      },
-      app,
-    )
-  }
-
-  private addInternalServerErrorPage(app: ICreatePageAppDto) {
-    return this.addDefaultPage(
-      {
-        app,
-        id: v4(),
-        kind: IPageKind.Provider,
-        name: IPageKindName.Provider,
-        url: `/${IPageKindName.Provider}`,
-      },
-      app,
-    )
+  async createSystemPages(app: ICreatePageAppDto) {
+    await this.addProviderPage(app)
+    await this.addNotFoundPage(app)
+    await this.addInternalServerErrorPage(app)
   }
 
   private async addDefaultPage(
@@ -123,5 +84,44 @@ export class PageDomainService {
       store: pageStore,
       url,
     })
+  }
+
+  private addInternalServerErrorPage(app: ICreatePageAppDto) {
+    return this.addDefaultPage(
+      {
+        app,
+        id: v4(),
+        kind: IPageKind.Provider,
+        name: IPageKindName.Provider,
+        url: `/${IPageKindName.Provider}`,
+      },
+      app,
+    )
+  }
+
+  private addNotFoundPage(app: ICreatePageAppDto) {
+    return this.addDefaultPage(
+      {
+        app,
+        id: v4(),
+        kind: IPageKind.NotFound,
+        name: IPageKindName.NotFound,
+        url: `/${IPageKindName.NotFound}`,
+      },
+      app,
+    )
+  }
+
+  private async addProviderPage(app: ICreatePageAppDto) {
+    return this.addDefaultPage(
+      {
+        app,
+        id: v4(),
+        kind: IPageKind.Provider,
+        name: IPageKindName.Provider,
+        url: `/${IPageKindName.Provider}`,
+      },
+      app,
+    )
   }
 }

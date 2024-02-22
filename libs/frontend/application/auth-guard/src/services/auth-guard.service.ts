@@ -11,7 +11,7 @@ import {
 } from '@codelab/frontend/application/shared/store'
 import { AuthGuardDomainService } from '@codelab/frontend/domain/auth-guard'
 import type { AuthGuardWhere } from '@codelab/shared/abstract/codegen'
-import type { IPropDTO } from '@codelab/shared/abstract/core'
+import type { IPropDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -41,11 +41,6 @@ export class AuthGuardService
   implements IAuthGuardService
 {
   @computed
-  private get resourceService() {
-    return getResourceService(this)
-  }
-
-  @computed
   get authGuardList() {
     return [...this.authGuardDomainService.authGuards.values()]
   }
@@ -58,7 +53,7 @@ export class AuthGuardService
   ) {
     const { config } = data
 
-    const configDto: IPropDTO = {
+    const configDto: IPropDto = {
       data: JSON.stringify(config.data),
       id: v4(),
     }
@@ -149,5 +144,10 @@ export class AuthGuardService
 
   authGuard(id: string) {
     return this.authGuardDomainService.authGuards.get(id)
+  }
+
+  @computed
+  private get resourceService() {
+    return getResourceService(this)
   }
 }

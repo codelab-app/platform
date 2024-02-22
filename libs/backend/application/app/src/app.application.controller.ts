@@ -23,14 +23,6 @@ export class AppApplicationController {
   constructor(private commandBus: CommandBus) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-cypress-app')
-  async seedApp() {
-    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-      new SeedCypressAppCommand(),
-    )
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
     return this.commandBus.execute<SeedCypressAppCommand, IAppAggregate>(
@@ -46,6 +38,14 @@ export class AppApplicationController {
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new ImportAppCommand(data),
+    )
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('seed-cypress-app')
+  async seedApp() {
+    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
+      new SeedCypressAppCommand(),
     )
   }
 }

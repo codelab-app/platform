@@ -33,37 +33,6 @@ export class ActionDomainService
   }
 
   @modelAction
-  load(actions: Array<ActionFragment>) {
-    return actions.map((action) =>
-      this.hydrate(this.actionFactory.fromActionFragment(action)),
-    )
-  }
-
-  @modelAction
-  hydrate<T extends IActionDto>(actionDTO: T) {
-    let action: IActionModel
-
-    switch (actionDTO.__typename) {
-      case IActionKind.CodeAction:
-        action = CodeAction.create(actionDTO)
-        break
-      case IActionKind.ApiAction:
-        action = ApiAction.create(actionDTO)
-        break
-      default:
-        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
-    }
-
-    this.actions.set(action.id, action)
-
-    return action
-  }
-
-  action(id: string) {
-    return this.actions.get(id)
-  }
-
-  @modelAction
   getSelectActionOptions(actionEntity?: IRef) {
     const { selectedNode } = this.builderService
     const selectedNodeStore = selectedNode?.current.store.current
@@ -97,6 +66,37 @@ export class ActionDomainService
       label: action.name,
       value: action.id,
     }))
+  }
+
+  @modelAction
+  hydrate<T extends IActionDto>(actionDTO: T) {
+    let action: IActionModel
+
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction:
+        action = CodeAction.create(actionDTO)
+        break
+      case IActionKind.ApiAction:
+        action = ApiAction.create(actionDTO)
+        break
+      default:
+        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
+    }
+
+    this.actions.set(action.id, action)
+
+    return action
+  }
+
+  @modelAction
+  load(actions: Array<ActionFragment>) {
+    return actions.map((action) =>
+      this.hydrate(this.actionFactory.fromActionFragment(action)),
+    )
+  }
+
+  action(id: string) {
+    return this.actions.get(id)
   }
 
   private getParentActions(action?: IActionModel): Array<string> {

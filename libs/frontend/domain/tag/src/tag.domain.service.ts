@@ -18,6 +18,14 @@ export class TagDomainService
   implements ITagDomainService
 {
   @computed
+  get selectedOption() {
+    return {
+      label: this.selectedTag?.current.name ?? '',
+      value: this.selectedTag?.current.id ?? '',
+    }
+  }
+
+  @computed
   get tagsList() {
     return Array.from(this.tags.values())
   }
@@ -28,18 +36,6 @@ export class TagDomainService
       label: tag.name,
       value: tag.id,
     }))
-  }
-
-  @computed
-  get selectedOption() {
-    return {
-      label: this.selectedTag?.current.name ?? '',
-      value: this.selectedTag?.current.id ?? '',
-    }
-  }
-
-  tag(id: string) {
-    return this.tags.get(id)
   }
 
   @modelAction
@@ -56,5 +52,9 @@ export class TagDomainService
     this.tags.set(tag.id, tag)
 
     return tag
+  }
+
+  tag(id: string) {
+    return this.tags.get(id)
   }
 }

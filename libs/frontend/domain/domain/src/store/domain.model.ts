@@ -37,6 +37,18 @@ export class Domain
     return {}
   }
 
+  @computed
+  get toJson() {
+    return {
+      $modelType: 'serialized',
+      app: this.app,
+      domainConfig: this.domainConfig,
+      id: this.id,
+      name: this.name,
+      projectDomain: this.projectDomain,
+    }
+  }
+
   @modelAction
   public writeCache({
     app,
@@ -51,18 +63,6 @@ export class Domain
     this.app = app ?? this.app
 
     return this
-  }
-
-  @computed
-  get toJson() {
-    return {
-      $modelType: 'serialized',
-      app: this.app,
-      domainConfig: this.domainConfig,
-      id: this.id,
-      name: this.name,
-      projectDomain: this.projectDomain,
-    }
   }
 
   toCreateInput() {

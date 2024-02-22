@@ -2,11 +2,11 @@ import { IModel } from '@codelab/backend/abstract/types'
 import type { IDomain, IDomainDto, IRef } from '@codelab/shared/abstract/core'
 
 export class Domain extends IModel implements IDomain {
-  id: string
-
   app: IRef
 
   domainConfig: { misconfigured: boolean } | undefined
+
+  id: string
 
   name: string
 

@@ -34,25 +34,22 @@ export class RuntimeComponentPropModel
   static create = create
 
   @computed
+  get childMapperProp(): Maybe<IPropData> {
+    const { childMapperIndex, runtimeParent } = this.runtimeComponent.current
+
+    const runtimeParentElementProps = runtimeParent
+      ? runtimeParent.current.runtimeProps
+      : undefined
+
+    const props = runtimeParentElementProps?.evaluatedChildMapperProps || []
+
+    return props[Number(childMapperIndex)]
+  }
+
+  @computed
   get component(): IComponentModel {
     return this.runtimeComponent.current.containerNode
       .current as IComponentModel
-  }
-
-  @computed
-  get runtimeStore() {
-    return this.runtimeComponent.current.runtimeStore
-  }
-
-  @computed
-  get renderer() {
-    const activeRenderer = getRendererService(this).activeRenderer?.current
-
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
-    }
-
-    return activeRenderer
   }
 
   @computed
@@ -61,6 +58,52 @@ export class RuntimeComponentPropModel
       this.evaluatedProps,
       this.instanceElementProps,
       this.childMapperProp,
+    )
+  }
+
+  @computed
+  get evaluatedProps() {
+    return this.expressionEvaluationContext.props
+  }
+
+  @computed
+  get expressionEvaluationContext(): IEvaluationContext {
+    return this.addAndBind({
+      actions: {},
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootActions: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      url: {},
+    })
+  }
+
+  @computed
+  get instanceElementProps(): Maybe<IPropData> {
+    if (this.runtimeComponent.current.isTypedProp) {
+      return undefined
+    }
+
+    const { runtimeParent } = this.runtimeComponent.current
+
+    return runtimeParent
+      ? runtimeParent.current.runtimeProps.evaluatedProps
+      : undefined
+  }
+
+  @computed
+  get props() {
+    return mergeProps(
+      this.component.api.current.defaultValues,
+      this.component.props.values,
+      this.customProps?.values,
+      {
+        [DATA_COMPONENT_ID]: this.component.id,
+        key: this.component.id,
+      },
     )
   }
 
@@ -88,56 +131,23 @@ export class RuntimeComponentPropModel
     })
   }
 
-  evaluateProps(context: IEvaluationContext) {
-    // evaluate expressions but with empty context
-    return evaluateObject(this.renderedTypedProps, context)
-  }
-
   @computed
-  get evaluatedProps() {
-    return this.expressionEvaluationContext.props
-  }
+  get renderer() {
+    const activeRenderer = getRendererService(this).activeRenderer?.current
 
-  @computed
-  get instanceElementProps(): Maybe<IPropData> {
-    if (this.runtimeComponent.current.isTypedProp) {
-      return undefined
+    if (!activeRenderer) {
+      throw new Error('No active Renderer was found')
     }
 
-    const { runtimeParent } = this.runtimeComponent.current
-
-    return runtimeParent
-      ? runtimeParent.current.runtimeProps.evaluatedProps
-      : undefined
+    return activeRenderer
   }
 
   @computed
-  get childMapperProp(): Maybe<IPropData> {
-    const { childMapperIndex, runtimeParent } = this.runtimeComponent.current
-
-    const runtimeParentElementProps = runtimeParent
-      ? runtimeParent.current.runtimeProps
-      : undefined
-
-    const props = runtimeParentElementProps?.evaluatedChildMapperProps || []
-
-    return props[Number(childMapperIndex)]
+  get runtimeStore() {
+    return this.runtimeComponent.current.runtimeStore
   }
 
-  @computed
-  get props() {
-    return mergeProps(
-      this.component.api.current.defaultValues,
-      this.component.props.values,
-      this.customProps?.values,
-      {
-        [DATA_COMPONENT_ID]: this.component.id,
-        key: this.component.id,
-      },
-    )
-  }
-
-  addAndBind(context: IEvaluationContext) {
+  private addAndBind(context: IEvaluationContext) {
     context['props'] = this.evaluateProps(context)
 
     return context

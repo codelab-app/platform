@@ -63,6 +63,20 @@ export class ApiAction
     }
   }
 
+  @computed
+  get toJson() {
+    return {
+      __typename: `${IActionKind.ApiAction}` as const,
+      config: this.config.toJson,
+      errorAction: this.errorAction?.current,
+      id: this.id,
+      name: this.name,
+      resource: this.resource.current.toJson,
+      store: this.store.current,
+      successAction: this.successAction?.current,
+    }
+  }
+
   @modelAction
   writeCache({
     config,
@@ -82,20 +96,6 @@ export class ApiAction
       : this.successAction
 
     return this
-  }
-
-  @computed
-  get toJson() {
-    return {
-      __typename: `${IActionKind.ApiAction}` as const,
-      config: this.config.toJson,
-      errorAction: this.errorAction?.current,
-      id: this.id,
-      name: this.name,
-      resource: this.resource.current.toJson,
-      store: this.store.current,
-      successAction: this.successAction?.current,
-    }
   }
 
   toCreateInput(): ApiActionCreateInput {

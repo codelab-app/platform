@@ -154,24 +154,6 @@ export class Element
 {
   static create = create
 
-  onAttachedToRootStore() {
-    const recorder = patchRecorder(this, {
-      filter: (patches, inversePatches) => {
-        // Skip patches related to setting '_modified' to false
-
-        return !patches.some((patch) => {
-          return patch.path.includes('_modified')
-        })
-      },
-      onPatches: (patches, inversePatches) => {
-        this.set_modified(true)
-      },
-      recording: true,
-    })
-
-    return () => recorder.dispose()
-  }
-
   /**
    * Internal system props for meta data, use double underline for system-defined identifiers.
    */
@@ -336,6 +318,14 @@ export class Element
   }
 
   @computed
+  get toId() {
+    return {
+      id: this.id,
+      name: this.name,
+    }
+  }
+
+  @computed
   get toJson() {
     return {
       childMapperComponent: this.childMapperComponent,
@@ -370,14 +360,6 @@ export class Element
       nextSibling: this.nextSibling?.current.toId,
       parentElement: this.parentElement?.current.toId,
       prevSibling: this.prevSibling?.current.toId,
-    }
-  }
-
-  @computed
-  get toId() {
-    return {
-      id: this.id,
-      name: this.name,
     }
   }
 
@@ -468,6 +450,42 @@ export class Element
   }
 
   /**
+   * This function will replace the current `firstChild` with our new element. You'll need to call other function to handle attaching firstChild
+   *
+   * (parent)
+   * \
+   * (firstChild)
+   *
+   *    (parent)
+   *       \   \
+   * [element]  x
+   *             \
+   *             (firstChild)
+   */
+  @modelAction
+  attachAsFirstChild(parentElement: IElementModel) {
+    /**
+     * If parent has existing first child, detach it
+     */
+    const parentElementsFirstChild = parentElement.firstChild?.current
+
+    if (parentElementsFirstChild) {
+      parentElementsFirstChild.parentElement = null
+
+      parentElementsFirstChild.prevSibling = elementRef(this)
+
+      this.nextSibling = elementRef(parentElementsFirstChild)
+    }
+
+    /**
+     * Add new first child
+     */
+    parentElement.firstChild = elementRef(this.id)
+
+    this.parentElement = elementRef(parentElement)
+  }
+
+  /**
    * Attach the new element as as nextSibling. Leaves `nextSibling` still connected to `sibling`.
    *
    * (sibling)-(nextSibling)
@@ -522,42 +540,6 @@ export class Element
     }
 
     this.nextSibling = elementRef(nextSibling)
-  }
-
-  /**
-   * This function will replace the current `firstChild` with our new element. You'll need to call other function to handle attaching firstChild
-   *
-   * (parent)
-   * \
-   * (firstChild)
-   *
-   *    (parent)
-   *       \   \
-   * [element]  x
-   *             \
-   *             (firstChild)
-   */
-  @modelAction
-  attachAsFirstChild(parentElement: IElementModel) {
-    /**
-     * If parent has existing first child, detach it
-     */
-    const parentElementsFirstChild = parentElement.firstChild?.current
-
-    if (parentElementsFirstChild) {
-      parentElementsFirstChild.parentElement = null
-
-      parentElementsFirstChild.prevSibling = elementRef(this)
-
-      this.nextSibling = elementRef(parentElementsFirstChild)
-    }
-
-    /**
-     * Add new first child
-     */
-    parentElement.firstChild = elementRef(this.id)
-
-    this.parentElement = elementRef(parentElement)
   }
 
   /**
@@ -772,6 +754,24 @@ export class Element
     validateElement(this)
 
     return this
+  }
+
+  onAttachedToRootStore() {
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // Skip patches related to setting '_modified' to false
+
+        return !patches.some((patch) => {
+          return patch.path.includes('_modified')
+        })
+      },
+      onPatches: (patches, inversePatches) => {
+        this.set_modified(true)
+      },
+      recording: true,
+    })
+
+    return () => recorder.dispose()
   }
 
   @computed

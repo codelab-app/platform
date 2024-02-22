@@ -29,29 +29,6 @@ export class ElementDomainService
   }
 
   @modelAction
-  resetModifiedElements() {
-    for (const element of this.elements.values()) {
-      element.set_modified(false)
-    }
-  }
-
-  @modelAction
-  element(id: string) {
-    const element = this.maybeElement(id)
-
-    if (!element) {
-      throw new Error('Missing element')
-    }
-
-    return element
-  }
-
-  @modelAction
-  maybeElement(id: string) {
-    return this.elements.get(id)
-  }
-
-  @modelAction
   addTreeNode = (elementDto: IElementDto) => {
     const element = this.hydrate(elementDto)
 
@@ -61,6 +38,17 @@ export class ElementDomainService
       parentElement: element.parentElement?.current,
       prevSibling: element.prevSibling?.current,
     })
+
+    return element
+  }
+
+  @modelAction
+  element(id: string) {
+    const element = this.maybeElement(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
 
     return element
   }
@@ -81,6 +69,11 @@ export class ElementDomainService
     this.elements.set(elementDto.id, element)
 
     return element
+  }
+
+  @modelAction
+  maybeElement(id: string) {
+    return this.elements.get(id)
   }
 
   /**
@@ -120,6 +113,13 @@ export class ElementDomainService
       }
 
       element.attachAsNextSibling(prevSibling)
+    }
+  }
+
+  @modelAction
+  resetModifiedElements() {
+    for (const element of this.elements.values()) {
+      element.set_modified(false)
     }
   }
 

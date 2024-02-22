@@ -8,9 +8,9 @@ import type {
 } from '@codelab/shared/abstract/core'
 
 export class Resource extends IModel implements IResource {
-  id: string
-
   config: IProp
+
+  id: string
 
   name: string
 

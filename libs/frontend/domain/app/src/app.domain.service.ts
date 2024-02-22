@@ -28,6 +28,19 @@ export class AppDomainService
   }
 
   @modelAction
+  create = (appDto: IAppDto) => {
+    const app = this.hydrate(appDto)
+    const renderType = this.atomDomainService.defaultRenderType
+
+    const pages = this.pageDomainService.pageFactory.addSystemPages(
+      app,
+      renderType,
+    )
+
+    return app.writeCache({ pages })
+  }
+
+  @modelAction
   hydrate = ({ domains, id, name, owner }: IAppDto) => {
     let app = this.apps.get(id)
 
@@ -48,19 +61,6 @@ export class AppDomainService
     this.apps.set(app.id, app)
 
     return app
-  }
-
-  @modelAction
-  create = (appDto: IAppDto) => {
-    const app = this.hydrate(appDto)
-    const renderType = this.atomDomainService.defaultRenderType
-
-    const pages = this.pageDomainService.pageFactory.addSystemPages(
-      app,
-      renderType,
-    )
-
-    return app.writeCache({ pages })
   }
 
   app(id: string) {

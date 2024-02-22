@@ -2,7 +2,7 @@ import type {
   IAuthGuardDomainService,
   IAuthGuardModel,
 } from '@codelab/frontend/abstract/domain'
-import { IAuthGuardDTO } from '@codelab/shared/abstract/core'
+import { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { AuthGuardModel } from './store'
 
@@ -14,7 +14,7 @@ export class AuthGuardDomainService
   implements IAuthGuardDomainService
 {
   @modelAction
-  hydrate({ config, id, name, resource, responseTransformer }: IAuthGuardDTO) {
+  hydrate({ config, id, name, resource, responseTransformer }: IAuthGuardDto) {
     let authGuard = this.authGuards.get(id)
 
     if (authGuard) {

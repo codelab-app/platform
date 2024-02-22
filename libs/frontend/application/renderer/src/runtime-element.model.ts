@@ -51,37 +51,29 @@ export class RuntimeElementModel
   })
   implements IRuntimeElementModel
 {
-  onAttachedToRootStore() {
-    const recorder = patchRecorder(this, {
-      filter: (patches, inversePatches) => {
-        // record when patches are setting 'element'
-        return patches.some((patch) => patch.path.includes('element'))
-      },
-      onPatches: (patches, inversePatches) => {
-        detach(this)
-      },
-      recording: true,
-    })
-
-    return () => recorder.dispose()
-  }
-
   static create = create
 
   @computed
   get renderer() {
     const activeRenderer = getRendererService(this).activeRenderer?.current
 
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
+    for (let index = 0; index < props.length; index++) {
+      const runtimeComponent =
+        this.closestContainerNode.current.addContainerNode(
+          component,
+          { id: this.id },
+          undefined,
+          index,
+        )
+
+      childMapperChildren.push(runtimeComponent)
     }
 
-    return activeRenderer
-  }
+    this.closestContainerNode.current.cleanupChildMapperNodes(
+      childMapperChildren,
+    )
 
-  @computed
-  get runtimeStore() {
-    return this.closestContainerNode.current.runtimeStore
+    return childMapperChildren
   }
 
   @computed
@@ -295,4 +287,91 @@ export class RuntimeElementModel
 
     return renderedChildren
   }
+
+  @computed
+  get renderer() {
+    const activeRenderer = getRendererService(this).activeRenderer?.current
+
+    if (!activeRenderer) {
+      throw new Error('No active Renderer was found')
+    }
+
+    return activeRenderer
+  }
+
+  @computed
+  get runtimeStore() {
+    return this.closestContainerNode.current.runtimeStore
+  }
+
+  @computed
+  get shouldRender() {
+    const { renderIfExpression } = this.element.current
+
+    if (!renderIfExpression || !hasExpression(renderIfExpression)) {
+      return true
+    }
+
+    return evaluateExpression(
+      renderIfExpression,
+      this.runtimeProps.expressionEvaluationContext,
+    )
+  }
+
+  onAttachedToRootStore() {
+    const recorder = patchRecorder(this, {
+      filter: (patches, inversePatches) => {
+        // record when patches are setting 'element'
+        return patches.some((patch) => patch.path.includes('element'))
+      },
+      onPatches: (patches, inversePatches) => {
+        detach(this)
+      },
+      recording: true,
+    })
+
+    return () => recorder.dispose()
+  }
+
+  runPostRenderAction = () => {
+    if (this.postRenderActionDone) {
+      return
+    }
+
+    const { postRenderAction } = this.element.current
+    const currentPostRenderAction = postRenderAction?.current
+
+    if (currentPostRenderAction) {
+      const runner = this.runtimeProps.getActionRunner(
+        currentPostRenderAction.name,
+      )
+
+      runner()
+
+      this.postRenderActionDone = true
+    }
+  }
+
+  runPreRenderAction = () => {
+    if (this.preRenderActionDone) {
+      return
+    }
+
+    const { preRenderAction } = this.element.current
+    const currentPreRenderAction = preRenderAction?.current
+
+    if (currentPreRenderAction) {
+      const runner = this.runtimeProps.getActionRunner(
+        preRenderAction.current.name,
+      )
+
+      runner()
+
+      this.preRenderActionDone = true
+    }
+  }
+
+  private postRenderActionDone = false
+
+  private preRenderActionDone = false
 }

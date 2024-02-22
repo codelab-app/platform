@@ -5,7 +5,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IRedirect,
-  IRedirectDTO,
+  IRedirectDto,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -24,7 +24,7 @@ export interface IRedirectModel
       >,
       'toDeleteInput'
     >,
-    ICacheService<IRedirectDTO, IRedirectModel> {
+    ICacheService<IRedirectDto, IRedirectModel> {
   authGuard: Ref<IAuthGuardModel>
   id: string
   source: Ref<IPageModel>

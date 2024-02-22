@@ -109,34 +109,6 @@ export class ElementService
     return element
   })
 
-  element(id: string) {
-    return this.elementDomainService.element(id)
-  }
-
-  /**
-   * Call this to update modified elements
-   */
-  @modelFlow
-  syncModifiedElements = _async(function* (this: ElementService) {
-    yield* _await(
-      this.updateElements(this.elementDomainService.modifiedElements),
-    )
-
-    this.elementDomainService.resetModifiedElements()
-  })
-
-  /**
-   * We compare the prev and new state of the changes in the parent/sibling properties to see what operation we will perform
-   */
-  @modelFlow
-  move = _async(function* (this: ElementService, context: IMoveElementContext) {
-    this.elementDomainService.move(context)
-
-    yield* _await(
-      this.updateElements(this.elementDomainService.modifiedElements),
-    )
-  })
-
   /**
    * Need to take care of reconnecting parent/sibling nodes
    */
@@ -195,6 +167,40 @@ export class ElementService
     return
   })
 
+  /**
+   * Load the types for this element. An element could be `atom` or `component` type, and we want to load the corresponding types.
+   */
+  @modelFlow
+  loadTypes = _async(function* (this: ElementService, element: IElementModel) {
+    const apiId = element.renderType.current.api.id
+
+    yield* _await(this.typeService.getInterface(apiId))
+  })
+
+  /**
+   * We compare the prev and new state of the changes in the parent/sibling properties to see what operation we will perform
+   */
+  @modelFlow
+  move = _async(function* (this: ElementService, context: IMoveElementContext) {
+    this.elementDomainService.move(context)
+
+    yield* _await(
+      this.updateElements(this.elementDomainService.modifiedElements),
+    )
+  })
+
+  /**
+   * Call this to update modified elements
+   */
+  @modelFlow
+  syncModifiedElements = _async(function* (this: ElementService) {
+    yield* _await(
+      this.updateElements(this.elementDomainService.modifiedElements),
+    )
+
+    this.elementDomainService.resetModifiedElements()
+  })
+
   @modelFlow
   @transaction
   update = _async(function* (
@@ -232,16 +238,6 @@ export class ElementService
         ),
       ),
     )
-  })
-
-  /**
-   * Load the types for this element. An element could be `atom` or `component` type, and we want to load the corresponding types.
-   */
-  @modelFlow
-  loadTypes = _async(function* (this: ElementService, element: IElementModel) {
-    const apiId = element.renderType.current.api.id
-
-    yield* _await(this.typeService.getInterface(apiId))
   })
 
   @modelAction
@@ -324,36 +320,8 @@ export class ElementService
     return { hydratedElements, rootElement }
   }
 
-  private getDescendants(
-    element: SelectElementOption,
-    elementMap: Record<string, SelectElementOption>,
-  ) {
-    const descendants: Array<SelectElementOption> = []
-
-    const _getDescendants = (el: SelectElementOption) => {
-      for (const child of this.getElementChildren(el, elementMap)) {
-        descendants.push(child)
-        _getDescendants(child)
-      }
-    }
-
-    _getDescendants(element)
-
-    return descendants
-  }
-
-  private getElementChildren(
-    element: SelectElementOption,
-    elementMap: Record<string, SelectElementOption>,
-  ) {
-    return (
-      element.childrenIds
-        ?.map((childId) => elementMap[childId])
-        .filter(
-          (selectElementOption): selectElementOption is SelectElementOption =>
-            Boolean(selectElementOption),
-        ) ?? []
-    )
+  element(id: string) {
+    return this.elementDomainService.element(id)
   }
 
   /**
@@ -408,19 +376,51 @@ export class ElementService
     return breakpointStyles.join('\n')
   }
 
+  private getDescendants(
+    element: SelectElementOption,
+    elementMap: Record<string, SelectElementOption>,
+  ) {
+    const descendants: Array<SelectElementOption> = []
+
+    const _getDescendants = (el: SelectElementOption) => {
+      for (const child of this.getElementChildren(el, elementMap)) {
+        descendants.push(child)
+        _getDescendants(child)
+      }
+    }
+
+    _getDescendants(element)
+
+    return descendants
+  }
+
+  private getElementChildren(
+    element: SelectElementOption,
+    elementMap: Record<string, SelectElementOption>,
+  ) {
+    return (
+      element.childrenIds
+        ?.map((childId) => elementMap[childId])
+        .filter(
+          (selectElementOption): selectElementOption is SelectElementOption =>
+            Boolean(selectElementOption),
+        ) ?? []
+    )
+  }
+
   @computed
   private get builderService() {
     return getBuilderDomainService(this)
   }
 
   @computed
-  private get rendererService() {
-    return getRendererService(this)
+  private get propService() {
+    return getPropService(this)
   }
 
   @computed
-  private get propService() {
-    return getPropService(this)
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

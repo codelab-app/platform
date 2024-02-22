@@ -125,16 +125,16 @@ export class Renderer
 {
   static create = create
 
-  @computed
-  get rootElement() {
-    return this.containerNode.current.rootElement.current
-  }
-
   /**
    * This is the entry point to start the rendering process
    */
   @computed
   get render() {
     return this.runtimeRootContainerNode.render
+  }
+
+  @computed
+  get rootElement() {
+    return this.containerNode.current.rootElement.current
   }
 }
