@@ -90,13 +90,11 @@ export class InterfaceType
 
   @computed
   get defaultValues(): IPropData {
-    return compact(
-      this.fields.map((field) =>
-        !isNil(field.defaultValues)
-          ? { [field.key]: field.defaultValues }
-          : undefined,
-      ),
-    ).reduce(merge, {})
+    // do not omit undefined values
+    // object keys length is used for cache busting in runtimeStore.state
+    return this.fields
+      .map((field) => ({ [field.key]: field.defaultValues ?? undefined }))
+      .reduce(merge, {})
   }
 
   @computed

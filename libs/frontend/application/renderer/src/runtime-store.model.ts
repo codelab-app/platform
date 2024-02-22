@@ -56,13 +56,13 @@ export class RuntimeStoreModel
   @computed
   get state() {
     // To update the cache if a new state variable is added
-    const apiFieldsLength = this.store.current.api.maybeCurrent?.fields.length
+    const apiFieldsLength = this.store.current.api.current.fields.length
     const cachedStateKeysLength = Object.keys(this.cachedState ?? {}).length
 
     // cachedState is for persisting state when navigating between pages
     if (!this.cachedState || apiFieldsLength !== cachedStateKeysLength) {
       this.cachedState = observable(
-        this.store.current.api.maybeCurrent?.defaultValues ?? {},
+        this.store.current.api.current.defaultValues,
       )
     }
 
