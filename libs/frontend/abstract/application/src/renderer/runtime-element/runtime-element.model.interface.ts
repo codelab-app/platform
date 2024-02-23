@@ -25,6 +25,9 @@ export interface IRuntimeElementModel extends AnyModel {
 
   id: string
 
+  postRenderActionDone: boolean
+  preRenderActionDone: boolean
+
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>
 
@@ -44,4 +47,6 @@ export interface IRuntimeElementModel extends AnyModel {
 
   runPostRenderAction(): void
   runPreRenderAction(): void
+  setPostRenderActionDone(value: boolean): void
+  setPreRenderActionDone(value: boolean): void
 }

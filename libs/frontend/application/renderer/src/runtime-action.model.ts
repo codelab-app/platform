@@ -84,7 +84,7 @@ export class RuntimeActionModel
           const rootState = this.rootState;
           const refs = this.refs;
           const rootRefs = this.rootRefs;
-          const url = this.url;
+          const urlProps = this.urlProps;
           const props = this.props;
           const componentProps = this.componentProps;
           return ${(this.action.current as ICodeActionModel).code}(...args)

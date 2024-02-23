@@ -1,7 +1,8 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { IPageProps } from '@codelab/frontend/abstract/domain'
-import { type CodelabPage } from '@codelab/frontend/abstract/types'
+import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/application/app'
+import { builderRouteChangeHandler } from '@codelab/frontend/application/builder'
 import { PageDetailHeader } from '@codelab/frontend/application/page'
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
@@ -11,6 +12,7 @@ import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import isBoolean from 'lodash/isBoolean'
+import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -25,39 +27,41 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   })
 
   const { pageName } = usePageQuery()
+  const pageNameRef = React.useRef(pageName)
 
-  // const routeChangeHandler = React.useMemo(
-  //   () => async (url: string) => {
-  //     if (isNil(result)) {
-  //       return
-  //     }
+  const routeChangeHandler = React.useMemo(
+    () => async (url: string) => {
+      if (isNil(result) || isBoolean(result)) {
+        return
+      }
 
-  //     const pages = pageService.pagesByApp(result.app.id)
-  //     await builderRouteChangeHandler(
-  //       router,
-  //       result.app,
-  //       pages,
-  //       url,
-  //       PageType.PageDetail,
-  //     )
-  //   },
-  //   [result],
-  // )
+      const pages = pageService.getPagesByApp(result.app.id)
 
-  // useUpdateEffect(() => {
-  //   if (!isNil(result)) {
-  //     router.events.on('routeChangeStart', routeChangeHandler)
-  //   }
-  // }, [result])
-
-  // useUnmountEffect(() => {
-  //   router.events.off('routeChangeStart', routeChangeHandler)
-  // })
+      await builderRouteChangeHandler(
+        router,
+        result.app,
+        pages,
+        url,
+        PageType.PageDetail,
+      )
+    },
+    [result, pageName],
+  )
 
   useEffect(() => {
-    // router.events.off('routeChangeStart', routeChangeHandler)
-    void loadDevelopmentPage.execute()
-  }, [pageName])
+    if (result && !isBoolean(result)) {
+      router.events.on('routeChangeStart', routeChangeHandler)
+    }
+
+    if (status === 'not-executed' || pageName !== pageNameRef.current) {
+      pageNameRef.current = pageName
+      void loadDevelopmentPage.execute()
+    }
+
+    return () => {
+      router.events.off('routeChangeStart', routeChangeHandler)
+    }
+  }, [pageName, result])
 
   // boolean means router.push was called from the hook, so will redirect anyways
   if (isBoolean(result)) {

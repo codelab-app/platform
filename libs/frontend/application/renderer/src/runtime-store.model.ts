@@ -12,6 +12,8 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
+import cloneDeep from 'lodash/cloneDeep'
+import isEqual from 'lodash/isEqual'
 import keys from 'lodash/keys'
 import { computed, observable, set } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -41,6 +43,8 @@ export class RuntimeStoreModel
 
   private cachedState: Nullable<object> = null
 
+  private cachedStateDefaultValues: Nullable<object> = null
+
   refs = observable.object<IPropData>({})
 
   @computed
@@ -55,15 +59,19 @@ export class RuntimeStoreModel
 
   @computed
   get state() {
-    // To update the cache if a new state variable is added
-    const apiFieldsLength = this.store.current.api.maybeCurrent?.fields.length
-    const cachedStateKeysLength = Object.keys(this.cachedState ?? {}).length
-
     // cachedState is for persisting state when navigating between pages
-    if (!this.cachedState || apiFieldsLength !== cachedStateKeysLength) {
-      this.cachedState = observable(
-        this.store.current.api.maybeCurrent?.defaultValues ?? {},
+    // cachedStateDefaultValues is for checking if the default values have changed or new variables have been added
+    if (
+      !this.cachedState ||
+      !isEqual(
+        this.cachedStateDefaultValues,
+        this.store.current.api.current.defaultValues,
       )
+    ) {
+      const defaultValues = this.store.current.api.current.defaultValues
+
+      this.cachedState = observable(defaultValues)
+      this.cachedStateDefaultValues = cloneDeep(defaultValues)
     }
 
     return this.cachedState

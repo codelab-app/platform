@@ -45,6 +45,8 @@ export class RuntimeElementModel
     closestContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
     element: prop<Ref<IElementModel>>(),
     id: idProp,
+    postRenderActionDone: prop(false).withSetter(),
+    preRenderActionDone: prop(false).withSetter(),
     runtimeProps: prop<IRuntimeElementPropModel>(),
   })
   implements IRuntimeElementModel
@@ -65,10 +67,6 @@ export class RuntimeElementModel
   }
 
   static create = create
-
-  private preRenderActionDone = false
-
-  private postRenderActionDone = false
 
   @computed
   get renderer() {
@@ -198,7 +196,7 @@ export class RuntimeElementModel
 
       runner()
 
-      this.postRenderActionDone = true
+      this.setPostRenderActionDone(true)
     }
   }
 
@@ -217,7 +215,7 @@ export class RuntimeElementModel
 
       runner()
 
-      this.preRenderActionDone = true
+      this.setPreRenderActionDone(true)
     }
   }
 
