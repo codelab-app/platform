@@ -4,6 +4,7 @@ module "digitalocean-codelab" {
   do_token = var.DIGITALOCEAN_TOKEN
   auth0_secret = var.AUTH0_SECRET
   auth0_issuer_base_url = var.AUTH0_ISSUER_BASE_URL
+  auth0_audience = var.AUTH0_AUDIENCE
   auth0_client_id = module.auth0.web_client.id
   auth0_client_secret = module.auth0.web_client.client_secret
   next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST

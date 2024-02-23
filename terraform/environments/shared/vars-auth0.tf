@@ -31,3 +31,6 @@ variable "AUTH0_SECRET" {
   type = string
 }
 
+variable "AUTH0_AUDIENCE" {
+  type = string
+}
