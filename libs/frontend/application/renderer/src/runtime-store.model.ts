@@ -49,10 +49,6 @@ export class RuntimeStoreModel
     })
   }
 
-  private cachedStateDefaultValues: Nullable<object> = null
-
-  refs = observable.object<IPropData>({})
-
   @computed
   get refKeys(): Array<string> {
     const elementTree =
@@ -69,26 +65,6 @@ export class RuntimeStoreModel
   @computed
   get renderer() {
     return this.renderService.activeRenderer?.current
-  }
-
-  @computed
-  get state() {
-    // cachedState is for persisting state when navigating between pages
-    // cachedStateDefaultValues is for checking if the default values have changed or new variables have been added
-    if (
-      !this.cachedState ||
-      !isEqual(
-        this.cachedStateDefaultValues,
-        this.store.current.api.current.defaultValues,
-      )
-    ) {
-      const defaultValues = this.store.current.api.current.defaultValues
-
-      this.cachedState = observable(defaultValues)
-      this.cachedStateDefaultValues = cloneDeep(defaultValues)
-    }
-
-    return this.cachedState
   }
 
   @computed
@@ -115,15 +91,19 @@ export class RuntimeStoreModel
 
   @computed
   get state() {
-    // To update the cache if a new state variable is added
-    const apiFieldsLength = this.store.current.api.maybeCurrent?.fields.length
-    const cachedStateKeysLength = Object.keys(this.cachedState ?? {}).length
-
     // cachedState is for persisting state when navigating between pages
-    if (!this.cachedState || apiFieldsLength !== cachedStateKeysLength) {
-      this.cachedState = observable(
-        this.store.current.api.maybeCurrent?.defaultValues ?? {},
+    // cachedStateDefaultValues is for checking if the default values have changed or new variables have been added
+    if (
+      !this.cachedState ||
+      !isEqual(
+        this.cachedStateDefaultValues,
+        this.store.current.api.current.defaultValues,
       )
+    ) {
+      const defaultValues = this.store.current.api.current.defaultValues
+
+      this.cachedState = observable(defaultValues)
+      this.cachedStateDefaultValues = cloneDeep(defaultValues)
     }
 
     return this.cachedState
@@ -165,6 +145,8 @@ export class RuntimeStoreModel
   }
 
   private cachedState: Nullable<object> = null
+
+  private cachedStateDefaultValues: Nullable<object> = null
 
   @computed
   private get renderService() {

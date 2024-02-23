@@ -77,7 +77,7 @@ export class RuntimeComponentPropModel
       rootRefs: {},
       rootState: {},
       state: {},
-      url: {},
+      urlProps: {},
     })
   }
 
@@ -147,24 +147,14 @@ export class RuntimeComponentPropModel
     return this.runtimeComponent.current.runtimeStore
   }
 
-  private addAndBind(context: IEvaluationContext) {
+  addAndBind(context: IEvaluationContext) {
     context['props'] = this.evaluateProps(context)
 
     return context
   }
 
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    return this.addAndBind({
-      actions: {},
-      componentProps: {},
-      props: {},
-      refs: {},
-      rootActions: {},
-      rootRefs: {},
-      rootState: {},
-      state: {},
-      urlProps: {},
-    })
+  evaluateProps(context: IEvaluationContext) {
+    // evaluate expressions but with empty context
+    return evaluateObject(this.renderedTypedProps, context)
   }
 }

@@ -112,7 +112,7 @@ export class RuntimeElementPropsModel
       rootRefs: this.providerStore?.refs ?? {},
       rootState: this.providerStore?.state ?? {},
       state: this.runtimeStore.state,
-      url: this.urlProps ?? {},
+      urlProps: this.urlProps ?? {},
     })
   }
 
@@ -244,22 +244,8 @@ export class RuntimeElementPropsModel
       .reduce(merge, {})
   }
 
-    const componentProps = componentRuntimeProp
-      ? componentRuntimeProp.componentEvaluatedProps
-      : {}
-
-    return this.addAndBind({
-      actions: {},
-      args: [],
-      componentProps,
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: this.providerStore?.refs ?? {},
-      rootState: this.providerStore?.state ?? {},
-      state: this.runtimeStore.state,
-      urlProps: this.urlProps ?? {},
-    })
+  @computed
+  private get rendererService() {
+    return getRendererService(this)
   }
 }

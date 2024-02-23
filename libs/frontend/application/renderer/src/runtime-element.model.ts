@@ -54,8 +54,16 @@ export class RuntimeElementModel
   static create = create
 
   @computed
-  get renderer() {
-    const activeRenderer = getRendererService(this).activeRenderer?.current
+  get childMapperChildren() {
+    const childMapperComponent = this.element.current.childMapperComponent
+
+    if (!childMapperComponent) {
+      return []
+    }
+
+    const props = this.runtimeProps.evaluatedChildMapperProps || []
+    const component = childMapperComponent.current
+    const childMapperChildren = []
 
     for (let index = 0; index < props.length; index++) {
       const runtimeComponent =
@@ -126,89 +134,6 @@ export class RuntimeElementModel
     }
 
     return children
-  }
-
-  @computed
-  get childMapperChildren() {
-    const childMapperComponent = this.element.current.childMapperComponent
-
-    if (!childMapperComponent) {
-      return []
-    }
-
-    const props = this.runtimeProps.evaluatedChildMapperProps || []
-    const component = childMapperComponent.current
-    const childMapperChildren = []
-
-    for (let index = 0; index < props.length; index++) {
-      const runtimeComponent =
-        this.closestContainerNode.current.addContainerNode(
-          component,
-          { id: this.id },
-          undefined,
-          index,
-        )
-
-      childMapperChildren.push(runtimeComponent)
-    }
-
-    this.closestContainerNode.current.cleanupChildMapperNodes(
-      childMapperChildren,
-    )
-
-    return childMapperChildren
-  }
-
-  @computed
-  get shouldRender() {
-    const { renderIfExpression } = this.element.current
-
-    if (!renderIfExpression || !hasExpression(renderIfExpression)) {
-      return true
-    }
-
-    return evaluateExpression(
-      renderIfExpression,
-      this.runtimeProps.expressionEvaluationContext,
-    )
-  }
-
-  runPostRenderAction = () => {
-    if (this.postRenderActionDone) {
-      return
-    }
-
-    const { postRenderAction } = this.element.current
-    const currentPostRenderAction = postRenderAction?.current
-
-    if (currentPostRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        currentPostRenderAction.name,
-      )
-
-      runner()
-
-      this.setPostRenderActionDone(true)
-    }
-  }
-
-  runPreRenderAction = () => {
-    if (this.preRenderActionDone) {
-      return
-    }
-
-    const { preRenderAction } = this.element.current
-    const currentPreRenderAction = preRenderAction?.current
-
-    if (currentPreRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        preRenderAction.current.name,
-      )
-
-      runner()
-
-      this.setPreRenderActionDone(true)
-    }
   }
 
   @computed
@@ -348,7 +273,7 @@ export class RuntimeElementModel
 
       runner()
 
-      this.postRenderActionDone = true
+      this.setPostRenderActionDone(true)
     }
   }
 
@@ -367,11 +292,7 @@ export class RuntimeElementModel
 
       runner()
 
-      this.preRenderActionDone = true
+      this.setPreRenderActionDone(true)
     }
   }
-
-  private postRenderActionDone = false
-
-  private preRenderActionDone = false
 }
