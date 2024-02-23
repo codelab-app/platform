@@ -20,23 +20,6 @@
         "parallel": 3,
         "accessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU="
       }
-    },
-    "vercel": {
-      "runner": "@vercel/remote-nx",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "test",
-          "test:integration",
-          "test:unit",
-          "lint",
-          "e2e",
-          "build-storybook"
-        ],
-        "canTrackAnalytics": true,
-        "showUsageWarnings": true,
-        "parallel": 3
-      }
     }
   },
   "defaultProject": "platform",

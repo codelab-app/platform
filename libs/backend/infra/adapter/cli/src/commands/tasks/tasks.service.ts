@@ -80,12 +80,14 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`nx affected --target=test:integration -c test`)
+            execCommand(
+              `nx affected --target=test:integration -c test --parallel=1`,
+            )
           }
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test:integration --runInBand --ci -c ci',
+              'npx nx affected --target=test:integration --runInBand --ci -c ci --parallel=1',
             )
           }
         }),
