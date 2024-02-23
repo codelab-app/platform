@@ -4,12 +4,14 @@ import {
   atomDomainServiceContext,
   elementDomainServiceContext,
   pageDomainServiceContext,
+  redirectDomainServiceContext,
   storeDomainServiceContext,
   userDomainServiceContext,
 } from '@codelab/frontend/abstract/domain'
 import { AtomDomainService } from '@codelab/frontend/domain/atom'
 import { ElementDomainService } from '@codelab/frontend/domain/element'
 import { PageDomainService } from '@codelab/frontend/domain/page'
+import { RedirectDomainService } from '@codelab/frontend/domain/redirect'
 import { createRootDomainStore } from '@codelab/frontend/domain/shared'
 import { StoreDomainService } from '@codelab/frontend/domain/store'
 import {
@@ -26,6 +28,7 @@ export const rootDomainStore = createRootDomainStore({
     atomDomainServiceContext,
     elementDomainServiceContext,
     pageDomainServiceContext,
+    redirectDomainServiceContext,
     storeDomainServiceContext,
     typeDomainServiceContext,
     userDomainServiceContext,
@@ -35,6 +38,7 @@ export const rootDomainStore = createRootDomainStore({
     atomDomainService: new AtomDomainService({}),
     elementDomainService: new ElementDomainService({}),
     pageDomainService: new PageDomainService({}),
+    redirectDomainService: new RedirectDomainService({}),
     storeDomainService: new StoreDomainService({}),
     typeDomainService: new TypeDomainService({}),
     userDomainService: UserDomainService.fromDto(userDto),

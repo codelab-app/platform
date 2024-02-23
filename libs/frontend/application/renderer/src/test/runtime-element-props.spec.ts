@@ -606,6 +606,47 @@ describe('Runtime Element props', () => {
 
       expect(evaluatedProps).toMatchObject({ [propKey]: propValue })
     })
+
+    it('should re-evaluate prop expression with state when state is changed via action', () => {
+      const { element, page, runtimeElement } = setupRuntimeElement(testbed)
+      const runtimeProps = runtimeElement?.runtimeProps
+      const actionName = 'rootAction'
+      const propKey = 'propKey'
+      const rootStateKey = 'rootStateKey'
+      const storeApi = page.providerPage?.store.current.api.current
+
+      const field = testbed.addField({
+        api: storeApi,
+        defaultValues: null,
+        fieldType: testbed.getStringType(),
+        key: rootStateKey,
+      })
+
+      storeApi?.writeCache({ fields: [field] })
+
+      testbed.addCodeAction({
+        code: `function run() {
+          state.${rootStateKey} = "something";
+        }`,
+        name: actionName,
+        store: page.providerPage?.store,
+      })
+
+      element.props.set(propKey, `{{state.${rootStateKey}}}`)
+
+      expect(runtimeProps?.evaluatedProps).toMatchObject({
+        [propKey]: undefined,
+      })
+
+      // const actionRunner = runtimeProps?.evaluatedProps[propKey]
+      const actionRunner = runtimeProps?.getActionRunner(actionName)
+
+      actionRunner?.()
+
+      expect(runtimeProps?.evaluatedProps).toMatchObject({
+        [propKey]: 'something',
+      })
+    })
   })
 
   afterAll(() => {

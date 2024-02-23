@@ -4,6 +4,7 @@ import type { IAtomDomainService } from '../../atom'
 import type { IComponentDomainService } from '../../component'
 import type { IElementDomainService } from '../../element'
 import type { IPageDomainService } from '../../page'
+import type { IRedirectDomainService } from '../../redirect'
 import type { IResourceDomainService } from '../../resource'
 import type { IStoreDomainService } from '../../store'
 import type { IFieldDomainService, ITypeDomainService } from '../../type'
@@ -23,6 +24,7 @@ export interface IRootDomainStore {
   elementDomainService: IElementDomainService
   fieldDomainService: IFieldDomainService
   pageDomainService: IPageDomainService
+  redirectDomainService: IRedirectDomainService
   resourceDomainService: IResourceDomainService
   storeDomainService: IStoreDomainService
   typeDomainService: ITypeDomainService
@@ -38,6 +40,7 @@ export interface IRootDomainContext {
   elementDomainServiceContext: MaybeContext<IElementDomainService>
   fieldDomainServiceContext: MaybeContext<IFieldDomainService>
   pageDomainServiceContext: MaybeContext<IPageDomainService>
+  redirectDomainServiceContext: MaybeContext<IRedirectDomainService>
   resourceDomainServiceContext: MaybeContext<IResourceDomainService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   typeDomainServiceContext: MaybeContext<ITypeDomainService>
