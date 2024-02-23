@@ -29,7 +29,7 @@ const updateTestConfig = (tree, projectConfig) => {
             options: {
                 memoryLimit: 8192,
                 color: true,
-                testPathPattern: ['[i].spec.ts'],
+                testPathPattern: ['i.spec.ts'],
                 runInBand: true,
             },
             configurations: {
