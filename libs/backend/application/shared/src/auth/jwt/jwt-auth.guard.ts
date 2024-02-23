@@ -13,8 +13,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override handleRequest(err: unknown, user: any, info: unknown) {
-    console.log(user)
-
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
       console.debug(err, user, info)
