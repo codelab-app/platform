@@ -4,8 +4,8 @@
       "plugins": ["@codelab"],
       "files": ["*.ts", "*.tsx", "*.graphql"],
       "rules": {
-        "@codelab/domain-layer-constraint": "error",
-        "@codelab/ant-design-icon-import": "error"
+        "@codelab/domain-layer-constraint": "error"
+        // "@codelab/ant-design-icon-import": "error"
       }
     }
   ]
