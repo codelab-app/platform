@@ -222,6 +222,13 @@ export class PageApplicationService
   //   return page!
   // })
 
+  @modelAction
+  getPagesByApp = (appId: string) => {
+    return this.pageDomainService.pagesList.filter(
+      (page) => page.app.id === appId,
+    )
+  }
+
   /**
    * Since elements are
    */
@@ -247,13 +254,6 @@ export class PageApplicationService
 
       this.elementService.elementDomainService.hydrate(element)
     })
-  }
-
-  @modelAction
-  getPagesByApp = (appId: string) => {
-    return this.pageDomainService.pagesList.filter(
-      (page) => page.app.id === appId,
-    )
   }
 
   @computed
