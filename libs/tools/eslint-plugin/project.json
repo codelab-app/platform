@@ -1,5 +1,5 @@
 {
-  "name": "eslint-plugin",
+  "name": "tools-eslint-plugin",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/tools/eslint-plugin/src",
   "projectType": "library",
