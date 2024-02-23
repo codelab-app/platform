@@ -73,7 +73,8 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/platform/jest.config.ts",
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       },
       "configurations": {
         "test": {
@@ -93,6 +94,7 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
+        "runInBand": true,
         "jestConfig": "apps/platform/jest.config.ts"
       },
       "configurations": {
@@ -100,14 +102,10 @@
           "reporters": ["default"]
         },
         "test": {
-          "reporters": ["default"],
-          "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
+          "reporters": ["default"]
         },
         "ci": {
-          "parallel": 3,
-          "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
+          "parallel": 3
         }
       },
       "executor": "@nx/jest:jest",
@@ -119,7 +117,7 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathIgnorePatterns": ["i.spec.ts"],
         "jestConfig": "apps/platform/jest.config.ts"
       },
       "configurations": {
@@ -127,14 +125,9 @@
           "reporters": ["default"]
         },
         "test": {
-          "reporters": ["default"],
-          "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
+          "reporters": ["default"]
         },
-        "ci": {
-          "testPathPattern": ["i.spec.ts"],
-          "runInBand": true
-        }
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/platform"]

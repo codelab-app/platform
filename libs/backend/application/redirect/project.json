@@ -30,7 +30,8 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/backend/application/redirect/jest.config.ts",
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
@@ -40,6 +41,7 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
+        "runInBand": true,
         "jestConfig": "libs/backend/application/redirect/jest.config.ts"
       },
       "configurations": {
@@ -62,7 +64,7 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathIgnorePatterns": ["i.spec.ts"],
         "jestConfig": "libs/backend/application/redirect/jest.config.ts"
       },
       "configurations": {

@@ -31,7 +31,8 @@
       "options": {
         "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/redirect"]
     },
@@ -41,8 +42,8 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
-        "passWithNoTests": true
+        "runInBand": true,
+        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -64,9 +65,8 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts",
-        "passWithNoTests": true
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/frontend/domain/redirect/jest.config.ts"
       },
       "configurations": {
         "dev": {

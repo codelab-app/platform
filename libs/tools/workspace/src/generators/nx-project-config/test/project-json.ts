@@ -3,6 +3,7 @@ import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import has from 'lodash/has'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
+import pick from 'lodash/pick'
 import set from 'lodash/set'
 import { updateJestConfig } from './update-jest-config'
 
@@ -18,22 +19,13 @@ export const updateTestConfig = (
     console.log(`Updating ${projectConfig.name}...`)
 
     /**
-     * First need to add default reporters to developmentto override our jest config for reporters (since those config don't work in CLI, we had to add them to config file)
-     */
-    merge(projectConfig, {
-      targets: {
-        test: {
-          options: {
-            reporters: ['default'],
-          },
-        },
-      },
-    })
-
-    /**
      * But we need to filter out reporters config, since we will use the jest config
      */
-    const testOptions = omit(projectConfig.targets?.test, 'options.reporters')
+    const testConfiguration = pick(projectConfig.targets?.test, [
+      'executor',
+      'outputs',
+      'options.jestConfig',
+    ])
 
     /**
      * Use set because we want to remove old keys
@@ -48,6 +40,7 @@ export const updateTestConfig = (
             memoryLimit: 8192,
             color: true,
             testPathPattern: ['[i].spec.ts'],
+            runInBand: true,
           },
           configurations: {
             dev: {
@@ -65,7 +58,7 @@ export const updateTestConfig = (
          * First merge with the default test config, this way if migration update test, we can copy it over
          *
          */
-        testOptions,
+        testConfiguration,
       ),
     )
 
@@ -79,7 +72,7 @@ export const updateTestConfig = (
             color: true,
             memoryLimit: 8192,
             parallel: 3,
-            testPathPattern: ['[^i].spec.ts'],
+            testPathIgnorePatterns: ['i.spec.ts'],
           },
           configurations: {
             dev: {
@@ -91,9 +84,23 @@ export const updateTestConfig = (
             ci: {},
           },
         },
-        testOptions,
+        testConfiguration,
       ),
     )
+
+    /**
+     * Add default reporters to development to override our jest config for reporters (since those config don't work in CLI, we had to add them to config file)
+     */
+    merge(projectConfig, {
+      targets: {
+        test: {
+          options: {
+            runInBand: true,
+            reporters: ['default'],
+          },
+        },
+      },
+    })
 
     /**
      * jest reporters options don't work with CLI, so we need to add to jest config

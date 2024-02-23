@@ -4,7 +4,7 @@ exports.updateTestConfig = void 0;
 const tslib_1 = require("tslib");
 const has_1 = tslib_1.__importDefault(require("lodash/has"));
 const merge_1 = tslib_1.__importDefault(require("lodash/merge"));
-const omit_1 = tslib_1.__importDefault(require("lodash/omit"));
+const pick_1 = tslib_1.__importDefault(require("lodash/pick"));
 const set_1 = tslib_1.__importDefault(require("lodash/set"));
 const update_jest_config_1 = require("./update-jest-config");
 const updateTestConfig = (tree, projectConfig) => {
@@ -14,21 +14,13 @@ const updateTestConfig = (tree, projectConfig) => {
     if ((0, has_1.default)(projectConfig, 'targets.test')) {
         console.log(`Updating ${projectConfig.name}...`);
         /**
-         * First need to add default reporters to developmentto override our jest config for reporters (since those config don't work in CLI, we had to add them to config file)
-         */
-        (0, merge_1.default)(projectConfig, {
-            targets: {
-                test: {
-                    options: {
-                        reporters: ['default'],
-                    },
-                },
-            },
-        });
-        /**
          * But we need to filter out reporters config, since we will use the jest config
          */
-        const testOptions = (0, omit_1.default)(projectConfig.targets?.test, 'options.reporters');
+        const testConfiguration = (0, pick_1.default)(projectConfig.targets?.test, [
+            'executor',
+            'outputs',
+            'options.jestConfig',
+        ]);
         /**
          * Use set because we want to remove old keys
          */
@@ -38,6 +30,7 @@ const updateTestConfig = (tree, projectConfig) => {
                 memoryLimit: 8192,
                 color: true,
                 testPathPattern: ['[i].spec.ts'],
+                runInBand: true,
             },
             configurations: {
                 dev: {
@@ -55,14 +48,14 @@ const updateTestConfig = (tree, projectConfig) => {
          * First merge with the default test config, this way if migration update test, we can copy it over
          *
          */
-        testOptions));
+        testConfiguration));
         (0, set_1.default)(projectConfig, 'targets.test:unit', (0, merge_1.default)({
             defaultConfiguration: 'dev',
             options: {
                 color: true,
                 memoryLimit: 8192,
                 parallel: 3,
-                testPathPattern: ['[^i].spec.ts'],
+                testPathIgnorePatterns: ['i.spec.ts'],
             },
             configurations: {
                 dev: {
@@ -73,7 +66,20 @@ const updateTestConfig = (tree, projectConfig) => {
                 },
                 ci: {},
             },
-        }, testOptions));
+        }, testConfiguration));
+        /**
+         * Add default reporters to development to override our jest config for reporters (since those config don't work in CLI, we had to add them to config file)
+         */
+        (0, merge_1.default)(projectConfig, {
+            targets: {
+                test: {
+                    options: {
+                        runInBand: true,
+                        reporters: ['default'],
+                    },
+                },
+            },
+        });
         /**
          * jest reporters options don't work with CLI, so we need to add to jest config
          */
@@ -81,4 +87,4 @@ const updateTestConfig = (tree, projectConfig) => {
     }
 };
 exports.updateTestConfig = updateTestConfig;
-//# sourceMappingURL=test-config.js.map
+//# sourceMappingURL=project-json.js.map

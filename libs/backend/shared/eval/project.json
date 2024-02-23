@@ -5,8 +5,25 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-shared-eval.xml",
+          "quiet": true
+        }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/backend/shared/eval/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      }
     }
   },
-  "tags": ["scope:shared"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "scope:shared"
+  ]
 }

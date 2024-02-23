@@ -30,7 +30,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/frontend/application/vercel/jest.config.ts",
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       }
     },
     "test:integration": {
@@ -39,6 +40,7 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
+        "runInBand": true,
         "jestConfig": "libs/frontend/application/vercel/jest.config.ts"
       },
       "configurations": {
@@ -61,7 +63,7 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathIgnorePatterns": ["i.spec.ts"],
         "jestConfig": "libs/frontend/application/vercel/jest.config.ts"
       },
       "configurations": {

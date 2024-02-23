@@ -34,8 +34,8 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "libs/backend/infra/adapter/neo4j/jest.config.ts",
-        "runInBand": true
+        "runInBand": true,
+        "jestConfig": "libs/backend/infra/adapter/neo4j/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -57,9 +57,8 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/backend/infra/adapter/neo4j/jest.config.ts",
-        "runInBand": true
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/backend/infra/adapter/neo4j/jest.config.ts"
       },
       "configurations": {
         "dev": {

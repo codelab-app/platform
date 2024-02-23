@@ -37,7 +37,8 @@
       "options": {
         "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
@@ -47,8 +48,8 @@
         "memoryLimit": 8192,
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts",
-        "passWithNoTests": true
+        "runInBand": true,
+        "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -58,9 +59,7 @@
           "reporters": ["default"]
         },
         "ci": {
-          "parallel": 3,
-          "ci": true,
-          "codeCoverage": true
+          "parallel": 3
         }
       },
       "executor": "@nx/jest:jest",
@@ -72,9 +71,8 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts",
-        "passWithNoTests": true
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/backend/domain/auth-guard/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -83,10 +81,7 @@
         "test": {
           "reporters": ["default"]
         },
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
