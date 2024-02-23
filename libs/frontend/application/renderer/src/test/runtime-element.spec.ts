@@ -1,6 +1,6 @@
 import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupPage } from './setup'
+import { setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -14,7 +14,7 @@ describe('Runtime Element', () => {
 
   it('should create element runtime node', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const rootElement = page.rootElement.current
     const runtimeElement = rendererService.runtimeElement(rootElement)
 
@@ -29,7 +29,7 @@ describe('Runtime Element', () => {
 
   it('should add element runtime child', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const rootElement = page.rootElement.current
     const runtimeElement = rendererService.runtimeElement(rootElement)
 
@@ -48,7 +48,7 @@ describe('Runtime Element', () => {
 
   it('should detach runtime element when element is detached', async () => {
     const { elementService, rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const rootElement = page.rootElement.current
     const runtimeElement = rendererService.runtimeElement(rootElement)
     const runtimePage = runtimeElement?.closestContainerNode.current
@@ -62,7 +62,7 @@ describe('Runtime Element', () => {
 
   /*   it('should resolve closest runtime container node', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const pageRootElement = page.rootElement.current
     const providerPageRootElement = page.providerPage?.rootElement.current
 

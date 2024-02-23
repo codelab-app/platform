@@ -8,12 +8,13 @@ import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
   IElementRenderTypeKind,
+  IPageKind,
 } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { setupRuntimeElement } from './setup'
+import { setupRegularPageRuntimeElement, setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -71,127 +72,85 @@ describe('Runtime Element props', () => {
   })
 
   describe('RuntimeProps.evaluatedProps', () => {
-    it('should evaluate state field expression', () => {
-      const { element, runtimeElement } = setupRuntimeElement(
-        testbed,
+    it.each([
+      ['state', IPageKind.Provider],
+      ['rootState', IPageKind.Regular],
+    ])(
+      'should evaluate state field expression with %s in %s',
+      (stateKey, pageKind) => {
+        const isProviderPage = pageKind === IPageKind.Provider
+
         // set renderType to builder for state to update when changing field default values
-        RendererType.PageBuilder,
-      )
+        const { element, page, runtimeElement } = isProviderPage
+          ? setupRuntimeElement(testbed, RendererType.PageBuilder)
+          : setupRegularPageRuntimeElement(testbed, RendererType.PageBuilder)
 
-      const runtimeProps = runtimeElement?.runtimeProps
-      const fieldKey = 'fieldKey'
-      const fieldDefaultValue = 'some-value'
-      const propKey = 'propKey'
-      const storeApi = element.store.current.api.current
+        const runtimeProps = runtimeElement?.runtimeProps
+        const fieldKey = 'fieldKey'
+        const fieldDefaultValue = 'some-value'
+        const propKey = 'propKey'
+        const store = isProviderPage ? element.store : page.providerPage?.store
+        const storeApi = store?.current.api.current
 
-      const field = testbed.addField({
-        api: storeApi,
-        defaultValues: JSON.stringify(fieldDefaultValue),
-        fieldType: testbed.getStringType(),
-        key: fieldKey,
-      })
+        const field = testbed.addField({
+          api: storeApi,
+          defaultValues: JSON.stringify(fieldDefaultValue),
+          fieldType: testbed.getStringType(),
+          key: fieldKey,
+        })
 
-      storeApi.writeCache({ fields: [field] })
+        storeApi?.writeCache({ fields: [field] })
 
-      element.props.set(propKey, `{{state.${fieldKey}}}`)
+        element.props.set(propKey, `{{${stateKey}.${fieldKey}}}`)
 
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: fieldDefaultValue,
-      })
+        expect(runtimeProps?.evaluatedProps).toMatchObject({
+          [propKey]: fieldDefaultValue,
+        })
 
-      field.writeCache({ defaultValues: JSON.stringify('another-value') })
+        field.writeCache({ defaultValues: JSON.stringify('another-value') })
 
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: 'another-value',
-      })
-    })
+        expect(runtimeProps?.evaluatedProps).toMatchObject({
+          [propKey]: 'another-value',
+        })
+      },
+    )
 
-    it('should evaluate root state field expression', () => {
-      const { typeService } = rootApplicationStore
+    it.each([
+      ['actions', IPageKind.Provider],
+      ['rootActions', IPageKind.Regular],
+    ])(
+      'should evaluate action expression with %s in %s',
+      (actionsKey, pageKind) => {
+        const isProviderPage = pageKind === IPageKind.Provider
 
-      const { element, page, runtimeElement } = setupRuntimeElement(
-        testbed,
-        // set renderType to builder for state to update when changing field default values
-        RendererType.PageBuilder,
-      )
+        const { element, page, runtimeElement } = isProviderPage
+          ? setupRuntimeElement(testbed)
+          : setupRegularPageRuntimeElement(testbed)
 
-      const runtimeProps = runtimeElement?.runtimeProps
-      const fieldKey = 'fieldKey'
-      const fieldDefaultValue = 'some-value'
-      const propKey = 'propKey'
-      const storeApi = page.providerPage?.store.current.api.current
+        const runtimeProps = runtimeElement?.runtimeProps
+        const actionName = 'sum'
+        const propKey = 'propKey'
+        const store = isProviderPage ? element.store : page.providerPage?.store
 
-      const field = testbed.addField({
-        api: storeApi,
-        defaultValues: JSON.stringify(fieldDefaultValue),
-        fieldType: testbed.getStringType(),
-        key: fieldKey,
-      })
-
-      storeApi?.writeCache({ fields: [field] })
-
-      element.props.set(propKey, `{{rootState.${fieldKey}}}`)
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: fieldDefaultValue,
-      })
-
-      field.writeCache({ defaultValues: JSON.stringify('another-value') })
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: 'another-value',
-      })
-    })
-
-    it('should evaluate action expression', () => {
-      const { element, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement?.runtimeProps
-      const actionName = 'sum'
-      const propKey = 'propKey'
-
-      testbed.addCodeAction({
-        code: `function run(a,b){
+        testbed.addCodeAction({
+          code: `function run(a,b){
           return a + b;
         }`,
-        name: actionName,
-        store: element.store,
-      })
+          name: actionName,
+          store,
+        })
 
-      element.props.set(propKey, `{{actions.${actionName}}}`)
+        element.props.set(propKey, `{{${actionsKey}.${actionName}}}`)
 
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: expect.any(Function),
-      })
+        expect(runtimeProps?.evaluatedProps).toMatchObject({
+          [propKey]: expect.any(Function),
+        })
 
-      const actionRunner = runtimeProps?.evaluatedProps[propKey]
+        const actionRunner = runtimeProps?.evaluatedProps[propKey]
 
-      expect(actionRunner?.(5, 9)).toBe(14)
-    })
-
-    it('should evaluate root action expression', () => {
-      const { element, page, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement?.runtimeProps
-      const actionName = 'sum'
-      const propKey = 'propKey'
-
-      testbed.addCodeAction({
-        code: `function run(a,b){
-          return a + b;
-        }`,
-        name: actionName,
-        store: page.providerPage?.store,
-      })
-
-      element.props.set(propKey, `{{rootActions.${actionName}}}`)
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: expect.any(Function),
-      })
-
-      const actionRunner = runtimeProps?.evaluatedProps[propKey]
-
-      expect(actionRunner?.(5, 9)).toBe(14)
-    })
+        expect(actionRunner?.(5, 9)).toBe(14)
+      },
+    )
 
     it('should bind action with context', () => {
       const { element, runtimeElement } = setupRuntimeElement(testbed)
@@ -439,7 +398,9 @@ describe('Runtime Element props', () => {
     })
 
     it('should bind root action with context', () => {
-      const { element, page, runtimeElement } = setupRuntimeElement(testbed)
+      const { element, page, runtimeElement } =
+        setupRegularPageRuntimeElement(testbed)
+
       const runtimeProps = runtimeElement?.runtimeProps
       const actionName = 'sum'
       const propKey = 'propKey'
@@ -474,67 +435,26 @@ describe('Runtime Element props', () => {
       })
     })
 
-    it('should evaluate ref expression', () => {
+    it.each([
+      ['refs', IPageKind.Provider],
+      ['rootRefs', IPageKind.Regular],
+    ])('should evaluate ref expression with %s in %s', (refsKey, pageKind) => {
       const { rendererService } = rootApplicationStore
-      const { element, rendered, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement?.runtimeProps
-      const propKey = 'propKey'
+      const isProviderPage = pageKind === IPageKind.Provider
 
-      element.props.set(propKey, `{{refs.${element.slug}}}`)
-
-      const { rerender } = render(
-        React.createElement(
-          StoreProvider,
-          { value: rootApplicationStore },
-          rendered,
-        ),
-      )
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: {
-          current: expect.any(HTMLDivElement),
-        },
-      })
-
-      const atom = testbed.addAtom({
-        __typename: 'Atom',
-        name: 'HtmlSpan',
-        type: IAtomType.HtmlSpan,
-      })
-
-      element.writeCache({
-        renderType: {
-          __typename: IElementRenderTypeKind.Atom,
-          id: atom.id,
-        },
-      })
-
-      rerender(
-        React.createElement(
-          StoreProvider,
-          { value: rootApplicationStore },
-          rendererService.activeRenderer?.current.render,
-        ),
-      )
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: {
-          current: expect.any(HTMLSpanElement),
-        },
-      })
-    })
-
-    it('should evaluate root ref expression', () => {
-      const { rendererService } = rootApplicationStore
-
-      const { element, page, rendered, runtimeElement } =
-        setupRuntimeElement(testbed)
+      const { element, page, rendered, runtimeElement } = isProviderPage
+        ? setupRuntimeElement(testbed)
+        : setupRegularPageRuntimeElement(testbed)
 
       const runtimeProps = runtimeElement?.runtimeProps
       const propKey = 'propKey'
       const providerRootElement = page.providerPage?.rootElement.current
 
-      element.props.set(propKey, `{{rootRefs.${providerRootElement?.slug}}}`)
+      const elementRefKey = isProviderPage
+        ? element.slug
+        : providerRootElement?.slug
+
+      element.props.set(propKey, `{{${refsKey}.${elementRefKey}}}`)
 
       const { rerender } = render(
         React.createElement(
@@ -545,7 +465,11 @@ describe('Runtime Element props', () => {
       )
 
       expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: undefined,
+        [propKey]: isProviderPage
+          ? {
+              current: expect.any(HTMLDivElement),
+            }
+          : undefined,
       })
 
       const atom = testbed.addAtom({
@@ -554,7 +478,9 @@ describe('Runtime Element props', () => {
         type: IAtomType.HtmlSpan,
       })
 
-      providerRootElement?.writeCache({
+      const targetElement = isProviderPage ? element : providerRootElement
+
+      targetElement?.writeCache({
         renderType: {
           __typename: IElementRenderTypeKind.Atom,
           id: atom.id,
@@ -575,6 +501,58 @@ describe('Runtime Element props', () => {
         },
       })
     })
+
+    it.each([
+      ['state', IPageKind.Provider],
+      ['rootState', IPageKind.Regular],
+    ])(
+      'should re-evaluate prop expression with %s when state is changed via root action in %s',
+      (stateKey, pageKind) => {
+        const isProviderPage = pageKind === IPageKind.Provider
+
+        const { element, page, runtimeElement } = isProviderPage
+          ? setupRuntimeElement(testbed)
+          : setupRegularPageRuntimeElement(testbed)
+
+        const runtimeProps = runtimeElement?.runtimeProps
+        const actionName = 'rootAction'
+        const propKey = 'propKey'
+        const rootStateName = 'rootStateName'
+        const store = isProviderPage ? page.store : page.providerPage?.store
+        const storeApi = store?.current.api.current
+
+        const field = testbed.addField({
+          api: storeApi,
+          defaultValues: 'default value',
+          fieldType: testbed.getStringType(),
+          key: rootStateName,
+        })
+
+        storeApi?.writeCache({ fields: [field] })
+
+        testbed.addCodeAction({
+          code: `function run() {
+            state.${rootStateName} = "something";
+          }`,
+          name: actionName,
+          store,
+        })
+
+        element.props.set(propKey, `{{${stateKey}.${rootStateName}}}`)
+
+        expect(runtimeProps?.evaluatedProps).toMatchObject({
+          [propKey]: 'default value',
+        })
+
+        const actionRunner = runtimeProps?.getActionRunner(actionName)
+
+        actionRunner?.()
+
+        expect(runtimeProps?.evaluatedProps).toMatchObject({
+          [propKey]: 'something',
+        })
+      },
+    )
 
     it('should evaluate component expression', () => {
       const { runtimeElement } = setupRuntimeElement(testbed)
@@ -605,47 +583,6 @@ describe('Runtime Element props', () => {
       const { evaluatedProps } = runtimeProps
 
       expect(evaluatedProps).toMatchObject({ [propKey]: propValue })
-    })
-
-    it('should re-evaluate prop expression with state when state is changed via action', () => {
-      const { element, page, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement?.runtimeProps
-      const actionName = 'rootAction'
-      const propKey = 'propKey'
-      const rootStateKey = 'rootStateKey'
-      const storeApi = page.providerPage?.store.current.api.current
-
-      const field = testbed.addField({
-        api: storeApi,
-        defaultValues: null,
-        fieldType: testbed.getStringType(),
-        key: rootStateKey,
-      })
-
-      storeApi?.writeCache({ fields: [field] })
-
-      testbed.addCodeAction({
-        code: `function run() {
-          state.${rootStateKey} = "something";
-        }`,
-        name: actionName,
-        store: page.providerPage?.store,
-      })
-
-      element.props.set(propKey, `{{state.${rootStateKey}}}`)
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: undefined,
-      })
-
-      // const actionRunner = runtimeProps?.evaluatedProps[propKey]
-      const actionRunner = runtimeProps?.getActionRunner(actionName)
-
-      actionRunner?.()
-
-      expect(runtimeProps?.evaluatedProps).toMatchObject({
-        [propKey]: 'something',
-      })
     })
   })
 

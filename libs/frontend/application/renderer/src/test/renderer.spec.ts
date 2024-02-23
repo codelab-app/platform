@@ -1,5 +1,5 @@
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupComponent, setupPage } from './setup'
+import { setupComponent, setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -13,7 +13,7 @@ describe('Renderer', () => {
 
   it('should create page runtime nodes', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
 
     const runtimeProviderPage = page.providerPage
       ? rendererService.runtimeContainerNode(page.providerPage)
