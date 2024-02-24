@@ -3,7 +3,7 @@ import set from 'lodash/set'
 
 export const extractUiSchema = (
   jsonSchema: any,
-  path: string = '',
+  path = '',
 ): Record<string, any> => {
   const uiSchema: Record<string, any> = {}
 
@@ -26,7 +26,9 @@ export const extractUiSchema = (
     }
 
     // Handle oneOf, anyOf, and dependencies
-    ;['oneOf', 'anyOf', 'dependencies'].forEach((key) => {
+    const keysToHandle = ['oneOf', 'anyOf', 'dependencies']
+
+    keysToHandle.forEach((key) => {
       if (currentSchema[key]) {
         if (Array.isArray(currentSchema[key])) {
           // For oneOf and anyOf, which are arrays

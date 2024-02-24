@@ -12,18 +12,17 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/domain/shared/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-domain-shared.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/domain/shared/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   }

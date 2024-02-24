@@ -1,3 +1,4 @@
+import type { OnModuleDestroy } from '@nestjs/common'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { neo4jConfig } from '../neo4j.config'
@@ -15,4 +16,10 @@ import { Neo4jService } from './neo4j.service'
   ],
   providers: [Neo4jDriverProvider, Neo4jService],
 })
-export class Neo4jModule {}
+export class Neo4jModule implements OnModuleDestroy {
+  constructor(private neo4jService: Neo4jService) {}
+
+  async onModuleDestroy() {
+    await this.neo4jService.driver.close()
+  }
+}

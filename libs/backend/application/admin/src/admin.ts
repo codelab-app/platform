@@ -1,7 +1,4 @@
-import {
-  ReadAdminDataService,
-  SharedApplicationModule,
-} from '@codelab/backend/application/shared'
+import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import {
   ImportSystemTypesHandler,
   TypeApplicationModule,
@@ -19,8 +16,7 @@ import {
   RequestContextMiddleware,
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
-import { IAtomType } from '@codelab/shared/abstract/core'
-import { auth0IdToken, userDto } from '@codelab/shared/data/test'
+import { auth0IdToken } from '@codelab/shared/data/test'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { REQUEST } from '@nestjs/core'

@@ -1,18 +1,18 @@
 import { IModel } from '@codelab/backend/abstract/types'
-import type { IDomain, IDomainDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IDomain, IDomainDto, IRef } from '@codelab/shared/abstract/core'
 
 export class Domain extends IModel implements IDomain {
-  id: string
-
   app: IRef
 
   domainConfig: { misconfigured: boolean } | undefined
+
+  id: string
 
   name: string
 
   projectDomain: { verified: boolean } | undefined
 
-  constructor({ app, domainConfig, id, name, projectDomain }: IDomainDTO) {
+  constructor({ app, domainConfig, id, name, projectDomain }: IDomainDto) {
     super()
 
     this.id = id

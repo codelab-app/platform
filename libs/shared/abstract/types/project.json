@@ -6,18 +6,17 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/shared/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/shared-abstract-types.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/abstract/types/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

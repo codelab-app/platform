@@ -107,9 +107,6 @@
     "icon": null,
     "id": "049cc734-3c9b-4c96-98a8-6f21c6945cdf",
     "name": "HtmlStyle",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

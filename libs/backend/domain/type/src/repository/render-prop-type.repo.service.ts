@@ -11,13 +11,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IRenderPropTypeDTO } from '@codelab/shared/abstract/core'
+import type { IRenderPropTypeDto } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class RenderPropTypeRepository extends AbstractRepository<
-  IRenderPropTypeDTO,
+  IRenderPropTypeDto,
   RenderPropType,
   RenderPropTypeWhere,
   RenderPropTypeOptions
@@ -31,7 +31,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(renderPropTypes: Array<IRenderPropTypeDTO>) {
+  protected async _addMany(renderPropTypes: Array<IRenderPropTypeDto>) {
     return (
       await (
         await this.ogmService.RenderPropType
@@ -61,7 +61,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, name }: IRenderPropTypeDTO,
+    { __typename, id, name }: IRenderPropTypeDto,
     where: RenderPropTypeWhere,
   ) {
     return (

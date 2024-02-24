@@ -26,9 +26,6 @@
     "icon": "Popover",
     "id": "5efa7968-126d-40a2-ba03-4305a376e0fe",
     "name": "AntDesignPopover",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

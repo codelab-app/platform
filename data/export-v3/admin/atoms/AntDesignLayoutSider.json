@@ -261,9 +261,6 @@
     "icon": "Layout",
     "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
     "name": "AntDesignLayoutSider",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -8,7 +8,7 @@ import { addGraphqlEslintConfig } from './eslint/add-graphql-eslint-config'
 import { addGraphqlExtension } from './lint/add-graphql-extension'
 import { addCiLintConfig } from './lint/ci-lint-config'
 import { addProjectTags } from './project-tags/add-project-tags'
-import { updateTestConfig } from './test/test-config'
+import { updateTestConfig } from './test/project-json'
 
 /**
  * Each project needs to output reporters to individual file, and we can't do that as CLI argument, so needs to be done at project level.

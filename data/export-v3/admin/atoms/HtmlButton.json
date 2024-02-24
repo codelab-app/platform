@@ -267,9 +267,6 @@
     "icon": null,
     "id": "2241a09d-fa00-4e51-8f9d-dde820037b4a",
     "name": "HtmlButton",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

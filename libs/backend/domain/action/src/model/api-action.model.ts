@@ -1,12 +1,12 @@
 import type { Prop } from '@codelab/backend/domain/prop'
 import type {
   IActionRef,
-  IApiActionDTO,
+  IApiActionDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 
-export class ApiAction implements IApiActionDTO {
+export class ApiAction implements IApiActionDto {
   __typename: `${IActionKind.ApiAction}` = `${IActionKind.ApiAction}`
 
   config: Prop
@@ -31,7 +31,7 @@ export class ApiAction implements IApiActionDTO {
     resource,
     store,
     successAction,
-  }: IApiActionDTO) {
+  }: IApiActionDto) {
     this.id = id
     this.name = name
     this.resource = resource

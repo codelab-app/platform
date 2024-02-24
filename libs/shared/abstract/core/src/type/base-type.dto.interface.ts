@@ -1,6 +1,6 @@
 import type { Static, TLiteral } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ITypeKind } from '../type-kind.enum'
+import { ITypeKind } from './type-kind.enum'
 
 export const IBaseType = Type.Object({
   __typename: Type.Literal(`${ITypeKind}`),
@@ -11,11 +11,11 @@ export const IBaseType = Type.Object({
 
 export type IBaseType = Static<typeof IBaseType>
 
-export type IBaseTypeDTO<
+export type IBaseTypeDto<
   T extends TLiteral<`${ITypeKind}`> = TLiteral<`${ITypeKind}`>,
-> = Static<ReturnType<typeof IBaseTypeDTO<T>>>
+> = Static<ReturnType<typeof IBaseTypeDto<T>>>
 
-export const IBaseTypeDTO = <T extends TLiteral<`${ITypeKind}`>>(schema: T) =>
+export const IBaseTypeDto = <T extends TLiteral<`${ITypeKind}`>>(schema: T) =>
   Type.Object({
     /**
      * Needs to be optional since our Neo4j OGM returns only optional

@@ -91,9 +91,6 @@
     "icon": null,
     "id": "69fb2c88-59ee-4edf-9ec7-73e206446f48",
     "name": "HtmlTrack",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

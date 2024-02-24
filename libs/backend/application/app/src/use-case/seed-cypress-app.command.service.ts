@@ -64,7 +64,7 @@ export class SeedCypressAppHandler
       internalServerErrorPropsData,
     )
 
-    await this.propRepository.add([
+    await this.propRepository.addMany([
       providerElementProps,
       notFoundElementProps,
       internalServerErrorElementProps,
@@ -82,7 +82,9 @@ export class SeedCypressAppHandler
     )
 
     const atomReactFragment = await this.atomRepository.findOne({
-      name: IAtomType.ReactFragment,
+      where: {
+        name: IAtomType.ReactFragment,
+      },
     })
 
     if (!atomReactFragment) {
@@ -124,7 +126,7 @@ export class SeedCypressAppHandler
       ),
     )
 
-    await this.elementRepository.add([
+    await this.elementRepository.addMany([
       providerElement,
       notFoundElement,
       internalServerErrorElement,
@@ -135,7 +137,7 @@ export class SeedCypressAppHandler
      */
     const app = new App(appData(this.authDomainService.currentUser))
 
-    await this.appRepository.add([app])
+    await this.appRepository.add(app)
 
     /**
      * Create pages
@@ -147,13 +149,13 @@ export class SeedCypressAppHandler
       IPageKindName.InternalServerError,
     )
 
-    await this.interfaceTypeRepository.add([
+    await this.interfaceTypeRepository.addMany([
       providerPageStore.api as InterfaceType,
       notFoundPageStore.api as InterfaceType,
       internalServerErrorPageStore.api as InterfaceType,
     ])
 
-    await this.storeRepository.add([
+    await this.storeRepository.addMany([
       providerPageStore,
       notFoundPageStore,
       internalServerErrorPageStore,
@@ -186,7 +188,7 @@ export class SeedCypressAppHandler
       ),
     )
 
-    await this.pageRepository.add([
+    await this.pageRepository.addMany([
       providerPage,
       notFoundPage,
       internalServerErrorPage,

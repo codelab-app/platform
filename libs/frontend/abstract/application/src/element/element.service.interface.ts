@@ -9,7 +9,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type {
-  IElementDTO,
+  IElementDto,
   IElementTypeKind,
 } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -74,7 +74,7 @@ export interface IElementService
   updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
   validationService: IElementApplicationValidationService
 
-  createElement(data: IElementDTO): Promise<IElementModel>
+  createElement(data: IElementDto): Promise<IElementModel>
   delete(subRoot: IElementModel): Promise<void>
   element(id: string): IElementModel
   getSelectElementOptions(

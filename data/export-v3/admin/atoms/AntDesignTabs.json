@@ -448,9 +448,6 @@
     "icon": "Tabs",
     "id": "3095ac6e-5038-4cc0-b82d-58f9224e0862",
     "name": "AntDesignTabs",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

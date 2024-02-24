@@ -7,20 +7,36 @@ export interface IRepository<
   Where extends { id?: string | null },
   Options,
 > {
-  add(data: Array<Model>): Promise<Array<ModelData>>
+  add(data: Model): Promise<ModelData>
+  addMany(data: Array<Model>): Promise<Array<ModelData>>
   exists(data: Model, where?: Where): Promise<boolean>
+  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
   /**
-   * Overload with schema for data validation
+   * We enforce schema validation if selectionSet is enabled
    */
-  find<T extends TAnySchema>(
-    args: {
-      where?: Where
-      options?: Options
-    },
-    schema?: T,
-  ): Promise<Array<ModelData | Static<T>>>
-  findOne(where: Where): Promise<ModelData | undefined>
-  findOne<T extends TAnySchema>(where: Where, schema: T): Promise<T | undefined>
+  find<T extends TAnySchema>(args?: {
+    where?: Where
+    options?: Options
+    schema: T
+    selectionSet?: string
+  }): Promise<Array<Static<T>>>
+
+  /**
+   * Finds one without schema validation
+   */
+  findOne(args?: {
+    where: Where
+    options?: Options
+  }): Promise<ModelData | undefined>
+  /**
+   * Finds one with schema validation
+   */
+  findOne<T extends TAnySchema>(args: {
+    where: Where
+    options?: Options
+    selectionSet?: string
+    schema: T
+  }): Promise<Static<T> | undefined>
   save(data: Model, where?: Where): Promise<ModelData | undefined>
   update(data: Model, where: Where): Promise<IRef | undefined>
 }

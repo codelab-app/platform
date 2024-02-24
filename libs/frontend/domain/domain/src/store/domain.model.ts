@@ -4,13 +4,13 @@ import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
-import type { IDomainDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDTO) => {
+const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDto) => {
   return new Domain({
     app,
     domainConfig,
@@ -37,22 +37,6 @@ export class Domain
     return {}
   }
 
-  @modelAction
-  public writeCache({
-    app,
-    domainConfig,
-    id,
-    name,
-    projectDomain,
-  }: Partial<IDomainDTO>) {
-    this.name = name ?? this.name
-    this.domainConfig = domainConfig ?? this.domainConfig
-    this.projectDomain = projectDomain ?? this.projectDomain
-    this.app = app ?? this.app
-
-    return this
-  }
-
   @computed
   get toJson() {
     return {
@@ -63,6 +47,22 @@ export class Domain
       name: this.name,
       projectDomain: this.projectDomain,
     }
+  }
+
+  @modelAction
+  public writeCache({
+    app,
+    domainConfig,
+    id,
+    name,
+    projectDomain,
+  }: Partial<IDomainDto>) {
+    this.name = name ?? this.name
+    this.domainConfig = domainConfig ?? this.domainConfig
+    this.projectDomain = projectDomain ?? this.projectDomain
+    this.app = app ?? this.app
+
+    return this
   }
 
   toCreateInput() {

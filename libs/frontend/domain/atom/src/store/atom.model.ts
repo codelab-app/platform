@@ -16,7 +16,7 @@ import {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomDto, IAtomType } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,
@@ -49,7 +49,7 @@ const create = ({
   suggestedChildren,
   tags,
   type,
-}: IAtomDTO) => {
+}: IAtomDto) => {
   return new Atom({
     api: typeRef<IInterfaceTypeModel>(api.id),
     externalCssSource,
@@ -93,6 +93,14 @@ export class Atom
     return IElementRenderTypeKind.Atom as const
   }
 
+  /**
+   * Determines whether the atom accepts children and text make sense for the type.
+   */
+  @computed
+  get allowCustomTextInjection(): boolean {
+    return customTextInjectionWhiteList.indexOf(this.type) > -1
+  }
+
   @computed
   get library() {
     const atomType = this.type
@@ -116,14 +124,6 @@ export class Atom
       : atomType === 'ExternalComponent'
       ? { color: 'brown', name: 'External' }
       : { color: 'black', name: 'Unknown' }
-  }
-
-  /**
-   * Determines whether the atom accepts children and text make sense for the type.
-   */
-  @computed
-  get allowCustomTextInjection(): boolean {
-    return customTextInjectionWhiteList.indexOf(this.type) > -1
   }
 
   @computed
@@ -201,7 +201,7 @@ export class Atom
     suggestedChildren = [],
     tags = [],
     type,
-  }: Partial<IAtomDTO>) {
+  }: Partial<IAtomDto>) {
     this.externalCssSource = externalCssSource ?? this.externalCssSource
     this.externalJsSource = externalJsSource ?? this.externalJsSource
     this.externalSourceType = externalSourceType ?? this.externalSourceType

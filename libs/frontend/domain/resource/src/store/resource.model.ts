@@ -10,14 +10,14 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IResourceConfigData,
-  IResourceDTO,
+  IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import { connectOwner, getResourceClient } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ config, id, name, type }: IResourceDTO) =>
+const create = ({ config, id, name, type }: IResourceDto) =>
   new Resource({
     config: Prop.create(config),
     id,
@@ -37,8 +37,26 @@ export class Resource
 {
   static create = create
 
+  @computed
+  get client() {
+    return getResourceClient(
+      this.type,
+      this.config.values as IResourceConfigData,
+    )
+  }
+
+  @computed
+  get toJson() {
+    return {
+      config: this.config.toJson,
+      id: this.id,
+      name: this.name,
+      type: this.type,
+    }
+  }
+
   @modelAction
-  writeCache({ config, name, type }: Partial<IResourceDTO>) {
+  writeCache({ config, name, type }: Partial<IResourceDto>) {
     this.name = name ?? this.name
     this.type = type ?? this.type
     this.config = config ? Prop.create(config) : this.config
@@ -60,16 +78,6 @@ export class Resource
     }
   }
 
-  @computed
-  get toJson() {
-    return {
-      config: this.config.toJson,
-      id: this.id,
-      name: this.name,
-      type: this.type,
-    }
-  }
-
   toUpdateInput(): ResourceUpdateInput {
     return {
       config: {
@@ -83,13 +91,5 @@ export class Resource
   @computed
   private get userDomainService() {
     return getUserDomainService(this)
-  }
-
-  @computed
-  get client() {
-    return getResourceClient(
-      this.type,
-      this.config.values as IResourceConfigData,
-    )
   }
 }

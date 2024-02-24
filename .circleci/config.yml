@@ -4,7 +4,7 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
             - nx-cache
           name: Restore NX Cache
       - run:
@@ -12,11 +12,10 @@ commands:
           name: Monitor NX Cache Size
       - run: npx nx run-many --target=build --projects=platform,platform-api,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
       - save_cache:
-          key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+          key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save Cache
           paths:
             - ~/project/dist/apps/platform/.next/cache
-            - ~/project/dist/apps/platform-api/.next/cache
             - ~/project/dist/apps/landing/.next/cache
             - ~/project/dist/apps/websites/.next/cache
       - save_cache:
@@ -55,8 +54,8 @@ commands:
             - ~/.nvm
       - run:
           command: |
-            nvm install 18.16.0
-            nvm alias default 18.16.0
+            nvm install 18.17.0
+            nvm alias default 18.17.0
             node -v
           name: Set Node Version
   install-terraform:
@@ -106,10 +105,10 @@ commands:
 executors:
   docker-node:
     docker:
-      - image: cimg/node:18.16.0-browsers
+      - image: cimg/node:18.17.0-browsers
   docker-node-neo4j:
     docker:
-      - image: cimg/node:18.16.0-browsers
+      - image: cimg/node:18.17.0-browsers
       - command:
           - neo4j
           - start
@@ -122,7 +121,7 @@ executors:
       image: ubuntu-2004:2022.04.1
   terraform:
     docker:
-      - image: hashicorp/terraform:1.3.1
+      - image: hashicorp/terraform:1.6.3
     environment:
       TF_WORKSPACE: prod
 jobs:
@@ -381,7 +380,7 @@ jobs:
           path: ./tmp/reports/test-unit
 orbs:
   node: circleci/node@5.1.0
-  nx: nrwl/nx@1.6.1
+  nx: nrwl/nx@1.6.2
   queue: eddiewebb/queue@2.2.1
   slack: circleci/slack@4.12.5
   swissknife: roopakv/swissknife@0.69.0

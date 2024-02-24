@@ -26,9 +26,6 @@
     "icon": "Cascader",
     "id": "6ddf326e-1364-462b-8bf7-d580c8c09da7",
     "name": "AntDesignCascader",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

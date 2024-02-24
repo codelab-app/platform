@@ -11,7 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   connectOwner,
@@ -21,7 +21,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ArrayTypeRepository extends AbstractRepository<
-  IArrayTypeDTO,
+  IArrayTypeDto,
   ArrayType,
   ArrayTypeWhere,
   ArrayTypeOptions
@@ -51,7 +51,7 @@ export class ArrayTypeRepository extends AbstractRepository<
     })
   }
 
-  protected async _add(primitiveTypes: Array<IArrayTypeDTO>) {
+  protected async _addMany(primitiveTypes: Array<IArrayTypeDto>) {
     return (
       await (
         await this.ogmService.ArrayType
@@ -66,7 +66,7 @@ export class ArrayTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, itemType, name, ...primitiveType }: IArrayTypeDTO,
+    { __typename, id, itemType, name, ...primitiveType }: IArrayTypeDto,
     where: ArrayTypeWhere,
   ) {
     return (

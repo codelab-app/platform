@@ -6,14 +6,14 @@ import type {
 import type {
   IActionKind,
   ICodeAction,
-  ICodeActionDTO,
+  ICodeActionDto,
 } from '@codelab/shared/abstract/core'
 import type { ICacheService, IModel } from '../../shared'
 import type { IBaseAction } from '../base-action.interface'
 
 export interface ICodeActionModel
   extends IBaseAction,
-    ICacheService<ICodeActionDTO, ICodeActionModel>,
+    ICacheService<ICodeActionDto, ICodeActionModel>,
     IModel<
       CodeActionCreateInput,
       CodeActionUpdateInput,

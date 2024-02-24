@@ -5,7 +5,7 @@ import {
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { useBuilderHotkeys } from '../../hooks'
 import { BuilderClickOverlay, BuilderHoverOverlay } from '../overlay-toolbar'

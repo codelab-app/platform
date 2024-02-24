@@ -1,9 +1,9 @@
 import type {
-  IAuthGuardDTO,
+  IAuthGuardDto,
   IResourceFetchConfig,
 } from '@codelab/shared/abstract/core'
 
-export type ICreateAuthGuardData = Omit<IAuthGuardDTO, 'config'> & {
+export type ICreateAuthGuardData = Omit<IAuthGuardDto, 'config'> & {
   config: {
     id: string
     data: IResourceFetchConfig

@@ -6,16 +6,15 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["libs/shared/utils/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/shared-utils.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["libs/shared/utils/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     },
     "test": {
@@ -23,7 +22,8 @@
       "outputs": ["{workspaceRoot}/coverage/libs/shared/utils"],
       "options": {
         "jestConfig": "libs/shared/utils/jest.config.ts",
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       }
     },
     "test:integration": {
@@ -31,7 +31,8 @@
       "options": {
         "memoryLimit": 8192,
         "color": true,
-        "testPathPattern": ["[i].spec.ts"],
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
         "jestConfig": "libs/shared/utils/jest.config.ts"
       },
       "configurations": {
@@ -54,7 +55,7 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathIgnorePatterns": ["i.spec.ts"],
         "jestConfig": "libs/shared/utils/jest.config.ts"
       },
       "configurations": {
@@ -63,7 +64,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/utils"]

@@ -3,14 +3,14 @@ import {
   elementDto,
   pageDto,
 } from '@codelab/frontend/test/data'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { rootDomainStore } from './root.test.store'
 
 describe('Create element', () => {
   const { elementDomainService, pageDomainService } = rootDomainStore
 
-  const rootElementDto: IElementDTO = {
+  const rootElementDto: IElementDto = {
     ...elementDto,
     page: { id: pageDto.id },
   }

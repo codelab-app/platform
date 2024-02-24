@@ -1,4 +1,3 @@
-import type { MaybePromise } from '@codelab/shared/abstract/types'
 import { toError } from '@codelab/shared/utils'
 import type { Context, Span } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'

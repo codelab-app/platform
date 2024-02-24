@@ -16,14 +16,15 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { createStoreName } from '@codelab/shared/domain/model'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ api, component, id, name, page }: IStoreDTO): IStoreModel =>
+const create = ({ api, component, id, name, page }: IStoreDto): IStoreModel =>
   new Store({
     api: typeRef(api.id) as Ref<IInterfaceTypeModel>,
     component: component?.id ? componentRef(component.id) : null,
@@ -31,10 +32,6 @@ const create = ({ api, component, id, name, page }: IStoreDTO): IStoreModel =>
     name,
     page: page?.id ? pageRef(page.id) : null,
   })
-
-const createName = (app: Pick<IAppDTO, 'name'>) => {
-  return `${app.name} Store`
-}
 
 @model('@codelab/Store')
 export class Store
@@ -49,7 +46,7 @@ export class Store
 {
   static create = create
 
-  static createName = createName
+  static createName = createStoreName
 
   static toDeleteInput(): StoreDeleteInput {
     return {
@@ -62,11 +59,6 @@ export class Store
   }
 
   @computed
-  get actionsDomainService() {
-    return getActionDomainService(this)
-  }
-
-  @computed
   get actions() {
     return this.actionsDomainService.actionsList.filter(
       (action) => action.store.id === this.id,
@@ -74,15 +66,8 @@ export class Store
   }
 
   @computed
-  get toJson() {
-    return {
-      actions: this.actions.map((action) => action.toJson),
-      api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
-      component: this.component,
-      id: this.id,
-      name: this.name,
-      page: this.page,
-    }
+  get actionsDomainService() {
+    return getActionDomainService(this)
   }
 
   @computed
@@ -103,8 +88,20 @@ export class Store
       .filter((node) => Boolean(node))
   }
 
+  @computed
+  get toJson() {
+    return {
+      actions: this.actions.map((action) => action.toJson),
+      api: { ...this.api, __typename: `${ITypeKind.InterfaceType}` as const },
+      component: this.component,
+      id: this.id,
+      name: this.name,
+      page: this.page,
+    }
+  }
+
   @modelAction
-  writeCache({ api, id, name }: Partial<IStoreDTO>) {
+  writeCache({ api, id, name }: Partial<IStoreDto>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceTypeModel>) : this.api

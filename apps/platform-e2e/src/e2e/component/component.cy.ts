@@ -1,6 +1,6 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 
@@ -25,13 +25,13 @@ const componentChildren: Array<ComponentChildData> = [
 ]
 
 let testApp: any
-let app: IAppDTO
+let app: IAppDto
 
 describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
       loginAndSetupData()
-      cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+      cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
         app = apps.body
       })
     })

@@ -237,9 +237,6 @@
     "icon": "Radio",
     "id": "76a44443-b519-4e3c-9529-c34309999fee",
     "name": "AntDesignRadioGroup",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

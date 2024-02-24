@@ -225,9 +225,6 @@
     "icon": null,
     "id": "a25fab4c-8b77-4d75-965c-d8e8e5f149fe",
     "name": "HtmlIframe",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

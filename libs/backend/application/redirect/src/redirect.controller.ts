@@ -1,5 +1,5 @@
 import { RedirectRepository } from '@codelab/backend/domain/redirect'
-import { safeEval } from '@codelab/backend/shared/util'
+import { safeEval } from '@codelab/backend/shared/eval'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
 import {
   ICanActivate,
@@ -17,15 +17,19 @@ export class RedirectController {
   @Post('can-activate')
   async canActivate(@Body() { authorization, domain, pageUrl }: ICanActivate) {
     const redirect = await this.redirectRepository.findOne({
-      source: {
-        AND: [
-          { app: { domains_SINGLE: { name: domain } } },
-          { url: pageUrl },
-          // system page doesn't have auth guard
-          { kind: IPageKind.Regular },
-        ],
+      where: {
+        source: {
+          AND: [
+            { app: { domains_SINGLE: { name: domain } } },
+            { url: pageUrl },
+            // system page doesn't have auth guard
+            { kind: IPageKind.Regular },
+          ],
+        },
       },
     })
+
+    console.log(redirect)
 
     // either a regular page with no redirect attached to or a system page
     if (!redirect) {
@@ -72,6 +76,8 @@ export class RedirectController {
       }
     }
 
+    console.log(responseTransformer, response)
+
     try {
       const canActivate = await safeEval(responseTransformer, response)
 
@@ -81,6 +87,8 @@ export class RedirectController {
         status: 200,
       }
     } catch (error) {
+      console.log(error)
+
       return {
         canActivate: false,
         message: `Unable to transform response`,

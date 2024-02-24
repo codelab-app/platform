@@ -6,7 +6,7 @@ import type {
 import type {
   IResource,
   IResourceClient,
-  IResourceDTO,
+  IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -24,7 +24,7 @@ export interface IResourceModel
       >,
       'toDeleteInput'
     >,
-    ICacheService<IResourceDTO, IResourceModel> {
+    ICacheService<IResourceDto, IResourceModel> {
   client: IResourceClient
   config: IPropModel
   id: string

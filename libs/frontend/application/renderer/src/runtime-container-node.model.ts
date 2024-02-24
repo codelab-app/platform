@@ -69,6 +69,11 @@ export class RuntimeContainerNodeModel
   static create = create
 
   @computed
+  get render(): Nullable<ReactElement> {
+    return this.runtimeRootElement.render
+  }
+
+  @computed
   get runtimeContainerNodesList() {
     return [...this.runtimeContainerNodes.values()]
   }
@@ -78,25 +83,9 @@ export class RuntimeContainerNodeModel
     return [...this.runtimeElements.values()]
   }
 
-  /**
-   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
-   * e.g. when child mapper element depends on a filtered data
-   * @param validNodes new evaluated child mapper prop
-   */
-  @modelAction
-  cleanupChildMapperNodes(validNodes: Array<IRuntimeContainerNodeModel>) {
-    const nodes = [...this.runtimeContainerNodes.values()]
-
-    nodes.forEach((node) => {
-      if (
-        !isNil(node.childMapperIndex) &&
-        !validNodes.some(
-          (validNode) => validNode.childMapperIndex === node.childMapperIndex,
-        )
-      ) {
-        this.runtimeContainerNodes.delete(node.id)
-      }
-    })
+  @computed
+  get runtimeRootElement() {
+    return this.addElement(this.containerNode.current.rootElement.current)
   }
 
   @modelAction
@@ -169,13 +158,24 @@ export class RuntimeContainerNodeModel
     return runtimeElement
   }
 
-  @computed
-  get runtimeRootElement() {
-    return this.addElement(this.containerNode.current.rootElement.current)
-  }
+  /**
+   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
+   * e.g. when child mapper element depends on a filtered data
+   * @param validNodes new evaluated child mapper prop
+   */
+  @modelAction
+  cleanupChildMapperNodes(validNodes: Array<IRuntimeContainerNodeModel>) {
+    const nodes = [...this.runtimeContainerNodes.values()]
 
-  @computed
-  get render(): Nullable<ReactElement> {
-    return this.runtimeRootElement.render
+    nodes.forEach((node) => {
+      if (
+        !isNil(node.childMapperIndex) &&
+        !validNodes.some(
+          (validNode) => validNode.childMapperIndex === node.childMapperIndex,
+        )
+      ) {
+        this.runtimeContainerNodes.delete(node.id)
+      }
+    })
   }
 }

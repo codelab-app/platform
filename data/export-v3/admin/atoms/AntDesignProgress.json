@@ -93,9 +93,6 @@
     "icon": "Progress",
     "id": "fb646109-1082-4558-9ecc-b1792377f781",
     "name": "AntDesignProgress",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

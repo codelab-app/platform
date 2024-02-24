@@ -59,9 +59,6 @@
     "icon": "Layout",
     "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
     "name": "AntDesignLayout",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -1,20 +1,17 @@
 import type {
-  IAppModel,
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { fieldRef } from '@codelab/frontend/abstract/domain'
-import type {
-  InterfaceTypeCreateInput,
-  InterfaceTypeDeleteInput,
-} from '@codelab/shared/abstract/codegen'
+import type { InterfaceTypeDeleteInput } from '@codelab/shared/abstract/codegen'
 import type { IRef } from '@codelab/shared/abstract/core'
 import {
   assertIsTypeKind,
-  IInterfaceTypeDTO,
+  IInterfaceTypeDto,
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { createInterfaceTypeName } from '@codelab/shared/domain/model'
 import compact from 'lodash/compact'
 import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
@@ -27,7 +24,6 @@ import {
   objectMap,
   prop,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { sortFieldsArray } from '../shared'
 import { createBaseType } from './base-type.model'
 
@@ -36,7 +32,7 @@ const create = ({
   id,
   kind,
   name,
-}: IInterfaceTypeDTO): InterfaceType => {
+}: IInterfaceTypeDto): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
   const interfaceType = new InterfaceType({
@@ -50,20 +46,6 @@ const create = ({
   return interfaceType
 }
 
-const createName = (name: string) => {
-  return `${name} API`
-}
-
-const createApiNode = ({
-  name,
-}: Pick<IAppModel, 'name'>): InterfaceTypeCreateInput => {
-  return {
-    id: v4(),
-    kind: ITypeKind.InterfaceType,
-    name: `${name} Store API`,
-  }
-}
-
 @model('@codelab/InterfaceType')
 export class InterfaceType
   extends ExtendedModel(createBaseType(ITypeKind.InterfaceType), {
@@ -73,9 +55,7 @@ export class InterfaceType
 {
   static create = create
 
-  static createApiNode = createApiNode
-
-  static createName = createName
+  static createName = createInterfaceTypeName
 
   static toDeleteInput(): InterfaceTypeDeleteInput {
     return {
@@ -128,7 +108,7 @@ export class InterfaceType
   }
 
   @modelAction
-  writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
+  writeCache(interfaceTypeDTO: IInterfaceTypeDto) {
     super.writeCache(interfaceTypeDTO)
 
     this.writeFieldCache(interfaceTypeDTO.fields)

@@ -29,10 +29,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    // appDir: true,
-    // css: true,
-  },
   nx: { svgr: true },
 }
 

@@ -1,5 +1,5 @@
-import type { IRedirectDTO } from '@codelab/shared/abstract/core'
+import type { IRedirectDto } from '@codelab/shared/abstract/core'
 
-export type ICreateRedirectData = IRedirectDTO
+export type ICreateRedirectData = IRedirectDto
 
 export type IUpdateRedirectData = ICreateRedirectData

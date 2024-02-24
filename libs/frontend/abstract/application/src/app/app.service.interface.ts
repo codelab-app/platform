@@ -5,7 +5,7 @@ import type {
   IAppProductionService,
   ICreateAppData,
   IUpdateAppData,
-  IUpdatePageData,
+  IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import type { DefaultOptionType } from 'antd/lib/select'
@@ -30,7 +30,7 @@ export interface IAppService
 
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
-  updatePage(data: IUpdatePageData): Promise<void>
+  updatePage(data: IUpdatePageFormData): Promise<void>
   // loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
   // loadDevelopmentPage(
   //   appName: string,

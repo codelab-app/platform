@@ -159,9 +159,6 @@
     "icon": "Collapse",
     "id": "1ee9aecd-c477-4167-909a-d96c9b6122cd",
     "name": "AntDesignCollapsePanel",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -8,7 +8,7 @@ import {
   getStoreDomainService,
   getUserDomainService,
   IAppModel,
-  ICreatePageData,
+  ICreatePageFormData,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -41,25 +41,25 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   @modelAction
   private addDefaultPage(
     app: IAppModel,
-    { id, kind, name, url }: ICreatePageData,
+    { id, kind, name, url }: ICreatePageFormData,
     renderType: IElementRenderTypeDto,
   ) {
     const { user } = this.userDomainService
     const userName = user.username
 
-    const interfaceType = this.typeDomainService.hydrateInterface({
+    const pageStoreApi = this.typeDomainService.hydrateInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${app.name}(${userName}) ${name} Store`),
     })
 
-    const store = this.storeDomainService.hydrate({
-      api: typeRef<IInterfaceTypeModel>(interfaceType.id),
+    const pageStore = this.storeDomainService.hydrate({
+      api: typeRef<IInterfaceTypeModel>(pageStoreApi.id),
       id: v4(),
       name: Store.createName({ name }),
     })
 
-    const rootElement = this.elementDomainService.hydrate({
+    const pageRootElement = this.elementDomainService.hydrate({
       closestContainerNode: {
         id,
       },
@@ -74,7 +74,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
     })
 
     const pageContentContainer =
-      kind === IPageKind.Provider ? { id: rootElement.id } : null
+      kind === IPageKind.Provider ? { id: pageRootElement.id } : null
 
     return this.pageDomainService.hydrate({
       app,
@@ -82,8 +82,8 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
       kind,
       name,
       pageContentContainer,
-      rootElement,
-      store,
+      rootElement: pageRootElement,
+      store: pageStore,
       url,
     })
   }
@@ -142,6 +142,11 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   }
 
   @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
+  }
+
+  @computed
   private get storeDomainService() {
     return getStoreDomainService(this)
   }
@@ -154,10 +159,5 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   @computed
   private get userDomainService() {
     return getUserDomainService(this)
-  }
-
-  @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
   }
 }

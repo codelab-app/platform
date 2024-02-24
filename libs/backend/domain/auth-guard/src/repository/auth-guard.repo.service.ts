@@ -11,7 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAuthGuardDTO } from '@codelab/shared/abstract/core'
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   connectOwner,
@@ -21,7 +21,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AuthGuardRepository extends AbstractRepository<
-  IAuthGuardDTO,
+  IAuthGuardDto,
   AuthGuard,
   AuthGuardWhere,
   AuthGuardOptions
@@ -35,7 +35,7 @@ export class AuthGuardRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(authGuards: Array<IAuthGuardDTO>) {
+  protected async _addMany(authGuards: Array<IAuthGuardDto>) {
     return (
       await (
         await this.ogmService.AuthGuard
@@ -70,7 +70,7 @@ export class AuthGuardRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ config, name, resource }: IAuthGuardDTO) {
+  protected async _update({ config, name, resource }: IAuthGuardDto) {
     return (
       await (
         await this.ogmService.AuthGuard

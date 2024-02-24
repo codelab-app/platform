@@ -49,16 +49,15 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/landing.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

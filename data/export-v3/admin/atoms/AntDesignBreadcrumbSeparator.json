@@ -26,9 +26,6 @@
     "icon": "Breadcrumb",
     "id": "0f56bde3-5c25-4111-b769-03a9d21ed93a",
     "name": "AntDesignBreadcrumbSeparator",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -26,9 +26,6 @@
     "icon": "TimePicker",
     "id": "402a5a2c-e3cd-46b9-b177-3c19f0cc2fc1",
     "name": "AntDesignTimePicker",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

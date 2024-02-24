@@ -1,6 +1,6 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import {
   IElementTypeKind,
   IPrimitiveTypeKind,
@@ -14,7 +14,7 @@ import { TypeSelect } from '../TypeSelect'
  *
  * https://github.com/ajv-validator/ajv/issues/1838
  */
-export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
+export const createTypeSchema: JSONSchemaType<ICreateTypeDto> = {
   properties: {
     ...idSchema(),
     allowedValues: {

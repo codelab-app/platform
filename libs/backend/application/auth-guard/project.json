@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "backend-application-auth-guard",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/backend/application/auth-guard/src",
   "tags": [

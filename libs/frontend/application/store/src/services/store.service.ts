@@ -7,7 +7,7 @@ import type {
   StoreFragment,
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -36,7 +36,7 @@ export class StoreService
 {
   @modelFlow
   @transaction
-  create = _async(function* (this: StoreService, data: IStoreDTO) {
+  create = _async(function* (this: StoreService, data: IStoreDto) {
     const store = this.storeDomainService.hydrate(data)
 
     yield* _await(this.storeRepository.add(store))
@@ -78,7 +78,7 @@ export class StoreService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: StoreService, data: IStoreDTO) {
+  update = _async(function* (this: StoreService, data: IStoreDto) {
     const store = this.storeDomainService.stores.get(data.id)!
 
     store.writeCache({ name: data.name })

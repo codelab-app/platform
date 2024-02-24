@@ -1,6 +1,6 @@
 import type { ICodeMirrorTypeModel } from '@codelab/frontend/abstract/domain'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import type { ICodeMirrorTypeDTO } from '@codelab/shared/abstract/core'
+import type { ICodeMirrorTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -11,7 +11,7 @@ const create = ({
   kind,
   language,
   name,
-}: ICodeMirrorTypeDTO): CodeMirrorType => {
+}: ICodeMirrorTypeDto): CodeMirrorType => {
   assertIsTypeKind(kind, ITypeKind.CodeMirrorType)
 
   return new CodeMirrorType({
@@ -32,7 +32,7 @@ export class CodeMirrorType
   public static create = create
 
   @modelAction
-  writeCache(codeMirrorTypeDTO: Partial<ICodeMirrorTypeDTO>) {
+  writeCache(codeMirrorTypeDTO: Partial<ICodeMirrorTypeDto>) {
     super.writeCache(codeMirrorTypeDTO)
 
     this.language = codeMirrorTypeDTO.language ?? this.language

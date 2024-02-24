@@ -12,7 +12,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
-  type IElementDTO,
+  type IElementDto,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import type {
@@ -51,7 +51,7 @@ export const CreateElementForm = observer(
       return null
     }
 
-    const onSubmit = async (data: IElementDTO) => {
+    const onSubmit = async (data: IElementDto) => {
       const isValidParent = validateParentForCreate(
         data.renderType.id,
         data.parentElement?.id,
@@ -101,7 +101,7 @@ export const CreateElementForm = observer(
       : undefined
 
     return (
-      <Form<IElementDTO>
+      <Form<IElementDto>
         data-testid="create-element-form"
         model={model}
         onSubmit={onSubmit}

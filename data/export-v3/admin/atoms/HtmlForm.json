@@ -214,9 +214,6 @@
     "icon": null,
     "id": "e23acbd6-1789-4c11-9eec-0f5aa75d5004",
     "name": "HtmlForm",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

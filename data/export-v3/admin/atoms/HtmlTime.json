@@ -43,9 +43,6 @@
     "icon": null,
     "id": "4fa49c45-ba02-4e87-a457-06deb5122061",
     "name": "HtmlTime",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

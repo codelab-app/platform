@@ -9,9 +9,10 @@ export default {
       '@swc/jest',
       {
         jsc: {
-          parser: { syntax: 'typescript', decorators: true },
+          parser: { syntax: 'typescript', tsx: true, decorators: true },
           transform: {
             decoratorMetadata: true,
+            react: { runtime: 'automatic' },
           },
         },
       },

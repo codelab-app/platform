@@ -302,9 +302,6 @@
     "icon": "Tooltip",
     "id": "14c2068d-a917-4d30-828a-6474d2b22c86",
     "name": "AntDesignTooltip",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

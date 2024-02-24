@@ -18,7 +18,7 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageDTO } from '@codelab/shared/abstract/core'
+import type { IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import {
@@ -40,7 +40,7 @@ const create = ({
   rootElement,
   store,
   url,
-}: IPageDTO) => {
+}: IPageDto) => {
   return new Page({
     app: appRef(app.id),
     id,
@@ -81,6 +81,20 @@ export class Page
   }
 
   @computed
+  get providerPage() {
+    return this.kind === IPageKind.Regular
+      ? this.app.current.providerPage
+      : undefined
+  }
+
+  @computed
+  get redirect() {
+    const redirects = [...this.redirectDomainService.redirects.values()]
+
+    return redirects.find((redirect) => redirect.source.id === this.id)
+  }
+
+  @computed
   get slug() {
     return slugify(this.name)
   }
@@ -102,30 +116,6 @@ export class Page
     }
   }
 
-  @computed
-  get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
-  get redirectDomainService() {
-    return getRedirectDomainService(this)
-  }
-
-  @computed
-  get providerPage() {
-    return this.kind === IPageKind.Regular
-      ? this.app.current.providerPage
-      : undefined
-  }
-
-  @computed
-  get redirect() {
-    const redirects = [...this.redirectDomainService.redirects.values()]
-
-    return redirects.find((redirect) => redirect.source.id === this.id)
-  }
-
   @modelAction
   writeCache({
     app,
@@ -135,7 +125,7 @@ export class Page
     rootElement,
     store,
     url,
-  }: Partial<IPageDTO>) {
+  }: Partial<IPageDto>) {
     this.name = name ?? this.name
     this.rootElement = rootElement
       ? elementRef(rootElement.id)
@@ -183,5 +173,10 @@ export class Page
       ),
       url: this.url,
     }
+  }
+
+  @computed
+  private get redirectDomainService() {
+    return getRedirectDomainService(this)
   }
 }

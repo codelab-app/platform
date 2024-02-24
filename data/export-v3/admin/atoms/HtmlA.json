@@ -257,9 +257,6 @@
     "icon": null,
     "id": "cc1c914e-48fc-4d04-ad01-2a649e7c5a55",
     "name": "HtmlA",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

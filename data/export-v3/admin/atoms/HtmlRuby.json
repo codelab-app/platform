@@ -26,9 +26,6 @@
     "icon": null,
     "id": "8f83316b-03d2-443f-a938-a56e0324769c",
     "name": "HtmlRuby",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

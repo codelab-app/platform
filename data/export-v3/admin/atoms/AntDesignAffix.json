@@ -91,9 +91,6 @@
     "icon": "Affix",
     "id": "727acbf6-7b57-478a-923b-e522fcca298d",
     "name": "AntDesignAffix",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

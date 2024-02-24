@@ -7,7 +7,7 @@ import {
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
-import type { IActionDTO } from '@codelab/shared/abstract/core'
+import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
@@ -30,37 +30,6 @@ export class ActionDomainService
   @computed
   get builderService() {
     return getBuilderDomainService(this)
-  }
-
-  @modelAction
-  load(actions: Array<ActionFragment>) {
-    return actions.map((action) =>
-      this.hydrate(this.actionFactory.fromActionFragment(action)),
-    )
-  }
-
-  @modelAction
-  hydrate<T extends IActionDTO>(actionDTO: T) {
-    let action: IActionModel
-
-    switch (actionDTO.__typename) {
-      case IActionKind.CodeAction:
-        action = CodeAction.create(actionDTO)
-        break
-      case IActionKind.ApiAction:
-        action = ApiAction.create(actionDTO)
-        break
-      default:
-        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
-    }
-
-    this.actions.set(action.id, action)
-
-    return action
-  }
-
-  action(id: string) {
-    return this.actions.get(id)
   }
 
   @modelAction
@@ -97,6 +66,37 @@ export class ActionDomainService
       label: action.name,
       value: action.id,
     }))
+  }
+
+  @modelAction
+  hydrate<T extends IActionDto>(actionDTO: T) {
+    let action: IActionModel
+
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction:
+        action = CodeAction.create(actionDTO)
+        break
+      case IActionKind.ApiAction:
+        action = ApiAction.create(actionDTO)
+        break
+      default:
+        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
+    }
+
+    this.actions.set(action.id, action)
+
+    return action
+  }
+
+  @modelAction
+  load(actions: Array<ActionFragment>) {
+    return actions.map((action) =>
+      this.hydrate(this.actionFactory.fromActionFragment(action)),
+    )
+  }
+
+  action(id: string) {
+    return this.actions.get(id)
   }
 
   private getParentActions(action?: IActionModel): Array<string> {

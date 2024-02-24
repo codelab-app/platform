@@ -800,10 +800,7 @@
         ],
         "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
         "kind": "InterfaceType",
-        "name": "AntDesignSelect Option",
-        "owner": {
-          "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        }
+        "name": "AntDesignSelect Option"
       },
       {
         "__typename": "EnumType",
@@ -1081,9 +1078,6 @@
     "icon": "Select",
     "id": "eedc06bc-2b1b-4002-994d-718d7d613445",
     "name": "AntDesignSelect",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

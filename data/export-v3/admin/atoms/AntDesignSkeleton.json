@@ -177,9 +177,6 @@
     "icon": "Skeleton",
     "id": "1621b0ea-e3d0-48b8-8e12-820e60e91d11",
     "name": "AntDesignSkeleton",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

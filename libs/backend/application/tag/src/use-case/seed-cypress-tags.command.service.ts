@@ -24,6 +24,6 @@ export class SeedCypressTagsHandler
       return new Tag(tagData)
     })
 
-    await this.tagRepository.add(tags)
+    await this.tagRepository.addMany(tags)
   }
 }

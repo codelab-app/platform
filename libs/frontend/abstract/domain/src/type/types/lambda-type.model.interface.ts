@@ -2,7 +2,7 @@ import type {
   LambdaTypeCreateInput,
   UpdateLambdaTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import type { ILambdaTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { ILambdaTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**
@@ -10,7 +10,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface ILambdaTypeModel
   extends IBaseTypeModel<
-    ILambdaTypeDTO,
+    ILambdaTypeDto,
     LambdaTypeCreateInput,
     UpdateLambdaTypesMutationVariables
   > {

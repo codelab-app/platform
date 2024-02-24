@@ -6,7 +6,7 @@ import {
   type IPageApplicationService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  ICreatePageData,
+  ICreatePageFormData,
   IInterfaceTypeModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
@@ -27,7 +27,7 @@ import {
   InterfaceType,
 } from '@codelab/frontend/domain/type'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto, IPropDto } from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   IPageKind,
@@ -69,9 +69,9 @@ export class PageApplicationService
   @transaction
   create = _async(function* (
     this: PageApplicationService,
-    { app, id, name, url }: ICreatePageData,
+    { app, id, name, url }: ICreatePageFormData,
   ) {
-    const rootElementProps: IPropDTO = {
+    const rootElementProps: IPropDto = {
       data: '{}',
       id: v4(),
     }
@@ -222,11 +222,18 @@ export class PageApplicationService
   //   return page!
   // })
 
+  @modelAction
+  getPagesByApp = (appId: string) => {
+    return this.pageDomainService.pagesList.filter(
+      (page) => page.app.id === appId,
+    )
+  }
+
   /**
    * Since elements are
    */
   @modelAction
-  loadElements = (elements: Array<IElementDTO>) => {
+  loadElements = (elements: Array<IElementDto>) => {
     elements.forEach((element) => {
       /**
        * Element comes with `component` or `atom` data that we need to load as well
@@ -249,13 +256,6 @@ export class PageApplicationService
     })
   }
 
-  @modelAction
-  getPagesByApp = (appId: string) => {
-    return this.pageDomainService.pagesList.filter(
-      (page) => page.app.id === appId,
-    )
-  }
-
   @computed
   private get appService() {
     return getAppService(this)
@@ -272,6 +272,11 @@ export class PageApplicationService
   }
 
   @computed
+  private get rendererService() {
+    return getRendererService(this)
+  }
+
+  @computed
   private get storeDomainService() {
     return getStoreDomainService(this)
   }
@@ -284,9 +289,5 @@ export class PageApplicationService
   @computed
   private get userService() {
     return getUserService(this)
-  }
-
-  @computed get rendererService() {
-    return getRendererService(this)
   }
 }

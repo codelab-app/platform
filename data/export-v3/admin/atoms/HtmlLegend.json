@@ -26,9 +26,6 @@
     "icon": null,
     "id": "9e07ddb4-05b0-43e8-a889-33c87b397ee7",
     "name": "HtmlLegend",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -6,16 +6,15 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/backend/test/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/backend-test.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["libs/backend/test/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

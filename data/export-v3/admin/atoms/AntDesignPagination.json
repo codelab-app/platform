@@ -374,9 +374,6 @@
     "icon": "Pagination",
     "id": "de85c8e8-4236-4633-9f40-ce0f763bf122",
     "name": "AntDesignPagination",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

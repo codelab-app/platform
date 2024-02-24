@@ -195,9 +195,6 @@
     "icon": "Upload",
     "id": "0d065c5e-1388-4782-b6e7-1b6e2623ca7a",
     "name": "AntDesignUpload",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

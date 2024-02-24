@@ -87,6 +87,85 @@ export class HierarchicalCollisionDetector {
         ]
   }
 
+  private findClosestDroppable(
+    point: Point,
+    droppables: Array<HierarchicalDroppableContainer>,
+  ): HierarchicalDroppableContainer | undefined {
+    let foundRect
+    let smallestDistance
+
+    for (const droppable of droppables) {
+      const { rect } = droppable
+      const center = Rectangle.center(rect)
+      const distance = findDistance(center, point)
+
+      if (!smallestDistance || distance < smallestDistance) {
+        foundRect = droppable
+        smallestDistance = distance
+      }
+    }
+
+    return foundRect
+  }
+
+  private findNearestBoundingBox(
+    point: Point,
+    hierarchy: Array<HierarchicalDroppableContainer>,
+  ): UniqueIdentifier | undefined {
+    let foundRect
+
+    for (const droppable of hierarchy) {
+      const droppableLevel = droppable.level || 0
+
+      if (Rectangle.contains(droppable.rect, point)) {
+        if (!foundRect || droppableLevel > foundRect.level!) {
+          foundRect = droppable
+        }
+      }
+    }
+
+    return foundRect?.id
+  }
+
+  private findPotentialSblings(
+    pointer: Point,
+    children: Array<HierarchicalDroppableContainer>,
+  ) {
+    const closestChild = this.findClosestDroppable(pointer, children)
+
+    if (!closestChild) {
+      return null
+    }
+
+    const isBeforeChild = this.isBefore(pointer, closestChild.rect)
+
+    return {
+      after: isBeforeChild ? closestChild : undefined,
+      before: isBeforeChild ? undefined : closestChild,
+    }
+  }
+
+  /**
+   * whether the point is before or after the rectangle.
+   * above and to the left of the rectangle is before, otherwise is after.
+   * @param point
+   * @param rect
+   * @returns
+   */
+  private isBefore(point: Point, rect: Rect) {
+    const linePoint1 = {
+      x: rect.left,
+      y: rect.bottom,
+    }
+
+    const linePoint2 = {
+      x: rect.right,
+      y: rect.top,
+    }
+
+    return isAboveLine(point, [linePoint1, linePoint2])
+  }
+
   private makeHierarchicalDroppableContainers(
     droppableContainers: Array<DroppableContainer>,
   ) {
@@ -141,25 +220,6 @@ export class HierarchicalCollisionDetector {
     })
 
     return HierarchicalDroppableContainer
-  }
-
-  private findNearestBoundingBox(
-    point: Point,
-    hierarchy: Array<HierarchicalDroppableContainer>,
-  ): UniqueIdentifier | undefined {
-    let foundRect
-
-    for (const droppable of hierarchy) {
-      const droppableLevel = droppable.level || 0
-
-      if (Rectangle.contains(droppable.rect, point)) {
-        if (!foundRect || droppableLevel > foundRect.level!) {
-          foundRect = droppable
-        }
-      }
-    }
-
-    return foundRect?.id
   }
 
   private shrinkContainers(containers: Array<HierarchicalDroppableContainer>) {
@@ -217,65 +277,5 @@ export class HierarchicalCollisionDetector {
     )
 
     return shrunkContainers
-  }
-
-  /**
-   * whether the point is before or after the rectangle.
-   * above and to the left of the rectangle is before, otherwise is after.
-   * @param point
-   * @param rect
-   * @returns
-   */
-  private isBefore(point: Point, rect: Rect) {
-    const linePoint1 = {
-      x: rect.left,
-      y: rect.bottom,
-    }
-
-    const linePoint2 = {
-      x: rect.right,
-      y: rect.top,
-    }
-
-    return isAboveLine(point, [linePoint1, linePoint2])
-  }
-
-  private findPotentialSblings(
-    pointer: Point,
-    children: Array<HierarchicalDroppableContainer>,
-  ) {
-    const closestChild = this.findClosestDroppable(pointer, children)
-
-    if (!closestChild) {
-      return null
-    }
-
-    const isBeforeChild = this.isBefore(pointer, closestChild.rect)
-
-    return {
-      after: isBeforeChild ? closestChild : undefined,
-      before: isBeforeChild ? undefined : closestChild,
-    }
-  }
-
-  private findClosestDroppable(
-    point: Point,
-    droppables: Array<HierarchicalDroppableContainer>,
-  ): HierarchicalDroppableContainer | undefined {
-    let foundRect
-    let smallestDistance
-
-    for (const droppable of droppables) {
-      const { rect } = droppable
-      const center = Rectangle.center(rect)
-      const distance = findDistance(center, point)
-
-      if (!smallestDistance || distance < smallestDistance) {
-        foundRect = droppable
-        smallestDistance = distance
-      }
-    }
-
-    return foundRect
   }
 }

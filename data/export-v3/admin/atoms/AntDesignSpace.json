@@ -171,9 +171,6 @@
     "icon": "Space",
     "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
     "name": "AntDesignSpace",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -298,9 +298,6 @@
     "icon": "List",
     "id": "4c12d372-e132-467a-993c-44a3ed4561a7",
     "name": "AntDesignList",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

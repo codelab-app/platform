@@ -16,7 +16,7 @@ import {
 import { Prop } from '@codelab/frontend/domain/prop'
 import type { ComponentUpdateInput } from '@codelab/shared/abstract/codegen'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IComponentDTO, IRef } from '@codelab/shared/abstract/core'
+import type { IComponentDto, IRef } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
@@ -32,7 +32,7 @@ const create = ({
   props,
   rootElement,
   store,
-}: IComponentDTO) => {
+}: IComponentDto) => {
   return new Component({
     api: typeRef<IInterfaceTypeModel>(api.id),
     childrenContainerElement: elementRef(childrenContainerElement.id),
@@ -129,7 +129,7 @@ export class Component
     name,
     props,
     rootElement,
-  }: Partial<IComponentDTO>) {
+  }: Partial<IComponentDto>) {
     const apiRef = api?.id ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     this.name = name ?? this.name

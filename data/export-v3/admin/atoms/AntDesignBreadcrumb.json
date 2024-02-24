@@ -59,9 +59,6 @@
     "icon": "Breadcrumb",
     "id": "e2dbdd86-3bb7-4312-921c-4295d777f0bc",
     "name": "AntDesignBreadcrumb",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

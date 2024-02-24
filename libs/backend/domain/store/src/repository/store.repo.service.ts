@@ -10,13 +10,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStoreDto } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class StoreRepository extends AbstractRepository<
-  IStoreDTO,
+  IStoreDto,
   Store,
   StoreWhere,
   StoreOptions
@@ -32,7 +32,7 @@ export class StoreRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(stores: Array<IStoreDTO>) {
+  protected async _addMany(stores: Array<IStoreDto>) {
     return (
       await (
         await this.ogmService.Store
@@ -62,7 +62,7 @@ export class StoreRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ api, id, name }: IStoreDTO, where: StoreWhere) {
+  protected async _update({ api, id, name }: IStoreDto, where: StoreWhere) {
     return (
       await (
         await this.ogmService.Store

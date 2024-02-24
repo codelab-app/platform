@@ -18,7 +18,7 @@ export const getElementWithDescendants = async (
       return (
         records[0]
           ?.get(0)
-          .map((descendant: Node) => descendant.properties.id) ?? []
+          .map((descendant: Node) => descendant.properties['id']) ?? []
       )
     },
   )

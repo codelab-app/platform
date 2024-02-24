@@ -1,7 +1,7 @@
-import { TextDecoder, TextEncoder } from 'util'
-import path from 'path'
-import fs from 'fs'
-import { config } from 'dotenv'
+const { TextDecoder, TextEncoder } = require('util')
+const path = require('path')
+const fs = require('fs')
+const { config } = require('dotenv')
 
 require('reflect-metadata')
 
@@ -44,4 +44,3 @@ if (typeof window !== 'undefined') {
     writable: true,
   })
 }
-

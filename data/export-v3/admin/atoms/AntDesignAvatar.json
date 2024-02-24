@@ -304,9 +304,6 @@
     "icon": "Avatar",
     "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
     "name": "AntDesignAvatar",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

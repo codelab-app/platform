@@ -22,18 +22,32 @@ export abstract class AbstractRepository<
     protected validationService: ValidationService,
   ) {}
 
-  public async add(data: Array<Model>): Promise<Array<ModelData>> {
+  /**
+   * Array adds complexity, create an optional `addMany` if needed
+   */
+  public async add(data: Model): Promise<ModelData> {
+    const results = await this._addMany([data])
+    const result = results[0]
+
+    if (!result) {
+      throw new Error('Add failed')
+    }
+
+    return result
+  }
+
+  public async addMany(data: Array<Model>): Promise<Array<ModelData>> {
     const span = this.traceService.getSpan()
     const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
 
     span?.setAttributes(attributes)
 
-    return this._add(data)
+    return this._addMany(data)
   }
 
   async exists(data: Model, where: Where) {
     return withActiveSpan(`${this.constructor.name}.exists`, async (span) => {
-      const results = await this.findOne(where)
+      const results = await this.findOne({ where })
       const exists = Boolean(results)
 
       // Spans
@@ -45,19 +59,14 @@ export abstract class AbstractRepository<
     })
   }
 
-  find(args?: {
+  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
+
+  find<T extends TAnySchema>(args?: {
     where?: Where
     options?: Options
+    schema: T
     selectionSet?: string
-  }): Promise<Array<ModelData>>
-
-  find<T extends TAnySchema>(
-    args: {
-      where?: Where
-      options?: Options
-    },
-    schema: T,
-  ): Promise<Array<Static<T>>>
+  }): Promise<Array<Static<T>>>
 
   /**
    *
@@ -65,18 +74,17 @@ export abstract class AbstractRepository<
    * @param schema This is the singular form of the schema
    * @returns
    */
-  async find<T extends TAnySchema>(
-    {
-      options,
-      selectionSet,
-      where,
-    }: {
-      where?: Where
-      options?: Options
-      selectionSet?: string
-    } = {},
-    schema?: T,
-  ): Promise<Array<ModelData> | Array<Static<T>>> {
+  async find<T extends TAnySchema>({
+    options,
+    schema,
+    selectionSet,
+    where,
+  }: {
+    where?: Where
+    options?: Options
+    selectionSet?: string
+    schema?: T
+  } = {}): Promise<Array<ModelData> | Array<Static<T>>> {
     return withActiveSpan(`${this.constructor.name}.find`, async (span) => {
       this.traceService.addJsonAttributes('where', where)
 
@@ -96,12 +104,17 @@ export abstract class AbstractRepository<
     })
   }
 
-  async findOne(where: Where): Promise<ModelData | undefined>
+  async findOne(args?: {
+    where: Where
+    options?: Options
+  }): Promise<ModelData | undefined>
 
-  async findOne<T extends TAnySchema>(
-    where: Where,
-    schema?: T,
-  ): Promise<Static<T> | undefined>
+  async findOne<T extends TAnySchema>(args?: {
+    where: Where
+    options?: Options
+    selectionSet?: string
+    schema?: T
+  }): Promise<Static<T> | undefined>
 
   /**
    *
@@ -109,17 +122,24 @@ export abstract class AbstractRepository<
    * @param schema optional schema to validate the return data
    * @returns
    */
-  async findOne<T extends TAnySchema>(
-    where: Where,
-    schema?: T,
-  ): Promise<ModelData | Static<T> | undefined> {
+  async findOne<T extends TAnySchema>({
+    options,
+    schema,
+    selectionSet,
+    where,
+  }: {
+    where: Where
+    schema?: T
+    selectionSet?: string
+    options: Options
+  }): Promise<ModelData | Static<T> | undefined> {
     // Don't use decorator since it doesn't give us the right name
     return withActiveSpan(`${this.constructor.name}.findOne`, async (span) => {
       this.traceService.addJsonAttributes('where', where)
 
       // So overload works
       const results = schema
-        ? (await this.find({ where }, schema))[0]
+        ? (await this.find({ schema, where }))[0]
         : (await this.find({ where }))[0]
 
       if (!results) {
@@ -152,11 +172,7 @@ export abstract class AbstractRepository<
           return await this.update(data, computedWhere)
         }
 
-        const results = (await this.add([data]))[0]
-
-        if (!results) {
-          throw new Error('Save failed')
-        }
+        const results = await this.add(data)
 
         return results
       },
@@ -186,7 +202,7 @@ export abstract class AbstractRepository<
     })
   }
 
-  protected abstract _add(data: Array<Model>): Promise<Array<ModelData>>
+  protected abstract _addMany(data: Array<Model>): Promise<Array<ModelData>>
 
   protected abstract _find({
     options,

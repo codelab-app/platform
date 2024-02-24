@@ -12,7 +12,7 @@ import type {
   AuthGuardCreateInput,
   AuthGuardUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuthGuardDTO } from '@codelab/shared/abstract/core'
+import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -24,7 +24,7 @@ const create = ({
   name,
   resource,
   responseTransformer,
-}: IAuthGuardDTO) =>
+}: IAuthGuardDto) =>
   new AuthGuardModel({
     config: Prop.create(config),
     id,
@@ -47,11 +47,6 @@ export class AuthGuardModel
   static create = create
 
   @computed
-  private get userDomainService() {
-    return getUserDomainService(this)
-  }
-
-  @computed
   get toJson() {
     return {
       config: this.config.toJson,
@@ -63,7 +58,7 @@ export class AuthGuardModel
   }
 
   @modelAction
-  writeCache({ name, resource, responseTransformer }: Partial<IAuthGuardDTO>) {
+  writeCache({ name, resource, responseTransformer }: Partial<IAuthGuardDto>) {
     this.name = name ?? this.name
     this.resource = resource?.id ? resourceRef(resource.id) : this.resource
     this.responseTransformer = responseTransformer ?? this.responseTransformer
@@ -95,5 +90,10 @@ export class AuthGuardModel
       resource: connectNodeId(this.resource.id),
       responseTransformer: this.responseTransformer,
     }
+  }
+
+  @computed
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

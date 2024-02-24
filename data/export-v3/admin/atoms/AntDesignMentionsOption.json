@@ -59,9 +59,6 @@
     "icon": "Mentions",
     "id": "5462d72c-c31b-49e8-8ed9-5beb8e5790b6",
     "name": "AntDesignMentionsOption",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

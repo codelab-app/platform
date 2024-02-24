@@ -2,7 +2,7 @@ import type {
   PageTypeCreateInput,
   UpdatePageTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IPageTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**
@@ -10,7 +10,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IPageTypeModel
   extends IBaseTypeModel<
-    IPageTypeDTO,
+    IPageTypeDto,
     PageTypeCreateInput,
     UpdatePageTypesMutationVariables
   > {

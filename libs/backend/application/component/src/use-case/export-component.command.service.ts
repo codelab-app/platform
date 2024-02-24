@@ -6,8 +6,8 @@ import { ElementRepository } from '@codelab/backend/domain/element'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type {
   IApi,
-  IComponentBoundedContext,
-  IStoreBoundedContext,
+  IComponentAggregate,
+  IStoreAggregate,
 } from '@codelab/shared/abstract/core'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
@@ -18,7 +18,7 @@ export class ExportComponentCommand {
 
 @CommandHandler(ExportComponentCommand)
 export class ExportComponentHandler
-  implements ICommandHandler<ExportComponentCommand, IComponentBoundedContext>
+  implements ICommandHandler<ExportComponentCommand, IComponentAggregate>
 {
   constructor(
     private componentRepository: ComponentRepository,
@@ -30,7 +30,9 @@ export class ExportComponentHandler
   async execute({ componentId }: ExportComponentCommand) {
     const component = throwIfUndefined(
       await this.componentRepository.findOne({
-        id: componentId,
+        where: {
+          id: componentId,
+        },
       }),
     )
 
@@ -48,7 +50,7 @@ export class ExportComponentHandler
 
     const store = await this.commandBus.execute<
       ExportStoreCommand,
-      IStoreBoundedContext
+      IStoreAggregate
     >(new ExportStoreCommand({ id: component.store.id }))
 
     const api = await this.commandBus.execute<ExportApiCommand, IApi>(

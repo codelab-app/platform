@@ -1,5 +1,5 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
-import type { IUpdatePageData } from '@codelab/frontend/abstract/domain'
+import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend/presentation/view'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -17,7 +17,7 @@ export const UpdatePageTabForm = observer<{
     return null
   }
 
-  const onSubmit = (input: IUpdatePageData) => appService.updatePage(input)
+  const onSubmit = (input: IUpdatePageFormData) => appService.updatePage(input)
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']
 

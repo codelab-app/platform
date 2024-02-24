@@ -1,17 +1,17 @@
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import { type IAtomDTO } from '@codelab/shared/abstract/core'
+import { type IAtomDto } from '@codelab/shared/abstract/core'
 import { atomTypes } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import { ImportAtomCommand } from './import-atom.command.service'
+import { ImportAtomCommand } from './import-atom/import-atom.command.service'
 
 export class SeedCypressAtomsCommand {}
 
 @CommandHandler(SeedCypressAtomsCommand)
 export class SeedCypressAtomsHandler
-  implements ICommandHandler<SeedCypressAtomsCommand, Array<IAtomDTO>>
+  implements ICommandHandler<SeedCypressAtomsCommand, Array<IAtomDto>>
 {
   constructor(
     private readonly commandBus: CommandBus,
@@ -36,7 +36,7 @@ export class SeedCypressAtomsHandler
     for (const atom of atoms) {
       const atomDto = await this.commandBus.execute<
         ImportAtomCommand,
-        IAtomDTO
+        IAtomDto
       >(new ImportAtomCommand(atom))
 
       atomDtos.push(atomDto)

@@ -146,9 +146,6 @@
     "icon": null,
     "id": "fe3645f9-d754-4122-b662-730cb3d61029",
     "name": "HtmlAudio",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

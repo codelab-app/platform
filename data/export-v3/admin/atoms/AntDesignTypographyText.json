@@ -327,9 +327,6 @@
     "icon": "Typography",
     "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
     "name": "AntDesignTypographyText",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

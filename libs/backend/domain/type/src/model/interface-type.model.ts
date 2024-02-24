@@ -1,15 +1,16 @@
 import type {
-  IAtomDTO,
-  IFieldDTO,
-  IInterfaceTypeDTO,
+  IAtomDto,
+  IFieldDto,
+  IInterfaceTypeDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { createInterfaceTypeName } from '@codelab/shared/domain/model'
 import { v4 } from 'uuid'
 import capitalize from 'voca/capitalize'
 import { BaseType } from './base-type.model'
 
-export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
+export class InterfaceType extends BaseType implements IInterfaceTypeDto {
   /**
    * Make create data from atom name
    */
@@ -23,9 +24,11 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
     })
   }
 
+  static createName = createInterfaceTypeName
+
   static getApiName(
-    { name }: Pick<IAtomDTO, 'name'>,
-    field?: Pick<IFieldDTO, 'key'>,
+    { name }: Pick<IAtomDto, 'name'>,
+    field?: Pick<IFieldDto, 'key'>,
   ) {
     return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
   }
@@ -34,7 +37,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
 
   fields: Array<IRef>
 
-  constructor({ fields = [], id, name }: IInterfaceTypeDTO) {
+  constructor({ fields = [], id, name }: IInterfaceTypeDto) {
     super({
       id,
       kind: ITypeKind.InterfaceType,

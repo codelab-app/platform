@@ -7,10 +7,10 @@ import { ElementRepository } from '@codelab/backend/domain/element'
 import { ResourceRepository } from '@codelab/backend/domain/resource'
 import type {
   IApiAction,
-  IAppBoundedContext,
-  IComponentBoundedContext,
+  IAppAggregate,
+  IComponentAggregate,
   IElement,
-  IPageBoundedContext,
+  IPageAggregate,
   IRef,
 } from '@codelab/shared/abstract/core'
 import {
@@ -29,7 +29,7 @@ export class ExportAppCommand {
 
 @CommandHandler(ExportAppCommand)
 export class ExportAppHandler
-  implements ICommandHandler<ExportAppCommand, IAppBoundedContext>
+  implements ICommandHandler<ExportAppCommand, IAppAggregate>
 {
   constructor(
     private readonly appRepository: AppRepository,
@@ -40,7 +40,7 @@ export class ExportAppHandler
   ) {}
 
   async execute({ where }: ExportAppCommand) {
-    const app = await this.appRepository.findOne(where)
+    const app = await this.appRepository.findOne({ where })
 
     if (!app) {
       throw new Error('Cannot find App')
@@ -48,7 +48,7 @@ export class ExportAppHandler
 
     const pages = await this.commandBus.execute<
       ExportPageCommand,
-      Array<IPageBoundedContext>
+      Array<IPageAggregate>
     >(new ExportPageCommand({ id_IN: app.pages.map((page) => page.id) }))
 
     const pageStoresContexts = pages.map((pageContext) => pageContext.store)
@@ -82,7 +82,7 @@ export class ExportAppHandler
       where: { id_IN: pageResourceRefs.map((ref) => ref.id) },
     })
 
-    const components: Array<IComponentBoundedContext> = []
+    const components: Array<IComponentAggregate> = []
 
     for (const { page } of pages) {
       const elements = (
@@ -125,7 +125,7 @@ export class ExportAppHandler
         for (const currentComponent of currentComponents) {
           const component = await this.commandBus.execute<
             ExportComponentCommand,
-            IComponentBoundedContext
+            IComponentAggregate
           >(new ExportComponentCommand(currentComponent.id))
 
           components.push(component)

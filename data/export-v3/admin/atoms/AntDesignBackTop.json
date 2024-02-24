@@ -75,9 +75,6 @@
     "icon": "BackTop",
     "id": "1c2bdcb6-2e1c-4509-8478-46660aeb6905",
     "name": "AntDesignBackTop",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

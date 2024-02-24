@@ -1,9 +1,9 @@
 import type {
   IResourceConfigData,
-  IResourceDTO,
+  IResourceDto,
 } from '@codelab/shared/abstract/core'
 
-export type ICreateResourceData = Omit<IResourceDTO, 'config'> & {
+export type ICreateResourceData = Omit<IResourceDto, 'config'> & {
   config: IResourceConfigData
 }
 

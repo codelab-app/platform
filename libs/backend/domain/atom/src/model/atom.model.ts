@@ -1,6 +1,6 @@
 import type {
   IAtom,
-  IAtomDTO,
+  IAtomDto,
   IAtomType,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -9,9 +9,7 @@ import type { ValidationError } from 'class-validator'
 import { validateSync } from 'class-validator'
 
 export class Atom implements IAtom {
-  __typename = `${IElementRenderTypeKind.Atom}` as const
-
-  static create(data: IAtomDTO): Atom {
+  static create(data: IAtomDto): Atom {
     const atom = new Atom(data)
     const errors = validateSync(atom)
 
@@ -25,6 +23,8 @@ export class Atom implements IAtom {
 
     return atom
   }
+
+  __typename = `${IElementRenderTypeKind.Atom}` as const
 
   api: IRef
 
@@ -61,7 +61,7 @@ export class Atom implements IAtom {
     suggestedChildren = [],
     tags = [],
     type,
-  }: IAtomDTO) {
+  }: IAtomDto) {
     this.id = id
     this.externalJsSource = externalJsSource
     this.externalCssSource = externalCssSource

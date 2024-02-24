@@ -2,13 +2,10 @@ import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Span } from '@codelab/backend/infra/adapter/otel'
-import type {
-  IApi,
-  IAtom,
-  IAtomBoundedContext,
-} from '@codelab/shared/abstract/core'
+import type { IApi, IAtom, IAtomAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+import omit from 'lodash/omit'
 
 export class ExportAtomCommand {
   constructor(readonly where: AtomWhere) {}
@@ -16,7 +13,7 @@ export class ExportAtomCommand {
 
 @CommandHandler(ExportAtomCommand)
 export class ExportAtomHandler
-  implements ICommandHandler<ExportAtomCommand, IAtomBoundedContext>
+  implements ICommandHandler<ExportAtomCommand, IAtomAggregate>
 {
   constructor(
     private readonly atomRepository: AtomRepository,
@@ -24,9 +21,9 @@ export class ExportAtomHandler
   ) {}
 
   @Span()
-  async execute(command: ExportAtomCommand): Promise<IAtomBoundedContext> {
+  async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
     const { where } = command
-    const existingAtom = await this.atomRepository.findOne(where)
+    const existingAtom = await this.atomRepository.findOne({ where })
 
     if (!existingAtom) {
       throw new Error('Atom not found')
@@ -48,8 +45,8 @@ export class ExportAtomHandler
     // const results: IAtom = this.validationService.validateAndClean(IAtom, data)
 
     return {
-      api,
-      atom,
+      api: omit(api, 'owner'),
+      atom: omit(atom, 'owner'),
     }
   }
 }

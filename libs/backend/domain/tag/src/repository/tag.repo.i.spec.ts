@@ -70,10 +70,15 @@ describe('Tag repository.', () => {
     /**
      * First create 2 tags that aren't connected
      */
-    await tagRepository.add([childTag, parentTag])
+    await tagRepository.addMany([childTag, parentTag])
 
-    let savedParentTag = await tagRepository.findOne({ id: parentTag.id })
-    let savedChildTag = await tagRepository.findOne({ id: childTag.id })
+    let savedParentTag = await tagRepository.findOne({
+      where: { id: parentTag.id },
+    })
+
+    let savedChildTag = await tagRepository.findOne({
+      where: { id: childTag.id },
+    })
 
     // Parent
     expect(savedParentTag?.name).toEqual(parentTagName)
@@ -87,8 +92,10 @@ describe('Tag repository.', () => {
     await tagRepository.save(parentTag)
     await tagRepository.save(childTag)
 
-    savedParentTag = await tagRepository.findOne({ id: parentTag.id })
-    savedChildTag = await tagRepository.findOne({ id: childTag.id })
+    savedParentTag = await tagRepository.findOne({
+      where: { id: parentTag.id },
+    })
+    savedChildTag = await tagRepository.findOne({ where: { id: childTag.id } })
 
     // Parent
     expect(savedParentTag?.name).toEqual(parentTagName)

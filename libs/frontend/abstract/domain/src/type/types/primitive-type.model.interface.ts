@@ -3,7 +3,7 @@ import type {
   UpdatePrimitiveTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IPrimitiveTypeDTO,
+  IPrimitiveTypeDto,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -17,7 +17,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IPrimitiveTypeModel
   extends IBaseTypeModel<
-    IPrimitiveTypeDTO,
+    IPrimitiveTypeDto,
     PrimitiveTypeCreateInput,
     UpdatePrimitiveTypesMutationVariables
   > {

@@ -62,14 +62,14 @@
         "lintFilePatterns": [
           "libs/tools/workspace/**/*.{ts,tsx,js,jsx,graphql}"
         ]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
@@ -78,7 +78,8 @@
       "options": {
         "memoryLimit": 8192,
         "color": true,
-        "testPathPattern": ["[i].spec.ts"],
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
         "jestConfig": "libs/tools/workspace/jest.config.ts"
       },
       "configurations": {
@@ -101,7 +102,7 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathIgnorePatterns": ["i.spec.ts"],
         "jestConfig": "libs/tools/workspace/jest.config.ts"
       },
       "configurations": {
@@ -110,7 +111,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

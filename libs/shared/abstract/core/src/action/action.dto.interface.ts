@@ -1,10 +1,10 @@
 import { type Static, Type } from '@sinclair/typebox'
-import { IApiAction, IApiActionDTO } from './api-action.dto.interface'
-import { ICodeAction, ICodeActionDTO } from './code-action.dto.interface'
+import { IApiAction, IApiActionDto } from './api-action.dto.interface'
+import { ICodeAction, ICodeActionDto } from './code-action.dto.interface'
 
-export const IActionDTO = Type.Union([IApiActionDTO, ICodeActionDTO])
+export const IActionDto = Type.Union([IApiActionDto, ICodeActionDto])
 
-export type IActionDTO = Static<typeof IActionDTO>
+export type IActionDto = Static<typeof IActionDto>
 
 export const IAction = Type.Union([IApiAction, ICodeAction], {
   discriminantKey: '__typename',

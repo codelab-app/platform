@@ -6,18 +6,17 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/abstract/domain/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-abstract-domain.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/abstract/domain/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

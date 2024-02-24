@@ -222,9 +222,6 @@
     "icon": "Badge",
     "id": "f9c8570f-f3f1-4b79-8b26-2de0f5fa6d76",
     "name": "AntDesignBadge",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

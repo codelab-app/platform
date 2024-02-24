@@ -102,7 +102,7 @@ const elements: Array<ElementData> = [
 ]
 
 describe('Testing the Form atom', () => {
-  let app: IAppDTO
+  let app: IAppDto
   let apiPostActionId: string
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
@@ -114,7 +114,7 @@ describe('Testing the Form atom', () => {
 
   before(() => {
     loginAndSetupData()
-    cy.postApiRequest<IAppDTO>('/app/seed-cypress-app').then((apps) => {
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
   })

@@ -1,12 +1,12 @@
 import type {
-  IElementDTO,
+  IElementDto,
   IElementRenderTypeDto,
-  IPropDTO,
+  IPropDto,
   IRef,
 } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
-export class Element implements IElementDTO {
+export class Element implements IElementDto {
   childMapperComponent?: IRef | null | undefined
 
   childMapperPreviousSibling?: IRef | null | undefined
@@ -35,7 +35,7 @@ export class Element implements IElementDTO {
 
   prevSibling?: IRef | null | undefined
 
-  props: IPropDTO
+  props: IPropDto
 
   renderForEachPropKey?: Nullable<string> | undefined
 
@@ -51,7 +51,7 @@ export class Element implements IElementDTO {
     name,
     props,
     renderType,
-  }: IElementDTO) {
+  }: IElementDto) {
     this.id = id
     this.props = props
     this.closestContainerNode = closestContainerNode

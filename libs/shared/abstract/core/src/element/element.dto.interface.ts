@@ -2,10 +2,10 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
-import { IProp, IPropDTO } from '../prop.dto.interface'
+import { IProp, IPropDto } from '../prop/prop.dto.interface'
 import { IElementRenderTypeDto } from './element-render-type'
 
-export const IElementDTO = Type.Object({
+export const IElementDto = Type.Object({
   childMapperComponent: Typebox.Nullish(IRef),
   childMapperPreviousSibling: Typebox.Nullish(IRef),
   childMapperPropKey: Typebox.Nullish(Type.String()),
@@ -25,7 +25,7 @@ export const IElementDTO = Type.Object({
   preRenderAction: Typebox.Nullish(IRef),
   prevSibling: Typebox.Nullish(IRef),
   // Treat element as aggregate, so we include prop data here
-  props: IPropDTO,
+  props: IPropDto,
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
   renderType: IElementRenderTypeDto,
@@ -33,10 +33,10 @@ export const IElementDTO = Type.Object({
   tailwindClassNames: Typebox.Nullish(Type.Array(Type.String())),
 })
 
-export type IElementDTO = Static<typeof IElementDTO>
+export type IElementDto = Static<typeof IElementDto>
 
 export const IElement = Typebox.Overwrite(
-  IElementDTO,
+  IElementDto,
   Type.Object({
     props: IProp,
   }),
@@ -44,8 +44,8 @@ export const IElement = Typebox.Overwrite(
 
 export type IElement = Static<typeof IElement>
 
-export const ICreateElementDTO = Type.Composite([
-  IElementDTO,
+export const ICreateElementDto = Type.Composite([
+  IElementDto,
   Type.Object({
     /**
      * Used for composite key
@@ -54,4 +54,4 @@ export const ICreateElementDTO = Type.Composite([
   }),
 ])
 
-export type ICreateElementDTO = Static<typeof ICreateElementDTO>
+export type ICreateElementDto = Static<typeof ICreateElementDto>

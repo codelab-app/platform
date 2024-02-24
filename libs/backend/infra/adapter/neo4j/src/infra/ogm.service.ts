@@ -134,16 +134,16 @@ export class OgmService {
     return (this.reactNodeType ??= this.ogm.model('ReactNodeType'))
   }
 
+  get Redirect() {
+    return (this.redirect ??= this.ogm.model('Redirect'))
+  }
+
   get RenderPropType() {
     return (this.renderPropType ??= this.ogm.model('RenderPropType'))
   }
 
   get Resource() {
     return (this.resource ??= this.ogm.model('Resource'))
-  }
-
-  get Redirect() {
-    return (this.redirect ??= this.ogm.model('Redirect'))
   }
 
   get Store() {
@@ -211,6 +211,8 @@ export class OgmService {
 
   private atom: AtomModel | undefined
 
+  private authGuard: AuthGuardModel | undefined
+
   private codeAction: CodeActionModel | undefined
 
   private codeMirrorType: CodeMirrorTypeModel | undefined
@@ -243,13 +245,11 @@ export class OgmService {
 
   private reactNodeType: ReactNodeTypeModel | undefined
 
+  private redirect: RedirectModel | undefined
+
   private renderPropType: RenderPropTypeModel | undefined
 
   private resource: ResourceModel | undefined
-
-  private redirect: RedirectModel | undefined
-
-  private authGuard: AuthGuardModel | undefined
 
   private store: StoreModel | undefined
 

@@ -1,14 +1,14 @@
 import type { IRedirectDomainService } from '@codelab/frontend/abstract/domain'
 import {
-  type IRedirectDTO,
+  type IRedirectDto,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 export const redirectFactory =
   (redirectDomainService: IRedirectDomainService) =>
-  (dto: Partial<IRedirectDTO>) => {
-    const redirect: IRedirectDTO = {
+  (dto: Partial<IRedirectDto>) => {
+    const redirect: IRedirectDto = {
       authGuard: dto.authGuard ?? { id: v4() },
       id: dto.id ?? v4(),
       source: dto.source ?? { id: v4() },

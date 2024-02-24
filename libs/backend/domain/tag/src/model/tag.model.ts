@@ -1,6 +1,6 @@
-import type { IRef, ITagDTO } from '@codelab/shared/abstract/core'
+import type { IRef, ITagDto } from '@codelab/shared/abstract/core'
 
-export class Tag implements ITagDTO {
+export class Tag implements ITagDto {
   children: Array<IRef>
 
   descendants: Array<IRef>
@@ -17,7 +17,7 @@ export class Tag implements ITagDTO {
     id,
     name,
     parent = null,
-  }: ITagDTO) {
+  }: ITagDto) {
     this.id = id
     this.name = name
     this.children = children

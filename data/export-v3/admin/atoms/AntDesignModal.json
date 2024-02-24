@@ -171,9 +171,6 @@
     "icon": "Modal",
     "id": "6fb3bee2-868f-4366-aed7-2f3fa7170bc6",
     "name": "AntDesignModal",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

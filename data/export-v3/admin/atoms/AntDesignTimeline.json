@@ -132,9 +132,6 @@
     "icon": "Timeline",
     "id": "4abaeca6-f8bd-4cf2-b92e-44b4c8d2dd59",
     "name": "AntDesignTimeline",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

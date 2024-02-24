@@ -26,9 +26,6 @@
     "icon": "Switch",
     "id": "e16d7e37-2fae-4b04-9644-3c8a62dd14e8",
     "name": "AntDesignSwitch",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

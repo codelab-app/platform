@@ -7,7 +7,7 @@ import type {
   TagCreateInput,
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
@@ -26,7 +26,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ children, descendants, id, isRoot, name }: ITagDTO) => {
+const create = ({ children, descendants, id, isRoot, name }: ITagDto) => {
   return new Tag({
     children: children?.map((child) => tagRef(child.id)),
     descendants: descendants?.map((descendant) => tagRef(descendant.id)),
@@ -82,7 +82,7 @@ export class Tag
   }
 
   @modelAction
-  writeCache({ children, descendants, isRoot, name }: Partial<ITagDTO>) {
+  writeCache({ children, descendants, isRoot, name }: Partial<ITagDto>) {
     this.name = name ?? this.name
     this.children = children?.map((child) => tagRef(child.id)) ?? this.children
     this.descendants =

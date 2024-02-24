@@ -221,9 +221,6 @@
     "icon": null,
     "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
     "name": "HtmlScript",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

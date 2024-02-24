@@ -12,18 +12,17 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/application/shared/auth/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-application-shared-auth.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/application/shared/auth/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   }

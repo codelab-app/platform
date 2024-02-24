@@ -26,9 +26,6 @@
     "icon": "Form",
     "id": "e59baa76-afa2-4c72-ac2b-a1f39b7c3b32",
     "name": "AntDesignFormProvider",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -26,9 +26,6 @@
     "icon": null,
     "id": "98546e52-bced-4d60-b535-da434eb6c261",
     "name": "HtmlNav",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

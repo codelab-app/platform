@@ -1,12 +1,12 @@
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { IAction, IActionDTO } from '../action'
+import { IAction, IActionDto } from '../action'
 import { IRef } from '../model/node-type.interface'
 import { IInterfaceTypeRef } from '../type'
 
-export const IStoreDTO = Type.Object({
-  actions: Type.Optional(Type.Array(IActionDTO)),
+export const IStoreDto = Type.Object({
+  actions: Type.Optional(Type.Array(IActionDto)),
   api: IRef,
   component: Typebox.Nullish(IRef),
   id: Type.String(),
@@ -15,10 +15,10 @@ export const IStoreDTO = Type.Object({
   source: Typebox.Nullish(IRef),
 })
 
-export type IStoreDTO = Static<typeof IStoreDTO>
+export type IStoreDto = Static<typeof IStoreDto>
 
 export const IStore = Typebox.Overwrite(
-  IStoreDTO,
+  IStoreDto,
   Type.Object({
     actions: Type.Array(IAction),
     api: IInterfaceTypeRef,

@@ -59,9 +59,6 @@
     "icon": null,
     "id": "be49c8f9-7cd3-4c32-9e28-f80d63fc1a24",
     "name": "HtmlParam",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

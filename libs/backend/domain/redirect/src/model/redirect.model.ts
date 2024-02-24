@@ -1,7 +1,7 @@
 import { IModel } from '@codelab/backend/abstract/types'
 import type {
   IRedirect,
-  IRedirectDTO,
+  IRedirectDto,
   IRedirectTargetType,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -27,7 +27,7 @@ export class Redirect extends IModel implements IRedirect {
     targetPage,
     targetType,
     targetUrl,
-  }: IRedirectDTO) {
+  }: IRedirectDto) {
     super()
 
     this.id = id

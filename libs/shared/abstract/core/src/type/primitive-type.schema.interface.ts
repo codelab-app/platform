@@ -1,10 +1,10 @@
 import type { JSONSchemaType } from 'ajv'
-import { IPrimitiveTypeKind } from '../primitive-type.enum'
-import { ITypeKind } from '../type-kind.enum'
 import { baseTypeSchema } from './base-type.schema.interface'
-import type { IPrimitiveTypeDTO } from './primitive-type.dto.interface'
+import type { IPrimitiveTypeDto } from './primitive-type.dto.interface'
+import { IPrimitiveTypeKind } from './primitive-type.enum'
+import { ITypeKind } from './type-kind.enum'
 
-export const primitiveTypeSchema: JSONSchemaType<IPrimitiveTypeDTO> =
+export const primitiveTypeSchema: JSONSchemaType<IPrimitiveTypeDto> =
   baseTypeSchema(ITypeKind.PrimitiveType)
 
 /**

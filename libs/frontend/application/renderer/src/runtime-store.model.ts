@@ -41,40 +41,30 @@ export class RuntimeStoreModel
 {
   static create = create
 
-  private cachedState: Nullable<object> = null
-
-  private cachedStateDefaultValues: Nullable<object> = null
-
-  refs = observable.object<IPropData>({})
+  @computed
+  get jsonString() {
+    return propSafeStringify({
+      refs: this.refs,
+      state: this.state,
+    })
+  }
 
   @computed
-  get renderService() {
-    return getRendererService(this)
+  get refKeys(): Array<string> {
+    const elementTree =
+      this.store.current.page?.maybeCurrent ||
+      this.store.current.component?.maybeCurrent
+
+    const elements = elementTree?.elements || []
+
+    return elements
+      .filter((element) => isAtomRef(element.renderType))
+      .map(({ slug }) => slug)
   }
 
   @computed
   get renderer() {
     return this.renderService.activeRenderer?.current
-  }
-
-  @computed
-  get state() {
-    // cachedState is for persisting state when navigating between pages
-    // cachedStateDefaultValues is for checking if the default values have changed or new variables have been added
-    if (
-      !this.cachedState ||
-      !isEqual(
-        this.cachedStateDefaultValues,
-        this.store.current.api.current.defaultValues,
-      )
-    ) {
-      const defaultValues = this.store.current.api.current.defaultValues
-
-      this.cachedState = observable(defaultValues)
-      this.cachedStateDefaultValues = cloneDeep(defaultValues)
-    }
-
-    return this.cachedState
   }
 
   @computed
@@ -99,41 +89,33 @@ export class RuntimeStoreModel
     })
   }
 
-  @modelAction
-  runtimeAction(action: IRef) {
-    const foundAction = this.runtimeActionsList.find(
-      (runtimeAction) => runtimeAction.action.id === action.id,
-    )
+  @computed
+  get state() {
+    // cachedState is for persisting state when navigating between pages
+    // cachedStateDefaultValues is for checking if the default values have changed or new variables have been added
+    if (
+      !this.cachedState ||
+      !isEqual(
+        this.cachedStateDefaultValues,
+        this.store.current.api.current.defaultValues,
+      )
+    ) {
+      const defaultValues = this.store.current.api.current.defaultValues
 
-    return (
-      foundAction || this.runtimeProviderStore?.current.runtimeAction(action)
-    )
+      this.cachedState = observable(defaultValues)
+      this.cachedStateDefaultValues = cloneDeep(defaultValues)
+    }
+
+    return this.cachedState
   }
 
-  @computed
-  get jsonString() {
-    return propSafeStringify({
-      refs: this.refs,
-      state: this.state,
+  refs = observable.object<IPropData>({})
+
+  @modelAction
+  createEmptyRefs(refKeys: Array<string>) {
+    refKeys.forEach((key: string) => {
+      this.registerRef(key, null)
     })
-  }
-
-  @computed
-  get refKeys(): Array<string> {
-    const elementTree =
-      this.store.current.page?.maybeCurrent ||
-      this.store.current.component?.maybeCurrent
-
-    const elements = elementTree?.elements || []
-
-    return elements
-      .filter((element) => isAtomRef(element.renderType))
-      .map(({ slug }) => slug)
-  }
-
-  @modelAction
-  registerRef(key: string, current: Nullable<HTMLElement>) {
-    set(this.refs, { [key]: { current } })
   }
 
   @modelAction
@@ -147,9 +129,27 @@ export class RuntimeStoreModel
   }
 
   @modelAction
-  createEmptyRefs(refKeys: Array<string>) {
-    refKeys.forEach((key: string) => {
-      this.registerRef(key, null)
-    })
+  registerRef(key: string, current: Nullable<HTMLElement>) {
+    set(this.refs, { [key]: { current } })
+  }
+
+  @modelAction
+  runtimeAction(action: IRef) {
+    const foundAction = this.runtimeActionsList.find(
+      (runtimeAction) => runtimeAction.action.id === action.id,
+    )
+
+    return (
+      foundAction || this.runtimeProviderStore?.current.runtimeAction(action)
+    )
+  }
+
+  private cachedState: Nullable<object> = null
+
+  private cachedStateDefaultValues: Nullable<object> = null
+
+  @computed
+  private get renderService() {
+    return getRendererService(this)
   }
 }

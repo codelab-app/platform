@@ -123,9 +123,6 @@
     "icon": null,
     "id": "25c95359-b9fa-487b-8840-4edaafc24f75",
     "name": "HtmlSvg",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

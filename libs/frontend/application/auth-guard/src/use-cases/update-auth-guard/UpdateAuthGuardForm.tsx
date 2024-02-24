@@ -27,8 +27,8 @@ export const UpdateAuthGuardForm = observer(() => {
     responseTransformer: authGuard?.responseTransformer,
   }
 
-  const onSubmit = (authGuardDTO: IUpdateAuthGuardData) => {
-    void authGuardService.update(authGuardDTO)
+  const onSubmit = (authGuardDto: IUpdateAuthGuardData) => {
+    void authGuardService.update(authGuardDto)
 
     return Promise.resolve()
   }

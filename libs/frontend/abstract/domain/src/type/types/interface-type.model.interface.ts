@@ -3,7 +3,7 @@ import type {
   UpdateInterfaceTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IInterfaceTypeDTO,
+  IInterfaceTypeDto,
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -18,7 +18,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IInterfaceTypeModel
   extends IBaseTypeModel<
-    IInterfaceTypeDTO,
+    IInterfaceTypeDto,
     InterfaceTypeCreateInput,
     UpdateInterfaceTypesMutationVariables
   > {

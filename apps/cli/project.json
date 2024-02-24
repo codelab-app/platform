@@ -15,7 +15,6 @@
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
         "assets": ["apps/cli/src/assets"],
-        "isolatedConfig": true,
         "webpackConfig": "apps/cli/webpack.config.js"
       },
       "configurations": {
@@ -41,16 +40,15 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/cli/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/cli.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["apps/cli/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     },
     "test": {
@@ -58,7 +56,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/cli/jest.config.ts",
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       }
     },
     "test:integration": {
@@ -66,7 +65,8 @@
       "options": {
         "memoryLimit": 8192,
         "color": true,
-        "testPathPattern": ["[i].spec.ts"],
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
         "jestConfig": "apps/cli/jest.config.ts"
       },
       "configurations": {
@@ -89,7 +89,7 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
+        "testPathIgnorePatterns": ["i.spec.ts"],
         "jestConfig": "apps/cli/jest.config.ts"
       },
       "configurations": {
@@ -98,7 +98,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]

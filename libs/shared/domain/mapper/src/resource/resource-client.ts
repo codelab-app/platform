@@ -23,8 +23,6 @@ export class ResourceGraphQlClient implements IResourceClient {
     })
   }
 
-  private client: GraphQLClient
-
   fetch(config: IGraphQLFetchConfigData): Promise<IResourceFetchResponse> {
     const headers = merge(tryParse(config.headers))
     const variables = merge(tryParse(config.variables))
@@ -46,6 +44,8 @@ export class ResourceGraphQlClient implements IResourceClient {
         return { error }
       })
   }
+
+  private client: GraphQLClient
 }
 
 export class ResourceRestClient implements IResourceClient {
@@ -54,8 +54,6 @@ export class ResourceRestClient implements IResourceClient {
 
     this.client = axios.create({ baseURL: url, headers: tryParse(headers) })
   }
-
-  private client: Axios
 
   fetch(config: IRestFetchConfigData): Promise<IResourceFetchResponse> {
     const data = merge(tryParse(config.body))
@@ -98,6 +96,8 @@ export class ResourceRestClient implements IResourceClient {
         return { error: error.message }
       })
   }
+
+  private client: Axios
 }
 
 export const getResourceClient = (

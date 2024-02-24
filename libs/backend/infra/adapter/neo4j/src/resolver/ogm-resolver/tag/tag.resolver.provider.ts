@@ -23,7 +23,7 @@ export const TagResolverProvider: FactoryProvider<
         return (
           await Promise.all(
             records[0]?.get(0).map(async (descendant: Node) => {
-              const id = descendant.properties.id
+              const id = descendant.properties['id']
 
               const tag = await ogmService.Tag.find({
                 selectionSet: `{ ${tagSelectionSet} }`,

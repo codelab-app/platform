@@ -1,7 +1,7 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { ICreateTypeDto } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -16,7 +16,7 @@ export const CreateTypeModal = observer(() => {
   const isOpen = typeService.createModal.isOpen
   const closeModal = () => typeService.createModal.close()
 
-  const onSubmit = async (data: ICreateTypeData) => {
+  const onSubmit = async (data: ICreateTypeDto) => {
     const input = {
       ...data,
       allowedValues: data.allowedValues?.map((val) => ({
@@ -36,7 +36,7 @@ export const CreateTypeModal = observer(() => {
       open={isOpen}
       title={<span className="font-semibold">Create type</span>}
     >
-      <ModalForm.Form<ICreateTypeData>
+      <ModalForm.Form<ICreateTypeDto>
         model={{
           id: v4(),
         }}

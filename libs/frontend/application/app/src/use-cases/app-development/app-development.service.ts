@@ -208,13 +208,13 @@ export class AppDevelopmentService
   }
 
   @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
+  private get atomDomainService() {
+    return getAtomDomainService(this)
   }
 
   @computed
-  private get atomDomainService() {
-    return getAtomDomainService(this)
+  private get authGuardDomainService() {
+    return getAuthGuardDomainService(this)
   }
 
   @computed
@@ -233,13 +233,8 @@ export class AppDevelopmentService
   }
 
   @computed
-  private get storeDomainService() {
-    return getStoreDomainService(this)
-  }
-
-  @computed
-  private get typeDomainService() {
-    return getTypeDomainService(this)
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 
   @computed
@@ -248,12 +243,17 @@ export class AppDevelopmentService
   }
 
   @computed
-  private get authGuardDomainService() {
-    return getAuthGuardDomainService(this)
+  private get resourceDomainService() {
+    return getResourceDomainService(this)
   }
 
   @computed
-  private get resourceDomainService() {
-    return getResourceDomainService(this)
+  private get storeDomainService() {
+    return getStoreDomainService(this)
+  }
+
+  @computed
+  private get typeDomainService() {
+    return getTypeDomainService(this)
   }
 }

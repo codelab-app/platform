@@ -123,9 +123,6 @@
     "icon": "Steps",
     "id": "534b5f3e-a726-457c-b27c-b353bf88b1a3",
     "name": "AntDesignStepsStep",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

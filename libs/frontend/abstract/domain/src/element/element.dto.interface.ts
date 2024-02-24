@@ -1,8 +1,8 @@
-import { IElementDTO } from '@codelab/shared/abstract/core'
+import { IElementDto } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
-export const IUpdateElementData = Type.Pick(IElementDTO, [
+export const IUpdateElementData = Type.Pick(IElementDto, [
   'childMapperComponent',
   'childMapperPreviousSibling',
   'childMapperPropKey',

@@ -16,7 +16,6 @@ import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPageService } from '@codelab/frontend/application/page'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { getStoreService } from '@codelab/frontend/application/store'
-import { client } from '@codelab/frontend/infra/graphql'
 import type { AtomProductionFragment } from '@codelab/shared/abstract/codegen'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
@@ -143,11 +142,6 @@ export class AppProductionService
   }
 
   @computed
-  private get pageDomainService() {
-    return getPageDomainService(this)
-  }
-
-  @computed
   private get atomService() {
     return getAtomService(this)
   }
@@ -160,6 +154,11 @@ export class AppProductionService
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  private get pageDomainService() {
+    return getPageDomainService(this)
   }
 
   @computed

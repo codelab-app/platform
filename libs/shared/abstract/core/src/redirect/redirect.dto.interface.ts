@@ -4,7 +4,7 @@ import { Type } from '@sinclair/typebox'
 import { IRef } from '../model/node-type.interface'
 import { IRedirectTargetType } from './redirect-target-type.enum'
 
-export const IRedirectDTO = Type.Object({
+export const IRedirectDto = Type.Object({
   authGuard: IRef,
   id: Type.String(),
   source: IRef,
@@ -13,9 +13,9 @@ export const IRedirectDTO = Type.Object({
   targetUrl: Typebox.Nullish(Type.String()),
 })
 
-export type IRedirectDTO = Static<typeof IRedirectDTO>
+export type IRedirectDto = Static<typeof IRedirectDto>
 
-export const IRedirect = IRedirectDTO
+export const IRedirect = IRedirectDto
 
 export type IRedirect = Static<typeof IRedirect>
 

@@ -1,9 +1,9 @@
 import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import path from 'path'
 
 describe.skip('Admin', () => {
-  let user: IUserDTO
+  let user: IUserDto
 
   before(() => {
     loginAndSetupData()

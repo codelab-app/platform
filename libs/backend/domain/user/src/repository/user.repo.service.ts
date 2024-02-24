@@ -10,12 +10,12 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDto } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserRepository extends AbstractRepository<
-  IUserDTO,
+  IUserDto,
   User,
   UserWhere,
   UserOptions
@@ -28,7 +28,7 @@ export class UserRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(users: Array<IUserDTO>) {
+  protected async _addMany(users: Array<IUserDto>) {
     return (
       await (
         await this.ogmService.User
@@ -61,7 +61,7 @@ export class UserRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { apps, auth0Id, email, id, roles, username }: IUserDTO,
+    { apps, auth0Id, email, id, roles, username }: IUserDto,
     where: UserWhere,
   ) {
     return (

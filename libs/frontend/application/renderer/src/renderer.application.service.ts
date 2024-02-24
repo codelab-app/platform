@@ -41,6 +41,10 @@ export class RendererApplicationService
   })
   implements IRendererService
 {
+  get activeElementTree() {
+    return this.activeRenderer?.current.containerNode.current
+  }
+
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(rendererDto.id)
@@ -73,18 +77,8 @@ export class RendererApplicationService
     return renderer
   }
 
-  get activeElementTree() {
-    return this.activeRenderer?.current.containerNode.current
-  }
-
-  /**
-   * This is the entry point to start the rendering process
-   */
-  renderRoot(renderer: IRendererModel) {
-    return renderer.render
-  }
-
-  runtimeElement(element: IElementModel) {
+  @modelAction
+  runtimeStore(store: IStoreModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
     return rootNode
@@ -92,13 +86,20 @@ export class RendererApplicationService
           rootNode,
           (child) =>
             isModel(child) &&
-            isRuntimeElement(child) &&
-            element.id === child.element.id
+            isRuntimeStore(child) &&
+            store.id === child.store.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,
         )
       : undefined
+  }
+
+  /**
+   * This is the entry point to start the rendering process
+   */
+  renderRoot(renderer: IRendererModel) {
+    return renderer.render
   }
 
   runtimeContainerNode(containerNode: IComponentModel | IPageModel) {
@@ -118,8 +119,7 @@ export class RendererApplicationService
       : undefined
   }
 
-  @modelAction
-  runtimeStore(store: IStoreModel) {
+  runtimeElement(element: IElementModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
     return rootNode
@@ -127,8 +127,8 @@ export class RendererApplicationService
           rootNode,
           (child) =>
             isModel(child) &&
-            isRuntimeStore(child) &&
-            store.id === child.store.id
+            isRuntimeElement(child) &&
+            element.id === child.element.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,

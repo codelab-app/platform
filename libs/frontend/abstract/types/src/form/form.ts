@@ -21,10 +21,6 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     'data-testid'?: string
 
     cssString?: string
-    /**
-     * Don't use `DeepPartial` even Uniform uses it
-     */
-    onSubmit(model: TData): Promise<TResponse | void>
 
     /**
      * Called after a failed submit, the input is unknown error
@@ -45,6 +41,11 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      *  Pass either schema or bridge
      */
     schema: Bridge | JSONSchemaType<TData> | TSchema
+
+    /**
+     * Don't use `DeepPartial` even Uniform uses it
+     */
+    onSubmit(model: TData): Promise<TResponse | void>
   }
 
 // form Controller props

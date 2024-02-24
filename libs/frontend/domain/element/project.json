@@ -23,8 +23,7 @@
         "lintFilePatterns": [
           "libs/frontend/domain/element/**/*.{ts,tsx,js,jsx,graphql}"
         ]
-      },
-      "outputs": ["{options.outputFile}"]
+      }
     },
     "test": {
       "configurations": {
@@ -53,10 +52,9 @@
       "options": {
         "memoryLimit": 8192,
         "color": true,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/frontend/domain/element/jest.config.ts",
-        "parallel": 3,
-        "runInBand": true
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
+        "jestConfig": "libs/frontend/domain/element/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -78,9 +76,8 @@
         "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/frontend/domain/element/jest.config.ts",
-        "runInBand": true
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/frontend/domain/element/jest.config.ts"
       },
       "configurations": {
         "dev": {
@@ -88,7 +85,8 @@
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]

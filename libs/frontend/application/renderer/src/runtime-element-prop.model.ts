@@ -44,44 +44,13 @@ export class RuntimeElementPropsModel
   static create = create
 
   @computed
-  get element() {
-    return this.runtimeElement.current.element.current
-  }
-
-  @computed
   get closestRuntimeContainerNode() {
     return this.runtimeElement.current.closestContainerNode.current
   }
 
   @computed
-  get runtimeStore() {
-    return this.closestRuntimeContainerNode.runtimeStore
-  }
-
-  @computed
-  get providerStore() {
-    return this.runtimeStore.runtimeProviderStore?.current
-  }
-
-  @computed
-  private get rendererService() {
-    return getRendererService(this)
-  }
-
-  @computed
-  get renderer() {
-    const activeRenderer = this.rendererService.activeRenderer?.current
-
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
-    }
-
-    return activeRenderer
-  }
-
-  @computed
-  get urlProps(): IPropData | undefined {
-    return this.renderer.urlSegments
+  get element() {
+    return this.runtimeElement.current.element.current
   }
 
   @computed
@@ -119,6 +88,62 @@ export class RuntimeElementPropsModel
     return evaluatedChildMapperProps
   }
 
+  @computed
+  get evaluatedProps() {
+    return this.expressionEvaluationContext.props
+  }
+
+  @computed
+  get expressionEvaluationContext(): IEvaluationContext {
+    const { componentRuntimeProp } = this.closestRuntimeContainerNode
+
+    const componentProps = componentRuntimeProp
+      ? componentRuntimeProp.componentEvaluatedProps
+      : {}
+
+    return this.addAndBind({
+      actions: {},
+      args: [],
+      componentProps,
+      // pass empty object because props can't evaluated by itself
+      props: {},
+      refs: this.runtimeStore.refs,
+      rootActions: {},
+      rootRefs: this.providerStore?.refs ?? {},
+      rootState: this.providerStore?.state ?? {},
+      state: this.runtimeStore.state,
+      urlProps: this.urlProps ?? {},
+    })
+  }
+
+  @computed
+  get props() {
+    // memorize values or else it will be lost inside callback
+    const registerReference = isAtomRef(this.element.renderType)
+    const slug = this.element.slug
+    const store = this.runtimeStore
+    const renderType = this.element.renderType.current
+    const defaultProps = renderType.api.current.defaultValues
+    const props = mergeProps(defaultProps, this.element.props.values)
+
+    return {
+      ...props,
+      /**
+       * Internal system props for meta data, use double underline for system-defined identifiers.
+       */
+      [DATA_ELEMENT_ID]: this.element.id,
+      key: this.element.id,
+      ref: registerReference
+        ? (node: HTMLElement) => store.registerRef(slug, node)
+        : undefined,
+    }
+  }
+
+  @computed
+  get providerStore() {
+    return this.runtimeStore.runtimeProviderStore?.current
+  }
+
   /**
    * Applies all the type transformers to the props
    */
@@ -144,8 +169,52 @@ export class RuntimeElementPropsModel
   }
 
   @computed
-  get evaluatedProps() {
-    return this.expressionEvaluationContext.props
+  get renderer() {
+    const activeRenderer = this.rendererService.activeRenderer?.current
+
+    if (!activeRenderer) {
+      throw new Error('No active Renderer was found')
+    }
+
+    return activeRenderer
+  }
+
+  @computed
+  get runtimeStore() {
+    return this.closestRuntimeContainerNode.runtimeStore
+  }
+
+  @computed
+  get urlProps(): IPropData | undefined {
+    return this.renderer.urlSegments
+  }
+
+  @modelAction
+  getActionRunner(actionName: string) {
+    return (
+      this.expressionEvaluationContext.actions[actionName] ??
+      this.expressionEvaluationContext.rootActions[actionName] ??
+      (() => console.log(`No Runner found for ${actionName} `))
+    )
+  }
+
+  addAndBind(context: IEvaluationContext) {
+    context['actions'] = this.transformRuntimeActions(
+      this.runtimeStore.runtimeActionsList,
+      context,
+    )
+
+    if (this.providerStore) {
+      // If a root action is called in a regular page, the `state` should be from the provider's page store
+      context['rootActions'] = this.transformRuntimeActions(
+        this.providerStore.runtimeActionsList,
+        merge(context, { state: context.rootState }),
+      )
+    }
+
+    context['props'] = this.evaluateProps(context)
+
+    return context
   }
 
   evaluateProps(context: IEvaluationContext) {
@@ -175,77 +244,8 @@ export class RuntimeElementPropsModel
       .reduce(merge, {})
   }
 
-  addAndBind(context: IEvaluationContext) {
-    context['actions'] = this.transformRuntimeActions(
-      this.runtimeStore.runtimeActionsList,
-      context,
-    )
-
-    if (this.providerStore) {
-      // If a root action is called in a regular page, the `state` should be from the provider's page store
-      context['rootActions'] = this.transformRuntimeActions(
-        this.providerStore.runtimeActionsList,
-        merge(context, { state: context.rootState }),
-      )
-    }
-
-    context['props'] = this.evaluateProps(context)
-
-    return context
-  }
-
-  @modelAction
-  getActionRunner(actionName: string) {
-    return (
-      this.expressionEvaluationContext.actions[actionName] ??
-      this.expressionEvaluationContext.rootActions[actionName] ??
-      (() => console.log(`No Runner found for ${actionName} `))
-    )
-  }
-
   @computed
-  get props() {
-    // memorize values or else it will be lost inside callback
-    const registerReference = isAtomRef(this.element.renderType)
-    const slug = this.element.slug
-    const store = this.runtimeStore
-    const renderType = this.element.renderType.current
-    const defaultProps = renderType.api.current.defaultValues
-    const props = mergeProps(defaultProps, this.element.props.values)
-
-    return {
-      ...props,
-      /**
-       * Internal system props for meta data, use double underline for system-defined identifiers.
-       */
-      [DATA_ELEMENT_ID]: this.element.id,
-      key: this.element.id,
-      ref: registerReference
-        ? (node: HTMLElement) => store.registerRef(slug, node)
-        : undefined,
-    }
-  }
-
-  @computed
-  get expressionEvaluationContext(): IEvaluationContext {
-    const { componentRuntimeProp } = this.closestRuntimeContainerNode
-
-    const componentProps = componentRuntimeProp
-      ? componentRuntimeProp.componentEvaluatedProps
-      : {}
-
-    return this.addAndBind({
-      actions: {},
-      args: [],
-      componentProps,
-      // pass empty object because props can't evaluated by itself
-      props: {},
-      refs: this.runtimeStore.refs,
-      rootActions: {},
-      rootRefs: this.providerStore?.refs ?? {},
-      rootState: this.providerStore?.state ?? {},
-      state: this.runtimeStore.state,
-      urlProps: this.urlProps ?? {},
-    })
+  private get rendererService() {
+    return getRendererService(this)
   }
 }

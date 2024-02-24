@@ -10,7 +10,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
-import { IFieldDTO } from '@codelab/shared/abstract/core'
+import { IFieldDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import isNil from 'lodash/isNil'
@@ -29,7 +29,7 @@ const create = ({
   nextSibling,
   prevSibling,
   validationRules,
-}: IFieldDTO) => {
+}: IFieldDto) => {
   let parsedDefaultValues = defaultValues
 
   try {
@@ -91,7 +91,7 @@ export class Field
   }
 
   @modelAction
-  add(fragment: IFieldDTO) {
+  add(fragment: IFieldDto) {
     this.id = fragment.id
     this.name = fragment.name
     this.description = fragment.description
@@ -160,7 +160,7 @@ export class Field
     nextSibling,
     prevSibling,
     validationRules,
-  }: Partial<IFieldDTO>) {
+  }: Partial<IFieldDto>) {
     this.id = id ?? this.id
     this.name = name ?? this.name
     this.description = description ?? this.description

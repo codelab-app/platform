@@ -17,7 +17,8 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/frontend/application/auth-guard',
+  coverageDirectory:
+    '../../../../coverage/libs/frontend/application/auth-guard',
   reporters: [
     'default',
     [

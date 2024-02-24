@@ -5,9 +5,8 @@
 # nx cache seems to grow in size if we don't resize, goes to 20G sometimes
 # Go through each directory that has possibly large cache
 DIRS=(
-  ~/project/node_modules/.cache/nx
+  ~/project/.nx/cache
   ~/project/dist/apps/platform/.next
-  ~/project/dist/apps/platform-api/.next
   ~/project/dist/apps/landing/.next
   ~/project/dist/apps/websites/.next
 )

@@ -11,13 +11,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
+import type { IActionTypeDto } from '@codelab/shared/abstract/core'
 import { connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ActionTypeRepository extends AbstractRepository<
-  IActionTypeDTO,
+  IActionTypeDto,
   ActionType,
   ActionTypeWhere,
   ActionTypeOptions
@@ -47,7 +47,7 @@ export class ActionTypeRepository extends AbstractRepository<
     })
   }
 
-  protected async _add(actionTypes: Array<IActionTypeDTO>) {
+  protected async _addMany(actionTypes: Array<IActionTypeDto>) {
     return (
       await (
         await this.ogmService.ActionType
@@ -61,7 +61,7 @@ export class ActionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, name, ...actionType }: IActionTypeDTO,
+    { __typename, id, name, ...actionType }: IActionTypeDto,
     where: ActionTypeWhere,
   ) {
     return (

@@ -43,9 +43,6 @@
     "icon": null,
     "id": "a8f1d48b-1a82-4178-9ae9-1cc213d7d905",
     "name": "HtmlLi",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -69,6 +69,11 @@ export const createRootDomainStore = ({
           this,
           this.resourceDomainService,
         )
+      this.redirectDomainService &&
+        context.redirectDomainServiceContext?.set(
+          this,
+          this.redirectDomainService,
+        )
       this.elementDomainService &&
         context.elementDomainServiceContext?.set(
           this,

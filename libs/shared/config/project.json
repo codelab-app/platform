@@ -6,16 +6,15 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/shared/config/**/*.{ts,tsx,js,jsx,graphql}"]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/shared-config.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": ["libs/shared/config/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

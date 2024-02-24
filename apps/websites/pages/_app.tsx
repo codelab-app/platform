@@ -11,7 +11,6 @@ import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
-import { Analytics } from '@vercel/analytics/react'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
 import { v4 } from 'uuid'
@@ -48,7 +47,6 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...pageProps}
       />
-      <Analytics />
     </StoreProvider>
   )
 }

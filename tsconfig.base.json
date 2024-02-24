@@ -45,6 +45,9 @@
       "@codelab/backend/application/atom": [
         "libs/backend/application/atom/src/index.ts"
       ],
+      "@codelab/backend/application/auth-guard": [
+        "libs/backend/application/auth-guard/src/index.ts"
+      ],
       "@codelab/backend/application/component": [
         "libs/backend/application/component/src/index.ts"
       ],
@@ -72,9 +75,6 @@
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
       ],
-      "@codelab/backend/application/auth-guard": [
-        "libs/backend/application/auth-guard/src/index.ts"
-      ],
       "@codelab/backend/application/shared": [
         "libs/backend/application/shared/src/index.ts"
       ],
@@ -99,6 +99,9 @@
       ],
       "@codelab/backend/domain/app": ["libs/backend/domain/app/src/index.ts"],
       "@codelab/backend/domain/atom": ["libs/backend/domain/atom/src/index.ts"],
+      "@codelab/backend/domain/auth-guard": [
+        "libs/backend/domain/auth-guard/src/index.ts"
+      ],
       "@codelab/backend/domain/component": [
         "libs/backend/domain/component/src/index.ts"
       ],
@@ -110,14 +113,11 @@
       ],
       "@codelab/backend/domain/page": ["libs/backend/domain/page/src/index.ts"],
       "@codelab/backend/domain/prop": ["libs/backend/domain/prop/src/index.ts"],
-      "@codelab/backend/domain/resource": [
-        "libs/backend/domain/resource/src/index.ts"
-      ],
       "@codelab/backend/domain/redirect": [
         "libs/backend/domain/redirect/src/index.ts"
       ],
-      "@codelab/backend/domain/auth-guard": [
-        "libs/backend/domain/auth-guard/src/index.ts"
+      "@codelab/backend/domain/resource": [
+        "libs/backend/domain/resource/src/index.ts"
       ],
       "@codelab/backend/domain/shared/auth": [
         "libs/backend/domain/shared/auth/src/index.ts"
@@ -171,6 +171,7 @@
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
+      "@codelab/backend/shared/eval": ["libs/backend/shared/eval/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/eslint-plugin": ["tools/eslint-plugin/src/index.ts"],
@@ -189,11 +190,11 @@
       "@codelab/frontend/application/app": [
         "libs/frontend/application/app/src/index.ts"
       ],
-      "@codelab/frontend/application/auth-guard": [
-        "libs/frontend/application/auth-guard/src/index.ts"
-      ],
       "@codelab/frontend/application/atom": [
         "libs/frontend/application/atom/src/index.ts"
+      ],
+      "@codelab/frontend/application/auth-guard": [
+        "libs/frontend/application/auth-guard/src/index.ts"
       ],
       "@codelab/frontend/application/axios": [
         "libs/frontend/infra/axios/src/index.ts"
@@ -222,21 +223,17 @@
       "@codelab/frontend/application/prop": [
         "libs/frontend/application/prop/src/index.ts"
       ],
-
+      "@codelab/frontend/application/redirect": [
+        "libs/frontend/application/redirect/src/index.ts"
+      ],
       "@codelab/frontend/application/renderer": [
         "libs/frontend/application/renderer/src/index.ts"
       ],
       "@codelab/frontend/application/resource": [
         "libs/frontend/application/resource/src/index.ts"
       ],
-      "@codelab/frontend/application/redirect": [
-        "libs/frontend/application/redirect/src/index.ts"
-      ],
       "@codelab/frontend/application/shared/auth": [
         "libs/frontend/application/shared/auth/src/index.ts"
-      ],
-      "@codelab/frontend/application/shared/core": [
-        "libs/frontend/application/shared/core/src/index.ts"
       ],
       "@codelab/frontend/application/shared/data": [
         "libs/frontend/application/shared/data/src/index.ts"
@@ -296,11 +293,11 @@
       "@codelab/frontend/domain/prop": [
         "libs/frontend/domain/prop/src/index.ts"
       ],
-      "@codelab/frontend/domain/renderer": [
-        "libs/frontend/domain/renderer/src/index.ts"
-      ],
       "@codelab/frontend/domain/redirect": [
         "libs/frontend/domain/redirect/src/index.ts"
+      ],
+      "@codelab/frontend/domain/renderer": [
+        "libs/frontend/domain/renderer/src/index.ts"
       ],
       "@codelab/frontend/domain/resource": [
         "libs/frontend/domain/resource/src/index.ts"
@@ -379,6 +376,7 @@
       "@codelab/shared/domain/mapper": [
         "libs/shared/domain/mapper/src/index.ts"
       ],
+      "@codelab/shared/domain/model": ["libs/shared/domain/model/src/index.ts"],
       "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
       "@codelab/shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"],
       "@codelab/shared/infra/logging": [

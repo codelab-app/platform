@@ -1,6 +1,6 @@
 import {
   type Auth0IdToken,
-  type IUserDTO,
+  type IUserDto,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -27,7 +27,7 @@ export const auth0IdToken: Auth0IdToken = {
 /**
  * We use `mapRequestToUserDto` to create the user dto from the request object
  */
-export const userDto: IUserDTO = {
+export const userDto: IUserDto = {
   auth0Id: v4(),
   email: 'admin@codelab.app',
   id: v4(),

@@ -1,10 +1,10 @@
 import type { IAppTypeModel } from '@codelab/frontend/abstract/domain'
-import type { IAppTypeDTO } from '@codelab/shared/abstract/core'
+import type { IAppTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name }: IAppTypeDTO): AppType => {
+const create = ({ id, kind, name }: IAppTypeDto): AppType => {
   assertIsTypeKind(kind, ITypeKind.AppType)
 
   return new AppType({

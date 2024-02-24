@@ -6,18 +6,17 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/frontend/test/cypress/nextjs-auth0/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
-      },
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-test-cypress-nextjs-auth0.xml",
           "quiet": true
         }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/test/cypress/nextjs-auth0/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       }
     }
   },

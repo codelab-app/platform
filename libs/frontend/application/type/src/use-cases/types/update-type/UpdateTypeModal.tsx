@@ -1,4 +1,4 @@
-import type { IUpdateTypeData } from '@codelab/frontend/abstract/domain'
+import type { IUpdateTypeDto } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -20,7 +20,7 @@ export const UpdateTypeModal = observer(() => {
     typeService.updateModal.type?.id ?? '',
   )
 
-  const handleSubmit = async (submitData: IUpdateTypeData) => {
+  const handleSubmit = async (submitData: IUpdateTypeDto) => {
     const data = {
       ...submitData,
       allowedValues: submitData.allowedValues?.map((val) => ({
@@ -78,7 +78,7 @@ export const UpdateTypeModal = observer(() => {
       open={typeService.updateModal.isOpen}
       title={<span className="font-semibold">Update type</span>}
     >
-      <ModalForm.Form<IUpdateTypeData>
+      <ModalForm.Form<IUpdateTypeDto>
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createFormErrorNotificationHandler({

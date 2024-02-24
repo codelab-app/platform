@@ -13,7 +13,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type {
   ITypeMaybeRef,
-  IUnionTypeDTO,
+  IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
@@ -42,7 +42,7 @@ const getFilteredTypes = (typesOfUnionType: Array<ITypeMaybeRef>) => ({
 
 @Injectable()
 export class UnionTypeRepository extends AbstractRepository<
-  IUnionTypeDTO,
+  IUnionTypeDto,
   UnionType,
   UnionTypeWhere,
   UnionTypeOptions
@@ -56,7 +56,7 @@ export class UnionTypeRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(unionTypes: Array<IUnionTypeDTO>) {
+  protected async _addMany(unionTypes: Array<IUnionTypeDto>) {
     return (
       await (
         await this.ogmService.UnionType
@@ -109,7 +109,7 @@ export class UnionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { id, name, typesOfUnionType }: IUnionTypeDTO,
+    { id, name, typesOfUnionType }: IUnionTypeDto,
     where: UnionTypeWhere,
   ) {
     const {

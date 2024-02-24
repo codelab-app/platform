@@ -8,7 +8,7 @@ import type {
   RedirectCreateInput,
   RedirectUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IRedirectDTO } from '@codelab/shared/abstract/core'
+import type { IRedirectDto } from '@codelab/shared/abstract/core'
 import { IRedirectTargetType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
@@ -27,7 +27,7 @@ const create = ({
   targetPage,
   targetType,
   targetUrl,
-}: IRedirectDTO) =>
+}: IRedirectDto) =>
   new RedirectModel({
     authGuard: authGuardRef(authGuard.id),
     id,
@@ -70,7 +70,7 @@ export class RedirectModel
     targetPage,
     targetType,
     targetUrl,
-  }: Partial<IRedirectDTO>) {
+  }: Partial<IRedirectDto>) {
     this.source = source ? pageRef(source.id) : this.source
     this.authGuard = authGuard ? authGuardRef(authGuard.id) : this.authGuard
     this.targetType = targetType ?? this.targetType

@@ -58,13 +58,13 @@ export class RouterService
   }
 
   @computed
-  get userSlug() {
-    return this.path.userSlug
+  get primarySidebarKey() {
+    return throwIfUndefined(this.query.primarySidebarKey)
   }
 
   @computed
-  get primarySidebarKey() {
-    return throwIfUndefined(this.query.primarySidebarKey)
+  get userSlug() {
+    return this.path.userSlug
   }
 
   @modelAction

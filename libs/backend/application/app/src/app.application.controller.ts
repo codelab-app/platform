@@ -1,5 +1,5 @@
 import 'multer'
-import type { IApp, IAppBoundedContext } from '@codelab/shared/abstract/core'
+import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Request as ExpressRequest } from 'express'
+import { Express, Request as ExpressRequest } from 'express'
 import {
   ExportAppCommand,
   ImportAppCommand,
@@ -23,17 +23,9 @@ export class AppApplicationController {
   constructor(private commandBus: CommandBus) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Post('seed-cypress-app')
-  async seedApp() {
-    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
-      new SeedCypressAppCommand(),
-    )
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
-    return this.commandBus.execute<SeedCypressAppCommand, IAppBoundedContext>(
+    return this.commandBus.execute<SeedCypressAppCommand, IAppAggregate>(
       new ExportAppCommand({ id: req.query.id as string }),
     )
   }
@@ -46,6 +38,14 @@ export class AppApplicationController {
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new ImportAppCommand(data),
+    )
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post('seed-cypress-app')
+  async seedApp() {
+    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
+      new SeedCypressAppCommand(),
     )
   }
 }

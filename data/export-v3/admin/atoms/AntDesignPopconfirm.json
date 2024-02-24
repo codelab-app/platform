@@ -189,9 +189,6 @@
     "icon": "Popconfirm",
     "id": "44482590-d873-4832-87da-d65760ddfeae",
     "name": "AntDesignPopconfirm",
-    "owner": {
-      "id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "requiredParents": [],
     "suggestedChildren": [],
     "tags": [

@@ -7,7 +7,7 @@ import {
   type IAppModel,
   type ICreateAppData,
   type IUpdateAppData,
-  type IUpdatePageData,
+  type IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import {
@@ -28,8 +28,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { AppProductionService } from '../use-cases'
-import { AppDevelopmentService } from '../use-cases/app-development'
+import { AppDevelopmentService, AppProductionService } from '../use-cases'
 import { AppRepository } from './app.repo'
 import { AppModalService } from './app-modal.service'
 
@@ -62,26 +61,6 @@ export class AppService
     yield* _await(this.appRepository.add(app))
 
     return app
-  })
-
-  @modelFlow
-  updatePage = _async(function* (this: AppService, data: IUpdatePageData) {
-    const app = this.appDomainService.apps.get(data.app.id)
-    const page = app?.page(data.id)
-    const { name, pageContentContainer, url } = data
-
-    page?.writeCache({
-      app,
-      name,
-      pageContentContainer,
-      url,
-    })
-
-    if (page) {
-      yield* _await(this.pageRepository.update(page))
-    }
-
-    return
   })
 
   @modelFlow
@@ -179,6 +158,26 @@ export class AppService
     yield* _await(this.appRepository.update(app))
 
     return app
+  })
+
+  @modelFlow
+  updatePage = _async(function* (this: AppService, data: IUpdatePageFormData) {
+    const app = this.appDomainService.apps.get(data.app.id)
+    const page = app?.page(data.id)
+    const { name, pageContentContainer, url } = data
+
+    page?.writeCache({
+      app,
+      name,
+      pageContentContainer,
+      url,
+    })
+
+    if (page) {
+      yield* _await(this.pageRepository.update(page))
+    }
+
+    return
   })
 
   @computed

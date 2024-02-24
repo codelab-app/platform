@@ -2,14 +2,14 @@ import type {
   IEnumType,
   IEnumTypeValue,
 } from '@codelab/frontend/abstract/domain'
-import type { IEnumTypeDTO } from '@codelab/shared/abstract/core'
+import type { IEnumTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 import { EnumTypeValue } from './enum-type-value.model'
 
-const create = ({ allowedValues, id, kind, name }: IEnumTypeDTO) => {
+const create = ({ allowedValues, id, kind, name }: IEnumTypeDto) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
@@ -32,7 +32,7 @@ export class EnumType
   public static create = create
 
   @modelAction
-  writeCache(enumTypeDTO: Partial<IEnumTypeDTO>) {
+  writeCache(enumTypeDTO: Partial<IEnumTypeDto>) {
     super.writeCache(enumTypeDTO)
 
     this.allowedValues = enumTypeDTO.allowedValues

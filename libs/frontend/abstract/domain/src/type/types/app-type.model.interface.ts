@@ -2,7 +2,7 @@ import type {
   AppTypeCreateInput,
   UpdateAppTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IAppTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**
@@ -10,7 +10,7 @@ import type { IBaseTypeModel } from './base-type.model.interface'
  */
 export interface IAppTypeModel
   extends IBaseTypeModel<
-    IAppTypeDTO,
+    IAppTypeDto,
     AppTypeCreateInput,
     UpdateAppTypesMutationVariables
   > {

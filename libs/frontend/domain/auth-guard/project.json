@@ -1,6 +1,6 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "name": "frontend-domain-auth-guard",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/frontend/domain/auth-guard/src",
   "tags": [
@@ -31,53 +31,53 @@
       "options": {
         "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts",
         "passWithNoTests": true,
-        "reporters": ["default"]
+        "reporters": ["default"],
+        "runInBand": true
       },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/auth-guard"]
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
+        "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts"
+      },
       "configurations": {
-        "ci": {
-          "parallel": 3
-        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
         }
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts",
-        "memoryLimit": 8192,
-        "passWithNoTests": true,
-        "testPathPattern": ["[i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/auth-guard"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts"
+      },
       "configurations": {
-        "ci": {},
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
-        }
+        },
+        "ci": {}
       },
-      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
-      "options": {
-        "color": true,
-        "jestConfig": "libs/frontend/domain/auth-guard/jest.config.ts",
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "passWithNoTests": true,
-        "testPathPattern": ["[^i].spec.ts"]
-      },
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/auth-guard"]
     }
   }

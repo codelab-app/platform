@@ -5,7 +5,7 @@ import {
   elementDto,
   pageDto,
 } from '@codelab/frontend/test/data'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import { isRefOfType } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { rootDomainStore } from './root.test.store'
@@ -85,7 +85,7 @@ describe('Element domain', () => {
     prevSibling: firstChildDto,
   }
 
-  const anotherNextSiblingDto: IElementDTO = {
+  const anotherNextSiblingDto: IElementDto = {
     ...rootElementDto,
     id: v4(),
     name: 'Another Next Sibling',
@@ -262,35 +262,35 @@ describe('Element domain', () => {
       newRootElementDto.id,
     )
 
-    const firstParentDto: IElementDTO = {
+    const firstParentDto: IElementDto = {
       ...rootElementDto,
       id: v4(),
       name: 'First Parent',
       parentElement: newRootElement,
     }
 
-    const secondParentDto: IElementDTO = {
+    const secondParentDto: IElementDto = {
       ...rootElementDto,
       id: v4(),
       name: 'Second Parent',
       prevSibling: firstParentDto,
     }
 
-    const firstElementDto: IElementDTO = {
+    const firstElementDto: IElementDto = {
       ...rootElementDto,
       id: v4(),
       name: 'First Element',
       parentElement: firstParentDto,
     }
 
-    const secondElementDto: IElementDTO = {
+    const secondElementDto: IElementDto = {
       ...rootElementDto,
       id: v4(),
       name: 'Second Element',
       parentElement: secondParentDto,
     }
 
-    const thirdElementDto: IElementDTO = {
+    const thirdElementDto: IElementDto = {
       ...rootElementDto,
       id: v4(),
       name: 'Third Element',

@@ -11,13 +11,13 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IResourceDTO } from '@codelab/shared/abstract/core'
+import type { IResourceDto } from '@codelab/shared/abstract/core'
 import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ResourceRepository extends AbstractRepository<
-  IResourceDTO,
+  IResourceDto,
   Resource,
   ResourceWhere,
   ResourceOptions
@@ -31,7 +31,7 @@ export class ResourceRepository extends AbstractRepository<
     super(traceService, validationService)
   }
 
-  protected async _add(resources: Array<IResourceDTO>) {
+  protected async _addMany(resources: Array<IResourceDto>) {
     return (
       await (
         await this.ogmService.Resource
@@ -63,7 +63,7 @@ export class ResourceRepository extends AbstractRepository<
     })
   }
 
-  protected async _update({ name, type }: IResourceDTO) {
+  protected async _update({ name, type }: IResourceDto) {
     return (
       await (
         await this.ogmService.Resource
