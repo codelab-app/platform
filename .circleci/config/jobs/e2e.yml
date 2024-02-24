@@ -5,8 +5,9 @@ parallelism: 4
 steps:
   - restore-workspace
   - setup_remote_docker:
-      version: 20.10.14
+      version: default
       # No need since we're not building anything
+      # Also very expensive in terms of storage
       # docker_layer_caching: true
   - run: npx cypress install
   - run: npx cypress verify
