@@ -18,14 +18,6 @@ export class AdminController {
     private seederApplicationService: SeederApplicationService,
   ) {}
 
-  /**
-   * Runs once before all Cypress runs
-   */
-  @Post('before-cypress-all')
-  async beforeCypressAll() {
-    await this.seederApplicationService.seedE2eBootstrapData()
-  }
-
   @Post('export')
   async export(@Body() exportDto: ExportDto) {
     const { adminDataPath } = exportDto
@@ -52,6 +44,11 @@ export class AdminController {
     // }
   }
 
+  @Post('reset-cypress-user-data')
+  async resetCypressUserData() {
+    await this.adminRepository.resetUserData()
+  }
+
   @Post('reset-database')
   async resetDatabase() {
     await this.adminRepository.resetDatabase()
@@ -71,15 +68,11 @@ export class AdminController {
   }
 
   /**
-   * We want to keep the default atom
+   * Runs once before all Cypress runs
    */
-  @Post('reset-database-except-user-and-atom')
-  async resetDatabaseExceptUserAndAtom() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
-
-    return {
-      message: 'Admin data reset success',
-    }
+  @Post('seed-cypress-system-data')
+  async seedCypressSystemData() {
+    await this.seederApplicationService.seedE2eSystemData()
   }
 
   /**

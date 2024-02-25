@@ -1,11 +1,10 @@
-import { AdminRepository } from '@codelab/backend/domain/admin'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import {
   SeederDomainModule,
   SeederDomainService,
 } from '@codelab/backend/domain/shared/seeder'
 import { UserDomainModule } from '@codelab/backend/domain/user'
+import { initUserContext } from '@codelab/backend/test'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
@@ -14,32 +13,23 @@ import { TagRepository } from './tag.repo.service'
 
 describe('Tag repository.', () => {
   let tagRepository: TagRepository
-  let adminRepository: AdminRepository
-  let seederService: SeederDomainService
+
+  const context = initUserContext({
+    imports: [UserDomainModule, SeederDomainModule],
+    providers: [TagRepository],
+  })
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [SharedDomainModule, UserDomainModule, SeederDomainModule],
-      providers: [TagRepository, AdminRepository, SeederDomainService],
-    })
-      .overrideProvider(AuthDomainService)
-      .useValue({
-        currentUser: {
-          auth0Id: v4(),
-          email: 'admin@codelab.app',
-          id: v4(),
-          roles: [],
-          username: 'Codelab',
-        },
-      })
-      .compile()
+    const ctx = await context
+    const module = ctx.module
 
-    adminRepository = module.get<AdminRepository>(AdminRepository)
     tagRepository = module.get<TagRepository>(TagRepository)
-    seederService = module.get<SeederDomainService>(SeederDomainService)
+  })
 
-    await adminRepository.resetDatabase(false)
-    await seederService.seedUserFromRequest()
+  afterAll(async () => {
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   it('can create a tag', async () => {

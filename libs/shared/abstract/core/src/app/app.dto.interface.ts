@@ -25,6 +25,7 @@ export const IApp = Typebox.Overwrite(
   Type.Object({
     domains: Type.Array(IDomain),
     pages: Type.Array(IPage),
+    slug: Type.String(),
   }),
 )
 

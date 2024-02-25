@@ -1,6 +1,1 @@
-export * from './app.data'
-export * from './atoms.data'
-export * from './element.data'
-export * from './page.data'
-export * from './tags.data'
-export * from './user.data'
+export * from './cypress'

@@ -46,13 +46,11 @@ export class SeedCypressAppHandler
     private readonly propRepository: PropRepository,
     private readonly elementRepository: ElementRepository,
     private atomRepository: AtomRepository,
-    private commandBus: CommandBus,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private authDomainService: AuthDomainService,
   ) {}
 
-  @Span()
   async execute() {
     /**
      * Create props
@@ -73,13 +71,6 @@ export class SeedCypressAppHandler
     const providerPageId = v4()
     const notFoundPageId = v4()
     const internalServerPageId = v4()
-
-    /**
-     * Create atoms for renderType
-     */
-    await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
-      new SeedCypressAtomsCommand(),
-    )
 
     const atomReactFragment = await this.atomRepository.findOne({
       where: {

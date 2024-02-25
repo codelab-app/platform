@@ -1,12 +1,12 @@
 /// <reference types="jest" />
 
-import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { PageRepository } from '@codelab/backend/domain/page'
 import {
   AuthDomainModule,
   AuthDomainService,
 } from '@codelab/backend/domain/shared/auth'
+import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import {
   UserDomainModule,
   UserDomainService,
@@ -32,7 +32,7 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
       AuthDomainModule,
       OtelModule,
       ValidationModule,
-      SharedApplicationModule,
+      SharedDomainModule,
       CqrsModule,
       OgmModule,
       ...(metadata.imports ?? []),

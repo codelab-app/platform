@@ -1,2 +1,2 @@
 export * from './admin.domain.module'
-export * from './admin.repo.service'
+export * from './repository/admin.repo.service'

@@ -1,10 +1,16 @@
 /* eslint-disable @nx/enforce-module-boundaries */
+// import type { IApp } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
 import fs from 'fs'
 import { areDirectoriesIdentical } from 'libs/backend/shared/util/src/file/directory-compare'
 import path from 'path'
+
+/**
+ * We seed an app here that is shared across many specs
+ */
+// export let cypressApp: IApp
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
@@ -45,7 +51,8 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
 
     /* code that needs to run before all specs */
     on('before:run', (details) => {
-      cy.postApiRequest('/admin/before-cypress-all')
+      cy.postApiRequest('/admin/seed-cypress-system-data')
+      // cy.postApiRequest('/app/seed-cypress-app')
     })
 
     /**

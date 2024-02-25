@@ -1,7 +1,7 @@
 /**
  * Login and seed user
  */
-export const loginAuth0Session = () => {
+export const loginAndResetUserData = () => {
   cy.session(
     ['auth0-session'],
     () => {
@@ -14,4 +14,5 @@ export const loginAuth0Session = () => {
       cacheAcrossSpecs: true,
     },
   )
+  cy.postApiRequest('/admin/reset-cypress-user-data')
 }

@@ -1,8 +1,12 @@
-import { ImportAtomCommand } from '@codelab/backend/application/atom'
+import {
+  ImportAtomCommand,
+  SeedCypressAtomsCommand,
+} from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { AdminRepository } from '@codelab/backend/domain/admin'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
+import type { IAtom } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -62,7 +66,7 @@ export class SeederApplicationService {
     }
   }
 
-  async seedE2eBootstrapData() {
+  async seedE2eSystemData() {
     await this.adminRepository.resetDatabase()
 
     await this.seederDomainService.seedUserFromRequest()
@@ -71,14 +75,8 @@ export class SeederApplicationService {
       new ImportSystemTypesCommand(),
     )
 
-    const atoms = this.readAdminDataService.atoms.filter(
-      ({ atom }) => atom.type === IAtomType.ReactFragment,
+    await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
+      new SeedCypressAtomsCommand(),
     )
-
-    for (const atom of atoms) {
-      await this.commandBus.execute<ImportAtomCommand>(
-        new ImportAtomCommand(atom),
-      )
-    }
   }
 }

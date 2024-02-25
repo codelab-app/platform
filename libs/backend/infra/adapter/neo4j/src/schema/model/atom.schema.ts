@@ -20,7 +20,7 @@ export const atomSchema = gql`
     externalCssSource: String
     externalSourceType: String @unique
     requiredParents: [Atom!]!
-      @relationship(type: "REQUIRED_PARRENTS", direction: OUT)
+      @relationship(type: "REQUIRED_PARENTS", direction: OUT)
     suggestedChildren: [Atom!]!
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
     elements: [Element!]!
