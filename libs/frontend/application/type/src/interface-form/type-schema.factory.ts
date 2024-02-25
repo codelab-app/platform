@@ -46,223 +46,6 @@ export const primitives = {
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  fromActionType(
-    type: IActionTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.transformTypedPropType(type, context)
-  }
-
-  fromAppType(type: IAppTypeModel, context?: UiPropertiesContext): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
-  fromArrayType(
-    type: IArrayTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    return {
-      ...extra,
-      items: type.itemType?.isValid
-        ? this.transform(type.itemType.current)
-        : {},
-      type: 'array',
-    }
-  }
-
-  fromCodeMirrorType(
-    type: ICodeMirrorTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
-  fromElementType(
-    type: IElementTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    const properties = TypeSchemaFactory.schemaForTypedProp(
-      type,
-      { label: '', type: 'string', ...extra },
-      '',
-    )
-
-    return { properties, type: 'object', uniforms: nullUniforms }
-  }
-
-  fromEnumType(type: IEnumType, context?: UiPropertiesContext): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-
-    return {
-      default: context?.defaultValues || undefined,
-      type: 'string',
-      ...extra,
-    } as const
-  }
-
-  fromInterfaceType(
-    type: IInterfaceTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    const makeFieldSchema = (field: IFieldModel) => {
-      return {
-        label: field.name || compoundCaseToTitleCase(field.key),
-        ...(field.description ? fieldDescription(field.description) : {}),
-        ...this.transform(field.type.current, {
-          autocomplete: context?.autocomplete,
-          defaultValues: field.defaultValues,
-          fieldName: field.name,
-          validationRules: field.validationRules ?? undefined,
-        }),
-        ...(field.type.current.kind !== ITypeKind.UnionType
-          ? field.validationRules?.general
-          : undefined),
-      }
-    }
-
-    const makeFieldProperties = (
-      acc: JsonSchema['properties'],
-      field: IFieldModel,
-    ) => {
-      acc = acc || {}
-      acc[field.key] = makeFieldSchema(field)
-
-      return acc
-    }
-
-    const extra = this.getExtraProperties(type)
-
-    return {
-      ...extra,
-      properties: type.fields.reduce(makeFieldProperties, {}),
-      required: type.fields
-        .map((field) =>
-          field.validationRules?.general?.nullable === false
-            ? field.key
-            : undefined,
-        )
-        .filter(Boolean) as Array<string>,
-      type: 'object',
-    }
-  }
-
-  fromLambdaType(
-    type: ILambdaTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
-  fromPageType(
-    type: IPageTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.simpleReferenceType(type, context)
-  }
-
-  fromPrimitiveType(
-    type: IPrimitiveTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    const extra = this.getExtraProperties(type, context)
-    let rulesSchema = {}
-
-    switch (type.primitiveKind) {
-      case PrimitiveTypeKind.String:
-        rulesSchema = {
-          ...context?.validationRules?.String,
-        }
-        break
-      case PrimitiveTypeKind.Number:
-        rulesSchema = {
-          ...context?.validationRules?.Number,
-        }
-        break
-      case PrimitiveTypeKind.Integer:
-        rulesSchema = {
-          ...context?.validationRules?.Integer,
-        }
-        break
-      case PrimitiveTypeKind.Boolean:
-        rulesSchema = {
-          default:
-            typeof context?.defaultValues === 'boolean'
-              ? context.defaultValues
-              : false,
-        }
-
-        break
-    }
-
-    if (
-      context?.defaultValues &&
-      type.primitiveKind !== PrimitiveTypeKind.Boolean
-    ) {
-      rulesSchema = {
-        ...rulesSchema,
-        default: context.defaultValues,
-      }
-    }
-
-    return {
-      type: primitives[type.primitiveKind],
-      ...rulesSchema,
-      ...extra,
-    }
-  }
-
-  fromReactNodeType(
-    type: IReactNodeTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.transformTypedPropType(type, context)
-  }
-
-  fromRenderPropType(
-    type: IRenderPropTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    return this.transformTypedPropType(type, context)
-  }
-
-  fromUnionType(
-    type: IUnionTypeModel,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
-    // This is the extra for the union type. Not to be confused with the extra for the value type
-    const extra = this.getExtraProperties(type, context)
-    const label: string | undefined = extra?.label
-    const labelWithQuotes = label ? `"${label}" ` : ''
-    const typeLabel = `${labelWithQuotes}Type`
-
-    return {
-      ...extra,
-      oneOf: type.typesOfUnionType.map((innerType) => {
-        const valueSchema = this.transform(innerType.current)
-
-        const properties = TypeSchemaFactory.schemaForTypedProp(
-          innerType.current,
-          valueSchema,
-          typeLabel,
-        )
-
-        return {
-          label: '',
-          properties,
-          ...context?.validationRules?.general,
-          required: ['type'],
-          type: 'object',
-          // We use this as label of the select field item
-          typeName: innerType.current.name,
-        }
-      }),
-    }
-  }
-
   transform(type: ITypeModel, context?: UiPropertiesContext) {
     switch (type.kind) {
       case ITypeKind.AppType:
@@ -327,6 +110,233 @@ export class TypeSchemaFactory {
         uniforms: blankUniforms,
       },
       value: valueSchema,
+    }
+  }
+
+  private fromActionType(
+    type: IActionTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
+  private fromAppType(
+    type: IAppTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.simpleReferenceType(type, context)
+  }
+
+  private fromArrayType(
+    type: IArrayTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+
+    return {
+      ...extra,
+      items: type.itemType?.isValid
+        ? this.transform(type.itemType.current)
+        : {},
+      type: 'array',
+    }
+  }
+
+  private fromCodeMirrorType(
+    type: ICodeMirrorTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.simpleReferenceType(type, context)
+  }
+
+  private fromElementType(
+    type: IElementTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+
+    const properties = TypeSchemaFactory.schemaForTypedProp(
+      type,
+      { label: '', type: 'string', ...extra },
+      '',
+    )
+
+    return { properties, type: 'object', uniforms: nullUniforms }
+  }
+
+  private fromEnumType(
+    type: IEnumType,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+
+    return {
+      default: context?.defaultValues || undefined,
+      type: 'string',
+      ...extra,
+    } as const
+  }
+
+  private fromInterfaceType(
+    type: IInterfaceTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    console.log(type)
+
+    const makeFieldSchema = (field: IFieldModel) => {
+      console.log(field.name, field.id)
+
+      return {
+        label: field.name || compoundCaseToTitleCase(field.key),
+        ...(field.description ? fieldDescription(field.description) : {}),
+        ...this.transform(field.type.current, {
+          autocomplete: context?.autocomplete,
+          defaultValues: field.defaultValues,
+          fieldName: field.name,
+          validationRules: field.validationRules ?? undefined,
+        }),
+        ...(field.type.current.kind !== ITypeKind.UnionType
+          ? field.validationRules?.general
+          : undefined),
+      }
+    }
+
+    const makeFieldProperties = (
+      acc: JsonSchema['properties'],
+      field: IFieldModel,
+    ) => {
+      acc = acc || {}
+      acc[field.key] = makeFieldSchema(field)
+
+      return acc
+    }
+
+    const extra = this.getExtraProperties(type)
+
+    return {
+      ...extra,
+      properties: type.fields.reduce(makeFieldProperties, {}),
+      required: type.fields
+        .map((field) =>
+          field.validationRules?.general?.nullable === false
+            ? field.key
+            : undefined,
+        )
+        .filter(Boolean) as Array<string>,
+      type: 'object',
+    }
+  }
+
+  private fromLambdaType(
+    type: ILambdaTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.simpleReferenceType(type, context)
+  }
+
+  private fromPageType(
+    type: IPageTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.simpleReferenceType(type, context)
+  }
+
+  private fromPrimitiveType(
+    type: IPrimitiveTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    const extra = this.getExtraProperties(type, context)
+    let rulesSchema = {}
+
+    switch (type.primitiveKind) {
+      case PrimitiveTypeKind.String:
+        rulesSchema = {
+          ...context?.validationRules?.String,
+        }
+        break
+      case PrimitiveTypeKind.Number:
+        rulesSchema = {
+          ...context?.validationRules?.Number,
+        }
+        break
+      case PrimitiveTypeKind.Integer:
+        rulesSchema = {
+          ...context?.validationRules?.Integer,
+        }
+        break
+      case PrimitiveTypeKind.Boolean:
+        rulesSchema = {
+          default:
+            typeof context?.defaultValues === 'boolean'
+              ? context.defaultValues
+              : false,
+        }
+
+        break
+    }
+
+    if (
+      context?.defaultValues &&
+      type.primitiveKind !== PrimitiveTypeKind.Boolean
+    ) {
+      rulesSchema = {
+        ...rulesSchema,
+        default: context.defaultValues,
+      }
+    }
+
+    return {
+      type: primitives[type.primitiveKind],
+      ...rulesSchema,
+      ...extra,
+    }
+  }
+
+  private fromReactNodeType(
+    type: IReactNodeTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
+  private fromRenderPropType(
+    type: IRenderPropTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    return this.transformTypedPropType(type, context)
+  }
+
+  private fromUnionType(
+    type: IUnionTypeModel,
+    context?: UiPropertiesContext,
+  ): JsonSchema {
+    // This is the extra for the union type. Not to be confused with the extra for the value type
+    const extra = this.getExtraProperties(type, context)
+    const label: string | undefined = extra?.label
+    const labelWithQuotes = label ? `"${label}" ` : ''
+    const typeLabel = `${labelWithQuotes}Type`
+
+    return {
+      ...extra,
+      oneOf: type.typesOfUnionType.map((innerType) => {
+        const valueSchema = this.transform(innerType.current)
+
+        const properties = TypeSchemaFactory.schemaForTypedProp(
+          innerType.current,
+          valueSchema,
+          typeLabel,
+        )
+
+        return {
+          label: '',
+          properties,
+          ...context?.validationRules?.general,
+          required: ['type'],
+          type: 'object',
+          // We use this as label of the select field item
+          typeName: innerType.current.name,
+        }
+      }),
     }
   }
 

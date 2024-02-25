@@ -6,13 +6,13 @@
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
+      "defaultConfiguration": "test",
       "options": {
-        "cypressConfig": "apps/platform-e2e/cypress.ci.config.ts",
+        "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
         "baseUrl": "http://127.0.0.1:3001",
         "browser": "electron",
         "testingType": "e2e"
       },
-      "defaultConfiguration": "test",
       "configurations": {
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
@@ -27,7 +27,6 @@
           "verbose": true
         },
         "test": {
-          "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
           "devServerTarget": "platform-e2e:serve:test",
           "reporter": "../../node_modules/cypress-multi-reporters",
           "reporterOptions": {

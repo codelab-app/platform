@@ -39,6 +39,9 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
           await getSelectAtomOptions.execute()
         }
       }}
+      onSelect={(value, option) => {
+        //
+      }}
       optionFilterProp="label"
       optionLabelProp="label"
       options={result ?? fallbackAtomOptions}
