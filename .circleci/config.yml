@@ -94,7 +94,8 @@ commands:
           keys:
             - node-modules-{{ checksum "yarn.lock" }}
             - nvm-cache-{{ checksum ".nvmrc" }}
-          name: Restore NPM Cache
+            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+          name: Restore Cache
       - setup-env
   setup-env:
     description: Setup Env
@@ -181,7 +182,7 @@ jobs:
     steps:
       - restore-workspace
       - setup_remote_docker:
-          version: 20.10.14
+          version: default
       - run: npx cypress install
       - run: npx cypress verify
       - run:
@@ -380,7 +381,6 @@ jobs:
           path: ./tmp/reports/test-unit
 orbs:
   node: circleci/node@5.1.0
-  nx: nrwl/nx@1.6.2
   queue: eddiewebb/queue@2.2.1
   slack: circleci/slack@4.12.5
   swissknife: roopakv/swissknife@0.69.0
