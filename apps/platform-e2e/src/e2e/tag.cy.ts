@@ -1,4 +1,3 @@
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import {
   CreateData,
   DeleteTreeData,
@@ -17,7 +16,6 @@ const testCreate = (name: string, parentName?: string) => {
 
 describe('Tag CRUD', () => {
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest('/tag/seed-cypress-tag')
   })
 

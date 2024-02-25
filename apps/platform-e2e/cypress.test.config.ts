@@ -2,6 +2,7 @@
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
+import fs from 'fs'
 import { areDirectoriesIdentical } from 'libs/backend/shared/util/src/file/directory-compare'
 import path from 'path'
 
@@ -41,6 +42,33 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     on('task', {
       areDirectoriesIdentical,
     })
+
+    /* code that needs to run before all specs */
+    on('before:run', (details) => {
+      cy.postApiRequest('/admin/before-cypress-all')
+    })
+
+    /**
+     * This is the official Cypress way to remove videos from successful specs
+     *
+     * https://docs.cypress.io/guides/guides/screenshots-and-videos#Delete-videos-for-specs-without-failing-or-retried-tests
+     */
+    on(
+      'after:spec',
+      (spec: Cypress.Spec, results: CypressCommandLine.RunResult) => {
+        if (results.video) {
+          // Do we have failures for any retry attempts?
+          const failures = results.tests.some((test) =>
+            test.attempts.some((attempt) => attempt.state === 'failed'),
+          )
+
+          if (!failures) {
+            // delete the video if the spec passed and no tests retried
+            fs.unlinkSync(results.video)
+          }
+        }
+      },
+    )
   },
   testIsolation: false,
   video: true,

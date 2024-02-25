@@ -18,6 +18,14 @@ export class AdminController {
     private seederApplicationService: SeederApplicationService,
   ) {}
 
+  /**
+   * Runs once before all Cypress runs
+   */
+  @Post('before-cypress-all')
+  async beforeCypressAll() {
+    await this.seederApplicationService.seedE2eBootstrapData()
+  }
+
   @Post('export')
   async export(@Body() exportDto: ExportDto) {
     const { adminDataPath } = exportDto
@@ -80,10 +88,5 @@ export class AdminController {
   @Post('setup-dev')
   async setup() {
     await this.seederApplicationService.seedDevBootstrapData()
-  }
-
-  @Post('setup-e2e')
-  async setupE2e() {
-    await this.seederApplicationService.seedE2eBootstrapData()
   }
 }

@@ -1,0 +1,40 @@
+<testsuite name="Mocha Tests" tests="6" failures="0" errors="4" skipped="0" timestamp="Sun, 25 Feb 2024 06:49:33 GMT" time="121.393">
+<testcase classname="Running API action and setting state on element pre-render" name="should create the resouce that will be used for the api actions" time="6.916"/>
+<testcase classname="Running API action and setting state on element pre-render" name="should create a state" time="6.672"/>
+<testcase classname="Running API action and setting state on element pre-render" name="should create a code action" time="11.19"><failure>Timed out retrying after 10000ms: Expected to find content: &#x27;/^Action code$/u&#x27; within the selector: &#x27;.ant-form-item-label&#x27; but never did.
+AssertionError: Timed out retrying after 10000ms: Expected to find content: &#x27;/^Action code$/u&#x27; within the selector: &#x27;.ant-form-item-label&#x27; but never did.
+    at getFormFieldLabel (webpack:///../../libs/frontend/test/cypress/antd/src/form/form.commands.ts:21:21)
+    at getFormField (webpack:///../../libs/frontend/test/cypress/antd/src/form/form.commands.ts:28:0)
+    at getFormInput (webpack:///../../libs/frontend/test/cypress/antd/src/form/form.commands.ts:34:0)
+    at getInput (webpack:///../../libs/frontend/test/cypress/antd/src/form/form.commands.ts:292:0)
+    at Context.setFormFieldValue (webpack:///../../libs/frontend/test/cypress/antd/src/form/form.commands.ts:296:0)</failure></testcase>
+<testcase classname="Running API action and setting state on element pre-render" name="should create an api action and set code action as success action" time="12.249"><failure>Timed out retrying after 10000ms: Expected to find element: &#x60;.ant-select-item-option[title=&#x22;Store Data&#x22;]&#x60;, but never found it.
+AssertionError: Timed out retrying after 10000ms: Expected to find element: &#x60;.ant-select-item-option[title=&#x22;Store Data&#x22;]&#x60;, but never found it.
+    at Context.setFormFieldValue (webpack:///../../libs/frontend/test/cypress/antd/src/form/form.commands.ts:325:0)</failure></testcase>
+<testcase classname="Running API action and setting state on element pre-render" name="should create an element and set api action as pre-render action" time="19.191"><failure>Timed out retrying after 10000ms: Expected to find element: &#x60;[data-cy=&#x22;cui-tree-item-primary-title-Body&#x22;]&#x60;, but never found it.
+AssertionError: Timed out retrying after 10000ms: Expected to find element: &#x60;[data-cy=&#x22;cui-tree-item-primary-title-Body&#x22;]&#x60;, but never found it.
+    at Context.getCuiTreeItemByPrimaryTitle (webpack:///../../libs/frontend/test/cypress/cui/src/tree/tree.command.ts:14:0)</failure></testcase>
+<testcase classname="Running API action and setting state on element pre-render" name="should run the api action in the pre-render upon reload of the page" time="10.057"><failure>Timed out retrying after 5000ms: &#x60;cy.wait()&#x60; timed out waiting &#x60;5000ms&#x60; for the 1st request to the route: &#x60;preRenderAction&#x60;. No request ever occurred.
+
+https://on.cypress.io/wait
+CypressError: Timed out retrying after 5000ms: &#x60;cy.wait()&#x60; timed out waiting &#x60;5000ms&#x60; for the 1st request to the route: &#x60;preRenderAction&#x60;. No request ever occurred.
+
+https://on.cypress.io/wait
+    at cypressErr (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:75008:18)
+    at Object.errByPath (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:75063:10)
+    at checkForXhr (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:135520:84)
+    at &#x3C;unknown&#x3E; (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:135543:28)
+    at tryCatcher (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise.attempt.Promise.try (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:4315:29)
+    at whenStable (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:143908:68)
+    at &#x3C;unknown&#x3E; (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:143849:14)
+    at tryCatcher (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1701:18)
+    at Promise._fulfill (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:1645:18)
+    at &#x3C;unknown&#x3E; (http://127.0.0.1:3001/__cypress/runner/cypress_runner.js:5450:46)
+From Your Spec Code:
+    at Context.eval (webpack:///./src/e2e/store/pre-render-api-action-and-set-state.cy.ts:179:0)</failure></testcase>
+</testsuite>

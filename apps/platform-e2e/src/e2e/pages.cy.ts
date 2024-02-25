@@ -1,4 +1,3 @@
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IApp } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -8,7 +7,6 @@ describe('Pages CRUD', () => {
   let app: IApp
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest<IApp>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })

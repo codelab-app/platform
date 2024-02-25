@@ -63,7 +63,7 @@ export class SeederApplicationService {
   }
 
   async seedE2eBootstrapData() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
+    await this.adminRepository.resetDatabase()
 
     await this.seederDomainService.seedUserFromRequest()
 

@@ -23,8 +23,7 @@
             "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
           },
           "record": true,
-          "parallel": true,
-          "verbose": true
+          "parallel": true
         },
         "test": {
           "devServerTarget": "platform-e2e:serve:test",
