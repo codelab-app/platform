@@ -36,7 +36,7 @@ describe('TypedPropTransformers', () => {
       value: propValue,
     })
 
-    expect(runtimeElement?.runtimeProps.evaluatedProps).toMatchObject({
+    expect(runtimeElement.runtimeProps.evaluatedProps).toMatchObject({
       [propKey]: propValue,
     })
   })
@@ -53,7 +53,7 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    const renderedProp = runtimeElement?.runtimeProps.evaluatedProps[propKey]
+    const renderedProp = runtimeElement.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp)).toBe(true)
   })
@@ -70,11 +70,11 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    expect(runtimeElement?.runtimeProps.evaluatedProps).toMatchObject({
+    expect(runtimeElement.runtimeProps.evaluatedProps).toMatchObject({
       [propKey]: expect.any(Function),
     })
 
-    const renderedProp = runtimeElement?.runtimeProps.evaluatedProps[propKey]
+    const renderedProp = runtimeElement.runtimeProps.evaluatedProps[propKey]
 
     expect(isValidElement(renderedProp())).toBe(true)
   })
@@ -119,7 +119,7 @@ describe('TypedPropTransformers', () => {
       value: component.id,
     })
 
-    const renderedProp = runtimeElement?.runtimeProps.evaluatedProps[propKey]
+    const renderedProp = runtimeElement.runtimeProps.evaluatedProps[propKey]
 
     render(
       React.createElement(
