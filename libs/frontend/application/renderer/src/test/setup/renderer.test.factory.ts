@@ -18,6 +18,7 @@ export const rendererFactory =
       rendererType: dto.rendererType ?? RendererType.PageBuilder,
       renderPipe: (dto.renderPipe ??
         renderPipeFactory([PassThroughRenderPipe])) as IRenderPipe,
+      urlSegments: dto.urlSegments ?? undefined,
     }
 
     return rendererService.hydrate(renderer)

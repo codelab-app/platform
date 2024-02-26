@@ -10,11 +10,17 @@ import { defaultPipes, renderPipeFactory } from '../../renderPipes'
 import { rootApplicationStore } from './root.test.store'
 import type { TestBed } from './testbed'
 
-export const setupPages = (testbed: TestBed) => {
+export const setupPages = (
+  testbed: TestBed,
+  rendererType: RendererType = RendererType.Preview,
+  renderedPageKind: IPageKind = IPageKind.Provider,
+) => {
+  const rendererId = 'renderer-id'
   const pageId = 'page-id'
   const pageName = 'Page Name'
   const regularPageId = 'regular-page-id'
   const regularPageName = 'Regular Page Name'
+  const isProviderPage = renderedPageKind === IPageKind.Provider
 
   const htmlDivAtom = testbed.addAtom({
     __typename: 'Atom',
@@ -64,10 +70,19 @@ export const setupPages = (testbed: TestBed) => {
     }),
   })
 
+  const renderer = testbed.addRenderer({
+    containerNode: isProviderPage ? page : regularPage,
+    id: rendererId,
+    rendererType,
+    renderPipe: renderPipeFactory(defaultPipes),
+  })
+
   return {
     app,
-    page,
-    regularPage,
+    page: isProviderPage ? page : regularPage,
+    rendered: renderer.render,
+    renderer,
+    rendererId,
   }
 }
 
@@ -124,43 +139,22 @@ export const setupComponent = (testbed: TestBed) => {
 export const setupRuntimeElement = (
   testbed: TestBed,
   rendererType: RendererType = RendererType.Preview,
+  renderedPageKind: IPageKind = IPageKind.Provider,
 ) => {
   const { rendererService } = rootApplicationStore
-  const { page } = setupPages(testbed)
 
-  const renderer = testbed.addRenderer({
-    containerNode: page,
+  const { page, rendered, renderer, rendererId } = setupPages(
+    testbed,
     rendererType,
-    renderPipe: renderPipeFactory(defaultPipes),
-  })
+    renderedPageKind,
+  )
 
   return {
     element: page.rootElement.current,
     page,
-    rendered: renderer.render,
-    runtimeElement: rendererService.runtimeElement(page.rootElement.current),
-  }
-}
-
-export const setupRegularPageRuntimeElement = (
-  testbed: TestBed,
-  rendererType: RendererType = RendererType.Preview,
-) => {
-  const { rendererService } = rootApplicationStore
-  const { regularPage } = setupPages(testbed)
-
-  const renderer = testbed.addRenderer({
-    containerNode: regularPage,
-    rendererType,
-    renderPipe: renderPipeFactory(defaultPipes),
-  })
-
-  return {
-    element: regularPage.rootElement.current,
-    page: regularPage,
-    rendered: renderer.render,
-    runtimeElement: rendererService.runtimeElement(
-      regularPage.rootElement.current,
-    ),
+    rendered,
+    renderer,
+    rendererId,
+    runtimeElement: rendererService.runtimeElement(page.rootElement.current)!,
   }
 }
