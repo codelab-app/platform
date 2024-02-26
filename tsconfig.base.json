@@ -45,11 +45,14 @@
       "@codelab/backend/application/atom": [
         "libs/backend/application/atom/src/index.ts"
       ],
-      "@codelab/backend/application/auth-guard": [
-        "libs/backend/application/auth-guard/src/index.ts"
+      "@codelab/backend/application/auth": [
+        "libs/backend/application/auth/src/index.ts"
       ],
       "@codelab/backend/application/component": [
         "libs/backend/application/component/src/index.ts"
+      ],
+      "@codelab/backend/application/data": [
+        "libs/backend/application/data/src/index.ts"
       ],
       "@codelab/backend/application/domain": [
         "libs/backend/application/domain/src/index.ts"
@@ -62,9 +65,6 @@
       ],
       "@codelab/backend/application/field": [
         "libs/backend/application/field/src/index.ts"
-      ],
-      "@codelab/backend/application/migration": [
-        "libs/backend/application/migration/src/index.ts"
       ],
       "@codelab/backend/application/page": [
         "libs/backend/application/page/src/index.ts"

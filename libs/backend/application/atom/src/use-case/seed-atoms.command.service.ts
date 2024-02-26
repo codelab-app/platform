@@ -1,5 +1,4 @@
 import type { IAtomRecords } from '@codelab/backend/abstract/core'
-import { UseCase } from '@codelab/backend/application/shared'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { TagRepository } from '@codelab/backend/domain/tag'
@@ -13,24 +12,26 @@ import {
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import type { ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
-@Injectable()
-export class SeedAtomsService extends UseCase<
-  Partial<IAtomRecords>,
-  Array<IAtomDto>
-> {
+export class SeedAtomsCommand {
+  constructor(public data: Partial<IAtomRecords>) {}
+}
+@CommandHandler(SeedAtomsCommand)
+export class SeedAtomsHandler
+  implements ICommandHandler<SeedAtomsCommand, Array<IAtomDto>>
+{
   constructor(
     private atomRepository: AtomRepository,
     private interfaceTypeRepository: InterfaceTypeRepository,
     private tagRepository: TagRepository,
     private authDomainService: AuthDomainService,
-  ) {
-    super()
-  }
+  ) {}
 
-  async _execute(data: IAtomRecords) {
+  async execute({ data }: SeedAtomsCommand) {
     const atoms = await this.createAtomsData(data)
 
     /**
@@ -60,7 +61,9 @@ export class SeedAtomsService extends UseCase<
   /**
    * Assume all tags have already been created
    */
-  async createAtomsData(data: IAtomRecords): Promise<Array<IAtomDto>> {
+  private async createAtomsData(
+    data: Partial<IAtomRecords>,
+  ): Promise<Array<IAtomDto>> {
     const existingInterfaceTypes = new Map(
       (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,
@@ -70,6 +73,10 @@ export class SeedAtomsService extends UseCase<
 
     return await Promise.all(
       ObjectTyped.entries(data).map(async ([atomType, atomData]) => {
+        if (!atomData) {
+          throw new Error('Missing data')
+        }
+
         // Search api by name
         const existingApi = existingInterfaceTypes.get(
           InterfaceType.getApiName({ name: atomType }),

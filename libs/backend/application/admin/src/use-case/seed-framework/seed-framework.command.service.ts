@@ -1,10 +1,9 @@
 import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
 import { SeedCypressAppCommand } from '@codelab/backend/application/app'
-import { SeedAtomsService } from '@codelab/backend/application/atom'
-import { UseCase } from '@codelab/backend/application/shared'
+import { SeedAtomsCommand } from '@codelab/backend/application/atom'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
-  SeedEmptyApiService,
+  SeedEmptyApiCommand,
   TypeSeederService,
 } from '@codelab/backend/application/type'
 import { withActiveSpan } from '@codelab/backend/infra/adapter/otel'
@@ -15,7 +14,8 @@ import {
   IOwner,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { CommandBus } from '@nestjs/cqrs'
+import type { ICommandHandler } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'
 
 interface FrameworkData {
@@ -26,42 +26,44 @@ interface FrameworkData {
   fields(atoms: Array<IAtomDto>): Promise<Array<IFieldDto>>
 }
 
+export class SeedFrameworkCommand {
+  constructor(public data: FrameworkData) {}
+}
+
 /**
  * A framework is like Ant Design,  Material UI, or even HTML itself.
  *
  * It contains atoms, api's, tags
  */
-@Injectable()
-export class SeedFrameworkService extends UseCase<FrameworkData, void> {
+@CommandHandler(SeedFrameworkCommand)
+export class SeedFrameworkHandler
+  implements ICommandHandler<SeedFrameworkCommand>
+{
   constructor(
     private readonly typeSeederService: TypeSeederService,
     private readonly seedTagsService: SeedTagsService,
-    private seedEmptyApiService: SeedEmptyApiService,
     protected readonly owner: IOwner,
-    private seedAtomsService: SeedAtomsService,
     private commandBus: CommandBus,
-  ) {
-    super()
-  }
+  ) {}
 
-  async _execute(data: FrameworkData) {
-    await withActiveSpan('SeedFrameworkService.seedSystemTypes()', () =>
+  async execute({ data }: SeedFrameworkCommand) {
+    await withActiveSpan('SeedFrameworkHandler.seedSystemTypes()', () =>
       this.commandBus.execute(new SeedCypressAppCommand()),
     )
 
-    await withActiveSpan('SeedFrameworkService.seedTags()', () =>
+    await withActiveSpan('SeedFrameworkHandler.seedTags()', () =>
       this.seedTags(data.tags),
     )
 
-    await withActiveSpan('SeedFrameworkService.seedEmptyApi()', () =>
+    await withActiveSpan('SeedFrameworkHandler.seedEmptyApi()', () =>
       this.seedEmptyApi(ObjectTyped.keys(data.atoms)),
     )
 
-    const atoms = await withActiveSpan('SeedFrameworkService.seedAtoms()', () =>
+    const atoms = await withActiveSpan('SeedFrameworkHandler.seedAtoms()', () =>
       this.seedAtoms(data.atoms),
     )
 
-    await withActiveSpan('SeedFrameworkService.seedApis()', async () =>
+    await withActiveSpan('SeedFrameworkHandler.seedApis()', async () =>
       this.seedApis(await data.fields(atoms)),
     )
   }
@@ -71,11 +73,11 @@ export class SeedFrameworkService extends UseCase<FrameworkData, void> {
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {
-    return this.seedAtomsService.execute(atoms)
+    return this.commandBus.execute(new SeedAtomsCommand(atoms))
   }
 
   private async seedEmptyApi(atoms: Array<IAtomType>) {
-    return this.seedEmptyApiService.execute(atoms)
+    return this.commandBus.execute(new SeedEmptyApiCommand(atoms))
   }
 
   private seedTags(tags: FrameworkData['tags']) {

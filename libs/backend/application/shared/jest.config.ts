@@ -1,7 +1,8 @@
 /* eslint-disable */
 export default {
-  displayName: 'backend-application-migration',
+  displayName: 'backend-application-shared',
   preset: '../../../../jest.preset.js',
+  globals: {},
   testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [
@@ -17,14 +18,14 @@ export default {
       },
     ],
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/backend/application/migration',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  coverageDirectory: '../../../../coverage/libs/backend/application/shared',
   reporters: [
     'default',
     [
       'jest-junit',
       {
-        outputName: 'backend-application-migration.xml',
+        outputName: 'backend-application-shared.xml',
         reportTestSuiteErrors: true,
         titleTemplate: '{classname} > {title}',
         ancestorSeparator: ' › ',

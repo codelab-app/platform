@@ -79,7 +79,7 @@ export const DashboardTemplate = observer(
               )}
 
               <Panel defaultSize={60} order={2}>
-                <main className="size-full mt-3 overflow-auto px-3 pb-6">
+                <main className="mt-3 size-full overflow-auto px-3 pb-6">
                   {children}
                 </main>
               </Panel>

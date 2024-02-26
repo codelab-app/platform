@@ -1,4 +1,4 @@
-import { AuthModule } from '@codelab/backend/application/shared'
+import { AuthModule } from '@codelab/backend/application/auth'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'
 import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PageDomainModule } from '@codelab/backend/domain/page'

@@ -76,7 +76,7 @@ export const SpacingEditor = () => {
         {sides.map((side) => {
           return (
             <div
-              className="size-full flex items-center justify-center self-center"
+              className="flex size-full items-center justify-center self-center"
               key={side}
               style={{ cursor: getCursorForSide(side), gridArea: side }}
             >

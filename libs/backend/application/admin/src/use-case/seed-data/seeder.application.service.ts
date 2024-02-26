@@ -2,7 +2,7 @@ import {
   ImportAtomCommand,
   SeedCypressAtomsCommand,
 } from '@codelab/backend/application/atom'
-import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { DatabaseService } from '@codelab/backend/domain/shared/modules'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'

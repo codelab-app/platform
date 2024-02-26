@@ -1,4 +1,4 @@
-import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import {
   InterfaceType,
   InterfaceTypeRepository,

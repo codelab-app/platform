@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import type {
   EnumType as IEnumType,
   InterfaceType as IInterfaceType,
@@ -5,7 +6,6 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
-import { UseCase } from '@codelab/backend/application/shared'
 import {
   ActionTypeRepository,
   EnumType,
@@ -49,10 +49,7 @@ interface Request {
  *
  */
 @Injectable()
-export class DefaultTypeAdapterService
-  extends UseCase<Request, IType | undefined>
-  implements ITypeTransformer
-{
+export class DefaultTypeAdapterService implements ITypeTransformer {
   actionTypeRegex = /(^function\(.*?\))|((\(.*?\)) => \w)/
 
   arrayTypeRegex = /\[\]$/
@@ -84,11 +81,9 @@ export class DefaultTypeAdapterService
     private reactNodeTypeRepository: ReactNodeTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
     private typeFactory: TypeFactory,
-  ) {
-    super()
-  }
+  ) {}
 
-  async _execute(request: Request) {
+  async execute(request: Request): Promise<IType | undefined> {
     const { atom, field, type } = request
 
     const typeChecks = [

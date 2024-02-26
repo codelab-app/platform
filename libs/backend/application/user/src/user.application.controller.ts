@@ -1,4 +1,4 @@
-import { CurrentUser } from '@codelab/backend/application/shared'
+import { CurrentUser } from '@codelab/backend/application/auth'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Post } from '@nestjs/common'

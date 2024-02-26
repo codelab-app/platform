@@ -1,1 +1,1 @@
-export * from './seed-framework.service'
+export * from './seed-framework.command.service'

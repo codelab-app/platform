@@ -1,5 +1,4 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { UseCase } from '@codelab/backend/application/shared'
 import {
   Field,
   FieldRepository,
@@ -8,33 +7,36 @@ import {
 import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
+import type { ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler } from '@nestjs/cqrs'
 import find from 'lodash/find'
 import { v4 } from 'uuid'
 import { AntdTypeAdapterService } from '../../type-adapter/antd-type-adapter/antd-type-adapter.service'
 import { readAntDesignApis } from './read-ant-design-apis'
+
+export class ExtractAntDesignFieldsCommand {
+  constructor(public atoms: Array<IAtomDto>) {}
+}
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
  *
  * We don't map the existing ids here
  */
-@Injectable()
-export class ExtractAntDesignFieldsService extends UseCase<
-  Array<IAtomDto>,
-  Array<IFieldDto>
-> {
+@CommandHandler(ExtractAntDesignFieldsCommand)
+export class ExtractAntDesignFieldsHandler
+  implements ICommandHandler<ExtractAntDesignFieldsCommand, Array<IFieldDto>>
+{
   constructor(
     private fieldRepository: FieldRepository,
     private typeFactory: TypeFactory,
     private antTypeAdapterService: AntdTypeAdapterService,
-  ) {
-    super()
-  }
+  ) {}
 
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
-  protected async _execute(atoms: Array<IAtomDto>) {
+  async execute({ atoms }: ExtractAntDesignFieldsCommand) {
     const antDesignApis = await readAntDesignApis(this.antdDataFolder)
     const fieldsByAtom = []
 

@@ -1,6 +1,9 @@
 import { Neo4jService } from '@codelab/backend/infra/adapter/neo4j'
 import { Injectable } from '@nestjs/common'
 
+/**
+ * This class is tested in application layer, since it requires application seeders to create the data
+ */
 @Injectable()
 export class DatabaseService {
   constructor(private readonly neo4jService: Neo4jService) {}

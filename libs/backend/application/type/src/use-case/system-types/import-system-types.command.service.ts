@@ -1,4 +1,4 @@
-import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'

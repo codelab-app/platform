@@ -1,10 +1,10 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { AuthModule } from '@codelab/backend/application/auth'
 import {
   ExportPageHandler,
   ImportPageHandler,
   PageApplicationModule,
 } from '@codelab/backend/application/page'
-import { AuthModule } from '@codelab/backend/application/shared'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'

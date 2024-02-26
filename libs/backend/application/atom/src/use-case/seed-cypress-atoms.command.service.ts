@@ -1,4 +1,4 @@
-import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { Span } from '@codelab/backend/infra/adapter/otel'
 import { type IAtomDto } from '@codelab/shared/abstract/core'
