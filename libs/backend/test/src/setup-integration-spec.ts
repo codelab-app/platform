@@ -1,7 +1,5 @@
 /// <reference types="jest" />
 
-import { AppRepository } from '@codelab/backend/domain/app'
-import { PageRepository } from '@codelab/backend/domain/page'
 import {
   AuthDomainModule,
   AuthDomainService,
@@ -29,7 +27,6 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
     imports: [
       RequestContextModule,
       UserDomainModule,
-      AuthDomainModule,
       OtelModule,
       ValidationModule,
       SharedDomainModule,
@@ -37,12 +34,7 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
       OgmModule,
       ...(metadata.imports ?? []),
     ],
-    providers: [
-      UserRepository,
-      AppRepository,
-      PageRepository,
-      ...(metadata.providers ?? []),
-    ],
+    providers: [UserRepository, ...(metadata.providers ?? [])],
   })
     .overrideProvider(AuthDomainService)
     .useValue({
@@ -67,12 +59,10 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
     await nestApp.init()
     await neo4jService.resetData()
 
-    // jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
     await userDomainService.seedUser(owner)
   }
 
   const afterAll = async () => {
-    // await neo4jService.driver.close()
     await nestApp.close()
   }
 

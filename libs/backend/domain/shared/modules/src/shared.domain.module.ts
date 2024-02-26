@@ -3,6 +3,7 @@ import { Neo4jModule, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
+import { DatabaseService } from './database'
 
 @Module({
   exports: [
@@ -11,6 +12,7 @@ import { Module } from '@nestjs/common'
     Neo4jModule,
     AuthDomainModule,
     OtelModule,
+    DatabaseService,
   ],
   imports: [
     AuthDomainModule,
@@ -19,6 +21,6 @@ import { Module } from '@nestjs/common'
     ValidationModule,
     OtelModule,
   ],
-  providers: [],
+  providers: [DatabaseService],
 })
 export class SharedDomainModule {}

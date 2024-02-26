@@ -54,6 +54,7 @@ describe('Admin', () => {
         },
       }),
       AdminApplicationModule,
+      SharedApplicationModule,
       TypeDomainModule,
       TypeApplicationModule,
       Neo4jModule,

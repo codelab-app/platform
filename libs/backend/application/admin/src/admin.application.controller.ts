@@ -1,4 +1,4 @@
-import { AdminRepository } from '@codelab/backend/domain/admin'
+import { DatabaseService } from '@codelab/backend/domain/shared/modules'
 import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -14,7 +14,7 @@ export class ResetDataDto {
 export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly adminRepository: AdminRepository,
+    private readonly databaseService: DatabaseService,
     private seederApplicationService: SeederApplicationService,
   ) {}
 
@@ -46,12 +46,12 @@ export class AdminController {
 
   @Post('reset-cypress-user-data')
   async resetCypressUserData() {
-    await this.adminRepository.resetUserData()
+    await this.databaseService.resetUserData()
   }
 
   @Post('reset-database')
   async resetDatabase() {
-    await this.adminRepository.resetDatabase()
+    await this.databaseService.resetDatabase()
 
     return {
       message: 'Admin data reset success',
@@ -60,7 +60,7 @@ export class AdminController {
 
   @Post('reset-database-except-user')
   async resetDatabaseExceptUser() {
-    await this.adminRepository.resetDatabaseExceptUser()
+    await this.databaseService.resetDatabaseExceptUser()
 
     return {
       message: 'Admin data reset success',

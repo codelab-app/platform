@@ -4,7 +4,7 @@ import {
 } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/shared'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { AdminRepository } from '@codelab/backend/domain/admin'
+import { DatabaseService } from '@codelab/backend/domain/shared/modules'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import type { IAtom } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -17,7 +17,7 @@ export class SeederApplicationService {
     private readonly commandBus: CommandBus,
     private seederDomainService: SeederDomainService,
     private readonly readAdminDataService: ReadAdminDataService,
-    private readonly adminRepository: AdminRepository,
+    private readonly databaseService: DatabaseService,
   ) {}
 
   /**
@@ -67,7 +67,7 @@ export class SeederApplicationService {
   }
 
   async seedE2eSystemData() {
-    await this.adminRepository.resetDatabase()
+    await this.databaseService.resetDatabase()
 
     await this.seederDomainService.seedUserFromRequest()
 

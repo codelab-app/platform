@@ -1,5 +1,4 @@
 import type { Atom as IAtom } from '@codelab/backend/abstract/codegen'
-import { SeedCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'

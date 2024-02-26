@@ -10,20 +10,26 @@ export class Neo4jService {
   constructor(@Inject(NEO4J_DRIVER_PROVIDER) public driver: Driver) {}
 
   /**
-   * https://aura.support.neo4j.com/hc/en-us/articles/4412131924883-How-to-wipe-out-delete-all-the-content-in-a-Neo4j-AuraDB-Instance-
+   *
+   * Used by spec mostly, so we don't close the pool otherwise subsequent specs won't run
+   *
+   * @param close
+   * @returns
    */
-  async resetData() {
-    return this.withWriteTransaction((txn) =>
-      txn.run(`
+  async resetData(close = false) {
+    return this.withWriteTransaction(
+      (txn) =>
+        txn.run(`
         MATCH (n)
         DETACH DELETE n
       `),
+      close,
     )
   }
 
   async withReadTransaction<T>(
     readTransaction: ManagedTransactionWork<T>,
-    close = true,
+    close = false,
   ) {
     const session = this.driver.session()
 
@@ -47,7 +53,7 @@ export class Neo4jService {
 
   async withWriteTransaction<T>(
     writeTransaction: ManagedTransactionWork<T>,
-    close = true,
+    close = false,
   ) {
     const session = this.driver.session()
 

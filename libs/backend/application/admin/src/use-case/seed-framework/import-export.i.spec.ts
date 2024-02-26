@@ -1,33 +1,40 @@
+import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { ComponentApplicationModule } from '@codelab/backend/application/component'
+import {
+  MigrationDataService,
+  ReadAdminDataService,
+  SharedApplicationModule,
+} from '@codelab/backend/application/shared'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
-import { AdminRepository } from '@codelab/backend/domain/admin'
-import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
-import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
-import { UserDomainModule } from '@codelab/backend/domain/user'
-import { Auth0Module } from '@codelab/backend/infra/adapter/auth0'
-import { Neo4jService } from '@codelab/backend/infra/adapter/neo4j'
 import { initUserContext } from '@codelab/backend/test'
-import { IRole } from '@codelab/shared/abstract/core'
-import { Module } from '@nestjs/common'
-import type { TestingModule } from '@nestjs/testing'
-import { Test } from '@nestjs/testing'
+import { CommandBus } from '@nestjs/cqrs'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
 import { AdminController } from '../../admin.application.controller'
 import { AdminApplicationModule } from '../../admin.application.module'
+import {
+  ExportAdminDataCommand,
+  ExportAdminDataHandler,
+} from '../export/export-admin-data.command.service'
+import {
+  ImportAdminDataCommand,
+  ImportAdminDataHandler,
+} from '../import/import-admin-data.command.service'
+import { SeederApplicationService } from '../seed-data'
 
 jest.setTimeout(200000)
 
 const exportPath = path.resolve('./data/export-v3')
 const exportTestPath = path.resolve('./tmp/data/export-v3')
-let adminController: AdminController
 
 describe('Seed, import, & export data', () => {
   const context = initUserContext({
-    imports: [AdminApplicationModule, TagApplicationModule],
-    providers: [SeederDomainService],
+    imports: [AdminApplicationModule],
   })
+
+  let commandBus: CommandBus
 
   beforeAll(async () => {
     const ctx = await context
@@ -35,7 +42,7 @@ describe('Seed, import, & export data', () => {
 
     fs.rmSync(exportTestPath, { force: true, recursive: true })
 
-    adminController = module.get<AdminController>(AdminController)
+    commandBus = module.get(CommandBus)
 
     await ctx.beforeAll()
   })
@@ -47,8 +54,8 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should import and export Ant Design data without changes', async () => {
-    await adminController.import({ adminDataPath: exportPath })
-    await adminController.export({ adminDataPath: exportTestPath })
+    await commandBus.execute(new ImportAdminDataCommand(exportPath))
+    await commandBus.execute(new ExportAdminDataCommand(exportTestPath))
 
     const sourceToExpectedFilePath = glob
       .sync('**/*', { cwd: exportTestPath, nodir: true })
