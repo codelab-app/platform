@@ -42,9 +42,9 @@ describe('Seed, import, & export data', () => {
 
     fs.rmSync(exportTestPath, { force: true, recursive: true })
 
-    commandBus = module.get(CommandBus)
-
     await ctx.beforeAll()
+
+    commandBus = module.get(CommandBus)
   })
 
   afterAll(async () => {

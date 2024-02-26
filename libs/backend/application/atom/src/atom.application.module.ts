@@ -1,3 +1,4 @@
+import { DataModule } from '@codelab/backend/application/data'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
@@ -27,6 +28,7 @@ import {
     AtomDomainModule,
     ValidationModule,
     OtelModule,
+    DataModule,
     SharedApplicationModule,
   ],
   providers: [

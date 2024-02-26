@@ -1,9 +1,14 @@
-import { ReadAdminDataService } from '@codelab/backend/application/data'
+import {
+  DataModule,
+  ReadAdminDataService,
+} from '@codelab/backend/application/data'
+import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import {
   InterfaceType,
   InterfaceTypeRepository,
   TypeDomainModule,
 } from '@codelab/backend/domain/type'
+import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { CommandBus } from '@nestjs/cqrs'
@@ -19,12 +24,11 @@ import {
 describe('ImportApiCommand', () => {
   let commandBus: CommandBus
   let readAdminDataService: ReadAdminDataService
-  let interfaceTypeRepository: InterfaceTypeRepository
   let typeApplicationService: TypeApplicationService
 
   const context = initUserContext({
-    imports: [TypeDomainModule, TypeApplicationModule],
-    providers: [ImportApiHandler, ReadAdminDataService],
+    imports: [TypeDomainModule, TypeApplicationModule, DataModule],
+    providers: [],
   })
 
   beforeAll(async () => {
@@ -32,7 +36,6 @@ describe('ImportApiCommand', () => {
 
     commandBus = ctx.commandBus
     readAdminDataService = await ctx.module.resolve(ReadAdminDataService)
-    interfaceTypeRepository = ctx.module.get(InterfaceTypeRepository)
     typeApplicationService = ctx.module.get(TypeApplicationService)
 
     await ctx.beforeAll()

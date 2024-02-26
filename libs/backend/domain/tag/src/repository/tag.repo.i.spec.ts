@@ -23,6 +23,8 @@ describe('Tag repository.', () => {
     const ctx = await context
     const module = ctx.module
 
+    await ctx.beforeAll()
+
     tagRepository = module.get<TagRepository>(TagRepository)
   })
 
