@@ -1,3 +1,4 @@
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import {
   DataModule,
   ReadAdminDataService,

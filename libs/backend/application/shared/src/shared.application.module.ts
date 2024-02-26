@@ -4,6 +4,6 @@ import { Module } from '@nestjs/common'
 
 @Module({
   imports: [ValidationModule, OtelModule],
-  providers: [ValidationModule, OtelModule],
+  providers: [],
 })
 export class SharedApplicationModule {}
