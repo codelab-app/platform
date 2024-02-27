@@ -4,6 +4,7 @@ import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { RootModule } from './root.module'
 
 const bootstrap = async () => {
@@ -17,6 +18,20 @@ const bootstrap = async () => {
   const port = config.graphqlApiPort
 
   app.setGlobalPrefix(globalPrefix)
+
+  /**
+   * Add swagger
+   */
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Codelab API')
+    .setDescription('The Codelab API description')
+    .setVersion('1.0')
+    // .addTag('cats')
+    .build()
+
+  const document = SwaggerModule.createDocument(app, swaggerConfig)
+
+  SwaggerModule.setup('api', app, document)
 
   await app.listen(port)
 

@@ -28,7 +28,7 @@ describe.skip('Admin', () => {
       },
       method: 'POST',
       timeout: TIMEOUT,
-      url: '/api/data/admin/import',
+      url: '/api/admin/import',
     })
 
     cy.request({
@@ -38,7 +38,7 @@ describe.skip('Admin', () => {
       },
       method: 'POST',
       timeout: TIMEOUT,
-      url: '/api/data/admin/export',
+      url: '/api/admin/export',
     }).as('export')
 
     cy.task(

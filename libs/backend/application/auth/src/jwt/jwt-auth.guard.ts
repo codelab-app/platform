@@ -15,7 +15,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   override handleRequest(err: unknown, user: any, info: unknown) {
     // You can throw an exception based on either "info" or "err" arguments
     if (err || !user) {
-      console.debug(err, user, info)
+      console.debug({ err, info, user })
       throw err || new UnauthorizedException()
     }
 

@@ -5,6 +5,6 @@ export const postApiRequest = <T>(url: string, body?: object) => {
     body,
     method: 'POST',
     timeout: 60000,
-    url: path.join('/api/data', url),
+    url: path.join('/api', url),
   })
 }

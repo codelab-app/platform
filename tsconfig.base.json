@@ -161,6 +161,9 @@
       "@codelab/backend/infra/adapter/request-context": [
         "libs/backend/infra/adapter/request-context/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/rest-client": [
+        "libs/backend/infra/adapter/rest-client/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
       ],

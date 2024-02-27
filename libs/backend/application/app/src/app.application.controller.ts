@@ -1,4 +1,5 @@
 import 'multer'
+import { SeedSystemTypesCommand } from '@codelab/backend/application/type'
 import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import {
   ClassSerializerInterceptor,
@@ -18,7 +19,7 @@ import {
   SeedCypressAppCommand,
 } from './use-case'
 
-@Controller('data/app')
+@Controller('app')
 export class AppApplicationController {
   constructor(private commandBus: CommandBus) {}
 
@@ -44,6 +45,10 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-cypress-app')
   async seedApp() {
+    await this.commandBus.execute<SeedSystemTypesCommand>(
+      new SeedSystemTypesCommand(),
+    )
+
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(
       new SeedCypressAppCommand(),
     )

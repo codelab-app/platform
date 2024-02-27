@@ -3,7 +3,7 @@ import { UserRepository } from '@codelab/backend/domain/user'
 import { IUserDto } from '@codelab/shared/abstract/core'
 import { Controller, Post } from '@nestjs/common'
 
-@Controller('data/user')
+@Controller('user')
 export class UserApplicationController {
   constructor(private userRepository: UserRepository) {}
 

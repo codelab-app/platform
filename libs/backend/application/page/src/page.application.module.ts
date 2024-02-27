@@ -10,7 +10,7 @@ import { ExportPageHandler, ImportPageHandler } from './use-case'
 
 @Module({
   controllers: [],
-  exports: [ExportPageHandler, ImportPageHandler],
+  exports: [],
   imports: [
     AuthDomainModule,
     PageDomainModule,

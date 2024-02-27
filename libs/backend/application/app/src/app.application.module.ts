@@ -5,6 +5,7 @@ import {
   ImportPageHandler,
   PageApplicationModule,
 } from '@codelab/backend/application/page'
+import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'
@@ -41,6 +42,7 @@ import {
     PageDomainModule,
     AtomApplicationModule,
     PageApplicationModule,
+    TypeApplicationModule,
     PropDomainModule,
     ComponentDomainModule,
     ElementDomainModule,

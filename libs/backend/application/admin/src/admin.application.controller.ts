@@ -10,7 +10,7 @@ export class ResetDataDto {
   close?: false
 }
 
-@Controller('data/admin')
+@Controller('admin')
 export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,

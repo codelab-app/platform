@@ -2,7 +2,7 @@ import { getEnv } from '@codelab/shared/config'
 import axios from 'axios'
 
 export const restPlatformClient = axios.create({
-  baseURL: new URL('api/data', getEnv().endpoint.platformHost).toString(),
+  baseURL: new URL('api', getEnv().endpoint.platformHost).toString(),
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ restPlatformClient.interceptors.response.use(
 )
 
 export const restPlatformApiClient = axios.create({
-  baseURL: new URL('api/data', getEnv().endpoint.platformApiHost).toString(),
+  baseURL: new URL('api', getEnv().endpoint.platformApiHost).toString(),
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',

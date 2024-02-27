@@ -69,14 +69,14 @@ export class SeederApplicationService {
   async seedE2eSystemData() {
     await this.databaseService.resetDatabase()
 
-    await this.seederDomainService.seedUserFromRequest()
+    // await this.seederDomainService.seedUserFromRequest()
 
-    await this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(),
-    )
+    // await this.commandBus.execute<ImportSystemTypesCommand>(
+    //   new ImportSystemTypesCommand(),
+    // )
 
-    await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
-      new SeedCypressAtomsCommand(),
-    )
+    // await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
+    //   new SeedCypressAtomsCommand(),
+    // )
   }
 }

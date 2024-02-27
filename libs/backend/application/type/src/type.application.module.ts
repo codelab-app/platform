@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { TypeApplicationService } from './service'
 import { TypeApplicationController } from './type.application.controller'
-import { SeedCypressTypesHandler } from './use-case'
+import { SeedCypressTypesHandler, SeedSystemTypesHandler } from './use-case'
 import { ExportApiHandler } from './use-case/api/export-api.command.service'
 import { ImportApiHandler } from './use-case/api/import-api/import-api.command.service'
 import { ExportSystemTypesHandler } from './use-case/system-types/export-system-types.command.service'
@@ -13,14 +13,7 @@ import { ImportSystemTypesHandler } from './use-case/system-types/import-system-
 
 @Module({
   controllers: [TypeApplicationController],
-  exports: [
-    SeedCypressTypesHandler,
-    TypeApplicationService,
-    ImportApiHandler,
-    ExportApiHandler,
-    ExportSystemTypesHandler,
-    ImportSystemTypesHandler,
-  ],
+  exports: [TypeApplicationService],
   imports: [DataModule, CqrsModule, TypeDomainModule, SharedApplicationModule],
   providers: [
     SeedCypressTypesHandler,
@@ -29,6 +22,7 @@ import { ImportSystemTypesHandler } from './use-case/system-types/import-system-
     ExportApiHandler,
     ExportSystemTypesHandler,
     ImportSystemTypesHandler,
+    SeedSystemTypesHandler,
   ],
 })
 export class TypeApplicationModule {}

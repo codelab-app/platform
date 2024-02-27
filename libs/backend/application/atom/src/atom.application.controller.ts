@@ -7,7 +7,7 @@ import {
 import { CommandBus } from '@nestjs/cqrs'
 import { SeedCypressAtomsCommand } from './use-case'
 
-@Controller('data/atom')
+@Controller('atom')
 export class AtomApplicationController {
   constructor(private commandBus: CommandBus) {}
 

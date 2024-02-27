@@ -21,9 +21,7 @@ export class Auth0Strategy
   extends PassportStrategy(Strategy)
   implements IPassportStrategy
 {
-  constructor(
-    @Inject(auth0Config.KEY) private config: ConfigType<typeof auth0Config>,
-  ) {
+  constructor(@Inject(auth0Config.KEY) config: ConfigType<typeof auth0Config>) {
     super({
       algorithms: ['RS256'],
       /**

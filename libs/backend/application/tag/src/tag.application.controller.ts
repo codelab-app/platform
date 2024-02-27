@@ -7,7 +7,7 @@ import {
 import { CommandBus } from '@nestjs/cqrs'
 import { SeedCypressTagsCommand } from './use-case'
 
-@Controller('data/tag')
+@Controller('tag')
 export class TagApplicationController {
   constructor(private commandBus: CommandBus) {}
 
