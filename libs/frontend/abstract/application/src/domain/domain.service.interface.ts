@@ -3,6 +3,7 @@ import type {
   IDomainModel,
 } from '@codelab/frontend/abstract/domain'
 import type {
+  DomainFragment,
   DomainOptions,
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
@@ -22,4 +23,5 @@ export interface IDomainService
   domains: ObjectMap<IDomainModel>
   domainsList: Array<IDomainModel>
   getAll(where?: DomainWhere): Promise<Array<IDomainModel>>
+  hydrate(domain: DomainFragment): void
 }

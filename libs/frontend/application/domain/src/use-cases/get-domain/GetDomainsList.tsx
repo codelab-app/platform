@@ -1,4 +1,5 @@
 import { useStore } from '@codelab/frontend/application/shared/store'
+import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import {
   DisplayIf,
   ErrorBoundary,
@@ -17,7 +18,12 @@ const emptyImageStyle: React.CSSProperties = {
 
 export const GetDomainsList = observer(() => {
   const { domainService } = useStore()
-  const domainsList = domainService.domainsList
+  const app = useCurrentApp()
+
+  const domainsList = domainService.domainsList.filter(
+    (domain) => domain.app.id === app?.id,
+  )
+
   const hasDomain = domainsList.length > 0
 
   return (
