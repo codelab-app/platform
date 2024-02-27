@@ -44,8 +44,6 @@ export const CreateActionForm = observer(
     const actionSchema = useActionSchema(createActionSchema)
 
     const onSubmit = (actionDTO: ICreateActionData) => {
-      console.log('submit', actionDTO)
-
       const promise = actionService.create(actionDTO)
 
       onSubmitSuccess?.()

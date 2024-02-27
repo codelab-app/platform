@@ -31,8 +31,6 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
     const { actionService, resourceService } = useStore()
 
     const onSubmit = (actionDTO: ICreateActionData) => {
-      console.log('submit', actionDTO)
-
       return actionService.create(actionDTO)
     }
 

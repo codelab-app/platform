@@ -181,11 +181,7 @@ export class TypeSchemaFactory {
     type: IInterfaceTypeModel,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    console.log(type)
-
     const makeFieldSchema = (field: IFieldModel) => {
-      console.log(field.name, field.id)
-
       return {
         label: field.name || compoundCaseToTitleCase(field.key),
         ...(field.description ? fieldDescription(field.description) : {}),

@@ -19,6 +19,6 @@ describe('Auth0 client', () => {
       env.auth0.cypressPassword,
     )
 
-    console.log(response.data.access_token)
+    // console.debug(response.data.access_token)
   })
 })

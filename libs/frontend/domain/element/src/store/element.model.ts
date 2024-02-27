@@ -534,7 +534,6 @@ export class Element
 
     if (oldPrevSibling) {
       oldPrevSibling.nextSibling = elementRef(this)
-      console.log(oldPrevSibling.toTreeNode)
 
       this.prevSibling = elementRef(oldPrevSibling)
     }
