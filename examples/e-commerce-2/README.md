@@ -6,7 +6,7 @@ This is an attempt to replicate the mock e-commerce site from vercel: https://de
 
 - Fetch products from a server and render each products in a grid
 - Searching, filtering, and sorting functionality
-- WIP: Navigation to each product page when clicking a product card
+- Navigation to each product page when clicking a product card
 - WIP: Add to cart functionality
 
 ## Local setup
