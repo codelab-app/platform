@@ -72,7 +72,7 @@ export class AdminController {
    */
   @Post('seed-cypress-system-data')
   async seedCypressSystemData() {
-    await this.seederApplicationService.seedE2eSystemData()
+    await this.seederApplicationService.setupE2eSystemData()
   }
 
   /**
@@ -80,6 +80,6 @@ export class AdminController {
    */
   @Post('setup-dev')
   async setup() {
-    await this.seederApplicationService.seedDevBootstrapData()
+    await this.seederApplicationService.setupDevBootstrapData()
   }
 }

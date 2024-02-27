@@ -24,7 +24,7 @@ import {
 } from '../import/import-admin-data.command.service'
 import { SeederApplicationService } from '../seed-data'
 
-jest.setTimeout(200000)
+jest.setTimeout(150000)
 
 const exportPath = path.resolve('./data/export-v3')
 const exportTestPath = path.resolve('./tmp/data/export-v3')

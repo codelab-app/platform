@@ -1,5 +1,9 @@
 import 'multer'
-import { SeedSystemTypesCommand } from '@codelab/backend/application/type'
+import {
+  ImportSystemTypesCommand,
+  SeedSystemTypesCommand,
+} from '@codelab/backend/application/type'
+import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import {
   ClassSerializerInterceptor,
@@ -21,7 +25,10 @@ import {
 
 @Controller('app')
 export class AppApplicationController {
-  constructor(private commandBus: CommandBus) {}
+  constructor(
+    private commandBus: CommandBus,
+    private databaseService: DatabaseService,
+  ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('export')
@@ -45,8 +52,10 @@ export class AppApplicationController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('seed-cypress-app')
   async seedApp() {
-    await this.commandBus.execute<SeedSystemTypesCommand>(
-      new SeedSystemTypesCommand(),
+    await this.databaseService.resetUserData()
+
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
     )
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(

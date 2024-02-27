@@ -17,12 +17,7 @@ import {
 } from './use-case'
 
 @Module({
-  exports: [
-    ExportStoreCommand,
-    ExportStoreHandler,
-    ImportStoreHandler,
-    ImportStoreCommand,
-  ],
+  exports: [],
   imports: [
     CqrsModule,
     StoreDomainModule,

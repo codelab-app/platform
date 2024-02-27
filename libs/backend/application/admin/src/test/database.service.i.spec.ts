@@ -4,7 +4,7 @@ import {
 } from '@codelab/backend/application/app'
 import {
   AtomApplicationModule,
-  SeedCypressAtomsCommand,
+  ImportCypressAtomsCommand,
 } from '@codelab/backend/application/atom'
 import {
   ImportSystemTypesCommand,
@@ -19,6 +19,8 @@ import {
 import { initUserContext } from '@codelab/backend/test'
 import type { IApp, IAtom } from '@codelab/shared/abstract/core'
 import { CommandBus } from '@nestjs/cqrs'
+
+jest.setTimeout(60000)
 
 describe('DatabaseService', () => {
   const context = initUserContext({
@@ -59,8 +61,8 @@ describe('DatabaseService', () => {
       new ImportSystemTypesCommand(),
     )
 
-    await commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
-      new SeedCypressAtomsCommand(),
+    await commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
+      new ImportCypressAtomsCommand(),
     )
 
     // const atoms = await atomRepository.find()

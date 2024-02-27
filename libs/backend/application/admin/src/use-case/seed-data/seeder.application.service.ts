@@ -1,6 +1,6 @@
 import {
   ImportAtomCommand,
-  SeedCypressAtomsCommand,
+  ImportCypressAtomsCommand,
 } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
@@ -48,7 +48,7 @@ export class SeederApplicationService {
   /**
    * The minimum required data
    */
-  async seedDevBootstrapData() {
+  async setupDevBootstrapData() {
     await this.seederDomainService.seedUserFromRequest()
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
@@ -66,17 +66,17 @@ export class SeederApplicationService {
     }
   }
 
-  async seedE2eSystemData() {
+  async setupE2eSystemData() {
     await this.databaseService.resetDatabase()
 
-    // await this.seederDomainService.seedUserFromRequest()
+    await this.seederDomainService.seedUserFromRequest()
 
-    // await this.commandBus.execute<ImportSystemTypesCommand>(
-    //   new ImportSystemTypesCommand(),
-    // )
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
 
-    // await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
-    //   new SeedCypressAtomsCommand(),
-    // )
+    await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
+      new ImportCypressAtomsCommand(),
+    )
   }
 }

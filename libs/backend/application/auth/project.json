@@ -19,5 +19,5 @@
       }
     }
   },
-  "tags": ["scope:backend", "layer:application"]
+  "tags": ["scope:backend", "layer:application", "projectType:library"]
 }

@@ -11,17 +11,12 @@ import { AtomApplicationService } from './services/atom.application.service'
 import {
   ExportAtomHandler,
   ImportAtomHandler,
-  SeedCypressAtomsHandler,
+  ImportCypressAtomsHandler,
 } from './use-case'
 
 @Module({
   controllers: [AtomApplicationController],
-  exports: [
-    SeedCypressAtomsHandler,
-    ExportAtomHandler,
-    ImportAtomHandler,
-    AtomApplicationService,
-  ],
+  exports: [AtomApplicationService],
   imports: [
     CqrsModule,
     TypeDomainModule,
@@ -32,7 +27,7 @@ import {
     SharedApplicationModule,
   ],
   providers: [
-    SeedCypressAtomsHandler,
+    ImportCypressAtomsHandler,
     ExportAtomHandler,
     ImportAtomHandler,
     AtomApplicationService,

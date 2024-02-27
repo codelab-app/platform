@@ -11,12 +11,7 @@ import {
 
 @Module({
   controllers: [TagApplicationController],
-  exports: [
-    ExportTagsHandler,
-    ImportTagsHandler,
-    SeedCypressTagsHandler,
-    SeedTagsService,
-  ],
+  exports: [SeedTagsService],
   imports: [CqrsModule, TagDomainModule],
   providers: [
     ExportTagsHandler,

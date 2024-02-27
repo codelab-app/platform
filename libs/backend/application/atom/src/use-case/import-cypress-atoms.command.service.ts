@@ -5,13 +5,16 @@ import { type IAtomDto } from '@codelab/shared/abstract/core'
 import { atomTypes } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import { ImportAtomCommand } from './import-atom/import-atom.command.service'
+import { ImportAtomCommand } from './import-atom'
 
-export class SeedCypressAtomsCommand {}
+export class ImportCypressAtomsCommand {}
 
-@CommandHandler(SeedCypressAtomsCommand)
-export class SeedCypressAtomsHandler
-  implements ICommandHandler<SeedCypressAtomsCommand, Array<IAtomDto>>
+/**
+ * This is a subset of atoms to make importing faster
+ */
+@CommandHandler(ImportCypressAtomsCommand)
+export class ImportCypressAtomsHandler
+  implements ICommandHandler<ImportCypressAtomsCommand, Array<IAtomDto>>
 {
   constructor(
     private readonly commandBus: CommandBus,

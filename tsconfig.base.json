@@ -140,9 +140,6 @@
       "@codelab/backend/infra/adapter/cli": [
         "libs/backend/infra/adapter/cli/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/codelab": [
-        "libs/backend/infra/adapter/codelab/src/index.ts"
-      ],
       "@codelab/backend/infra/adapter/graphql": [
         "libs/backend/infra/adapter/graphql/src/index.ts"
       ],
