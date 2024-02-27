@@ -10,6 +10,7 @@ import {
   type IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
+import { getDomainService } from '@codelab/frontend/application/domain'
 import {
   getPageService,
   PageRepository,
@@ -143,6 +144,12 @@ export class AppService
         this.pageService.pageDomainService.hydrate(page)
       })
 
+    apps
+      .flatMap((app) => app.domains)
+      .forEach((domain) => {
+        this.domainService.hydrate(domain)
+      })
+
     return apps.map((app) => {
       return this.appDomainService.hydrate(app)
     })
@@ -183,6 +190,11 @@ export class AppService
   @computed
   private get atomService() {
     return getAtomService(this)
+  }
+
+  @computed
+  private get domainService() {
+    return getDomainService(this)
   }
 
   @computed

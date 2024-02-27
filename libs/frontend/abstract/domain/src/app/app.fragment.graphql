@@ -2,6 +2,9 @@
 # owner.auth0Id is required to compute name
 #
 fragment AppPreview on App {
+  domains {
+    ...Domain
+  }
   id
   name
   # Required to compute name
