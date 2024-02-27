@@ -299,9 +299,6 @@
             "id": "33980f72-5a67-43df-ab05-2f22dcd72efe",
             "kind": "InterfaceType",
             "name": "Product",
-            "owner": {
-              "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
-            },
             "fields": [
               {
                 "id": "5bf71e37-1a64-4981-afff-afc695b05a15",
@@ -467,7 +464,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "99505513-9b31-47fe-8498-261083fb4cce",
-            "data": "{\"customText\":\"{\\\"time\\\":1704984063971,\\\"blocks\\\":[{\\\"id\\\":\\\"DSyZsuVkOs\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"$100\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\"}"
+            "data": "{\"customText\":\"{\\\"time\\\":1708421853857,\\\"blocks\\\":[{\\\"id\\\":\\\"DSyZsuVkOs\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{state.product?.price}}\\\"}}],\\\"version\\\":\\\"2.29.1\\\"}\",\"mark\":false,\"code\":false,\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -535,7 +532,10 @@
           "childMapperPropKey": null,
           "childMapperComponent": null,
           "renderIfExpression": null,
-          "preRenderAction": null,
+          "preRenderAction": {
+            "id": "cd93c8be-9ddf-4d3a-b6bd-4ac641761f1f",
+            "type": "ApiAction"
+          },
           "postRenderAction": null,
           "renderType": {
             "__typename": "Atom",
@@ -593,7 +593,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "22082daa-034e-4be0-a2ff-7f5421610944",
-            "data": "{\"delete\":false,\"underline\":false,\"code\":false,\"disabled\":false,\"mark\":false,\"italic\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"{\\\"time\\\":1704983952334,\\\"blocks\\\":[{\\\"id\\\":\\\"qKgPV2eFC5\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Test Product\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\"}"
+            "data": "{\"delete\":false,\"underline\":false,\"code\":false,\"disabled\":false,\"mark\":false,\"italic\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"{\\\"time\\\":1704983952334,\\\"blocks\\\":[{\\\"id\\\":\\\"qKgPV2eFC5\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{state.product?.name}}\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -604,6 +604,36 @@
           "renderType": {
             "__typename": "Atom",
             "id": "b840e014-fa72-4188-a9da-05e68280c863"
+          }
+        },
+        {
+          "id": "634e14ee-cb26-4964-9e1e-ceabfa654607",
+          "name": "Ant Design Image",
+          "slug": "Ant Design Image",
+          "compositeKey": "5698bdfa-75a9-4210-ac36-93c02167125d-Ant Design Image",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "aa77dbeb-1737-415c-8430-66ee91e9accd"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "3272a15a-cfbc-42dc-a672-a73221c133a2",
+            "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{state.product?.imageUrl ?? ''}}\"}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4f202913-d847-48dd-bb91-19753114a52d"
           }
         },
         {
@@ -621,7 +651,9 @@
           "nextSibling": {
             "id": "e4c81e6e-8f1f-4947-a833-766a1f917e05"
           },
-          "firstChild": null,
+          "firstChild": {
+            "id": "634e14ee-cb26-4964-9e1e-ceabfa654607"
+          },
           "childMapperPreviousSibling": null,
           "props": {
             "id": "59529986-38d7-49e9-a64c-23a95db3e25c",
@@ -697,7 +729,62 @@
           "id": "6de6f588-cc64-404c-9d68-2a75e7e3f891",
           "kind": "InterfaceType",
           "name": "Acme Store(jethrocabaluna310) Product Store API",
-          "fields": [],
+          "fields": [
+            {
+              "api": {
+                "id": "6de6f588-cc64-404c-9d68-2a75e7e3f891"
+              },
+              "defaultValues": "null",
+              "description": null,
+              "fieldType": {
+                "id": "33980f72-5a67-43df-ab05-2f22dcd72efe"
+              },
+              "id": "9e241ae0-d585-4bb0-9bc9-9dc3d27e8dc7",
+              "key": "product",
+              "name": "Product",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": "{}"
+            },
+            {
+              "id": "9965ad97-ffb8-4efa-bf38-d3507c8be873",
+              "key": "id",
+              "name": "ID",
+              "description": null,
+              "validationRules": "{}",
+              "defaultValues": "null",
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "33980f72-5a67-43df-ab05-2f22dcd72efe"
+              }
+            },
+            {
+              "id": "5bf71e37-1a64-4981-afff-afc695b05a15",
+              "key": "name",
+              "name": "Name",
+              "description": null,
+              "validationRules": "{}",
+              "defaultValues": "null",
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "33980f72-5a67-43df-ab05-2f22dcd72efe"
+              }
+            }
+          ],
           "types": [
             {
               "__typename": "InterfaceType",
@@ -705,6 +792,52 @@
               "kind": "InterfaceType",
               "name": "Acme Store(jethrocabaluna310) Product Store API",
               "fields": []
+            },
+            {
+              "__typename": "InterfaceType",
+              "id": "33980f72-5a67-43df-ab05-2f22dcd72efe",
+              "kind": "InterfaceType",
+              "name": "Product",
+              "fields": [
+                {
+                  "id": "5bf71e37-1a64-4981-afff-afc695b05a15",
+                  "key": "name",
+                  "name": "Name",
+                  "description": null,
+                  "validationRules": "{}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": {
+                    "id": "33980f72-5a67-43df-ab05-2f22dcd72efe"
+                  }
+                },
+                {
+                  "id": "9965ad97-ffb8-4efa-bf38-d3507c8be873",
+                  "key": "id",
+                  "name": "ID",
+                  "description": null,
+                  "validationRules": "{}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": {
+                    "id": "33980f72-5a67-43df-ab05-2f22dcd72efe"
+                  }
+                }
+              ]
             }
           ]
         },
@@ -714,7 +847,49 @@
           "api": {
             "id": "6de6f588-cc64-404c-9d68-2a75e7e3f891"
           },
-          "actions": []
+          "actions": [
+            {
+              "__typename": "CodeAction",
+              "id": "c21a870d-7fcb-4ab9-a94d-61c7ceac9e04",
+              "name": "testUrlProps",
+              "type": "CodeAction",
+              "store": {
+                "id": "ea3c10f2-2fba-45d2-bdd2-7445332805e0"
+              },
+              "code": "function run() {\n  console.log('urlProps', urlProps)\n}"
+            },
+            {
+              "__typename": "CodeAction",
+              "id": "474949c4-46b3-4d7d-bffd-cf39e3ec2847",
+              "name": "storeProduct",
+              "type": "CodeAction",
+              "store": {
+                "id": "ea3c10f2-2fba-45d2-bdd2-7445332805e0"
+              },
+              "code": "function run(response) {\n  console.log('response.data', response.data)\n  state.product = response.data\n}"
+            },
+            {
+              "__typename": "ApiAction",
+              "id": "cd93c8be-9ddf-4d3a-b6bd-4ac641761f1f",
+              "name": "getProductById",
+              "type": "ApiAction",
+              "store": {
+                "id": "ea3c10f2-2fba-45d2-bdd2-7445332805e0"
+              },
+              "successAction": {
+                "id": "474949c4-46b3-4d7d-bffd-cf39e3ec2847",
+                "name": "storeProduct"
+              },
+              "errorAction": null,
+              "resource": {
+                "id": "ab9fb01b-823d-4ad1-8ba5-412ca1e5f7a5"
+              },
+              "config": {
+                "data": "{\"body\":\"{}\",\"headers\":\"{}\",\"method\":\"GET\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"/product/{{urlProps.id}}\",\"variables\":\"{}\",\"responseType\":\"json\"}",
+                "id": "cd93c8be-9ddf-4d3a-b6bd-4ac641761f1f"
+              }
+            }
+          ]
         }
       }
     },
@@ -1229,9 +1404,6 @@
               "id": "33980f72-5a67-43df-ab05-2f22dcd72efe",
               "kind": "InterfaceType",
               "name": "Product",
-              "owner": {
-                "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
-              },
               "fields": [
                 {
                   "id": "5bf71e37-1a64-4981-afff-afc695b05a15",
