@@ -1,4 +1,4 @@
-import { DatabaseService } from '@codelab/backend/domain/shared/modules'
+import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'

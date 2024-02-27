@@ -10,7 +10,11 @@ import {
   UserDomainService,
   UserRepository,
 } from '@codelab/backend/domain/user'
-import { Neo4jService, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
+import {
+  DatabaseService,
+  Neo4jService,
+  OgmModule,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import {
   RequestContextMiddleware,
@@ -48,6 +52,7 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
   const requestContextMiddleware = module.get(RequestContextMiddleware)
   const neo4jService = module.get(Neo4jService)
   const authService = module.get(AuthDomainService)
+  const databaseService = module.get(DatabaseService)
   const owner = userDto
 
   const beforeAll = async () => {
@@ -57,7 +62,7 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
      * https://github.com/nestjs/cqrs/issues/119#issuecomment-1181596376
      */
     await nestApp.init()
-    await neo4jService.resetData()
+    await databaseService.resetDatabase()
 
     await userDomainService.seedUser(owner)
   }

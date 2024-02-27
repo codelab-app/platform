@@ -1,5 +1,4 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
-import type { IUseCase } from '@codelab/backend/abstract/types'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import {
   Field,
@@ -9,6 +8,8 @@ import {
 import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
+import type { ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler } from '@nestjs/cqrs'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { v4 } from 'uuid'
@@ -16,18 +17,21 @@ import { HtmlTypeAdapterService } from '../../type-adapter/html-type-adapter/htm
 
 export type HtmlData = Record<string, Array<HtmlField>>
 
-@Injectable()
-export class ExtractHtmlFieldsService
-  implements IUseCase<Array<IAtomDto>, Array<IFieldDto>>
+export class ExtractHtmlFieldsCommand {
+  constructor(public atoms: Array<IAtomDto>) {}
+}
+
+@CommandHandler(ExtractHtmlFieldsCommand)
+export class ExtractHtmlFieldsHandler
+  implements ICommandHandler<ExtractHtmlFieldsCommand, Array<IFieldDto>>
 {
   constructor(
     private typeFactory: TypeFactory,
     private htmlTypeAdapterService: HtmlTypeAdapterService,
     private readonly fieldRepository: FieldRepository,
-    private authService: AuthDomainService,
   ) {}
 
-  async execute(atoms: Array<IAtomDto>) {
+  async execute({ atoms }: ExtractHtmlFieldsCommand) {
     const htmlAttributesByName = JSON.parse(
       readFileSync(path.resolve(this.htmlDataFolder, 'html.json'), 'utf8'),
     ) as HtmlData

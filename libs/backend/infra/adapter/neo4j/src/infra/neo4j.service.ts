@@ -9,24 +9,6 @@ type ManagedTransactionWork<T> = (tx: ManagedTransaction) => Promise<T> | T
 export class Neo4jService {
   constructor(@Inject(NEO4J_DRIVER_PROVIDER) public driver: Driver) {}
 
-  /**
-   *
-   * Used by spec mostly, so we don't close the pool otherwise subsequent specs won't run
-   *
-   * @param close
-   * @returns
-   */
-  async resetData(close = false) {
-    return this.withWriteTransaction(
-      (txn) =>
-        txn.run(`
-        MATCH (n)
-        DETACH DELETE n
-      `),
-      close,
-    )
-  }
-
   async withReadTransaction<T>(
     readTransaction: ManagedTransactionWork<T>,
     close = false,

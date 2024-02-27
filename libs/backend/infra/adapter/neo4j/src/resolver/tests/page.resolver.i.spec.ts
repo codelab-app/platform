@@ -17,12 +17,18 @@ import type { GraphQLSchema } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 import { GraphQLSchemaModule } from '../../graphql-schema.module'
-import { Neo4jModule, Neo4jService, OgmModule, OgmService } from '../../infra'
+import {
+  DatabaseService,
+  Neo4jModule,
+  Neo4jService,
+  OgmModule,
+  OgmService,
+} from '../../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../../schema'
 
 describe('ComponentResolvers', () => {
   let app: INestApplication
-  let neo4jService: Neo4jService
+  let databaseService: DatabaseService
   let ogmService: OgmService
 
   beforeAll(async () => {
@@ -43,15 +49,19 @@ describe('ComponentResolvers', () => {
       ],
     }).compile()
 
-    neo4jService = module.get(Neo4jService)
+    databaseService = module.get(DatabaseService)
     ogmService = module.get(OgmService)
     app = module.createNestApplication()
 
     await app.init()
   })
 
-  beforeEach(async () => {
-    await neo4jService.resetData()
+  beforeAll(async () => {
+    await databaseService.resetDatabase()
+  })
+
+  afterAll(async () => {
+    await app.close()
   })
 
   it('should fetch a page with field resolvers - name, slug, elements', async () => {
@@ -250,9 +260,5 @@ describe('ComponentResolvers', () => {
           },
         ])
       })
-  })
-
-  afterAll(async () => {
-    await app.close()
   })
 })

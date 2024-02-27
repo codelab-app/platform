@@ -1,10 +1,8 @@
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AppDomainModule, AppRepository } from '@codelab/backend/domain/app'
 import { PageRepository } from '@codelab/backend/domain/page'
-import {
-  AuthDomainModule,
-  AuthDomainService,
-} from '@codelab/backend/domain/shared/auth'
+import type { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import {
   UserDomainModule,
   UserDomainService,
@@ -17,55 +15,29 @@ import {
   RequestContextModule,
 } from '@codelab/backend/infra/adapter/request-context'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { initUserContext } from '@codelab/backend/test'
 import { userDto } from '@codelab/shared/data/test'
 import type { INestApplication } from '@nestjs/common'
 import { CommandBus, CqrsModule } from '@nestjs/cqrs'
 import { Test, type TestingModule } from '@nestjs/testing'
 
 describe('Element types', () => {
-  const owner = userDto
-  let commandBus: CommandBus
-  let nestApp: INestApplication
-  let userDomainService: UserDomainService
-  let neo4jService: Neo4jService
-  let requestContextMiddleware: RequestContextMiddleware
-  let appRepository: AppRepository
-  let authService: AuthDomainService
+  const context = initUserContext({
+    imports: [AppDomainModule, SharedApplicationModule],
+    providers: [UserRepository, AppRepository, PageRepository],
+  })
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        RequestContextModule,
-        UserDomainModule,
-        AuthDomainModule,
-        AppDomainModule,
-        OtelModule,
-        ValidationModule,
-        SharedApplicationModule,
-        CqrsModule,
-        OgmModule,
-      ],
-      providers: [UserRepository, AppRepository, PageRepository],
-    }).compile()
+    const ctx = await context
+    const module = ctx.module
 
-    nestApp = module.createNestApplication()
-    commandBus = module.get<CommandBus>(CommandBus)
-    userDomainService = module.get(UserDomainService)
-    requestContextMiddleware = module.get(RequestContextMiddleware)
-    neo4jService = module.get(Neo4jService)
-    appRepository = module.get(AppRepository)
-    authService = module.get(AuthDomainService)
-
-    jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
-
-    await nestApp.init()
-
-    await neo4jService.resetData()
+    await ctx.beforeAll()
   })
 
   afterAll(async () => {
-    await neo4jService.driver.close()
-    await nestApp.close()
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   it('can fetch types for an element', () => {

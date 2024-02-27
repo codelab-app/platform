@@ -11,7 +11,11 @@ import {
   TypeApplicationModule,
 } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { DatabaseService } from '@codelab/backend/domain/shared/modules'
+import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import {
+  DatabaseService,
+  Neo4jModule,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { initUserContext } from '@codelab/backend/test'
 import type { IApp, IAtom } from '@codelab/shared/abstract/core'
 import { CommandBus } from '@nestjs/cqrs'
@@ -22,13 +26,15 @@ describe('DatabaseService', () => {
       AppApplicationModule,
       AtomApplicationModule,
       TypeApplicationModule,
+      Neo4jModule,
     ],
-    providers: [DatabaseService],
+    providers: [],
   })
 
   let commandBus: CommandBus
   let databaseService: DatabaseService
   let atomRepository: AtomRepository
+  let interfaceTypeRepository: InterfaceTypeRepository
 
   beforeAll(async () => {
     const ctx = await context
@@ -37,6 +43,7 @@ describe('DatabaseService', () => {
     commandBus = module.get(CommandBus)
     databaseService = module.get(DatabaseService)
     atomRepository = module.get(AtomRepository)
+    interfaceTypeRepository = module.get(InterfaceTypeRepository)
 
     await ctx.beforeAll()
   })
@@ -48,21 +55,25 @@ describe('DatabaseService', () => {
   })
 
   it('should not clear system data during reset', async () => {
-    // await commandBus.execute<ImportSystemTypesCommand>(
-    //   new ImportSystemTypesCommand(),
-    // )
+    await commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
 
     await commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
       new SeedCypressAtomsCommand(),
     )
 
-    const atoms = await atomRepository.find()
+    // const atoms = await atomRepository.find()
+    const types = await interfaceTypeRepository.find()
 
     await databaseService.resetUserData()
 
-    const atomsAfter = await atomRepository.find()
+    const typesAfter = await interfaceTypeRepository.find()
+
+    expect(types.length).toBe(typesAfter.length)
+
+    // const atomsAfter = await atomRepository.find()
 
     // expect(atoms.length).toBe(atomsAfter.length)
-    expect(true).toBeTruthy()
   })
 })

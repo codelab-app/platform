@@ -1,6 +1,6 @@
 import {
   ExtractAntDesignFieldsCommand,
-  ExtractHtmlFieldsService,
+  ExtractHtmlFieldsCommand,
 } from '@codelab/backend/application/type'
 import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
@@ -11,10 +11,7 @@ import { SeedFrameworkCommand } from '../use-case'
 
 @Injectable()
 export class AdminSeederService {
-  constructor(
-    private commandBus: CommandBus,
-    private readonly extractHtmlFieldsService: ExtractHtmlFieldsService,
-  ) {}
+  constructor(private commandBus: CommandBus) {}
 
   async seedAntDesign() {
     const fields = async (atoms: Array<IAtomDto>) =>
@@ -31,7 +28,7 @@ export class AdminSeederService {
 
   async seedHtml() {
     const fields = async (atoms: Array<IAtomDto>) =>
-      this.extractHtmlFieldsService.execute(atoms)
+      this.commandBus.execute(new ExtractHtmlFieldsCommand(atoms))
 
     await this.commandBus.execute(
       new SeedFrameworkCommand({

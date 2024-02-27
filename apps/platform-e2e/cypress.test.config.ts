@@ -1,5 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 // import type { IApp } from '@codelab/shared/abstract/core'
+import { postApiRequest } from '@codelab/frontend/test/cypress/utils'
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
@@ -51,8 +52,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
 
     /* code that needs to run before all specs */
     on('before:run', (details) => {
-      cy.postApiRequest('/admin/seed-cypress-system-data')
-      // cy.postApiRequest('/app/seed-cypress-app')
+      postApiRequest('/admin/seed-cypress-system-data')
     })
 
     /**

@@ -13,13 +13,13 @@ import type { GraphQLSchema } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 import { GraphQLSchemaModule } from '../../../../graphql-schema.module'
-import { Neo4jService, OgmService } from '../../../../infra'
+import { DatabaseService, Neo4jService, OgmService } from '../../../../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../../../../schema'
 
 describe('ElementResolvers', () => {
   let app: INestApplication
   let ogmService: OgmService
-  let neo4jService: Neo4jService
+  let databaseService: DatabaseService
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -39,12 +39,12 @@ describe('ElementResolvers', () => {
 
     app = module.createNestApplication()
     ogmService = module.get(OgmService)
-    neo4jService = module.get(Neo4jService)
+    databaseService = module.get(DatabaseService)
     await app.init()
   })
 
-  beforeEach(async () => {
-    await neo4jService.resetData()
+  beforeAll(async () => {
+    await databaseService.resetDatabase()
   })
 
   it('should fetch Element.dependantTypes', async () => {
