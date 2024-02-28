@@ -114,7 +114,7 @@ describe('CSS CRUD', () => {
       // wait for multiple api calls that could occur
       // this is the simplest way for now
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
+      // cy.wait(1000)
       cy.findByText(elementName).click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
