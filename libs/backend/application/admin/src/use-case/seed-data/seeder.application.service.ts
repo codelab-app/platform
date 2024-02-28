@@ -20,6 +20,11 @@ export class SeederApplicationService {
     private readonly databaseService: DatabaseService,
   ) {}
 
+  /**
+   * We call this reinitialize because we reset the data first then import some data.
+   *
+   * Before we called reset or setup, but those words don't describe clearing then re-adding data
+   */
   async reinitializeE2eSystemData() {
     await this.databaseService.resetDatabase()
 

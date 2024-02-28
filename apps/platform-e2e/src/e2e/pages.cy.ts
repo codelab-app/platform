@@ -17,16 +17,19 @@ describe('Pages CRUD', () => {
       cy.visit(
         `/apps/cypress/${app.slug}/pages/_app/builder?primarySidebarKey=pageList`,
       )
-      cy.getSpinner().should('not.exist')
+
       cy.findAllByText(IPageKindName.Provider).should('exist')
       cy.findAllByText(IPageKindName.NotFound).should('exist')
       cy.findAllByText(IPageKindName.InternalServerError).should('exist')
+
+      cy.getSpinner().should('not.exist')
 
       cy.findAllByText(pageName).should('not.exist')
 
       cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
+
       cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
     })
 

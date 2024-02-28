@@ -21978,6 +21978,7 @@ export type PageFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
+  redirect?: { id: string } | null
 }
 
 export type PageDevelopmentFragment = {
@@ -21990,6 +21991,7 @@ export type PageDevelopmentFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
+  redirect?: { id: string } | null
 }
 
 export type PageProductionFragment = {
@@ -22003,6 +22005,7 @@ export type PageProductionFragment = {
   pageContentContainer?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
+  redirect?: { id: string } | null
 }
 
 export type PropFragment = { data: string; id: string }

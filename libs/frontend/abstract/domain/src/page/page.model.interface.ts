@@ -30,7 +30,7 @@ export interface IPageModel
    * computed property which return a redirect if there is one attached to page
    * because redirect maybe added/updated/deleted without changing page
    */
-  redirect?: IRedirectModel
+  redirect?: Ref<IRedirectModel>
   rootElement: Ref<IElementModel>
   slug: string
   store: Ref<IStoreModel>

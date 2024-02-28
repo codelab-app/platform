@@ -2,6 +2,7 @@ import type {
   IAppModel,
   IElementModel,
   IPageModel,
+  IRedirectModel,
   IStoreModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -10,6 +11,7 @@ import {
   ElementTree,
   getPageDomainService,
   getRedirectDomainService,
+  redirectRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -37,6 +39,7 @@ const create = ({
   kind,
   name,
   pageContentContainer,
+  redirect,
   rootElement,
   store,
   url,
@@ -49,6 +52,7 @@ const create = ({
     pageContentContainer: pageContentContainer?.id
       ? elementRef(pageContentContainer.id)
       : undefined,
+    redirect: redirect?.id ? redirectRef(redirect.id) : undefined,
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
     url,
@@ -62,6 +66,7 @@ export class Page
     kind: prop<IPageKind>(),
     name: prop<string>(),
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
+    redirect: prop<Ref<IRedirectModel> | undefined>(),
     store: prop<Ref<IStoreModel>>(),
     url: prop<string>(),
   })
@@ -85,13 +90,6 @@ export class Page
     return this.kind === IPageKind.Regular
       ? this.app.current.providerPage
       : undefined
-  }
-
-  @computed
-  get redirect() {
-    const redirects = [...this.redirectDomainService.redirects.values()]
-
-    return redirects.find((redirect) => redirect.source.id === this.id)
   }
 
   @computed

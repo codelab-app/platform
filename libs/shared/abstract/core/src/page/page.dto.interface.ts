@@ -11,7 +11,7 @@ export const IPageDto = Type.Object({
   name: Type.String(),
   // The container element of the page
   pageContentContainer: Typebox.Nullish(IRef),
-
+  redirect: Typebox.Nullish(IRef),
   rootElement: IRef,
   store: IRef,
   url: Type.String(),
@@ -19,12 +19,12 @@ export const IPageDto = Type.Object({
 
 export type IPageDto = Static<typeof IPageDto>
 
-export const IPage = Typebox.Overwrite(
+export const IPage = Type.Composite([
   IPageDto,
   Type.Object({
     slug: Type.String(),
   }),
-)
+])
 
 export type IPage = Static<typeof IPage>
 
