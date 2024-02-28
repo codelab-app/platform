@@ -31,6 +31,9 @@ fragment Page on Page {
   pageContentContainer {
     id
   }
+  redirect {
+    id
+  }
   rootElement {
     id
   }
@@ -38,9 +41,6 @@ fragment Page on Page {
     ...Store
   }
   url
-  redirect {
-    id
-  }
 }
 
 fragment PageDevelopment on Page {
@@ -56,6 +56,9 @@ fragment PageDevelopment on Page {
   pageContentContainer {
     id
   }
+  redirect {
+    id
+  }
   # slug
   rootElement {
     id
@@ -64,9 +67,6 @@ fragment PageDevelopment on Page {
     ...Store
   }
   url
-  redirect {
-    id
-  }
 }
 
 fragment PageProduction on Page {
@@ -82,6 +82,9 @@ fragment PageProduction on Page {
   pageContentContainer {
     id
   }
+  redirect {
+    id
+  }
   rootElement {
     id
   }
@@ -90,7 +93,4 @@ fragment PageProduction on Page {
     ...Store
   }
   url
-  redirect {
-    id
-  }
 }
