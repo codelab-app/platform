@@ -20,25 +20,6 @@ export class SeederApplicationService {
     private readonly databaseService: DatabaseService,
   ) {}
 
-  /**
-   * We call this reinitialize because we reset the data first then import some data.
-   *
-   * Before we called reset or setup, but those words don't describe clearing then re-adding data
-   */
-  async reinitializeE2eSystemData() {
-    await this.databaseService.resetDatabase()
-
-    await this.seederDomainService.seedUserFromRequest()
-
-    await this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(),
-    )
-
-    await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
-      new ImportCypressAtomsCommand(),
-    )
-  }
-
   async resetAndSeedUser() {
     await this.databaseService.resetDatabase()
 
@@ -89,5 +70,34 @@ export class SeederApplicationService {
         new ImportAtomCommand(atom),
       )
     }
+  }
+
+  /**
+   * We call this reinitialize because we reset the data first then import some data.
+   *
+   * Before we called reset or setup, but those words don't describe clearing then re-adding data
+   */
+  async setupE2eData() {
+    await this.databaseService.resetDatabase()
+
+    await this.seederDomainService.seedUserFromRequest()
+
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
+
+    const atoms = this.readAdminDataService.atoms.filter(
+      ({ atom }) => atom.type === IAtomType.ReactFragment,
+    )
+
+    for (const atom of atoms) {
+      await this.commandBus.execute<ImportAtomCommand>(
+        new ImportAtomCommand(atom),
+      )
+    }
+
+    // await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
+    //   new ImportCypressAtomsCommand(),
+    // )
   }
 }

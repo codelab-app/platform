@@ -16,7 +16,7 @@ import '@testing-library/cypress/add-commands'
 import { antCommands } from '@codelab/frontend/test/cypress/antd'
 import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
 import {
-  loginAndReinitData,
+  loginAndSetupE2eData,
   nextjsAuth0Commands,
 } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { registerCommands } from '@codelab/frontend/test/cypress/shared'
@@ -46,5 +46,5 @@ before(() => {
     message: 'Running before hook inside e2e.ts',
     name: 'E2e setup',
   })
-  loginAndReinitData()
+  loginAndSetupE2eData()
 })

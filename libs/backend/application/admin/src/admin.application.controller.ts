@@ -46,14 +46,6 @@ export class AdminController {
     // }
   }
 
-  /**
-   * Runs once before all Cypress runs
-   */
-  @Post('reinitialize-e2e-system-data')
-  async reinitializeE2eSystemData() {
-    await this.seederApplicationService.reinitializeE2eSystemData()
-  }
-
   @Post('reset-and-seed-user')
   async resetAndSeedUser() {
     await this.seederApplicationService.resetAndSeedUser()
@@ -83,5 +75,13 @@ export class AdminController {
   @Post('setup-dev')
   async setup() {
     await this.seederApplicationService.setupDevBootstrapData()
+  }
+
+  /**
+   * Runs once before all Cypress runs
+   */
+  @Post('setup-e2e-data')
+  async setupE2eData() {
+    await this.seederApplicationService.setupE2eData()
   }
 }

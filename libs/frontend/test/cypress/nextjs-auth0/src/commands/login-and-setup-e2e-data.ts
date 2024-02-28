@@ -1,7 +1,7 @@
 /**
  * Login and seed user
  */
-export const loginAndReinitData = () => {
+export const loginAndSetupE2eData = () => {
   cy.session(
     ['auth0-session'],
     () => {
@@ -14,5 +14,5 @@ export const loginAndReinitData = () => {
       cacheAcrossSpecs: true,
     },
   )
-  cy.postApiRequest('/admin/reinitialize-e2e-system-data')
+  cy.postApiRequest('/admin/setup-e2e-data')
 }
