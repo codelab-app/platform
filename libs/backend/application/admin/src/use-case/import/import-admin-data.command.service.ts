@@ -1,7 +1,7 @@
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
-import type { IBaseDataPaths } from '@codelab/backend/application/shared'
-import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import type { IBaseDataPaths } from '@codelab/backend/application/data'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import {

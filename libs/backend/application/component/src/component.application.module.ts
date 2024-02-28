@@ -12,11 +12,7 @@ import { ComponentApplicationService } from './service/component.application.ser
 import { ExportComponentHandler, ImportComponentsHandler } from './use-case'
 
 @Module({
-  exports: [
-    ExportComponentHandler,
-    ImportComponentsHandler,
-    ComponentApplicationService,
-  ],
+  exports: [ComponentApplicationService],
   imports: [
     CqrsModule,
     ComponentDomainModule,

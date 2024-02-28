@@ -1,7 +1,6 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { ActionKind, TypeKind } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
@@ -113,7 +112,6 @@ describe('Testing the Form atom', () => {
   const urlPostSegment = '/data'
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })

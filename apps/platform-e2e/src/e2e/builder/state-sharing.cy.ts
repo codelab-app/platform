@@ -1,5 +1,4 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -21,7 +20,6 @@ describe('State variables sharing between pages', () => {
   let app: IAppDto
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest('/type/seed-cypress-type')
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body

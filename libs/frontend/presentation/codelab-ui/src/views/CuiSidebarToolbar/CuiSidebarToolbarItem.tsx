@@ -15,8 +15,8 @@ export const CuiSidebarToolbarItem = ({
       <Tooltip title={title}>
         <div
           className={`
-          size-full
           flex
+          size-full
           cursor-pointer
           flex-col
           items-center

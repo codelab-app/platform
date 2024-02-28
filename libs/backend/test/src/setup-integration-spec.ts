@@ -1,18 +1,20 @@
 /// <reference types="jest" />
 
-import { SharedApplicationModule } from '@codelab/backend/application/shared'
-import { AppRepository } from '@codelab/backend/domain/app'
-import { PageRepository } from '@codelab/backend/domain/page'
 import {
   AuthDomainModule,
   AuthDomainService,
 } from '@codelab/backend/domain/shared/auth'
+import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import {
   UserDomainModule,
   UserDomainService,
   UserRepository,
 } from '@codelab/backend/domain/user'
-import { Neo4jService, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
+import {
+  DatabaseService,
+  Neo4jService,
+  OgmModule,
+} from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import {
   RequestContextMiddleware,
@@ -29,20 +31,14 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
     imports: [
       RequestContextModule,
       UserDomainModule,
-      AuthDomainModule,
       OtelModule,
       ValidationModule,
-      SharedApplicationModule,
+      SharedDomainModule,
       CqrsModule,
       OgmModule,
       ...(metadata.imports ?? []),
     ],
-    providers: [
-      UserRepository,
-      AppRepository,
-      PageRepository,
-      ...(metadata.providers ?? []),
-    ],
+    providers: [UserRepository, ...(metadata.providers ?? [])],
   })
     .overrideProvider(AuthDomainService)
     .useValue({
@@ -56,6 +52,7 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
   const requestContextMiddleware = module.get(RequestContextMiddleware)
   const neo4jService = module.get(Neo4jService)
   const authService = module.get(AuthDomainService)
+  const databaseService = module.get(DatabaseService)
   const owner = userDto
 
   const beforeAll = async () => {
@@ -65,14 +62,12 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
      * https://github.com/nestjs/cqrs/issues/119#issuecomment-1181596376
      */
     await nestApp.init()
-    await neo4jService.resetData()
+    await databaseService.resetDatabase()
 
-    // jest.spyOn(authService, 'currentUser', 'get').mockReturnValue(userDto)
     await userDomainService.seedUser(owner)
   }
 
   const afterAll = async () => {
-    // await neo4jService.driver.close()
     await nestApp.close()
   }
 

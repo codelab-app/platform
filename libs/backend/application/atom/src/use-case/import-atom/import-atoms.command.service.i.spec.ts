@@ -1,3 +1,4 @@
+import { DataModule } from '@codelab/backend/application/data'
 import {
   ImportApiHandler,
   ImportSystemTypesCommand,
@@ -26,7 +27,12 @@ describe('ImportAtomsCommand', () => {
   let interfaceTypeRepository: InterfaceTypeRepository
 
   const context = initUserContext({
-    imports: [AtomDomainModule, TypeDomainModule, TypeApplicationModule],
+    imports: [
+      AtomDomainModule,
+      TypeDomainModule,
+      TypeApplicationModule,
+      DataModule,
+    ],
     providers: [
       ImportAtomHandler,
       ImportAtomsHandler,
@@ -65,7 +71,9 @@ describe('ImportAtomsCommand', () => {
     const atoms = await atomRepository.find()
 
     const api = await interfaceTypeRepository.findOne({
-      name: InterfaceType.createName(IAtomType.AntDesignButton),
+      where: {
+        name: InterfaceType.createName(IAtomType.AntDesignButton),
+      },
     })
 
     expect(atoms).toEqual(

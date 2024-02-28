@@ -21976,6 +21976,7 @@ export type PageFragment = {
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
+  redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
 }
@@ -21988,6 +21989,7 @@ export type PageDevelopmentFragment = {
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
+  redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
 }
@@ -22001,6 +22003,7 @@ export type PageProductionFragment = {
   app: { id: string }
   elements: Array<ElementProductionFragment>
   pageContentContainer?: { id: string } | null
+  redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
 }

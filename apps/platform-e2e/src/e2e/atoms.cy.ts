@@ -1,5 +1,4 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
 const atomName = 'Button'
@@ -7,13 +6,10 @@ const atomType = IAtomType.AntDesignButton
 const updatedAtomName = 'Updated Button'
 
 describe('Atoms CRUD', () => {
-  before(() => {
-    loginAndSetupData()
-  })
-
   describe('create', () => {
     it('should be able to create atom', () => {
       cy.visit('/atoms')
+      cy.getSpinner().should('not.exist')
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )

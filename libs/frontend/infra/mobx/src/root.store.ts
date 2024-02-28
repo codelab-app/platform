@@ -44,6 +44,7 @@ import {
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
+  getRedirectDomainService,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
@@ -99,6 +100,8 @@ import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
+  console.log(user)
+
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
@@ -151,6 +154,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       this.tagService.tagDomainService.tags.clear()
       this.userService.userDomainService.users.clear()
       this.rendererService.renderers.clear()
+      this.redirectService.redirectDomainService.redirects.clear()
     }
 
     protected onInit() {
@@ -194,11 +198,11 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.componentService.componentDomainService,
       )
+      redirectServiceContext.set(this, this.redirectService)
       redirectDomainServiceContext.set(
         this,
         this.redirectService.redirectDomainService,
       )
-      redirectServiceContext.set(this, this.redirectService)
       rendererServiceContext.set(this, this.rendererService)
       actionDomainServiceContext.set(
         this,

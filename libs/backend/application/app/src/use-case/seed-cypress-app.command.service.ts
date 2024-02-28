@@ -1,5 +1,4 @@
 import type { Atom as IAtom } from '@codelab/backend/abstract/codegen'
-import { SeedCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
@@ -46,13 +45,11 @@ export class SeedCypressAppHandler
     private readonly propRepository: PropRepository,
     private readonly elementRepository: ElementRepository,
     private atomRepository: AtomRepository,
-    private commandBus: CommandBus,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private authDomainService: AuthDomainService,
   ) {}
 
-  @Span()
   async execute() {
     /**
      * Create props
@@ -73,13 +70,6 @@ export class SeedCypressAppHandler
     const providerPageId = v4()
     const notFoundPageId = v4()
     const internalServerPageId = v4()
-
-    /**
-     * Create atoms for renderType
-     */
-    await this.commandBus.execute<SeedCypressAtomsCommand, Array<IAtom>>(
-      new SeedCypressAtomsCommand(),
-    )
 
     const atomReactFragment = await this.atomRepository.findOne({
       where: {

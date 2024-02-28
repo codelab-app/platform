@@ -10,7 +10,7 @@ export const resetDatabaseExceptForUserAndAtom = () => {
       },
       method: 'POST',
       timeout: 10000,
-      url: '/api/data/admin/reset-database-except-user-and-atom',
+      url: '/api/admin/reset-database-except-user-and-atom',
     })
   })
 }
@@ -27,7 +27,7 @@ export const resetDatabase = () => {
       },
       method: 'POST',
       timeout: 10000,
-      url: '/api/data/admin/reset-database',
+      url: '/api/admin/reset-database',
     })
   })
 }

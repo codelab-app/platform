@@ -1,0 +1,16 @@
+{
+  "name": "backend-infra-adapter-rest-client",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/infra/adapter/rest-client/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/infra/adapter/rest-client/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

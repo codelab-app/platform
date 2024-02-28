@@ -1,3 +1,4 @@
+import { DataModule } from '@codelab/backend/application/data'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
@@ -10,27 +11,23 @@ import { AtomApplicationService } from './services/atom.application.service'
 import {
   ExportAtomHandler,
   ImportAtomHandler,
-  SeedCypressAtomsHandler,
+  ImportCypressAtomsHandler,
 } from './use-case'
 
 @Module({
   controllers: [AtomApplicationController],
-  exports: [
-    SeedCypressAtomsHandler,
-    ExportAtomHandler,
-    ImportAtomHandler,
-    AtomApplicationService,
-  ],
+  exports: [AtomApplicationService],
   imports: [
     CqrsModule,
     TypeDomainModule,
     AtomDomainModule,
     ValidationModule,
     OtelModule,
+    DataModule,
     SharedApplicationModule,
   ],
   providers: [
-    SeedCypressAtomsHandler,
+    ImportCypressAtomsHandler,
     ExportAtomHandler,
     ImportAtomHandler,
     AtomApplicationService,

@@ -24,7 +24,7 @@ export const AtomForm = observer(() => {
   ) : null
 
   return (
-    <div className="size-full flex flex-col overflow-auto">
+    <div className="flex size-full flex-col overflow-auto">
       {atomStory}
 
       <Typography className="text-2xl">{formLabel}</Typography>

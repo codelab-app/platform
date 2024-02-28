@@ -1,4 +1,3 @@
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -24,7 +23,6 @@ describe('CSS CRUD', () => {
   let app: IAppDto
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
@@ -116,7 +114,7 @@ describe('CSS CRUD', () => {
       // wait for multiple api calls that could occur
       // this is the simplest way for now
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
+      // cy.wait(1000)
       cy.findByText(elementName).click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(

@@ -20,7 +20,7 @@ export const elementResolver: IResolvers = {
         (node as any).__resolveType ?? (node as any).__typename
 
       if (!resolveType) {
-        console.log(node)
+        console.debug(node)
 
         throw new Error('Missing __resolveType')
       }

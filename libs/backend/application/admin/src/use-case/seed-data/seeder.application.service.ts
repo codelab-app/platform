@@ -1,8 +1,12 @@
-import { ImportAtomCommand } from '@codelab/backend/application/atom'
-import { ReadAdminDataService } from '@codelab/backend/application/shared'
+import {
+  ImportAtomCommand,
+  ImportCypressAtomsCommand,
+} from '@codelab/backend/application/atom'
+import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { AdminRepository } from '@codelab/backend/domain/admin'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
+import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAtom } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -13,8 +17,14 @@ export class SeederApplicationService {
     private readonly commandBus: CommandBus,
     private seederDomainService: SeederDomainService,
     private readonly readAdminDataService: ReadAdminDataService,
-    private readonly adminRepository: AdminRepository,
+    private readonly databaseService: DatabaseService,
   ) {}
+
+  async resetAndSeedUser() {
+    await this.databaseService.resetDatabase()
+
+    await this.seederDomainService.seedUserFromRequest()
+  }
 
   /**
    * Need a function to seed the basic data required for creating some atom/component/types.
@@ -44,7 +54,7 @@ export class SeederApplicationService {
   /**
    * The minimum required data
    */
-  async seedDevBootstrapData() {
+  async setupDevBootstrapData() {
     await this.seederDomainService.seedUserFromRequest()
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
@@ -62,8 +72,13 @@ export class SeederApplicationService {
     }
   }
 
-  async seedE2eBootstrapData() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
+  /**
+   * We call this reinitialize because we reset the data first then import some data.
+   *
+   * Before we called reset or setup, but those words don't describe clearing then re-adding data
+   */
+  async setupE2eData() {
+    await this.databaseService.resetDatabase()
 
     await this.seederDomainService.seedUserFromRequest()
 
@@ -80,5 +95,9 @@ export class SeederApplicationService {
         new ImportAtomCommand(atom),
       )
     }
+
+    // await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
+    //   new ImportCypressAtomsCommand(),
+    // )
   }
 }

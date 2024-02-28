@@ -12,5 +12,4 @@ export interface IAdminService {
   importData(data: ImportDto): Promise<unknown>
   resetDatabase(): Promise<AxiosResponse>
   resetDatabaseExceptUser(): Promise<AxiosResponse>
-  resetDatabaseExceptUserAndAtom(): Promise<AxiosResponse>
 }

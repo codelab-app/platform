@@ -19,6 +19,7 @@ import {
   ElementStylePseudoClass,
   getBuilderDomainService,
 } from '@codelab/frontend/abstract/domain'
+import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { getTypeService } from '@codelab/frontend/application/type'
 import {
@@ -82,6 +83,17 @@ export class ElementService
 {
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDto) {
+    /**
+     * Need to fetch the full api, since we don't during atom selection dropdown. The api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation
+     */
+    const atom = this.atomService.atomDomainService.atoms.get(
+      data.renderType.id,
+    )
+
+    if (atom) {
+      yield* _await(this.typeService.getInterface(atom.api.id))
+    }
+
     const element = this.elementDomainService.addTreeNode(data)
 
     yield* _await(this.elementRepository.add(element))
@@ -406,6 +418,11 @@ export class ElementService
             Boolean(selectElementOption),
         ) ?? []
     )
+  }
+
+  @computed
+  private get atomService() {
+    return getAtomService(this)
   }
 
   @computed

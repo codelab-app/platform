@@ -26,8 +26,8 @@ export const CuiPopoverToolbarItem = ({
       <Tooltip title={title}>
         <div
           className={`
-          size-full
           flex
+          size-full
           flex-col
           items-center
           justify-center

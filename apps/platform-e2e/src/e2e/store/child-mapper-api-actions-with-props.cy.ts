@@ -1,11 +1,12 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
+  HttpResponseType,
   IActionKind,
   IAtomType,
   IPageKindName,
   IResourceType,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
@@ -41,7 +42,6 @@ describe('Element Child Mapper', () => {
   ]
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
@@ -163,7 +163,7 @@ describe('Element Child Mapper', () => {
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
-      value: `{ "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiGetActionId}", "type": "${actionTypeId}" } }`,
+      value: `{ "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${apiGetActionId}", "type": "${actionTypeId}" } }`,
     })
 
     // need to wait for the code to put the autocomputed name before typing

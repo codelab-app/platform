@@ -94,7 +94,8 @@ commands:
           keys:
             - node-modules-{{ checksum "yarn.lock" }}
             - nvm-cache-{{ checksum ".nvmrc" }}
-          name: Restore NPM Cache
+            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+          name: Restore Cache
       - setup-env
   setup-env:
     description: Setup Env
@@ -181,11 +182,11 @@ jobs:
     steps:
       - restore-workspace
       - setup_remote_docker:
-          version: 20.10.14
+          version: default
       - run: npx cypress install
       - run: npx cypress verify
       - run:
-          command: npx nx e2e platform-e2e -c ci --verbose
+          command: npx nx e2e platform-e2e -c ci
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos

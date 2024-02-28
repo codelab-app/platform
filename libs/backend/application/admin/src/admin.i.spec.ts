@@ -1,3 +1,4 @@
+import { DataModule } from '@codelab/backend/application/data'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import {
   ImportSystemTypesHandler,
@@ -54,6 +55,8 @@ describe('Admin', () => {
         },
       }),
       AdminApplicationModule,
+      DataModule,
+      SharedApplicationModule,
       TypeDomainModule,
       TypeApplicationModule,
       Neo4jModule,

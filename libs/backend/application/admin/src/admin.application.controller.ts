@@ -1,4 +1,5 @@
-import { AdminRepository } from '@codelab/backend/domain/admin'
+import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
+import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -10,12 +11,13 @@ export class ResetDataDto {
   close?: false
 }
 
-@Controller('data/admin')
+@Controller('admin')
 export class AdminController {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly adminRepository: AdminRepository,
+    private readonly databaseService: DatabaseService,
     private seederApplicationService: SeederApplicationService,
+    private seederDomainService: SeederDomainService,
   ) {}
 
   @Post('export')
@@ -44,9 +46,14 @@ export class AdminController {
     // }
   }
 
+  @Post('reset-and-seed-user')
+  async resetAndSeedUser() {
+    await this.seederApplicationService.resetAndSeedUser()
+  }
+
   @Post('reset-database')
   async resetDatabase() {
-    await this.adminRepository.resetDatabase()
+    await this.databaseService.resetDatabase()
 
     return {
       message: 'Admin data reset success',
@@ -55,19 +62,7 @@ export class AdminController {
 
   @Post('reset-database-except-user')
   async resetDatabaseExceptUser() {
-    await this.adminRepository.resetDatabaseExceptUser()
-
-    return {
-      message: 'Admin data reset success',
-    }
-  }
-
-  /**
-   * We want to keep the default atom
-   */
-  @Post('reset-database-except-user-and-atom')
-  async resetDatabaseExceptUserAndAtom() {
-    await this.adminRepository.resetDatabaseExceptUserAndAtom()
+    await this.databaseService.resetDatabaseExceptUser()
 
     return {
       message: 'Admin data reset success',
@@ -79,11 +74,14 @@ export class AdminController {
    */
   @Post('setup-dev')
   async setup() {
-    await this.seederApplicationService.seedDevBootstrapData()
+    await this.seederApplicationService.setupDevBootstrapData()
   }
 
-  @Post('setup-e2e')
-  async setupE2e() {
-    await this.seederApplicationService.seedE2eBootstrapData()
+  /**
+   * Runs once before all Cypress runs
+   */
+  @Post('setup-e2e-data')
+  async setupE2eData() {
+    await this.seederApplicationService.setupE2eData()
   }
 }

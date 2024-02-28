@@ -1,10 +1,11 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
+import { AuthModule } from '@codelab/backend/application/auth'
 import {
   ExportPageHandler,
   ImportPageHandler,
   PageApplicationModule,
 } from '@codelab/backend/application/page'
-import { AuthModule } from '@codelab/backend/application/shared'
+import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { AppDomainModule } from '@codelab/backend/domain/app'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'
@@ -16,6 +17,7 @@ import { ResourceDomainModule } from '@codelab/backend/domain/resource'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
+import { Neo4jModule } from '@codelab/backend/infra/adapter/neo4j'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { AppApplicationController } from './app.application.controller'
@@ -27,13 +29,7 @@ import {
 
 @Module({
   controllers: [AppApplicationController],
-  exports: [
-    SeedCypressAppHandler,
-    ExportAppHandler,
-    ExportPageHandler,
-    ImportAppHandler,
-    ImportPageHandler,
-  ],
+  exports: [],
   imports: [
     AtomDomainModule,
     AuthDomainModule,
@@ -41,6 +37,7 @@ import {
     PageDomainModule,
     AtomApplicationModule,
     PageApplicationModule,
+    TypeApplicationModule,
     PropDomainModule,
     ComponentDomainModule,
     ElementDomainModule,
@@ -50,6 +47,7 @@ import {
     DomainDomainModule,
     AuthModule,
     CqrsModule,
+    Neo4jModule,
   ],
   providers: [
     SeedCypressAppHandler,

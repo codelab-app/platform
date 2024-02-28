@@ -1,6 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpResponseType,
   IActionKind,
@@ -22,7 +21,6 @@ describe('Running API action and setting state on element pre-render', () => {
   const mockResponse = 'text response from api'
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })

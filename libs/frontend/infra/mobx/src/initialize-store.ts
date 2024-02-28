@@ -20,14 +20,12 @@ export const initializeStore = ({
    */
   // Create the store once in the client
   if (!_store) {
-    const store = withTracerSpan('createRootStore', () =>
-      createRootStore({
-        routerQuery,
-        user,
-      }),
-    )
+    const store = createRootStore({
+      routerQuery,
+      user,
+    })
 
-    withTracerSpan('registerRootStore', () => registerRootStore(store))
+    registerRootStore(store)
 
     _store = store
   }

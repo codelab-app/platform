@@ -1,17 +1,12 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import {
   resourceName,
   resourcesUrl,
   updatedResourceName,
-} from './resource.data'
+} from '../data/resource.data'
 
 describe('Resource CRUD', () => {
-  before(() => {
-    loginAndSetupData()
-  })
-
   describe('create', () => {
     it('should be able to create resource', () => {
       cy.visit('/resources')

@@ -21,8 +21,6 @@ const RenderTypeFields = ({
       <SelectField
         name="__typename"
         onChange={(value) => {
-          console.log(value)
-
           // when the type changes, the selected atom or component has to be
           // removed since they share the same field name `renderType.id`
           if (value) {

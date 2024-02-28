@@ -20,6 +20,8 @@ import { atomApi } from './atom.api'
 export class AtomRepository extends Model({}) implements IAtomRepository {
   @clearCacheForKey('atoms')
   async add(this: AtomRepository, atom: IAtomModel) {
+    console.log(atom.toCreateInput())
+
     const {
       createAtoms: { atoms },
     } = await atomApi.CreateAtoms({ input: [atom.toCreateInput()] })

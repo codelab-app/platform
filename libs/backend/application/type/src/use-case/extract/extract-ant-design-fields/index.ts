@@ -1,1 +1,1 @@
-export * from './extract-ant-design-fields.service'
+export * from './extract-ant-design-fields.command.service'

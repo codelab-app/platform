@@ -1,40 +1,41 @@
 import {
-  ExtractAntDesignFieldsService,
-  ExtractHtmlFieldsService,
+  ExtractAntDesignFieldsCommand,
+  ExtractHtmlFieldsCommand,
 } from '@codelab/backend/application/type'
 import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
 import type { IAtomDto } from '@codelab/shared/abstract/core'
 import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
 import { Injectable } from '@nestjs/common'
-import { SeedFrameworkService } from '../use-case'
+import { CommandBus } from '@nestjs/cqrs'
+import { SeedFrameworkCommand } from '../use-case'
 
 @Injectable()
 export class AdminSeederService {
-  constructor(
-    private readonly extractAntDesignFieldService: ExtractAntDesignFieldsService,
-    private readonly extractHtmlFieldsService: ExtractHtmlFieldsService,
-    private readonly seedFrameworkService: SeedFrameworkService,
-  ) {}
+  constructor(private commandBus: CommandBus) {}
 
   async seedAntDesign() {
     const fields = async (atoms: Array<IAtomDto>) =>
-      this.extractAntDesignFieldService.execute(atoms)
+      this.commandBus.execute(new ExtractAntDesignFieldsCommand(atoms))
 
-    await this.seedFrameworkService.execute({
-      atoms: antdAtomData,
-      fields,
-      tags: antdTagTree,
-    })
+    await this.commandBus.execute(
+      new SeedFrameworkCommand({
+        atoms: antdAtomData,
+        fields,
+        tags: antdTagTree,
+      }),
+    )
   }
 
   async seedHtml() {
     const fields = async (atoms: Array<IAtomDto>) =>
-      this.extractHtmlFieldsService.execute(atoms)
+      this.commandBus.execute(new ExtractHtmlFieldsCommand(atoms))
 
-    await this.seedFrameworkService.execute({
-      atoms: htmlAtomData,
-      fields,
-      tags: htmlTagTree,
-    })
+    await this.commandBus.execute(
+      new SeedFrameworkCommand({
+        atoms: htmlAtomData,
+        fields,
+        tags: htmlTagTree,
+      }),
+    )
   }
 }

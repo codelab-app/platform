@@ -19,6 +19,5 @@ import { Module } from '@nestjs/common'
     ValidationModule,
     OtelModule,
   ],
-  providers: [],
 })
 export class SharedDomainModule {}

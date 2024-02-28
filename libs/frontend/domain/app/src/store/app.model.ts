@@ -104,6 +104,7 @@ export class App
       name: this.name,
       owner: this.owner.current.toJson,
       pages: this.pages.map((page) => page.toJson),
+      slug: this.slug,
     }
   }
 

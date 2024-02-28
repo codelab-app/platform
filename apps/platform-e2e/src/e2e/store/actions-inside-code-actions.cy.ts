@@ -1,7 +1,6 @@
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { loginAndSetupData } from '@codelab/frontend/test/cypress/nextjs-auth0'
-import type { IAppDTO } from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
@@ -29,7 +28,6 @@ describe('Running actions inside code action with arguments', () => {
   const stateKey2 = 'stateKey2'
 
   before(() => {
-    loginAndSetupData()
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
