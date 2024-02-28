@@ -28,6 +28,12 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
 
   useTwindConfig(config)
 
+  const LayoutContent = (props: object | undefined) => (
+    <AntdApp className="size-full">
+      <Component {...props} />
+    </AntdApp>
+  )
+
   return (
     <StoreProvider value={store}>
       {/* <Analytics /> */}
@@ -48,11 +54,12 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
             }}
           >
             <Layout>
-              {(props) => (
+              {LayoutContent}
+              {/* {(props) => (
                 <AntdApp className="size-full">
                   <Component {...props} />
                 </AntdApp>
-              )}
+              )} */}
             </Layout>
           </ConfigProvider>
         </CuiProvider>
