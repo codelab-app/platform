@@ -48,6 +48,8 @@ export interface GqlContext {
             // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
             const token = req.headers['authorization']
 
+            console.log('token', token)
+
             return { req, res, token } as GqlContext
           },
           cors: false,

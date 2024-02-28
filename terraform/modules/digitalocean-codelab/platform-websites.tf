@@ -13,7 +13,7 @@ resource "digitalocean_app" "platform-websites" {
       http_port = 443
 
       git {
-        branch         = "master"
+        branch         = "remove_middleware"
         repo_clone_url = "https://github.com/codelab-app/platform"
       }
 
