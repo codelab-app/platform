@@ -59,11 +59,6 @@ export class AdminController {
     await this.seederApplicationService.resetAndSeedUser()
   }
 
-  // @Post('reset-user-data')
-  // async resetCypressUserData() {
-  //   await this.databaseService.resetUserData()
-  // }
-
   @Post('reset-database')
   async resetDatabase() {
     await this.databaseService.resetDatabase()
