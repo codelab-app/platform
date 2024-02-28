@@ -1,6 +1,14 @@
-import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
+import {
+  type IRuntimeElementModel,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
+import { StoreProvider } from '@codelab/frontend/application/shared/store'
+import { IPageKind } from '@codelab/shared/abstract/core'
+import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupPage } from './setup'
+import React from 'react'
+import { defaultPipes, renderPipeFactory } from '../renderPipes'
+import { setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -14,7 +22,7 @@ describe('Runtime Element', () => {
 
   it('should create element runtime node', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const rootElement = page.rootElement.current
     const runtimeElement = rendererService.runtimeElement(rootElement)
 
@@ -29,7 +37,7 @@ describe('Runtime Element', () => {
 
   it('should add element runtime child', () => {
     const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const rootElement = page.rootElement.current
     const runtimeElement = rendererService.runtimeElement(rootElement)
 
@@ -48,7 +56,7 @@ describe('Runtime Element', () => {
 
   it('should detach runtime element when element is detached', async () => {
     const { elementService, rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
+    const { page } = setupPages(testbed)
     const rootElement = page.rootElement.current
     const runtimeElement = rendererService.runtimeElement(rootElement)
     const runtimePage = runtimeElement?.closestContainerNode.current
@@ -60,33 +68,137 @@ describe('Runtime Element', () => {
     expect(runtimePage?.runtimeElementsList.length).toEqual(0)
   })
 
-  /*   it('should resolve closest runtime container node', () => {
-    const { rendererService } = rootApplicationStore
-    const { page } = setupPage(testbed)
-    const pageRootElement = page.rootElement.current
-    const providerPageRootElement = page.providerPage?.rootElement.current
+  it.each([[IPageKind.Provider], [IPageKind.Regular]])(
+    'should resolve closest runtime container node when in %s',
+    (pageKind) => {
+      const { rendererService } = rootApplicationStore
+      const { page } = setupPages(testbed, RendererType.Preview, pageKind)
+      const pageRootElement = page.rootElement.current
+      const providerPageRootElement = page.providerPage?.rootElement.current
 
-    const runtimeProviderPage = page.providerPage
-      ? rendererService.runtimeContainerNode(page.providerPage)
-      : undefined
+      const runtimeProviderPage = page.providerPage
+        ? rendererService.runtimeContainerNode(page.providerPage)
+        : undefined
 
-    const runtimePage = rendererService.runtimeContainerNode(page)
+      const runtimePage = rendererService.runtimeContainerNode(page)
 
-    const pageRuntimeRootElement =
-      rendererService.runtimeElement(pageRootElement)
+      const pageRuntimeRootElement =
+        rendererService.runtimeElement(pageRootElement)
 
-    const providerPageRuntimeRootElement = providerPageRootElement
-      ? rendererService.runtimeElement(providerPageRootElement)
-      : undefined
+      const providerPageRuntimeRootElement = providerPageRootElement
+        ? rendererService.runtimeElement(providerPageRootElement)
+        : undefined
 
-    expect(pageRuntimeRootElement?.closestContainerNode.id).toBe(
-      runtimePage?.id,
-    )
-    expect(providerPageRuntimeRootElement?.closestContainerNode.id).toBe(
-      runtimeProviderPage?.id,
-    )
-  })
- */
+      expect(pageRuntimeRootElement?.closestContainerNode.id).toBe(
+        runtimePage?.id,
+      )
+
+      if (pageKind === IPageKind.Provider) {
+        expect(runtimeProviderPage?.id).toBeUndefined()
+      }
+
+      expect(providerPageRuntimeRootElement?.closestContainerNode.id).toBe(
+        runtimeProviderPage?.id,
+      )
+    },
+  )
+
+  it.each([
+    [
+      IPageKind.Provider,
+      'function () { state.search = "pre render value" }',
+      'function () { state.search = "post render value" }',
+      'post render value',
+    ],
+    [
+      IPageKind.Provider,
+      null,
+      'function () { state.search = "post render value" }',
+      'post render value',
+    ],
+    [
+      IPageKind.Provider,
+      'function () { state.search = "pre render value" }',
+      null,
+      'pre render value',
+    ],
+    [
+      IPageKind.Regular,
+      'function () { state.search = "pre render value" }',
+      null,
+      'pre render value',
+    ],
+  ])(
+    'should run custom hooks that mutates state when in %s page - preRenderAction: `%s`, postRenderAction: `%s`, expectedValue: `%s`',
+    (pageKind, preRenderActionCode, postRenderActionCode, expectedValue) => {
+      const { rendererService } = rootApplicationStore
+
+      const { page, rendererId } = setupPages(
+        testbed,
+        RendererType.Preview,
+        pageKind,
+      )
+
+      const providerPage = page.providerPage ?? page
+
+      const runtimeProviderPage = rendererService.runtimeContainerNode(
+        page.providerPage ?? page,
+      )
+
+      const runtimeStore = runtimeProviderPage?.runtimeStore
+      const storeApi = providerPage.store.current.api.current
+      const stateFieldKey = 'search'
+
+      const field = testbed.addField({
+        api: storeApi,
+        defaultValues: 'default value',
+        fieldType: testbed.getStringType(),
+        key: stateFieldKey,
+      })
+
+      storeApi.writeCache({ fields: [field] })
+
+      if (preRenderActionCode) {
+        providerPage.rootElement.current.writeCache({
+          preRenderAction: testbed.addCodeAction({
+            code: preRenderActionCode,
+            name: 'preRenderAction',
+            store: providerPage.store,
+          }),
+        })
+      }
+
+      if (postRenderActionCode) {
+        providerPage.rootElement.current.writeCache({
+          postRenderAction: testbed.addCodeAction({
+            code: postRenderActionCode,
+            name: 'postRenderAction',
+            store: providerPage.store,
+          }),
+        })
+      }
+
+      expect(runtimeStore?.state[stateFieldKey]).toBe('default value')
+
+      const reactElement = testbed.addRenderer({
+        containerNode: page,
+        id: rendererId,
+        rendererType: RendererType.Preview,
+        renderPipe: renderPipeFactory(defaultPipes),
+      }).render
+
+      render(
+        React.createElement(
+          StoreProvider,
+          { value: rootApplicationStore },
+          reactElement,
+        ),
+      )
+
+      expect(runtimeStore?.state[stateFieldKey]).toBe(expectedValue)
+    },
+  )
+
   afterAll(() => {
     unregisterRootStore(rootApplicationStore)
   })

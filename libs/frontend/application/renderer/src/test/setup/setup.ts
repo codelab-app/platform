@@ -3,18 +3,24 @@ import { Store } from '@codelab/frontend/domain/store'
 import {
   IAtomType,
   IElementRenderTypeKind,
+  IPageKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { defaultPipes, renderPipeFactory } from '../../renderPipes'
 import { rootApplicationStore } from './root.test.store'
 import type { TestBed } from './testbed'
 
-export const setupPage = (
+export const setupPages = (
   testbed: TestBed,
   rendererType: RendererType = RendererType.Preview,
+  renderedPageKind: IPageKind = IPageKind.Provider,
 ) => {
+  const rendererId = 'renderer-id'
   const pageId = 'page-id'
   const pageName = 'Page Name'
+  const regularPageId = 'regular-page-id'
+  const regularPageName = 'Regular Page Name'
+  const isProviderPage = renderedPageKind === IPageKind.Provider
 
   const htmlDivAtom = testbed.addAtom({
     __typename: 'Atom',
@@ -27,6 +33,7 @@ export const setupPage = (
   const page = testbed.addPage({
     app,
     id: pageId,
+    kind: IPageKind.Provider,
     name: pageName,
     rootElement: testbed.addElement({
       closestContainerNode: { id: pageId },
@@ -43,16 +50,39 @@ export const setupPage = (
     }),
   })
 
+  const regularPage = testbed.addPage({
+    app,
+    id: regularPageId,
+    kind: IPageKind.Regular,
+    name: regularPageName,
+    rootElement: testbed.addElement({
+      closestContainerNode: { id: regularPageId },
+      name: ROOT_ELEMENT_NAME,
+      page: { id: regularPageId },
+      renderType: {
+        __typename: IElementRenderTypeKind.Atom,
+        id: htmlDivAtom.id,
+      },
+    }),
+    store: testbed.addStore({
+      name: Store.createName({ name: regularPageName }),
+      page: { id: regularPageId },
+    }),
+  })
+
   const renderer = testbed.addRenderer({
-    containerNode: page,
+    containerNode: isProviderPage ? page : regularPage,
+    id: rendererId,
     rendererType,
     renderPipe: renderPipeFactory(defaultPipes),
   })
 
   return {
     app,
-    page,
+    page: isProviderPage ? page : regularPage,
     rendered: renderer.render,
+    renderer,
+    rendererId,
   }
 }
 
@@ -108,15 +138,23 @@ export const setupComponent = (testbed: TestBed) => {
 
 export const setupRuntimeElement = (
   testbed: TestBed,
-  rendererType?: RendererType,
+  rendererType: RendererType = RendererType.Preview,
+  renderedPageKind: IPageKind = IPageKind.Provider,
 ) => {
   const { rendererService } = rootApplicationStore
-  const { page, rendered } = setupPage(testbed, rendererType)
+
+  const { page, rendered, renderer, rendererId } = setupPages(
+    testbed,
+    rendererType,
+    renderedPageKind,
+  )
 
   return {
     element: page.rootElement.current,
     page,
     rendered,
-    runtimeElement: rendererService.runtimeElement(page.rootElement.current),
+    renderer,
+    rendererId,
+    runtimeElement: rendererService.runtimeElement(page.rootElement.current)!,
   }
 }

@@ -78,7 +78,7 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.instanceElementProps', () => {
     it('should resolve instance element props', () => {
       const { element, runtimeElement } = setupRuntimeElement(testbed)
-      const runtimeProps = runtimeElement?.runtimeProps
+      const runtimeProps = runtimeElement.runtimeProps
       const component = testbed.addComponent({ name: 'component' })
 
       element.writeCache({
@@ -89,12 +89,12 @@ describe('Runtime Component props', () => {
       })
 
       const runtimeComponent = runtimeElement
-        ?.children[0] as IRuntimeContainerNodeModel
+        .children[0] as IRuntimeContainerNodeModel
 
       const componentRuntimeProps = runtimeComponent.componentRuntimeProp
 
       expect(componentRuntimeProps?.instanceElementProps).toEqual(
-        runtimeProps?.evaluatedProps,
+        runtimeProps.evaluatedProps,
       )
     })
 
@@ -112,7 +112,7 @@ describe('Runtime Component props', () => {
       element.props.set(propKey, propsArray)
 
       const runtimeChildren =
-        runtimeElement?.children as Array<IRuntimeContainerNodeModel>
+        runtimeElement.children as Array<IRuntimeContainerNodeModel>
 
       expect(runtimeChildren[0]?.componentRuntimeProp?.childMapperProp).toBe(
         propsArray[0],
