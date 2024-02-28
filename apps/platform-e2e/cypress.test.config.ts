@@ -49,6 +49,9 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   // specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
   // supportFile: 'src/support/e2e.ts',
   setupNodeEvents: (on, config) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('cypress-terminal-report/src/installLogsPrinter')(on)
+
     /* code that needs to run before all specs */
     // on('before:run', async (details: any) => {
     //   const cypressConfig = details.config as Required<Cypress.ConfigOptions>
