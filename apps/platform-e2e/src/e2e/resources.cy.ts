@@ -4,7 +4,7 @@ import {
   resourceName,
   resourcesUrl,
   updatedResourceName,
-} from './resource.data'
+} from '../data/resource.data'
 
 describe('Resource CRUD', () => {
   describe('create', () => {

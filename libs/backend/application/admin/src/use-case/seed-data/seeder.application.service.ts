@@ -20,6 +20,20 @@ export class SeederApplicationService {
     private readonly databaseService: DatabaseService,
   ) {}
 
+  async reinitializeE2eSystemData() {
+    await this.databaseService.resetDatabase()
+
+    await this.seederDomainService.seedUserFromRequest()
+
+    await this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(),
+    )
+
+    await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
+      new ImportCypressAtomsCommand(),
+    )
+  }
+
   /**
    * Need a function to seed the basic data required for creating some atom/component/types.
    *
@@ -64,19 +78,5 @@ export class SeederApplicationService {
         new ImportAtomCommand(atom),
       )
     }
-  }
-
-  async setupE2eSystemData() {
-    await this.databaseService.resetDatabase()
-
-    await this.seederDomainService.seedUserFromRequest()
-
-    await this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(),
-    )
-
-    await this.commandBus.execute<ImportCypressAtomsCommand, Array<IAtom>>(
-      new ImportCypressAtomsCommand(),
-    )
   }
 }

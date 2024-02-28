@@ -26,10 +26,6 @@ export class ImportCypressAtomsHandler
    */
   @Span()
   async execute() {
-    // await this.commandBus.execute<ImportSystemTypesCommand>(
-    //   new ImportSystemTypesCommand(),
-    // )
-
     const atoms = this.readAdminDataService.atoms.filter(({ atom }) =>
       atomTypes.includes(atom.type),
     )

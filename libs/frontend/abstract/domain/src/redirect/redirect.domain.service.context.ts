@@ -5,11 +5,11 @@ export const redirectDomainServiceContext =
   createContext<IRedirectDomainService>()
 
 export const getRedirectDomainService = (self: object) => {
-  const redirectService = redirectDomainServiceContext.get(self)
+  const redirectDomainService = redirectDomainServiceContext.get(self)
 
-  if (!redirectService) {
+  if (!redirectDomainService) {
     throw new Error('RedirectDomainService context is not defined')
   }
 
-  return redirectService
+  return redirectDomainService
 }

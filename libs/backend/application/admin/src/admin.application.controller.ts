@@ -1,3 +1,4 @@
+import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
@@ -16,6 +17,7 @@ export class AdminController {
     private readonly commandBus: CommandBus,
     private readonly databaseService: DatabaseService,
     private seederApplicationService: SeederApplicationService,
+    private seederDomainService: SeederDomainService,
   ) {}
 
   @Post('export')
@@ -44,7 +46,15 @@ export class AdminController {
     // }
   }
 
-  @Post('reset-cypress-user-data')
+  /**
+   * Runs once before all Cypress runs
+   */
+  @Post('reinitialize-e2e-system-data')
+  async reinitializeE2eSystemData() {
+    await this.seederApplicationService.reinitializeE2eSystemData()
+  }
+
+  @Post('reset-user-data')
   async resetCypressUserData() {
     await this.databaseService.resetUserData()
   }
@@ -67,13 +77,10 @@ export class AdminController {
     }
   }
 
-  /**
-   * Runs once before all Cypress runs
-   */
-  @Post('seed-cypress-system-data')
-  async seedCypressSystemData() {
-    await this.seederApplicationService.setupE2eSystemData()
-  }
+  // @Post('seed-user-from-request')
+  // async seedUserFromRequest() {
+  //   await this.seederDomainService.seedUserFromRequest()
+  // }
 
   /**
    * For dev we don't clear any data

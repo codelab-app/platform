@@ -1,7 +1,7 @@
 import type { IApp } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { pageName, updatedPageName } from './apps/app.data'
+import { pageName, updatedPageName } from '../data/app.data'
 
 describe('Pages CRUD', () => {
   let app: IApp

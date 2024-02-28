@@ -1,7 +1,7 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { appName, pageName } from './apps/app.data'
+import { appName, pageName } from '../data/app.data'
 
 const CARD_COMPONENT_NAME = 'Card Component'
 const INPUT_COMPONENT_NAME = 'Input Component'

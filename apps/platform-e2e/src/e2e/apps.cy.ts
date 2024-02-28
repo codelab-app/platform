@@ -1,4 +1,4 @@
-import { appName, updatedAppName } from './apps/app.data'
+import { appName, updatedAppName } from '../data/app.data'
 
 describe('Apps CRUD', () => {
   describe('create', () => {

@@ -6,7 +6,7 @@ import {
   stateVarName,
   updatedActionName,
   updatedStateVarName,
-} from './store.data'
+} from '../data/store.data'
 
 describe('Store', () => {
   before(() => {

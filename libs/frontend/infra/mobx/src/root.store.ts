@@ -44,6 +44,7 @@ import {
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
+  getRedirectDomainService,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,
@@ -151,6 +152,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       this.tagService.tagDomainService.tags.clear()
       this.userService.userDomainService.users.clear()
       this.rendererService.renderers.clear()
+      this.redirectService.redirectDomainService.redirects.clear()
     }
 
     protected onInit() {
@@ -194,11 +196,11 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.componentService.componentDomainService,
       )
+      redirectServiceContext.set(this, this.redirectService)
       redirectDomainServiceContext.set(
         this,
         this.redirectService.redirectDomainService,
       )
-      redirectServiceContext.set(this, this.redirectService)
       rendererServiceContext.set(this, this.rendererService)
       actionDomainServiceContext.set(
         this,
