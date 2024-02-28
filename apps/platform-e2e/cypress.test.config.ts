@@ -58,22 +58,18 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     //   const cypressUsername = cypressConfig.env.auth0Username
     //   const cypressPassword = cypressConfig.env.auth0Password
     //   const baseUrl = (cypressConfig as any).baseUrl
-
     //   const auth0Client = new Auth0Client({
     //     clientId,
     //     clientSecret,
     //     issuerBaseUrl,
     //   })
-
     //   const response = await auth0Client.loginWithPassword(
     //     cypressUsername,
     //     cypressPassword,
     //   )
-
     //   const accessToken = response.data.access_token
     //   const idToken = response.data.id_token!
     //   const restClient = createCypressRestClient(baseUrl, accessToken, idToken)
-
     //   try {
     //     // await restClient.post('/admin/reset-e2e-system-data')
     //     await restClient.post('/user/save')
@@ -81,28 +77,26 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     //     console.log(error)
     //   }
     // })
-
     /**
      * This is the official Cypress way to remove videos from successful specs
      *
      * https://docs.cypress.io/guides/guides/screenshots-and-videos#Delete-videos-for-specs-without-failing-or-retried-tests
      */
-    on(
-      'after:spec',
-      (spec: Cypress.Spec, results?: CypressCommandLine.RunResult) => {
-        if (results?.video) {
-          // Do we have failures for any retry attempts?
-          const failures = results.tests.some((test) =>
-            test.attempts.some((attempt) => attempt.state === 'failed'),
-          )
-
-          if (!failures) {
-            // delete the video if the spec passed and no tests retried
-            fs.unlinkSync(results.video)
-          }
-        }
-      },
-    )
+    // on(
+    //   'after:spec',
+    //   (spec: Cypress.Spec, results?: CypressCommandLine.RunResult) => {
+    //     if (results?.video) {
+    //       // Do we have failures for any retry attempts?
+    //       const failures = results.tests.some((test) =>
+    //         test.attempts.some((attempt) => attempt.state === 'failed'),
+    //       )
+    //       if (!failures) {
+    //         // delete the video if the spec passed and no tests retried
+    //         fs.unlinkSync(results.video)
+    //       }
+    //     }
+    //   },
+    // )
   },
   testIsolation: false,
   video: true,

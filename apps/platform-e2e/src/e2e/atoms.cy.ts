@@ -9,6 +9,7 @@ describe('Atoms CRUD', () => {
   describe('create', () => {
     it('should be able to create atom', () => {
       cy.visit('/atoms')
+      cy.getSpinner().should('not.exist')
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )

@@ -39,6 +39,12 @@ export class SeederApplicationService {
     )
   }
 
+  async resetAndSeedUser() {
+    await this.databaseService.resetDatabase()
+
+    await this.seederDomainService.seedUserFromRequest()
+  }
+
   /**
    * Need a function to seed the basic data required for creating some atom/component/types.
    *

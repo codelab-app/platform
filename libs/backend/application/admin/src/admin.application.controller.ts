@@ -54,10 +54,15 @@ export class AdminController {
     await this.seederApplicationService.reinitializeE2eSystemData()
   }
 
-  @Post('reset-user-data')
-  async resetCypressUserData() {
-    await this.databaseService.resetUserData()
+  @Post('reset-and-seed-user')
+  async resetAndSeedUser() {
+    await this.seederApplicationService.resetAndSeedUser()
   }
+
+  // @Post('reset-user-data')
+  // async resetCypressUserData() {
+  //   await this.databaseService.resetUserData()
+  // }
 
   @Post('reset-database')
   async resetDatabase() {
@@ -76,11 +81,6 @@ export class AdminController {
       message: 'Admin data reset success',
     }
   }
-
-  // @Post('seed-user-from-request')
-  // async seedUserFromRequest() {
-  //   await this.seederDomainService.seedUserFromRequest()
-  // }
 
   /**
    * For dev we don't clear any data

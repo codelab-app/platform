@@ -1,4 +1,5 @@
 import 'multer'
+import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
 import {
   ImportSystemTypesCommand,
   SeedSystemTypesCommand,
@@ -56,6 +57,10 @@ export class AppApplicationController {
 
     await this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
+    )
+
+    await this.commandBus.execute<ImportCypressAtomsCommand>(
+      new ImportCypressAtomsCommand(),
     )
 
     return this.commandBus.execute<SeedCypressAppCommand, IApp>(

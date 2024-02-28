@@ -14,5 +14,6 @@ export const loginAndReinitializeE2eSystemData = () => {
       cacheAcrossSpecs: true,
     },
   )
-  cy.postApiRequest('/admin/reinitialize-e2e-system-data')
+  // cy.postApiRequest('/admin/reinitialize-e2e-system-data')
+  cy.postApiRequest('/admin/reset-and-seed-user')
 }
