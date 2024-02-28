@@ -31,9 +31,9 @@ export type PageFragment = {
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
+  redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  redirect?: { id: string } | null
 }
 
 export type PageDevelopmentFragment = {
@@ -44,9 +44,9 @@ export type PageDevelopmentFragment = {
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
+  redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  redirect?: { id: string } | null
 }
 
 export type PageProductionFragment = {
@@ -58,9 +58,9 @@ export type PageProductionFragment = {
   app: { id: string }
   elements: Array<ElementProductionFragment>
   pageContentContainer?: { id: string } | null
+  redirect?: { id: string } | null
   rootElement: { id: string }
   store: StoreFragment
-  redirect?: { id: string } | null
 }
 
 export const PagePreviewFragmentDoc = gql`
@@ -94,6 +94,9 @@ export const PageFragmentDoc = gql`
     pageContentContainer {
       id
     }
+    redirect {
+      id
+    }
     rootElement {
       id
     }
@@ -101,9 +104,6 @@ export const PageFragmentDoc = gql`
       ...Store
     }
     url
-    redirect {
-      id
-    }
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -122,6 +122,9 @@ export const PageDevelopmentFragmentDoc = gql`
     pageContentContainer {
       id
     }
+    redirect {
+      id
+    }
     rootElement {
       id
     }
@@ -129,9 +132,6 @@ export const PageDevelopmentFragmentDoc = gql`
       ...Store
     }
     url
-    redirect {
-      id
-    }
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -150,6 +150,9 @@ export const PageProductionFragmentDoc = gql`
     pageContentContainer {
       id
     }
+    redirect {
+      id
+    }
     rootElement {
       id
     }
@@ -158,9 +161,6 @@ export const PageProductionFragmentDoc = gql`
       ...Store
     }
     url
-    redirect {
-      id
-    }
   }
   ${ElementProductionFragmentDoc}
   ${StoreFragmentDoc}
