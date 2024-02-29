@@ -4,7 +4,7 @@ import type {
   IRendererService,
 } from '@codelab/frontend/abstract/application'
 import {
-  isRuntimeContainerNode,
+  isRuntimeComponent,
   isRuntimeElement,
   isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
@@ -17,6 +17,7 @@ import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import {
+  findChildren,
   isModel,
   Model,
   model,
@@ -61,12 +62,11 @@ export class RendererApplicationService
       // Reset the pre/post render actions for all elements when navigating.
       // The stopper is used to prevent infinite re-rendering when the action mutates a state
       // which causes re-rendering the root container node.
-      const runtimeElements = [
-        ...renderer.runtimeRootContainerNode.runtimeElementsList,
-        ...renderer.runtimeRootContainerNode.runtimeContainerNodesList.flatMap(
-          (node) => node.runtimeElementsList,
-        ),
-      ]
+
+      const runtimeElements = findChildren(
+        renderer.runtimeRootContainerNode,
+        (node: object) => isModel(node) && isRuntimeElement(node),
+      )
 
       runtimeElements.forEach((runtimeElement) => {
         runtimeElement.setPreRenderActionDone(false)
@@ -102,7 +102,7 @@ export class RendererApplicationService
     return renderer.render
   }
 
-  runtimeContainerNode(containerNode: IComponentModel | IPageModel) {
+  runtimeComponent(containerNode: IComponentModel | IPageModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
     return rootNode
@@ -110,8 +110,8 @@ export class RendererApplicationService
           rootNode,
           (child) =>
             isModel(child) &&
-            isRuntimeContainerNode(child) &&
-            containerNode.id === child.containerNode.id
+            isRuntimeComponent(child) &&
+            containerNode.id === child.component.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,

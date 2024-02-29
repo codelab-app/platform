@@ -30,7 +30,7 @@ export interface IRendererModel {
   renderPipe: IRenderPipe
   rendererType: RendererType
   rootElement: IElementModel
-  runtimeContainerNode: IRuntimeComponentModel | IRuntimePageModel
+  runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 }
