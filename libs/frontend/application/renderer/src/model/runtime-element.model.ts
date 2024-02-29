@@ -1,8 +1,6 @@
 import type {
   ElementWrapperProps,
-  IRuntimeComponentModel,
   IRuntimeElementDTO,
-  IRuntimeElementModel,
   IRuntimeElementPropModel,
   IRuntimeElementStyleModel,
   IRuntimeModel,
@@ -13,17 +11,20 @@ import {
   getRuntimeComponentService,
   getRuntimeElementService,
   IElementTreeViewDataNode,
+  IRuntimeComponentModel,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   getComponentDomainService,
+  IElementModel,
   isAtom,
   isComponent,
   isTypedProp,
+  pageRef,
+  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -91,6 +92,69 @@ export class RuntimeElementModel
   static compositeKey = compositeKey
 
   static create = create
+
+  @computed
+  get children() {
+    const runtimeContainer = this.closestContainerNode.current
+    const element = this.element.current
+    const renderType = element.renderType.current
+    const shouldRenderComponent = isComponent(renderType)
+
+    const children: Array<
+      IRuntimeComponentModel | IRuntimeElementModel | IRuntimePageModel
+    > = shouldRenderComponent
+      ? [
+          // put component as a child instead of instance element children
+          this.addComponent(
+            renderType,
+            this,
+            // pass instance element children to be transformed later
+            element.children.map((child) => elementRef(child.id)),
+          ),
+        ]
+      : element.children.map((child) => this.addElement(child))
+
+    /**
+     * Attach regular page to runtime element tree
+     */
+    const shouldAttachPage =
+      isRuntimePage(runtimeContainer) &&
+      runtimeContainer.childPage &&
+      runtimeContainer.page.current.pageContentContainer?.id === this.element.id
+
+    if (shouldAttachPage) {
+      const childPage = this.addChildPage(runtimeContainer.childPage!.current)
+
+      children.push(childPage)
+    }
+
+    /**
+     * Attach instance element children to runtime element tree
+     */
+    const shouldAddInstanceElementChildren =
+      isRuntimeComponent(runtimeContainer) &&
+      runtimeContainer.component.current.childrenContainerElement.id ===
+        this.element.id
+
+    if (shouldAddInstanceElementChildren) {
+      const instanceChildren = runtimeContainer.children.map((child) =>
+        this.addElement(child.current),
+      )
+
+      children.push(...instanceChildren)
+    }
+
+    const previousSibling = element.childMapperPreviousSibling
+
+    const previousSiblingIndex = children.findIndex((child) => {
+      return isRuntimeElement(child) && child.element.id === previousSibling?.id
+    })
+
+    // if no previous sibling, previousSiblingIndex will be -1 and we will insert at the beginning
+    children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
+
+    return children
+  }
 
   @computed
   get childMapperChildren() {
@@ -187,16 +251,146 @@ export class RuntimeElementModel
       children.push(...instanceChildren)
     }
 
-    const previousSibling = element.childMapperPreviousSibling
-
-    const previousSiblingIndex = children.findIndex((child) => {
-      return isRuntimeElement(child) && child.element.id === previousSibling?.id
+    this._childPage = RuntimePageModel.create({
+      page: pageRef(page.id),
+      runtimeParent: runtimeElementRef(this.id),
+      runtimeStore: RuntimeStoreModel.create({
+        runtimeProviderStore: runtimeStoreRef(this.runtimeStore.id),
+        store: storeRef(page.store.id),
+      }),
     })
 
-    // if no previous sibling, previousSiblingIndex will be -1 and we will insert at the beginning
-    children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
+    return this._childPage
+  }
 
-    return children
+  @modelAction
+  addComponent(
+    component: IComponentModel,
+    runtimeParent: IRef,
+    children: Array<Ref<IElementModel>> = [],
+    childMapperIndex?: number,
+    isTypedProp?: boolean,
+  ): IRuntimeComponentModel {
+    const componentsList = [...this._runtimeComponents.values()]
+
+    const foundComponent = componentsList.find(
+      (runtimeComponent) =>
+        runtimeComponent.component.id === component.id &&
+        isNil(childMapperIndex),
+    )
+
+    if (foundComponent) {
+      return foundComponent
+    }
+
+    const id = v4()
+
+    const runtimeComponent = RuntimeComponentModel.create({
+      childMapperIndex,
+      children,
+      component: componentRef(component.id),
+      id,
+      isTypedProp,
+      runtimeParent: runtimeElementRef(runtimeParent.id),
+      runtimeProps: RuntimeComponentPropModel.create({
+        runtimeComponent: runtimeComponentRef(id),
+      }),
+      runtimeStore: RuntimeStoreModel.create({
+        store: storeRef(component.store.id),
+      }),
+    })
+
+    this._runtimeComponents.set(runtimeComponent.id, runtimeComponent)
+
+    return runtimeComponent
+  }
+
+  @modelAction
+  addElement(element: IElementModel): IRuntimeElementModel {
+    const elementsList = [...this._runtimeElements.values()]
+
+    const foundElement = elementsList.find(
+      (runtimeElement) => runtimeElement.element.id === element.id,
+    )
+
+    if (foundElement) {
+      return foundElement
+    }
+
+    const id = v4()
+
+    const runtimeElement = RuntimeElementModel.create({
+      closestContainerNode: runtimeComponentRef(this.id),
+      element: elementRef(element),
+      id,
+      runtimeProps: RuntimeElementPropsModel.create({
+        runtimeElement: runtimeElementRef(id),
+      }),
+    })
+
+    this._runtimeElements.set(runtimeElement.id, runtimeElement)
+
+    return runtimeElement
+  }
+
+  /**
+   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
+   * e.g. when child mapper element depends on a filtered data
+   * @param validNodes new evaluated child mapper prop
+   */
+  @modelAction
+  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>) {
+    const componentLists = [...this._runtimeComponents.values()]
+
+    componentLists.forEach((component) => {
+      if (
+        !isNil(component.childMapperIndex) &&
+        !validNodes.some(
+          (validNode) =>
+            validNode.childMapperIndex === component.childMapperIndex,
+        )
+      ) {
+        this._runtimeComponents.delete(component.id)
+      }
+    })
+  }
+
+  runPostRenderAction = () => {
+    if (this.postRenderActionDone) {
+      return
+    }
+
+    const { postRenderAction } = this.element.current
+    const currentPostRenderAction = postRenderAction?.current
+
+    if (currentPostRenderAction) {
+      const runner = this.runtimeProps.getActionRunner(
+        currentPostRenderAction.name,
+      )
+
+      runner()
+
+      this.postRenderActionDone = true
+    }
+  }
+
+  runPreRenderAction = () => {
+    if (this.preRenderActionDone) {
+      return
+    }
+
+    const { preRenderAction } = this.element.current
+    const currentPreRenderAction = preRenderAction?.current
+
+    if (currentPreRenderAction) {
+      const runner = this.runtimeProps.getActionRunner(
+        preRenderAction.current.name,
+      )
+
+      runner()
+
+      this.preRenderActionDone = true
+    }
   }
 
   @computed

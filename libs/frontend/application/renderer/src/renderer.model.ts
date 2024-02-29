@@ -11,6 +11,7 @@ import type {
 import {
   isRuntimeComponent,
   isRuntimePage,
+  runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -109,7 +110,7 @@ export class Renderer
    */
   @computed
   get render() {
-    return this.runtimeRootContainerNode.render
+    return this.runtimeContainerNode.render
   }
 
   @computed
