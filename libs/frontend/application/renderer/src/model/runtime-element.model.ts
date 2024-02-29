@@ -94,6 +94,34 @@ export class RuntimeElementModel
   static create = create
 
   @computed
+  get childMapperChildren() {
+    const childMapperComponent = this.element.current.childMapperComponent
+
+    if (!childMapperComponent) {
+      return []
+    }
+
+    const props = this.runtimeProps.evaluatedChildMapperProps || []
+    const component = childMapperComponent.current
+    const childMapperChildren = []
+
+    for (let index = 0; index < props.length; index++) {
+      const runtimeComponent = this.addComponent(
+        component,
+        { id: this.id },
+        undefined,
+        index,
+      )
+
+      childMapperChildren.push(runtimeComponent)
+    }
+
+    this.cleanupChildMapperNodes(childMapperChildren)
+
+    return childMapperChildren
+  }
+
+  @computed
   get children() {
     const runtimeContainer = this.closestContainerNode.current
     const element = this.element.current
@@ -157,16 +185,14 @@ export class RuntimeElementModel
   }
 
   @computed
-  get childMapperChildren() {
-    const childMapperComponent = this.element.current.childMapperComponent
-
-    if (!childMapperComponent) {
-      return []
+  get render(): Nullable<ReactElement> {
+    if (this.shouldRender === false) {
+      return null
     }
 
-    const props = this.runtimeProps.evaluatedChildMapperProps || []
-    const component = childMapperComponent.current
-    const childMapperChildren = []
+    // Render the element to an intermediate output
+    const renderOutput = this.renderer.renderPipe.render(this)
+    const children = this.renderChildren
 
     for (let index = 0; index < props.length; index++) {
       const runtimeComponent = this.runtimeComponentService.add(
@@ -192,7 +218,65 @@ export class RuntimeElementModel
 
     this.cleanupChildMapperNodes(keyStart, newKeys)
 
-    return childMapperChildren
+  /**
+   * Renders the elements children
+   */
+  @computed
+  get renderChildren(): ArrayOrSingle<ReactNode> {
+    const renderedChildren = compact(this.children.map((child) => child.render))
+    const hasNoChildren = this.children.length === 0
+    const hasOneChild = this.children.length === 1
+
+    if (hasNoChildren) {
+      // Inject text, but only if we have no regular children
+      const injectedText =
+        this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
+
+      const shouldInjectText =
+        isAtom(this.element.current.renderType.current) &&
+        this.element.current.renderType.current.allowCustomTextInjection
+
+      if (shouldInjectText) {
+        const readOnly = !this.element.current.isTextContentEditable
+
+        return this.renderer.rendererType === RendererType.Preview ||
+          this.renderer.rendererType === RendererType.Production
+          ? createTextRenderer(injectedText)
+          : createTextEditor(injectedText, this.element.id, readOnly)
+      }
+
+      /*
+       * It's important to be undefined if we have no children to display,
+       * since void components like input will throw an error if their children prop isn't undefined
+       */
+      return undefined
+    }
+
+    /*
+     * If we have only one child, just return it.
+     * Ant Design doesn't handle array children well in some cases, like Forms
+     */
+    if (hasOneChild) {
+      return renderedChildren[0]
+    }
+
+    return renderedChildren
+  }
+
+  @computed
+  get renderer() {
+    const activeRenderer = getRendererService(this).activeRenderer?.current
+
+    if (!activeRenderer) {
+      throw new Error('No active Renderer was found')
+    }
+
+    return activeRenderer
+  }
+
+  @computed
+  get runtimeStore() {
+    return this.closestContainerNode.current.runtimeStore
   }
 
   @computed

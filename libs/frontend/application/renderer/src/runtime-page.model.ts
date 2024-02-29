@@ -62,33 +62,13 @@ export class RuntimePageModel
   static create = create
 
   @computed
-  get runtimeRootElement() {
-    return this.addRuntimeRootElement()
-  }
-
-  @computed
   get render(): Nullable<ReactElement> {
     return this.runtimeRootElement.render
   }
 
-  @modelAction
-  addRuntimeRootElement() {
-    if (this._runtimeRootElement) {
-      return this._runtimeRootElement
-    }
-
-    const id = v4()
-
-    this._runtimeRootElement = RuntimeElementModel.create({
-      closestContainerNode: runtimePageRef(this.id),
-      element: elementRef(this.page.current.rootElement.id),
-      id,
-      runtimeProps: RuntimeElementPropsModel.create({
-        runtimeElement: runtimeElementRef(id),
-      }),
-    })
-
-    return this._runtimeRootElement
+  @computed
+  get runtimeRootElement() {
+    return this.addRuntimeRootElement()
   }
 
   @modelAction
@@ -159,5 +139,25 @@ export class RuntimePageModel
     this._runtimeElements.set(runtimeElement.id, runtimeElement)
 
     return runtimeElement
+  }
+
+  @modelAction
+  addRuntimeRootElement() {
+    if (this._runtimeRootElement) {
+      return this._runtimeRootElement
+    }
+
+    const id = v4()
+
+    this._runtimeRootElement = RuntimeElementModel.create({
+      closestContainerNode: runtimePageRef(this.id),
+      element: elementRef(this.page.current.rootElement.id),
+      id,
+      runtimeProps: RuntimeElementPropsModel.create({
+        runtimeElement: runtimeElementRef(id),
+      }),
+    })
+
+    return this._runtimeRootElement
   }
 }
