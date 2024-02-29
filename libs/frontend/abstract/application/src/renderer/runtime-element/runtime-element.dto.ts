@@ -1,15 +1,12 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
-import type {
-  IRuntimeContainerNodeModel,
-  SubTree,
-} from '../runtime-container-node'
+import type { IRuntimeComponentModel } from '../runtime-component'
+import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
 
 export interface IRuntimeElementDTO {
-  closestContainerNode: Ref<IRuntimeContainerNodeModel>
+  closestContainerNode: Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
   element: Ref<IElementModel>
   id?: string
   runtimeProps: IRuntimeElementPropModel
-  subTrees?: Array<SubTree>
 }

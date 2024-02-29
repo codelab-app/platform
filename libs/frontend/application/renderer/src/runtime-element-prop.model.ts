@@ -7,6 +7,7 @@ import type {
 import {
   getRendererService,
   IEvaluationContext,
+  isRuntimeComponent,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -95,10 +96,8 @@ export class RuntimeElementPropsModel
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    const { componentRuntimeProp } = this.closestRuntimeContainerNode
-
-    const componentProps = componentRuntimeProp
-      ? componentRuntimeProp.componentEvaluatedProps
+    const componentProps = isRuntimeComponent(this.closestRuntimeContainerNode)
+      ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}
 
     return this.addAndBind({

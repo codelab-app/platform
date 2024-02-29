@@ -1,12 +1,15 @@
 import type {
+  IComponentModel,
   IElementModel,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'
+import type { IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
-import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
+import type { IRuntimeComponentModel } from '../runtime-component'
+import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
@@ -18,11 +21,13 @@ export interface IRuntimeElementModel extends AnyModel {
   /**
    * Runtime children
    */
-  children: Array<IRuntimeContainerNodeModel | IRuntimeElementModel>
+  children: Array<
+    IRuntimeComponentModel | IRuntimeElementModel | IRuntimePageModel
+  >
   /**
    * The runtime model for IElementModel.closestContainerNode
    */
-  closestContainerNode: Ref<IRuntimeContainerNodeModel>
+  closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
 
   element: Ref<IElementModel>
 
@@ -50,6 +55,16 @@ export interface IRuntimeElementModel extends AnyModel {
 
   treeViewNode: IElementTreeViewDataNode
 
+  addComponent(
+    node: IComponentModel,
+    runtimeParent: IRef,
+    children?: Array<Ref<IElementModel>>,
+    childMapperIndex?: number,
+    isTypedProp?: boolean,
+  ): IRuntimeComponentModel
+  addElement(node: IElementModel): IRuntimeElementModel
+
+  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>): void
   runPostRenderAction(): void
   runPreRenderAction(): void
   setPostRenderActionDone(value: boolean): void
