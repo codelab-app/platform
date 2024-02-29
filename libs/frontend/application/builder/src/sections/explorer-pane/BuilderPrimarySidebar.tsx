@@ -69,7 +69,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       ? rendererService.runtimeContainerNode(containerNode)
       : undefined
 
-    const runtimeStore = runtimeContainerNode?.runtimeStore
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
     const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
 

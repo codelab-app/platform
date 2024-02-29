@@ -1,4 +1,4 @@
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import { isRuntimePage } from '@codelab/frontend/abstract/application'
 import {
   type IPageNodeRef,
   isElement,
@@ -65,13 +65,12 @@ export const usePropsInspector = (node: IPageNodeRef) => {
 
   const runtimeModel = isElement(node.current)
     ? rendererService.runtimeElement(node.current)
-    : rendererService.runtimeContainerNode(node.current)
+    : rendererService.runtimeComponent(node.current)
 
-  const runtimeProps = runtimeModel
-    ? isRuntimeElement(runtimeModel)
+  const runtimeProps =
+    runtimeModel && !isRuntimePage(runtimeModel)
       ? runtimeModel.runtimeProps
-      : runtimeModel.componentRuntimeProp
-    : undefined
+      : undefined
 
   const evaluationContext = runtimeProps?.expressionEvaluationContext
   const lastRenderedProp = runtimeProps?.evaluatedProps || {}

@@ -1,12 +1,13 @@
-import {
-  type IRendererDto,
-  type IRendererModel,
-  type IRenderPipe,
-  type IRuntimeContainerNodeModel,
-  type ITypedPropTransformer,
-  type RendererType,
-  runtimeContainerNodeRef,
+import type {
+  IRendererDto,
+  IRendererModel,
+  IRenderPipe,
+  IRuntimeComponentModel,
+  IRuntimePageModel,
+  ITypedPropTransformer,
+  RendererType,
 } from '@codelab/frontend/abstract/application'
+import { runtimeComponentRef } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IExpressionTransformer,
@@ -14,7 +15,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
-  isComponent,
   isPage,
   pageRef,
   storeRef,
@@ -25,8 +25,9 @@ import { idProp, Model, model, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
+import { RuntimeComponentModel } from './runtime-component.model'
 import { RuntimeComponentPropModel } from './runtime-component-prop.model'
-import { RuntimeContainerNodeModel } from './runtime-container-node.model'
+import { RuntimePageModel } from './runtime-page.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
@@ -48,35 +49,36 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
 
 const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
   const runtimeContainerNodeId = v4()
+  const providerPage = isPage(containerNode) && containerNode.providerPage
+
+  const runtimeContainerNode = isPage(containerNode)
+    ? RuntimePageModel.create({
+        childPage: providerPage ? pageRef(containerNode) : undefined,
+        id: runtimeContainerNodeId,
+        page: pageRef(providerPage ? providerPage.id : containerNode.id),
+        runtimeStore: RuntimeStoreModel.create({
+          store: storeRef(
+            providerPage ? providerPage.store.id : containerNode.store.id,
+          ),
+        }),
+      })
+    : RuntimeComponentModel.create({
+        component: componentRef(containerNode),
+        id: runtimeContainerNodeId,
+        runtimeProps: RuntimeComponentPropModel.create({
+          runtimeComponent: runtimeComponentRef(runtimeContainerNodeId),
+        }),
+        runtimeStore: RuntimeStoreModel.create({
+          store: storeRef(containerNode.id),
+        }),
+      })
 
   return new Renderer({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeRootContainerNode: new RuntimeContainerNodeModel({
-      componentRuntimeProp: isComponent(containerNode)
-        ? RuntimeComponentPropModel.create({
-            runtimeComponent: runtimeContainerNodeRef(runtimeContainerNodeId),
-          })
-        : undefined,
-      containerNode: isPage(containerNode)
-        ? pageRef(containerNode.providerPage?.id || containerNode.id)
-        : componentRef(containerNode.id),
-      id: runtimeContainerNodeId,
-      runtimeStore: RuntimeStoreModel.create({
-        store: storeRef(
-          (isPage(containerNode) && containerNode.providerPage
-            ? containerNode.providerPage
-            : containerNode
-          ).store.id,
-        ),
-      }),
-      subTrees:
-        isPage(containerNode) && containerNode.providerPage
-          ? [pageRef(containerNode.id)]
-          : undefined,
-    }),
+    runtimeContainerNode,
     urlSegments,
   })
 }
@@ -106,13 +108,10 @@ export class Renderer
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
-
     /**
-     * We register runtimeRootContainerNode when it is created first time
-     * it is used internally to avoid creating runtime elements each time
-     * provides a way to attach runtime tree to the root store
+     * Runtime model for page/component when it is created first time
      */
-    runtimeRootContainerNode: prop<IRuntimeContainerNodeModel>(),
+    runtimeContainerNode: prop<IRuntimeComponentModel | IRuntimePageModel>(),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -130,7 +129,7 @@ export class Renderer
    */
   @computed
   get render() {
-    return this.runtimeRootContainerNode.render
+    return this.runtimeContainerNode.render
   }
 
   @computed

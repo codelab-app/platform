@@ -2,7 +2,6 @@ import type {
   IRuntimeModel,
   ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend/domain/prop'
@@ -72,23 +71,15 @@ export class RenderPropTypeTransformer
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
 
-      const runtimeComponent = isRuntimeElement(runtimeNode)
-        ? runtimeNode.closestContainerNode.current.addContainerNode(
-            component,
-            runtimeNode,
-            undefined,
-            undefined,
-            true,
-          )
-        : runtimeNode.addContainerNode(
-            component,
-            runtimeNode,
-            undefined,
-            undefined,
-            true,
-          )
+      const runtimeComponent = runtimeNode.addComponent(
+        component,
+        runtimeNode,
+        undefined,
+        undefined,
+        true,
+      )
 
-      runtimeComponent.componentRuntimeProp?.setCustomProps(
+      runtimeComponent.runtimeProps.setCustomProps(
         Prop.create({
           data: JSON.stringify(props),
           id: v4(),
