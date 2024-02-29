@@ -29,6 +29,7 @@ export interface IRuntimePageModel extends AnyModel {
   /**
    * The element this page is attached to it will be : ProviderPage.pageContentContainer
    */
+  runtimeElementsList: Array<IRuntimeElementModel>
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
@@ -42,9 +43,4 @@ export interface IRuntimePageModel extends AnyModel {
   ): IRuntimeComponentModel
 
   addElement(element: IElementModel): IRuntimeElementModel
-
-  /**
-   * add runtime root element for the current page
-   */
-  addRuntimeRootElement(node: IElementModel): IRuntimeElementModel
 }

@@ -14,6 +14,7 @@ import {
   RendererType,
   runtimeComponentRef,
   runtimeElementRef,
+  runtimePageRef,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -137,15 +138,15 @@ export class RuntimeElementModel
     /**
      * Attach regular page to runtime element tree
      */
-    const shouldAttachPage =
-      isRuntimePage(runtimeContainer) &&
-      runtimeContainer.childPage &&
-      runtimeContainer.page.current.pageContentContainer?.id === this.element.id
 
-    if (shouldAttachPage) {
-      const childPage = this.addChildPage(runtimeContainer.childPage!.current)
+    if (isRuntimePage(runtimeContainer)) {
+      const page = runtimeContainer.page.current
+      const childPage = runtimeContainer.childPage?.current
+      const shouldAttachPage = page.pageContentContainer?.id === this.element.id
 
-      children.push(childPage)
+      if (childPage && shouldAttachPage) {
+        children.push(this.addChildPage(childPage))
+      }
     }
 
     /**
@@ -265,6 +266,11 @@ export class RuntimeElementModel
   }
 
   @computed
+  get runtimeElementsList() {
+    return [...this._runtimeElements.values()]
+  }
+
+  @computed
   get runtimeStore() {
     return this.closestContainerNode.current.runtimeStore
   }
@@ -344,7 +350,9 @@ export class RuntimeElementModel
     const id = v4()
 
     const runtimeElement = RuntimeElementModel.create({
-      closestContainerNode: runtimeComponentRef(this.id),
+      closestContainerNode: isRuntimePage(this.closestContainerNode.current)
+        ? runtimePageRef(this.closestContainerNode.id)
+        : runtimeComponentRef(this.closestContainerNode.id),
       element: elementRef(element),
       id,
       runtimeProps: RuntimeElementPropsModel.create({

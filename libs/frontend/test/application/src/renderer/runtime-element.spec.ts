@@ -1,7 +1,8 @@
-import {
-  type IRuntimeElementModel,
-  RendererType,
+import type {
+  IRuntimeElementModel,
+  IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
@@ -28,10 +29,11 @@ describe('Runtime Element', () => {
     // Test the creation of element node
     expect(runtimeElement?.element.id).toBe(rootElement.id)
 
+    const runtimePage = runtimeElement?.closestContainerNode
+      .current as IRuntimePageModel
+
     // Test the creation of link with container node
-    expect(runtimeElement?.closestContainerNode.current.containerNode.id).toBe(
-      page.id,
-    )
+    expect(runtimePage.page.id).toBe(page.id)
   })
 
   it('should add element runtime child', () => {
@@ -76,10 +78,10 @@ describe('Runtime Element', () => {
       const providerPageRootElement = page.providerPage?.rootElement.current
 
       const runtimeProviderPage = page.providerPage
-        ? rendererService.runtimeContainerNode(page.providerPage)
+        ? rendererService.runtimePage(page.providerPage)
         : undefined
 
-      const runtimePage = rendererService.runtimeContainerNode(page)
+      const runtimePage = rendererService.runtimePage(page)
 
       const pageRuntimeRootElement =
         rendererService.runtimeElement(pageRootElement)
@@ -141,7 +143,7 @@ describe('Runtime Element', () => {
 
       const providerPage = page.providerPage ?? page
 
-      const runtimeProviderPage = rendererService.runtimeContainerNode(
+      const runtimeProviderPage = rendererService.runtimePage(
         page.providerPage ?? page,
       )
 
