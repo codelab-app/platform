@@ -16,16 +16,16 @@ describe('Renderer', () => {
     const { page } = setupPages(testbed)
 
     const runtimeProviderPage = page.providerPage
-      ? rendererService.runtimeComponent(page.providerPage)
+      ? rendererService.runtimePage(page.providerPage)
       : undefined
 
-    const runtimePage = rendererService.runtimeComponent(page)
+    const runtimePage = rendererService.runtimePage(page)
 
     // Test the creation of provider page node
-    expect(runtimeProviderPage?.containerNode.id).toBe(page.providerPage?.id)
+    expect(runtimeProviderPage?.page.id).toBe(page.providerPage?.id)
 
     // Test the creation of page node
-    expect(runtimePage?.containerNode.id).toBe(page.id)
+    expect(runtimePage?.page.id).toBe(page.id)
   })
 
   it('should create component runtime node', () => {
@@ -33,7 +33,7 @@ describe('Renderer', () => {
     const { component } = setupComponent(testbed)
     const runtimeComponent = rendererService.runtimeComponent(component)
 
-    expect(runtimeComponent?.containerNode.id).toBe(component.id)
+    expect(runtimeComponent?.component.id).toBe(component.id)
   })
 
   afterAll(() => {

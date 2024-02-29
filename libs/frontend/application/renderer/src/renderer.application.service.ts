@@ -6,6 +6,7 @@ import type {
 import {
   isRuntimeComponent,
   isRuntimeElement,
+  isRuntimePage,
   isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -102,7 +103,7 @@ export class RendererApplicationService
     return renderer.render
   }
 
-  runtimeComponent(containerNode: IComponentModel | IPageModel) {
+  runtimeComponent(component: IComponentModel) {
     const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
 
     return rootNode
@@ -111,7 +112,7 @@ export class RendererApplicationService
           (child) =>
             isModel(child) &&
             isRuntimeComponent(child) &&
-            containerNode.id === child.component.id
+            component.id === child.component.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,
@@ -129,6 +130,21 @@ export class RendererApplicationService
             isModel(child) &&
             isRuntimeElement(child) &&
             element.id === child.element.id
+              ? child
+              : undefined,
+          WalkTreeMode.ParentFirst,
+        )
+      : undefined
+  }
+
+  runtimePage(page: IPageModel) {
+    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
+
+    return rootNode
+      ? walkTree(
+          rootNode,
+          (child) =>
+            isModel(child) && isRuntimePage(child) && page.id === child.page.id
               ? child
               : undefined,
           WalkTreeMode.ParentFirst,

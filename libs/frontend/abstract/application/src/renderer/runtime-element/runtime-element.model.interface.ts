@@ -38,6 +38,7 @@ export interface IRuntimeElementModel extends AnyModel {
 
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>
+  runtimeElementsList: Array<IRuntimeElementModel>
 
   /**
    * Runtime version of IElementModel.prop

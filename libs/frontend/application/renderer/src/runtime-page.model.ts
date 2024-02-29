@@ -6,7 +6,6 @@ import {
   type IRuntimeStoreModel,
   runtimeComponentRef,
   runtimeElementRef,
-  runtimePageRef,
 } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import {
@@ -49,7 +48,6 @@ export class RuntimePageModel
     _runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() =>
       objectMap([]),
     ),
-    _runtimeRootElement: prop<Maybe<IRuntimeElementModel>>(),
     childPage: prop<Maybe<Ref<IPageModel>>>(),
     id: idProp,
     isTypedProp: prop<Maybe<boolean>>(false),
@@ -67,8 +65,13 @@ export class RuntimePageModel
   }
 
   @computed
+  get runtimeElementsList() {
+    return [...this._runtimeElements.values()]
+  }
+
+  @computed
   get runtimeRootElement() {
-    return this.addRuntimeRootElement()
+    return this.addElement(this.page.current.rootElement.current)
   }
 
   @modelAction
@@ -139,25 +142,5 @@ export class RuntimePageModel
     this._runtimeElements.set(runtimeElement.id, runtimeElement)
 
     return runtimeElement
-  }
-
-  @modelAction
-  addRuntimeRootElement() {
-    if (this._runtimeRootElement) {
-      return this._runtimeRootElement
-    }
-
-    const id = v4()
-
-    this._runtimeRootElement = RuntimeElementModel.create({
-      closestContainerNode: runtimePageRef(this.id),
-      element: elementRef(this.page.current.rootElement.id),
-      id,
-      runtimeProps: RuntimeElementPropsModel.create({
-        runtimeElement: runtimeElementRef(id),
-      }),
-    })
-
-    return this._runtimeRootElement
   }
 }

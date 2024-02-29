@@ -46,7 +46,6 @@ export class RuntimeComponentModel
     _runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() =>
       objectMap([]),
     ),
-    _runtimeRootElement: prop<Maybe<IRuntimeElementModel>>(),
     childMapperIndex: prop<Maybe<number>>().withSetter(),
     children: prop<Array<Ref<IElementModel>>>(() => []),
     component: prop<Ref<IComponentModel>>(),
@@ -61,33 +60,18 @@ export class RuntimeComponentModel
   static create = create
 
   @computed
-  get runtimeRootElement() {
-    return this.addRuntimeRootElement()
-  }
-
-  @computed
   get render(): Nullable<ReactElement> {
     return this.runtimeRootElement.render
   }
 
-  @modelAction
-  addRuntimeRootElement() {
-    if (this._runtimeRootElement) {
-      return this._runtimeRootElement
-    }
+  @computed
+  get runtimeElementsList() {
+    return [...this._runtimeElements.values()]
+  }
 
-    const id = v4()
-
-    this._runtimeRootElement = RuntimeElementModel.create({
-      closestContainerNode: runtimeComponentRef(this.id),
-      element: elementRef(this.component.current.rootElement.id),
-      id,
-      runtimeProps: RuntimeElementPropsModel.create({
-        runtimeElement: runtimeElementRef(id),
-      }),
-    })
-
-    return this._runtimeRootElement
+  @computed
+  get runtimeRootElement() {
+    return this.addElement(this.component.current.rootElement.current)
   }
 
   @modelAction
