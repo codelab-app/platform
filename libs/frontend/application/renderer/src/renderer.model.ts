@@ -94,7 +94,7 @@ export class Renderer
    */
   @computed
   get render() {
-    return this.runtimeRootContainerNode.render
+    return this.runtimeContainerNode.render
   }
 
   @computed
