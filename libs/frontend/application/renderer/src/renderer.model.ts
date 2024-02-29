@@ -78,7 +78,7 @@ const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeContainerNode,
+    runtimeRootContainerNode: runtimeContainerNode,
     urlSegments,
   })
 }
@@ -111,7 +111,9 @@ export class Renderer
     /**
      * Runtime model for page/component when it is created first time
      */
-    runtimeContainerNode: prop<IRuntimeComponentModel | IRuntimePageModel>(),
+    runtimeRootContainerNode: prop<
+      IRuntimeComponentModel | IRuntimePageModel
+    >(),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -129,7 +131,7 @@ export class Renderer
    */
   @computed
   get render() {
-    return this.runtimeContainerNode.render
+    return this.runtimeRootContainerNode.render
   }
 
   @computed
