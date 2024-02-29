@@ -14,7 +14,6 @@ import {
   getRuntimeElementService,
   IElementTreeViewDataNode,
   IRuntimeNodeType,
-  isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
@@ -23,7 +22,6 @@ import {
   getComponentDomainService,
   isAtom,
   isComponent,
-  isComponentRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -267,7 +265,7 @@ export class RuntimeElementModel
 
   @computed
   get renderer() {
-    const activeRenderer = this.renderService.activeRenderer?.current
+    const activeRenderer = getRendererService(this).activeRenderer?.current
 
     if (!activeRenderer) {
       throw new Error('No active Renderer was found')
