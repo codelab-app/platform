@@ -1,6 +1,8 @@
 import type {
   ElementWrapperProps,
+  IRuntimeComponentModel,
   IRuntimeElementDTO,
+  IRuntimeElementModel,
   IRuntimeElementPropModel,
   IRuntimeElementStyleModel,
   IRuntimeModel,
@@ -106,7 +108,7 @@ export class RuntimeElementModel
     const childMapperChildren = []
 
     for (let index = 0; index < props.length; index++) {
-      const runtimeComponent = this.addComponent(
+      const runtimeComponent = this.runtimeComponentService.add(
         component,
         { id: this.id },
         undefined,
@@ -133,14 +135,14 @@ export class RuntimeElementModel
     > = shouldRenderComponent
       ? [
           // put component as a child instead of instance element children
-          this.addComponent(
+          this.runtimeComponentService.add(
             renderType,
             this,
             // pass instance element children to be transformed later
             element.children.map((child) => elementRef(child.id)),
           ),
         ]
-      : element.children.map((child) => this.addElement(child))
+      : element.children.map((child) => this.runtimeElementService.add(child))
 
     /**
      * Attach regular page to runtime element tree
@@ -166,7 +168,7 @@ export class RuntimeElementModel
 
     if (shouldAddInstanceElementChildren) {
       const instanceChildren = runtimeContainer.children.map((child) =>
-        this.addElement(child.current),
+        this.runtimeElementService.add(child.current),
       )
 
       children.push(...instanceChildren)

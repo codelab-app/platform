@@ -36,7 +36,6 @@ export interface IRuntimeComponentModel extends AnyModel {
   /**
    * Exposed for external use by other models and to preserve structure
    */
-  runtimeElementsList: Array<IRuntimeElementModel>
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeProps: IRuntimeComponentPropModel
   runtimeRootElement: IRuntimeElementModel
