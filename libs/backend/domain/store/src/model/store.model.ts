@@ -1,4 +1,7 @@
-import { ActionFactory } from '@codelab/backend/domain/action'
+import {
+  ActionFactory,
+  ActionModelFactory,
+} from '@codelab/backend/domain/action'
 import { InterfaceType } from '@codelab/backend/domain/type'
 import type {
   IAction,
@@ -43,7 +46,7 @@ export class Store implements IStore {
       __typename: ITypeKind.InterfaceType,
     }
     this.id = id
-    this.actions = actions.map((action) => ActionFactory.create(action))
+    this.actions = actions.map((action) => ActionModelFactory.create(action))
     this.name = name
   }
 }

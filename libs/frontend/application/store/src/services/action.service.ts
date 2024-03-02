@@ -2,8 +2,6 @@ import { type IActionService } from '@codelab/frontend/abstract/application'
 import {
   type IActionModel,
   type IActionWhere,
-  type ICreateActionData,
-  type IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { ModalService } from '@codelab/frontend/application/shared/store'
@@ -12,7 +10,11 @@ import {
   ActionDomainService,
   ActionFactory,
 } from '@codelab/frontend/domain/action'
-import type { IActionDto } from '@codelab/shared/abstract/core'
+import type {
+  IActionDto,
+  ICreateActionData,
+  IUpdateActionData,
+} from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -59,7 +61,7 @@ export class ActionService
   @transaction
   create = _async(function* (this: ActionService, data: ICreateActionData) {
     const action = this.actionDomainService.hydrate(
-      ActionFactory.mapDataToDTO(data),
+      ActionFactory.mapDataToDto(data),
     )
 
     yield* _await(this.actionRepository.add(action))
@@ -104,13 +106,15 @@ export class ActionService
   @transaction
   update = _async(function* (this: ActionService, data: IUpdateActionData) {
     const action = this.actionDomainService.actions.get(data.id)!
-    const actionDto = ActionFactory.mapDataToDTO(data)
+    const actionDto = ActionFactory.mapDataToDto(data)
 
-    if (action.type === IActionKind.ApiAction) {
-      action.config.writeCache({
-        data: JSON.stringify(data.config.data),
-      })
-    }
+    // ActionFactory below should be enough
+    //
+    // if (action.type === IActionKind.ApiAction) {
+    //   action.config.writeCache({
+    //     data: JSON.stringify(data.config.data),
+    //   })
+    // }
 
     ActionFactory.writeCache(actionDto, action)
 
@@ -120,7 +124,7 @@ export class ActionService
   })
 
   private async recursiveClone(action: IActionModel, storeId: string) {
-    const actionDto = ActionFactory.mapActionToDTO(action)
+    const actionDto = ActionFactory.mapActionToDto(action)
 
     let newActionDto: IActionDto = {
       ...actionDto,

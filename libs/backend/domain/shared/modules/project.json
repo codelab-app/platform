@@ -24,6 +24,7 @@
     "projectType:library",
     "type:concrete",
     "scope:backend",
-    "layer:domain"
+    "scope:shared"
+    // "layer:domain"
   ]
 }

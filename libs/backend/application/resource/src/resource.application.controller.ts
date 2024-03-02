@@ -1,3 +1,4 @@
+import { ICreateResourceData } from '@codelab/shared/abstract/core'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -13,7 +14,9 @@ export class ResourceApplicationController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-resource')
-  async createResource(@Body() createResourceData: any) {
+  async createResource(@Body() createResourceData: ICreateResourceData) {
+    console.log('createResource', createResourceData)
+
     return this.resourceApplicationService.createResource(createResourceData)
   }
 }

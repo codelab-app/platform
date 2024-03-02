@@ -36,6 +36,9 @@
       "@codelab/backend/abstract/types": [
         "libs/backend/abstract/types/src/index.ts"
       ],
+      "@codelab/backend/application/action": [
+        "libs/backend/application/action/src/index.ts"
+      ],
       "@codelab/backend/application/admin": [
         "libs/backend/application/admin/src/index.ts"
       ],

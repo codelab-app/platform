@@ -1,16 +1,17 @@
 import type { IResourceService } from '@codelab/frontend/abstract/application'
-import type {
-  ICreateResourceData,
-  IResourceModel,
-  IUpdateResourceData,
-} from '@codelab/frontend/abstract/domain'
+import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/application/shared/store'
 import { ResourceDomainService } from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
-import type { IPropDto, IResourceDto } from '@codelab/shared/abstract/core'
+import type {
+  ICreateResourceData,
+  IPropDto,
+  IResourceDto,
+  IUpdateResourceData,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,

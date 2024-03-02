@@ -1,4 +1,3 @@
-import type { ICreateActionData } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
@@ -7,6 +6,7 @@ import {
   showFieldOnDev,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,

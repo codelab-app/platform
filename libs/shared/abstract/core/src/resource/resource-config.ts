@@ -1,4 +1,4 @@
 export interface IResourceConfigData {
-  headers: string
+  headers?: string
   url: string
 }

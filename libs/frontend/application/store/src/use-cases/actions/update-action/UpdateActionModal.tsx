@@ -1,4 +1,3 @@
-import type { IUpdateActionData } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -6,7 +5,11 @@ import {
 } from '@codelab/frontend/application/type'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
+import {
+  IActionKind,
+  IResourceType,
+  IUpdateActionData,
+} from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'

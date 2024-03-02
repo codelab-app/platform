@@ -1,3 +1,4 @@
+export * from './action.data.interface'
 export * from './action.dto.interface'
 export * from './action-entity.dto.interface'
 export * from './action-kind.enum'

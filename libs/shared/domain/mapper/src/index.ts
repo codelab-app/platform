@@ -1,3 +1,4 @@
+export * from './action.factory'
 export * from './atom'
 export * from './fields'
 export * from './orm'

@@ -1,4 +1,3 @@
-import type { ICreateResourceData } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   idSchema,
@@ -6,6 +5,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ICreateResourceData } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -22,6 +22,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
               language: CodeMirrorLanguage.Json,
             }),
           },
+          nullable: true,
         },
         url: { type: 'string' },
       },
