@@ -60,7 +60,7 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
-    const runtimeComponent = runtimeNode.addComponent(
+    const runtimeComponent = this.runtimeComponentService.add(
       component,
       runtimeNode,
       undefined,

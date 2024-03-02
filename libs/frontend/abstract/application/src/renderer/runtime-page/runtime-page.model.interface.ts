@@ -1,13 +1,7 @@
-import type {
-  IComponentModel,
-  IElementModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
-import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
@@ -26,21 +20,7 @@ export interface IRuntimePageModel extends AnyModel {
   page: Ref<IPageModel>
 
   render: Nullable<ReactElement>
-  /**
-   * The element this page is attached to it will be : ProviderPage.pageContentContainer
-   */
-  runtimeElementsList: Array<IRuntimeElementModel>
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
-
-  addComponent(
-    node: IComponentModel,
-    runtimeParent: IRef,
-    children?: Array<Ref<IElementModel>>,
-    childMapperIndex?: number,
-    isTypedProp?: boolean,
-  ): IRuntimeComponentModel
-
-  addElement(element: IElementModel): IRuntimeElementModel
 }

@@ -71,7 +71,7 @@ export class RenderPropTypeTransformer
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
 
-      const runtimeComponent = runtimeNode.addComponent(
+      const runtimeComponent = this.runtimeComponentService.add(
         component,
         runtimeNode,
         undefined,

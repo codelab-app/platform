@@ -1,30 +1,29 @@
 import type {
   ElementWrapperProps,
+  IRuntimeComponentModel,
   IRuntimeElementDTO,
+  IRuntimeElementModel,
   IRuntimeElementPropModel,
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  IRuntimeComponentModel,
-  IRuntimeElementModel,
+  getRuntimeComponentService,
+  getRuntimeElementService,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
   RendererType,
-  runtimeComponentRef,
   runtimeElementRef,
-  runtimePageRef,
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import {
-  componentRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
-  IComponentModel,
-  IElementModel,
-  IElementTreeViewDataNode,
-  IPageModel,
+  type IComponentModel,
+  type IElementModel,
+  type IElementTreeViewDataNode,
+  type IPageModel,
   isAtom,
   isComponent,
   isTypedProp,
@@ -38,26 +37,21 @@ import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import {
   detach,
   idProp,
   Model,
   model,
   modelAction,
-  objectMap,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
-import { v4 } from 'uuid'
 import { ElementWrapper } from './element/ElementWrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
-import { RuntimeComponentModel } from './runtime-component.model'
-import { RuntimeComponentPropModel } from './runtime-component-prop.model'
-import { RuntimeElementPropsModel } from './runtime-element-prop.model'
 import { RuntimePageModel } from './runtime-page.model'
 import { RuntimeStoreModel } from './runtime-store.model'
 
@@ -67,12 +61,6 @@ const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
 export class RuntimeElementModel
   extends Model({
     _childPage: prop<Maybe<IRuntimePageModel>>(),
-    _runtimeComponents: prop<ObjectMap<IRuntimeComponentModel>>(() =>
-      objectMap([]),
-    ),
-    _runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() =>
-      objectMap([]),
-    ),
     closestContainerNode: prop<
       Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
     >(),
@@ -99,7 +87,7 @@ export class RuntimeElementModel
     const childMapperChildren = []
 
     for (let index = 0; index < props.length; index++) {
-      const runtimeComponent = this.addComponent(
+      const runtimeComponent = this.runtimeComponentService.add(
         component,
         { id: this.id },
         undefined,
@@ -126,14 +114,14 @@ export class RuntimeElementModel
     > = shouldRenderComponent
       ? [
           // put component as a child instead of instance element children
-          this.addComponent(
+          this.runtimeComponentService.add(
             renderType,
             this,
             // pass instance element children to be transformed later
             element.children.map((child) => elementRef(child.id)),
           ),
         ]
-      : element.children.map((child) => this.addElement(child))
+      : element.children.map((child) => this.runtimeElementService.add(child))
 
     /**
      * Attach regular page to runtime element tree
@@ -159,7 +147,7 @@ export class RuntimeElementModel
 
     if (shouldAddInstanceElementChildren) {
       const instanceChildren = runtimeContainer.children.map((child) =>
-        this.addElement(child.current),
+        this.runtimeElementService.add(child.current),
       )
 
       children.push(...instanceChildren)
@@ -175,254 +163,6 @@ export class RuntimeElementModel
     children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
-  }
-
-  @computed
-  get render(): Nullable<ReactElement> {
-    if (this.shouldRender === false) {
-      return null
-    }
-
-    // Render the element to an intermediate output
-    const renderOutput = this.renderer.renderPipe.render(this)
-    const children = this.renderChildren
-
-    const wrapperProps: ElementWrapperProps = {
-      children,
-      element: this.element.current,
-      errorBoundary: {
-        onError: ({ message, stack }) => {
-          this.element.current.setRenderingError({ message, stack })
-        },
-        onResetKeysChange: () => {
-          this.element.current.setRenderingError(null)
-        },
-      },
-      key: this.element.id,
-      onRendered: async () => {
-        await this.runPostRenderAction()
-      },
-      renderer: this.renderer,
-      renderOutput,
-    }
-
-    return React.createElement(ElementWrapper, wrapperProps)
-  }
-
-  /**
-   * Renders the elements children
-   */
-  @computed
-  get renderChildren(): ArrayOrSingle<ReactNode> {
-    const renderedChildren = compact(this.children.map((child) => child.render))
-    const hasNoChildren = this.children.length === 0
-    const hasOneChild = this.children.length === 1
-
-    if (hasNoChildren) {
-      // Inject text, but only if we have no regular children
-      const injectedText =
-        this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
-
-      const shouldInjectText =
-        isAtom(this.element.current.renderType.current) &&
-        this.element.current.renderType.current.allowCustomTextInjection
-
-      if (shouldInjectText) {
-        const readOnly = !this.element.current.isTextContentEditable
-
-        return this.renderer.rendererType === RendererType.Preview ||
-          this.renderer.rendererType === RendererType.Production
-          ? createTextRenderer(injectedText)
-          : createTextEditor(injectedText, this.element.id, readOnly)
-      }
-
-      /*
-       * It's important to be undefined if we have no children to display,
-       * since void components like input will throw an error if their children prop isn't undefined
-       */
-      return undefined
-    }
-
-    /*
-     * If we have only one child, just return it.
-     * Ant Design doesn't handle array children well in some cases, like Forms
-     */
-    if (hasOneChild) {
-      return renderedChildren[0]
-    }
-
-    return renderedChildren
-  }
-
-  @computed
-  get renderer() {
-    const activeRenderer = getRendererService(this).activeRenderer?.current
-
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
-    }
-
-    return activeRenderer
-  }
-
-  @computed
-  get runtimeElementsList() {
-    return [...this._runtimeElements.values()]
-  }
-
-  @computed
-  get runtimeStore() {
-    return this.closestContainerNode.current.runtimeStore
-  }
-
-  @modelAction
-  addChildPage(page: IPageModel) {
-    if (this._childPage) {
-      return this._childPage
-    }
-
-    this._childPage = RuntimePageModel.create({
-      page: pageRef(page.id),
-      runtimeParent: runtimeElementRef(this.id),
-      runtimeStore: RuntimeStoreModel.create({
-        runtimeProviderStore: runtimeStoreRef(this.runtimeStore.id),
-        store: storeRef(page.store.id),
-      }),
-    })
-
-    return this._childPage
-  }
-
-  @modelAction
-  addComponent(
-    component: IComponentModel,
-    runtimeParent: IRef,
-    children: Array<Ref<IElementModel>> = [],
-    childMapperIndex?: number,
-    isTypedProp?: boolean,
-  ): IRuntimeComponentModel {
-    const componentsList = [...this._runtimeComponents.values()]
-
-    const foundComponent = componentsList.find(
-      (runtimeComponent) =>
-        runtimeComponent.component.id === component.id &&
-        isNil(childMapperIndex),
-    )
-
-    if (foundComponent) {
-      return foundComponent
-    }
-
-    const id = v4()
-
-    const runtimeComponent = RuntimeComponentModel.create({
-      childMapperIndex,
-      children,
-      component: componentRef(component.id),
-      id,
-      isTypedProp,
-      runtimeParent: runtimeElementRef(runtimeParent.id),
-      runtimeProps: RuntimeComponentPropModel.create({
-        runtimeComponent: runtimeComponentRef(id),
-      }),
-      runtimeStore: RuntimeStoreModel.create({
-        store: storeRef(component.store.id),
-      }),
-    })
-
-    this._runtimeComponents.set(runtimeComponent.id, runtimeComponent)
-
-    return runtimeComponent
-  }
-
-  @modelAction
-  addElement(element: IElementModel): IRuntimeElementModel {
-    const elementsList = [...this._runtimeElements.values()]
-
-    const foundElement = elementsList.find(
-      (runtimeElement) => runtimeElement.element.id === element.id,
-    )
-
-    if (foundElement) {
-      return foundElement
-    }
-
-    const id = v4()
-
-    const runtimeElement = RuntimeElementModel.create({
-      closestContainerNode: isRuntimePage(this.closestContainerNode.current)
-        ? runtimePageRef(this.closestContainerNode.id)
-        : runtimeComponentRef(this.closestContainerNode.id),
-      element: elementRef(element),
-      id,
-      runtimeProps: RuntimeElementPropsModel.create({
-        runtimeElement: runtimeElementRef(id),
-      }),
-    })
-
-    this._runtimeElements.set(runtimeElement.id, runtimeElement)
-
-    return runtimeElement
-  }
-
-  /**
-   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
-   * e.g. when child mapper element depends on a filtered data
-   * @param validNodes new evaluated child mapper prop
-   */
-  @modelAction
-  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>) {
-    const componentLists = [...this._runtimeComponents.values()]
-
-    componentLists.forEach((component) => {
-      if (
-        !isNil(component.childMapperIndex) &&
-        !validNodes.some(
-          (validNode) =>
-            validNode.childMapperIndex === component.childMapperIndex,
-        )
-      ) {
-        this._runtimeComponents.delete(component.id)
-      }
-    })
-  }
-
-  runPostRenderAction = () => {
-    if (this.postRenderActionDone) {
-      return
-    }
-
-    const { postRenderAction } = this.element.current
-    const currentPostRenderAction = postRenderAction?.current
-
-    if (currentPostRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        currentPostRenderAction.name,
-      )
-
-      runner()
-
-      this.postRenderActionDone = true
-    }
-  }
-
-  runPreRenderAction = () => {
-    if (this.preRenderActionDone) {
-      return
-    }
-
-    const { preRenderAction } = this.element.current
-    const currentPreRenderAction = preRenderAction?.current
-
-    if (currentPreRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        preRenderAction.current.name,
-      )
-
-      runner()
-
-      this.preRenderActionDone = true
-    }
   }
 
   @computed
@@ -519,6 +259,16 @@ export class RuntimeElementModel
   }
 
   @computed
+  get runtimeComponentService() {
+    return getRuntimeComponentService(this)
+  }
+
+  @computed
+  get runtimeElementService() {
+    return getRuntimeElementService(this)
+  }
+
+  @computed
   get runtimeStore() {
     return this.closestContainerNode.current.runtimeStore
   }
@@ -601,6 +351,47 @@ export class RuntimeElementModel
       secondaryTitle: this.element.current.treeTitle.secondary,
       title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
     }
+  }
+
+  @modelAction
+  addChildPage(page: IPageModel) {
+    if (this._childPage) {
+      return this._childPage
+    }
+
+    this._childPage = RuntimePageModel.create({
+      page: pageRef(page.id),
+      runtimeParent: runtimeElementRef(this.id),
+      runtimeStore: RuntimeStoreModel.create({
+        runtimeProviderStore: runtimeStoreRef(this.runtimeStore.id),
+        store: storeRef(page.store.id),
+      }),
+    })
+
+    return this._childPage
+  }
+
+  /**
+   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
+   * e.g. when child mapper element depends on a filtered data
+   * @param validNodes new evaluated child mapper prop
+   */
+  @modelAction
+  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>) {
+    // TODO: check that we have correct components
+    const componentLists = this.runtimeComponentService.componentsList
+
+    componentLists.forEach((component) => {
+      if (
+        !isNil(component.childMapperIndex) &&
+        !validNodes.some(
+          (validNode) =>
+            validNode.childMapperIndex === component.childMapperIndex,
+        )
+      ) {
+        this.runtimeComponentService.delete(component)
+      }
+    })
   }
 
   onAttachedToRootStore() {

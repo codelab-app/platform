@@ -42,7 +42,7 @@ export class ElementTypeTransformer
       return prop
     }
 
-    const runtimeElement = runtimeNode.addElement(targetElement)
+    const runtimeElement = this.runtimeElementService.add(targetElement)
 
     return runtimeElement.render
   }
