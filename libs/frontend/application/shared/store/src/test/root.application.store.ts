@@ -16,6 +16,8 @@ import type {
   IRootStore,
   IRootStoreDtoTest,
   IRouterService,
+  IRuntimeComponentService,
+  IRuntimeElementService,
   IStoreService,
   ITagService,
   ITracerService,
@@ -50,6 +52,8 @@ export const createRootApplicationStore = ({
       rendererService: prop<Maybe<IRendererService>>(undefined),
       resourceService: prop<Maybe<IResourceService>>(undefined),
       routerService: prop<Maybe<IRouterService>>(undefined),
+      runtimeComponentService: prop<Maybe<IRuntimeComponentService>>(undefined),
+      runtimeElementService: prop<Maybe<IRuntimeElementService>>(undefined),
       storeService: prop<Maybe<IStoreService>>(undefined),
       tagService: prop<Maybe<ITagService>>(() => undefined),
       tracerService: prop<Maybe<ITracerService>>(() => undefined),
@@ -75,6 +79,8 @@ export const createRootApplicationStore = ({
       this.tagService?.tagDomainService.tags.clear()
       this.userService?.userDomainService.users.clear()
       this.rendererService?.renderers.clear()
+      this.runtimeComponentService?.components.clear()
+      this.runtimeElementService?.elements.clear()
     }
 
     protected onInit() {
@@ -99,6 +105,8 @@ export const createRootApplicationStore = ({
         rendererServiceContext,
         resourceDomainServiceContext,
         resourceServiceContext,
+        runtimeComponentServiceContext,
+        runtimeElementServiceContext,
         storeDomainServiceContext,
         storeServiceContext,
         tagServiceContext,
@@ -133,6 +141,8 @@ export const createRootApplicationStore = ({
       )
       actionServiceContext?.set(this, this.actionService)
       storeServiceContext?.set(this, this.storeService)
+      runtimeElementServiceContext?.set(this, this.runtimeElementService)
+      runtimeComponentServiceContext?.set(this, this.runtimeComponentService)
       storeDomainServiceContext?.set(
         this,
         this.storeService?.storeDomainService,

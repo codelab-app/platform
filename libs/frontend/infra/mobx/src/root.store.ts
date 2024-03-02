@@ -15,6 +15,8 @@ import type {
   IResourceService,
   IRootStore,
   IRouterService,
+  IRuntimeComponentService,
+  IRuntimeElementService,
   IStoreService,
   ITagService,
   ITracerService,
@@ -30,6 +32,8 @@ import {
   redirectServiceContext,
   rendererServiceContext,
   resourceServiceContext,
+  runtimeComponentServiceContext,
+  runtimeElementServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -74,7 +78,11 @@ import {
   propServiceContext,
 } from '@codelab/frontend/application/prop'
 import { RedirectService } from '@codelab/frontend/application/redirect'
-import { RendererApplicationService } from '@codelab/frontend/application/renderer'
+import {
+  RendererApplicationService,
+  RuntimeComponentService,
+  RuntimeElementService,
+} from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { RouterService } from '@codelab/frontend/application/shared/store'
 import {
@@ -133,6 +141,12 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       routerService: prop<IRouterService>(() =>
         RouterService.init(routerQuery),
       ),
+      runtimeComponentService: prop<IRuntimeComponentService>(
+        () => new RuntimeComponentService({}),
+      ),
+      runtimeElementService: prop<IRuntimeElementService>(
+        () => new RuntimeElementService({}),
+      ),
       storeService: prop<IStoreService>(() => new StoreService({})),
       tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
       tagService: prop<ITagService>(() => new TagService({})),
@@ -154,6 +168,8 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       this.tagService.tagDomainService.tags.clear()
       this.userService.userDomainService.users.clear()
       this.rendererService.renderers.clear()
+      this.runtimeComponentService.components.clear()
+      this.runtimeElementService.elements.clear()
       this.redirectService.redirectDomainService.redirects.clear()
     }
 
@@ -204,6 +220,8 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this.redirectService.redirectDomainService,
       )
       rendererServiceContext.set(this, this.rendererService)
+      runtimeElementServiceContext.set(this, this.runtimeElementService)
+      runtimeComponentServiceContext.set(this, this.runtimeComponentService)
       actionDomainServiceContext.set(
         this,
         this.actionService.actionDomainService,

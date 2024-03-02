@@ -30,7 +30,6 @@ export interface IRootDomainStore {
   storeDomainService: IStoreDomainService
   typeDomainService: ITypeDomainService
   userDomainService: IUserDomainService
-
   clear(): void
 }
 
