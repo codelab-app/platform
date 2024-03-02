@@ -2,7 +2,6 @@ import type {
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
@@ -36,19 +35,10 @@ export interface IRuntimeComponentModel extends AnyModel {
   /**
    * Exposed for external use by other models and to preserve structure
    */
-  runtimeElementsList: Array<IRuntimeElementModel>
   runtimeParent?: Ref<IRuntimeElementModel>
   runtimeProps: IRuntimeComponentPropModel
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
 
-  addComponent(
-    node: IComponentModel,
-    runtimeParent: IRef,
-    children?: Array<Ref<IElementModel>>,
-    childMapperIndex?: number,
-    isTypedProp?: boolean,
-  ): IRuntimeComponentModel
-  addElement(element: IElementModel): IRuntimeElementModel
   setChildMapperIndex(index: number): void
 }

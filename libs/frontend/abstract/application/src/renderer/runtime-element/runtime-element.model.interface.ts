@@ -38,7 +38,6 @@ export interface IRuntimeElementModel extends AnyModel {
 
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>
-  runtimeElementsList: Array<IRuntimeElementModel>
 
   /**
    * Runtime version of IElementModel.prop
@@ -53,8 +52,6 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
-
-  treeViewNode: IElementTreeViewDataNode
 
   addComponent(
     node: IComponentModel,
