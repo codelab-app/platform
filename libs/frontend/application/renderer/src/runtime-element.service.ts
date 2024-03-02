@@ -6,6 +6,7 @@ import {
   runtimePageRef,
 } from '@codelab/frontend/abstract/application'
 import { elementRef, IElementModel } from '@codelab/frontend/abstract/domain'
+import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -23,6 +24,11 @@ import { RuntimeElementPropsModel } from './runtime-element-prop.model'
 export class RuntimeElementService extends Model({
   elements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
 }) {
+  @computed
+  get elementsList() {
+    return [...this.elements.values()]
+  }
+
   @modelAction
   add(element: IElementModel): IRuntimeElementModel {
     const elementsList = [...this.elements.values()]
