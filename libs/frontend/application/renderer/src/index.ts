@@ -1,3 +1,5 @@
 export * from './renderer.application.service'
 export * from './RootRenderer'
+export * from './runtime-component.service'
+export * from './runtime-element.service'
 export * from './utils'

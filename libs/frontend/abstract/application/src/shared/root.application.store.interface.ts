@@ -29,7 +29,11 @@ import type { IFieldService } from '../field'
 import type { IPageApplicationService } from '../page'
 import type { IPropService } from '../prop'
 import type { IRedirectService } from '../redirect'
-import type { IRendererService } from '../renderer'
+import type {
+  IRendererService,
+  IRuntimeComponentService,
+  IRuntimeElementService,
+} from '../renderer'
 import type { IResourceService } from '../resource'
 import type { ITracerService } from '../services'
 import type { IStoreService } from '../store'
@@ -73,6 +77,8 @@ export interface IRootStore {
   rendererService: IRendererService
   resourceService: IResourceService
   routerService: IRouterService
+  runtimeComponentService: IRuntimeComponentService
+  runtimeElementService: IRuntimeElementService
   storeService: IStoreService
   tagService: ITagService
   tracerService: ITracerService
@@ -109,6 +115,8 @@ export interface IRootStoreContext {
   rendererServiceContext: MaybeContext<IRendererService>
   resourceDomainServiceContext: MaybeContext<IResourceDomainService>
   resourceServiceContext: MaybeContext<IResourceService>
+  runtimeComponentServiceContext: MaybeContext<IRuntimeComponentService>
+  runtimeElementServiceContext: MaybeContext<IRuntimeElementService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   storeServiceContext: MaybeContext<IStoreService>
   tagServiceContext: MaybeContext<ITagService>
