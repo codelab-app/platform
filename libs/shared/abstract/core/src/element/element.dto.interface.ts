@@ -44,14 +44,14 @@ export const IElement = Typebox.Overwrite(
 
 export type IElement = Static<typeof IElement>
 
-export const ICreateElementDto = Type.Composite([
-  IElementDto,
-  Type.Object({
-    /**
-     * Used for composite key
-     */
-    closestContainerNode: IRef,
-  }),
-])
+// export const ICreateElementDto = Type.Composite([
+//   IElementDto,
+//   Type.Object({
+//     /**
+//      * Used for composite key
+//      */
+//     closestContainerNode: IRef,
+//   }),
+// ])
 
-export type ICreateElementDto = Static<typeof ICreateElementDto>
+// export type ICreateElementDto = Static<typeof ICreateElementDto>

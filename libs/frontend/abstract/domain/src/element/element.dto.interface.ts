@@ -2,6 +2,11 @@ import { IElementDto } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
+/**
+ * This is the element data, without context data like page etc
+ */
+// export const ICreateElementData = Type.Pick(IElementDto, ['atom'])
+
 export const IUpdateElementData = Type.Pick(IElementDto, [
   'childMapperComponent',
   'childMapperPreviousSibling',

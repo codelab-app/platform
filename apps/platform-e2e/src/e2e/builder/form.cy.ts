@@ -1,16 +1,21 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { ActionKind, TypeKind } from '@codelab/shared/abstract/codegen'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  ICreateElementData,
+  IPageDto,
+} from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
   IAtomType,
+  IPageKind,
   IPageKindName,
   IResourceType,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { slugify } from '@codelab/shared/utils'
-import type { ElementData } from '../../support/commands/builder/builder.command'
+import { findOrFail, slugify } from '@codelab/shared/utils'
+import { v4 } from 'uuid'
 
 const ELEMENT_FORM = 'Element Form'
 const ELEMENT_FORM_ITEM_INPUT = 'Element Form Item Input'
@@ -26,7 +31,7 @@ const ELEMENT_FORM_ITEM_BUTTON = 'Element Form Item Button'
 const ELEMENT_BUTTON_TITLE = 'Submit Form'
 const ELEMENT_BUTTON = 'Element Button'
 
-const elements: Array<ElementData> = [
+const elements: Array<ICreateElementData> = [
   {
     atom: IAtomType.AntDesignFormItem,
     name: ELEMENT_FORM_ITEM_INPUT,
@@ -102,6 +107,7 @@ const elements: Array<ElementData> = [
 
 describe('Testing the Form atom', () => {
   let app: IAppDto
+  let page: IPageDto
   let apiPostActionId: string
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
@@ -114,6 +120,8 @@ describe('Testing the Form atom', () => {
   before(() => {
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
+      page = findOrFail(app.pages, (_page) => _page.kind === IPageKind.Provider)
+      console.log(page)
     })
   })
 
@@ -210,24 +218,63 @@ describe('Testing the Form atom', () => {
 
   it('should create the form elements', () => {
     // has to be created separately because of the action
-    cy.createElementTree([
-      {
-        atom: IAtomType.AntDesignForm,
-        name: ELEMENT_FORM,
-        parentElement: ROOT_ELEMENT_NAME,
-        propsData: {
-          customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
-          htmlType: 'submit',
-          onFinish: {
-            kind: TypeKind.ActionType,
-            type: actionTypeId,
-            value: apiPostActionId,
-          },
+
+    const elementForm = {
+      atom: IAtomType.AntDesignForm,
+      name: ELEMENT_FORM,
+      parentElement: ROOT_ELEMENT_NAME,
+      propsData: {
+        customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
+        htmlType: 'submit',
+        onFinish: {
+          kind: TypeKind.ActionType,
+          type: actionTypeId,
+          value: apiPostActionId,
         },
       },
-    ])
+    }
 
-    cy.createElementTree(elements)
+    cy.postApiRequest(`element/${page.id}/create-element`, elementForm).then(
+      (result) => {
+        console.log(result)
+        // cy.postApiRequest(`element/${elementForm.id}/create-element-tree`, elementForm)
+      },
+    )
+
+    // cy.getMobxStore(async (store) => {
+    //   for (const element of elements) {
+    //     await store.elementService.createElement({
+    //       ...element,
+    //       closestContainerNode: {
+    //         // id:
+    //       },
+    //       id: v4(),
+    //       renderType: {
+    //         __typename: 'Atom',
+    //         id: '',
+    //       },
+    //     })
+    //   }
+    // })
+
+    // cy.createElementTree([
+    //   {
+    //     atom: IAtomType.AntDesignForm,
+    //     name: ELEMENT_FORM,
+    //     parentElement: ROOT_ELEMENT_NAME,
+    //     propsData: {
+    //       customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
+    //       htmlType: 'submit',
+    //       onFinish: {
+    //         kind: TypeKind.ActionType,
+    //         type: actionTypeId,
+    //         value: apiPostActionId,
+    //       },
+    //     },
+    //   },
+    // ])
+
+    // cy.createElementTree(elements)
   })
 
   it('should populate the form fields - input, select, and checkbox', () => {

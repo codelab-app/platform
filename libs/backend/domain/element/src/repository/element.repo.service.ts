@@ -12,10 +12,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  type ICreateElementDto,
-  type IElementDto,
-} from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   disconnectAll,
@@ -49,7 +46,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(elements: Array<ICreateElementDto>) {
+  protected async _addMany(elements: Array<IElementDto>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map(
@@ -137,7 +134,7 @@ export class ElementRepository extends AbstractRepository<
       name,
       props,
       renderType,
-    }: ICreateElementDto,
+    }: IElementDto,
     where: ElementWhere,
   ) {
     return (

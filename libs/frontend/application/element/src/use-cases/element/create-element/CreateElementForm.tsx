@@ -11,10 +11,8 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import {
-  type IElementDto,
-  IElementRenderTypeKind,
-} from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type {
   Maybe,
   UniformSelectFieldProps,

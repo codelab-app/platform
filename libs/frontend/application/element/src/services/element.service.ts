@@ -86,12 +86,14 @@ export class ElementService
     /**
      * Need to fetch the full api, since we don't during atom selection dropdown. The api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation
      */
-    const atom = this.atomService.atomDomainService.atoms.get(
-      data.renderType.id,
-    )
+    if (data.renderType.__typename === 'Atom') {
+      const atom = this.atomService.atomDomainService.atoms.get(
+        data.renderType.id,
+      )
 
-    if (atom) {
-      yield* _await(this.typeService.getInterface(atom.api.id))
+      if (atom) {
+        yield* _await(this.typeService.getInterface(atom.api.id))
+      }
     }
 
     const element = this.elementDomainService.addTreeNode(data)

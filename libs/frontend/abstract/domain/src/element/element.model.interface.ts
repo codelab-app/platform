@@ -127,5 +127,3 @@ export interface IElementModel
     'firstChild' | 'nextSibling' | 'parentElement' | 'prevSibling'
   >
 }
-
-export type IElementRef = string

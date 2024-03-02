@@ -2,6 +2,7 @@ import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { AppApplicationModule } from '@codelab/backend/application/app'
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { JwtAuthGuard } from '@codelab/backend/application/auth'
+import { ElementApplicationModule } from '@codelab/backend/application/element'
 import { RedirectApplicationModule } from '@codelab/backend/application/redirect'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { UserApplicationModule } from '@codelab/backend/application/user'
@@ -22,6 +23,7 @@ import { endpointConfig } from '../graphql/endpoint.config'
     AdminApplicationModule,
     AtomApplicationModule,
     UserApplicationModule,
+    ElementApplicationModule,
     RedirectApplicationModule,
     TagApplicationModule,
     AppApplicationModule,
@@ -38,4 +40,4 @@ import { endpointConfig } from '../graphql/endpoint.config'
     },
   ],
 })
-export class DataModule {}
+export class ApiModule {}
