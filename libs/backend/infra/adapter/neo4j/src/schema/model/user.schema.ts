@@ -4,6 +4,34 @@ import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 
 const rolesPath = escapeDotPathKeys(`${JWT_CLAIMS}.roles`)
 
+/**
+ * Validation auth rule to allow read access for regular authenticated user
+ */
+export const allowReadAccess = `{ operations: [READ], where: {} }`
+
+/**
+ * Validation auth rule to allow full access for Admin users
+ */
+export const allowFullAccessForAdmin = `{ operations: [READ, UPDATE, CREATE, DELETE], where: { jwt: { roles_INCLUDES: "Admin" } } }`
+
+/**
+ * Auth rule to allow full access for Admin users
+ */
+export const allowFullAccessForOwner = `{ operations: [UPDATE, CREATE, DELETE], where: { node: { owner: { auth0Id: "$jwt.sub" } } } }`
+
+/**
+ * Authorization rule to allow Read access for regular users, and full access for Admin and Owner
+ */
+export const authOwnerOrAdmin = `
+  @authorization(
+    validate: [
+      ${allowReadAccess}
+      ${allowFullAccessForAdmin}
+      ${allowFullAccessForOwner} 
+    ]
+  )
+`
+
 export const userSchema = gql`
   # https://neo4j.com/docs/graphql/current/authentication-and-authorization/configuration/
   type JWT @jwt {

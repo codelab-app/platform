@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import { __PageKind } from '@codelab/shared/abstract/core'
+import { allowFullAccessForAdmin, allowReadAccess } from './user.schema'
 
 const pageKindSchema = `enum PageKind {
   ${Object.values(__PageKind).join('\n')}
@@ -36,8 +37,15 @@ export const pageSchema = gql`
     url: String!
   }
 
-  # extend type Page
-  #   @authorization(
-  #     validate: [{ where: { owner: { node: { id: "$jwt.sub" } } } }]
-  #   )
+  extend type Page
+    @authorization(
+      validate: [
+        ${allowReadAccess}
+        ${allowFullAccessForAdmin}
+        {
+          operations: [UPDATE, CREATE, DELETE]
+          where: { node: { app: { owner: { auth0Id: "$jwt.sub" } } } }
+        }
+      ]
+    )
 `

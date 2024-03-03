@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client'
+import { authOwnerOrAdmin } from './user.schema'
 
 export const componentSchema = gql`
-  type Component implements WithOwner {
+  type Component implements WithOwner ${authOwnerOrAdmin} {
     id: ID! @unique
     name: String!
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
@@ -17,9 +18,4 @@ export const componentSchema = gql`
     childrenContainerElement: Element!
       @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
   }
-
-  # extend type Component
-  #   @authorization(
-  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
-  #   )
 `

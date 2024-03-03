@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client'
+import { authOwnerOrAdmin } from './user.schema'
 
 export const appSchema = gql`
-  type App implements WithOwner {
+  type App implements WithOwner ${authOwnerOrAdmin} {
     id: ID! @unique
     owner: User!
     # auth0Id-name format to make it unique across user
@@ -11,10 +12,4 @@ export const appSchema = gql`
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }
-
-  # extend type App
-  #   # @authentication
-  #   @authorization(
-  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
-  #   )
 `

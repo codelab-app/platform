@@ -5,6 +5,7 @@ import {
   getTypeReferences,
   isTypeDescendantOf,
 } from '../../cypher/type'
+import { authOwnerOrAdmin } from '../model/user.schema'
 
 const elementTypeTypeKindSchema = `enum ElementTypeKind {
   ${Object.values(__ElementTypeKind).join('\n')}
@@ -85,27 +86,6 @@ export const typeSchema = gql`
       )
   }
 
-
-  # https://github.com/neo4j/graphql/issues/1105
-  # extend interface IBaseType
-  #   @auth(
-  #     rules: [
-  #       {
-  #         operations: [UPDATE, CREATE, DELETE]
-  #         roles: ["User"]
-  #         where: { owner: { auth0Id: "$jwt.sub" } }
-  #         bind: { owner: { auth0Id: "$jwt.sub" } }
-  #       }
-  #       {
-  #           operations: [UPDATE, CREATE, DELETE]
-  #           roles: ["Admin"]
-  #           # Admin can access all types, so no need for where
-  #           # where: { owner: { auth0Id: "$jwt.sub" } }
-  #           bind: { owner: { auth0Id: "$jwt.sub" } }
-  #       }
-  #     ]
-  #   )
-
   interface WithDescendants {
     descendantTypesIds: [ID!]!
         @cypher(statement: """${getTypeDescendants} AS typeDescendants""", columnName: "typeDescendants")
@@ -114,7 +94,7 @@ export const typeSchema = gql`
   """
   Base atomic building block of the type system. Represents primitive types - String, Integer, Float, Boolean
   """
-  type PrimitiveType implements IBaseType @node(labels: ["Type", "PrimitiveType"])  {
+  type PrimitiveType implements IBaseType @node(labels: ["Type", "PrimitiveType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: PrimitiveType)
     name: String! @unique
@@ -134,7 +114,7 @@ export const typeSchema = gql`
   ArrayType Allows defining a variable number of items of a given type.
   Contains a reference to another type which is the array item type.
   """
-  type ArrayType implements IBaseType & WithDescendants @node(labels: ["Type", "ArrayType"]) {
+  type ArrayType implements IBaseType & WithDescendants @node(labels: ["Type", "ArrayType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ArrayType)
     name: String!
@@ -152,7 +132,7 @@ export const typeSchema = gql`
   """
   Allows picking one of a set of types
   """
-  type UnionType implements IBaseType & WithDescendants @node(labels: ["Type", "UnionType"]) {
+  type UnionType implements IBaseType & WithDescendants @node(labels: ["Type", "UnionType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: UnionType)
     name: String! @unique
@@ -168,7 +148,7 @@ export const typeSchema = gql`
   """
   Represents an object type with multiple fields
   """
-  type InterfaceType implements IBaseType & WithDescendants @node(labels: ["Type", "InterfaceType"]) {
+  type InterfaceType implements IBaseType & WithDescendants @node(labels: ["Type", "InterfaceType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
@@ -199,7 +179,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ElementType implements IBaseType @node(labels: ["Type", "ElementType"])  {
+  type ElementType implements IBaseType @node(labels: ["Type", "ElementType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ElementType)
     name: String!
@@ -221,7 +201,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type RenderPropType implements IBaseType @node(labels: ["Type", "RenderPropType"]) {
+  type RenderPropType implements IBaseType @node(labels: ["Type", "RenderPropType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: RenderPropType)
     name: String! @unique
@@ -238,7 +218,7 @@ export const typeSchema = gql`
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type ReactNodeType implements IBaseType @node(labels: ["Type", "ReactNodeType"]) {
+  type ReactNodeType implements IBaseType @node(labels: ["Type", "ReactNodeType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
     name: String! @unique
@@ -252,7 +232,7 @@ export const typeSchema = gql`
   The value gets passed to the render pipe as a Enum Type Value id.
   The actual value must be de-referenced by the id.
   """
-  type EnumType implements IBaseType @node(labels: ["Type", "EnumType"]) {
+  type EnumType implements IBaseType @node(labels: ["Type", "EnumType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: EnumType)
     name: String!
@@ -277,7 +257,7 @@ export const typeSchema = gql`
   """
   Allows picking a lambda
   """
-  type LambdaType implements IBaseType @node(labels: ["Type", "LambdaType"]) {
+  type LambdaType implements IBaseType @node(labels: ["Type", "LambdaType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: LambdaType)
     name: String!
@@ -287,7 +267,7 @@ export const typeSchema = gql`
   """
   Allows picking a page from the list of pages
   """
-  type PageType implements IBaseType @node(labels: ["Type", "PageType"]) {
+  type PageType implements IBaseType @node(labels: ["Type", "PageType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: PageType)
     name: String!
@@ -297,7 +277,7 @@ export const typeSchema = gql`
   """
   Allows picking a app from the list of apps
   """
-  type AppType implements IBaseType @node(labels: ["Type", "AppType"]) {
+  type AppType implements IBaseType @node(labels: ["Type", "AppType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: AppType)
     name: String!
@@ -307,7 +287,7 @@ export const typeSchema = gql`
   """
   Allows picking a action from the list of actions
   """
-  type ActionType implements IBaseType @node(labels: ["Type", "ActionType"]) {
+  type ActionType implements IBaseType @node(labels: ["Type", "ActionType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: ActionType)
     name: String! @unique
@@ -317,7 +297,7 @@ export const typeSchema = gql`
   """
   Allows editing the value using a code mirror editor
   """
-  type CodeMirrorType implements IBaseType @node(labels: ["Type", "CodeMirrorType"]) {
+  type CodeMirrorType implements IBaseType @node(labels: ["Type", "CodeMirrorType"]) ${authOwnerOrAdmin} {
     id: ID!
     kind: TypeKind! @default(value: CodeMirrorType)
     name: String!

@@ -11,20 +11,11 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
+import type { IncomingMessage } from 'http'
 import { endpointConfig } from './endpoint.config'
 
-export interface GqlContextPayload {
-  exp: string
-  iat: string
-  tokenVersion: number
-  username: string
-}
-
 export interface GqlContext {
-  // connection: unknown
-  // driver: Driver
-  payload?: GqlContextPayload
-  req: Request
+  req: IncomingMessage
   res: Response
 }
 
@@ -51,23 +42,17 @@ export interface GqlContext {
       useFactory: async (graphqlSchema: GraphQLSchema) => {
         return {
           // bodyParserConfig: false,
-          context: ({ payload, req, res }: GqlContext) => {
-            // console.log(req['user'])
+          context: ({ req, res }: GqlContext) => {
+            // starting from neo4j/graphql v5 - token is required in order to allow
+            // @authentication/@authorization in neo4j schema files, see migration guide:
+            // https://neo4j.com/docs/graphql/current/migration/4.0.0/authorization
+            const token = req.headers['authorization']
 
-            return {
-              // connection,
-              // driver,
-              payload,
-              req,
-              res,
-            } as GqlContext
+            return { req, res, token } as GqlContext
           },
           cors: false,
           debug: true,
-          formatError: (
-            formattedError: GraphQLFormattedError,
-            error: unknown,
-          ) => {
+          formatError: (formattedError: GraphQLFormattedError) => {
             // console.error(formattedError)
 
             return formattedError
