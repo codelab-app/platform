@@ -1,3 +1,4 @@
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { Module } from '@nestjs/common'
 import { ApiModule } from './api/api.module'
 import { GraphqlModule } from './graphql/graphql.module'

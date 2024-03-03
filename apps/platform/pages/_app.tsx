@@ -9,9 +9,14 @@ import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import set from 'lodash/set'
+import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
 import config from '../twind.config'
+
+setGlobalConfig({
+  showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
+})
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()

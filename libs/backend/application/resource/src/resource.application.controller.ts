@@ -1,3 +1,4 @@
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { ICreateResourceData } from '@codelab/shared/abstract/core'
 import {
   Body,
@@ -10,12 +11,15 @@ import { ResourceApplicationService } from './resource.application.service'
 
 @Controller('resource')
 export class ResourceApplicationController {
-  constructor(private resourceApplicationService: ResourceApplicationService) {}
+  constructor(
+    private resourceApplicationService: ResourceApplicationService,
+    private loggerService: CodelabLoggerService,
+  ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-resource')
   async createResource(@Body() createResourceData: ICreateResourceData) {
-    console.log('createResource', createResourceData)
+    this.loggerService.log('Create resource data', createResourceData)
 
     return this.resourceApplicationService.createResource(createResourceData)
   }
