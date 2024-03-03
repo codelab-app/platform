@@ -1,10 +1,7 @@
-import type {
-  IPropModel,
-  IResourceModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IResourceModel } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
-import type { ICreateApiActionData } from '@codelab/shared/abstract/core'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -12,30 +9,40 @@ import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField } from 'uniforms-antd'
 
-export const ResourceFetchConfig = observer(() => {
+interface WithResourceRef {
+  resource: IRef
+}
+
+export const ResourceFetchConfigField = observer(() => {
   const { resourceService } = useStore()
+
+  const getResource = (context: Context<WithResourceRef>) =>
+    context.model.resource?.id
+      ? resourceService.resource(context.model.resource.id)
+      : null
+
+  const getResourceType = (context: Context<WithResourceRef>) =>
+    getResource(context)?.type
+
+  const getResourceUrl = (context: Context<WithResourceRef>) =>
+    getResource(context)?.config.get('url')
 
   return (
     <>
       {/** GraphQL Config Form */}
-      <DisplayIfField<IResourceModel>
-        condition={(context) => context.model.type === IResourceType.GraphQl}
+      <DisplayIfField<WithResourceRef>
+        condition={(context) =>
+          getResourceType(context) === IResourceType.GraphQl
+        }
       >
-        <AutoField
-          getUrl={(context: Context<IResourceModel>) => {
-            const url = (context.model.config as IPropModel).get('url')
-
-            return url
-          }}
-          name="config.data.query"
-        />
+        <AutoField getUrl={getResourceUrl} name="config.data.query" />
         <AutoField name="config.data.variables" />
         <AutoField name="config.data.headers" />
       </DisplayIfField>
 
       {/** Rest Config Form */}
-      <DisplayIfField<IResourceModel>
-        condition={(context) => context.model.type === IResourceType.Rest}
+      <DisplayIfField<WithResourceRef>
+        condition={(context) => getResourceType(context) === IResourceType.Rest}
       >
         <AutoField name="config.data.urlSegment" />
         <AutoField name="config.data.method" />

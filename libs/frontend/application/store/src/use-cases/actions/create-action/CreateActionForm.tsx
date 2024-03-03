@@ -1,5 +1,5 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
+import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -100,7 +100,7 @@ export const CreateActionForm = observer(
           <SelectResource name="resourceId" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
-          <ResourceFetchConfig<ICreateActionData> />
+          <ResourceFetchConfigField />
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>

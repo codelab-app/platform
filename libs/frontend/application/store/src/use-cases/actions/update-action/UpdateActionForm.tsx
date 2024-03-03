@@ -1,5 +1,5 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
+import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -74,11 +74,6 @@ export const UpdateActionForm = observer(
             code: actionToUpdate?.code,
           }
 
-    const getResource = (context: Context<IUpdateActionData>) =>
-      context.model.resourceId
-        ? resourceService.resource(context.model.resourceId)
-        : null
-
     return (
       <Form<IUpdateActionData>
         model={model}
@@ -90,27 +85,24 @@ export const UpdateActionForm = observer(
       >
         <AutoFields fields={['name']} />
 
-        {actionToUpdate?.type === IActionKind.CodeAction && (
+        <DisplayIf condition={actionToUpdate?.type === IActionKind.CodeAction}>
           <AutoField name="code" />
-        )}
+        </DisplayIf>
 
-        {actionToUpdate?.type === IActionKind.ApiAction && (
-          <>
-            <SelectResource name="resourceId" />
-            <AutoField
-              component={SelectAction}
-              name="successActionId"
-              updatedAction={{ id: actionToUpdate.id }}
-            />
-            <AutoField
-              component={SelectAction}
-              name="errorActionId"
-              updatedAction={{ id: actionToUpdate.id }}
-            />
-
-            <ResourceFetchConfig<IUpdateActionData> getResource={getResource} />
-          </>
-        )}
+        <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
+          <SelectResource name="resourceId" />
+          <AutoField
+            component={SelectAction}
+            name="successActionId"
+            updatedAction={actionToUpdate}
+          />
+          <AutoField
+            component={SelectAction}
+            name="errorActionId"
+            updatedAction={actionToUpdate}
+          />
+          <ResourceFetchConfigField />
+        </DisplayIf>
 
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Update Action" />

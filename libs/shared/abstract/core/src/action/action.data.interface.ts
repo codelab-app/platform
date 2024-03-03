@@ -1,3 +1,4 @@
+import type { IRef } from '../model/node-type.interface'
 import type { IResourceFetchConfig } from '../resource'
 import { IAction } from './action.dto.interface'
 import type { IActionKind } from './action-kind.enum'
@@ -20,20 +21,21 @@ export interface ICreateApiActionData extends ICreateBaseActionData {
   errorActionId?: string
   id: string
   name: string
-  resourceId: string
+  resource: IRef
   successActionId?: string
-  type: IActionKind.ApiAction
+  // Can't use here, enum type field in uniform will complain
+  // type: IActionKind.ApiAction
 }
 
 export interface ICreateCodeActionData extends ICreateBaseActionData {
   code: string
-  type: IActionKind.CodeAction
+  // type: IActionKind.CodeAction
 }
 
 /**
- * Action
+ * Need to use & since uniform doesn't handle union type.
  */
 
-export type ICreateActionData = ICreateApiActionData | ICreateCodeActionData
+export type ICreateActionData = ICreateApiActionData & ICreateCodeActionData
 
 export type IUpdateActionData = ICreateActionData

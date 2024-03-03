@@ -6,6 +6,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "composite": true,
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -27,6 +28,14 @@
     ],
     "jsx": "preserve"
   },
+  "references": [
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.storybook.json"
+    }
+  ],
   "include": [
     "**/*.ts",
     "**/*.tsx",

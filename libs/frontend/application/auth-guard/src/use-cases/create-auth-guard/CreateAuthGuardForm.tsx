@@ -1,7 +1,7 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import {
-  ResourceFetchConfig,
+  ResourceFetchConfigField,
   ResourceTestRequest,
 } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -39,9 +39,6 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
       return Promise.resolve()
     }
 
-    const getResource = ({ model }: Context<ICreateAuthGuardData>) =>
-      model.resource?.id ? resourceService.resource(model.resource.id) : null
-
     return (
       <Form<ICreateAuthGuardData>
         model={{ id: v4() }}
@@ -54,7 +51,7 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
         submitRef={submitRef}
       >
         <AutoFields omitFields={['config']} />
-        <ResourceFetchConfig<ICreateAuthGuardData> getResource={getResource} />
+        <ResourceFetchConfigField />
         <ResourceTestRequest
           fetchConfigDataFieldName="config.data"
           resourceIdFieldName="resource.id"

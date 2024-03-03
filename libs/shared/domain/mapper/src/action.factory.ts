@@ -23,7 +23,7 @@ export class ActionMapper {
           errorAction: data.errorActionId
             ? { __typename: IActionKind.ApiAction, id: data.errorActionId }
             : undefined,
-          resource: { id: data.resourceId },
+          resource: { id: data.resource.id },
           store: { id: data.storeId },
           successAction: data.successActionId
             ? { __typename: IActionKind.ApiAction, id: data.successActionId }

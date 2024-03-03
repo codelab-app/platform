@@ -1,4 +1,5 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
+import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -33,14 +34,6 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
     }
 
     const closeModal = () => actionService.createModal.close()
-
-    const getResourceType = ({ model }: Context<ICreateActionData>) =>
-      model.resourceId ? resourceService.resource(model.resourceId)?.type : null
-
-    const getResourceApiUrl = ({ model }: Context<ICreateActionData>) =>
-      model.resourceId
-        ? resourceService.resource(model.resourceId)?.config.get('url')
-        : null
 
     const model = {
       code: CODE_ACTION,
@@ -105,30 +98,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
             <AutoField component={SelectAction} name="successActionId" />
             <AutoField component={SelectAction} name="errorActionId" />
 
-            {/** GraphQL Config Form */}
-            <DisplayIfField<ICreateActionData>
-              condition={(context) =>
-                getResourceType(context) === IResourceType.GraphQl
-              }
-            >
-              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-              <AutoField name="config.data.variables" />
-              <AutoField name="config.data.headers" />
-            </DisplayIfField>
-
-            {/** Rest Config Form */}
-            <DisplayIfField<ICreateActionData>
-              condition={(context) =>
-                getResourceType(context) === IResourceType.Rest
-              }
-            >
-              <AutoField name="config.data.urlSegment" />
-              <AutoField name="config.data.method" />
-              <AutoField name="config.data.body" />
-              <AutoField name="config.data.queryParams" />
-              <AutoField name="config.data.headers" />
-              <AutoField name="config.data.responseType" />
-            </DisplayIfField>
+            <ResourceFetchConfigField />
           </DisplayIfField>
         </ModalForm.Form>
       </ModalForm.Modal>
