@@ -4,6 +4,7 @@ import {
   type ResourceWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   OgmService,
   resourceSelectionSet,
@@ -24,11 +25,12 @@ export class ResourceRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(resources: Array<IResourceDto>) {

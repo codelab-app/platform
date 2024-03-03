@@ -38,6 +38,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   experimentalInteractiveRunEvents: true,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
+
   pageLoadTimeout: 15000,
   projectId: '9hfoow',
   responseTimeout: 5000,
@@ -112,5 +113,11 @@ export default defineConfig({
   e2e: {
     ...nxE2EPreset(__filename),
     ...testCypressJsonConfig,
+    /**
+     * This key is not documented in Cypress, but works to turn of logs
+     *
+     * https://github.com/cypress-io/cypress/issues/26284
+     */
+    ...({ morgan: false } as Cypress.ConfigOptions),
   },
 })

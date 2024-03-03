@@ -1,4 +1,5 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   TraceService,
   withActiveSpan,
@@ -20,12 +21,15 @@ export abstract class AbstractRepository<
   constructor(
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    protected loggerService: CodelabLoggerService,
   ) {}
 
   /**
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Model): Promise<ModelData> {
+    this.loggerService.debug(`${this.constructor.name} add`, data)
+
     const results = await this._addMany([data])
     const result = results[0]
 

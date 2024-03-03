@@ -3,6 +3,7 @@ import type {
   FieldOptions,
   FieldWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   fieldSelectionSet,
   OgmService,
@@ -25,8 +26,9 @@ export class FieldRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    protected loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(fields: Array<IFieldDto>) {

@@ -4,6 +4,7 @@ import type {
   ComponentWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   componentSelectionSet,
   OgmService,
@@ -25,10 +26,11 @@ export class ComponentRepository extends AbstractRepository<
   constructor(
     private authService: AuthDomainService,
     private ogmService: OgmService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   async _addMany(components: Array<IComponentDto>) {

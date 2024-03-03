@@ -2463,10 +2463,10 @@ __metadata:
 
 "@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=91f231&locator=codelab%40workspace%3A."
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=4f4eb8&locator=codelab%40workspace%3A."
   dependencies:
     "@nx/devkit": 16.7.4
-  checksum: 6f72caa9f74667fa555695660e2e3dc5b1cea95ec8effc22eea5142e0db79d0b42fb04663b834b15a488acbda26434391b1d41ff80b760c768d7802abfa3fd3b
+  checksum: 44d26d322bd341d34007174243645a91347968330e6b557bb5293a0edbf1e361eb67d579cab02c463e4d2021a0eb228272aae1f171e6fe875d9df1ebc0a5a84c
   languageName: node
   linkType: hard
 
@@ -16398,7 +16398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^5.2.1, buffer@npm:^5.5.0, buffer@npm:^5.6.0":
+"buffer@npm:^5.2.1, buffer@npm:^5.5.0, buffer@npm:^5.6.0, buffer@npm:^5.7.1":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
   dependencies:
@@ -17557,7 +17557,7 @@ __metadata:
     cross-env: 7.0.3
     cross-fetch: 3.1.4
     csv-parser: 3.0.0
-    cypress: 13.3.0
+    cypress: 13.6.6
     cypress-jest-adapter: 0.1.1
     cypress-log-to-output: 1.1.2
     cypress-multi-reporters: 1.6.3
@@ -17642,6 +17642,7 @@ __metadata:
     multer: 1.4.5-lts.1
     neo4j-driver: 5.16.0
     nestjs-pino: 4.0.0
+    nestjs-typebox: ^2.6.1
     next: 13.5.3
     next-http-proxy-middleware: 1.2.6
     next-seo: 5.15.0
@@ -19128,6 +19129,58 @@ __metadata:
   bin:
     cypress: bin/cypress
   checksum: 6ad11bd6aabccfaf8be78afff0e854c9c8ccc935704c41efe4d8e9412ccfcb652f23791931c3aa26fc41068eeeb739a51563308670c9dada91cb272d08227caf
+  languageName: node
+  linkType: hard
+
+"cypress@npm:13.6.6":
+  version: 13.6.6
+  resolution: "cypress@npm:13.6.6"
+  dependencies:
+    "@cypress/request": ^3.0.0
+    "@cypress/xvfb": ^1.2.4
+    "@types/sinonjs__fake-timers": 8.1.1
+    "@types/sizzle": ^2.3.2
+    arch: ^2.2.0
+    blob-util: ^2.0.2
+    bluebird: ^3.7.2
+    buffer: ^5.7.1
+    cachedir: ^2.3.0
+    chalk: ^4.1.0
+    check-more-types: ^2.24.0
+    cli-cursor: ^3.1.0
+    cli-table3: ~0.6.1
+    commander: ^6.2.1
+    common-tags: ^1.8.0
+    dayjs: ^1.10.4
+    debug: ^4.3.4
+    enquirer: ^2.3.6
+    eventemitter2: 6.4.7
+    execa: 4.1.0
+    executable: ^4.1.1
+    extract-zip: 2.0.1
+    figures: ^3.2.0
+    fs-extra: ^9.1.0
+    getos: ^3.2.1
+    is-ci: ^3.0.1
+    is-installed-globally: ~0.4.0
+    lazy-ass: ^1.6.0
+    listr2: ^3.8.3
+    lodash: ^4.17.21
+    log-symbols: ^4.0.0
+    minimist: ^1.2.8
+    ospath: ^1.2.2
+    pretty-bytes: ^5.6.0
+    process: ^0.11.10
+    proxy-from-env: 1.0.0
+    request-progress: ^3.0.0
+    semver: ^7.5.3
+    supports-color: ^8.1.1
+    tmp: ~0.2.1
+    untildify: ^4.0.0
+    yauzl: ^2.10.0
+  bin:
+    cypress: bin/cypress
+  checksum: 8a7db7d2941ea9fd698b9311b4f23fb6491038fe57e4c19b29a1ee58a25f9d98646674f876c1068a97428c2e81548bb0dd8701cd08e84c6b17ed75f9c2266908
   languageName: node
   linkType: hard
 
@@ -25038,7 +25091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:3.0.1, is-ci@npm:^3.0.0":
+"is-ci@npm:3.0.1, is-ci@npm:^3.0.0, is-ci@npm:^3.0.1":
   version: 3.0.1
   resolution: "is-ci@npm:3.0.1"
   dependencies:
@@ -29115,6 +29168,19 @@ __metadata:
     "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
     pino-http: ^6.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
   checksum: 3f7f81ae6df1553afcf00568825b1a6ec38108ca9763c87c7fc7aca412920ba8260300abeee7cee0cf2fb01bb202bc501b06dd6bd12d092379994c7d9ee94ca3
+  languageName: node
+  linkType: hard
+
+"nestjs-typebox@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "nestjs-typebox@npm:2.6.1"
+  peerDependencies:
+    "@nestjs/common": ^9.0.1 || ^10.0.3
+    "@nestjs/core": ^9.0.1 || ^10.0.3
+    "@nestjs/swagger": ^6.1.1 || ^7.0.11
+    "@sinclair/typebox": ^0.28.2 || ^0.29.4
+    rxjs: ^7.5.6
+  checksum: f5a8fdb32e303413a5776a25be0354dc7ad81d8d8c14607d40d6b9784a10b90243f6450af797f38c1eb33d335e8579d5554b4968b21b22f5ae15d411a57865b9
   languageName: node
   linkType: hard
 

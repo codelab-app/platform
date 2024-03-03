@@ -6,7 +6,10 @@ import {
   Controller,
   Post,
   UseInterceptors,
+  UsePipes,
 } from '@nestjs/common'
+import { ApiResponse } from '@nestjs/swagger'
+import { HttpEndpoint, Validate } from 'nestjs-typebox'
 import { ResourceApplicationService } from './resource.application.service'
 
 @Controller('resource')
@@ -16,10 +19,22 @@ export class ResourceApplicationController {
     private loggerService: CodelabLoggerService,
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post('create-resource')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @ApiResponse({ status: 200 })
+  @HttpEndpoint({
+    method: 'POST',
+    validate: {
+      request: [
+        {
+          schema: ICreateResourceData,
+          type: 'body',
+        },
+      ],
+    },
+  })
   async createResource(@Body() createResourceData: ICreateResourceData) {
-    this.loggerService.log('Create resource data', createResourceData)
+    this.loggerService.log(createResourceData, 'Create resource data')
 
     return this.resourceApplicationService.createResource(createResourceData)
   }

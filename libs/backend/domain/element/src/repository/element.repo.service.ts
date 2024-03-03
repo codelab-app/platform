@@ -3,6 +3,7 @@ import type {
   ElementOptions,
   ElementWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   elementSelectionSet,
   getElementWithDescendants,
@@ -31,10 +32,11 @@ export class ElementRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     private neo4jService: Neo4jService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   async getElementWithDescendants(rootId: string) {

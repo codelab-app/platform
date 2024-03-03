@@ -32,7 +32,7 @@ export class AuthGuardRepository extends AbstractRepository<
     protected validationService: ValidationService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(authGuards: Array<IAuthGuardDto>) {

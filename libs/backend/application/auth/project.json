@@ -8,16 +8,76 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/application/auth/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/backend/application/auth/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-application-auth.xml",
+          "quiet": true
+        }
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/backend/application/auth/jest.config.ts"
+        "jestConfig": "libs/backend/application/auth/jest.config.ts",
+        "runInBand": true,
+        "reporters": ["default"]
       }
+    },
+    "test:integration": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["i.spec.ts"],
+        "runInBand": true,
+        "jestConfig": "libs/backend/application/auth/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:unit": {
+      "defaultConfiguration": "dev",
+      "options": {
+        "color": true,
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "testPathIgnorePatterns": ["i.spec.ts"],
+        "jestConfig": "libs/backend/application/auth/jest.config.ts"
+      },
+      "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
+        "ci": {}
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
-  "tags": ["scope:backend", "layer:application", "projectType:library"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:backend",
+    "layer:application"
+  ]
 }

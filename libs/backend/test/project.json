@@ -18,5 +18,5 @@
       }
     }
   },
-  "tags": ["projectType:library", "type:test", "scope:backend"]
+  "tags": ["projectType:library", "type:concrete", "type:test", "scope:backend"]
 }

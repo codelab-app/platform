@@ -4,6 +4,7 @@ import type {
   RenderPropTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   exportRenderPropTypeSelectionSet,
   OgmService,
@@ -26,9 +27,10 @@ export class RenderPropTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    protected loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(renderPropTypes: Array<IRenderPropTypeDto>) {

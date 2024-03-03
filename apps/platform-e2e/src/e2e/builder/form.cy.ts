@@ -148,7 +148,7 @@ describe('Testing the Form atom', () => {
         },
         id: v4(),
         name: apiPostActionName,
-        resourceId: createResourceData.id,
+        resource: { id: createResourceData.id },
         storeId: page.store.id,
         type: IActionKind.ApiAction,
       }
@@ -274,7 +274,7 @@ describe('Testing the Form atom', () => {
 
     cy.postApiRequest(`element/${page.id}/create-element`, elementForm).then(
       (result) => {
-        console.log(result)
+        // console.log(result)
         // cy.postApiRequest(`element/${elementForm.id}/create-element-tree`, elementForm)
       },
     )

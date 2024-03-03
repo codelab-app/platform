@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import omit from 'lodash/omit'
 import { LoggerModule } from 'nestjs-pino'
+import pino from 'pino'
 import type pretty from 'pino-pretty'
 import { CodelabLoggerService } from './logger.service'
 
@@ -14,6 +15,7 @@ const transportOptions: pretty.PrettyOptions = {
   levelFirst: false,
   messageFormat: '{req.headers.x-correlation-id} [{context}] {msg}',
   singleLine: true,
+  sync: true,
   translateTime: "yyyy-MM-dd'T'HH:mm:ss.l'Z'",
 }
 
@@ -24,18 +26,23 @@ const transportOptions: pretty.PrettyOptions = {
       pinoHttp: {
         // Disable HTTP requests logging
         autoLogging: false,
+        // Set Pino to synchronous mode
         serializers: {
           req: (req) => {
             // Do omission instead of pick as to document the keys
             return omit(req, ['id', 'headers'])
           },
-          res: (res) => {
-            return {
-              // Log only specific properties of the response, or return an empty object to exclude all
-              statusCode: res.statusCode,
-            }
-          },
+          // res: (res) => {
+          //   return {
+          //     // Log only specific properties of the response, or return an empty object to exclude all
+          //     statusCode: res.statusCode,
+          //   }
+          // },
         },
+        // Enable synchronous logging
+        // stream: pino.destination({
+        //   sync: true,
+        // }),
         // Prettify and colorize log
         transport:
           process.env['NODE_ENV'] !== 'production'

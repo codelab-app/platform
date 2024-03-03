@@ -4,6 +4,7 @@ import type {
   PrimitiveTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   exportPrimitiveTypeSelectionSet,
   OgmService,
@@ -27,9 +28,11 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+
+    protected loggerService: CodelabLoggerService,
     protected authService: AuthDomainService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(primitiveTypes: Array<IPrimitiveTypeDto>) {

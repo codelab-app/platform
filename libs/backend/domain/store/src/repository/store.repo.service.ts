@@ -3,6 +3,7 @@ import type {
   StoreOptions,
   StoreWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   OgmService,
   storeSelectionSet,
@@ -25,8 +26,9 @@ export class StoreRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected override traceService: TraceService,
     protected override validationService: ValidationService,
+    protected loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   /**

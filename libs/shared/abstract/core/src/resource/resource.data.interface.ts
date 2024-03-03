@@ -1,12 +1,17 @@
+import { Typebox } from '@codelab/shared/abstract/typebox'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 import type { Overwrite } from 'utility-types'
-import type { IResourceDto } from './resource.dto.interface'
-import type { IResourceConfigData } from './resource-config'
+import { IResourceDto } from './resource.dto.interface'
+import { IResourceConfigData } from './resource-config'
 
-export type ICreateResourceData = Overwrite<
+export const ICreateResourceData = Typebox.Overwrite(
   IResourceDto,
-  {
-    config: IResourceConfigData
-  }
->
+  Type.Object({
+    config: IResourceConfigData,
+  }),
+)
+
+export type ICreateResourceData = Static<typeof ICreateResourceData>
 
 export type IUpdateResourceData = ICreateResourceData

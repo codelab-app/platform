@@ -11,11 +11,9 @@ export class ActionApplicationService {
   constructor(private actionFactory: ActionFactory) {}
 
   async createAction(createActionData: ICreateActionData) {
-    console.log(createActionData)
+    // console.log(createActionData)
 
     const actionDto = ActionMapper.mapDataToDto(createActionData)
-
-    console.log(actionDto)
 
     return this.actionFactory.save(actionDto)
   }
