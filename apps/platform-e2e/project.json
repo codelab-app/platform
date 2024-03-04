@@ -25,11 +25,17 @@
           "record": true,
           "parallel": true
         },
-        "test": {
-          "devServerTarget": "platform-e2e:serve:test",
+        "dev": {
+          "devServerTarget": "platform-e2e:serve:dev",
           "record": false,
           "watch": true,
           "exit": false
+        },
+        "test": {
+          "devServerTarget": "platform-e2e:serve:test",
+          "record": true,
+          "watch": false,
+          "exit": true
         }
       }
     },
@@ -40,6 +46,16 @@
         "readyWhen": "READY"
       },
       "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
+            },
+            {
+              "command": "npx nx serve platform -c test"
+            }
+          ]
+        },
         "test": {
           "commands": [
             {

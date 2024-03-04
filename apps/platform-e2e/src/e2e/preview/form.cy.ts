@@ -41,26 +41,27 @@ describe('Testing the Form atom', () => {
   let page: IPageDto
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').as('cypressApp')
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app')
+      .then(({ body }) => {
+        app = body
+        page = findOrFail(
+          app.pages,
+          (_page) => _page.kind === IPageKind.Provider,
+        )
 
-    cy.wait('@cypressApp').then(({ response }) => {
-      app = response?.body
-      page = findOrFail(app.pages, (_page) => _page.kind === IPageKind.Provider)
+        cy.wrap(page).should('have.property', 'store')
 
-      cy.wrap(page).should('have.property', 'store')
-
-      return app
-    })
-
-    cy.wait('@cypressApp')
+        return cy.wrap(app)
+      })
       .then(() =>
         cy.postApiRequest('/resource/create-resource', createResourceData),
       )
-      .as('cypressResource')
-
-    cy.wait('@cypressResource').then(() =>
-      cy.postApiRequest('/action/create-action', createApiPostActionData(page)),
-    )
+      .then(() =>
+        cy.postApiRequest(
+          '/action/create-action',
+          createApiPostActionData(page),
+        ),
+      )
   })
 
   // it('should create the resource that will be used upon submission of the form', () => {

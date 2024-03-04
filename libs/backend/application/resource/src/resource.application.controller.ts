@@ -34,7 +34,11 @@ export class ResourceApplicationController {
     },
   })
   async createResource(@Body() createResourceData: ICreateResourceData) {
-    this.loggerService.log(createResourceData, 'Create resource data')
+    console.log(createResourceData)
+    this.loggerService.log(
+      { data: createResourceData, name: 'Create Resource Data' },
+      'Create resource data',
+    )
 
     return this.resourceApplicationService.createResource(createResourceData)
   }

@@ -40,9 +40,9 @@ const transportOptions: pretty.PrettyOptions = {
           // },
         },
         // Enable synchronous logging
-        // stream: pino.destination({
-        //   sync: true,
-        // }),
+        stream: pino.destination({
+          sync: true,
+        }),
         // Prettify and colorize log
         transport:
           process.env['NODE_ENV'] !== 'production'
