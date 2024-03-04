@@ -8,7 +8,7 @@ import { ApiActionRepository } from './api-action.repo.service'
 import { CodeActionRepository } from './code-action.repo.service'
 
 @Injectable()
-export class ActionService {
+export class ActionFactory {
   constructor(
     private readonly apiActionRepository: ApiActionRepository,
     private readonly codeActionRepository: CodeActionRepository,

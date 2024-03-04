@@ -20,7 +20,7 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/eslint-plugin.xml",
+          "outputFile": "tmp/reports/lint/tools-eslint-plugin.xml",
           "quiet": true
         }
       },

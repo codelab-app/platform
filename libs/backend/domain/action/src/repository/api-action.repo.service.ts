@@ -3,6 +3,7 @@ import type {
   ApiActionOptions,
   ApiActionWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   apiActionSelectionSet,
   OgmService,
@@ -24,10 +25,11 @@ export class ApiActionRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(actions: Array<IApiActionDto>) {

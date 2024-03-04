@@ -15,8 +15,6 @@ export class SeederDomainService {
   async seedUserFromRequest() {
     const currentUser = this.authService.currentUser
 
-    console.log(currentUser)
-
     return await this.userRepository.save(currentUser, {
       auth0Id: currentUser.auth0Id,
     })

@@ -1,33 +1,17 @@
-import type { LoggerService } from '@nestjs/common'
-import { ConsoleLogger } from '@nestjs/common'
+import type { LoggerService as NestjsLoggerService } from '@nestjs/common'
+import { ConsoleLogger, Inject } from '@nestjs/common'
+import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 
-// export const loggerOptions: LoggerOptions = {
-//   formatters: {
-//     level: (label) => {
-//       return { level: label }
-//     },
-//     // Workaround for PinoInstrumentation (does not support latest version yet)
-//     log: (object) => {
-//       const span = trace.getSpan(context.active())
-
-//       if (!span) {
-//         return { ...object }
-//       }
-
-//       const spanContext = trace.getSpan(context.active())?.spanContext()
-
-//       if (!spanContext) {
-//         return { ...object }
-//       }
-
-//       const { spanId, traceId } = spanContext
-
-//       return { ...object, spanId, traceId }
-//     },
-//   },
-//   level: 'info',
-//   // prettifier: process.env.NODE_ENV === 'local' ? require('pino-pretty') : false,
-// }
-
-export class CodelabLogger extends ConsoleLogger implements LoggerService {}
-// export class CodelabLogger extends Logger implements LoggerService {}
+export class CodelabLoggerService
+  extends Logger
+  implements NestjsLoggerService {
+  // private readonly logger = new Logger(MyService.name)
+  // constructor(
+  //   logger: PinoLogger,
+  //   @Inject(PARAMS_PROVIDER_TOKEN) params: Params,
+  // ) {
+  //   super(logger, {
+  //     ...params,
+  //   })
+  // }
+}

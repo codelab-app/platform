@@ -8,9 +8,23 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/infra/adapter/rest-client/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/rest-client/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-rest-client.xml",
+          "quiet": true
+        }
       }
     }
   },
-  "tags": ["scope:backend"]
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:backend"
+  ]
 }

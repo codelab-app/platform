@@ -1,20 +1,23 @@
 import type {
   IActionFactory,
   IActionModel,
-  ICreateActionData,
-  IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
 import {
   ActionFragment,
   ApiActionFragment,
   CodeActionFragment,
 } from '@codelab/shared/abstract/codegen'
+import type {
+  ICreateActionData,
+  IUpdateActionData,
+} from '@codelab/shared/abstract/core'
 import {
   IActionDto,
   IActionKind,
   IApiActionDto,
   ICodeActionDto,
 } from '@codelab/shared/abstract/core'
+import { ActionMapper } from '@codelab/shared/domain/mapper'
 import { Model, model, modelAction } from 'mobx-keystone'
 
 const writeCache = (
@@ -41,7 +44,7 @@ const writeCache = (
 
 @model('@codelab/ActionFactory')
 export class ActionFactory extends Model({}) implements IActionFactory {
-  static mapActionToDTO(action: IActionModel): IActionDto {
+  static mapActionToDto(action: IActionModel): IActionDto {
     switch (action.type) {
       case IActionKind.CodeAction:
         return {
@@ -73,31 +76,7 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     }
   }
 
-  static mapDataToDTO(data: ICreateActionData | IUpdateActionData): IActionDto {
-    switch (data.type) {
-      case IActionKind.CodeAction:
-        return {
-          ...data,
-          __typename: IActionKind.CodeAction,
-          store: { id: data.storeId },
-        }
-
-      case IActionKind.ApiAction:
-        return {
-          ...data,
-          __typename: IActionKind.ApiAction,
-          config: { data: JSON.stringify(data.config.data), id: data.id },
-          errorAction: data.errorActionId
-            ? { __typename: IActionKind.ApiAction, id: data.errorActionId }
-            : undefined,
-          resource: { id: data.resourceId },
-          store: { id: data.storeId },
-          successAction: data.successActionId
-            ? { __typename: IActionKind.ApiAction, id: data.successActionId }
-            : undefined,
-        }
-    }
-  }
+  static mapDataToDto = ActionMapper.mapDataToDto
 
   static writeCache = writeCache
 

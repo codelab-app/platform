@@ -3,6 +3,7 @@ import type {
   PageOptions,
   PageWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   OgmService,
   pageSelectionSet,
@@ -27,10 +28,11 @@ export class PageRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   /**

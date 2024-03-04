@@ -100,8 +100,6 @@ import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
-  console.log(user)
-
   @model('@codelab/RootStore')
   class RootStore
     extends Model({

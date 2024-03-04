@@ -1,18 +1,20 @@
-import type { ICreateActionData } from '@codelab/frontend/abstract/domain'
 import {
   CodeMirrorField,
   CodeMirrorGraphqlField,
   idSchema,
   nonEmptyString,
+  refSchema,
   showFieldOnDev,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ICreateActionData, IRef } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
 } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
+import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 import keys from 'lodash/keys'
 
 export const createActionSchema: JSONSchemaType<ICreateActionData> = {
@@ -105,10 +107,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    resourceId: {
-      label: 'Resource',
-      type: 'string',
-    },
+    ...refSchema('resource'),
     storeId: {
       disabled: true,
       type: 'string',

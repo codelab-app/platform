@@ -1,5 +1,6 @@
 import {
-  ActionService,
+  ActionDomainModule,
+  ActionFactory,
   ApiActionRepository,
   CodeActionRepository,
 } from '@codelab/backend/domain/action'
@@ -20,15 +21,13 @@ import {
   exports: [],
   imports: [
     CqrsModule,
+    ActionDomainModule,
     StoreDomainModule,
     ResourceDomainModule,
     PropDomainModule,
     SharedDomainModule,
   ],
   providers: [
-    ActionService,
-    ApiActionRepository,
-    CodeActionRepository,
     ExportStoreCommand,
     ExportStoreHandler,
     ImportStoreHandler,

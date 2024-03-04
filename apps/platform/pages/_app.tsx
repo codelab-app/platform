@@ -8,9 +8,15 @@ import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
 import { App as AntdApp, ConfigProvider } from 'antd'
+import set from 'lodash/set'
+import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import config from '../twind.config'
+
+setGlobalConfig({
+  showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
+})
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()
@@ -22,6 +28,11 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
 
     return initializeStore({ routerQuery: router.query, user })
   }, [user])
+
+  if (typeof window !== 'undefined' && window.Cypress) {
+    console.log('setting mobx store', store)
+    set(window, '__store__', store)
+  }
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>

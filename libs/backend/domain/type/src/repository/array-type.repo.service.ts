@@ -4,6 +4,7 @@ import type {
   ArrayTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   exportArrayTypeSelectionSet,
   OgmService,
@@ -30,9 +31,10 @@ export class ArrayTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    protected loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   async _find({

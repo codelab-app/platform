@@ -2,11 +2,13 @@ import type {
   IActionDomainService,
   IActionModel,
   IActionWhere,
-  ICreateActionData,
   IStoreModel,
-  IUpdateActionData,
 } from '@codelab/frontend/abstract/domain'
 import type { ApiActionOptions } from '@codelab/shared/abstract/codegen'
+import type {
+  ICreateActionData,
+  IUpdateActionData,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,

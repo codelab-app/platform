@@ -3,6 +3,7 @@ import type {
   ElementOptions,
   ElementWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   elementSelectionSet,
   getElementWithDescendants,
@@ -12,10 +13,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  type ICreateElementDto,
-  type IElementDto,
-} from '@codelab/shared/abstract/core'
+import type { IElementDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   disconnectAll,
@@ -34,10 +32,11 @@ export class ElementRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     private neo4jService: Neo4jService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   async getElementWithDescendants(rootId: string) {
@@ -49,7 +48,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(elements: Array<ICreateElementDto>) {
+  protected async _addMany(elements: Array<IElementDto>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map(
@@ -137,7 +136,7 @@ export class ElementRepository extends AbstractRepository<
       name,
       props,
       renderType,
-    }: ICreateElementDto,
+    }: IElementDto,
     where: ElementWhere,
   ) {
     return (

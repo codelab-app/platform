@@ -1,1 +1,1 @@
-export * from './ResourceFetchConfig'
+export * from './ResourceFetchConfigField'

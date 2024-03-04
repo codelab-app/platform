@@ -3,6 +3,7 @@ import type {
   DomainOptions,
   DomainWhere,
 } from '@codelab/backend/abstract/codegen'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   domainSelectionSet,
   OgmService,
@@ -22,10 +23,11 @@ export class DomainRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    protected override traceService: TraceService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(domains: Array<IDomainDto>) {

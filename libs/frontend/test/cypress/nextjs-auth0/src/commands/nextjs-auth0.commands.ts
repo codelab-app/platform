@@ -1,5 +1,5 @@
 import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
-import { loginToAuth0 } from './official/login-vai-auth0-ui'
+import { loginToAuth0 } from '../official/login-via-auth0-ui'
 
 export const nextjsAuth0Commands: Array<CypressCommand> = [
   {

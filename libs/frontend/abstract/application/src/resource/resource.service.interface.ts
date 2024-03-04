@@ -1,14 +1,17 @@
 import type {
-  ICreateResourceData,
   IResourceDomainService,
   IResourceModel,
-  IUpdateResourceData,
 } from '@codelab/frontend/abstract/domain'
 import type {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IResourceDto, IResourceType } from '@codelab/shared/abstract/core'
+import type {
+  ICreateResourceData,
+  IResourceDto,
+  IResourceType,
+  IUpdateResourceData,
+} from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'

@@ -11,10 +11,12 @@
     }
   ],
   "compilerOptions": {
+    "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noImplicitReturns": true,
+    "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   }
 }

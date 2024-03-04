@@ -1,21 +1,17 @@
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type {
+  IAtomType,
+  ICreateElementData,
+} from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 
-export interface ElementData {
-  atom?: IAtomType
-  name: string
-  parentElement: string
-  propsData?: object
-}
-
-export const createElementTree = (elements: Array<ElementData>) => {
+export const createElementTree = (elements: Array<ICreateElementData>) => {
   cy.log('createElementTree', elements)
 
-  return cy.wrap(elements).each((element: ElementData) => {
+  return cy.wrap(elements).each((element: ICreateElementData) => {
     const { atom, name, parentElement, propsData } = element
 
     cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')

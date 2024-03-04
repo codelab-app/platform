@@ -1,7 +1,8 @@
+/* eslint-disable canonical/sort-keys */
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import { updateJson } from '@nx/devkit'
 
-export const updateLibTsconfig = (
+export const updateLibraryTsconfig = (
   tree: Tree,
   project: ProjectConfiguration,
 ) => {
@@ -14,27 +15,13 @@ export const updateLibTsconfig = (
   if (projectName?.includes('backend')) {
     updateJson(tree, `${project.root}/tsconfig.json`, (json) => {
       json.compilerOptions = {
-        forceConsistentCasingInFileNames: true,
         module: 'commonjs',
-        noFallthroughCasesInSwitch: true,
-        noImplicitOverride: true,
-        noImplicitReturns: true,
-        noPropertyAccessFromIndexSignature: true,
+        forceConsistentCasingInFileNames: true,
         strict: true,
-      }
-
-      return json
-    })
-
-    // Add for all
-    updateJson(tree, `${project.root}/tsconfig.json`, (json) => {
-      json.compilerOptions = {
-        ...json.compilerOptions,
-        noFallthroughCasesInSwitch: true,
         noImplicitOverride: true,
-        noImplicitReturns: true,
         noPropertyAccessFromIndexSignature: true,
-        strict: true,
+        noImplicitReturns: true,
+        noFallthroughCasesInSwitch: true,
       }
 
       return json
@@ -42,16 +29,15 @@ export const updateLibTsconfig = (
 
     updateJson(tree, `${project.root}/tsconfig.lib.json`, (json) => {
       json.compilerOptions = {
+        outDir: json.compilerOptions.outDir,
         declaration: true,
+        types: ['node'],
+        target: 'es2021',
+        strictNullChecks: true,
+        noImplicitAny: true,
+        strictBindCallApply: true,
         forceConsistentCasingInFileNames: true,
         noFallthroughCasesInSwitch: true,
-        noImplicitAny: true,
-        // Keep this
-        outDir: json.compilerOptions.outDir,
-        strictBindCallApply: true,
-        strictNullChecks: true,
-        target: 'es2021',
-        types: ['node'],
       }
 
       return json

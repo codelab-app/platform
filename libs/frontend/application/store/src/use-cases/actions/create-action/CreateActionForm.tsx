@@ -1,6 +1,5 @@
-import type { ICreateActionData } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { ResourceFetchConfig } from '@codelab/frontend/application/resource'
+import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -13,6 +12,7 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { ICreateActionData } from '@codelab/shared/abstract/core'
 import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -43,8 +43,8 @@ export const CreateActionForm = observer(
     const { actionService, resourceService } = useStore()
     const actionSchema = useActionSchema(createActionSchema)
 
-    const onSubmit = (actionDTO: ICreateActionData) => {
-      const promise = actionService.create(actionDTO)
+    const onSubmit = (actionDto: ICreateActionData) => {
+      const promise = actionService.create(actionDto)
 
       onSubmitSuccess?.()
 
@@ -52,9 +52,6 @@ export const CreateActionForm = observer(
     }
 
     const closeForm = () => actionService.createForm.close()
-
-    const getResource = ({ model }: Context<ICreateActionData>) =>
-      model.resourceId ? resourceService.resource(model.resourceId) : null
 
     const model = {
       code: CODE_ACTION,
@@ -103,7 +100,7 @@ export const CreateActionForm = observer(
           <SelectResource name="resourceId" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
-          <ResourceFetchConfig<ICreateActionData> getResource={getResource} />
+          <ResourceFetchConfigField />
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>

@@ -1,11 +1,20 @@
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { applyFormats, patchNestJsSwagger } from 'nestjs-typebox'
 import type { endpointConfig } from './graphql/endpoint.config'
 import { ENDPOINT_CONFIG_KEY } from './graphql/endpoint.config'
 import { RootModule } from './root.module'
+
+// provide swagger OpenAPI generator support
+patchNestJsSwagger()
+
+// provide custom JSON schema string format support
+// currently only "email".
+applyFormats()
 
 const bootstrap = async () => {
   const app = await NestFactory.create(RootModule)
@@ -18,6 +27,7 @@ const bootstrap = async () => {
   const port = config.graphqlApiPort
 
   app.setGlobalPrefix(globalPrefix)
+  // app.useLogger(app.get(CodelabLogger))
 
   /**
    * Add swagger

@@ -3,7 +3,7 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import { ApiAction } from './api-action.model'
 import { CodeAction } from './code-action.model'
 
-export class ActionFactory {
+export class ActionModelFactory {
   static create(action: IActionDto) {
     switch (action.__typename) {
       case IActionKind.ApiAction: {

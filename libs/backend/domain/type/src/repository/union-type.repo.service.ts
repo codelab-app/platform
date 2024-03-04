@@ -4,6 +4,7 @@ import type {
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   exportUnionTypeSelectionSet,
   OgmService,
@@ -51,9 +52,10 @@ export class UnionTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    protected loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService)
+    super(traceService, validationService, loggerService)
   }
 
   protected async _addMany(unionTypes: Array<IUnionTypeDto>) {

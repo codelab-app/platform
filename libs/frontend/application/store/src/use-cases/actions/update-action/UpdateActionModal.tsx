@@ -1,4 +1,4 @@
-import type { IUpdateActionData } from '@codelab/frontend/abstract/domain'
+import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectAction,
@@ -6,6 +6,7 @@ import {
 } from '@codelab/frontend/application/type'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { IUpdateActionData } from '@codelab/shared/abstract/core'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -50,16 +51,6 @@ export const UpdateActionModal = observer(() => {
           code: actionToUpdate?.code,
         }
 
-  const getResourceType = (context: Context<IUpdateActionData>) =>
-    context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.type
-      : null
-
-  const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
-    context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.config.get('url')
-      : null
-
   return (
     <ModalForm.Modal
       okText="Update Action"
@@ -93,30 +84,7 @@ export const UpdateActionModal = observer(() => {
               updatedAction={{ id: actionToUpdate.id }}
             />
 
-            {/** GraphQL Config Form */}
-            <DisplayIfField<IUpdateActionData>
-              condition={(context) =>
-                getResourceType(context) === IResourceType.GraphQl
-              }
-            >
-              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-              <AutoField name="config.data.variables" />
-              <AutoField name="config.data.headers" />
-            </DisplayIfField>
-
-            {/** Rest Config Form */}
-            <DisplayIfField<IUpdateActionData>
-              condition={(context) =>
-                getResourceType(context) === IResourceType.Rest
-              }
-            >
-              <AutoField name="config.data.urlSegment" />
-              <AutoField name="config.data.method" />
-              <AutoField name="config.data.body" />
-              <AutoField name="config.data.queryParams" />
-              <AutoField name="config.data.headers" />
-              <AutoField name="config.data.responseType" />
-            </DisplayIfField>
+            <ResourceFetchConfigField />
           </>
         )}
       </ModalForm.Form>

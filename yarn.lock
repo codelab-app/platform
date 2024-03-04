@@ -2463,10 +2463,10 @@ __metadata:
 
 "@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=91f231&locator=codelab%40workspace%3A."
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=4f4eb8&locator=codelab%40workspace%3A."
   dependencies:
     "@nx/devkit": 16.7.4
-  checksum: 6f72caa9f74667fa555695660e2e3dc5b1cea95ec8effc22eea5142e0db79d0b42fb04663b834b15a488acbda26434391b1d41ff80b760c768d7802abfa3fd3b
+  checksum: 44d26d322bd341d34007174243645a91347968330e6b557bb5293a0edbf1e361eb67d579cab02c463e4d2021a0eb228272aae1f171e6fe875d9df1ebc0a5a84c
   languageName: node
   linkType: hard
 
@@ -13189,7 +13189,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.0, @types/node@npm:^18.17.5":
+"@types/node@npm:^18.0.0":
   version: 18.19.17
   resolution: "@types/node@npm:18.19.17"
   dependencies:
@@ -16398,7 +16398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^5.2.1, buffer@npm:^5.5.0, buffer@npm:^5.6.0":
+"buffer@npm:^5.2.1, buffer@npm:^5.5.0, buffer@npm:^5.7.1":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
   dependencies:
@@ -17557,7 +17557,7 @@ __metadata:
     cross-env: 7.0.3
     cross-fetch: 3.1.4
     csv-parser: 3.0.0
-    cypress: 13.3.0
+    cypress: 13.6.6
     cypress-jest-adapter: 0.1.1
     cypress-log-to-output: 1.1.2
     cypress-multi-reporters: 1.6.3
@@ -17641,7 +17641,8 @@ __metadata:
     moment: 2.29.4
     multer: 1.4.5-lts.1
     neo4j-driver: 5.16.0
-    nestjs-pino: 3.2.0
+    nestjs-pino: 4.0.0
+    nestjs-typebox: ^2.6.1
     next: 13.5.3
     next-http-proxy-middleware: 1.2.6
     next-seo: 5.15.0
@@ -17652,8 +17653,9 @@ __metadata:
     passport: 0.6.0
     passport-jwt: 4.0.1
     passport-local: 1.0.0
-    pino: 8.14.1
-    pino-http: 8.3.3
+    pino: 8.19.0
+    pino-http: 9.0.0
+    pino-pretty: ^10.3.1
     postcss: 8.4.24
     postcss-import: 14.1.0
     prettier: 2.8.8
@@ -17813,7 +17815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:^2.0.10, colorette@npm:^2.0.16, colorette@npm:^2.0.19":
+"colorette@npm:^2.0.10, colorette@npm:^2.0.16, colorette@npm:^2.0.19, colorette@npm:^2.0.7":
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
   checksum: 0c016fea2b91b733eb9f4bcdb580018f52c0bc0979443dad930e5037a968237ac53d9beb98e218d2e9235834f8eebce7f8e080422d6194e957454255bde71d3d
@@ -19077,19 +19079,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.3.0":
-  version: 13.3.0
-  resolution: "cypress@npm:13.3.0"
+"cypress@npm:13.6.6":
+  version: 13.6.6
+  resolution: "cypress@npm:13.6.6"
   dependencies:
     "@cypress/request": ^3.0.0
     "@cypress/xvfb": ^1.2.4
-    "@types/node": ^18.17.5
     "@types/sinonjs__fake-timers": 8.1.1
     "@types/sizzle": ^2.3.2
     arch: ^2.2.0
     blob-util: ^2.0.2
     bluebird: ^3.7.2
-    buffer: ^5.6.0
+    buffer: ^5.7.1
     cachedir: ^2.3.0
     chalk: ^4.1.0
     check-more-types: ^2.24.0
@@ -19107,7 +19108,7 @@ __metadata:
     figures: ^3.2.0
     fs-extra: ^9.1.0
     getos: ^3.2.1
-    is-ci: ^3.0.0
+    is-ci: ^3.0.1
     is-installed-globally: ~0.4.0
     lazy-ass: ^1.6.0
     listr2: ^3.8.3
@@ -19126,23 +19127,22 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 6ad11bd6aabccfaf8be78afff0e854c9c8ccc935704c41efe4d8e9412ccfcb652f23791931c3aa26fc41068eeeb739a51563308670c9dada91cb272d08227caf
+  checksum: 8a7db7d2941ea9fd698b9311b4f23fb6491038fe57e4c19b29a1ee58a25f9d98646674f876c1068a97428c2e81548bb0dd8701cd08e84c6b17ed75f9c2266908
   languageName: node
   linkType: hard
 
-"cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::locator=codelab%40workspace%3A.":
-  version: 13.3.0
-  resolution: "cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::version=13.3.0&hash=49aeac&locator=codelab%40workspace%3A."
+"cypress@patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch::locator=codelab%40workspace%3A.":
+  version: 13.6.6
+  resolution: "cypress@patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch::version=13.6.6&hash=9547a3&locator=codelab%40workspace%3A."
   dependencies:
     "@cypress/request": ^3.0.0
     "@cypress/xvfb": ^1.2.4
-    "@types/node": ^18.17.5
     "@types/sinonjs__fake-timers": 8.1.1
     "@types/sizzle": ^2.3.2
     arch: ^2.2.0
     blob-util: ^2.0.2
     bluebird: ^3.7.2
-    buffer: ^5.6.0
+    buffer: ^5.7.1
     cachedir: ^2.3.0
     chalk: ^4.1.0
     check-more-types: ^2.24.0
@@ -19160,7 +19160,7 @@ __metadata:
     figures: ^3.2.0
     fs-extra: ^9.1.0
     getos: ^3.2.1
-    is-ci: ^3.0.0
+    is-ci: ^3.0.1
     is-installed-globally: ~0.4.0
     lazy-ass: ^1.6.0
     listr2: ^3.8.3
@@ -19179,7 +19179,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 8db2bf616d638c1ca1996d4dbdff48d4dd0930741473de3dfd3a796cbc789c5d7e57a240586d03b6aea7a60bc95fb3318d8a5a35da280f22736f441655b54183
+  checksum: d5a107972fd4ed28007037c983f1451781139762ef765e7eb67a987ee88fe1ff8d7178d2f8c25f2ee738961d639d06ecfc70f5dc893896e199ca6b369596faec
   languageName: node
   linkType: hard
 
@@ -19278,6 +19278,13 @@ __metadata:
   version: 3.0.3
   resolution: "dateformat@npm:3.0.3"
   checksum: ca4911148abb09887bd9bdcd632c399b06f3ecad709a18eb594d289a1031982f441e08e281db77ffebcb2cbcbfa1ac578a7cbfbf8743f41009aa5adc1846ed34
+  languageName: node
+  linkType: hard
+
+"dateformat@npm:^4.6.3":
+  version: 4.6.3
+  resolution: "dateformat@npm:4.6.3"
+  checksum: c3aa0617c0a5b30595122bc8d1bee6276a9221e4d392087b41cbbdf175d9662ae0e50d0d6dcdf45caeac5153c4b5b0844265f8cd2b2245451e3da19e39e3b65d
   languageName: node
   linkType: hard
 
@@ -21962,6 +21969,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-copy@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "fast-copy@npm:3.0.1"
+  checksum: 5496b5cf47df29eea479deef03b6b7188626a2cbc356b3015649062846729de6f1a9f555f937e772da8feae0a1231fab13096ed32424b2d61e4d065abc9969fe
+  languageName: node
+  linkType: hard
+
 "fast-decode-uri-component@npm:^1.0.1":
   version: 1.0.1
   resolution: "fast-decode-uri-component@npm:1.0.1"
@@ -23970,6 +23984,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"help-me@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "help-me@npm:5.0.0"
+  checksum: 474436627b6c7d2f406a2768453895889eb2712c8ded4c47658d5c6dd46c2ff3f742be4e4e8dedd57b7f1ac6b28803896a2e026a32a977f507222c16f23ab2e1
+  languageName: node
+  linkType: hard
+
 "hexer@npm:^1.5.0":
   version: 1.5.0
   resolution: "hexer@npm:1.5.0"
@@ -25016,7 +25037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:3.0.1, is-ci@npm:^3.0.0":
+"is-ci@npm:3.0.1, is-ci@npm:^3.0.1":
   version: 3.0.1
   resolution: "is-ci@npm:3.0.1"
   dependencies:
@@ -26575,6 +26596,13 @@ __metadata:
   version: 5.2.2
   resolution: "jose@npm:5.2.2"
   checksum: d23def3c1df8aae1ae59d1c027a073804034fe8b971dafe51f0452ca8f6eb7e5cd3e3c90b6e544776443e01e58c8f8eefbd1984dbcde378e693e0ebbd176584d
+  languageName: node
+  linkType: hard
+
+"joycon@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "joycon@npm:3.1.1"
+  checksum: 8003c9c3fc79c5c7602b1c7e9f7a2df2e9916f046b0dbad862aa589be78c15734d11beb9fe846f5e06138df22cb2ad29961b6a986ba81c4920ce2b15a7f11067
   languageName: node
   linkType: hard
 
@@ -29079,13 +29107,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nestjs-pino@npm:3.2.0":
-  version: 3.2.0
-  resolution: "nestjs-pino@npm:3.2.0"
+"nestjs-pino@npm:4.0.0":
+  version: 4.0.0
+  resolution: "nestjs-pino@npm:4.0.0"
   peerDependencies:
-    "@nestjs/common": ^8.0.0 || ^9.0.0
-    pino-http: ^6.4.0 || ^7.0.0 || ^8.0.0
-  checksum: 2717f5ce75239226e318c57cec25606d5a1f416316605eeba5368af5d33911ac83a139aa98ce054ad431252a1f2424b2b0bbb50ef6d071b03e1f2e19e7d2faf4
+    "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
+    pino-http: ^6.4.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+  checksum: 3f7f81ae6df1553afcf00568825b1a6ec38108ca9763c87c7fc7aca412920ba8260300abeee7cee0cf2fb01bb202bc501b06dd6bd12d092379994c7d9ee94ca3
+  languageName: node
+  linkType: hard
+
+"nestjs-typebox@npm:^2.6.1":
+  version: 2.6.1
+  resolution: "nestjs-typebox@npm:2.6.1"
+  peerDependencies:
+    "@nestjs/common": ^9.0.1 || ^10.0.3
+    "@nestjs/core": ^9.0.1 || ^10.0.3
+    "@nestjs/swagger": ^6.1.1 || ^7.0.11
+    "@sinclair/typebox": ^0.28.2 || ^0.29.4
+    rxjs: ^7.5.6
+  checksum: f5a8fdb32e303413a5776a25be0354dc7ad81d8d8c14607d40d6b9784a10b90243f6450af797f38c1eb33d335e8579d5554b4968b21b22f5ae15d411a57865b9
   languageName: node
   linkType: hard
 
@@ -31036,17 +31077,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-abstract-transport@npm:v1.0.0":
-  version: 1.0.0
-  resolution: "pino-abstract-transport@npm:1.0.0"
-  dependencies:
-    readable-stream: ^4.0.0
-    split2: ^4.0.0
-  checksum: 05dd0eda52dd99fd204b39fe7b62656744b63e863bc052cdd5105d25f226a236966d0a46e39a1ace4838f6e988c608837ff946d2d0bc92835ca7baa0a3bff8d8
-  languageName: node
-  linkType: hard
-
-"pino-abstract-transport@npm:v1.1.0":
+"pino-abstract-transport@npm:^1.0.0, pino-abstract-transport@npm:v1.1.0":
   version: 1.1.0
   resolution: "pino-abstract-transport@npm:1.1.0"
   dependencies:
@@ -31056,47 +31087,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pino-http@npm:8.3.3":
-  version: 8.3.3
-  resolution: "pino-http@npm:8.3.3"
+"pino-http@npm:9.0.0":
+  version: 9.0.0
+  resolution: "pino-http@npm:9.0.0"
   dependencies:
     get-caller-file: ^2.0.5
-    pino: ^8.0.0
-    pino-std-serializers: ^6.0.0
-    process-warning: ^2.0.0
-  checksum: 6d9fb4f9230dce04d934b3d6179b2b9a14654e8e0e6cb7344cd1d8baeb53d5c42e1d169dffe350379bfeb9e41b59dc0ec417fe86eb01d49a21e2bac031c2803e
+    pino: ^8.17.1
+    pino-std-serializers: ^6.2.2
+    process-warning: ^3.0.0
+  checksum: 61be08f23f07f4429cab1b78bdc2d048b4bbbd1c2a20e87b2ae01d5b2bc7fce2d1cfe06396e2694fc321ba4aeb7426da9bc50f74af958e7adef92504dc66c7fb
   languageName: node
   linkType: hard
 
-"pino-std-serializers@npm:^6.0.0":
+"pino-pretty@npm:^10.3.1":
+  version: 10.3.1
+  resolution: "pino-pretty@npm:10.3.1"
+  dependencies:
+    colorette: ^2.0.7
+    dateformat: ^4.6.3
+    fast-copy: ^3.0.0
+    fast-safe-stringify: ^2.1.1
+    help-me: ^5.0.0
+    joycon: ^3.1.1
+    minimist: ^1.2.6
+    on-exit-leak-free: ^2.1.0
+    pino-abstract-transport: ^1.0.0
+    pump: ^3.0.0
+    readable-stream: ^4.0.0
+    secure-json-parse: ^2.4.0
+    sonic-boom: ^3.0.0
+    strip-json-comments: ^3.1.1
+  bin:
+    pino-pretty: bin.js
+  checksum: 51e2d670745a396ddfd12da9f7ea5c2e4dc93a84589ffb29f64f4118d4b83ab636ee21f4aee7a47adb04664d5d921fb33e039e0ea961bb1c1cffefa28444563c
+  languageName: node
+  linkType: hard
+
+"pino-std-serializers@npm:^6.0.0, pino-std-serializers@npm:^6.2.2":
   version: 6.2.2
   resolution: "pino-std-serializers@npm:6.2.2"
   checksum: aeb0662edc46ec926de9961ed4780a4f0586bb7c37d212cd469c069639e7816887a62c5093bc93f260a4e0900322f44fc8ab1343b5a9fa2864a888acccdb22a4
   languageName: node
   linkType: hard
 
-"pino@npm:8.14.1":
-  version: 8.14.1
-  resolution: "pino@npm:8.14.1"
-  dependencies:
-    atomic-sleep: ^1.0.0
-    fast-redact: ^3.1.1
-    on-exit-leak-free: ^2.1.0
-    pino-abstract-transport: v1.0.0
-    pino-std-serializers: ^6.0.0
-    process-warning: ^2.0.0
-    quick-format-unescaped: ^4.0.3
-    real-require: ^0.2.0
-    safe-stable-stringify: ^2.3.1
-    sonic-boom: ^3.1.0
-    thread-stream: ^2.0.0
-  bin:
-    pino: bin.js
-  checksum: 72dcae8f550d375695bb8745f11b30c42aaa20d0bcab8f546ca5af0684d784453850949fe1b244206793e813a46d72cbbf0dda8aed2cee86e9491ba44a643e3e
-  languageName: node
-  linkType: hard
-
-"pino@npm:^8.0.0":
+"pino@npm:8.19.0, pino@npm:^8.17.1":
   version: 8.19.0
   resolution: "pino@npm:8.19.0"
   dependencies:
@@ -32015,13 +32049,6 @@ __metadata:
   dependencies:
     fromentries: ^1.2.0
   checksum: 597769e3db6a8e2cb1cd64a952bbc150220588debac31c7cf1a9f620ce981e25583d8d70848d8a14953577608512984a8808c3be77e09af8ebdcdc14ec23a295
-  languageName: node
-  linkType: hard
-
-"process-warning@npm:^2.0.0":
-  version: 2.3.2
-  resolution: "process-warning@npm:2.3.2"
-  checksum: cbeddc85d3963eccd6578b1eea5ba981383d1ec688d6e4ba5bf0ca6662d094c024b44dfcb1c530662c7694b68fe09fd95fa0269a1309090d793008f4553e7784
   languageName: node
   linkType: hard
 
@@ -34634,6 +34661,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"secure-json-parse@npm:^2.4.0":
+  version: 2.7.0
+  resolution: "secure-json-parse@npm:2.7.0"
+  checksum: d9d7d5a01fc6db6115744ba23cf9e67ecfe8c524d771537c062ee05ad5c11b64c730bc58c7f33f60bd6877f96b86f0ceb9ea29644e4040cb757f6912d4dd6737
+  languageName: node
+  linkType: hard
+
 "select-hose@npm:^2.0.0":
   version: 2.0.0
   resolution: "select-hose@npm:2.0.0"
@@ -35219,7 +35253,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sonic-boom@npm:^3.1.0, sonic-boom@npm:^3.7.0":
+"sonic-boom@npm:^3.0.0, sonic-boom@npm:^3.7.0":
   version: 3.8.0
   resolution: "sonic-boom@npm:3.8.0"
   dependencies:

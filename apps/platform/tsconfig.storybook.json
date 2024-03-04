@@ -11,6 +11,7 @@
     "components/**/*.stories.jsx",
     "components/**/*.stories.tsx",
     "components/**/*.stories.mdx",
+    "../../libs/frontend/application/**/*.stories.tsx",
     ".storybook/*.js",
     ".storybook/*.ts",
     ".storybook/preview.tsx"

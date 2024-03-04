@@ -4,6 +4,24 @@
   "sourceRoot": "apps/platform-e2e/src",
   "projectType": "application",
   "targets": {
+    "e2e-open": {
+      "executor": "@nx/cypress:cypress",
+      "defaultConfiguration": "test",
+      "options": {
+        "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
+        "baseUrl": "http://127.0.0.1:3001",
+        "browser": "electron",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "test": {
+          "devServerTarget": "platform-e2e:serve-open:test",
+          "record": false,
+          "watch": true,
+          "exit": false
+        }
+      }
+    },
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "defaultConfiguration": "test",
@@ -14,6 +32,12 @@
         "testingType": "e2e"
       },
       "configurations": {
+        "test": {
+          "devServerTarget": "platform-e2e:serve:test",
+          "record": true,
+          "watch": false,
+          "exit": true
+        },
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
           "cypressConfig": "apps/platform-e2e/cypress.ci.config.ts",
@@ -24,12 +48,25 @@
           },
           "record": true,
           "parallel": true
-        },
+        }
+      }
+    },
+    "serve-open": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "readyWhen": "READY"
+      },
+      "configurations": {
         "test": {
-          "devServerTarget": "platform-e2e:serve:test",
-          "record": false,
-          "watch": true,
-          "exit": false
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
+            },
+            {
+              "command": "npx nx serve platform -c test"
+            }
+          ]
         }
       }
     },
@@ -40,6 +77,16 @@
         "readyWhen": "READY"
       },
       "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck  && echo 'READY'"
+            },
+            {
+              "command": "npx nx serve platform -c test"
+            }
+          ]
+        },
         "test": {
           "commands": [
             {

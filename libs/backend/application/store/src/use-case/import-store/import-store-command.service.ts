@@ -1,5 +1,5 @@
 import { ImportApiCommand } from '@codelab/backend/application/type'
-import { ActionService } from '@codelab/backend/domain/action'
+import { ActionFactory } from '@codelab/backend/domain/action'
 import { StoreRepository } from '@codelab/backend/domain/store'
 import type { IStoreAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -14,7 +14,7 @@ export class ImportStoreHandler implements ICommandHandler<ImportStoreCommand> {
   constructor(
     private readonly storeRepository: StoreRepository,
     private readonly commandBus: CommandBus,
-    private readonly actionFactory: ActionService,
+    private readonly actionFactory: ActionFactory,
   ) {}
 
   async execute(command: ImportStoreCommand) {
