@@ -183,7 +183,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "6b87656a-3688-436c-b6ac-563d1117c3a7",
-            "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"src\":\"{{componentProps.imageUrl}}\",\"preview\":\"{{false}}\"}"
+            "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"placeholder\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"preview\":false,\"src\":\"{{componentProps.imageUrl}}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,

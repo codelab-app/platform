@@ -22,6 +22,22 @@
         "api": {
           "id": "385516e2-6922-4211-95ae-fcd28a8b89e8"
         },
+        "defaultValues": "{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "2ad4fb47-c25d-4071-b4bf-4ad7cdf912d7",
+        "key": "onSearch",
+        "name": "On Search",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "385516e2-6922-4211-95ae-fcd28a8b89e8"
+        },
         "defaultValues": "null",
         "description": null,
         "fieldType": {
