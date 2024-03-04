@@ -162,6 +162,15 @@ export class AtomService
   })
 
   @modelFlow
+  loadApi = _async(function* (this: AtomService, id: string) {
+    const atom = this.atomDomainService.atoms.get(id)
+
+    if (atom?.api) {
+      yield* _await(this.typeService.getInterface(atom.api.id))
+    }
+  })
+
+  @modelFlow
   @transaction
   update = _async(function* (
     this: AtomService,
