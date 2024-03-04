@@ -12,6 +12,7 @@ export type GetSelectAtomOptionsQuery = {
     __typename: 'Atom'
     id: string
     name: string
+    type: Types.AtomType
     requiredParents: Array<{ id: string; type: Types.AtomType }>
   }>
 }
@@ -26,6 +27,7 @@ export const GetSelectAtomOptionsDocument = gql`
         id
         type
       }
+      type
     }
   }
 `
