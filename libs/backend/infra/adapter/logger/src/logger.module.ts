@@ -14,7 +14,7 @@ const transportOptions: pretty.PrettyOptions = {
   ignore: 'pid,hostname,context,req,res,responseTime',
   levelFirst: false,
   messageFormat: '{req.headers.x-correlation-id} [{context}] {msg}',
-  singleLine: true,
+  singleLine: false,
   sync: true,
   translateTime: "yyyy-MM-dd'T'HH:mm:ss.l'Z'",
 }

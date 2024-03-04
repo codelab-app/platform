@@ -1,4 +1,4 @@
-import type { loginToAuth0 } from './official/login-vai-auth0-ui'
+import type { loginToAuth0 } from './official/login-via-auth0-ui'
 
 declare global {
   namespace Cypress {

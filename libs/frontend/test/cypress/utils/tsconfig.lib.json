@@ -2,9 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../../dist/out-tsc",
+    "declaration": true,
     "target": "es5",
     "lib": ["es5", "dom"],
-    "declaration": true,
     "types": ["cypress", "node"]
   },
   "include": ["src/**/*.ts"],

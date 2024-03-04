@@ -1,5 +1,6 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type {
+  IApiActionDto,
   IAppDto,
   ICreateActionData,
   ICreateApiActionData,
@@ -21,146 +22,45 @@ import {
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { findOrFail, slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-
-const ELEMENT_FORM = 'Element Form'
-const ELEMENT_FORM_ITEM_INPUT = 'Element Form Item Input'
-const ELEMENT_INPUT_NAME = 'inputField'
-const ELEMENT_INPUT = 'Element Input'
-const ELEMENT_FORM_ITEM_SELECT = 'Element Form Item Select'
-const ELEMENT_SELECT_NAME = 'selectField'
-const ELEMENT_SELECT = 'Element Select'
-const ELEMENT_FORM_ITEM_CHECKBOX = 'Element Form Item Checkbox'
-const ELEMENT_CHECKBOX_NAME = 'checkboxField'
-const ELEMENT_CHECKBOX = 'Element Checkbox'
-const ELEMENT_FORM_ITEM_BUTTON = 'Element Form Item Button'
-const ELEMENT_BUTTON_TITLE = 'Submit Form'
-const ELEMENT_BUTTON = 'Element Button'
-
-const elements: Array<ICreateElementData> = [
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_INPUT,
-    parentElement: ELEMENT_FORM,
-    propsData: {
-      label: 'Input Field',
-      name: ELEMENT_INPUT_NAME,
-    },
-  },
-  {
-    atom: IAtomType.AntDesignInput,
-    name: ELEMENT_INPUT,
-    parentElement: ELEMENT_FORM_ITEM_INPUT,
-  },
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_SELECT,
-    parentElement: ELEMENT_FORM,
-    propsData: {
-      label: 'Select Field',
-      name: ELEMENT_SELECT_NAME,
-    },
-  },
-  {
-    atom: IAtomType.AntDesignSelect,
-    name: ELEMENT_SELECT,
-    parentElement: ELEMENT_FORM_ITEM_SELECT,
-    propsData: {
-      options: [
-        {
-          label: 'Select Option A',
-          value: 'selectOptionA',
-        },
-        {
-          label: 'Select Option B',
-          value: 'selectOptionB',
-        },
-      ],
-    },
-  },
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_CHECKBOX,
-    parentElement: ELEMENT_FORM,
-    propsData: {
-      name: ELEMENT_CHECKBOX_NAME,
-      valuePropName: 'checked',
-    },
-  },
-  {
-    atom: IAtomType.AntDesignCheckbox,
-    name: ELEMENT_CHECKBOX,
-    parentElement: ELEMENT_FORM_ITEM_CHECKBOX,
-    propsData: {
-      customText: '<p>Checkbox Field</p>',
-    },
-  },
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_BUTTON,
-    parentElement: ELEMENT_FORM,
-  },
-  {
-    atom: IAtomType.AntDesignButton,
-    name: ELEMENT_BUTTON,
-    parentElement: ELEMENT_FORM_ITEM_BUTTON,
-    propsData: {
-      customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
-      htmlType: 'submit',
-    },
-  },
-]
+import {
+  ELEMENT_CHECKBOX_NAME,
+  ELEMENT_INPUT_NAME,
+  ELEMENT_SELECT_NAME,
+  elementForm,
+} from './elements.data'
+import {
+  actionTypeId,
+  apiPostActionId,
+  createApiPostActionData,
+  createResourceData,
+  resourceUrl,
+} from './resource.data.ts'
 
 describe('Testing the Form atom', () => {
   let app: IAppDto
   let page: IPageDto
-  let apiPostActionId: string
-  // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
-  // because the workaround for now is to manually set props in the create form for the element
-  const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
-  const apiPostActionName = 'On Submit'
-  const resourceName = 'Api Resource'
-  const resourceUrl = 'http://some-api.com/api'
-  const urlPostSegment = '/data'
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').as('cypressApp')
+
+    cy.wait('@cypressApp').then(({ response }) => {
+      app = response?.body
       page = findOrFail(app.pages, (_page) => _page.kind === IPageKind.Provider)
 
       cy.wrap(page).should('have.property', 'store')
 
-      const createResourceData: ICreateResourceData = {
-        config: { url: resourceUrl },
-        id: v4(),
-        name: resourceName,
-        type: IResourceType.Rest,
-      }
-
-      const createActionData: ICreateApiActionData = {
-        config: {
-          data: {
-            body: "{{JSON.stringify(refs['element-form'].current.getFieldsValue())}}",
-            method: HttpMethod.POST,
-            responseType: HttpResponseType.Text,
-            urlSegment: urlPostSegment,
-          },
-          id: v4(),
-        },
-        id: v4(),
-        name: apiPostActionName,
-        resource: { id: createResourceData.id },
-        storeId: page.store.id,
-        type: IActionKind.ApiAction,
-      }
-
-      apiPostActionId = createActionData.id
-
-      /**
-       * Condensed `it` step to post request
-       */
-      cy.postApiRequest('/resource/create-resource', createResourceData)
-      cy.postApiRequest('/action/create-action', createActionData)
+      return app
     })
+
+    cy.wait('@cypressApp')
+      .then(() =>
+        cy.postApiRequest('/resource/create-resource', createResourceData),
+      )
+      .as('cypressResource')
+
+    cy.wait('@cypressResource').then(() =>
+      cy.postApiRequest('/action/create-action', createApiPostActionData(page)),
+    )
   })
 
   // it('should create the resource that will be used upon submission of the form', () => {
@@ -256,21 +156,6 @@ describe('Testing the Form atom', () => {
 
   it('should create the form elements', () => {
     // has to be created separately because of the action
-
-    const elementForm = {
-      atom: IAtomType.AntDesignForm,
-      name: ELEMENT_FORM,
-      parentElement: ROOT_ELEMENT_NAME,
-      propsData: {
-        customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
-        htmlType: 'submit',
-        onFinish: {
-          kind: ITypeKind.ActionType,
-          type: actionTypeId,
-          value: apiPostActionId,
-        },
-      },
-    }
 
     cy.postApiRequest(`element/${page.id}/create-element`, elementForm).then(
       (result) => {

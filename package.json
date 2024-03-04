@@ -425,7 +425,7 @@
     "@types/react-dom": "18.2.9",
     "@opentelemetry/sdk-trace-base": "1.14.0",
     "antd@5.4.2": "patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch",
-    "cypress@*": "patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch",
-    "cypress@^13.3.0": "patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch"
+    "cypress@13.6.6": "patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch",
+    "cypress@*": "patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch"
   }
 }

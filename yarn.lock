@@ -13189,7 +13189,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^18.0.0, @types/node@npm:^18.17.5":
+"@types/node@npm:^18.0.0":
   version: 18.19.17
   resolution: "@types/node@npm:18.19.17"
   dependencies:
@@ -16398,7 +16398,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^5.2.1, buffer@npm:^5.5.0, buffer@npm:^5.6.0, buffer@npm:^5.7.1":
+"buffer@npm:^5.2.1, buffer@npm:^5.5.0, buffer@npm:^5.7.1":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
   dependencies:
@@ -19079,59 +19079,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.3.0":
-  version: 13.3.0
-  resolution: "cypress@npm:13.3.0"
-  dependencies:
-    "@cypress/request": ^3.0.0
-    "@cypress/xvfb": ^1.2.4
-    "@types/node": ^18.17.5
-    "@types/sinonjs__fake-timers": 8.1.1
-    "@types/sizzle": ^2.3.2
-    arch: ^2.2.0
-    blob-util: ^2.0.2
-    bluebird: ^3.7.2
-    buffer: ^5.6.0
-    cachedir: ^2.3.0
-    chalk: ^4.1.0
-    check-more-types: ^2.24.0
-    cli-cursor: ^3.1.0
-    cli-table3: ~0.6.1
-    commander: ^6.2.1
-    common-tags: ^1.8.0
-    dayjs: ^1.10.4
-    debug: ^4.3.4
-    enquirer: ^2.3.6
-    eventemitter2: 6.4.7
-    execa: 4.1.0
-    executable: ^4.1.1
-    extract-zip: 2.0.1
-    figures: ^3.2.0
-    fs-extra: ^9.1.0
-    getos: ^3.2.1
-    is-ci: ^3.0.0
-    is-installed-globally: ~0.4.0
-    lazy-ass: ^1.6.0
-    listr2: ^3.8.3
-    lodash: ^4.17.21
-    log-symbols: ^4.0.0
-    minimist: ^1.2.8
-    ospath: ^1.2.2
-    pretty-bytes: ^5.6.0
-    process: ^0.11.10
-    proxy-from-env: 1.0.0
-    request-progress: ^3.0.0
-    semver: ^7.5.3
-    supports-color: ^8.1.1
-    tmp: ~0.2.1
-    untildify: ^4.0.0
-    yauzl: ^2.10.0
-  bin:
-    cypress: bin/cypress
-  checksum: 6ad11bd6aabccfaf8be78afff0e854c9c8ccc935704c41efe4d8e9412ccfcb652f23791931c3aa26fc41068eeeb739a51563308670c9dada91cb272d08227caf
-  languageName: node
-  linkType: hard
-
 "cypress@npm:13.6.6":
   version: 13.6.6
   resolution: "cypress@npm:13.6.6"
@@ -19184,19 +19131,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::locator=codelab%40workspace%3A.":
-  version: 13.3.0
-  resolution: "cypress@patch:cypress@npm%3A13.3.0#./.yarn/patches/cypress-npm-13.3.0-c09c0b93ba.patch::version=13.3.0&hash=49aeac&locator=codelab%40workspace%3A."
+"cypress@patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch::locator=codelab%40workspace%3A.":
+  version: 13.6.6
+  resolution: "cypress@patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch::version=13.6.6&hash=9547a3&locator=codelab%40workspace%3A."
   dependencies:
     "@cypress/request": ^3.0.0
     "@cypress/xvfb": ^1.2.4
-    "@types/node": ^18.17.5
     "@types/sinonjs__fake-timers": 8.1.1
     "@types/sizzle": ^2.3.2
     arch: ^2.2.0
     blob-util: ^2.0.2
     bluebird: ^3.7.2
-    buffer: ^5.6.0
+    buffer: ^5.7.1
     cachedir: ^2.3.0
     chalk: ^4.1.0
     check-more-types: ^2.24.0
@@ -19214,7 +19160,7 @@ __metadata:
     figures: ^3.2.0
     fs-extra: ^9.1.0
     getos: ^3.2.1
-    is-ci: ^3.0.0
+    is-ci: ^3.0.1
     is-installed-globally: ~0.4.0
     lazy-ass: ^1.6.0
     listr2: ^3.8.3
@@ -19233,7 +19179,7 @@ __metadata:
     yauzl: ^2.10.0
   bin:
     cypress: bin/cypress
-  checksum: 8db2bf616d638c1ca1996d4dbdff48d4dd0930741473de3dfd3a796cbc789c5d7e57a240586d03b6aea7a60bc95fb3318d8a5a35da280f22736f441655b54183
+  checksum: d5a107972fd4ed28007037c983f1451781139762ef765e7eb67a987ee88fe1ff8d7178d2f8c25f2ee738961d639d06ecfc70f5dc893896e199ca6b369596faec
   languageName: node
   linkType: hard
 
@@ -25091,7 +25037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:3.0.1, is-ci@npm:^3.0.0, is-ci@npm:^3.0.1":
+"is-ci@npm:3.0.1, is-ci@npm:^3.0.1":
   version: 3.0.1
   resolution: "is-ci@npm:3.0.1"
   dependencies:

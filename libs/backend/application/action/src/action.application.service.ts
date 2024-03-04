@@ -5,15 +5,19 @@ import {
 } from '@codelab/backend/domain/action'
 import { ICreateActionData } from '@codelab/shared/abstract/core'
 import { ActionMapper } from '@codelab/shared/domain/mapper'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 
 @Injectable()
 export class ActionApplicationService {
-  constructor(private actionFactory: ActionFactory) {}
+  constructor(
+    private actionFactory: ActionFactory,
+    private loggerService: CodelabLoggerService,
+  ) {}
 
   async createAction(createActionData: ICreateActionData) {
-    // console.log(createActionData)
-
     const actionDto = ActionMapper.mapDataToDto(createActionData)
+
+    this.loggerService.log(actionDto, 'Create action dto')
 
     return this.actionFactory.save(actionDto)
   }
