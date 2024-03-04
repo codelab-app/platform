@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import { __AtomType } from '@codelab/shared/abstract/core'
+import { authOwnerOrAdmin } from './user.schema'
 
 const atomTypeEnum = `enum AtomType {
   ${Object.values(__AtomType).join('\n')}
@@ -8,7 +9,7 @@ const atomTypeEnum = `enum AtomType {
 export const atomSchema = gql`
   ${atomTypeEnum}
 
-  type Atom implements WithOwner {
+  type Atom implements WithOwner ${authOwnerOrAdmin} {
     id: ID! @unique
     owner: User!
     type: AtomType! @unique
@@ -26,9 +27,4 @@ export const atomSchema = gql`
     elements: [Element!]!
       @relationship(type: "ELEMENT_RENDER_TYPE", direction: IN)
   }
-
-  # extend type Atom
-  #   @authorization(
-  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
-  #   )
 `
