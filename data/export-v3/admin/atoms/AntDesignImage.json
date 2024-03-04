@@ -86,17 +86,17 @@
         "api": {
           "id": "a81ce910-9714-4efe-9a1b-77b41d724e0d"
         },
-        "defaultValues": null,
+        "defaultValues": "false",
         "description": null,
         "fieldType": {
-          "id": "5f7bb78d-2dde-4417-adf0-921e1158918c"
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
         },
         "id": "c0d9473e-4883-4175-b51a-59a0250e8697",
         "key": "preview",
         "name": "Preview",
         "nextSibling": null,
         "prevSibling": null,
-        "validationRules": null
+        "validationRules": "{}"
       },
       {
         "api": {
@@ -175,24 +175,6 @@
         "id": "9d663fdd-a048-4db7-9db6-2d6644eb0678",
         "kind": "EnumType",
         "name": "AntDesignImage Height Enum"
-      },
-      {
-        "__typename": "EnumType",
-        "allowedValues": [
-          {
-            "id": "83414d14-d0ba-45e1-a0ed-fda86b4bc350",
-            "key": "boolean",
-            "value": "boolean"
-          },
-          {
-            "id": "3efca151-0ac3-4259-9725-550aef90d814",
-            "key": "previewType",
-            "value": "previewType"
-          }
-        ],
-        "id": "5f7bb78d-2dde-4417-adf0-921e1158918c",
-        "kind": "EnumType",
-        "name": "AntDesignImage Preview Enum"
       },
       {
         "__typename": "EnumType",
