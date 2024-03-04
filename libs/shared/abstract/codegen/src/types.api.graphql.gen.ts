@@ -22418,7 +22418,6 @@ export type GetSelectAtomOptionsQuery = {
     __typename: 'Atom'
     id: string
     name: string
-    type: AtomType
     requiredParents: Array<{ id: string; type: AtomType }>
   }>
 }
