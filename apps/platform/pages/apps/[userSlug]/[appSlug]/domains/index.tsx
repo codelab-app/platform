@@ -67,20 +67,20 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const user = userService.user
   const { appName } = useAppQuery()
 
-  const [{ result, status }, getApp] = useAsync(() =>
-    appService.getAll({
+  // using loadAppsPreview in order to make sure that the domains are hydrated
+  // otherwise the domains list would appear empty
+  const [{ status }, loadAppWithDomains] = useAsync(() =>
+    appService.loadAppsPreview({
       compositeKey: AppProperties.appCompositeKey(appName, user),
     }),
   )
 
-  const app = result?.[0]
-
-  useMountEffect(getApp.execute)
+  useMountEffect(loadAppWithDomains.execute)
 
   return (
     <>
       <Head>
-        <title>{app?.name ? `${app.name} | ` : ''} Domains | Codelab</title>
+        <title>{appName} | Domains | Codelab</title>
       </Head>
 
       <CreateDomainModal />

@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
   PagePreviewFragment,
@@ -7,10 +8,10 @@ import {
   PageDevelopmentFragment,
   PageProductionFragment,
 } from '../page/page.fragment.graphql.gen'
-import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
+import { DomainFragmentDoc } from '../domain/domain.fragment.graphql.gen'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
   PagePreviewFragmentDoc,
@@ -18,11 +19,11 @@ import {
   PageDevelopmentFragmentDoc,
   PageProductionFragmentDoc,
 } from '../page/page.fragment.graphql.gen'
-import { DomainFragmentDoc } from '../domain/domain.fragment.graphql.gen'
 export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
+  domains: Array<DomainFragment>
   owner: OwnerFragment
   pages: Array<PagePreviewFragment>
 }
@@ -54,6 +55,9 @@ export type AppProductionFragment = {
 
 export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
+    domains {
+      ...Domain
+    }
     id
     name
     owner {
@@ -64,6 +68,7 @@ export const AppPreviewFragmentDoc = gql`
     }
     slug
   }
+  ${DomainFragmentDoc}
   ${OwnerFragmentDoc}
   ${PagePreviewFragmentDoc}
 `

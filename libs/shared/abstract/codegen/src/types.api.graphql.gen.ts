@@ -21745,6 +21745,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
+  domains: Array<DomainFragment>
   owner: OwnerFragment
   pages: Array<PagePreviewFragment>
 }

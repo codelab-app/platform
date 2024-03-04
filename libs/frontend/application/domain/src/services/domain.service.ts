@@ -47,13 +47,13 @@ export class DomainService
     this: DomainService,
     domainData: ICreateDomainData,
   ) {
-    const domain = this.add({
+    const domain = this.hydrate({
       ...domainData,
       domainConfig: undefined,
       projectDomain: undefined,
     })
 
-    yield* _await(this.vercelService.create(domain.name))
+    // yield* _await(this.vercelService.create(domain.name))
     yield* _await(this.domainRepository.add(domain))
 
     // Fetching again to get the backend-generated
@@ -88,7 +88,7 @@ export class DomainService
   getAll = _async(function* (this: DomainService, where?: DomainWhere) {
     const { items: domains } = yield* _await(this.domainRepository.find(where))
 
-    return domains.map((domain) => this.add(domain))
+    return domains.map((domain) => this.hydrate(domain))
   })
 
   @modelFlow
@@ -111,7 +111,7 @@ export class DomainService
   })
 
   @modelAction
-  add = (domain: IDomainDto) => {
+  hydrate = (domain: IDomainDto) => {
     let domainModel = this.domains.get(domain.id)
 
     domainModel = domainModel
