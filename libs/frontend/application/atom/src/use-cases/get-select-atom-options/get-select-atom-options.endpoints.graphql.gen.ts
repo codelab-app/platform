@@ -1,10 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { InterfaceTypeFragment } from '../../../../../abstract/domain/src/type/fragments/interface.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { InterfaceTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/interface.fragment.graphql.gen'
 export type GetSelectAtomOptionsQueryVariables = Types.Exact<{
   [key: string]: never
 }>
@@ -15,7 +13,6 @@ export type GetSelectAtomOptionsQuery = {
     id: string
     name: string
     type: Types.AtomType
-    api: InterfaceTypeFragment
     requiredParents: Array<{ id: string; type: Types.AtomType }>
   }>
 }
@@ -24,9 +21,6 @@ export const GetSelectAtomOptionsDocument = gql`
   query GetSelectAtomOptions {
     atoms {
       __typename
-      api {
-        ...InterfaceType
-      }
       id
       name
       requiredParents {
@@ -36,7 +30,6 @@ export const GetSelectAtomOptionsDocument = gql`
       type
     }
   }
-  ${InterfaceTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
