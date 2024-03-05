@@ -1,5 +1,5 @@
-import type { CypressElement } from './types'
-import { wrapSubject } from './utils'
+import type { CypressElement } from '../utils/types'
+import { wrapSubject } from '../utils/utils'
 
 export const selectOptionItem = (
   subject: any,

@@ -17,7 +17,7 @@ export class ActionApplicationService {
   async createAction(createActionData: ICreateActionData) {
     const actionDto = ActionMapper.mapDataToDto(createActionData)
 
-    // this.loggerService.log(actionDto, 'Create action dto')
+    this.loggerService.log(actionDto, 'Create action dto')
 
     return this.actionFactory.save(actionDto)
   }

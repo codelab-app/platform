@@ -1,7 +1,7 @@
 import type { SelectorMatcherOptions } from '@testing-library/cypress'
 import type { Matcher } from '@testing-library/dom'
-import type { CypressButton } from './types'
-import { wrapSubject } from './utils'
+import type { CypressButton } from '../utils/types'
+import { wrapSubject } from '../utils/utils'
 
 /**
  * find button contained within a list item or table row by item text

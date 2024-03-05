@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import colorizer from '@pinojs/json-colorizer'
 import omit from 'lodash/omit'
 import { LoggerModule } from 'nestjs-pino'
 import pino from 'pino'
@@ -12,11 +13,21 @@ const transportOptions: pretty.PrettyOptions = {
   colorize: true,
   errorLikeObjectKeys: ['err', 'error'],
   ignore: 'pid,hostname,context,req,res,responseTime',
-  levelFirst: false,
-  messageFormat: '{req.headers.x-correlation-id} [{context}] {msg}',
+  // levelFirst: false,
+  // messageFormat: '{req.headers.x-correlation-id} [{context}] {msg}',
+  // messageFormat: (log, messageKey, levelLabel) => {
+  //   const message = log[messageKey]
+
+  //   if (log['requestId']) {
+  //     return `[${log['requestId']}] ${message}`
+  //   }
+
+  //   return `${message}`
+  // },
   singleLine: false,
   sync: true,
-  translateTime: "yyyy-MM-dd'T'HH:mm:ss.l'Z'",
+  // NestJS-like timestamp
+  translateTime: 'SYS:mm/dd/yyyy hh:mm:ss TT',
 }
 
 @Module({
@@ -26,6 +37,7 @@ const transportOptions: pretty.PrettyOptions = {
       pinoHttp: {
         // Disable HTTP requests logging
         autoLogging: false,
+        formatters: {},
         // Set Pino to synchronous mode
         serializers: {
           req: (req) => {
@@ -42,6 +54,9 @@ const transportOptions: pretty.PrettyOptions = {
         // Enable synchronous logging
         stream: pino.destination({
           sync: true,
+          write: (message: string) => {
+            console.log(colorizer(message))
+          },
         }),
         // Prettify and colorize log
         transport:

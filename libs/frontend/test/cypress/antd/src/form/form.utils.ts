@@ -1,10 +1,10 @@
 // h4ck: shit-typed because it's internal and I don't have the time to properly type it
+import type { CommonOptions } from '@codelab/frontend/test/cypress/shared'
 import isArray from 'lodash/isArray'
 import isNumber from 'lodash/isNumber'
 import map from 'lodash/map'
 import mapValues from 'lodash/mapValues'
 import merge from 'lodash/merge'
-import type { CommonOptions } from '../types'
 import { MUTE } from '../utils'
 import { getSelectDropdown } from './form.commands'
 import type { ScrollPosition } from './form.types'

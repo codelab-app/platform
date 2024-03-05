@@ -1,5 +1,8 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
-import type { CommonOptions, Label } from '../types'
+import type {
+  CommonOptions,
+  Label,
+} from '@codelab/frontend/test/cypress/shared'
 import { logAndMute } from '../utils'
 
 export const getModal = (options?: CommonOptions) =>

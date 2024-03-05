@@ -14,11 +14,8 @@
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
 import { antCommands } from '@codelab/frontend/test/cypress/antd'
+import { auth0Commands } from '@codelab/frontend/test/cypress/auth0'
 import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
-import {
-  loginAndSetupE2eData,
-  nextjsAuth0Commands,
-} from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { registerCommands } from '@codelab/frontend/test/cypress/shared'
 import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -34,7 +31,7 @@ registerCommands([
   ...antCommands,
   ...codelabCommands,
   ...utilsCommands,
-  ...nextjsAuth0Commands,
+  ...auth0Commands,
   /**
    * These commands depend on the previous
    */

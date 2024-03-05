@@ -1,7 +1,7 @@
 import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
 import { getCurrentUser } from './user.command'
 
-export interface CypressUserCommands {
+export interface UserCommands {
   getCurrentUser: typeof getCurrentUser
 }
 

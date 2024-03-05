@@ -1,6 +1,6 @@
-import { domClasses } from './dom-classes'
-import type { CypressElement } from './types'
-import { wrapSubject } from './utils'
+import { domClasses } from '../utils/dom-classes'
+import type { CypressElement } from '../utils/types'
+import { wrapSubject } from '../utils/utils'
 
 export const getOptionItem = (
   subject: any,

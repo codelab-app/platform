@@ -1,4 +1,4 @@
-import type { Label } from '../types'
+import type { Label } from '@codelab/frontend/test/cypress/shared'
 
 type SortOrder = 'asc' | 'desc'
 

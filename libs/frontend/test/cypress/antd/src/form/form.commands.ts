@@ -1,3 +1,7 @@
+import type {
+  CommonOptions,
+  Label,
+} from '@codelab/frontend/test/cypress/shared'
 import { wrapSubject } from '@codelab/frontend/test/cypress/utils'
 import { EditorView } from '@codemirror/view'
 import { absoluteRoot } from '@hon2a/cypress-without'
@@ -9,7 +13,6 @@ import isEmpty from 'lodash/isEmpty'
 import isNumber from 'lodash/isNumber'
 import isObject from 'lodash/isObject'
 import isUndefined from 'lodash/isUndefined'
-import type { CommonOptions, Label } from '../types'
 import type { TickOptions } from '../utils'
 import { ifOnClock, logAndMute, tickIfOnClock } from '../utils'
 import {

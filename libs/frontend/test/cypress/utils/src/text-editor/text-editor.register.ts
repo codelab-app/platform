@@ -1,7 +1,7 @@
 import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
 import { typeIntoTextEditor } from './text-editor.command'
 
-export interface CypressTextEditorCommands {
+export interface TextEditorCommands {
   typeIntoTextEditor: typeof typeIntoTextEditor
 }
 

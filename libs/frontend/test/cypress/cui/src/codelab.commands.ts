@@ -1,4 +1,7 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
+import type {
+  CypressCommand,
+  OmitFirstArg,
+} from '@codelab/frontend/test/cypress/shared'
 import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
@@ -16,6 +19,47 @@ import {
   getCuiTreeItemBySecondaryTitle,
   getCuiTreeItemToolbar,
 } from './tree/tree.command'
+
+export interface CypressCodelabUICommands {
+  /**
+   * header-toolbar
+   */
+  getCuiHeader: typeof getCuiHeader
+  /**
+   * navigation-bar
+   */
+  getCuiNavigationBarItem: typeof getCuiNavigationBarItem
+  /**
+   * popover
+   */
+  getCuiPopover: typeof getCuiPopover
+  /**
+   * sidebar
+   */
+  getCuiSidebar: typeof getCuiSidebar
+  getCuiSidebarHeader: OmitFirstArg<typeof getCuiSidebarHeader>
+  getCuiSidebarViewContent: typeof getCuiSidebarViewContent
+  getCuiSidebarViewHeader: typeof getCuiSidebarViewHeader
+  /**
+   * skeleton
+   */
+  getCuiSkeleton: typeof getCuiSkeleton
+  /**
+   * toolbar
+   */
+  getCuiToolbarItem: OmitFirstArg<typeof getCuiToolbarItem>
+  /**
+   * tree
+   */
+  getCuiTreeItem: typeof getCuiTreeItem
+  getCuiTreeItemByPrimaryTitle: OmitFirstArg<
+    typeof getCuiTreeItemByPrimaryTitle
+  >
+  getCuiTreeItemBySecondaryTitle: OmitFirstArg<
+    typeof getCuiTreeItemBySecondaryTitle
+  >
+  getCuiTreeItemToolbar: OmitFirstArg<typeof getCuiTreeItemToolbar>
+}
 
 export const codelabCommands: Array<CypressCommand> = [
   /**

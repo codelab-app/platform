@@ -1,6 +1,4 @@
-import { CypressUtilsCommands } from './src'
-// Need this for IDE typing
-import type cypress from 'cypress'
+import { CypressUtilsCommands } from '@codelab/frontend/test/cypress/utils'
 
 declare global {
   namespace Cypress {

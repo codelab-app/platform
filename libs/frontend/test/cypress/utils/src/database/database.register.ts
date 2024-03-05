@@ -4,7 +4,7 @@ import {
   resetDatabaseExceptForUserAndAtom,
 } from './database.command'
 
-export interface CypressDatabaseCommands {
+export interface DatabaseCommands {
   resetDatabase: typeof resetDatabase
   resetDatabaseExceptForUserAndAtom: typeof resetDatabaseExceptForUserAndAtom
 }

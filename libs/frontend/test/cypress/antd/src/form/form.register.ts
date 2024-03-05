@@ -1,5 +1,3 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
-import type { OmitFirstArg } from '../../deprecated/types'
 import {
   chooseSelectDropdownOption,
   clearMultiselect,
@@ -28,7 +26,12 @@ import {
   setSelectValue,
   setTagsValue,
 } from './form.commands'
+
 import PrevSubject = Cypress.PrevSubject
+import type {
+  CypressCommand,
+  OmitFirstArg,
+} from '@codelab/frontend/test/cypress/shared'
 
 export interface AntFormCommands {
   chooseSelectDropdownOption: typeof chooseSelectDropdownOption

@@ -1,5 +1,5 @@
+import type { Label } from '@codelab/frontend/test/cypress/shared'
 import { absoluteRoot } from '@hon2a/cypress-without'
-import type { Label } from '../types'
 import { logAndMute, triggerAliased } from '../utils'
 
 export const getDropdown = (

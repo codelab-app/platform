@@ -1,5 +1,5 @@
 import { absoluteRoot } from '@hon2a/cypress-without'
-import type { CommonOptions } from '../types'
+import type { CommonOptions } from '@codelab/frontend/test/cypress/shared'
 import { logAndMute } from '../utils'
 
 const resolvePopconfirm = (buttonIdx: number, options?: CommonOptions) =>
