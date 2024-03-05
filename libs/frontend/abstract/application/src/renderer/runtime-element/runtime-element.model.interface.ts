@@ -1,4 +1,7 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementModel,
+  IElementTreeViewDataNode,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
@@ -44,6 +47,8 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
+
+  treeViewNode: IElementTreeViewDataNode
 
   runPostRenderAction(): void
   runPreRenderAction(): void
