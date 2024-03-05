@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - master
+      - remove_middleware
 jobs:
   deploy-platform-web:
     runs-on: ubuntu-latest

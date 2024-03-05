@@ -10,14 +10,9 @@ export interface IAuth0EnvVars {
   cypressPassword: string
   issuerBaseUrl: string
   secret: string
+  cookieDomain?: string
 }
 
-/* *
- * https://github.com/auth0/nextjs-auth0/issues/383
- *
- * `isVercel` is runtime
- * `isVercelPreview` is build-time
- */
 export class Auth0EnvVars implements IAuth0EnvVars {
   private _clientId?: string
 
@@ -73,5 +68,25 @@ export class Auth0EnvVars implements IAuth0EnvVars {
     const auth0baseUrl = this.endpoint.platformHost
 
     return auth0baseUrl
+  }
+
+  /* *
+   * Gets the cookie base domain:
+   * - for local development, it's undefined to fallback to default logic
+   * - for production, this would be `.codelab.app`, this allows cookies
+   *   to be shared across subdomains, in our case to include cookies set
+   *   on the client admin.codelab.app to the backend api.codelab.app
+   */
+  get cookieDomain() {
+    if (this.endpoint.isLocal) {
+      return undefined
+    }
+
+    const domainParts = this.endpoint.platformApiHost.split('.')
+    const subdomain = domainParts.shift()
+    const baseDomain = domainParts.join('.')
+    const domainWithoutTrailingSlash = baseDomain.replace(/\/$/, '')
+
+    return `.${domainWithoutTrailingSlash}`
   }
 }

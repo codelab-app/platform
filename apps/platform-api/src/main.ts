@@ -1,9 +1,10 @@
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import { authMiddleware } from '@codelab/backend/infra/adapter/graphql'
 import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import cookieParser from 'cookie-parser'
 import { applyFormats, patchNestJsSwagger } from 'nestjs-typebox'
 import type { endpointConfig } from './graphql/endpoint.config'
 import { ENDPOINT_CONFIG_KEY } from './graphql/endpoint.config'
@@ -27,6 +28,12 @@ const bootstrap = async () => {
   const port = config.graphqlApiPort
 
   app.setGlobalPrefix(globalPrefix)
+  app.use(cookieParser())
+  app.use(authMiddleware)
+  app.enableCors({
+    credentials: true,
+    origin: true,
+  })
   // app.useLogger(app.get(CodelabLogger))
 
   /**

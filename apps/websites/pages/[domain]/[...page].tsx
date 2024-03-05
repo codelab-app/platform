@@ -51,10 +51,14 @@ export const getStaticProps: GetStaticProps<IAppProductionDto> = async (
   const pageStr = Array.isArray(page) ? page.join('/') : page
   const pageUrl = pageStr ? `/${pageStr}` : '/'
 
+  console.log('getStaticProps before')
+
   const props = await AppProductionService.getAppProductionData({
     domain: String(domain),
     pageUrl,
   })
+
+  console.log('getStaticProps after')
 
   return { props }
 }

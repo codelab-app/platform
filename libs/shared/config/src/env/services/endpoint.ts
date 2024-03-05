@@ -15,10 +15,6 @@ export interface IEndpointEnvVars {
    * Used to secure pages on production
    */
   canActivateUrl: string
-  /**
-   * This is the Next.js middleware that forwards to the backend graphql endpoint
-   */
-  graphqlApiProxyUrl: string
   isLocal: boolean
   /**
    * The actual backend GraphQL endpoint
@@ -36,17 +32,8 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     return `${this.platformApiHost}/api/can-activate`
   }
 
-  /**
-   * URL is protocol + origin
-   *
-   * This uses the Next.js proxy middleware
-   */
-  get graphqlApiProxyUrl() {
-    return `${this.platformHost}/api/graphql`
-  }
-
   get isLocal() {
-    return this.graphqlApiProxyUrl.includes('127.0.0.1')
+    return this.platformApiGraphqlUrl.includes('127.0.0.1')
   }
 
   /**
