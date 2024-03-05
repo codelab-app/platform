@@ -1,3 +1,7 @@
+import {
+  rendererRef,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
@@ -21,7 +25,7 @@ import React, { useEffect, useRef } from 'react'
 import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
-  const { builderService, componentService } = useStore()
+  const { builderService, componentService, rendererService } = useStore()
   const { appSlug } = useAppQuery()
   const router = useRouter()
   const { userSlug } = useUserQuery()
@@ -58,6 +62,14 @@ export const CustomComponents = observer(() => {
     const component = componentService.componentDomainService.component(id)
 
     builderService.selectComponentNode(component)
+
+    const renderer = rendererService.hydrate({
+      containerNode: component,
+      id: component.id,
+      rendererType: RendererType.ComponentBuilder,
+    })
+
+    rendererService.setActiveRenderer(rendererRef(renderer))
   }
 
   const exportComponent = (id: string) => {
