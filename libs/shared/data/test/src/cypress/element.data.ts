@@ -1,6 +1,5 @@
 import type {
   ICreateElementDto,
-  IElementDto,
   IElementRenderTypeDto,
   IPropDto,
   IRef,

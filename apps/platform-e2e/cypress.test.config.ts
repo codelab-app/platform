@@ -1,13 +1,8 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 // import type { IApp } from '@codelab/shared/abstract/core'
-import { Auth0Service } from '@codelab/backend/infra/adapter/auth0'
-import { createCypressRestClient } from '@codelab/backend/infra/adapter/rest-client'
-import { postApiRequest } from '@codelab/frontend/test/cypress/utils'
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
-import axios from 'axios'
-import cypress, { defineConfig } from 'cypress'
-import fs from 'fs'
+import { defineConfig } from 'cypress'
 import path from 'path'
 
 /**

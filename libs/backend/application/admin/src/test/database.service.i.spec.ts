@@ -1,7 +1,4 @@
-import {
-  AppApplicationModule,
-  SeedCypressAppCommand,
-} from '@codelab/backend/application/app'
+import { AppApplicationModule } from '@codelab/backend/application/app'
 import {
   AtomApplicationModule,
   ImportCypressAtomsCommand,
@@ -17,7 +14,7 @@ import {
   Neo4jModule,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { initUserContext } from '@codelab/backend/test'
-import type { IApp, IAtom } from '@codelab/shared/abstract/core'
+import type { IAtom } from '@codelab/shared/abstract/core'
 import { CommandBus } from '@nestjs/cqrs'
 
 jest.setTimeout(60000)

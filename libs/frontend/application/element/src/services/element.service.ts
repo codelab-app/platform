@@ -27,7 +27,6 @@ import {
   jsonStringToCss,
   mapElementOption,
 } from '@codelab/frontend/domain/element'
-import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'

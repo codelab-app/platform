@@ -20,7 +20,6 @@ import { GraphQLSchemaModule } from '../../graphql-schema.module'
 import {
   DatabaseService,
   Neo4jModule,
-  Neo4jService,
   OgmModule,
   OgmService,
 } from '../../infra'

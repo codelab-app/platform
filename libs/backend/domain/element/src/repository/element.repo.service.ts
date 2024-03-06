@@ -13,10 +13,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type {
-  ICreateElementDto,
-  IElementDto,
-} from '@codelab/shared/abstract/core'
+import type { ICreateElementDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   disconnectAll,

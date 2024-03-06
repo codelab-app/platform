@@ -1,9 +1,6 @@
 /// <reference types="jest" />
 
-import {
-  AuthDomainModule,
-  AuthDomainService,
-} from '@codelab/backend/domain/shared/auth'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import {
   UserDomainModule,

@@ -44,7 +44,6 @@ import {
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
-  getRedirectDomainService,
   pageDomainServiceContext,
   redirectDomainServiceContext,
   resourceDomainServiceContext,

@@ -2,7 +2,6 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import has from 'lodash/has'
 import merge from 'lodash/merge'
-import omit from 'lodash/omit'
 import pick from 'lodash/pick'
 import set from 'lodash/set'
 import { updateJestConfig } from './update-jest-config'

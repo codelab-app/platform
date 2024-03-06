@@ -1,9 +1,7 @@
 import type { LoggerService } from '@nestjs/common'
-import { ConsoleLogger, Inject, Injectable } from '@nestjs/common'
-import colorizer from '@pinojs/json-colorizer'
+import { Inject, Injectable } from '@nestjs/common'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
 import type { PinoMessage } from './pino-transport'
-import { colorize } from './utils'
 
 @Injectable()
 export class CodelabLoggerService extends Logger implements LoggerService {

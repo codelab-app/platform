@@ -4,32 +4,18 @@ import {
   ImportSystemTypesHandler,
   TypeApplicationModule,
 } from '@codelab/backend/application/type'
-import {
-  AuthDomainService,
-  mapAuth0IdTokenToUserDto,
-} from '@codelab/backend/domain/shared/auth'
-import { TypeDomainModule, TypeFactory } from '@codelab/backend/domain/type'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { TypeDomainModule } from '@codelab/backend/domain/type'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
-  NEO4J_DRIVER_PROVIDER,
   Neo4jModule,
-  Neo4jService,
-  OgmModule,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import {
-  RequestContextMiddleware,
-  RequestContextModule,
-} from '@codelab/backend/infra/adapter/request-context'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { auth0IdToken } from '@codelab/shared/data/test'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
-import type { INestApplication } from '@nestjs/common'
-import { REQUEST } from '@nestjs/core'
-import { CqrsModule } from '@nestjs/cqrs'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLSchema } from 'graphql'
 import { AdminApplicationModule } from './admin.application.module'

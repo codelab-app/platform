@@ -1,4 +1,3 @@
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'

@@ -8,14 +8,9 @@ import {
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
-import {
-  HttpMethod,
-  IActionKind,
-  IResourceType,
-} from '@codelab/shared/abstract/core'
+import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createActionSchema } from './create-action.schema'

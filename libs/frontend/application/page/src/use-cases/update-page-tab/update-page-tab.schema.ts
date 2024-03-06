@@ -1,8 +1,5 @@
 import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
-import {
-  getSelectElementComponent,
-  SelectAuthGuard,
-} from '@codelab/frontend/application/type'
+import { getSelectElementComponent } from '@codelab/frontend/application/type'
 import {
   appSchema,
   idSchema,

@@ -1,12 +1,5 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import {
-  CreateLambdaButton,
-  CreateLambdaModal,
-  DeleteLambdaModal,
-  GetLambdasTable,
-  UpdateLambdaModal,
-} from '@codelab/frontend/application/lambda'
+import { CreateLambdaButton } from '@codelab/frontend/application/lambda'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
@@ -14,10 +7,7 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation/codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import {
-  ContentSection,
-  DashboardTemplate,
-} from '@codelab/frontend/presentation/view'
+import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import Head from 'next/head'
 import React from 'react'
 

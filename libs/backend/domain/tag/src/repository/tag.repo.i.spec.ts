@@ -1,12 +1,6 @@
-import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
-import {
-  SeederDomainModule,
-  SeederDomainService,
-} from '@codelab/backend/domain/shared/seeder'
+import { SeederDomainModule } from '@codelab/backend/domain/shared/seeder'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test'
-import type { TestingModule } from '@nestjs/testing'
-import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo.service'

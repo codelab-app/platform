@@ -1,28 +1,11 @@
-import { AtomApplicationModule } from '@codelab/backend/application/atom'
-import { ComponentApplicationModule } from '@codelab/backend/application/component'
-import {
-  MigrationDataService,
-  ReadAdminDataService,
-  SharedApplicationModule,
-} from '@codelab/backend/application/shared'
-import { TagApplicationModule } from '@codelab/backend/application/tag'
-import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { initUserContext } from '@codelab/backend/test'
 import { CommandBus } from '@nestjs/cqrs'
 import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
-import { AdminController } from '../../admin.application.controller'
 import { AdminApplicationModule } from '../../admin.application.module'
-import {
-  ExportAdminDataCommand,
-  ExportAdminDataHandler,
-} from '../export/export-admin-data.command.service'
-import {
-  ImportAdminDataCommand,
-  ImportAdminDataHandler,
-} from '../import/import-admin-data.command.service'
-import { SeederApplicationService } from '../seed-data'
+import { ExportAdminDataCommand } from '../export/export-admin-data.command.service'
+import { ImportAdminDataCommand } from '../import/import-admin-data.command.service'
 
 jest.setTimeout(150000)
 

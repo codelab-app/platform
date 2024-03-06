@@ -9,7 +9,6 @@ import type {
   IComponentAggregate,
   IStoreAggregate,
 } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ExportComponentCommand {

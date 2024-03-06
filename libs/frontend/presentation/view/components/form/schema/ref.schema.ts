@@ -1,8 +1,5 @@
 import type { IRef } from '@codelab/shared/abstract/core'
-import type {
-  PartialSchema,
-  PropertiesSchema,
-} from 'ajv/dist/types/json-schema'
+import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 
 /**
  * This is used to allow user to assign reference

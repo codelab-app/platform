@@ -4,7 +4,6 @@ import { PageRepository } from '@codelab/backend/domain/page'
 import { PropRepository } from '@codelab/backend/domain/prop'
 import type {
   ICreateElementDto,
-  IElementDto,
   IPageAggregate,
 } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'

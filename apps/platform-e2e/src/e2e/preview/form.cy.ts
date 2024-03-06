@@ -1,27 +1,7 @@
 import type { Element } from '@codelab/shared/abstract/codegen'
-import type {
-  IApiActionDto,
-  IAppDto,
-  ICreateActionData,
-  ICreateApiActionData,
-  ICreateElementData,
-  ICreateResourceData,
-  IPageDto,
-} from '@codelab/shared/abstract/core'
-import {
-  HttpMethod,
-  HttpResponseType,
-  IActionKind,
-  IActionType,
-  IAtomType,
-  IPageKind,
-  IPageKindName,
-  IResourceType,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
+import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { findOrFail, slugify } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 import {
   elementForm,
   elementFormItem_1,
@@ -30,8 +10,6 @@ import {
   elements,
 } from './elements.data'
 import {
-  actionTypeId,
-  apiPostActionId,
   createApiPostActionData,
   createResourceData,
   resourceUrl,

@@ -11,7 +11,6 @@ import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'

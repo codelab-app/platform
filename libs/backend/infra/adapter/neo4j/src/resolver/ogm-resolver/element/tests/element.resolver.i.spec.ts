@@ -13,7 +13,7 @@ import type { GraphQLSchema } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
 import { GraphQLSchemaModule } from '../../../../graphql-schema.module'
-import { DatabaseService, Neo4jService, OgmService } from '../../../../infra'
+import { DatabaseService, OgmService } from '../../../../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../../../../schema'
 
 describe('ElementResolvers', () => {

@@ -1,9 +1,4 @@
-import {
-  ActionDomainModule,
-  ActionFactory,
-  ApiActionRepository,
-  CodeActionRepository,
-} from '@codelab/backend/domain/action'
+import { ActionDomainModule } from '@codelab/backend/domain/action'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { ResourceDomainModule } from '@codelab/backend/domain/resource'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'

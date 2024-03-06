@@ -11,7 +11,7 @@ import { App as AntdApp, ConfigProvider } from 'antd'
 import set from 'lodash/set'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import config from '../twind.config'
 
 setGlobalConfig({

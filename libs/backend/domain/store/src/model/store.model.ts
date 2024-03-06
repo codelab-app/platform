@@ -1,7 +1,4 @@
-import {
-  ActionFactory,
-  ActionModelFactory,
-} from '@codelab/backend/domain/action'
+import { ActionModelFactory } from '@codelab/backend/domain/action'
 import { InterfaceType } from '@codelab/backend/domain/type'
 import type {
   IAction,

@@ -18,7 +18,6 @@ import { auth0Commands } from '@codelab/frontend/test/cypress/auth0'
 import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
 import { registerCommands } from '@codelab/frontend/test/cypress/shared'
 import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
-import type { IAppDto } from '@codelab/shared/abstract/core'
 import { commands } from './commands'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

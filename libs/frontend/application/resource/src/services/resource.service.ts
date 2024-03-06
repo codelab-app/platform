@@ -4,7 +4,6 @@ import {
   InlineFormService,
   ModalService,
 } from '@codelab/frontend/application/shared/store'
-import { Prop } from '@codelab/frontend/domain/prop'
 import { ResourceDomainService } from '@codelab/frontend/domain/resource'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import type {

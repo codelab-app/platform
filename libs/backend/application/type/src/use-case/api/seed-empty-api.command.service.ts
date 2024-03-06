@@ -2,8 +2,7 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import { type IAtomType, IRef } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
+import { type IAtomType } from '@codelab/shared/abstract/core'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class SeedEmptyApiCommand {

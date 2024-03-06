@@ -7,7 +7,6 @@ import type {
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import type { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDto,
   IElementTypeKind,

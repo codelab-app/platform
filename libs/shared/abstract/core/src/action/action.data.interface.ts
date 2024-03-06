@@ -1,6 +1,5 @@
 import type { IRef } from '../model/node-type.interface'
 import type { IResourceFetchConfig } from '../resource'
-import { IAction } from './action.dto.interface'
 import type { IActionKind } from './action-kind.enum'
 
 /**

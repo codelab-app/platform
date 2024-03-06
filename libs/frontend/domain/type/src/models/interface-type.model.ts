@@ -12,8 +12,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { createInterfaceTypeName } from '@codelab/shared/domain/model'
-import compact from 'lodash/compact'
-import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

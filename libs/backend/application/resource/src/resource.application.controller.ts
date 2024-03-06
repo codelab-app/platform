@@ -6,10 +6,9 @@ import {
   Controller,
   Post,
   UseInterceptors,
-  UsePipes,
 } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
-import { HttpEndpoint, Validate } from 'nestjs-typebox'
+import { HttpEndpoint } from 'nestjs-typebox'
 import { ResourceApplicationService } from './resource.application.service'
 
 @Controller('resource')

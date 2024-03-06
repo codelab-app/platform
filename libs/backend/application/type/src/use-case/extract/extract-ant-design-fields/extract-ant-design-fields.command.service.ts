@@ -6,7 +6,6 @@ import {
 } from '@codelab/backend/domain/type'
 import { type IAtomDto, type IFieldDto } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 import find from 'lodash/find'

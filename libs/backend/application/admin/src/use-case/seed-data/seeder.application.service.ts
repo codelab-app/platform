@@ -1,12 +1,8 @@
-import {
-  ImportAtomCommand,
-  ImportCypressAtomsCommand,
-} from '@codelab/backend/application/atom'
+import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { SeederDomainService } from '@codelab/backend/domain/shared/seeder'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAtom } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
