@@ -87,15 +87,11 @@ export class SeedAtomsHandler
         }
 
         // Get tags by name, they always match up
-        const existingTag = await this.tagRepository.findOne({
+        const existingTag = await this.tagRepository.findOneOrFail({
           where: {
             name: atomData.tag,
           },
         })
-
-        if (!existingTag) {
-          throw new Error('Tag should exist already')
-        }
 
         return {
           __typename: IElementRenderTypeKind.Atom,

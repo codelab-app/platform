@@ -9,12 +9,14 @@ export class AtomDomainService {
   constructor(private atomRepository: AtomRepository) {}
 
   async defaultRenderType(): Promise<IElementRenderTypeDto> {
-    const renderType = await this.atomRepository.findOne({
+    return await this.atomRepository.findOneOrFail({
       where: {
         type: IAtomType.ReactFragment,
       },
     })
+  }
 
-    return throwIfUndefined(renderType)
+  async renderTypeByName() {
+    return await this.atomRepository.findOne()
   }
 }

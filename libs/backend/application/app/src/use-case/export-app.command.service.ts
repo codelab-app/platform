@@ -40,11 +40,7 @@ export class ExportAppHandler
   ) {}
 
   async execute({ where }: ExportAppCommand) {
-    const app = await this.appRepository.findOne({ where })
-
-    if (!app) {
-      throw new Error('Cannot find App')
-    }
+    const app = await this.appRepository.findOneOrFail({ where })
 
     const pages = await this.commandBus.execute<
       ExportPageCommand,

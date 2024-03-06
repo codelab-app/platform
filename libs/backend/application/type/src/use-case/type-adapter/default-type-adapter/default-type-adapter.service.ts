@@ -24,7 +24,6 @@ import type {
   IUnionTypeDto,
 } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import {
@@ -168,21 +167,17 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
   // }
 
   async actionType() {
-    return throwIfUndefined(
-      await this.actionTypeRepository.findOne({
-        where: { name: ITypeKind.ActionType },
-      }),
-    )
+    return await this.actionTypeRepository.findOneOrFail({
+      where: { name: ITypeKind.ActionType },
+    })
   }
 
   async booleanType() {
-    return throwIfUndefined(
-      await this.primitiveTypeRepository.findOne({
-        where: {
-          name: IPrimitiveTypeKind.Boolean,
-        },
-      }),
-    )
+    return await this.primitiveTypeRepository.findOneOrFail({
+      where: {
+        name: IPrimitiveTypeKind.Boolean,
+      },
+    })
   }
 
   async enumType(
@@ -208,13 +203,11 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
   }
 
   async integerType() {
-    return throwIfUndefined(
-      await this.primitiveTypeRepository.findOne({
-        where: {
-          name: IPrimitiveTypeKind.Integer,
-        },
-      }),
-    )
+    return await this.primitiveTypeRepository.findOneOrFail({
+      where: {
+        name: IPrimitiveTypeKind.Integer,
+      },
+    })
   }
 
   async interfaceType(
@@ -236,43 +229,35 @@ export class DefaultTypeAdapterService implements ITypeTransformer {
   }
 
   async numberType() {
-    return throwIfUndefined(
-      await this.primitiveTypeRepository.findOne({
-        where: {
-          name: IPrimitiveTypeKind.Number,
-        },
-      }),
-    )
+    return await this.primitiveTypeRepository.findOneOrFail({
+      where: {
+        name: IPrimitiveTypeKind.Number,
+      },
+    })
   }
 
   async reactNodeType() {
-    return throwIfUndefined(
-      await this.reactNodeTypeRepository.findOne({
-        where: {
-          name: ITypeKind.ReactNodeType,
-        },
-      }),
-    )
+    return await this.reactNodeTypeRepository.findOneOrFail({
+      where: {
+        name: ITypeKind.ReactNodeType,
+      },
+    })
   }
 
   async renderPropType() {
-    return throwIfUndefined(
-      await this.renderPropTypeRepository.findOne({
-        where: {
-          name: ITypeKind.RenderPropType,
-        },
-      }),
-    )
+    return await this.renderPropTypeRepository.findOneOrFail({
+      where: {
+        name: ITypeKind.RenderPropType,
+      },
+    })
   }
 
   async stringType() {
-    return throwIfUndefined(
-      await this.primitiveTypeRepository.findOne({
-        where: {
-          name: IPrimitiveTypeKind.String,
-        },
-      }),
-    )
+    return await this.primitiveTypeRepository.findOneOrFail({
+      where: {
+        name: IPrimitiveTypeKind.String,
+      },
+    })
   }
 
   async unionType(

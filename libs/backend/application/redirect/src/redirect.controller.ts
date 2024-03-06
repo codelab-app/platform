@@ -29,8 +29,6 @@ export class RedirectController {
       },
     })
 
-    console.log(redirect)
-
     // either a regular page with no redirect attached to or a system page
     if (!redirect) {
       return { canActivate: true, message: 'No redirect found!', status: 200 }

@@ -160,6 +160,38 @@ export abstract class AbstractRepository<
     })
   }
 
+  async findOneOrFail(args?: {
+    where: Where
+    options?: Options
+  }): Promise<ModelData>
+
+  async findOneOrFail<T extends TAnySchema>(args?: {
+    where: Where
+    options?: Options
+    selectionSet?: string
+    schema?: T
+  }): Promise<Static<T>>
+
+  async findOneOrFail<T extends TAnySchema>({
+    options,
+    schema,
+    selectionSet,
+    where,
+  }: {
+    where: Where
+    schema?: T
+    selectionSet?: string
+    options: Options
+  }): Promise<ModelData | Static<T>> {
+    const found = await this.findOne({ options, schema, selectionSet, where })
+
+    if (!found) {
+      throw new Error('Could not find item!')
+    }
+
+    return found
+  }
+
   /**
    * Upsert behavior, uses data id by default for upsert. If `where` clause is specified, then it overrides id
    *

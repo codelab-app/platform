@@ -28,6 +28,7 @@ export interface IRepository<
     where: Where
     options?: Options
   }): Promise<ModelData | undefined>
+
   /**
    * Finds one with schema validation
    */
@@ -37,6 +38,10 @@ export interface IRepository<
     selectionSet?: string
     schema: T
   }): Promise<Static<T> | undefined>
+
+  findOneOrFail(args?: { where: Where; options?: Options }): Promise<ModelData>
+
+  findOneOrFail(args?: { where: Where; options?: Options }): Promise<ModelData>
   save(data: Model, where?: Where): Promise<ModelData | undefined>
   update(data: Model, where: Where): Promise<IRef | undefined>
 }

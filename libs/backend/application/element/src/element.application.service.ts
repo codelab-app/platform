@@ -28,7 +28,6 @@ export class ElementApplicationService {
     return await this.elementRepository.add({
       ...element,
       closestContainerNode: { id: parentElement.id },
-      id: v4(),
       parentElement: element.parentElement,
       props,
       renderType: await this.atomDomainService.defaultRenderType(),
@@ -43,7 +42,6 @@ export class ElementApplicationService {
       await this.elementRepository.add({
         ...element,
         closestContainerNode: { id: parentElement.id },
-        id: v4(),
         parentElement: element.parentElement,
         props: {
           api: { id: v4() },

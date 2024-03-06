@@ -71,15 +71,11 @@ export class SeedCypressAppHandler
     const notFoundPageId = v4()
     const internalServerPageId = v4()
 
-    const atomReactFragment = await this.atomRepository.findOne({
+    const atomReactFragment = await this.atomRepository.findOneOrFail({
       where: {
         name: IAtomType.ReactFragment,
       },
     })
-
-    if (!atomReactFragment) {
-      throw new Error('Missing react fragment')
-    }
 
     /**
      * Create elements

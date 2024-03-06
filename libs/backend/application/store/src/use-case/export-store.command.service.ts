@@ -21,11 +21,7 @@ export class ExportStoreHandler
   ) {}
 
   async execute({ where }: ExportStoreCommand) {
-    const store = await this.storeRepository.findOne({ where })
-
-    if (!store) {
-      throw new Error('Cannot find Component Store')
-    }
+    const store = await this.storeRepository.findOneOrFail({ where })
 
     const api = await this.commandBus.execute<ExportApiCommand>(
       new ExportApiCommand(store.api),

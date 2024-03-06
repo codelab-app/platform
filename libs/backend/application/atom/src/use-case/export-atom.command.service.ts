@@ -23,13 +23,7 @@ export class ExportAtomHandler
   @Span()
   async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
     const { where } = command
-    const existingAtom = await this.atomRepository.findOne({ where })
-
-    if (!existingAtom) {
-      throw new Error('Atom not found')
-    }
-
-    // this.traceService.getSpan()!.setAttributes({ atom: atom.name })
+    const existingAtom = await this.atomRepository.findOneOrFail({ where })
 
     const api = await this.commandBus.execute<ExportApiCommand, IApi>(
       new ExportApiCommand(existingAtom.api),
