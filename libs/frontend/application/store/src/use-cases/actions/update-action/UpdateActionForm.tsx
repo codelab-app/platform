@@ -32,7 +32,7 @@ export const UpdateActionForm = observer(
     showFormControl = true,
     submitRef,
   }: UpdateActionFormProps) => {
-    const { actionService, resourceService } = useStore()
+    const { actionService } = useStore()
     const actionSchema = useActionSchema(updateActionSchema)
     const closeForm = () => actionService.updateForm.close()
     const actionToUpdate = actionService.updateForm.action
@@ -65,7 +65,7 @@ export const UpdateActionForm = observer(
             },
             ...baseModel,
             errorActionId: actionToUpdate.errorAction?.id,
-            resourceId: actionToUpdate.resource.id,
+            resource: actionToUpdate.resource,
             successActionId: actionToUpdate.successAction?.id,
           }
         : {
@@ -89,7 +89,7 @@ export const UpdateActionForm = observer(
         </DisplayIf>
 
         <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
-          <SelectResource name="resourceId" />
+          <SelectResource name="resource.id" />
           <AutoField
             component={SelectAction}
             name="successActionId"

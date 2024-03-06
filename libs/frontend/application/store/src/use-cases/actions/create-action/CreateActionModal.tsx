@@ -22,7 +22,7 @@ const CODE_ACTION = `function run() {
 
 export const CreateActionModal = observer<{ store?: IStoreModel }>(
   ({ store }) => {
-    const { actionService, resourceService } = useStore()
+    const { actionService } = useStore()
 
     const onSubmit = (actionDTO: ICreateActionData) => {
       return actionService.create(actionDTO)
@@ -66,7 +66,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
           <AutoFields
             omitFields={[
               'code',
-              'resourceId',
+              'resource',
               'config',
               'successActionId',
               'errorActionId',
@@ -89,7 +89,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
               context.model.type === IActionKind.ApiAction
             }
           >
-            <SelectResource name="resourceId" />
+            <SelectResource name="resource" />
             <AutoField component={SelectAction} name="successActionId" />
             <AutoField component={SelectAction} name="errorActionId" />
 

@@ -84,7 +84,7 @@ export const CreateActionForm = observer(
         <AutoFields
           omitFields={[
             'code',
-            'resourceId',
+            'resource',
             'config',
             'successActionId',
             'errorActionId',
@@ -96,7 +96,7 @@ export const CreateActionForm = observer(
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <SelectResource name="resourceId" />
+          <SelectResource name="resource" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
           <ResourceFetchConfigField />

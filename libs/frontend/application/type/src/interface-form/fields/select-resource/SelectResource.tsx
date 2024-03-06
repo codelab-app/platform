@@ -16,6 +16,10 @@ export const SelectResource = observer<SelectResourcesProps>(({ name }) => {
     getSelectResourceOptions,
   ] = useAsync(() => resourceService.getSelectResourceOptions())
 
+  if (!selectResourceOptions) {
+    return null
+  }
+
   return (
     <SelectField
       error={queryError}

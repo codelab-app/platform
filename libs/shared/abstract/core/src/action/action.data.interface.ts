@@ -34,7 +34,6 @@ export interface ICreateCodeActionData extends ICreateBaseActionData {
 /**
  * Need to use & since uniform doesn't handle union type.
  */
-
 export type ICreateActionData = ICreateApiActionData & ICreateCodeActionData
 
 export type IUpdateActionData = ICreateActionData

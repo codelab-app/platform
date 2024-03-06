@@ -62,20 +62,20 @@
               "match": false
             },
             "leadingUnderscore": "allowSingleOrDouble"
-          },
-          // DTO should be Dto
-          {
-            "selector": ["variable", "typeAlias"],
-            "format": ["PascalCase"],
-            "filter": {
-              "regex": "DTO",
-              "match": true
-            },
-            "custom": {
-              "regex": "^[A-Z].*DTO.*",
-              "match": false
-            }
           }
+          // DTO should be Dto
+          // {
+          //   "selector": ["typeAlias", "interface"],
+          //   "format": ["PascalCase"],
+          //   "filter": {
+          //     "regex": "DTO",
+          //     "match": true
+          //   },
+          //   "custom": {
+          //     "regex": "Dto",
+          //     "match": true
+          //   }
+          // }
         ]
       }
     }
