@@ -81,6 +81,11 @@ export class ElementService
   })
   implements IElementService
 {
+  /**
+   * Currently we expose the siblings field in the form for users to choose, but we should think about hiding it.
+   *
+   * We should make dragging the element the only way to assign sibling. This may simplify the create logic, as we don't need to insert nodes
+   */
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDto) {
     /**

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import colorizer from '@pinojs/json-colorizer'
 import omit from 'lodash/omit'
 import { LoggerModule } from 'nestjs-pino'
@@ -8,6 +8,7 @@ import { NestjsLoggerService } from './nestjs.logger.service'
 import { CodelabLoggerService } from './pino.logger.service'
 import { pinoPrettyStream } from './pino-transport'
 
+@Global()
 @Module({
   exports: [CodelabLoggerService, NestjsLoggerService],
   imports: [

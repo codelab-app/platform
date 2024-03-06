@@ -16,7 +16,11 @@ export class AtomDomainService {
     })
   }
 
-  async renderTypeByName() {
-    return await this.atomRepository.findOne()
+  async getRenderTypeByName(name: IAtomType) {
+    return await this.atomRepository.findOneOrFail({
+      where: {
+        name,
+      },
+    })
   }
 }

@@ -134,6 +134,7 @@ export const CreateElementForm = observer(
           help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
           name="parentElement.id"
         />
+        {/** We likely won't expose this, since it is difficult for users to understand this. The real world scenario would always create under parent, then drag to re-arrange */}
         <SelectLinkElement
           allElementOptions={elementOptions}
           name="prevSibling.id"

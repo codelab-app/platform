@@ -26,10 +26,6 @@ export interface GqlContext {
     //   port: 4000,
     // }),
     RequestContextModule,
-    /**
-     * Don't include logger, since pino automatically logs all HTTP calls.
-     */
-    // CodelabLoggerModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,

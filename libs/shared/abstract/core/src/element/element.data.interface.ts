@@ -11,7 +11,8 @@ export const ICreateElementData = Type.Object({
   atom: Type.Optional(Type.Enum(AtomType)),
   id: Type.String(),
   name: Type.String(),
-  parentElement: Typebox.Ref(),
+  parentElement: Type.Optional(Typebox.Ref()),
+  prevSibling: Type.Optional(Typebox.Ref()),
   propsData: Type.Optional(Type.Any()),
   // atom?: IAtomType
   // id: string

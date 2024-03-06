@@ -6,7 +6,7 @@ import { HealthcheckController } from './healthcheck.controller'
 
 @Module({
   controllers: [HealthcheckController],
-  imports: [GraphqlModule, ApiModule],
+  imports: [GraphqlModule, ApiModule, CodelabLoggerModule],
   providers: [],
 })
 export class RootModule {}
