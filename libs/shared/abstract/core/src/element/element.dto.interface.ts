@@ -11,6 +11,10 @@ export const IElementDto = Type.Object({
   childMapperPropKey: Typebox.Nullish(Type.String()),
   /**
    * For frontend models we can compute from Mobx, but for backend we would map the data in
+   *
+   * This is not used for creation, but rather a computed value
+   *
+   * `Page` or `Component`
    */
   closestContainerNode: IRef,
   compositeKey: Typebox.Nullish(Type.String()),

@@ -1,4 +1,5 @@
 import { isUnionSchema } from './schema/is-union'
+import { Ref } from './schema/ref'
 import { Nullish } from './types/nullish'
 import { OmitOwner } from './types/omit-owner'
 import { Overwrite } from './types/overwrite'
@@ -13,6 +14,7 @@ const Typebox = {
   Nullish,
   OmitOwner,
   Overwrite,
+  Ref,
   Serialized,
   ValidateAndClean: validateAndClean,
   Values: values,

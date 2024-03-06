@@ -1,4 +1,4 @@
-import { client } from '@codelab/frontend/infra/graphql'
+import { graphqlClient } from '@codelab/frontend/infra/graphql'
 import { getSdk } from './interface-form.endpoints.graphql.gen'
 
-export const interfaceFormApi = getSdk(client)
+export const interfaceFormApi = getSdk(graphqlClient)

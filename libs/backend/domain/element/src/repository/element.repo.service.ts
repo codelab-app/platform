@@ -81,7 +81,8 @@ export class ElementRepository extends AbstractRepository<
             compositeKey:
               compositeKey ??
               ElementProperties.elementCompositeKey(name, closestContainerNode),
-            firstChild: connectNodeId(firstChild?.id),
+            // We only need to do one way
+            // firstChild: connectNodeId(firstChild?.id),
             id,
             nextSibling: connectNodeId(nextSibling?.id),
             parentElement: connectNodeId(parentElement?.id),

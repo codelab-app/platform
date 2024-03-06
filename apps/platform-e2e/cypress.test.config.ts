@@ -1,6 +1,6 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 // import type { IApp } from '@codelab/shared/abstract/core'
-import { Auth0Client } from '@codelab/backend/infra/adapter/auth0'
+import { Auth0Service } from '@codelab/backend/infra/adapter/auth0'
 import { createCypressRestClient } from '@codelab/backend/infra/adapter/rest-client'
 import { postApiRequest } from '@codelab/frontend/test/cypress/utils'
 import { getEnv } from '@codelab/shared/config'
@@ -52,55 +52,6 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   setupNodeEvents: (on, config) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     require('cypress-terminal-report/src/installLogsPrinter')(on)
-
-    /* code that needs to run before all specs */
-    // on('before:run', async (details: any) => {
-    //   const cypressConfig = details.config as Required<Cypress.ConfigOptions>
-    //   const clientId = cypressConfig.env.auth0ClientId
-    //   const clientSecret = cypressConfig.env.auth0ClientSecret
-    //   const issuerBaseUrl = cypressConfig.env.auth0IssuerBaseUrl
-    //   const cypressUsername = cypressConfig.env.auth0Username
-    //   const cypressPassword = cypressConfig.env.auth0Password
-    //   const baseUrl = (cypressConfig as any).baseUrl
-    //   const auth0Client = new Auth0Client({
-    //     clientId,
-    //     clientSecret,
-    //     issuerBaseUrl,
-    //   })
-    //   const response = await auth0Client.loginWithPassword(
-    //     cypressUsername,
-    //     cypressPassword,
-    //   )
-    //   const accessToken = response.data.access_token
-    //   const idToken = response.data.id_token!
-    //   const restClient = createCypressRestClient(baseUrl, accessToken, idToken)
-    //   try {
-    //     // await restClient.post('/admin/reset-e2e-system-data')
-    //     await restClient.post('/user/save')
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // })
-    /**
-     * This is the official Cypress way to remove videos from successful specs
-     *
-     * https://docs.cypress.io/guides/guides/screenshots-and-videos#Delete-videos-for-specs-without-failing-or-retried-tests
-     */
-    // on(
-    //   'after:spec',
-    //   (spec: Cypress.Spec, results?: CypressCommandLine.RunResult) => {
-    //     if (results?.video) {
-    //       // Do we have failures for any retry attempts?
-    //       const failures = results.tests.some((test) =>
-    //         test.attempts.some((attempt) => attempt.state === 'failed'),
-    //       )
-    //       if (!failures) {
-    //         // delete the video if the spec passed and no tests retried
-    //         fs.unlinkSync(results.video)
-    //       }
-    //     }
-    //   },
-    // )
   },
   testIsolation: false,
   video: true,

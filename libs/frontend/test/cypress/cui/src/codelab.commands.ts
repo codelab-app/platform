@@ -20,7 +20,7 @@ import {
   getCuiTreeItemToolbar,
 } from './tree/tree.command'
 
-export interface CypressCodelabUICommands {
+export interface CypressCuiCommands {
   /**
    * header-toolbar
    */

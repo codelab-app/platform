@@ -1,7 +1,7 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { slugify } from '@codelab/shared/utils'
+import { prettifyForConsole, slugify } from '@codelab/shared/utils'
 
 const COMPONENT_NAME = 'Component Name'
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
@@ -48,7 +48,7 @@ describe('Component CRUD', () => {
       cy.waitForApiCalls()
       cy.getSpinner().should('not.exist')
 
-      cy.log('my app', JSON.stringify(testApp, null, 2))
+      cy.log('my app', prettifyForConsole(testApp))
       cy.getCuiSidebar('Components').getCuiToolbarItem('Add Component').click()
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')

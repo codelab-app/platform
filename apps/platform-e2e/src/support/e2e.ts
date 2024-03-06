@@ -43,5 +43,5 @@ before(() => {
     message: 'Running before hook inside e2e.ts',
     name: 'E2e setup',
   })
-  loginAndSetupE2eData()
+  cy.loginAndSetupE2eData()
 })

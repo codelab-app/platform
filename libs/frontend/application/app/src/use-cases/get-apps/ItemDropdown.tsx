@@ -8,6 +8,7 @@ import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { restPlatformClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { IAppAggregate } from '@codelab/shared/abstract/core'
+import { prettifyForConsole } from '@codelab/shared/utils'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -42,7 +43,7 @@ const downloadExportedData = async (app: IAppModel) => {
 
   a.download = filename
   a.href = `data:${contentType},${encodeURIComponent(
-    JSON.stringify(res.data, null, 2),
+    prettifyForConsole(res.data),
   )}`
   a.target = '_blank'
   document.body.appendChild(a)

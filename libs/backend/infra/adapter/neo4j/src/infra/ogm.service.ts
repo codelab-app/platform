@@ -31,6 +31,7 @@ import type {
   UnionTypeModel,
   UserModel,
 } from '@codelab/backend/abstract/codegen'
+import { prettifyForConsole } from '@codelab/shared/utils'
 import { generate, OGM } from '@neo4j/graphql-ogm'
 import { Inject, Injectable } from '@nestjs/common'
 import * as fs from 'fs'
@@ -181,7 +182,7 @@ export class OgmService {
         return data?.replace(/__typename\?:/g, '__typename:')
       })
       .catch((error) =>
-        console.error(`[generateOgmTypes] ${JSON.stringify(error, null, 2)}`),
+        console.error(`[generateOgmTypes] ${prettifyForConsole(error)}`),
       )
 
     // Get prettier config
