@@ -56,7 +56,7 @@ export class ElementDomainService
   /**
    * This add can be used as is when we are hydrating element tree data that has the proper connections.
    *
-   * But when we are adding a new node, it requires the move function to be called
+   * But when we are inserting a new node, it requires the move function to be called in case some elements need to be re-arranged
    */
   @modelAction
   hydrate = (elementDto: IElementDto): IElementModel => {

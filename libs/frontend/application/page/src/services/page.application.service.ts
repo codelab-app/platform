@@ -77,9 +77,6 @@ export class PageApplicationService
     }
 
     const rootElement = this.elementService.elementDomainService.hydrate({
-      closestContainerNode: {
-        id,
-      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },

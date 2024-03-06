@@ -80,10 +80,10 @@ export interface IElementService
   getSelectElementOptions(
     props: SelectElementOptions,
   ): Array<SelectElementOption>
-  loadComponentTree(component: ComponentDevelopmentFragment): {
-    hydratedElements: Array<IElementModel>
-    rootElement: IElementModel
-  }
+  // loadComponentTree(component: ComponentDevelopmentFragment): {
+  //   hydratedElements: Array<IElementModel>
+  //   rootElement: IElementModel
+  // }
   move(context: IMoveElementContext): Promise<void>
   setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
   styleStringWithBreakpoints(element: IElementModel): string

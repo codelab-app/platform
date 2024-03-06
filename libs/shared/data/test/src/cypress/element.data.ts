@@ -1,4 +1,5 @@
 import type {
+  ICreateElementDto,
   IElementDto,
   IElementRenderTypeDto,
   IPropDto,
@@ -18,7 +19,7 @@ export const providerElementPropsData: IPropDto = {
 export const providerElementData = (
   closestContainerNode: IRef,
   renderType: IElementRenderTypeDto,
-): IElementDto => ({
+): ICreateElementDto => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
@@ -37,7 +38,7 @@ export const notFoundElementPropsData: IPropDto = {
 export const notFoundElementData = (
   closestContainerNode: IRef,
   renderType: IElementRenderTypeDto,
-): IElementDto => ({
+): ICreateElementDto => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
@@ -56,7 +57,7 @@ export const internalServerErrorPropsData: IPropDto = {
 export const internalServerErrorElementData = (
   closestContainerNode: IRef,
   renderType: IElementRenderTypeDto,
-): IElementDto => ({
+): ICreateElementDto => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,

@@ -316,23 +316,23 @@ export class ElementService
     return selectOptions
   }
 
-  @modelAction
-  loadComponentTree(component: ComponentDevelopmentFragment) {
-    const hydratedElements = component.elements.map((element) =>
-      this.elementDomainService.hydrate({
-        ...element,
-        closestContainerNode: {
-          id: component.id,
-        },
-      }),
-    )
+  // @modelAction
+  // loadComponentTree(component: ComponentDevelopmentFragment) {
+  //   const hydratedElements = component.elements.map((element) =>
+  //     this.elementDomainService.hydrate({
+  //       ...element,
+  //       closestContainerNode: {
+  //         id: component.id,
+  //       },
+  //     }),
+  //   )
 
-    const rootElement = this.elementDomainService.element(
-      component.rootElement.id,
-    )
+  //   const rootElement = this.elementDomainService.element(
+  //     component.rootElement.id,
+  //   )
 
-    return { hydratedElements, rootElement }
-  }
+  //   return { hydratedElements, rootElement }
+  // }
 
   element(id: string) {
     return this.elementDomainService.element(id)

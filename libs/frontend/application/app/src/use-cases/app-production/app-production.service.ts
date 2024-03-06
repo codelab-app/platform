@@ -111,11 +111,7 @@ export class AppProductionService
     )
 
     data.elements.forEach((element) =>
-      // use a dummy closestContainerNode to avoid typing issues
-      this.elementService.elementDomainService.hydrate({
-        ...element,
-        closestContainerNode: entity,
-      }),
+      this.elementService.elementDomainService.hydrate(element),
     )
 
     data.pages.forEach((page) => this.pageDomainService.hydrate(page))

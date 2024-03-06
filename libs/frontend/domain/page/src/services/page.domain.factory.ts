@@ -60,9 +60,6 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
     })
 
     const pageRootElement = this.elementDomainService.hydrate({
-      closestContainerNode: {
-        id,
-      },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id },
