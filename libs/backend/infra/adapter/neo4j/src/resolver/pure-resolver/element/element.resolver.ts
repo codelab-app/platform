@@ -6,6 +6,8 @@ import { slug } from './field/element-slug'
 export const elementResolver: IResolvers = {
   Element: {
     __typename: 'Element',
+    // We only use the OGM resolver, but we set a dummy resolver here to hide the console errors
+    dependantTypes: [],
     name,
     // renderType,
     slug,

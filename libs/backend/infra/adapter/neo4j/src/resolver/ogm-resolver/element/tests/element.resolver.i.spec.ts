@@ -15,36 +15,27 @@ import { v4 } from 'uuid'
 import { GraphQLSchemaModule } from '../../../../graphql-schema.module'
 import { DatabaseService, OgmService } from '../../../../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../../../../schema'
+import { setupTestingContext } from '../../../../test/setup'
 
 describe('ElementResolvers', () => {
   let app: INestApplication
   let ogmService: OgmService
-  let databaseService: DatabaseService
+  const context = setupTestingContext()
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        GraphQLModule.forRootAsync<ApolloDriverConfig>({
-          driver: ApolloDriver,
-          imports: [GraphQLSchemaModule],
-          inject: [GRAPHQL_SCHEMA_PROVIDER],
-          useFactory: async (graphqlSchema: GraphQLSchema) => {
-            return {
-              schema: graphqlSchema,
-            }
-          },
-        }),
-      ],
-    }).compile()
+    const ctx = await context
+    const module = ctx.module
 
-    app = module.createNestApplication()
+    app = ctx.nestApp
     ogmService = module.get(OgmService)
-    databaseService = module.get(DatabaseService)
-    await app.init()
+
+    await ctx.beforeAll()
   })
 
-  beforeAll(async () => {
-    await databaseService.resetDatabase()
+  afterAll(async () => {
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   it('should fetch Element.dependantTypes', async () => {

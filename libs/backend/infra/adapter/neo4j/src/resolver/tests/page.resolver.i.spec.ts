@@ -1,4 +1,5 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
+import type { GqlContext } from '@codelab/backend/infra/adapter/graphql'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import {
@@ -8,12 +9,15 @@ import {
   ElementProperties,
   PageProperties,
 } from '@codelab/shared/domain/mapper'
+import { prettifyForConsole } from '@codelab/shared/utils'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import type { INestApplication } from '@nestjs/common'
-import { GraphQLModule } from '@nestjs/graphql'
+import { GqlContextType, GraphQLModule } from '@nestjs/graphql'
+import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'
 import type { GraphQLSchema } from 'graphql'
+import type { IncomingMessage } from 'http'
 import request from 'supertest'
 import { v4 } from 'uuid'
 import { GraphQLSchemaModule } from '../../graphql-schema.module'
@@ -24,43 +28,27 @@ import {
   OgmService,
 } from '../../infra'
 import { GRAPHQL_SCHEMA_PROVIDER } from '../../schema'
+import { setupTestingContext } from '../../test/setup'
 
 describe('ComponentResolvers', () => {
   let app: INestApplication
-  let databaseService: DatabaseService
   let ogmService: OgmService
+  const context = setupTestingContext()
 
   beforeAll(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        GraphQLModule.forRootAsync<ApolloDriverConfig>({
-          driver: ApolloDriver,
-          imports: [GraphQLSchemaModule],
-          inject: [GRAPHQL_SCHEMA_PROVIDER],
-          useFactory: async (graphqlSchema: GraphQLSchema) => {
-            return {
-              schema: graphqlSchema,
-            }
-          },
-        }),
-        Neo4jModule,
-        OgmModule,
-      ],
-    }).compile()
+    const ctx = await context
+    const module = ctx.module
 
-    databaseService = module.get(DatabaseService)
+    app = ctx.nestApp
     ogmService = module.get(OgmService)
-    app = module.createNestApplication()
 
-    await app.init()
-  })
-
-  beforeAll(async () => {
-    await databaseService.resetDatabase()
+    await ctx.beforeAll()
   })
 
   afterAll(async () => {
-    await app.close()
+    const ctx = await context
+
+    await ctx.afterAll()
   })
 
   it('should fetch a page with field resolvers - name, slug, elements', async () => {

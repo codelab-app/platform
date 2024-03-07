@@ -48,6 +48,8 @@ export class Auth0Strategy
     payload: JwtPayload,
     done: VerifiedCallback,
   ): Promise<Auth0IdToken> {
+    console.log('validate', req)
+
     const idToken = req.header('x-id-token')
 
     // if (!payload.aud.includes(this.config.audience.toString())) {

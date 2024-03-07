@@ -7,6 +7,7 @@ import {
   UserDomainService,
   UserRepository,
 } from '@codelab/backend/domain/user'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   DatabaseService,
   Neo4jService,
@@ -32,6 +33,7 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
       ValidationModule,
       SharedDomainModule,
       CqrsModule,
+      CodelabLoggerModule,
       OgmModule,
       ...(metadata.imports ?? []),
     ],

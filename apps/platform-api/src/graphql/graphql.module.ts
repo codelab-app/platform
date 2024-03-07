@@ -1,4 +1,5 @@
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import type { GqlContext } from '@codelab/backend/infra/adapter/graphql'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
@@ -13,11 +14,6 @@ import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import type { IncomingMessage } from 'http'
 import { endpointConfig } from './endpoint.config'
-
-export interface GqlContext {
-  req: IncomingMessage
-  res: Response
-}
 
 @Module({
   imports: [

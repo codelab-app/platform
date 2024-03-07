@@ -1,5 +1,4 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
-import { AuthModule } from '@codelab/backend/application/auth'
 import {
   ExportPageHandler,
   ImportPageHandler,
@@ -45,7 +44,6 @@ import {
     ResourceDomainModule,
     TypeDomainModule,
     DomainDomainModule,
-    AuthModule,
     CqrsModule,
     Neo4jModule,
   ],

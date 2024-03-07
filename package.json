@@ -18,7 +18,7 @@
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
     "codegen": "yarn cli tasks codegen --stage dev",
     "build": "nx run-many --all --target=build",
-    "test": "nx run-many --all --target=test --parallel=1",
+    "test": "nx run-many --all --target=test --parallel=1 --runInBand",
     "test:unit": "nx run-many --all --target=test:unit --parallel=5",
     "test:integration": "nx run-many --all --target=test:integration --parallel=1",
     "lint": "nx run-many --all --target=lint --parallel=5 --quiet",
