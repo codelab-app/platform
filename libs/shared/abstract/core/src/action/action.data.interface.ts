@@ -1,6 +1,5 @@
 import type { IRef } from '../model/node-type.interface'
 import type { IResourceFetchConfig } from '../resource'
-import { IAction } from './action.dto.interface'
 import type { IActionKind } from './action-kind.enum'
 
 /**
@@ -35,7 +34,6 @@ export interface ICreateCodeActionData extends ICreateBaseActionData {
 /**
  * Need to use & since uniform doesn't handle union type.
  */
-
 export type ICreateActionData = ICreateApiActionData & ICreateCodeActionData
 
 export type IUpdateActionData = ICreateActionData

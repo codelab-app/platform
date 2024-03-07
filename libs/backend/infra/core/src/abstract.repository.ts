@@ -28,7 +28,7 @@ export abstract class AbstractRepository<
    * Array adds complexity, create an optional `addMany` if needed
    */
   public async add(data: Model): Promise<ModelData> {
-    this.loggerService.debug(`${this.constructor.name} add`, data)
+    this.loggerService.log(data, `${this.constructor.name}.add()`)
 
     const results = await this._addMany([data])
     const result = results[0]
@@ -158,6 +158,38 @@ export abstract class AbstractRepository<
 
       return results
     })
+  }
+
+  async findOneOrFail(args?: {
+    where: Where
+    options?: Options
+  }): Promise<ModelData>
+
+  async findOneOrFail<T extends TAnySchema>(args?: {
+    where: Where
+    options?: Options
+    selectionSet?: string
+    schema?: T
+  }): Promise<Static<T>>
+
+  async findOneOrFail<T extends TAnySchema>({
+    options,
+    schema,
+    selectionSet,
+    where,
+  }: {
+    where: Where
+    schema?: T
+    selectionSet?: string
+    options: Options
+  }): Promise<ModelData | Static<T>> {
+    const found = await this.findOne({ options, schema, selectionSet, where })
+
+    if (!found) {
+      throw new Error('Could not find item!')
+    }
+
+    return found
   }
 
   /**

@@ -1,3 +1,4 @@
+// Used only for VSCode plugin as syntax support
 module.exports = {
   client: {
     service: {

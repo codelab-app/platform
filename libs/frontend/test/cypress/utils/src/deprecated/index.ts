@@ -9,7 +9,10 @@ import { getOpenedModal } from './get-opened-modal'
 import { getOptionItem } from './get-option-item'
 import { selectOptionItem } from './select-option-item'
 
-export interface CypressSelectorsCommands {
+/**
+ * @deprecated
+ */
+export interface SelectorsCommands {
   findButtonByItemText: OmitFirstArg<typeof findButtonByItemText>
   findByButtonText: OmitFirstArg<typeof findByButtonText>
   findElementByText: OmitFirstArg<typeof findElementByText>
@@ -19,6 +22,9 @@ export interface CypressSelectorsCommands {
   selectOptionItem: OmitFirstArg<typeof selectOptionItem>
 }
 
+/**
+ * @deprecated
+ */
 export const selectorCommands: Array<CypressCommand> = [
   { fn: findButtonByItemText, name: 'findButtonByItemText' },
   { fn: findElementByText, name: 'findElementByText' },
@@ -28,7 +34,3 @@ export const selectorCommands: Array<CypressCommand> = [
   { fn: getOpenedModal, name: 'getOpenedModal' },
   { fn: findByButtonText, name: 'findByButtonText' },
 ]
-
-export * from './dom-classes'
-export * from './types'
-export * from './utils'

@@ -7,7 +7,7 @@ import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/domain'
 import type { CollisionData } from '@codelab/frontend/application/dnd'
 import { useRequiredParentValidator } from '@codelab/frontend/application/element'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { ICreateElementDto } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { v4 } from 'uuid'
@@ -56,7 +56,7 @@ export const useDndDropHandler = (
 
     const parentElement = elementService.element(parentElementId)
 
-    const createElementDto: IElementDto = {
+    const createElementDto: ICreateElementDto = {
       closestContainerNode: {
         id: parentElement.closestContainerNode.id,
       },

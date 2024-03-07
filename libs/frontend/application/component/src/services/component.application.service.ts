@@ -115,9 +115,10 @@ export class ComponentApplicationService
     const rootElementModel: IElementModel = rootElement
       ? this.elementService.elementDomainService.element(rootElement.id)
       : this.elementService.elementDomainService.hydrate({
-          closestContainerNode: {
-            id,
-          },
+          // Doesn't seem needed in hydrate
+          // closestContainerNode: {
+          //   id,
+          // },
           id: v4(),
           name: `${name} Root`,
           parentComponent: { id },
@@ -226,7 +227,8 @@ export class ComponentApplicationService
 
         this.elementService.elementDomainService.hydrate({
           ...elementData,
-          closestContainerNode: { id },
+          // Doesn't seem needed in hydrate
+          // closestContainerNode: { id },
           parentElement: elementData.parentElement,
         })
       })

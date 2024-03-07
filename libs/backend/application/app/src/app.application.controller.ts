@@ -1,9 +1,6 @@
 import 'multer'
 import { ImportCypressAtomsCommand } from '@codelab/backend/application/atom'
-import {
-  ImportSystemTypesCommand,
-  SeedSystemTypesCommand,
-} from '@codelab/backend/application/type'
+import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { DatabaseService } from '@codelab/backend/infra/adapter/neo4j'
 import type { IApp, IAppAggregate } from '@codelab/shared/abstract/core'
 import {

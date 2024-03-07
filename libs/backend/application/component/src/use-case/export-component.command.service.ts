@@ -9,7 +9,6 @@ import type {
   IComponentAggregate,
   IStoreAggregate,
 } from '@codelab/shared/abstract/core'
-import { throwIfUndefined } from '@codelab/shared/utils'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ExportComponentCommand {
@@ -28,13 +27,11 @@ export class ExportComponentHandler
 
   @Span()
   async execute({ componentId }: ExportComponentCommand) {
-    const component = throwIfUndefined(
-      await this.componentRepository.findOne({
-        where: {
-          id: componentId,
-        },
-      }),
-    )
+    const component = await this.componentRepository.findOneOrFail({
+      where: {
+        id: componentId,
+      },
+    })
 
     const elements = (
       await this.elementRepository.getElementWithDescendants(

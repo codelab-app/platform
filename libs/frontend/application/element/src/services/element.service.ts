@@ -27,7 +27,6 @@ import {
   jsonStringToCss,
   mapElementOption,
 } from '@codelab/frontend/domain/element'
-import { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type { IElementDto } from '@codelab/shared/abstract/core'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'
@@ -81,6 +80,11 @@ export class ElementService
   })
   implements IElementService
 {
+  /**
+   * Currently we expose the siblings field in the form for users to choose, but we should think about hiding it.
+   *
+   * We should make dragging the element the only way to assign sibling. This may simplify the create logic, as we don't need to insert nodes
+   */
   @modelFlow
   createElement = _async(function* (this: ElementService, data: IElementDto) {
     /**
@@ -316,23 +320,23 @@ export class ElementService
     return selectOptions
   }
 
-  @modelAction
-  loadComponentTree(component: ComponentDevelopmentFragment) {
-    const hydratedElements = component.elements.map((element) =>
-      this.elementDomainService.hydrate({
-        ...element,
-        closestContainerNode: {
-          id: component.id,
-        },
-      }),
-    )
+  // @modelAction
+  // loadComponentTree(component: ComponentDevelopmentFragment) {
+  //   const hydratedElements = component.elements.map((element) =>
+  //     this.elementDomainService.hydrate({
+  //       ...element,
+  //       closestContainerNode: {
+  //         id: component.id,
+  //       },
+  //     }),
+  //   )
 
-    const rootElement = this.elementDomainService.element(
-      component.rootElement.id,
-    )
+  //   const rootElement = this.elementDomainService.element(
+  //     component.rootElement.id,
+  //   )
 
-    return { hydratedElements, rootElement }
-  }
+  //   return { hydratedElements, rootElement }
+  // }
 
   element(id: string) {
     return this.elementDomainService.element(id)

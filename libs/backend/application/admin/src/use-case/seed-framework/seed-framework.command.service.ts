@@ -13,7 +13,6 @@ import {
   type IFieldDto,
   IOwner,
 } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'

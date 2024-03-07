@@ -1,5 +1,5 @@
+import type { CommonOptions } from '@codelab/frontend/test/cypress/shared'
 import { absoluteRoot } from '@hon2a/cypress-without'
-import type { CommonOptions } from '../types'
 
 export const forceShowPopover = (options?: CommonOptions) =>
   absoluteRoot(options)

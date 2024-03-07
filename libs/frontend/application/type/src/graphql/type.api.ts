@@ -3,7 +3,7 @@ import type {
   ITypeWhere,
   IUpdateTypeVars,
 } from '@codelab/frontend/abstract/domain'
-import { client } from '@codelab/frontend/infra/graphql'
+import { graphqlClient } from '@codelab/frontend/infra/graphql'
 import type {
   CodeMirrorTypeCreateInput,
   ElementTypeCreateInput,
@@ -22,12 +22,12 @@ import { getSdk as getUpdateSdk } from './update-type.endpoints.graphql.gen'
 // Neo4j provides us with a way to query/mutate each individual type but not all of them at once.
 // so here are a collection of helper functions that allow us to universally query/mutate a type, based on its type kind
 
-export const typeApi = getSdk(client)
+export const typeApi = getSdk(graphqlClient)
 
 //
 // Create
 //
-const _createApi = getCreateSdk(client)
+const _createApi = getCreateSdk(graphqlClient)
 
 type CreateTypesRecord = Record<
   ITypeKind,
@@ -83,7 +83,7 @@ export const createTypeApi: CreateTypesRecord = {
     _createApi.CreatePageTypes({ input }).then(({ types }) => types.types),
 }
 
-export const getTypeApi = getGetSdk(client)
+export const getTypeApi = getGetSdk(graphqlClient)
 
 export const getAllTypes = async (
   // where?: BaseTypeWhere
@@ -125,7 +125,7 @@ export const getAllTypes = async (
 //
 // Update
 //
-const _updateApi = getUpdateSdk(client)
+const _updateApi = getUpdateSdk(graphqlClient)
 
 type UpdateTypesRecord = Record<
   ITypeKind,
@@ -164,7 +164,7 @@ export const updateTypeApi: UpdateTypesRecord = {
 //
 // Delete
 //
-const _deleteApi = getDeleteSdk(client)
+const _deleteApi = getDeleteSdk(graphqlClient)
 
 type DeleteTypesRecord = Record<
   ITypeKind,

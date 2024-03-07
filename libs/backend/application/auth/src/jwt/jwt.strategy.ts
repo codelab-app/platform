@@ -16,6 +16,8 @@ interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
 }
 
+export const JWT_STRATEGY = 'JWT_STRATEGY'
+
 @Injectable()
 export class Auth0Strategy
   extends PassportStrategy(Strategy)
@@ -48,6 +50,8 @@ export class Auth0Strategy
     payload: JwtPayload,
     done: VerifiedCallback,
   ): Promise<Auth0IdToken> {
+    console.log('validate', req)
+
     const idToken = req.header('x-id-token')
 
     // if (!payload.aud.includes(this.config.audience.toString())) {

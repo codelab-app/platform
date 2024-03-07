@@ -9033,6 +9033,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pinojs/json-colorizer@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@pinojs/json-colorizer@npm:4.0.0"
+  dependencies:
+    colorette: ^2.0.16
+  checksum: e27493d1e835dd15e46534d74746910b65e2c8e335162833203a4b6c0a617f0a8c56c0e52c1770185ead96d19f4eb4f031b7bbe271a569e7d12974631e311474
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -17443,6 +17452,7 @@ __metadata:
     "@opentelemetry/sdk-trace-node": 1.15.2
     "@opentelemetry/sdk-trace-web": 1.18.1
     "@opentelemetry/semantic-conventions": 1.15.2
+    "@pinojs/json-colorizer": ^4.0.0
     "@react-hook/size": 2.1.2
     "@react-hook/window-size": 3.0.7
     "@react-hookz/web": 22.0.0

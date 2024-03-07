@@ -6,10 +6,9 @@ import {
   Controller,
   Post,
   UseInterceptors,
-  UsePipes,
 } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
-import { HttpEndpoint, Validate } from 'nestjs-typebox'
+import { HttpEndpoint } from 'nestjs-typebox'
 import { ResourceApplicationService } from './resource.application.service'
 
 @Controller('resource')
@@ -21,7 +20,6 @@ export class ResourceApplicationController {
 
   @Post('create-resource')
   @UseInterceptors(ClassSerializerInterceptor)
-  @ApiResponse({ status: 200 })
   @HttpEndpoint({
     method: 'POST',
     validate: {
@@ -33,11 +31,11 @@ export class ResourceApplicationController {
       ],
     },
   })
+  @ApiResponse({ status: 200 })
   async createResource(@Body() createResourceData: ICreateResourceData) {
-    console.log(createResourceData)
     this.loggerService.log(
-      { data: createResourceData, name: 'Create Resource Data' },
-      'Create resource data',
+      createResourceData,
+      `${this.constructor.name}.createResource()`,
     )
 
     return this.resourceApplicationService.createResource(createResourceData)

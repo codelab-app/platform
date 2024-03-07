@@ -8,14 +8,9 @@ import {
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
-import {
-  HttpMethod,
-  IActionKind,
-  IResourceType,
-} from '@codelab/shared/abstract/core'
+import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createActionSchema } from './create-action.schema'
@@ -27,7 +22,7 @@ const CODE_ACTION = `function run() {
 
 export const CreateActionModal = observer<{ store?: IStoreModel }>(
   ({ store }) => {
-    const { actionService, resourceService } = useStore()
+    const { actionService } = useStore()
 
     const onSubmit = (actionDTO: ICreateActionData) => {
       return actionService.create(actionDTO)
@@ -71,7 +66,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
           <AutoFields
             omitFields={[
               'code',
-              'resourceId',
+              'resource',
               'config',
               'successActionId',
               'errorActionId',
@@ -94,7 +89,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
               context.model.type === IActionKind.ApiAction
             }
           >
-            <SelectResource name="resourceId" />
+            <SelectResource name="resource" />
             <AutoField component={SelectAction} name="successActionId" />
             <AutoField component={SelectAction} name="errorActionId" />
 

@@ -1,5 +1,5 @@
+import type { CommonOptions } from '@codelab/frontend/test/cypress/shared'
 import { absoluteRoot } from '@hon2a/cypress-without'
-import type { CommonOptions } from '../types'
 import type { TickOptions } from '../utils'
 import { ifOnClock, logAndMute, MUTE, tickIfOnClock } from '../utils'
 import { forceHidePopover, forceShowPopover } from './popover.util'

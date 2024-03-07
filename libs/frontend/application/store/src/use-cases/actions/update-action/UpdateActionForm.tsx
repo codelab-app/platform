@@ -16,7 +16,6 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { useActionSchema } from '../hooks'
 import { updateActionSchema } from './update-action.schema'
@@ -33,7 +32,7 @@ export const UpdateActionForm = observer(
     showFormControl = true,
     submitRef,
   }: UpdateActionFormProps) => {
-    const { actionService, resourceService } = useStore()
+    const { actionService } = useStore()
     const actionSchema = useActionSchema(updateActionSchema)
     const closeForm = () => actionService.updateForm.close()
     const actionToUpdate = actionService.updateForm.action
@@ -66,7 +65,7 @@ export const UpdateActionForm = observer(
             },
             ...baseModel,
             errorActionId: actionToUpdate.errorAction?.id,
-            resourceId: actionToUpdate.resource.id,
+            resource: actionToUpdate.resource,
             successActionId: actionToUpdate.successAction?.id,
           }
         : {
@@ -90,7 +89,7 @@ export const UpdateActionForm = observer(
         </DisplayIf>
 
         <DisplayIf condition={actionToUpdate?.type === IActionKind.ApiAction}>
-          <SelectResource name="resourceId" />
+          <SelectResource name="resource.id" />
           <AutoField
             component={SelectAction}
             name="successActionId"

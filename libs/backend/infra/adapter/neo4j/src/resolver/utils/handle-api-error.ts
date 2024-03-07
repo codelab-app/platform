@@ -1,4 +1,5 @@
-import { ApolloError } from '@apollo/server'
+import { ApolloError } from '@apollo/client'
+import { prettifyForConsole } from '@codelab/shared/utils'
 
 export const handleAPIError = async (res: Response, requestName: string) => {
   const parsedBody = await res.json()
@@ -7,8 +8,8 @@ export const handleAPIError = async (res: Response, requestName: string) => {
     console.error(
       `[${requestName}] Fail to make request. HTTP: ${
         res.status
-      }. Response: ${JSON.stringify(parsedBody, null, 2)}`,
+      }. Response: ${prettifyForConsole(parsedBody)}`,
     )
-    throw new ApolloError('Something went wrong')
+    throw new ApolloError({ errorMessage: 'Something went wrong' })
   }
 }

@@ -1,9 +1,12 @@
+import type {
+  CommonOptions,
+  Label,
+} from '@codelab/frontend/test/cypress/shared'
 import { absoluteRoot } from '@hon2a/cypress-without'
 import get from 'lodash/get'
 import isNil from 'lodash/isNil'
 import isNumber from 'lodash/isNumber'
 import isUndefined from 'lodash/isUndefined'
-import type { CommonOptions, Label } from '../types'
 import { logAndMute } from '../utils'
 import type { SearchCellOptions, SortOptions } from './table.types'
 import { SORT_ORDER } from './table.types'

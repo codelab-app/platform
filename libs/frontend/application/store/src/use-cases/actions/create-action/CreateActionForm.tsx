@@ -17,7 +17,6 @@ import { HttpMethod, IActionKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { useActionSchema } from '../hooks'
@@ -85,7 +84,7 @@ export const CreateActionForm = observer(
         <AutoFields
           omitFields={[
             'code',
-            'resourceId',
+            'resource',
             'config',
             'successActionId',
             'errorActionId',
@@ -97,7 +96,7 @@ export const CreateActionForm = observer(
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <SelectResource name="resourceId" />
+          <SelectResource name="resource" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
           <ResourceFetchConfigField />

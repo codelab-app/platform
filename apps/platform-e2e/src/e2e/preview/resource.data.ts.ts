@@ -2,7 +2,6 @@ import type {
   ICreateApiActionData,
   ICreateResourceData,
   IPageDto,
-  IStoreDto,
 } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,

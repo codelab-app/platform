@@ -14,7 +14,6 @@ import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/uti
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import type { Context } from 'uniforms'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAuthGuardSchema } from './create-auth-guard.schema'

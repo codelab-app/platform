@@ -1,3 +1,4 @@
+import { prettifyForConsole } from '@codelab/shared/utils'
 import fs from 'fs'
 import { EOL } from 'os'
 import * as path from 'path'
@@ -8,7 +9,7 @@ export const saveFormattedFile = (outputFilePath: string, data: object) => {
     throw new Error('Output path must end with .json')
   }
 
-  const json = JSON.stringify(data, null, 2)
+  const json = prettifyForConsole(data)
   const exportPath = path.resolve('./', outputFilePath)
 
   fs.mkdirSync(path.dirname(exportPath), { recursive: true })
@@ -17,7 +18,7 @@ export const saveFormattedFile = (outputFilePath: string, data: object) => {
 }
 
 export const formatToPrettifiedJson = (data: object) => {
-  const jsonString = JSON.stringify(data, null, 2)
+  const jsonString = prettifyForConsole(data)
   const prettifiedJsonString = prettier.format(jsonString, { parser: 'json' })
 
   return prettifiedJsonString

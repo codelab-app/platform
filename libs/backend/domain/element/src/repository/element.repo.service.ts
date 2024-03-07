@@ -13,7 +13,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type { ICreateElementDto } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   disconnectAll,
@@ -24,7 +24,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ElementRepository extends AbstractRepository<
-  IElementDto,
+  ICreateElementDto,
   Element,
   ElementWhere,
   ElementOptions
@@ -48,7 +48,7 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _addMany(elements: Array<IElementDto>) {
+  protected async _addMany(elements: Array<ICreateElementDto>) {
     return (
       await this.ogmService.Element.create({
         input: elements.map(
@@ -81,7 +81,8 @@ export class ElementRepository extends AbstractRepository<
             compositeKey:
               compositeKey ??
               ElementProperties.elementCompositeKey(name, closestContainerNode),
-            firstChild: connectNodeId(firstChild?.id),
+            // We only need to do one way
+            // firstChild: connectNodeId(firstChild?.id),
             id,
             nextSibling: connectNodeId(nextSibling?.id),
             parentElement: connectNodeId(parentElement?.id),
@@ -136,7 +137,7 @@ export class ElementRepository extends AbstractRepository<
       name,
       props,
       renderType,
-    }: IElementDto,
+    }: ICreateElementDto,
     where: ElementWhere,
   ) {
     return (

@@ -2,13 +2,7 @@ import {
   DataModule,
   ReadAdminDataService,
 } from '@codelab/backend/application/data'
-import { SharedApplicationModule } from '@codelab/backend/application/shared'
-import {
-  InterfaceType,
-  InterfaceTypeRepository,
-  TypeDomainModule,
-} from '@codelab/backend/domain/type'
-import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
+import { InterfaceType, TypeDomainModule } from '@codelab/backend/domain/type'
 import { initUserContext } from '@codelab/backend/test'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { CommandBus } from '@nestjs/cqrs'
@@ -16,10 +10,7 @@ import sortBy from 'lodash/sortBy'
 import { TypeApplicationService } from '../../../service'
 import { TypeApplicationModule } from '../../../type.application.module'
 import { ImportSystemTypesCommand } from '../../system-types'
-import {
-  ImportApiCommand,
-  ImportApiHandler,
-} from './import-api.command.service'
+import { ImportApiCommand } from './import-api.command.service'
 
 describe('ImportApiCommand', () => {
   let commandBus: CommandBus

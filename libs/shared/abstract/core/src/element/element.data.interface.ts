@@ -1,13 +1,24 @@
+import { AtomType } from '@codelab/shared/abstract/codegen'
+import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import type { IAtomType } from '../atom'
 
 /**
  * This allows for a shortened object to be specified as input. Good for seeding data in cases where the input is manually specified (such as Cypress)
  */
-export interface ICreateElementData {
-  atom?: IAtomType
-  name: string
-  parentElement: string
-  propsData?: object
-}
+export const ICreateElementData = Type.Object({
+  // Can't use `IAtomType` due to circular import issue
+  atom: Type.Optional(Type.Enum(AtomType)),
+  id: Type.String(),
+  name: Type.String(),
+  parentElement: Type.Optional(Typebox.Ref()),
+  prevSibling: Type.Optional(Typebox.Ref()),
+  propsData: Type.Optional(Type.Any()),
+  // atom?: IAtomType
+  // id: string
+  // name: string
+  // parentElement: IRef
+  // propsData?: Record<string, unknown> & { name?: string; label?: string }
+})
+
+export type ICreateElementData = Static<typeof ICreateElementData>

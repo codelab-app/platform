@@ -5,7 +5,7 @@ import {
   waitForApiCalls,
 } from './graphql.commands'
 
-export interface CypressGraphQLCommands {
+export interface GraphQLCommands {
   graphqlRequest: typeof graphqlRequest
   interceptGraphQL: typeof interceptGraphQL
   waitForApiCalls: typeof waitForApiCalls

@@ -72,7 +72,7 @@ export const createElementSchema: JSONSchemaType<
       nullable: true,
       properties: {
         ...idSchema({
-          label: 'Linked by',
+          label: 'Prev Sibling',
         }),
       },
       required: ['id'],

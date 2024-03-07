@@ -1,6 +1,6 @@
 import type { Matcher, SelectorMatcherOptions } from '@testing-library/dom'
-import type { CypressElementTag, ElementTagName } from './types'
-import { wrapSubject } from './utils'
+import type { CypressElementTag, ElementTagName } from '../utils/types'
+import { wrapSubject } from '../utils/utils'
 
 /**
  * find the closest element tag which contains text

@@ -33,6 +33,8 @@ export class ApiActionRepository extends AbstractRepository<
   }
 
   protected async _addMany(actions: Array<IApiActionDto>) {
+    // this.nestjsLogger.log(actions, `much wow`)
+
     return (
       await (
         await this.ogmService.ApiAction

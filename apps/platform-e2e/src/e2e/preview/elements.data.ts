@@ -1,34 +1,20 @@
-import type { ICreateElementData } from '@codelab/shared/abstract/core'
+import type {
+  ICreateElementData,
+  IPageDto,
+} from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { v4 } from 'uuid'
 import { actionTypeId, apiPostActionId } from './resource.data.ts'
 
-const ELEMENT_FORM = 'Element Form'
-const ELEMENT_FORM_ITEM_INPUT = 'Element Form Item Input'
+const elementFormId = v4()
 
-export const ELEMENT_INPUT_NAME = 'inputField'
-
-const ELEMENT_INPUT = 'Element Input'
-const ELEMENT_FORM_ITEM_SELECT = 'Element Form Item Select'
-
-export const ELEMENT_SELECT_NAME = 'selectField'
-
-const ELEMENT_SELECT = 'Element Select'
-const ELEMENT_FORM_ITEM_CHECKBOX = 'Element Form Item Checkbox'
-
-export const ELEMENT_CHECKBOX_NAME = 'checkboxField'
-
-const ELEMENT_CHECKBOX = 'Element Checkbox'
-const ELEMENT_FORM_ITEM_BUTTON = 'Element Form Item Button'
-const ELEMENT_BUTTON_TITLE = 'Submit Form'
-const ELEMENT_BUTTON = 'Element Button'
-
-export const elementForm = {
+export const elementForm = (page: IPageDto): ICreateElementData => ({
   atom: IAtomType.AntDesignForm,
-  name: ELEMENT_FORM,
-  parentElement: ROOT_ELEMENT_NAME,
+  id: elementFormId,
+  name: 'Form',
+  parentElement: { id: page.rootElement.id },
   propsData: {
-    customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
+    customText: `<p>Submit Form</p>`,
     htmlType: 'submit',
     onFinish: {
       kind: ITypeKind.ActionType,
@@ -36,78 +22,105 @@ export const elementForm = {
       value: apiPostActionId,
     },
   },
+})
+
+// FormItem
+export const elementFormItem_1: ICreateElementData = {
+  atom: IAtomType.AntDesignFormItem,
+  id: v4(),
+  name: 'Form Item (Input)',
+  parentElement: { id: elementFormId },
+  propsData: {
+    label: 'Input Field',
+    name: 'inputField',
+  },
 }
 
-const elements: Array<ICreateElementData> = [
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_INPUT,
-    parentElement: ELEMENT_FORM,
-    propsData: {
-      label: 'Input Field',
-      name: ELEMENT_INPUT_NAME,
-    },
+// FormItem > Input
+const elementFormItemInput_1: ICreateElementData = {
+  atom: IAtomType.AntDesignInput,
+  id: v4(),
+  name: 'Input',
+  parentElement: { id: elementFormItem_1.id },
+}
+
+// FormItem
+export const elementFormItem_2: ICreateElementData = {
+  atom: IAtomType.AntDesignFormItem,
+  id: v4(),
+  name: 'Form Item (Select)',
+  prevSibling: { id: elementFormItem_1.id },
+  propsData: {
+    label: 'Select Field',
+    name: 'selectField',
   },
-  {
-    atom: IAtomType.AntDesignInput,
-    name: ELEMENT_INPUT,
-    parentElement: ELEMENT_FORM_ITEM_INPUT,
+}
+
+const elementFormItemInput_2: ICreateElementData = {
+  atom: IAtomType.AntDesignSelect,
+  id: v4(),
+  name: 'Select Input',
+  parentElement: { id: elementFormItem_2.id },
+  propsData: {
+    options: [
+      {
+        label: 'Select Option A',
+        value: 'selectOptionA',
+      },
+      {
+        label: 'Select Option B',
+        value: 'selectOptionB',
+      },
+    ],
   },
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_SELECT,
-    parentElement: ELEMENT_FORM,
-    propsData: {
-      label: 'Select Field',
-      name: ELEMENT_SELECT_NAME,
-    },
+}
+
+export const elementFormItem_3: ICreateElementData = {
+  atom: IAtomType.AntDesignFormItem,
+  id: v4(),
+  name: 'Form Item (Checkbox)',
+  prevSibling: { id: elementFormItem_2.id },
+  propsData: {
+    name: 'checkboxField',
+    valuePropName: 'checked',
   },
-  {
-    atom: IAtomType.AntDesignSelect,
-    name: ELEMENT_SELECT,
-    parentElement: ELEMENT_FORM_ITEM_SELECT,
-    propsData: {
-      options: [
-        {
-          label: 'Select Option A',
-          value: 'selectOptionA',
-        },
-        {
-          label: 'Select Option B',
-          value: 'selectOptionB',
-        },
-      ],
-    },
+}
+
+const elementFormItemInput_3: ICreateElementData = {
+  atom: IAtomType.AntDesignCheckbox,
+  id: v4(),
+  name: 'Checkbox Input',
+  parentElement: { id: elementFormItem_3.id },
+  propsData: {
+    customText: '<p>Checkbox Field</p>',
   },
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_CHECKBOX,
-    parentElement: ELEMENT_FORM,
-    propsData: {
-      name: ELEMENT_CHECKBOX_NAME,
-      valuePropName: 'checked',
-    },
+}
+
+const elementFormItem_4: ICreateElementData = {
+  atom: IAtomType.AntDesignFormItem,
+  id: v4(),
+  name: 'Element Form Item Button',
+  prevSibling: { id: elementFormItem_3.id },
+}
+
+const elementFormItemInput_4: ICreateElementData = {
+  atom: IAtomType.AntDesignButton,
+  id: v4(),
+  name: 'Element Button',
+  parentElement: { id: elementFormItem_4.id },
+  propsData: {
+    customText: `<p>Submit Form</p>`,
+    htmlType: 'submit',
   },
-  {
-    atom: IAtomType.AntDesignCheckbox,
-    name: ELEMENT_CHECKBOX,
-    parentElement: ELEMENT_FORM_ITEM_CHECKBOX,
-    propsData: {
-      customText: '<p>Checkbox Field</p>',
-    },
-  },
-  {
-    atom: IAtomType.AntDesignFormItem,
-    name: ELEMENT_FORM_ITEM_BUTTON,
-    parentElement: ELEMENT_FORM,
-  },
-  {
-    atom: IAtomType.AntDesignButton,
-    name: ELEMENT_BUTTON,
-    parentElement: ELEMENT_FORM_ITEM_BUTTON,
-    propsData: {
-      customText: `<p>${ELEMENT_BUTTON_TITLE}</p>`,
-      htmlType: 'submit',
-    },
-  },
+}
+
+export const elements: Array<ICreateElementData> = [
+  elementFormItem_1,
+  elementFormItemInput_1,
+  elementFormItem_2,
+  elementFormItemInput_2,
+  elementFormItem_3,
+  elementFormItemInput_3,
+  elementFormItem_4,
+  elementFormItemInput_4,
 ]

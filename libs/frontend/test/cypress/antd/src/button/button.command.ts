@@ -1,6 +1,6 @@
+import type { Label } from '@codelab/frontend/test/cypress/shared'
 import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
 import { wrapSubject } from '@codelab/frontend/test/cypress/utils'
-import type { Label } from '../types'
 
 interface ButtonSelector {
   icon?: string

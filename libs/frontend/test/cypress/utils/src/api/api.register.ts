@@ -1,7 +1,7 @@
 import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
 import { postApiRequest } from './api.command'
 
-export interface CypressApiCommands {
+export interface ApiCommands {
   postApiRequest: typeof postApiRequest
 }
 

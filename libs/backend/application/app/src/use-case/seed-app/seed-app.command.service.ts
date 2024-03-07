@@ -1,5 +1,4 @@
 import { AppDomainService } from '@codelab/backend/domain/app'
-import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import type { IAppDto, ICreatePageDto } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'

@@ -7,10 +7,6 @@ import {
   ApiActionFragment,
   CodeActionFragment,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  ICreateActionData,
-  IUpdateActionData,
-} from '@codelab/shared/abstract/core'
 import {
   IActionDto,
   IActionKind,

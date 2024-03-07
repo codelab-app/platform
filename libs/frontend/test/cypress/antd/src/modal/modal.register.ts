@@ -1,4 +1,4 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/utils'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
 import type { expectModalToClose, getModalConfirmAction } from './modal.command'
 import {
   cancelModalConfirm,

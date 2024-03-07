@@ -1,4 +1,3 @@
-import type { Atom as IAtom } from '@codelab/backend/abstract/codegen'
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
@@ -8,7 +7,6 @@ import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IApp } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
@@ -27,7 +25,7 @@ import {
   providerElementPropsData,
   providerPageData,
 } from '@codelab/shared/data/test'
-import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
 
 export class SeedCypressAppCommand {}
@@ -71,15 +69,11 @@ export class SeedCypressAppHandler
     const notFoundPageId = v4()
     const internalServerPageId = v4()
 
-    const atomReactFragment = await this.atomRepository.findOne({
+    const atomReactFragment = await this.atomRepository.findOneOrFail({
       where: {
         name: IAtomType.ReactFragment,
       },
     })
-
-    if (!atomReactFragment) {
-      throw new Error('Missing react fragment')
-    }
 
     /**
      * Create elements

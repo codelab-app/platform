@@ -1,5 +1,5 @@
 import { AtomDomainService } from '@codelab/backend/domain/atom'
-import { type IElementDto } from '@codelab/shared/abstract/core'
+import type { ICreateElementDto } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
@@ -13,7 +13,7 @@ export class ElementDomainService {
   ) {}
 
   async createRootElement(
-    dto: Omit<IElementDto, 'name' | 'props' | 'renderType'>,
+    dto: Omit<ICreateElementDto, 'name' | 'props' | 'renderType'>,
   ) {
     return this.elementRepository.add({
       ...dto,

@@ -1,17 +1,9 @@
-// import {
-//   CypressDatabaseCommands,
-//   CypressGraphQLCommands,
-//   CypressSelectorsCommands,
-//   CypressUserCommands,
-// } from './src'
+import { CypressUtilsCommands } from './src'
+// Need this for IDE typing
+import type cypress from 'cypress'
 
-// declare global {
-//   // eslint-disable-next-line @typescript-eslint/no-namespace
-//   namespace Cypress {
-//     interface Chainable<Subject>
-//       extends CypressSelectorsCommands,
-//         CypressUserCommands,
-//         CypressGraphQLCommands,
-//         CypressDatabaseCommands {}
-//   }
-// }
+declare global {
+  namespace Cypress {
+    interface Chainable<Subject> extends CypressUtilsCommands {}
+  }
+}

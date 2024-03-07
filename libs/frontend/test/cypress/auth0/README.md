@@ -1,3 +1,3 @@
-# frontend-test-cypress-nextjs-auth0
+# frontend-test-cypress-auth0
 
 This library was generated with [Nx](https://nx.dev).

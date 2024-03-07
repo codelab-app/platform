@@ -1,4 +1,4 @@
-import { client } from '@codelab/frontend/infra/graphql'
+import { graphqlClient } from '@codelab/frontend/infra/graphql'
 import { getSdk } from './tag.endpoints.graphql.gen'
 
-export const tagApi = getSdk(client)
+export const tagApi = getSdk(graphqlClient)

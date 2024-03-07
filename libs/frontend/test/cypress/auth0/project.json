@@ -1,7 +1,7 @@
 {
-  "name": "frontend-test-cypress-nextjs-auth0",
+  "name": "frontend-test-cypress-auth0",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/test/cypress/nextjs-auth0/src",
+  "sourceRoot": "libs/frontend/test/cypress/auth0/src",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -15,7 +15,7 @@
       },
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/test/cypress/nextjs-auth0/**/*.{ts,tsx,js,jsx,graphql}"
+          "libs/frontend/test/cypress/auth0/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       }
     }

@@ -1,5 +1,5 @@
 import { getEnv } from '@codelab/shared/config'
-import { Auth0Client } from './client'
+import { Auth0Client } from './auth0.client'
 
 describe('Auth0 client', () => {
   /**

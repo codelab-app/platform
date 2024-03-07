@@ -11,7 +11,6 @@ import {
   IAtomType,
   IElementRenderTypeKind,
 } from '@codelab/shared/abstract/core'
-import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 import { ObjectTyped } from 'object-typed'
@@ -87,15 +86,11 @@ export class SeedAtomsHandler
         }
 
         // Get tags by name, they always match up
-        const existingTag = await this.tagRepository.findOne({
+        const existingTag = await this.tagRepository.findOneOrFail({
           where: {
             name: atomData.tag,
           },
         })
-
-        if (!existingTag) {
-          throw new Error('Tag should exist already')
-        }
 
         return {
           __typename: IElementRenderTypeKind.Atom,

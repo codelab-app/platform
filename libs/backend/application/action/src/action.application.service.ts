@@ -1,11 +1,8 @@
-import { Injectable } from '@nestjs/common'
-import {
-  ActionFactory,
-  ActionModelFactory,
-} from '@codelab/backend/domain/action'
-import { ICreateActionData } from '@codelab/shared/abstract/core'
-import { ActionMapper } from '@codelab/shared/domain/mapper'
+import { ActionFactory } from '@codelab/backend/domain/action'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
+import type { ICreateActionData } from '@codelab/shared/abstract/core'
+import { ActionMapper } from '@codelab/shared/domain/mapper'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class ActionApplicationService {
@@ -17,7 +14,7 @@ export class ActionApplicationService {
   async createAction(createActionData: ICreateActionData) {
     const actionDto = ActionMapper.mapDataToDto(createActionData)
 
-    // this.loggerService.log(actionDto, 'Create action dto')
+    // this.loggerService.log(actionDto, `${this.constructor.name}.createAction()`)
 
     return this.actionFactory.save(actionDto)
   }

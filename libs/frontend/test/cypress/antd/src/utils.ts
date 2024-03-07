@@ -32,7 +32,7 @@ export const logAndMute = <O extends Partial<Cypress.Loggable>>(
 
 export const getClock = (callback: (clock: Cypress.Clock) => void) =>
   cy.wrap([], MUTE).then(function () {
-    callback(this.clock)
+    callback(this['clock'])
   })
 
 export const ifOnClock = (callback: (clock: Cypress.Clock) => void) =>

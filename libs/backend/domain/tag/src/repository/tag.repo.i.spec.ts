@@ -1,12 +1,6 @@
-import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
-import {
-  SeederDomainModule,
-  SeederDomainService,
-} from '@codelab/backend/domain/shared/seeder'
+import { SeederDomainModule } from '@codelab/backend/domain/shared/seeder'
 import { UserDomainModule } from '@codelab/backend/domain/user'
 import { initUserContext } from '@codelab/backend/test'
-import type { TestingModule } from '@nestjs/testing'
-import { Test } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo.service'
@@ -64,38 +58,40 @@ describe('Tag repository.', () => {
      */
     await tagRepository.addMany([childTag, parentTag])
 
-    let savedParentTag = await tagRepository.findOne({
+    let savedParentTag = await tagRepository.findOneOrFail({
       where: { id: parentTag.id },
     })
 
-    let savedChildTag = await tagRepository.findOne({
+    let savedChildTag = await tagRepository.findOneOrFail({
       where: { id: childTag.id },
     })
 
     // Parent
-    expect(savedParentTag?.name).toEqual(parentTagName)
-    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
+    expect(savedParentTag.name).toEqual(parentTagName)
+    expect(savedParentTag.children[0]?.name).toEqual(childTagName)
 
     // Child
-    expect(savedChildTag?.name).toEqual(childTagName)
-    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
+    expect(savedChildTag.name).toEqual(childTagName)
+    expect(savedChildTag.parent?.name).toEqual(parentTagName)
 
     // Run again to check for the e2e error on second seed
     await tagRepository.save(parentTag)
     await tagRepository.save(childTag)
 
-    savedParentTag = await tagRepository.findOne({
+    savedParentTag = await tagRepository.findOneOrFail({
       where: { id: parentTag.id },
     })
-    savedChildTag = await tagRepository.findOne({ where: { id: childTag.id } })
+    savedChildTag = await tagRepository.findOneOrFail({
+      where: { id: childTag.id },
+    })
 
     // Parent
-    expect(savedParentTag?.name).toEqual(parentTagName)
-    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
+    expect(savedParentTag.name).toEqual(parentTagName)
+    expect(savedParentTag.children[0]?.name).toEqual(childTagName)
 
     // Child
-    expect(savedChildTag?.name).toEqual(childTagName)
-    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
+    expect(savedChildTag.name).toEqual(childTagName)
+    expect(savedChildTag.parent?.name).toEqual(parentTagName)
 
     /**
      * Then update relationship

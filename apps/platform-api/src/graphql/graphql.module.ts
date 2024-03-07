@@ -1,4 +1,5 @@
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
+import type { GqlContext } from '@codelab/backend/infra/adapter/graphql'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
   GraphQLSchemaModule,
@@ -14,11 +15,6 @@ import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
 import type { IncomingMessage } from 'http'
 import { endpointConfig } from './endpoint.config'
 
-export interface GqlContext {
-  req: IncomingMessage
-  res: Response
-}
-
 @Module({
   imports: [
     // DevtoolsModule.register({
@@ -26,10 +22,6 @@ export interface GqlContext {
     //   port: 4000,
     // }),
     RequestContextModule,
-    /**
-     * Don't include logger, since pino automatically logs all HTTP calls.
-     */
-    // CodelabLoggerModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,

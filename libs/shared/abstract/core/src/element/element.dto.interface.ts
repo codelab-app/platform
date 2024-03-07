@@ -11,8 +11,12 @@ export const IElementDto = Type.Object({
   childMapperPropKey: Typebox.Nullish(Type.String()),
   /**
    * For frontend models we can compute from Mobx, but for backend we would map the data in
+   *
+   * This is not used for creation, but rather a computed value
+   *
+   * `Page` or `Component`
    */
-  closestContainerNode: IRef,
+  // closestContainerNode: IRef,
   compositeKey: Typebox.Nullish(Type.String()),
   firstChild: Typebox.Nullish(IRef),
   id: Type.String(),
@@ -44,14 +48,14 @@ export const IElement = Typebox.Overwrite(
 
 export type IElement = Static<typeof IElement>
 
-// export const ICreateElementDto = Type.Composite([
-//   IElementDto,
-//   Type.Object({
-//     /**
-//      * Used for composite key
-//      */
-//     closestContainerNode: IRef,
-//   }),
-// ])
+export const ICreateElementDto = Type.Composite([
+  IElementDto,
+  Type.Object({
+    /**
+     * Used for composite key, could be `Page` or `Component` type. This key is only needed for creation so we know how to make the connection
+     */
+    closestContainerNode: IRef,
+  }),
+])
 
-// export type ICreateElementDto = Static<typeof ICreateElementDto>
+export type ICreateElementDto = Static<typeof ICreateElementDto>

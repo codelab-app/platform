@@ -1,4 +1,5 @@
 import type {
+  ICreateElementDto,
   IElementDto,
   IElementRenderTypeDto,
   IPropDto,
@@ -51,7 +52,7 @@ export class Element implements IElementDto {
     name,
     props,
     renderType,
-  }: IElementDto) {
+  }: ICreateElementDto) {
     this.id = id
     this.props = props
     this.closestContainerNode = closestContainerNode

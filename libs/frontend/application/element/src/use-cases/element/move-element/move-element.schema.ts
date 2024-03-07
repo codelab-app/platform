@@ -19,7 +19,7 @@ export const moveElementSchema: JSONSchemaType<MoveData> = {
       properties: {
         ...idSchema(),
         id: {
-          label: 'Linked by',
+          label: 'Prev Sibling',
           type: 'string',
         },
       },

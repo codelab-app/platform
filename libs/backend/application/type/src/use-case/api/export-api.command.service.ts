@@ -45,16 +45,12 @@ export class ExportApiHandler
     /**
      * (1) Get itself
      */
-    const interfaceType = await this.interfaceTypeRepository.findOne({
+    const interfaceType = await this.interfaceTypeRepository.findOneOrFail({
       schema: IInterfaceTypeDto,
       where: {
         id: api.id,
       },
     })
-
-    if (!interfaceType) {
-      throw new Error('InterfaceType not found')
-    }
 
     const fields = await this.fieldRepository.find({
       options: {

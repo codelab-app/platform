@@ -1,10 +1,10 @@
-import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'
-import { NestFactory } from '@nestjs/core'
+import { HttpAdapterHost, NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { applyFormats, patchNestJsSwagger } from 'nestjs-typebox'
+import { AllExceptionsFilter } from './exceptions/all-exceptions.filter'
 import type { endpointConfig } from './graphql/endpoint.config'
 import { ENDPOINT_CONFIG_KEY } from './graphql/endpoint.config'
 import { RootModule } from './root.module'
@@ -18,16 +18,19 @@ applyFormats()
 
 const bootstrap = async () => {
   const app = await NestFactory.create(RootModule)
+  /**
+   * Add global prefix
+   */
   const globalPrefix = 'api'
-  const configService = app.get(ConfigService)
-
-  const config: ConfigType<typeof endpointConfig> =
-    configService.getOrThrow(ENDPOINT_CONFIG_KEY)
-
-  const port = config.graphqlApiPort
 
   app.setGlobalPrefix(globalPrefix)
-  // app.useLogger(app.get(CodelabLogger))
+
+  /**
+   * Add exceptions filter
+   */
+  const { httpAdapter } = app.get(HttpAdapterHost)
+
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
 
   /**
    * Add swagger
@@ -42,6 +45,16 @@ const bootstrap = async () => {
   const document = SwaggerModule.createDocument(app, swaggerConfig)
 
   SwaggerModule.setup('api', app, document)
+
+  /**
+   * Set port number from config
+   */
+  const configService = app.get(ConfigService)
+
+  const config: ConfigType<typeof endpointConfig> =
+    configService.getOrThrow(ENDPOINT_CONFIG_KEY)
+
+  const port = config.graphqlApiPort
 
   await app.listen(port)
 

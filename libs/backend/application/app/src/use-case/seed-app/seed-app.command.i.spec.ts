@@ -46,7 +46,7 @@ describe('SeedAppCommand', () => {
 
     await commandBus.execute(command)
 
-    const foundApp = await appRepository.findOne({ id: app.id })
+    const foundApp = await appRepository.findOne({ where: { id: app.id } })
 
     expect(foundApp).toEqual(
       expect.objectContaining({

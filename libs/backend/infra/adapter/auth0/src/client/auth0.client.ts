@@ -1,4 +1,4 @@
-import { AuthenticationClient, ManagementClient } from 'auth0'
+import { AuthenticationClient } from 'auth0'
 
 // export const managementClient = new ManagementClient({
 //   clientId: m2mConfig.clientId,

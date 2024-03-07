@@ -7,7 +7,6 @@ import type {
   IMoveElementContext,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
-import type { ComponentDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDto,
   IElementTypeKind,
@@ -80,10 +79,10 @@ export interface IElementService
   getSelectElementOptions(
     props: SelectElementOptions,
   ): Array<SelectElementOption>
-  loadComponentTree(component: ComponentDevelopmentFragment): {
-    hydratedElements: Array<IElementModel>
-    rootElement: IElementModel
-  }
+  // loadComponentTree(component: ComponentDevelopmentFragment): {
+  //   hydratedElements: Array<IElementModel>
+  //   rootElement: IElementModel
+  // }
   move(context: IMoveElementContext): Promise<void>
   setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
   styleStringWithBreakpoints(element: IElementModel): string

@@ -14,14 +14,10 @@
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
 import { antCommands } from '@codelab/frontend/test/cypress/antd'
+import { auth0Commands } from '@codelab/frontend/test/cypress/auth0'
 import { codelabCommands } from '@codelab/frontend/test/cypress/cui'
-import {
-  loginAndSetupE2eData,
-  nextjsAuth0Commands,
-} from '@codelab/frontend/test/cypress/nextjs-auth0'
 import { registerCommands } from '@codelab/frontend/test/cypress/shared'
 import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
-import type { IAppDto } from '@codelab/shared/abstract/core'
 import { commands } from './commands'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -34,7 +30,7 @@ registerCommands([
   ...antCommands,
   ...codelabCommands,
   ...utilsCommands,
-  ...nextjsAuth0Commands,
+  ...auth0Commands,
   /**
    * These commands depend on the previous
    */
@@ -46,5 +42,5 @@ before(() => {
     message: 'Running before hook inside e2e.ts',
     name: 'E2e setup',
   })
-  loginAndSetupE2eData()
+  cy.loginAndSetupE2eData()
 })
