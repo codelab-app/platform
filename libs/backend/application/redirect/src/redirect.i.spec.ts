@@ -17,6 +17,7 @@ import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { RedirectApplicationModule } from './redirect.application.module'
 import { RedirectController } from './redirect.controller'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 
 /**
  * Here we show how to mock a user
@@ -27,7 +28,7 @@ describe('Redirect', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [RedirectApplicationModule],
+      imports: [RedirectApplicationModule, CodelabLoggerModule],
     }).compile()
 
     redirectController = module.get<RedirectController>(RedirectController)

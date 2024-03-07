@@ -2,6 +2,7 @@ import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
 import { SharedDomainModule } from '@codelab/backend/domain/shared/modules'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import type { ITagDto } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared/domain/mapper'
@@ -17,7 +18,12 @@ describe('Tag Parser', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [SharedDomainModule, TagDomainModule, CqrsModule],
+      imports: [
+        SharedDomainModule,
+        TagDomainModule,
+        CqrsModule,
+        CodelabLoggerModule,
+      ],
       providers: [SeedTagsService],
     }).compile()
 
