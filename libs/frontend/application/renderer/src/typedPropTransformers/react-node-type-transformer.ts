@@ -41,9 +41,15 @@ export class ReactNodeTypeTransformer
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(propValue)
 
-      return typeof transpiledValue === 'function'
-        ? transpiledValue.call(expressionTransformer.context)
-        : transpiledValue
+      if (typeof transpiledValue === 'function') {
+        try {
+          return transpiledValue.call(expressionTransformer.context)
+        } catch (error) {
+          console.error('Error while evaluating expression', error)
+        }
+      }
+
+      return transpiledValue
     }
 
     const component = this.componentDomainService.components.get(propValue)
