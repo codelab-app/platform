@@ -178,7 +178,12 @@ export class RuntimeElementModel
     const hasOneChild = this.children.length === 1
 
     if (hasNoChildren) {
-      // Inject text, but only if we have no regular children
+      // Inject children prop or text, but only if we have no regular children
+      // (children from props has precedence)
+      if (this.runtimeProps.evaluatedProps['children']) {
+        return this.runtimeProps.evaluatedProps['children']
+      }
+
       const injectedText =
         this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
 
