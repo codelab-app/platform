@@ -91,13 +91,7 @@ export class ElementService
      * Need to fetch the full api, since we don't during atom selection dropdown. The api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation
      */
     if (data.renderType.__typename === 'Atom') {
-      const atom = this.atomService.atomDomainService.atoms.get(
-        data.renderType.id,
-      )
-
-      if (atom) {
-        yield* _await(this.typeService.getInterface(atom.api.id))
-      }
+      yield* _await(this.atomService.loadApi(data.renderType.id))
     }
 
     const element = this.elementDomainService.addTreeNode(data)
@@ -231,6 +225,10 @@ export class ElementService
 
     if (newRenderTypeId !== oldRenderTypeId) {
       this.propService.reset(currentElement.props)
+
+      // Fetch full api for the new atom so that the types
+      // of the fields and sub types are available.
+      yield* _await(this.atomService.loadApi(newRenderTypeId))
     }
 
     currentElement.writeCache(newElement)

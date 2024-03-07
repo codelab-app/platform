@@ -156,16 +156,18 @@ export class AtomService
     parent?: IAtomModel,
   ) {
     const atoms = yield* _await(this.atomRepository.getSelectAtomOptions())
-
-    this.typeService.typeDomainService.hydrateTypes({
-      interfaceTypes: atoms.flatMap((atom) => atom.api),
-    })
-
-    atoms.forEach((atom) => this.atomDomainService.hydrate(atom))
-
     const atomOptions = parent ? filterAtoms(atoms, parent) : atoms
 
     return atomOptions.map(mapAtomOptions)
+  })
+
+  @modelFlow
+  loadApi = _async(function* (this: AtomService, id: string) {
+    const atom = this.atomDomainService.atoms.get(id)
+
+    if (atom?.api) {
+      yield* _await(this.typeService.getInterface(atom.api.id))
+    }
   })
 
   @modelFlow

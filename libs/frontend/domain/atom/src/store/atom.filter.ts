@@ -8,7 +8,6 @@ export const filterAtoms = (
     | {
         id: string
         name: string
-        type: AtomType
         requiredParents: Array<{ id: string; type: AtomType }>
       }
   >,
@@ -54,7 +53,6 @@ export const mapAtomOptions = (
     | {
         id: string
         name: string
-        type: AtomType
         requiredParents: Array<{ id: string; type: AtomType }>
       },
 ) => ({ label: atom.name, value: atom.id })

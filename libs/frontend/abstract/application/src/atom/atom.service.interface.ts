@@ -42,4 +42,5 @@ export interface IAtomService
     fieldProps: GuaranteedProps<string | undefined>,
     parent: IAtomModel | undefined,
   ): Promise<Array<DefaultOptionType>>
+  loadApi(atomId: string): Promise<void>
 }

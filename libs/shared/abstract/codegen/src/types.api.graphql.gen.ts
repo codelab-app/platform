@@ -22419,7 +22419,6 @@ export type GetSelectAtomOptionsQuery = {
     id: string
     name: string
     type: AtomType
-    api: InterfaceTypeFragment
     requiredParents: Array<{ id: string; type: AtomType }>
   }>
 }
