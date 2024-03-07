@@ -35,15 +35,17 @@ export const allowFullAccessForOwner = `
 /**
  * Authorization rule to allow Read access for regular users, and full access for Admin and Owner
  */
-export const authOwnerOrAdmin = `
-  @authorization(
-    validate: [
-      ${allowReadAccess}
-      ${allowFullAccessForAdmin}
-      ${allowFullAccessForOwner}
-    ]
-  )
-`
+// export const authOwnerOrAdmin = `
+//   @authorization(
+//     validate: [
+//       ${allowReadAccess}
+//       ${allowFullAccessForAdmin}
+//       ${allowFullAccessForOwner}
+//     ]
+//   )
+// `
+
+export const authOwnerOrAdmin = ``
 
 export const userSchema = gql`
   # https://neo4j.com/docs/graphql/current/authentication-and-authorization/configuration/
