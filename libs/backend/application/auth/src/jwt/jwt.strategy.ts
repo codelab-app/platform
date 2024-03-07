@@ -16,6 +16,8 @@ interface IPassportStrategy {
   validate: VerifyCallbackWithRequest
 }
 
+export const JWT_STRATEGY = 'JWT_STRATEGY'
+
 @Injectable()
 export class Auth0Strategy
   extends PassportStrategy(Strategy)
