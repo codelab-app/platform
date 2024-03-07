@@ -178,9 +178,16 @@ export class RuntimeElementModel
     const hasOneChild = this.children.length === 1
 
     if (hasNoChildren) {
-      // Inject text, but only if we have no regular children
+      // Inject children prop or text, but only if we have no regular children
+      // (children from props has precedence)
+      const childrenProp = this.runtimeProps.evaluatedProps['children']
+
       const injectedText =
         this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
+
+      if (childrenProp) {
+        return childrenProp
+      }
 
       const shouldInjectText =
         isAtom(this.element.current.renderType.current) &&
