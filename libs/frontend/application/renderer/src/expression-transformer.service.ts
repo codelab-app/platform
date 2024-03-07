@@ -12,6 +12,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import React from 'react'
+import { allAtoms } from './atoms'
 
 @model('@codelab/ExpressionTransformer')
 export class ExpressionTransformer
@@ -30,7 +31,7 @@ export class ExpressionTransformer
 
     const { transform } = yield* _await(import('sucrase'))
 
-    this.context = { React }
+    this.context = { atoms: allAtoms, React }
     this.transform = transform
     this.initialized = true
   })
