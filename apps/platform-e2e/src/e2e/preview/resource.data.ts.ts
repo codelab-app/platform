@@ -35,7 +35,7 @@ export const createApiPostActionData = (
 ): ICreateApiActionData => ({
   config: {
     data: {
-      body: "{{JSON.stringify(refs['element-form'].current.getFieldsValue())}}",
+      body: "{{JSON.stringify(refs['form'].current.getFieldsValue())}}",
       method: HttpMethod.POST,
       responseType: HttpResponseType.Text,
       urlSegment: urlPostSegment,

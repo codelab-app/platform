@@ -53,7 +53,7 @@ export class ActionTypeTransformer
     return [...runtimeNode.runtimeStore.runtimeActions.values()].some(
       (ra) => ra.action.id === actionId,
     )
-      ? `{{actions.${name}}}`
-      : `{{rootActions.${name}}}`
+      ? `{{actions['${name}']}}`
+      : `{{rootActions['${name}']}}`
   }
 }
