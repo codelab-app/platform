@@ -6,6 +6,12 @@ const pageKindSchema = `enum PageKind {
   ${Object.values(__PageKind).join('\n')}
 }`
 
+const allowFullAccessForPageOwner = `
+{
+  operations: [UPDATE, CREATE, DELETE]
+  where: { node: { app: { owner: { auth0Id: "$jwt.sub" } } } }
+}`
+
 export const pageSchema = gql`
   ${pageKindSchema}
 
@@ -36,16 +42,13 @@ export const pageSchema = gql`
     # when the app will be deployed - the page will be available on this URL
     url: String!
   }
-
-  extend type Page
-    @authorization(
-      validate: [
-        ${allowReadAccess}
-        ${allowFullAccessForAdmin}
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          where: { node: { app: { owner: { auth0Id: "$jwt.sub" } } } }
-        }
-      ]
-    )
 `
+
+// extend type Page
+//   @authorization(
+//     validate: [
+//       ${allowReadAccess}
+//       ${allowFullAccessForAdmin}
+//       ${allowFullAccessForPageOwner}
+//     ]
+//   )
