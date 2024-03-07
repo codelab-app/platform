@@ -58,20 +58,6 @@ export const CustomComponents = observer(() => {
     })
   }
 
-  const selectComponent = (id: string) => {
-    const component = componentService.componentDomainService.component(id)
-
-    builderService.selectComponentNode(component)
-
-    const renderer = rendererService.hydrate({
-      containerNode: component,
-      id: component.id,
-      rendererType: RendererType.ComponentBuilder,
-    })
-
-    rendererService.setActiveRenderer(rendererRef(renderer))
-  }
-
   const exportComponent = (id: string) => {
     void router.push({
       pathname: PageType.ComponentExport,
@@ -99,7 +85,7 @@ export const CustomComponents = observer(() => {
         onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
         onEdit={(id) => editComponent(id)}
         onExport={(id) => exportComponent(id)}
-        onSelect={(id) => selectComponent(id)}
+        onSelect={componentService.previewComponent}
         selectedIds={
           builderService.selectedNode
             ? [builderService.selectedNode.id]

@@ -9,7 +9,9 @@ import {
   IActionKind,
   IResourceType,
 } from '@codelab/shared/abstract/core'
+import { slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
+import { elementFormName } from './elements.data'
 
 // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
 // because the workaround for now is to manually set props in the create form for the element
@@ -35,7 +37,9 @@ export const createApiPostActionData = (
 ): ICreateApiActionData => ({
   config: {
     data: {
-      body: "{{JSON.stringify(refs['form'].current.getFieldsValue())}}",
+      body: `{{JSON.stringify(refs['${slugify(
+        elementFormName,
+      )}'].current.getFieldsValue())}}`,
       method: HttpMethod.POST,
       responseType: HttpResponseType.Text,
       urlSegment: urlPostSegment,

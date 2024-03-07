@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 export const useAppQuery = () => {
   const { query } = useRouter()
   const appSlug = query.appSlug as string
+  const primarySidebarKey = query.primarySidebarKey as string
 
   // if (!appSlug) {
   //   throw new Error('Missing appSlug')
@@ -12,5 +13,6 @@ export const useAppQuery = () => {
   return {
     appName: getNameFromSlug(appSlug),
     appSlug,
+    primarySidebarKey,
   }
 }
