@@ -1,4 +1,4 @@
-import type { CyHttpMessages } from 'cypress/types/net-stubbing'
+import type { CyHttpMessages, WaitOptions } from 'cypress/types/net-stubbing'
 
 export const interceptGraphQL = (
   interceptor: (req: CyHttpMessages.IncomingHttpRequest) => void,
@@ -6,9 +6,13 @@ export const interceptGraphQL = (
   cy.intercept('POST', '/api/graphql', interceptor)
 }
 
-export const waitForApiCalls = () => {
+export const waitForApiCalls = (options?: Partial<WaitOptions>) => {
+  Cypress.log({
+    name: 'wait for api calls',
+  })
+
   cy.intercept('/api/*').as('graphqlQueries')
-  cy.wait('@graphqlQueries')
+  cy.wait('@graphqlQueries', options)
 }
 
 const hasOperationName = (

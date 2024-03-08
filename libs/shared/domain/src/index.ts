@@ -1,5 +1,6 @@
 export * from './action.factory'
 export * from './atom'
+export * from './errors'
 export * from './fields'
 export * from './orm'
 export * from './resource'

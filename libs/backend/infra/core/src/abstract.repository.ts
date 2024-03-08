@@ -6,6 +6,7 @@ import {
 } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import type { IRef } from '@codelab/shared/abstract/core'
+import { NotFoundError } from '@codelab/shared/domain'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
@@ -186,7 +187,9 @@ export abstract class AbstractRepository<
     const found = await this.findOne({ options, schema, selectionSet, where })
 
     if (!found) {
-      throw new Error('Could not find item!')
+      throw new NotFoundError('Could not find item!', {
+        where,
+      })
     }
 
     return found

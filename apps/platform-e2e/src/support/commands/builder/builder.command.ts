@@ -79,26 +79,29 @@ export const createElementTree = (elements: Array<ICreateElementData>) => {
 }
 
 export const openPreview = () => {
-  // wait for api calls if theres any e.g. actual saving in the database
-  // this is just the simplest way, we should improve this
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000)
+  Cypress.log({
+    name: 'open preview',
+  })
+
   cy.get('[data-cy="cui-toolbar-item-Preview"] button').click()
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').should('be.visible')
-  // wait for the multiple api calls
-  // this is just the simplest way, we should improve this
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000)
+
+  cy.waitForApiCalls()
 
   return
 }
 
 export const openBuilder = () => {
+  Cypress.log({
+    name: 'open builder',
+  })
+
+  cy.waitForApiCalls({ timeout: 10000 })
+
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').click()
   cy.get('[data-cy="cui-toolbar-item-Preview"] button').should('be.visible')
-  // wait for the multiple api calls
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.wait(1000)
+
+  cy.waitForApiCalls()
 
   return
 }

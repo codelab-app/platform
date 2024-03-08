@@ -61,6 +61,7 @@ export class ComponentRepository extends AbstractRepository<
             store: connectNodeId(store.id),
           }),
         ),
+        selectionSet: `{ components { ${componentSelectionSet} } }`,
       })
     ).components
   }

@@ -29,7 +29,7 @@ describe('Routing between app pages within the builder', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
 
@@ -67,7 +67,7 @@ describe('Routing between app pages within the builder', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
@@ -125,7 +125,7 @@ describe('Routing between app pages within the builder', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 

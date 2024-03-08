@@ -28,7 +28,7 @@ export const deleteTagInTableByUI = (name: string) => {
   })
     .getButton({ icon: 'delete' })
     .click()
-  cy.getSpinner().should('not.exist')
+  cy.waitForSpinners()
   cy.getModal()
     .getModalAction(/Delete Tag/)
     .click()

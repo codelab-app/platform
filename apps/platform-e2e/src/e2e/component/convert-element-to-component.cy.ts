@@ -46,7 +46,7 @@ describe('Converting an element to a component', () => {
         IPageKindName.Provider,
       )}/builder`,
     )
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // select root now so we can update its child later
     // there is an issue with tree interaction
@@ -77,12 +77,12 @@ describe('Converting an element to a component', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // GetAtoms
     // GetComponents
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiSidebar('Components')
       .getCuiSidebarViewContent('Custom')

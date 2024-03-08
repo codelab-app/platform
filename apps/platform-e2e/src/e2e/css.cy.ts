@@ -14,7 +14,7 @@ const createBackgroundColorStyle = (backgroundColorValue: string) =>
 
 const clickEditor = () => {
   cy.get('[aria-label="format-painter"]').click()
-  cy.getSpinner().should('not.exist')
+  cy.waitForSpinners()
 
   return cy.get('[role="textbox"]').first().click()
 }
@@ -35,7 +35,7 @@ describe('CSS CRUD', () => {
           IPageKindName.Provider,
         )}/builder`,
       )
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
       cy.createElementTree([
         {
           atom: IAtomType.AntDesignButton,
@@ -44,7 +44,7 @@ describe('CSS CRUD', () => {
         },
       ])
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       clickEditor()
         .clear()
@@ -92,7 +92,7 @@ describe('CSS CRUD', () => {
 
   describe('Add GUI style', () => {
     it('should be able to add styling through GUI', () => {
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.get('[data-test-id="gui-display"] [title="None"]').click()
 
@@ -109,7 +109,7 @@ describe('CSS CRUD', () => {
   describe('Css and GUI style persistance', () => {
     it('should persist styles after reload', () => {
       cy.reload()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       // wait for multiple api calls that could occur
       // this is the simplest way for now

@@ -1,6 +1,6 @@
 import type {
-  type ICreateComponentData,
-  type ICreateElementData,
+  ICreateComponentData,
+  ICreateElementData,
   IRef,
 } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -13,19 +13,21 @@ export interface ComponentChildData {
   name: string
 }
 
+const spaceElementId = v4()
+
 export const spaceElement = (rootElement: IRef): ICreateElementData => ({
   atom: IAtomType.AntDesignSpace,
-  id: v4(),
+  id: spaceElementId,
   name: IAtomType.AntDesignSpace,
   parentElement: { id: rootElement.id },
 })
 
-export const typographyTextElement = (rootElement: IRef) => ({
+export const typographyTextElement = {
   atom: IAtomType.AntDesignTypographyText,
   id: v4(),
   name: IAtomType.AntDesignTypographyText,
-  parentElement: { id: spaceElement(rootElement).id },
-})
+  parentElement: { id: spaceElementId },
+}
 
 export const componentChildren = [
   { atom: IAtomType.AntDesignSpace, name: 'Space' },

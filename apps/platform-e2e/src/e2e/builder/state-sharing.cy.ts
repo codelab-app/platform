@@ -64,12 +64,24 @@ describe('State variables sharing between pages', () => {
 
       return cy.postApiRequest(`/element/${component.id}/create-elements`, [
         spaceElement(component.rootElement),
-        typographyTextElement(component.rootElement),
+        typographyTextElement,
       ])
     })
   })
 
   it('should setup the pages that will share states', () => {
+    cy.visit(
+      `/apps/cypress/${slugify(app.name)}/components/${slugify(
+        COMPONENT_NAME,
+      )}/builder?primarySidebarKey=explorer`,
+    )
+
+    cy.waitForSpinners()
+
+    cy.getCuiTreeItemByPrimaryTitle(typographyTextElement.name).click({
+      force: true,
+    })
+
     cy.typeIntoTextEditor(
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
@@ -82,7 +94,7 @@ describe('State variables sharing between pages', () => {
 
     // create a state variable inside the component
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
+    cy.getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -104,7 +116,7 @@ describe('State variables sharing between pages', () => {
       value: 'component state value',
     })
 
-    cy.intercept('POST', `api/graphql`).as('action')
+    cy.intercept('POST', 'api/graphql').as('action')
     cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
     cy.wait('@action')
 
@@ -133,7 +145,7 @@ describe('State variables sharing between pages', () => {
 
   it('should create a state variable in the provider page', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
+    cy.getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -167,7 +179,7 @@ describe('State variables sharing between pages', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 

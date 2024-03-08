@@ -36,7 +36,7 @@ describe('Running nested API and code actions', () => {
 
   it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // Create the API resource we will use for the API action
     cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
@@ -61,7 +61,7 @@ describe('Running nested API and code actions', () => {
         IPageKindName.Provider,
       )}/builder`,
     )
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // select root now so we can update its child later
     // there is an issue with tree interaction

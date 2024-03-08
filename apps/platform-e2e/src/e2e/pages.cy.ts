@@ -22,7 +22,7 @@ describe('Pages CRUD', () => {
       cy.findAllByText(IPageKindName.NotFound).should('exist')
       cy.findAllByText(IPageKindName.InternalServerError).should('exist')
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.findAllByText(pageName).should('not.exist')
 
@@ -55,7 +55,7 @@ describe('Pages CRUD', () => {
         .getCuiToolbarItem('Edit')
         .click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.findByTestId('update-page-form').findByLabelText('Name').clear()
       cy.findByTestId('update-page-form')
@@ -77,7 +77,7 @@ describe('Pages CRUD', () => {
         .getCuiToolbarItem('Delete')
         .click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.getModal()
         .getModalAction(/Delete Page/)

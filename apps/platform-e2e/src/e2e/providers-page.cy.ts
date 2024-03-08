@@ -24,7 +24,7 @@ const mainPageElements = [
 
 const openPageByName = (name: string) => {
   // Takes a while to load the pages
-  cy.getSpinner().should('not.exist')
+  cy.waitForSpinners()
   cy.getCuiTreeItemByPrimaryTitle(name)
     .should('exist', { timeout: 15000 })
     .click()
@@ -33,7 +33,7 @@ const openPageByName = (name: string) => {
     .getCuiToolbarItem('Open Builder')
     .click()
 
-  cy.getSpinner().should('not.exist')
+  cy.waitForSpinners()
   cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 15000 }).should(
     'be.visible',
   )
@@ -85,7 +85,7 @@ describe('_app page', () => {
 
     cy.getCuiNavigationBarItem('Pages').click()
 
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
     cy.getCuiTreeItemByPrimaryTitle(IPageKindName.Provider).should('be.visible')
   })
 

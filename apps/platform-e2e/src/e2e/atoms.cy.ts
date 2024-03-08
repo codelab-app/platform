@@ -9,7 +9,7 @@ describe('Atoms CRUD', () => {
   describe('create', () => {
     it('should be able to create atom', () => {
       cy.visit('/atoms')
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
@@ -36,7 +36,7 @@ describe('Atoms CRUD', () => {
   describe('update', () => {
     it('should be able to update atom name', () => {
       cy.getCuiTreeItemBySecondaryTitle(atomName).click()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.setFormFieldValue({ label: 'Name', value: updatedAtomName })
 
@@ -54,7 +54,7 @@ describe('Atoms CRUD', () => {
         .getCuiToolbarItem('Delete atom')
         .should('be.visible')
         .click()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.getModal()
         .getModalAction(/Delete Atom/)

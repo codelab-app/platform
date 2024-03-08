@@ -79,7 +79,7 @@ describe('Element Child Mapper', () => {
     )
   })
   it('should create the component that will be used for the child mapper', () => {
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // select root now so we can update its child later
     // there is an issue with tree interaction

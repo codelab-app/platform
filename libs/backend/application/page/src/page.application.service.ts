@@ -22,7 +22,7 @@ export class PageApplicationService {
 
   async createPage(createPageDto: ICreatePageDto) {
     const app = await this.appRepository.findOneOrFail({
-      where: { id: createPageDto.id },
+      where: { id: createPageDto.app.id },
     })
 
     const rootElement = await this.elementApplicationService.createRootElement({
