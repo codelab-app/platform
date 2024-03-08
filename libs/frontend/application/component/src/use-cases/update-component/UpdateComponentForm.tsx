@@ -38,6 +38,7 @@ export const UpdateComponentForm = observer<{ component: IComponentModel }>(
     return (
       <Form<IUpdateComponentData>
         autosave
+        key={key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

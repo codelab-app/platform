@@ -63,8 +63,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const page = useCurrentPage()
     const { component } = useCurrentComponent()
     const containerNode = page ?? component
-    const root = !isLoading ? containerNode?.rootElement : undefined
-    const antdTree = root?.current.treeViewNode
     const store = containerNode?.store.current
 
     const runtimeContainerNode = containerNode
@@ -73,6 +71,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const runtimeStore = runtimeContainerNode?.runtimeStore
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
+    const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponent(node)) {

@@ -14,7 +14,10 @@ import {
   PagesPrimarySidebar,
 } from '@codelab/frontend/application/page'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { usePageQuery } from '@codelab/frontend/presentation/container'
+import {
+  useAppQuery,
+  usePageQuery,
+} from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   SkeletonWrapper,
@@ -25,47 +28,15 @@ import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
   const { pageName } = usePageQuery()
+  const { primarySidebarKey } = useAppQuery()
 
   const [{ error, status }, loadDevelopmentPage] = useAppDevelopment({
     rendererType: RendererType.PageBuilder,
   })
 
-  // const routeChangeHandler = React.useMemo(
-  //   () => async (url: string) => {
-  //     if (isBoolean(result) && !result) {
-  //       return
-  //     }
-
-  //     const pages = pageService.pagesByApp(result.app.id)
-  //     await builderRouteChangeHandler(
-  //       router,
-  //       result.app,
-  //       pages,
-  //       url,
-  //       PageType.PageBuilder,
-  //     )
-  //   },
-  //   [result],
-  // )
-
-  // useUpdateEffect(() => {
-  //   if (!isNil(result)) {
-  //     router.events.on('routeChangeStart', routeChangeHandler)
-  //   }
-  // }, [result])
-
-  /**
-   * Only enable `routeChangeStart` after data is loaded & before unmount
-   */
   useEffect(() => {
-    // router.events.off('routeChangeStart', routeChangeHandler)
     void loadDevelopmentPage.execute()
-
-    // Unmount
-    return () => {
-      // router.events.off('routeChangeStart', routeChangeHandler)
-    }
-  }, [pageName])
+  }, [pageName, primarySidebarKey])
 
   const isLoading = status === 'loading'
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])

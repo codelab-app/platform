@@ -7,20 +7,28 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
+  isRuntimeContainerNode,
   isRuntimeElement,
   RendererType,
 } from '@codelab/frontend/abstract/application'
+import type {
+  IComponentModel,
+  IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
-  type IElementModel,
+  IElementTreeViewDataNode,
   isAtom,
   isComponent,
   isPage,
+  isTypedProp,
 } from '@codelab/frontend/abstract/domain'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -220,7 +228,7 @@ export class RuntimeElementModel
 
   @computed
   get renderer() {
-    const activeRenderer = getRendererService(this).activeRenderer?.current
+    const activeRenderer = this.renderService.activeRenderer?.current
 
     if (!activeRenderer) {
       throw new Error('No active Renderer was found')
@@ -246,6 +254,73 @@ export class RuntimeElementModel
       renderIfExpression,
       this.runtimeProps.expressionEvaluationContext,
     )
+  }
+
+  @computed
+  get treeViewNode(): IElementTreeViewDataNode {
+    // Add assigned ReactNode props as children
+    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
+
+    Object.keys(this.runtimeProps.props).forEach((key, index) => {
+      const propData = this.runtimeProps.props[key]
+
+      if (
+        isTypedProp(propData) &&
+        propData.kind === ITypeKind.ReactNodeType &&
+        typeof propData.value === 'string'
+      ) {
+        const componentRootElement = this.renderService.runtimeContainerNode({
+          id: propData.value,
+        } as IComponentModel)?.runtimeRootElement
+
+        if (componentRootElement) {
+          reactNodesChildren.push({
+            ...componentRootElement.treeViewNode,
+            children: [],
+            isChildMapperComponentInstance: true,
+            key: `${propData.value}${index}`,
+            primaryTitle: `${key}:`,
+            selectable: false,
+          })
+        }
+      }
+    })
+
+    const children = [
+      ...this.children.map((child) =>
+        isRuntimeContainerNode(child)
+          ? {
+              ...child.runtimeRootElement.treeViewNode,
+              // children: [],
+              ...(!isNil(child.childMapperIndex) ? { children: [] } : {}),
+              isChildMapperComponentInstance: isComponent(
+                child.containerNode.current,
+              ),
+              key: `${child.runtimeRootElement.element.current.id}${
+                !isNil(child.childMapperIndex)
+                  ? `-${child.childMapperIndex}`
+                  : ''
+              }`,
+              primaryTitle: `${child.runtimeRootElement.element.current.name}${
+                !isNil(child.childMapperIndex)
+                  ? ` ${child.childMapperIndex}`
+                  : ''
+              }`,
+            }
+          : child.treeViewNode,
+      ),
+      ...reactNodesChildren,
+    ]
+
+    return {
+      children,
+      key: this.element.id,
+      node: this.element.current,
+      primaryTitle: this.element.current.treeTitle.primary,
+      rootKey: this.element.current.closestSubTreeRootElement.id,
+      secondaryTitle: this.element.current.treeTitle.secondary,
+      title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
+    }
   }
 
   onAttachedToRootStore() {
@@ -299,5 +374,10 @@ export class RuntimeElementModel
 
       this.setPreRenderActionDone(true)
     }
+  }
+
+  @computed
+  private get renderService() {
+    return getRendererService(this)
   }
 }

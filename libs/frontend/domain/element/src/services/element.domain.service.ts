@@ -64,6 +64,12 @@ export class ElementDomainService
 
     validateElementDto(elementDto)
 
+    const existingElement = this.elements.get(elementDto.id)
+
+    if (existingElement) {
+      return existingElement
+    }
+
     const element: IElementModel = Element.create(elementDto)
 
     this.elements.set(elementDto.id, element)

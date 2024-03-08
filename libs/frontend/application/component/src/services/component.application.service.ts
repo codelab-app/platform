@@ -1,6 +1,9 @@
 import {
   getElementService,
+  getRendererService,
   type IComponentApplicationService,
+  rendererRef,
+  RendererType,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
@@ -44,6 +47,7 @@ import {
   idProp,
   Model,
   model,
+  modelAction,
   modelFlow,
   prop,
   transaction,
@@ -308,6 +312,21 @@ export class ComponentApplicationService
     return component
   })
 
+  @modelAction
+  previewComponent = (id: string) => {
+    const component = this.componentDomainService.component(id)
+
+    this.builderService.selectComponentNode(component)
+
+    const renderer = this.rendererService.hydrate({
+      containerNode: component,
+      id: component.id,
+      rendererType: RendererType.ComponentBuilder,
+    })
+
+    this.rendererService.setActiveRenderer(rendererRef(renderer))
+  }
+
   onAttachedToRootStore() {
     this.paginationService.getDataFn = async (page, pageSize, filter) => {
       const items = await this.getAll(
@@ -335,6 +354,11 @@ export class ComponentApplicationService
   @computed
   private get elementService() {
     return getElementService(this)
+  }
+
+  @computed
+  private get rendererService() {
+    return getRendererService(this)
   }
 
   @computed

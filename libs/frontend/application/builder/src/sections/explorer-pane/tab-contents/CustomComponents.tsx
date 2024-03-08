@@ -1,3 +1,7 @@
+import {
+  rendererRef,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
@@ -21,7 +25,7 @@ import React, { useEffect, useRef } from 'react'
 import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
-  const { builderService, componentService } = useStore()
+  const { builderService, componentService, rendererService } = useStore()
   const { appSlug } = useAppQuery()
   const router = useRouter()
   const { userSlug } = useUserQuery()
@@ -54,12 +58,6 @@ export const CustomComponents = observer(() => {
     })
   }
 
-  const selectComponent = (id: string) => {
-    const component = componentService.componentDomainService.component(id)
-
-    builderService.selectComponentNode(component)
-  }
-
   const exportComponent = (id: string) => {
     void router.push({
       pathname: PageType.ComponentExport,
@@ -87,7 +85,7 @@ export const CustomComponents = observer(() => {
         onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
         onEdit={(id) => editComponent(id)}
         onExport={(id) => exportComponent(id)}
-        onSelect={(id) => selectComponent(id)}
+        onSelect={componentService.previewComponent}
         selectedIds={
           builderService.selectedNode
             ? [builderService.selectedNode.id]

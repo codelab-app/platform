@@ -214,6 +214,9 @@ describe('Component CRUD', () => {
     })
 
     it('should be able to add children to component instance', () => {
+      // Expand the children container
+      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
+
       cy.getCuiSidebar('Explorer').getCuiToolbarItem('Add Element').click()
 
       cy.findByTestId('create-element-form').setFormFieldValue({

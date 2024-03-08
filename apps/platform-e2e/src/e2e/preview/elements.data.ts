@@ -8,10 +8,12 @@ import { actionTypeId, apiPostActionId } from './resource.data.ts'
 
 const elementFormId = v4()
 
+export const elementFormName = 'Element Form'
+
 export const elementForm = (page: IPageDto): ICreateElementData => ({
   atom: IAtomType.AntDesignForm,
   id: elementFormId,
-  name: 'Form',
+  name: elementFormName,
   parentElement: { id: page.rootElement.id },
   propsData: {
     customText: `<p>Submit Form</p>`,

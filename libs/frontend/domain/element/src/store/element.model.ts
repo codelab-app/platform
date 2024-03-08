@@ -18,7 +18,6 @@ import {
   getComponentDomainService,
   getElementDomainService,
   IElementModel,
-  IElementTreeViewDataNode,
   isAtom,
   isAtomRef,
   isComponentRef,
@@ -30,7 +29,6 @@ import {
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IElementDto, IRef } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -372,80 +370,6 @@ export class Element
         (isAtom(this.renderType.current)
           ? compoundCaseToTitleCase(this.renderType.current.type)
           : undefined),
-    }
-  }
-
-  @computed
-  get treeViewNode(): IElementTreeViewDataNode {
-    const extraChildren: Array<IElementModel> = []
-
-    // Creates the tree node n times for the component based on the child mapper prop
-    if (
-      this.childMapperComponent?.id &&
-      this.childMapperPropKey
-      // && this.runtimeProp?.evaluatedChildMapperProp.length
-    ) {
-      const keys: Array<string> = [
-        // ...Array(this.runtimeProp.evaluatedChildMapperProp.length).keys(),
-      ]
-
-      keys.forEach((i) => {
-        // const clonedComponent =
-        //   this.componentDomainService.clonedComponents.get(`${this.id}-${i}`)
-        // if (clonedComponent) {
-        //   extraChildren.push(clonedComponent.rootElement.current)
-        // }
-      })
-    }
-
-    // Add assigned ReactNode props as children
-    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
-
-    Object.keys(this.props.values).forEach((key, index) => {
-      const propData = this.props.values[key]
-
-      const component = this.componentDomainService.components.get(
-        propData.value,
-      )?.rootElement.current
-
-      if (propData.kind === ITypeKind.ReactNodeType && component) {
-        reactNodesChildren.push({
-          ...component.treeViewNode,
-          children: [],
-          isChildMapperComponentInstance: true,
-          key: `${propData.value}${index}`,
-          primaryTitle: `${key}:`,
-          selectable: false,
-        })
-      }
-    })
-
-    const childMapperRenderIndex =
-      this.children.findIndex(
-        (child) => child.id === this.childMapperPreviousSibling?.id,
-      ) + 1
-
-    const children = [...this.children.map((child) => child.treeViewNode)]
-
-    children.splice(
-      childMapperRenderIndex,
-      0,
-      ...extraChildren.map((child) => ({
-        ...child.treeViewNode,
-        children: [],
-        isChildMapperComponentInstance: true,
-      })),
-      ...reactNodesChildren,
-    )
-
-    return {
-      children,
-      key: this.id,
-      node: this,
-      primaryTitle: this.treeTitle.primary,
-      rootKey: this.closestSubTreeRootElement.id,
-      secondaryTitle: this.treeTitle.secondary,
-      title: `${this.treeTitle.primary} (${this.treeTitle.secondary})`,
     }
   }
 

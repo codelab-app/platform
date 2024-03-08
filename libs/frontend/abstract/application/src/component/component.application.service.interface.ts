@@ -33,4 +33,5 @@ export interface IComponentApplicationService
   createForm: IFormService
 
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
+  previewComponent(id: string): void
 }

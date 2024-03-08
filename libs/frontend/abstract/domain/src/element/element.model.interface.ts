@@ -100,7 +100,10 @@ export interface IElementModel
   tailwindClassNames?: Nullable<Array<string>>
   toId: object
   toTreeNode: object
-  treeViewNode: IElementTreeViewDataNode
+  treeTitle: {
+    primary: string
+    secondary: string | undefined
+  }
 
   attachAsFirstChild(parentElement: IElementModel): void
   attachAsNextSibling(sibling: IElementModel): void
