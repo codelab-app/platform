@@ -78,7 +78,7 @@
           // }
           // DTO should be Dto
           {
-            "selector": ["parameter"],
+            "selector": ["parameter", "variable"],
             "format": ["camelCase"],
             "filter": {
               "regex": "DTO",

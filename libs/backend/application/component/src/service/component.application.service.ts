@@ -1,8 +1,20 @@
+import { ElementApplicationService } from '@codelab/backend/application/element'
+import { StoreApplicationService } from '@codelab/backend/application/store'
 import { ComponentRepository } from '@codelab/backend/domain/component'
-import type { IComponentAggregate } from '@codelab/shared/abstract/core'
+import { PropDomainService } from '@codelab/backend/domain/prop'
+import { Store } from '@codelab/backend/domain/store'
+import { InterfaceType } from '@codelab/backend/domain/type'
+import type {
+  IComponentAggregate,
+  IComponentDto,
+  ICreateComponentData,
+  ICreateInterfaceTypeDto,
+  IStoreDto,
+} from '@codelab/shared/abstract/core'
 import { IRole } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
+import { v4 } from 'uuid'
 import { ExportComponentCommand } from '../use-case'
 
 @Injectable()
@@ -10,10 +22,45 @@ export class ComponentApplicationService {
   constructor(
     private componentRepository: ComponentRepository,
     private commandBus: CommandBus,
+    private storeApplicationService: StoreApplicationService,
+    private elementApplicationService: ElementApplicationService,
+    private propDomainService: PropDomainService,
   ) {}
 
-  async createComponent() {
-    const component = await this.componentRepository.add({})
+  async createComponent(createComponentData: ICreateComponentData) {
+    const api: ICreateInterfaceTypeDto = {
+      id: v4(),
+      name: InterfaceType.createName(`${createComponentData.name} Store`),
+    }
+
+    const storeDto: IStoreDto = {
+      api,
+      id: v4(),
+      name: Store.createName({ name: createComponentData.name }),
+    }
+
+    const store = await this.storeApplicationService.createStoreAggregate(
+      storeDto,
+      api,
+    )
+
+    const props = await this.propDomainService.createProp()
+
+    const rootElement = await this.elementApplicationService.createRootElement(
+      createComponentData,
+    )
+
+    const componentDto: IComponentDto = {
+      childrenContainerElement: rootElement,
+      rootElement,
+      ...createComponentData,
+      api,
+      id: v4(),
+      props,
+      store,
+    }
+
+    const component = await this.componentRepository.add(componentDto)
 
     return component
   }

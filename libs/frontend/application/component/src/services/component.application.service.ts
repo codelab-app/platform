@@ -7,10 +7,8 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
-  ICreateComponentData,
   IElementModel,
   IInterfaceTypeModel,
-  IUpdateComponentData,
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
@@ -32,7 +30,11 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IPropDto } from '@codelab/shared/abstract/core'
+import type {
+  ICreateComponentData,
+  IPropDto,
+  IUpdateComponentData,
+} from '@codelab/shared/abstract/core'
 import {
   IElementRenderTypeKind,
   ITypeKind,

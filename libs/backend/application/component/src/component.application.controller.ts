@@ -1,4 +1,7 @@
-import { IComponentDto } from '@codelab/shared/abstract/core'
+import {
+  IComponentDto,
+  ICreateComponentData,
+} from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { ComponentApplicationService } from './service/component.application.service'
 
@@ -9,7 +12,7 @@ export class ComponentApplicationController {
   ) {}
 
   @Post('create-component')
-  async createComponent(@Body() createComponentDto: IComponentDto) {
-    return this.componentApplicationService.createComponent()
+  async createComponent(@Body() createComponentData: ICreateComponentData) {
+    return this.componentApplicationService.createComponent(createComponentData)
   }
 }

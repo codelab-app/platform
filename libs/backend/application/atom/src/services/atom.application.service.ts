@@ -1,6 +1,5 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import { IEntity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
@@ -14,7 +13,6 @@ export class AtomApplicationService {
     private readonly commandBus: CommandBus,
   ) {}
 
-  @Span()
   async exportAtomsForAdmin(): Promise<Array<IAtomAggregate>> {
     /**
      * Get all atoms first

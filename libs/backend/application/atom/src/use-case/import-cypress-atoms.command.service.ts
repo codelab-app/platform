@@ -1,5 +1,4 @@
 import { ReadAdminDataService } from '@codelab/backend/application/data'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import { type IAtomDto } from '@codelab/shared/abstract/core'
 import { atomTypes } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -23,7 +22,6 @@ export class ImportCypressAtomsHandler
   /**
    * Default `atom` for `Element.renderType` may already exist, so we save by name
    */
-  @Span()
   async execute() {
     const atoms = this.readAdminDataService.atoms.filter(({ atom }) =>
       atomTypes.includes(atom.type),

@@ -1,7 +1,6 @@
 import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IApi, IAtom, IAtomAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -20,7 +19,6 @@ export class ExportAtomHandler
     private commandBus: CommandBus,
   ) {}
 
-  @Span()
   async execute(command: ExportAtomCommand): Promise<IAtomAggregate> {
     const { where } = command
     const existingAtom = await this.atomRepository.findOneOrFail({ where })

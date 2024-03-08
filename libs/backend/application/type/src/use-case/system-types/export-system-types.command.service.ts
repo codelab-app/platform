@@ -5,7 +5,6 @@ import {
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
 } from '@codelab/backend/domain/type'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IType } from '@codelab/shared/abstract/core'
 import {
   IActionType,
@@ -44,7 +43,6 @@ export class ExportSystemTypesHandler
     private actionTypeRepository: ActionTypeRepository,
   ) {}
 
-  @Span()
   async execute() {
     /**
      * Export all primitive types
