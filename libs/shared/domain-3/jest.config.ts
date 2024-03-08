@@ -1,7 +1,7 @@
 /* eslint-disable */
 export default {
-  displayName: 'libs/shared/domain/model',
-  preset: '../../../../jest.preset.js',
+  displayName: 'shared-domain-3',
+  preset: '../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+.[tj]sx?$': [
@@ -18,7 +18,7 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/shared/domain/model',
+  coverageDirectory: '../../../coverage/libs/shared/domain-3',
   reporters: [
     'default',
     [

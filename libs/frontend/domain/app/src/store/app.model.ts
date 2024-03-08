@@ -17,7 +17,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { AppProperties, connectOwner } from '@codelab/shared/domain/mapper'
+import { AppProperties, connectOwner } from '@codelab/shared/domain'
 import { slugify, throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

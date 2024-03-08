@@ -13,7 +13,7 @@ import type {
   IResourceDto,
   IResourceType,
 } from '@codelab/shared/abstract/core'
-import { connectOwner, getResourceClient } from '@codelab/shared/domain/mapper'
+import { connectOwner, getResourceClient } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

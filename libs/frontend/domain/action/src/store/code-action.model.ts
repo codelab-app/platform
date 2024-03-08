@@ -7,7 +7,7 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import type { ICodeActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction } from './base-action.model'

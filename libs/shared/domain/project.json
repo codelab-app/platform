@@ -1,7 +1,7 @@
 {
-  "name": "shared-domain-mapper",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/domain/mapper/src",
+  "name": "shared-domain",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/domain/src",
   "projectType": "library",
   "targets": {
     "lint": {
@@ -14,9 +14,7 @@
         }
       },
       "options": {
-        "lintFilePatterns": [
-          "libs/shared/domain/mapper/**/*.{ts,tsx,js,jsx,graphql}"
-        ]
+        "lintFilePatterns": ["libs/shared/domain/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     }
   },

@@ -19,7 +19,7 @@ import {
 import { getTypeDomainService } from '@codelab/frontend/domain/type'
 import type { AtomDevelopmentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { AppProperties } from '@codelab/shared/domain/mapper'
+import { AppProperties } from '@codelab/shared/domain'
 import uniqBy from 'lodash/uniqBy'
 import { computed } from 'mobx'
 import {

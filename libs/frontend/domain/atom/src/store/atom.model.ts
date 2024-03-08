@@ -30,7 +30,7 @@ import {
   htmlAtoms,
   reactAtoms,
   reconnectNodeIds,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

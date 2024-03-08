@@ -19,7 +19,7 @@ import {
   disconnectAll,
   ElementProperties,
   reconnectNodeId,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

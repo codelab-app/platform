@@ -6,7 +6,7 @@ import {
   IPageKind,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
-import { getResourceClient } from '@codelab/shared/domain/mapper'
+import { getResourceClient } from '@codelab/shared/domain'
 import { evaluateObject, tryParse } from '@codelab/shared/utils'
 import { Body, Controller, Post } from '@nestjs/common'
 

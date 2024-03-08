@@ -18,7 +18,7 @@ import type {
   IEnumTypeDto,
   IEnumTypeValueDto,
 } from '@codelab/shared/abstract/core'
-import { connectOwner, whereNodeId } from '@codelab/shared/domain/mapper'
+import { connectOwner, whereNodeId } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

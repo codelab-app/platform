@@ -13,7 +13,7 @@ import {
   IApiActionDto,
   ICodeActionDto,
 } from '@codelab/shared/abstract/core'
-import { ActionMapper } from '@codelab/shared/domain/mapper'
+import { ActionMapper } from '@codelab/shared/domain'
 import { Model, model, modelAction } from 'mobx-keystone'
 
 const writeCache = (

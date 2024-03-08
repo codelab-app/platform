@@ -18,7 +18,7 @@ import type {
   IInterfaceTypeDto,
   ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
-import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeIds, connectOwner } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 

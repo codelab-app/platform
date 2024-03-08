@@ -11,7 +11,7 @@ import {
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain/model'
+import { createInterfaceTypeName } from '@codelab/shared/domain'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

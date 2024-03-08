@@ -12,7 +12,7 @@ import {
   IRedirectTargetType,
   IResourceType,
 } from '@codelab/shared/abstract/core'
-import { ResourceRestClient } from '@codelab/shared/domain/mapper'
+import { ResourceRestClient } from '@codelab/shared/domain'
 import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { RedirectApplicationModule } from './redirect.application.module'

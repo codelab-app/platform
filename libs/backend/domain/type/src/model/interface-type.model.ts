@@ -5,7 +5,7 @@ import type {
   IRef,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain/model'
+import { createInterfaceTypeName } from '@codelab/shared/domain'
 import { v4 } from 'uuid'
 import capitalize from 'voca/capitalize'
 import { BaseType } from './base-type.model'

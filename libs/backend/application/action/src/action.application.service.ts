@@ -1,7 +1,7 @@
 import { ActionFactory } from '@codelab/backend/domain/action'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import type { ICreateActionData } from '@codelab/shared/abstract/core'
-import { ActionMapper } from '@codelab/shared/domain/mapper'
+import { ActionMapper } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

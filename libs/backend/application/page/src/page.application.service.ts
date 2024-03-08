@@ -5,7 +5,7 @@ import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreDomainService } from '@codelab/backend/domain/store'
 import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
 import type { ICreatePageDto, IPageDto } from '@codelab/shared/abstract/core'
-import { createInterfaceTypeName } from '@codelab/shared/domain/model'
+import { createInterfaceTypeName } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 

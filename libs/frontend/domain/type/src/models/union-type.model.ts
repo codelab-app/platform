@@ -5,7 +5,7 @@ import type {
 import { typeRef } from '@codelab/frontend/abstract/domain'
 import type { IUnionTypeDto } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { makeAllTypes } from '@codelab/shared/domain/mapper'
+import { makeAllTypes } from '@codelab/shared/domain'
 import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

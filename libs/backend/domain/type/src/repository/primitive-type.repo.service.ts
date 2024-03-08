@@ -14,7 +14,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPrimitiveTypeDto } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

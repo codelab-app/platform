@@ -13,7 +13,7 @@ import type {
   AuthGuardUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeId, connectOwner } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'

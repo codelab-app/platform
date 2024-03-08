@@ -26,7 +26,7 @@ import {
   connectNodeId,
   PageProperties,
   reconnectNodeId,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

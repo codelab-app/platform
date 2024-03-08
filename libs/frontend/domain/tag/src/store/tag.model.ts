@@ -13,7 +13,7 @@ import {
   connectNodeId,
   connectOwner,
   reconnectNodeId,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
