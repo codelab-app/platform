@@ -102,6 +102,8 @@ export class RuntimeContainerNodeModel
     )
 
     if (foundNode) {
+      foundNode.subTrees = subTrees
+
       return foundNode
     }
 

@@ -291,7 +291,6 @@ export class RuntimeElementModel
         isRuntimeContainerNode(child)
           ? {
               ...child.runtimeRootElement.treeViewNode,
-              // children: [],
               ...(!isNil(child.childMapperIndex) ? { children: [] } : {}),
               isChildMapperComponentInstance: isComponent(
                 child.containerNode.current,
