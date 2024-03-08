@@ -5,10 +5,12 @@ import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { AuthDomainModule } from '@codelab/backend/domain/shared/auth'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
+import { PageApplicationController } from './page.application.controller'
+import { PageApplicationService } from './page.application.service'
 import { ExportPageHandler, ImportPageHandler } from './use-case'
 
 @Module({
-  controllers: [],
+  controllers: [PageApplicationController],
   exports: [],
   imports: [
     AuthDomainModule,
@@ -18,6 +20,6 @@ import { ExportPageHandler, ImportPageHandler } from './use-case'
     ElementDomainModule,
     CqrsModule,
   ],
-  providers: [ExportPageHandler, ImportPageHandler],
+  providers: [ExportPageHandler, ImportPageHandler, PageApplicationService],
 })
 export class PageApplicationModule {}
