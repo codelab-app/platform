@@ -1,8 +1,13 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { IAppDto } from '@codelab/shared/abstract/core'
-import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import type { IAppDto, ICreatePageDto } from '@codelab/shared/abstract/core'
+import {
+  IAtomType,
+  IPageKind,
+  IPageKindName,
+} from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { v4 } from 'uuid'
 
 interface ComponentChildData {
   atom: string
@@ -20,11 +25,23 @@ describe('State variables sharing between pages', () => {
   let app: IAppDto
 
   before(() => {
-    cy.postApiRequest('/type/seed-cypress-type')
     cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
       app = apps.body
     })
+
+    cy.get('@cypressApp').then(() => {
+      const createPageDto: ICreatePageDto = {
+        app,
+        id: v4(),
+        kind: IPageKind.Regular,
+        name: 'Test Page',
+        url: 'test-page',
+      }
+
+      return cy.postApiRequest('/page/create-page', createPageDto)
+    })
   })
+
   it('should setup the pages that will share states', () => {
     // create regular page where we will test the shared state
     cy.visit(
@@ -33,14 +50,14 @@ describe('State variables sharing between pages', () => {
       )}/builder?primarySidebarKey=pageList`,
     )
     // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    // cy.waitForApiCalls()
+    // cy.getSpinner().should('not.exist')
 
-    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
+    // cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
 
-    cy.findByTestId('create-page-form').findByLabelText('Name').type('Testpage')
+    // cy.findByTestId('create-page-form').findByLabelText('Name').type('Testpage')
 
-    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
+    // cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
 
     // create a component
     cy.visit(

@@ -1,4 +1,5 @@
 import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
+import type { AntButtonCommands } from './button'
 import { antButtonCommands } from './button'
 import { antCardCommands } from './card'
 import type { AntDrawerCommands } from './drawer'
@@ -34,7 +35,8 @@ import { antTooltipCommands } from './tooltip'
 import type { AntTreeCommands } from './tree'
 import { antTreeCommands } from './tree'
 
-export type CypressAntdCommands = AntDrawerCommands &
+export type CypressAntdCommands = AntButtonCommands &
+  AntDrawerCommands &
   AntDropdownCommands &
   AntFormCommands &
   AntIconCommands &

@@ -1,5 +1,4 @@
 import { ComponentRepository } from '@codelab/backend/domain/component'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IComponentAggregate } from '@codelab/shared/abstract/core'
 import { IRole } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -13,10 +12,15 @@ export class ComponentApplicationService {
     private commandBus: CommandBus,
   ) {}
 
+  async createComponent() {
+    const component = await this.componentRepository.add({})
+
+    return component
+  }
+
   /**
    * Export all components owned by admins
    */
-  @Span()
   async exportComponentsForAdmin(): Promise<Array<IComponentAggregate>> {
     const components = await this.componentRepository.find({
       where: {
