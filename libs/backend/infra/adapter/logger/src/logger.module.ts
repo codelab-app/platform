@@ -1,9 +1,9 @@
+import { pinoPrettyStream } from '@codelab/shared/infra/logging'
 import { Global, Module } from '@nestjs/common'
 import omit from 'lodash/omit'
 import { LoggerModule } from 'nestjs-pino'
 import { NestjsLoggerService } from './nestjs.logger.service'
 import { CodelabLoggerService } from './pino.logger.service'
-import { pinoPrettyStream } from './pino-transport'
 
 @Global()
 @Module({

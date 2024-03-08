@@ -177,7 +177,7 @@
     "passport": "0.6.0",
     "passport-jwt": "4.0.1",
     "passport-local": "1.0.0",
-    "pino": "8.19.0",
+    "pino": "^8.19.0",
     "pino-http": "9.0.0",
     "prettier": "2.8.8",
     "puppeteer": "20.1.1",

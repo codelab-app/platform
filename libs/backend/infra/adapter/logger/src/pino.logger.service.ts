@@ -1,7 +1,7 @@
+import type { PinoMessage } from '@codelab/shared/infra/logging'
 import type { LoggerService } from '@nestjs/common'
 import { Inject, Injectable } from '@nestjs/common'
 import { Logger, Params, PARAMS_PROVIDER_TOKEN, PinoLogger } from 'nestjs-pino'
-import type { PinoMessage } from './pino-transport'
 
 @Injectable()
 export class CodelabLoggerService extends Logger implements LoggerService {
