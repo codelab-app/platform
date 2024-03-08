@@ -62,7 +62,7 @@
               "match": false
             },
             "leadingUnderscore": "allowSingleOrDouble"
-          }
+          },
           // DTO should be Dto
           // {
           //   "selector": ["typeAlias", "interface"],
@@ -76,6 +76,19 @@
           //     "match": true
           //   }
           // }
+          // DTO should be Dto
+          {
+            "selector": ["parameter", "variable"],
+            "format": ["camelCase"],
+            "filter": {
+              "regex": "DTO",
+              "match": true
+            },
+            "custom": {
+              "regex": "Dto",
+              "match": true
+            }
+          }
         ]
       }
     }

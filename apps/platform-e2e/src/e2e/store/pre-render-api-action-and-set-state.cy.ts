@@ -28,7 +28,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
   it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // Create the API resource we will use for the API action
     cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
@@ -53,7 +53,7 @@ describe('Running API action and setting state on element pre-render', () => {
         IPageKindName.Provider,
       )}/builder`,
     )
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // select root now so we can update its child later
     // there is an issue with tree interaction

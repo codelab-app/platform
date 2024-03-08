@@ -5,7 +5,7 @@ import type {
   ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { reconnectNodeId } from '@codelab/shared/domain/mapper'
+import { reconnectNodeId } from '@codelab/shared/domain'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { componentApi } from './component.api'
 

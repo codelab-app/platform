@@ -1,6 +1,5 @@
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -18,7 +17,6 @@ export class ImportAtomHandler
     private commandBus: CommandBus,
   ) {}
 
-  @Span()
   async execute(command: ImportAtomCommand) {
     const {
       atomAggregate: { api, atom },

@@ -6,7 +6,7 @@ import { StoreRepository } from '../repository'
 export class StoreDomainService {
   constructor(private storeRepository: StoreRepository) {}
 
-  async create(dto: Pick<IStoreDto, 'api' | 'id' | 'name'>) {
+  async create(dto: IStoreDto) {
     return this.storeRepository.add(dto)
   }
 }

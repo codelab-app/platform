@@ -8,7 +8,7 @@ import {
   connectOwner,
   ElementProperties,
   PageProperties,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import { prettifyForConsole } from '@codelab/shared/utils'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'

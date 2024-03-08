@@ -67,7 +67,7 @@ describe('Elements CRUD', () => {
           IPageKindName.Provider,
         )}/builder`,
       )
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       // select root now so we can update its child later
       // there is an issue with tree interaction
@@ -93,7 +93,7 @@ describe('Elements CRUD', () => {
     it(`should be able to delete element sub tree`, () => {
       cy.findByText(updatedElementName).rightclick()
       cy.contains(/Delete/).click({ force: true })
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.getModal()
         .getModalAction(/Delete/)

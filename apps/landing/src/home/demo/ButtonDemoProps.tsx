@@ -24,10 +24,6 @@ export const demoCardPropState = atom<DemoCardProps>({
 const { Option } = Select
 
 export const ButtonPropsForm = () => {
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('click left button', event)
-  }
-
   const [demoCardProp, setDemoCardProp] = useRecoilState(demoCardPropState)
 
   const onBlockToggle = (checked: boolean) => {

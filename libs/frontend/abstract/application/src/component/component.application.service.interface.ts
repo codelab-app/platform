@@ -1,13 +1,15 @@
 import type {
   IComponentDomainService,
   IComponentModel,
-  ICreateComponentData,
-  IUpdateComponentData,
 } from '@codelab/frontend/abstract/domain'
 import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
+import type {
+  ICreateComponentData,
+  IUpdateComponentData,
+} from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type { IFormService } from '../services/form.service.interface'

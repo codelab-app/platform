@@ -40,8 +40,6 @@ export class ExtractHtmlFieldsHandler
       const htmlFields = htmlAttributesByName[htmlName]
 
       if (!htmlFields) {
-        console.log(htmlName)
-
         process.exit(0)
 
         return await accFieldsPromise

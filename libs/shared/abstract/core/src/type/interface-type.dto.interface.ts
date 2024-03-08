@@ -24,10 +24,7 @@ export const IInterfaceType = Typebox.Overwrite(
 
 export type IInterfaceType = Static<typeof IInterfaceType>
 
-export interface ICreateInterfaceTypeDto {
-  id: string
-  name: string
-}
+export type ICreateInterfaceTypeDto = Pick<IInterfaceTypeDto, 'id' | 'name'>
 
 /**
  * Entity

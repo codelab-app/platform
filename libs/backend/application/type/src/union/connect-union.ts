@@ -1,6 +1,6 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNode } from '@codelab/shared/domain/mapper'
+import { connectNode } from '@codelab/shared/domain'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
 import { mapPrimitiveType } from '../mapper/ant-design-primitive-map'

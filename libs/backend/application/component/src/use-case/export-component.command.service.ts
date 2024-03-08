@@ -3,7 +3,6 @@ import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type {
   IApi,
   IComponentAggregate,
@@ -25,7 +24,6 @@ export class ExportComponentHandler
     private commandBus: CommandBus,
   ) {}
 
-  @Span()
   async execute({ componentId }: ExportComponentCommand) {
     const component = await this.componentRepository.findOneOrFail({
       where: {

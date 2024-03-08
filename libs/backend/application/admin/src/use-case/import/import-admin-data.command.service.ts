@@ -5,11 +5,11 @@ import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import {
-  Span,
   TraceService,
   withActiveSpan,
 } from '@codelab/backend/infra/adapter/otel'
-import { IAtomAggregate, Stage } from '@codelab/shared/abstract/core'
+import type { IAtomAggregate } from '@codelab/shared/abstract/core'
+import { Stage } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import omit from 'lodash/omit'
@@ -31,7 +31,6 @@ export class ImportAdminDataHandler
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
-  @Span()
   async execute({ baseDataPaths }: ImportAdminDataCommand) {
     if (baseDataPaths) {
       this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
@@ -52,7 +51,6 @@ export class ImportAdminDataHandler
     await this.importComponents()
   }
 
-  @Span()
   private async importAtom(atom: IAtomAggregate) {
     const span = this.traceService.getSpan()
 
@@ -95,14 +93,12 @@ export class ImportAdminDataHandler
     }
   }
 
-  @Span()
   private async importSystemTypes() {
     return this.commandBus.execute<ImportSystemTypesCommand>(
       new ImportSystemTypesCommand(),
     )
   }
 
-  @Span()
   private async importTags() {
     const { tags } = this.readAdminDataService
 

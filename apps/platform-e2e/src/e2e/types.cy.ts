@@ -221,7 +221,7 @@ describe('Types CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -246,7 +246,7 @@ describe('Types CRUD', () => {
         .should('be.visible')
         .click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
@@ -266,7 +266,7 @@ describe('Types CRUD', () => {
         .should('be.visible')
         .click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
@@ -286,7 +286,7 @@ describe('Types CRUD', () => {
         .should('be.visible')
         .click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()
@@ -306,7 +306,7 @@ describe('Types CRUD', () => {
         .should('be.visible')
         .click()
 
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.intercept('POST', `api/graphql`).as('action')
       cy.getModal()

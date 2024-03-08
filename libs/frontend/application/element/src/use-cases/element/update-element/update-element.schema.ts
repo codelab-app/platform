@@ -51,6 +51,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         id: {
           label: 'Child Mapper Component',
           type: 'string',
+          help: 'The component to render based on the length of the data source',
         },
       },
       required: [],
@@ -62,7 +63,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         ...idSchema({
           label: 'Render next to',
           component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
+          help: 'Component instances will be rendered next to this element',
         }),
+        // help: 'testing testing testing',
       },
       required: [],
       type: 'object',
@@ -71,6 +74,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       label: 'Prop Key',
       nullable: true,
       type: 'string',
+      help: 'The key used to get the data from state e.g. `state.products`, `rootState.products`. Data source needs to be an array',
     },
     renderForEachPropKey: {
       label: 'Render for each',

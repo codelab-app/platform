@@ -13,7 +13,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IReactNodeTypeDto } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

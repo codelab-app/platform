@@ -3,7 +3,7 @@ import {
   connectNodeId,
   connectOwner,
   ElementProperties,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import type { INestApplication } from '@nestjs/common'

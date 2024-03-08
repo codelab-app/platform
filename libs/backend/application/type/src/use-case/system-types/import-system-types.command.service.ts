@@ -1,6 +1,5 @@
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { TypeFactory } from '@codelab/backend/domain/type'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -15,7 +14,6 @@ export class ImportSystemTypesHandler
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
-  @Span()
   async execute() {
     const types = this.readAdminDataService.systemTypes
 

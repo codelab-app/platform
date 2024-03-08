@@ -18,7 +18,7 @@ import type {
 import type { IApiActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
-import { connectNodeId, disconnectAll } from '@codelab/shared/domain/mapper'
+import { connectNodeId, disconnectAll } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

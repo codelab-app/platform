@@ -6,7 +6,7 @@ import {
   IPageKind,
   IRedirectTargetType,
 } from '@codelab/shared/abstract/core'
-import { getResourceClient } from '@codelab/shared/domain/mapper'
+import { getResourceClient } from '@codelab/shared/domain'
 import { evaluateObject, tryParse } from '@codelab/shared/utils'
 import { Body, Controller, Post } from '@nestjs/common'
 
@@ -74,8 +74,6 @@ export class RedirectController {
       }
     }
 
-    console.log(responseTransformer, response)
-
     try {
       const canActivate = await safeEval(responseTransformer, response)
 
@@ -85,7 +83,7 @@ export class RedirectController {
         status: 200,
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       return {
         canActivate: false,

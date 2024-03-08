@@ -4,7 +4,7 @@ import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import { WriteAdminDataService } from '@codelab/backend/application/data'
 import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
-import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import type {
   IAdminAggregate,
   ITag,
@@ -33,7 +33,6 @@ export class ExportAdminDataHandler
     private componentApplicationService: ComponentApplicationService,
   ) {}
 
-  @Span()
   async execute({ baseDataPaths }: ExportAdminDataCommand) {
     const span = this.traceService.getSpan()
 

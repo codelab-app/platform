@@ -1,5 +1,5 @@
 import type { Element } from '@codelab/shared/abstract/codegen'
-import { ElementProperties } from '@codelab/shared/domain/mapper'
+import { ElementProperties } from '@codelab/shared/domain'
 import type { IFieldResolver } from '@graphql-tools/utils'
 
 /**

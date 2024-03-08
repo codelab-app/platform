@@ -25,10 +25,6 @@ export const graphqlCodegen = async (sourceRoot: string, libName: string) => {
     gitignore: true,
   })
 
-  console.log({ libName, sourceRoot })
-
-  console.log({ documentFiles })
-
   // Documents - this is an example, you might need to adjust according to your file structure
   const documents = await loadDocuments(documentFiles, {
     loaders: [new GraphQLFileLoader()],

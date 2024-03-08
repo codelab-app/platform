@@ -30,7 +30,6 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   }, [user])
 
   if (typeof window !== 'undefined' && window.Cypress) {
-    console.log('setting mobx store', store)
     set(window, '__store__', store)
   }
 

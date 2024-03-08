@@ -13,7 +13,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       const request = host.switchToHttp().getRequest()
       const { body, params } = request
 
-      console.log(params, body)
+      // console.log(params, body)
     } else {
       console.error(exception)
     }

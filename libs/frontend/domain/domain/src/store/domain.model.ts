@@ -6,7 +6,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

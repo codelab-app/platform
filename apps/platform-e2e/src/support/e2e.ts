@@ -40,7 +40,7 @@ registerCommands([
 before(() => {
   Cypress.log({
     message: 'Running before hook inside e2e.ts',
-    name: 'E2e setup',
+    name: 'setup e2e',
   })
   cy.loginAndSetupE2eData()
 })

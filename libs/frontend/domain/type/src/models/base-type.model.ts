@@ -5,7 +5,7 @@ import {
   type IUpdateTypeVars,
 } from '@codelab/frontend/abstract/domain'
 import type { IBaseTypeDto, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectOwner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

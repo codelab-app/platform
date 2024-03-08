@@ -19,7 +19,7 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { AppProperties } from '@codelab/shared/domain/mapper'
+import { AppProperties } from '@codelab/shared/domain'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'

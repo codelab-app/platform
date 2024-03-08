@@ -1,9 +1,9 @@
-import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   formatToPrettifiedJson,
   writeFileSyncWithDirs,
 } from '@codelab/backend/shared/util'
-import { IAdminAggregate } from '@codelab/shared/abstract/core'
+import type { IAdminAggregate } from '@codelab/shared/abstract/core'
 import { deepSortKeys } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import path from 'path'
@@ -19,7 +19,6 @@ export class WriteAdminDataService {
   /**
    * Write data to the volume
    */
-  @Span()
   async saveData(data: IAdminAggregate) {
     const { atoms, components, systemTypes, tags } = deepSortKeys(data)
 
@@ -31,7 +30,6 @@ export class WriteAdminDataService {
     return { atoms, components, systemTypes, tags }
   }
 
-  @Span()
   private async writeAtomsData(atoms: IAdminAggregate['atoms']) {
     for (const { api, atom } of atoms) {
       const outputPath = path.resolve(

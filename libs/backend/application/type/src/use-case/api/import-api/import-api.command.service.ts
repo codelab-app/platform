@@ -1,5 +1,4 @@
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IApi } from '@codelab/shared/abstract/core'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
@@ -16,7 +15,6 @@ export class ImportApiHandler
     private readonly typeFactory: TypeFactory,
   ) {}
 
-  @Span()
   async execute(command: ImportApiCommand) {
     const {
       api: { fields, types },

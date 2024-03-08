@@ -49,7 +49,7 @@ describe('Element Child Mapper', () => {
 
   it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // Create the API resource we will use for the API action
     cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
@@ -75,12 +75,12 @@ describe('Element Child Mapper', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // GetAtoms
     // GetComponents
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiSidebar('Components')
       .getCuiToolbarItem('Add Component')
@@ -100,7 +100,7 @@ describe('Element Child Mapper', () => {
     cy.getSider().getButton({ icon: 'edit' }).click()
 
     cy.findByText('Elements Tree').should('exist')
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getCuiSidebarViewHeader('Actions')
@@ -199,7 +199,7 @@ describe('Element Child Mapper', () => {
         IPageKindName.Provider,
       )}/builder?primarySidebarKey=explorer`,
     )
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     // select root now so we can update its child later
     // there is an issue with tree interaction

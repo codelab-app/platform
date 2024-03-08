@@ -63,10 +63,6 @@ const treeData: Array<DataNode> = [
 ]
 
 export const DOMTree = () => {
-  const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    console.log('selected', selectedKeys, info)
-  }
-
   return (
     <Tree
       className="px-2 py-3"

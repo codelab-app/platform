@@ -1,0 +1,51 @@
+import { ElementApplicationService } from '@codelab/backend/application/element'
+import { AppRepository } from '@codelab/backend/domain/app'
+import { PageRepository } from '@codelab/backend/domain/page'
+import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { Store, StoreDomainService } from '@codelab/backend/domain/store'
+import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
+import type { ICreatePageDto, IPageDto } from '@codelab/shared/abstract/core'
+import { createInterfaceTypeName } from '@codelab/shared/domain'
+import { Injectable } from '@nestjs/common'
+import { v4 } from 'uuid'
+
+@Injectable()
+export class PageApplicationService {
+  constructor(
+    private pageRepository: PageRepository,
+    private elementApplicationService: ElementApplicationService,
+    private storeDomainService: StoreDomainService,
+    private typeDomainService: TypeDomainService,
+    private appRepository: AppRepository,
+    private authDomainService: AuthDomainService,
+  ) {}
+
+  async createPage(createPageDto: ICreatePageDto) {
+    const app = await this.appRepository.findOneOrFail({
+      where: { id: createPageDto.app.id },
+    })
+
+    const rootElement = await this.elementApplicationService.createRootElement({
+      id: createPageDto.id,
+    })
+
+    const api = await this.typeDomainService.createInterface({
+      id: v4(),
+      name: InterfaceType.createName(
+        `${app.name}(${this.authDomainService.currentUser}) ${createPageDto.name} Store`,
+      ),
+    })
+
+    const store = await this.storeDomainService.create({
+      api,
+      id: v4(),
+      name: Store.createName({ name: createPageDto.name }),
+    })
+
+    return this.pageRepository.add({
+      ...createPageDto,
+      rootElement,
+      store,
+    })
+  }
+}

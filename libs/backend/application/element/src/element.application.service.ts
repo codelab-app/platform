@@ -1,11 +1,13 @@
 import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { PropRepository } from '@codelab/backend/domain/prop'
+import { PropDomainService, PropRepository } from '@codelab/backend/domain/prop'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
+  IAtomType,
   type ICreateElementData,
   type IRef,
 } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -14,15 +16,12 @@ export class ElementApplicationService {
   constructor(
     private elementRepository: ElementRepository,
     private atomDomainService: AtomDomainService,
-    private propRepository: PropRepository,
     private loggerService: CodelabLoggerService,
+    private propDomainService: PropDomainService,
   ) {}
 
-  async createElement(element: ICreateElementData, parentElement: IRef) {
-    const props = await this.propRepository.add({
-      data: JSON.stringify(element.propsData ?? {}),
-      id: v4(),
-    })
+  async createElement(element: ICreateElementData, closestContainerNode: IRef) {
+    const props = await this.propDomainService.createProp(element.propsData)
 
     const renderType = element.atom
       ? await this.atomDomainService.getRenderTypeByName(element.atom)
@@ -32,7 +31,7 @@ export class ElementApplicationService {
 
     return await this.elementRepository.add({
       ...element,
-      closestContainerNode: { id: parentElement.id },
+      closestContainerNode: { id: closestContainerNode.id },
       parentElement: element.parentElement,
       props,
       renderType,
@@ -46,5 +45,19 @@ export class ElementApplicationService {
     for (const element of elements) {
       await this.createElement(element, parentElement)
     }
+  }
+
+  async createRootElement(closestContainerNode: IRef) {
+    const props = await this.propDomainService.createProp()
+
+    const rootElement = await this.elementRepository.add({
+      closestContainerNode,
+      id: v4(),
+      name: ROOT_ELEMENT_NAME,
+      props,
+      renderType: await this.atomDomainService.defaultRenderType(),
+    })
+
+    return rootElement
   }
 }

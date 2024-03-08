@@ -1,113 +1,85 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { IAppDto } from '@codelab/shared/abstract/core'
-import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import type { Component } from '@codelab/shared/abstract/codegen'
+import type {
+  IAppDto,
+  ICreateComponentData,
+  ICreatePageDto,
+} from '@codelab/shared/abstract/core'
+import {
+  IAtomType,
+  IPageKind,
+  IPageKindName,
+} from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-
-interface ComponentChildData {
-  atom: string
-  name: string
-}
-
-const COMPONENT_NAME = 'Component Name'
-
-const componentChildren = [
-  { atom: IAtomType.AntDesignSpace, name: 'Space' },
-  { atom: IAtomType.AntDesignTypographyText, name: 'Typography' },
-]
+import { v4 } from 'uuid'
+import type { ComponentChildData } from './components.data'
+import {
+  COMPONENT_NAME,
+  componentChildren,
+  spaceElement,
+  typographyTextElement,
+} from './components.data'
 
 describe('State variables sharing between pages', () => {
   let app: IAppDto
 
   before(() => {
-    cy.postApiRequest('/type/seed-cypress-type')
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app')
+      .then((apps) => {
+        app = apps.body
+      })
+      .as('cypressApp')
+
+    cy.get('@cypressApp').then(() => {
+      const createPageDto: ICreatePageDto = {
+        app,
+        id: v4(),
+        kind: IPageKind.Regular,
+        name: 'Test Page',
+        url: 'test-page',
+      }
+
+      return cy
+        .postApiRequest('/page/create-page', createPageDto)
+        .as('cypressPage')
+    })
+
+    cy.get('@cypressPage')
+      .then(() => {
+        const createComponentData: ICreateComponentData = {
+          id: v4(),
+          name: COMPONENT_NAME,
+        }
+
+        return cy.postApiRequest(
+          '/component/create-component',
+          createComponentData,
+        )
+      })
+      .as('cypressComponent')
+
+    cy.get<Cypress.Response<Component>>('@cypressComponent').then((result) => {
+      const component = result.body
+
+      return cy.postApiRequest(`/element/${component.id}/create-elements`, [
+        spaceElement(component.rootElement),
+        typographyTextElement,
+      ])
     })
   })
+
   it('should setup the pages that will share states', () => {
-    // create regular page where we will test the shared state
     cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder?primarySidebarKey=pageList`,
+      `/apps/cypress/${slugify(app.name)}/components/${slugify(
+        COMPONENT_NAME,
+      )}/builder?primarySidebarKey=explorer`,
     )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
 
-    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').first().click()
+    cy.waitForSpinners()
 
-    cy.findByTestId('create-page-form').findByLabelText('Name').type('Testpage')
-
-    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
-
-    // create a component
-    cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder?primarySidebarKey=components`,
-    )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
-
-    // GetAtoms
-    // GetComponents
-    cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
-
-    cy.getCuiSidebar('Components')
-      .getCuiToolbarItem('Add Component')
-      .first()
-      .click()
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
-    cy.findByTestId('create-component-form')
-      .findByLabelText('Name')
-      .type(COMPONENT_NAME)
-
-    cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
-
-    cy.findByTestId('create-component-form').should('not.exist', {
-      timeout: 10000,
-    })
-    cy.findByText(COMPONENT_NAME).should('exist')
-
-    // add element to component
-    cy.getSider().getButton({ icon: 'edit' }).click()
-    cy.wrap(componentChildren).each((child: ComponentChildData) => {
-      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
-      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
-        .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Add Child')
-        .click()
-
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Atom',
-        type: FIELD_TYPE.SELECT,
-        value: child.atom,
-      })
-      // need to wait for the code to put the autocomputed name before typing
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Name',
-        type: FIELD_TYPE.INPUT,
-        value: child.name,
-      })
-
-      cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
-
-      cy.findByTestId('create-element-form').should('not.exist', {
-        timeout: 10000,
-      })
-
-      // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000)
-
-      cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
+    cy.getCuiTreeItemByPrimaryTitle(typographyTextElement.name).click({
+      force: true,
     })
 
     cy.typeIntoTextEditor(
@@ -122,7 +94,7 @@ describe('State variables sharing between pages', () => {
 
     // create a state variable inside the component
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
+    cy.getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -144,7 +116,7 @@ describe('State variables sharing between pages', () => {
       value: 'component state value',
     })
 
-    cy.intercept('POST', `api/graphql`).as('action')
+    cy.intercept('POST', 'api/graphql').as('action')
     cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
     cy.wait('@action')
 
@@ -173,7 +145,7 @@ describe('State variables sharing between pages', () => {
 
   it('should create a state variable in the provider page', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
-    cy.get('[data-cy="cui-toolbar-item-Add Field"]').click()
+    cy.getCuiToolbarItem('Add Field').click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -207,7 +179,7 @@ describe('State variables sharing between pages', () => {
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
-    cy.getSpinner().should('not.exist')
+    cy.waitForSpinners()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 

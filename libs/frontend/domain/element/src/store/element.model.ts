@@ -37,7 +37,7 @@ import {
   disconnectNodeId,
   ElementProperties,
   reconnectNodeId,
-} from '@codelab/shared/domain/mapper'
+} from '@codelab/shared/domain'
 import { compoundCaseToTitleCase, slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {

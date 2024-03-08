@@ -1,8 +1,8 @@
-import type { ICreateComponentData } from '@codelab/frontend/abstract/domain'
 import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import type { ICreateComponentData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createComponentSchema: JSONSchemaType<

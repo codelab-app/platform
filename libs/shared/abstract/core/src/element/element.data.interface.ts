@@ -13,7 +13,7 @@ export const ICreateElementData = Type.Object({
   name: Type.String(),
   parentElement: Type.Optional(Typebox.Ref()),
   prevSibling: Type.Optional(Typebox.Ref()),
-  propsData: Type.Optional(Type.Any()),
+  propsData: Type.Optional(Type.Object({})),
   // atom?: IAtomType
   // id: string
   // name: string

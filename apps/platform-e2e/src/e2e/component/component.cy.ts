@@ -41,12 +41,12 @@ describe('Component CRUD', () => {
       )
       // GetRenderedPageAndCommonAppData
       cy.waitForApiCalls()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       // GetAtoms
       // GetComponents
       cy.waitForApiCalls()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.log('my app', prettifyForConsole(testApp))
       cy.getCuiSidebar('Components').getCuiToolbarItem('Add Component').click()
@@ -67,7 +67,7 @@ describe('Component CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should(
         'be.visible',
       )
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
       cy.get('.ant-tabs-tabpane-active').contains(/Add/).click()
       cy.getModal().setFormFieldValue({
@@ -144,11 +144,11 @@ describe('Component CRUD', () => {
       )
       // GetRenderedPageAndCommonAppData
       cy.waitForApiCalls()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       // GetAtoms
       cy.waitForApiCalls()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
 
       cy.findByText(COMPONENT_NAME).click({ force: true })
       cy.get(`.ant-tabs [aria-label="node-index"]`).click()
@@ -205,7 +205,7 @@ describe('Component CRUD', () => {
         force: true,
       })
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
-      cy.getSpinner().should('not.exist')
+      cy.waitForSpinners()
       cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
         label: 'Component_prop',
         type: FIELD_TYPE.CODE_MIRROR,

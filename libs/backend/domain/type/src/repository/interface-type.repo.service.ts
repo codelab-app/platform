@@ -11,14 +11,14 @@ import {
   Neo4jService,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import {
-  type IInterfaceTypeDto,
+import type {
+  IInterfaceTypeDto,
   ITypeMaybeRef,
 } from '@codelab/shared/abstract/core'
-import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
+import { connectNodeIds, connectOwner } from '@codelab/shared/domain'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
@@ -31,16 +31,15 @@ export class InterfaceTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
+    protected override traceService: TraceService,
     private neo4jService: Neo4jService,
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
     super(traceService, validationService, loggerService)
   }
 
-  @Span()
   async getDependentTypes<T extends TAnySchema>(
     { id }: ITypeMaybeRef,
     schema?: T,

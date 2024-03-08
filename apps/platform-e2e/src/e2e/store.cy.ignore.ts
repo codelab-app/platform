@@ -29,7 +29,7 @@ describe('Store', () => {
       .then((apps) => {
         // const app = apps[0]
         // cy.visit(`/apps/${app.id}/pages`)
-        // cy.getSpinner().should('not.exist')
+        // cy.waitForSpinners()
         // cy.findByText('Store').click()
         // cy.url({ timeout: 10000 }).should('include', 'store')
       })
@@ -57,7 +57,7 @@ describe('Store', () => {
     describe('update', () => {
       it('should be able to update state variable name', () => {
         cy.getListItem(stateVarName).getButton({ icon: 'edit' }).click()
-        cy.getSpinner().should('not.exist')
+        cy.waitForSpinners()
 
         cy.getModal().setFormFieldValue({
           label: 'Name',
@@ -79,7 +79,7 @@ describe('Store', () => {
         cy.getListItem(updatedStateVarName)
           .getButton({ icon: 'delete' })
           .click()
-        cy.getSpinner().should('not.exist')
+        cy.waitForSpinners()
 
         cy.getModal()
           .getModalAction(/Delete/)
@@ -129,7 +129,7 @@ describe('Store', () => {
             icon: 'edit',
           })
           .click()
-        cy.getSpinner().should('not.exist')
+        cy.waitForSpinners()
 
         cy.getModal().setFormFieldValue({
           label: 'Name',
@@ -153,7 +153,7 @@ describe('Store', () => {
             icon: 'delete',
           })
           .click()
-        cy.getSpinner().should('not.exist')
+        cy.waitForSpinners()
 
         cy.getModal()
           .getModalAction(/Delete Action/)

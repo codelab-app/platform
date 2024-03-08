@@ -1,3 +1,3 @@
-# shared-domain-mapper
+# shared-domain
 
 This library was generated with [Nx](https://nx.dev).

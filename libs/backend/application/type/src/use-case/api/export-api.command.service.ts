@@ -4,7 +4,6 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type {
   IApi,
   IEnumTypeDto,
@@ -40,7 +39,6 @@ export class ExportApiHandler
     private readonly typeFactory: TypeFactory,
   ) {}
 
-  @Span()
   async execute({ api }: ExportApiCommand): Promise<IApi> {
     /**
      * (1) Get itself
