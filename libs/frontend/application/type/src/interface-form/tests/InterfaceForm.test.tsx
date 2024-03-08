@@ -89,8 +89,6 @@ describe('InterfaceForm', () => {
     // Click on the type selector
     await act(() => userEvent.click(selectUnionTypeElement!))
 
-    console.log(stringType.id, intType.id)
-
     //
     // Select the IntType option
     // NOTE: need to use document here because the select dropdown is

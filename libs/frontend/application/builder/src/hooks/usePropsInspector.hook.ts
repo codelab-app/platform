@@ -21,7 +21,7 @@ const validateJson = (value: string): Nullable<IPropData> => {
       notify({ description: error.message, title: error.name, type: 'error' })
     }
 
-    console.log(error)
+    console.error(error)
 
     return null
   }

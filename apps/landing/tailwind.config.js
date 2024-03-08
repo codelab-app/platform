@@ -2,8 +2,6 @@ const tailwindConfig = require('../../tailwind.config.js')
 const { join } = require('path')
 const { createGlobPatternsForDependencies } = require('@nx/react/tailwind')
 
-console.log(__dirname)
-
 module.exports = {
   ...tailwindConfig,
   content: [

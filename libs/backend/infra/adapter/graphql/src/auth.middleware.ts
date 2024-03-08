@@ -30,6 +30,6 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
       req.headers['X-ID-TOKEN'] = idToken
     }
   } catch (error) {
-    console.log('error when getting session', error)
+    console.error('error when getting session', error)
   }
 }

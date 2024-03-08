@@ -37,8 +37,6 @@ export function Span(name?: string, options: SpanOptions = {}) {
               originalMethod.apply(this, args),
             )
 
-            console.log('end span')
-
             span.end()
 
             return result

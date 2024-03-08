@@ -74,8 +74,6 @@ export class RedirectController {
       }
     }
 
-    console.log(responseTransformer, response)
-
     try {
       const canActivate = await safeEval(responseTransformer, response)
 
@@ -85,7 +83,7 @@ export class RedirectController {
         status: 200,
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
 
       return {
         canActivate: false,

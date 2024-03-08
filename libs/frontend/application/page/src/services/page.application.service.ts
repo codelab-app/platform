@@ -149,18 +149,12 @@ export class PageApplicationService
       this.pageDomainService.pages.delete(page.id)
     })
 
-    console.log('after pages')
-
     yield* _await(this.elementService.elementRepository.delete(elements))
-
-    console.log('after elements')
 
     /**
      * Page can delete all other info
      */
     yield* _await(this.pageRepository.delete(pagesModel))
-
-    console.log('after page')
   })
 
   @modelFlow

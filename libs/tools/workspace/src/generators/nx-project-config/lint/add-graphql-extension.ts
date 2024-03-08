@@ -9,7 +9,7 @@ export const addGraphqlExtension = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {
-  console.log('Adding GraphQL extensions...')
+  console.debug('Adding GraphQL extensions...')
 
   const lintFilePatterns = [
     join(projectConfig.root, '/**/*.{ts,tsx,js,jsx,graphql}'),

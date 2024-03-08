@@ -27,8 +27,6 @@ export class CommandService {
 
     // const args = hideBin(process.argv)[0]?.split(' ')
 
-    // console.log(args)
-
     void yargs(args)
       .scriptName('cli')
       /**
