@@ -15,10 +15,12 @@ export interface ComponentChildData {
 
 const spaceElementId = v4()
 
+export const spaceElementName = IAtomType.AntDesignSpace
+
 export const spaceElement = (rootElement: IRef): ICreateElementData => ({
   atom: IAtomType.AntDesignSpace,
   id: spaceElementId,
-  name: IAtomType.AntDesignSpace,
+  name: spaceElementName,
   parentElement: { id: rootElement.id },
 })
 

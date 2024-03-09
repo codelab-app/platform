@@ -21,7 +21,7 @@ import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
 import { commands } from './commands'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('cypress-terminal-report/src/installLogsCollector')()
+// require('cypress-terminal-report/src/installLogsCollector')()
 
 /**
  * When we register, the global Cypress types are loaded in the command files

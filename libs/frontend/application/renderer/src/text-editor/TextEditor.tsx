@@ -3,6 +3,7 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import type { OutputData } from '@editorjs/editorjs'
 import EditorJS from '@editorjs/editorjs'
 import React, { memo, useEffect } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { EDITOR_TOOLS } from './editor.tools'
 
 interface Props {
@@ -43,6 +44,8 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
 
   useEffect(() => {
     if (!editor) {
+      console.debug('TextEditor initialized for the first time!')
+
       const newEditor = new EditorJS({
         data: getInitialData(),
         hideToolbar: true,
@@ -66,43 +69,46 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
 
           await onChange(outputData)
         },
+        // Set after ready
+        onReady: () => {
+          setEditor(newEditor)
+        },
         readOnly,
         tools: EDITOR_TOOLS,
       })
-
-      setEditor(newEditor)
     }
 
     return () => {
-      if (editor?.destroy) {
-        editor.destroy()
-      }
+      // Make sure is ready before destroying
+      void editor?.isReady.then(() => editor.destroy())
     }
   }, [])
 
   useEffect(() => {
-    const toggleReadonly = async () => {
-      if (editor) {
-        await editor.readOnly.toggle(readOnly)
+    /**
+     * https://editorjs.io/configuration/
+     */
+    void editor?.isReady.then(async () => {
+      await editor.readOnly.toggle(readOnly)
 
-        if (editor.blocks.getBlocksCount() === 0) {
-          // without a placeholder text, adding a new text is a little difficult
-          const placeholderBlock = createEditorContent('Text')
+      if (editor.blocks.getBlocksCount() === 0) {
+        // without a placeholder text, adding a new text is a little difficult
+        const placeholderBlock = createEditorContent('Text')
 
-          await editor.render(placeholderBlock)
-        }
-
-        selectAllTextInTheElement(elementId)
+        await editor.render(placeholderBlock)
       }
-    }
 
-    void toggleReadonly()
+      selectAllTextInTheElement(elementId)
+    })
+
+    console.debug('TextEditor readOnly changed', readOnly)
   }, [readOnly])
 
   return <div id={holder} />
 }
 
-export default memo(TextEditor)
+// export default memo(TextEditor)
+export default TextEditor
 
 const selectAllTextInTheElement = (elementId: string) => {
   const editableElement = document.querySelector(

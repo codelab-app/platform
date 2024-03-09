@@ -122,7 +122,7 @@ describe('Component CRUD', () => {
           timeout: 10000,
         })
 
-        // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+        // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(2000)
         cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
@@ -195,7 +195,7 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
       })
-      // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+      // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000)
     })
@@ -241,7 +241,7 @@ describe('Component CRUD', () => {
         timeout: 10000,
       })
 
-      // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+      // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000)
 
