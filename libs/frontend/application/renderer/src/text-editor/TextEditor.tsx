@@ -13,8 +13,7 @@ import { EDITOR_TOOLS } from './editor.tools'
 
 const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
   const { elementService, propService } = useStore()
-  // const [editor, setEditor] = React.useState<EditorJS | null>(null)
-  const editorRef = useRef<EditorJS | null>(null)
+  const [editor, setEditor] = React.useState<EditorJS | null>(null)
   const holder = `${elementId}-editor`
 
   const onChange = (output: OutputData) => {
@@ -30,9 +29,7 @@ const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
   }
 
   useEffect(() => {
-    if (!editorRef.current) {
-      console.debug('TextEditor initialized for the first time!')
-
+    if (!editor) {
       const newEditor = new EditorJS({
         data: getInitialData(data),
         hideToolbar: true,
@@ -56,23 +53,17 @@ const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
 
           await onChange(outputData)
         },
-        // Set after ready
-        onReady: () => {
-          editorRef.current = newEditor
-        },
         readOnly,
         tools: EDITOR_TOOLS,
       })
+
+      setEditor(newEditor)
     }
 
     return () => {
-      const editor = editorRef.current
-
-      // Make sure is ready before destroying
-      void editor?.isReady.then(() => {
+      if (editor?.destroy) {
         editor.destroy()
-        editorRef.current = null
-      })
+      }
     }
   }, [])
 
@@ -94,5 +85,4 @@ const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
   return <div id={holder} />
 }
 
-// export default memo(TextEditor)
-export default TextEditor
+export default memo(TextEditor)
