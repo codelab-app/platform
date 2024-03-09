@@ -91,7 +91,7 @@ export class ElementDomainService
    */
   @modelAction
   move(context: IMoveElementContext) {
-    console.debug('ElementDomainService.move()', context)
+    // console.debug('ElementDomainService.move()', context)
 
     const { element, nextSibling, parentElement, prevSibling } = context
 
@@ -133,7 +133,7 @@ export class ElementDomainService
     ;[...this.elements.values()].forEach((element) => {
       const node = element.toTreeNode
 
-      console.debug(node)
+      // console.debug(node)
     })
   }
 }

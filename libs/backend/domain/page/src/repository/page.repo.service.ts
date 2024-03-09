@@ -64,6 +64,7 @@ export class PageRepository extends AbstractRepository<
             url,
           }),
         ),
+        selectionSet: `{ pages { ${pageSelectionSet} } }`,
       })
     ).pages
   }

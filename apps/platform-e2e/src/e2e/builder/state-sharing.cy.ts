@@ -190,7 +190,7 @@ describe('State variables sharing between pages', () => {
     cy.wait('@createState')
   })
 
-  it('should be able to use the state from the provider page', () => {
+  it("should respect provider state's precedence over component state", () => {
     // go to the regular page
     cy.visit(
       `/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer`,
@@ -200,8 +200,6 @@ describe('State variables sharing between pages', () => {
     cy.waitForSpinners()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
-
-    console.log(page)
 
     const createElementData: ICreateElementData = {
       component: COMPONENT_NAME,
