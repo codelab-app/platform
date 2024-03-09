@@ -1,9 +1,12 @@
-import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
-import type { OmitFirstArg } from '../../deprecated/types'
-import { getSpinner } from './spin.command'
+import type {
+  CypressCommand,
+  OmitFirstArg,
+} from '@codelab/frontend/test/cypress/shared'
+import { getSpinner, waitForSpinners } from './spin.command'
 
 export interface AntSpinCommands {
   getSpinner: OmitFirstArg<typeof getSpinner>
+  waitForSpinners: typeof waitForSpinners
 }
 
 export const antSpinCommands: Array<CypressCommand> = [
@@ -13,5 +16,9 @@ export const antSpinCommands: Array<CypressCommand> = [
     options: {
       prevSubject: 'optional' as any,
     },
+  },
+  {
+    fn: waitForSpinners,
+    name: 'waitForSpinners',
   },
 ]

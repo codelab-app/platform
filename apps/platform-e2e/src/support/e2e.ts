@@ -44,3 +44,22 @@ before(() => {
   })
   cy.loginAndSetupE2eData()
 })
+
+const editorJsContainsError = `Cannot read properties of undefined (reading 'contains')`
+const editorJsClasslistError = `Cannot read properties of undefined (reading 'classList')`
+const errorsToIgnore = [editorJsContainsError, editorJsClasslistError]
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // we expect a 3rd party library error with message 'list not defined'
+  // and don't want to fail the test so we return false
+  if (
+    errorsToIgnore.some((message) => {
+      return err.message.includes(message)
+    })
+  ) {
+    return false
+  }
+
+  // we still want to ensure there are no other unexpected
+  // errors, so we let them fail the test
+})

@@ -517,7 +517,8 @@ export const setFormFieldValue = (
     ...options
   }: CommonOptions & FormFieldValueOptions,
 ) => {
-  const opts = logAndMute('setFieldValue', `${label}: ${value}`, options)
+  // const opts = logAndMute('setFieldValue', `${label}: ${value}`, options)
+  const opts = {}
   const getField = () => getFormField(subject, { label, ...opts })
   const getInput = () => getFormInput(subject, { label, type, ...opts })
 

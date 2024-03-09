@@ -30,14 +30,14 @@ export class TypeDomainService
   }
 
   @modelAction
-  hydrate(typeDTO: ITypeDto) {
-    const existingType = this.types.get(typeDTO.id)
+  hydrate(typeDto: ITypeDto) {
+    const existingType = this.types.get(typeDto.id)
 
     if (existingType) {
       return existingType
     }
 
-    const type = TypeFactory.create(typeDTO)
+    const type = TypeFactory.create(typeDto)
 
     this.types.set(type.id, type)
 
@@ -64,7 +64,7 @@ export class TypeDomainService
 
   @modelAction
   hydrateTypes(types: Partial<GetTypesQuery>) {
-    console.debug('TypeService.loadTypes()', types)
+    // console.debug('TypeService.loadTypes()', types)
 
     const flatTypes = Object.values(types).flat()
 

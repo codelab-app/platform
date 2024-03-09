@@ -1,12 +1,14 @@
 import { AtomDomainService } from '@codelab/backend/domain/atom'
+import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropDomainService, PropRepository } from '@codelab/backend/domain/prop'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
-import {
-  IAtomType,
-  type ICreateElementData,
-  type IRef,
+import type {
+  ICreateElementData,
+  IElementRenderTypeDto,
+  IRef,
 } from '@codelab/shared/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
@@ -16,16 +18,26 @@ export class ElementApplicationService {
   constructor(
     private elementRepository: ElementRepository,
     private atomDomainService: AtomDomainService,
+    private componentRepository: ComponentRepository,
     private loggerService: CodelabLoggerService,
     private propDomainService: PropDomainService,
   ) {}
 
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
     const props = await this.propDomainService.createProp(element.propsData)
+    let renderType: IElementRenderTypeDto
 
-    const renderType = element.atom
-      ? await this.atomDomainService.getRenderTypeByName(element.atom)
-      : await this.atomDomainService.defaultRenderType()
+    if (element.atom) {
+      renderType = await this.atomDomainService.getRenderTypeByName(
+        element.atom,
+      )
+    } else if (element.component) {
+      renderType = await this.componentRepository.findOneOrFail({
+        where: { name: element.component },
+      })
+    } else {
+      renderType = await this.atomDomainService.defaultRenderType()
+    }
 
     this.loggerService.log({ atom: element.atom, renderType }, 'Create element')
 

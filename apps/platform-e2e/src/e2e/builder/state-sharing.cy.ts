@@ -1,9 +1,11 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { Component } from '@codelab/shared/abstract/codegen'
+import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
 import type {
   IAppDto,
   ICreateComponentData,
+  ICreateElementData,
   ICreatePageDto,
+  IPageDto,
 } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
@@ -24,11 +26,12 @@ import {
 
 describe('State variables sharing between pages', () => {
   let app: IAppDto
+  let page: IPageDto
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app')
-      .then((apps) => {
-        app = apps.body
+    cy.postApiRequest<App>('/app/seed-cypress-app')
+      .then(({ body }) => {
+        app = body
       })
       .as('cypressApp')
 
@@ -42,7 +45,10 @@ describe('State variables sharing between pages', () => {
       }
 
       return cy
-        .postApiRequest('/page/create-page', createPageDto)
+        .postApiRequest<Page>('/page/create-page', createPageDto)
+        .then(({ body }) => {
+          page = body
+        })
         .as('cypressPage')
     })
 
@@ -94,10 +100,6 @@ describe('State variables sharing between pages', () => {
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
 
-    // Deselect from Editorjs
-    cy.getCuiTreeItemByPrimaryTitle('Body').click({
-      force: true,
-    })
     cy.waitForApiCalls()
 
     cy.openPreview()
@@ -105,7 +107,6 @@ describe('State variables sharing between pages', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
-    // cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
     cy.getCuiToolbarItem('Add Field').click()
 
     cy.waitForApiCalls()
@@ -157,6 +158,9 @@ describe('State variables sharing between pages', () => {
       .click({ force: true })
   })
 
+  /**
+   * We'll keep the UI methods for state since we don't have other specs for state
+   */
   it('should create a state variable in the provider page', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
     cy.getCuiToolbarItem('Add Field').click()
@@ -186,10 +190,10 @@ describe('State variables sharing between pages', () => {
     cy.wait('@createState')
   })
 
-  it.skip('should be able to use the state from the provider page', () => {
+  it('should be able to use the state from the provider page', () => {
     // go to the regular page
     cy.visit(
-      `/apps/cypress/codelab-app/pages/testpage/builder?primarySidebarKey=explorer`,
+      `/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer`,
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()
@@ -197,42 +201,23 @@ describe('State variables sharing between pages', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer')
-      .getCuiToolbarItem('Add Element')
-      .first()
-      .click()
+    console.log(page)
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Component',
-    })
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Component',
-      type: FIELD_TYPE.SELECT,
-      value: COMPONENT_NAME,
-    })
-    // need to wait for the code to put the autocomputed name before typing
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
+    const createElementData: ICreateElementData = {
+      component: COMPONENT_NAME,
+      id: v4(),
+      name: COMPONENT_NAME,
+      parentElement: { id: page.rootElement.id },
+    }
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Name',
-      type: FIELD_TYPE.INPUT,
-      value: COMPONENT_NAME,
-    })
-
-    cy.intercept('POST', `api/graphql`).as('createElement')
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
-    cy.wait('@createElement')
-
-    cy.findByTestId('create-element-form').should('not.exist', {
-      timeout: 10000,
-    })
+    cy.postApiRequest(
+      `element/${page.id}/create-element`,
+      createElementData,
+    ).as('cypressElement')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
-    cy.reload()
+    cy.get('@cypressElement').reload()
     cy.openPreview()
     cy.get('#render-root').contains('text provider state value').should('exist')
   })

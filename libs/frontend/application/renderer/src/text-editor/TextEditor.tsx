@@ -2,19 +2,20 @@ import './editorjs.overrides.css'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { OutputData } from '@editorjs/editorjs'
 import EditorJS from '@editorjs/editorjs'
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import {
+  createEditorContent,
+  getInitialData,
+  selectAllTextInTheElement,
+  type TextEditorProps,
+} from './editor'
 import { EDITOR_TOOLS } from './editor.tools'
 
-interface Props {
-  data?: string
-  elementId: string
-  readOnly?: boolean
-}
-
-const TextEditor = ({ data, elementId, readOnly }: Props) => {
+const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
   const { elementService, propService } = useStore()
-  const [editor, setEditor] = React.useState<EditorJS | null>(null)
+  // const [editor, setEditor] = React.useState<EditorJS | null>(null)
+  const editorRef = useRef<EditorJS | null>(null)
   const holder = `${elementId}-editor`
 
   const onChange = (output: OutputData) => {
@@ -29,25 +30,12 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
     })
   }
 
-  // This is for being backwards compatible with the old text editor
-  const getInitialData = (): OutputData => {
-    if (!data) {
-      return createEditorContent()
-    }
-
-    try {
-      return JSON.parse(data)
-    } catch {
-      return createEditorContent(data)
-    }
-  }
-
   useEffect(() => {
-    if (!editor) {
+    if (!editorRef.current) {
       console.debug('TextEditor initialized for the first time!')
 
       const newEditor = new EditorJS({
-        data: getInitialData(),
+        data: getInitialData(data),
         hideToolbar: true,
         holder,
         inlineToolbar: [
@@ -71,7 +59,7 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
         },
         // Set after ready
         onReady: () => {
-          setEditor(newEditor)
+          editorRef.current = newEditor
         },
         readOnly,
         tools: EDITOR_TOOLS,
@@ -79,12 +67,19 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
     }
 
     return () => {
+      const editor = editorRef.current
+
       // Make sure is ready before destroying
-      void editor?.isReady.then(() => editor.destroy())
+      void editor?.isReady.then(() => {
+        editor.destroy()
+        editorRef.current = null
+      })
     }
   }, [])
 
   useEffect(() => {
+    const editor = editorRef.current
+
     /**
      * https://editorjs.io/configuration/
      */
@@ -109,35 +104,3 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
 
 // export default memo(TextEditor)
 export default TextEditor
-
-const selectAllTextInTheElement = (elementId: string) => {
-  const editableElement = document.querySelector(
-    `[data-element-id="${elementId}"] [contenteditable="true"]`,
-  )
-
-  if (!editableElement) {
-    return
-  }
-
-  const range = document.createRange()
-
-  range.selectNodeContents(editableElement)
-
-  const selection = window.getSelection()
-
-  selection?.removeAllRanges()
-  selection?.addRange(range)
-}
-
-const createEditorContent = (text = '') => {
-  return {
-    blocks: [
-      {
-        data: {
-          text,
-        },
-        type: 'paragraph',
-      },
-    ],
-  }
-}
