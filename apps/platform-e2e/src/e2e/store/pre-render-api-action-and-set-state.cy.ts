@@ -193,7 +193,7 @@ describe('Running API action and setting state on element pre-render', () => {
       timeout: 10000,
     })
 
-    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(2000)
 

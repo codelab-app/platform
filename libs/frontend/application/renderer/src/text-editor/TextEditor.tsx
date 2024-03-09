@@ -3,15 +3,15 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import type { OutputData } from '@editorjs/editorjs'
 import EditorJS from '@editorjs/editorjs'
 import React, { memo, useEffect } from 'react'
+import type { TextEditorProps } from './editor'
+import {
+  createEditorContent,
+  getInitialData,
+  selectAllTextInTheElement,
+} from './editor'
 import { EDITOR_TOOLS } from './editor.tools'
 
-interface Props {
-  data?: string
-  elementId: string
-  readOnly?: boolean
-}
-
-const TextEditor = ({ data, elementId, readOnly }: Props) => {
+const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
   const { elementService, propService } = useStore()
   const [editor, setEditor] = React.useState<EditorJS | null>(null)
   const holder = `${elementId}-editor`
@@ -28,23 +28,10 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
     })
   }
 
-  // This is for being backwards compatible with the old text editor
-  const getInitialData = (): OutputData => {
-    if (!data) {
-      return createEditorContent()
-    }
-
-    try {
-      return JSON.parse(data)
-    } catch {
-      return createEditorContent(data)
-    }
-  }
-
   useEffect(() => {
     if (!editor) {
       const newEditor = new EditorJS({
-        data: getInitialData(),
+        data: getInitialData(data),
         hideToolbar: true,
         holder,
         inlineToolbar: [
@@ -81,57 +68,21 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
   }, [])
 
   useEffect(() => {
-    const toggleReadonly = async () => {
-      if (editor) {
-        await editor.readOnly.toggle(readOnly)
+    void editor?.isReady.then(async () => {
+      await editor.readOnly.toggle(readOnly)
 
-        if (editor.blocks.getBlocksCount() === 0) {
-          // without a placeholder text, adding a new text is a little difficult
-          const placeholderBlock = createEditorContent('Text')
+      if (editor.blocks.getBlocksCount() === 0) {
+        // without a placeholder text, adding a new text is a little difficult
+        const placeholderBlock = createEditorContent('Text')
 
-          await editor.render(placeholderBlock)
-        }
-
-        selectAllTextInTheElement(elementId)
+        await editor.render(placeholderBlock)
       }
-    }
 
-    void toggleReadonly()
+      selectAllTextInTheElement(elementId)
+    })
   }, [readOnly])
 
   return <div id={holder} />
 }
 
 export default memo(TextEditor)
-
-const selectAllTextInTheElement = (elementId: string) => {
-  const editableElement = document.querySelector(
-    `[data-element-id="${elementId}"] [contenteditable="true"]`,
-  )
-
-  if (!editableElement) {
-    return
-  }
-
-  const range = document.createRange()
-
-  range.selectNodeContents(editableElement)
-
-  const selection = window.getSelection()
-
-  selection?.removeAllRanges()
-  selection?.addRange(range)
-}
-
-const createEditorContent = (text = '') => {
-  return {
-    blocks: [
-      {
-        data: {
-          text,
-        },
-        type: 'paragraph',
-      },
-    ],
-  }
-}

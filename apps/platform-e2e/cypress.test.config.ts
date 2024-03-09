@@ -46,7 +46,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   // supportFile: 'src/support/e2e.ts',
   setupNodeEvents: (on, config) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('cypress-terminal-report/src/installLogsPrinter')(on)
+    // require('cypress-terminal-report/src/installLogsPrinter')(on)
   },
   testIsolation: false,
   video: true,

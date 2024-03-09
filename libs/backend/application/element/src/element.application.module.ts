@@ -1,4 +1,5 @@
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
+import { ComponentDomainModule } from '@codelab/backend/domain/component'
 import { ElementDomainModule } from '@codelab/backend/domain/element'
 import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { Module } from '@nestjs/common'
@@ -11,7 +12,12 @@ import { ElementApplicationService } from './element.application.service'
 @Module({
   controllers: [ElementApplicationController],
   exports: [ElementApplicationService],
-  imports: [ElementDomainModule, AtomDomainModule, PropDomainModule],
+  imports: [
+    ComponentDomainModule,
+    ElementDomainModule,
+    AtomDomainModule,
+    PropDomainModule,
+  ],
   providers: [ElementApplicationService],
 })
 export class ElementApplicationModule {}

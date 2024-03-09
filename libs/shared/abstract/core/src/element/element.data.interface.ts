@@ -7,8 +7,13 @@ import { Type } from '@sinclair/typebox'
  * This allows for a shortened object to be specified as input. Good for seeding data in cases where the input is manually specified (such as Cypress)
  */
 export const ICreateElementData = Type.Object({
+  /**
+   * We have renderType here
+   */
   // Can't use `IAtomType` due to circular import issue
   atom: Type.Optional(Type.Enum(AtomType)),
+  // Name of the Component
+  component: Type.Optional(Type.String()),
   id: Type.String(),
   name: Type.String(),
   parentElement: Type.Optional(Typebox.Ref()),

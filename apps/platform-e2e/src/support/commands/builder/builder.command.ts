@@ -87,8 +87,6 @@ export const openPreview = () => {
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').should('be.visible')
 
   cy.waitForApiCalls()
-
-  return
 }
 
 export const openBuilder = () => {
@@ -96,14 +94,13 @@ export const openBuilder = () => {
     name: 'open builder',
   })
 
-  cy.waitForApiCalls({ timeout: 10000 })
+  cy.waitForApiCalls()
 
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').click()
   cy.get('[data-cy="cui-toolbar-item-Preview"] button').should('be.visible')
 
   cy.waitForApiCalls()
-
-  return
+  cy.waitForSpinners()
 }
 
 /**

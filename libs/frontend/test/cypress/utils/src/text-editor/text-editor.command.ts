@@ -12,8 +12,7 @@ export const typeIntoTextEditor = (content: string, parentId?: string) => {
 
   cy.get(id).find(editorSelector).dblclick()
   cy.get(id).find(editorSelector).clear()
-
-  return cy.get(id).find(editorSelector).type(content, {
+  cy.get(id).find(editorSelector).type(content, {
     parseSpecialCharSequences: false,
   })
 }

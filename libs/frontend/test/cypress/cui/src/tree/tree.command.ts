@@ -12,16 +12,16 @@ export const getCuiTreeItemByPrimaryTitle = (
   subject: Maybe<CypressElement>,
   primaryTitle: string,
 ) => {
-  cy.log('getCuiTreeItemByPrimaryTitle', primaryTitle)
+  Cypress.log({ message: primaryTitle, name: 'getCuiTreeItemByPrimaryTitle' })
 
   return subject
     ? cy
         .wrap(subject)
         .find(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
-          log: false,
+          // log: false,
         })
     : cy.get(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
-        log: false,
+        // log: false,
       })
 }
 

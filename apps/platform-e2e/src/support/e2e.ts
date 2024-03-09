@@ -21,7 +21,7 @@ import { utilsCommands } from '@codelab/frontend/test/cypress/utils'
 import { commands } from './commands'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('cypress-terminal-report/src/installLogsCollector')()
+// require('cypress-terminal-report/src/installLogsCollector')()
 
 /**
  * When we register, the global Cypress types are loaded in the command files
@@ -43,4 +43,23 @@ before(() => {
     name: 'setup e2e',
   })
   cy.loginAndSetupE2eData()
+})
+
+const editorJsContainsError = `Cannot read properties of undefined (reading 'contains')`
+const editorJsClasslistError = `Cannot read properties of undefined (reading 'classList')`
+const errorsToIgnore = [editorJsContainsError, editorJsClasslistError]
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // we expect a 3rd party library error with message 'list not defined'
+  // and don't want to fail the test so we return false
+  if (
+    errorsToIgnore.some((message) => {
+      return err.message.includes(message)
+    })
+  ) {
+    return false
+  }
+
+  // we still want to ensure there are no other unexpected
+  // errors, so we let them fail the test
 })
