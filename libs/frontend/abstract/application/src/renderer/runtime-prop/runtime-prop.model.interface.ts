@@ -10,6 +10,9 @@ export interface IEvaluationContext {
   refs: IPropData
   rootActions: IPropData
   rootRefs: IPropData
+  /**
+   * Provider state from the provider page's store. The data here is passed to elements & components
+   */
   rootState: IPropData
   state: IPropData
   urlProps: IPropData
