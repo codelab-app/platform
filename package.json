@@ -401,6 +401,7 @@
     "jest-junit": "16.0.0",
     "jest-transform-stub": "2.0.0",
     "jose": "4.14.4",
+    "jsdom": "~22.1.0",
     "json-schema": "0.4.0",
     "jsonc-eslint-parser": "2.4.0",
     "jwt-decode": "3.1.2",

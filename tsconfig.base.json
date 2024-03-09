@@ -344,6 +344,9 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
+      "@codelab/frontend/test/application": [
+        "libs/frontend/test/application/src/index.ts"
+      ],
       "@codelab/frontend/test/cypress/antd": [
         "libs/frontend/test/cypress/antd/src/index.ts"
       ],

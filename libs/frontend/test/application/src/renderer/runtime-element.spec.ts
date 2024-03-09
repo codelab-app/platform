@@ -184,7 +184,6 @@ describe('Runtime Element', () => {
         containerNode: page,
         id: rendererId,
         rendererType: RendererType.Preview,
-        renderPipe: renderPipeFactory(defaultPipes),
       }).render
 
       render(

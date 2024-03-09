@@ -489,7 +489,6 @@ describe('Runtime Element props', () => {
         containerNode: page,
         id: rendererId,
         rendererType: RendererType.Preview,
-        renderPipe: renderPipeFactory(defaultPipes),
         urlSegments: { [urlKey]: urlPropValue },
       })
 

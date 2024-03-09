@@ -26,6 +26,7 @@ import { AtomService } from '@codelab/frontend/application/atom'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import { ElementService } from '@codelab/frontend/application/element'
 import { PageApplicationService } from '@codelab/frontend/application/page'
+import { RendererApplicationService } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { createRootApplicationStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -49,7 +50,6 @@ import {
 import { UserDomainService } from '@codelab/frontend/domain/user'
 import { userDto } from '@codelab/frontend/test/data'
 import { v4 } from 'uuid'
-import { RendererApplicationService } from '../../renderer.application.service'
 
 const rootDomainStoreDto: IRootDomainStoreDto = {
   context: {
