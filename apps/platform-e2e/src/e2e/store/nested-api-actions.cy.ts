@@ -7,11 +7,11 @@ import {
   IActionKind,
   IAtomType,
   IPageKindName,
-  IResourceType,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { createResourceData, resourceUrl } from '../preview/resource.data.ts'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDto
@@ -19,8 +19,7 @@ describe('Running nested API and code actions', () => {
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
   const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
-  const resourceName = 'Fetch Data'
-  const resourceUrl = 'http://some-api.com/api'
+  const resourceName = createResourceData.name
   const urlGetSegment = '/data/some-id'
   const urlPostSegment = '/data'
   const stateKey = 'localData'
@@ -35,25 +34,7 @@ describe('Running nested API and code actions', () => {
     )
   })
 
-  it('should create the resouce that will be used for the api actions', () => {
-    cy.visit('/resources')
-    cy.waitForSpinners()
-
-    // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
-
-    cy.setFormFieldValue({ label: 'Name', value: resourceName })
-    cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
-
-    cy.setFormFieldValue({
-      label: 'Type',
-      type: FIELD_TYPE.SELECT,
-      value: IResourceType.Rest,
-    })
-
-    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
-
-    cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
+    cy.postApiRequest('/resource/create-resource', createResourceData)
   })
 
   it('should create a state', () => {
