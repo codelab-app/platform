@@ -20,13 +20,13 @@ export class StoreDomainService
   }
 
   @modelAction
-  hydrate(storeDTO: IStoreDto) {
-    let store = this.stores.get(storeDTO.id)
+  hydrate(storeDto: IStoreDto) {
+    let store = this.stores.get(storeDto.id)
 
     if (store) {
-      store.writeCache(storeDTO)
+      store.writeCache(storeDto)
     } else {
-      store = Store.create(storeDTO)
+      store = Store.create(storeDto)
 
       this.stores.set(store.id, store)
     }

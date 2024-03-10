@@ -37,13 +37,13 @@ export class ComponentDomainService
   }
 
   @modelAction
-  hydrate(componentDTO: IComponentDto) {
-    let component = this.components.get(componentDTO.id)
+  hydrate(componentDto: IComponentDto) {
+    let component = this.components.get(componentDto.id)
 
     if (component) {
-      component.writeCache(componentDTO)
+      component.writeCache(componentDto)
     } else {
-      component = Component.create(componentDTO)
+      component = Component.create(componentDto)
 
       // TODO: Renderer
       // Need to move this out of domain layer
