@@ -1,3 +1,4 @@
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -23,9 +24,9 @@ describe('CSS CRUD', () => {
   let app: IAppDto
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
 
   describe('Add css string', () => {
