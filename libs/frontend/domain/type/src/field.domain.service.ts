@@ -14,14 +14,14 @@ export class FieldDomainService
   implements IFieldDomainService
 {
   @modelAction
-  hydrate(fieldDTO: IFieldDto) {
-    const existingField = this.fields.get(fieldDTO.id)
+  hydrate(fieldDto: IFieldDto) {
+    const existingField = this.fields.get(fieldDto.id)
 
     if (existingField) {
       return existingField
     }
 
-    const field = Field.create(fieldDTO)
+    const field = Field.create(fieldDto)
 
     this.fields.set(field.id, field)
 

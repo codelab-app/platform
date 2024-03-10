@@ -32,10 +32,10 @@ export class CodeMirrorType
   public static create = create
 
   @modelAction
-  writeCache(codeMirrorTypeDTO: Partial<ICodeMirrorTypeDto>) {
-    super.writeCache(codeMirrorTypeDTO)
+  writeCache(codeMirrorTypeDto: Partial<ICodeMirrorTypeDto>) {
+    super.writeCache(codeMirrorTypeDto)
 
-    this.language = codeMirrorTypeDTO.language ?? this.language
+    this.language = codeMirrorTypeDto.language ?? this.language
 
     return this
   }

@@ -1,6 +1,7 @@
 import { AuthGuard } from '@codelab/backend/domain/auth-guard'
 import { Redirect, RedirectRepository } from '@codelab/backend/domain/redirect'
 import { Resource } from '@codelab/backend/domain/resource'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import type {
   IRef,
   IResourceConfigData,
@@ -17,7 +18,6 @@ import { Test, type TestingModule } from '@nestjs/testing'
 import { v4 } from 'uuid'
 import { RedirectApplicationModule } from './redirect.application.module'
 import { RedirectController } from './redirect.controller'
-import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 
 /**
  * Here we show how to mock a user

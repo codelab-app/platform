@@ -33,11 +33,11 @@ export class ArrayType
   static create = create
 
   @modelAction
-  writeCache(arrayTypeDTO: Partial<IArrayTypeDto>) {
-    super.writeCache(arrayTypeDTO)
+  writeCache(arrayTypeDto: Partial<IArrayTypeDto>) {
+    super.writeCache(arrayTypeDto)
 
-    this.itemType = arrayTypeDTO.itemType
-      ? typeRef(arrayTypeDTO.itemType.id)
+    this.itemType = arrayTypeDto.itemType
+      ? typeRef(arrayTypeDto.itemType.id)
       : null
 
     return this

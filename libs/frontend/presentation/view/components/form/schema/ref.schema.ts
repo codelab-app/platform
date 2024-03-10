@@ -9,7 +9,7 @@ export const refSchema = <T extends string>(key: T) => {
     [key]: {
       type: 'object',
       properties: {
-        id: { type: 'string' },
+        id: { type: 'string', label: 'Resource' },
       },
       required: ['id'],
     },

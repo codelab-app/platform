@@ -106,10 +106,10 @@ export class InterfaceType
   }
 
   @modelAction
-  writeCache(interfaceTypeDTO: IInterfaceTypeDto) {
-    super.writeCache(interfaceTypeDTO)
+  writeCache(interfaceTypeDto: IInterfaceTypeDto) {
+    super.writeCache(interfaceTypeDto)
 
-    this.writeFieldCache(interfaceTypeDTO.fields)
+    this.writeFieldCache(interfaceTypeDto.fields)
 
     return this
   }

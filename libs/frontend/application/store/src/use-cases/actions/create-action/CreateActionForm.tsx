@@ -92,11 +92,18 @@ export const CreateActionForm = observer(
           ]}
         />
 
+        {/** Code Action */}
+        <DisplayIfField<ICreateActionData>
+          condition={(context) => context.model.type === IActionKind.CodeAction}
+        >
+          <AutoField label="Action code" name="code" />
+        </DisplayIfField>
+
         {/** Api Action */}
         <DisplayIfField<ICreateActionData>
           condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <SelectResource name="resource" />
+          <SelectResource name="resource.id" />
           <AutoField component={SelectAction} name="successActionId" />
           <AutoField component={SelectAction} name="errorActionId" />
           <ResourceFetchConfigField />

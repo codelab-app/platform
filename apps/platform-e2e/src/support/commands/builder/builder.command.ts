@@ -99,7 +99,6 @@ export const openBuilder = () => {
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').click()
   cy.get('[data-cy="cui-toolbar-item-Preview"] button').should('be.visible')
 
-  cy.waitForApiCalls()
   cy.waitForSpinners()
 }
 

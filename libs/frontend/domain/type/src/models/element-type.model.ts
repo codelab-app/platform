@@ -29,10 +29,10 @@ export class ElementType
   public static create = create
 
   @modelAction
-  writeCache(elementTypeDTO: Partial<IElementTypeDto>) {
-    super.writeCache(elementTypeDTO)
+  writeCache(elementTypeDto: Partial<IElementTypeDto>) {
+    super.writeCache(elementTypeDto)
 
-    this.elementKind = elementTypeDTO.elementKind ?? this.elementKind
+    this.elementKind = elementTypeDto.elementKind ?? this.elementKind
 
     return this
   }
