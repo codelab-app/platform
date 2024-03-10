@@ -1,4 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -15,9 +16,9 @@ describe('Routing between app pages within the builder', () => {
   let app: IAppDto
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
 
   it('should create a page with a static url - /test-page', () => {
@@ -113,7 +114,6 @@ describe('Routing between app pages within the builder', () => {
     cy.waitForApiCalls()
 
     cy.openPreview()
-    cy.get('#render-root')
       .contains(`${DynamicPageText} - undefined - undefined`)
       .should('exist')
   })
@@ -271,9 +271,7 @@ describe('Routing between app pages within the builder', () => {
 
     cy.waitForApiCalls()
 
-    cy.openPreview()
-
-    cy.get('#render-root').contains(GoToTestPageText).should('exist')
+    cy.openPreview().contains(GoToTestPageText).should('exist')
   })
 
   // Skip this for now until we re-worked the routing within the builder preview

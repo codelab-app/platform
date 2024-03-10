@@ -1,6 +1,11 @@
+import type { App } from '@codelab/backend/abstract/codegen'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type { Resource } from '@codelab/shared/abstract/codegen'
+import type {
+  IAppDto,
+  ICreateResourceData,
+} from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
@@ -8,18 +13,19 @@ import {
   IAtomType,
   IPageKindName,
   IResourceType,
+  ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { v4 } from 'uuid'
+import { createResourceData } from './resource.data'
 
 describe('Running actions inside code action with arguments', () => {
-  let app: IAppDto
   let codeActionId: string
+  let app: IAppDto
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
   const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
-  const resourceName = 'Fetch Data'
-  const resourceUrl = 'http://some-api.com/api'
   const urlSegment = '/data/some-id'
   const apiActionName = 'apiAction'
   const codeActionName1 = 'codeAction1'
@@ -28,30 +34,13 @@ describe('Running actions inside code action with arguments', () => {
   const stateKey2 = 'stateKey2'
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
-  })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
 
-  it('should create the resouce that will be used for the api actions', () => {
-    cy.visit('/resources')
-    cy.waitForSpinners()
-
-    // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
-
-    cy.setFormFieldValue({ label: 'Name', value: resourceName })
-    cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
-
-    cy.setFormFieldValue({
-      label: 'Type',
-      type: FIELD_TYPE.SELECT,
-      value: IResourceType.Rest,
-    })
-
-    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
-
-    cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
+    cy.postApiRequest<Resource>('/resource/create', createResourceData).then(
+      ({ body }) => body,
+    )
   })
 
   it('should create states', () => {
@@ -301,7 +290,7 @@ describe('Running actions inside code action with arguments', () => {
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
-      value: `{ "${CUSTOM_TEXT_PROP_KEY}": "Click button to run actions", "onClick": { "kind": "${TypeKind.ActionType}", "value": "${codeActionId}", "type": "${actionTypeId}" } }`,
+      value: `{ "${CUSTOM_TEXT_PROP_KEY}": "Click button to run actions", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${codeActionId}", "type": "${actionTypeId}" } }`,
     })
 
     // need to wait for the code to put the autocomputed name before typing
@@ -327,18 +316,17 @@ describe('Running actions inside code action with arguments', () => {
   })
 
   it('should run the code action that calls another call action and an API action with arguments when the button is clicked', () => {
-    cy.openPreview()
-
     cy.intercept('POST', `${resourceUrl}${urlSegment}`, {
       statusCode: 200,
     }).as('apiAction')
 
-    cy.get('#render-root').findByText('Click button to run actions').click()
+    cy.openPreview().findByText('Click button to run actions').click()
 
     cy.wait('@apiAction').its('request.body').should('deep.equal', {
       firstArg: 'yo',
       secondArg: 456,
     })
+
     cy.get('#render-root').contains(`${stateKey1} - hey, ${stateKey2} - 123`)
   })
 })

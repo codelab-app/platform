@@ -7,9 +7,9 @@ describe('Pages CRUD', () => {
   let app: IApp
 
   before(() => {
-    cy.postApiRequest<IApp>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<IApp>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
 
   describe('create', () => {

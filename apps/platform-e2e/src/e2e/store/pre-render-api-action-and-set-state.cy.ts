@@ -1,4 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpResponseType,
@@ -21,9 +22,9 @@ describe('Running API action and setting state on element pre-render', () => {
   const mockResponse = 'text response from api'
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
 
   it('should create the resouce that will be used for the api actions', () => {
@@ -205,10 +206,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
     cy.waitForApiCalls()
 
-    cy.openPreview()
-    cy.get('#render-root')
-      .contains(`response from api - undefined`)
-      .should('exist')
+    cy.openPreview().contains(`response from api - undefined`).should('exist')
     cy.openBuilder()
 
     // set pre-render action

@@ -1,4 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { prettifyForConsole, slugify } from '@codelab/shared/utils'
@@ -29,9 +30,9 @@ let app: IAppDto
 describe('Component CRUD', () => {
   describe('Add component', () => {
     before(() => {
-      cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-        app = apps.body
-      })
+      cy.postApiRequest<App>('/app/seed-cypress-app').then(
+        ({ body }) => (app = body),
+      )
     })
     it('should be able to add a new component', () => {
       cy.visit(
@@ -132,8 +133,7 @@ describe('Component CRUD', () => {
 
       cy.waitForApiCalls()
 
-      cy.openPreview()
-      cy.get('#render-root').contains('text undefined').should('exist')
+      cy.openPreview().contains('text undefined').should('exist')
     })
 
     it('should be able to specify where to render component children', () => {
@@ -253,8 +253,7 @@ describe('Component CRUD', () => {
         cy.typeIntoTextEditor(COMPONENT_INSTANCE_TEXT, newElementId)
       })
 
-      cy.openPreview()
-      cy.get('#render-root').contains(COMPONENT_INSTANCE_TEXT).should('exist')
+      cy.openPreview().contains(COMPONENT_INSTANCE_TEXT).should('exist')
     })
   })
 })

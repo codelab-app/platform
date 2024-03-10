@@ -4,7 +4,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
-import { actionTypeId, apiPostActionId } from './resource.data.ts'
+import { actionTypeId, apiPostActionId } from './action.data.js'
 
 const elementFormId = v4()
 

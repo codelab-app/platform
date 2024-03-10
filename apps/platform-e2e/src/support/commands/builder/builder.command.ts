@@ -86,15 +86,15 @@ export const openPreview = () => {
   cy.get('[data-cy="cui-toolbar-item-Preview"] button').click()
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').should('be.visible')
 
-  cy.waitForApiCalls()
+  cy.waitForSpinners()
+
+  return cy.get('#render-root')
 }
 
 export const openBuilder = () => {
   Cypress.log({
     name: 'open builder',
   })
-
-  cy.waitForApiCalls()
 
   cy.get('[data-cy="cui-toolbar-item-Builder"] button').click()
   cy.get('[data-cy="cui-toolbar-item-Preview"] button').should('be.visible')

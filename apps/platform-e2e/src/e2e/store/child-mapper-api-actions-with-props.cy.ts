@@ -1,4 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpResponseType,
@@ -42,9 +43,9 @@ describe('Element Child Mapper', () => {
   ]
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
 
   it('should create the resouce that will be used for the api actions', () => {
@@ -189,8 +190,7 @@ describe('Element Child Mapper', () => {
 
     cy.typeIntoTextEditor('Name of data - {{ componentProps.name }}')
 
-    cy.openPreview()
-    cy.get('#render-root').contains('Name of data - undefined').should('exist')
+    cy.openPreview().contains('Name of data - undefined').should('exist')
   })
 
   it('should create an element with child mapper data', () => {

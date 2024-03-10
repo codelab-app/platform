@@ -102,8 +102,7 @@ describe('State variables sharing between pages', () => {
 
     cy.waitForApiCalls()
 
-    cy.openPreview()
-    cy.get('#render-root').contains('text undefined').should('exist')
+    cy.openPreview().contains('text undefined').should('exist')
     cy.openBuilder()
 
     // create a state variable inside the component
@@ -138,10 +137,7 @@ describe('State variables sharing between pages', () => {
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
     // cy.reload()
-    cy.openPreview()
-    cy.get('#render-root')
-      .contains('text component state value')
-      .should('exist')
+    cy.openPreview().contains('text component state value').should('exist')
 
     // go to the provider page
     cy.visit(
@@ -216,7 +212,6 @@ describe('State variables sharing between pages', () => {
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
     cy.get('@cypressElement').reload()
-    cy.openPreview()
-    cy.get('#render-root').contains('text provider state value').should('exist')
+    cy.openPreview().contains('text provider state value').should('exist')
   })
 })
