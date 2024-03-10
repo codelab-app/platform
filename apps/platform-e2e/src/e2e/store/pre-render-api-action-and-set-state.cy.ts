@@ -6,15 +6,15 @@ import {
   IActionKind,
   IAtomType,
   IPageKindName,
-  IResourceType,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { createResourceData } from '../preview/resource.data.ts'
 
 describe('Running API action and setting state on element pre-render', () => {
   let app: IAppDto
-  const resourceName = 'Fetch Data'
-  const resourceUrl = 'http://some-api.com/api'
+  const resourceName = createResourceData.name
+  const resourceUrl = createResourceData.config.url
   const urlGetSegment = '/data/some-id'
   const stateKey = 'localData'
   const apiActionName = 'On Fetch Data'
@@ -27,25 +27,7 @@ describe('Running API action and setting state on element pre-render', () => {
     )
   })
 
-  it('should create the resouce that will be used for the api actions', () => {
-    cy.visit('/resources')
-    cy.waitForSpinners()
-
-    // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
-
-    cy.setFormFieldValue({ label: 'Name', value: resourceName })
-    cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
-
-    cy.setFormFieldValue({
-      label: 'Type',
-      type: FIELD_TYPE.SELECT,
-      value: IResourceType.Rest,
-    })
-
-    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
-
-    cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
+    cy.postApiRequest('/resource/create-resource', createResourceData)
   })
 
   it('should create a state', () => {
