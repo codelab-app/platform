@@ -4,9 +4,11 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_COMPONENT_ID,
 } from '@codelab/frontend/abstract/domain'
+import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
+import isNil from 'lodash/isNil'
 import omit from 'lodash/omit'
 import dynamic from 'next/dynamic'
 import React, { Fragment } from 'react'
@@ -31,7 +33,7 @@ export const extractValidProps = (
   renderOutput: IRenderOutput,
 ) =>
   ReactComponent === Fragment
-    ? { key: renderOutput.props?.['key'] }
+    ? { key: renderOutput.props['key'] }
     : omit(renderOutput.props, [CUSTOM_TEXT_PROP_KEY])
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
@@ -39,7 +41,7 @@ export const getReactComponent = (renderOutput: IRenderOutput) => {
   // use span to hold the component's elements together and it is an html
   // element with the least effect on its child and can be used for dnd
   const atomType =
-    !renderOutput.atomType && renderOutput.props?.[DATA_COMPONENT_ID]
+    !renderOutput.atomType && renderOutput.props[DATA_COMPONENT_ID]
       ? IAtomType.HtmlSpan
       : renderOutput.atomType
 
@@ -91,4 +93,29 @@ const replaceWithCustomResponsiveVariants = (classNames: Array<string>) => {
   return classNames.map((className) => {
     return className.replace(/(lg|sm|md|xl|2xl):/g, '$1c:')
   })
+}
+
+export const makeOverrideAtomProps = (
+  rendererType: RendererType,
+  props: IPropData,
+  atomType?: IAtomType,
+): IPropData => {
+  const inBuilderMode = [
+    RendererType.PageBuilder,
+    RendererType.ComponentBuilder,
+  ].includes(rendererType)
+
+  const builderOverrideProps: IPropData = {}
+
+  // Disables any in-app navigation in builder mode
+  if (inBuilderMode && !isNil(props['href'])) {
+    builderOverrideProps['href'] = '#'
+  }
+
+  // Only allows editing of grid layout in preview mode
+  if (atomType === IAtomType.GridLayout) {
+    builderOverrideProps['static'] = !inBuilderMode
+  }
+
+  return builderOverrideProps
 }

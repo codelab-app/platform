@@ -10,7 +10,7 @@ export interface IRenderOutput {
   atomType?: IAtomType
   /** Any props that should get passed to descendants of this element, mapped by id */
   globalProps?: IPropDataByElementId
-  props?: IPropData
+  props: IPropData
   /** This is the element which this RenderOutput was rendered from */
   runtimeElement: IRuntimeElementModel
 }
