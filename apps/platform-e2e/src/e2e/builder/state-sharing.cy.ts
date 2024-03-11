@@ -186,7 +186,6 @@ describe('State variables sharing between pages', () => {
     cy.wait('@createState')
   })
 
-  it.skip('should be able to use the state from the provider page', () => {
   it("should respect provider state's precedence over component state", () => {
     // go to the regular page
     cy.visit(
