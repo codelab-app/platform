@@ -2,21 +2,19 @@ import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPage, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { findOrFail, slugify } from '@codelab/shared/utils'
-import { buildTestData } from './in-app-routing.data'
+import {
+  buildTestPages,
+  dynamicPageTextElementCreateData,
+  providerPageLinkElementCreateData,
+  staticPageLinkElementCreateData,
+  staticPageTextElementCreateData,
+  testUrlProps,
+} from './in-app-routing.data'
 
-const TestPageText = 'this is the test page'
-const DynamicPageText = 'this is the dynamic page'
-const GoToTestPageText = 'go to test page'
-const GoToDynamicPageText = 'go to dynamic page'
-const dynamicUrlFirstSegmentKey = 'testId'
-const dynamicUrlFirstSegment = 'first-url-segment'
-const dynamicUrlSecondSegmentKey = 'subtestId'
-const dynamicUrlSecondSegment = 'second-url-segment'
+let app: IAppDto
+let providerPage: IPageDto
 
 const setupTest = () => {
-  let app: IAppDto
-  let providerPage: IPageDto
-
   cy.postApiRequest<App>('/app/seed-cypress-app')
     .then(({ body }) => {
       app = body
@@ -29,14 +27,7 @@ const setupTest = () => {
     .as('appCreated')
 
   cy.get('@appCreated').then(() => {
-    const {
-      dynamicPageCreateData,
-      dynamicPageTextElementCreateData,
-      providerPageLinkElementCreateData,
-      staticPageCreateData,
-      staticPageLinkElementCreateData,
-      staticPageTextElementCreateData,
-    } = buildTestData(app)
+    const { dynamicPageCreateData, staticPageCreateData } = buildTestPages(app)
 
     cy.postApiRequest(`/element/${providerPage.id}/create-element`, {
       ...providerPageLinkElementCreateData,
@@ -73,34 +64,66 @@ const setupTest = () => {
     )
   })
 
-  cy.get('@providerPageLinkElementCreated')
+  return cy
+    .get('@providerPageLinkElementCreated')
     .get('@staticPageElementsCreated')
     .get('@dynamicPageContentElementCreated')
-    .then(() => {
+}
+
+describe('In-app navigation between app pages', () => {
+  before(() => {
+    setupTest()
+  })
+
+  describe('Preview Mode', () => {
+    before(() => {
       cy.visit(
         `/apps/cypress/${slugify(app.name)}/pages/${slugify(
           IPageKindName.Provider,
         )}`,
       )
     })
-}
+    it('should navigate to the static page when NextLink in the _app is clicked', () => {
+      cy.get('#render-root')
+        .contains(providerPageLinkElementCreateData.propsData?.customText)
+        .click()
+      cy.contains(staticPageTextElementCreateData.propsData?.customText).should(
+        'exist',
+      )
+    })
 
-describe('Routing between app pages within the builder', () => {
-  before(() => {
-    setupTest()
+    it('should navigate to the dynamic page when NextLink in the static page is clicked', () => {
+      cy.get('#render-root')
+        .contains(staticPageLinkElementCreateData.propsData?.customText)
+        .click()
+      cy.findByText(
+        `testId: "${testUrlProps.testId}", subtestId: "${testUrlProps.subtestId}"`,
+      ).should('exist')
+    })
   })
 
-  // Skip this for now until we re-worked the routing within the builder preview
-  it('should navigate to /test-page of the app within the builder when NextLink in the provider is clicked', () => {
-    cy.get('#render-root').contains(GoToTestPageText).click()
-    cy.contains(TestPageText).should('exist')
-  })
+  describe('Builder Mode', () => {
+    before(() => {
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          IPageKindName.Provider,
+        )}/builder`,
+      )
+    })
+    it('should disable navigation', () => {
+      cy.get('#render-root')
+        .contains(providerPageLinkElementCreateData.propsData?.customText)
+        .click()
 
-  // Skip this for now until we re-worked the routing within the builder preview
-  it('should navigate to the dynamic page within the builder when NextLink in the /test-page is clicked', () => {
-    cy.get('#render-root').contains(GoToDynamicPageText).click()
-    cy.findByText(
-      `${DynamicPageText} - ${dynamicUrlFirstSegmentKey}: "${dynamicUrlFirstSegment}", ${dynamicUrlSecondSegmentKey}: "${dynamicUrlSecondSegment}"`,
-    ).should('exist')
+      // No navigation should occur. Give it some time to navigate and check if the text is still there.
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(2000)
+      cy.contains(
+        providerPageLinkElementCreateData.propsData?.customText,
+      ).should('exist')
+      cy.contains(staticPageTextElementCreateData.propsData?.customText).should(
+        'not.exist',
+      )
+    })
   })
 })
