@@ -9,7 +9,10 @@ export const getCuiSidebar = (label: string) => {
 }
 
 export const getCuiSidebarViewHeader = (label: string) => {
-  cy.log('getCuiSidebarViewHeader', label)
+  Cypress.log({
+    message: label,
+    name: 'getCuiSidebarViewHeader',
+  })
 
   return cy.get(CY_DATA_SELECTOR.cuiSidebarViewHeader(label), {
     log: false,
@@ -17,7 +20,10 @@ export const getCuiSidebarViewHeader = (label: string) => {
 }
 
 export const getCuiSidebarViewContent = (label: string) => {
-  cy.log('getCuiSidebarViewContent', label)
+  Cypress.log({
+    message: label,
+    name: 'getCuiSidebarViewContent',
+  })
 
   return cy.get(CY_DATA_SELECTOR.cuiSidebarViewContent(label), {
     log: false,
@@ -25,7 +31,9 @@ export const getCuiSidebarViewContent = (label: string) => {
 }
 
 export const getCuiSidebarHeader = (subject: Maybe<CypressElement>) => {
-  cy.log('getCuiSidebarHeader')
+  Cypress.log({
+    name: 'getCuiSidebarHeader',
+  })
 
   return subject
     ? cy.wrap(subject).find(CY_DATA_SELECTOR.cuiSidebarHeader(), {

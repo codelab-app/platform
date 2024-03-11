@@ -13,7 +13,7 @@ export const antButtonCommands: Array<CypressCommand> = [
     fn: getButton,
     name: 'getButton',
     options: {
-      prevSubject: 'optional' as any,
+      prevSubject: 'optional',
     },
   },
 ]

@@ -14,7 +14,7 @@ export const antSpinCommands: Array<CypressCommand> = [
     fn: getSpinner,
     name: 'getSpinner',
     options: {
-      prevSubject: 'optional' as any,
+      prevSubject: 'optional',
     },
   },
   {

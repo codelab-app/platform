@@ -21,7 +21,7 @@ describe('Store', () => {
     )
   })
 
-  it('should create states', () => {
+  it('should add fields to a page store as state', () => {
     cy.visit(
       `/apps/cypress/${slugify(app.name)}/pages/${slugify(
         IPageKindName.Provider,

@@ -13,7 +13,7 @@ export const antIconCommands: Array<CypressCommand> = [
     fn: getIcon,
     name: 'getIcon',
     options: {
-      prevSubject: 'optional' as any,
+      prevSubject: 'optional',
     },
   },
 ]

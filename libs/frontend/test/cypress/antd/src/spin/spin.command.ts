@@ -10,7 +10,7 @@ export const getSpinner = (subject: any): CypressElement =>
 
 export const waitForSpinners = () => {
   Cypress.log({
-    name: 'Wait for spinners',
+    name: 'wait for spinners',
   })
   cy.getSpinner().should('not.exist')
 }
