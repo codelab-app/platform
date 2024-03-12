@@ -3,7 +3,6 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { type IComponentType } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mergeProps } from '@codelab/frontend/domain/prop'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -13,6 +12,7 @@ import {
   extractValidProps,
   generateTailwindClasses,
   getReactComponent,
+  makeOverrideAtomProps,
 } from './wrapper.utils'
 
 /**
@@ -36,12 +36,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const { atomService } = useStore()
 
-    if (renderOutput.props && renderOutput.atomType === IAtomType.GridLayout) {
-      renderOutput.props['static'] =
-        renderer.rendererType === RendererType.Preview ||
-        renderer.rendererType === RendererType.Production
-    }
-
     const ReactComponent: IComponentType =
       renderOutput.atomType &&
       atomService.atomDomainService.dynamicComponents[renderOutput.atomType]
@@ -64,6 +58,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
+    const propsOverrides = makeOverrideAtomProps(
+      renderer.rendererType,
+      extractedProps,
+      renderOutput.atomType,
+    )
+
     // leave ElementWrapper pass-through so refs are attached to correct element
     // selectionHandlers should be first so they will be overridden if
     // a prop contains an action such as `onClick`, `onSelect`, etc.
@@ -72,6 +72,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       extractedProps,
       rest,
       tailwindClassNames,
+      propsOverrides,
     )
 
     const isDroppable =
