@@ -1,31 +1,20 @@
 import type { IRuntimeComponentService } from '@codelab/frontend/abstract/application'
 import {
   IRuntimeComponentModel,
-  runtimeComponentRef,
+  IRuntimeModel,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import {
-  componentRef,
-  IComponentModel,
-  storeRef,
-} from '@codelab/frontend/abstract/domain'
-import { IRef } from '@codelab/shared/abstract/core'
-import isNil from 'lodash/isNil'
+import { IComponentModel } from '@codelab/frontend/abstract/domain'
+import { ObjectKey } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { RuntimeComponentModel } from './runtime-component.model'
-import { RuntimeComponentPropModel } from './runtime-component-prop.model'
-import { RuntimeStoreModel } from './runtime-store.model'
 
 /**
- * We will have a single RuntimeElementService that contains all runtime elements
+ * We will have a single RuntimeComponentService that contains all runtime components
  *
- * - RuntimePage
- * - RuntimeComponent
- * - RuntimeElement
  */
 @model('@codelab/RuntimeComponentService')
 export class RuntimeComponentService
@@ -42,47 +31,44 @@ export class RuntimeComponentService
   @modelAction
   add(
     component: IComponentModel,
-    runtimeParent: IRef,
+    parent: IRuntimeModel,
     children: Array<Ref<IElementModel>> = [],
+    propKey?: ObjectKey,
     childMapperIndex?: number,
     isTypedProp?: boolean,
   ): IRuntimeComponentModel {
-    const componentsList = [...this.components.values()]
-
-    const foundComponent = componentsList.find(
-      (runtimeComponent) =>
-        runtimeComponent.component.id === component.id &&
-        isNil(childMapperIndex),
+    const compositeKey = RuntimeComponentModel.compositeKey(
+      component,
+      propKey,
+      childMapperIndex,
     )
+
+    const foundComponent = this.components.get(compositeKey)
 
     if (foundComponent) {
       return foundComponent
     }
 
-    const id = v4()
-
     const runtimeComponent = RuntimeComponentModel.create({
       childMapperIndex,
       children,
-      component: componentRef(component.id),
-      id,
+      component,
+      compositeKey,
       isTypedProp,
-      runtimeParent: runtimeElementRef(runtimeParent.id),
-      runtimeProps: RuntimeComponentPropModel.create({
-        runtimeComponent: runtimeComponentRef(id),
-      }),
-      runtimeStore: RuntimeStoreModel.create({
-        store: storeRef(component.store.id),
-      }),
+      runtimeParent: runtimeElementRef(parent.compositeKey),
     })
 
-    this.components.set(runtimeComponent.id, runtimeComponent)
+    this.components.set(runtimeComponent.compositeKey, runtimeComponent)
 
     return runtimeComponent
   }
 
   @modelAction
   delete(runtimeComponent: IRuntimeComponentModel) {
-    return this.components.delete(runtimeComponent.id)
+    return this.components.delete(runtimeComponent.compositeKey)
+  }
+
+  component(compositeKey: string) {
+    return this.components.get(compositeKey)
   }
 }
