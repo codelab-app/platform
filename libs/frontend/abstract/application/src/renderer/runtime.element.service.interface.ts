@@ -12,5 +12,5 @@ export interface IRuntimeElementService {
     parent: IRuntimeModel,
     propKey?: string,
   ): IRuntimeElementModel
-  element(compositeKey: string): Maybe<IRuntimeElementModel>
+  element(element: IElementModel): Maybe<IRuntimeElementModel>
 }

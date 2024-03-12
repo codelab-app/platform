@@ -1,7 +1,6 @@
 import type {
   IComponentModel,
   IElementModel,
-  IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'
 import type { IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'

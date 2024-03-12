@@ -58,14 +58,16 @@ const validateSchema = (node: IPageNodeRef) => {
  * If node is IComponent, that means we are viewing it in the component builder only.
  */
 export const usePropsInspector = (node: IPageNodeRef) => {
-  const { propService, rendererService } = useStore()
+  const { propService, runtimeComponentService, runtimeElementService } =
+    useStore()
+
   const [isLoading, setIsLoading] = useState(false)
   const validator = validateSchema(node)
   const nodeLabel = isElementRef(node) ? 'Element' : 'Component'
 
   const runtimeModel = isElement(node.current)
-    ? rendererService.runtimeElement(node.current)
-    : rendererService.runtimeComponent(node.current)
+    ? runtimeElementService.element(node.current)
+    : runtimeComponentService.component(node.current)
 
   const runtimeProps =
     runtimeModel && !isRuntimePage(runtimeModel)

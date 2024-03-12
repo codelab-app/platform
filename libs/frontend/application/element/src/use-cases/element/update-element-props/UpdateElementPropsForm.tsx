@@ -24,8 +24,13 @@ export interface UpdateElementPropsFormProps {
  */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element }) => {
-    const { componentService, propService, rendererService, typeService } =
-      useStore()
+    const {
+      componentService,
+      propService,
+      rendererService,
+      runtimeElementService,
+      typeService,
+    } = useStore()
 
     const currentElement = element.current
     const apiId = currentElement.renderType.current.api.id
@@ -79,7 +84,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       submitRef.current?.validate?.()
     }, [submitRef.current])
 
-    const runtimeElement = rendererService.runtimeElement(currentElement)
+    const runtimeElement = runtimeElementService.element(currentElement)
     const runtimeProps = runtimeElement?.runtimeProps
 
     return (

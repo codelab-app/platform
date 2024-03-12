@@ -22,7 +22,7 @@ describe('Runtime Element', () => {
     const { page, runtimePage } = setupPages(testbed)
     const rootElement = page.rootElement.current
 
-    const runtimeElement = runtimeElementService.element(
+    const runtimeElement = runtimeElementService.runtimeElement(
       RuntimeElementModel.compositeKey(rootElement),
     )
 
