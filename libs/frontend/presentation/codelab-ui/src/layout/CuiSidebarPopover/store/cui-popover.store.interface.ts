@@ -1,6 +1,8 @@
+import type { ModelCrudKey } from '@codelab/frontend/abstract/types'
+
 export interface IPopoverStore {
   close(): void
   isAnyPopoverOpen(): boolean
-  isOpen(id: string): boolean
-  open(id: string): void
+  isOpen(id: ModelCrudKey): boolean
+  open(id: ModelCrudKey): void
 }

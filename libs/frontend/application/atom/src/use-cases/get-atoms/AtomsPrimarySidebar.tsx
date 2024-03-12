@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { FormNames, PageType } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CreateFieldPopover } from '@codelab/frontend/application/type'
 import {
@@ -45,7 +45,7 @@ export const AtomsPrimarySidebar = observer(() => {
                 key: 'create',
                 onClick: () => {
                   atomService.createForm.open()
-                  popover.open(FormNames.CreateAtom)
+                  popover.open(MODEL_CRUD.models.Action.Create.key)
                 },
                 title: 'Create Atom',
               },

@@ -17,11 +17,10 @@ export const getButton = (
       Cypress.Timeoutable
   >,
 ): CypressElement => {
-  // Cypress.log({
-  //   displayName: 'Get Button',
-  //   // message: name,
-  //   name: 'Add new board',
-  // })
+  Cypress.log({
+    displayName: 'get Button',
+    // message: name,
+  })
 
   if (icon) {
     return subject

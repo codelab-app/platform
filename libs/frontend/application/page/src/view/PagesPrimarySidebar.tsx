@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import {
   CreateRedirectPopover,
   DeleteRedirectModal,
@@ -49,7 +49,7 @@ export const PagesPrimarySidebar = observer(() => {
                   key: 'create-page',
                   onClick: () => {
                     pageService.createForm.open()
-                    popover.open(FormNames.CreatePage)
+                    popover.open(MODEL_CRUD.models.Page.Create.key)
                   },
                   title: 'Create Page',
                 },

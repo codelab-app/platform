@@ -12,7 +12,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/application/component'
 import {
   CreateElementPopover,
@@ -120,7 +120,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   elementTree: elementTreeRef(containerNode.id),
                   selectedElement,
                 })
-                popover.open(FormNames.CreateElement)
+                popover.open(MODEL_CRUD.models.Element.Create.key)
               },
               title: 'Add Element',
             },
@@ -147,7 +147,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
                 if (store.api.id) {
                   form.open(typeRef(store.api.id) as Ref<IInterfaceTypeModel>)
-                  popover.open(FormNames.CreateField)
+                  popover.open(MODEL_CRUD.models.Field.Create.key)
                 }
               },
               title: 'Add Field',
@@ -172,7 +172,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 }
 
                 actionService.createForm.open(storeRef(store))
-                popover.open(FormNames.CreateAction)
+                popover.open(MODEL_CRUD.models.Action.Create.key)
               },
               title: 'Add Action',
             },

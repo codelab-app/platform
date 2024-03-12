@@ -1,3 +1,4 @@
+import type { ModelCrudKey } from '@codelab/frontend/abstract/types'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
@@ -7,7 +8,7 @@ import type { CuiSidebarToolbarProps } from '../../views'
 import { CuiSidebarPopoverHeader } from './CuiSidebarPopoverHeader'
 
 export interface CuiSidebarPopoverProps {
-  id: string
+  id: ModelCrudKey
   label: string
   toolbar?: CuiSidebarToolbarProps
 }

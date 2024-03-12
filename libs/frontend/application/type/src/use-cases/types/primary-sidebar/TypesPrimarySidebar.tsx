@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { FormNames, PageType } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSidebar,
@@ -44,7 +44,7 @@ export const TypesPrimarySidebar = observer(() => {
                 icon: <PlusOutlined />,
                 key: 'create type',
                 onClick: () => {
-                  popover.open(FormNames.CreateType)
+                  popover.open(MODEL_CRUD.models.Type.Create.key)
                   typeService.createForm.open()
                 },
                 title: 'Create Type',

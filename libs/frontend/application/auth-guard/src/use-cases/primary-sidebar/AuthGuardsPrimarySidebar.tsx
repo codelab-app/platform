@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -18,7 +18,7 @@ export const AuthGuardsPrimarySidebar = observer(() => {
       key: 'authGuard',
       onClick: () => {
         authGuardService.createForm.open()
-        popover.open(FormNames.CreateAuthGuard)
+        popover.open(MODEL_CRUD.models.AuthGuard.Create.key)
       },
       title: 'Add an Auth Guard',
     },

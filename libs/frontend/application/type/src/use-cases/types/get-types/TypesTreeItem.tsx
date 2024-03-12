@@ -6,7 +6,7 @@ import {
   type ITypesTreeDataNode,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -66,7 +66,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     fieldService.createForm.open(
       typeRef(interfaceType) as Ref<IInterfaceTypeModel>,
     )
-    popover.open(FormNames.CreateField)
+    popover.open(MODEL_CRUD.models.Field.Create.key)
   }
 
   const toolbarItems = [

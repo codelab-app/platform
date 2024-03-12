@@ -1,6 +1,6 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -20,7 +20,7 @@ export const TagsPrimarySidebar = observer(() => {
       key: 'create',
       onClick: () => {
         tagService.createForm.open()
-        popover.open(FormNames.CreateTag)
+        popover.open(MODEL_CRUD.models.Tag.Create.key)
       },
       title: 'Create Tag',
     },

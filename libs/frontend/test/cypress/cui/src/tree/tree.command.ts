@@ -20,7 +20,7 @@ export const closestCuiTreeItem = (subject: Maybe<CypressElement>) => {
   })
 
   return cy
-    .wrap(subject)
+    .wrap(subject, { log: false })
     .closest(CY_DATA_SELECTOR.cuiTreeItem(), { log: false })
 }
 
@@ -32,7 +32,7 @@ export const getCuiTreeItemByPrimaryTitle = (
 
   return subject
     ? cy
-        .wrap(subject)
+        .wrap(subject, { log: false })
         .find(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
           log: false,
         })

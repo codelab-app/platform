@@ -33,7 +33,6 @@ ajv.addSchema({
     fieldDefaultValues: {
       anyOf: [
         {
-          nullable: true,
           type: 'string',
         },
         {
@@ -51,6 +50,12 @@ ajv.addSchema({
             '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
           },
           type: 'object',
+        },
+        /**
+         * Make it 'nullable' by default
+         */
+        {
+          type: 'null',
         },
       ],
     },

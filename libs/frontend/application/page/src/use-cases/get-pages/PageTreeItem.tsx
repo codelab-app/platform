@@ -15,7 +15,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
-  FormNames,
+  MODEL_CRUD,
   PageType,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -83,13 +83,11 @@ export const PageTreeItem = observer(
         onClick: () => {
           if (page.redirect) {
             redirectService.updateForm.open(redirectRef(page.redirect.id))
+            popover.open(MODEL_CRUD.models.Redirect.Update.key)
           } else {
             redirectService.createForm.open(pageRef(page))
+            popover.open(MODEL_CRUD.models.Redirect.Create.key)
           }
-
-          popover.open(
-            page.redirect ? FormNames.UpdateRedirect : FormNames.CreateRedirect,
-          )
         },
         title: 'Auth Guard',
       },
@@ -122,7 +120,7 @@ export const PageTreeItem = observer(
         key: 'edit',
         onClick: () => {
           pageService.updateForm.open(pageRef(page))
-          popover.open(FormNames.UpdatePage)
+          popover.open(MODEL_CRUD.models.Page.Update.key)
         },
         title: 'Edit',
       },

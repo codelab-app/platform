@@ -6,7 +6,7 @@ import {
   type IInterfaceTypeModel,
   type IStateTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -26,7 +26,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
 
   const onEdit = () => {
     fieldService.updateForm.open(fieldRef(data.extraData.node))
-    popover.open(FormNames.UpdateField)
+    popover.open(MODEL_CRUD.models.Field.Update.key)
   }
 
   const onDelete = () => {
@@ -37,7 +37,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     fieldService.createForm.open(
       data.extraData.node.type as Ref<IInterfaceTypeModel>,
     )
-    popover.open(FormNames.CreateField)
+    popover.open(MODEL_CRUD.models.Field.Create.key)
   }
 
   const toolbarItems = [

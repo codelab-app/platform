@@ -6,7 +6,7 @@ import {
   actionRef,
   type IActionsTreeDataNode,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -30,21 +30,21 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
 
   const onEdit = () => {
     actionService.updateForm.open(actionRef(data.extraData.node))
-    popover.open(FormNames.UpdateAction)
+    popover.open(MODEL_CRUD.models.Action.Update.key)
   }
 
   const toolbarItems = [
     {
       icon: <EditOutlined />,
-      key: 'edit-action',
+      key: MODEL_CRUD.models.Action.Update.key,
       onClick: onEdit,
-      title: 'Edit Action',
+      title: MODEL_CRUD.models.Action.Update.title,
     },
     {
       icon: <DeleteOutlined />,
-      key: 'delete-action',
+      key: MODEL_CRUD.models.Action.Delete.key,
       onClick: onDelete,
-      title: 'Delete Action',
+      title: MODEL_CRUD.models.Action.Delete.title,
     },
   ]
 

@@ -12,7 +12,7 @@ import {
   elementTreeRef,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
@@ -85,7 +85,7 @@ export const ElementTreeItemElementTitle = observer(
                   icon: <PlusOutlined />,
                   key: `add-child-${element.id}`,
                   onClick: () => {
-                    popover.open(FormNames.CreateElement)
+                    popover.open(MODEL_CRUD.models.Element.Create.key)
                     elementService.createForm.open({
                       elementOptions:
                         element.closestContainerNode.elements.map(

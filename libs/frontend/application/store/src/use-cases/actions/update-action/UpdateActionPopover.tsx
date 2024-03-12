@@ -1,7 +1,9 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_CRUD,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSidebarPopover,
@@ -19,7 +21,7 @@ export const UpdateActionPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={FormNames.UpdateAction}
+      id={MODEL_CRUD.models.Action.Update.key}
       label="Update Action"
       toolbar={{
         items: [

@@ -12,7 +12,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields } from 'uniforms-antd'
+import { AutoFields, ErrorsField } from 'uniforms-antd'
 import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../types'
 import {
@@ -43,8 +43,6 @@ export const UpdateFieldForm = observer(
     const fieldSchema = useFieldSchema(createFieldSchema)
     const closeForm = () => fieldService.updateForm.close()
     const field = fieldService.updateForm.field
-
-    console.log(fieldSchema, field?.defaultValues)
 
     const onSubmit = (input: IUpdateFieldData) => {
       if (!field) {
@@ -93,8 +91,6 @@ export const UpdateFieldForm = observer(
               },
             }
           }
-
-          // console.log(mode, model)
 
           return model
         }}

@@ -17710,6 +17710,7 @@ __metadata:
     ts-node: 10.9.1
     tslib: 2.3.1
     twind: 0.16.19
+    type-fest: ^4.12.0
     typebox-validators: 0.3.5
     typescript: 5.2.2
     typescript-json-schema: 0.55.0
@@ -37498,6 +37499,13 @@ __metadata:
   version: 3.13.1
   resolution: "type-fest@npm:3.13.1"
   checksum: c06b0901d54391dc46de3802375f5579868949d71f93b425ce564e19a428a0d411ae8d8cb0e300d330071d86152c3ea86e744c3f2860a42a79585b6ec2fdae8e
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.12.0":
+  version: 4.12.0
+  resolution: "type-fest@npm:4.12.0"
+  checksum: 3731d4c7a690462d7f2280b33231d0ee720c7b01d68aff0433ab41ef9cb4fe38717f28c8c59bad7c3514362892f0cf9cdd59609a829f7a8df09db5d1218caac1
   languageName: node
   linkType: hard
 

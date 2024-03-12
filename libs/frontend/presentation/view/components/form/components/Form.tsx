@@ -4,7 +4,7 @@ import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
-import { AutoForm } from 'uniforms-antd'
+import { AutoForm, ErrorsField } from 'uniforms-antd'
 import {
   connectUniformSubmitRef,
   createBridge,
@@ -71,6 +71,8 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           showInlineError
           submitField={submitField}
         >
+          {/* Dynamic schema `if` `then` doesn't seem to show error in the field */}
+          <ErrorsField />
           {children}
         </BaseAutoForm>
       </div>

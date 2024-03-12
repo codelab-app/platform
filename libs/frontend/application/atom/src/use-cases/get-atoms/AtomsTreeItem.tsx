@@ -5,7 +5,7 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -51,7 +51,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
     if (interfaceRef) {
       fieldService.createForm.open(interfaceRef)
-      popover.open(FormNames.CreateField)
+      popover.open(MODEL_CRUD.models.Field.Create.key)
     }
   }
 
