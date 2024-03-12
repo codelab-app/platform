@@ -1,3 +1,5 @@
+import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+
 export const wrapCyData = (data: string) => `[data-cy="${data}"]`
 
 export const CY_DATA = {
@@ -14,7 +16,7 @@ export const CY_DATA = {
   /**
    * popover
    */
-  cuiPopover: (title: string) => `cui-sidebar-popover-${title}`,
+  cuiPopover: (key: ModelActionKey) => `cui-sidebar-popover-${key}`,
 
   /**
    * sidebar

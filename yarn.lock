@@ -11350,6 +11350,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stylistic/eslint-plugin-js@npm:1.6.3":
+  version: 1.6.3
+  resolution: "@stylistic/eslint-plugin-js@npm:1.6.3"
+  dependencies:
+    "@types/eslint": ^8.56.2
+    acorn: ^8.11.3
+    escape-string-regexp: ^4.0.0
+    eslint-visitor-keys: ^3.4.3
+    espree: ^9.6.1
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: d600933eba761648fbb54ba312daced1930d37c0e20b34898c077eadd6a542b60b68be80f5d29434a06a93b17dde2395746ed510efbab7a0ef2b0a2fc4e833b5
+  languageName: node
+  linkType: hard
+
+"@stylistic/eslint-plugin-ts@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "@stylistic/eslint-plugin-ts@npm:1.6.3"
+  dependencies:
+    "@stylistic/eslint-plugin-js": 1.6.3
+    "@types/eslint": ^8.56.2
+    "@typescript-eslint/utils": ^6.21.0
+  peerDependencies:
+    eslint: ">=8.40.0"
+  checksum: decf07c3ced997f7521234719c33068405eaec810cdac0cf2b7865248a2db7cefd4bec007ff0779f2503cd0f628e3395cb6cd4c8ee0b37f2cdad9230e6c66aca
+  languageName: node
+  linkType: hard
+
 "@supabase/functions-js@npm:^2.0.0":
   version: 2.2.0
   resolution: "@supabase/functions-js@npm:2.2.0"
@@ -12584,6 +12612,16 @@ __metadata:
     "@types/estree": "*"
     "@types/json-schema": "*"
   checksum: 38e054971596f5c0413f66a62dc26b10e0a21ac46ceacb06fbf8cfb838d20820787209b17218b3916e4c23d990ff77cfdb482d655cac0e0d2b837d430fcc5db8
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:^8.56.2":
+  version: 8.56.5
+  resolution: "@types/eslint@npm:8.56.5"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: 95a7a23ca38c78e5c27a2ed36ef60f094d5e6589e3473c320b6ff69eb3ca6333d5b7f0d5053416369f5ab2fb86874df19562d4d67a98237c17def6e30abff540
   languageName: node
   linkType: hard
 
@@ -14126,7 +14164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:6.21.0, @typescript-eslint/utils@npm:^6.1.0, @typescript-eslint/utils@npm:^6.9.1":
+"@typescript-eslint/utils@npm:6.21.0, @typescript-eslint/utils@npm:^6.1.0, @typescript-eslint/utils@npm:^6.21.0, @typescript-eslint/utils@npm:^6.9.1":
   version: 6.21.0
   resolution: "@typescript-eslint/utils@npm:6.21.0"
   dependencies:
@@ -17472,6 +17510,7 @@ __metadata:
     "@storybook/react-webpack5": 7.5.3
     "@storybook/test-runner": 0.14.0
     "@storybook/testing-library": 0.2.2
+    "@stylistic/eslint-plugin-ts": ^1.6.3
     "@supabase/supabase-js": 2.1.1
     "@svgr/webpack": 8.0.1
     "@swc-node/register": 1.6.8

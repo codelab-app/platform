@@ -279,6 +279,7 @@
     "@storybook/react-webpack5": "7.5.3",
     "@storybook/test-runner": "0.14.0",
     "@storybook/testing-library": "0.2.2",
+    "@stylistic/eslint-plugin-ts": "^1.6.3",
     "@svgr/webpack": "8.0.1",
     "@swc-node/register": "1.6.8",
     "@swc/cli": "~0.1.62",

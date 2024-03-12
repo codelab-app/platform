@@ -1,81 +1,102 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { ICreateElementData } from '@codelab/shared/abstract/core'
+import type {
+  ICreateCypressElementData,
+  ICreateElementData,
+} from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
+import { findOrFail } from '@codelab/shared/utils'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 
-export const createElementTree = (elements: Array<ICreateElementData>) => {
-  cy.log('createElementTree', elements)
+export const createElementTree = (
+  elements: Array<ICreateCypressElementData>,
+) => {
+  Cypress.log({
+    message: elements,
+    name: 'createElementTree',
+  })
 
-  return cy.wrap(elements).each((element: ICreateElementData) => {
-    const { atom, name, parentElement, propsData } = element
+  return cy
+    .wrap(elements)
+    .each(({ atom, name, parentElement, propsData }: ICreateElementData) => {
+      cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
+      cy.getCuiSidebar('Explorer')
+        .getCuiToolbarItem('Add Element')
+        .first()
+        .click()
 
-    cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
-    cy.getCuiSidebar('Explorer')
-      .getCuiToolbarItem('Add Element')
-      .first()
-      .click()
+      const parentElementObject = findOrFail(
+        elements,
+        (element) => element.id === element.parentElement.id,
+      )
 
-    /**
-     * We skip this if parent element is root, since it is disabled and can't be accessed
-     */
-    if (parentElement !== ROOT_ELEMENT_NAME) {
+      /**
+       * We skip this if parent element is root, since it is disabled and can't be accessed
+       */
+      // if (parentElement !== ROOT_ELEMENT_NAME) {
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Parent element',
         type: FIELD_TYPE.SELECT,
-        value: parentElement,
+        value: parentElementObject.name,
       })
-    }
+      // }
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Atom',
-      type: FIELD_TYPE.SELECT,
-      value: atom,
-    })
+      if (!atom) {
+        throw new Error('Missing atom')
+      }
 
-    // need to wait for the code to put the auto-computed name before typing
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
-
-    if (propsData) {
       cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Props Data',
-        type: FIELD_TYPE.INPUT,
-        value: JSON.stringify(propsData),
+        label: 'Atom',
+        type: FIELD_TYPE.SELECT,
+        value: atom,
       })
-    }
 
-    cy.findByTestId('create-element-form')
-      .getFormField({
-        label: 'Name',
-      })
-      .within(() => {
-        // Need to wait for the name to automatically be set first (after the
-        // atom is set) because it would override the name otherwise
-        cy.get('input').should('not.have.value', '')
-      })
-    cy.findByTestId('create-element-form').setFormFieldValue({
-      label: 'Name',
-      type: FIELD_TYPE.INPUT,
-      value: name,
-    })
-
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
-
-    cy.findByTestId('create-element-form').should('not.exist', {
-      timeout: 10000,
-    })
-
-    if (atom && customTextInjectionWhiteList.includes(atom)) {
-      // editorjs fails internally without this, maybe some kind of initialization
-      // fails mostly on elements that can have text editor like typography text
+      // need to wait for the code to put the auto-computed name before typing
       // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000)
-    }
+      cy.wait(1000)
 
-    cy.getCuiSidebar('Explorer').findByText(name).should('exist').click()
-  })
+      if (propsData) {
+        cy.findByTestId('create-element-form').setFormFieldValue({
+          label: 'Props Data',
+          type: FIELD_TYPE.INPUT,
+          value: JSON.stringify(propsData),
+        })
+      }
+
+      cy.findByTestId('create-element-form')
+        .getFormField({
+          label: 'Name',
+        })
+        .within(() => {
+          // Need to wait for the name to automatically be set first (after the
+          // atom is set) because it would override the name otherwise
+          cy.get('input').should('not.have.value', '')
+        })
+      cy.findByTestId('create-element-form').setFormFieldValue({
+        label: 'Name',
+        type: FIELD_TYPE.INPUT,
+        value: name,
+      })
+
+      cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+        .getCuiToolbarItem('Create')
+        .click()
+
+      cy.findByTestId('create-element-form').should('not.exist', {
+        timeout: 10000,
+      })
+
+      if (customTextInjectionWhiteList.includes(atom)) {
+        // editorjs fails internally without this, maybe some kind of initialization
+        // fails mostly on elements that can have text editor like typography text
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(2000)
+      }
+
+      cy.getCuiSidebar('Explorer').findByText(name).should('exist').click()
+    })
 }
 
 export const openPreview = () => {
@@ -108,7 +129,9 @@ export const openBuilder = () => {
  */
 export const createElementAndStoreId = () => {
   cy.intercept('POST', `api/graphql`).as('graphqlRequest')
-  cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+  cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+    .getCuiToolbarItem('Create')
+    .click()
   cy.wait('@graphqlRequest').then(({ response }) => {
     cy.wrap(response?.body.data.createElements.elements[0].id).as(
       NEW_ELEMENT_ID_NAME,

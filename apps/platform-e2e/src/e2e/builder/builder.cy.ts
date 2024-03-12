@@ -3,54 +3,9 @@ import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { builderElements, elementRow } from './builder.data'
 
-const ELEMENT_CONTAINER = 'Container'
-const ELEMENT_ROW = 'Row'
-const ELEMENT_COL_A = 'Col A'
-const ELEMENT_COL_B = 'Col B'
-const ELEMENT_TEXT_1 = 'Text 1'
-const ELEMENT_TEXT_2 = 'Text 2'
-const ELEMENT_BUTTON = 'Button'
-
-const elements = [
-  {
-    atom: IAtomType.ReactFragment,
-    name: ELEMENT_CONTAINER,
-    parentElement: ROOT_ELEMENT_NAME,
-  },
-  {
-    atom: IAtomType.ReactFragment,
-    name: ELEMENT_ROW,
-    parentElement: ELEMENT_CONTAINER,
-  },
-  {
-    atom: IAtomType.AntDesignGridCol,
-    name: ELEMENT_COL_A,
-    parentElement: ELEMENT_ROW,
-  },
-  {
-    atom: IAtomType.AntDesignGridCol,
-    name: ELEMENT_COL_B,
-    parentElement: ELEMENT_ROW,
-  },
-  {
-    atom: IAtomType.AntDesignTypographyText,
-    name: ELEMENT_TEXT_1,
-    parentElement: ELEMENT_COL_A,
-  },
-  {
-    atom: IAtomType.AntDesignButton,
-    name: ELEMENT_BUTTON,
-    parentElement: ELEMENT_COL_B,
-  },
-  {
-    atom: IAtomType.AntDesignTypographyText,
-    name: ELEMENT_TEXT_2,
-    parentElement: ELEMENT_BUTTON,
-  },
-]
-
-const updatedElementName = 'Container Updated'
+const updatedElementRow = 'Row Updated'
 
 describe('Elements CRUD', () => {
   let app: IAppDto
@@ -77,22 +32,22 @@ describe('Elements CRUD', () => {
         .should('be.visible')
         .click({ force: true })
 
-      cy.createElementTree(elements)
+      cy.createElementTree(builderElements)
     })
   })
 
   describe('update', () => {
-    it(`should be able to update element`, () => {
-      cy.findByText(ELEMENT_CONTAINER).click()
+    it('should be able to update element', () => {
+      cy.findByText(elementRow.name).click()
       cy.findByLabelText('Name').clear()
-      cy.findByLabelText('Name').type(updatedElementName)
-      cy.findByText(updatedElementName).should('exist')
+      cy.findByLabelText('Name').type(updatedElementRow)
+      cy.findByText(updatedElementRow).should('exist')
     })
   })
 
   describe('delete', () => {
-    it(`should be able to delete element sub tree`, () => {
-      cy.findByText(updatedElementName).rightclick()
+    it('should be able to delete element sub tree', () => {
+      cy.findByText(updatedElementRow).rightclick()
       cy.contains(/Delete/).click({ force: true })
       cy.waitForSpinners()
 
@@ -101,7 +56,7 @@ describe('Elements CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(updatedElementName).should('not.exist')
+      cy.findByText(updatedElementRow).should('not.exist')
     })
   })
 })

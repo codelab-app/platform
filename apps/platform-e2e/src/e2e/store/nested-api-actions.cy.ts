@@ -11,7 +11,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { createResourceData, resourceUrl } from '../preview/resource.data.ts'
+import { createResourceData } from './resource.data'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDto
@@ -32,7 +32,6 @@ describe('Running nested API and code actions', () => {
     cy.postApiRequest<App>('/app/seed-cypress-app').then(
       ({ body }) => (app = body),
     )
-  })
 
     cy.postApiRequest('/resource/create-resource', createResourceData)
   })
@@ -299,12 +298,14 @@ describe('Running nested API and code actions', () => {
 
   it('should run the POST api, GET api, and code action in order when the button is clicked', () => {
     cy.openPreview()
-    cy.intercept('POST', `${resourceUrl}${urlPostSegment}`, {
+    cy.intercept('POST', `${createResourceData.config.url}${urlPostSegment}`, {
       statusCode: 200,
     }).as('updateData')
-    cy.intercept('GET', `${resourceUrl}${urlGetSegment}`, mockGetResponse).as(
-      'getData',
-    )
+    cy.intercept(
+      'GET',
+      `${createResourceData.config.url}${urlGetSegment}`,
+      mockGetResponse,
+    ).as('getData')
 
     cy.get('#render-root')
       .findByText('Click button to post')

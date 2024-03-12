@@ -13,11 +13,11 @@ import {
   renderItemFieldName,
 } from '../../data/create-component-input'
 
-const atomsInputs = (userId: string): Array<AtomCreateInput> => [
-  createListAtomInput(userId),
-  createListItemAtomInput(userId),
-  createTextAtomInput(userId),
-]
+// const atomsInputs = (userId: string): Array<AtomCreateInput> => [
+//   createListAtomInput(userId),
+//   createListItemAtomInput(userId),
+//   createTextAtomInput(userId),
+// ]
 
 const componentsInputs = (
   userId: string,
@@ -36,53 +36,53 @@ const componentsInputs = (
 ]
 
 describe('Render props', () => {
-  before(() => {
-    cy.resetDatabaseExceptForUserAndAtom().then(() => {
-      loginSession().then(async () => {
-        cy.getCurrentUser().then((userId) => {
-          /**
-           * create :
-           *  - list atom
-           *  - list item atom
-           *  - text atom
-           */
-          return cy.createAtom(atomsInputs(userId)).then((atoms) => {
-            const [listAtom, listItemAtom, textAtom] = atoms
-            const listId = listAtom.id
-            const listItemId = listItemAtom.id
-            const textId = textAtom.id
-            const componentInput = componentsInputs(userId, listItemId, textId)
+  // before(() => {
+  //   cy.resetDatabaseExceptForUserAndAtom().then(() => {
+  //     loginSession().then(async () => {
+  //       cy.getCurrentUser().then((userId) => {
+  //         /**
+  //          * create :
+  //          *  - list atom
+  //          *  - list item atom
+  //          *  - text atom
+  //          */
+  //         return cy.createAtom(atomsInputs(userId)).then((atoms) => {
+  //           const [listAtom, listItemAtom, textAtom] = atoms
+  //           const listId = listAtom.id
+  //           const listItemId = listItemAtom.id
+  //           const textId = textAtom.id
+  //           const componentInput = componentsInputs(userId, listItemId, textId)
 
-            /**
-             * create :
-             *  - listItem component
-             *  - text component to be used as (React Node)
-             */
-            return cy.createComponent(componentInput).then(() => {
-              /**
-               * create :
-               *  - app
-               *  - page
-               */
-              // cy.createPageFromScratch().then((data: any) => {
-              // const elementInput = createListElementInput(
-              //  listId,
-              //  data.rootElementId,
-              // )
-              /**
-               * create :
-               * element with list atom
-               */
-              // return cy.createElement(elementInput).then(() => {
-              //  cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
-              // })
-              // })
-            })
-          })
-        })
-      })
-    })
-  })
+  //           /**
+  //            * create :
+  //            *  - listItem component
+  //            *  - text component to be used as (React Node)
+  //            */
+  //           return cy.createComponent(componentInput).then(() => {
+  //             /**
+  //              * create :
+  //              *  - app
+  //              *  - page
+  //              */
+  //             // cy.createPageFromScratch().then((data: any) => {
+  //             // const elementInput = createListElementInput(
+  //             //  listId,
+  //             //  data.rootElementId,
+  //             // )
+  //             /**
+  //              * create :
+  //              * element with list atom
+  //              */
+  //             // return cy.createElement(elementInput).then(() => {
+  //             //  cy.visit(`/apps/${data.appId}/pages/${data.pageId}/builder`)
+  //             // })
+  //             // })
+  //           })
+  //         })
+  //       })
+  //     })
+  //   })
+  // })
 
   describe('render', () => {
     it('bind render props prop correctly', () => {

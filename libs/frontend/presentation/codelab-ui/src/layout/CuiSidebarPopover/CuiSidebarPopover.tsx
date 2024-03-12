@@ -36,7 +36,7 @@ export const CuiSidebarPopover = observer(
         border-gray-300
         bg-white
         "
-        data-cy={CY_DATA.cuiPopover(label)}
+        data-cy={CY_DATA.cuiPopover(id)}
       >
         <CuiSidebarPopoverHeader label={label} toolbar={toolbar} />
         <div

@@ -9,8 +9,8 @@
     "allowJs": true,
     // https://github.com/cypress-io/cypress/issues/22059
     "types": [
-      "cypress",
       "node",
+      // "cypress",
       "@testing-library/cypress",
       "jest",
       "worker-loader"
@@ -18,8 +18,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "index.d.ts",
     "src/**/*.js",
+    "index.d.ts",
     "cypress.ci.config.ts",
     "cypress.test.config.ts"
   ]

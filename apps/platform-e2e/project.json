@@ -117,6 +117,12 @@
       "options": {
         "lintFilePatterns": ["apps/platform-e2e/**/*.{ts,tsx,js,jsx,graphql}"]
       }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc --noEmit --project apps/platform-e2e/tsconfig.json"
+      }
     }
   },
   "tags": ["projectType:application", "type:concrete"],
