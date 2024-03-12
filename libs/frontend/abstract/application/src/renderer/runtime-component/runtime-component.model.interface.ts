@@ -28,7 +28,7 @@ export interface IRuntimeComponentModel extends AnyModel {
    */
   component: Ref<IComponentModel>
 
-  id: string
+  compositeKey: string
   isTypedProp?: boolean
 
   render: Nullable<ReactElement>

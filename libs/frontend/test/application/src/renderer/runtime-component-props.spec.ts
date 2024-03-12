@@ -16,31 +16,25 @@ describe('Runtime Component props', () => {
 
   describe('RuntimeProps.props', () => {
     it('should contain system props', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeComponent(component)
-      const runtimeProps = runtimeComponent?.runtimeProps
+      const { component, renderer, runtimeComponent } = setupComponent(testbed)
+      const runtimeProps = runtimeComponent.runtimeProps
 
-      expect(runtimeProps?.props).toMatchObject({
+      expect(runtimeProps.props).toMatchObject({
         [DATA_COMPONENT_ID]: component.id,
         key: component.id,
       })
     })
 
     it('should contain component props', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeComponent(component)
-      const runtimeProps = runtimeComponent?.runtimeProps
+      const { component, runtimeComponent } = setupComponent(testbed)
+      const runtimeProps = runtimeComponent.runtimeProps
 
-      expect(runtimeProps?.props).toMatchObject(component.props.values)
+      expect(runtimeProps.props).toMatchObject(component.props.values)
     })
 
     it('should contain default props', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeComponent(component)
-      const runtimeProps = runtimeComponent?.runtimeProps
+      const { component, runtimeComponent } = setupComponent(testbed)
+      const runtimeProps = runtimeComponent.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
 
@@ -53,7 +47,7 @@ describe('Runtime Component props', () => {
 
       component.api.current.writeCache({ fields: [field] })
 
-      expect(runtimeProps?.props).toMatchObject({
+      expect(runtimeProps.props).toMatchObject({
         [fieldKey]: JSON.parse(fieldDefaultValue),
       })
     })
@@ -62,16 +56,14 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.evaluatedProps', () => {
     // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeComponent(component)
+      const { component, runtimeComponent } = setupComponent(testbed)
       const fieldKey = 'fieldKey'
 
       component.props.set(fieldKey, '{{10 - 2}}')
 
-      const runtimeProps = runtimeComponent?.runtimeProps
+      const runtimeProps = runtimeComponent.runtimeProps
 
-      expect(runtimeProps?.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
+      expect(runtimeProps.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
     })
   })
 

@@ -29,7 +29,7 @@ export class ElementTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
+  public transform(prop: TypedProp, key: string, runtimeNode: IRuntimeModel) {
     const elements = isRuntimeElement(runtimeNode)
       ? runtimeNode.element.current.closestContainerNode.elements
       : isRuntimeComponent(runtimeNode)
@@ -42,7 +42,11 @@ export class ElementTypeTransformer
       return prop
     }
 
-    const runtimeElement = this.runtimeElementService.add(targetElement)
+    const runtimeElement = this.runtimeElementService.add(
+      targetElement,
+      runtimeNode,
+      key,
+    )
 
     return runtimeElement.render
   }

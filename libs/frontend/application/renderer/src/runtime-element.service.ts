@@ -1,5 +1,10 @@
-import {
+import type {
   IRuntimeElementModel,
+  IRuntimeElementService,
+} from '@codelab/frontend/abstract/application'
+import {
+  IRuntimeModel,
+  isRuntimeElement,
   isRuntimePage,
   runtimeComponentRef,
   runtimeElementRef,
@@ -9,53 +14,61 @@ import { elementRef, IElementModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { RuntimeElementModel } from './runtime-element.model'
 import { RuntimeElementPropsModel } from './runtime-element-prop.model'
 
 /**
  * We will have a single RuntimeElementService that contains all runtime elements
  *
- * - RuntimePage
- * - RuntimeComponent
- * - RuntimeElement
  */
 @model('@codelab/RuntimeElementService')
-export class RuntimeElementService extends Model({
-  elements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
-}) {
+export class RuntimeElementService
+  extends Model({
+    elements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
+  })
+  implements IRuntimeElementService
+{
   @computed
   get elementsList() {
     return [...this.elements.values()]
   }
 
   @modelAction
-  add(element: IElementModel): IRuntimeElementModel {
-    const elementsList = [...this.elements.values()]
-
-    const foundElement = elementsList.find(
-      (runtimeElement) => runtimeElement.element.id === element.id,
-    )
+  add(element: IElementModel, parent: IRuntimeModel, propKey?: string) {
+    /**
+     * id must be unique across the whole trees.
+     * to achieve that we use a composite key
+     *
+     */
+    const compositeKey = RuntimeElementModel.compositeKey(element, propKey)
+    const foundElement = this.elements.get(compositeKey)
 
     if (foundElement) {
       return foundElement
     }
 
-    const id = v4()
+    const closestContainerNode = isRuntimeElement(parent)
+      ? parent.closestContainerNode.current
+      : parent
 
     const runtimeElement = RuntimeElementModel.create({
-      closestContainerNode: isRuntimePage(this.closestContainerNode.current)
-        ? runtimePageRef(this.closestContainerNode.id)
-        : runtimeComponentRef(this.closestContainerNode.id),
+      closestContainerNode: isRuntimePage(closestContainerNode)
+        ? runtimePageRef(closestContainerNode.compositeKey)
+        : runtimeComponentRef(closestContainerNode.compositeKey),
+      compositeKey,
       element: elementRef(element),
-      id,
+      propKey,
       runtimeProps: RuntimeElementPropsModel.create({
-        runtimeElement: runtimeElementRef(id),
+        runtimeElement: runtimeElementRef(compositeKey),
       }),
     })
 
-    this.elements.set(runtimeElement.id, runtimeElement)
+    this.elements.set(runtimeElement.compositeKey, runtimeElement)
 
     return runtimeElement
+  }
+
+  element(compositeKey: string) {
+    return this.elements.get(compositeKey)
   }
 }

@@ -149,7 +149,7 @@ export class RuntimeElementPropsModel
    */
   @computed
   get renderedTypedProps() {
-    return mapDeep(this.props, (value) => {
+    return mapDeep(this.props, (value, key) => {
       if (!isTypedProp(value)) {
         return value
       }
@@ -164,7 +164,7 @@ export class RuntimeElementPropsModel
         return value.value
       }
 
-      return transformer.transform(value, this.runtimeElement.current)
+      return transformer.transform(value, key, this.runtimeElement.current)
     })
   }
 

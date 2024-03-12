@@ -6,20 +6,17 @@ import {
   IPageKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { rootApplicationStore } from './root.test.store'
+import { v4 } from 'uuid'
 import type { TestBed } from './testbed'
 
 export const setupPages = (
   testbed: TestBed,
   rendererType: RendererType = RendererType.Preview,
-  renderedPageKind: IPageKind = IPageKind.Provider,
+  pageKind: IPageKind = IPageKind.Regular,
 ) => {
-  const rendererId = 'renderer-id'
+  const app = testbed.addApp({})
   const pageId = 'page-id'
   const pageName = 'Page Name'
-  const regularPageId = 'regular-page-id'
-  const regularPageName = 'Regular Page Name'
-  const isProviderPage = renderedPageKind === IPageKind.Provider
 
   const htmlDivAtom = testbed.addAtom({
     __typename: 'Atom',
@@ -27,60 +24,46 @@ export const setupPages = (
     type: IAtomType.HtmlDiv,
   })
 
-  const app = testbed.addApp({})
-
-  const page = testbed.addPage({
-    app,
-    id: pageId,
-    kind: IPageKind.Provider,
-    name: pageName,
-    rootElement: testbed.addElement({
-      closestContainerNode: { id: pageId },
-      name: ROOT_ELEMENT_NAME,
-      page: { id: pageId },
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: htmlDivAtom.id,
-      },
-    }),
-    store: testbed.addStore({
-      name: Store.createName({ name: pageName }),
-      page: { id: pageId },
-    }),
-  })
-
-  const regularPage = testbed.addPage({
-    app,
-    id: regularPageId,
-    kind: IPageKind.Regular,
-    name: regularPageName,
-    rootElement: testbed.addElement({
-      closestContainerNode: { id: regularPageId },
-      name: ROOT_ELEMENT_NAME,
-      page: { id: regularPageId },
-      renderType: {
-        __typename: IElementRenderTypeKind.Atom,
-        id: htmlDivAtom.id,
-      },
-    }),
-    store: testbed.addStore({
-      name: Store.createName({ name: regularPageName }),
-      page: { id: regularPageId },
-    }),
-  })
+  const page =
+    pageKind === IPageKind.Regular
+      ? testbed.addPage({
+          app,
+          id: pageId,
+          kind: IPageKind.Regular,
+          name: pageName,
+          rootElement: testbed.addElement({
+            closestContainerNode: { id: pageId },
+            name: ROOT_ELEMENT_NAME,
+            page: { id: pageId },
+            renderType: {
+              __typename: IElementRenderTypeKind.Atom,
+              id: htmlDivAtom.id,
+            },
+          }),
+          store: testbed.addStore({
+            name: Store.createName({ name: pageName }),
+            page: { id: pageId },
+          }),
+        })
+      : app.providerPage
 
   const renderer = testbed.addRenderer({
-    containerNode: isProviderPage ? page : regularPage,
-    id: rendererId,
+    containerNode: page,
+    id: v4(),
     rendererType,
   })
 
   return {
     app,
-    page: isProviderPage ? page : regularPage,
+    page,
     rendered: renderer.render,
     renderer,
-    rendererId,
+    runtimePage:
+      pageKind === IPageKind.Regular
+        ? renderer.runtimePage?.childPage
+        : renderer.runtimePage,
+    runtimeProviderPage:
+      pageKind === IPageKind.Regular ? renderer.runtimePage : undefined,
   }
 }
 
@@ -130,28 +113,29 @@ export const setupComponent = (testbed: TestBed) => {
     rendererType: RendererType.Preview,
   })
 
-  return { childrenContainerElement, component, renderer }
+  const runtimeComponent = renderer.runtimeComponent!
+
+  return { childrenContainerElement, component, renderer, runtimeComponent }
 }
 
 export const setupRuntimeElement = (
   testbed: TestBed,
   rendererType: RendererType = RendererType.Preview,
-  renderedPageKind: IPageKind = IPageKind.Provider,
+  pageKind: IPageKind = IPageKind.Regular,
 ) => {
-  const { rendererService } = rootApplicationStore
-
-  const { page, rendered, renderer, rendererId } = setupPages(
+  const { page, rendered, renderer, runtimePage } = setupPages(
     testbed,
     rendererType,
-    renderedPageKind,
+    pageKind,
   )
+
+  const runtimeElement = runtimePage!.runtimeRootElement
 
   return {
     element: page.rootElement.current,
     page,
     rendered,
     renderer,
-    rendererId,
-    runtimeElement: rendererService.runtimeElement(page.rootElement.current)!,
+    runtimeElement,
   }
 }

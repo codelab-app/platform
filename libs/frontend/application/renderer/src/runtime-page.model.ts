@@ -1,31 +1,78 @@
 import type {
-  IRuntimeElementModel,
   IRuntimePageDTO,
   IRuntimePageModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
-import { getRuntimeElementService } from '@codelab/frontend/abstract/application'
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
+import {
+  getRuntimeElementService,
+  IRuntimeElementModel,
+  runtimeStoreRef,
+} from '@codelab/frontend/abstract/application'
+import {
+  type IPageModel,
+  pageRef,
+  storeRef,
+} from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 import type { ReactElement } from 'react'
+import { v4 } from 'uuid'
+import { RuntimeStoreModel } from './runtime-store.model'
 
-const create = (dto: IRuntimePageDTO) => new RuntimePageModel(dto)
+/**
+ * Create both provider page and regular page recursively
+ *
+ * on the first call create the provider page and pass
+ *
+ */
+
+const create = ({ page }: IRuntimePageDTO): IRuntimePageModel => {
+  const runtimeStore = RuntimeStoreModel.create({
+    id: v4(),
+    store: storeRef(
+      page.providerPage ? page.providerPage.store.id : page.store.id,
+    ),
+  })
+
+  const childPage = page.providerPage
+    ? new RuntimePageModel({
+        compositeKey: RuntimePageModel.compositeKey(page),
+        page: pageRef(page.id),
+        runtimeStore: RuntimeStoreModel.create({
+          id: v4(),
+          runtimeProviderStore: runtimeStoreRef(runtimeStore.id),
+          store: storeRef(page.store.id),
+        }),
+      })
+    : undefined
+
+  return new RuntimePageModel({
+    childPage,
+    compositeKey: RuntimePageModel.compositeKey(
+      page.providerPage ? page.providerPage : page,
+    ),
+    page: pageRef(page.providerPage ? page.providerPage : page),
+    runtimeStore,
+  })
+}
+
+const compositeKey = (page: IPageModel) => `runtime.${page.id}`
 
 @model('@codelab/RuntimePage')
 export class RuntimePageModel
   extends Model({
-    childPage: prop<Maybe<Ref<IPageModel>>>(),
-    id: idProp,
+    childPage: prop<Maybe<IRuntimePageModel>>(),
+    compositeKey: idProp,
     page: prop<Ref<IPageModel>>(),
-    runtimeParent: prop<Maybe<Ref<IRuntimeElementModel>>>(),
     runtimeStore: prop<IRuntimeStoreModel>(),
   })
   implements IRuntimePageModel
 {
+  static compositeKey = compositeKey
+
   static create = create
 
   @computed
@@ -39,7 +86,9 @@ export class RuntimePageModel
   }
 
   @computed
-  get runtimeRootElement() {
-    return this.runtimeElementService.add(this.page.current.rootElement.current)
+  get runtimeRootElement(): IRuntimeElementModel {
+    const rootElement = this.page.current.rootElement.current
+
+    return this.runtimeElementService.add(rootElement, this)
   }
 }

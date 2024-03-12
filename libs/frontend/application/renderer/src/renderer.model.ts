@@ -1,13 +1,14 @@
-import type {
-  IRendererDto,
-  IRendererModel,
-  IRenderPipe,
-  IRuntimeComponentModel,
-  IRuntimePageModel,
-  ITypedPropTransformer,
-  RendererType,
+import {
+  type IRendererDto,
+  type IRendererModel,
+  type IRenderPipe,
+  type IRuntimeComponentModel,
+  type IRuntimePageModel,
+  isRuntimeComponent,
+  isRuntimePage,
+  type ITypedPropTransformer,
+  type RendererType,
 } from '@codelab/frontend/abstract/application'
-import { runtimeComponentRef } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
   IExpressionTransformer,
@@ -17,18 +18,14 @@ import {
   componentRef,
   isPage,
   pageRef,
-  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { ExpressionTransformer } from './expression-transformer.service'
 import { defaultPipes, renderPipeFactory } from './renderPipes'
 import { RuntimeComponentModel } from './runtime-component.model'
-import { RuntimeComponentPropModel } from './runtime-component-prop.model'
 import { RuntimePageModel } from './runtime-page.model'
-import { RuntimeStoreModel } from './runtime-store.model'
 import { typedPropTransformersFactory } from './typedPropTransformers'
 
 /**
@@ -48,29 +45,11 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
  */
 
 const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
-  const runtimeContainerNodeId = v4()
-  const providerPage = isPage(containerNode) && containerNode.providerPage
-
-  const runtimeContainerNode = isPage(containerNode)
-    ? RuntimePageModel.create({
-        childPage: providerPage ? pageRef(containerNode) : undefined,
-        id: runtimeContainerNodeId,
-        page: pageRef(providerPage ? providerPage.id : containerNode.id),
-        runtimeStore: RuntimeStoreModel.create({
-          store: storeRef(
-            providerPage ? providerPage.store.id : containerNode.store.id,
-          ),
-        }),
-      })
+  const runtimeRootContainerNode = isPage(containerNode)
+    ? RuntimePageModel.create({ page: containerNode })
     : RuntimeComponentModel.create({
-        component: componentRef(containerNode),
-        id: runtimeContainerNodeId,
-        runtimeProps: RuntimeComponentPropModel.create({
-          runtimeComponent: runtimeComponentRef(runtimeContainerNodeId),
-        }),
-        runtimeStore: RuntimeStoreModel.create({
-          store: storeRef(containerNode.id),
-        }),
+        component: containerNode,
+        compositeKey: RuntimeComponentModel.compositeKey(containerNode),
       })
 
   return new Renderer({
@@ -78,7 +57,7 @@ const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeRootContainerNode: runtimeContainerNode,
+    runtimeRootContainerNode,
     urlSegments,
   })
 }
@@ -135,7 +114,16 @@ export class Renderer
   }
 
   @computed
-  get rootElement() {
-    return this.containerNode.current.rootElement.current
+  get runtimeComponent() {
+    return isRuntimeComponent(this.runtimeRootContainerNode)
+      ? this.runtimeRootContainerNode
+      : undefined
+  }
+
+  @computed
+  get runtimePage() {
+    return isRuntimePage(this.runtimeRootContainerNode)
+      ? this.runtimeRootContainerNode
+      : undefined
   }
 }

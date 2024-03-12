@@ -29,7 +29,8 @@ export interface IRendererModel {
   render: Nullable<ReactElement>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  rootElement: IElementModel
+  runtimeComponent?: IRuntimeComponentModel
+  runtimePage?: IRuntimePageModel
   runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>

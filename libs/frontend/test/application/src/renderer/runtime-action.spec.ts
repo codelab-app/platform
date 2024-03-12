@@ -2,7 +2,7 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupRuntimeElement } from './setup'
+import { setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -19,13 +19,15 @@ describe('Runtime Element props', () => {
     async (pageKind) => {
       const isProviderPage = pageKind === IPageKind.Provider
 
-      const { element, page, runtimeElement } = setupRuntimeElement(
+      const { page, runtimePage } = setupPages(
         testbed,
         RendererType.Preview,
         pageKind,
       )
 
-      const runtimeProps = runtimeElement.runtimeProps
+      const runtimeRootElement = runtimePage?.runtimeRootElement
+      const runtimeProps = runtimeRootElement?.runtimeProps
+      const element = runtimeRootElement?.element.current
       const actionName = 'fetchSomething'
       const stateKey = 'stateKey'
       const stateValue = 'default value'
@@ -34,12 +36,12 @@ describe('Runtime Element props', () => {
       configure({ safeDescriptors: false })
 
       const resource = testbed.addResource({})
-      const store = isProviderPage ? element.store : page.providerPage?.store
+      const store = isProviderPage ? element?.store : page.providerPage?.store
       const storeApi = store?.current.api.current
 
       const field = testbed.addField({
         api: storeApi,
-        defaultValues: stateValue,
+        defaultValues: JSON.stringify(stateValue),
         fieldType: testbed.getStringType(),
         key: stateKey,
       })
@@ -65,9 +67,9 @@ describe('Runtime Element props', () => {
         fetch: fetchSpy,
       })
 
-      const actionRunner = runtimeProps.getActionRunner(actionName)
+      const actionRunner = runtimeProps?.getActionRunner(actionName)
 
-      await actionRunner()
+      await actionRunner?.()
 
       expect(fetchSpy).toHaveBeenCalledWith({
         queryParams: { name: stateValue },
