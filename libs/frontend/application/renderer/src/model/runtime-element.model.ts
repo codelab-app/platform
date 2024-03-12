@@ -25,8 +25,6 @@ import {
   isAtom,
   isComponent,
   isTypedProp,
-  pageRef,
-  storeRef,
 } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -110,8 +108,9 @@ export class RuntimeElementModel
     for (let index = 0; index < props.length; index++) {
       const runtimeComponent = this.runtimeComponentService.add(
         component,
-        { id: this.id },
-        undefined,
+        this,
+        [],
+        this.propKey,
         index,
       )
 
@@ -125,14 +124,12 @@ export class RuntimeElementModel
 
   @computed
   get children() {
-    const runtimeContainer = this.closestContainerNode.current
+    const container = this.closestContainerNode.current
     const element = this.element.current
     const renderType = element.renderType.current
     const shouldRenderComponent = isComponent(renderType)
 
-    const children: Array<
-      IRuntimeComponentModel | IRuntimeElementModel | IRuntimePageModel
-    > = shouldRenderComponent
+    const children: Array<IRuntimeModel> = shouldRenderComponent
       ? [
           // put component as a child instead of instance element children
           this.runtimeComponentService.add(
@@ -140,21 +137,23 @@ export class RuntimeElementModel
             this,
             // pass instance element children to be transformed later
             element.children.map((child) => elementRef(child.id)),
+            this.propKey,
           ),
         ]
-      : element.children.map((child) => this.runtimeElementService.add(child))
+      : element.children.map((child) =>
+          this.runtimeElementService.add(child, container, this.propKey),
+        )
 
     /**
      * Attach regular page to runtime element tree
      */
 
-    if (isRuntimePage(runtimeContainer)) {
-      const page = runtimeContainer.page.current
-      const childPage = runtimeContainer.childPage?.current
+    if (isRuntimePage(container)) {
+      const page = container.page.current
       const shouldAttachPage = page.pageContentContainer?.id === this.element.id
 
-      if (childPage && shouldAttachPage) {
-        children.push(this.addChildPage(childPage))
+      if (container.childPage && shouldAttachPage) {
+        children.push(container.childPage)
       }
     }
 
@@ -162,13 +161,13 @@ export class RuntimeElementModel
      * Attach instance element children to runtime element tree
      */
     const shouldAddInstanceElementChildren =
-      isRuntimeComponent(runtimeContainer) &&
-      runtimeContainer.component.current.childrenContainerElement.id ===
+      isRuntimeComponent(container) &&
+      container.component.current.childrenContainerElement.id ===
         this.element.id
 
     if (shouldAddInstanceElementChildren) {
-      const instanceChildren = runtimeContainer.children.map((child) =>
-        this.runtimeElementService.add(child.current),
+      const instanceChildren = container.children.map((child) =>
+        this.runtimeElementService.add(child.current, container, this.propKey),
       )
 
       children.push(...instanceChildren)

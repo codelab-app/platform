@@ -29,9 +29,6 @@ describe('Runtime Element', () => {
     // Test the creation of element node
     expect(runtimeElement?.element.id).toBe(rootElement.id)
 
-    const runtimePage = runtimeElement?.closestContainerNode
-      .current as IRuntimePageModel
-
     // Test the creation of link with container node
     expect(runtimeElement?.closestContainerNode.current.compositeKey).toBe(
       runtimePage?.compositeKey,
