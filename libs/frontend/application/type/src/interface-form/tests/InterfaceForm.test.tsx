@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/filename-case */
 import '@testing-library/jest-dom'
+import { screen } from '@testing-library/dom'
 import { act, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
@@ -26,8 +27,10 @@ describe('InterfaceForm', () => {
       />,
     )
 
+    screen.debug()
+
     // Check enumField is rendered
-    expect(container.querySelector(`[name="enumField"]`)).toBeInTheDocument()
+    expect(container.querySelector('[name="enumField"]')).toBeInTheDocument()
 
     // Check enumField has the correct initial value
     expect(
@@ -77,7 +80,7 @@ describe('InterfaceForm', () => {
 
     // Check unionField is rendered
     expect(
-      container.querySelector(`[name="unionField.type"]`),
+      container.querySelector('[name="unionField.type"]'),
     ).toBeInTheDocument()
 
     const selectUnionTypeElement = container.querySelector(
