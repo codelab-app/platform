@@ -25,7 +25,7 @@ import type {
   IAtomDto,
   ICodeActionDto,
   IComponentDto,
-  IElementDto,
+  ICreateElementDto,
   IFieldDto,
   IInterfaceTypeDto,
   IPageDto,
@@ -101,7 +101,7 @@ export class TestBed {
     })
   }
 
-  addElement(dto: Partial<IElementDto>) {
+  addElement(dto: Partial<ICreateElementDto>) {
     return elementFactory(elementService.elementDomainService)(dto)
   }
 

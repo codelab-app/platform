@@ -69,18 +69,18 @@ export class ActionDomainService
   }
 
   @modelAction
-  hydrate<T extends IActionDto>(actionDTO: T) {
+  hydrate<T extends IActionDto>(actionDto: T) {
     let action: IActionModel
 
-    switch (actionDTO.__typename) {
+    switch (actionDto.__typename) {
       case IActionKind.CodeAction:
-        action = CodeAction.create(actionDTO)
+        action = CodeAction.create(actionDto)
         break
       case IActionKind.ApiAction:
-        action = ApiAction.create(actionDTO)
+        action = ApiAction.create(actionDto)
         break
       default:
-        throw new Error(`Unsupported action kind: ${actionDTO.__typename}`)
+        throw new Error(`Unsupported action kind: ${actionDto.__typename}`)
     }
 
     this.actions.set(action.id, action)

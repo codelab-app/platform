@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import {
@@ -23,7 +24,9 @@ describe('Resource CRUD', () => {
       })
       cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 
-      cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
+      cy.getCuiPopover(MODEL_ACTION.CreateResource.key)
+        .getCuiToolbarItem('Create')
+        .click()
 
       cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
     })

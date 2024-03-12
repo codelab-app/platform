@@ -1,4 +1,6 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
@@ -6,11 +8,11 @@ import {
   IActionKind,
   IAtomType,
   IPageKindName,
-  IResourceType,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
+import { createResourceData } from './resource.data'
 
 describe('Running nested API and code actions', () => {
   let app: IAppDto
@@ -18,8 +20,7 @@ describe('Running nested API and code actions', () => {
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
   const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
-  const resourceName = 'Fetch Data'
-  const resourceUrl = 'http://some-api.com/api'
+  const resourceName = createResourceData.name
   const urlGetSegment = '/data/some-id'
   const urlPostSegment = '/data'
   const stateKey = 'localData'
@@ -29,30 +30,11 @@ describe('Running nested API and code actions', () => {
   const mockGetResponse = 'the updated response'
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
-  })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
 
-  it('should create the resouce that will be used for the api actions', () => {
-    cy.visit('/resources')
-    cy.waitForSpinners()
-
-    // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
-
-    cy.setFormFieldValue({ label: 'Name', value: resourceName })
-    cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
-
-    cy.setFormFieldValue({
-      label: 'Type',
-      type: FIELD_TYPE.SELECT,
-      value: IResourceType.Rest,
-    })
-
-    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
-
-    cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
+    cy.postApiRequest('/resource/create-resource', createResourceData)
   })
 
   it('should create a state', () => {
@@ -93,7 +75,9 @@ describe('Running nested API and code actions', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
   })
 
   it('should create a code action', () => {
@@ -120,8 +104,10 @@ describe('Running nested API and code actions', () => {
       value: 'function run(response) { state.localData = response.data; }',
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createAction')
   })
 
@@ -166,8 +152,10 @@ describe('Running nested API and code actions', () => {
       value: HttpResponseType.Text,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createAction')
   })
 
@@ -218,8 +206,10 @@ describe('Running nested API and code actions', () => {
       value: HttpMethod.POST,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.wait('@createAction').then(({ response }) => {
       apiPostActionId = response?.body.data.createApiActions.apiActions[0]
@@ -250,7 +240,9 @@ describe('Running nested API and code actions', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -267,10 +259,8 @@ describe('Running nested API and code actions', () => {
     // set text prop to use the state
     cy.typeIntoTextEditor('response from api - {{state.localData}}')
 
-    cy.openPreview()
-    cy.get('#render-root')
-      .contains(`response from api - undefined`)
-      .should('exist')
+    cy.openPreview().contains('response from api - undefined').should('exist')
+
     cy.openBuilder()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
@@ -302,7 +292,9 @@ describe('Running nested API and code actions', () => {
       value: 'Post Button',
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -319,12 +311,14 @@ describe('Running nested API and code actions', () => {
 
   it('should run the POST api, GET api, and code action in order when the button is clicked', () => {
     cy.openPreview()
-    cy.intercept('POST', `${resourceUrl}${urlPostSegment}`, {
+    cy.intercept('POST', `${createResourceData.config.url}${urlPostSegment}`, {
       statusCode: 200,
     }).as('updateData')
-    cy.intercept('GET', `${resourceUrl}${urlGetSegment}`, mockGetResponse).as(
-      'getData',
-    )
+    cy.intercept(
+      'GET',
+      `${createResourceData.config.url}${urlGetSegment}`,
+      mockGetResponse,
+    ).as('getData')
 
     cy.get('#render-root')
       .findByText('Click button to post')

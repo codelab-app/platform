@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -27,7 +28,9 @@ describe('Atoms CRUD', () => {
         value: atomType,
       })
 
-      cy.getCuiPopover('Create Atom').getCuiToolbarItem('Create').click()
+      cy.getCuiPopover(MODEL_ACTION.CreateAtom.key)
+        .getCuiToolbarItem('Create')
+        .click()
 
       cy.findByText(atomName).should('exist')
     })

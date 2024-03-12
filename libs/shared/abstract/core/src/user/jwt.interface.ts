@@ -15,7 +15,7 @@ export interface CodelabApiClaims {
   roles: Array<keyof typeof IRole>
 }
 
-export const JWT_CLAIMS = `https://api.codelab.app/jwt/claims`
+export const JWT_CLAIMS = 'https://api.codelab.app/jwt/claims'
 
 /**
  * ID Tokens are commonly used in token-based authentication to pass user information to a client application. At Auth0, ID Tokens follow the JSON Web Token (JWT) standard; this means that all ID tokens Auth0 issues are JWTs.

@@ -24,7 +24,7 @@ export class AtomRenderPipe
 
     if (!isAtom(element.renderType.current)) {
       if (this.renderer.debugMode) {
-        console.info(`AtomRenderPipe: No atom found`, { element: element.name })
+        console.info('AtomRenderPipe: No atom found', { element: element.name })
       }
 
       return this.next.render(runtimeElement)

@@ -76,7 +76,7 @@ export const UpdateFieldForm = observer(
         }}
         modelTransform={(mode, model) => {
           // This automatically sets the `defaultValue` to be nullable for types
-          // where we dont set a default value like ReactNodeType, InterfaceType
+          // where we don't set a default value like ReactNodeType, InterfaceType
           if (
             mode === 'form' &&
             model.fieldType &&
@@ -102,7 +102,7 @@ export const UpdateFieldForm = observer(
         schema={fieldSchema}
         submitRef={submitRef}
       >
-        <AutoFields fields={['key', 'name', 'description']} />
+        <AutoFields fields={['id', 'key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />
         <DisplayIfField<IUpdateFieldData>
           condition={({ model }) =>

@@ -27,10 +27,10 @@ export class PrimitiveType
   public static create = create
 
   @modelAction
-  writeCache(primitiveTypeDTO: Partial<IPrimitiveTypeDto>) {
-    super.writeCache(primitiveTypeDTO)
+  writeCache(primitiveTypeDto: Partial<IPrimitiveTypeDto>) {
+    super.writeCache(primitiveTypeDto)
 
-    this.primitiveKind = primitiveTypeDTO.primitiveKind ?? this.primitiveKind
+    this.primitiveKind = primitiveTypeDto.primitiveKind ?? this.primitiveKind
 
     return this
   }

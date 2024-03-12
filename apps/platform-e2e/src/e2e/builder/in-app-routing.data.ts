@@ -58,7 +58,7 @@ export const buildTestPages = (app: IAppDto) => {
     id: v4(),
     kind: IPageKind.Regular,
     name: 'Dynamic Page',
-    url: `/tests/:testId/subtests/:subtestId`,
+    url: '/tests/:testId/subtests/:subtestId',
   }
 
   return {

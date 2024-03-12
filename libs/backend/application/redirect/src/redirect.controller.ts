@@ -87,7 +87,7 @@ export class RedirectController {
 
       return {
         canActivate: false,
-        message: `Unable to transform response`,
+        message: 'Unable to transform response',
         redirectUrl,
         status: 500,
       }

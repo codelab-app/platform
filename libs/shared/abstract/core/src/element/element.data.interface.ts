@@ -2,6 +2,7 @@ import { AtomType } from '@codelab/shared/abstract/codegen'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import type { Overwrite } from 'utility-types'
 import type { IPropData } from '../prop/prop.dto.interface'
 
 /**
@@ -28,3 +29,11 @@ export const ICreateElementData = Type.Object({
 })
 
 export type ICreateElementData = Static<typeof ICreateElementData>
+
+/**
+ * Cypress uses parent element label for the Ui
+ */
+export type ICreateCypressElementData = Overwrite<
+  Omit<ICreateElementData, 'id'>,
+  { parentElement: string }
+>

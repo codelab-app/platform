@@ -24,7 +24,7 @@ export const HoverOverlay = ({
 
       height: `${rect.height}px`,
       left: `${rect.left - containerRect.left}px`,
-      outline: `2px solid #43669A`,
+      outline: '2px solid #43669A',
       pointerEvents: 'none',
       position: 'fixed',
       right: `${rect.right}px`,

@@ -1,7 +1,6 @@
 import { StoreDomainService } from '@codelab/backend/domain/store'
 import { TypeDomainService } from '@codelab/backend/domain/type'
 import type {
-  ICreateComponentData,
   ICreateInterfaceTypeDto,
   IStoreDto,
 } from '@codelab/shared/abstract/core'

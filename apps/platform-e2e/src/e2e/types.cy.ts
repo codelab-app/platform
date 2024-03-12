@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { EditorView } from '@codemirror/view'
@@ -35,7 +36,7 @@ describe('Types CRUD', () => {
 
   describe('create type', () => {
     it('should be able to create primitive', () => {
-      cy.visit(`/types`)
+      cy.visit('/types')
       cy.findAllByText(primitiveTypeName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
@@ -59,8 +60,10 @@ describe('Types CRUD', () => {
         value: stringPrimitiveType,
       })
 
-      cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.intercept('POST', 'api/graphql').as('action')
+      cy.getCuiPopover(MODEL_ACTION.CreateType.key)
+        .getCuiToolbarItem('Create')
+        .click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -89,8 +92,10 @@ describe('Types CRUD', () => {
         cy.findAllByLabelText('Value').last().type(enumItem.value)
       })
 
-      cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.intercept('POST', 'api/graphql').as('action')
+      cy.getCuiPopover(MODEL_ACTION.CreateType.key)
+        .getCuiToolbarItem('Create')
+        .click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -116,8 +121,10 @@ describe('Types CRUD', () => {
         value: arrayItemType,
       })
 
-      cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.intercept('POST', 'api/graphql').as('action')
+      cy.getCuiPopover(MODEL_ACTION.CreateType.key)
+        .getCuiToolbarItem('Create')
+        .click()
       cy.wait('@action')
 
       cy.findByText(primitiveTypeName).should('exist')
@@ -141,8 +148,10 @@ describe('Types CRUD', () => {
         value: interfaceTypeKind,
       })
 
-      cy.intercept('POST', `api/graphql`).as('action')
-      cy.getCuiPopover('Create Type').getCuiToolbarItem('Create').click()
+      cy.intercept('POST', 'api/graphql').as('action')
+      cy.getCuiPopover(MODEL_ACTION.CreateType.key)
+        .getCuiToolbarItem('Create')
+        .click()
       cy.wait('@action')
 
       cy.findByText(interfaceTypeName).should('exist')
@@ -182,7 +191,7 @@ describe('Types CRUD', () => {
 
       cy.findByText(fieldDefaultValue).should('be.visible')
 
-      cy.intercept('POST', `api/graphql`).as('action')
+      cy.intercept('POST', 'api/graphql').as('action')
       cy.getCuiToolbarItem('Create').click()
       cy.wait('@action')
       // its re-rendering after saving and is flaky when running in CI
@@ -208,14 +217,14 @@ describe('Types CRUD', () => {
       }).then((editorView: EditorView) => {
         const text = editorView.state.doc.toString()
 
-        expect(text).to.equal(fieldDefaultValue)
+        cy.wrap(text).should('equal', fieldDefaultValue)
       })
     })
   })
 
   describe('update type', () => {
     it('should be able to update array', () => {
-      cy.visit(`/types`)
+      cy.visit('/types')
 
       cy.findAllByText(arrayTypeName, { exact: true }).should('exist')
 
@@ -228,7 +237,7 @@ describe('Types CRUD', () => {
         value: updatedArrayTypeName,
       })
 
-      cy.intercept('POST', `api/graphql`).as('action')
+      cy.intercept('POST', 'api/graphql').as('action')
       cy.getButton({ label: 'Update Type' }).click()
       cy.wait('@action')
 
@@ -248,7 +257,7 @@ describe('Types CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.intercept('POST', `api/graphql`).as('action')
+      cy.intercept('POST', 'api/graphql').as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
@@ -268,7 +277,7 @@ describe('Types CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.intercept('POST', `api/graphql`).as('action')
+      cy.intercept('POST', 'api/graphql').as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
@@ -288,7 +297,7 @@ describe('Types CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.intercept('POST', `api/graphql`).as('action')
+      cy.intercept('POST', 'api/graphql').as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
@@ -308,7 +317,7 @@ describe('Types CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.intercept('POST', `api/graphql`).as('action')
+      cy.intercept('POST', 'api/graphql').as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()

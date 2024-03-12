@@ -14,7 +14,6 @@ import { render } from '@testing-library/react'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { defaultPipes, renderPipeFactory } from '../renderPipes'
 import { setupRuntimeElement } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
@@ -489,7 +488,6 @@ describe('Runtime Element props', () => {
         containerNode: page,
         id: rendererId,
         rendererType: RendererType.Preview,
-        renderPipe: renderPipeFactory(defaultPipes),
         urlSegments: { [urlKey]: urlPropValue },
       })
 

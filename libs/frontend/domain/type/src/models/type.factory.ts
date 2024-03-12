@@ -26,49 +26,49 @@ import { RenderPropType } from './render-prop-type.model'
 import { UnionType } from './union-type.model'
 
 export class TypeFactory {
-  static create(typeDTO: ITypeDto): ITypeModel {
-    switch (typeDTO.__typename) {
+  static create(typeDto: ITypeDto): ITypeModel {
+    switch (typeDto.__typename) {
       case ITypeKind.AppType:
-        return AppType.create(typeDTO)
+        return AppType.create(typeDto)
 
       case ITypeKind.ActionType:
-        return ActionType.create(typeDTO)
+        return ActionType.create(typeDto)
 
       case ITypeKind.ElementType:
-        return ElementType.create(typeDTO)
+        return ElementType.create(typeDto)
 
       case ITypeKind.EnumType:
-        return EnumType.create(typeDTO)
+        return EnumType.create(typeDto)
 
       case ITypeKind.LambdaType:
-        return LambdaType.create(typeDTO)
+        return LambdaType.create(typeDto)
 
       case ITypeKind.CodeMirrorType:
-        return CodeMirrorType.create(typeDTO)
+        return CodeMirrorType.create(typeDto)
 
       case ITypeKind.PageType:
-        return PageType.create(typeDTO)
+        return PageType.create(typeDto)
 
       case ITypeKind.PrimitiveType:
-        return PrimitiveType.create(typeDTO)
+        return PrimitiveType.create(typeDto)
 
       case ITypeKind.ReactNodeType:
-        return ReactNodeType.create(typeDTO)
+        return ReactNodeType.create(typeDto)
 
       case ITypeKind.RenderPropType:
-        return RenderPropType.create(typeDTO)
+        return RenderPropType.create(typeDto)
 
       case ITypeKind.ArrayType:
-        return ArrayType.create(typeDTO)
+        return ArrayType.create(typeDto)
 
       case TypeKind.InterfaceType:
-        return InterfaceType.create(typeDTO)
+        return InterfaceType.create(typeDto)
 
       case TypeKind.UnionType:
-        return UnionType.create(typeDTO)
+        return UnionType.create(typeDto)
 
       default:
-        throw new Error(`Unknown type kind: ${typeDTO.kind}`)
+        throw new Error(`Unknown type kind: ${typeDto.kind}`)
     }
   }
 
@@ -104,75 +104,75 @@ export class TypeFactory {
     }
   }
 
-  static writeCache(typeDTO: ITypeDto, model: ITypeModel): ITypeModel {
-    switch (typeDTO.__typename) {
+  static writeCache(typeDto: ITypeDto, model: ITypeModel): ITypeModel {
+    switch (typeDto.__typename) {
       case ITypeKind.AppType:
-        model.kind === ITypeKind.AppType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.AppType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.ActionType:
-        model.kind === ITypeKind.ActionType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.ActionType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.ElementType:
-        model.kind === ITypeKind.ElementType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.ElementType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.EnumType:
-        model.kind === ITypeKind.EnumType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.EnumType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.LambdaType:
-        model.kind === ITypeKind.LambdaType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.LambdaType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.CodeMirrorType:
-        model.kind === ITypeKind.CodeMirrorType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.CodeMirrorType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.PageType:
-        model.kind === ITypeKind.PageType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.PageType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.PrimitiveType:
-        model.kind === ITypeKind.PrimitiveType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.PrimitiveType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.ReactNodeType:
-        model.kind === ITypeKind.ReactNodeType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.ReactNodeType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.RenderPropType:
-        model.kind === ITypeKind.RenderPropType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.RenderPropType && model.writeCache(typeDto)
 
         return model
 
       case ITypeKind.ArrayType:
-        model.kind === ITypeKind.ArrayType && model.writeCache(typeDTO)
+        model.kind === ITypeKind.ArrayType && model.writeCache(typeDto)
 
         return model
 
       case TypeKind.InterfaceType:
-        model.kind === TypeKind.InterfaceType && model.writeCache(typeDTO)
+        model.kind === TypeKind.InterfaceType && model.writeCache(typeDto)
 
         return model
 
       case TypeKind.UnionType:
-        model.kind === TypeKind.UnionType && model.writeCache(typeDTO)
+        model.kind === TypeKind.UnionType && model.writeCache(typeDto)
 
         return model
 
       default:
-        throw new Error(`Unknown type kind: ${typeDTO.kind}`)
+        throw new Error(`Unknown type kind: ${typeDto.kind}`)
     }
   }
 }

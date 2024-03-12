@@ -34,11 +34,11 @@ export class UnionType
   public static create = create
 
   @modelAction
-  writeCache(unionTypeDTO: Partial<IUnionTypeDto>) {
-    super.writeCache(unionTypeDTO)
+  writeCache(unionTypeDto: Partial<IUnionTypeDto>) {
+    super.writeCache(unionTypeDto)
 
     this.typesOfUnionType =
-      unionTypeDTO.typesOfUnionType?.map((typeOfUnionType) =>
+      unionTypeDto.typesOfUnionType?.map((typeOfUnionType) =>
         typeRef(typeOfUnionType.id),
       ) ?? this.typesOfUnionType
 

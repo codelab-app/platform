@@ -4,3 +4,7 @@ export interface CypressCommand {
   name: keyof Cypress.Chainable<any>
   options?: Cypress.CommandOptions
 }
+
+export type CommandOptions = Cypress.CommandOptions & {
+  prevSubject: Cypress.PrevSubject
+}

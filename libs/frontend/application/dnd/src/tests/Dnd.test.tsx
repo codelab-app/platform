@@ -97,7 +97,7 @@ describe('Dnd', () => {
       )
 
       const draggableElement =
-        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+        container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
       if (!draggableElement) {
         throw new Error('draggable element not found')
@@ -125,7 +125,7 @@ describe('Dnd', () => {
       )
 
       const draggableElement =
-        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+        container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
       if (!draggableElement) {
         throw new Error('draggable element not found')
@@ -154,7 +154,7 @@ describe('Dnd', () => {
       )
 
       const draggableElement =
-        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+        container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
       if (!draggableElement) {
         throw new Error('draggable element not found')
@@ -184,7 +184,7 @@ describe('Dnd', () => {
       )
 
       const draggableElement =
-        container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+        container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
       if (!draggableElement) {
         throw new Error('draggable element not found')
@@ -209,7 +209,7 @@ describe('Dnd', () => {
         )
 
         const draggableElement =
-          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+          container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
         if (!draggableElement) {
           throw new Error('draggable element not found')
@@ -242,7 +242,7 @@ describe('Dnd', () => {
         )
 
         const draggableElement =
-          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+          container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
         if (!draggableElement) {
           throw new Error('draggable element not found')
@@ -278,7 +278,7 @@ describe('Dnd', () => {
         )
 
         const draggableElement =
-          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+          container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
         if (!draggableElement) {
           throw new Error('draggable element not found')
@@ -291,7 +291,7 @@ describe('Dnd', () => {
         })
 
         const targetElement =
-          container.querySelector<HTMLDivElement>(`[id="1-parent"]`)
+          container.querySelector<HTMLDivElement>('[id="1-parent"]')
 
         const dropOverlay = document.querySelector<HTMLDivElement>(
           `[id="${DROP_OVERLAY_ID}"]`,
@@ -447,7 +447,7 @@ describe('Dnd', () => {
         )
 
         const draggableElement =
-          container.querySelector<HTMLDivElement>(`[id="2-draggable"]`)
+          container.querySelector<HTMLDivElement>('[id="2-draggable"]')
 
         if (!draggableElement) {
           throw new Error('draggable element not found')

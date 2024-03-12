@@ -1,3 +1,4 @@
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -36,9 +37,9 @@ describe('Converting an element to a component', () => {
   let app: IAppDto
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
   it('should convert the element into a component and create an instance of it', () => {
     cy.visit(
@@ -55,7 +56,7 @@ describe('Converting an element to a component', () => {
       .should('be.visible')
       .click({ force: true })
 
-    cy.createElementTree(elements)
+    // cy.createElementTree(elements)
 
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_CONTAINER).rightclick()
 

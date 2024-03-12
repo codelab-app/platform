@@ -18,8 +18,8 @@
   },
   "include": [
     "src/**/*.ts",
-    "index.d.ts",
     "src/**/*.js",
+    "index.d.ts",
     "cypress.ci.config.ts",
     "cypress.test.config.ts"
   ]

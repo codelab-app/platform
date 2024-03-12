@@ -1,5 +1,6 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import {
@@ -27,7 +28,7 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
           items={[
             {
               icon: <DeleteOutlined />,
-              key: 'delete',
+              key: MODEL_ACTION.DeleteTag.key,
               label: 'Delete',
               onClick: () => {
                 tagService.deleteManyModal.open([tagRef(data.extraData.node)])

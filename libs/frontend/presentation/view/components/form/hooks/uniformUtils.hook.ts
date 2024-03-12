@@ -24,6 +24,7 @@ const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 
 addFormats(ajv)
 addKeywords(ajv, ['typeof', 'transform'])
+
 // we can add custom type definitions here that may be too complex to do in the actual schema
 ajv.addSchema({
   $id: 'customTypes',
@@ -49,6 +50,12 @@ ajv.addSchema({
             '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
           },
           type: 'object',
+        },
+        /**
+         * Make it 'nullable' by default
+         */
+        {
+          type: 'null',
         },
       ],
     },
@@ -76,6 +83,7 @@ ajv.addSchema({
     },
   },
 })
+
 ajv.addKeyword({
   errors: false,
   keyword: 'forbiddenValues',

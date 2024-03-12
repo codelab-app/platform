@@ -1,5 +1,8 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import {
+  type CodelabPage,
+  MODEL_ACTION,
+} from '@codelab/frontend/abstract/types'
 import {
   CreateDomainModal,
   DeleteDomainModal,
@@ -50,7 +53,7 @@ const DomainsPageHeader = observer(() => {
           items={[
             {
               icon: <PlusOutlined />,
-              key: '0',
+              key: MODEL_ACTION.CreateDomain.key,
               onClick: () => domainService.createModal.open(),
               title: 'Create Domain',
             },

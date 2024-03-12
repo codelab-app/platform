@@ -6,7 +6,7 @@ import {
   type ITypesTreeDataNode,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -66,13 +66,13 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     fieldService.createForm.open(
       typeRef(interfaceType) as Ref<IInterfaceTypeModel>,
     )
-    popover.open(FormNames.CreateField)
+    popover.open(MODEL_ACTION.CreateField.key)
   }
 
   const toolbarItems = [
     {
       icon: <DeleteOutlined />,
-      key: 'delete-field',
+      key: MODEL_ACTION.DeleteField.key,
       onClick: onDelete,
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
     },
@@ -87,7 +87,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   ) {
     toolbarItems.push({
       icon: <PlusOutlined />,
-      key: 'add-field',
+      key: MODEL_ACTION.CreateField.key,
       onClick: onAddField,
       title: 'Add field',
     })

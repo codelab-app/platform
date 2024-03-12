@@ -1,5 +1,3 @@
-import { prettifyForConsole } from '@codelab/shared/utils'
-
 interface AppError extends Error {}
 export class NotFoundError extends Error implements AppError {
   override name = 'NotFoundError'

@@ -23,7 +23,7 @@ export class PassThroughRenderPipe
 
     // TODO: element.renderType cannot be component, we should throw error here
     if (this.renderer.debugMode) {
-      console.info(`PassThroughRenderPipe: rendering input`, {
+      console.info('PassThroughRenderPipe: rendering input', {
         element,
         props,
       })

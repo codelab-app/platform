@@ -7,7 +7,6 @@ import { IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { unregisterRootStore } from 'mobx-keystone'
 import React from 'react'
-import { defaultPipes, renderPipeFactory } from '../renderPipes'
 import { setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
@@ -184,7 +183,6 @@ describe('Runtime Element', () => {
         containerNode: page,
         id: rendererId,
         rendererType: RendererType.Preview,
-        renderPipe: renderPipeFactory(defaultPipes),
       }).render
 
       render(

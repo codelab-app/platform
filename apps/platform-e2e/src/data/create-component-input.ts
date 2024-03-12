@@ -1,9 +1,4 @@
-import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
-import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import type { IRef } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
-import { v4 } from 'uuid'
+import { connectNodeId } from '@codelab/shared/domain'
 
 /**
  * Create List Atom
@@ -12,107 +7,107 @@ export const headerFieldName = 'Header'
 
 export const renderItemFieldName = 'Render Item'
 
-export const createListAtomInput = (owner: IRef): AtomCreateInput => ({
-  api: {
-    create: {
-      node: {
-        fields: {
-          create: [
-            {
-              edge: {
-                key: 'header',
-                name: headerFieldName,
-              },
-              node: {
-                ReactNodeType: {
-                  id: v4(),
-                  name: ITypeKind.ReactNodeType,
-                  owner: connectOwner(owner),
-                },
-              },
-            },
-            {
-              edge: {
-                key: 'renderItem',
-                name: renderItemFieldName,
-              },
-              node: {
-                RenderPropType: {
-                  id: v4(),
-                  name: ITypeKind.RenderPropType,
-                  owner: connectOwner(owner),
-                },
-              },
-            },
-          ],
-        },
-        name: 'List API',
-        owner: connectOwner(owner),
-      },
-    },
-  },
-  name: 'List',
-  owner: connectOwner(owner),
-  type: AtomType.AntDesignList,
-})
+// export const createListAtomInput = (owner: IRef): AtomCreateInput => ({
+//   api: {
+//     create: {
+//       node: {
+//         fields: {
+//           create: [
+//             {
+//               edge: {
+//                 key: 'header',
+//                 name: headerFieldName,
+//               },
+//               node: {
+//                 ReactNodeType: {
+//                   id: v4(),
+//                   name: ITypeKind.ReactNodeType,
+//                   owner: connectOwner(owner),
+//                 },
+//               },
+//             },
+//             {
+//               edge: {
+//                 key: 'renderItem',
+//                 name: renderItemFieldName,
+//               },
+//               node: {
+//                 RenderPropType: {
+//                   id: v4(),
+//                   name: ITypeKind.RenderPropType,
+//                   owner: connectOwner(owner),
+//                 },
+//               },
+//             },
+//           ],
+//         },
+//         name: 'List API',
+//         owner: connectOwner(owner),
+//       },
+//     },
+//   },
+//   name: 'List',
+//   owner: connectOwner(owner),
+//   type: AtomType.AntDesignList,
+// })
 
 /**
  * create ListItem Atom
  */
 
-export const createListItemAtomInput = (owner: IRef): AtomCreateInput => ({
-  api: {
-    create: {
-      node: {
-        name: 'ListItem API',
-        owner: connectOwner(owner),
-      },
-    },
-  },
-  name: 'ListItem',
-  type: AtomType.AntDesignListItem,
-})
+// export const createListItemAtomInput = (owner: IRef): AtomCreateInput => ({
+//   api: {
+//     create: {
+//       node: {
+//         name: 'ListItem API',
+//         owner: connectOwner(owner),
+//       },
+//     },
+//   },
+//   name: 'ListItem',
+//   type: AtomType.AntDesignListItem,
+// })
 
 /**
  * create Text Atom
  */
 
-export const createTextAtomInput = (owner: IRef): AtomCreateInput => ({
-  api: {
-    create: {
-      node: {
-        fields: {
-          create: [
-            {
-              edge: {
-                key: 'text',
-                name: 'Text',
-              },
-              node: {
-                fieldType: {
-                  create: {
-                    node: {
-                      PrimitiveType: {
-                        id: v4(),
-                        name: 'String',
-                        owner: connectOwner(owner),
-                        primitiveKind: PrimitiveTypeKind.String,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          ],
-        },
-        name: 'Text API',
-        owner: connectOwner(owner),
-      },
-    },
-  },
-  name: 'Text',
-  type: AtomType.Text,
-})
+// export const createTextAtomInput = (owner: IRef): AtomCreateInput => ({
+//   api: {
+//     create: {
+//       node: {
+//         fields: {
+//           create: [
+//             {
+//               edge: {
+//                 key: 'text',
+//                 name: 'Text',
+//               },
+//               node: {
+//                 fieldType: {
+//                   create: {
+//                     node: {
+//                       PrimitiveType: {
+//                         id: v4(),
+//                         name: 'String',
+//                         owner: connectOwner(owner),
+//                         primitiveKind: PrimitiveTypeKind.String,
+//                       },
+//                     },
+//                   },
+//                 },
+//               },
+//             },
+//           ],
+//         },
+//         name: 'Text API',
+//         owner: connectOwner(owner),
+//       },
+//     },
+//   },
+//   name: 'Text',
+//   type: AtomType.Text,
+// })
 
 /**
  * create list item component

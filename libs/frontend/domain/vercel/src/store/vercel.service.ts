@@ -6,7 +6,7 @@ export class VercelService extends Model({}) implements IVercelService {
   @modelFlow
   create = _async(function* (this: VercelService, name: string) {
     return yield* _await(
-      fetch(`/api/vercel/domains`, {
+      fetch('/api/vercel/domains', {
         body: JSON.stringify({ apiVersion: 10, name }),
         method: 'POST',
       }),

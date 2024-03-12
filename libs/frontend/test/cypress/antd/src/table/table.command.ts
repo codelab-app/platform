@@ -3,7 +3,6 @@ import type {
   Label,
 } from '@codelab/frontend/test/cypress/shared'
 import { absoluteRoot } from '@hon2a/cypress-without'
-import get from 'lodash/get'
 import isNil from 'lodash/isNil'
 import isNumber from 'lodash/isNumber'
 import isUndefined from 'lodash/isUndefined'
@@ -156,13 +155,16 @@ export const expectTableColumnHeaders = (
     options,
   )
 
-  getTableColumnHeaders(opts).should((headers) =>
-    expectedColumnsHeaders.forEach(
-      (expectedHeader, idx) =>
-        !isUndefined(expectedHeader) &&
-        expect(get(headers[idx], 'textContent')).to.equal(expectedHeader),
-    ),
-  )
+  getTableColumnHeaders(opts).should((headers) => {
+    // Ensure headers is a jQuery collection or similar, then loop
+    cy.wrap(headers).each((header, idx) => {
+      if (!isUndefined(expectedColumnsHeaders[idx])) {
+        cy.wrap(header)
+          .invoke('text')
+          .should('equal', expectedColumnsHeaders[idx])
+      }
+    })
+  })
 }
 
 export const expectTableRowCount = (count: number, options?: CommonOptions) => {
@@ -183,22 +185,19 @@ export const expectTableRows = (
     options,
   )
 
-  getTableRows(opts).should((rows) =>
-    expectedRows.forEach((expectedCellValues, rowIdx) =>
-      expectedCellValues.forEach(
-        (value, cellIdx) =>
-          !isUndefined(value) &&
-          expect(
-            get(
-              $(rows[rowIdx]).children(':not(.ant-table-selection-column)')[
-                cellIdx
-              ],
-              'textContent',
-            ),
-          ).to.equal(value),
-      ),
-    ),
-  )
+  getTableRows(opts).should((rows) => {
+    expectedRows.forEach((expectedCellValues, rowIdx) => {
+      cy.wrap(rows[rowIdx])
+        .children(':not(.ant-table-selection-column)')
+        .each((cell, cellIdx) => {
+          if (!isUndefined(expectedCellValues[cellIdx])) {
+            cy.wrap(cell)
+              .invoke('text')
+              .should('equal', expectedCellValues[cellIdx])
+          }
+        })
+    })
+  })
 }
 
 export const expectTableSortedBy = (
@@ -260,7 +259,7 @@ export const filterTableBy = (
       values.forEach((value) =>
         cy.contains('.ant-dropdown-menu-item', value).click(),
       )
-      cy.get(`.ant-table-filter-dropdown-btns`)
+      cy.get('.ant-table-filter-dropdown-btns')
         .find(values.length ? '.ant-btn-primary' : '.ant-btn-link')
         .click()
     })

@@ -1,4 +1,4 @@
-import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type {
   IAppDto,
   IComponentDto,
@@ -35,7 +35,7 @@ describe('Element Child Mapper', () => {
   let component: IComponentDto
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app')
+    cy.postApiRequest<App>('/app/seed-cypress-app')
       .then(({ body }) => {
         app = body
         page = findOrFail(

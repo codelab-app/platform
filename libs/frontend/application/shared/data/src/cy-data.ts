@@ -1,3 +1,5 @@
+import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+
 export const wrapCyData = (data: string) => `[data-cy="${data}"]`
 
 export const CY_DATA = {
@@ -14,7 +16,7 @@ export const CY_DATA = {
   /**
    * popover
    */
-  cuiPopover: (title: string) => `cui-sidebar-popover-${title}`,
+  cuiPopover: (key: ModelActionKey) => `cui-sidebar-popover-${key}`,
 
   /**
    * sidebar
@@ -30,7 +32,7 @@ export const CY_DATA = {
   /**
    * skeleton
    */
-  cuiSkeleton: () => `cui-skeleton`,
+  cuiSkeleton: () => 'cui-skeleton',
 
   /**
    * toolbar
@@ -40,7 +42,7 @@ export const CY_DATA = {
   /**
    * tree
    */
-  cuiTreeItem: () => `cui-tree-item`,
+  cuiTreeItem: () => 'cui-tree-item',
 
   cuiTreeItemPrimaryTitle: (primaryTitle: string) =>
     `cui-tree-item-primary-title-${primaryTitle}`,
@@ -48,5 +50,5 @@ export const CY_DATA = {
   cuiTreeItemSecondaryTitle: (secondaryTitle: string) =>
     `cui-tree-item-secondary-title-${secondaryTitle}`,
 
-  cuiTreeItemToolbar: () => `cui-tree-item-toolbar`,
+  cuiTreeItemToolbar: () => 'cui-tree-item-toolbar',
 }

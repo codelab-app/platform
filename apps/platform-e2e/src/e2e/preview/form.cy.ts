@@ -13,7 +13,7 @@ import {
   createApiPostActionData,
   createResourceData,
   resourceUrl,
-} from './resource.data.ts'
+} from './resource.data'
 
 describe('Testing the Form atom', () => {
   let app: IAppDto
@@ -93,7 +93,7 @@ describe('Testing the Form atom', () => {
 
     cy.get('#render-root button').first().click({ force: true })
 
-    cy.wait('@submitData').its('request.body').should('deep.equal', {
+    cy.get('@submitData').its('request.body').should('deep.equal', {
       checkboxField: true,
       inputField: 'testing',
       selectField: 'selectOptionB',

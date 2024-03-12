@@ -14,6 +14,7 @@ import {
 import { getCuiSkeleton } from './skeleton/skeleton.command'
 import { getCuiToolbarItem } from './toolbar/toolbar.command'
 import {
+  closestCuiTreeItem,
   getCuiTreeItem,
   getCuiTreeItemByPrimaryTitle,
   getCuiTreeItemBySecondaryTitle,
@@ -52,6 +53,8 @@ export interface CypressCuiCommands {
    * tree
    */
   getCuiTreeItem: typeof getCuiTreeItem
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  closestCuiTreeItem: OmitFirstArg<typeof closestCuiTreeItem>
   getCuiTreeItemByPrimaryTitle: OmitFirstArg<
     typeof getCuiTreeItemByPrimaryTitle
   >
@@ -121,6 +124,13 @@ export const codelabCommands: Array<CypressCommand> = [
   {
     fn: getCuiTreeItem,
     name: 'getCuiTreeItem',
+  },
+  {
+    fn: closestCuiTreeItem,
+    name: 'closestCuiTreeItem',
+    options: {
+      prevSubject: 'optional',
+    },
   },
   {
     fn: getCuiTreeItemByPrimaryTitle,

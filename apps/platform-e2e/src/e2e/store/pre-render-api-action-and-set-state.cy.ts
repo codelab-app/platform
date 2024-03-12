@@ -1,4 +1,6 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpResponseType,
@@ -21,9 +23,9 @@ describe('Running API action and setting state on element pre-render', () => {
   const mockResponse = 'text response from api'
 
   before(() => {
-    cy.postApiRequest<IAppDto>('/app/seed-cypress-app').then((apps) => {
-      app = apps.body
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
   })
 
   it('should create the resouce that will be used for the api actions', () => {
@@ -42,7 +44,9 @@ describe('Running API action and setting state on element pre-render', () => {
       value: IResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateResource.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
   })
@@ -85,7 +89,9 @@ describe('Running API action and setting state on element pre-render', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
   })
 
   it('should create a code action', () => {
@@ -112,8 +118,10 @@ describe('Running API action and setting state on element pre-render', () => {
       value: 'function run(response) { state.localData = response.data; }',
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction1')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction1')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createAction1')
   })
 
@@ -158,8 +166,10 @@ describe('Running API action and setting state on element pre-render', () => {
       value: HttpResponseType.Text,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction2')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction2')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createAction2')
   })
 
@@ -178,7 +188,7 @@ describe('Running API action and setting state on element pre-render', () => {
       value: IAtomType.AntDesignTypographyText,
     })
 
-    // need to wait for the code to put the autocomputed name before typing
+    // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
@@ -187,7 +197,9 @@ describe('Running API action and setting state on element pre-render', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -201,20 +213,17 @@ describe('Running API action and setting state on element pre-render', () => {
       force: true,
     })
 
-    cy.typeIntoTextEditor(`response from api - {{state.localData}}`)
+    cy.typeIntoTextEditor('response from api - {{state.localData}}')
 
     cy.waitForApiCalls()
 
-    cy.openPreview()
-    cy.get('#render-root')
-      .contains(`response from api - undefined`)
-      .should('exist')
+    cy.openPreview().contains('response from api - undefined').should('exist')
     cy.openBuilder()
 
     // set pre-render action
-    cy.get(`.ant-tabs [aria-label="node-index"]`).click()
+    cy.get('.ant-tabs [aria-label="node-index"]').click()
     cy.contains('.ant-collapse-header-text', 'Hooks Actions').click()
-    cy.intercept('POST', `api/graphql`).as('setPrerenderAction')
+    cy.intercept('POST', 'api/graphql').as('setPrerenderAction')
     cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
       label: 'Pre render action',
       type: FIELD_TYPE.SELECT,

@@ -100,7 +100,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
           ) : isComponentRef(selectedNode) ? (
             <UpdateComponentPropsForm component={selectedNode.current} />
           ) : (
-            `Add an atom or a component to this element to edit its props`
+            'Add an atom or a component to this element to edit its props'
           )}
         </div>
       ),
@@ -130,7 +130,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
             key={selectedNode.id}
           />
         ) : (
-          `Add an atom to this page element to edit its CSS`
+          'Add an atom to this page element to edit its CSS'
         ),
       key: TAB_NAMES.CSS,
       label: (

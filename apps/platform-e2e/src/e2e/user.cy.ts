@@ -6,7 +6,7 @@ describe('UserController', () => {
       const { body } = response
 
       return cy.getCurrentUser().then((user) => {
-        expect(body).to.deep.include(user)
+        cy.wrap(body).should('deep.include', user)
       })
     })
   })

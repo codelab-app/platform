@@ -1,14 +1,7 @@
-/* eslint-disable @nx/enforce-module-boundaries */
-// import type { IApp } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
 import path from 'path'
-
-/**
- * We seed an app here that is shared across many specs
- */
-// export let cypressApp: IApp
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,

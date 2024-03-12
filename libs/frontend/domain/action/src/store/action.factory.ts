@@ -17,24 +17,24 @@ import { ActionMapper } from '@codelab/shared/domain'
 import { Model, model, modelAction } from 'mobx-keystone'
 
 const writeCache = (
-  actionDTO: IActionDto,
+  actionDto: IActionDto,
   action: IActionModel,
 ): IActionModel => {
-  switch (actionDTO.__typename) {
+  switch (actionDto.__typename) {
     case IActionKind.CodeAction:
-      action.type === IActionKind.CodeAction && action.writeCache(actionDTO)
+      action.type === IActionKind.CodeAction && action.writeCache(actionDto)
 
       return action
 
     case IActionKind.ApiAction:
       if (action.type === IActionKind.ApiAction) {
-        action.writeCache(actionDTO)
+        action.writeCache(actionDto)
       }
 
       return action
 
     default:
-      throw new Error(`Unknown action type : ${actionDTO.__typename}`)
+      throw new Error(`Unknown action type : ${actionDto.__typename}`)
   }
 }
 

@@ -3,9 +3,25 @@ import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
 export const getCuiTreeItem = () => {
-  cy.log('getCuiTreeItem')
+  Cypress.log({
+    name: 'getCuiTreeItem',
+  })
 
   return cy.get(CY_DATA_SELECTOR.cuiTreeItem(), { log: false })
+}
+
+/**
+ *
+ * @returns Traverse up to find the container
+ */
+export const closestCuiTreeItem = (subject: Maybe<CypressElement>) => {
+  Cypress.log({
+    name: 'closestCuiTreeItem',
+  })
+
+  return cy
+    .wrap(subject, { log: false })
+    .closest(CY_DATA_SELECTOR.cuiTreeItem(), { log: false })
 }
 
 export const getCuiTreeItemByPrimaryTitle = (
@@ -16,12 +32,12 @@ export const getCuiTreeItemByPrimaryTitle = (
 
   return subject
     ? cy
-        .wrap(subject)
+        .wrap(subject, { log: false })
         .find(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
-          // log: false,
+          log: false,
         })
     : cy.get(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
-        // log: false,
+        log: false,
       })
 }
 
@@ -29,7 +45,10 @@ export const getCuiTreeItemBySecondaryTitle = (
   subject: Maybe<CypressElement>,
   secondaryTitle: string,
 ) => {
-  cy.log('getCuiTreeItemBySecondaryTitle')
+  Cypress.log({
+    message: secondaryTitle,
+    name: 'getCuiTreeItemBySecondaryTitle',
+  })
 
   return subject
     ? cy
@@ -43,7 +62,9 @@ export const getCuiTreeItemBySecondaryTitle = (
 }
 
 export const getCuiTreeItemToolbar = (subject: Maybe<CypressElement>) => {
-  cy.log('getCuiTreeItemToolbar')
+  Cypress.log({
+    message: 'getCuiTreeItemToolbar',
+  })
 
   return cy
     .wrap(subject)

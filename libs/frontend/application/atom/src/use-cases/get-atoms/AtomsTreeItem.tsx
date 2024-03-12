@@ -5,7 +5,7 @@ import type {
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -51,14 +51,14 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
     if (interfaceRef) {
       fieldService.createForm.open(interfaceRef)
-      popover.open(FormNames.CreateField)
+      popover.open(MODEL_ACTION.CreateField.key)
     }
   }
 
   const toolbarItems = [
     {
       icon: <DeleteOutlined />,
-      key: 'delete-atom',
+      key: MODEL_ACTION.DeleteAtom.key,
       onClick: onDelete,
       title: 'Delete atom',
     },
@@ -67,7 +67,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   if (type === 'atom') {
     toolbarItems.push({
       icon: <PlusOutlined />,
-      key: 'add-field',
+      key: MODEL_ACTION.CreateField.key,
       onClick: onAddField,
       title: 'Add field',
     })

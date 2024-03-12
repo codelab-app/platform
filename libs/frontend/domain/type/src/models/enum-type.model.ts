@@ -32,11 +32,11 @@ export class EnumType
   public static create = create
 
   @modelAction
-  writeCache(enumTypeDTO: Partial<IEnumTypeDto>) {
-    super.writeCache(enumTypeDTO)
+  writeCache(enumTypeDto: Partial<IEnumTypeDto>) {
+    super.writeCache(enumTypeDto)
 
-    this.allowedValues = enumTypeDTO.allowedValues
-      ? enumTypeDTO.allowedValues.map((allowedValue) =>
+    this.allowedValues = enumTypeDto.allowedValues
+      ? enumTypeDto.allowedValues.map((allowedValue) =>
           EnumTypeValue.create(allowedValue),
         )
       : this.allowedValues

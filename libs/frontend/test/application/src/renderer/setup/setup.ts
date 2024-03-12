@@ -6,7 +6,6 @@ import {
   IPageKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { defaultPipes, renderPipeFactory } from '../../renderPipes'
 import { rootApplicationStore } from './root.test.store'
 import type { TestBed } from './testbed'
 
@@ -74,7 +73,6 @@ export const setupPages = (
     containerNode: isProviderPage ? page : regularPage,
     id: rendererId,
     rendererType,
-    renderPipe: renderPipeFactory(defaultPipes),
   })
 
   return {
@@ -130,7 +128,6 @@ export const setupComponent = (testbed: TestBed) => {
   const renderer = testbed.addRenderer({
     containerNode: component,
     rendererType: RendererType.Preview,
-    renderPipe: renderPipeFactory(defaultPipes),
   })
 
   return { childrenContainerElement, component, renderer }

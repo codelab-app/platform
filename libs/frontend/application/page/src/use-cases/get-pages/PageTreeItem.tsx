@@ -15,7 +15,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
-  FormNames,
+  MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -54,7 +54,7 @@ export const PageTreeItem = observer(
     const commonToolbarItems = [
       {
         icon: <BuildOutlined />,
-        key: 'open_builder',
+        key: MODEL_ACTION.OpenBuilder.key,
         onClick: () => {
           void router.push({
             pathname: PageType.PageBuilder,
@@ -73,29 +73,27 @@ export const PageTreeItem = observer(
     const regularPageToolbarItems = [
       {
         icon: <DeleteOutlined />,
-        key: 'delete',
+        key: MODEL_ACTION.DeleteRedirect.key,
         onClick: () => pageService.deleteModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
         icon: <SafetyOutlined />,
-        key: 'auth-guard',
+        key: MODEL_ACTION.UpdateRedirect.key,
         onClick: () => {
           if (page.redirect) {
             redirectService.updateForm.open(redirectRef(page.redirect.id))
+            popover.open(MODEL_ACTION.UpdateRedirect.key)
           } else {
             redirectService.createForm.open(pageRef(page))
+            popover.open(MODEL_ACTION.CreateRedirect.key)
           }
-
-          popover.open(
-            page.redirect ? FormNames.UpdateRedirect : FormNames.CreateRedirect,
-          )
         },
         title: 'Auth Guard',
       },
       {
         icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
-        key: 'build',
+        key: MODEL_ACTION.BuildPage.key,
         onClick: async () => {
           let pageDomains = domains.filter(
             (domain) => domain.app.id === page.app.id,
@@ -119,10 +117,10 @@ export const PageTreeItem = observer(
       },
       {
         icon: <EditOutlined />,
-        key: 'edit',
+        key: MODEL_ACTION.UpdatePage.key,
         onClick: () => {
           pageService.updateForm.open(pageRef(page))
-          popover.open(FormNames.UpdatePage)
+          popover.open(MODEL_ACTION.UpdatePage.key)
         },
         title: 'Edit',
       },

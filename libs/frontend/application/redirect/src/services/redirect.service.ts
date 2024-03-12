@@ -91,11 +91,11 @@ export class RedirectService
   @transaction
   update = _async(function* (
     this: RedirectService,
-    redirectDTO: IUpdateRedirectData,
+    redirectDto: IUpdateRedirectData,
   ) {
-    const redirect = this.redirectDomainService.redirects.get(redirectDTO.id)!
+    const redirect = this.redirectDomainService.redirects.get(redirectDto.id)!
 
-    redirect.writeCache(redirectDTO)
+    redirect.writeCache(redirectDto)
 
     yield* _await(this.redirectRepository.update(redirect))
 

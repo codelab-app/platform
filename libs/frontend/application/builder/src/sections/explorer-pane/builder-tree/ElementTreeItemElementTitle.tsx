@@ -12,7 +12,8 @@ import {
   elementTreeRef,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { FormNames } from '@codelab/frontend/abstract/types'
+import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
@@ -52,9 +53,9 @@ export const ElementTreeItemElementTitle = observer(
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
-      ? `Something went wrong in a parent element`
+      ? 'Something went wrong in a parent element'
       : elementService.validationService.propsHaveErrors(element)
-      ? `Some props are not correctly set`
+      ? 'Some props are not correctly set'
       : undefined
 
     return (
@@ -83,9 +84,9 @@ export const ElementTreeItemElementTitle = observer(
               items={[
                 {
                   icon: <PlusOutlined />,
-                  key: `add-child-${element.id}`,
+                  key: `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
                   onClick: () => {
-                    popover.open(FormNames.CreateElement)
+                    popover.open(MODEL_ACTION.CreateElement.key)
                     elementService.createForm.open({
                       elementOptions:
                         element.closestContainerNode.elements.map(

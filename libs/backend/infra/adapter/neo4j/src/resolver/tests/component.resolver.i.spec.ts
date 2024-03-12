@@ -4,19 +4,10 @@ import {
   connectOwner,
   ElementProperties,
 } from '@codelab/shared/domain'
-import type { ApolloDriverConfig } from '@nestjs/apollo'
-import { ApolloDriver } from '@nestjs/apollo'
 import type { INestApplication } from '@nestjs/common'
-import { GraphQLModule } from '@nestjs/graphql'
-import { AuthGuard } from '@nestjs/passport'
-import { Test, type TestingModule } from '@nestjs/testing'
-import type { GraphQLSchema } from 'graphql'
 import request from 'supertest'
 import { v4 } from 'uuid'
-import { GraphQLSchemaModule } from '../../graphql-schema.module'
-import type { DatabaseService } from '../../infra'
-import { Neo4jModule, OgmModule, OgmService } from '../../infra'
-import { GRAPHQL_SCHEMA_PROVIDER } from '../../schema'
+import { OgmService } from '../../infra'
 import { setupTestingContext } from '../../test/setup'
 
 describe('PageResolvers', () => {

@@ -71,6 +71,8 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           showInlineError
           submitField={submitField}
         >
+          {/* Dynamic schema `if` `then` doesn't seem to show error in the field */}
+          {/* <ErrorsField /> */}
           {children}
         </BaseAutoForm>
       </div>

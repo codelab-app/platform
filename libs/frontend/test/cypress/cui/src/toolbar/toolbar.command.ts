@@ -12,7 +12,7 @@ export const getCuiToolbarItem = (
   // https://stackoverflow.com/questions/58833459/cypresserror-timed-out-retrying-cy-click-failed-because-this-element-is-deta
   return subject
     ? cy
-        .wrap(subject)
+        .wrap(subject, { log: false })
         .find(CY_DATA_SELECTOR.cuiToolbarItem(title), { log: false })
     : cy.get(CY_DATA_SELECTOR.cuiToolbarItem(title), { log: false })
 }
