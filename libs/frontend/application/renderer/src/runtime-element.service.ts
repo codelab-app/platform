@@ -68,7 +68,7 @@ export class RuntimeElementService
     return runtimeElement
   }
 
-  element(compositeKey: string) {
-    return this.elements.get(compositeKey)
+  element(element: IElementModel) {
+    return this.elements.get(RuntimeElementModel.compositeKey(element))
   }
 }

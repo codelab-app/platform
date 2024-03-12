@@ -68,7 +68,7 @@ export class RuntimeComponentService
     return this.components.delete(runtimeComponent.compositeKey)
   }
 
-  component(compositeKey: string) {
-    return this.components.get(compositeKey)
+  component(component: IComponentModel) {
+    return this.components.get(RuntimeComponentModel.compositeKey(component))
   }
 }
