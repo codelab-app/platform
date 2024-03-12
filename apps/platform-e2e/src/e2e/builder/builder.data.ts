@@ -1,11 +1,6 @@
-import type {
-  ICreateCypressElementData,
-  ICreateElementData,
-  IPageDto,
-} from '@codelab/shared/abstract/core'
+import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { v4 } from 'uuid'
 
 /**
  * Since UI requires label, we can find the label through the data

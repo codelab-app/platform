@@ -1,4 +1,3 @@
-import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type {
   IAppDto,

@@ -3,18 +3,11 @@ import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App, Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
-  IActionKind,
   IPageKindName,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import {
-  actionBody,
-  actionName,
-  stateVarName,
-  updatedActionName,
-  updatedStateVarName,
-} from '../../data/store.data'
+import { stateVarName, updatedStateVarName } from '../../data/store.data'
 import { createResourceData } from './resource.data'
 
 describe('Store field CRUD', () => {

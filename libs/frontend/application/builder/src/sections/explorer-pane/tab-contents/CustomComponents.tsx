@@ -1,7 +1,3 @@
-import {
-  rendererRef,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
 import type { IPageNode } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,

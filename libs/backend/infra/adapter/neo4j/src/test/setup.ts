@@ -1,7 +1,6 @@
 import type { GqlContext } from '@codelab/backend/infra/adapter/graphql'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
-import type { INestApplication } from '@nestjs/common'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AuthGuard } from '@nestjs/passport'
 import { Test, type TestingModule } from '@nestjs/testing'

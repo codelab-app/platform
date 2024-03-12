@@ -4,7 +4,7 @@ import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
 import { Bridge } from 'uniforms'
-import { AutoForm, ErrorsField } from 'uniforms-antd'
+import { AutoForm } from 'uniforms-antd'
 import {
   connectUniformSubmitRef,
   createBridge,

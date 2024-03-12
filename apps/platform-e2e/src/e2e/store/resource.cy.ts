@@ -1,7 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
-import { type IAppDto, IResourceType } from '@codelab/shared/abstract/core'
+import { IResourceType } from '@codelab/shared/abstract/core'
 import { createResourceData } from './resource.data'
 
 /**

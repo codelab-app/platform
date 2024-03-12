@@ -1,9 +1,4 @@
-import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
-import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import type { IRef } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, connectOwner } from '@codelab/shared/domain'
-import { v4 } from 'uuid'
+import { connectNodeId } from '@codelab/shared/domain'
 
 /**
  * Create List Atom

@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client'
 import { __PageKind } from '@codelab/shared/abstract/core'
-import { allowFullAccessForAdmin, allowReadAccess } from './user.schema'
 
 const pageKindSchema = `enum PageKind {
   ${Object.values(__PageKind).join('\n')}

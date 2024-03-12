@@ -1,14 +1,13 @@
 import { AtomDomainService } from '@codelab/backend/domain/atom'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { PropDomainService, PropRepository } from '@codelab/backend/domain/prop'
+import { PropDomainService } from '@codelab/backend/domain/prop'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import type {
   ICreateElementData,
   IElementRenderTypeDto,
   IRef,
 } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'

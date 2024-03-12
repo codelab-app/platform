@@ -1,7 +1,4 @@
-import {
-  ElementApplicationModule,
-  ElementApplicationService,
-} from '@codelab/backend/application/element'
+import { ElementApplicationModule } from '@codelab/backend/application/element'
 import { StoreApplicationModule } from '@codelab/backend/application/store'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { ComponentDomainModule } from '@codelab/backend/domain/component'

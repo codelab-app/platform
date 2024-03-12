@@ -1,12 +1,7 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type {
-  ICreateCypressElementData,
-  ICreateElementData,
-} from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { findOrFail } from '@codelab/shared/utils'
+import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 

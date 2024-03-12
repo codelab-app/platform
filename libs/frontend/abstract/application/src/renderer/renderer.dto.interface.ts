@@ -3,7 +3,6 @@ import type {
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IRenderPipe } from './render.interface'
 import type { RendererType } from './renderer.model.interface'
 
 export interface IRendererDto {

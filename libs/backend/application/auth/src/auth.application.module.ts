@@ -2,7 +2,7 @@ import { auth0Config } from '@codelab/backend/infra/adapter/auth0'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { PassportModule } from '@nestjs/passport'
-import { Auth0Strategy, JWT_STRATEGY } from './jwt/jwt.strategy'
+import { Auth0Strategy } from './jwt/jwt.strategy'
 
 @Module({
   imports: [

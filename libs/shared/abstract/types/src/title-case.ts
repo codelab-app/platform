@@ -1,4 +1,4 @@
-import type { KebabCase, PascalCase, Replace } from 'type-fest'
+import type { KebabCase } from 'type-fest'
 
 /**
  * Split a string on hyphens and capitalize each section

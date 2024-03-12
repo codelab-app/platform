@@ -12,7 +12,6 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLFormattedError, GraphQLSchema } from 'graphql'
-import type { IncomingMessage } from 'http'
 import { endpointConfig } from './endpoint.config'
 
 @Module({

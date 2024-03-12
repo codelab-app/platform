@@ -12,7 +12,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields, ErrorsField } from 'uniforms-antd'
+import { AutoFields } from 'uniforms-antd'
 import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../types'
 import {

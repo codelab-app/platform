@@ -1,6 +1,5 @@
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import type React from 'react'
-import type { Overwrite } from 'utility-types'
 
 export interface ToolbarItem {
   icon: React.ReactNode

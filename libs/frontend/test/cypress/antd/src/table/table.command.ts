@@ -3,7 +3,6 @@ import type {
   Label,
 } from '@codelab/frontend/test/cypress/shared'
 import { absoluteRoot } from '@hon2a/cypress-without'
-import get from 'lodash/get'
 import isNil from 'lodash/isNil'
 import isNumber from 'lodash/isNumber'
 import isUndefined from 'lodash/isUndefined'

@@ -26,7 +26,6 @@ import type {
   ICodeActionDto,
   IComponentDto,
   ICreateElementDto,
-  IElementDto,
   IFieldDto,
   IInterfaceTypeDto,
   IPageDto,

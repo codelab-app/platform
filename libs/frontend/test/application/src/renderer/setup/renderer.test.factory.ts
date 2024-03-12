@@ -1,7 +1,6 @@
 import type {
   IRendererDto,
   IRendererService,
-  IRenderPipe,
 } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { IPageModel } from '@codelab/frontend/abstract/domain'

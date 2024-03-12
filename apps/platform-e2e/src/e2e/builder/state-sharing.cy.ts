@@ -8,18 +8,12 @@ import type {
   ICreatePageDto,
   IPageDto,
 } from '@codelab/shared/abstract/core'
-import {
-  IAtomType,
-  IPageKind,
-  IPageKindName,
-} from '@codelab/shared/abstract/core'
+import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 import { v4 } from 'uuid'
-import type { ComponentChildData } from './components.data'
 import {
   COMPONENT_NAME,
-  componentChildren,
   spaceElement,
   spaceElementName,
   typographyTextElement,

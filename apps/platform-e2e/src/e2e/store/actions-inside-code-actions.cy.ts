@@ -3,22 +3,17 @@ import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { Resource } from '@codelab/shared/abstract/codegen'
-import type {
-  IAppDto,
-  ICreateResourceData,
-} from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
   IAtomType,
   IPageKindName,
-  IResourceType,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 import { createResourceData } from './resource.data'
 
 describe('Running actions inside code action with arguments', () => {

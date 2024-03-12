@@ -1,5 +1,4 @@
 import { AtomType } from '@codelab/backend/abstract/codegen'
-import type { GqlContext } from '@codelab/backend/infra/adapter/graphql'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import {
@@ -9,25 +8,10 @@ import {
   ElementProperties,
   PageProperties,
 } from '@codelab/shared/domain'
-import { prettifyForConsole } from '@codelab/shared/utils'
-import type { ApolloDriverConfig } from '@nestjs/apollo'
-import { ApolloDriver } from '@nestjs/apollo'
 import type { INestApplication } from '@nestjs/common'
-import { GqlContextType, GraphQLModule } from '@nestjs/graphql'
-import { AuthGuard } from '@nestjs/passport'
-import { Test, type TestingModule } from '@nestjs/testing'
-import type { GraphQLSchema } from 'graphql'
-import type { IncomingMessage } from 'http'
 import request from 'supertest'
 import { v4 } from 'uuid'
-import { GraphQLSchemaModule } from '../../graphql-schema.module'
-import {
-  DatabaseService,
-  Neo4jModule,
-  OgmModule,
-  OgmService,
-} from '../../infra'
-import { GRAPHQL_SCHEMA_PROVIDER } from '../../schema'
+import { OgmService } from '../../infra'
 import { setupTestingContext } from '../../test/setup'
 
 describe('ComponentResolvers', () => {

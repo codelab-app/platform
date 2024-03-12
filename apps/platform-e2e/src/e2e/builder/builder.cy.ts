@@ -1,6 +1,6 @@
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
-import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
 import { builderElements, elementRow } from './builder.data'

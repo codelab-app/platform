@@ -1,5 +1,4 @@
 import type { OutputData } from '@editorjs/editorjs'
-import EditorJS from '@editorjs/editorjs'
 
 export interface TextEditorProps {
   data?: string

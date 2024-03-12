@@ -1,7 +1,5 @@
 import type { TitleCase } from '@codelab/shared/abstract/types'
-import type { KebabCase, Replace } from 'type-fest'
-import { kebabCase, titleCase } from 'voca'
-import type { ModelName } from './model.constant'
+import type { KebabCase } from 'type-fest'
 import { ModelAction } from './model.constant'
 
 /**
