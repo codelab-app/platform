@@ -6,7 +6,8 @@ import type { IRuntimeElementPropModel } from '../runtime-prop'
 
 export interface IRuntimeElementDTO {
   closestContainerNode: Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
+  compositeKey: string
   element: Ref<IElementModel>
-  id?: string
+  propKey?: string
   runtimeProps: IRuntimeElementPropModel
 }

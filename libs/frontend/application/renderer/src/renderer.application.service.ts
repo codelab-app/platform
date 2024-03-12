@@ -4,21 +4,17 @@ import type {
   IRendererService,
 } from '@codelab/frontend/abstract/application'
 import {
-  isRuntimeComponent,
-  isRuntimeElement,
+  getRuntimeComponentService,
+  getRuntimeElementService,
   isRuntimePage,
   isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IElementModel,
-  IPageModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IPageModel } from '@codelab/frontend/abstract/domain'
 import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
-  findChildren,
   isModel,
   Model,
   model,
@@ -47,6 +43,16 @@ export class RendererApplicationService
     return this.activeRenderer?.current.containerNode.current
   }
 
+  @computed
+  get runtimeComponentService() {
+    return getRuntimeComponentService(this)
+  }
+
+  @computed
+  get runtimeElementService() {
+    return getRuntimeElementService(this)
+  }
+
   @modelAction
   hydrate = (rendererDto: IRendererDto) => {
     let renderer = this.renderers.get(rendererDto.id)
@@ -64,12 +70,7 @@ export class RendererApplicationService
       // The stopper is used to prevent infinite re-rendering when the action mutates a state
       // which causes re-rendering the root container node.
 
-      const runtimeElements = findChildren(
-        renderer.runtimeRootContainerNode,
-        (node: object) => isModel(node) && isRuntimeElement(node),
-      )
-
-      runtimeElements.forEach((runtimeElement) => {
+      this.runtimeElementService.elementsList.forEach((runtimeElement) => {
         runtimeElement.setPreRenderActionDone(false)
         runtimeElement.setPostRenderActionDone(false)
       })
@@ -101,40 +102,6 @@ export class RendererApplicationService
    */
   renderRoot(renderer: IRendererModel) {
     return renderer.render
-  }
-
-  runtimeComponent(component: IComponentModel) {
-    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
-
-    return rootNode
-      ? walkTree(
-          rootNode,
-          (child) =>
-            isModel(child) &&
-            isRuntimeComponent(child) &&
-            component.id === child.component.id
-              ? child
-              : undefined,
-          WalkTreeMode.ParentFirst,
-        )
-      : undefined
-  }
-
-  runtimeElement(element: IElementModel) {
-    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
-
-    return rootNode
-      ? walkTree(
-          rootNode,
-          (child) =>
-            isModel(child) &&
-            isRuntimeElement(child) &&
-            element.id === child.element.id
-              ? child
-              : undefined,
-          WalkTreeMode.ParentFirst,
-        )
-      : undefined
   }
 
   runtimePage(page: IPageModel) {

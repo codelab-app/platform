@@ -2,8 +2,9 @@ import type {
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { IRuntimeModel } from './runtime.model.interface'
 import type { IRuntimeComponentModel } from './runtime-component'
 
 export interface IRuntimeComponentService {
@@ -11,10 +12,12 @@ export interface IRuntimeComponentService {
   componentsList: Array<IRuntimeComponentModel>
   add(
     component: IComponentModel,
-    runtimeParent: IRef,
-    children?: Array<Ref<IElementModel>>,
+    parent: IRuntimeModel,
+    children: Array<Ref<IElementModel>>,
+    propKey?: string,
     childMapperIndex?: number,
     isTypedProp?: boolean,
   ): IRuntimeComponentModel
+  component(compositeKey: string): Maybe<IRuntimeComponentModel>
   delete(runtimeComponent: IRuntimeComponentModel): void
 }

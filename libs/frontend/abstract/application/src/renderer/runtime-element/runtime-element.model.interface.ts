@@ -29,13 +29,17 @@ export interface IRuntimeElementModel extends AnyModel {
    */
   closestContainerNode: Ref<IRuntimeComponentModel | IRuntimePageModel>
 
-  element: Ref<IElementModel>
+  compositeKey: string
 
-  id: string
+  element: Ref<IElementModel>
 
   postRenderActionDone: boolean
   preRenderActionDone: boolean
-
+  /**
+   * keep track of prop key if we are rendering typedProp of type ElementType
+   * to generate correct compositeKey for children too
+   */
+  propKey?: string
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>
 

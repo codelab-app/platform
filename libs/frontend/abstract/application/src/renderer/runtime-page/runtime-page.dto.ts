@@ -1,12 +1,7 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import type { Ref } from 'mobx-keystone'
-import type { IRuntimeElementModel } from '../runtime-element'
-import type { IRuntimeStoreModel } from '../runtime-store'
+import type { IRef } from '@codelab/shared/abstract/core'
 
 export interface IRuntimePageDTO {
-  childPage?: Ref<IPageModel>
-  id?: string
-  page: Ref<IPageModel>
-  runtimeParent?: Ref<IRuntimeElementModel>
-  runtimeStore: IRuntimeStoreModel
+  page: IPageModel
+  runtimeProviderStore?: IRef
 }

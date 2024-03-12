@@ -6,6 +6,7 @@ import type { IFieldModel, TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { Prop } from '@codelab/frontend/domain/prop'
 import type { IPropData } from '@codelab/shared/abstract/core'
+import type { ObjectKey } from '@codelab/shared/utils'
 import { hasExpression } from '@codelab/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -43,7 +44,11 @@ export class RenderPropTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
+  public transform(
+    prop: TypedProp,
+    key: ObjectKey,
+    runtimeNode: IRuntimeModel,
+  ) {
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
@@ -74,7 +79,8 @@ export class RenderPropTypeTransformer
       const runtimeComponent = this.runtimeComponentService.add(
         component,
         runtimeNode,
-        undefined,
+        [],
+        key,
         undefined,
         true,
       )

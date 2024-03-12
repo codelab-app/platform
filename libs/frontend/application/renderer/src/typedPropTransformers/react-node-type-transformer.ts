@@ -27,7 +27,7 @@ export class ReactNodeTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
+  public transform(prop: TypedProp, key: string, runtimeNode: IRuntimeModel) {
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
@@ -63,7 +63,8 @@ export class ReactNodeTypeTransformer
     const runtimeComponent = this.runtimeComponentService.add(
       component,
       runtimeNode,
-      undefined,
+      [],
+      key,
       undefined,
       true,
     )

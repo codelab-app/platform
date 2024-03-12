@@ -12,15 +12,14 @@ export interface IRuntimePageModel extends AnyModel {
   /**
    * Regular page in case the current model is a provider page
    */
-  childPage?: Ref<IPageModel>
-  id: string
+  childPage?: IRuntimePageModel
+  compositeKey: string
   /**
    * Page domain model
    */
   page: Ref<IPageModel>
 
   render: Nullable<ReactElement>
-  runtimeParent?: Ref<IRuntimeElementModel>
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
 }
