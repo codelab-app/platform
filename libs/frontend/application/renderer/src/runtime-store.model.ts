@@ -97,10 +97,12 @@ export class RuntimeStoreModel
       !this.cachedState ||
       !isEqual(
         this.cachedStateDefaultValues,
-        this.store.current.api.current.defaultValues,
+        this.store.maybeCurrent?.api.maybeCurrent?.defaultValues,
       )
     ) {
-      const defaultValues = this.store.current.api.current.defaultValues
+      // use "maybeCurrent" since in production websites api Interface might not be available
+      const defaultValues =
+        this.store.maybeCurrent?.api.maybeCurrent?.defaultValues ?? {}
 
       this.cachedState = observable(defaultValues)
       this.cachedStateDefaultValues = cloneDeep(defaultValues)
