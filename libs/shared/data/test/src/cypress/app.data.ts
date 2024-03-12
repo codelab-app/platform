@@ -14,7 +14,7 @@ export const storeApiData = (): IInterfaceTypeDto => ({
   fields: [],
   id: v4(),
   kind: ITypeKind.InterfaceType,
-  name: `Test Store API`,
+  name: 'Test Store API',
 })
 
 export const storeData = (api: IInterfaceTypeRef): IStoreDto => ({

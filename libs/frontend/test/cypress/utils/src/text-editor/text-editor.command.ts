@@ -8,7 +8,9 @@
  */
 export const typeIntoTextEditor = (content: string, parentId?: string) => {
   const id = parentId ? `#${parentId}-editor` : '#render-root'
-  const editorSelector = `.codex-editor .ce-block__content .cdx-block[contenteditable]`
+
+  const editorSelector =
+    '.codex-editor .ce-block__content .cdx-block[contenteditable]'
 
   cy.get(id).find(editorSelector).dblclick()
   cy.get(id).find(editorSelector).clear()

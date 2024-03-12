@@ -19,7 +19,7 @@ export class NullRenderPipe
     const element = runtimeElement.element.current
 
     if (this.renderer.debugMode) {
-      console.info(`NullRenderPipe: rendering null`, { element: element.name })
+      console.info('NullRenderPipe: rendering null', { element: element.name })
     }
 
     return RenderOutput.empty({

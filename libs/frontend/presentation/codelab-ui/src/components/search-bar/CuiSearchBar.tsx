@@ -29,7 +29,7 @@ export const CuiSearchBar = ({
     <div
       className={classNames(
         Style.cuiSearchBar,
-        `w-full border-0 border-b border-solid border-gray-300`,
+        'w-full border-0 border-b border-solid border-gray-300',
       )}
     >
       <Input

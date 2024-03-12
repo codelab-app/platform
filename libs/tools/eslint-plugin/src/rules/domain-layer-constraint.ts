@@ -3,7 +3,7 @@ import { normalizePath, workspaceRoot } from '@nx/devkit'
 import { ESLintUtils } from '@typescript-eslint/utils'
 import path from 'path'
 
-export const createESLintRule = ESLintUtils.RuleCreator(() => ``)
+export const createESLintRule = ESLintUtils.RuleCreator(() => '')
 
 export const domainLayerConstraint = createESLintRule({
   create: (context) => {

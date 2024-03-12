@@ -32,7 +32,7 @@ export const CY_DATA = {
   /**
    * skeleton
    */
-  cuiSkeleton: () => `cui-skeleton`,
+  cuiSkeleton: () => 'cui-skeleton',
 
   /**
    * toolbar
@@ -42,7 +42,7 @@ export const CY_DATA = {
   /**
    * tree
    */
-  cuiTreeItem: () => `cui-tree-item`,
+  cuiTreeItem: () => 'cui-tree-item',
 
   cuiTreeItemPrimaryTitle: (primaryTitle: string) =>
     `cui-tree-item-primary-title-${primaryTitle}`,
@@ -50,5 +50,5 @@ export const CY_DATA = {
   cuiTreeItemSecondaryTitle: (secondaryTitle: string) =>
     `cui-tree-item-secondary-title-${secondaryTitle}`,
 
-  cuiTreeItemToolbar: () => `cui-tree-item-toolbar`,
+  cuiTreeItemToolbar: () => 'cui-tree-item-toolbar',
 }

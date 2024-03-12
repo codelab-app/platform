@@ -1,7 +1,5 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { titleCase } from '@codelab/shared/utils'
 import { ObjectTyped } from 'object-typed'
-import { kebabCase } from 'voca'
+import voca, { kebabCase } from 'voca'
 import type {
   ActionModelCombinations,
   ModelActionData,
@@ -38,8 +36,19 @@ export class ModelActionFactory {
 
     return {
       key: kebabCase(modelAction) as ModelActionKey,
-      title: titleCase(modelAction) as ModelActionTitle,
+      title: this.titleCase(modelAction) as ModelActionTitle,
     }
+  }
+
+  /**
+   * Moved here so we don't get circular dep
+   */
+  private titleCase = (input: string) => {
+    // This regex will insert a space before any uppercase letter that
+    // follows a lowercase letter, effectively splitting camelCase and PascalCase words.
+    const withSpaces = input.replace(/([a-z])([A-Z])/g, '$1 $2')
+
+    return voca.titleCase(withSpaces)
   }
 }
 

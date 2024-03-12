@@ -45,8 +45,12 @@ before(() => {
   cy.loginAndSetupE2eData()
 })
 
-const editorJsContainsError = `Cannot read properties of undefined (reading 'contains')`
-const editorJsClasslistError = `Cannot read properties of undefined (reading 'classList')`
+const editorJsContainsError =
+  "Cannot read properties of undefined (reading 'contains')"
+
+const editorJsClasslistError =
+  "Cannot read properties of undefined (reading 'classList')"
+
 const errorsToIgnore = [editorJsContainsError, editorJsClasslistError]
 
 Cypress.on('uncaught:exception', (err, runnable) => {

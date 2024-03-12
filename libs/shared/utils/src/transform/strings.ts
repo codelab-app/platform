@@ -1,4 +1,4 @@
-import v from 'voca'
+import voca from 'voca'
 
 /**
  * Implementation of camelCaseToTitleCase & PascalCaseToTitleCase are the same, so we give them a common name
@@ -65,5 +65,5 @@ export const titleCase = (input: string): string => {
   const withSpaces = input.replace(/([a-z])([A-Z])/g, '$1 $2')
 
   // Then convert to title case.
-  return v.titleCase(withSpaces)
+  return voca.titleCase(withSpaces)
 }

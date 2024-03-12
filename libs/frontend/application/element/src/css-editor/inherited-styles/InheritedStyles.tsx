@@ -44,7 +44,7 @@ const getRules = (
       nestedRules.push(
         ...getRules(currentStyles?.[key] as ElementCssRules, value, level + 1),
       )
-      nestedRules.push({ level, overridden: false, style: `}\n` })
+      nestedRules.push({ level, overridden: false, style: '}\n' })
     }
   }
 

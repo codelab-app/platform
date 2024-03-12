@@ -10,10 +10,11 @@ export const DropOverlay = () => {
   const currentRect = over?.rect || Rectangle.zeroRect()
 
   const style: React.CSSProperties = {
-    background: `repeating-linear-gradient(45deg, #439A5620, #439A5620 0.5px, #ffffff00 2px, #ffffff00 4px)`,
+    background:
+      'repeating-linear-gradient(45deg, #439A5620, #439A5620 0.5px, #ffffff00 2px, #ffffff00 4px)',
     borderRadius: '3px',
     display: over && active?.id !== over.id ? 'unset' : 'none',
-    outline: `2px solid #439A56`,
+    outline: '2px solid #439A56',
     position: 'absolute',
     zIndex: 998,
     ...currentRect,

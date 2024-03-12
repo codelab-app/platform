@@ -22,7 +22,7 @@ export class AtomApplicationService {
         sort: [{ name: SortDirection.Asc }],
       },
       schema: IEntity,
-      selectionSet: `{ id }`,
+      selectionSet: '{ id }',
     })
 
     const exportedAtoms = []

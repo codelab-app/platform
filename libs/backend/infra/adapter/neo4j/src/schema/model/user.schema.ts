@@ -45,7 +45,7 @@ export const allowFullAccessForOwner = `
 //   )
 // `
 
-export const authOwnerOrAdmin = ``
+export const authOwnerOrAdmin = ''
 
 export const userSchema = gql`
   # https://neo4j.com/docs/graphql/current/authentication-and-authorization/configuration/

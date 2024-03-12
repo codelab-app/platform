@@ -29,7 +29,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           ({ stage }) => {
             // Use `tfswitch` to change to specific versions
             execCommand(`cd terraform/environments/${stage} && ./symlink.sh`)
-            execCommand(`cd terraform/modules && ./symlink.sh`)
+            execCommand('cd terraform/modules && ./symlink.sh')
 
             return execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} init --upgrade;`,

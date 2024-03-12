@@ -53,9 +53,9 @@ export const ElementTreeItemElementTitle = observer(
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
-      ? `Something went wrong in a parent element`
+      ? 'Something went wrong in a parent element'
       : elementService.validationService.propsHaveErrors(element)
-      ? `Some props are not correctly set`
+      ? 'Some props are not correctly set'
       : undefined
 
     return (
