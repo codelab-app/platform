@@ -1,4 +1,5 @@
 {
+  // Used by tsc for checking type errors
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "sourceMap": false,
@@ -9,7 +10,7 @@
     "allowJs": true,
     // https://github.com/cypress-io/cypress/issues/22059
     "types": [
-      "cypress",
+      // "cypress",
       "node",
       "@testing-library/cypress",
       "jest",

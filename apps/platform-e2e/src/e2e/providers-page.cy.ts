@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -51,7 +52,7 @@ describe('_app page', () => {
     cy.getButton({ label: /Create Now/ }).click()
     cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
 
-    cy.intercept('POST', `api/graphql`).as('createApp')
+    cy.intercept('POST', 'api/graphql').as('createApp')
     cy.getModal()
       .getModalAction(/Create App/)
       .click()
@@ -70,8 +71,8 @@ describe('_app page', () => {
   })
 
   it('should set card element as a container for child pages', () => {
-    cy.get(`.ant-tabs [aria-label="file"]`).click()
-    cy.get(`.ant-tabs [aria-label="file"]`).click()
+    cy.get('.ant-tabs [aria-label="file"]').click()
+    cy.get('.ant-tabs [aria-label="file"]').click()
     cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
       label: 'Page Content Container',
       type: FIELD_TYPE.SELECT,
@@ -93,7 +94,9 @@ describe('_app page', () => {
     cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
 
-    cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreatePage.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     openPageByName(pageName)
   })

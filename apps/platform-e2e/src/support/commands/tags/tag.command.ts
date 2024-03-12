@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 
 const modalName = 'Create Tag'
@@ -18,7 +19,9 @@ export const createTagByUI = (name: string, parentName?: string) => {
     })
   }
 
-  cy.getCuiPopover('Create Tag').getCuiToolbarItem('Create').click()
+  cy.getCuiPopover(MODEL_ACTION.CreateTag.key)
+    .getCuiToolbarItem('Create')
+    .click()
 }
 
 export const deleteTagInTableByUI = (name: string) => {

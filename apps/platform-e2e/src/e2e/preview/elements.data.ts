@@ -4,7 +4,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
-import { actionTypeId, apiPostActionId } from './action.data.js'
+import { actionTypeId, apiPostActionId } from './resource.data'
 
 const elementFormId = v4()
 
@@ -16,7 +16,7 @@ export const elementForm = (page: IPageDto): ICreateElementData => ({
   name: elementFormName,
   parentElement: { id: page.rootElement.id },
   propsData: {
-    customText: `<p>Submit Form</p>`,
+    customText: '<p>Submit Form</p>',
     htmlType: 'submit',
     onFinish: {
       kind: ITypeKind.ActionType,
@@ -111,7 +111,7 @@ const elementFormItemInput_4: ICreateElementData = {
   name: 'Element Button',
   parentElement: { id: elementFormItem_4.id },
   propsData: {
-    customText: `<p>Submit Form</p>`,
+    customText: '<p>Submit Form</p>',
     htmlType: 'submit',
   },
 }

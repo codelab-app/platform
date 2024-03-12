@@ -13,37 +13,31 @@ import { v4 } from 'uuid'
 
 export const elementRow: ICreateCypressElementData = {
   atom: IAtomType.AntDesignGridRow,
-  id: v4(),
   name: 'Row',
   parentElement: ROOT_ELEMENT_NAME,
 }
 
 const elementColA: ICreateCypressElementData = {
-  id: v4(),
   name: 'Column A',
   parentElement: elementRow.name,
 }
 
 const elementTextA: ICreateCypressElementData = {
-  id: v4(),
   name: 'Column A Text',
   parentElement: elementColA.name,
 }
 
 const elementColB: ICreateCypressElementData = {
-  id: v4(),
   name: 'Column B',
   parentElement: elementRow.name,
 }
 
 const elementButton: ICreateCypressElementData = {
-  id: v4(),
   name: 'Button',
   parentElement: elementColB.name,
 }
 
 const elementButtonText: ICreateCypressElementData = {
-  id: v4(),
   name: 'Button Text',
   parentElement: elementButton.name,
 }

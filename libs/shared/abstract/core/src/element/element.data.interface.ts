@@ -34,6 +34,6 @@ export type ICreateElementData = Static<typeof ICreateElementData>
  * Cypress uses parent element label for the Ui
  */
 export type ICreateCypressElementData = Overwrite<
-  ICreateElementData,
+  Omit<ICreateElementData, 'id'>,
   { parentElement: string }
 >

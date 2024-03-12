@@ -1,9 +1,7 @@
-import type { App, Element } from '@codelab/shared/abstract/codegen'
+import type { Element } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { findOrFail, slugify } from '@codelab/shared/utils'
-import { createResourceData } from '../store/resource.data'
-import { createApiPostActionData } from './action.data'
 import {
   elementForm,
   elementFormItem_1,
@@ -11,13 +9,18 @@ import {
   elementFormItem_3,
   elements,
 } from './elements.data'
+import {
+  createApiPostActionData,
+  createResourceData,
+  resourceUrl,
+} from './resource.data'
 
 describe('Testing the Form atom', () => {
   let app: IAppDto
   let page: IPageDto
 
   before(() => {
-    cy.postApiRequest<App>('/app/seed-cypress-app')
+    cy.postApiRequest<IAppDto>('/app/seed-cypress-app')
       .then(({ body }) => {
         app = body
         page = findOrFail(
@@ -84,13 +87,13 @@ describe('Testing the Form atom', () => {
   })
 
   it('should send the form data as request body in the API action', () => {
-    cy.intercept('POST', `${createResourceData.config.url}`, {
-      statusCode: 200,
-    }).as('submitData')
+    cy.intercept('POST', `${resourceUrl}/data`, { statusCode: 200 }).as(
+      'submitData',
+    )
 
     cy.get('#render-root button').first().click({ force: true })
 
-    cy.wait('@submitData').its('request.body').should('deep.equal', {
+    cy.get('@submitData').its('request.body').should('deep.equal', {
       checkboxField: true,
       inputField: 'testing',
       selectField: 'selectOptionB',

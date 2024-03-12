@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App, Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -62,7 +63,9 @@ describe('Store', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
@@ -86,6 +89,8 @@ describe('Store', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
   })
 })

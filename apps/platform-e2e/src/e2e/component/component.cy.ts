@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -54,8 +55,10 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
-      cy.intercept('POST', `api/graphql`).as('createComponent')
-      cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
+      cy.intercept('POST', 'api/graphql').as('createComponent')
+      cy.getCuiPopover(MODEL_ACTION.CreateComponent.key)
+        .getCuiToolbarItem('Create')
+        .click()
       cy.wait('@createComponent')
       cy.findByTestId('create-component-form').should('not.exist', {
         timeout: 10000,
@@ -69,7 +72,7 @@ describe('Component CRUD', () => {
         'be.visible',
       )
       cy.waitForSpinners()
-      cy.get(`.ant-tabs [aria-label="setting"]`).click()
+      cy.get('.ant-tabs [aria-label="setting"]').click()
       cy.get('.ant-tabs-tabpane-active').contains(/Add/).click()
       cy.getModal().setFormFieldValue({
         label: 'Key',
@@ -118,7 +121,9 @@ describe('Component CRUD', () => {
           value: child.name,
         })
 
-        cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+        cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+          .getCuiToolbarItem('Create')
+          .click()
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
         })
@@ -151,7 +156,7 @@ describe('Component CRUD', () => {
       cy.waitForSpinners()
 
       cy.findByText(COMPONENT_NAME).click({ force: true })
-      cy.get(`.ant-tabs [aria-label="node-index"]`).click()
+      cy.get('.ant-tabs [aria-label="node-index"]').click()
       cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
         label: 'Container for component children',
         type: FIELD_TYPE.SELECT,
@@ -190,7 +195,9 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_NAME,
       })
 
-      cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+      cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+        .getCuiToolbarItem('Create')
+        .click()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
@@ -204,7 +211,7 @@ describe('Component CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_NAME).click({
         force: true,
       })
-      cy.get(`.ant-tabs [aria-label="setting"]`).click()
+      cy.get('.ant-tabs [aria-label="setting"]').click()
       cy.waitForSpinners()
       cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
         label: 'Component_prop',

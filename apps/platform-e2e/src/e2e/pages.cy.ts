@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import type { IApp } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -30,7 +31,9 @@ describe('Pages CRUD', () => {
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
 
-      cy.getCuiPopover('Create Page').getCuiToolbarItem('Create').click()
+      cy.getCuiPopover(MODEL_ACTION.CreatePage.key)
+        .getCuiToolbarItem('Create')
+        .click()
     })
 
     it('should have accessible page link on sidebar', () => {
@@ -61,7 +64,9 @@ describe('Pages CRUD', () => {
       cy.findByTestId('update-page-form')
         .findByLabelText('Name')
         .type(updatedPageName)
-      cy.getCuiPopover('Update Page').getCuiToolbarItem('Update').click()
+      cy.getCuiPopover(MODEL_ACTION.UpdatePage.key)
+        .getCuiToolbarItem('Update')
+        .click()
       cy.findByTestId('update-page-form').should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('not.exist')

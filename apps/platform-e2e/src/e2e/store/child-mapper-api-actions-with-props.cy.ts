@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -63,7 +64,9 @@ describe('Element Child Mapper', () => {
       value: IResourceType.Rest,
     })
 
-    cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateResource.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
   })
@@ -91,7 +94,9 @@ describe('Element Child Mapper', () => {
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
 
-    cy.getCuiPopover('Create Component').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateComponent.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-component-form').should('not.exist', {
       timeout: 10000,
@@ -138,8 +143,10 @@ describe('Element Child Mapper', () => {
       value: HttpResponseType.Text,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.wait('@createAction').then(({ response }) => {
       apiGetActionId = response?.body.data.createApiActions.apiActions[0]
@@ -167,7 +174,7 @@ describe('Element Child Mapper', () => {
       value: `{ "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${apiGetActionId}", "type": "${actionTypeId}" } }`,
     })
 
-    // need to wait for the code to put the autocomputed name before typing
+    // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
@@ -176,7 +183,9 @@ describe('Element Child Mapper', () => {
       value: ELEMENT_BUTTON,
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.waitForApiCalls()
 
@@ -217,7 +226,7 @@ describe('Element Child Mapper', () => {
     ])
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_ROW).click({ force: true })
     // set pre-render action
-    cy.get(`.ant-tabs [aria-label="node-index"]`).click()
+    cy.get('.ant-tabs [aria-label="node-index"]').click()
     cy.contains('.ant-collapse-header-text', 'Child Mapper').click()
     cy.get('.ant-collapse').findByRole('button', { name: 'JS' }).click()
     cy.get('.ant-collapse').setFormFieldValue({

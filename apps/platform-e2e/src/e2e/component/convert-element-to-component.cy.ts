@@ -56,7 +56,7 @@ describe('Converting an element to a component', () => {
       .should('be.visible')
       .click({ force: true })
 
-    cy.createElementTree(elements)
+    // cy.createElementTree(elements)
 
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_CONTAINER).rightclick()
 

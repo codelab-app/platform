@@ -18,7 +18,7 @@ export class ResourceApplicationController {
     private loggerService: CodelabLoggerService,
   ) {}
 
-  @Post('create')
+  @Post('create-resource')
   @UseInterceptors(ClassSerializerInterceptor)
   @HttpEndpoint({
     method: 'POST',

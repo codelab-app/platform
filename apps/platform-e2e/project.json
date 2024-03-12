@@ -121,7 +121,7 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx tsc --noEmit --project apps/platform-e2e/tsconfig.json"
+        "command": "npx tsc --noEmit --project apps/platform-e2e/tsconfig.lint.json"
       }
     }
   },

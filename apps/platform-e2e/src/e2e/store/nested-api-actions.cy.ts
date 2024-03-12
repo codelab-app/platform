@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -74,7 +75,9 @@ describe('Running nested API and code actions', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
   })
 
   it('should create a code action', () => {
@@ -101,8 +104,10 @@ describe('Running nested API and code actions', () => {
       value: 'function run(response) { state.localData = response.data; }',
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createAction')
   })
 
@@ -147,8 +152,10 @@ describe('Running nested API and code actions', () => {
       value: HttpResponseType.Text,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createAction')
   })
 
@@ -199,8 +206,10 @@ describe('Running nested API and code actions', () => {
       value: HttpMethod.POST,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction')
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createAction')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.wait('@createAction').then(({ response }) => {
       apiPostActionId = response?.body.data.createApiActions.apiActions[0]
@@ -231,7 +240,9 @@ describe('Running nested API and code actions', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -248,7 +259,7 @@ describe('Running nested API and code actions', () => {
     // set text prop to use the state
     cy.typeIntoTextEditor('response from api - {{state.localData}}')
 
-    cy.openPreview().contains(`response from api - undefined`).should('exist')
+    cy.openPreview().contains('response from api - undefined').should('exist')
 
     cy.openBuilder()
 
@@ -281,7 +292,9 @@ describe('Running nested API and code actions', () => {
       value: 'Post Button',
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,

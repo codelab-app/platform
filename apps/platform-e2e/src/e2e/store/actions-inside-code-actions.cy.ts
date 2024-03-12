@@ -1,5 +1,6 @@
 import type { App } from '@codelab/backend/abstract/codegen'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { Resource } from '@codelab/shared/abstract/codegen'
 import type {
@@ -26,6 +27,8 @@ describe('Running actions inside code action with arguments', () => {
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
   const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
+  const resourceName = 'Fetch Data'
+  const resourceUrl = 'http://some-api.com/api'
   const urlSegment = '/data/some-id'
   const apiActionName = 'apiAction'
   const codeActionName1 = 'codeAction1'
@@ -81,7 +84,9 @@ describe('Running actions inside code action with arguments', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
 
@@ -105,7 +110,9 @@ describe('Running actions inside code action with arguments', () => {
       value: true,
     })
 
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
   })
 
   it('should create two code action and one api action', () => {
@@ -158,8 +165,8 @@ describe('Running actions inside code action with arguments', () => {
       value: '{"firstArg": "{{args[0]}}", "secondArg": {{args[1]}}}',
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction1')
-    cy.getCuiPopover('Create Action')
+    cy.intercept('POST', 'api/graphql').as('createAction1')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
       .getCuiToolbarItem('Create')
       .click({ force: true })
     cy.wait('@createAction1')
@@ -187,8 +194,8 @@ describe('Running actions inside code action with arguments', () => {
       value: `function run(firstArg, secondArg) { state['${stateKey1}'] = firstArg; state['${stateKey2}'] = secondArg; }`,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction2')
-    cy.getCuiPopover('Create Action')
+    cy.intercept('POST', 'api/graphql').as('createAction2')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
       .getCuiToolbarItem('Create')
       .click({ force: true })
     cy.wait('@createAction2')
@@ -216,8 +223,8 @@ describe('Running actions inside code action with arguments', () => {
       value: `function run() { actions['${codeActionName1}']('hey', 123); actions['${apiActionName}']('yo', 456); }`,
     })
 
-    cy.intercept('POST', `api/graphql`).as('createAction3')
-    cy.getCuiPopover('Create Action')
+    cy.intercept('POST', 'api/graphql').as('createAction3')
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
       .getCuiToolbarItem('Create')
       .click({ force: true })
 
@@ -257,7 +264,9 @@ describe('Running actions inside code action with arguments', () => {
       value: 'Typography Element',
     })
 
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -302,8 +311,10 @@ describe('Running actions inside code action with arguments', () => {
       value: 'Action Button',
     })
 
-    cy.intercept('POST', `api/graphql`).as('createElement')
-    cy.getCuiPopover('Create Element').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createElement')
+    cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createElement')
 
     cy.findByTestId('create-element-form').should('not.exist', {

@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
 import type {
@@ -131,7 +132,9 @@ describe('State variables sharing between pages', () => {
     })
 
     cy.intercept('POST', 'api/graphql').as('action')
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@action')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included
@@ -181,15 +184,17 @@ describe('State variables sharing between pages', () => {
       value: 'provider state value',
     })
 
-    cy.intercept('POST', `api/graphql`).as('createState')
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.intercept('POST', 'api/graphql').as('createState')
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.wait('@createState')
   })
 
   it("should respect provider state's precedence over component state", () => {
     // go to the regular page
     cy.visit(
-      `/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer`,
+      '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
     )
     // GetRenderedPageAndCommonAppData
     cy.waitForApiCalls()

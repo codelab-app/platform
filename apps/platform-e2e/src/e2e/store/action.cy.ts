@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App, Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -8,7 +9,6 @@ import {
   actionName,
   updatedActionName,
 } from '../../data/store.data'
-import { createResourceData } from './resource.data'
 
 describe('Action CRUD', () => {
   let app: IAppDto
@@ -17,14 +17,6 @@ describe('Action CRUD', () => {
     cy.postApiRequest<App>('/app/seed-cypress-app')
       .then(({ body }) => (app = body))
       .as('cypressApp')
-
-    // cy.get('@cypressApp')
-    //   .then(() =>
-    //     cy
-    //       .postApiRequest<Resource>('/resource/create', createResourceData)
-    //       .then(({ body }) => body),
-    //   )
-    //   .as('cypressResource')
 
     cy.get('@cypressApp').then(() => {
       cy.visit(
@@ -58,7 +50,9 @@ describe('Action CRUD', () => {
       value: actionBody,
     })
 
-    cy.getCuiPopover('Create Action').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
+      .getCuiToolbarItem('Create')
+      .click()
 
     cy.getCuiSidebarViewContent('Actions')
       .findByText(actionName)
@@ -82,7 +76,9 @@ describe('Action CRUD', () => {
       value: updatedActionName,
     })
 
-    cy.getCuiPopover('Update Action').getCuiToolbarItem('Update').click()
+    cy.getCuiPopover(MODEL_ACTION.UpdateAction.key)
+      .getCuiToolbarItem('Update')
+      .click()
 
     cy.getCuiSidebarViewContent('Actions')
       .findByText(new RegExp(/`^${actionName}`$/))

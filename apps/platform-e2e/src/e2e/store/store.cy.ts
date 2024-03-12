@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App, Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -55,7 +56,9 @@ describe('Store field CRUD', () => {
       type: FIELD_TYPE.SELECT,
       value: IPrimitiveTypeKind.Integer,
     })
-    cy.getCuiPopover('Create Field').getCuiToolbarItem('Create').click()
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem('Create')
+      .click()
     cy.getCuiSidebarViewContent('State')
       .findByText(stateVarName)
       .should('exist')
@@ -78,7 +81,9 @@ describe('Store field CRUD', () => {
       value: updatedStateVarName,
     })
 
-    cy.getCuiPopover('Update Field').getCuiToolbarItem('Update').click()
+    cy.getCuiPopover(MODEL_ACTION.UpdateField.key)
+      .getCuiToolbarItem('Update')
+      .click()
 
     cy.getCuiSidebarViewContent('State')
       .findByText(new RegExp(/`^${stateVarName}`$/))

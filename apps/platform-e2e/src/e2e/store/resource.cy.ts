@@ -1,5 +1,6 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import { App } from '@codelab/shared/abstract/codegen'
+import type { App } from '@codelab/shared/abstract/codegen'
 import { type IAppDto, IResourceType } from '@codelab/shared/abstract/core'
 import { createResourceData } from './resource.data'
 
@@ -38,7 +39,9 @@ describe('API Resource', () => {
         value: IResourceType.Rest,
       })
 
-      cy.getCuiPopover('Create Resource').getCuiToolbarItem('Create').click()
+      cy.getCuiPopover(MODEL_ACTION.CreateResource.key)
+        .getCuiToolbarItem('Create')
+        .click()
 
       cy.getCuiTreeItemByPrimaryTitle(createResourceData.name).should('exist')
     })

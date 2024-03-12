@@ -48,7 +48,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(
-              `nx run-many --target=build --projects=platform,platform-api -c test`,
+              'nx run-many --target=build --projects=platform,platform-api,platform-e2e -c test',
             )
           }
 
@@ -66,7 +66,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`nx build platform -c test`)
-            execCommand(`nx affected --target=test:unit -c test`)
+            execCommand('nx affected --target=test:unit -c test')
           }
 
           if (stage === Stage.CI) {
@@ -81,7 +81,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             execCommand(
-              `nx affected --target=test:integration -c test --parallel=1`,
+              'nx affected --target=test:integration -c test --parallel=1',
             )
           }
 
@@ -124,8 +124,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            const startServer = `nx serve platform-api -c ci`
-            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0`
+            const startServer = 'nx serve platform-api -c ci'
+
+            const runSpecs =
+              "npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0"
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,
@@ -196,22 +198,22 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`yarn cross-env TIMING=1 lint-staged`)
-            execCommand(`npx ls-lint`)
+            execCommand('yarn cross-env TIMING=1 lint-staged')
+            execCommand('npx ls-lint')
           }
 
           if (stage === Stage.CI) {
             execCommand(
-              `npx nx affected --target=lint --parallel=3 --verbose -c ci`,
+              'npx nx affected --target=lint --parallel=3 --verbose -c ci',
             )
             execCommand('echo $PWD')
 
             // https://github.com/nrwl/nx/discussions/8769
-            execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)
+            execCommand('npx prettier --check "./**/*.{graphql,yaml,json}"')
             // execCommand(
             //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
             // )
-            execCommand(`npx ls-lint`)
+            execCommand('npx ls-lint')
           }
         }),
       )
@@ -225,7 +227,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand(`./scripts/lint/commitlint-ci.sh`)
+            execCommand('./scripts/lint/commitlint-ci.sh')
           }
         }),
       )
