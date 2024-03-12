@@ -12,7 +12,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/application/component'
 import {
   CreateElementPopover,
@@ -103,7 +103,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           items: [
             {
               icon: <PlusOutlined />,
-              key: 'Add Element',
+              key: MODEL_ACTION.CreateElement.key,
               onClick: () => {
                 if (!containerNode) {
                   return
@@ -120,7 +120,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   elementTree: elementTreeRef(containerNode.id),
                   selectedElement,
                 })
-                popover.open(MODEL_CRUD.models.Element.Create.key)
+                popover.open(MODEL_ACTION.CreateElement.key)
               },
               title: 'Add Element',
             },
@@ -137,7 +137,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           items: [
             {
               icon: <PlusOutlined />,
-              key: 'AddStateField',
+              key: MODEL_ACTION.CreateField.key,
               onClick: () => {
                 if (!store) {
                   return
@@ -147,7 +147,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
                 if (store.api.id) {
                   form.open(typeRef(store.api.id) as Ref<IInterfaceTypeModel>)
-                  popover.open(MODEL_CRUD.models.Field.Create.key)
+                  popover.open(MODEL_ACTION.CreateField.key)
                 }
               },
               title: 'Add Field',
@@ -165,14 +165,14 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           items: [
             {
               icon: <PlusOutlined />,
-              key: 'AddAction',
+              key: MODEL_ACTION.CreateAction.key,
               onClick: () => {
                 if (!store) {
                   return
                 }
 
                 actionService.createForm.open(storeRef(store))
-                popover.open(MODEL_CRUD.models.Action.Create.key)
+                popover.open(MODEL_ACTION.CreateAction.key)
               },
               title: 'Add Action',
             },

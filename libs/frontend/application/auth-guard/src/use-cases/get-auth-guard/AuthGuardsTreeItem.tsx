@@ -1,6 +1,7 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import type { IAuthGuardsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiTreeItem,
@@ -29,7 +30,7 @@ export const AuthGuardsTreeItem = observer(
     const toolbarItems = [
       {
         icon: <DeleteOutlined />,
-        key: 'delete',
+        key: MODEL_ACTION.DeleteAuthGuard.key,
         onClick: onDelete,
         title: 'Delete',
       },

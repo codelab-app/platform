@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -15,10 +15,10 @@ export const ResourcesPrimarySidebar = observer(() => {
   const items: Array<ToolbarItem> = [
     {
       icon: <PlusOutlined />,
-      key: 'resource',
+      key: MODEL_ACTION.CreateResource.key,
       onClick: () => {
         resourceService.createForm.open()
-        popover.open(MODEL_CRUD.models.Resource.Create.key)
+        popover.open(MODEL_ACTION.CreateResource.key)
       },
       title: 'Add a Resource',
     },

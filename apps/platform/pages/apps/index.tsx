@@ -1,6 +1,9 @@
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import {
+  type CodelabPage,
+  MODEL_ACTION,
+} from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
   CreateAppModal,
@@ -35,18 +38,18 @@ const AppsPageHeader = observer(() => {
   const toolbarItems: Array<ToolbarItem> = [
     {
       icon: <ImportAppDialog key={0} />,
-      key: '0',
+      key: MODEL_ACTION.ImportApp.key,
       title: 'Import an app',
     },
     {
       icon: <PlusOutlined />,
-      key: '1',
+      key: MODEL_ACTION.CreateApp.key,
       onClick: () => appService.createModal.open(),
       title: 'Create an App',
     },
     {
       icon: <LogoutOutlined />,
-      key: '2',
+      key: MODEL_ACTION.SignOutUser.key,
       onClick: () => {
         // redirect to /api/auth/logout
         window.location.href = '/api/auth/logout'

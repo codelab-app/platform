@@ -1,7 +1,7 @@
 import CloseOutlined from '@ant-design/icons/CloseOutlined'
 import SaveOutlined from '@ant-design/icons/SaveOutlined'
 import {
-  MODEL_CRUD,
+  MODEL_ACTION,
   type SubmitController,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -21,13 +21,13 @@ export const CreateAtomPopover = observer(() => {
 
   return (
     <CuiSidebarPopover
-      id={MODEL_CRUD.models.Atom.Create.key}
-      label={MODEL_CRUD.models.Action.Create.title}
+      id={MODEL_ACTION.CreateAtom.key}
+      label={MODEL_ACTION.CreateAtom.title}
       toolbar={{
         items: [
           {
             icon: <SaveOutlined />,
-            key: 'Create',
+            key: MODEL_ACTION.CreateAtom.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -36,7 +36,7 @@ export const CreateAtomPopover = observer(() => {
           },
           {
             icon: <CloseOutlined />,
-            key: 'Cancel',
+            key: MODEL_ACTION.CancelCreateAtom.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

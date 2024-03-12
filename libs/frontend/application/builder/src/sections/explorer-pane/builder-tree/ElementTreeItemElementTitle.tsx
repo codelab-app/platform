@@ -12,7 +12,8 @@ import {
   elementTreeRef,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
+import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
@@ -83,9 +84,9 @@ export const ElementTreeItemElementTitle = observer(
               items={[
                 {
                   icon: <PlusOutlined />,
-                  key: `add-child-${element.id}`,
+                  key: `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
                   onClick: () => {
-                    popover.open(MODEL_CRUD.models.Element.Create.key)
+                    popover.open(MODEL_ACTION.CreateElement.key)
                     elementService.createForm.open({
                       elementOptions:
                         element.closestContainerNode.elements.map(

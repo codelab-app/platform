@@ -1,4 +1,7 @@
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import {
+  type CodelabPage,
+  MODEL_ACTION,
+} from '@codelab/frontend/abstract/types'
 import { CreateLambdaButton } from '@codelab/frontend/application/lambda'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
@@ -32,7 +35,7 @@ const Header = () => {
   const toolbarItems: Array<ToolbarItem> = [
     {
       icon: <CreateLambdaButton key={0} />,
-      key: '0',
+      key: MODEL_ACTION.CreateLambda.key,
       title: 'Create Lambda',
     },
   ]

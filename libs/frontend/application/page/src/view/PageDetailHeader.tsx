@@ -1,6 +1,10 @@
 import EyeOutlined from '@ant-design/icons/EyeOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+import {
+  ExplorerPaneType,
+  MODEL_ACTION,
+  PageType,
+} from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiHeader,
@@ -31,7 +35,7 @@ export const PageDetailHeader = observer(() => {
   const { userSlug } = useUserQuery()
   const componentName = currentComponentName || '?'
 
-  const switchPreviewMode = () => {
+  const togglePreviewMode = () => {
     let pathname
 
     if (isComponentPreview) {
@@ -80,8 +84,8 @@ export const PageDetailHeader = observer(() => {
         ) : (
           <ToolOutlined />
         ),
-      key: '1',
-      onClick: switchPreviewMode,
+      key: MODEL_ACTION.TogglePreviewModeBuilder.key,
+      onClick: togglePreviewMode,
       title: isPageBuilder || isComponentBuilder ? 'Preview' : 'Builder',
     },
   ]

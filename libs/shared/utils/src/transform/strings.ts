@@ -1,3 +1,5 @@
+import v from 'voca'
+
 /**
  * Implementation of camelCaseToTitleCase & PascalCaseToTitleCase are the same, so we give them a common name
  * @param input
@@ -56,3 +58,12 @@ export const camelCaseToKebabCaseOnlyKeys = (input?: string) =>
   input?.replace(/(\w+)(\s*)(?=:)/g, (match) =>
     match.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`),
   )
+
+export const titleCase = (input: string): string => {
+  // This regex will insert a space before any uppercase letter that
+  // follows a lowercase letter, effectively splitting camelCase and PascalCase words.
+  const withSpaces = input.replace(/([a-z])([A-Z])/g, '$1 $2')
+
+  // Then convert to title case.
+  return v.titleCase(withSpaces)
+}

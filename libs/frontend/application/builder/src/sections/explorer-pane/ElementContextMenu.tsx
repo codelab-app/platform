@@ -11,7 +11,7 @@ import {
   isComponent,
   RendererTab,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_CRUD } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -61,7 +61,7 @@ export const ElementContextMenu = observer<
       useState<Nullable<string>>(null)
 
     const onAddChild = () => {
-      popover.open(MODEL_CRUD.models.Element.Create.key)
+      popover.open(MODEL_ACTION.CreateElement.key)
 
       createForm.open({
         elementOptions:
