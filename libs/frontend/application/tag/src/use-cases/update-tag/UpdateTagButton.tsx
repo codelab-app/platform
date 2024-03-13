@@ -1,30 +1,25 @@
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
+import type { IRef } from '@codelab/shared/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export const UpdateTagButton = observer<UpdateButtonProps>(
-  ({ disabled, id }) => {
-    const onClick = () => {
-      if (!id) {
-        throw new Error('Tag ID is not valid')
-      }
-
-      // openUpdateModal({ updateId: id })
+export const UpdateTagButton = observer<IRef>(({ id }) => {
+  const onClick = () => {
+    if (!id) {
+      throw new Error('Tag ID is not valid')
     }
+  }
 
-    return (
-      <Button
-        disabled={disabled}
-        ghost
-        icon={<EditOutlined />}
-        onClick={onClick}
-        size="small"
-        type="primary"
-      >
-        Update Tag
-      </Button>
-    )
-  },
-)
+  return (
+    <Button
+      ghost
+      icon={<EditOutlined />}
+      onClick={onClick}
+      size="small"
+      type="primary"
+    >
+      Update Tag
+    </Button>
+  )
+})
