@@ -51,13 +51,15 @@ describe('Component CRUD', () => {
       cy.waitForSpinners()
 
       cy.log('my app', prettifyForConsole(testApp))
-      cy.getCuiSidebar('Components').getCuiToolbarItem('Add Component').click()
+      cy.getCuiSidebar('Components')
+        .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
+        .click()
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
       cy.intercept('POST', 'api/graphql').as('createComponent')
       cy.getCuiPopover(MODEL_ACTION.CreateComponent.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
       cy.wait('@createComponent')
       cy.findByTestId('create-component-form').should('not.exist', {
@@ -104,7 +106,7 @@ describe('Component CRUD', () => {
         cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
         cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`)
           .getCuiTreeItemToolbar()
-          .getCuiToolbarItem('Add Child')
+          .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .click()
 
         cy.findByTestId('create-element-form').setFormFieldValue({
@@ -112,7 +114,7 @@ describe('Component CRUD', () => {
           type: FIELD_TYPE.SELECT,
           value: child.atom,
         })
-        // need to wait for the code to put the autocomputed name before typing
+        // need to wait for the code to put the auto-computed name before typing
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
         cy.findByTestId('create-element-form').setFormFieldValue({
@@ -122,7 +124,7 @@ describe('Component CRUD', () => {
         })
 
         cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-          .getCuiToolbarItem('Create')
+          .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .click()
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
@@ -173,7 +175,9 @@ describe('Component CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-      cy.getCuiSidebar('Explorer').getCuiToolbarItem('Add Element').click()
+      cy.getCuiSidebar('Explorer')
+        .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
+        .click()
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Render Type',
@@ -185,7 +189,7 @@ describe('Component CRUD', () => {
         type: FIELD_TYPE.SELECT,
         value: COMPONENT_NAME,
       })
-      // need to wait for the code to put the autocomputed name before typing
+      // need to wait for the code to put the auto-computed name before typing
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
 
@@ -196,7 +200,7 @@ describe('Component CRUD', () => {
       })
 
       cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
 
       cy.findByTestId('create-element-form').should('not.exist', {
@@ -224,7 +228,9 @@ describe('Component CRUD', () => {
       // Expand the children container
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
 
-      cy.getCuiSidebar('Explorer').getCuiToolbarItem('Add Element').click()
+      cy.getCuiSidebar('Explorer')
+        .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
+        .click()
 
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Atom',
@@ -232,7 +238,7 @@ describe('Component CRUD', () => {
         value: IAtomType.AntDesignTypographyText,
       })
 
-      // need to wait for the code to put the autocomputed name before typing
+      // need to wait for the code to put the auto-computed name before typing
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
 

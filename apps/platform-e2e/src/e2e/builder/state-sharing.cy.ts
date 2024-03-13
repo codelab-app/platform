@@ -84,7 +84,7 @@ describe('State variables sharing between pages', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
-    cy.getCuiToolbarItem('Add Field').click()
+    cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
 
     cy.waitForApiCalls()
 
@@ -110,7 +110,7 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', 'api/graphql').as('action')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
     cy.wait('@action')
 
@@ -139,7 +139,7 @@ describe('State variables sharing between pages', () => {
    */
   it('should create a state variable in the provider page', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
-    cy.getCuiToolbarItem('Add Field').click()
+    cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -163,7 +163,7 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', 'api/graphql').as('createState')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
     cy.wait('@createState')
   })

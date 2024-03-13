@@ -37,7 +37,7 @@ export const CY_DATA = {
   /**
    * toolbar
    */
-  cuiToolbarItem: (title: string) => `cui-toolbar-item-${title}`,
+  cuiToolbarItem: (key: ModelActionKey) => `cui-toolbar-item-${key}`,
 
   /**
    * tree

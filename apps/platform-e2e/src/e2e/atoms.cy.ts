@@ -17,7 +17,7 @@ describe('Atoms CRUD', () => {
 
       cy.getCuiSidebar('Atoms')
         .getCuiSidebarHeader()
-        .getCuiToolbarItem('Create Atom')
+        .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
         .click()
 
       cy.setFormFieldValue({ label: 'Name', value: atomName })
@@ -29,7 +29,7 @@ describe('Atoms CRUD', () => {
       })
 
       cy.getCuiPopover(MODEL_ACTION.CreateAtom.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateAtom.key)
         .click()
 
       cy.findByText(atomName).should('exist')
@@ -54,7 +54,7 @@ describe('Atoms CRUD', () => {
     it('should be able to delete an atom', () => {
       cy.getCuiTreeItemBySecondaryTitle(updatedAtomName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete atom')
+        .getCuiToolbarItem(MODEL_ACTION.DeleteAtom.key)
         .should('be.visible')
         .click()
       cy.waitForSpinners()

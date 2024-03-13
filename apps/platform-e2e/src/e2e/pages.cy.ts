@@ -27,12 +27,14 @@ describe('Pages CRUD', () => {
 
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
+      cy.getCuiSidebar('Pages')
+        .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
+        .click()
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
 
       cy.getCuiPopover(MODEL_ACTION.CreatePage.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
         .click()
     })
 
@@ -41,7 +43,7 @@ describe('Pages CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Open Builder')
+        .getCuiToolbarItem(MODEL_ACTION.OpenBuilder.key)
         .click()
 
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
@@ -55,7 +57,7 @@ describe('Pages CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Edit')
+        .getCuiToolbarItem(MODEL_ACTION.UpdatePage.key)
         .click()
 
       cy.waitForSpinners()
@@ -65,7 +67,7 @@ describe('Pages CRUD', () => {
         .findByLabelText('Name')
         .type(updatedPageName)
       cy.getCuiPopover(MODEL_ACTION.UpdatePage.key)
-        .getCuiToolbarItem('Update')
+        .getCuiToolbarItem(MODEL_ACTION.UpdatePage.key)
         .click()
       cy.findByTestId('update-page-form').should('not.exist')
 
@@ -79,7 +81,7 @@ describe('Pages CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).click()
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete')
+        .getCuiToolbarItem(MODEL_ACTION.DeletePage.key)
         .click()
 
       cy.waitForSpinners()

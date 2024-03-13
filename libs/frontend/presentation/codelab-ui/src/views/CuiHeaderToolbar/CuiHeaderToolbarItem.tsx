@@ -7,12 +7,13 @@ type CuiHeaderToolbarItemProps = ToolbarItem
 
 export const CuiHeaderToolbarItem = ({
   icon,
+  key,
   label,
   onClick,
   title,
 }: CuiHeaderToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(title)}>
+    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(key)}>
       <Tooltip title={title}>
         <Button className="h-8 px-2 py-1" onClick={onClick}>
           <Space>

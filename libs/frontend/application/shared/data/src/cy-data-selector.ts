@@ -39,7 +39,8 @@ export const CY_DATA_SELECTOR = {
   /**
    * toolbar
    */
-  cuiToolbarItem: (title: string) => wrapCyData(CY_DATA.cuiToolbarItem(title)),
+  cuiToolbarItem: (key: ModelActionKey) =>
+    wrapCyData(CY_DATA.cuiToolbarItem(key)),
 
   /**
    * tree

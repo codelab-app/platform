@@ -14,7 +14,7 @@ export const CuiPopoverToolbar = ({ items }: CuiPopoverToolbarProps) => {
       w-full
       justify-end
     `}
-      data-cy="codelabui-toolbar"
+      data-cy="cui-toolbar"
     >
       <div
         className={`

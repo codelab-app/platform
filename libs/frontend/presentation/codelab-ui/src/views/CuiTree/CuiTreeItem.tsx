@@ -33,7 +33,7 @@ export const CuiTreeItem = ({
   return (
     <div
       className={classNames(
-        'codelabui-tree-item h-full flex flex-row justify-between overflow-hidden',
+        'cui-tree-item h-full flex flex-row justify-between overflow-hidden',
         variantColors[variant ?? 'primary'],
       )}
       data-cy={CY_DATA.cuiTreeItem()}

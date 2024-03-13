@@ -14,7 +14,9 @@ describe('Resource CRUD', () => {
       cy.waitForSpinners()
       cy.findAllByText(resourceName).should('not.exist')
 
-      cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
+      cy.getCuiSidebar('Resources')
+        .getCuiToolbarItem(MODEL_ACTION.CreateResource.key)
+        .click()
 
       cy.setFormFieldValue({ label: 'Name', value: resourceName })
       cy.setFormFieldValue({
@@ -25,7 +27,7 @@ describe('Resource CRUD', () => {
       cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 
       cy.getCuiPopover(MODEL_ACTION.CreateResource.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateResource.key)
         .click()
 
       cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
@@ -52,7 +54,7 @@ describe('Resource CRUD', () => {
     it('should be able to delete resource', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedResourceName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete')
+        .getCuiToolbarItem(MODEL_ACTION.DeleteResource.key)
         .click()
 
       cy.getModalAction(/Delete Resource/).click()

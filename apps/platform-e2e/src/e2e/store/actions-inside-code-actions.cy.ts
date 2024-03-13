@@ -57,7 +57,9 @@ describe('Running actions inside code action with arguments', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -80,10 +82,12 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
 
-    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -106,7 +110,7 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
   })
 
@@ -115,7 +119,7 @@ describe('Running actions inside code action with arguments', () => {
 
     // API action
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -162,13 +166,13 @@ describe('Running actions inside code action with arguments', () => {
 
     cy.intercept('POST', 'api/graphql').as('createAction1')
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click({ force: true })
     cy.wait('@createAction1')
 
     // first code action
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -191,13 +195,13 @@ describe('Running actions inside code action with arguments', () => {
 
     cy.intercept('POST', 'api/graphql').as('createAction2')
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click({ force: true })
     cy.wait('@createAction2')
 
     // second code action
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -220,7 +224,7 @@ describe('Running actions inside code action with arguments', () => {
 
     cy.intercept('POST', 'api/graphql').as('createAction3')
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click({ force: true })
 
     cy.wait('@createAction3').then(({ response }) => {
@@ -233,7 +237,7 @@ describe('Running actions inside code action with arguments', () => {
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
     cy.getCuiSidebar('Explorer')
-      .getCuiToolbarItem('Add Element')
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .first()
       .click()
 
@@ -249,7 +253,7 @@ describe('Running actions inside code action with arguments', () => {
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "${stateKey1} - {{state['${stateKey1}']}}, ${stateKey2} - {{state['${stateKey2}']}}" }`,
     })
 
-    // need to wait for the code to put the autocomputed name before typing
+    // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
 
@@ -260,7 +264,7 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
 
     cy.findByTestId('create-element-form').should('not.exist', {
@@ -279,7 +283,7 @@ describe('Running actions inside code action with arguments', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
     cy.getCuiSidebar('Explorer')
-      .getCuiToolbarItem('Add Element')
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .first()
       .click()
 
@@ -297,7 +301,7 @@ describe('Running actions inside code action with arguments', () => {
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "Click button to run actions", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${codeActionId}", "type": "${actionTypeId}" } }`,
     })
 
-    // need to wait for the code to put the autocomputed name before typing
+    // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
@@ -308,7 +312,7 @@ describe('Running actions inside code action with arguments', () => {
 
     cy.intercept('POST', 'api/graphql').as('createElement')
     cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
     cy.wait('@createElement')
 

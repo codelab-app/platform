@@ -26,39 +26,41 @@
     justify-content: flex-start;
   }
 
-  :global(.ant-tree-treenode-selected.dragging) :global(.codelabui-tree-item) {
+  :global(.ant-tree-treenode-selected.dragging) :global(.cui-tree-item) {
     color: #ffffff !important;
   }
 
-  :global(.ant-tree-treenode-selected.dragging) :global(.codelabui-tree-item) span {
+  :global(.ant-tree-treenode-selected.dragging) :global(.cui-tree-item) span {
     color: #ffffff !important;
   }
 
-  :global(.ant-tree-treenode-selected) :global(.codelabui-tree-item) {
+  :global(.ant-tree-treenode-selected) :global(.cui-tree-item) {
     color: #ffffff !important;
   }
 
-  :global(.ant-tree-treenode-selected) :global(.codelabui-tree-item) span {
+  :global(.ant-tree-treenode-selected) :global(.cui-tree-item) span {
     color: #ffffff !important;
   }
 
-:global(.ant-tree-treenode-selected) :global(.codelabui-tree-item.text-red-500) span {
-  color: #c62b2b !important;
-}
+  :global(.ant-tree-treenode-selected)
+    :global(.cui-tree-item.text-red-500)
+    span {
+    color: #c62b2b !important;
+  }
 
   :global(.ant-tree-treenode-selected)::before {
     background-color: #1890ff !important;
   }
 
-  :global(.codelabui-tree-item-toolbar) {
+  :global(.cui-tree-item-toolbar) {
     display: none;
   }
 
-  :global(.ant-tree-treenode-selected) :global(.codelabui-tree-item-toolbar) {
+  :global(.ant-tree-treenode-selected) :global(.cui-tree-item-toolbar) {
     display: unset;
   }
 
-  :global(.ant-tree-treenode-hovered) :global(.codelabui-tree-item-toolbar) {
+  :global(.ant-tree-treenode-hovered) :global(.cui-tree-item-toolbar) {
     display: unset;
   }
 
@@ -77,7 +79,7 @@
     transform: translate(0, 4px);
 
     :global(.ant-tree-checkbox-inner) {
-      border-radius: 24px; 
+      border-radius: 24px;
     }
   }
 }

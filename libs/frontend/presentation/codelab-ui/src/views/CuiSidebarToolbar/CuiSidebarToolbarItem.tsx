@@ -7,11 +7,12 @@ type CuiSidebarToolbarItemProps = Omit<ToolbarItem, 'label'>
 
 export const CuiSidebarToolbarItem = ({
   icon,
+  key,
   onClick,
   title,
 }: CuiSidebarToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(title)}>
+    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(key)}>
       <Tooltip title={title}>
         <div
           className={`

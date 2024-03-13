@@ -40,7 +40,9 @@ describe('Store field CRUD', () => {
 
   it('should be able to create state variable', () => {
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     cy.setFormFieldValue({ label: 'Key', value: stateVarName })
     cy.setFormFieldValue({ label: 'Name', value: stateVarName })
@@ -50,7 +52,7 @@ describe('Store field CRUD', () => {
       value: IPrimitiveTypeKind.Integer,
     })
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
     cy.getCuiSidebarViewContent('State')
       .findByText(stateVarName)
@@ -66,7 +68,7 @@ describe('Store field CRUD', () => {
     cy.getCuiSidebarViewContent('State')
       .getCuiTreeItemByPrimaryTitle(stateVarName)
       .closestCuiTreeItem()
-      .getCuiToolbarItem('Edit field')
+      .getCuiToolbarItem(MODEL_ACTION.UpdateField.key)
       .click()
 
     cy.setFormFieldValue({
@@ -75,7 +77,7 @@ describe('Store field CRUD', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.UpdateField.key)
-      .getCuiToolbarItem('Update')
+      .getCuiToolbarItem(MODEL_ACTION.UpdateField.key)
       .click()
 
     cy.getCuiSidebarViewContent('State')
@@ -90,7 +92,7 @@ describe('Store field CRUD', () => {
     cy.getCuiSidebarViewContent('State')
       .getCuiTreeItemByPrimaryTitle(updatedStateVarName)
       .closestCuiTreeItem()
-      .getCuiToolbarItem('Delete field')
+      .getCuiToolbarItem(MODEL_ACTION.DeleteField.key)
       .click()
 
     cy.getModal().getModalAction('Delete').click()

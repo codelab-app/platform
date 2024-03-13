@@ -19,7 +19,7 @@ export const createElementTree = (
       ({ atom, name, parentElement, propsData }: ICreateCypressElementData) => {
         cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
         cy.getCuiSidebar('Explorer')
-          .getCuiToolbarItem('Add Element')
+          .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .first()
           .click()
 
@@ -72,7 +72,7 @@ export const createElementTree = (
         })
 
         cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-          .getCuiToolbarItem('Create')
+          .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .click()
 
         cy.findByTestId('create-element-form').should('not.exist', {
@@ -122,7 +122,7 @@ export const openBuilder = () => {
 export const createElementAndStoreId = () => {
   cy.intercept('POST', 'api/graphql').as('graphqlRequest')
   cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-    .getCuiToolbarItem('Create')
+    .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
     .click()
   cy.wait('@graphqlRequest').then(({ response }) => {
     cy.wrap(response?.body.data.createElements.elements[0].id).as(

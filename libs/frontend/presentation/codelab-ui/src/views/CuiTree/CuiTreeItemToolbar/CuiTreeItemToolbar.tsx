@@ -8,7 +8,7 @@ export type CuiTreeItemToolbarProps = ToolbarProps
 export const CuiTreeItemToolbar = ({ items }: CuiTreeItemToolbarProps) => {
   return (
     <div
-      className="codelabui-tree-item-toolbar flex w-full justify-end"
+      className="cui-tree-item-toolbar flex w-full justify-end"
       data-cy={CY_DATA.cuiTreeItemToolbar()}
     >
       <div className="flex flex-row items-start overflow-hidden">
