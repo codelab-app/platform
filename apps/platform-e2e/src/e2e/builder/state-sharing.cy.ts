@@ -17,7 +17,7 @@ import {
   spaceElement,
   spaceElementName,
   typographyTextElement,
-} from './components.data'
+} from './state-sharing.data'
 
 describe('State variables sharing between pages', () => {
   let app: IAppDto
