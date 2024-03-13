@@ -1,19 +1,15 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
-import type {
-  IAppDto,
-  ICreateComponentData,
-  ICreateElementData,
-  ICreatePageDto,
-  IPageDto,
-} from '@codelab/shared/abstract/core'
-import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
+import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 import {
   COMPONENT_NAME,
+  componentCreateData,
+  componentElementCreateData,
+  regularPageCreateData,
   spaceElement,
   spaceElementName,
   typographyTextElement,
@@ -31,16 +27,8 @@ describe('State variables sharing between pages', () => {
       .as('cypressApp')
 
     cy.get('@cypressApp').then(() => {
-      const createPageDto: ICreatePageDto = {
-        app,
-        id: v4(),
-        kind: IPageKind.Regular,
-        name: 'Test Page',
-        url: 'test-page',
-      }
-
       return cy
-        .postApiRequest<Page>('/page/create-page', createPageDto)
+        .postApiRequest<Page>('/page/create-page', regularPageCreateData(app))
         .then(({ body }) => {
           page = body
         })
@@ -49,14 +37,9 @@ describe('State variables sharing between pages', () => {
 
     cy.get('@cypressPage')
       .then(() => {
-        const createComponentData: ICreateComponentData = {
-          id: v4(),
-          name: COMPONENT_NAME,
-        }
-
         return cy.postApiRequest(
           '/component/create-component',
-          createComponentData,
+          componentCreateData,
         )
       })
       .as('cypressComponent')
@@ -196,16 +179,9 @@ describe('State variables sharing between pages', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    const createElementData: ICreateElementData = {
-      component: COMPONENT_NAME,
-      id: v4(),
-      name: COMPONENT_NAME,
-      parentElement: { id: page.rootElement.id },
-    }
-
     cy.postApiRequest(
       `element/${page.id}/create-element`,
-      createElementData,
+      componentElementCreateData(page),
     ).as('cypressElement')
 
     // FIXME: due to the caching of state in the store model, a new state is not being included

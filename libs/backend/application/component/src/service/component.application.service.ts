@@ -55,7 +55,6 @@ export class ComponentApplicationService {
       ...createComponentData,
       api,
       childrenContainerElement: rootElement,
-      id: v4(),
       props,
       rootElement,
       store,

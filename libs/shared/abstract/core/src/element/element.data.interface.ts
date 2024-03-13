@@ -3,6 +3,7 @@ import { Typebox } from '@codelab/shared/abstract/typebox'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import type { Overwrite } from 'utility-types'
+import { IRef } from '../model/node-type.interface'
 import type { IPropData } from '../prop/prop.dto.interface'
 
 /**
@@ -14,6 +15,9 @@ export const ICreateElementData = Type.Object({
    */
   // Can't use `IAtomType` due to circular import issue
   atom: Type.Optional(Type.Enum(AtomType)),
+  childMapperComponent: Typebox.Nullish(IRef),
+  childMapperPreviousSibling: Typebox.Nullish(IRef),
+  childMapperPropKey: Typebox.Nullish(Type.String()),
   // Name of the Component
   component: Type.Optional(Type.String()),
   id: Type.String(),

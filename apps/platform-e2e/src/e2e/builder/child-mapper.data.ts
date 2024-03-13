@@ -20,20 +20,20 @@ export const childMapperComponentElementTypography: ICreateElementData = {
   },
 }
 
-export const providerPageRowElement = {
+export const providerPageRowElement: ICreateElementData = {
   atom: IAtomType.AntDesignGridRow,
   id: v4(),
   name: 'Row',
 }
 
-export const providerPageRowFirstChild = {
+export const providerPageRowFirstChild: ICreateElementData = {
   atom: IAtomType.ReactFragment,
   id: v4(),
   name: 'Child 1',
   parentElement: { id: providerPageRowElement.id },
 }
 
-export const providerPageRowSecondChild = {
+export const providerPageRowSecondChild: ICreateElementData = {
   atom: IAtomType.ReactFragment,
   id: v4(),
   name: 'Child 2',

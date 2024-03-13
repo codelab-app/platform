@@ -24,9 +24,10 @@ export class PageApplicationService {
       where: { id: createPageDto.app.id },
     })
 
-    const rootElement = await this.elementApplicationService.createPageRootElement({
-      id: createPageDto.id,
-    })
+    const rootElement =
+      await this.elementApplicationService.createPageRootElement({
+        id: createPageDto.id,
+      })
 
     const api = await this.typeDomainService.createInterface({
       id: v4(),

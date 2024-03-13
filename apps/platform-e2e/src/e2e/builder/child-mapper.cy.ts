@@ -35,7 +35,7 @@ const setupTest = () => {
 
   cy.get('@cypressApp').then(() => {
     return cy
-      .postApiRequest<IComponentDto>(
+      .postApiRequest(
         `element/${page.rootElement.id}/create-elements`,
         providerPageElements(page),
       )
