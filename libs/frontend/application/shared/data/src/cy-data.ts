@@ -52,6 +52,9 @@ class CyDataBuilder {
     return new CyDataAccessor(`cui-sidebar-view-content-${label}`)
   }
 
+  /**
+   * VSCode uses views to refer to the accordions
+   */
   cuiSidebarViewHeader(label: string) {
     return new CyDataAccessor(`cui-sidebar-view-header-${label}`)
   }

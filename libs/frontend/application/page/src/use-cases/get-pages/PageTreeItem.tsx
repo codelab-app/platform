@@ -54,7 +54,7 @@ export const PageTreeItem = observer(
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.OpenBuilder.key,
+        cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
         icon: <BuildOutlined />,
         onClick: () => {
           void router.push({

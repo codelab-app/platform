@@ -48,7 +48,7 @@ export const modelDataMap = {
     uis: [CuiComponents.Sidebar],
   },
   [ModelName.Builder]: {
-    actions: ['Open', 'TogglePreviewMode'],
+    actions: ['OpenBuilder', 'OpenPreview'],
     uis: [CuiComponents.Sidebar],
   },
   [ModelName.Component]: {

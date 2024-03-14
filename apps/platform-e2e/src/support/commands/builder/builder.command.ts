@@ -101,8 +101,15 @@ export const openPreview = () => {
     name: 'open preview',
   })
 
-  cy.get('[data-cy="cui-toolbar-item-Preview"] button').click()
-  cy.get('[data-cy="cui-toolbar-item-Builder"] button').should('be.visible')
+  cy.getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
+    .find('button')
+    .click()
+
+  cy.waitForApiCalls()
+
+  cy.getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
+    .find('button')
+    .should('be.visible')
 
   cy.waitForSpinners()
 
@@ -114,8 +121,12 @@ export const openBuilder = () => {
     name: 'open builder',
   })
 
-  cy.get('[data-cy="cui-toolbar-item-Builder"] button').click()
-  cy.get('[data-cy="cui-toolbar-item-Preview"] button').should('be.visible')
+  cy.getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
+    .find('button')
+    .click()
+  cy.getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
+    .find('button')
+    .should('be.visible')
 
   cy.waitForSpinners()
 }

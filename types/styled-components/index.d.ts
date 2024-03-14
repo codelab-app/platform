@@ -1,22 +1,18 @@
-import { CSSProp } from 'styled-components'
-import React from 'react'
-
 /**
- * https://github.com/styled-components/styled-components/issues/2528
+ * https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31245
  */
+import { CSSProp } from 'styled-components'
+import 'styled-components/cssprop'
+
 declare module 'react' {
-  interface Attributes {
-    // NOTE: unlike the plain javascript version, it is not possible to get access
-    // to the element's own attributes inside function interpolations.
-    // Only theme will be accessible, and only with the DefaultTheme due to the global
-    // nature of this declaration.
-    // If you are writing this inline you already have access to all the attributes anyway,
-    // no need for the extra indirection.
-    /**
-     * If present, this React element will be converted by
-     * `babel-plugin-styled-components` into a styled component
-     * with the given css as its styles.
-     */
-    css?: CSSProp | undefined
+  interface DOMAttributes<T> {
+    css?: CSSProp
+  }
+}
+declare global {
+  namespace JSX {
+    interface IntrinsicAttributes {
+      css?: CSSProp
+    }
   }
 }

@@ -31,7 +31,7 @@ const openPageByName = (name: string) => {
     .click()
   cy.getCuiTreeItemByPrimaryTitle(name)
     .getCuiTreeItemToolbar()
-    .getCuiToolbarItem(MODEL_ACTION.OpenBuilder.key)
+    .getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
     .click()
 
   cy.waitForSpinners()

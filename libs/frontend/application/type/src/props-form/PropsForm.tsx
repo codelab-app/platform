@@ -49,11 +49,7 @@ export const PropsForm = observer<PropsFormProps>(
     }
 
     return (
-      <div
-        css={`
-          ${cssString}
-        `}
-      >
+      <div css={cssString}>
         <InterfaceForm
           autosave={autosave}
           context={{ autocomplete }}

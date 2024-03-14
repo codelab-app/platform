@@ -45,7 +45,7 @@ describe('Pages CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem(MODEL_ACTION.OpenBuilder.key)
+        .getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
         .click()
 
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
