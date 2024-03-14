@@ -1,4 +1,5 @@
 import type { IUpdateAppData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -26,6 +27,7 @@ export const UpdateAppModal = observer(() => {
       open={appService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateAppData>
+        key={MODEL_ACTION.UpdateApp.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

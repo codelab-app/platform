@@ -1,4 +1,5 @@
 import type { IStoreModel } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -55,6 +56,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
         open={actionService.createModal.isOpen}
       >
         <ModalForm.Form<ICreateActionData>
+          key={MODEL_ACTION.CreateAction.key}
           model={model}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({

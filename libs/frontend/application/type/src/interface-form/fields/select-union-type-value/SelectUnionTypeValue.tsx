@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IFieldDefaultValue } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createValidator, Form } from '@codelab/frontend/presentation/view'
 import { usePrevious } from '@codelab/frontend/shared/utils'
 import { Form as AntdForm } from 'antd'
@@ -129,27 +130,29 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
           style={{ minWidth: '5rem' }}
         />
 
-        <Form
-          key={selectedTypeId}
-          model={model}
-          onChangeModel={(formData) => {
-            // This automatically sets the default values into the formData for the properties that has a default value
-            // This is needed for ReactNodeType or similar types where the schema has a default `type` field value
-            // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
-            const validate = createValidator(valueSchema)
+        <div key={selectedTypeId}>
+          <Form
+            key={MODEL_ACTION.SelectUnionTypeValueField.key}
+            model={model}
+            onChangeModel={(formData) => {
+              // This automatically sets the default values into the formData for the properties that has a default value
+              // This is needed for ReactNodeType or similar types where the schema has a default `type` field value
+              // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
+              const validate = createValidator(valueSchema)
 
-            validate(formData)
+              validate(formData)
 
-            context.onChange(
-              concatenateName(valueFieldName, context),
-              formData.value,
-            )
-          }}
-          onSubmit={() => Promise.resolve()}
-          schema={valueSchema as any}
-        >
-          <AutoField data-testid={valueFieldName} name="value" />
-        </Form>
+              context.onChange(
+                concatenateName(valueFieldName, context),
+                formData.value,
+              )
+            }}
+            onSubmit={() => Promise.resolve()}
+            schema={valueSchema as any}
+          >
+            <AutoField data-testid={valueFieldName} name="value" />
+          </Form>
+        </div>
       </div>
     </AntdForm.Item>
   )

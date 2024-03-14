@@ -1,5 +1,8 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
@@ -40,6 +43,7 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
 
     return (
       <Form<ICreateAuthGuardData>
+        key={MODEL_ACTION.CreateAuthGuard.key}
         model={{ id: v4() }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

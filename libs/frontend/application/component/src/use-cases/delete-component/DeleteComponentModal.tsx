@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -25,6 +26,7 @@ export const DeleteComponentModal = observer(() => {
       open={componentService.deleteModal.isOpen}
     >
       <ModalForm.Form
+        key={MODEL_ACTION.DeleteComponent.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

@@ -1,4 +1,5 @@
 import type { IUpdateTagData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -38,6 +39,7 @@ export const UpdateTagModal = observer(() => {
       open={tagService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateTagData>
+        key={MODEL_ACTION.UpdateTag.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

@@ -1,5 +1,8 @@
 import type { ICreateTagData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -42,6 +45,7 @@ export const CreateTagForm = observer(
 
     return (
       <Form<ICreateTagData>
+        key={MODEL_ACTION.CreateTag.key}
         model={{
           id: v4(),
           parent: { id: defaultOption.value.toString() },

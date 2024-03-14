@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -26,6 +27,7 @@ export const UpdateResourceForm = observer(() => {
 
   return (
     <Form<IUpdateResourceData>
+      key={MODEL_ACTION.UpdateResource.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createFormErrorNotificationHandler({

@@ -1,4 +1,5 @@
 import { ModelName } from './model.types'
+import { MODEL_ACTION } from './model-action.factory'
 import { ModelAction } from './model-action.types'
 import { CuiComponents } from './model-ui.types'
 
@@ -19,7 +20,13 @@ export const modelDataMap = {
     uis: [],
   },
   [ModelName.App]: {
-    actions: [ModelAction.Create, 'Import'],
+    actions: [
+      ModelAction.Create,
+      ModelAction.Update,
+      ModelAction.Delete,
+      'Import',
+      'Build',
+    ],
     uis: [],
   },
   [ModelName.Atom]: {
@@ -63,6 +70,7 @@ export const modelDataMap = {
       ModelAction.CancelCreate,
       ModelAction.Update,
       ModelAction.Delete,
+      'Move',
     ],
     uis: [],
   },
@@ -73,6 +81,8 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.CancelUpdate,
       ModelAction.Delete,
+      'SelectDefaultValue',
+      'SelectUnionTypeValue',
     ],
     uis: [],
   },
@@ -87,7 +97,6 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.CancelUpdate,
       ModelAction.Delete,
-      'Build',
     ],
     uis: [CuiComponents.Sidebar],
   },
@@ -113,6 +122,14 @@ export const modelDataMap = {
       ModelAction.Delete,
     ],
     uis: [CuiComponents.Sidebar],
+  },
+  [ModelName.Admin]: {
+    actions: ['ImportData', 'ExportData'],
+    uis: [],
+  },
+  [ModelName.Prop]: {
+    actions: [],
+    uis: [],
   },
   [ModelName.Tag]: {
     actions: [

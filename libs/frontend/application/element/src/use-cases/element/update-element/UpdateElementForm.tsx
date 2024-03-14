@@ -3,6 +3,7 @@ import type {
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectActionField } from '@codelab/frontend/application/type'
 import {
@@ -60,57 +61,59 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const runtimeProps = runtimeElement?.runtimeProps
 
     return (
-      <Form<IUpdateBaseElementData>
-        autosave
-        key={element.id}
-        model={element.toJson}
-        onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while updating element',
-        })}
-        schema={updateElementSchema}
-      >
-        <AutoComputedElementNameField label="Name" name="name" />
-        <AutoFields
-          omitFields={[
-            'childMapperComponent',
-            'childMapperPreviousSibling',
-            'childMapperPropKey',
-            'renderIfExpression',
-            'renderForEachPropKey',
-            // We edit it in the css tab
-            'style',
-            'tailwindClassNames',
-            'preRenderAction',
-            'postRenderAction',
-            'renderType',
-            'name',
-          ]}
-        />
-        <Collapse defaultActiveKey={expandedFields}>
-          <Collapse.Panel header="Renderer" key="renderer">
-            <RenderTypeCompositeField name="renderType" />
-          </Collapse.Panel>
-          <Collapse.Panel header="Render Condition" key="renderCondition">
-            <AutoField
-              component={CodeMirrorField({
-                customOptions: createAutoCompleteOptions(
-                  runtimeProps?.expressionEvaluationContext,
-                ),
-                language: CodeMirrorLanguage.Javascript,
-              })}
-              name="renderIfExpression"
-            />
-          </Collapse.Panel>
-          <Collapse.Panel header="Hooks Actions" key="actions">
-            <SelectActionField name="preRenderAction" />
-            <SelectActionField name="postRenderAction" />
-          </Collapse.Panel>
-          <Collapse.Panel header="Child Mapper" key="childMapper">
-            <ChildMapperCompositeField element={element} />
-          </Collapse.Panel>
-        </Collapse>
-      </Form>
+      <div key={element.id}>
+        <Form<IUpdateBaseElementData>
+          autosave
+          key={MODEL_ACTION.UpdateElement.key}
+          model={element.toJson}
+          onSubmit={onSubmit}
+          onSubmitError={createFormErrorNotificationHandler({
+            title: 'Error while updating element',
+          })}
+          schema={updateElementSchema}
+        >
+          <AutoComputedElementNameField label="Name" name="name" />
+          <AutoFields
+            omitFields={[
+              'childMapperComponent',
+              'childMapperPreviousSibling',
+              'childMapperPropKey',
+              'renderIfExpression',
+              'renderForEachPropKey',
+              // We edit it in the css tab
+              'style',
+              'tailwindClassNames',
+              'preRenderAction',
+              'postRenderAction',
+              'renderType',
+              'name',
+            ]}
+          />
+          <Collapse defaultActiveKey={expandedFields}>
+            <Collapse.Panel header="Renderer" key="renderer">
+              <RenderTypeCompositeField name="renderType" />
+            </Collapse.Panel>
+            <Collapse.Panel header="Render Condition" key="renderCondition">
+              <AutoField
+                component={CodeMirrorField({
+                  customOptions: createAutoCompleteOptions(
+                    runtimeProps?.expressionEvaluationContext,
+                  ),
+                  language: CodeMirrorLanguage.Javascript,
+                })}
+                name="renderIfExpression"
+              />
+            </Collapse.Panel>
+            <Collapse.Panel header="Hooks Actions" key="actions">
+              <SelectActionField name="preRenderAction" />
+              <SelectActionField name="postRenderAction" />
+            </Collapse.Panel>
+            <Collapse.Panel header="Child Mapper" key="childMapper">
+              <ChildMapperCompositeField element={element} />
+            </Collapse.Panel>
+          </Collapse>
+        </Form>
+      </div>
     )
   },
 )

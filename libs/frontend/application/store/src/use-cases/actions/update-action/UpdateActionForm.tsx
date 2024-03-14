@@ -1,4 +1,7 @@
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -75,6 +78,7 @@ export const UpdateActionForm = observer(
 
     return (
       <Form<IUpdateActionData>
+        key={MODEL_ACTION.UpdateAction.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

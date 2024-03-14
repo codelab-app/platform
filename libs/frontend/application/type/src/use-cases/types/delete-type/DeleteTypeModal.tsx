@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -49,6 +50,7 @@ export const DeleteTypeModal = observer(() => {
       title={<span className="font-semibold">Delete type</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
+        key={MODEL_ACTION.DeleteType.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

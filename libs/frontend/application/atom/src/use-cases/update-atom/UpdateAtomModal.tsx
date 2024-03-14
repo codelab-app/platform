@@ -1,4 +1,5 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -46,6 +47,7 @@ export const UpdateAtomModal = observer(() => {
       open={atomService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateAtomData>
+        key={MODEL_ACTION.UpdateAtom.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

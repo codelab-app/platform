@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -34,6 +35,7 @@ export const DeleteDomainModal = observer(() => {
       title={<span className="font-semibold">Delete domain</span>}
     >
       <ModalForm.Form
+        key={MODEL_ACTION.DeleteDomain.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

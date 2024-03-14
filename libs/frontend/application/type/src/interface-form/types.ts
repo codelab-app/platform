@@ -10,7 +10,7 @@ import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import type { Assign } from 'utility-types'
 
 export type InterfaceFormProps<TData, TResponse> = Assign<
-  Omit<FormProps<TData, TResponse>, 'schema'>,
+  Omit<FormProps<TData, TResponse>, 'key' | 'schema'>,
   SubmitRef & {
     context?: UiPropertiesContext
     initialSchema?: object

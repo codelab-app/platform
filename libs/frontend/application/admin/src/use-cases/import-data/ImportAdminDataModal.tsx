@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -18,6 +19,7 @@ export const ImportAdminDataModal = observer(() => {
       open={adminService.importDataModal.isOpen}
     >
       <ModalForm.Form<ExportDto>
+        key={MODEL_ACTION.ImportDataAdmin.key}
         model={importDtoDefault}
         onSubmit={(data) => adminService.importData(data)}
         onSubmitError={createFormErrorNotificationHandler({

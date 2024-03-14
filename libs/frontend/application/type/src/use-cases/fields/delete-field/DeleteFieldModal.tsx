@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -17,7 +18,6 @@ export const DeleteFieldModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="delete-field-modal"
       okButtonProps={{ danger: true }}
       okText="Delete"
       onCancel={closeModal}
@@ -25,6 +25,7 @@ export const DeleteFieldModal = observer(() => {
       title={<span className="font-semibold">Delete field</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
+        key={MODEL_ACTION.DeleteField.key}
         model={{}}
         onSubmit={(input) => {
           return fieldService.delete([field])

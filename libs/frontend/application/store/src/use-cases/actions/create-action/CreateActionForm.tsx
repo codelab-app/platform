@@ -1,4 +1,7 @@
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -72,6 +75,7 @@ export const CreateActionForm = observer(
 
     return (
       <Form<ICreateActionData>
+        key={MODEL_ACTION.CreateAction.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

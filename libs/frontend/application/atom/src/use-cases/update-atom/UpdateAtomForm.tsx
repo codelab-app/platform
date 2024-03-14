@@ -1,4 +1,5 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIfField,
@@ -44,6 +45,7 @@ export const UpdateAtomForm = observer(() => {
 
   return (
     <Form<IUpdateAtomData>
+      key={MODEL_ACTION.UpdateAtom.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}

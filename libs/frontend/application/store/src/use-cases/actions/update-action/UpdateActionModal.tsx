@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -57,6 +58,7 @@ export const UpdateActionModal = observer(() => {
       open={actionService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateActionData>
+        key={MODEL_ACTION.UpdateAction.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

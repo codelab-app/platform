@@ -1,5 +1,6 @@
 import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   checkDomainExists,
@@ -48,6 +49,7 @@ export const CreateDomainModal = observer(() => {
       open={domainService.createModal.isOpen}
     >
       <ModalForm.Form
+        key={MODEL_ACTION.CreateDomain.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

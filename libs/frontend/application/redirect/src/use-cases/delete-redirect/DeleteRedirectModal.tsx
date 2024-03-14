@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -37,13 +38,13 @@ export const DeleteRedirectModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="delete-redirects-modal"
       okText="Delete Redirect"
       onCancel={onSubmitSuccess}
       open={redirectService.deleteModal.isOpen}
       title="Delete Confirmation"
     >
       <ModalForm.Form
+        key={MODEL_ACTION.DeleteRedirect.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

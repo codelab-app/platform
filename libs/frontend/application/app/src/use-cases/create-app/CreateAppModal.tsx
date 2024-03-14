@@ -1,4 +1,5 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -32,6 +33,7 @@ export const CreateAppModal = observer(() => {
       open={appService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateAppData>
+        key={MODEL_ACTION.CreateApp.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

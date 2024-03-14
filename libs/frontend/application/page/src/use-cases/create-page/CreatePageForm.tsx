@@ -1,5 +1,8 @@
 import type { ICreatePageFormData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentApp } from '@codelab/frontend/presentation/container'
 import {
@@ -51,7 +54,7 @@ export const CreatePageForm = observer(
 
     return (
       <Form<ICreatePageFormData>
-        data-testid="create-page-form"
+        key={MODEL_ACTION.CreatePage.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

@@ -1,4 +1,7 @@
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -50,7 +53,7 @@ export const CreateComponentForm = observer(
 
     return (
       <Form<ICreateComponentData>
-        data-testid="create-component-form"
+        key={MODEL_ACTION.CreateComponent.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

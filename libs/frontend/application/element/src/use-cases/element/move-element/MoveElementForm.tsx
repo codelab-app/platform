@@ -2,6 +2,7 @@ import {
   type IElementModel,
   type MoveData,
 } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/application/type'
 import { mapElementOption } from '@codelab/frontend/domain/element'
@@ -79,35 +80,37 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
     : elementTree?.elements.map(mapElementOption)
 
   return (
-    <MoveElementAutoForm<MoveData>
-      autosave
-      key={element.id}
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={createFormErrorNotificationHandler({
-        title: 'Error while moving element',
-      })}
-      schema={moveElementSchema}
-    >
-      <AutoFields omitFields={['parentElement', 'prevSibling']} />
-      <AutoField
-        component={observer((props) => {
-          return (
-            <SelectExcludeDescendantsElements
-              allElementOptions={elementOptions}
-              allowClear={false}
-              targetElementId={element.id}
-              // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
-              {...(props as any)}
-            />
-          )
+    <div key={element.id}>
+      <MoveElementAutoForm<MoveData>
+        autosave
+        key={MODEL_ACTION.MoveElement.key}
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while moving element',
         })}
-        name="parentElement.id"
-      />
-      <SelectLinkElement
-        allElementOptions={elementOptions}
-        name="prevSibling.id"
-      />
-    </MoveElementAutoForm>
+        schema={moveElementSchema}
+      >
+        <AutoFields omitFields={['parentElement', 'prevSibling']} />
+        <AutoField
+          component={observer((props) => {
+            return (
+              <SelectExcludeDescendantsElements
+                allElementOptions={elementOptions}
+                allowClear={false}
+                targetElementId={element.id}
+                // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
+                {...(props as any)}
+              />
+            )
+          })}
+          name="parentElement.id"
+        />
+        <SelectLinkElement
+          allElementOptions={elementOptions}
+          name="prevSibling.id"
+        />
+      </MoveElementAutoForm>
+    </div>
   )
 })

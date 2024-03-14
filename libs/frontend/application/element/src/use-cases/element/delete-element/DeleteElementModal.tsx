@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -35,6 +36,7 @@ export const DeleteElementModal = observer(() => {
       title={<span className="font-semibold">Delete element</span>}
     >
       <ModalForm.Form<DeleteElementData>
+        key={MODEL_ACTION.DeleteElement.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

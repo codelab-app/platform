@@ -93,7 +93,7 @@ export const PageTreeItem = observer(
       },
       {
         icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
-        key: MODEL_ACTION.BuildPage.key,
+        key: MODEL_ACTION.BuildApp.key,
         onClick: async () => {
           let pageDomains = domains.filter(
             (domain) => domain.app.id === page.app.id,

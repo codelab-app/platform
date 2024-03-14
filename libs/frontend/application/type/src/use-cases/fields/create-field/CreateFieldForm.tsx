@@ -1,5 +1,8 @@
 import type { ICreateFieldData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -65,6 +68,7 @@ export const CreateFieldForm = observer(
 
     return (
       <Form<ICreateFieldData>
+        key={MODEL_ACTION.CreateField.key}
         model={{
           id: v4(),
           interfaceTypeId,

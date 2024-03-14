@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -30,6 +31,7 @@ export const CreateComponentModal = observer(() => {
       title={<span className="font-semibold">Create component</span>}
     >
       <ModalForm.Form<ICreateComponentData>
+        key={MODEL_ACTION.CreateComponent.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

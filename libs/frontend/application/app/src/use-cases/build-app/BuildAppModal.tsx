@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -33,6 +34,7 @@ export const BuildAppModal = observer(() => {
       open={appService.buildModal.isOpen}
     >
       <ModalForm.Form
+        key={MODEL_ACTION.BuildApp.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

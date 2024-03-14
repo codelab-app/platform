@@ -1,4 +1,5 @@
 import type { IUpdateFieldData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -43,13 +44,13 @@ export const UpdateFieldModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="update-field-modal"
       okText="Update"
       onCancel={closeModal}
       open={fieldService.updateModal.isOpen}
       title={<span className="font-semibold">Update field</span>}
     >
       <ModalForm.Form<IUpdateFieldData>
+        key={MODEL_ACTION.UpdateField.key}
         model={{
           defaultValues: field?.defaultValues,
           description: field?.description,

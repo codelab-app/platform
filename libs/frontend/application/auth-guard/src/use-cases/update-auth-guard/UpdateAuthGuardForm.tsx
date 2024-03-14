@@ -1,4 +1,5 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
@@ -40,6 +41,7 @@ export const UpdateAuthGuardForm = observer(() => {
 
   return (
     <Form<IUpdateAuthGuardData>
+      key={MODEL_ACTION.UpdateAuthGuard.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createFormErrorNotificationHandler({

@@ -1,4 +1,5 @@
 import type { IPageModel } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -17,6 +18,7 @@ export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
       open={pageService.deleteModal.isOpen}
     >
       <ModalForm.Form
+        key={MODEL_ACTION.DeletePage.key}
         model={{}}
         onSubmit={() => pageService.delete([page])}
         onSubmitError={createFormErrorNotificationHandler({

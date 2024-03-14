@@ -1,4 +1,5 @@
 import type { ICreateFieldData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -44,13 +45,13 @@ export const CreateFieldModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="create-field-modal"
       okText="Create"
       onCancel={closeModal}
       open={fieldService.createModal.isOpen}
       title={<span className="font-semibold">Create field</span>}
     >
       <ModalForm.Form<ICreateFieldData>
+        key={MODEL_ACTION.CreateField.key}
         model={{
           id: v4(),
           interfaceTypeId,

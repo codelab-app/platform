@@ -58,6 +58,7 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "tailwindcss/no-custom-classname": ["error", {}],
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
         // "unused-imports/no-unused-imports-ts": "error",
         "@typescript-eslint/no-unused-vars": "off",

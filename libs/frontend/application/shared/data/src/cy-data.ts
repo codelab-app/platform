@@ -7,6 +7,11 @@ export const wrapCyData = (data: string) => `[data-cy="${data}"]`
 
 export const CY_DATA = {
   /**
+   * from
+   */
+  cuiForm: (key: ModelActionKey) => `cui-form-${key}`,
+
+  /**
    * header-toolbar
    */
   cuiHeader: () => 'cui-header',
