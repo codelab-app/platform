@@ -33,10 +33,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    // instrumentationHook: true,
-    // instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
-  },
+  experimental: {},
   nx: { svgr: true },
   /**
    * https://github.com/vercel/next.js/issues/58817

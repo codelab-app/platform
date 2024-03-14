@@ -29,7 +29,7 @@ export const CY_DATA = {
   /**
    * sidebar
    */
-  cuiSidebar: (key: ModelUiKey) => `cui-sidebar-${key}`,
+  cuiSidebar: (key: ModelUiKey) => `cui-${key}`,
 
   cuiSidebarHeader: () => 'cui-sidebar-header',
 

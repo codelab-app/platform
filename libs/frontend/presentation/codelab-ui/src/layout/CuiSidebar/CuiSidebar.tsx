@@ -45,6 +45,8 @@ export const CuiSidebar = ({
   toolbar,
   views,
 }: CuiSidebarProps) => {
+  console.log(key)
+
   const sidebarRef = useRef<HTMLDivElement>(null)
 
   return (
