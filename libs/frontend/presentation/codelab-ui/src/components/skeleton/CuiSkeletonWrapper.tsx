@@ -14,7 +14,7 @@ export const CuiSkeletonWrapper = ({
   <div className="size-full">
     <div
       className={`size-full ${isLoading ? 'block' : 'hidden'}`}
-      data-cy={CY_DATA.cuiSkeleton()}
+      data-cy={CY_DATA.cuiSkeleton().cyData}
     >
       <Skeleton active loading style={{ padding: 5 }} />
     </div>

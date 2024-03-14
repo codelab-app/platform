@@ -1,5 +1,5 @@
-import { DOMAttributes } from 'react'
 import { CSSProp } from 'styled-components'
+import React from 'react'
 
 /**
  * https://github.com/styled-components/styled-components/issues/2528

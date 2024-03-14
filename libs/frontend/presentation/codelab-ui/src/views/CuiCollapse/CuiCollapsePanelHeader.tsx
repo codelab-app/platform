@@ -28,7 +28,7 @@ export const CuiCollapsePanelHeader = ({
 
   return (
     <div
-      className={`
+      className="
         flex
         max-h-20
         cursor-pointer
@@ -39,28 +39,28 @@ export const CuiCollapsePanelHeader = ({
         border-solid
         border-gray-300
         px-3
-      `}
-      data-cy={CY_DATA.cuiSidebarViewHeader(label)}
+      "
+      data-cy={CY_DATA.cuiSidebarViewHeader(label).cyData}
       onClick={updateExpand}
     >
       <div
-        className={`
+        className="
           flex
           min-w-1/4
           flex-row
           items-center
           justify-start
           overflow-hidden
-        `}
+        "
       >
         <div
-          className={`
-          flex
-          h-full
-          flex-col
-          justify-center
-          px-1
-        `}
+          className="
+            flex
+            h-full
+            flex-col
+            justify-center
+            px-1
+          "
         >
           {expanded ? (
             <DownOutlined style={{ fontSize: '12px' }} />

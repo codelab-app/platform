@@ -3,60 +3,85 @@ import type {
   ModelUiKey,
 } from '@codelab/frontend/abstract/types'
 
-export const wrapCyData = (data: string) => `[data-cy="${data}"]`
+/**
+ * Return this so we can't chain anymore get methods
+ */
+class CyDataAccessor {
+  constructor(private data: string) {}
 
-export const CY_DATA = {
-  /**
-   * from
-   */
-  cuiForm: (key: ModelActionKey) => `cui-form-${key}`,
+  get cyData() {
+    return this.data
+  }
 
-  /**
-   * header-toolbar
-   */
-  cuiHeader: () => 'cui-header',
-
-  /**
-   * navigation-bar
-   */
-  cuiNavigationBarItem: (title: string) => `cui-navigation-bar-item-${title}`,
-
-  /**
-   * popover
-   */
-  cuiPopover: (key: ModelActionKey) => `cui-sidebar-popover-${key}`,
-
-  /**
-   * sidebar
-   */
-  cuiSidebar: (key: ModelUiKey) => `cui-${key}`,
-
-  cuiSidebarHeader: () => 'cui-sidebar-header',
-
-  cuiSidebarViewContent: (label: string) => `cui-sidebar-view-content-${label}`,
-
-  cuiSidebarViewHeader: (label: string) => `cui-sidebar-view-header-${label}`,
-
-  /**
-   * skeleton
-   */
-  cuiSkeleton: () => 'cui-skeleton',
-
-  /**
-   * toolbar
-   */
-  cuiToolbarItem: (key: ModelActionKey) => `cui-toolbar-item-${key}`,
-
-  /**
-   * tree
-   */
-  cuiTreeItem: () => 'cui-tree-item',
-
-  cuiTreeItemPrimaryTitle: (primaryTitle: string) =>
-    `cui-tree-item-primary-title-${primaryTitle}`,
-
-  cuiTreeItemSecondaryTitle: (secondaryTitle: string) =>
-    `cui-tree-item-secondary-title-${secondaryTitle}`,
-
-  cuiTreeItemToolbar: () => 'cui-tree-item-toolbar',
+  get cySelector() {
+    return `[data-cy="${this.data}"]`
+  }
 }
+
+class CyDataBuilder {
+  /** form */
+  cuiForm(key: ModelActionKey) {
+    return new CyDataAccessor(`cui-form-${key}`)
+  }
+
+  /** header-toolbar */
+  cuiHeader() {
+    return new CyDataAccessor('cui-header')
+  }
+
+  /** navigation-bar */
+  cuiNavigationBarItem(title: string) {
+    return new CyDataAccessor(`cui-navigation-bar-item-${title}`)
+  }
+
+  /** popover */
+  cuiPopover(key: ModelActionKey) {
+    return new CyDataAccessor(`cui-sidebar-popover-${key}`)
+  }
+
+  /** sidebar */
+  cuiSidebar(key: ModelUiKey) {
+    return new CyDataAccessor(`cui-${key}`)
+  }
+
+  cuiSidebarHeader() {
+    return new CyDataAccessor('cui-sidebar-header')
+  }
+
+  cuiSidebarViewContent(label: string) {
+    return new CyDataAccessor(`cui-sidebar-view-content-${label}`)
+  }
+
+  cuiSidebarViewHeader(label: string) {
+    return new CyDataAccessor(`cui-sidebar-view-header-${label}`)
+  }
+
+  /** skeleton */
+  cuiSkeleton() {
+    return new CyDataAccessor('cui-skeleton')
+  }
+
+  /** toolbar */
+  cuiToolbarItem(key: ModelActionKey) {
+    return new CyDataAccessor(`cui-toolbar-item-${key}`)
+  }
+
+  /** tree */
+  cuiTreeItem() {
+    return new CyDataAccessor('cui-tree-item')
+  }
+
+  cuiTreeItemPrimaryTitle(primaryTitle: string) {
+    return new CyDataAccessor(`cui-tree-item-primary-title-${primaryTitle}`)
+  }
+
+  cuiTreeItemSecondaryTitle(secondaryTitle: string) {
+    return new CyDataAccessor(`cui-tree-item-secondary-title-${secondaryTitle}`)
+  }
+
+  cuiTreeItemToolbar() {
+    return new CyDataAccessor('cui-tree-item-toolbar')
+  }
+}
+
+export const CY_DATA = new CyDataBuilder()

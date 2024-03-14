@@ -12,18 +12,18 @@ export const CuiSidebarToolbarItem = ({
   title,
 }: CuiSidebarToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(cuiKey)}>
+    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(cuiKey).cyData}>
       <Tooltip title={title}>
         <div
-          className={`
-          flex
-          size-full
-          cursor-pointer
-          flex-col
-          items-center
-          justify-center
-          p-1
-        `}
+          className="
+            flex
+            size-full
+            cursor-pointer
+            flex-col
+            items-center
+            justify-center
+            p-1
+          "
           onClick={onClick}
         >
           {icon}

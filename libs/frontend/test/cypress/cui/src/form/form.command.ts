@@ -1,5 +1,5 @@
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
-import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 
 export const getCuiForm = (key: ModelActionKey) => {
   Cypress.log({
@@ -7,5 +7,5 @@ export const getCuiForm = (key: ModelActionKey) => {
     name: 'getCuiForm',
   })
 
-  return cy.get(CY_DATA_SELECTOR.cuiForm(key))
+  return cy.get(wrapCyData(CY_DATA.cuiForm(key)))
 }

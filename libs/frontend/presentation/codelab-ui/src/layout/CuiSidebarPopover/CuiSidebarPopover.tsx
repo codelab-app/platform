@@ -26,33 +26,33 @@ export const CuiSidebarPopover = observer(
     return isOpen ? (
       <div
         className="
-        flex
-        w-full
-        flex-col
-        justify-start
-        border-0
-        border-r-2
-        border-solid
-        border-gray-300
-        bg-white
+          flex
+          w-full
+          flex-col
+          justify-start
+          border-0
+          border-r-2
+          border-solid
+          border-gray-300
+          bg-white
         "
-        data-cy={CY_DATA.cuiPopover(id)}
+        data-cy={CY_DATA.cuiPopover(id).cyData}
       >
         <CuiSidebarPopoverHeader label={label} toolbar={toolbar} />
         <div
           className="
-          box-border
-          flex
-          h-full
-          grow
-          flex-col
-          justify-start
-          overflow-y-auto
-          overflow-x-hidden
-          bg-white
-          p-2
-          align-middle
-        "
+            box-border
+            flex
+            h-full
+            grow
+            flex-col
+            justify-start
+            overflow-y-auto
+            overflow-x-hidden
+            bg-white
+            p-2
+            align-middle
+          "
         >
           {children}
         </div>
