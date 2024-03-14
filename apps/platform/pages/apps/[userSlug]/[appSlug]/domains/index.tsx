@@ -52,8 +52,8 @@ const DomainsPageHeader = observer(() => {
         <CuiHeaderToolbar
           items={[
             {
+              cuiKey: MODEL_ACTION.CreateDomain.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateDomain.key,
               onClick: () => domainService.createModal.open(),
               title: 'Create Domain',
             },

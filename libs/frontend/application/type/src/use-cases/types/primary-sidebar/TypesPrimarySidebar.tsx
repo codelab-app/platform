@@ -29,7 +29,6 @@ export const TypesPrimarySidebar = observer(() => {
   return (
     <CuiSidebar
       defaultActiveViewKeys={['types-view']}
-      key={MODEL_UI.SidebarType.key}
       label="Types"
       popover={
         <>
@@ -37,6 +36,7 @@ export const TypesPrimarySidebar = observer(() => {
           <CreateFieldPopover />
         </>
       }
+      uiKey={MODEL_UI.SidebarType.key}
       views={[
         {
           content: <TypesTreeView showSearchBar={showSearchBar} />,
@@ -46,8 +46,8 @@ export const TypesPrimarySidebar = observer(() => {
             items: [
               ...items,
               {
+                cuiKey: MODEL_ACTION.CreateType.key,
                 icon: <PlusOutlined />,
-                key: MODEL_ACTION.CreateType.key,
                 onClick: () => {
                   popover.open(MODEL_ACTION.CreateType.key)
                   typeService.createForm.open()

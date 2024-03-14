@@ -26,8 +26,8 @@ export const CreateFieldPopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreateField.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreateField.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreateFieldPopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreateField.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreateField.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

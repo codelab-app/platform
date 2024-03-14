@@ -29,7 +29,6 @@ export const AtomsPrimarySidebar = observer(() => {
   return (
     <CuiSidebar
       defaultActiveViewKeys={['atoms-view']}
-      key={MODEL_UI.SidebarAtom.key}
       label="Atoms"
       popover={
         <>
@@ -37,6 +36,7 @@ export const AtomsPrimarySidebar = observer(() => {
           <CreateFieldPopover />
         </>
       }
+      uiKey={MODEL_UI.SidebarAtom.key}
       views={[
         {
           content: <AtomsTreeView showSearchBar={showSearchBar} />,
@@ -46,8 +46,8 @@ export const AtomsPrimarySidebar = observer(() => {
             items: [
               ...items,
               {
+                cuiKey: MODEL_ACTION.CreateAction.key,
                 icon: <PlusOutlined />,
-                key: MODEL_ACTION.CreateAction.key,
                 onClick: () => {
                   atomService.createForm.open()
                   popover.open(MODEL_ACTION.CreateAction.key)

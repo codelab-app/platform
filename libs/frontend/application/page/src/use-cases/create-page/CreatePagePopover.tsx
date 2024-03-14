@@ -26,8 +26,8 @@ export const CreatePagePopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreatePage.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreatePage.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreatePagePopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreatePage.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreatePage.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

@@ -6,13 +6,13 @@ import type { ToolbarItem } from '../../../abstract'
 type CuiTreeItemToolbarItemProps = Omit<ToolbarItem, 'label'>
 
 export const CuiTreeItemToolbarItem = ({
+  cuiKey,
   icon,
-  key,
   onClick,
   title,
 }: CuiTreeItemToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(key)}>
+    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(cuiKey)}>
       <Tooltip title={title}>
         <div className="flex flex-col items-center p-1" onClick={onClick}>
           {icon}

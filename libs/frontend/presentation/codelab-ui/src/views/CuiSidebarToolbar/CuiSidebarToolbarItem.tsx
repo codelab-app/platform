@@ -6,13 +6,13 @@ import type { ToolbarItem } from '../../abstract'
 type CuiSidebarToolbarItemProps = Omit<ToolbarItem, 'label'>
 
 export const CuiSidebarToolbarItem = ({
+  cuiKey,
   icon,
-  key,
   onClick,
   title,
 }: CuiSidebarToolbarItemProps) => {
   return (
-    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(key)}>
+    <div className="size-full" data-cy={CY_DATA.cuiToolbarItem(cuiKey)}>
       <Tooltip title={title}>
         <div
           className={`

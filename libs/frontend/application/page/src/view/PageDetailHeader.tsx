@@ -78,13 +78,13 @@ export const PageDetailHeader = observer(() => {
 
   const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.TogglePreviewModeBuilder.key,
       icon:
         isPageBuilder || isComponentBuilder ? (
           <EyeOutlined />
         ) : (
           <ToolOutlined />
         ),
-      key: MODEL_ACTION.TogglePreviewModeBuilder.key,
       onClick: togglePreviewMode,
       title: isPageBuilder || isComponentBuilder ? 'Preview' : 'Builder',
     },

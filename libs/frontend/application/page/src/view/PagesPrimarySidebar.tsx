@@ -27,7 +27,6 @@ export const PagesPrimarySidebar = observer(() => {
     <>
       <CuiSidebar
         defaultActiveViewKeys={['pages']}
-        key={MODEL_UI.SidebarPage.key}
         label="Pages"
         popover={
           <>
@@ -38,6 +37,7 @@ export const PagesPrimarySidebar = observer(() => {
             <DeleteRedirectModal />
           </>
         }
+        uiKey={MODEL_UI.SidebarPage.key}
         views={[
           {
             content: <>{app && <PageList app={app} />}</>,
@@ -46,8 +46,8 @@ export const PagesPrimarySidebar = observer(() => {
             toolbar: {
               items: [
                 {
+                  cuiKey: MODEL_ACTION.CreatePage.key,
                   icon: <PlusOutlined />,
-                  key: MODEL_ACTION.CreatePage.key,
                   onClick: () => {
                     pageService.createForm.open()
                     popover.open(MODEL_ACTION.CreatePage.key)

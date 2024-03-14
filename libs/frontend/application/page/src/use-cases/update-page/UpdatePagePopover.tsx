@@ -26,8 +26,8 @@ export const UpdatePagePopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.UpdatePage.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.UpdatePage.key,
             label: 'Update',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const UpdatePagePopover = observer(() => {
             title: 'Update',
           },
           {
+            cuiKey: MODEL_ACTION.CancelUpdatePage.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelUpdatePage.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

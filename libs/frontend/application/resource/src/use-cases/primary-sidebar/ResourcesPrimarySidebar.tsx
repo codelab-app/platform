@@ -14,8 +14,8 @@ export const ResourcesPrimarySidebar = observer(() => {
 
   const items: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.CreateResource.key,
       icon: <PlusOutlined />,
-      key: MODEL_ACTION.CreateResource.key,
       onClick: () => {
         resourceService.createForm.open()
         popover.open(MODEL_ACTION.CreateResource.key)
@@ -26,9 +26,9 @@ export const ResourcesPrimarySidebar = observer(() => {
 
   return (
     <CuiSidebar
-      key={MODEL_UI.SidebarResource.key}
       label="Resources"
       popover={<CreateResourcePopover />}
+      uiKey={MODEL_UI.SidebarResource.key}
       views={[
         {
           content: <ResourcesTreeView />,

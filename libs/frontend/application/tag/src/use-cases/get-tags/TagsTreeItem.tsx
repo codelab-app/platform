@@ -27,8 +27,8 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
         <CuiTreeItemToolbar
           items={[
             {
+              cuiKey: MODEL_ACTION.DeleteTag.key,
               icon: <DeleteOutlined />,
-              key: MODEL_ACTION.DeleteTag.key,
               label: 'Delete',
               onClick: () => {
                 tagService.deleteManyModal.open([tagRef(data.extraData.node)])

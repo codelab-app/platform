@@ -102,8 +102,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateElement.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateElement.key,
               onClick: () => {
                 if (!containerNode) {
                   return
@@ -136,8 +136,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateField.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateField.key,
               onClick: () => {
                 if (!store) {
                   return
@@ -164,8 +164,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateAction.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateAction.key,
               onClick: () => {
                 if (!store) {
                   return
@@ -236,7 +236,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       <>
         <CuiSidebar
           defaultActiveViewKeys={['ElementTree']}
-          key={MODEL_UI.SidebarBuilder.key}
           label="Explorer"
           popover={
             <>
@@ -247,6 +246,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               <UpdateActionPopover />
             </>
           }
+          uiKey={MODEL_UI.SidebarBuilder.key}
           views={sidebarViews}
         />
         <CreateFieldModal />

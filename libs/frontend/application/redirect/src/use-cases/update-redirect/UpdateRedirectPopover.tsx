@@ -26,8 +26,8 @@ export const UpdateRedirectPopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.UpdateRedirect.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.UpdateRedirect.key,
             label: 'Update',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const UpdateRedirectPopover = observer(() => {
             title: 'Update',
           },
           {
+            cuiKey: MODEL_ACTION.CancelUpdateRedirect.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelUpdateRedirect.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

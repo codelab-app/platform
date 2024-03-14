@@ -7,6 +7,7 @@ import type {
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -55,10 +56,10 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     }
   }
 
-  const toolbarItems = [
+  const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.DeleteAtom.key,
       icon: <DeleteOutlined />,
-      key: MODEL_ACTION.DeleteAtom.key,
       onClick: onDelete,
       title: 'Delete atom',
     },
@@ -66,8 +67,8 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
   if (type === 'atom') {
     toolbarItems.push({
+      cuiKey: MODEL_ACTION.CreateField.key,
       icon: <PlusOutlined />,
-      key: MODEL_ACTION.CreateField.key,
       onClick: onAddField,
       title: 'Add field',
     })

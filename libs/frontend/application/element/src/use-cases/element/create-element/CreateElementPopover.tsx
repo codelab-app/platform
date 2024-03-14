@@ -26,8 +26,8 @@ export const CreateElementPopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreateElement.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreateElement.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreateElementPopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreateElement.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreateElement.key,
             label: 'Cancel',
             onClick: () => {
               elementService.createForm.close()

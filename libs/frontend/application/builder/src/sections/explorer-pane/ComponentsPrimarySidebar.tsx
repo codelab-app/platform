@@ -33,8 +33,8 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateComponent.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateComponent.key,
               onClick: () => {
                 componentService.createForm.open()
 
@@ -62,9 +62,9 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
       <>
         <CuiSidebar
           defaultActiveViewKeys={['custom', 'pre-built']}
-          key={MODEL_UI.SidebarComponent.key}
           label="Components"
           popover={<CreateComponentPopover />}
+          uiKey={MODEL_UI.SidebarComponent.key}
           views={sidebarViews}
         />
 

@@ -3,6 +3,7 @@ import type { IAuthGuardsTreeDataNode } from '@codelab/frontend/abstract/domain'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -27,10 +28,10 @@ export const AuthGuardsTreeItem = observer(
       authGuardService.deleteModal.open(authGuardRef(authGuard.id))
     }
 
-    const toolbarItems = [
+    const toolbarItems: Array<ToolbarItem> = [
       {
+        cuiKey: MODEL_ACTION.DeleteAuthGuard.key,
         icon: <DeleteOutlined />,
-        key: MODEL_ACTION.DeleteAuthGuard.key,
         onClick: onDelete,
         title: 'Delete',
       },

@@ -14,8 +14,8 @@ export const AuthGuardsPrimarySidebar = observer(() => {
 
   const items: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.CreateAuthGuard.key,
       icon: <PlusOutlined />,
-      key: MODEL_ACTION.CreateAuthGuard.key,
       onClick: () => {
         authGuardService.createForm.open()
         popover.open(MODEL_ACTION.CreateAuthGuard.key)
@@ -26,9 +26,9 @@ export const AuthGuardsPrimarySidebar = observer(() => {
 
   return (
     <CuiSidebar
-      key={MODEL_UI.SidebarAuthGuard.key}
       label="authGuards"
       popover={<CreateAuthGuardPopover />}
+      uiKey={MODEL_UI.SidebarAuthGuard.key}
       views={[
         {
           content: <AuthGuardsTreeView />,

@@ -5,6 +5,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -30,10 +31,10 @@ export const ResourcesTreeItem = observer(
       resourceService.deleteModal.open(resourceRef(resource))
     }
 
-    const toolbarItems = [
+    const toolbarItems: Array<ToolbarItem> = [
       {
+        cuiKey: MODEL_ACTION.DeleteResource.key,
         icon: <DeleteOutlined />,
-        key: MODEL_ACTION.DeleteResource.key,
         onClick: onDelete,
         title: 'Delete',
       },

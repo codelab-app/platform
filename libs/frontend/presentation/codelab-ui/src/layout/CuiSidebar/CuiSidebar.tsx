@@ -28,31 +28,29 @@ export interface CuiSidebarTab {
 
 export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
-  key: ModelUiKey
   label: string
   popover?: ReactNode
   tabs?: Array<CuiSidebarTab>
   toolbar?: CuiSidebarToolbarProps
+  uiKey: ModelUiKey
   views?: Array<CuiSidebarView>
 }
 
 export const CuiSidebar = ({
   defaultActiveViewKeys,
-  key,
   label,
   popover,
   tabs,
   toolbar,
+  uiKey,
   views,
 }: CuiSidebarProps) => {
-  console.log(key)
-
   const sidebarRef = useRef<HTMLDivElement>(null)
 
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={CY_DATA.cuiSidebar(key)}
+      data-cy={CY_DATA.cuiSidebar(uiKey)}
       ref={sidebarRef}
     >
       {tabs && tabs[0] ? (
