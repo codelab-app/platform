@@ -30,7 +30,6 @@ export const CreateAtomModal = observer(() => {
       open={atomService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateAtomData>
-        key={MODEL_ACTION.CreateAtom.key}
         model={{
           id: v4(),
         }}
@@ -38,6 +37,7 @@ export const CreateAtomModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createAtomSchema}
+        uiKey={MODEL_ACTION.CreateAtom.key}
       >
         <AutoFields
           omitFields={[

@@ -35,9 +35,6 @@ export const InterfaceForm = observer(
     return (
       <Form
         autosave={autosave}
-        // TODO: Need to find a way to have a domain key in this case
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        key={'interface-form' as any}
         model={model}
         onChange={onChange}
         onSubmit={handleFormSubmit<TData, TResponse>(
@@ -51,6 +48,9 @@ export const InterfaceForm = observer(
         schema={formSchema as JSONSchemaType<unknown>}
         submitField={submitField}
         submitRef={submitRef}
+        // TODO: Need to find a way to have a domain key in this case
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        uiKey={'interface-form' as any}
       >
         {children}
       </Form>

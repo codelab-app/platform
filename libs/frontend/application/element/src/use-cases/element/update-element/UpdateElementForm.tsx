@@ -64,13 +64,13 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       <div key={element.id}>
         <Form<IUpdateBaseElementData>
           autosave
-          key={MODEL_ACTION.UpdateElement.key}
           model={element.toJson}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
             title: 'Error while updating element',
           })}
           schema={updateElementSchema}
+          uiKey={MODEL_ACTION.UpdateElement.key}
         >
           <AutoComputedElementNameField label="Name" name="name" />
           <AutoFields

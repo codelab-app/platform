@@ -49,7 +49,6 @@ export const UpdatePageForm = observer(
 
     return (
       <Form<UpdatePageSchema>
-        key={MODEL_ACTION.UpdatePage.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -58,6 +57,7 @@ export const UpdatePageForm = observer(
         onSubmitSuccess={closeForm}
         schema={updatePageSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.UpdatePage.key}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

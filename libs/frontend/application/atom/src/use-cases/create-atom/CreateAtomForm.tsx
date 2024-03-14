@@ -51,7 +51,6 @@ export const CreateAtomForm = observer(
 
     return (
       <Form<ICreateAtomData>
-        key={MODEL_ACTION.CreateAtom.key}
         model={{
           id: v4(),
         }}
@@ -60,6 +59,7 @@ export const CreateAtomForm = observer(
         onSubmitSuccess={closeForm}
         schema={createAtomSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateAtom.key}
       >
         <AutoFields
           omitFields={[

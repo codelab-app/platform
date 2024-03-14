@@ -53,7 +53,6 @@ export const CreateComponentForm = observer(
 
     return (
       <Form<ICreateComponentData>
-        key={MODEL_ACTION.CreateComponent.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -62,6 +61,7 @@ export const CreateComponentForm = observer(
         onSubmitSuccess={closeForm}
         schema={createComponentSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateComponent.key}
       >
         <AutoFields omitFields={['childrenContainerElement', 'api']} />
 

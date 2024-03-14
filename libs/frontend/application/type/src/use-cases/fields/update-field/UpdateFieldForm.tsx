@@ -67,7 +67,6 @@ export const UpdateFieldForm = observer(
 
     return (
       <Form<IUpdateFieldData>
-        key={MODEL_ACTION.UpdateField.key}
         model={{
           defaultValues: field?.defaultValues,
           description: field?.description,
@@ -105,6 +104,7 @@ export const UpdateFieldForm = observer(
         onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.UpdateField.key}
       >
         <AutoFields fields={['id', 'key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />

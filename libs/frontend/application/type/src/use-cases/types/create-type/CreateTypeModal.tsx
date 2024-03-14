@@ -37,7 +37,6 @@ export const CreateTypeModal = observer(() => {
       title={<span className="font-semibold">Create type</span>}
     >
       <ModalForm.Form<ICreateTypeDto>
-        key={MODEL_ACTION.CreateType.key}
         model={{
           id: v4(),
         }}
@@ -47,6 +46,7 @@ export const CreateTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createTypeSchema}
+        uiKey={MODEL_ACTION.CreateType.key}
       >
         <AutoFields fields={['name', 'owner']} />
         <SelectField name="kind" showSearch />

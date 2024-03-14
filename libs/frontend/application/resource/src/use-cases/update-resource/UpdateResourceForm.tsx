@@ -27,13 +27,13 @@ export const UpdateResourceForm = observer(() => {
 
   return (
     <Form<IUpdateResourceData>
-      key={MODEL_ACTION.UpdateResource.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createFormErrorNotificationHandler({
         title: 'Error while updating resource',
       })}
       schema={updateResourceSchema}
+      uiKey={MODEL_ACTION.UpdateResource.key}
     >
       <AutoFields />
       <FormController submitLabel="Update Resource" />

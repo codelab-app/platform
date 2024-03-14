@@ -48,7 +48,6 @@ export const CreateResourceForm = observer(
 
     return (
       <Form<ICreateResourceData>
-        key={MODEL_ACTION.CreateResource.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -57,6 +56,7 @@ export const CreateResourceForm = observer(
         onSubmitSuccess={closeForm}
         schema={createResourceSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateResource.key}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

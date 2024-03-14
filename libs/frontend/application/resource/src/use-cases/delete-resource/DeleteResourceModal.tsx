@@ -48,12 +48,12 @@ export const DeleteResourceModal = observer(() => {
       title="Delete Confirmation"
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteResource.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteResource.key}
       >
         <h4>Are you sure you want to delete resource {resource?.name}"</h4>
         <AutoFields />

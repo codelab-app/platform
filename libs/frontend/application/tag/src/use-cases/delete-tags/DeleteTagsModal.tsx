@@ -29,7 +29,6 @@ export const DeleteTagsModal = observer(() => {
       title={<span className="font-semibold">Delete tags</span>}
     >
       <ModalForm.Form<DeleteTagsData>
-        key={MODEL_ACTION.DeleteTag.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -37,6 +36,7 @@ export const DeleteTagsModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={deleteTagsSchema}
+        uiKey={MODEL_ACTION.DeleteTag.key}
       >
         Are you sure you want to delete{' '}
         {tags?.map((tag) => tag.name).join(', ')}

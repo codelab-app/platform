@@ -45,11 +45,11 @@ export const UpdateAtomForm = observer(() => {
 
   return (
     <Form<IUpdateAtomData>
-      key={MODEL_ACTION.UpdateAtom.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
       schema={updateAtomSchema}
+      uiKey={MODEL_ACTION.UpdateAtom.key}
     >
       <AutoFields
         omitFields={[

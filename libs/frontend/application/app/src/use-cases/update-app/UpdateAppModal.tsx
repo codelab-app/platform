@@ -27,7 +27,6 @@ export const UpdateAppModal = observer(() => {
       open={appService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateAppData>
-        key={MODEL_ACTION.UpdateApp.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -35,6 +34,7 @@ export const UpdateAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateAppSchema}
+        uiKey={MODEL_ACTION.UpdateApp.key}
       >
         <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>

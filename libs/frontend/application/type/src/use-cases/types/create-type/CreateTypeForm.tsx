@@ -53,7 +53,6 @@ export const CreateTypeForm = observer(
 
     return (
       <Form<ICreateTypeDto>
-        key={MODEL_ACTION.CreateType.key}
         model={{
           id: v4(),
         }}
@@ -64,6 +63,7 @@ export const CreateTypeForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTypeSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateType.key}
       >
         <AutoFields fields={['name']} />
         <SelectField name="kind" showSearch />

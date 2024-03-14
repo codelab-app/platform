@@ -95,7 +95,6 @@ export const SelectDefaultValue = () => {
       key={`${fieldType.value}-default-values`}
     >
       <Form
-        key={MODEL_ACTION.SelectDefaultValueField.key}
         model={{ defaultValues }}
         onChange={(key, value) => {
           const formattedValue = value === '' ? undefined : value
@@ -104,6 +103,7 @@ export const SelectDefaultValue = () => {
         }}
         onSubmit={() => Promise.resolve()}
         schema={schema as JSONSchemaType<IPropData>}
+        uiKey={MODEL_ACTION.SelectDefaultValueField.key}
       >
         <AutoFields />
         {hasError && (

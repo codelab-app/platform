@@ -38,13 +38,13 @@ export const UpdateComponentForm = observer<{ component: IComponentModel }>(
       <div key={key}>
         <Form<IUpdateComponentData>
           autosave
-          key={MODEL_ACTION.UpdateComponent.key}
           model={model}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
             title: 'Error while creating component',
           })}
           schema={updateComponentSchema}
+          uiKey={MODEL_ACTION.UpdateComponent.key}
         >
           <AutoFields />
         </Form>

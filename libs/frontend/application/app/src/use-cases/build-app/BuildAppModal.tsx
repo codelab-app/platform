@@ -34,7 +34,6 @@ export const BuildAppModal = observer(() => {
       open={appService.buildModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.BuildApp.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -42,6 +41,7 @@ export const BuildAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.BuildApp.key}
       >
         <h4>Are you sure you want to build all pages for "{app?.name}"?</h4>
         <AutoFields />

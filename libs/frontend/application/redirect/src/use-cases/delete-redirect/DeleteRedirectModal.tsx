@@ -44,12 +44,12 @@ export const DeleteRedirectModal = observer(() => {
       title="Delete Confirmation"
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteRedirect.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteRedirect.key}
       >
         <h4>Are you sure you want to delete redirect"</h4>
         <AutoFields />

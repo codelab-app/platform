@@ -31,7 +31,6 @@ export const CreateComponentModal = observer(() => {
       title={<span className="font-semibold">Create component</span>}
     >
       <ModalForm.Form<ICreateComponentData>
-        key={MODEL_ACTION.CreateComponent.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -39,6 +38,7 @@ export const CreateComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
+        uiKey={MODEL_ACTION.CreateComponent.key}
       >
         <AutoFields omitFields={['childrenContainerElement', 'api']} />
       </ModalForm.Form>

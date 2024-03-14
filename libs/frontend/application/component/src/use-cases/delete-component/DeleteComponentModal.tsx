@@ -26,7 +26,6 @@ export const DeleteComponentModal = observer(() => {
       open={componentService.deleteModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteComponent.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -34,6 +33,7 @@ export const DeleteComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteComponent.key}
       >
         <h4>Are you sure you want to delete component "{component?.name}"?</h4>
         <AutoFields omitFields={['id']} />

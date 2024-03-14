@@ -36,7 +36,6 @@ export const DeleteElementModal = observer(() => {
       title={<span className="font-semibold">Delete element</span>}
     >
       <ModalForm.Form<DeleteElementData>
-        key={MODEL_ACTION.DeleteElement.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -44,6 +43,7 @@ export const DeleteElementModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={deleteElementSchema}
+        uiKey={MODEL_ACTION.DeleteElement.key}
       >
         <h4>
           Are you sure you want to delete{' '}

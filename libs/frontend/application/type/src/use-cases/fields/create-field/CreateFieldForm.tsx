@@ -68,7 +68,6 @@ export const CreateFieldForm = observer(
 
     return (
       <Form<ICreateFieldData>
-        key={MODEL_ACTION.CreateField.key}
         model={{
           id: v4(),
           interfaceTypeId,
@@ -100,6 +99,7 @@ export const CreateFieldForm = observer(
         onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateField.key}
       >
         <AutoFields
           omitFields={[

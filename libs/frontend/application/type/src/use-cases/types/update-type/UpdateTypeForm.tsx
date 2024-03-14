@@ -73,7 +73,6 @@ export const UpdateTypeForm = observer(() => {
 
   return (
     <Form<IUpdateTypeDto>
-      key={MODEL_ACTION.UpdateType.key}
       model={model}
       onSubmit={handleSubmit}
       onSubmitError={createFormErrorNotificationHandler({
@@ -81,6 +80,7 @@ export const UpdateTypeForm = observer(() => {
       })}
       onSubmitSuccess={closeForm}
       schema={updateTypeSchema}
+      uiKey={MODEL_ACTION.UpdateType.key}
     >
       <AutoFields fields={['name']} />
       {typeToUpdate?.kind === ITypeKind.UnionType && (

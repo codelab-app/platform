@@ -18,7 +18,6 @@ export const ExportAdminDataModal = observer(() => {
       open={adminService.exportDataModal.isOpen}
     >
       <ModalForm.Form<ExportDto>
-        key={MODEL_ACTION.ExportDataAdmin.key}
         model={exportDtoDefault}
         onSubmit={(data) => adminService.exportData(data)}
         onSubmitError={createFormErrorNotificationHandler({
@@ -26,6 +25,7 @@ export const ExportAdminDataModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={ExportDto}
+        uiKey={MODEL_ACTION.ExportDataAdmin.key}
       >
         <AutoFields />
       </ModalForm.Form>

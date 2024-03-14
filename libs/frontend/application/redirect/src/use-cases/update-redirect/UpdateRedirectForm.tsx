@@ -52,7 +52,6 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
     return (
       <>
         <Form<IUpdateRedirectData>
-          key={MODEL_ACTION.UpdateRedirect.key}
           model={model}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
@@ -60,6 +59,7 @@ export const UpdateRedirectForm = observer<UpdateRedirectFormProps>(
           })}
           schema={updateRedirectSchema}
           submitRef={submitRef}
+          uiKey={MODEL_ACTION.UpdateRedirect.key}
         >
           <AutoFields omitFields={['targetPage', 'targetUrl']} />
 

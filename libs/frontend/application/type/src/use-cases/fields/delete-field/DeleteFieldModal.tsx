@@ -25,7 +25,6 @@ export const DeleteFieldModal = observer(() => {
       title={<span className="font-semibold">Delete field</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
-        key={MODEL_ACTION.DeleteField.key}
         model={{}}
         onSubmit={(input) => {
           return fieldService.delete([field])
@@ -35,6 +34,7 @@ export const DeleteFieldModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteField.key}
       >
         <h4>
           Are you sure you want to delete field "{field.name ?? field.key}"?

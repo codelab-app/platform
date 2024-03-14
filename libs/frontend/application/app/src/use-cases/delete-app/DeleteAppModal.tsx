@@ -33,7 +33,6 @@ export const DeleteAppModal = observer(() => {
       open={appService.deleteModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteApp.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -41,6 +40,7 @@ export const DeleteAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteApp.key}
       >
         <h4>Are you sure you want to delete app "{app?.name}"?</h4>
       </ModalForm.Form>

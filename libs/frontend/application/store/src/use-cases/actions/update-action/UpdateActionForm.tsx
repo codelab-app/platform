@@ -78,13 +78,13 @@ export const UpdateActionForm = observer(
 
     return (
       <Form<IUpdateActionData>
-        key={MODEL_ACTION.UpdateAction.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeForm}
         schema={actionSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.UpdateAction.key}
       >
         <AutoFields fields={['name']} />
 

@@ -45,7 +45,6 @@ export const CreateTagForm = observer(
 
     return (
       <Form<ICreateTagData>
-        key={MODEL_ACTION.CreateTag.key}
         model={{
           id: v4(),
           parent: { id: defaultOption.value.toString() },
@@ -57,6 +56,7 @@ export const CreateTagForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTagSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateTag.key}
       >
         <AutoFields omitFields={['parent']} />
         {/* <DisplayIfNotRoot> */}

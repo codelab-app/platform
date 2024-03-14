@@ -19,7 +19,6 @@ export const ImportAdminDataModal = observer(() => {
       open={adminService.importDataModal.isOpen}
     >
       <ModalForm.Form<ExportDto>
-        key={MODEL_ACTION.ImportDataAdmin.key}
         model={importDtoDefault}
         onSubmit={(data) => adminService.importData(data)}
         onSubmitError={createFormErrorNotificationHandler({
@@ -27,6 +26,7 @@ export const ImportAdminDataModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={ImportDto}
+        uiKey={MODEL_ACTION.ImportDataAdmin.key}
       >
         <AutoFields />
       </ModalForm.Form>

@@ -27,7 +27,6 @@ export const DeleteActionModal = observer(() => {
       title="Delete Confirmation"
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteAction.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -35,6 +34,7 @@ export const DeleteActionModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteAction.key}
       >
         <h4>
           Are you sure you want to delete actions "

@@ -39,7 +39,6 @@ export const UpdateTagModal = observer(() => {
       open={tagService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateTagData>
-        key={MODEL_ACTION.UpdateTag.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -47,6 +46,7 @@ export const UpdateTagModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateTagSchema}
+        uiKey={MODEL_ACTION.UpdateTag.key}
       >
         <AutoFields omitFields={['id', 'parent']} />
 

@@ -343,8 +343,6 @@
     "ajv-formats": "2.1.1",
     "ajv-keywords": "5.1.0",
     "autoprefixer": "10.4.14",
-    "babel-jest": "29.4.1",
-    "babel-plugin-styled-components": "1.10.7",
     "chance": "1.1.11",
     "commitizen": "4.2.5",
     "commitlint-config-cz": "0.13.3",

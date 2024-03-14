@@ -54,7 +54,6 @@ export const CreatePageForm = observer(
 
     return (
       <Form<ICreatePageFormData>
-        key={MODEL_ACTION.CreatePage.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -62,6 +61,7 @@ export const CreatePageForm = observer(
         })}
         schema={createPageSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreatePage.key}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

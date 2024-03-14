@@ -103,7 +103,6 @@ export const CreateElementForm = observer(
 
     return (
       <Form<IElementDto>
-        key={MODEL_ACTION.CreateElement.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -112,6 +111,7 @@ export const CreateElementForm = observer(
         onSubmitSuccess={closeForm}
         schema={createElementSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateElement.key}
       >
         <AutoFields
           omitFields={[

@@ -50,7 +50,6 @@ export const DeleteTypeModal = observer(() => {
       title={<span className="font-semibold">Delete type</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
-        key={MODEL_ACTION.DeleteType.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -58,6 +57,7 @@ export const DeleteTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteType.key}
       >
         <h4>Are you sure you want to delete type "{typeToDelete?.name}"?</h4>
       </ModalForm.Form>

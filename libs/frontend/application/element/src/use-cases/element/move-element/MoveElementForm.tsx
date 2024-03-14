@@ -83,13 +83,13 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
     <div key={element.id}>
       <MoveElementAutoForm<MoveData>
         autosave
-        key={MODEL_ACTION.MoveElement.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while moving element',
         })}
         schema={moveElementSchema}
+        uiKey={MODEL_ACTION.MoveElement.key}
       >
         <AutoFields omitFields={['parentElement', 'prevSibling']} />
         <AutoField

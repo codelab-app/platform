@@ -79,7 +79,6 @@ export const UpdateTypeModal = observer(() => {
       title={<span className="font-semibold">Update type</span>}
     >
       <ModalForm.Form<IUpdateTypeDto>
-        key={MODEL_ACTION.UpdateType.key}
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -87,6 +86,7 @@ export const UpdateTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateTypeSchema}
+        uiKey={MODEL_ACTION.UpdateType.key}
       >
         <AutoFields fields={['name']} />
         {typeToUpdate?.kind === ITypeKind.UnionType && (

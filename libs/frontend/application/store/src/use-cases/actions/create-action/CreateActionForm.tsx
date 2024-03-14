@@ -75,7 +75,6 @@ export const CreateActionForm = observer(
 
     return (
       <Form<ICreateActionData>
-        key={MODEL_ACTION.CreateAction.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -84,6 +83,7 @@ export const CreateActionForm = observer(
         onSubmitSuccess={closeForm}
         schema={actionSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateAction.key}
       >
         <AutoFields
           omitFields={[

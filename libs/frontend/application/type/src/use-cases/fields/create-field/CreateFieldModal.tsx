@@ -51,7 +51,6 @@ export const CreateFieldModal = observer(() => {
       title={<span className="font-semibold">Create field</span>}
     >
       <ModalForm.Form<ICreateFieldData>
-        key={MODEL_ACTION.CreateField.key}
         model={{
           id: v4(),
           interfaceTypeId,
@@ -82,6 +81,7 @@ export const CreateFieldModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createFieldSchema}
+        uiKey={MODEL_ACTION.CreateField.key}
       >
         <AutoFields
           omitFields={[

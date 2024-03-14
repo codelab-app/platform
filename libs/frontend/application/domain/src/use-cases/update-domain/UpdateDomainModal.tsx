@@ -43,12 +43,12 @@ export const UpdateDomainModal = observer(() => {
   return (
     <ModalForm.Modal okText="Update Domain" onCancel={closeModal} open={isOpen}>
       <ModalForm.Form<IUpdateDomainData>
-        key={MODEL_ACTION.UpdateDomain.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateDomainSchema}
+        uiKey={MODEL_ACTION.UpdateDomain.key}
       >
         <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>

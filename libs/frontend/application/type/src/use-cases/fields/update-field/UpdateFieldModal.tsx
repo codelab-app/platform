@@ -50,7 +50,6 @@ export const UpdateFieldModal = observer(() => {
       title={<span className="font-semibold">Update field</span>}
     >
       <ModalForm.Form<IUpdateFieldData>
-        key={MODEL_ACTION.UpdateField.key}
         model={{
           defaultValues: field?.defaultValues,
           description: field?.description,
@@ -87,6 +86,7 @@ export const UpdateFieldModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createFieldSchema}
+        uiKey={MODEL_ACTION.UpdateField.key}
       >
         <AutoFields fields={['key', 'name', 'description']} />
         <TypeSelect label="Type" name="fieldType" />

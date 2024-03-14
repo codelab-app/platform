@@ -30,13 +30,13 @@ export const UpdateTagForm = observer(() => {
 
   return tag ? (
     <Form<IUpdateTagData>
-      key={MODEL_ACTION.UpdateTag.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createFormErrorNotificationHandler({
         title: 'Error while updating tag',
       })}
       schema={updateTagSchema}
+      uiKey={MODEL_ACTION.UpdateTag.key}
     >
       <AutoFields omitFields={['id', 'parent']} />
 

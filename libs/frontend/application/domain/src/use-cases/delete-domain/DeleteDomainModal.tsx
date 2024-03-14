@@ -35,7 +35,6 @@ export const DeleteDomainModal = observer(() => {
       title={<span className="font-semibold">Delete domain</span>}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteDomain.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -43,6 +42,7 @@ export const DeleteDomainModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteDomain.key}
       >
         <h4>Are you sure you want to delete the domain "{domain?.name}"?</h4>
         <AutoFields />

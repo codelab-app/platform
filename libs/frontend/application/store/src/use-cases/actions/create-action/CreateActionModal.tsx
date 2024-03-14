@@ -56,7 +56,6 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
         open={actionService.createModal.isOpen}
       >
         <ModalForm.Form<ICreateActionData>
-          key={MODEL_ACTION.CreateAction.key}
           model={model}
           onSubmit={onSubmit}
           onSubmitError={createFormErrorNotificationHandler({
@@ -64,6 +63,7 @@ export const CreateActionModal = observer<{ store?: IStoreModel }>(
           })}
           onSubmitSuccess={closeModal}
           schema={createActionSchema}
+          uiKey={MODEL_ACTION.CreateAction.key}
         >
           <AutoFields
             omitFields={[

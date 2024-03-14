@@ -43,7 +43,6 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
 
     return (
       <Form<ICreateAuthGuardData>
-        key={MODEL_ACTION.CreateAuthGuard.key}
         model={{ id: v4() }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -52,6 +51,7 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
         onSubmitSuccess={closeForm}
         schema={createAuthGuardSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateAuthGuard.key}
       >
         <AutoFields omitFields={['config']} />
         <ResourceFetchConfigField />

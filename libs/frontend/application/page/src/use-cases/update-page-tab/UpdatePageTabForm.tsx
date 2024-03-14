@@ -43,10 +43,10 @@ export const UpdatePageTabForm = observer<{
   return (
     <Form
       autosave={true}
-      key={MODEL_ACTION.UpdatePage.key}
       model={model}
       onSubmit={onSubmit}
       schema={schema(kind)}
+      uiKey={MODEL_ACTION.UpdatePage.key}
     >
       <AutoFields omitFields={omitFields} />
     </Form>

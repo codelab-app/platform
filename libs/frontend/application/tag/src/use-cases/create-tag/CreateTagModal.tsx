@@ -27,7 +27,6 @@ export const CreateTagModal = observer(() => {
   return (
     <ModalForm.Modal okText="Create Tag" onCancel={closeModal} open={isOpen}>
       <ModalForm.Form
-        key={MODEL_ACTION.CreateTag.key}
         model={{
           id: v4(),
           parent: { id: defaultOption.value.toString() },
@@ -38,6 +37,7 @@ export const CreateTagModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createTagSchema}
+        uiKey={MODEL_ACTION.CreateTag.key}
       >
         <AutoFields omitFields={['parent']} />
         {/* <DisplayIfNotRoot> */}

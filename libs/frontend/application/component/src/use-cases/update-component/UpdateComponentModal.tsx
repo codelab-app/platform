@@ -28,7 +28,6 @@ export const UpdateComponentModal = observer(() => {
     >
       {/* <UpdateComponentForm component={component} /> */}
       <ModalForm.Form<IUpdateComponentData>
-        key={MODEL_ACTION.UpdateComponent.key}
         model={model}
         onSubmit={handleSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -36,6 +35,7 @@ export const UpdateComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={updateComponentSchema}
+        uiKey={MODEL_ACTION.UpdateComponent.key}
       >
         <AutoFields />
       </ModalForm.Form>

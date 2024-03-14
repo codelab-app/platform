@@ -49,12 +49,12 @@ export const CreateDomainModal = observer(() => {
       open={domainService.createModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.CreateDomain.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={createDomainSchema}
+        uiKey={MODEL_ACTION.CreateDomain.key}
       >
         <AutoFields />
       </ModalForm.Form>

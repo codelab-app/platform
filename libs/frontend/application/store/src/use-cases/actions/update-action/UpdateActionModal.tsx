@@ -58,12 +58,12 @@ export const UpdateActionModal = observer(() => {
       open={actionService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateActionData>
-        key={MODEL_ACTION.UpdateAction.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateActionSchema}
+        uiKey={MODEL_ACTION.UpdateAction.key}
       >
         <AutoFields fields={['name']} />
 

@@ -36,7 +36,6 @@ export const CreateResourceModal = observer(() => {
       open={resourceService.createModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.CreateResource.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -44,6 +43,7 @@ export const CreateResourceModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createResourceSchema}
+        uiKey={MODEL_ACTION.CreateResource.key}
       >
         <AutoFields />
       </ModalForm.Form>

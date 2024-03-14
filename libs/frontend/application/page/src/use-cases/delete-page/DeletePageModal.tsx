@@ -18,7 +18,6 @@ export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
       open={pageService.deleteModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeletePage.key}
         model={{}}
         onSubmit={() => pageService.delete([page])}
         onSubmitError={createFormErrorNotificationHandler({
@@ -26,6 +25,7 @@ export const DeletePageModal = observer(({ page }: { page: IPageModel }) => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeletePage.key}
       >
         <h4>Are you sure you want to delete page "{page.name}"?</h4>
         <AutoFields />

@@ -19,7 +19,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     /**
      * For testing
      */
-    key: ModelActionKey
+    uiKey: ModelActionKey
 
     cssString?: string
 

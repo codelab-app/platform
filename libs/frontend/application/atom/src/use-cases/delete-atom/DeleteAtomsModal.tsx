@@ -20,7 +20,6 @@ export const DeleteAtomsModal = observer(() => {
       title="Delete Confirmation"
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteAtom.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -28,6 +27,7 @@ export const DeleteAtomsModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteAtom.key}
       >
         <h4>
           Are you sure you want to delete atoms "

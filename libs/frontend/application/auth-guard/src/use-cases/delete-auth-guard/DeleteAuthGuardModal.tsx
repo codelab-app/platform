@@ -48,12 +48,12 @@ export const DeleteAuthGuardModal = observer(() => {
       title="Delete Confirmation"
     >
       <ModalForm.Form
-        key={MODEL_ACTION.DeleteAuthGuard.key}
         model={{}}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteAuthGuard.key}
       >
         <h4>Are you sure you want to delete auth guard "{authGuard?.name}"</h4>
         <AutoFields />

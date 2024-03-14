@@ -47,12 +47,12 @@ export const UpdateAtomModal = observer(() => {
       open={atomService.updateModal.isOpen}
     >
       <ModalForm.Form<IUpdateAtomData>
-        key={MODEL_ACTION.UpdateAtom.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
+        uiKey={MODEL_ACTION.UpdateAtom.key}
       >
         <AutoFields
           omitFields={[

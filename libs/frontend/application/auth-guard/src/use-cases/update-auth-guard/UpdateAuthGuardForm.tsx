@@ -41,13 +41,13 @@ export const UpdateAuthGuardForm = observer(() => {
 
   return (
     <Form<IUpdateAuthGuardData>
-      key={MODEL_ACTION.UpdateAuthGuard.key}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createFormErrorNotificationHandler({
         title: 'Error while updating auth guard',
       })}
       schema={updateAuthGuardSchema}
+      uiKey={MODEL_ACTION.UpdateAuthGuard.key}
     >
       <AutoFields omitFields={['config']} />
       <ResourceFetchConfigField />

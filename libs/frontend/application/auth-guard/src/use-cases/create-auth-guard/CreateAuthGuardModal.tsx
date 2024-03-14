@@ -30,7 +30,6 @@ export const CreateAuthGuardModal = observer(() => {
       open={authGuardService.createModal.isOpen}
     >
       <ModalForm.Form
-        key={MODEL_ACTION.CreateAuthGuard.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -38,6 +37,7 @@ export const CreateAuthGuardModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAuthGuardSchema}
+        uiKey={MODEL_ACTION.CreateAuthGuard.key}
       >
         <AutoFields />
       </ModalForm.Form>

@@ -33,7 +33,6 @@ export const CreateAppModal = observer(() => {
       open={appService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateAppData>
-        key={MODEL_ACTION.CreateApp.key}
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -41,6 +40,7 @@ export const CreateAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAppSchema}
+        uiKey={MODEL_ACTION.CreateApp.key}
       >
         <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>

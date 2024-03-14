@@ -132,7 +132,6 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
 
         <div key={selectedTypeId}>
           <Form
-            key={MODEL_ACTION.SelectUnionTypeValueField.key}
             model={model}
             onChangeModel={(formData) => {
               // This automatically sets the default values into the formData for the properties that has a default value
@@ -149,6 +148,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             }}
             onSubmit={() => Promise.resolve()}
             schema={valueSchema as any}
+            uiKey={MODEL_ACTION.SelectUnionTypeValueField.key}
           >
             <AutoField data-testid={valueFieldName} name="value" />
           </Form>
