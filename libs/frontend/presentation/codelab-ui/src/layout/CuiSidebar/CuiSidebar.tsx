@@ -1,4 +1,5 @@
 import MoreOutlined from '@ant-design/icons/MoreOutlined'
+import type { SidebarModelKey } from '@codelab/frontend/abstract/types'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'
@@ -27,6 +28,7 @@ export interface CuiSidebarTab {
 
 export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
+  key: SidebarModelKey
   label: string
   popover?: ReactNode
   tabs?: Array<CuiSidebarTab>

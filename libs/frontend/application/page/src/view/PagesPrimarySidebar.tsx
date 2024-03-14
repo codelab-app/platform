@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import {
   CreateRedirectPopover,
   DeleteRedirectModal,
@@ -27,6 +27,7 @@ export const PagesPrimarySidebar = observer(() => {
     <>
       <CuiSidebar
         defaultActiveViewKeys={['pages']}
+        key={MODEL_UI.PageSidebar.key}
         label="Pages"
         popover={
           <>
@@ -46,7 +47,7 @@ export const PagesPrimarySidebar = observer(() => {
               items: [
                 {
                   icon: <PlusOutlined />,
-                  key: 'create-page',
+                  key: MODEL_ACTION.CreatePage.key,
                   onClick: () => {
                     pageService.createForm.open()
                     popover.open(MODEL_ACTION.CreatePage.key)

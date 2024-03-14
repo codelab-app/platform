@@ -17681,6 +17681,7 @@ __metadata:
     lint-staged: 13.2.2
     lodash: 4.17.21
     madge: 5.0.1
+    make-plural: ^7.3.0
     memfs: 4.2.0
     micro: 10.0.1
     mobx: 6.11.0
@@ -28186,6 +28187,13 @@ __metadata:
     promise-retry: ^2.0.1
     ssri: ^10.0.0
   checksum: 7c7a6d381ce919dd83af398b66459a10e2fe8f4504f340d1d090d3fa3d1b0c93750220e1d898114c64467223504bd258612ba83efbc16f31b075cd56de24b4af
+  languageName: node
+  linkType: hard
+
+"make-plural@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "make-plural@npm:7.3.0"
+  checksum: bb39b4b77533f0d5fb94eec128340b54dda8c1707d6b0a98c148e5d7bc23094e123f88275a61573fa31dc2f5d7352215cee0df523cd69b5d8fcb3969a2bcf8f8
   languageName: node
   linkType: hard
 
