@@ -38,6 +38,10 @@ registerCommands([
 ])
 
 before(() => {
+  if (Cypress.env('SKIP_LOGIN')) {
+    return
+  }
+
   Cypress.log({
     message: 'Running before hook inside e2e.ts',
     name: 'setup e2e',
