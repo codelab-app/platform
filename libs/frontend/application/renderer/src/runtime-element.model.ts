@@ -292,9 +292,9 @@ export class RuntimeElementModel
           ? {
               ...child.runtimeRootElement.treeViewNode,
               ...(!isNil(child.childMapperIndex) ? { children: [] } : {}),
-              isChildMapperComponentInstance: isComponent(
-                child.containerNode.current,
-              ),
+              isChildMapperComponentInstance:
+                !isNil(child.childMapperIndex) &&
+                isComponent(child.containerNode.current),
               key: `${child.runtimeRootElement.element.current.id}${
                 !isNil(child.childMapperIndex)
                   ? `-${child.childMapperIndex}`
