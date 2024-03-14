@@ -57,44 +57,37 @@ describe('Converting an element to a component', () => {
     cy.findByText(`instance of ${elementContainerCreateData.name}`).should(
       'be.visible',
     )
-
-    // the element descendants of a component instance is not shown
-    cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).should(
-      'not.exist',
-    )
-    cy.getCuiTreeItemByPrimaryTitle(elementColCreateData.name).should(
-      'not.exist',
-    )
-    cy.getCuiTreeItemByPrimaryTitle(elementTextCreateData.name).should(
-      'not.exist',
-    )
   })
 
   it('should still have the descendant elements of the component', () => {
     cy.visit(
-      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-        IPageKindName.Provider,
-      )}/builder?primarySidebarKey=components`,
+      `/apps/cypress/${slugify(app.name)}/components/${slugify(
+        elementContainerCreateData.name,
+      )}/builder?primarySidebarKey=explorer`,
     )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.waitForSpinners()
 
-    // GetAtoms
-    // GetComponents
-    cy.waitForApiCalls()
-    cy.waitForSpinners()
+    // the element descendants should still be in correct order
+    // Container -> Row -> Col -> Text
+    // root element which is the Container
+    cy.getCuiTreeItemByPrimaryTitle(elementContainerCreateData.name).should(
+      'be.visible',
+    )
 
-    cy.getCuiSidebar('Components')
-      .getCuiSidebarViewContent('Custom')
-      .contains('.ant-card-head-title', elementContainerCreateData.name)
-      .next()
-      .getButton({ icon: 'edit' })
-      .click()
-
-    // the element descendants of a component should show on the custom component builder
+    // Row element which is the first child and is already shown initially
     cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).should('exist')
+
+    // this is the child of the Row element and has to expand before it can be seen
+    cy.getCuiTreeItemByPrimaryTitle(elementColCreateData.name).should(
+      'not.exist',
+    )
+    cy.getCuiTreeItemByPrimaryTitle(elementRowCreateData.name).click()
     cy.getCuiTreeItemByPrimaryTitle(elementColCreateData.name).should('exist')
+
+    // this is the child of the Col element and has to expand before it can be seen
+    cy.getCuiTreeItemByPrimaryTitle(elementTextCreateData.name).should(
+      'not.exist',
+    )
+    cy.getCuiTreeItemByPrimaryTitle(elementColCreateData.name).click()
     cy.getCuiTreeItemByPrimaryTitle(elementTextCreateData.name).should('exist')
   })
 })
