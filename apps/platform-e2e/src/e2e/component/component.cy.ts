@@ -54,7 +54,7 @@ describe('Component CRUD', () => {
       cy.getCuiSidebar(MODEL_UI.SidebarComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
-      cy.findByTestId('create-component-form')
+      cy.getCuiForm(MODEL_ACTION.CreateComponent.key)
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
       cy.intercept('POST', 'api/graphql').as('createComponent')
@@ -62,7 +62,7 @@ describe('Component CRUD', () => {
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
       cy.wait('@createComponent')
-      cy.findByTestId('create-component-form').should('not.exist', {
+      cy.getCuiForm(MODEL_ACTION.CreateComponent.key).should('not.exist', {
         timeout: 10000,
       })
       cy.findByText(COMPONENT_NAME).should('exist')
@@ -109,7 +109,7 @@ describe('Component CRUD', () => {
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .click()
 
-        cy.findByTestId('create-element-form').setFormFieldValue({
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Atom',
           type: FIELD_TYPE.SELECT,
           value: child.atom,
@@ -117,7 +117,7 @@ describe('Component CRUD', () => {
         // need to wait for the code to put the auto-computed name before typing
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
-        cy.findByTestId('create-element-form').setFormFieldValue({
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Name',
           type: FIELD_TYPE.INPUT,
           value: child.name,
@@ -126,7 +126,7 @@ describe('Component CRUD', () => {
         cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .click()
-        cy.findByTestId('create-element-form').should('not.exist', {
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
           timeout: 10000,
         })
 
@@ -179,12 +179,12 @@ describe('Component CRUD', () => {
         .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
 
-      cy.findByTestId('create-element-form').setFormFieldValue({
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Render Type',
         type: FIELD_TYPE.SELECT,
         value: 'Component',
       })
-      cy.findByTestId('create-element-form').setFormFieldValue({
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Component',
         type: FIELD_TYPE.SELECT,
         value: COMPONENT_NAME,
@@ -193,7 +193,7 @@ describe('Component CRUD', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
 
-      cy.findByTestId('create-element-form').setFormFieldValue({
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Name',
         type: FIELD_TYPE.INPUT,
         value: COMPONENT_INSTANCE_NAME,
@@ -203,7 +203,7 @@ describe('Component CRUD', () => {
         .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
 
-      cy.findByTestId('create-element-form').should('not.exist', {
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
         timeout: 10000,
       })
       // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
@@ -232,7 +232,7 @@ describe('Component CRUD', () => {
         .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
 
-      cy.findByTestId('create-element-form').setFormFieldValue({
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Atom',
         type: FIELD_TYPE.SELECT,
         value: IAtomType.AntDesignTypographyText,
@@ -242,7 +242,7 @@ describe('Component CRUD', () => {
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(1000)
 
-      cy.findByTestId('create-element-form').setFormFieldValue({
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
         label: 'Name',
         type: FIELD_TYPE.INPUT,
         value: COMPONENT_INSTANCE_TEXT,
@@ -250,7 +250,7 @@ describe('Component CRUD', () => {
 
       cy.createElementAndStoreId()
 
-      cy.findByTestId('create-element-form').should('not.exist', {
+      cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
         timeout: 10000,
       })
 

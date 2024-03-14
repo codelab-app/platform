@@ -94,7 +94,9 @@ describe('_app page', () => {
     cy.getCuiSidebar(MODEL_UI.SidebarPage.key)
       .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
       .click()
-    cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
+    cy.getCuiForm(MODEL_ACTION.CreatePage.key)
+      .findByLabelText('Name')
+      .type(pageName)
 
     cy.getCuiPopover(MODEL_ACTION.CreatePage.key)
       .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)

@@ -29,7 +29,7 @@ export const createElementTree = (
          * We skip this if parent element is root, since it is disabled and can't be accessed
          */
         // if (parentElement !== ROOT_ELEMENT_NAME) {
-        cy.findByTestId('create-element-form').setFormFieldValue({
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Parent element',
           type: FIELD_TYPE.SELECT,
           value: parentElement,
@@ -40,7 +40,7 @@ export const createElementTree = (
           throw new Error('Missing atom')
         }
 
-        cy.findByTestId('create-element-form').setFormFieldValue({
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Atom',
           type: FIELD_TYPE.SELECT,
           value: atom,
@@ -51,14 +51,14 @@ export const createElementTree = (
         cy.wait(1000)
 
         if (propsData) {
-          cy.findByTestId('create-element-form').setFormFieldValue({
+          cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
             label: 'Props Data',
             type: FIELD_TYPE.INPUT,
             value: JSON.stringify(propsData),
           })
         }
 
-        cy.findByTestId('create-element-form')
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key)
           .getFormField({
             label: 'Name',
           })
@@ -67,7 +67,7 @@ export const createElementTree = (
             // atom is set) because it would override the name otherwise
             cy.get('input').should('not.have.value', '')
           })
-        cy.findByTestId('create-element-form').setFormFieldValue({
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Name',
           type: FIELD_TYPE.INPUT,
           value: name,
@@ -77,7 +77,7 @@ export const createElementTree = (
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .click()
 
-        cy.findByTestId('create-element-form').should('not.exist', {
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
           timeout: 10000,
         })
 

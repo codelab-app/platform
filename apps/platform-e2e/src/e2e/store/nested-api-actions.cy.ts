@@ -227,7 +227,7 @@ describe('Running nested API and code actions', () => {
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
@@ -236,7 +236,7 @@ describe('Running nested API and code actions', () => {
     // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Typography Element',
@@ -246,7 +246,7 @@ describe('Running nested API and code actions', () => {
       .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
 
-    cy.findByTestId('create-element-form').should('not.exist', {
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
 
@@ -271,7 +271,7 @@ describe('Running nested API and code actions', () => {
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignButton,
@@ -279,7 +279,7 @@ describe('Running nested API and code actions', () => {
 
     // TODO: once we seed the atom fields, change this logic so that you select the action in
     // in the "On Click" field
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
       value: `{ "customText": "Click button to post", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
@@ -288,7 +288,7 @@ describe('Running nested API and code actions', () => {
     // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Post Button',
@@ -298,7 +298,7 @@ describe('Running nested API and code actions', () => {
       .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
 
-    cy.findByTestId('create-element-form').should('not.exist', {
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
 

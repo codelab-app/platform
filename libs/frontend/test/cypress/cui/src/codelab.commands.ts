@@ -2,6 +2,7 @@ import type {
   CypressCommand,
   OmitFirstArg,
 } from '@codelab/frontend/test/cypress/shared'
+import type { getCuiForm } from './form/form.command'
 import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
@@ -22,6 +23,10 @@ import {
 } from './tree/tree.command'
 
 export interface CypressCuiCommands {
+  /**
+   * form
+   */
+  getCuiForm: typeof getCuiForm
   /**
    * header-toolbar
    */

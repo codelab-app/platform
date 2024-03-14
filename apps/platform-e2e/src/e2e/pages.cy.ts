@@ -31,7 +31,9 @@ describe('Pages CRUD', () => {
         .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
         .click()
 
-      cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
+      cy.getCuiForm(MODEL_ACTION.CreatePage.key)
+        .findByLabelText('Name')
+        .type(pageName)
 
       cy.getCuiPopover(MODEL_ACTION.CreatePage.key)
         .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
@@ -62,14 +64,14 @@ describe('Pages CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.findByTestId('update-page-form').findByLabelText('Name').clear()
-      cy.findByTestId('update-page-form')
+      cy.getCuiForm(MODEL_ACTION.UpdatePage.key).findByLabelText('Name').clear()
+      cy.getCuiForm(MODEL_ACTION.UpdatePage.key)
         .findByLabelText('Name')
         .type(updatedPageName)
       cy.getCuiPopover(MODEL_ACTION.UpdatePage.key)
         .getCuiToolbarItem(MODEL_ACTION.UpdatePage.key)
         .click()
-      cy.findByTestId('update-page-form').should('not.exist')
+      cy.getCuiForm(MODEL_ACTION.UpdatePage.key).should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('not.exist')
       cy.getCuiTreeItemByPrimaryTitle(updatedPageName).should('exist')

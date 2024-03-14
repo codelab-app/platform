@@ -241,13 +241,13 @@ describe('Running actions inside code action with arguments', () => {
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
     })
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "${stateKey1} - {{state['${stateKey1}']}}, ${stateKey2} - {{state['${stateKey2}']}}" }`,
@@ -257,7 +257,7 @@ describe('Running actions inside code action with arguments', () => {
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Typography Element',
@@ -267,7 +267,7 @@ describe('Running actions inside code action with arguments', () => {
       .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
 
-    cy.findByTestId('create-element-form').should('not.exist', {
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
 
@@ -287,7 +287,7 @@ describe('Running actions inside code action with arguments', () => {
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignButton,
@@ -295,7 +295,7 @@ describe('Running actions inside code action with arguments', () => {
 
     // TODO: once we seed the atom fields, change this logic so that you select the action in
     // in the "On Click" field
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "Click button to run actions", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${codeActionId}", "type": "${actionTypeId}" } }`,
@@ -304,7 +304,7 @@ describe('Running actions inside code action with arguments', () => {
     // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Action Button',
@@ -316,7 +316,7 @@ describe('Running actions inside code action with arguments', () => {
       .click()
     cy.wait('@createElement')
 
-    cy.findByTestId('create-element-form').should('not.exist', {
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
 

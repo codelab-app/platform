@@ -6,6 +6,10 @@ import { CY_DATA, wrapCyData } from './cy-data'
 
 export const CY_DATA_SELECTOR = {
   /**
+   * from
+   */
+  cuiForm: (key: ModelActionKey) => wrapCyData(CY_DATA.cuiForm(key)),
+  /**
    * header-toolbar
    */
   cuiHeader: () => wrapCyData(CY_DATA.cuiHeader()),
