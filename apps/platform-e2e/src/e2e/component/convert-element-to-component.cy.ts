@@ -1,3 +1,4 @@
+import { MODEL_UI } from '@codelab/frontend/abstract/types'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'

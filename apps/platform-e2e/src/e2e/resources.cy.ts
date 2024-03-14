@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import {
@@ -14,7 +14,7 @@ describe('Resource CRUD', () => {
       cy.waitForSpinners()
       cy.findAllByText(resourceName).should('not.exist')
 
-      cy.getCuiSidebar('Resources')
+      cy.getCuiSidebar(MODEL_UI.SidebarResource.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateResource.key)
         .click()
 

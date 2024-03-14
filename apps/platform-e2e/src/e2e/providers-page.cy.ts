@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -91,7 +91,7 @@ describe('_app page', () => {
   })
 
   it('should be able to create simple page', () => {
-    cy.getCuiSidebar('Pages')
+    cy.getCuiSidebar(MODEL_UI.SidebarPage.key)
       .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
       .click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)

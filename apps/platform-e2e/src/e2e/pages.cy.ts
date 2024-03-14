@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import type { IApp } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -27,7 +27,7 @@ describe('Pages CRUD', () => {
 
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.getCuiSidebar('Pages')
+      cy.getCuiSidebar(MODEL_UI.SidebarPage.key)
         .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
         .click()
 

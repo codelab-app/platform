@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { EditorView } from '@codemirror/view'
@@ -41,7 +41,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types')
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
 
@@ -76,7 +76,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types')
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
 
@@ -106,7 +106,7 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to create array', () => {
-      cy.getCuiSidebar('Types')
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
 
@@ -141,7 +141,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types')
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
 

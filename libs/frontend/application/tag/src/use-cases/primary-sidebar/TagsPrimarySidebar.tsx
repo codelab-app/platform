@@ -1,6 +1,6 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
@@ -34,6 +34,7 @@ export const TagsPrimarySidebar = observer(() => {
 
   return (
     <CuiSidebar
+      key={MODEL_UI.SidebarTag.key}
       label="Tags"
       popover={<CreateTagPopover />}
       views={[

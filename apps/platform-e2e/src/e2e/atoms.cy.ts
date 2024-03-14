@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
@@ -15,7 +15,7 @@ describe('Atoms CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Atoms')
+      cy.getCuiSidebar(MODEL_UI.SidebarAtom.key)
         .getCuiSidebarHeader()
         .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
         .click()

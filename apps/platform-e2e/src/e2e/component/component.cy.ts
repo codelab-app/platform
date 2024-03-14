@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -51,7 +51,7 @@ describe('Component CRUD', () => {
       cy.waitForSpinners()
 
       cy.log('my app', prettifyForConsole(testApp))
-      cy.getCuiSidebar('Components')
+      cy.getCuiSidebar(MODEL_UI.SidebarComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
       cy.findByTestId('create-component-form')
@@ -175,7 +175,7 @@ describe('Component CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-      cy.getCuiSidebar('Explorer')
+      cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
 
@@ -228,7 +228,7 @@ describe('Component CRUD', () => {
       // Expand the children container
       cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
 
-      cy.getCuiSidebar('Explorer')
+      cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
         .click()
 

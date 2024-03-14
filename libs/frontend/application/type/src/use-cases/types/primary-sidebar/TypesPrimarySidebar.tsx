@@ -1,5 +1,9 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  MODEL_UI,
+  PageType,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSidebar,
@@ -25,6 +29,7 @@ export const TypesPrimarySidebar = observer(() => {
   return (
     <CuiSidebar
       defaultActiveViewKeys={['types-view']}
+      key={MODEL_UI.SidebarType.key}
       label="Types"
       popover={
         <>

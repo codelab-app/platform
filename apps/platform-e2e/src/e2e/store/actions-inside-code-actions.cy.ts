@@ -1,6 +1,6 @@
 import type { App } from '@codelab/backend/abstract/codegen'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -236,7 +236,7 @@ describe('Running actions inside code action with arguments', () => {
   it('should create a button element and set the code action as the click handler', () => {
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer')
+    cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .first()
       .click()
@@ -282,7 +282,7 @@ describe('Running actions inside code action with arguments', () => {
       .should('exist')
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
-    cy.getCuiSidebar('Explorer')
+    cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .first()
       .click()

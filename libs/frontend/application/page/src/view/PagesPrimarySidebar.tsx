@@ -27,7 +27,7 @@ export const PagesPrimarySidebar = observer(() => {
     <>
       <CuiSidebar
         defaultActiveViewKeys={['pages']}
-        key={MODEL_UI.PageSidebar.key}
+        key={MODEL_UI.SidebarPage.key}
         label="Pages"
         popover={
           <>

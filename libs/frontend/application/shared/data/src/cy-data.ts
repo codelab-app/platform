@@ -1,4 +1,7 @@
-import type { ModelActionKey } from '@codelab/frontend/abstract/types'
+import type {
+  ModelActionKey,
+  ModelUiKey,
+} from '@codelab/frontend/abstract/types'
 
 export const wrapCyData = (data: string) => `[data-cy="${data}"]`
 
@@ -21,7 +24,7 @@ export const CY_DATA = {
   /**
    * sidebar
    */
-  cuiSidebar: (label: string) => `cui-sidebar-${label}`,
+  cuiSidebar: (key: ModelUiKey) => `cui-sidebar-${key}`,
 
   cuiSidebarHeader: () => 'cui-sidebar-header',
 

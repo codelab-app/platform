@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
@@ -17,8 +17,10 @@ export const createElementTree = (
     .wrap(elements)
     .each(
       ({ atom, name, parentElement, propsData }: ICreateCypressElementData) => {
-        cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
-        cy.getCuiSidebar('Explorer')
+        cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
+          .getCuiSkeleton()
+          .should('not.be.visible')
+        cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
           .first()
           .click()
@@ -86,7 +88,10 @@ export const createElementTree = (
           cy.wait(2000)
         }
 
-        cy.getCuiSidebar('Explorer').findByText(name).should('exist').click()
+        cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
+          .findByText(name)
+          .should('exist')
+          .click()
       },
     )
 }

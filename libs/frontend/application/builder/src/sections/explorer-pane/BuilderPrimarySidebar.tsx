@@ -12,7 +12,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/application/component'
 import {
   CreateElementPopover,
@@ -236,6 +236,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       <>
         <CuiSidebar
           defaultActiveViewKeys={['ElementTree']}
+          key={MODEL_UI.SidebarBuilder.key}
           label="Explorer"
           popover={
             <>

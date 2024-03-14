@@ -1,5 +1,5 @@
 import MoreOutlined from '@ant-design/icons/MoreOutlined'
-import type { SidebarModelKey } from '@codelab/frontend/abstract/types'
+import type { ModelUiKey } from '@codelab/frontend/abstract/types'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'
@@ -28,7 +28,7 @@ export interface CuiSidebarTab {
 
 export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
-  key: SidebarModelKey
+  key: ModelUiKey
   label: string
   popover?: ReactNode
   tabs?: Array<CuiSidebarTab>
@@ -38,6 +38,7 @@ export interface CuiSidebarProps {
 
 export const CuiSidebar = ({
   defaultActiveViewKeys,
+  key,
   label,
   popover,
   tabs,
@@ -49,7 +50,7 @@ export const CuiSidebar = ({
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={CY_DATA.cuiSidebar(label)}
+      data-cy={CY_DATA.cuiSidebar(key)}
       ref={sidebarRef}
     >
       {tabs && tabs[0] ? (

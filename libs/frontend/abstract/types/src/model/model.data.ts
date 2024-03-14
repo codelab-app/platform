@@ -38,11 +38,11 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.Delete,
     ],
-    uis: [],
+    uis: [CuiComponents.Sidebar],
   },
   [ModelName.Builder]: {
     actions: ['Open', 'TogglePreviewMode'],
-    uis: [],
+    uis: [CuiComponents.Sidebar],
   },
   [ModelName.Component]: {
     actions: [
@@ -51,7 +51,7 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.Delete,
     ],
-    uis: [],
+    uis: [CuiComponents.Sidebar],
   },
   [ModelName.Domain]: {
     actions: [ModelAction.Create, ModelAction.Update, ModelAction.Delete],
@@ -112,7 +112,7 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.Delete,
     ],
-    uis: [],
+    uis: [CuiComponents.Sidebar],
   },
   [ModelName.Tag]: {
     actions: [
@@ -121,7 +121,7 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.Delete,
     ],
-    uis: [],
+    uis: [CuiComponents.Sidebar],
   },
   [ModelName.Type]: {
     actions: [
@@ -130,7 +130,7 @@ export const modelDataMap = {
       ModelAction.Update,
       ModelAction.Delete,
     ],
-    uis: [],
+    uis: [CuiComponents.Sidebar],
   },
   [ModelName.User]: { actions: ['SignOut'], uis: [] },
 } as const

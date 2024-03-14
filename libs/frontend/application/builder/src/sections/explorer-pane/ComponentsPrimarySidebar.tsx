@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import {
   CreateComponentPopover,
   DeleteComponentModal,
@@ -62,6 +62,7 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
       <>
         <CuiSidebar
           defaultActiveViewKeys={['custom', 'pre-built']}
+          key={MODEL_UI.SidebarComponent.key}
           label="Components"
           popover={<CreateComponentPopover />}
           views={sidebarViews}

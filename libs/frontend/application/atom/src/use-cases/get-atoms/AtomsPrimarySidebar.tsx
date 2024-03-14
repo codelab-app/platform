@@ -29,7 +29,7 @@ export const AtomsPrimarySidebar = observer(() => {
   return (
     <CuiSidebar
       defaultActiveViewKeys={['atoms-view']}
-      key={MODEL_UI.AtomSidebar.key}
+      key={MODEL_UI.SidebarAtom.key}
       label="Atoms"
       popover={
         <>

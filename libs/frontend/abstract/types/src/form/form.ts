@@ -4,6 +4,7 @@ import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { AutoFormProps, Bridge } from 'uniforms'
+import type { ModelActionKey } from '../model'
 
 export type VoidCallback<TInput> = ArrayOrSingle<Callback<TInput, void>>
 
@@ -19,6 +20,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      * For testing
      */
     'data-testid'?: string
+    // key: ModelActionKey
 
     cssString?: string
 
