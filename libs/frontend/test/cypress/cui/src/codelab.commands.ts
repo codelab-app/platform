@@ -2,7 +2,7 @@ import type {
   CypressCommand,
   OmitFirstArg,
 } from '@codelab/frontend/test/cypress/shared'
-import type { getCuiForm } from './form/form.command'
+import { getCuiForm } from './form/form.command'
 import { getCuiHeader } from './header-toolbar/header.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
 import { getCuiPopover } from './popover/popover.command'
@@ -70,6 +70,13 @@ export interface CypressCuiCommands {
 }
 
 export const codelabCommands: Array<CypressCommand> = [
+  /**
+   * form
+   */
+  {
+    fn: getCuiForm,
+    name: 'getCuiForm',
+  },
   /**
    * header
    */

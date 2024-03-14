@@ -7,5 +7,5 @@ export const getCuiForm = (key: ModelActionKey) => {
     name: 'getCuiForm',
   })
 
-  return cy.get(wrapCyData(CY_DATA.cuiForm(key)))
+  return cy.get(CY_DATA.cuiForm(key).cySelector, { log: false })
 }
