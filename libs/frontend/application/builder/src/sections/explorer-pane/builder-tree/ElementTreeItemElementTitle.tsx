@@ -10,7 +10,7 @@ import type {
 import {
   elementRef,
   elementTreeRef,
-  isComponent,
+  isComponentRef,
 } from '@codelab/frontend/abstract/domain'
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
@@ -38,7 +38,7 @@ export const ElementTreeItemElementTitle = observer(
 
     const componentInstanceName = treeNode.isChildMapperComponentInstance
       ? element.parentComponent?.maybeCurrent?.name
-      : isComponent(element.renderType)
+      : isComponentRef(element.renderType)
       ? element.renderType.maybeCurrent?.name
       : null
 

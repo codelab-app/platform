@@ -46,17 +46,17 @@ export class ComponentApplicationService {
 
     const props = await this.propDomainService.createProp()
 
-    const rootElement = await this.elementApplicationService.createRootElement(
-      createComponentData,
-    )
+    const rootElement =
+      await this.elementApplicationService.createComponentRootElement(
+        createComponentData,
+      )
 
     const componentDto: IComponentDto = {
-      childrenContainerElement: rootElement,
-      rootElement,
       ...createComponentData,
       api,
-      id: v4(),
+      childrenContainerElement: rootElement,
       props,
+      rootElement,
       store,
     }
 

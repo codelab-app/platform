@@ -4,6 +4,7 @@ import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropDomainService } from '@codelab/backend/domain/prop'
 import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import type {
+  ICreateComponentData,
   ICreateElementData,
   IElementRenderTypeDto,
   IRef,
@@ -21,6 +22,16 @@ export class ElementApplicationService {
     private loggerService: CodelabLoggerService,
     private propDomainService: PropDomainService,
   ) {}
+
+  async createComponentRootElement(component: ICreateComponentData) {
+    return this.createElement(
+      {
+        id: v4(),
+        name: `${component.name} Root`,
+      },
+      { id: component.id },
+    )
+  }
 
   async createElement(element: ICreateElementData, closestContainerNode: IRef) {
     const props = await this.propDomainService.createProp(element.propsData)
@@ -58,17 +69,13 @@ export class ElementApplicationService {
     }
   }
 
-  async createRootElement(closestContainerNode: IRef) {
-    const props = await this.propDomainService.createProp()
-
-    const rootElement = await this.elementRepository.add({
+  async createPageRootElement(closestContainerNode: IRef) {
+    return this.createElement(
+      {
+        id: v4(),
+        name: ROOT_ELEMENT_NAME,
+      },
       closestContainerNode,
-      id: v4(),
-      name: ROOT_ELEMENT_NAME,
-      props,
-      renderType: await this.atomDomainService.defaultRenderType(),
-    })
-
-    return rootElement
+    )
   }
 }
