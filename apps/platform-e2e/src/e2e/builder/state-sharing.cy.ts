@@ -168,7 +168,10 @@ describe('State variables sharing between pages', () => {
     cy.wait('@createState')
   })
 
-  it("should respect provider state's precedence over component state", () => {
+  /**
+   * Originally had this spec to use provider state, but component data should be bound and passed in, as opposed to accessing global state.
+   */
+  it('should use component state and not use provider state', () => {
     // go to the regular page
     cy.visit(
       '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
@@ -187,6 +190,7 @@ describe('State variables sharing between pages', () => {
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
     cy.get('@cypressElement').reload()
-    cy.openPreview().contains('text provider state value').should('exist')
+
+    cy.openPreview().contains('text component state value').should('exist')
   })
 })
