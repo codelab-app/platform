@@ -2,11 +2,6 @@
 export default {
   displayName: 'backend-application-component',
   preset: '../../../../jest.preset.js',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-    },
-  },
   transform: {
     '^.+.[tj]sx?$': [
       '@swc/jest',

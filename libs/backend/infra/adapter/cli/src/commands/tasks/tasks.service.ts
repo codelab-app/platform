@@ -210,9 +210,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
             // https://github.com/nrwl/nx/discussions/8769
             execCommand('npx prettier --check "./**/*.{graphql,yaml,json}"')
-            // execCommand(
-            //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
-            // )
+
             execCommand('npx ls-lint')
           }
         }),

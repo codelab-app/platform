@@ -4,7 +4,6 @@
   "plugins": [
     "import",
     "unused-imports",
-    // "react-hooks",
     "prettier",
     "simple-import-sort",
     "lodash",
@@ -139,6 +138,7 @@
     {
       // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
       "plugins": ["jest", "jest-formatting"],
+      "extends": ["plugin:jest/recommended", "plugin:jest-formatting/strict"],
       "files": ["*.spec.ts", "*.spec.tsx"],
       "rules": {
         "import/no-unresolved": "error",
@@ -147,7 +147,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:jest-formatting/strict", "plugin:import/typescript"],
+      "extends": ["plugin:import/typescript"],
       "rules": {
         "curly": ["error", "all"],
         "prefer-arrow/prefer-arrow-functions": "error",
