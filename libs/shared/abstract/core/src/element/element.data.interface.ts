@@ -23,6 +23,8 @@ export const ICreateElementData = Type.Object({
   id: Type.String(),
   name: Type.String(),
   parentElement: Type.Optional(Typebox.Ref()),
+  postRenderAction: Typebox.Nullish(IRef),
+  preRenderAction: Typebox.Nullish(IRef),
   prevSibling: Type.Optional(Typebox.Ref()),
   propsData: Type.Optional(Type.Object<IPropData>({})),
   // atom?: IAtomType
