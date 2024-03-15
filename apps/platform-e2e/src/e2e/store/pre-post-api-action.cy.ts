@@ -18,7 +18,11 @@ describe('Running API actions that updates state via element pre-render and post
   let page: IPageDto
 
   before(() => {
-    setupTest(app, page)
+    setupTest()
+    cy.get<{ app: IAppDto; page: IPageDto }>('@createdApp').then((res) => {
+      app = res.app
+      page = res.page
+    })
   })
 
   it('should add the state variables where the api responses will be stored to', () => {

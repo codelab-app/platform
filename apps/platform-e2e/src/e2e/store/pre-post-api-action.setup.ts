@@ -16,7 +16,10 @@ import {
   preRenderCodeActionCreateData,
 } from './pre-post-api-action.data'
 
-export const setupTest = (app: IAppDto, page: IPageDto) => {
+export const setupTest = () => {
+  let app: IAppDto
+  let page: IPageDto
+
   cy.postApiRequest<App>('/app/seed-cypress-app')
     .then(({ body }) => {
       app = body
@@ -24,7 +27,7 @@ export const setupTest = (app: IAppDto, page: IPageDto) => {
 
       cy.wrap(page).should('have.property', 'store')
 
-      return cy.wrap(app)
+      return cy.wrap({ app, page })
     })
     .as('createdApp')
 
