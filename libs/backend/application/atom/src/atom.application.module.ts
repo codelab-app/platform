@@ -2,7 +2,6 @@ import { DataModule } from '@codelab/backend/application/data'
 import { SharedApplicationModule } from '@codelab/backend/application/shared'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
@@ -22,7 +21,6 @@ import {
     TypeDomainModule,
     AtomDomainModule,
     ValidationModule,
-    OtelModule,
     DataModule,
     SharedApplicationModule,
   ],

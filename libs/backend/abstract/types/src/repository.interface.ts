@@ -9,7 +9,7 @@ export interface IRepository<
 > {
   add(data: Model): Promise<ModelData>
   addMany(data: Array<Model>): Promise<Array<ModelData>>
-  exists(data: Model, where?: Where): Promise<boolean>
+  exists(where: Where): Promise<boolean>
   find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
   /**
    * We enforce schema validation if selectionSet is enabled

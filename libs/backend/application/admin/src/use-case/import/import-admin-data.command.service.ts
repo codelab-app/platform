@@ -4,13 +4,8 @@ import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import { ReadAdminDataService } from '@codelab/backend/application/data'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import {
-  TraceService,
-  withActiveSpan,
-} from '@codelab/backend/infra/adapter/otel'
 import type { IAtomAggregate } from '@codelab/shared/abstract/core'
 import { Stage } from '@codelab/shared/abstract/core'
-import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import omit from 'lodash/omit'
 
@@ -27,7 +22,6 @@ export class ImportAdminDataHandler
 {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly traceService: TraceService,
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
 
@@ -52,10 +46,6 @@ export class ImportAdminDataHandler
   }
 
   private async importAtom(atom: IAtomAggregate) {
-    const span = this.traceService.getSpan()
-
-    span?.setAttributes(flattenWithPrefix(atom))
-
     await this.commandBus.execute<ImportAtomCommand>(
       new ImportAtomCommand(atom),
     )
@@ -70,9 +60,7 @@ export class ImportAdminDataHandler
     for (const atom of this.readAdminDataService.atoms) {
       const atomWithoutSuggestedChildren = omit(atom, ['suggestedChildren'])
 
-      await withActiveSpan(`${atom.atom.name}`, () =>
-        this.importAtom(atomWithoutSuggestedChildren as IAtomAggregate),
-      )
+      await this.importAtom(atomWithoutSuggestedChildren as IAtomAggregate)
     }
 
     /**
@@ -83,7 +71,7 @@ export class ImportAdminDataHandler
     )
 
     for (const atom of atomsWithSuggestedChildren) {
-      await withActiveSpan(`${atom.atom.name}`, () => this.importAtom(atom))
+      await this.importAtom(atom)
     }
   }
 

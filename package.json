@@ -336,6 +336,7 @@
   "resolutions": {
     "@types/react": "18.2.24",
     "@types/react-dom": "18.2.9",
+    "cypress": "13.6.6",
     "antd@5.4.2": "patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch",
     "cypress@13.6.6": "patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch",
     "cypress@*": "patch:cypress@npm%3A13.6.6#./.yarn/patches/cypress-npm-13.6.6-746c2ee2e9.patch"

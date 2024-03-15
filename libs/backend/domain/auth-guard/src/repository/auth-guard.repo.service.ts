@@ -4,11 +4,11 @@ import {
   type AuthGuardWhere,
 } from '@codelab/backend/abstract/codegen'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import {
   authGuardSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAuthGuardDto } from '@codelab/shared/abstract/core'
@@ -28,11 +28,11 @@ export class AuthGuardRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
-    protected validationService: ValidationService,
+    override loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService, loggerService)
+    super(validationService, loggerService)
   }
 
   protected async _addMany(authGuards: Array<IAuthGuardDto>) {

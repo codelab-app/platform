@@ -4,13 +4,11 @@ import type { IBaseDataPaths } from '@codelab/backend/application/data'
 import { WriteAdminDataService } from '@codelab/backend/application/data'
 import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import type {
   IAdminAggregate,
   ITag,
   IType,
 } from '@codelab/shared/abstract/core'
-import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
@@ -28,18 +26,12 @@ export class ExportAdminDataHandler
   constructor(
     private writeAdminDataService: WriteAdminDataService,
     private commandBus: CommandBus,
-    private traceService: TraceService,
     private atomApplicationService: AtomApplicationService,
     private componentApplicationService: ComponentApplicationService,
   ) {}
 
   async execute({ baseDataPaths }: ExportAdminDataCommand) {
-    const span = this.traceService.getSpan()
-
-    span?.setAttributes(flattenWithPrefix({ baseDataPaths }))
-
     if (baseDataPaths) {
-      span?.addEvent('Add baseDataPath')
       this.writeAdminDataService.migrationDataService.basePaths = baseDataPaths
     }
 
@@ -47,8 +39,6 @@ export class ExportAdminDataHandler
       ExportSystemTypesCommand,
       Array<IType>
     >(new ExportSystemTypesCommand())
-
-    span?.addEvent('SystemTypes', flattenWithPrefix(systemTypes))
 
     const atoms = await this.atomApplicationService.exportAtomsForAdmin()
 

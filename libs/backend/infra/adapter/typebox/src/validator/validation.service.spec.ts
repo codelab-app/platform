@@ -1,4 +1,3 @@
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   IActionType,
   IAtomAggregate,

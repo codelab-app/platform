@@ -8,7 +8,7 @@ import {
   fieldSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
+
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IFieldDto } from '@codelab/shared/abstract/core'
@@ -24,11 +24,11 @@ export class FieldRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
+
     protected validationService: ValidationService,
     protected loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService, loggerService)
+    super(validationService, loggerService)
   }
 
   protected async _addMany(fields: Array<IFieldDto>) {

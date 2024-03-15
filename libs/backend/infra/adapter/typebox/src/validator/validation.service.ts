@@ -1,4 +1,4 @@
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { CodelabLoggerService } from '@codelab/backend/infra/adapter/logger'
 import { Typebox } from '@codelab/shared/abstract/typebox'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
@@ -7,7 +7,7 @@ import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
 
 @Injectable()
 export class ValidationService {
-  constructor(private traceService: TraceService) {}
+  constructor(private loggerService: CodelabLoggerService) {}
 
   /**
    * Removes unrecognized properties from the validated data
@@ -52,13 +52,13 @@ export class ValidationService {
       /**
        * Remove schema as it can get very long
        */
-      this.traceService.addEvent(`Validation failed for ${anySchema.$id}`, {
+      this.loggerService.error(`Validation failed for ${anySchema.$id}`, {
         error: cleanedErrors,
         values,
       })
 
       if (error instanceof Error) {
-        this.traceService.addJsonAttributes(`stack_trace: ${error.stack}`)
+        this.loggerService.error(`stack_trace: ${error.stack}`)
       }
 
       throw error
