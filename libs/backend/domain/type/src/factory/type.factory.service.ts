@@ -16,7 +16,6 @@ import {
 import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { context } from '@opentelemetry/api'
 import { Driver } from 'neo4j-driver'
 import {
   ActionType,
