@@ -21,7 +21,7 @@ import {
   providerPageElement,
   stateKeyPostRender,
   stateKeyPreRender,
-} from './pre-post-render-api-action-and-set-state.data'
+} from './pre-post-api-action.data'
 
 let app: IAppDto
 let page: IPageDto
