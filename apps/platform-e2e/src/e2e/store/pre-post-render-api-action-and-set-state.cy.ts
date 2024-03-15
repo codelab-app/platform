@@ -9,7 +9,6 @@ import type {
   IResourceDto,
 } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { findOrFail, slugify } from '@codelab/shared/utils'
 import { createResourceData } from '../preview/resource.data'
 import {

@@ -23,7 +23,7 @@ export const preRenderCodeActionCreateData = (
 ): ICreateCodeActionData => ({
   code: `function run(response) { state.${stateKeyPreRender} = response.data; }`,
   id: 'pre-render-code-action-id',
-  name: 'Store Data',
+  name: 'Store Pre Render Data',
   storeId: page.store.id,
   type: IActionKind.CodeAction,
 })
@@ -40,7 +40,7 @@ export const preRenderApiActionCreateData = (
     id: v4(),
   },
   id: 'pre-render-api-action-id',
-  name: 'On Fetch Data',
+  name: 'On Fetch Pre Render Data',
   resource: createResourceData,
   storeId: page.store.id,
   successActionId: 'pre-render-code-action-id',
@@ -50,9 +50,9 @@ export const preRenderApiActionCreateData = (
 export const postRenderCodeActionCreateData = (
   page: IPageDto,
 ): ICreateCodeActionData => ({
-  code: `function run(response) { state.${stateKeyPreRender} = response.data; }`,
+  code: `function run(response) { state.${stateKeyPostRender} = response.data; }`,
   id: 'post-render-code-action-id',
-  name: 'Store Data',
+  name: 'Store Post Render Data',
   storeId: page.store.id,
   type: IActionKind.CodeAction,
 })
@@ -69,7 +69,7 @@ export const postRenderApiActionCreateData = (
     id: v4(),
   },
   id: 'post-render-api-action-id',
-  name: 'On Fetch Data',
+  name: 'On Fetch Post Render Data',
   resource: createResourceData,
   storeId: page.store.id,
   successActionId: 'post-render-code-action-id',
