@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type DeletePrimitiveTypesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.PrimitiveTypeDeleteInput>
   where?: Types.InputMaybe<Types.PrimitiveTypeWhere>
@@ -269,12 +269,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -295,6 +297,7 @@ export function getSdk(
           ),
         'DeletePrimitiveTypes',
         'mutation',
+        variables,
       )
     },
     DeleteArrayTypes(
@@ -310,6 +313,7 @@ export function getSdk(
           ),
         'DeleteArrayTypes',
         'mutation',
+        variables,
       )
     },
     DeleteReactNodeTypes(
@@ -325,6 +329,7 @@ export function getSdk(
           ),
         'DeleteReactNodeTypes',
         'mutation',
+        variables,
       )
     },
     DeleteUnionTypes(
@@ -340,6 +345,7 @@ export function getSdk(
           ),
         'DeleteUnionTypes',
         'mutation',
+        variables,
       )
     },
     DeleteInterfaceTypes(
@@ -355,6 +361,7 @@ export function getSdk(
           ),
         'DeleteInterfaceTypes',
         'mutation',
+        variables,
       )
     },
     DeleteElementTypes(
@@ -370,6 +377,7 @@ export function getSdk(
           ),
         'DeleteElementTypes',
         'mutation',
+        variables,
       )
     },
     DeleteRenderPropTypes(
@@ -385,6 +393,7 @@ export function getSdk(
           ),
         'DeleteRenderPropTypes',
         'mutation',
+        variables,
       )
     },
     DeleteEnumTypes(
@@ -400,6 +409,7 @@ export function getSdk(
           ),
         'DeleteEnumTypes',
         'mutation',
+        variables,
       )
     },
     DeleteLambdaTypes(
@@ -415,6 +425,7 @@ export function getSdk(
           ),
         'DeleteLambdaTypes',
         'mutation',
+        variables,
       )
     },
     DeletePageTypes(
@@ -430,6 +441,7 @@ export function getSdk(
           ),
         'DeletePageTypes',
         'mutation',
+        variables,
       )
     },
     DeleteAppTypes(
@@ -445,6 +457,7 @@ export function getSdk(
           ),
         'DeleteAppTypes',
         'mutation',
+        variables,
       )
     },
     DeleteActionTypes(
@@ -460,6 +473,7 @@ export function getSdk(
           ),
         'DeleteActionTypes',
         'mutation',
+        variables,
       )
     },
     DeleteCodeMirrorTypes(
@@ -475,6 +489,7 @@ export function getSdk(
           ),
         'DeleteCodeMirrorTypes',
         'mutation',
+        variables,
       )
     },
   }

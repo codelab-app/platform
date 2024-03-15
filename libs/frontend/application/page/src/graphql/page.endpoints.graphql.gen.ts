@@ -4,13 +4,13 @@ import {
   PageFragment,
   PageDevelopmentFragment,
 } from '../../../../abstract/domain/src/page/page.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
   PageDevelopmentFragmentDoc,
 } from '../../../../abstract/domain/src/page/page.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
@@ -100,12 +100,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -125,6 +127,7 @@ export function getSdk(
           }),
         'CreatePages',
         'mutation',
+        variables,
       )
     },
     DeletePages(
@@ -139,6 +142,7 @@ export function getSdk(
           }),
         'DeletePages',
         'mutation',
+        variables,
       )
     },
     UpdatePages(
@@ -153,6 +157,7 @@ export function getSdk(
           }),
         'UpdatePages',
         'mutation',
+        variables,
       )
     },
     GetPages(
@@ -167,6 +172,7 @@ export function getSdk(
           }),
         'GetPages',
         'query',
+        variables,
       )
     },
     GetRenderedPage(
@@ -182,6 +188,7 @@ export function getSdk(
           ),
         'GetRenderedPage',
         'query',
+        variables,
       )
     },
   }

@@ -16,11 +16,11 @@ import {
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
 import { FieldFragment } from './field.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 import { FieldFragmentDoc } from './field.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type InterfaceTypeFragment = {
   fields: Array<FieldFragment>
 } & BaseType_InterfaceType_Fragment
@@ -40,12 +40,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

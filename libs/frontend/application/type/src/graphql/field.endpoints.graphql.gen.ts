@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { FieldFragment } from '../../../../abstract/domain/src/type/fragments/field.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { FieldFragmentDoc } from '../../../../abstract/domain/src/type/fragments/field.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreateFieldsMutationVariables = Types.Exact<{
   input: Array<Types.FieldCreateInput> | Types.FieldCreateInput
 }>
@@ -79,12 +79,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -105,6 +107,7 @@ export function getSdk(
           ),
         'CreateFields',
         'mutation',
+        variables,
       )
     },
     UpdateFields(
@@ -120,6 +123,7 @@ export function getSdk(
           ),
         'UpdateFields',
         'mutation',
+        variables,
       )
     },
     DeleteFields(
@@ -135,6 +139,7 @@ export function getSdk(
           ),
         'DeleteFields',
         'mutation',
+        variables,
       )
     },
     GetFields(
@@ -149,6 +154,7 @@ export function getSdk(
           }),
         'GetFields',
         'query',
+        variables,
       )
     },
   }

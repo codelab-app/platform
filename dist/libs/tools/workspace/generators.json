@@ -4,11 +4,6 @@
       "factory": "./src/generators/nx-project-config/generator",
       "schema": "./src/generators/nx-project-config/schema.json",
       "description": "Update NX project config for each library"
-    },
-    "codegen": {
-      "factory": "./src/generators/codegen/generator",
-      "schema": "./src/generators/codegen/schema.json",
-      "description": "Run graphql-codegen"
     }
   }
 }

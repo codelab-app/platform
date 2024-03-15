@@ -4,10 +4,16 @@ steps:
   - attach_workspace:
       at: ..
   - restore_cache:
-      name: 'Restore Cache'
+      name: 'Restore node_modules Cache'
       keys:
-        - node-modules-{{ checksum "yarn.lock" }}
-        - nvm-cache-{{ checksum ".nvmrc" }}
-        # This is needed for e2e to run, but we add it here for simplicity
-        - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+        - node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
+  # - restore_cache:
+  #     name: 'Restore Cache'
+  #     keys:
+  #       - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+  #       - node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
+  #       - nvm-cache-{{ checksum ".nvmrc" }}
+  #       # This is needed for e2e to run, but we add it here for simplicity
+  #       - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
   - setup-env
+  - install-pnpm

@@ -116,7 +116,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand(
-              'yarn graphql-codegen --config ./scripts/codegen/codegen.ts',
+              'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts',
             )
             await ogmService.generate()
 
@@ -127,7 +127,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             const startServer = 'nx serve platform-api -c ci'
 
             const runSpecs =
-              "npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0"
+              "pnpm wait-on 'tcp:127.0.0.1:4000' && pnpm graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0"
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,
@@ -198,7 +198,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand('yarn cross-env TIMING=1 lint-staged')
+            execCommand('pnpm cross-env TIMING=1 lint-staged')
             execCommand('npx ls-lint')
           }
 
@@ -209,9 +209,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
             execCommand('echo $PWD')
 
             // https://github.com/nrwl/nx/discussions/8769
-            execCommand('npx prettier --check "./**/*.{graphql,yaml,json}"')
+            execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"')
 
-            execCommand('npx ls-lint')
+            execCommand('pnpm ls-lint')
           }
         }),
       )

@@ -20,8 +20,7 @@ import {
   AtomDevelopmentFragment,
   AtomProductionFragment,
 } from '../atom/atom.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { TypeFragmentDoc } from '../type/fragments/type.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
@@ -29,6 +28,7 @@ import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
 } from '../atom/atom.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ElementFragment = {
   __typename: 'Element'
   childMapperPropKey?: string | null
@@ -254,12 +254,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

@@ -13,7 +13,6 @@ import {
   Neo4jService,
   OgmModule,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import {
   RequestContextMiddleware,
   RequestContextModule,
@@ -29,7 +28,6 @@ export const initUserContext = async (metadata: ModuleMetadata) => {
     imports: [
       RequestContextModule,
       UserDomainModule,
-      OtelModule,
       ValidationModule,
       SharedDomainModule,
       CqrsModule,

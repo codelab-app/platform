@@ -6,7 +6,7 @@ const tslib_1 = require("tslib");
 const devkit_1 = require("@nx/devkit");
 const utils_1 = require("@typescript-eslint/utils");
 const path_1 = tslib_1.__importDefault(require("path"));
-exports.createESLintRule = utils_1.ESLintUtils.RuleCreator(() => ``);
+exports.createESLintRule = utils_1.ESLintUtils.RuleCreator(() => '');
 exports.domainLayerConstraint = (0, exports.createESLintRule)({
     create: (context) => {
         const projectPath = (0, devkit_1.normalizePath)(global.projectPath || devkit_1.workspaceRoot);
@@ -71,7 +71,7 @@ exports.domainLayerConstraint = (0, exports.createESLintRule)({
     meta: {
         docs: {
             description: 'Disallow .graphql files in project paths including "domain"',
-            recommended: 'error',
+            recommended: 'strict',
         },
         messages: {
             endpointGraphqlConstraint: '`.endpoints.graphql` can only belong in the application layer',

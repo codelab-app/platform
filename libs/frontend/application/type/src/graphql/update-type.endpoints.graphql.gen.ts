@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.PrimitiveTypeConnectInput>
   create?: Types.InputMaybe<Types.PrimitiveTypeRelationInput>
@@ -474,12 +474,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -500,6 +502,7 @@ export function getSdk(
           ),
         'UpdatePrimitiveTypes',
         'mutation',
+        variables,
       )
     },
     UpdateArrayTypes(
@@ -515,6 +518,7 @@ export function getSdk(
           ),
         'UpdateArrayTypes',
         'mutation',
+        variables,
       )
     },
     UpdateUnionTypes(
@@ -530,6 +534,7 @@ export function getSdk(
           ),
         'UpdateUnionTypes',
         'mutation',
+        variables,
       )
     },
     UpdateInterfaceTypes(
@@ -545,6 +550,7 @@ export function getSdk(
           ),
         'UpdateInterfaceTypes',
         'mutation',
+        variables,
       )
     },
     UpdateReactNodeTypes(
@@ -560,6 +566,7 @@ export function getSdk(
           ),
         'UpdateReactNodeTypes',
         'mutation',
+        variables,
       )
     },
     UpdateElementTypes(
@@ -575,6 +582,7 @@ export function getSdk(
           ),
         'UpdateElementTypes',
         'mutation',
+        variables,
       )
     },
     UpdateRenderPropTypes(
@@ -590,6 +598,7 @@ export function getSdk(
           ),
         'UpdateRenderPropTypes',
         'mutation',
+        variables,
       )
     },
     UpdateEnumTypes(
@@ -605,6 +614,7 @@ export function getSdk(
           ),
         'UpdateEnumTypes',
         'mutation',
+        variables,
       )
     },
     UpdateLambdaTypes(
@@ -620,6 +630,7 @@ export function getSdk(
           ),
         'UpdateLambdaTypes',
         'mutation',
+        variables,
       )
     },
     UpdatePageTypes(
@@ -635,6 +646,7 @@ export function getSdk(
           ),
         'UpdatePageTypes',
         'mutation',
+        variables,
       )
     },
     UpdateAppTypes(
@@ -650,6 +662,7 @@ export function getSdk(
           ),
         'UpdateAppTypes',
         'mutation',
+        variables,
       )
     },
     UpdateActionTypes(
@@ -665,6 +678,7 @@ export function getSdk(
           ),
         'UpdateActionTypes',
         'mutation',
+        variables,
       )
     },
     UpdateCodeMirrorTypes(
@@ -680,6 +694,7 @@ export function getSdk(
           ),
         'UpdateCodeMirrorTypes',
         'mutation',
+        variables,
       )
     },
   }

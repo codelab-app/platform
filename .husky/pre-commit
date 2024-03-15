@@ -1,1 +1,1 @@
-yarn cli tasks lint --stage test
+pnpm run cli tasks lint --stage test

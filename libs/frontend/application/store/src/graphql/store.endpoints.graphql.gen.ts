@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { StoreFragment } from '../../../../abstract/domain/src/store/store.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { StoreFragmentDoc } from '../../../../abstract/domain/src/store/store.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
 }>
@@ -87,12 +87,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -113,6 +115,7 @@ export function getSdk(
           ),
         'CreateStores',
         'mutation',
+        variables,
       )
     },
     DeleteStores(
@@ -128,6 +131,7 @@ export function getSdk(
           ),
         'DeleteStores',
         'mutation',
+        variables,
       )
     },
     GetStores(
@@ -142,6 +146,7 @@ export function getSdk(
           }),
         'GetStores',
         'query',
+        variables,
       )
     },
     UpdateStores(
@@ -157,6 +162,7 @@ export function getSdk(
           ),
         'UpdateStores',
         'mutation',
+        variables,
       )
     },
   }

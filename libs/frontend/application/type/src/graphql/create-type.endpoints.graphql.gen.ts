@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreatePrimitiveTypesMutationVariables = Types.Exact<{
   input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
 }>
@@ -231,12 +231,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -257,6 +259,7 @@ export function getSdk(
           ),
         'CreatePrimitiveTypes',
         'mutation',
+        variables,
       )
     },
     CreateArrayTypes(
@@ -272,6 +275,7 @@ export function getSdk(
           ),
         'CreateArrayTypes',
         'mutation',
+        variables,
       )
     },
     CreateUnionTypes(
@@ -287,6 +291,7 @@ export function getSdk(
           ),
         'CreateUnionTypes',
         'mutation',
+        variables,
       )
     },
     CreateInterfaceTypes(
@@ -302,6 +307,7 @@ export function getSdk(
           ),
         'CreateInterfaceTypes',
         'mutation',
+        variables,
       )
     },
     CreateElementTypes(
@@ -317,6 +323,7 @@ export function getSdk(
           ),
         'CreateElementTypes',
         'mutation',
+        variables,
       )
     },
     CreateRenderPropTypes(
@@ -332,6 +339,7 @@ export function getSdk(
           ),
         'CreateRenderPropTypes',
         'mutation',
+        variables,
       )
     },
     CreateReactNodeTypes(
@@ -347,6 +355,7 @@ export function getSdk(
           ),
         'CreateReactNodeTypes',
         'mutation',
+        variables,
       )
     },
     CreateEnumTypes(
@@ -362,6 +371,7 @@ export function getSdk(
           ),
         'CreateEnumTypes',
         'mutation',
+        variables,
       )
     },
     CreateLambdaTypes(
@@ -377,6 +387,7 @@ export function getSdk(
           ),
         'CreateLambdaTypes',
         'mutation',
+        variables,
       )
     },
     CreatePageTypes(
@@ -392,6 +403,7 @@ export function getSdk(
           ),
         'CreatePageTypes',
         'mutation',
+        variables,
       )
     },
     CreateAppTypes(
@@ -407,6 +419,7 @@ export function getSdk(
           ),
         'CreateAppTypes',
         'mutation',
+        variables,
       )
     },
     CreateActionTypes(
@@ -422,6 +435,7 @@ export function getSdk(
           ),
         'CreateActionTypes',
         'mutation',
+        variables,
       )
     },
     CreateCodeMirrorTypes(
@@ -437,6 +451,7 @@ export function getSdk(
           ),
         'CreateCodeMirrorTypes',
         'mutation',
+        variables,
       )
     },
   }

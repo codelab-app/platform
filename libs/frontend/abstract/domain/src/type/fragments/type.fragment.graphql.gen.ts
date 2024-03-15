@@ -13,8 +13,7 @@ import { PrimitiveTypeFragment } from './primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from './react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragment } from './render-prop.fragment.graphql.gen'
 import { UnionTypeFragment } from './union-type.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { ActionTypeFragmentDoc } from './action-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
@@ -29,6 +28,7 @@ import { PrimitiveTypeFragmentDoc } from './primitive-type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from './react-node-type.fragment.graphql.gen'
 import { RenderPropTypeFragmentDoc } from './render-prop.fragment.graphql.gen'
 import { UnionTypeFragmentDoc } from './union-type.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type Type_ActionType_Fragment = ActionTypeFragment
 
 export type Type_AppType_Fragment = AppTypeFragment
@@ -105,12 +105,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

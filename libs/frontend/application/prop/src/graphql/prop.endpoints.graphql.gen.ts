@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { PropFragment } from '../../../../abstract/domain/src/prop/prop.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { PropFragmentDoc } from '../../../../abstract/domain/src/prop/prop.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreatePropsMutationVariables = Types.Exact<{
   input: Array<Types.PropCreateInput> | Types.PropCreateInput
 }>
@@ -79,12 +79,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -104,6 +106,7 @@ export function getSdk(
           }),
         'CreateProps',
         'mutation',
+        variables,
       )
     },
     UpdateProps(
@@ -118,6 +121,7 @@ export function getSdk(
           }),
         'UpdateProps',
         'mutation',
+        variables,
       )
     },
     DeleteProps(
@@ -132,6 +136,7 @@ export function getSdk(
           }),
         'DeleteProps',
         'mutation',
+        variables,
       )
     },
     GetProps(
@@ -146,6 +151,7 @@ export function getSdk(
           }),
         'GetProps',
         'query',
+        variables,
       )
     },
   }

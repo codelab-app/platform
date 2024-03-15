@@ -4,7 +4,7 @@ steps:
   - restore-workspace
   - install-terraform
   - install-nvm
-  - install-npm
+  - install-packages
   - build-repo
   - persist_to_workspace:
       root: ~/

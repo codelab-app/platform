@@ -22,5 +22,5 @@ module.exports = {
 
     return [cmd]
   },
-  '.circleci/**/*.yml': ['yarn cpack', 'git add .circleci/**/*'],
+  '.circleci/**/*.yml': ['pnpm run cpack', 'git add .circleci/**/*'],
 }

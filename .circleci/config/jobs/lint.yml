@@ -7,9 +7,9 @@ steps:
   - restore-workspace
   - run:
       name: 'Run Lint on Repository'
-      command: yarn cli tasks lint --stage ci
+      command: pnpm run cli tasks lint --stage ci
   - run:
       name: 'Commitlint'
-      command: yarn cli tasks commitlint --stage ci
+      command: pnpm run cli tasks commitlint --stage ci
   - store_test_results:
       path: ./tmp/reports/lint

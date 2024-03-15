@@ -2,11 +2,11 @@
 
 set -x
 
-# Extract the arguments after "yarn cli"
-args=${@#yarn cli}
+# Extract the arguments after "pnpm cli"
+args=${@#pnpm cli}
 
 # Run the nx serve command with the formatted arguments
-nx build cli && node dist/apps/cli/main.js $args
+pnpm nx build cli && node dist/apps/cli/main.js $args
 
 # # Capture the exit code of the last command
 # exit_code=$?

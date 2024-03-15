@@ -4,4 +4,4 @@ steps:
   - restore-workspace
   - run:
       name: 'GraphQL Codegen'
-      command: yarn cli tasks codegen --stage ci
+      command: pnpm run cli tasks codegen --stage ci

@@ -5,11 +5,11 @@ import {
   BaseAction_CodeAction_Fragment,
 } from './action-base.fragment.graphql.gen'
 import { ResourceFragment } from '../../resource/resource.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { BaseActionFragmentDoc } from './action-base.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../resource/resource.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ApiActionFragment = {
   config: { data: string; id: string }
   errorAction?:
@@ -48,12 +48,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

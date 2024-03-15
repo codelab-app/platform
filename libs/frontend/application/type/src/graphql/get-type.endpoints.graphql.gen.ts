@@ -31,12 +31,12 @@ import {
   Type_UnionType_Fragment,
 } from '../../../../abstract/domain/src/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/base-type.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from '../../../../abstract/domain/src/type/fragments/react-node-type.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetBaseTypesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.GetBaseTypesOptions>
 }>
@@ -423,12 +423,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -448,6 +450,7 @@ export function getSdk(
           }),
         'GetBaseTypes',
         'query',
+        variables,
       )
     },
     GetTypes(
@@ -462,6 +465,7 @@ export function getSdk(
           }),
         'GetTypes',
         'query',
+        variables,
       )
     },
     GetDescendants(
@@ -477,6 +481,7 @@ export function getSdk(
           ),
         'GetDescendants',
         'query',
+        variables,
       )
     },
     GetPrimitiveTypes(
@@ -492,6 +497,7 @@ export function getSdk(
           ),
         'GetPrimitiveTypes',
         'query',
+        variables,
       )
     },
     GetArrayTypes(
@@ -506,6 +512,7 @@ export function getSdk(
           }),
         'GetArrayTypes',
         'query',
+        variables,
       )
     },
     GetUnionTypes(
@@ -520,6 +527,7 @@ export function getSdk(
           }),
         'GetUnionTypes',
         'query',
+        variables,
       )
     },
     GetInterfaceTypes(
@@ -535,6 +543,7 @@ export function getSdk(
           ),
         'GetInterfaceTypes',
         'query',
+        variables,
       )
     },
     GetElementTypes(
@@ -550,6 +559,7 @@ export function getSdk(
           ),
         'GetElementTypes',
         'query',
+        variables,
       )
     },
     GetRenderPropTypes(
@@ -565,6 +575,7 @@ export function getSdk(
           ),
         'GetRenderPropTypes',
         'query',
+        variables,
       )
     },
     GetReactNodeTypes(
@@ -580,6 +591,7 @@ export function getSdk(
           ),
         'GetReactNodeTypes',
         'query',
+        variables,
       )
     },
     GetEnumTypes(
@@ -594,6 +606,7 @@ export function getSdk(
           }),
         'GetEnumTypes',
         'query',
+        variables,
       )
     },
     GetLambdaTypes(
@@ -609,6 +622,7 @@ export function getSdk(
           ),
         'GetLambdaTypes',
         'query',
+        variables,
       )
     },
     GetPageTypes(
@@ -623,6 +637,7 @@ export function getSdk(
           }),
         'GetPageTypes',
         'query',
+        variables,
       )
     },
     GetAppTypes(
@@ -637,6 +652,7 @@ export function getSdk(
           }),
         'GetAppTypes',
         'query',
+        variables,
       )
     },
     GetActionTypes(
@@ -652,6 +668,7 @@ export function getSdk(
           ),
         'GetActionTypes',
         'query',
+        variables,
       )
     },
     GetCodeMirrorTypes(
@@ -667,6 +684,7 @@ export function getSdk(
           ),
         'GetCodeMirrorTypes',
         'query',
+        variables,
       )
     },
     GetTypeOptions(
@@ -682,6 +700,7 @@ export function getSdk(
           ),
         'GetTypeOptions',
         'query',
+        variables,
       )
     },
   }

@@ -87,7 +87,7 @@ export const getTypeApi = getGetSdk(graphqlClient)
 
 export const getAllTypes = async (
   // where?: BaseTypeWhere
-  ids?: Array<number | string>,
+  ids?: Array<string>,
 ) => {
   const {
     actionTypes,

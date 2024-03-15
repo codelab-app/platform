@@ -4,7 +4,7 @@ steps:
   - restore-workspace
   - run:
       name: 'Run Integration Tests'
-      command: yarn cli tasks int --stage ci
+      command: pnpm run cli tasks int --stage ci
       no_output_timeout: 20m
       environment:
         JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration

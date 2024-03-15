@@ -11,7 +11,7 @@ module.exports = {
   // globalTeardown: `${JEST_CONFIG_PATH}/globalTeardown.js`
   setupFilesAfterEnv: [
     '@testing-library/jest-dom',
-    `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
+    // `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
   ],
   testTimeout,
   /**

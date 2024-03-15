@@ -7,7 +7,7 @@ steps:
   #       - terraform-cache-1.3.9
   #       - terraform-cache
   - run:
-      # Manually install because we can't add `yarn` to terraform orb
+      # Manually install because we can't add `pnpm` to terraform orb
       # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
       name: 'Install Terraform'
       command: |

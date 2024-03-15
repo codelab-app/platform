@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type UpdateCodeActionsMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.CodeActionConnectInput>
   create?: Types.InputMaybe<Types.CodeActionRelationInput>
@@ -80,12 +80,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -106,6 +108,7 @@ export function getSdk(
           ),
         'UpdateCodeActions',
         'mutation',
+        variables,
       )
     },
     UpdateApiActions(
@@ -121,6 +124,7 @@ export function getSdk(
           ),
         'UpdateApiActions',
         'mutation',
+        variables,
       )
     },
   }

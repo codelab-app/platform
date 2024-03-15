@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { AuthGuardFragment } from '../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { AuthGuardFragmentDoc } from '../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetAuthGuardsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AuthGuardOptions>
   where?: Types.InputMaybe<Types.AuthGuardWhere>
@@ -88,12 +88,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -113,6 +115,7 @@ export function getSdk(
           }),
         'GetAuthGuards',
         'query',
+        variables,
       )
     },
     CreateAuthGuards(
@@ -128,6 +131,7 @@ export function getSdk(
           ),
         'CreateAuthGuards',
         'mutation',
+        variables,
       )
     },
     UpdateAuthGuard(
@@ -143,6 +147,7 @@ export function getSdk(
           ),
         'UpdateAuthGuard',
         'mutation',
+        variables,
       )
     },
     DeleteAuthGuards(
@@ -158,6 +163,7 @@ export function getSdk(
           ),
         'DeleteAuthGuards',
         'mutation',
+        variables,
       )
     },
   }

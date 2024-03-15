@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { DomainFragment } from '../../../../abstract/domain/src/domain/domain.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { DomainFragmentDoc } from '../../../../abstract/domain/src/domain/domain.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetDomainsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.DomainOptions>
   where?: Types.InputMaybe<Types.DomainWhere>
@@ -79,12 +79,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -104,6 +106,7 @@ export function getSdk(
           }),
         'GetDomains',
         'query',
+        variables,
       )
     },
     CreateDomains(
@@ -119,6 +122,7 @@ export function getSdk(
           ),
         'CreateDomains',
         'mutation',
+        variables,
       )
     },
     UpdateDomains(
@@ -134,6 +138,7 @@ export function getSdk(
           ),
         'UpdateDomains',
         'mutation',
+        variables,
       )
     },
     DeleteDomains(
@@ -149,6 +154,7 @@ export function getSdk(
           ),
         'DeleteDomains',
         'mutation',
+        variables,
       )
     },
   }
