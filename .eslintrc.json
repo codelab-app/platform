@@ -15,7 +15,6 @@
     // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
     "unicorn",
-    "tailwindcss",
     "@stylistic/ts"
   ],
   "parser": "@typescript-eslint/parser",
@@ -24,7 +23,6 @@
   },
   "extends": [
     "plugin:canonical/recommended",
-    "plugin:tailwindcss/recommended",
     "./scripts/eslint/.eslintrc.nx.json",
     "./scripts/eslint/.eslintrc.globals.json",
     "./scripts/eslint/.eslintrc.spacing.json",
@@ -57,7 +55,6 @@
       "plugins": [],
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "tailwindcss/no-custom-classname": ["error", {}],
         "@stylistic/ts/quotes": ["error", "single", { "avoidEscape": true }],
         // "unused-imports/no-unused-imports-ts": "error",
         "@typescript-eslint/no-unused-vars": "off",
@@ -143,6 +140,14 @@
       "rules": {
         "import/no-unresolved": "error",
         "import/named": "error"
+      }
+    },
+    {
+      "files": ["*.tsx"],
+      "plugins": ["tailwindcss"],
+      "extends": ["plugin:tailwindcss/recommended"],
+      "rules": {
+        "tailwindcss/no-custom-classname": ["error", {}]
       }
     },
     {
