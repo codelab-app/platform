@@ -1,9 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-pnpm run cli tasks build --stage test
-pnpm run cli tasks unit --stage test
-pnpm run cli tasks int --stage test
+pnpm cli tasks build --stage test
+pnpm cli tasks unit --stage test
+pnpm cli tasks int --stage test
 pnpm nx e2e platform-e2e -c test
 
 ./scripts/git/branch-name-check.sh

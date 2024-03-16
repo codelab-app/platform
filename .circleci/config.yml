@@ -15,6 +15,7 @@ commands:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
+            - ~/project/.nx/cache
             - ~/project/dist/apps/platform/.next/cache
   install-nvm:
     steps:
@@ -146,10 +147,10 @@ jobs:
     steps:
       - restore-infra-workspace
       - run:
-          command: pnpm run cli terraform --stage prod init
+          command: pnpm cli terraform --stage prod init
           name: Terraform Init
       - run:
-          command: pnpm run cli terraform --stage prod apply
+          command: pnpm cli terraform --stage prod apply
           name: Terraform Apply
   codegen:
     executor: docker-node-neo4j
@@ -157,7 +158,7 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm run cli tasks codegen --stage ci
+          command: pnpm cli tasks codegen --stage ci
           name: GraphQL Codegen
   deploy-preview:
     executor: docker-node-neo4j
@@ -220,7 +221,7 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm run cli tasks int --stage ci
+          command: pnpm cli tasks int --stage ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
           name: Run Integration Tests
@@ -236,10 +237,10 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm run cli tasks lint --stage ci
+          command: pnpm cli tasks lint --stage ci
           name: Run Lint on Repository
       - run:
-          command: pnpm run cli tasks commitlint --stage ci
+          command: pnpm cli tasks commitlint --stage ci
           name: Commitlint
       - store_test_results:
           path: ./tmp/reports/lint
@@ -343,13 +344,13 @@ jobs:
           command: terraform -chdir=terraform fmt
           name: Terraform Format
       - run:
-          command: pnpm run cli terraform --stage prod init
+          command: pnpm cli terraform --stage prod init
           name: Terraform Init
       - run:
-          command: pnpm run cli terraform --stage prod validate
+          command: pnpm cli terraform --stage prod validate
           name: Terraform Validate
       - run:
-          command: pnpm run cli terraform --stage prod plan
+          command: pnpm cli terraform --stage prod plan
           name: Terraform Plan
       - persist_to_workspace:
           paths:
@@ -389,7 +390,7 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm run cli tasks unit --stage ci
+          command: pnpm cli tasks unit --stage ci
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
           name: Run Unit Tests

@@ -8,7 +8,6 @@ import {
   OgmService,
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IUserDto } from '@codelab/shared/abstract/core'

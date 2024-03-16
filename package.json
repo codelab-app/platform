@@ -17,7 +17,7 @@
     "cli": "scripts/nx/cli.sh",
     "docker:up": "scripts/docker/up.sh",
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
-    "codegen": "pnpm run cli tasks codegen --stage dev",
+    "codegen": "pnpm cli tasks codegen --stage dev",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --parallel=1 --runInBand",
     "test:unit": "nx run-many --all --target=test:unit --parallel=5",

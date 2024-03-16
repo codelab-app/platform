@@ -8,7 +8,6 @@ import {
   OgmService,
   redirectSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {

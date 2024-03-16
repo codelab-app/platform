@@ -3,7 +3,7 @@ steps:
   - restore-infra-workspace
   - run:
       name: 'Terraform Init'
-      command: pnpm run cli terraform --stage prod init
+      command: pnpm cli terraform --stage prod init
   - run:
       name: 'Terraform Apply'
-      command: pnpm run cli terraform --stage prod apply
+      command: pnpm cli terraform --stage prod apply
