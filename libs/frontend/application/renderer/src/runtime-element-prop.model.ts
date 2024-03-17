@@ -123,7 +123,8 @@ export class RuntimeElementPropsModel
     const slug = this.element.slug
     const store = this.runtimeStore
     const renderType = this.element.renderType.current
-    const defaultProps = renderType.api.current.defaultValues
+    // use "maybeCurrent" since in production websites api Interface might not be available
+    const defaultProps = renderType.api.maybeCurrent?.defaultValues
     const props = mergeProps(defaultProps, this.element.props.values)
 
     return {

@@ -19,7 +19,10 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { regeneratePages } from '@codelab/frontend/domain/domain'
+import {
+  regeneratePages,
+  useRegeneratePages,
+} from '@codelab/frontend/domain/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -29,7 +32,7 @@ import {
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 
 interface PageTreeItemProps {
   app: IAppModel
@@ -44,13 +47,10 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { domainService, pageService, redirectService, userService } =
-      useStore()
-
+    const { appService, pageService, redirectService, userService } = useStore()
+    const { isRegenerating, regenerate } = useRegeneratePages(appService)
     const { popover } = useCui()
-    const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
     const router = useRouter()
-    const domains = app.domains.map((domain) => domain)
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {
@@ -96,26 +96,8 @@ export const PageTreeItem = observer(
       },
       {
         cuiKey: MODEL_ACTION.BuildApp.key,
-        icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
-        onClick: async () => {
-          let pageDomains = domains.filter(
-            (domain) => domain.app.id === page.app.id,
-          )
-
-          if (!pageDomains.length) {
-            pageDomains = await domainService.getAll({
-              app: { id: page.app.id },
-            })
-          }
-
-          setRebuildButtonLoading(true)
-
-          for (const pageDomain of pageDomains) {
-            await regeneratePages([page.url], pageDomain.name)
-          }
-
-          setRebuildButtonLoading(false)
-        },
+        icon: isRegenerating ? <LoadingOutlined /> : <ToolOutlined />,
+        onClick: () => regenerate(app, [page.url]),
         title: 'Build',
       },
       {

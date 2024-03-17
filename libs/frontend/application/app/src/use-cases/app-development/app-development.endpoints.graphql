@@ -3,9 +3,6 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   actionTypes {
     ...ActionType
   }
-  actionTypes {
-    ...ActionType
-  }
   apps(where: { compositeKey: $appCompositeKey }) {
     ...AppDevelopment
   }
@@ -23,9 +20,6 @@ query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
   # workaround for lack of ability to recursively fetch field's types
   primitiveTypes {
     ...PrimitiveType
-  }
-  reactNodeTypes {
-    ...ReactNodeType
   }
   reactNodeTypes {
     ...ReactNodeType

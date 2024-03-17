@@ -9,6 +9,7 @@ resource "digitalocean_app" "platform-api" {
     }
 
     service {
+      instance_size_slug = "basic-xxs"
       name = "platform-api"
       http_port = 443
 

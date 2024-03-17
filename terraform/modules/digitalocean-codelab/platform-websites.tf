@@ -8,7 +8,13 @@ resource "digitalocean_app" "platform-websites" {
       zone = "codelab.app"
     }
 
+    domain {
+      name = "*.websites.codelab.app"
+      zone = "codelab.app"
+    }
+
     service {
+      instance_size_slug = "basic-xxs"
       name = "platform-websites"
       http_port = 443
 

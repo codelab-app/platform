@@ -33,7 +33,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * URL is protocol + origin
    */
   get canActivateUrl() {
-    return `${this.platformApiHost}/api/can-activate`
+    return new URL('api/can-activate', this.platformApiHost).toString()
   }
 
   /**
@@ -42,7 +42,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This uses the Next.js proxy middleware
    */
   get graphqlApiProxyUrl() {
-    return `${this.platformHost}/api/graphql`
+    return new URL('api/graphql', this.platformHost).toString()
   }
 
   get isLocal() {

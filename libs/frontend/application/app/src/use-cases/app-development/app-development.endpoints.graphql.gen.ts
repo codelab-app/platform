@@ -35,13 +35,13 @@ export type GetAppDevelopmentQueryVariables = Types.Exact<{
 }>
 
 export type GetAppDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment & ActionTypeFragment>
+  actionTypes: Array<ActionTypeFragment>
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
-  reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
@@ -49,9 +49,6 @@ export type GetAppDevelopmentQuery = {
 
 export const GetAppDevelopmentDocument = gql`
   query GetAppDevelopment($appCompositeKey: String!, $pageName: String!) {
-    actionTypes {
-      ...ActionType
-    }
     actionTypes {
       ...ActionType
     }
@@ -69,9 +66,6 @@ export const GetAppDevelopmentDocument = gql`
     }
     primitiveTypes {
       ...PrimitiveType
-    }
-    reactNodeTypes {
-      ...ReactNodeType
     }
     reactNodeTypes {
       ...ReactNodeType

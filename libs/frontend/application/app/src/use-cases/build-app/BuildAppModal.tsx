@@ -1,30 +1,17 @@
+import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { regeneratePages } from '@codelab/frontend/domain/domain'
+import { useRegeneratePages } from '@codelab/frontend/domain/domain'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
-import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
 export const BuildAppModal = observer(() => {
-  const { appService, domainService } = useStore()
+  const { appService } = useStore()
   const app = appService.buildModal.app
-
-  const onSubmit = async () => {
-    if (app) {
-      const domain = domainService.domainsList.find(
-        (_domain) => _domain.app.id === app.id,
-      )
-
-      const pages = app.pages.map((page) => page.url)
-
-      if (domain) {
-        await regeneratePages(pages, domain.name)
-      }
-    }
-  }
-
+  const { regenerate } = useRegeneratePages(appService)
+  const onSubmit = async () => regenerate(app as IAppModel)
   const closeModal = () => appService.buildModal.close()
 
   return (
@@ -36,9 +23,6 @@ export const BuildAppModal = observer(() => {
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while rebuilding app',
-        })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
         uiKey={MODEL_ACTION.BuildApp.key}
