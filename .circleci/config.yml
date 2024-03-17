@@ -15,6 +15,7 @@ commands:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
+            - ~/project/.nx/cache
             - ~/project/dist/apps/cli
             - ~/project/dist/apps/platform/.next/cache
             - ~/project/dist/apps/platform-api
@@ -246,7 +247,7 @@ jobs:
     steps:
       - restore-workspace
       - run:
-          command: pnpm cli tasks lint --stage ci
+          command: pnpm cli tasks lint --stage ci --verbose
           name: Run Lint on Repository
       - run:
           command: pnpm cli tasks commitlint --stage ci
