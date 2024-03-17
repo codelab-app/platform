@@ -30,6 +30,7 @@ export interface IAppService
 
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
+  regeneratePages(app: IAppModel, pagesUrls?: Array<string>): Promise<void>
   updatePage(data: IUpdatePageFormData): Promise<void>
   // loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
   // loadDevelopmentPage(

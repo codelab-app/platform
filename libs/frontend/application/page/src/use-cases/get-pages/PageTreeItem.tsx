@@ -29,7 +29,7 @@ import {
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 
 interface PageTreeItemProps {
   app: IAppModel
@@ -44,13 +44,10 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { domainService, pageService, redirectService, userService } =
-      useStore()
-
+    const { appService, pageService, redirectService, userService } = useStore()
+    const { isRegenerating, regenerate } = useRegeneratePages(appService)
     const { popover } = useCui()
-    const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
     const router = useRouter()
-    const domains = app.domains.map((domain) => domain)
 
     const commonToolbarItems: Array<ToolbarItem> = [
       {

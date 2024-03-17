@@ -22350,13 +22350,13 @@ export type GetAppDevelopmentQueryVariables = Exact<{
 }>
 
 export type GetAppDevelopmentQuery = {
-  actionTypes: Array<ActionTypeFragment & ActionTypeFragment>
+  actionTypes: Array<ActionTypeFragment>
   apps: Array<AppDevelopmentFragment>
   atoms: Array<AtomDevelopmentFragment>
   authGuards: Array<AuthGuardFragment>
   components: Array<ComponentDevelopmentFragment>
   primitiveTypes: Array<PrimitiveTypeFragment>
-  reactNodeTypes: Array<ReactNodeTypeFragment & ReactNodeTypeFragment>
+  reactNodeTypes: Array<ReactNodeTypeFragment>
   redirects: Array<RedirectFragment>
   renderPropTypes: Array<RenderPropTypeFragment>
   resources: Array<ResourceFragment>
