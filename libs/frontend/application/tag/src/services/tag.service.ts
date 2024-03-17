@@ -2,15 +2,15 @@ import type { ITagService } from '@codelab/frontend/abstract/application'
 import type {
   ICreateTagData,
   ITagModel,
-  ITagTreeService,
   IUpdateTagData,
 } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
+  PaginationService,
 } from '@codelab/frontend/application/shared/store'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
-import type { TagWhere } from '@codelab/shared/abstract/codegen'
+import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'
 import {
   _async,
@@ -24,7 +24,6 @@ import {
 import { TagRepository } from './tag.repo'
 import { TagFormService } from './tag-form.service'
 import { TagModalService, TagsModalService } from './tag-modal.service'
-import { TagTreeService } from './tag-tree.service'
 
 @model('@codelab/TagService')
 export class TagService
@@ -33,9 +32,11 @@ export class TagService
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new TagsModalService({})),
+    paginationService: prop(
+      () => new PaginationService<ITagModel, { name?: string }>({}),
+    ),
     tagDomainService: prop(() => new TagDomainService({})),
     tagRepository: prop(() => new TagRepository({})),
-    treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
     updateForm: prop(() => new TagFormService({})),
     updateModal: prop(() => new TagModalService({})),
   })
@@ -51,8 +52,6 @@ export class TagService
       isRoot: !data.parent?.id,
     })
 
-    this.treeService.addRoots([tag])
-
     yield* _await(this.tagRepository.add(tag))
 
     if (!tag.parent) {
@@ -63,8 +62,6 @@ export class TagService
 
     if (parentTag) {
       this.tagDomainService.tags.set(parentTag.id, parentTag)
-
-      this.treeService.addRoots([tag, parentTag])
     }
 
     return tag
@@ -102,20 +99,21 @@ export class TagService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TagService, where?: TagWhere) {
-    const { items: tags } = yield* _await(this.tagRepository.find(where))
+  getAll = _async(function* (
+    this: TagService,
+    where?: TagWhere,
+    options?: TagOptions,
+  ) {
+    const {
+      aggregate: { count },
+      items: tags,
+    } = yield* _await(this.tagRepository.find(where, options))
+
+    console.log(tags)
+
+    this.paginationService.totalItems = count
 
     return tags.map((tag) => this.tagDomainService.hydrate(tag))
-  })
-
-  /**
-   * To load all tags & initialize the tree
-   */
-  @modelFlow
-  loadTagTree = _async(function* (this: TagService) {
-    const tags = yield* _await(this.getAll())
-
-    this.treeService = TagTreeService.init(tags)
   })
 
   @modelFlow
@@ -132,4 +130,18 @@ export class TagService
 
     return tag
   })
+
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const items = await this.getAll(
+        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
+      )
+
+      return { items, totalItems: this.paginationService.totalItems }
+    }
+  }
 }

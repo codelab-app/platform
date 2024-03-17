@@ -1,28 +1,36 @@
 import type {
   IAtomModel,
   IComponentModel,
+  ITagModel,
   ITypeModel,
 } from '@codelab/frontend/abstract/domain'
 import type { PageType } from '@codelab/frontend/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { IAtomService } from '../atom'
 import type { IComponentApplicationService } from '../component'
+import type { ITagService } from '../tag'
 import type { ITypeService } from '../type'
 
 export interface Filterables {
   [x: string]: Array<string> | boolean | number | string | undefined
 }
 
-export type SupportedPaginationModel = IAtomModel | IComponentModel | ITypeModel
+export type SupportedPaginationModel =
+  | IAtomModel
+  | IComponentModel
+  | ITagModel
+  | ITypeModel
 
 export type SupportedPaginationModelPage =
   | PageType.Atoms
   | PageType.Components
+  | PageType.Tags
   | PageType.Type
 
 export type SupportedPaginationModelService =
   | IAtomService
   | IComponentApplicationService
+  | ITagService
   | ITypeService
 
 export interface IPaginationService<

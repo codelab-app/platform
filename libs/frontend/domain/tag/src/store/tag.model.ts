@@ -51,20 +51,6 @@ export class Tag
   static create = create
 
   @computed
-  get antdNode(): ITreeNode<ITagNodeData> {
-    return {
-      children: this.children.map((child) => child.current.antdNode),
-      extraData: {
-        node: this,
-        type: 'tag',
-      },
-      key: this.id,
-      primaryTitle: this.name,
-      title: this.name,
-    }
-  }
-
-  @computed
   get label() {
     return this.name
   }
@@ -78,6 +64,20 @@ export class Tag
       isRoot: this.isRoot,
       name: this.name,
       parent: this.parent,
+    }
+  }
+
+  @computed
+  get treeNode(): ITreeNode<ITagNodeData> {
+    return {
+      children: this.children.map((child) => child.current.treeNode),
+      extraData: {
+        node: this,
+        type: 'tag',
+      },
+      key: this.id,
+      primaryTitle: this.name,
+      title: this.name,
     }
   }
 

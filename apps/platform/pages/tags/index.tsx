@@ -26,16 +26,6 @@ import Head from 'next/head'
 import React from 'react'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { tagService } = useStore()
-
-  const [{ status }, loadTagTree] = useAsync(() => {
-    tagService.loadTagTree()
-
-    return Promise.resolve()
-  })
-
-  useMountEffect(loadTagTree.execute)
-
   return (
     <>
       <Head>
@@ -47,9 +37,7 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTagsModal />
 
       <ContentSection>
-        <CuiSkeletonWrapper isLoading={status === 'loading'}>
-          <UpdateTagForm />
-        </CuiSkeletonWrapper>
+        <UpdateTagForm />
       </ContentSection>
     </>
   )

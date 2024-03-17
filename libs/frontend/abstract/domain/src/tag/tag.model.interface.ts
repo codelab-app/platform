@@ -14,7 +14,7 @@ export interface ITagModel
       'toDeleteInput'
     >,
     ICacheService<ITagDto, ITagModel> {
-  antdNode: ITreeNode<ITagNodeData>
+  treeNode: ITreeNode<ITagNodeData>
   children: Array<Ref<ITagModel>>
   descendants: Array<Ref<ITagModel>>
   isRoot: boolean

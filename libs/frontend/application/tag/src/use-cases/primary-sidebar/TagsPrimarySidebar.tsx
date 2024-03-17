@@ -1,10 +1,18 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  MODEL_UI,
+  PageType,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
-import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
+import {
+  CuiSidebar,
+  useCui,
+  useToolbarPagination,
+} from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CreateTagPopover } from '../create-tag'
@@ -13,9 +21,16 @@ import { TagsTreeView } from '../get-tags'
 export const TagsPrimarySidebar = observer(() => {
   const { tagService } = useStore()
   const { popover } = useCui()
+
+  const { showSearchBar, toolbarItems } = useToolbarPagination(
+    tagService,
+    PageType.Tags,
+    { name: 'string' },
+  )
+
   const tags = tagService.checkedTags.map((tag) => tagRef(tag.current))
 
-  const toolbarItems: Array<ToolbarItem> = [
+  const items: Array<ToolbarItem> = [
     {
       cuiKey: MODEL_ACTION.CreateTag.key,
       icon: <PlusOutlined />,
@@ -40,11 +55,11 @@ export const TagsPrimarySidebar = observer(() => {
       uiKey={MODEL_UI.SidebarTag.key}
       views={[
         {
-          content: <TagsTreeView />,
+          content: <TagsTreeView showSearchBar={showSearchBar} />,
           key: 'tags',
           label: 'Tags',
           toolbar: {
-            items: toolbarItems,
+            items: [...items, ...toolbarItems],
             title: 'Tags toolbar',
           },
         },

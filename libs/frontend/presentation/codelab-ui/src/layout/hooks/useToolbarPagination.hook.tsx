@@ -65,7 +65,7 @@ export const useToolbarPagination = <
     goToPage(currentPage + 1)
   }
 
-  const items: Array<ToolbarItem> = [
+  const toolbarItems: Array<ToolbarItem> = [
     {
       cuiKey: MODEL_ACTION.PreviousPagePagination.key,
       icon: <LeftOutlined />,
@@ -126,5 +126,5 @@ export const useToolbarPagination = <
     },
   ]
 
-  return { items, showSearchBar }
+  return { showSearchBar, toolbarItems }
 }
