@@ -46,11 +46,11 @@ export const AtomsPrimarySidebar = observer(() => {
             items: [
               ...items,
               {
-                cuiKey: MODEL_ACTION.CreateAction.key,
+                cuiKey: MODEL_ACTION.CreateAtom.key,
                 icon: <PlusOutlined />,
                 onClick: () => {
                   atomService.createForm.open()
-                  popover.open(MODEL_ACTION.CreateAction.key)
+                  popover.open(MODEL_ACTION.CreateAtom.key)
                 },
                 title: 'Create Atom',
               },
