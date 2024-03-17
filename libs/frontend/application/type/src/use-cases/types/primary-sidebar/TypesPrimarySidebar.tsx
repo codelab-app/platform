@@ -20,7 +20,7 @@ export const TypesPrimarySidebar = observer(() => {
   const { typeService } = useStore()
   const { popover } = useCui()
 
-  const { items, showSearchBar } = useToolbarPagination(
+  const { showSearchBar, toolbarItems } = useToolbarPagination(
     typeService,
     PageType.Type,
     { name: 'string' },
@@ -44,7 +44,7 @@ export const TypesPrimarySidebar = observer(() => {
           label: 'Types',
           toolbar: {
             items: [
-              ...items,
+              ...toolbarItems,
               {
                 cuiKey: MODEL_ACTION.CreateType.key,
                 icon: <PlusOutlined />,

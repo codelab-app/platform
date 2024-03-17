@@ -7,17 +7,20 @@ const atomType = IAtomType.AntDesignButton
 const updatedAtomName = 'Updated Button'
 
 describe('Atoms CRUD', () => {
+  before(() => {
+    cy.visit('/atoms')
+    cy.waitForSpinners()
+  })
+
   describe('create', () => {
     it('should be able to create atom', () => {
-      cy.visit('/atoms')
-      cy.waitForSpinners()
       cy.findAllByText(atomName, { exact: true, timeout: 0 }).should(
         'not.exist',
       )
 
       cy.getCuiSidebar(MODEL_UI.SidebarAtom.key)
         .getCuiSidebarHeader()
-        .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateAtom.key)
         .click()
 
       cy.setFormFieldValue({ label: 'Name', value: atomName })

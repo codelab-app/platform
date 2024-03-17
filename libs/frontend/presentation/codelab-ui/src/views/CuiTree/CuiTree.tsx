@@ -32,7 +32,7 @@ export interface CuiTreeBasicDataNode {
   switcherIcon?: ReactNode
   tags?: ReactNode
   toolbar?: ReactNode
-  varient?: Variant
+  variant?: Variant
 }
 
 export type WithChildren<T> = T & {
@@ -64,7 +64,7 @@ export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>> {
   selectedKeys?: DirectoryTreeProps<T>['selectedKeys']
   titleRender?: DirectoryTreeProps<T>['titleRender']
   treeData?: Array<T>
-  onSearchKeywordChange?(keywork: string): void
+  onSearchKeywordChange?(keyword: string): void
 }
 
 export const CuiTree = observer(
@@ -181,7 +181,7 @@ export const CuiTree = observer(
                     secondaryTitle={node.secondaryTitle}
                     tag={node.tags}
                     toolbar={node.toolbar}
-                    variant={node.varient}
+                    variant={node.variant}
                   />
                 )
               }}

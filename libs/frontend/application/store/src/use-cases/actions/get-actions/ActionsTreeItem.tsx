@@ -2,10 +2,11 @@ import ApiOutlined from '@ant-design/icons/ApiOutlined'
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
-import {
-  actionRef,
-  type IActionsTreeDataNode,
+import type {
+  IActionNodeData,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+import { actionRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
@@ -18,7 +19,7 @@ import { IActionKind } from '@codelab/shared/abstract/core'
 import React from 'react'
 
 interface ActionsTreeItemProps {
-  data: IActionsTreeDataNode
+  data: ITreeNode<IActionNodeData>
 }
 
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {

@@ -27,9 +27,9 @@ export const adminMenuItems: Array<NavigationBarItem> = [
   },
   {
     icon: <TagOutlined title="Tags" />,
-    key: PageType.Tag,
+    key: PageType.Tags,
     link: {
-      href: PageType.Tag,
+      href: PageType.Tags,
     },
     title: 'Tags',
   },

@@ -4,8 +4,9 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { ITag, ITagDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
-import type { ICacheService, ITagsTreeDataNode } from '../shared'
+import type { ICacheService, ITreeNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
+import type { ITagNodeData } from './tag.node.interface'
 
 export interface ITagModel
   extends Omit<
@@ -13,7 +14,7 @@ export interface ITagModel
       'toDeleteInput'
     >,
     ICacheService<ITagDto, ITagModel> {
-  antdNode: ITagsTreeDataNode
+  treeNode: ITreeNode<ITagNodeData>
   children: Array<Ref<ITagModel>>
   descendants: Array<Ref<ITagModel>>
   isRoot: boolean

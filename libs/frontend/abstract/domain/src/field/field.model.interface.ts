@@ -6,9 +6,9 @@ import type {
 import type { IField, IFieldDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { ICacheService, IModel } from '../../shared'
-import type { IValidationRules } from '../field.validation'
-import type { IInterfaceTypeModel, ITypeModel } from '../types'
+import type { ICacheService, IModel } from '../shared'
+import type { IInterfaceTypeModel, ITypeModel } from '../type'
+import type { IValidationRules } from './field.validation'
 
 export type IFieldDefaultValue =
   | Array<IFieldDefaultValue>

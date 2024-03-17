@@ -11,7 +11,7 @@ steps:
       # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
       name: 'Install Terraform'
       command: |
-        sex -x
+        set -x
 
         sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 

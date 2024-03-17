@@ -1,5 +1,5 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
+import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 interface TagsTreeItemProps {
-  data: ITagsTreeDataNode
+  data: ITreeNode<ITagNodeData>
 }
 
 export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {

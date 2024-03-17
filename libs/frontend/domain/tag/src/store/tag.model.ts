@@ -1,7 +1,7 @@
-import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import type { ITagModel, ITagNodeData } from '@codelab/frontend/abstract/domain'
 import {
   getUserDomainService,
-  ITagsTreeDataNode,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import type {
   TagCreateInput,
@@ -51,20 +51,6 @@ export class Tag
   static create = create
 
   @computed
-  get antdNode(): ITagsTreeDataNode {
-    return {
-      children: this.children.map((child) => child.current.antdNode),
-      extraData: {
-        node: this,
-        type: 'tag',
-      },
-      key: this.id,
-      primaryTitle: this.name,
-      title: this.name,
-    }
-  }
-
-  @computed
   get label() {
     return this.name
   }
@@ -78,6 +64,20 @@ export class Tag
       isRoot: this.isRoot,
       name: this.name,
       parent: this.parent,
+    }
+  }
+
+  @computed
+  get treeNode(): ITreeNode<ITagNodeData> {
+    return {
+      children: this.children.map((child) => child.current.treeNode),
+      extraData: {
+        node: this,
+        type: 'tag',
+      },
+      key: this.id,
+      primaryTitle: this.name,
+      title: this.name,
     }
   }
 

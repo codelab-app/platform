@@ -55,11 +55,11 @@ describe('Pages CRUD', () => {
 
   describe('update', () => {
     it('should be able to update page name', () => {
-      cy.getCuiTreeItemByPrimaryTitle(pageName).should('exist')
       cy.getCuiTreeItemByPrimaryTitle(pageName).click()
       cy.getCuiTreeItemByPrimaryTitle(pageName)
         .getCuiTreeItemToolbar()
         .getCuiToolbarItem(MODEL_ACTION.UpdatePage.key)
+        .should('be.visible')
         .click()
 
       cy.waitForSpinners()

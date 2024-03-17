@@ -1,7 +1,7 @@
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { IFieldDefaultValue, IFieldRef } from './field'
+import type { ITypeRef } from '../type'
+import type { IFieldDefaultValue, IFieldRef } from './field.model.interface'
 import type { IValidationRules } from './field.validation'
-import type { ITypeRef } from './types'
 
 export interface ICreateFieldData {
   defaultValues?: Nullish<IFieldDefaultValue>

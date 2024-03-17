@@ -1,6 +1,9 @@
 import type {
+  IFieldNodeData,
+  ITreeNode,
   ITypeModel,
-  ITypesTreeDataNode,
+  ITypeNodeData,
+  ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
@@ -30,7 +33,7 @@ export const TypesTreeView = observer(
       pathname: PageType.Type,
     })
 
-    const treeData: Array<ITypesTreeDataNode> = data.map((type) => ({
+    const treeData: Array<ITreeNode<ITypeTreeNodeData>> = data.map((type) => ({
       children:
         type.kind === TypeKind.InterfaceType ? type.fieldsTree : undefined,
       extraData: {
@@ -45,7 +48,7 @@ export const TypesTreeView = observer(
 
     return (
       <div className="size-full">
-        <CuiTree<ITypesTreeDataNode>
+        <CuiTree<ITreeNode<ITypeTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {
             void handleChange({ newFilter: { name: keyword || undefined } })

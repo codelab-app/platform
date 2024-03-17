@@ -1,11 +1,11 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import {
-  fieldRef,
-  type IInterfaceTypeModel,
-  type ITypesTreeDataNode,
-  typeRef,
+import type {
+  IInterfaceTypeModel,
+  ITreeNode,
+  ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
@@ -19,7 +19,7 @@ import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
 interface TypesTreeItemProps {
-  data: ITypesTreeDataNode
+  data: ITreeNode<ITypeTreeNodeData>
 }
 
 export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
@@ -67,12 +67,16 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
     fieldService.createForm.open(
       typeRef(interfaceType) as Ref<IInterfaceTypeModel>,
     )
+
     popover.open(MODEL_ACTION.CreateField.key)
   }
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      cuiKey: MODEL_ACTION.DeleteField.key,
+      cuiKey:
+        data.extraData.type === 'type'
+          ? MODEL_ACTION.DeleteType.key
+          : MODEL_ACTION.DeleteField.key,
       icon: <DeleteOutlined />,
       onClick: onDelete,
       title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',

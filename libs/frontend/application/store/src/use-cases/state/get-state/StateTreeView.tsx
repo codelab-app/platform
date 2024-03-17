@@ -1,6 +1,7 @@
 import type {
-  IStateTreeDataNode,
+  IFieldNodeData,
   IStoreModel,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -27,7 +28,7 @@ export const StateTreeView = observer<{ store: IStoreModel }>(({ store }) => {
   return (
     <CuiSkeletonWrapper isLoading={status === 'loading'}>
       {treeData.length > 0 ? (
-        <CuiTree<IStateTreeDataNode>
+        <CuiTree<ITreeNode<IFieldNodeData>>
           titleRender={(node) => {
             return <StateTreeItem data={node} />
           }}

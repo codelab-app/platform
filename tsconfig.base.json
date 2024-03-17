@@ -167,9 +167,6 @@
       "@codelab/backend/infra/adapter/typebox": [
         "libs/backend/infra/adapter/typebox/src/index.ts"
       ],
-      "@codelab/backend/infra/adapter/vercel": [
-        "libs/backend/infra/adapter/vercel/src/index.ts"
-      ],
       "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/eval": ["libs/backend/shared/eval/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
@@ -256,9 +253,6 @@
       "@codelab/frontend/application/user": [
         "libs/frontend/application/user/src/index.ts"
       ],
-      "@codelab/frontend/application/vercel": [
-        "libs/frontend/application/vercel/src/index.ts"
-      ],
       "@codelab/frontend/domain/action": [
         "libs/frontend/domain/action/src/index.ts"
       ],
@@ -317,9 +311,6 @@
       ],
       "@codelab/frontend/domain/user": [
         "libs/frontend/domain/user/src/index.ts"
-      ],
-      "@codelab/frontend/domain/vercel": [
-        "libs/frontend/domain/vercel/src/index.ts"
       ],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"

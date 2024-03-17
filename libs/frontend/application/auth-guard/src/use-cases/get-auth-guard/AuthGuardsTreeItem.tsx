@@ -1,5 +1,8 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import type { IAuthGuardsTreeDataNode } from '@codelab/frontend/abstract/domain'
+import type {
+  IAuthGuardNodeData,
+  ITreeNode,
+} from '@codelab/frontend/abstract/domain'
 import { authGuardRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -12,7 +15,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 interface AuthGuardsTreeItemProps {
-  data: IAuthGuardsTreeDataNode
+  data: ITreeNode<IAuthGuardNodeData>
 }
 
 export const AuthGuardsTreeItem = observer(

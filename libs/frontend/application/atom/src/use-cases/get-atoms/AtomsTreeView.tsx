@@ -1,6 +1,7 @@
 import type {
   IAtomModel,
-  IAtomsTreeDataNode,
+  IAtomTreeNodeData,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
@@ -29,7 +30,7 @@ export const AtomsTreeView = observer(
       pathname: PageType.Atoms,
     })
 
-    const treeData: Array<IAtomsTreeDataNode> = data.map((atom) => ({
+    const treeData: Array<ITreeNode<IAtomTreeNodeData>> = data.map((atom) => ({
       children: atom.api.current.fieldsTree,
       extraData: { node: atom, type: 'atom' },
       key: atom.id,
@@ -39,7 +40,7 @@ export const AtomsTreeView = observer(
 
     return (
       <div className="size-full">
-        <CuiTree<IAtomsTreeDataNode>
+        <CuiTree<ITreeNode<IAtomTreeNodeData>>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) =>
             handleChange({ newFilter: { name: keyword } })

@@ -2,7 +2,6 @@ import type {
   ICreateTagData,
   ITagDomainService,
   ITagModel,
-  ITagTreeService,
   IUpdateTagData,
 } from '@codelab/frontend/abstract/domain'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
@@ -12,6 +11,7 @@ import type {
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
+  IPaginateable,
   IQueryService,
 } from '../services'
 
@@ -22,17 +22,16 @@ export interface ITagService
     >,
     Omit<IQueryService<ITagModel, TagWhere, TagOptions>, 'getOne'>,
     Omit<ICRUDModalService<Ref<ITagModel>, { tag?: ITagModel }>, 'deleteModal'>,
-    ICRUDFormService<Ref<ITagModel>, { tag?: ITagModel }> {
+    ICRUDFormService<Ref<ITagModel>, { tag?: ITagModel }>,
+    IPaginateable<ITagModel, { name?: string }> {
   checkedTags: Array<Ref<ITagModel>>
   deleteManyModal: IEntityModalService<
     Array<Ref<ITagModel>>,
     { tags: Array<ITagModel> }
   >
   tagDomainService: ITagDomainService
-  treeService: ITagTreeService
 
   delete(ids: Array<string>): Promise<number>
   deleteCheckedTags(): void
-  loadTagTree(): void
   setCheckedTags(tags: Array<Ref<ITagModel>>): void
 }
