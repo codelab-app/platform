@@ -72,7 +72,7 @@ commands:
     steps:
       - run:
           command: |
-            sex -x
+            set -x
 
             sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 
@@ -92,7 +92,7 @@ commands:
     steps:
       - checkout
       - attach_workspace:
-          at: ..
+          at: ~/project
       - restore_cache:
           keys:
             - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}

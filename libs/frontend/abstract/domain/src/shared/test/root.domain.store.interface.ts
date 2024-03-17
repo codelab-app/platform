@@ -3,11 +3,12 @@ import type { IAppDomainService } from '../../app'
 import type { IAtomDomainService } from '../../atom'
 import type { IComponentDomainService } from '../../component'
 import type { IElementDomainService } from '../../element'
+import type { IFieldDomainService } from '../../field'
 import type { IPageDomainService } from '../../page'
 import type { IRedirectDomainService } from '../../redirect'
 import type { IResourceDomainService } from '../../resource'
 import type { IStoreDomainService } from '../../store'
-import type { IFieldDomainService, ITypeDomainService } from '../../type'
+import type { ITypeDomainService } from '../../type'
 import type { IUserDomainService } from '../../user'
 
 type MaybeContext<T> = Context<T | undefined>

@@ -1,6 +1,7 @@
 import type {
   IAppModel,
-  IPagesTreeDataNode,
+  IPageNodeData,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
@@ -12,7 +13,7 @@ interface PageListProps {
 }
 
 export const PageList = observer(({ app }: PageListProps) => {
-  const treeData: Array<IPagesTreeDataNode> = app.pages.map((page) => ({
+  const treeData: Array<ITreeNode<IPageNodeData>> = app.pages.map((page) => ({
     extraData: {
       node: page,
       type: 'page',

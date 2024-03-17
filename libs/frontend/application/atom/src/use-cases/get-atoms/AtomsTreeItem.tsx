@@ -1,8 +1,9 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type {
-  IAtomsTreeDataNode,
+  IAtomTreeNodeData,
   IInterfaceTypeModel,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
@@ -16,7 +17,7 @@ import {
 import React from 'react'
 
 interface AtomsTreeItemProps {
-  data: IAtomsTreeDataNode
+  data: ITreeNode<IAtomTreeNodeData>
 }
 
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {

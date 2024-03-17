@@ -1,4 +1,4 @@
-import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/domain'
+import type { ITagNodeData, ITreeNode } from '@codelab/frontend/abstract/domain'
 import type { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
@@ -32,7 +32,7 @@ export const TagsTreeView = observer(() => {
 
   return (
     <CuiSkeletonWrapper isLoading={status === 'loading'}>
-      <CuiTree<ITagsTreeDataNode>
+      <CuiTree<ITreeNode<ITagNodeData>>
         checkStrictly
         checkable
         checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}

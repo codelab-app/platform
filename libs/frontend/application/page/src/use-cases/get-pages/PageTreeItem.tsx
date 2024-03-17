@@ -7,12 +7,12 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled'
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined'
 import SafetyOutlined from '@ant-design/icons/SafetyOutlined'
 import ToolOutlined from '@ant-design/icons/ToolOutlined'
-import {
-  type IAppModel,
-  type IPagesTreeDataNode,
-  pageRef,
-  redirectRef,
+import type {
+  IAppModel,
+  IPageNodeData,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+import { pageRef, redirectRef } from '@codelab/frontend/abstract/domain'
 import {
   ExplorerPaneType,
   MODEL_ACTION,
@@ -33,7 +33,7 @@ import React, { useState } from 'react'
 
 interface PageTreeItemProps {
   app: IAppModel
-  data: IPagesTreeDataNode
+  data: ITreeNode<IPageNodeData>
 }
 
 export const PageTreeItem = observer(

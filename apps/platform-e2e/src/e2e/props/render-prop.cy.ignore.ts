@@ -9,28 +9,6 @@ import {
   renderItemFieldName,
 } from '../../data/create-component-input'
 
-// const atomsInputs = (userId: string): Array<AtomCreateInput> => [
-//   createListAtomInput(userId),
-//   createListItemAtomInput(userId),
-//   createTextAtomInput(userId),
-// ]
-
-const componentsInputs = (
-  userId: string,
-  listItemAtomId: string,
-  textAtomId: string,
-) => [
-  /**
-   * create list item component
-   * - RootElement - bind prop "value" to atom "text"'s text prop key
-   *   - ListItem - Component
-   *     - Text
-   */
-  // createComponentInput(userId, textAtomId, listItemAtomId),
-  // create test component with text prop = 'React Node"
-  // createTextReactNodeComponentInput(userId, textAtomId),
-]
-
 describe('Render props', () => {
   // before(() => {
   //   cy.resetDatabaseExceptForUserAndAtom().then(() => {

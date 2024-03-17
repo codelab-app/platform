@@ -1,7 +1,7 @@
-import type { ITagModel } from '@codelab/frontend/abstract/domain'
+import type { ITagModel, ITagNodeData } from '@codelab/frontend/abstract/domain'
 import {
   getUserDomainService,
-  ITagsTreeDataNode,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
 import type {
   TagCreateInput,
@@ -51,7 +51,7 @@ export class Tag
   static create = create
 
   @computed
-  get antdNode(): ITagsTreeDataNode {
+  get antdNode(): ITreeNode<ITagNodeData> {
     return {
       children: this.children.map((child) => child.current.antdNode),
       extraData: {

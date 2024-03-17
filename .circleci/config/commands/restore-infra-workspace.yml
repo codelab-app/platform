@@ -2,7 +2,7 @@ description: 'Restore Infra Workspace'
 steps:
   - checkout
   - attach_workspace:
-      at: ..
+      at: ~/project
   - restore_cache:
       name: 'Restore Cache'
       keys:

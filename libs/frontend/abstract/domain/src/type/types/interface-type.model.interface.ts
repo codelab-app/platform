@@ -7,8 +7,8 @@ import type {
   IPropData,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { IStateTreeDataNode } from '../../shared'
-import type { IFieldModel } from '../field'
+import type { IFieldModel, IFieldNodeData } from '../../field'
+import type { ITreeNode } from '../../shared'
 import type { IBaseTypeModel } from './base-type.model.interface'
 
 /**
@@ -24,6 +24,6 @@ export interface IInterfaceTypeModel
   > {
   defaultValues: IPropData
   fields: Array<IFieldModel>
-  fieldsTree: Array<IStateTreeDataNode>
+  fieldsTree: Array<ITreeNode<IFieldNodeData>>
   kind: ITypeKind.InterfaceType
 }

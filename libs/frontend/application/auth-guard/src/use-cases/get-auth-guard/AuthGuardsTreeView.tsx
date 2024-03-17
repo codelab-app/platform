@@ -1,4 +1,7 @@
-import type { IAuthGuardsTreeDataNode } from '@codelab/frontend/abstract/domain'
+import type {
+  IAuthGuardNodeData,
+  ITreeNode,
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSkeletonWrapper,
@@ -13,7 +16,7 @@ export const AuthGuardsTreeView = observer(() => {
   const { authGuardService } = useStore()
   const [{ status }, getAuthGuards] = useAsync(() => authGuardService.getAll())
 
-  const authGuardList: Array<IAuthGuardsTreeDataNode> =
+  const authGuardList: Array<ITreeNode<IAuthGuardNodeData>> =
     authGuardService.authGuardList.map((authGuard) => ({
       extraData: {
         node: authGuard,

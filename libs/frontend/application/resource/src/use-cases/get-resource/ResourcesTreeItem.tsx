@@ -1,8 +1,9 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
-import {
-  type IResourcesTreeDataNode,
-  resourceRef,
+import type {
+  IResourceNodeData,
+  ITreeNode,
 } from '@codelab/frontend/abstract/domain'
+import { resourceRef } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
@@ -15,7 +16,7 @@ import React from 'react'
 import { ResourceIcon } from '../../view'
 
 interface ResourcesTreeItemProps {
-  data: IResourcesTreeDataNode
+  data: ITreeNode<IResourceNodeData>
 }
 
 export const ResourcesTreeItem = observer(

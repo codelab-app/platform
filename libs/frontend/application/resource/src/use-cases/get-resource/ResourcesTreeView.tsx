@@ -1,4 +1,7 @@
-import type { IResourcesTreeDataNode } from '@codelab/frontend/abstract/domain'
+import type {
+  IResourceNodeData,
+  ITreeNode,
+} from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CuiSkeletonWrapper,
@@ -13,7 +16,7 @@ export const ResourcesTreeView = observer(() => {
   const { resourceService } = useStore()
   const [{ status }, getResources] = useAsync(() => resourceService.getAll())
 
-  const resourceList: Array<IResourcesTreeDataNode> =
+  const resourceList: Array<ITreeNode<IResourceNodeData>> =
     resourceService.resourceList.map((resource) => ({
       extraData: {
         node: resource,
