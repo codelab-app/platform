@@ -17,12 +17,13 @@ const testCreate = (name: string, parentName?: string) => {
 
 describe('Tag CRUD', () => {
   before(() => {
-    cy.postApiRequest('/tag/seed-cypress-tag')
+    cy.postApiRequest('/tag/seed-cypress-tag').as('cypressTag')
+
+    cy.get('@cypressTag').then(() => cy.visit('/tags'))
   })
 
   describe('create', () => {
     it('should be able to create a tag', () => {
-      cy.visit('/tags')
       cy.createTagByUI(CreateData.tag_0)
       testCreate(CreateData.tag_0)
     })

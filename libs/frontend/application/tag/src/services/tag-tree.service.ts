@@ -8,6 +8,8 @@ import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 
 const init = (tags: Array<ITagModel>) => {
+  console.log(tags)
+
   const tagTree = new TagTreeService({})
 
   tagTree.addRoots(tags)
