@@ -19,7 +19,10 @@ import {
   PageType,
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { regeneratePages } from '@codelab/frontend/domain/domain'
+import {
+  regeneratePages,
+  useRegeneratePages,
+} from '@codelab/frontend/domain/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
@@ -93,26 +96,8 @@ export const PageTreeItem = observer(
       },
       {
         cuiKey: MODEL_ACTION.BuildApp.key,
-        icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
-        onClick: async () => {
-          let pageDomains = domains.filter(
-            (domain) => domain.app.id === page.app.id,
-          )
-
-          if (!pageDomains.length) {
-            pageDomains = await domainService.getAll({
-              app: { id: page.app.id },
-            })
-          }
-
-          setRebuildButtonLoading(true)
-
-          for (const pageDomain of pageDomains) {
-            await regeneratePages([page.url], pageDomain.name)
-          }
-
-          setRebuildButtonLoading(false)
-        },
+        icon: isRegenerating ? <LoadingOutlined /> : <ToolOutlined />,
+        onClick: () => regenerate(app, [page.url]),
         title: 'Build',
       },
       {
