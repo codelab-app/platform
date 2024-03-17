@@ -17,6 +17,7 @@
         ],
         "canTrackAnalytics": true,
         "showUsageWarnings": true,
+        "parallel": 3,
         "accessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU="
       }
     }

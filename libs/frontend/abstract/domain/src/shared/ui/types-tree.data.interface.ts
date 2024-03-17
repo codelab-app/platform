@@ -11,3 +11,13 @@ export type ITypesTreeDataNode = ITreeDataNode<
       type: 'type'
     }
 >
+
+// export type ITypesTreeFieldDataNode = ITreeDataNode<{
+//   node: IFieldModel
+//   type: 'field'
+// }>
+
+// export type ITypesTreeTypeDataNode = ITreeDataNode<{
+//   node: ITypeModel
+//   type: 'type'
+// }>

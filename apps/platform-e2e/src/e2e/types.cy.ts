@@ -184,13 +184,6 @@ describe('Types CRUD', () => {
         value: primitiveTypeName,
       })
 
-      // // should show error because nullable is false by default
-      // cy.getCuiPopover('Create Field').within(() => {
-      //   cy.getToolbarItem('Create').should('be.exist').click({ force: true })
-      // })
-
-      // cy.findByText('Default values is required if not nullable')
-
       cy.setFormFieldValue({
         label: 'Default values',
         type: FIELD_TYPE.CODE_MIRROR,
@@ -199,14 +192,10 @@ describe('Types CRUD', () => {
 
       cy.findByText(fieldDefaultValue).should('be.visible')
 
-      cy.intercept('POST', 'api/graphql').as('action')
-      cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
-      cy.wait('@action')
-      // its re-rendering after saving and is flaky when running in CI
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
+      cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+        .click()
 
-      // cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
@@ -265,11 +254,9 @@ describe('Types CRUD', () => {
 
       cy.waitForSpinners()
 
-      cy.intercept('POST', 'api/graphql').as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
-      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).should('not.exist')
