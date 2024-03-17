@@ -17,7 +17,6 @@ import {
 } from '@codelab/frontend/application/page'
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
-import { VercelService } from '@codelab/frontend/domain/vercel'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
@@ -45,7 +44,6 @@ export class AppService
     deleteModal: prop(() => new AppModalService({})),
     pageRepository: prop(() => new PageRepository({})),
     updateModal: prop(() => new AppModalService({})),
-    vercelService: prop(() => new VercelService({})),
   })
   implements IAppService
 {
@@ -91,7 +89,7 @@ export class AppService
       await this.appRepository.delete([app])
 
       for (const domain of app.domains) {
-        await this.vercelService.delete(domain.name)
+        // Remove domains in third party saas
       }
 
       return app
