@@ -73,13 +73,15 @@ export const PageTreeItem = observer(
 
     const regularPageToolbarItems: Array<ToolbarItem> = [
       {
-        cuiKey: MODEL_ACTION.DeleteRedirect.key,
+        cuiKey: MODEL_ACTION.DeletePage.key,
         icon: <DeleteOutlined />,
         onClick: () => pageService.deleteModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
-        cuiKey: MODEL_ACTION.UpdateRedirect.key,
+        cuiKey: page.redirect
+          ? MODEL_ACTION.UpdateRedirect.key
+          : MODEL_ACTION.CreateRedirect.key,
         icon: <SafetyOutlined />,
         onClick: () => {
           if (page.redirect) {
