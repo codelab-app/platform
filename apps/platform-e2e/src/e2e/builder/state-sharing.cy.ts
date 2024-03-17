@@ -84,7 +84,7 @@ describe('State variables sharing between pages', () => {
     cy.openBuilder()
 
     // create a state variable inside the component
-    cy.getCuiToolbarItem('Add Field').click()
+    cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
 
     cy.waitForApiCalls()
 
@@ -110,7 +110,7 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', 'api/graphql').as('action')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
     cy.wait('@action')
 
@@ -139,7 +139,7 @@ describe('State variables sharing between pages', () => {
    */
   it('should create a state variable in the provider page', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
-    cy.getCuiToolbarItem('Add Field').click()
+    cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -163,12 +163,15 @@ describe('State variables sharing between pages', () => {
 
     cy.intercept('POST', 'api/graphql').as('createState')
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
     cy.wait('@createState')
   })
 
-  it("should respect provider state's precedence over component state", () => {
+  /**
+   * Originally had this spec to use provider state, but component data should be bound and passed in, as opposed to accessing global state.
+   */
+  it('should use component state and not use provider state', () => {
     // go to the regular page
     cy.visit(
       '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
@@ -187,6 +190,7 @@ describe('State variables sharing between pages', () => {
     // FIXME: due to the caching of state in the store model, a new state is not being included
     // in the cached state, so we had to reload here for now
     cy.get('@cypressElement').reload()
-    cy.openPreview().contains('text provider state value').should('exist')
+
+    cy.openPreview().contains('text component state value').should('exist')
   })
 })

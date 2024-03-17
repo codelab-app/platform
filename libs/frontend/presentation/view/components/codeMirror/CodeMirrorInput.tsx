@@ -85,6 +85,7 @@ export const CodeMirrorInput = ({
       {expandable && (
         <React.Fragment>
           <ExpandButton
+            // eslint-disable-next-line tailwindcss/no-custom-classname
             className="CodeMirrorInput--btnExpand"
             icon={<ExpandAltOutlined width="12px" />}
             onClick={toggleExpand}

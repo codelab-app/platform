@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.antDesignIconImport = exports.createESLintRule = void 0;
 const utils_1 = require("@typescript-eslint/utils");
-exports.createESLintRule = utils_1.ESLintUtils.RuleCreator(() => ``);
+exports.createESLintRule = utils_1.ESLintUtils.RuleCreator(() => '');
 exports.antDesignIconImport = (0, exports.createESLintRule)({
     create: (context) => {
         return {
@@ -21,7 +21,7 @@ exports.antDesignIconImport = (0, exports.createESLintRule)({
     meta: {
         docs: {
             description: 'Disallow import of icons from barrel',
-            recommended: 'error',
+            recommended: 'strict',
         },
         messages: {
             iconImportPath: 'Must import individual icons',

@@ -30,7 +30,9 @@ describe('Running API actions that updates state via element pre-render and post
     cy.waitForSpinners()
 
     for (const stateKey of [stateKeyPreRender, stateKeyPostRender]) {
-      cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+      cy.getCuiSidebarViewHeader('State')
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+        .click()
 
       cy.setFormFieldValue({
         label: 'Key',
@@ -54,7 +56,7 @@ describe('Running API actions that updates state via element pre-render and post
 
       cy.intercept('POST', 'api/graphql').as(`create${stateKey}`)
       cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
         .click()
       cy.wait(`@create${stateKey}`)
     }

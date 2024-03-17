@@ -20,6 +20,7 @@ import {
 } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -51,10 +52,10 @@ export const PageTreeItem = observer(
     const router = useRouter()
     const domains = app.domains.map((domain) => domain)
 
-    const commonToolbarItems = [
+    const commonToolbarItems: Array<ToolbarItem> = [
       {
+        cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
         icon: <BuildOutlined />,
-        key: MODEL_ACTION.OpenBuilder.key,
         onClick: () => {
           void router.push({
             pathname: PageType.PageBuilder,
@@ -70,16 +71,16 @@ export const PageTreeItem = observer(
       },
     ]
 
-    const regularPageToolbarItems = [
+    const regularPageToolbarItems: Array<ToolbarItem> = [
       {
+        cuiKey: MODEL_ACTION.DeleteRedirect.key,
         icon: <DeleteOutlined />,
-        key: MODEL_ACTION.DeleteRedirect.key,
         onClick: () => pageService.deleteModal.open(pageRef(page)),
         title: 'Delete',
       },
       {
+        cuiKey: MODEL_ACTION.UpdateRedirect.key,
         icon: <SafetyOutlined />,
-        key: MODEL_ACTION.UpdateRedirect.key,
         onClick: () => {
           if (page.redirect) {
             redirectService.updateForm.open(redirectRef(page.redirect.id))
@@ -92,8 +93,8 @@ export const PageTreeItem = observer(
         title: 'Auth Guard',
       },
       {
+        cuiKey: MODEL_ACTION.BuildApp.key,
         icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
-        key: MODEL_ACTION.BuildPage.key,
         onClick: async () => {
           let pageDomains = domains.filter(
             (domain) => domain.app.id === page.app.id,
@@ -116,8 +117,8 @@ export const PageTreeItem = observer(
         title: 'Build',
       },
       {
+        cuiKey: MODEL_ACTION.UpdatePage.key,
         icon: <EditOutlined />,
-        key: MODEL_ACTION.UpdatePage.key,
         onClick: () => {
           pageService.updateForm.open(pageRef(page))
           popover.open(MODEL_ACTION.UpdatePage.key)
@@ -126,7 +127,7 @@ export const PageTreeItem = observer(
       },
     ]
 
-    const toolbarItems =
+    const toolbarItems: Array<ToolbarItem> =
       page.kind === IPageKind.Regular
         ? [...regularPageToolbarItems, ...commonToolbarItems]
         : [...commonToolbarItems]

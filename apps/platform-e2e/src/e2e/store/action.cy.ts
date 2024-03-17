@@ -33,7 +33,7 @@ describe('Action CRUD', () => {
   it('should be able to create action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({ label: 'Name', value: actionName })
@@ -51,7 +51,7 @@ describe('Action CRUD', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.getCuiSidebarViewContent('Actions')
@@ -68,7 +68,7 @@ describe('Action CRUD', () => {
     cy.getCuiSidebarViewContent('Actions')
       .getCuiTreeItemByPrimaryTitle(actionName)
       .closestCuiTreeItem()
-      .getCuiToolbarItem('Edit Action')
+      .getCuiToolbarItem(MODEL_ACTION.UpdateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -77,7 +77,7 @@ describe('Action CRUD', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.UpdateAction.key)
-      .getCuiToolbarItem('Update')
+      .getCuiToolbarItem(MODEL_ACTION.UpdateAction.key)
       .click()
 
     cy.getCuiSidebarViewContent('Actions')

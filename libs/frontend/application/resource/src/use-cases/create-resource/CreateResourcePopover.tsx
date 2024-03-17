@@ -26,8 +26,8 @@ export const CreateResourcePopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreateResource.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreateResource.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreateResourcePopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreateResource.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreateResource.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

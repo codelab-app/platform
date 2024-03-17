@@ -4,14 +4,18 @@ resource_class: large
 steps:
   - checkout
   - setup-env
-  - install-npm
   - install-nvm
+  - install-pnpm
+  - install-packages
   - build-repo
-  # This is required since dist depends on code other than yarn.lock
+  # This is required since dist depends on code other than pnpm-lock.yam
   # Instead of this can use nx caching
   - persist_to_workspace:
-      root: ~/
+      root: ~/project
       paths:
         # Using too much workspace storage, eating up credits
         # - project/node_modules
-        - project/dist
+        - dist/apps/cli
+        - dist/apps/platform
+        # This used as checksum to restore nx cache for e2e
+        - .nx/cache/lockfile.hash

@@ -14,7 +14,7 @@ export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
       w-full
       justify-end
     `}
-      data-cy="codelabui-toolbar"
+      data-cy="cui-toolbar"
     >
       <div
         className={`
@@ -26,8 +26,8 @@ export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
       >
         {items.map((item) => (
           <CuiSidebarToolbarItem
+            cuiKey={item.cuiKey}
             icon={item.icon}
-            key={item.key}
             onClick={item.onClick}
             title={item.title}
           />

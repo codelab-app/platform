@@ -8,7 +8,7 @@ const path_1 = require("path");
  * Add `.graphql` to lintFilePatterns
  */
 const addGraphqlExtension = (tree, projectConfig) => {
-    console.log('Adding GraphQL extensions...');
+    console.debug('Adding GraphQL extensions...');
     const lintFilePatterns = [
         (0, path_1.join)(projectConfig.root, '/**/*.{ts,tsx,js,jsx,graphql}'),
     ];

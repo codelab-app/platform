@@ -149,3 +149,10 @@ resource "circleci_environment_variable" "NX_CLOUD_ACCESS_TOKEN" {
   project      = local.project_name
   organization = local.organization
 }
+
+resource "circleci_environment_variable" "PLATFORM_API_LOG_LEVEL" {
+  name         = "PLATFORM_API_LOG_LEVEL"
+  value        = "silent"
+  project      = local.project_name
+  organization = local.organization
+}

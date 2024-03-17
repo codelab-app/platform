@@ -1,4 +1,5 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -15,7 +16,6 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     autosave = false,
     children,
     cssString,
-    'data-testid': dataTestId,
     model,
     modelTransform,
     onChange,
@@ -26,6 +26,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     schema,
     submitField,
     submitRef,
+    uiKey,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
     const [bridge, setBridge] = useState(
       schema instanceof Bridge ? schema : createBridge(schema),
@@ -46,7 +47,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
         <BaseAutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
-          data-testid={dataTestId}
+          data-cy={CY_DATA.cuiForm(uiKey).cyData}
           errorsField={() => <ErrorsField />}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}

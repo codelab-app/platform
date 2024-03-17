@@ -1,5 +1,5 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import {
   CreateComponentPopover,
   DeleteComponentModal,
@@ -33,8 +33,8 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateComponent.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateComponent.key,
               onClick: () => {
                 componentService.createForm.open()
 
@@ -64,6 +64,7 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
           defaultActiveViewKeys={['custom', 'pre-built']}
           label="Components"
           popover={<CreateComponentPopover />}
+          uiKey={MODEL_UI.SidebarComponent.key}
           views={sidebarViews}
         />
 

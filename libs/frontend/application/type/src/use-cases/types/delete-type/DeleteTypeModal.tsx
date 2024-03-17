@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -56,6 +57,7 @@ export const DeleteTypeModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteType.key}
       >
         <h4>Are you sure you want to delete type "{typeToDelete?.name}"?</h4>
       </ModalForm.Form>

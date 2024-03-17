@@ -6,7 +6,6 @@ import {
   SeedEmptyApiCommand,
   TypeSeederService,
 } from '@codelab/backend/application/type'
-import { withActiveSpan } from '@codelab/backend/infra/adapter/otel'
 import {
   type IAtomDto,
   type IAtomType,
@@ -46,25 +45,15 @@ export class SeedFrameworkHandler
   ) {}
 
   async execute({ data }: SeedFrameworkCommand) {
-    await withActiveSpan('SeedFrameworkHandler.seedSystemTypes()', () =>
-      this.commandBus.execute(new SeedCypressAppCommand()),
-    )
+    await this.commandBus.execute(new SeedCypressAppCommand())
 
-    await withActiveSpan('SeedFrameworkHandler.seedTags()', () =>
-      this.seedTags(data.tags),
-    )
+    await this.seedTags(data.tags)
 
-    await withActiveSpan('SeedFrameworkHandler.seedEmptyApi()', () =>
-      this.seedEmptyApi(ObjectTyped.keys(data.atoms)),
-    )
+    await this.seedEmptyApi(ObjectTyped.keys(data.atoms))
 
-    const atoms = await withActiveSpan('SeedFrameworkHandler.seedAtoms()', () =>
-      this.seedAtoms(data.atoms),
-    )
+    const atoms = await this.seedAtoms(data.atoms)
 
-    await withActiveSpan('SeedFrameworkHandler.seedApis()', async () =>
-      this.seedApis(await data.fields(atoms)),
-    )
+    await this.seedApis(await data.fields(atoms))
   }
 
   private async seedApis(fields: Array<IFieldDto>) {

@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -25,6 +26,7 @@ export const ImportAdminDataModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={ImportDto}
+        uiKey={MODEL_ACTION.ImportDataAdmin.key}
       >
         <AutoFields />
       </ModalForm.Form>

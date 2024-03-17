@@ -5,14 +5,14 @@ import {
   ElementProductionFragment,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
@@ -170,12 +170,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

@@ -1,4 +1,7 @@
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -60,6 +63,7 @@ export const CreateTypeForm = observer(
         onSubmitSuccess={closeForm}
         schema={createTypeSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateType.key}
       >
         <AutoFields fields={['name']} />
         <SelectField name="kind" showSearch />

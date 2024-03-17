@@ -67,12 +67,13 @@ export const useToolbarPagination = <
 
   const items: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.PreviousPagePagination.key,
       icon: <LeftOutlined />,
-      key: MODEL_ACTION.PreviousPagePagination.key,
       onClick: goToPreviousPage,
       title: 'Previous',
     },
     {
+      cuiKey: MODEL_ACTION.CurrentPagePagination.key,
       icon: (
         <div className="flex w-16 flex-row items-center justify-between">
           <CuiInput
@@ -89,16 +90,16 @@ export const useToolbarPagination = <
           <span className="m-0 w-6 p-0 text-center text-sm">{`${pageCount}`}</span>
         </div>
       ),
-      key: MODEL_ACTION.CurrentPagePagination.key,
       title: `Current page: ${currentPage} / ${pageCount}`,
     },
     {
+      cuiKey: MODEL_ACTION.NextPagePagination.key,
       icon: <RightOutlined />,
-      key: MODEL_ACTION.NextPagePagination.key,
       onClick: goToNextPage,
       title: 'Next',
     },
     {
+      cuiKey: MODEL_ACTION.CurrentPagePagination.key,
       icon: (
         <div className="flex w-16 flex-row items-center justify-between">
           <CuiInput
@@ -115,12 +116,11 @@ export const useToolbarPagination = <
           <span className="m-0 p-0 text-sm">Page</span>
         </div>
       ),
-      key: MODEL_ACTION.CurrentPagePagination.key,
       title: `${currentPageSize} items per page`,
     },
     {
+      cuiKey: MODEL_ACTION.SearchPagination.key,
       icon: <SearchOutlined />,
-      key: MODEL_ACTION.SearchPagination.key,
       onClick: () => setShowSearchBar(!showSearchBar),
       title: 'Search',
     },

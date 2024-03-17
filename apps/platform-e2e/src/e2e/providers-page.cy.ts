@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
@@ -31,7 +31,7 @@ const openPageByName = (name: string) => {
     .click()
   cy.getCuiTreeItemByPrimaryTitle(name)
     .getCuiTreeItemToolbar()
-    .getCuiToolbarItem('Open Builder')
+    .getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
     .click()
 
   cy.waitForSpinners()
@@ -91,11 +91,15 @@ describe('_app page', () => {
   })
 
   it('should be able to create simple page', () => {
-    cy.getCuiSidebar('Pages').getCuiToolbarItem('Create Page').click()
-    cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
+    cy.getCuiSidebar(MODEL_UI.SidebarPage.key)
+      .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
+      .click()
+    cy.getCuiForm(MODEL_ACTION.CreatePage.key)
+      .findByLabelText('Name')
+      .type(pageName)
 
     cy.getCuiPopover(MODEL_ACTION.CreatePage.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreatePage.key)
       .click()
 
     openPageByName(pageName)

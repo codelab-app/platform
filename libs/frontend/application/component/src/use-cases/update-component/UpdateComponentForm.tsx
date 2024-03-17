@@ -1,4 +1,5 @@
 import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -34,18 +35,20 @@ export const UpdateComponentForm = observer<{ component: IComponentModel }>(
       componentService.update(componentData)
 
     return (
-      <Form<IUpdateComponentData>
-        autosave
-        key={key}
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while creating component',
-        })}
-        schema={updateComponentSchema}
-      >
-        <AutoFields />
-      </Form>
+      <div key={key}>
+        <Form<IUpdateComponentData>
+          autosave
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={createFormErrorNotificationHandler({
+            title: 'Error while creating component',
+          })}
+          schema={updateComponentSchema}
+          uiKey={MODEL_ACTION.UpdateComponent.key}
+        >
+          <AutoFields />
+        </Form>
+      </div>
     )
   },
 )

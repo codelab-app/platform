@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { ResourceFetchConfigField } from '@codelab/frontend/application/resource'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -62,6 +63,7 @@ export const UpdateActionModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={closeModal}
         schema={updateActionSchema}
+        uiKey={MODEL_ACTION.UpdateAction.key}
       >
         <AutoFields fields={['name']} />
 

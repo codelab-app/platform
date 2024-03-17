@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -40,6 +41,7 @@ export const BuildAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.BuildApp.key}
       >
         <h4>Are you sure you want to build all pages for "{app?.name}"?</h4>
         <AutoFields />

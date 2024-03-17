@@ -1,5 +1,8 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -56,6 +59,7 @@ export const CreateAtomForm = observer(
         onSubmitSuccess={closeForm}
         schema={createAtomSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateAtom.key}
       >
         <AutoFields
           omitFields={[

@@ -8,8 +8,7 @@ import {
   AtomDevelopmentFragment,
   AtomProductionFragment,
 } from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import {
   AppFragmentDoc,
@@ -19,6 +18,7 @@ import {
   AtomDevelopmentFragmentDoc,
   AtomProductionFragmentDoc,
 } from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
@@ -112,12 +112,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -137,6 +139,7 @@ export function getSdk(
           }),
         'CreateApps',
         'mutation',
+        variables,
       )
     },
     UpdateApps(
@@ -151,6 +154,7 @@ export function getSdk(
           }),
         'UpdateApps',
         'mutation',
+        variables,
       )
     },
     DeleteApps(
@@ -165,6 +169,7 @@ export function getSdk(
           }),
         'DeleteApps',
         'mutation',
+        variables,
       )
     },
     GetApps(
@@ -179,6 +184,7 @@ export function getSdk(
           }),
         'GetApps',
         'query',
+        variables,
       )
     },
     GetAppsList(
@@ -193,6 +199,7 @@ export function getSdk(
           }),
         'GetAppsList',
         'query',
+        variables,
       )
     },
   }

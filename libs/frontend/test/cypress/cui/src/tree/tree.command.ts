@@ -1,4 +1,4 @@
-import { CY_DATA_SELECTOR } from '@codelab/frontend/application/shared/data'
+import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import type { CypressElement } from '@codelab/frontend/test/cypress/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 
@@ -7,7 +7,7 @@ export const getCuiTreeItem = () => {
     name: 'getCuiTreeItem',
   })
 
-  return cy.get(CY_DATA_SELECTOR.cuiTreeItem(), { log: false })
+  return cy.get(CY_DATA.cuiTreeItem().cySelector, { log: false })
 }
 
 /**
@@ -21,7 +21,7 @@ export const closestCuiTreeItem = (subject: Maybe<CypressElement>) => {
 
   return cy
     .wrap(subject, { log: false })
-    .closest(CY_DATA_SELECTOR.cuiTreeItem(), { log: false })
+    .closest(CY_DATA.cuiTreeItem().cySelector, { log: false })
 }
 
 export const getCuiTreeItemByPrimaryTitle = (
@@ -33,10 +33,10 @@ export const getCuiTreeItemByPrimaryTitle = (
   return subject
     ? cy
         .wrap(subject, { log: false })
-        .find(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
+        .find(CY_DATA.cuiTreeItemPrimaryTitle(primaryTitle).cySelector, {
           log: false,
         })
-    : cy.get(CY_DATA_SELECTOR.cuiTreeItemPrimaryTitle(primaryTitle), {
+    : cy.get(CY_DATA.cuiTreeItemPrimaryTitle(primaryTitle).cySelector, {
         log: false,
       })
 }
@@ -53,10 +53,10 @@ export const getCuiTreeItemBySecondaryTitle = (
   return subject
     ? cy
         .wrap(subject)
-        .find(CY_DATA_SELECTOR.cuiTreeItemSecondaryTitle(secondaryTitle), {
+        .find(CY_DATA.cuiTreeItemSecondaryTitle(secondaryTitle).cySelector, {
           log: false,
         })
-    : cy.get(CY_DATA_SELECTOR.cuiTreeItemSecondaryTitle(secondaryTitle), {
+    : cy.get(CY_DATA.cuiTreeItemSecondaryTitle(secondaryTitle).cySelector, {
         log: false,
       })
 }
@@ -68,6 +68,6 @@ export const getCuiTreeItemToolbar = (subject: Maybe<CypressElement>) => {
 
   return cy
     .wrap(subject)
-    .closest(CY_DATA_SELECTOR.cuiTreeItem(), { log: false })
-    .find(CY_DATA_SELECTOR.cuiTreeItemToolbar(), { log: false })
+    .closest(CY_DATA.cuiTreeItem().cySelector, { log: false })
+    .find(CY_DATA.cuiTreeItemToolbar().cySelector, { log: false })
 }

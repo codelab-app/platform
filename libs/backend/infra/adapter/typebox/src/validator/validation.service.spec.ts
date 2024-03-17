@@ -1,4 +1,4 @@
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   IActionType,
   IAtomAggregate,
@@ -17,16 +17,8 @@ describe('ValidationService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        ValidationService,
-        {
-          provide: TraceService,
-          useValue: {
-            addEvent: jest.fn(),
-            addJsonAttributes: jest.fn(),
-          },
-        },
-      ],
+      imports: [CodelabLoggerModule],
+      providers: [ValidationService],
     }).compile()
 
     validationService = module.get<ValidationService>(ValidationService)

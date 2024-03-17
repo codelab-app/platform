@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -20,7 +21,6 @@ export const DeleteActionModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="delete-actions-modal"
       okText="Delete Action"
       onCancel={closeModal}
       open={actionService.deleteModal.isOpen}
@@ -34,6 +34,7 @@ export const DeleteActionModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteAction.key}
       >
         <h4>
           Are you sure you want to delete actions "

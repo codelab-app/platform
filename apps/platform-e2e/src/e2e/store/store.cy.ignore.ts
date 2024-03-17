@@ -38,7 +38,9 @@ describe('Store', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     const storeApiId = v4()
     const storeField = storeTitleFieldDto({ id: storeApiId })
@@ -64,10 +66,12 @@ describe('Store', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
 
-    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -90,7 +94,7 @@ describe('Store', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
   })
 })

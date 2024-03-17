@@ -6,7 +6,7 @@ steps:
   - restore_cache:
       name: 'Restore Cache'
       keys:
-        - node-modules-{{ checksum "yarn.lock" }}
+        - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
         - nvm-cache-{{ checksum ".nvmrc" }}
   - install-terraform
   - setup-env

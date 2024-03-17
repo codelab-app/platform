@@ -4,13 +4,13 @@ import {
   ElementFragment,
   ElementProductionFragment,
 } from '../../../../abstract/domain/src/element/element.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import {
   ElementFragmentDoc,
   ElementProductionFragmentDoc,
 } from '../../../../abstract/domain/src/element/element.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
 }>
@@ -88,12 +88,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -114,6 +116,7 @@ export function getSdk(
           ),
         'CreateElements',
         'mutation',
+        variables,
       )
     },
     DeleteElements(
@@ -129,6 +132,7 @@ export function getSdk(
           ),
         'DeleteElements',
         'mutation',
+        variables,
       )
     },
     UpdateElements(
@@ -144,6 +148,7 @@ export function getSdk(
           ),
         'UpdateElements',
         'mutation',
+        variables,
       )
     },
     GetElements(
@@ -158,6 +163,7 @@ export function getSdk(
           }),
         'GetElements',
         'query',
+        variables,
       )
     },
   }

@@ -4,8 +4,8 @@ const config: Types.Config = {
   overwrite: true,
   hooks: {
     // Uncomment to run ESLint fix after code generation
-    // afterAllFileWrite: ['yarn eslint --fix'],
-    afterAllFileWrite: ['yarn prettier --write'],
+    // afterAllFileWrite: ['pnpm eslint --fix'],
+    afterAllFileWrite: ['pnpm prettier --write'],
   },
   // Uncomment for using a local schema file
   // schema: 'schema.graphql',

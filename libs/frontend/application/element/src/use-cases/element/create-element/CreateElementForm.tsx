@@ -1,5 +1,8 @@
 import { isAtom } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   SelectActionField,
@@ -100,7 +103,6 @@ export const CreateElementForm = observer(
 
     return (
       <Form<IElementDto>
-        data-testid="create-element-form"
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -109,6 +111,7 @@ export const CreateElementForm = observer(
         onSubmitSuccess={closeForm}
         schema={createElementSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateElement.key}
       >
         <AutoFields
           omitFields={[

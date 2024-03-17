@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -35,6 +36,7 @@ export const DeleteTagsModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={deleteTagsSchema}
+        uiKey={MODEL_ACTION.DeleteTag.key}
       >
         Are you sure you want to delete{' '}
         {tags?.map((tag) => tag.name).join(', ')}

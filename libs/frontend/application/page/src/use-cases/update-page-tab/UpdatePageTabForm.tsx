@@ -1,5 +1,6 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
 import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend/presentation/view'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -45,6 +46,7 @@ export const UpdatePageTabForm = observer<{
       model={model}
       onSubmit={onSubmit}
       schema={schema(kind)}
+      uiKey={MODEL_ACTION.UpdatePage.key}
     >
       <AutoFields omitFields={omitFields} />
     </Form>

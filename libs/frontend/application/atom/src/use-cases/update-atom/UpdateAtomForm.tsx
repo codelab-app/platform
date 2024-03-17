@@ -1,4 +1,5 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIfField,
@@ -48,6 +49,7 @@ export const UpdateAtomForm = observer(() => {
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
       schema={updateAtomSchema}
+      uiKey={MODEL_ACTION.UpdateAtom.key}
     >
       <AutoFields
         omitFields={[

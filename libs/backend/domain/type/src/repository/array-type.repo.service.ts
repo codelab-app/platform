@@ -9,7 +9,6 @@ import {
   exportArrayTypeSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IArrayTypeDto } from '@codelab/shared/abstract/core'
@@ -29,12 +28,12 @@ export class ArrayTypeRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected traceService: TraceService,
+
     protected validationService: ValidationService,
     protected loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
-    super(traceService, validationService, loggerService)
+    super(validationService, loggerService)
   }
 
   async _find({

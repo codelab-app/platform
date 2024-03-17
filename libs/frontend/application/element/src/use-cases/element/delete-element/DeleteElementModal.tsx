@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -42,6 +43,7 @@ export const DeleteElementModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={deleteElementSchema}
+        uiKey={MODEL_ACTION.DeleteElement.key}
       >
         <h4>
           Are you sure you want to delete{' '}

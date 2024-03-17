@@ -52,15 +52,15 @@ export const CuiHeaderToolbar = ({ items }: CuiHeaderToolbarProps) => {
   )
 
   return (
-    <div className="flex w-full justify-end" data-cy="codelabui-toolbar">
+    <div className="flex w-full justify-end" data-cy="cui-toolbar">
       <div
         className="flex flex-row items-start gap-2 overflow-hidden"
         ref={listRef}
       >
         {items.map((item) => (
           <CuiHeaderToolbarItem
+            cuiKey={item.cuiKey}
             icon={item.icon}
-            key={item.key}
             label={item.label}
             onClick={item.onClick}
             title={item.title}

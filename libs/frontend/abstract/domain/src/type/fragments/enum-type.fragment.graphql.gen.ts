@@ -16,11 +16,11 @@ import {
   BaseType_RenderPropType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { EnumTypeValueFragmentDoc } from './enum-type-value.fragment.graphql.gen'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type EnumTypeFragment = {
   allowedValues: Array<EnumTypeValueFragment>
 } & BaseType_EnumType_Fragment
@@ -40,12 +40,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

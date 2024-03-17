@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { AtomFragment } from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { AtomFragmentDoc } from '../../../../abstract/domain/src/atom/atom.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type CreateAtomsMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>
@@ -89,12 +89,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -114,6 +116,7 @@ export function getSdk(
           }),
         'CreateAtoms',
         'mutation',
+        variables,
       )
     },
     DeleteAtoms(
@@ -128,6 +131,7 @@ export function getSdk(
           }),
         'DeleteAtoms',
         'mutation',
+        variables,
       )
     },
     GetAtoms(
@@ -142,6 +146,7 @@ export function getSdk(
           }),
         'GetAtoms',
         'query',
+        variables,
       )
     },
     UpdateAtoms(
@@ -156,6 +161,7 @@ export function getSdk(
           }),
         'UpdateAtoms',
         'mutation',
+        variables,
       )
     },
   }

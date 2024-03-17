@@ -26,8 +26,8 @@ export const CreateTagPopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreateTag.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreateTag.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreateTagPopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreateTag.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreateTag.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

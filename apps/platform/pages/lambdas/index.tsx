@@ -34,8 +34,8 @@ const LambdasPage: CodelabPage<DashboardTemplateProps> = () => {
 const Header = () => {
   const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.CreateLambda.key,
       icon: <CreateLambdaButton key={0} />,
-      key: MODEL_ACTION.CreateLambda.key,
       title: 'Create Lambda',
     },
   ]

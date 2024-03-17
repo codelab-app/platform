@@ -1,5 +1,8 @@
 import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -46,7 +49,6 @@ export const UpdatePageForm = observer(
 
     return (
       <Form<UpdatePageSchema>
-        data-testid="update-page-form"
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -55,6 +57,7 @@ export const UpdatePageForm = observer(
         onSubmitSuccess={closeForm}
         schema={updatePageSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.UpdatePage.key}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

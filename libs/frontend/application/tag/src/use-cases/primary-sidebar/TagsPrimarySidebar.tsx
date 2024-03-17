@@ -1,8 +1,9 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -14,10 +15,10 @@ export const TagsPrimarySidebar = observer(() => {
   const { popover } = useCui()
   const tags = tagService.checkedTags.map((tag) => tagRef(tag.current))
 
-  const toolbarItems = [
+  const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.CreateTag.key,
       icon: <PlusOutlined />,
-      key: MODEL_ACTION.CreateTag.key,
       onClick: () => {
         tagService.createForm.open()
         popover.open(MODEL_ACTION.CreateTag.key)
@@ -25,8 +26,8 @@ export const TagsPrimarySidebar = observer(() => {
       title: 'Create Tag',
     },
     {
+      cuiKey: MODEL_ACTION.DeleteTag.key,
       icon: <DeleteOutlined />,
-      key: MODEL_ACTION.DeleteTag.key,
       onClick: () => tagService.deleteManyModal.open(tags),
       title: 'Delete Tag',
     },
@@ -36,6 +37,7 @@ export const TagsPrimarySidebar = observer(() => {
     <CuiSidebar
       label="Tags"
       popover={<CreateTagPopover />}
+      uiKey={MODEL_UI.SidebarTag.key}
       views={[
         {
           content: <TagsTreeView />,

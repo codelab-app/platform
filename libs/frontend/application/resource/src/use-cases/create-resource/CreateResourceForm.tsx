@@ -1,4 +1,7 @@
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -53,6 +56,7 @@ export const CreateResourceForm = observer(
         onSubmitSuccess={closeForm}
         schema={createResourceSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateResource.key}
       >
         <AutoFields />
         <DisplayIf condition={showFormControl}>

@@ -1,5 +1,8 @@
 import type { ICreateFieldData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   DisplayIf,
@@ -96,6 +99,7 @@ export const CreateFieldForm = observer(
         onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateField.key}
       >
         <AutoFields
           omitFields={[

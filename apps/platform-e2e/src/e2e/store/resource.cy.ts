@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import { IResourceType } from '@codelab/shared/abstract/core'
@@ -25,7 +25,9 @@ describe('API Resource', () => {
       cy.waitForSpinners()
 
       // Create the API resource we will use for the API action
-      cy.getCuiSidebar('Resources').getCuiToolbarItem('Add a Resource').click()
+      cy.getCuiSidebar(MODEL_UI.SidebarResource.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateResource.key)
+        .click()
 
       cy.setFormFieldValue({ label: 'Name', value: createResourceData.name })
       cy.setFormFieldValue({
@@ -40,7 +42,7 @@ describe('API Resource', () => {
       })
 
       cy.getCuiPopover(MODEL_ACTION.CreateResource.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateResource.key)
         .click()
 
       cy.getCuiTreeItemByPrimaryTitle(createResourceData.name).should('exist')

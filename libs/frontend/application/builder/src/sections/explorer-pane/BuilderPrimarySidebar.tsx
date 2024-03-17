@@ -12,7 +12,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/application/component'
 import {
   CreateElementPopover,
@@ -102,8 +102,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateElement.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateElement.key,
               onClick: () => {
                 if (!containerNode) {
                   return
@@ -136,8 +136,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateField.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateField.key,
               onClick: () => {
                 if (!store) {
                   return
@@ -164,8 +164,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
+              cuiKey: MODEL_ACTION.CreateAction.key,
               icon: <PlusOutlined />,
-              key: MODEL_ACTION.CreateAction.key,
               onClick: () => {
                 if (!store) {
                   return
@@ -246,6 +246,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               <UpdateActionPopover />
             </>
           }
+          uiKey={MODEL_UI.SidebarBuilder.key}
           views={sidebarViews}
         />
         <CreateFieldModal />

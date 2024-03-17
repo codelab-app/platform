@@ -1,5 +1,4 @@
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import { Stage } from '@codelab/shared/abstract/core'
 import type { OnApplicationShutdown } from '@nestjs/common'
 import { Module } from '@nestjs/common'
@@ -42,15 +41,4 @@ const getEnvFilePath = () => {
   ],
   providers: [],
 })
-export class CliModule implements OnApplicationShutdown {
-  onApplicationShutdown(signal: string) {
-    console.log(`Received shutdown signal: ${signal}`)
-    otelSDK
-      .shutdown()
-      .then(
-        () => console.log('Opentelemetry shut down successfully'),
-        (err) => console.log('Error shutting down SDK', err),
-      )
-      .finally(() => process.exit(0))
-  }
-}
+export class CliModule {}

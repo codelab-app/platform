@@ -93,6 +93,7 @@ describe('Runtime Element', () => {
       )
 
       if (pageKind === IPageKind.Provider) {
+        // eslint-disable-next-line jest/no-conditional-expect
         expect(runtimeProviderPage?.id).toBeUndefined()
       }
 

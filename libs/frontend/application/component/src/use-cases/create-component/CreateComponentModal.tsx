@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -37,6 +38,7 @@ export const CreateComponentModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
+        uiKey={MODEL_ACTION.CreateComponent.key}
       >
         <AutoFields omitFields={['childrenContainerElement', 'api']} />
       </ModalForm.Form>

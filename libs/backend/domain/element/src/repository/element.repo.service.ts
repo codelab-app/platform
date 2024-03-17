@@ -10,7 +10,6 @@ import {
   Neo4jService,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ICreateElementDto } from '@codelab/shared/abstract/core'
@@ -32,11 +31,10 @@ export class ElementRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     private neo4jService: Neo4jService,
-    protected override traceService: TraceService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService, loggerService)
+    super(validationService, loggerService)
   }
 
   async getElementWithDescendants(rootId: string) {

@@ -4,7 +4,7 @@ steps:
   - restore-workspace
   - run:
       name: 'Run Unit Tests'
-      command: yarn cli tasks unit --stage ci
+      command: pnpm cli tasks unit --stage ci
       environment:
         JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
         # JEST_JUNIT_OUTPUT_NAME: 'unit-specs-results.xml'

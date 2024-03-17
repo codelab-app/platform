@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentAuthGuardId } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -42,7 +42,6 @@ export const DeleteAuthGuardModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="delete-authGuards-modal"
       okText="Delete authGuard"
       onCancel={onSubmitSuccess}
       open={authGuardService.deleteModal.isOpen}
@@ -54,6 +53,7 @@ export const DeleteAuthGuardModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteAuthGuard.key}
       >
         <h4>Are you sure you want to delete auth guard "{authGuard?.name}"</h4>
         <AutoFields />

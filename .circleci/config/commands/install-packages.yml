@@ -1,0 +1,29 @@
+steps:
+  # NPM cache already restored in restore-workspace, which is shared with other jobs. While pnpm cache is only needed in the setup-workspace job
+  #
+  # The time to restore node_modules is longer than the time saving from installing node_modules again
+  #
+  - restore_cache:
+      name: 'Restore pnpm Cache'
+      keys:
+        - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+        - pnpm-cache
+  - run:
+      name: 'Install NPM Packages'
+      command: pnpm install --frozen-lockfile --verbose
+      environment:
+        # https://medium.com/@zahidbashirkhan/solved-puppeteer-is-not-able-to-install-error-failed-to-set-up-chromium-e3930129df85
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
+        PUPPETEER_SKIP_DOWNLOAD: true
+  - save_cache:
+      name: 'Save pnpm Cache'
+      key: pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
+      paths:
+        - ~/.pnpm-store
+  # Separate it so we can restore them separately
+  - save_cache:
+      name: 'Save node_modules Cache'
+      key: node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
+      paths:
+        - ~/project/node_modules
+  # node_modules cache needs to be checked for cache reset before we can save, otherwise nx cache grows too much. This step happens after build

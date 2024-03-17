@@ -2,6 +2,7 @@ import type {
   IPrimitiveTypeModel,
   IValidationRules,
 } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
@@ -88,25 +89,29 @@ export const SelectDefaultValue = () => {
   // TODO: make code mirror input have an error state
   // Simple approach for now is to just display the error message for the `defaultValues` below it
   return (
-    <Form
+    <div
       // key is needed here to re-create this form with a
       // new model and schema when the field type is changed
       key={`${fieldType.value}-default-values`}
-      model={{ defaultValues }}
-      onChange={(key, value) => {
-        const formattedValue = value === '' ? undefined : value
-
-        context.onChange(key, formattedValue)
-      }}
-      onSubmit={() => Promise.resolve()}
-      schema={schema as JSONSchemaType<IPropData>}
     >
-      <AutoFields />
-      {hasError && (
-        <p style={{ color: 'red', marginTop: -30 }}>
-          Default values is required if not nullable
-        </p>
-      )}
-    </Form>
+      <Form
+        model={{ defaultValues }}
+        onChange={(key, value) => {
+          const formattedValue = value === '' ? undefined : value
+
+          context.onChange(key, formattedValue)
+        }}
+        onSubmit={() => Promise.resolve()}
+        schema={schema as JSONSchemaType<IPropData>}
+        uiKey={MODEL_ACTION.SelectDefaultValueField.key}
+      >
+        <AutoFields />
+        {hasError && (
+          <p style={{ color: 'red', marginTop: -30 }}>
+            Default values is required if not nullable
+          </p>
+        )}
+      </Form>
+    </div>
   )
 }

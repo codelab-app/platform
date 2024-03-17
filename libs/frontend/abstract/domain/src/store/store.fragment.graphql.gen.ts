@@ -5,11 +5,11 @@ import {
   Action_CodeAction_Fragment,
 } from '../action/fragments/action.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type StoreFragment = {
   id: string
   name: string
@@ -52,12 +52,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

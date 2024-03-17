@@ -83,8 +83,9 @@ export const ElementTreeItemElementTitle = observer(
             <CuiTreeItemToolbar
               items={[
                 {
+                  cuiKey:
+                    `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
                   icon: <PlusOutlined />,
-                  key: `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
                   onClick: () => {
                     popover.open(MODEL_ACTION.CreateElement.key)
                     elementService.createForm.open({

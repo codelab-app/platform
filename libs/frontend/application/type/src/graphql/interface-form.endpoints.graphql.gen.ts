@@ -1,8 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type InterfaceForm_GetAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
   where?: Types.InputMaybe<Types.AppWhere>
@@ -118,12 +118,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -144,6 +146,7 @@ export function getSdk(
           ),
         'InterfaceForm_GetApps',
         'query',
+        variables,
       )
     },
     InterfaceForm_GetAtoms(
@@ -159,6 +162,7 @@ export function getSdk(
           ),
         'InterfaceForm_GetAtoms',
         'query',
+        variables,
       )
     },
     InterfaceForm_GetActions(
@@ -174,6 +178,7 @@ export function getSdk(
           ),
         'InterfaceForm_GetActions',
         'query',
+        variables,
       )
     },
     InterfaceForm_GetStores(
@@ -189,6 +194,7 @@ export function getSdk(
           ),
         'InterfaceForm_GetStores',
         'query',
+        variables,
       )
     },
     InterfaceForm_GetResource(
@@ -204,6 +210,7 @@ export function getSdk(
           ),
         'InterfaceForm_GetResource',
         'query',
+        variables,
       )
     },
     InterfaceForm_GetPages(
@@ -219,6 +226,7 @@ export function getSdk(
           ),
         'InterfaceForm_GetPages',
         'query',
+        variables,
       )
     },
   }

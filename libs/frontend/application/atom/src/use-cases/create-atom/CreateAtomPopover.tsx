@@ -26,8 +26,8 @@ export const CreateAtomPopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreateAtom.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreateAtom.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreateAtomPopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreateAtom.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreateAtom.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

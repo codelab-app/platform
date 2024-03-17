@@ -37,19 +37,19 @@ const AppsPageHeader = observer(() => {
 
   const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.ImportApp.key,
       icon: <ImportAppDialog key={0} />,
-      key: MODEL_ACTION.ImportApp.key,
       title: 'Import an app',
     },
     {
+      cuiKey: MODEL_ACTION.CreateApp.key,
       icon: <PlusOutlined />,
-      key: MODEL_ACTION.CreateApp.key,
       onClick: () => appService.createModal.open(),
       title: 'Create an App',
     },
     {
+      cuiKey: MODEL_ACTION.SignOutUser.key,
       icon: <LogoutOutlined />,
-      key: MODEL_ACTION.SignOutUser.key,
       onClick: () => {
         // redirect to /api/auth/logout
         window.location.href = '/api/auth/logout'

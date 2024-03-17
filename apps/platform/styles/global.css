@@ -6,6 +6,7 @@
 
 @import 'react-quill/dist/quill.snow.css';
 @import 'react-grid-layout/css/styles.css';
+/* Used by https://github.com/react-grid-layout/react-grid-layout */
 @import 'react-resizable/css/styles.css';
 
 /**

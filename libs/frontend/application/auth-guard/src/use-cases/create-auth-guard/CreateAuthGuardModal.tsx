@@ -1,4 +1,5 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -36,6 +37,7 @@ export const CreateAuthGuardModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAuthGuardSchema}
+        uiKey={MODEL_ACTION.CreateAuthGuard.key}
       >
         <AutoFields />
       </ModalForm.Form>

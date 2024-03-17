@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { EditorView } from '@codemirror/view'
@@ -41,7 +41,9 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
+        .click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -62,7 +64,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', 'api/graphql').as('action')
       cy.getCuiPopover(MODEL_ACTION.CreateType.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
       cy.wait('@action')
 
@@ -74,7 +76,9 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
+        .click()
 
       cy.setFormFieldValue({ label: 'Name', value: enumTypeName })
 
@@ -94,7 +98,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', 'api/graphql').as('action')
       cy.getCuiPopover(MODEL_ACTION.CreateType.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
       cy.wait('@action')
 
@@ -102,7 +106,9 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to create array', () => {
-      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
+        .click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -123,7 +129,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', 'api/graphql').as('action')
       cy.getCuiPopover(MODEL_ACTION.CreateType.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
       cy.wait('@action')
 
@@ -135,7 +141,9 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.getCuiSidebar('Types').getCuiToolbarItem('Create Type').click()
+      cy.getCuiSidebar(MODEL_UI.SidebarType.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
+        .click()
 
       cy.setFormFieldValue({
         label: 'Name',
@@ -150,7 +158,7 @@ describe('Types CRUD', () => {
 
       cy.intercept('POST', 'api/graphql').as('action')
       cy.getCuiPopover(MODEL_ACTION.CreateType.key)
-        .getCuiToolbarItem('Create')
+        .getCuiToolbarItem(MODEL_ACTION.CreateType.key)
         .click()
       cy.wait('@action')
 
@@ -162,7 +170,7 @@ describe('Types CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Add field')
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
         .click()
 
       cy.setFormFieldValue({
@@ -176,13 +184,6 @@ describe('Types CRUD', () => {
         value: primitiveTypeName,
       })
 
-      // // should show error because nullable is false by default
-      // cy.getCuiPopover('Create Field').within(() => {
-      //   cy.getToolbarItem('Create').should('be.exist').click({ force: true })
-      // })
-
-      // cy.findByText('Default values is required if not nullable')
-
       cy.setFormFieldValue({
         label: 'Default values',
         type: FIELD_TYPE.CODE_MIRROR,
@@ -191,14 +192,10 @@ describe('Types CRUD', () => {
 
       cy.findByText(fieldDefaultValue).should('be.visible')
 
-      cy.intercept('POST', 'api/graphql').as('action')
-      cy.getCuiToolbarItem('Create').click()
-      cy.wait('@action')
-      // its re-rendering after saving and is flaky when running in CI
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(1000)
+      cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+        .click()
 
-      // cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
@@ -251,17 +248,15 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete type')
+        .getCuiToolbarItem(MODEL_ACTION.DeleteType.key)
         .should('be.visible')
         .click()
 
       cy.waitForSpinners()
 
-      cy.intercept('POST', 'api/graphql').as('action')
       cy.getModal()
         .getModalAction(/Delete/)
         .click()
-      cy.wait('@action')
       cy.getModal().should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).should('not.exist')
@@ -271,7 +266,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete type')
+        .getCuiToolbarItem(MODEL_ACTION.DeleteType.key)
         .should('be.visible')
         .click()
 
@@ -291,7 +286,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(enumTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(enumTypeName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete type')
+        .getCuiToolbarItem(MODEL_ACTION.DeleteType.key)
         .should('be.visible')
         .click()
 
@@ -311,7 +306,7 @@ describe('Types CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName)
         .getCuiTreeItemToolbar()
-        .getCuiToolbarItem('Delete type')
+        .getCuiToolbarItem(MODEL_ACTION.DeleteType.key)
         .should('be.visible')
         .click()
 

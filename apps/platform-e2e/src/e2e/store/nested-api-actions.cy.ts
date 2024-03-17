@@ -1,4 +1,4 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
@@ -53,7 +53,9 @@ describe('Running nested API and code actions', () => {
       .click({ force: true })
 
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiSidebarViewHeader('State').getCuiToolbarItem('Add Field').click()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -76,14 +78,14 @@ describe('Running nested API and code actions', () => {
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
   })
 
   it('should create a code action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -106,14 +108,14 @@ describe('Running nested API and code actions', () => {
 
     cy.intercept('POST', 'api/graphql').as('createAction')
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
     cy.wait('@createAction')
   })
 
   it('should create a GET api action and set code action as success action', () => {
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -154,14 +156,14 @@ describe('Running nested API and code actions', () => {
 
     cy.intercept('POST', 'api/graphql').as('createAction')
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
     cy.wait('@createAction')
   })
 
   it('should create a POST api action and set the GET api action as success action', () => {
     cy.getCuiSidebarViewHeader('Actions')
-      .getCuiToolbarItem('Add Action')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.setFormFieldValue({
@@ -208,7 +210,7 @@ describe('Running nested API and code actions', () => {
 
     cy.intercept('POST', 'api/graphql').as('createAction')
     cy.getCuiPopover(MODEL_ACTION.CreateAction.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateAction.key)
       .click()
 
     cy.wait('@createAction').then(({ response }) => {
@@ -220,31 +222,31 @@ describe('Running nested API and code actions', () => {
   it('should create a button element and set the POST api action as the click handler', () => {
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
-    cy.getCuiSidebar('Explorer')
-      .getCuiToolbarItem('Add Element')
+    cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignTypographyText,
     })
 
-    // need to wait for the code to put the autocomputed name before typing
+    // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Typography Element',
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
 
-    cy.findByTestId('create-element-form').should('not.exist', {
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
 
@@ -264,12 +266,12 @@ describe('Running nested API and code actions', () => {
     cy.openBuilder()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
-    cy.getCuiSidebar('Explorer')
-      .getCuiToolbarItem('Add Element')
+    cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .first()
       .click()
 
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Atom',
       type: FIELD_TYPE.SELECT,
       value: IAtomType.AntDesignButton,
@@ -277,26 +279,26 @@ describe('Running nested API and code actions', () => {
 
     // TODO: once we seed the atom fields, change this logic so that you select the action in
     // in the "On Click" field
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
       value: `{ "customText": "Click button to post", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
     })
 
-    // need to wait for the code to put the autocomputed name before typing
+    // need to wait for the code to put the auto-computed name before typing
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000)
-    cy.findByTestId('create-element-form').setFormFieldValue({
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Post Button',
     })
 
     cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-      .getCuiToolbarItem('Create')
+      .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
       .click()
 
-    cy.findByTestId('create-element-form').should('not.exist', {
+    cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
 

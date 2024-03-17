@@ -1,0 +1,8 @@
+# We need to run this before each step, since the core version isn't stored within ~/.pnpm-store
+steps:
+  - run:
+      name: Install pnpm package manager
+      command: |
+        sudo corepack enable
+        sudo corepack prepare pnpm@8.15.4 --activate
+        pnpm config set store-dir ~/.pnpm-store

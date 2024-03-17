@@ -1,4 +1,3 @@
-// import '../src/wdyr'
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'

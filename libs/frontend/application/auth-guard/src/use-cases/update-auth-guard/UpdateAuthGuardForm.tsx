@@ -1,4 +1,5 @@
 import type { IUpdateAuthGuardData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
@@ -46,6 +47,7 @@ export const UpdateAuthGuardForm = observer(() => {
         title: 'Error while updating auth guard',
       })}
       schema={updateAuthGuardSchema}
+      uiKey={MODEL_ACTION.UpdateAuthGuard.key}
     >
       <AutoFields omitFields={['config']} />
       <ResourceFetchConfigField />

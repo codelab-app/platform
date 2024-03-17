@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -42,6 +43,7 @@ export const CreateResourceModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createResourceSchema}
+        uiKey={MODEL_ACTION.CreateResource.key}
       >
         <AutoFields />
       </ModalForm.Form>

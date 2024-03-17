@@ -9,6 +9,7 @@ type CuiPopoverToolbarItemProps = Omit<ToolbarItem, 'icon'> & {
 }
 
 export const CuiPopoverToolbarItem = ({
+  cuiKey,
   icon,
   label,
   onClick,
@@ -20,19 +21,19 @@ export const CuiPopoverToolbarItem = ({
         size-full
         cursor-pointer
       "
-      data-cy={CY_DATA.cuiToolbarItem(title)}
+      data-cy={CY_DATA.cuiToolbarItem(cuiKey).cyData}
       onClick={onClick}
     >
       <Tooltip title={title}>
         <div
-          className={`
-          flex
-          size-full
-          flex-col
-          items-center
-          justify-center
-          px-1
-        `}
+          className="
+            flex
+            size-full
+            flex-col
+            items-center
+            justify-center
+            px-1
+          "
         >
           <div
             className="

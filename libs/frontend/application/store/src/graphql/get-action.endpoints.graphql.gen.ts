@@ -4,10 +4,10 @@ import {
   Action_ApiAction_Fragment,
   Action_CodeAction_Fragment,
 } from '../../../../abstract/domain/src/action/fragments/action.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from '../../../../abstract/domain/src/action/fragments/action.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetActionsQueryVariables = Types.Exact<{
   codeActionWhere?: Types.InputMaybe<Types.CodeActionWhere>
   apiActionWhere?: Types.InputMaybe<Types.ApiActionWhere>
@@ -37,12 +37,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -62,6 +64,7 @@ export function getSdk(
           }),
         'GetActions',
         'query',
+        variables,
       )
     },
   }

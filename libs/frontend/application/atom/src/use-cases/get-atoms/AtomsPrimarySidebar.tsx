@@ -1,5 +1,9 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  MODEL_UI,
+  PageType,
+} from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CreateFieldPopover } from '@codelab/frontend/application/type'
 import {
@@ -32,6 +36,7 @@ export const AtomsPrimarySidebar = observer(() => {
           <CreateFieldPopover />
         </>
       }
+      uiKey={MODEL_UI.SidebarAtom.key}
       views={[
         {
           content: <AtomsTreeView showSearchBar={showSearchBar} />,
@@ -41,8 +46,8 @@ export const AtomsPrimarySidebar = observer(() => {
             items: [
               ...items,
               {
+                cuiKey: MODEL_ACTION.CreateAction.key,
                 icon: <PlusOutlined />,
-                key: MODEL_ACTION.CreateAction.key,
                 onClick: () => {
                   atomService.createForm.open()
                   popover.open(MODEL_ACTION.CreateAction.key)

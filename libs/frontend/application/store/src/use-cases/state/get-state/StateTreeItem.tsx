@@ -8,6 +8,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -40,16 +41,16 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     popover.open(MODEL_ACTION.CreateField.key)
   }
 
-  const toolbarItems = [
+  const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.UpdateField.key,
       icon: <EditOutlined />,
-      key: MODEL_ACTION.UpdateField.key,
       onClick: onEdit,
       title: 'Edit field',
     },
     {
+      cuiKey: MODEL_ACTION.DeleteField.key,
       icon: <DeleteOutlined />,
-      key: MODEL_ACTION.DeleteField.key,
       onClick: onDelete,
       title: 'Delete field',
     },
@@ -60,8 +61,8 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
       .maybeCurrent?.kind === 'InterfaceType'
   ) {
     toolbarItems.push({
+      cuiKey: MODEL_ACTION.CreateField.key,
       icon: <PlusOutlined />,
-      key: MODEL_ACTION.CreateField.key,
       onClick: onAddField,
       title: 'Add field',
     })

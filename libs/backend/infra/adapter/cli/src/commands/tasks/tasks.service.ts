@@ -16,22 +16,13 @@ import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
 import { Tasks } from '../../shared/utils/tasks'
 
-/**
- * We require this since execCommand creates a new process and any env set before that doesn't apply
- */
-
-const NX_TEST = 'npx env-cmd -f .env.test nx'
-
 @Injectable()
 export class TaskService implements CommandModule<unknown, unknown> {
   command = 'tasks'
 
   describe = 'Run tasks'
 
-  constructor(
-    // private ogmService: OgmService,
-    private lazyModuleLoader: LazyModuleLoader,
-  ) {
+  constructor(private lazyModuleLoader: LazyModuleLoader) {
     this.builder = this.builder.bind(this)
   }
 
@@ -70,7 +61,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand('npx nx affected --target=test:unit --ci -c ci')
+            execCommand('pnpm nx affected --target=test:unit --ci -c ci')
           }
         }),
       )
@@ -87,7 +78,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test:integration --runInBand --ci -c ci --parallel=1',
+              'pnpm nx affected --target=test:integration --runInBand --ci -c ci --parallel=1',
             )
           }
         }),
@@ -116,7 +107,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand(
-              'yarn graphql-codegen --config ./scripts/codegen/codegen.ts',
+              'pnpm graphql-codegen --config ./scripts/codegen/codegen.ts',
             )
             await ogmService.generate()
 
@@ -127,7 +118,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             const startServer = 'nx serve platform-api -c ci'
 
             const runSpecs =
-              "npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0"
+              "pnpm wait-on 'tcp:127.0.0.1:4000' && pnpm graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0"
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,
@@ -198,22 +189,19 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand('yarn cross-env TIMING=1 lint-staged')
-            execCommand('npx ls-lint')
+            execCommand('pnpm cross-env TIMING=1 lint-staged')
+            execCommand('pnpm ls-lint')
           }
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=lint --parallel=3 --verbose -c ci',
+              'pnpm cross-env TIMING=1 nx affected --target=lint --parallel=3 -c ci',
             )
-            execCommand('echo $PWD')
 
             // https://github.com/nrwl/nx/discussions/8769
-            execCommand('npx prettier --check "./**/*.{graphql,yaml,json}"')
-            // execCommand(
-            //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
-            // )
-            execCommand('npx ls-lint')
+            execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"')
+
+            execCommand('pnpm ls-lint')
           }
         }),
       )
@@ -223,7 +211,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ edit, stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`npx --no-install commitlint --edit ${edit}`)
+            execCommand(`pnpm --no-install commitlint --edit ${edit}`)
           }
 
           if (stage === Stage.CI) {

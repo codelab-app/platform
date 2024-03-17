@@ -2,10 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     "types": ["node", "worker-loader", "@fancyapps/ui", "styled-components"],
     "strict": true,
     "noImplicitReturns": true,

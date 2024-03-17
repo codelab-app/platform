@@ -1,4 +1,3 @@
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   formatToPrettifiedJson,
   writeFileSyncWithDirs,
@@ -11,10 +10,7 @@ import { MigrationDataService } from './migration-data.service'
 
 @Injectable()
 export class WriteAdminDataService {
-  constructor(
-    private traceService: TraceService,
-    public migrationDataService: MigrationDataService,
-  ) {}
+  constructor(public migrationDataService: MigrationDataService) {}
 
   /**
    * Write data to the volume
@@ -40,13 +36,6 @@ export class WriteAdminDataService {
       const stringData = await formatToPrettifiedJson({
         api,
         atom,
-      })
-
-      const span = this.traceService.getSpan()
-
-      span?.addEvent('Saving atoms data to', {
-        outputPath,
-        stringData,
       })
 
       writeFileSyncWithDirs(outputPath, stringData)

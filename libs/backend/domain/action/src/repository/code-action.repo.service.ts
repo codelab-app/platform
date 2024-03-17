@@ -8,7 +8,6 @@ import {
   codeActionSelectionSet,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ICodeActionDto } from '@codelab/shared/abstract/core'
@@ -24,11 +23,10 @@ export class CodeActionRepository extends AbstractRepository<
 > {
   constructor(
     private ogmService: OgmService,
-    protected override traceService: TraceService,
     protected override validationService: ValidationService,
     protected override loggerService: CodelabLoggerService,
   ) {
-    super(traceService, validationService, loggerService)
+    super(validationService, loggerService)
   }
 
   protected async _addMany(actions: Array<ICodeActionDto>) {

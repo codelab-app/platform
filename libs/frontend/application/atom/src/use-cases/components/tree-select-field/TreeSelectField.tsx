@@ -22,7 +22,7 @@ const TreeSelectComponent = ({
   }
 
   return (
-    <div className="TreeSelectField">
+    <div>
       <label>
         <div>{label}</div>
       </label>

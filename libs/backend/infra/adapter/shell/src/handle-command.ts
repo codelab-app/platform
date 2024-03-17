@@ -16,13 +16,6 @@ export const globalHandler = <T>(
       // Need this for finally to execute completely
     } finally {
       process.exit(0)
-      // otelSDK
-      //   .shutdown()
-      //   .then(
-      //     () => console.log('Opentelemetry shut down successfully'),
-      //     (err) => console.log('Error shutting down SDK', err),
-      //   )
-      //   .finally(() => process.exit(0))
     }
   }
 }

@@ -4,7 +4,6 @@
   "plugins": [
     "import",
     "unused-imports",
-    // "react-hooks",
     "prettier",
     "simple-import-sort",
     "lodash",
@@ -16,7 +15,6 @@
     // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
     "unicorn",
-    "tailwindcss",
     "@stylistic/ts"
   ],
   "parser": "@typescript-eslint/parser",
@@ -25,7 +23,6 @@
   },
   "extends": [
     "plugin:canonical/recommended",
-    "plugin:tailwindcss/recommended",
     "./scripts/eslint/.eslintrc.nx.json",
     "./scripts/eslint/.eslintrc.globals.json",
     "./scripts/eslint/.eslintrc.spacing.json",
@@ -138,6 +135,7 @@
     {
       // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
       "plugins": ["jest", "jest-formatting"],
+      "extends": ["plugin:jest/recommended", "plugin:jest-formatting/strict"],
       "files": ["*.spec.ts", "*.spec.tsx"],
       "rules": {
         "import/no-unresolved": "error",
@@ -145,8 +143,16 @@
       }
     },
     {
+      "files": ["*.tsx"],
+      "plugins": ["tailwindcss"],
+      "extends": ["plugin:tailwindcss/recommended"],
+      "rules": {
+        "tailwindcss/no-custom-classname": ["error", {}]
+      }
+    },
+    {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:jest-formatting/strict", "plugin:import/typescript"],
+      "extends": ["plugin:import/typescript"],
       "rules": {
         "curly": ["error", "all"],
         "prefer-arrow/prefer-arrow-functions": "error",

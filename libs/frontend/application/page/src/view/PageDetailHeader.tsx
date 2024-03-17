@@ -76,18 +76,23 @@ export const PageDetailHeader = observer(() => {
     await router.push({ pathname: PageType.AppList })
   }, [router])
 
+  // Check if we are in preview or not
+  const isBuilder = isPageBuilder || isComponentBuilder
+
   const toolbarItems: Array<ToolbarItem> = [
-    {
-      icon:
-        isPageBuilder || isComponentBuilder ? (
-          <EyeOutlined />
-        ) : (
-          <ToolOutlined />
-        ),
-      key: MODEL_ACTION.TogglePreviewModeBuilder.key,
-      onClick: togglePreviewMode,
-      title: isPageBuilder || isComponentBuilder ? 'Preview' : 'Builder',
-    },
+    isBuilder
+      ? {
+          cuiKey: MODEL_ACTION.OpenPreviewBuilder.key,
+          icon: <EyeOutlined />,
+          onClick: togglePreviewMode,
+          title: 'Preview',
+        }
+      : {
+          cuiKey: MODEL_ACTION.OpenBuilderBuilder.key,
+          icon: <ToolOutlined />,
+          onClick: togglePreviewMode,
+          title: 'Builder',
+        },
   ]
 
   const directionItems = pageName

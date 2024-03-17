@@ -32,7 +32,7 @@ export class AppApplicationController {
   @Get('export')
   async exportApp(@Request() req: ExpressRequest) {
     return this.commandBus.execute<SeedCypressAppCommand, IAppAggregate>(
-      new ExportAppCommand({ id: req.query.id as string }),
+      new ExportAppCommand({ id: req.query['id'] as string }),
     )
   }
 

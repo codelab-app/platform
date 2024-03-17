@@ -1,5 +1,8 @@
 import type { ICreateAuthGuardData } from '@codelab/frontend/abstract/domain'
-import type { SubmitController } from '@codelab/frontend/abstract/types'
+import {
+  MODEL_ACTION,
+  type SubmitController,
+} from '@codelab/frontend/abstract/types'
 import {
   ResourceFetchConfigField,
   ResourceTestRequest,
@@ -48,6 +51,7 @@ export const CreateAuthGuardForm = observer<CreateAuthGuardFormProps>(
         onSubmitSuccess={closeForm}
         schema={createAuthGuardSchema}
         submitRef={submitRef}
+        uiKey={MODEL_ACTION.CreateAuthGuard.key}
       >
         <AutoFields omitFields={['config']} />
         <ResourceFetchConfigField />

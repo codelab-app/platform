@@ -1,4 +1,5 @@
 import MoreOutlined from '@ant-design/icons/MoreOutlined'
+import type { ModelUiKey } from '@codelab/frontend/abstract/types'
 import { CY_DATA } from '@codelab/frontend/application/shared/data'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'
@@ -31,6 +32,7 @@ export interface CuiSidebarProps {
   popover?: ReactNode
   tabs?: Array<CuiSidebarTab>
   toolbar?: CuiSidebarToolbarProps
+  uiKey: ModelUiKey
   views?: Array<CuiSidebarView>
 }
 
@@ -40,6 +42,7 @@ export const CuiSidebar = ({
   popover,
   tabs,
   toolbar,
+  uiKey,
   views,
 }: CuiSidebarProps) => {
   const sidebarRef = useRef<HTMLDivElement>(null)
@@ -47,7 +50,7 @@ export const CuiSidebar = ({
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={CY_DATA.cuiSidebar(label)}
+      data-cy={CY_DATA.cuiSidebar(uiKey).cyData}
       ref={sidebarRef}
     >
       {tabs && tabs[0] ? (
@@ -85,19 +88,19 @@ export const CuiSidebar = ({
         <>
           <div
             className="
-          flex
-          h-10
-          w-full
-          flex-row
-          items-center
-          justify-between
-          border-0
-          border-b-2
-          border-solid
-          border-gray-300
-          bg-neutral-100
-          "
-            data-cy={CY_DATA.cuiSidebarHeader()}
+              flex
+              h-10
+              w-full
+              flex-row
+              items-center
+              justify-between
+              border-0
+              border-b-2
+              border-solid
+              border-gray-300
+              bg-neutral-100
+            "
+            data-cy={CY_DATA.cuiSidebarHeader().cyData}
           >
             <Typography className="pl-4">
               {views?.length !== 1 ? label : views[0]?.label}

@@ -351,6 +351,7 @@ describe('Runtime Element props', () => {
       expect(runtimeProps.evaluatedProps).toMatchObject({
         [propKey]: isProviderPage
           ? {
+              // eslint-disable-next-line jest/no-conditional-expect
               current: expect.any(HTMLDivElement),
             }
           : undefined,

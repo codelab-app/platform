@@ -26,8 +26,8 @@ export const CreateAuthGuardPopover = observer(() => {
       toolbar={{
         items: [
           {
+            cuiKey: MODEL_ACTION.CreateAuthGuard.key,
             icon: <SaveOutlined />,
-            key: MODEL_ACTION.CreateAuthGuard.key,
             label: 'Create',
             onClick: () => {
               submitRef.current?.submit()
@@ -35,8 +35,8 @@ export const CreateAuthGuardPopover = observer(() => {
             title: 'Create',
           },
           {
+            cuiKey: MODEL_ACTION.CancelCreateAuthGuard.key,
             icon: <CloseOutlined />,
-            key: MODEL_ACTION.CancelCreateAuthGuard.key,
             label: 'Cancel',
             onClick: () => {
               popover.close()

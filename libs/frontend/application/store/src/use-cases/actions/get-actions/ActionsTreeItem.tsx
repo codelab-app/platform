@@ -8,6 +8,7 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
+import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -33,16 +34,16 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
     popover.open(MODEL_ACTION.UpdateAction.key)
   }
 
-  const toolbarItems = [
+  const toolbarItems: Array<ToolbarItem> = [
     {
+      cuiKey: MODEL_ACTION.UpdateAction.key,
       icon: <EditOutlined />,
-      key: MODEL_ACTION.UpdateAction.key,
       onClick: onEdit,
       title: MODEL_ACTION.UpdateAction.title,
     },
     {
+      cuiKey: MODEL_ACTION.DeleteAction.key,
       icon: <DeleteOutlined />,
-      key: MODEL_ACTION.DeleteAction.key,
       onClick: onDelete,
       title: MODEL_ACTION.DeleteAction.title,
     },

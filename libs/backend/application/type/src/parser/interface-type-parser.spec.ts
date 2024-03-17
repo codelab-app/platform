@@ -11,7 +11,7 @@ describe('InterfaceType parser', () => {
     ])
   })
 
-  it('turns a string into interface type data', () => {
+  it('turns another string into interface type data', () => {
     // Progress.success
     const actual = '{ ghost: boolean }'
 

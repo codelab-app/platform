@@ -4,13 +4,13 @@ import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.grap
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type ComponentFragment = {
   __typename: 'Component'
   id: string
@@ -93,12 +93,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(

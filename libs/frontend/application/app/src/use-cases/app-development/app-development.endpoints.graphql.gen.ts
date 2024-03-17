@@ -13,8 +13,7 @@ import { ResourceFragment } from '../../../../../abstract/domain/src/resource/re
 import { AuthGuardFragment } from '../../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
 import { ComponentDevelopmentFragment } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
 import { RedirectFragment } from '../../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
-import { GraphQLClient } from 'graphql-request'
-import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
+import { GraphQLClient, RequestOptions } from 'graphql-request'
 import { gql } from 'graphql-tag'
 import { ActionTypeFragmentDoc } from '../../../../../abstract/domain/src/type/fragments/action-type.fragment.graphql.gen'
 import { AppDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/app/app.fragment.graphql.gen'
@@ -29,6 +28,7 @@ import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource
 import { AuthGuardFragmentDoc } from '../../../../../abstract/domain/src/auth-guard/auth-guard.fragment.graphql.gen'
 import { ComponentDevelopmentFragmentDoc } from '../../../../../abstract/domain/src/component/component-development.fragment.graphql.gen'
 import { RedirectFragmentDoc } from '../../../../../abstract/domain/src/redirect/redirect.fragment.graphql.gen'
+type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetAppDevelopmentQueryVariables = Types.Exact<{
   appCompositeKey: Types.Scalars['String']['input']
   pageName: Types.Scalars['String']['input']
@@ -102,12 +102,14 @@ export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
   operationName: string,
   operationType?: string,
+  variables?: any,
 ) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = (
   action,
   _operationName,
   _operationType,
+  _variables,
 ) => action()
 
 export function getSdk(
@@ -128,6 +130,7 @@ export function getSdk(
           ),
         'GetAppDevelopment',
         'query',
+        variables,
       )
     },
   }

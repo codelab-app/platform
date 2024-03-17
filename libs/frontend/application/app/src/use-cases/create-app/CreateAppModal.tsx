@@ -1,4 +1,5 @@
 import type { ICreateAppData } from '@codelab/frontend/abstract/domain'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -39,6 +40,7 @@ export const CreateAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={createAppSchema}
+        uiKey={MODEL_ACTION.CreateApp.key}
       >
         <AutoFields omitFields={['storeId']} />
       </ModalForm.Form>

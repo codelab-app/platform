@@ -1,4 +1,4 @@
-import { PageType } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useCurrentResourceId } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
@@ -42,7 +42,6 @@ export const DeleteResourceModal = observer(() => {
 
   return (
     <ModalForm.Modal
-      className="delete-resources-modal"
       okText="Delete Resource"
       onCancel={onSubmitSuccess}
       open={resourceService.deleteModal.isOpen}
@@ -54,6 +53,7 @@ export const DeleteResourceModal = observer(() => {
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteResource.key}
       >
         <h4>Are you sure you want to delete resource {resource?.name}"</h4>
         <AutoFields />

@@ -16,7 +16,7 @@ export const CuiCollapsePanelContent = ({
   return (
     <div
       className="flex size-full min-h-1/3 flex-col overflow-auto bg-white"
-      data-cy={CY_DATA.cuiSidebarViewContent(label)}
+      data-cy={CY_DATA.cuiSidebarViewContent(label).cyData}
     >
       <div className="w-full flex-1 overflow-auto">
         <CuiSkeletonWrapper isLoading={isLoading}>{content}</CuiSkeletonWrapper>

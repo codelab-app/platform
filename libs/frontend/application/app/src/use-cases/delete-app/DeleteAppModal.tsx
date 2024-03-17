@@ -1,3 +1,4 @@
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -39,6 +40,7 @@ export const DeleteAppModal = observer(() => {
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}
+        uiKey={MODEL_ACTION.DeleteApp.key}
       >
         <h4>Are you sure you want to delete app "{app?.name}"?</h4>
       </ModalForm.Form>

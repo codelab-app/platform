@@ -16,7 +16,6 @@ import {
 import type { ITypeDto, ITypeMaybeRef } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Inject, Injectable } from '@nestjs/common'
-import { context } from '@opentelemetry/api'
 import { Driver } from 'neo4j-driver'
 import {
   ActionType,
@@ -118,8 +117,6 @@ export class TypeFactory {
   }
 
   async save<T extends IType>(type: ITypeDto, where?: ITypeWhere): Promise<T> {
-    const activeContext = context.active()
-
     /**
      * Type narrow using discriminated union
      */
@@ -127,89 +124,73 @@ export class TypeFactory {
       case ITypeKind.PrimitiveType: {
         const primitiveType = new PrimitiveType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.primitiveTypeRepository.save(
-            primitiveType,
-            where as PrimitiveTypeWhere,
-          )) as T
-        })
+        return (await this.primitiveTypeRepository.save(
+          primitiveType,
+          where as PrimitiveTypeWhere,
+        )) as T
       }
 
       case ITypeKind.EnumType: {
         const enumType = new EnumType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.enumTypeRepository.save(
-            enumType,
-            where as EnumTypeWhere,
-          )) as T
-        })
+        return (await this.enumTypeRepository.save(
+          enumType,
+          where as EnumTypeWhere,
+        )) as T
       }
 
       case ITypeKind.InterfaceType: {
         const interfaceType = new InterfaceType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.interfaceTypeRepository.save(
-            interfaceType,
-            where as InterfaceTypeWhere,
-          )) as T
-        })
+        return (await this.interfaceTypeRepository.save(
+          interfaceType,
+          where as InterfaceTypeWhere,
+        )) as T
       }
 
       case ITypeKind.ReactNodeType: {
         const reactNodeType = new ReactNodeType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.reactNodeTypeRepository.save(
-            reactNodeType,
-            where as ReactNodeTypeWhere,
-          )) as T
-        })
+        return (await this.reactNodeTypeRepository.save(
+          reactNodeType,
+          where as ReactNodeTypeWhere,
+        )) as T
       }
 
       case ITypeKind.RenderPropType: {
         const renderPropType = new RenderPropType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.renderPropTypeRepository.save(
-            renderPropType,
-            where as RenderPropTypeWhere,
-          )) as T
-        })
+        return (await this.renderPropTypeRepository.save(
+          renderPropType,
+          where as RenderPropTypeWhere,
+        )) as T
       }
 
       case ITypeKind.ActionType: {
         const actionType = new ActionType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.actionTypeRepository.save(
-            actionType,
-            where as ActionTypeWhere,
-          )) as T
-        })
+        return (await this.actionTypeRepository.save(
+          actionType,
+          where as ActionTypeWhere,
+        )) as T
       }
 
       case ITypeKind.UnionType: {
         const unionType = new UnionType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.unionTypeRepository.save(
-            unionType,
-            where as UnionTypeWhere,
-          )) as T
-        })
+        return (await this.unionTypeRepository.save(
+          unionType,
+          where as UnionTypeWhere,
+        )) as T
       }
 
       case ITypeKind.ArrayType: {
         const arrayType = new ArrayType(type)
 
-        return await context.with(activeContext, async () => {
-          return (await this.arrayTypeRepository.save(
-            arrayType,
-            where as ArrayTypeWhere,
-          )) as T
-        })
+        return (await this.arrayTypeRepository.save(
+          arrayType,
+          where as ArrayTypeWhere,
+        )) as T
       }
 
       default: {

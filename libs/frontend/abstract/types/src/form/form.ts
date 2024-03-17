@@ -4,8 +4,9 @@ import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { AutoFormProps, Bridge } from 'uniforms'
+import type { ModelActionKey } from '../model'
 
-export type VoidCallback<TInput> = ArrayOrSingle<Callback<TInput, void>>
+export type VoidCallback<TInput> = Callback<TInput, void>
 
 export type FormProps<TData, TResponse = unknown> = Partial<
   Pick<
@@ -18,19 +19,19 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     /**
      * For testing
      */
-    'data-testid'?: string
+    uiKey: ModelActionKey
 
     cssString?: string
 
     /**
      * Called after a failed submit, the input is unknown error
      */
-    onSubmitError?: VoidCallback<unknown>
+    onSubmitError?: ArrayOrSingle<VoidCallback<unknown>>
 
     /**
      * Called after a successful submit
      */
-    onSubmitSuccess?: VoidCallback<TResponse>
+    onSubmitSuccess?: ArrayOrSingle<VoidCallback<TResponse>>
 
     /**
      * Schema used for form generation.
