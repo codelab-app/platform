@@ -25,16 +25,11 @@ export const createElementTree = (
           .first()
           .click()
 
-        /**
-         * We skip this if parent element is root, since it is disabled and can't be accessed
-         */
-        // if (parentElement !== ROOT_ELEMENT_NAME) {
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Parent element',
           type: FIELD_TYPE.SELECT,
           value: parentElement,
         })
-        // }
 
         if (!atom) {
           throw new Error('Missing atom')
@@ -45,10 +40,6 @@ export const createElementTree = (
           type: FIELD_TYPE.SELECT,
           value: atom,
         })
-
-        // need to wait for the code to put the auto-computed name before typing
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
 
         if (propsData) {
           cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
@@ -85,11 +76,11 @@ export const createElementTree = (
           // editorjs fails internally without this, maybe some kind of initialization
           // fails mostly on elements that can have text editor like typography text
           // eslint-disable-next-line cypress/no-unnecessary-waiting
-          cy.wait(2000)
+          // cy.wait(2000)
         }
 
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
-          .findByText(name)
+          .getCuiTreeItemByPrimaryTitle(name)
           .should('exist')
           .click()
       },

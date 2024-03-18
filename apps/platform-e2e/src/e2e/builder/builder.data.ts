@@ -13,34 +13,40 @@ export const elementRow: ICreateCypressElementData = {
 }
 
 const elementColA: ICreateCypressElementData = {
+  atom: IAtomType.AntDesignGridCol,
   name: 'Column A',
   parentElement: elementRow.name,
 }
 
 const elementTextA: ICreateCypressElementData = {
+  atom: IAtomType.AntDesignTypographyText,
   name: 'Column A Text',
   parentElement: elementColA.name,
 }
 
 const elementColB: ICreateCypressElementData = {
+  atom: IAtomType.AntDesignGridCol,
   name: 'Column B',
   parentElement: elementRow.name,
 }
 
 const elementButton: ICreateCypressElementData = {
+  atom: IAtomType.AntDesignButton,
   name: 'Button',
   parentElement: elementColB.name,
 }
 
 const elementButtonText: ICreateCypressElementData = {
+  atom: IAtomType.AntDesignButton,
   name: 'Button Text',
   parentElement: elementButton.name,
 }
 
 export const builderElements = [
-  elementButtonText,
-  elementColA,
-  elementColB,
   elementRow,
+  elementColA,
   elementTextA,
+  elementColB,
+  elementButton,
+  elementButtonText,
 ]
