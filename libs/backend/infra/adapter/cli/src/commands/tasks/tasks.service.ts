@@ -194,9 +194,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'pnpm cross-env TIMING=1 nx affected --target=lint --parallel=3 -c ci',
-            )
+            execCommand('pnpm nx affected --target=lint --parallel=3 -c ci')
 
             // https://github.com/nrwl/nx/discussions/8769
             execCommand('pnpm prettier --check "./**/*.{graphql,yaml,json}"')
