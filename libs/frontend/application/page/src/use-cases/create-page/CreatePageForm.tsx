@@ -1,4 +1,3 @@
-import type { ICreatePageFormData } from '@codelab/frontend/abstract/domain'
 import {
   MODEL_ACTION,
   type SubmitController,
@@ -11,6 +10,7 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -44,7 +44,7 @@ export const CreatePageForm = observer(
 
     const closeForm = () => pageService.createForm.close()
 
-    const onSubmit = async (data: ICreatePageFormData) => {
+    const onSubmit = async (data: ICreatePageData) => {
       await pageService.create(data)
       closeForm()
       onSubmitSuccess?.()
@@ -53,7 +53,7 @@ export const CreatePageForm = observer(
     }
 
     return (
-      <Form<ICreatePageFormData>
+      <Form<ICreatePageData>
         model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

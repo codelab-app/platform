@@ -28,4 +28,4 @@ export const IPage = Type.Composite([
 
 export type IPage = Static<typeof IPage>
 
-export type ICreatePageDto = Omit<IPageDto, 'rootElement' | 'store'>
+// export type ICreatePageDto = Omit<IPageDto, 'rootElement' | 'store'>

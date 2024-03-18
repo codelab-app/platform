@@ -1,6 +1,6 @@
-import type { IPage } from '@codelab/shared/abstract/core'
+import type { IPage } from './page.dto.interface'
 
-export type IUpdatePageFormData = Pick<
+export type IUpdatePageData = Pick<
   IPage,
   'app' | 'id' | 'name' | 'pageContentContainer' | 'url'
 >
@@ -8,7 +8,7 @@ export type IUpdatePageFormData = Pick<
 /**
  * IOwnerSchema is required for store api
  */
-export type ICreatePageFormData = Pick<
+export type ICreatePageData = Pick<
   IPage,
   'app' | 'id' | 'kind' | 'name' | 'url'
 >

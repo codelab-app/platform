@@ -8,7 +8,6 @@ import {
   getStoreDomainService,
   getUserDomainService,
   IAppModel,
-  ICreatePageFormData,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { Store } from '@codelab/frontend/domain/store'
@@ -17,6 +16,7 @@ import {
   InterfaceType,
 } from '@codelab/frontend/domain/type'
 import {
+  ICreatePageData,
   IElementRenderTypeDto,
   IPageKind,
   IPageKindName,
@@ -41,7 +41,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   @modelAction
   private addDefaultPage(
     app: IAppModel,
-    { id, kind, name, url }: ICreatePageFormData,
+    { id, kind, name, url }: ICreatePageData,
     renderType: IElementRenderTypeDto,
   ) {
     const { user } = this.userDomainService

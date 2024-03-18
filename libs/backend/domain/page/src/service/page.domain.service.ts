@@ -4,7 +4,7 @@ import { Store, StoreDomainService } from '@codelab/backend/domain/store'
 import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
 import type {
   IAppDto,
-  ICreatePageDto,
+  ICreatePageData,
   IUserDto,
 } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
@@ -27,7 +27,7 @@ export class PageDomainService {
   ) {}
 
   async createPage(
-    page: ICreatePageDto,
+    page: ICreatePageData,
     user: ICreatePageUserDto,
     app: ICreatePageAppDto,
   ) {
@@ -45,7 +45,7 @@ export class PageDomainService {
   }
 
   private async addDefaultPage(
-    { id, kind, name, url }: ICreatePageDto,
+    { id, kind, name, url }: ICreatePageData,
     app: ICreatePageAppDto,
   ) {
     const user = this.authService.currentUser

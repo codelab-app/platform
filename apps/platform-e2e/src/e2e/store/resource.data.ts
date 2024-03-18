@@ -15,3 +15,5 @@ export const createResourceData: ICreateResourceData = {
   name: 'Public Rest Resource',
   type: IResourceType.Rest,
 }
+
+export const resourceUrlSegment = 'entries'

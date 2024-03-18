@@ -1,8 +1,8 @@
 import type { IAppService } from '@codelab/frontend/abstract/application'
-import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend/presentation/view'
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -18,7 +18,7 @@ export const UpdatePageTabForm = observer<{
     return null
   }
 
-  const onSubmit = (input: IUpdatePageFormData) => appService.updatePage(input)
+  const onSubmit = (input: IUpdatePageData) => appService.updatePage(input)
   const { kind, pageContentContainer } = page
   const omitFields = ['appId']
 

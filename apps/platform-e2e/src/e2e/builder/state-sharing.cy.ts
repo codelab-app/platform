@@ -63,10 +63,6 @@ describe('State variables sharing between pages', () => {
 
     cy.waitForSpinners()
 
-    // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
-
     cy.getCuiTreeItemByPrimaryTitle(spaceElementName).click({
       force: true,
     })

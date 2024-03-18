@@ -7,7 +7,6 @@ import {
   type IAppModel,
   type ICreateAppData,
   type IUpdateAppData,
-  type IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import {
@@ -21,6 +20,7 @@ import {
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -169,7 +169,7 @@ export class AppService
   })
 
   @modelFlow
-  updatePage = _async(function* (this: AppService, data: IUpdatePageFormData) {
+  updatePage = _async(function* (this: AppService, data: IUpdatePageData) {
     const app = this.appDomainService.apps.get(data.app.id)
     const page = app?.page(data.id)
     const { name, pageContentContainer, url } = data

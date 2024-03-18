@@ -1,20 +1,34 @@
 import type { App } from '@codelab/backend/abstract/codegen'
+import type { ICreateRedirectData } from '@codelab/frontend/abstract/domain'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import type { Resource } from '@codelab/shared/abstract/codegen'
-import type { IAppDto } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  ICreateResourceData,
+} from '@codelab/shared/abstract/core'
 import {
   HttpMethod,
   HttpResponseType,
   IActionKind,
   IAtomType,
   IPageKindName,
+  IResourceType,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 import { slugify } from '@codelab/shared/utils'
-import { createResourceData } from './resource.data'
+import { v4 } from 'uuid'
+
+const resourceData: ICreateResourceData = {
+  config: {
+    url: 'http://some-api.com/api',
+  },
+  id: v4(),
+  name: 'Fetch Data',
+  type: IResourceType.Rest,
+}
 
 describe('Running actions inside code action with arguments', () => {
   let codeActionId: string
@@ -22,8 +36,6 @@ describe('Running actions inside code action with arguments', () => {
   // TODO: this should be temporary, while we are not seeding the atom fields yet in the e2e tests
   // because the workaround for now is to manually set props in the create form for the element
   const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
-  const resourceName = 'Fetch Data'
-  const resourceUrl = 'http://some-api.com/api'
   const urlSegment = '/data/some-id'
   const apiActionName = 'apiAction'
   const codeActionName1 = 'codeAction1'
@@ -36,7 +48,7 @@ describe('Running actions inside code action with arguments', () => {
       ({ body }) => (app = body),
     )
 
-    cy.postApiRequest<Resource>('/resource/create', createResourceData).then(
+    cy.postApiRequest<Resource>('/resource/create-resource', resourceData).then(
       ({ body }) => body,
     )
   })
@@ -137,7 +149,7 @@ describe('Running actions inside code action with arguments', () => {
     cy.setFormFieldValue({
       label: 'Resource',
       type: FIELD_TYPE.SELECT,
-      value: resourceName,
+      value: resourceData.name,
     })
 
     cy.setFormFieldValue({
@@ -253,9 +265,7 @@ describe('Running actions inside code action with arguments', () => {
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "${stateKey1} - {{state['${stateKey1}']}}, ${stateKey2} - {{state['${stateKey2}']}}" }`,
     })
 
-    // need to wait for the code to put the auto-computed name before typing
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
+    cy.getFormInput({ label: 'Name' }).should('have.value')
 
     cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
@@ -270,10 +280,6 @@ describe('Running actions inside code action with arguments', () => {
     cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
-
-    // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
 
     cy.get('#render-root')
       .findByText(
@@ -301,9 +307,8 @@ describe('Running actions inside code action with arguments', () => {
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "Click button to run actions", "onClick": { "kind": "${ITypeKind.ActionType}", "value": "${codeActionId}", "type": "${actionTypeId}" } }`,
     })
 
-    // need to wait for the code to put the auto-computed name before typing
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
+    cy.getFormInput({ label: 'Name' }).should('not.be.empty')
+
     cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -319,14 +324,10 @@ describe('Running actions inside code action with arguments', () => {
     cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
       timeout: 10000,
     })
-
-    // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
   })
 
   it('should run the code action that calls another call action and an API action with arguments when the button is clicked', () => {
-    cy.intercept('POST', `${resourceUrl}${urlSegment}`, {
+    cy.intercept('POST', `${resourceData.config.url}${urlSegment}`, {
       statusCode: 200,
     }).as('apiAction')
 

@@ -1,4 +1,3 @@
-export * from './page.data.interface'
 export * from './page.domain.service.context'
 export * from './page.domain.service.interface'
 export * from './page.model.interface'

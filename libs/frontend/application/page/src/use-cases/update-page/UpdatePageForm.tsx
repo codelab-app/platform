@@ -1,4 +1,3 @@
-import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
 import {
   MODEL_ACTION,
   type SubmitController,
@@ -10,6 +9,7 @@ import {
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -32,7 +32,7 @@ export const UpdatePageForm = observer(
     const pageToUpdate = pageService.updateForm.page
     const closeForm = () => pageService.updateForm.close()
 
-    const onSubmit = (data: IUpdatePageFormData) => {
+    const onSubmit = (data: IUpdatePageData) => {
       void appService.updatePage(data)
       closeForm()
       onSubmitSuccess?.()
