@@ -1,15 +1,13 @@
-import type { ICreatePageFormData } from '@codelab/frontend/abstract/domain'
 import {
   appSchema,
   idSchema,
   nonEmptyString,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<
-  Omit<ICreatePageFormData, 'kind'>
-> = {
+export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
   properties: {
     ...idSchema(),
     ...appSchema,

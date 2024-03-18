@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import type {
   CypressCommand,
   OmitFirstArg,
@@ -15,11 +16,13 @@ import {
 import { getCuiSkeleton } from './skeleton/skeleton.command'
 import { getCuiToolbarItem } from './toolbar/toolbar.command'
 import {
-  closestCuiTreeItem,
+  closestCuiTreeNode,
   getCuiTreeItem,
   getCuiTreeItemByPrimaryTitle,
   getCuiTreeItemBySecondaryTitle,
   getCuiTreeItemToolbar,
+  toggleCuiTreeNodeCheckbox,
+  toggleCuiTreeNodeSwitcher,
 } from './tree/tree.command'
 
 export interface CypressCuiCommands {
@@ -58,8 +61,9 @@ export interface CypressCuiCommands {
    * tree
    */
   getCuiTreeItem: typeof getCuiTreeItem
-  // eslint-disable-next-line @typescript-eslint/member-ordering
-  closestCuiTreeItem: OmitFirstArg<typeof closestCuiTreeItem>
+  toggleCuiTreeNodeSwitcher: typeof toggleCuiTreeNodeSwitcher
+  toggleCuiTreeNodeCheckbox: typeof toggleCuiTreeNodeCheckbox
+  closestCuiTreeNode: OmitFirstArg<typeof closestCuiTreeNode>
   getCuiTreeItemByPrimaryTitle: OmitFirstArg<
     typeof getCuiTreeItemByPrimaryTitle
   >
@@ -75,57 +79,48 @@ export const codelabCommands: Array<CypressCommand> = [
    */
   {
     fn: getCuiForm,
-    name: 'getCuiForm',
   },
   /**
    * header
    */
   {
     fn: getCuiHeader,
-    name: 'getCuiHeader',
   },
   /**
    * navigation-bar
    */
   {
     fn: getCuiNavigationBarItem,
-    name: 'getCuiNavigationBarItem',
   },
   /**
    * sidebar
    */
   {
     fn: getCuiSidebarHeader,
-    name: 'getCuiSidebarHeader',
     options: {
       prevSubject: 'optional',
     },
   },
   {
     fn: getCuiSidebar,
-    name: 'getCuiSidebar',
   },
   {
     fn: getCuiSidebarViewContent,
-    name: 'getCuiSidebarViewContent',
   },
   {
     fn: getCuiSidebarViewHeader,
-    name: 'getCuiSidebarViewHeader',
   },
   /**
    * skeleton
    */
   {
     fn: getCuiSkeleton,
-    name: 'getCuiSkeleton',
   },
   /**
    * toolbar
    */
   {
     fn: getCuiToolbarItem,
-    name: 'getCuiToolbarItem',
     options: {
       prevSubject: 'optional',
     },
@@ -134,33 +129,32 @@ export const codelabCommands: Array<CypressCommand> = [
    * tree
    */
   {
+    fn: toggleCuiTreeNodeSwitcher,
+  },
+  { fn: toggleCuiTreeNodeCheckbox },
+  {
     fn: getCuiTreeItem,
-    name: 'getCuiTreeItem',
   },
   {
-    fn: closestCuiTreeItem,
-    name: 'closestCuiTreeItem',
+    fn: closestCuiTreeNode,
     options: {
-      prevSubject: 'optional',
+      prevSubject: true,
     },
   },
   {
     fn: getCuiTreeItemByPrimaryTitle,
-    name: 'getCuiTreeItemByPrimaryTitle',
     options: {
       prevSubject: 'optional',
     },
   },
   {
     fn: getCuiTreeItemBySecondaryTitle,
-    name: 'getCuiTreeItemBySecondaryTitle',
     options: {
       prevSubject: 'optional',
     },
   },
   {
     fn: getCuiTreeItemToolbar,
-    name: 'getCuiTreeItemToolbar',
     options: {
       prevSubject: true,
     },
@@ -170,6 +164,5 @@ export const codelabCommands: Array<CypressCommand> = [
    */
   {
     fn: getCuiPopover,
-    name: 'getCuiPopover',
   },
 ]

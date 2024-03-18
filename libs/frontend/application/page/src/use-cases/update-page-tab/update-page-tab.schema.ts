@@ -1,4 +1,3 @@
-import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
 import { getSelectElementComponent } from '@codelab/frontend/application/type'
 import {
   appSchema,
@@ -6,11 +5,12 @@ import {
   pageUrlSchema,
 } from '@codelab/frontend/presentation/view'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 // pageContentContainer is not required in interface, but is required for _app page
-export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageFormData> =>
+export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
   ({
     properties: {
       ...idSchema(),

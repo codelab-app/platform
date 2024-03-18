@@ -2,7 +2,7 @@ import type {
   TagCreateInput,
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { ITag, ITagDto } from '@codelab/shared/abstract/core'
+import type { IRef, ITag, ITagDto } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService, ITreeNode } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
@@ -14,9 +14,13 @@ export interface ITagModel
       'toDeleteInput'
     >,
     ICacheService<ITagDto, ITagModel> {
-  treeNode: ITreeNode<ITagNodeData>
   children: Array<Ref<ITagModel>>
   descendants: Array<Ref<ITagModel>>
+  /**
+   * Used for filtering to see which items to show in the tree
+   */
   isRoot: boolean
   name: string
+  parent?: Ref<ITagModel>
+  treeNode: ITreeNode<ITagNodeData>
 }

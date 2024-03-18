@@ -1,11 +1,11 @@
 import type { IPropService } from '@codelab/frontend/abstract/application'
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
+import { mergeProps } from '@codelab/frontend/domain/prop'
 import type {
-  IPropModel,
+  IPropData,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
-} from '@codelab/frontend/abstract/domain'
-import { mergeProps } from '@codelab/frontend/domain/prop'
-import type { IPropData } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { filterEmptyStrings } from '@codelab/shared/utils'
 import {
   _async,

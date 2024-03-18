@@ -1,12 +1,6 @@
 {
   "name": "frontend-domain-domain",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "tags": [
-    "projectType:library",
-    "type:concrete",
-    "scope:frontend",
-    "layer:domain"
-  ],
   "sourceRoot": "libs/frontend/domain/domain/src",
   "projectType": "library",
   "targets": {
@@ -78,5 +72,11 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/domain"]
     }
-  }
+  },
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "scope:frontend",
+    "layer:domain"
+  ]
 }

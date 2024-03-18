@@ -1,12 +1,14 @@
 import type { IEvaluationContext } from '@codelab/frontend/abstract/application'
 import type {
-  IFieldDefaultValue,
   IInterfaceTypeModel,
   ITypeModel,
-  IValidationRules,
 } from '@codelab/frontend/abstract/domain'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
+import type {
+  IFieldDefaultValue,
+  IValidationRules,
+} from '@codelab/shared/abstract/core'
 import type { Assign } from 'utility-types'
 
 export type InterfaceFormProps<TData, TResponse> = Assign<

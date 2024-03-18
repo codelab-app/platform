@@ -62,12 +62,12 @@ describe('Action CRUD', () => {
   it('should be able to update action name', () => {
     cy.getCuiSidebarViewContent('Actions')
       .getCuiTreeItemByPrimaryTitle(actionName)
-      .closestCuiTreeItem()
+      .closestCuiTreeNode()
       .click()
 
     cy.getCuiSidebarViewContent('Actions')
       .getCuiTreeItemByPrimaryTitle(actionName)
-      .closestCuiTreeItem()
+      .closestCuiTreeNode()
       .getCuiToolbarItem(MODEL_ACTION.UpdateAction.key)
       .click()
 
@@ -89,10 +89,9 @@ describe('Action CRUD', () => {
   })
 
   it('should be able to delete action', () => {
-    cy.getListItem(actionName)
-      .getButton({
-        icon: 'delete',
-      })
+    cy.getCuiTreeItemByPrimaryTitle(updatedActionName)
+      .closestCuiTreeNode()
+      .getCuiToolbarItem(MODEL_ACTION.DeleteAction.key)
       .click()
     cy.waitForSpinners()
 

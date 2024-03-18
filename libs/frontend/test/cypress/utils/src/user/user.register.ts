@@ -5,6 +5,4 @@ export interface UserCommands {
   getCurrentUser: typeof getCurrentUser
 }
 
-export const userCommands: Array<CypressCommand> = [
-  { fn: getCurrentUser, name: 'getCurrentUser' },
-]
+export const userCommands: Array<CypressCommand> = [{ fn: getCurrentUser }]

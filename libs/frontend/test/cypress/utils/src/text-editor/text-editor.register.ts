@@ -8,6 +8,5 @@ export interface TextEditorCommands {
 export const textEditorCommands: Array<CypressCommand> = [
   {
     fn: typeIntoTextEditor,
-    name: 'typeIntoTextEditor',
   },
 ]

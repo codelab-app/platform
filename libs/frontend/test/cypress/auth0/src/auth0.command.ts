@@ -10,10 +10,8 @@ export interface CypressAuth0Commands {
 export const auth0Commands: Array<CypressCommand> = [
   {
     fn: loginToAuth0,
-    name: 'loginToAuth0',
   },
   {
     fn: loginAndSetupE2eData,
-    name: 'loginAndSetupE2eData',
   },
 ]

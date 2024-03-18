@@ -11,8 +11,10 @@ import type { ITagDto } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
+  connectNodeIds,
   connectOwner,
   reconnectNodeId,
+  reconnectNodeIds,
 } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -31,7 +33,6 @@ const create = ({ children, descendants, id, isRoot, name }: ITagDto) => {
     children: children?.map((child) => tagRef(child.id)),
     descendants: descendants?.map((descendant) => tagRef(descendant.id)),
     id,
-    isRoot,
     name,
   })
 }
@@ -42,13 +43,18 @@ export class Tag
     children: prop<Array<Ref<ITagModel>>>(() => []),
     descendants: prop<Array<Ref<ITagModel>>>(() => []),
     id: idProp,
-    isRoot: prop<boolean>(false),
     name: prop<string>(),
-    parent: prop<Nullable<Ref<ITagModel>>>(null),
+    // Used to compute root only, not used for connections
+    parent: prop<Ref<ITagModel> | undefined>(undefined),
   })
   implements ITagModel
 {
   static create = create
+
+  @computed
+  get isRoot() {
+    return !this.parent
+  }
 
   @computed
   get label() {
@@ -61,7 +67,6 @@ export class Tag
       children: this.children,
       descendants: this.descendants,
       id: this.id,
-      isRoot: this.isRoot,
       name: this.name,
       parent: this.parent,
     }
@@ -82,19 +87,20 @@ export class Tag
   }
 
   @modelAction
-  writeCache({ children, descendants, isRoot, name }: Partial<ITagDto>) {
+  writeCache({ children, descendants, name, parent }: Partial<ITagDto>) {
     this.name = name ?? this.name
     this.children = children?.map((child) => tagRef(child.id)) ?? this.children
     this.descendants =
       descendants?.map((descendant) => tagRef(descendant.id)) ??
       this.descendants
-    this.isRoot = isRoot ?? this.isRoot
+    this.parent = parent ? tagRef(parent.id) : undefined
 
     return this
   }
 
   toCreateInput(): TagCreateInput {
     return {
+      // children: connectNodeIds(this.children.map((tag) => tag.current.id)),
       id: this.id,
       name: this.name,
       owner: connectOwner(this.userDomainService.user),
@@ -104,6 +110,7 @@ export class Tag
 
   toUpdateInput(): TagUpdateInput {
     return {
+      // children: reconnectNodeIds(this.children.map((tag) => tag.current.id)),
       name: this.name,
       parent: reconnectNodeId(this.parent?.current.id),
     }

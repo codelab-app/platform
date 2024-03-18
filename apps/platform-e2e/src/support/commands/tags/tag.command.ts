@@ -1,29 +1,36 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 
-const modalName = 'Create Tag'
-
 export const createTagByUI = (name: string, parentName?: string) => {
-  cy.getCuiSidebar(MODEL_UI.SidebarTag.key)
-    .getCuiTreeItemByPrimaryTitle(modalName)
-    .click()
-
-  // wait for 100ms before typing into the input to avoid issue when first letters are skipped
-  // https://github.com/cypress-io/cypress/issues/3817
-  // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.findByLabelText('Name').should('be.visible').wait(100).type(name)
+  Cypress.log({
+    name: 'createTagByUI',
+  })
 
   if (parentName) {
-    cy.setFormFieldValue({
-      label: 'Parent Tag',
-      type: FIELD_TYPE.SELECT,
-      value: parentName,
-    })
+    cy.getCuiTreeItemByPrimaryTitle(parentName).click()
   }
+
+  cy.getCuiSidebar(MODEL_UI.SidebarTag.key)
+    .getCuiSidebarHeader()
+    .getCuiToolbarItem(MODEL_ACTION.CreateTag.key)
+    .click()
+
+  cy.setFormFieldValue({
+    label: 'Name',
+    type: FIELD_TYPE.INPUT,
+    value: name,
+  })
 
   cy.getCuiPopover(MODEL_ACTION.CreateTag.key)
     .getCuiToolbarItem(MODEL_ACTION.CreateTag.key)
     .click()
+
+  if (parentName) {
+    // Open the child once created
+    cy.toggleCuiTreeNodeSwitcher(parentName)
+  }
+
+  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
 }
 
 export const deleteTagInTableByUI = (name: string) => {

@@ -4,7 +4,7 @@ import { PageRepository } from '@codelab/backend/domain/page'
 import { AuthDomainService } from '@codelab/backend/domain/shared/auth'
 import { Store, StoreDomainService } from '@codelab/backend/domain/store'
 import { InterfaceType, TypeDomainService } from '@codelab/backend/domain/type'
-import type { ICreatePageDto } from '@codelab/shared/abstract/core'
+import type { ICreatePageData } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 
@@ -19,7 +19,7 @@ export class PageApplicationService {
     private authDomainService: AuthDomainService,
   ) {}
 
-  async createPage(createPageDto: ICreatePageDto) {
+  async createPage(createPageDto: ICreatePageData) {
     const app = await this.appRepository.findOneOrFail({
       where: { id: createPageDto.app.id },
     })

@@ -53,86 +53,65 @@ export interface AntModalCommands {
 export const antModalCommands: Array<CypressCommand> = [
   {
     fn: getModal,
-    name: 'getModal',
   },
   {
     fn: getModalTitle,
-    name: 'getModalTitle',
   },
   {
     fn: getModalBody,
-    name: 'getModalBody',
   },
   {
     fn: getModalAction,
-    name: 'getModalAction',
   },
   {
     fn: getModalConfirmTitle,
-    name: 'getModalConfirmTitle',
   },
   {
     fn: getModalConfirmBody,
-    name: 'getModalConfirmBody',
   },
   {
     fn: getModalConfirmButtons,
-    name: 'getModalConfirmButtons',
   },
   {
     fn: getModalConfirmCancel,
-    name: 'getModalConfirmCancel',
   },
   {
     fn: getModalConfirmOk,
-    name: 'getModalConfirmOk',
   },
   {
     fn: expectModalTitle,
-    name: 'expectModalTitle',
   },
   {
     fn: expectModalText,
-    name: 'expectModalText',
   },
   {
     fn: expectModalActions,
-    name: 'expectModalActions',
   },
   {
     fn: expectModalConfirmTitle,
-    name: 'expectModalConfirmTitle',
   },
   {
     fn: expectModalConfirmText,
-    name: 'expectModalConfirmText',
   },
   {
     fn: expectModalConfirmActions,
-    name: 'expectModalConfirmActions',
   },
   {
     fn: expectModalToOpen,
-    name: 'expectModalToOpen',
   },
   {
     fn: closeModal,
-    name: 'closeModal',
   },
   {
     fn: resolveModal,
-    name: 'resolveModal',
   },
   {
     fn: resolveModalConfirm,
-    name: 'resolveModalConfirm',
   },
   {
     fn: confirmModalConfirm,
-    name: 'confirmModalConfirm',
   },
   {
     fn: cancelModalConfirm,
-    name: 'cancelModalConfirm',
   },
 ]

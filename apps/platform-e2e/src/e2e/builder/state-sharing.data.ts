@@ -2,7 +2,7 @@ import type {
   IAppDto,
   ICreateComponentData,
   ICreateElementData,
-  ICreatePageDto,
+  ICreatePageData,
   IPageDto,
   IRef,
 } from '@codelab/shared/abstract/core'
@@ -29,7 +29,7 @@ export const typographyTextElement = {
   parentElement: { id: spaceElementId },
 }
 
-export const regularPageCreateData = (app: IAppDto): ICreatePageDto => ({
+export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
   app,
   id: v4(),
   kind: IPageKind.Regular,

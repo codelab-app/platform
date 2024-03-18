@@ -12,10 +12,8 @@ export interface DatabaseCommands {
 export const databaseCommands: Array<CypressCommand> = [
   {
     fn: resetDatabaseExceptForUserAndAtom,
-    name: 'resetDatabaseExceptForUserAndAtom',
   },
   {
     fn: resetDatabase,
-    name: 'resetDatabase',
   },
 ]

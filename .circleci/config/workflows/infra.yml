@@ -1,5 +1,5 @@
 jobs:
-  - setup-infra-workspace:
+  - setup-workspace:
       filters:
         branches:
           only:
@@ -11,7 +11,7 @@ jobs:
             - master
       # e: docker-node
       requires:
-        - setup-infra-workspace
+        - setup-workspace
   - hold-apply:
       filters:
         branches:

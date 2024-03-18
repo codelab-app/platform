@@ -130,9 +130,6 @@ describe('Component CRUD', () => {
           timeout: 10000,
         })
 
-        // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(2000)
         cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
       })
 
@@ -206,9 +203,6 @@ describe('Component CRUD', () => {
       cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
         timeout: 10000,
       })
-      // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000)
     })
 
     it('should be able to set props on an instance of the component', () => {
@@ -253,10 +247,6 @@ describe('Component CRUD', () => {
       cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
         timeout: 10000,
       })
-
-      // editorjs fails internally without this, maybe some kind of initialization - Cannot read properties of undefined (reading 'contains')
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.wait(2000)
 
       cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_TEXT).click({
         force: true,

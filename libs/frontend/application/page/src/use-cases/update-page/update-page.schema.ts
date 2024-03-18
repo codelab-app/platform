@@ -1,4 +1,3 @@
-import type { IUpdatePageFormData } from '@codelab/frontend/abstract/domain'
 import {
   appSchema,
   idSchema,
@@ -6,9 +5,10 @@ import {
   pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export type UpdatePageSchema = Omit<IUpdatePageFormData, 'pageContentContainer'>
+export type UpdatePageSchema = Omit<IUpdatePageData, 'pageContentContainer'>
 
 export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
   properties: {

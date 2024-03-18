@@ -5,9 +5,9 @@ import type {
   IAppProductionService,
   ICreateAppData,
   IUpdateAppData,
-  IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
+import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -31,11 +31,5 @@ export interface IAppService
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
   regeneratePages(app: IAppModel, pagesUrls?: Array<string>): Promise<void>
-  updatePage(data: IUpdatePageFormData): Promise<void>
-  // loadDevelopmentApp(where: AppUniqueWhere): Promise<IAppModel>
-  // loadDevelopmentPage(
-  //   appName: string,
-  //   pageName: string,
-  // ): Promise<IAppModel | null>
-  // loadPages(data: IAppDevelopmentDto): void
+  updatePage(data: IUpdatePageData): Promise<void>
 }

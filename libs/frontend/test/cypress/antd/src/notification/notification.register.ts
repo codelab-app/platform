@@ -16,18 +16,14 @@ export interface AntNotificationCommands {
 export const antNotificationCommands: Array<CypressCommand> = [
   {
     fn: getNotification,
-    name: 'getNotification',
   },
   {
     fn: getNotificationTitle,
-    name: 'getNotificationTitle',
   },
   {
     fn: getNotificationBody,
-    name: 'getNotificationBody',
   },
   {
     fn: expectNotification,
-    name: 'expectNotification',
   },
 ]

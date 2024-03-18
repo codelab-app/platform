@@ -1,16 +1,16 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
-import type {
-  ICreateTagData,
-  ITagModel,
-  IUpdateTagData,
-} from '@codelab/frontend/abstract/domain'
+import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
   PaginationService,
 } from '@codelab/frontend/application/shared/store'
-import { TagDomainService } from '@codelab/frontend/domain/tag'
+import { TagDomainService, tagRef } from '@codelab/frontend/domain/tag'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  ICreateTagData,
+  IUpdateTagData,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import {
   _async,
@@ -54,12 +54,15 @@ export class TagService
 
     yield* _await(this.tagRepository.add(tag))
 
+    this.paginationService.dataRefs.set(tag.id, tagRef(tag))
+
     if (!tag.parent) {
       return tag
     }
 
     const [parentTag] = yield* _await(this.getAll({ id: tag.parent.id }))
 
+    // This updates the children tag of the parent
     if (parentTag) {
       this.tagDomainService.tags.set(parentTag.id, parentTag)
     }
@@ -108,8 +111,6 @@ export class TagService
       aggregate: { count },
       items: tags,
     } = yield* _await(this.tagRepository.find(where, options))
-
-    console.log(tags)
 
     this.paginationService.totalItems = count
 

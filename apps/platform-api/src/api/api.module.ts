@@ -4,6 +4,7 @@ import { AppApplicationModule } from '@codelab/backend/application/app'
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { JwtAuthGuard } from '@codelab/backend/application/auth'
 import { ElementApplicationModule } from '@codelab/backend/application/element'
+import { FieldApplicationModule } from '@codelab/backend/application/field'
 import { RedirectApplicationModule } from '@codelab/backend/application/redirect'
 import { ResourceApplicationModule } from '@codelab/backend/application/resource'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
@@ -27,6 +28,7 @@ import { endpointConfig } from '../graphql/endpoint.config'
     AtomApplicationModule,
     UserApplicationModule,
     ElementApplicationModule,
+    FieldApplicationModule,
     RedirectApplicationModule,
     ResourceApplicationModule,
     TagApplicationModule,

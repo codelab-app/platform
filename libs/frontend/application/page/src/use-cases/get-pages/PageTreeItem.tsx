@@ -18,11 +18,8 @@ import {
   MODEL_ACTION,
   PageType,
 } from '@codelab/frontend/abstract/types'
+import { useRegeneratePages } from '@codelab/frontend/application/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  regeneratePages,
-  useRegeneratePages,
-} from '@codelab/frontend/domain/domain'
 import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   CuiTreeItem,

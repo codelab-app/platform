@@ -36,17 +36,19 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     pathname: PageType.Type,
   })
 
-  const treeData: Array<ITreeNode<ITagNodeData>> = data.map((tag) => ({
-    children: tag.children.map((child) => child.current.treeNode),
-    extraData: {
-      node: tag,
-      type: 'tag',
-    },
-    key: tag.id,
-    primaryTitle: tag.name,
-    secondaryTitle: tag.name,
-    title: `${tag.name}`,
-  }))
+  const treeData: Array<ITreeNode<ITagNodeData>> = data
+    .filter((tag) => tag.isRoot)
+    .map((tag) => ({
+      children: tag.children.map((child) => child.current.treeNode),
+      extraData: {
+        node: tag,
+        type: 'tag',
+      },
+      key: tag.id,
+      primaryTitle: tag.name,
+      secondaryTitle: tag.name,
+      title: `${tag.name}`,
+    }))
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     selectedKeys[0] &&
@@ -61,33 +63,28 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     tagService.setCheckedTags(checked.map((check) => tagRef(check.toString())))
   }
 
-  const [{ status }] = useAsync(() => tagService.getAll())
-
   return (
-    <CuiSkeletonWrapper isLoading={status === 'loading'}>
-      <CuiTree<ITreeNode<ITagNodeData>>
-        checkStrictly
-        // checkable
-        checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
-        disabled={status === 'loading'}
-        isLoading={isLoading}
-        onCheck={onCheck}
-        onSearchKeywordChange={(keyword) => {
-          void handleChange({ newFilter: { name: keyword || undefined } })
-        }}
-        onSelect={onSelect}
-        searcheable={
-          showSearchBar
-            ? {
-                primaryTitle: true,
-              }
-            : false
-        }
-        titleRender={(node) => {
-          return <TagsTreeItem data={node} />
-        }}
-        treeData={treeData}
-      />
-    </CuiSkeletonWrapper>
+    <CuiTree<ITreeNode<ITagNodeData>>
+      checkStrictly
+      checkable
+      checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
+      isLoading={isLoading}
+      onCheck={onCheck}
+      onSearchKeywordChange={(keyword) => {
+        void handleChange({ newFilter: { name: keyword || undefined } })
+      }}
+      onSelect={onSelect}
+      searcheable={
+        showSearchBar
+          ? {
+              primaryTitle: true,
+            }
+          : false
+      }
+      titleRender={(node) => {
+        return <TagsTreeItem data={node} />
+      }}
+      treeData={treeData}
+    />
   )
 })

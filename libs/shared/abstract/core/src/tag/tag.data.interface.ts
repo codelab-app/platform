@@ -1,4 +1,4 @@
-import type { IRef } from '@codelab/shared/abstract/core'
+import type { IRef } from '../model/node-type.interface'
 
 export interface ICreateTagData {
   id: string

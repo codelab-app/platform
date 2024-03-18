@@ -10,20 +10,17 @@ export interface AntPopoverCommands {
 export const antPopoverCommands: Array<CypressCommand> = [
   {
     fn: getPopover,
-    name: 'getPopover',
   },
   {
     fn: showPopover,
-    name: 'showPopover',
     options: {
-      prevSubject: 'element' as any,
+      prevSubject: 'element',
     },
   },
   {
     fn: hidePopover,
-    name: 'hidePopover',
     options: {
-      prevSubject: 'element' as any,
+      prevSubject: 'element',
     },
   },
 ]

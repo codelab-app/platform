@@ -7,21 +7,56 @@ export const getCuiTreeItem = () => {
     name: 'getCuiTreeItem',
   })
 
-  return cy.get(CY_DATA.cuiTreeItem().cySelector, { log: false })
+  return cy.get(CY_DATA.cuiTreeItem().cySelector, { log: true })
 }
 
 /**
- *
- * @returns Traverse up to find the container
+ * Traverse up to find the container.
  */
-export const closestCuiTreeItem = (subject: Maybe<CypressElement>) => {
+export const closestCuiTreeNode = (subject: CypressElement) => {
   Cypress.log({
-    name: 'closestCuiTreeItem',
+    name: 'closestCuiTreeNode',
   })
 
-  return cy
-    .wrap(subject, { log: false })
-    .closest(CY_DATA.cuiTreeItem().cySelector, { log: false })
+  return (
+    cy
+      .wrap(subject, { log: false })
+      // We use antd tree node since this holds the entire node, including the checker
+      .closest('.ant-tree-treenode')
+    // .closest(CY_DATA.cuiTreeItem().cySelector, { log: false })
+  )
+}
+
+export const toggleCuiTreeNodeSwitcher = (primaryTitle: string) => {
+  Cypress.log({ name: 'toggleCuiTreeNodeSwitcher' })
+
+  // Need this step, otherwise we may click before the switcher has been added
+  cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
+    .closestCuiTreeNode()
+    .find('.ant-tree-switcher')
+    .find('.anticon')
+    .should('exist')
+
+  cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
+    .closestCuiTreeNode()
+    .find('.ant-tree-switcher')
+    .click()
+}
+
+export const toggleCuiTreeNodeCheckbox = (primaryTitle: string) => {
+  Cypress.log({ name: 'toggleCuiTreeNodeCheckbox' })
+
+  // Need this step, otherwise we may click before the checkbox has been added
+  cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
+    .closestCuiTreeNode()
+    .find('.ant-tree-checkbox')
+    .find('.anticon')
+    .should('exist')
+
+  cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
+    .closestCuiTreeNode()
+    .find('.ant-tree-checkbox')
+    .click()
 }
 
 export const getCuiTreeItemByPrimaryTitle = (
@@ -37,7 +72,7 @@ export const getCuiTreeItemByPrimaryTitle = (
           log: false,
         })
     : cy.get(CY_DATA.cuiTreeItemPrimaryTitle(primaryTitle).cySelector, {
-        log: false,
+        log: true,
       })
 }
 

@@ -1,15 +1,17 @@
 import type {
-  ICreatePageFormData,
   IPageDomainService,
   IPageModel,
-  IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import type {
   GetRenderedPageQuery,
   PageOptions,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDto } from '@codelab/shared/abstract/core'
+import type {
+  ICreatePageData,
+  IElementDto,
+  IUpdatePageData,
+} from '@codelab/shared/abstract/core'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -22,7 +24,7 @@ import type { IPageRepository } from './page.repo.interface'
 
 export interface IPageApplicationService
   extends Omit<
-      ICRUDService<IPageModel, ICreatePageFormData, IUpdatePageFormData>,
+      ICRUDService<IPageModel, ICreatePageData, IUpdatePageData>,
       'update'
     >,
     IQueryService<IPageModel, PageWhere, PageOptions>,

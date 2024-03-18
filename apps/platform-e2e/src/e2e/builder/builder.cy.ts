@@ -38,16 +38,16 @@ describe('Elements CRUD', () => {
 
   describe('update', () => {
     it('should be able to update element', () => {
-      cy.findByText(elementRow.name).click()
+      cy.getCuiTreeItemByPrimaryTitle(elementRow.name).click()
       cy.findByLabelText('Name').clear()
       cy.findByLabelText('Name').type(updatedElementRow)
-      cy.findByText(updatedElementRow).should('exist')
+      cy.getCuiTreeItemByPrimaryTitle(updatedElementRow).should('exist')
     })
   })
 
   describe('delete', () => {
     it('should be able to delete element sub tree', () => {
-      cy.findByText(updatedElementRow).rightclick()
+      cy.getCuiTreeItemByPrimaryTitle(updatedElementRow).rightclick()
       cy.contains(/Delete/).click({ force: true })
       cy.waitForSpinners()
 
@@ -56,7 +56,7 @@ describe('Elements CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(updatedElementRow).should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(updatedElementRow).should('not.exist')
     })
   })
 })

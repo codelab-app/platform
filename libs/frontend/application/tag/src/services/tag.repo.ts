@@ -12,8 +12,6 @@ import { tagApi } from '../graphql/tag.api'
 export class TagRepository extends Model({}) implements ITagRepository {
   @modelFlow
   add = _async(function* (this: TagRepository, tag: ITagModel) {
-    console.log(tag.toCreateInput())
-
     const {
       createTags: { tags },
     } = yield* _await(
@@ -44,7 +42,9 @@ export class TagRepository extends Model({}) implements ITagRepository {
     where?: TagWhere,
     options?: TagOptions,
   ) {
-    return yield* _await(tagApi.GetTags({ options, where }))
+    return yield* _await(
+      tagApi.GetTags({ options, where: { ...where, parent: undefined } }),
+    )
   })
 
   @modelFlow

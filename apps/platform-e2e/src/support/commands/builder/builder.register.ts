@@ -22,30 +22,23 @@ export interface CypressBuilderCommands {
 export const builderCommands: Array<CypressCommand> = [
   {
     fn: createElementTree,
-    name: 'createElementTree',
   },
   {
     fn: openPreview,
-    name: 'openPreview',
   },
   {
     fn: openBuilder,
-    name: 'openBuilder',
   },
   {
     fn: createElementAndStoreId,
-    name: 'createElementAndStoreId',
   },
   {
     fn: getNewElementId,
-    name: 'getNewElementId',
   },
   {
     fn: preventDefaultOnClick,
-    name: 'preventDefaultOnClick',
   },
   {
     fn: removePreventDefaultOnClick,
-    name: 'removePreventDefaultOnClick',
   },
 ]

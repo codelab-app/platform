@@ -1,5 +1,5 @@
-import type { ICreateTagData } from '@codelab/frontend/abstract/domain'
 import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { TagSelect } from '../../shared'
 
