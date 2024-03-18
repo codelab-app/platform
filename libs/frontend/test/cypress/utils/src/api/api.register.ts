@@ -5,6 +5,4 @@ export interface ApiCommands {
   postApiRequest: typeof postApiRequest
 }
 
-export const apiCommands: Array<CypressCommand> = [
-  { fn: postApiRequest, name: 'postApiRequest' },
-]
+export const apiCommands: Array<CypressCommand> = [{ fn: postApiRequest }]

@@ -12,7 +12,7 @@ export interface GraphQLCommands {
 }
 
 export const graphQLCommands: Array<CypressCommand> = [
-  { fn: interceptGraphQL, name: 'interceptGraphQL' },
-  { fn: graphqlRequest, name: 'graphqlRequest' },
-  { fn: waitForApiCalls, name: 'waitForApiCalls' },
+  { fn: interceptGraphQL },
+  { fn: graphqlRequest },
+  { fn: waitForApiCalls },
 ]

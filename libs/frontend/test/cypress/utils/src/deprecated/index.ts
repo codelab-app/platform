@@ -18,7 +18,6 @@ export interface SelectorsCommands {
   findElementByText: OmitFirstArg<typeof findElementByText>
   getOpenedModal: OmitFirstArg<typeof getOpenedModal>
   getOptionItem: OmitFirstArg<typeof getOptionItem>
-  // getSpinner: OmitFirstArg<typeof getSpinner>
   selectOptionItem: OmitFirstArg<typeof selectOptionItem>
 }
 
@@ -26,11 +25,10 @@ export interface SelectorsCommands {
  * @deprecated
  */
 export const selectorCommands: Array<CypressCommand> = [
-  { fn: findButtonByItemText, name: 'findButtonByItemText' },
-  { fn: findElementByText, name: 'findElementByText' },
-  { fn: getOptionItem, name: 'getOptionItem' },
-  { fn: selectOptionItem, name: 'selectOptionItem' },
-  // { fn: getSpinner, name: 'getSpinner' },
-  { fn: getOpenedModal, name: 'getOpenedModal' },
-  { fn: findByButtonText, name: 'findByButtonText' },
+  { fn: findButtonByItemText },
+  { fn: findElementByText },
+  { fn: getOptionItem },
+  { fn: selectOptionItem },
+  { fn: getOpenedModal },
+  { fn: findByButtonText },
 ]

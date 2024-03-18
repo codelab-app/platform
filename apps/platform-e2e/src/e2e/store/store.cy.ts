@@ -62,12 +62,12 @@ describe('Store field CRUD', () => {
   it('should be able to update state variable name', () => {
     cy.getCuiSidebarViewContent('State')
       .getCuiTreeItemByPrimaryTitle(stateVarName)
-      .closestCuiTreeItem()
+      .closestCuiTreeNode()
       .click()
 
     cy.getCuiSidebarViewContent('State')
       .getCuiTreeItemByPrimaryTitle(stateVarName)
-      .closestCuiTreeItem()
+      .closestCuiTreeNode()
       .getCuiToolbarItem(MODEL_ACTION.UpdateField.key)
       .click()
 
@@ -91,7 +91,7 @@ describe('Store field CRUD', () => {
   it('should be able to delete state variable', () => {
     cy.getCuiSidebarViewContent('State')
       .getCuiTreeItemByPrimaryTitle(updatedStateVarName)
-      .closestCuiTreeItem()
+      .closestCuiTreeNode()
       .getCuiToolbarItem(MODEL_ACTION.DeleteField.key)
       .click()
 

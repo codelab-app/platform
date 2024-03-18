@@ -11,7 +11,6 @@ export interface AntIconCommands {
 export const antIconCommands: Array<CypressCommand> = [
   {
     fn: getIcon,
-    name: 'getIcon',
     options: {
       prevSubject: 'optional',
     },

@@ -16,18 +16,14 @@ export interface AntPopconfirmCommands {
 export const antPopconfirmCommands: Array<CypressCommand> = [
   {
     fn: getPopconfirm,
-    name: 'getPopconfirm',
   },
   {
     fn: expectPopconfirm,
-    name: 'expectPopconfirm',
   },
   {
     fn: confirmPopconfirm,
-    name: 'confirmPopconfirm',
   },
   {
     fn: cancelPopconfirm,
-    name: 'cancelPopconfirm',
   },
 ]

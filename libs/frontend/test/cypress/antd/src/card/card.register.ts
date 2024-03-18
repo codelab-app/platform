@@ -12,18 +12,14 @@ export interface AntCardCommands {
 export const antCardCommands: Array<CypressCommand> = [
   {
     fn: getCard,
-    name: 'getCard',
   },
   {
     fn: getCardTitle,
-    name: 'getCardTitle',
   },
   {
     fn: getCardContent,
-    name: 'getCardContent',
   },
   {
     fn: getCardContent,
-    name: 'getCardActions',
   },
 ]

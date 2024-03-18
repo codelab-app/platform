@@ -12,13 +12,11 @@ export interface AntSpinCommands {
 export const antSpinCommands: Array<CypressCommand> = [
   {
     fn: getSpinner,
-    name: 'getSpinner',
     options: {
       prevSubject: 'optional',
     },
   },
   {
     fn: waitForSpinners,
-    name: 'waitForSpinners',
   },
 ]

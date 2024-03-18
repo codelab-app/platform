@@ -22,36 +22,29 @@ export interface AntDropdownCommands {
 export const antDropdownCommands: Array<CypressCommand> = [
   {
     fn: getDropdown,
-    name: 'getDropdown',
   },
   {
     fn: getDropdownItem,
-    name: 'getDropdownItem',
   },
   {
     fn: selectDropdownItem,
-    name: 'selectDropdownItem',
   },
   {
     fn: openDropdown,
-    name: 'openDropdown',
     options: {
       prevSubject: 'element',
     },
   },
   {
     fn: closeDropdown,
-    name: 'closeDropdown',
     options: {
       prevSubject: 'element',
     },
   },
   {
     fn: expectDropdownToOpen,
-    name: 'expectDropdownToOpen',
   },
   {
     fn: expectDropdownToClose,
-    name: 'expectDropdownToClose',
   },
 ]

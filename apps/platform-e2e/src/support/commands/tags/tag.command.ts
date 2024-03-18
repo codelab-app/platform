@@ -1,9 +1,11 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 
-const modalName = 'Create Tag'
-
 export const createTagByUI = (name: string, parentName?: string) => {
+  Cypress.log({
+    name: 'createTagByUI',
+  })
+
   if (parentName) {
     cy.getCuiTreeItemByPrimaryTitle(parentName).click()
   }
@@ -22,6 +24,13 @@ export const createTagByUI = (name: string, parentName?: string) => {
   cy.getCuiPopover(MODEL_ACTION.CreateTag.key)
     .getCuiToolbarItem(MODEL_ACTION.CreateTag.key)
     .click()
+
+  if (parentName) {
+    // Open the child once created
+    cy.toggleCuiTreeNodeSwitcher(parentName)
+  }
+
+  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
 }
 
 export const deleteTagInTableByUI = (name: string) => {

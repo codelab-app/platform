@@ -16,18 +16,14 @@ export interface AntPaginationCommands {
 export const antPaginationCommands: Array<CypressCommand> = [
   {
     fn: selectPageSize,
-    name: 'selectPageSize',
   },
   {
     fn: selectPage,
-    name: 'selectPage',
   },
   {
     fn: selectPrevPage,
-    name: 'selectPrevPage',
   },
   {
     fn: selectNextPage,
-    name: 'selectNextPage',
   },
 ]

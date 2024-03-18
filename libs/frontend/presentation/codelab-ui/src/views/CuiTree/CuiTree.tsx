@@ -150,6 +150,7 @@ export const CuiTree = observer(
                     }
                   : false
               }
+              expandAction="doubleClick"
               expandedKeys={cuiTreeStore.expandedKeys}
               onExpand={handleExpand}
               onMouseEnter={(info) => {

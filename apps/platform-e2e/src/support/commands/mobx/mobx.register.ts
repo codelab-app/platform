@@ -8,6 +8,5 @@ export interface CypressMobxCommands {
 export const mobxCommands: Array<CypressCommand> = [
   {
     fn: getMobxStore,
-    name: 'getMobxStore',
   },
 ]

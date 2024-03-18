@@ -66,7 +66,7 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
   return (
     <CuiTree<ITreeNode<ITagNodeData>>
       checkStrictly
-      // checkable
+      checkable
       checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
       isLoading={isLoading}
       onCheck={onCheck}

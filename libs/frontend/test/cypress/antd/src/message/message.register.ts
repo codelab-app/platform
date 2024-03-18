@@ -9,10 +9,8 @@ export interface AntMessageCommands {
 export const antMessageCommands: Array<CypressCommand> = [
   {
     fn: getMessage,
-    name: 'getMessage',
   },
   {
     fn: expectMessage,
-    name: 'expectMessage',
   },
 ]

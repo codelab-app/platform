@@ -20,26 +20,20 @@ export interface AntDrawerCommands {
 export const antDrawerCommands: Array<CypressCommand> = [
   {
     fn: getDrawer,
-    name: 'getDrawer',
   },
   {
     fn: getDrawerTitle,
-    name: 'getDrawerTitle',
   },
   {
     fn: closeDrawer,
-    name: 'closeDrawer',
   },
   {
     fn: expectDrawerTitle,
-    name: 'expectDrawerTitle',
   },
   {
     fn: expectDrawerToOpen,
-    name: 'expectDrawerToOpen',
   },
   {
     fn: expectDrawerToClose,
-    name: 'expectDrawerToClose',
   },
 ]

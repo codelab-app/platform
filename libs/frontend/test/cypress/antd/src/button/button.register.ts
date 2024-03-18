@@ -11,7 +11,6 @@ export interface AntButtonCommands {
 export const antButtonCommands: Array<CypressCommand> = [
   {
     fn: getButton,
-    name: 'getButton',
     options: {
       prevSubject: 'optional',
     },

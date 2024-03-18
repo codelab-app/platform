@@ -9,10 +9,8 @@ export interface CypressTagCommands {
 export const tagCommands: Array<CypressCommand> = [
   {
     fn: createTagByUI,
-    name: 'createTagByUI',
   },
   {
     fn: deleteTagInTableByUI,
-    name: 'deleteTagInTableByUI',
   },
 ]
