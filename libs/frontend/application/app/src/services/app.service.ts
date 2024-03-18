@@ -10,14 +10,16 @@ import {
   type IUpdatePageFormData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
-import { getDomainService } from '@codelab/frontend/application/domain'
+import {
+  getDomainService,
+  regeneratePages,
+} from '@codelab/frontend/application/domain'
 import {
   getPageService,
   PageRepository,
 } from '@codelab/frontend/application/page'
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
-import { regeneratePages } from '@codelab/frontend/domain/domain'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {

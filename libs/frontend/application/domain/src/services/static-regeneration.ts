@@ -1,4 +1,3 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import type { IAppService } from '@codelab/frontend/abstract/application'
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import {

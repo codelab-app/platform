@@ -1,7 +1,7 @@
 import type { IAppModel } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
+import { useRegeneratePages } from '@codelab/frontend/application/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import { useRegeneratePages } from '@codelab/frontend/domain/domain'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
