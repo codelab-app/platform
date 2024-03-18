@@ -1,94 +1,34 @@
-import type { App } from '@codelab/shared/abstract/codegen'
 import type {
-  IApiActionDto,
   IAppDto,
   IComponentDto,
   IPageDto,
   IResourceDto,
 } from '@codelab/shared/abstract/core'
-import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
-import { findOrFail, slugify } from '@codelab/shared/utils'
+import { IPageKindName } from '@codelab/shared/abstract/core'
+import { slugify } from '@codelab/shared/utils'
 import { createResourceData } from '../preview/resource.data'
-import {
-  apiActionCreateData,
-  childMapperData,
-  componentCreateData,
-  componentElementCreateData,
-  providerPageElementCreateData,
-} from './child-mapper-api-actions-with-props.data'
-
-let app: IAppDto
-let page: IPageDto
-let component: IComponentDto
-let resource: IResourceDto
-
-const setupTest = () => {
-  cy.postApiRequest<App>('/app/seed-cypress-app')
-    .then(({ body }) => {
-      app = body
-      page = findOrFail(app.pages, (_page) => _page.kind === IPageKind.Provider)
-
-      cy.wrap(page).should('have.property', 'store')
-
-      return cy.wrap(app)
-    })
-    .as('createdApp')
-
-  cy.get('@createdApp').then(() =>
-    cy
-      .postApiRequest<IResourceDto>(
-        '/resource/create-resource',
-        createResourceData,
-      )
-      .then(({ body }) => {
-        resource = body
-      })
-      .as('createdResource'),
-  )
-
-  cy.get('@createdResource').then(() =>
-    cy
-      .postApiRequest<IComponentDto>(
-        'component/create-component',
-        componentCreateData,
-      )
-      .then(({ body }) => {
-        component = body
-      })
-      .as('createdComponent'),
-  )
-
-  cy.get('@createdComponent')
-    .then(() =>
-      cy.postApiRequest<IApiActionDto>(
-        '/action/create-action',
-        apiActionCreateData(component.store),
-      ),
-    )
-    .as('createdAction')
-
-  cy.get('@createdAction').then(() =>
-    cy
-      .postApiRequest<Element>(
-        `element/${component.rootElement.id}/create-element`,
-        componentElementCreateData(component),
-      )
-      .as('createdComponentElement'),
-  )
-
-  cy.get('@createdComponentElement').then(() =>
-    cy
-      .postApiRequest<Element>(
-        `element/${page.rootElement.id}/create-element`,
-        providerPageElementCreateData(page),
-      )
-      .as('createdComponentElement'),
-  )
-}
+import { childMapperData } from './child-mapper-api-actions-with-props.data'
+import { setupTest } from './child-mapper-api-actions-with-props.setup'
 
 describe('Element Child Mapper', () => {
+  let app: IAppDto
+  let page: IPageDto
+  let component: IComponentDto
+  let resource: IResourceDto
+
   before(() => {
     setupTest()
+    cy.get<{
+      app: IAppDto
+      page: IPageDto
+      component: IComponentDto
+      resource: IResourceDto
+    }>('@setupComplete').then((res) => {
+      app = res.app
+      page = res.page
+      component = res.component
+      resource = res.resource
+    })
   })
 
   it('should render the component instances with props values from array', () => {

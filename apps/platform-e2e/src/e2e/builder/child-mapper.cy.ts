@@ -1,86 +1,35 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
-import type { App } from '@codelab/shared/abstract/codegen'
-import type {
-  IAppDto,
-  IComponentDto,
-  IPageDto,
-} from '@codelab/shared/abstract/core'
-import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
-import { findOrFail, slugify } from '@codelab/shared/utils'
+import type { IAppDto, IComponentDto } from '@codelab/shared/abstract/core'
+import { IPageKindName } from '@codelab/shared/abstract/core'
+import { slugify } from '@codelab/shared/utils'
 import type { Interception } from 'cypress/types/net-stubbing'
 import {
-  childMapperComponent,
-  childMapperComponentElementTypography,
-  providerPageElements,
   providerPageRowElement,
   providerPageRowFirstChild,
   providerPageRowSecondChild,
 } from './child-mapper.data'
+import { setupTest } from './child-mapper.setup'
 
-let app: IAppDto
-let page: IPageDto
-let component: IComponentDto
+describe('Element Child Mapper', () => {
+  let app: IAppDto
+  let component: IComponentDto
 
-const setupTest = () => {
-  cy.postApiRequest<App>('/app/seed-cypress-app')
-    .then(({ body }) => {
-      app = body
-      page = findOrFail(app.pages, (_page) => _page.kind === IPageKind.Provider)
-
-      cy.wrap(page).should('have.property', 'store')
-
-      return cy.wrap(app)
-    })
-    .as('cypressApp')
-
-  cy.get('@cypressApp').then(() => {
-    return cy
-      .postApiRequest(
-        `element/${page.rootElement.id}/create-elements`,
-        providerPageElements(page),
-      )
-      .as('cypressProviderElements')
+  before(() => {
+    setupTest()
+    cy.get<{ app: IAppDto; component: IComponentDto }>('@setupComplete').then(
+      (res) => {
+        app = res.app
+        component = res.component
+      },
+    )
   })
 
-  cy.get('@cypressProviderElements').then(() =>
-    cy
-      .postApiRequest<IComponentDto>(
-        'component/create-component',
-        childMapperComponent,
-      )
-      .then(({ body }) => {
-        component = body
-      })
-      .as('cypressComponent'),
-  )
-
-  cy.get('@cypressComponent').then(() =>
-    cy
-      .postApiRequest<Element>(
-        `element/${component.rootElement.id}/create-element`,
-        {
-          ...childMapperComponentElementTypography,
-          parentElement: component.rootElement,
-        },
-      )
-      .as('cypressElements'),
-  )
-
-  cy.get('@cypressElements').then(() =>
+  it('should add data via Child Mapper form', () => {
     cy.visit(
       `/apps/cypress/${slugify(app.name)}/pages/${slugify(
         IPageKindName.Provider,
       )}/builder`,
-    ),
-  )
-}
-
-describe('Element Child Mapper', () => {
-  before(() => {
-    setupTest()
-  })
-
-  it('should add data via Child Mapper form', () => {
+    )
     cy.findAllByText(providerPageRowElement.name).first().click()
     cy.findByText('Child Mapper').click()
 

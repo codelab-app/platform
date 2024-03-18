@@ -1,54 +1,29 @@
-import { MODEL_UI } from '@codelab/frontend/abstract/types'
-import type { App } from '@codelab/shared/abstract/codegen'
-import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
-import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
-import { findOrFail, slugify } from '@codelab/shared/utils'
+import type { IAppDto } from '@codelab/shared/abstract/core'
+import { IPageKindName } from '@codelab/shared/abstract/core'
+import { slugify } from '@codelab/shared/utils'
 import {
   elementColCreateData,
   elementContainerCreateData,
   elementRowCreateData,
   elementTextCreateData,
-  providerPageElements,
 } from './convert-element-to-component.data'
+import { setupTest } from './convert-element-to-component.setup'
 
-let app: IAppDto
-let page: IPageDto
+describe('Converting an element to a component', () => {
+  let app: IAppDto
 
-const setupTest = () => {
-  cy.postApiRequest<App>('/app/seed-cypress-app')
-    .then(({ body }) => {
-      app = body
-      page = findOrFail(app.pages, (_page) => _page.kind === IPageKind.Provider)
-
-      cy.wrap(page).should('have.property', 'store')
-
-      return cy.wrap(app)
+  before(() => {
+    setupTest()
+    cy.get<{ app: IAppDto }>('@setupComplete').then((res) => {
+      app = res.app
     })
-    .as('createdApp')
-
-  cy.get('@createdApp').then(() => {
-    return cy
-      .postApiRequest(
-        `element/${page.rootElement.id}/create-elements`,
-        providerPageElements(page),
-      )
-      .as('cypressProviderElements')
   })
-
-  cy.get('@cypressProviderElements').then(() =>
+  it('should convert the element into a component and create an instance of it', () => {
     cy.visit(
       `/apps/cypress/${slugify(app.name)}/pages/${slugify(
         IPageKindName.Provider,
       )}/builder`,
-    ),
-  )
-}
-
-describe('Converting an element to a component', () => {
-  before(() => {
-    setupTest()
-  })
-  it('should convert the element into a component and create an instance of it', () => {
+    )
     cy.getCuiTreeItemByPrimaryTitle(
       elementContainerCreateData.name,
     ).rightclick()
