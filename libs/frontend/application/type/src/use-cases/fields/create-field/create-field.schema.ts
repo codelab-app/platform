@@ -1,11 +1,11 @@
-import type { ICreateFieldData } from '@codelab/frontend/abstract/domain'
+import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { ICreateFieldData } from '@codelab/shared/abstract/core'
 import {
   GeneralValidationRules,
   NumberValidationRules,
   StringValidationRules,
-} from '@codelab/frontend/abstract/domain'
-import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
-import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {

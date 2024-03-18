@@ -48,8 +48,6 @@ export type ITypeModel =
   | IRenderPropTypeModel
   | IUnionTypeModel
 
-export type ITypeRef = string
-
 export type ITypeOf<TKind extends ITypeKind> = ITypeModel extends {
   typeKind: TKind
 }

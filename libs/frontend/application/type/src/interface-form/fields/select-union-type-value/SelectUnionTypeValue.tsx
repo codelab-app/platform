@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { IFieldDefaultValue } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { createValidator, Form } from '@codelab/frontend/presentation/view'
 import { usePrevious } from '@codelab/frontend/shared/utils'
+import type { IFieldDefaultValue } from '@codelab/shared/abstract/core'
 import { Form as AntdForm } from 'antd'
 import isNil from 'lodash/isNil'
 import React, { useEffect } from 'react'

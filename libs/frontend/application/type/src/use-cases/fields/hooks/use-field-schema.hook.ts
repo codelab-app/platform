@@ -1,8 +1,8 @@
+import { useStore } from '@codelab/frontend/application/shared/store'
 import type {
   ICreateFieldData,
   IUpdateFieldData,
-} from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+} from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { useMemo } from 'react'
 

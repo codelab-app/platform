@@ -1,11 +1,13 @@
 import type {
-  ICreateFieldData,
   IFieldDomainService,
   IFieldModel,
   IInterfaceTypeModel,
-  IUpdateFieldData,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
+import type {
+  ICreateFieldData,
+  IRef,
+  IUpdateFieldData,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type {
   ICRUDFormService,

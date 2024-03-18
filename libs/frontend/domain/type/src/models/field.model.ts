@@ -1,8 +1,6 @@
 import type {
-  IFieldDefaultValue,
   IInterfaceTypeModel,
   ITypeModel,
-  IValidationRules,
 } from '@codelab/frontend/abstract/domain'
 import {
   fieldRef,
@@ -10,6 +8,10 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  IFieldDefaultValue,
+  IValidationRules,
+} from '@codelab/shared/abstract/core'
 import { IFieldDto } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain'

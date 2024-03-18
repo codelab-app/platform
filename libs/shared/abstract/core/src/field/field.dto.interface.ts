@@ -21,3 +21,5 @@ export type IFieldDto = Static<typeof IFieldDto>
 export const IField = IFieldDto
 
 export type IField = Static<typeof IField>
+
+export type IFieldRef = string

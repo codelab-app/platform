@@ -1,5 +1,5 @@
 import type { ITypeService } from '@codelab/frontend/abstract/application'
-import type { IValidationRules } from '@codelab/frontend/abstract/domain'
+import type { IValidationRules } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import pick from 'lodash/pick'

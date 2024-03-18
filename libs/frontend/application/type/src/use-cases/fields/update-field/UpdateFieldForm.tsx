@@ -1,4 +1,3 @@
-import type { IUpdateFieldData } from '@codelab/frontend/abstract/domain'
 import {
   MODEL_ACTION,
   type SubmitController,
@@ -12,6 +11,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { IUpdateFieldData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

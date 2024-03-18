@@ -3,12 +3,15 @@ import {
   type IFieldService,
 } from '@codelab/frontend/abstract/application'
 import type {
-  ICreateFieldData,
   IFieldModel,
   IInterfaceTypeModel,
 } from '@codelab/frontend/abstract/domain'
 import { FieldDomainService } from '@codelab/frontend/domain/type'
-import type { IFieldDto, IRef } from '@codelab/shared/abstract/core'
+import type {
+  ICreateFieldData,
+  IFieldDto,
+  IRef,
+} from '@codelab/shared/abstract/core'
 import compact from 'lodash/compact'
 import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
