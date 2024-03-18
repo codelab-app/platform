@@ -21,7 +21,10 @@ describe('Store field CRUD', () => {
     cy.get('@cypressApp')
       .then(() =>
         cy
-          .postApiRequest<Resource>('/resource/create', createResourceData)
+          .postApiRequest<Resource>(
+            '/resource/create-resource',
+            createResourceData,
+          )
           .then(({ body }) => body),
       )
       .as('cypressResource')

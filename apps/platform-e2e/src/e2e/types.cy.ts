@@ -25,7 +25,7 @@ const updatedArrayTypeName = 'Updated TextArray'
 const interfaceTypeName = 'New Interface'
 const interfaceTypeKind = ITypeKind.InterfaceType
 // Field
-const fieldName = 'Name'
+const fieldName = 'My Field'
 const fieldDefaultValue = 'something default'
 
 describe('Types CRUD', () => {
@@ -166,7 +166,7 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to add fields', () => {
-      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).dblclick()
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
         .getCuiTreeItemToolbar()
