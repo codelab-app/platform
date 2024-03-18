@@ -1,4 +1,4 @@
-import { ICreatePageData } from '@codelab/shared/abstract/core'
+import { type ICreatePageData } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { PageApplicationService } from './page.application.service'
 
