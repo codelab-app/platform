@@ -26,6 +26,11 @@ describe('Running API actions that updates state via element pre-render and post
   })
 
   it('should add the state variables where the api responses will be stored to', () => {
+    cy.visit(
+      `/apps/cypress/${slugify(app!.name)}/pages/${slugify(
+        IPageKindName.Provider,
+      )}/builder`,
+    )
     cy.getCuiSidebarViewHeader('State').should('exist').click()
     cy.waitForSpinners()
 

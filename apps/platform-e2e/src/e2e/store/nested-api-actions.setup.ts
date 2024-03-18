@@ -8,13 +8,14 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { findOrFail } from '@codelab/shared/utils'
-import { createResourceData } from '../preview/resource.data'
 import {
-  postRenderApiActionCreateData,
-  postRenderCodeActionCreateData,
-  preRenderApiActionCreateData,
-  preRenderCodeActionCreateData,
-} from './pre-post-api-action.data'
+  apiGetActionCreateData,
+  apiPostActionCreateData,
+  errorCodeActionCreateData,
+  providerPageElements,
+  successCodeActionCreateData,
+} from './nested-api-actions.data'
+import { createResourceData } from './resource.data'
 
 export const setupTest = () => {
   let app: IAppDto
@@ -27,7 +28,7 @@ export const setupTest = () => {
 
       cy.wrap(page).should('have.property', 'store')
 
-      return cy.wrap({ app, page })
+      return cy.wrap(app)
     })
     .as('createdApp')
 
@@ -44,42 +45,48 @@ export const setupTest = () => {
     .then(() =>
       cy.postApiRequest<ICodeActionDto>(
         '/action/create-action',
-        preRenderCodeActionCreateData(page!),
+        successCodeActionCreateData(page),
       ),
     )
-    .as('createdPreRenderCodeAction')
+    .as('createdSuccessCodeAction')
 
-  cy.get('@createdPreRenderCodeAction')
-    .then(() =>
-      cy.postApiRequest<IApiActionDto>(
-        '/action/create-action',
-        preRenderApiActionCreateData(page!),
-      ),
-    )
-    .as('createdPreRenderApiAction')
-
-  cy.get('@createdPreRenderApiAction')
+  cy.get('@createdSuccessCodeAction')
     .then(() =>
       cy.postApiRequest<ICodeActionDto>(
         '/action/create-action',
-        postRenderCodeActionCreateData(page!),
+        errorCodeActionCreateData(page),
       ),
     )
-    .as('createdPostRenderCodeAction')
+    .as('createdErrorCodeAction')
 
-  cy.get('@createdPostRenderCodeAction')
+  cy.get('@createdErrorCodeAction')
     .then(() =>
       cy.postApiRequest<IApiActionDto>(
         '/action/create-action',
-        postRenderApiActionCreateData(page!),
+        apiGetActionCreateData(page),
       ),
     )
-    .as('createdPostRenderApiAction')
+    .as('createdApiGetAction')
 
-  cy.get('@createdPostRenderApiAction')
-    .then(() => ({
-      app,
-      page,
-    }))
+  cy.get('@createdApiGetAction')
+    .then(() =>
+      cy.postApiRequest<IApiActionDto>(
+        '/action/create-action',
+        apiPostActionCreateData(page),
+      ),
+    )
+    .as('createdApiPostAction')
+
+  cy.get('@createdApiPostAction').then(() =>
+    cy
+      .postApiRequest<Element>(
+        `element/${page.rootElement.id}/create-elements`,
+        providerPageElements(page),
+      )
+      .as('createProviderPageElements'),
+  )
+
+  cy.get('@createProviderPageElements')
+    .then(() => ({ app }))
     .as('setupComplete')
 }
