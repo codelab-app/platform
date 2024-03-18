@@ -8,4 +8,4 @@ export type CypressElementTag<T extends ElementTagName> = Cypress<
 
 export type CypressButton = Cypress<JQuery<HTMLButtonElement>>
 
-export type CypressElement = Cypress<JQuery>
+export type CypressElement = Cypress<JQuery<HTMLElement>>

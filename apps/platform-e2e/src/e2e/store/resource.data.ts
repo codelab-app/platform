@@ -9,11 +9,11 @@ import { v4 } from 'uuid'
  */
 export const createResourceData: ICreateResourceData = {
   config: {
-    url: 'https://api.publicapis.org',
+    url: 'http://some-api.com/api',
   },
   id: v4(),
-  name: 'Public Rest Resource',
+  name: 'Rest Resource',
   type: IResourceType.Rest,
 }
 
-export const resourceUrlSegment = 'entries'
+export const urlSegment = '/data/some-id'

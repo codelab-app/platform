@@ -20,12 +20,10 @@ describe('Store field CRUD', () => {
 
     cy.get('@cypressApp')
       .then(() =>
-        cy
-          .postApiRequest<Resource>(
-            '/resource/create-resource',
-            createResourceData,
-          )
-          .then(({ body }) => body),
+        cy.postApiRequest<Resource>(
+          '/resource/create-resource',
+          createResourceData,
+        ),
       )
       .as('cypressResource')
 
@@ -102,7 +100,7 @@ describe('Store field CRUD', () => {
     cy.getModal().should('not.exist')
 
     cy.getCuiSidebarViewContent('State')
-      .findByText(new RegExp(/`^${updatedStateVarName}`$/))
+      .getCuiTreeItemByPrimaryTitle(updatedStateVarName)
       .should('not.exist')
   })
 })

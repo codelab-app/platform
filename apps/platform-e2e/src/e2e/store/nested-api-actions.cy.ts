@@ -112,6 +112,16 @@ describe('Running nested API and code actions', () => {
       },
     ).as('getData')
 
+    // cy.intercept('POST', `${createResourceData.config.url}${urlPostSegment}`, {
+    //   statusCode: 200,
+    // }).as('updateData')
+
+    // cy.intercept(
+    //   'GET',
+    //   `${createResourceData.config.url}${urlGetSegment}`,
+    //   mockGetResponse,
+    // ).as('getData')
+
     cy.get('#render-root')
       .findByText('Click button to post')
       .click({ force: true })
