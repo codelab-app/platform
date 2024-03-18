@@ -6819,10 +6819,9 @@ type Domain {
     sort: [DomainAppConnectionSort!]
     where: DomainAppConnectionWhere
   ): DomainAppConnection!
-  domainConfig: VercelDomainConfig!
+  domainConfig: ProductionDomainConfig!
   id: ID!
   name: String!
-  projectDomain: VercelProjectDomain!
 }
 
 type DomainAggregateSelection {
@@ -14859,6 +14858,10 @@ type PrimitiveTypesConnection {
   totalCount: Int!
 }
 
+type ProductionDomainConfig {
+  status: String!
+}
+
 type Prop {
   data: String!
   id: ID!
@@ -20482,14 +20485,6 @@ type UsersConnection {
   edges: [UserEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type VercelDomainConfig {
-  misconfigured: Boolean!
-}
-
-type VercelProjectDomain {
-  verified: Boolean!
 }
 
 interface WithDescendants {

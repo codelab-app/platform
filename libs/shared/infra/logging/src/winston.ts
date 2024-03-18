@@ -34,11 +34,6 @@ export const logger = createLogger({
     new transports.Console({
       level: 'info',
     }),
-
-    // The File transporters do not work on deployed builds on Vercel.
-    // File system is readonly for serverless functions, so can't create and write logs to files.
-    // The recommended way to handle logs is to use so called log drains:
-    // https://vercel.com/docs/integrations/log-drains-overview/log-drains-reference
     /* new transports.File({
       filename: 'logs/info.log',
       level: 'info',

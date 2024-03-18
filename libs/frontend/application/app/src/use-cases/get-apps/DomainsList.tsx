@@ -17,16 +17,18 @@ export const DomainsList = ({ domains }: DomainListProps) => {
   return (
     <>
       {domains.map((domain) => {
-        const { domainConfig, name, projectDomain } = domain
-        const valid = projectDomain?.verified && !domainConfig?.misconfigured
+        const { domainConfig, name } = domain
+        const valid = domainConfig?.status === 'ACTIVE'
 
         const badge = valid ? (
           <span className="flex items-center text-green-400">
-            <CheckCircleOutlined className="mr-1" /> Valid
+            <CheckCircleOutlined className="mr-1" />
+            {domainConfig.status}
           </span>
         ) : (
           <span className="flex items-center text-red-400">
-            <CloseCircleOutlined className="mr-1" /> Invalid
+            <CloseCircleOutlined className="mr-1" />
+            {domainConfig?.status}
           </span>
         )
 

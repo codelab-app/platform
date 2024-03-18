@@ -1,17 +1,13 @@
-import type { IDomainOutputDto } from '@codelab/backend/abstract/core'
-import {
-  addVercelDomain,
-  createDomainIfNotExist,
-} from '@codelab/backend/domain/domain'
+import { createDomain } from '@codelab/backend/domain/domain'
 import { logSection } from '@codelab/shared/utils'
 
-export const importDomains = async (domain: IDomainOutputDto) => {
+export const importDomains = async (domainName: string) => {
   logSection('Importing Domains')
 
-  const newDomainAdded = await addVercelDomain(domain)
+  const newDomainAdded = await createDomain(domainName)
 
-  if (!newDomainAdded) {
-    console.log(`No domain information was found for domain: ${domain}`)
+  if (!newDomainAdded.ok) {
+    console.log(`No domain information was found for domain: ${domainName}`)
 
     return
   }
@@ -19,5 +15,5 @@ export const importDomains = async (domain: IDomainOutputDto) => {
   /**
    * Create inside our own database
    */
-  return await createDomainIfNotExist(domain)
+  // return await createDomainIfNotExist(domain)
 }

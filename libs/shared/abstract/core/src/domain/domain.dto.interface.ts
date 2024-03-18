@@ -7,20 +7,16 @@ export const IDomainDto = Type.Object({
   /**
    * https://stackoverflow.com/a/74650249/2159920
    *
-   * domainConfig: { misconfigured: boolean } | undefined
+   * domainConfig: { status: string } | undefined
    */
   domainConfig: Type.Union([
     Type.Object({
-      misconfigured: Type.Boolean(),
+      status: Type.String(),
     }),
     Type.Undefined(),
   ]),
   id: Type.String(),
   name: Type.String(),
-  projectDomain: Type.Union([
-    Type.Object({ verified: Type.Boolean() }),
-    Type.Undefined(),
-  ]),
 })
 
 export type IDomainDto = Static<typeof IDomainDto>

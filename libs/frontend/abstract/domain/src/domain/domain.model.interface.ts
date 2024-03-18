@@ -2,8 +2,7 @@ import type {
   DomainCreateInput,
   DomainDeleteInput,
   DomainUpdateInput,
-  VercelDomainConfig,
-  VercelProjectDomain,
+  ProductionDomainConfig,
 } from '@codelab/shared/abstract/codegen'
 import type { IDomain, IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -14,8 +13,7 @@ export interface IDomainModel
   extends ICacheService<IDomainDto, IDomainModel>,
     IModel<DomainCreateInput, DomainUpdateInput, DomainDeleteInput, IDomain> {
   app: IRef
-  domainConfig: Maybe<VercelDomainConfig>
+  domainConfig: Maybe<ProductionDomainConfig>
   id: string
   name: string
-  projectDomain: Maybe<VercelProjectDomain>
 }

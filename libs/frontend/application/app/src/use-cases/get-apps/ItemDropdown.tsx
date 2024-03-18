@@ -66,7 +66,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
   const menuItems: MenuProps['items'] = [
     {
       disabled: !app.domains.some(
-        (domain) => !domain.domainConfig?.misconfigured,
+        (domain) => domain.domainConfig?.status !== 'ACTIVE',
       ),
       icon: <ToolOutlined style={menuItemIconStyle} />,
       key: 'build',
