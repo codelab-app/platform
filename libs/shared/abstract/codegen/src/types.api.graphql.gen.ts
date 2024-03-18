@@ -18087,7 +18087,6 @@ export type Tag = {
   childrenConnection: TagChildrenConnection
   descendants: Array<Tag>
   id: Scalars['ID']['output']
-  isRoot: Scalars['Boolean']['output']
   name: Scalars['String']['output']
   owner: User
   ownerAggregate?: Maybe<TagUserOwnerAggregationSelection>
@@ -18777,7 +18776,6 @@ export type TagRelationInput = {
 /** Fields to sort Tags by. The order in which sorts are applied is not guaranteed when specifying many fields in one TagSort object. */
 export type TagSort = {
   id?: InputMaybe<SortDirection>
-  isRoot?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 

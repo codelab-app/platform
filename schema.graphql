@@ -17138,7 +17138,6 @@ type Tag {
   ): TagChildrenConnection!
   descendants: [Tag!]!
   id: ID!
-  isRoot: Boolean!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(
@@ -17785,7 +17784,6 @@ Fields to sort Tags by. The order in which sorts are applied is not guaranteed w
 """
 input TagSort {
   id: SortDirection
-  isRoot: SortDirection
   name: SortDirection
 }
 

@@ -99,8 +99,15 @@ commands:
       - restore_cache:
           keys:
             - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-            - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore Cache
+      - restore_cache:
+          keys:
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore NVM Cache
+      - restore_cache:
+          keys:
+            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
+          name: Restore NX Cache
       - install-terraform
       - setup-env
   restore-workspace:
@@ -121,8 +128,8 @@ commands:
           keys:
             - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Restore NX Cache
-      - setup-env
       - install-pnpm
+      - setup-env
   setup-env:
     description: Setup Env
     steps:
@@ -371,15 +378,7 @@ jobs:
     executor: docker-node
     resource_class: large
     steps:
-      - restore-workspace
       - install-terraform
-      - install-nvm
-      - install-packages
-      - build-repo
-      - persist_to_workspace:
-          paths:
-            - ./project/dist
-          root: ~/
   setup-workspace:
     executor: docker-node
     resource_class: large
@@ -479,7 +478,7 @@ workflows:
             - e2e
   infra:
     jobs:
-      - setup-infra-workspace:
+      - setup-workspace:
           filters:
             branches:
               only:
@@ -490,7 +489,7 @@ workflows:
               only:
                 - master
           requires:
-            - setup-infra-workspace
+            - setup-workspace
       - hold-apply:
           filters:
             branches:

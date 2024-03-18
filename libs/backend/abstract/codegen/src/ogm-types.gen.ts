@@ -6720,7 +6720,6 @@ export type Tag = {
   __typename: 'Tag'
   id: Scalars['ID']['output']
   name: Scalars['String']['output']
-  isRoot: Scalars['Boolean']['output']
   descendants: Array<Tag>
   parentAggregate?: Maybe<TagTagParentAggregationSelection>
   parent?: Maybe<Tag>
@@ -29985,7 +29984,6 @@ export type TagRelationInput = {
 export type TagSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-  isRoot?: InputMaybe<SortDirection>
 }
 
 export type TagUniqueWhere = {
