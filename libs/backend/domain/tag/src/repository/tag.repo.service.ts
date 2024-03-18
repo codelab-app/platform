@@ -29,8 +29,8 @@ export class TagRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
 
-    protected validationService: ValidationService,
-    protected loggerService: CodelabLoggerService,
+    protected override validationService: ValidationService,
+    protected override loggerService: CodelabLoggerService,
     private authService: AuthDomainService,
   ) {
     super(validationService, loggerService)

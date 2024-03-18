@@ -15,7 +15,7 @@ export class SeedCypressTagsHandler
   constructor(private readonly tagRepository: TagRepository) {}
 
   async execute() {
-    const tagsData = createTagsData()
+    const tagsData = createTagsData
 
     /**
      * Create the types

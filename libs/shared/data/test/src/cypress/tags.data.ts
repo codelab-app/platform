@@ -1,12 +1,11 @@
 import type { ITagDto } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-type PartialTagDto = Partial<ITagDto> & Pick<ITagDto, 'name'>
-
 const delete_table_tag_0_id = v4()
 const delete_table_tag_0_0_id = v4()
 const delete_tree_tag_0_id = v4()
 const delete_tree_tag_0_0_id = v4()
+const delete_tree_tag_0_0_0_id = v4()
 const delete_tree_tag_1_id = v4()
 const delete_tree_tag_1_0_id = v4()
 
@@ -22,60 +21,39 @@ export enum UpdateData {
   updated_tag_0 = 'Updated-Tag-0',
 }
 
-export enum DeleteTableData {
-  tag_0 = 'Delete-Tag-0',
-  tag_0_0 = 'Delete-Tag-0-0',
-  tag_0_1 = 'Delete-Tag-0-1',
-}
-
 export enum DeleteTreeData {
   tag_0 = 'Delete-Tree-Tag-0',
   tag_0_0 = 'Delete-Tree-Tag-0-0',
+  tag_0_0_0 = 'Delete-Tree-Tag-0-0-0',
   tag_1 = 'Delete-Tree-Tag-1',
   tag_1_0 = 'Delete-Tree-Tag-1-0',
 }
 
-const partialTagData: Array<PartialTagDto> = [
-  { name: UpdateData['tag_0'] },
+/**
+ * Order in a way such that they can be connected
+ */
+export const createTagsData: Array<ITagDto> = [
   {
-    children: [{ id: delete_table_tag_0_0_id }],
-    id: delete_table_tag_0_id,
-    name: DeleteTableData['tag_0'],
+    id: delete_tree_tag_0_0_0_id,
+    name: DeleteTreeData['tag_0_0_0'],
   },
   {
-    id: delete_table_tag_0_0_id,
-    name: DeleteTableData['tag_0_0'],
-    parent: { id: delete_table_tag_0_id },
+    children: [{ id: delete_tree_tag_0_0_0_id }],
+    id: delete_tree_tag_0_0_id,
+    name: DeleteTreeData['tag_0_0'],
   },
-  { name: DeleteTableData['tag_0_1'] },
   {
     children: [{ id: delete_tree_tag_0_0_id }],
     id: delete_tree_tag_0_id,
     name: DeleteTreeData['tag_0'],
   },
   {
-    id: delete_tree_tag_0_0_id,
-    name: DeleteTreeData['tag_0_0'],
-    parent: { id: delete_tree_tag_0_id },
+    id: delete_tree_tag_1_0_id,
+    name: DeleteTreeData['tag_1_0'],
   },
   {
     children: [{ id: delete_tree_tag_1_0_id }],
     id: delete_tree_tag_1_id,
     name: DeleteTreeData['tag_1'],
   },
-  {
-    id: delete_tree_tag_1_0_id,
-    name: DeleteTreeData['tag_1_0'],
-    parent: { id: delete_tree_tag_1_id },
-  },
 ]
-
-export const createTagsData = (): Array<ITagDto> =>
-  partialTagData
-    // add missing pieces
-    .map(({ children, id, name, parent }) => ({
-      children: children ?? [],
-      id: id ?? v4(),
-      name,
-      parent,
-    }))
