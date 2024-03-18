@@ -1,9 +1,5 @@
 import type { ITagService } from '@codelab/frontend/abstract/application'
-import type {
-  ICreateTagData,
-  ITagModel,
-  IUpdateTagData,
-} from '@codelab/frontend/abstract/domain'
+import type { ITagModel } from '@codelab/frontend/abstract/domain'
 import {
   InlineFormService,
   ModalService,
@@ -11,6 +7,10 @@ import {
 } from '@codelab/frontend/application/shared/store'
 import { TagDomainService, tagRef } from '@codelab/frontend/domain/tag'
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  ICreateTagData,
+  IUpdateTagData,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import {
   _async,

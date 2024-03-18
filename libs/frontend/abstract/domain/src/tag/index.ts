@@ -1,4 +1,3 @@
-export * from './tag.data.interface'
 export * from './tag.domain.service.context'
 export * from './tag.domain.service.interface'
 export type { TagFragment } from './tag.fragment.graphql.gen'

@@ -1,8 +1,8 @@
+import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type {
-  IPropModel,
   IUpdatePropData,
   IUpdatePropDataWithDefaultValues,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/shared/abstract/core'
 import type { IPropRepository } from './prop.repo.interface'
 
 export interface IPropService {

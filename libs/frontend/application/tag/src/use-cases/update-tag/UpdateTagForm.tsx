@@ -1,8 +1,8 @@
-import type { IUpdateTagData } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
@@ -10,7 +10,7 @@ import { updateTagSchema } from './update-tag.schema'
 
 export const UpdateTagForm = observer(() => {
   const { tagService } = useStore()
-  const tag = tagService.updateForm.tag as IUpdateTagData | undefined
+  const tag = tagService.updateForm.tag
 
   const options = tagService.tagDomainService.tagsSelectOptions.filter(
     (option) => option.value !== tag?.id,

@@ -1,5 +1,5 @@
-import type { IUpdateTagData } from '@codelab/frontend/abstract/domain'
 import { idSchema } from '@codelab/frontend/presentation/view'
+import type { IUpdateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
