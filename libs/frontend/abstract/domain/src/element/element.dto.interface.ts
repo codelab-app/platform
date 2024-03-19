@@ -7,6 +7,8 @@ import { Type } from '@sinclair/typebox'
  */
 // export const ICreateElementData = Type.Pick(IElementDto, ['atom'])
 
+export const CSS_AUTOSAVE_TIMEOUT = 1000
+
 export const IUpdateElementData = Type.Pick(IElementDto, [
   'childMapperComponent',
   'childMapperPreviousSibling',

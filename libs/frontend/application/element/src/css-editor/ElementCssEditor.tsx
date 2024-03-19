@@ -1,5 +1,8 @@
 import type { IElementService } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import {
+  CSS_AUTOSAVE_TIMEOUT,
+  type IElementModel,
+} from '@codelab/frontend/abstract/domain'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
@@ -10,8 +13,6 @@ import styled from 'styled-components'
 import { InheritedStyles } from './inherited-styles/InheritedStyles'
 import { StylesEditor } from './StylesEditor'
 import { TailwindClassEditor } from './tailwind-class-editor/TailwindClassEditor'
-
-const autosaveTimeout = 1000
 
 const Label = styled.span`
   display: inline-flex;
@@ -37,7 +38,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     const cssChangeHandler = useDebouncedCallback(
       (value: string) => element.style.setCustomCss(value),
       [element],
-      autosaveTimeout,
+      CSS_AUTOSAVE_TIMEOUT,
     )
 
     const updateElementStyles = useCallback(
@@ -69,7 +70,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     useDebouncedEffect(
       () => updateElementStyles(element),
       [element.style.toString(), element.tailwindClassNames],
-      autosaveTimeout,
+      CSS_AUTOSAVE_TIMEOUT,
     )
 
     useEffect(

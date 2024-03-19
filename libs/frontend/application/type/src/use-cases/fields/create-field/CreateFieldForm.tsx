@@ -96,7 +96,7 @@ export const CreateFieldForm = observer(
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating field',
         })}
-        // onSubmitSuccess={closeForm}
+        onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
         uiKey={MODEL_ACTION.CreateField.key}

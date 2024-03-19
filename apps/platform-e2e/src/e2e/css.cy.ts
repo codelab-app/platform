@@ -1,3 +1,4 @@
+import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
@@ -19,7 +20,7 @@ const typeIntoEditor = (css: string) => {
 
   cy.get('[role="textbox"]').first().click()
   cy.get('[role="textbox"]').first().clear()
-  cy.get('[role="textbox"]').first().type(css, { delay: 100 })
+  cy.get('[role="textbox"]').first().type(css)
 }
 
 describe('CSS CRUD', () => {
@@ -95,9 +96,12 @@ describe('CSS CRUD', () => {
 
   describe('Add GUI style', () => {
     it('should be able to add styling through GUI', () => {
-      cy.waitForApiCalls(() =>
-        cy.get('[data-test-id="gui-display"] [title="None"]').click(),
-      )
+      cy.waitForApiCalls(() => {
+        cy.get('[data-test-id="gui-display"] [title="None"]').click()
+        // Wait for the auto-save debounce timeout
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(CSS_AUTOSAVE_TIMEOUT)
+      })
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',

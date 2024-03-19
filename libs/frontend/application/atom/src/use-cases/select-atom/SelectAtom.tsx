@@ -45,7 +45,7 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
          *
          * Fetch here instead of createElement so we save some time
          */
-        return atomService.loadApi(value)
+        // return atomService.loadApi(value)
       }}
       optionFilterProp="label"
       optionLabelProp="label"
