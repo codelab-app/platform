@@ -6,24 +6,11 @@ import type {
 import {
   getRuntimeComponentService,
   getRuntimeElementService,
-  isRuntimePage,
-  isRuntimeStore,
 } from '@codelab/frontend/abstract/application'
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
-import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  isModel,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-  walkTree,
-  WalkTreeMode,
-} from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RendererApplicationService')
@@ -79,43 +66,10 @@ export class RendererApplicationService
     return renderer
   }
 
-  @modelAction
-  runtimeStore(store: IStoreModel) {
-    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
-
-    return rootNode
-      ? walkTree(
-          rootNode,
-          (child) =>
-            isModel(child) &&
-            isRuntimeStore(child) &&
-            store.id === child.store.id
-              ? child
-              : undefined,
-          WalkTreeMode.ParentFirst,
-        )
-      : undefined
-  }
-
   /**
    * This is the entry point to start the rendering process
    */
   renderRoot(renderer: IRendererModel) {
     return renderer.render
-  }
-
-  runtimePage(page: IPageModel) {
-    const rootNode = this.activeRenderer?.current.runtimeRootContainerNode
-
-    return rootNode
-      ? walkTree(
-          rootNode,
-          (child) =>
-            isModel(child) && isRuntimePage(child) && page.id === child.page.id
-              ? child
-              : undefined,
-          WalkTreeMode.ParentFirst,
-        )
-      : undefined
   }
 }

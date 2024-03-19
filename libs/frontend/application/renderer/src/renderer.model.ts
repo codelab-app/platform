@@ -121,6 +121,13 @@ export class Renderer
   }
 
   @computed
+  get runtimeContainerNode() {
+    return (
+      this.runtimePage?.childPage ?? this.runtimePage ?? this.runtimeComponent
+    )
+  }
+
+  @computed
   get runtimePage() {
     return isRuntimePage(this.runtimeRootContainerNode)
       ? this.runtimeRootContainerNode

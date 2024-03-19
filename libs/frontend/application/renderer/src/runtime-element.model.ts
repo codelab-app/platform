@@ -19,19 +19,18 @@ import {
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
-  type IComponentModel,
+  getComponentDomainService,
   type IElementModel,
   type IElementTreeViewDataNode,
   isAtom,
   isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { IRef, ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -48,6 +47,7 @@ import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from './element/ElementWrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
+import { RuntimeComponentModel } from './runtime-component.model'
 
 const compositeKey = (element: IElementModel, propKey?: string) => {
   /**
@@ -111,7 +111,13 @@ export class RuntimeElementModel
       childMapperChildren.push(runtimeComponent)
     }
 
-    this.cleanupChildMapperNodes(childMapperChildren)
+    const keyStart = RuntimeComponentModel.compositeKey(component, this.propKey)
+
+    const newKeys = childMapperChildren.map(
+      (runtimeComponent) => runtimeComponent.compositeKey,
+    )
+
+    this.cleanupChildMapperNodes(keyStart, newKeys)
 
     return childMapperChildren
   }
@@ -177,6 +183,11 @@ export class RuntimeElementModel
     children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
+  }
+
+  @computed
+  get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
@@ -314,9 +325,17 @@ export class RuntimeElementModel
         propData.kind === ITypeKind.ReactNodeType &&
         typeof propData.value === 'string'
       ) {
-        const componentRootElement = this.renderService.runtimeContainerNode({
-          id: propData.value,
-        } as IComponentModel)?.runtimeRootElement
+        const component = this.componentDomainService.component(propData.value)
+
+        const runtimeComponentKey = RuntimeComponentModel.compositeKey(
+          component,
+          key,
+        )
+
+        const runtimeComponent =
+          this.runtimeComponentService.components.get(runtimeComponentKey)
+
+        const componentRootElement = runtimeComponent?.runtimeRootElement
 
         if (componentRootElement) {
           reactNodesChildren.push({
@@ -332,27 +351,7 @@ export class RuntimeElementModel
     })
 
     const children = [
-      ...this.children.map((child) =>
-        isRuntimeContainerNode(child)
-          ? {
-              ...child.runtimeRootElement.treeViewNode,
-              ...(!isNil(child.childMapperIndex) ? { children: [] } : {}),
-              isChildMapperComponentInstance:
-                !isNil(child.childMapperIndex) &&
-                isComponent(child.containerNode.current),
-              key: `${child.runtimeRootElement.element.current.id}${
-                !isNil(child.childMapperIndex)
-                  ? `-${child.childMapperIndex}`
-                  : ''
-              }`,
-              primaryTitle: `${child.runtimeRootElement.element.current.name}${
-                !isNil(child.childMapperIndex)
-                  ? ` ${child.childMapperIndex}`
-                  : ''
-              }`,
-            }
-          : child.treeViewNode,
-      ),
+      ...this.children.map((child) => child.treeViewNode),
       ...reactNodesChildren,
     ]
 
@@ -373,19 +372,13 @@ export class RuntimeElementModel
    * @param validNodes new evaluated child mapper prop
    */
   @modelAction
-  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>) {
-    // TODO: check that we have correct components
-    const componentLists = this.runtimeComponentService.componentsList
-
-    componentLists.forEach((component) => {
+  cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>) {
+    this.runtimeComponentService.componentsList.forEach((runtimeComponent) => {
       if (
-        !isNil(component.childMapperIndex) &&
-        !validNodes.some(
-          (validNode) =>
-            validNode.childMapperIndex === component.childMapperIndex,
-        )
+        runtimeComponent.compositeKey.startsWith(keyStart) &&
+        !newKeys.includes(runtimeComponent.compositeKey)
       ) {
-        this.runtimeComponentService.delete(component)
+        this.runtimeComponentService.delete(runtimeComponent)
       }
     })
   }

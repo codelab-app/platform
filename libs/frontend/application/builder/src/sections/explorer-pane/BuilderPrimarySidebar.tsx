@@ -64,11 +64,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const { component } = useCurrentComponent()
     const containerNode = page ?? component
     const store = containerNode?.store.current
-
-    const runtimeContainerNode = containerNode
-      ? rendererService.runtimeContainerNode(containerNode)
-      : undefined
-
+    const renderer = rendererService.activeRenderer?.current
+    const runtimeContainerNode = renderer?.runtimeContainerNode
+    const runtimeStore = runtimeContainerNode?.runtimeStore
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
     const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
 

@@ -1,6 +1,7 @@
 import type {
   IComponentModel,
   IElementModel,
+  IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
@@ -39,6 +40,6 @@ export interface IRuntimeComponentModel extends AnyModel {
   runtimeProps: IRuntimeComponentPropModel
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel
-
+  treeViewNode: IElementTreeViewDataNode
   setChildMapperIndex(index: number): void
 }
