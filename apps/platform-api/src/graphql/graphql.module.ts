@@ -41,7 +41,7 @@ import { endpointConfig } from './endpoint.config'
 
             return { req, res, token } as GqlContext
           },
-          cors: false,
+          cors: true,
           debug: true,
           formatError: (formattedError: GraphQLFormattedError) => {
             // console.error(formattedError)

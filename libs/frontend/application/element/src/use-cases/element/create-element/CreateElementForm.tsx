@@ -43,7 +43,7 @@ export const CreateElementForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateElementFormProps) => {
-    const { atomService, elementService, userService } = useStore()
+    const { elementService, userService } = useStore()
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
     const { validateParentForCreate } = useRequiredParentValidator()
@@ -74,7 +74,11 @@ export const CreateElementForm = observer(
       return Promise.resolve()
     }
 
-    const closeForm = () => elementService.createForm.close()
+    const closeForm = () => {
+      console.log('on submit success!')
+
+      return elementService.createForm.close()
+    }
 
     const model = {
       id: v4(),
