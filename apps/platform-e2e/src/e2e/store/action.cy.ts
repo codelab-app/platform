@@ -19,13 +19,14 @@ describe('Action CRUD', () => {
       .as('cypressApp')
 
     cy.get('@cypressApp').then(() => {
-      cy.visit(
-        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-          IPageKindName.Provider,
-        )}/builder`,
+      cy.waitForApiCalls(() =>
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder`,
+        ),
       )
 
-      cy.waitForApiCalls()
       cy.waitForSpinners()
     })
   })

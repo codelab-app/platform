@@ -24,7 +24,7 @@ steps:
         --fingerprint
 
         sudo apt update
-        sudo apt install terraform=1.6.3-*
+        sudo apt install terraform=1.6.3
 
   # - save_cache:
   #     name: 'Save Terraform Cache'

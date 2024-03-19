@@ -70,19 +70,19 @@ describe('State variables sharing between pages', () => {
       force: true,
     })
 
-    cy.typeIntoTextEditor(
-      'text {{ componentProps.name ?? rootState.name ?? state.name }}',
+    cy.waitForApiCalls(() =>
+      cy.typeIntoTextEditor(
+        'text {{ componentProps.name ?? rootState.name ?? state.name }}',
+      ),
     )
-
-    cy.waitForApiCalls()
 
     cy.openPreview().contains('text undefined').should('exist')
     cy.openBuilder()
 
-    // create a state variable inside the component
-    cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
-
-    cy.waitForApiCalls()
+    cy.waitForApiCalls(() =>
+      // create a state variable inside the component
+      cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click(),
+    )
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -168,12 +168,13 @@ describe('State variables sharing between pages', () => {
    * Originally had this spec to use provider state, but component data should be bound and passed in, as opposed to accessing global state.
    */
   it('should use component state and not use provider state', () => {
-    // go to the regular page
-    cy.visit(
-      '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
+    cy.waitForApiCalls(() =>
+      // go to the regular page
+      // wait for GetRenderedPageAndCommonAppData
+      cy.visit(
+        '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
+      ),
     )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
     cy.waitForSpinners()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })

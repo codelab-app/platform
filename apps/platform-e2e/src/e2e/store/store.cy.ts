@@ -28,22 +28,26 @@ describe('Store field CRUD', () => {
       .as('cypressResource')
 
     cy.get('@cypressResource').then(() => {
-      cy.visit(
-        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-          IPageKindName.Provider,
-        )}/builder`,
+      cy.waitForApiCalls(() =>
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder`,
+        ),
       )
 
-      cy.waitForApiCalls()
       cy.waitForSpinners()
     })
   })
 
   it('should be able to create state variable', () => {
     cy.getCuiSidebarViewHeader('State').click()
-    cy.getCuiSidebarViewHeader('State')
-      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
-      .click()
+    cy.waitForApiCalls(() =>
+      cy
+        .getCuiSidebarViewHeader('State')
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+        .click(),
+    )
 
     cy.setFormFieldValue({ label: 'Key', value: stateVarName })
     cy.setFormFieldValue({ label: 'Name', value: stateVarName })

@@ -1,18 +1,12 @@
 import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
-import {
-  graphqlRequest,
-  interceptGraphQL,
-  waitForApiCalls,
-} from './graphql.commands'
+import { graphqlRequest, waitForApiCalls } from './graphql.commands'
 
 export interface GraphQLCommands {
   graphqlRequest: typeof graphqlRequest
-  interceptGraphQL: typeof interceptGraphQL
   waitForApiCalls: typeof waitForApiCalls
 }
 
 export const graphQLCommands: Array<CypressCommand> = [
-  { fn: interceptGraphQL },
   { fn: graphqlRequest },
   { fn: waitForApiCalls },
 ]

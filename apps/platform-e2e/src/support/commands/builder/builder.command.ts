@@ -22,7 +22,6 @@ export const createElementTree = (
           .should('not.be.visible')
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-          .first()
           .click()
 
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
@@ -58,6 +57,7 @@ export const createElementTree = (
             // atom is set) because it would override the name otherwise
             cy.get('input').should('not.have.value', '')
           })
+
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Name',
           type: FIELD_TYPE.INPUT,
@@ -66,18 +66,13 @@ export const createElementTree = (
 
         cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-          .click()
+          .click({ force: true })
 
-        cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
-          timeout: 10000,
-        })
-
-        if (customTextInjectionWhiteList.includes(atom)) {
-          // editorjs fails internally without this, maybe some kind of initialization
-          // fails mostly on elements that can have text editor like typography text
-          // eslint-disable-next-line cypress/no-unnecessary-waiting
-          // cy.wait(2000)
-        }
+        cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+          // .getCuiForm(MODEL_ACTION.CreateElement.key)
+          .should('not.exist', {
+            timeout: 15000,
+          })
 
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiTreeItemByPrimaryTitle(name)
@@ -92,11 +87,12 @@ export const openPreview = () => {
     name: 'open preview',
   })
 
-  cy.getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
-    .find('button')
-    .click()
-
-  cy.waitForApiCalls()
+  cy.waitForApiCalls(() =>
+    cy
+      .getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
+      .find('button')
+      .click(),
+  )
 
   cy.getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
     .find('button')

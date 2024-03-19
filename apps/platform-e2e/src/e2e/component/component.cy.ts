@@ -36,32 +36,35 @@ describe('Component CRUD', () => {
       )
     })
     it('should be able to add a new component', () => {
-      cy.visit(
-        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-          PAGE_NAME,
-        )}/builder?primarySidebarKey=components`,
+      cy.waitForApiCalls(
+        () =>
+          cy.visit(
+            `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+              PAGE_NAME,
+            )}/builder?primarySidebarKey=components`,
+          ),
+        // GetRenderedPageAndCommonAppData
       )
-      // GetRenderedPageAndCommonAppData
-      cy.waitForApiCalls()
-      cy.waitForSpinners()
-
-      // GetAtoms
-      // GetComponents
-      cy.waitForApiCalls()
       cy.waitForSpinners()
 
       cy.log('my app', prettifyForConsole(testApp))
+
       cy.getCuiSidebar(MODEL_UI.SidebarComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
+
       cy.getCuiForm(MODEL_ACTION.CreateComponent.key)
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
+
       cy.intercept('POST', 'api/graphql').as('createComponent')
+
       cy.getCuiPopover(MODEL_ACTION.CreateComponent.key)
         .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
         .click()
+
       cy.wait('@createComponent')
+
       cy.getCuiForm(MODEL_ACTION.CreateComponent.key).should('not.exist', {
         timeout: 10000,
       })
@@ -133,25 +136,21 @@ describe('Component CRUD', () => {
         cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
       })
 
-      cy.typeIntoTextEditor(COMPONENT_CHILD_TEXT)
-
-      cy.waitForApiCalls()
+      cy.waitForApiCalls(() => cy.typeIntoTextEditor(COMPONENT_CHILD_TEXT))
 
       cy.openPreview().contains('text undefined').should('exist')
     })
 
     it('should be able to specify where to render component children', () => {
-      cy.visit(
-        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-          PAGE_NAME,
-        )}/builder?primarySidebarKey=components`,
-      )
       // GetRenderedPageAndCommonAppData
-      cy.waitForApiCalls()
-      cy.waitForSpinners()
+      cy.waitForApiCalls(() =>
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            PAGE_NAME,
+          )}/builder?primarySidebarKey=components`,
+        ),
+      )
 
-      // GetAtoms
-      cy.waitForApiCalls()
       cy.waitForSpinners()
 
       cy.findByText(COMPONENT_NAME).click({ force: true })

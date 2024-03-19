@@ -102,8 +102,6 @@ describe('CSS CRUD', () => {
         'display',
         display,
       )
-
-      cy.waitForApiCalls()
     })
   })
 

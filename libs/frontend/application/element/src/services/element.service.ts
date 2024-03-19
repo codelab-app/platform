@@ -69,7 +69,6 @@ export class ElementService
     currentStylePseudoClass: prop(
       () => ElementStylePseudoClass.None,
     ).withSetter(),
-    // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
     elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),

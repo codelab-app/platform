@@ -99,12 +99,13 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.SELECT,
       value: providerPageRowSecondChild.name,
     })
-    cy.get('.ant-collapse').setFormFieldValue({
-      type: FIELD_TYPE.CODE_MIRROR,
-      value: '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
-    })
 
-    cy.waitForApiCalls()
+    cy.waitForApiCalls(() =>
+      cy.get('.ant-collapse').setFormFieldValue({
+        type: FIELD_TYPE.CODE_MIRROR,
+        value: '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
+      }),
+    )
 
     // changed props
     cy.openPreview()
@@ -130,12 +131,12 @@ describe('Element Child Mapper', () => {
   it('should not render instances when the prop arrary is empty', () => {
     cy.findAllByText(providerPageRowElement.name).first().click()
 
-    cy.get('.ant-collapse').setFormFieldValue({
-      type: FIELD_TYPE.CODE_MIRROR,
-      value: '{{[]}}',
-    })
-
-    cy.waitForApiCalls()
+    cy.waitForApiCalls(() =>
+      cy.get('.ant-collapse').setFormFieldValue({
+        type: FIELD_TYPE.CODE_MIRROR,
+        value: '{{[]}}',
+      }),
+    )
 
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
@@ -150,12 +151,12 @@ describe('Element Child Mapper', () => {
   it('should not render instances when the prop is not an array', () => {
     cy.findAllByText(providerPageRowElement.name).first().click()
 
-    cy.get('.ant-collapse').setFormFieldValue({
-      type: FIELD_TYPE.CODE_MIRROR,
-      value: '{{false}}',
-    })
-
-    cy.waitForApiCalls()
+    cy.waitForApiCalls(() =>
+      cy.get('.ant-collapse').setFormFieldValue({
+        type: FIELD_TYPE.CODE_MIRROR,
+        value: '{{false}}',
+      }),
+    )
 
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
