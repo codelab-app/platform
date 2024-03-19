@@ -35,16 +35,18 @@ describe('Store field CRUD', () => {
           )}/builder`,
         ),
       )
-
-      cy.waitForSpinners()
     })
   })
 
   it('should be able to create state variable', () => {
+    cy.waitForSpinners()
+
     cy.getCuiSidebarViewHeader('State').click()
     cy.getCuiSidebarViewHeader('State')
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
+
+    cy.getCuiForm(MODEL_ACTION.CreateField.key).should('be.visible')
 
     cy.setFormFieldValue({ label: 'Key', value: stateVarName })
     cy.setFormFieldValue({ label: 'Name', value: stateVarName })

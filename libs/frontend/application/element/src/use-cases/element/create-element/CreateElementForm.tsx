@@ -68,15 +68,12 @@ export const CreateElementForm = observer(
 
       await elementService.createElement(data)
 
-      closeForm()
       onSubmitSuccess?.()
 
       return Promise.resolve()
     }
 
     const closeForm = () => {
-      console.log('on submit success!')
-
       return elementService.createForm.close()
     }
 

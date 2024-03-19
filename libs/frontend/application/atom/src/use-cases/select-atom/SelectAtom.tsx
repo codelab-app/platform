@@ -40,7 +40,12 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
         }
       }}
       onSelect={(value, option) => {
-        //
+        /**
+         * Api will be used in subsequent steps such as the `ElementTreeItemElementTitle` for field validation.
+         *
+         * Fetch here instead of createElement so we save some time
+         */
+        return atomService.loadApi(value)
       }}
       optionFilterProp="label"
       optionLabelProp="label"

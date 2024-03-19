@@ -140,7 +140,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               icon: <PlusOutlined />,
               onClick: () => {
                 if (!store) {
-                  return
+                  throw new Error('store is missing')
                 }
 
                 const form = fieldService.createForm

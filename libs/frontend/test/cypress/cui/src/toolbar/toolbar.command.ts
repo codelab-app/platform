@@ -14,6 +14,6 @@ export const getCuiToolbarItem = (
   return subject
     ? cy
         .wrap(subject, { log: false })
-        .find(CY_DATA.cuiToolbarItem(key).cySelector, { log: false })
-    : cy.get(CY_DATA.cuiToolbarItem(key).cySelector, { log: false })
+        .find(CY_DATA.cuiToolbarItem(key).cySelector, { log: true })
+    : cy.get(CY_DATA.cuiToolbarItem(key).cySelector, { log: true })
 }
