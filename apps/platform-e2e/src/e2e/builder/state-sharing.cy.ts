@@ -1,5 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
@@ -70,19 +71,16 @@ describe('State variables sharing between pages', () => {
       force: true,
     })
 
-    cy.waitForApiCalls(() =>
-      cy.typeIntoTextEditor(
-        'text {{ componentProps.name ?? rootState.name ?? state.name }}',
-      ),
+    cy.typeIntoTextEditor(
+      'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
-
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
     cy.openPreview().contains('text undefined').should('exist')
     cy.openBuilder()
 
-    cy.waitForApiCalls(() =>
-      // create a state variable inside the component
-      cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click(),
-    )
+    // create a state variable inside the component
+    cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -168,14 +166,12 @@ describe('State variables sharing between pages', () => {
    * Originally had this spec to use provider state, but component data should be bound and passed in, as opposed to accessing global state.
    */
   it('should use component state and not use provider state', () => {
-    cy.waitForApiCalls(() =>
-      // go to the regular page
-      // wait for GetRenderedPageAndCommonAppData
-      cy.visit(
-        '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
-      ),
+    // go to the regular page
+    // wait for GetRenderedPageAndCommonAppData
+    cy.visit(
+      '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
     )
-    cy.waitForSpinners()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 

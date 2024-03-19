@@ -1,4 +1,5 @@
 import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
@@ -27,11 +28,10 @@ describe('CSS CRUD', () => {
   let app: IAppDto
 
   before(() => {
-    cy.waitForApiCalls(() => {
-      cy.postApiRequest<App>('/app/seed-cypress-app').then(
-        ({ body }) => (app = body),
-      )
-    })
+    cy.postApiRequest<App>('/app/seed-cypress-app').then(
+      ({ body }) => (app = body),
+    )
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
   })
 
   describe('Add css string', () => {
@@ -50,9 +50,8 @@ describe('CSS CRUD', () => {
         },
       ])
 
-      cy.waitForApiCalls(() =>
-        typeIntoEditor(createBackgroundColorStyle(backgroundColor1)),
-      )
+      typeIntoEditor(createBackgroundColorStyle(backgroundColor1))
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -64,9 +63,8 @@ describe('CSS CRUD', () => {
 
   describe('Update css string', () => {
     it('should be able to update styling through css string', () => {
-      cy.waitForApiCalls(() =>
-        typeIntoEditor(createBackgroundColorStyle(backgroundColor2)),
-      )
+      typeIntoEditor(createBackgroundColorStyle(backgroundColor2))
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -78,7 +76,8 @@ describe('CSS CRUD', () => {
 
   describe('Remove css string', () => {
     it('should be able to remove the css string', () => {
-      cy.waitForApiCalls(() => typeIntoEditor(' '))
+      typeIntoEditor(' ')
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'not.have.css',
@@ -96,12 +95,11 @@ describe('CSS CRUD', () => {
 
   describe('Add GUI style', () => {
     it('should be able to add styling through GUI', () => {
-      cy.waitForApiCalls(() => {
-        cy.get('[data-test-id="gui-display"] [title="None"]').click()
-        // Wait for the auto-save debounce timeout
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(CSS_AUTOSAVE_TIMEOUT)
-      })
+      cy.get('[data-test-id="gui-display"] [title="None"]').click()
+      // Wait for the auto-save debounce timeout
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(CSS_AUTOSAVE_TIMEOUT)
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -115,10 +113,8 @@ describe('CSS CRUD', () => {
     it('should persist styles after reload', () => {
       cy.reload()
 
-      cy.waitForApiCalls(() => {
-        cy.waitForSpinners()
-        cy.findByText(elementName).click()
-      })
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+      cy.findByText(elementName).click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',

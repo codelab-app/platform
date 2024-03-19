@@ -13,6 +13,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
+import 'cypress-network-idle'
 import { antCommands } from '@codelab/frontend/test/cypress/antd'
 import { auth0Commands } from '@codelab/frontend/test/cypress/auth0'
 import { codelabCommands } from '@codelab/frontend/test/cypress/cui'

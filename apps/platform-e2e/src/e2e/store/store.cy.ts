@@ -1,5 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
@@ -28,20 +29,23 @@ describe('Store field CRUD', () => {
       .as('cypressResource')
 
     cy.get('@cypressResource').then(() => {
-      cy.waitForApiCalls(() =>
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        ),
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          IPageKindName.Provider,
+        )}/builder`,
       )
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+      cy.waitForSpinners()
     })
   })
 
   it('should be able to create state variable', () => {
-    cy.waitForSpinners()
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .should('not.be.disabled')
 
     cy.getCuiSidebarViewHeader('State').click()
+
     cy.getCuiSidebarViewHeader('State')
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
@@ -56,12 +60,10 @@ describe('Store field CRUD', () => {
       value: IPrimitiveTypeKind.Integer,
     })
 
-    cy.waitForApiCalls(() =>
-      cy
-        .getCuiPopover(MODEL_ACTION.CreateField.key)
-        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
-        .click(),
-    )
+    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getCuiSidebarViewContent('State')
       .findByText(stateVarName)
@@ -85,12 +87,10 @@ describe('Store field CRUD', () => {
       value: updatedStateVarName,
     })
 
-    cy.waitForApiCalls(() =>
-      cy
-        .getCuiPopover(MODEL_ACTION.UpdateField.key)
-        .getCuiToolbarItem(MODEL_ACTION.UpdateField.key)
-        .click(),
-    )
+    cy.getCuiPopover(MODEL_ACTION.UpdateField.key)
+      .getCuiToolbarItem(MODEL_ACTION.UpdateField.key)
+      .click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getCuiSidebarViewContent('State')
       .findByText(new RegExp(/`^${stateVarName}`$/))
@@ -107,7 +107,8 @@ describe('Store field CRUD', () => {
       .getCuiToolbarItem(MODEL_ACTION.DeleteField.key)
       .click()
 
-    cy.waitForApiCalls(() => cy.getModal().getModalAction('Delete').click())
+    cy.getModal().getModalAction('Delete').click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getModal().should('not.exist')
 

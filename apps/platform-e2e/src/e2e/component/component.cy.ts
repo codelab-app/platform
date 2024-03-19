@@ -1,5 +1,6 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type {
   IAppDto,
@@ -30,16 +31,15 @@ describe('Component CRUD', () => {
         .then(({ body }) => (app = body))
         .as('cypressComponent')
 
-      cy.get('@cypressComponent').then(() =>
-        cy.waitForApiCalls(() =>
-          // GetRenderedPageAndCommonAppData
-          cy.visit(
-            `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-              PAGE_NAME,
-            )}/builder?primarySidebarKey=components`,
-          ),
-        ),
-      )
+      cy.get('@cypressComponent').then(() => {
+        // GetRenderedPageAndCommonAppData
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            PAGE_NAME,
+          )}/builder?primarySidebarKey=components`,
+        )
+        cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+      })
     })
 
     it('should be able to add a new component', () => {
@@ -53,12 +53,10 @@ describe('Component CRUD', () => {
         .findByLabelText('Name')
         .type(createComponentData.name)
 
-      cy.waitForApiCalls(() =>
-        cy
-          .getCuiPopover(MODEL_ACTION.CreateComponent.key)
-          .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
-          .click(),
-      )
+      cy.getCuiPopover(MODEL_ACTION.CreateComponent.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateComponent.key)
+        .click()
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.getCuiForm(MODEL_ACTION.CreateComponent.key).should('not.exist', {
         timeout: 10000,
@@ -95,12 +93,10 @@ describe('Component CRUD', () => {
         value: true,
       })
 
-      cy.waitForApiCalls(() =>
-        cy
-          .getModal()
-          .getModalAction(/Create/)
-          .click(),
-      )
+      cy.getModal()
+        .getModalAction(/Create/)
+        .click()
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.getModal().should('not.exist', { timeout: 10000 })
     })
@@ -108,22 +104,20 @@ describe('Component CRUD', () => {
     it('should be able to add elements to the component', () => {
       cy.createElementTree(componentElements)
 
-      cy.waitForApiCalls(() => cy.typeIntoTextEditor(COMPONENT_CHILD_TEXT))
+      cy.typeIntoTextEditor(COMPONENT_CHILD_TEXT)
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.openPreview().contains('text undefined').should('exist')
     })
 
     it('should be able to specify where to render component children', () => {
       // GetRenderedPageAndCommonAppData
-      cy.waitForApiCalls(() =>
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            PAGE_NAME,
-          )}/builder?primarySidebarKey=components`,
-        ),
+      cy.visit(
+        `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+          PAGE_NAME,
+        )}/builder?primarySidebarKey=components`,
       )
-
-      cy.waitForSpinners()
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.findByText(createComponentData.name).click({ force: true })
       cy.get('.ant-tabs [aria-label="node-index"]').click()

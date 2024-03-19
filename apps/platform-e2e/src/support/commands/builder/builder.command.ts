@@ -1,6 +1,7 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
@@ -64,12 +65,10 @@ export const createElementTree = (
           value: name,
         })
 
-        cy.waitForApiCalls(() =>
-          cy
-            .getCuiPopover(MODEL_ACTION.CreateElement.key)
-            .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-            .click({ force: true }),
-        )
+        cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
+          .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
+          .click({ force: true })
+        cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
           timeout: 15000,
@@ -88,12 +87,10 @@ export const openPreview = () => {
     name: 'open preview',
   })
 
-  cy.waitForApiCalls(() =>
-    cy
-      .getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
-      .find('button')
-      .click(),
-  )
+  cy.getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
+    .find('button')
+    .click()
+  cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
   cy.getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
     .find('button')

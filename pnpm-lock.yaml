@@ -798,6 +798,9 @@ devDependencies:
   cypress-multi-reporters:
     specifier: 1.6.3
     version: 1.6.3(mocha@10.3.0)
+  cypress-network-idle:
+    specifier: ^1.14.2
+    version: 1.14.2
   cypress-terminal-report:
     specifier: 6.0.1
     version: 6.0.1(cypress@13.7.0)
@@ -13909,6 +13912,10 @@ packages:
       mocha: 10.3.0
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /cypress-network-idle@1.14.2:
+    resolution: {integrity: sha512-xAdR8dH58KFPv8eCDWjviScITrJOcUpuMXYfYTc175nk2/NvnJ+I6ylSn1CM7yZmoV/gLbFa36QLiH5NfNEaLQ==}
     dev: true
 
   /cypress-terminal-report@6.0.1(cypress@13.7.0):
