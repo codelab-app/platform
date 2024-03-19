@@ -108,13 +108,8 @@ describe('CSS CRUD', () => {
   describe('Css and GUI style persistance', () => {
     it('should persist styles after reload', () => {
       cy.reload()
-      cy.waitForSpinners()
 
-      // wait for multiple api calls that could occur
-      // this is the simplest way for now
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      // cy.wait(1000)
-      cy.findByText(elementName).click()
+      cy.waitForApiCalls(() => cy.findByText(elementName).click())
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',

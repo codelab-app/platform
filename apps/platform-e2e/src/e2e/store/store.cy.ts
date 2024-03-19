@@ -42,12 +42,9 @@ describe('Store field CRUD', () => {
 
   it('should be able to create state variable', () => {
     cy.getCuiSidebarViewHeader('State').click()
-    cy.waitForApiCalls(() =>
-      cy
-        .getCuiSidebarViewHeader('State')
-        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
-        .click(),
-    )
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .click()
 
     cy.setFormFieldValue({ label: 'Key', value: stateVarName })
     cy.setFormFieldValue({ label: 'Name', value: stateVarName })
@@ -56,9 +53,14 @@ describe('Store field CRUD', () => {
       type: FIELD_TYPE.SELECT,
       value: IPrimitiveTypeKind.Integer,
     })
-    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
-      .click()
+
+    cy.waitForApiCalls(() =>
+      cy
+        .getCuiPopover(MODEL_ACTION.CreateField.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+        .click(),
+    )
+
     cy.getCuiSidebarViewContent('State')
       .findByText(stateVarName)
       .should('exist')
