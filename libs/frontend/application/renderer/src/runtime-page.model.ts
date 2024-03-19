@@ -9,6 +9,7 @@ import {
   runtimeStoreRef,
 } from '@codelab/frontend/abstract/application'
 import {
+  IElementTreeViewDataNode,
   type IPageModel,
   pageRef,
   storeRef,
@@ -90,5 +91,14 @@ export class RuntimePageModel
     const rootElement = this.page.current.rootElement.current
 
     return this.runtimeElementService.add(rootElement, this)
+  }
+
+  @computed
+  get treeViewNode(): IElementTreeViewDataNode {
+    return {
+      ...this.runtimeRootElement.treeViewNode,
+      key: this.runtimeRootElement.element.current.id,
+      primaryTitle: this.runtimeRootElement.element.current.name,
+    }
   }
 }

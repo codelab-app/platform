@@ -1,4 +1,7 @@
-import type { IPageModel } from '@codelab/frontend/abstract/domain'
+import type {
+  IElementTreeViewDataNode,
+  IPageModel,
+} from '@codelab/frontend/abstract/domain'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
