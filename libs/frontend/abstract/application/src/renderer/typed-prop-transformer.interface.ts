@@ -6,9 +6,5 @@ import type { IRuntimeModel } from './runtime.model.interface'
  * Transforms a typed prop to a specific value
  */
 export interface ITypedPropTransformer extends IBaseRenderPipe {
-  transform(
-    prop: TypedProp,
-    key: number | string,
-    runtimeNode: IRuntimeModel,
-  ): unknown
+  transform(prop: TypedProp, key: string, runtimeNode: IRuntimeModel): unknown
 }

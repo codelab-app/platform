@@ -126,7 +126,11 @@ export class RuntimeComponentPropModel
         return value.value
       }
 
-      return transformer.transform(value, key, this.runtimeComponent.current)
+      return transformer.transform(
+        value,
+        key.toString(),
+        this.runtimeComponent.current,
+      )
     })
   }
 
