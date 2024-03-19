@@ -4,7 +4,7 @@ import type {
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
@@ -30,6 +30,7 @@ export interface IRendererModel {
   renderPipe: IRenderPipe
   rendererType: RendererType
   runtimeComponent?: IRuntimeComponentModel
+  runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
   runtimePage?: IRuntimePageModel
   runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>

@@ -16,12 +16,14 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
+  IElementTreeViewDataNode,
   isComponent,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectKey } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
@@ -47,7 +49,8 @@ const compositeKey = (
     parentNode = parentNode.instanceElement.current.closestContainerNode
   }
 
-  return `runtime.${component.id}${instanceKeyToRoot}${childMapperIndex}${propKey}`
+  // leave childMapperIndex the last to use keyStart for comparison
+  return `runtime.${component.id}${instanceKeyToRoot}${propKey}${childMapperIndex}`
 }
 
 const create = (dto: IRuntimeComponentDTO) =>
@@ -95,5 +98,20 @@ export class RuntimeComponentModel
     const rootElement = this.component.current.rootElement.current
 
     return this.runtimeElementService.add(rootElement, this)
+  }
+
+  @computed
+  get treeViewNode(): IElementTreeViewDataNode {
+    return {
+      ...this.runtimeRootElement.treeViewNode,
+      ...(!isNil(this.childMapperIndex) ? { children: [] } : {}),
+      isChildMapperComponentInstance: !isNil(this.childMapperIndex),
+      key: `${this.runtimeRootElement.element.current.id}${
+        !isNil(this.childMapperIndex) ? `-${this.childMapperIndex}` : ''
+      }`,
+      primaryTitle: `${this.runtimeRootElement.element.current.name}${
+        !isNil(this.childMapperIndex) ? ` ${this.childMapperIndex}` : ''
+      }`,
+    }
   }
 }

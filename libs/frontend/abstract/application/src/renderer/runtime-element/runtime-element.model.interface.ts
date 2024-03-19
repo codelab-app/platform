@@ -1,8 +1,7 @@
 import type {
-  IComponentModel,
   IElementModel,
+  IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'
-import type { IRef } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
@@ -41,7 +40,6 @@ export interface IRuntimeElementModel extends AnyModel {
   propKey?: string
   render: Nullable<ReactElement>
   renderChildren: ArrayOrSingle<ReactNode>
-
   /**
    * Runtime version of IElementModel.prop
    * serves props transformations and evaluation
@@ -55,17 +53,9 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
+  treeViewNode: IElementTreeViewDataNode
 
-  addComponent(
-    node: IComponentModel,
-    runtimeParent: IRef,
-    children?: Array<Ref<IElementModel>>,
-    childMapperIndex?: number,
-    isTypedProp?: boolean,
-  ): IRuntimeComponentModel
-  addElement(node: IElementModel): IRuntimeElementModel
-
-  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>): void
+  cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>): void
   runPostRenderAction(): void
   runPreRenderAction(): void
   setPostRenderActionDone(value: boolean): void
