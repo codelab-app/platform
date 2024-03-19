@@ -111,7 +111,7 @@ export class RuntimeComponentPropModel
    */
   @computed
   get renderedTypedProps() {
-    return mapDeep(this.props, (value) => {
+    return mapDeep(this.props, (value, key) => {
       if (!isTypedProp(value)) {
         return value
       }
@@ -126,7 +126,7 @@ export class RuntimeComponentPropModel
         return value.value
       }
 
-      return transformer.transform(value, this.runtimeComponent.current)
+      return transformer.transform(value, key, this.runtimeComponent.current)
     })
   }
 
