@@ -26,9 +26,11 @@ describe('CSS CRUD', () => {
   let app: IAppDto
 
   before(() => {
-    cy.postApiRequest<App>('/app/seed-cypress-app').then(
-      ({ body }) => (app = body),
-    )
+    cy.waitForApiCalls(() => {
+      cy.postApiRequest<App>('/app/seed-cypress-app').then(
+        ({ body }) => (app = body),
+      )
+    })
   })
 
   describe('Add css string', () => {
