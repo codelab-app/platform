@@ -6,6 +6,7 @@ import {
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
+import { hiveApollo } from '@graphql-hive/client'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
@@ -57,7 +58,15 @@ import { endpointConfig } from './endpoint.config'
           introspection: true,
           path: 'api/graphql',
           playground: false,
-          plugins: [ApolloServerPluginLandingPageLocalDefault()],
+          plugins: [
+            ApolloServerPluginLandingPageLocalDefault(),
+            // hiveApollo({
+            //   debug: true,
+            //   enabled: true,
+            //   token: '',
+            //   usage: true,
+            // }),
+          ],
           schema: graphqlSchema,
         }
       },

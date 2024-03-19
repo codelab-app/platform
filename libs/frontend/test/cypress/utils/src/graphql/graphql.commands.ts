@@ -11,7 +11,7 @@ export const waitForApiCalls = (
 
   callback()
 
-  cy.wait('@graphqlQueries', { timeout: 15000, ...options })
+  cy.wait('@graphqlQueries', { ...options })
 }
 
 export const DefaultGraphQLRequestID = 'GraphqlRequest'
