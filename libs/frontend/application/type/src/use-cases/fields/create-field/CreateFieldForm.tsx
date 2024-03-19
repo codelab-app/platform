@@ -48,7 +48,7 @@ export const CreateFieldForm = observer(
     const closeForm = () => fieldService.createForm.close()
     const interfaceTypeId = fieldService.createForm.interface?.id
 
-    const onSubmit = async (input: ICreateFieldData) => {
+    const onSubmit = (input: ICreateFieldData) => {
       if (!interfaceTypeId) {
         throw new Error('Missing interface type id')
       }
@@ -58,9 +58,10 @@ export const CreateFieldForm = observer(
         typeService.primitiveKind(input.fieldType),
       )
 
-      await fieldService.create({ ...input, validationRules })
+      void fieldService.create({ ...input, validationRules })
 
-      await onSubmitSuccess?.()
+      onSubmitSuccess?.()
+      closeForm()
 
       return Promise.resolve()
     }
@@ -95,7 +96,7 @@ export const CreateFieldForm = observer(
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating field',
         })}
-        onSubmitSuccess={closeForm}
+        // onSubmitSuccess={closeForm}
         schema={fieldSchema}
         submitRef={submitRef}
         uiKey={MODEL_ACTION.CreateField.key}

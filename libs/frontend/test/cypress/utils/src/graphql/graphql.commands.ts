@@ -1,4 +1,5 @@
 import type { CyHttpMessages, WaitOptions } from 'cypress/types/net-stubbing'
+import { v4 } from 'uuid'
 
 export const waitForApiCalls = (
   callback: () => Cypress.Chainable | void,
@@ -7,11 +8,14 @@ export const waitForApiCalls = (
   Cypress.log({
     name: 'wait for api calls',
   })
-  cy.intercept('/api/*').as('graphqlQueries')
+
+  const queryName = `graphqlQueries-${v4()}`
+
+  cy.intercept('/api/*').as(queryName)
 
   callback()
 
-  cy.wait('@graphqlQueries', { ...options })
+  cy.wait(`@${queryName}`, { ...options })
 }
 
 export const DefaultGraphQLRequestID = 'GraphqlRequest'
