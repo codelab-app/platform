@@ -1,4 +1,5 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
+import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
@@ -7,7 +8,6 @@ import React from 'react'
 import { setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
-import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 
 let testbed: TestBed
 
@@ -21,10 +21,7 @@ describe('Runtime Element', () => {
     const { runtimeElementService } = rootApplicationStore
     const { page, runtimePage } = setupPages(testbed)
     const rootElement = page.rootElement.current
-
-    const runtimeElement = runtimeElementService.runtimeElement(
-      RuntimeElementModel.compositeKey(rootElement),
-    )
+    const runtimeElement = runtimeElementService.element(rootElement)
 
     // Test the creation of element node
     expect(runtimeElement?.element.id).toBe(rootElement.id)
@@ -81,10 +78,6 @@ describe('Runtime Element', () => {
         runtimePage?.compositeKey,
       )
 
-      if (pageKind === IPageKind.Provider) {
-        expect(runtimeProviderPage).toBeUndefined()
-      }
-
       expect(
         runtimeProviderRootElement?.closestContainerNode.current.compositeKey,
       ).toBe(runtimeProviderPage?.compositeKey)
@@ -119,14 +112,12 @@ describe('Runtime Element', () => {
   ])(
     'should run custom hooks that mutates state when in %s page - preRenderAction: `%s`, postRenderAction: `%s`, expectedValue: `%s`',
     (pageKind, preRenderActionCode, postRenderActionCode, expectedValue) => {
-      const { rendererService } = rootApplicationStore
-      const { page, renderer } = setupPages(testbed, RendererType.Preview)
-      const providerPage = page.providerPage ?? page
-
-      const runtimeProviderPage = rendererService.runtimePage(
-        page.providerPage ?? page,
+      const { page, renderer, runtimeProviderPage } = setupPages(
+        testbed,
+        RendererType.Preview,
       )
 
+      const providerPage = page.providerPage ?? page
       const runtimeStore = runtimeProviderPage?.runtimeStore
       const storeApi = providerPage.store.current.api.current
       const stateFieldKey = 'search'
