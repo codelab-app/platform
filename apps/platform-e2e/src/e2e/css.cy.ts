@@ -7,17 +7,19 @@ import { slugify } from '@codelab/shared/utils'
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
 const backgroundColor2 = 'rgb(182, 99, 48)'
-const display = 'none'
+const displayNone = 'none'
 const elementName = `Element ${ELEMENT_BUTTON}`
 
 const createBackgroundColorStyle = (backgroundColorValue: string) =>
   `background-color: ${backgroundColorValue};`
 
-const clickEditor = () => {
+const typeIntoEditor = (css: string) => {
   cy.get('[aria-label="format-painter"]').click()
   cy.waitForSpinners()
 
-  return cy.get('[role="textbox"]').first().click()
+  cy.get('[role="textbox"]').first().click()
+  cy.get('[role="textbox"]').first().clear()
+  cy.get('[role="textbox"]').first().type(css, { delay: 100 })
 }
 
 describe('CSS CRUD', () => {
@@ -45,11 +47,9 @@ describe('CSS CRUD', () => {
         },
       ])
 
-      cy.waitForSpinners()
-
-      clickEditor()
-        .clear()
-        .type(createBackgroundColorStyle(backgroundColor1), { delay: 100 })
+      cy.waitForApiCalls(() =>
+        typeIntoEditor(createBackgroundColorStyle(backgroundColor1)),
+      )
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -61,9 +61,9 @@ describe('CSS CRUD', () => {
 
   describe('Update css string', () => {
     it('should be able to update styling through css string', () => {
-      clickEditor()
-        .clear({ force: true })
-        .type(createBackgroundColorStyle(backgroundColor2), { delay: 100 })
+      cy.waitForApiCalls(() =>
+        typeIntoEditor(createBackgroundColorStyle(backgroundColor2)),
+      )
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -75,7 +75,7 @@ describe('CSS CRUD', () => {
 
   describe('Remove css string', () => {
     it('should be able to remove the css string', () => {
-      clickEditor().clear({ force: true }).type(' ', { delay: 100 })
+      cy.waitForApiCalls(() => typeIntoEditor(' '))
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'not.have.css',
@@ -93,14 +93,14 @@ describe('CSS CRUD', () => {
 
   describe('Add GUI style', () => {
     it('should be able to add styling through GUI', () => {
-      cy.waitForSpinners()
-
-      cy.get('[data-test-id="gui-display"] [title="None"]').click()
+      cy.waitForApiCalls(() =>
+        cy.get('[data-test-id="gui-display"] [title="None"]').click(),
+      )
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
         'display',
-        display,
+        displayNone,
       )
     })
   })
@@ -117,7 +117,7 @@ describe('CSS CRUD', () => {
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
         'display',
-        display,
+        displayNone,
       )
     })
   })

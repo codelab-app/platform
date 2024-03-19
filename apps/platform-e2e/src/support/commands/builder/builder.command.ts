@@ -64,15 +64,16 @@ export const createElementTree = (
           value: name,
         })
 
-        cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-          .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-          .click({ force: true })
+        cy.waitForApiCalls(() =>
+          cy
+            .getCuiPopover(MODEL_ACTION.CreateElement.key)
+            .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
+            .click({ force: true }),
+        )
 
-        cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
-          // .getCuiForm(MODEL_ACTION.CreateElement.key)
-          .should('not.exist', {
-            timeout: 15000,
-          })
+        cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
+          timeout: 15000,
+        })
 
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiTreeItemByPrimaryTitle(name)
