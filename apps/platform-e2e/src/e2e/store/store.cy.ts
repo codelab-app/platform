@@ -96,11 +96,14 @@ describe('Store field CRUD', () => {
   })
 
   it('should be able to delete state variable', () => {
-    cy.getCuiSidebarViewContent('State')
-      .getCuiTreeItemByPrimaryTitle(updatedStateVarName)
-      .closestCuiTreeNode()
-      .getCuiToolbarItem(MODEL_ACTION.DeleteField.key)
-      .click()
+    cy.waitForApiCalls(() =>
+      cy
+        .getCuiSidebarViewContent('State')
+        .getCuiTreeItemByPrimaryTitle(updatedStateVarName)
+        .closestCuiTreeNode()
+        .getCuiToolbarItem(MODEL_ACTION.DeleteField.key)
+        .click(),
+    )
 
     cy.getModal().getModalAction('Delete').click()
     cy.getModal().should('not.exist')

@@ -109,7 +109,10 @@ describe('CSS CRUD', () => {
     it('should persist styles after reload', () => {
       cy.reload()
 
-      cy.waitForApiCalls(() => cy.findByText(elementName).click())
+      cy.waitForApiCalls(() => {
+        cy.waitForSpinners()
+        cy.findByText(elementName).click()
+      })
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
