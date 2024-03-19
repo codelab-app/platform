@@ -117,7 +117,13 @@ export class RuntimeElementModel
       childMapperChildren.push(runtimeComponent)
     }
 
-    this.cleanupChildMapperNodes(childMapperChildren)
+    const keyStart = RuntimeComponentModel.compositeKey(component, this.propKey)
+
+    const newKeys = childMapperChildren.map(
+      (runtimeComponent) => runtimeComponent.compositeKey,
+    )
+
+    this.cleanupChildMapperNodes(keyStart, newKeys)
 
     return childMapperChildren
   }
@@ -183,6 +189,11 @@ export class RuntimeElementModel
     children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
+  }
+
+  @computed
+  get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
