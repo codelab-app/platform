@@ -1,5 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IPageKindName } from '@codelab/shared/abstract/core'
@@ -24,8 +25,7 @@ describe('Action CRUD', () => {
           IPageKindName.Provider,
         )}/builder`,
       )
-
-      cy.waitForApiCalls()
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
       cy.waitForSpinners()
     })
   })

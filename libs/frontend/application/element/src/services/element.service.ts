@@ -69,7 +69,6 @@ export class ElementService
     currentStylePseudoClass: prop(
       () => ElementStylePseudoClass.None,
     ).withSetter(),
-    // createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
     elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),
@@ -97,7 +96,6 @@ export class ElementService
     const element = this.elementDomainService.addTreeNode(data)
 
     yield* _await(this.elementRepository.add(element))
-
     yield* _await(this.syncModifiedElements())
 
     /**

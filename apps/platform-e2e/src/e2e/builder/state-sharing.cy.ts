@@ -1,5 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Component, Page } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
@@ -73,16 +74,13 @@ describe('State variables sharing between pages', () => {
     cy.typeIntoTextEditor(
       'text {{ componentProps.name ?? rootState.name ?? state.name }}',
     )
-
-    cy.waitForApiCalls()
-
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
     cy.openPreview().contains('text undefined').should('exist')
     cy.openBuilder()
 
     // create a state variable inside the component
     cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
-
-    cy.waitForApiCalls()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.setFormFieldValue({
       label: 'Key',
@@ -169,12 +167,11 @@ describe('State variables sharing between pages', () => {
    */
   it('should use component state and not use provider state', () => {
     // go to the regular page
+    // wait for GetRenderedPageAndCommonAppData
     cy.visit(
       '/apps/cypress/codelab-app/pages/test-page/builder?primarySidebarKey=explorer',
     )
-    // GetRenderedPageAndCommonAppData
-    cy.waitForApiCalls()
-    cy.waitForSpinners()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 

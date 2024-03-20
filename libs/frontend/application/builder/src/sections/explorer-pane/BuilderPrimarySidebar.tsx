@@ -65,6 +65,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const containerNode = page ?? component
     const store = containerNode?.store.current
 
+    console.log(page, component, store)
+
     const runtimeContainerNode = containerNode
       ? rendererService.runtimeContainerNode(containerNode)
       : undefined
@@ -137,10 +139,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           items: [
             {
               cuiKey: MODEL_ACTION.CreateField.key,
-              icon: <PlusOutlined />,
+              // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
+              icon: <PlusOutlined disabled={!store} />,
               onClick: () => {
                 if (!store) {
-                  return
+                  return null
                 }
 
                 const form = fieldService.createForm
@@ -165,7 +168,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           items: [
             {
               cuiKey: MODEL_ACTION.CreateAction.key,
-              icon: <PlusOutlined />,
+              // Added this for some cases where data is not loaded, and we cannot perform action, mainly in Cypress
+              icon: <PlusOutlined disabled={!store} />,
               onClick: () => {
                 if (!store) {
                   return

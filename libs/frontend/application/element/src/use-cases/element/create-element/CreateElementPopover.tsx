@@ -30,6 +30,7 @@ export const CreateElementPopover = observer(() => {
             icon: <SaveOutlined />,
             label: 'Create',
             onClick: () => {
+              console.log('CreateElement clicked!')
               submitRef.current?.submit()
             },
             title: 'Create',

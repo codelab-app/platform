@@ -1,3 +1,5 @@
+import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
@@ -7,17 +9,19 @@ import { slugify } from '@codelab/shared/utils'
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
 const backgroundColor2 = 'rgb(182, 99, 48)'
-const display = 'none'
+const displayNone = 'none'
 const elementName = `Element ${ELEMENT_BUTTON}`
 
 const createBackgroundColorStyle = (backgroundColorValue: string) =>
   `background-color: ${backgroundColorValue};`
 
-const clickEditor = () => {
+const typeIntoEditor = (css: string) => {
   cy.get('[aria-label="format-painter"]').click()
   cy.waitForSpinners()
 
-  return cy.get('[role="textbox"]').first().click()
+  cy.get('[role="textbox"]').first().click()
+  cy.get('[role="textbox"]').first().clear()
+  cy.get('[role="textbox"]').first().type(css)
 }
 
 describe('CSS CRUD', () => {
@@ -27,6 +31,7 @@ describe('CSS CRUD', () => {
     cy.postApiRequest<App>('/app/seed-cypress-app').then(
       ({ body }) => (app = body),
     )
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
   })
 
   describe('Add css string', () => {
@@ -45,11 +50,8 @@ describe('CSS CRUD', () => {
         },
       ])
 
-      cy.waitForSpinners()
-
-      clickEditor()
-        .clear()
-        .type(createBackgroundColorStyle(backgroundColor1), { delay: 100 })
+      typeIntoEditor(createBackgroundColorStyle(backgroundColor1))
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -61,9 +63,8 @@ describe('CSS CRUD', () => {
 
   describe('Update css string', () => {
     it('should be able to update styling through css string', () => {
-      clickEditor()
-        .clear({ force: true })
-        .type(createBackgroundColorStyle(backgroundColor2), { delay: 100 })
+      typeIntoEditor(createBackgroundColorStyle(backgroundColor2))
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -75,7 +76,8 @@ describe('CSS CRUD', () => {
 
   describe('Remove css string', () => {
     it('should be able to remove the css string', () => {
-      clickEditor().clear({ force: true }).type(' ', { delay: 100 })
+      typeIntoEditor(' ')
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'not.have.css',
@@ -93,35 +95,31 @@ describe('CSS CRUD', () => {
 
   describe('Add GUI style', () => {
     it('should be able to add styling through GUI', () => {
-      cy.waitForSpinners()
-
       cy.get('[data-test-id="gui-display"] [title="None"]').click()
+      // Wait for the auto-save debounce timeout
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.wait(CSS_AUTOSAVE_TIMEOUT)
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
         'display',
-        display,
+        displayNone,
       )
-
-      cy.waitForApiCalls()
     })
   })
 
   describe('Css and GUI style persistance', () => {
     it('should persist styles after reload', () => {
       cy.reload()
-      cy.waitForSpinners()
 
-      // wait for multiple api calls that could occur
-      // this is the simplest way for now
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      // cy.wait(1000)
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
       cy.findByText(elementName).click()
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
         'display',
-        display,
+        displayNone,
       )
     })
   })

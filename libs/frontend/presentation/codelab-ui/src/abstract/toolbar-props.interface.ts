@@ -3,6 +3,7 @@ import type React from 'react'
 
 export interface ToolbarItem {
   cuiKey: ModelActionKey
+
   icon: React.ReactNode
   label?: string
   title: string

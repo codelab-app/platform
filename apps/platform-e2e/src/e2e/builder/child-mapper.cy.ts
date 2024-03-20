@@ -1,4 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { IAppDto, IComponentDto } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
@@ -16,6 +17,7 @@ describe('Element Child Mapper', () => {
 
   before(() => {
     setupTest()
+
     cy.get<{ app: IAppDto; component: IComponentDto }>('@setupComplete').then(
       (res) => {
         app = res.app
@@ -99,12 +101,12 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.SELECT,
       value: providerPageRowSecondChild.name,
     })
+
     cy.get('.ant-collapse').setFormFieldValue({
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
     })
-
-    cy.waitForApiCalls()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // changed props
     cy.openPreview()
@@ -134,8 +136,7 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[]}}',
     })
-
-    cy.waitForApiCalls()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
@@ -154,8 +155,7 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{false}}',
     })
-
-    cy.waitForApiCalls()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)

@@ -1,5 +1,6 @@
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App, Resource } from '@codelab/shared/abstract/codegen'
 import type { IAppDto } from '@codelab/shared/abstract/core'
 import {
@@ -33,17 +34,23 @@ describe('Store field CRUD', () => {
           IPageKindName.Provider,
         )}/builder`,
       )
-
-      cy.waitForApiCalls()
+      cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
       cy.waitForSpinners()
     })
   })
 
   it('should be able to create state variable', () => {
+    cy.getCuiSidebarViewHeader('State')
+      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+      .should('not.be.disabled')
+
     cy.getCuiSidebarViewHeader('State').click()
+
     cy.getCuiSidebarViewHeader('State')
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
+
+    cy.getCuiForm(MODEL_ACTION.CreateField.key).should('be.visible')
 
     cy.setFormFieldValue({ label: 'Key', value: stateVarName })
     cy.setFormFieldValue({ label: 'Name', value: stateVarName })
@@ -52,9 +59,12 @@ describe('Store field CRUD', () => {
       type: FIELD_TYPE.SELECT,
       value: IPrimitiveTypeKind.Integer,
     })
+
     cy.getCuiPopover(MODEL_ACTION.CreateField.key)
       .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
       .click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
     cy.getCuiSidebarViewContent('State')
       .findByText(stateVarName)
       .should('exist')
@@ -80,6 +90,7 @@ describe('Store field CRUD', () => {
     cy.getCuiPopover(MODEL_ACTION.UpdateField.key)
       .getCuiToolbarItem(MODEL_ACTION.UpdateField.key)
       .click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.getCuiSidebarViewContent('State')
       .findByText(new RegExp(/`^${stateVarName}`$/))
@@ -97,6 +108,8 @@ describe('Store field CRUD', () => {
       .click()
 
     cy.getModal().getModalAction('Delete').click()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
     cy.getModal().should('not.exist')
 
     cy.getCuiSidebarViewContent('State')

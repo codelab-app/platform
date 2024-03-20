@@ -1,6 +1,7 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
@@ -22,7 +23,6 @@ export const createElementTree = (
           .should('not.be.visible')
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-          .first()
           .click()
 
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
@@ -58,6 +58,7 @@ export const createElementTree = (
             // atom is set) because it would override the name otherwise
             cy.get('input').should('not.have.value', '')
           })
+
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).setFormFieldValue({
           label: 'Name',
           type: FIELD_TYPE.INPUT,
@@ -66,18 +67,12 @@ export const createElementTree = (
 
         cy.getCuiPopover(MODEL_ACTION.CreateElement.key)
           .getCuiToolbarItem(MODEL_ACTION.CreateElement.key)
-          .click()
+          .click({ force: true })
+        cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
         cy.getCuiForm(MODEL_ACTION.CreateElement.key).should('not.exist', {
-          timeout: 10000,
+          timeout: 15000,
         })
-
-        if (customTextInjectionWhiteList.includes(atom)) {
-          // editorjs fails internally without this, maybe some kind of initialization
-          // fails mostly on elements that can have text editor like typography text
-          // eslint-disable-next-line cypress/no-unnecessary-waiting
-          // cy.wait(2000)
-        }
 
         cy.getCuiSidebar(MODEL_UI.SidebarBuilder.key)
           .getCuiTreeItemByPrimaryTitle(name)
@@ -95,8 +90,7 @@ export const openPreview = () => {
   cy.getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
     .find('button')
     .click()
-
-  cy.waitForApiCalls()
+  cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
   cy.getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
     .find('button')
