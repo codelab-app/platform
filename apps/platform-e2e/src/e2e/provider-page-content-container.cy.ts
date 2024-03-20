@@ -1,4 +1,5 @@
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
@@ -30,7 +31,7 @@ describe('_app page content container', () => {
       value: pageContentContainerName,
     })
 
-    cy.waitForApiCalls()
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
   })
 
   it('should render the regular page element inside the selected page content container in the provider page', () => {
