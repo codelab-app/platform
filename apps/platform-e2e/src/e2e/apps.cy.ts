@@ -1,3 +1,4 @@
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import { appName, updatedAppName } from '../data/app.data'
 
 describe('Apps CRUD', () => {
@@ -19,10 +20,24 @@ describe('Apps CRUD', () => {
 
       cy.findByText(appName).should('exist')
     })
+
+    it('should create _app, 404, and 500 page for the app', () => {
+      cy.findByText(appName).click()
+      cy.getCuiTreeItemByPrimaryTitle(IPageKindName.Provider).should(
+        'be.visible',
+      )
+      cy.getCuiTreeItemByPrimaryTitle(IPageKindName.NotFound).should(
+        'be.visible',
+      )
+      cy.getCuiTreeItemByPrimaryTitle(IPageKindName.InternalServerError).should(
+        'be.visible',
+      )
+    })
   })
 
   describe('update', () => {
     it('should be able to update app name', () => {
+      cy.visit('/apps')
       cy.getCard({ title: appName }).getButton({ icon: 'ellipsis' }).click()
 
       cy.getDropdownItem('Edit').click()
