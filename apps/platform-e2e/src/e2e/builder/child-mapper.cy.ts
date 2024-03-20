@@ -17,6 +17,7 @@ describe('Element Child Mapper', () => {
 
   before(() => {
     setupTest()
+
     cy.get<{ app: IAppDto; component: IComponentDto }>('@setupComplete').then(
       (res) => {
         app = res.app

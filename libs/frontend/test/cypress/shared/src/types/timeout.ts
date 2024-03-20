@@ -1,1 +1,1 @@
-export const NETWORK_IDLE_TIME = 200
+export const NETWORK_IDLE_TIME = 300
