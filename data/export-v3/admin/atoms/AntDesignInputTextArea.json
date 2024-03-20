@@ -1,0 +1,51 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+        },
+        "defaultValues": "{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "6c9057fd-4e92-43fc-bfe9-36549fb4665e",
+        "key": "onPressEnter",
+        "name": "On Press Enter",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      }
+    ],
+    "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2",
+    "kind": "InterfaceType",
+    "name": "AntDesignInputTextArea API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2",
+        "kind": "InterfaceType",
+        "name": "AntDesignInputTextArea API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "70396f5e-0187-48d5-b165-590814af7d51",
+    "name": "AntDesignInputTextArea",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [],
+    "type": "AntDesignInputTextArea"
+  }
+}

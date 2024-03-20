@@ -51,6 +51,7 @@ export enum __AtomType {
   AntDesignInput = 'AntDesignInput',
   AntDesignInputNumber = 'AntDesignInputNumber',
   AntDesignInputSearch = 'AntDesignInputSearch',
+  AntDesignInputTextArea = 'AntDesignInputTextArea',
   AntDesignLayout = 'AntDesignLayout',
   AntDesignLayoutContent = 'AntDesignLayoutContent',
   AntDesignMentionsOption = 'AntDesignMentionsOption',
