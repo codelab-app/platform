@@ -17,6 +17,22 @@
         "nextSibling": null,
         "prevSibling": null,
         "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "0dd6e9c0-7f81-4469-add9-1e065db9b7db",
+        "key": "placeholder",
+        "name": "Placeholder",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
       }
     ],
     "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2",

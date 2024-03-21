@@ -1,13 +1,14 @@
 import type { Static } from '@sinclair/typebox'
-import type { IElement } from '../element'
+import { Type } from '@sinclair/typebox'
+import { ICreateElementDto } from '../element/element.dto.interface'
 import { IStoreAggregate } from '../store'
 import { IApi } from '../type'
 import { IComponent } from './component.dto.interface'
 
-export const IComponentAggregate = Object({
+export const IComponentAggregate = Type.Object({
   api: IApi,
   component: IComponent,
-  elements: Array<IElement>,
+  elements: Type.Array(ICreateElementDto),
   store: IStoreAggregate,
 })
 
