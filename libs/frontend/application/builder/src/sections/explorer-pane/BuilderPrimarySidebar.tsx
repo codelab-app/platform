@@ -65,8 +65,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const containerNode = page ?? component
     const store = containerNode?.store.current
 
-    console.log(page, component, store)
-
     const runtimeContainerNode = containerNode
       ? rendererService.runtimeContainerNode(containerNode)
       : undefined

@@ -285,7 +285,7 @@
     "@typescript-eslint/eslint-plugin": "6.10.0",
     "@typescript-eslint/parser": "6.10.0",
     "@typescript-eslint/utils": "7.2.0",
-    "@welldone-software/why-did-you-render": "7.0.1",
+    "@welldone-software/why-did-you-render": "8.0.1",
     "ajv-formats": "2.1.1",
     "ajv-keywords": "5.1.0",
     "autoprefixer": "10.4.14",

@@ -1,9 +1,11 @@
 import { Tree } from 'antd'
 import type { DirectoryTreeProps, EventDataNode } from 'antd/es/tree'
+import type { TreeProps } from 'antd/lib/tree'
 import classNames from 'classnames'
 import { observer, useLocalObservable } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import type { RequiredKeys } from 'ts-essentials'
 import type { Variant } from '../../abstract'
 import { CuiSearchBar, CuiSkeletonWrapper } from '../../components'
 import styles from './CuiTree.module.css'
@@ -85,45 +87,47 @@ export const CuiTree = observer(
       treeData,
     } = props
 
+    console.log(expandedKeys)
+
     const cuiTreeStore = useLocalObservable(
       () =>
         new CuiTreeStore({
-          expandedKeys: expandedKeys ?? [],
+          expandedKeys,
           filterOptions: {},
-          treeData: treeData ?? [],
+          treeData,
         }),
     )
 
-    useEffect(() => {
-      treeData && cuiTreeStore.setTreeData(treeData)
+    type HandleExpand = Required<CuiTreeProps<WithChildren<T>>>['onExpand']
 
-      expandedKeys && cuiTreeStore.setExpandedKeys(expandedKeys)
-
-      cuiTreeStore.updateFilterOptions(searcheable, searchKeyword)
-    }, [expandedKeys, treeData, searcheable, searchKeyword, cuiTreeStore])
-
-    const handleExpand = (
-      newExpandedKeys: Array<React.Key>,
-      info: {
-        node: EventDataNode<T>
-        expanded: boolean
-        nativeEvent: MouseEvent
+    const handleExpand = useCallback<HandleExpand>(
+      (_expandedKeys, info) => {
+        console.log('handle expand')
+        onExpand?.(_expandedKeys, info)
+        cuiTreeStore.setExpandedKeys(_expandedKeys)
+        cuiTreeStore.setAutoExpandParent(false)
       },
-    ) => {
-      onExpand?.(newExpandedKeys, info)
-      cuiTreeStore.setExpandedKeys(newExpandedKeys)
-      cuiTreeStore.setAutoExpandParent(false)
-    }
+      [cuiTreeStore, onExpand],
+    )
 
-    const handleSearchKeywordChange = (keyword: string) => {
-      if (searcheable === false) {
-        return
-      }
+    const handleSearchKeywordChange = useCallback(
+      (keyword: string) => {
+        if (searcheable === false) {
+          return
+        }
 
-      onSearchKeywordChange?.(keyword)
-      cuiTreeStore.setAutoExpandParent(true)
-      cuiTreeStore.updateFilterOptions(searcheable, keyword)
-    }
+        onSearchKeywordChange?.(keyword)
+        cuiTreeStore.setAutoExpandParent(true)
+        cuiTreeStore.updateFilterOptions(searcheable, keyword)
+      },
+      [onSearchKeywordChange, cuiTreeStore, searcheable],
+    )
+
+    useEffect(() => {
+      cuiTreeStore.setTreeData(treeData ?? [])
+      cuiTreeStore.setExpandedKeys(expandedKeys ?? [])
+      cuiTreeStore.updateFilterOptions(searcheable, searchKeyword)
+    }, [treeData, expandedKeys, searcheable, searchKeyword, cuiTreeStore])
 
     return (
       <div

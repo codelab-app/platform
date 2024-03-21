@@ -27,8 +27,6 @@ export class ExpressionTransformer
 
   @modelFlow
   init = _async(function* (this: ExpressionTransformer) {
-    console.debug('ExpressionTransform.init()')
-
     const { transform } = yield* _await(import('sucrase'))
 
     this.context = { atoms: allAtoms, React }

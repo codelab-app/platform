@@ -754,8 +754,8 @@ devDependencies:
     specifier: 7.2.0
     version: 7.2.0(eslint@8.53.0)(typescript@5.2.2)
   '@welldone-software/why-did-you-render':
-    specifier: 7.0.1
-    version: 7.0.1(react@18.2.0)
+    specifier: 8.0.1
+    version: 8.0.1(react@18.2.0)
   ajv-formats:
     specifier: 2.1.1
     version: 2.1.1(ajv@8.12.0)
@@ -11102,10 +11102,10 @@ packages:
       '@xtuc/long': 4.2.2
     dev: true
 
-  /@welldone-software/why-did-you-render@7.0.1(react@18.2.0):
-    resolution: {integrity: sha512-Qe/8Xxa2G+LMdI6VoazescPzjjkHYduCDa8aHOJR50e9Bgs8ihkfMBY+ev7B4oc3N59Zm547Sgjf8h5y0FOyoA==}
+  /@welldone-software/why-did-you-render@8.0.1(react@18.2.0):
+    resolution: {integrity: sha512-PtLBjiHNX04gDPheMeAQP16S24JV3SOW6wGDUrm4bFPZmofmmflgvd4Kacf/jhB8zlX6equ8m3t6CS+OxA3Q4g==}
     peerDependencies:
-      react: ^16 || ^17 || ^18
+      react: ^18
     dependencies:
       lodash: 4.17.21
       react: 18.2.0

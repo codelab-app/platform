@@ -28,6 +28,7 @@ export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
           <CuiSidebarToolbarItem
             cuiKey={item.cuiKey}
             icon={item.icon}
+            key={item.cuiKey}
             onClick={item.onClick}
             title={item.title}
           />

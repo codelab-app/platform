@@ -26,7 +26,8 @@
       "@editorjs",
       "data-cy"
     ],
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "jsxImportSource": "@welldone-software/why-did-you-render"
   },
   // "references": [
   //   {
