@@ -17,6 +17,7 @@ import type {
   IRouterService,
   IStoreService,
   ITagService,
+  ITracerService,
   ITypeService,
   IUserService,
   RootStoreData,
@@ -96,6 +97,7 @@ import { UserService } from '@codelab/frontend/application/user'
 import { BuilderDomainService } from '@codelab/frontend/domain/builder'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
+import { TracerService } from '@codelab/frontend/infra/otel'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
@@ -134,6 +136,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       storeService: prop<IStoreService>(() => new StoreService({})),
       tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
       tagService: prop<ITagService>(() => new TagService({})),
+      tracerService: prop<ITracerService>(() => new TracerService({})),
       typeService: prop<ITypeService>(() => new TypeService({})),
       userService: prop<IUserService>(() => UserService.init(user)),
     })

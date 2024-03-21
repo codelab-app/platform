@@ -13,7 +13,12 @@ steps:
   - run: pnpm cypress verify
   - run:
       name: 'Run E2E Tests'
-      command: pnpm nx e2e platform-e2e -c ci
+      environment:
+        # https://github.com/cypress-io/circleci-orb/issues/386
+        CI_BUILD_ID: ${CIRCLE_SHA1:0:8}-${CIRCLE_BUILD_NUM}
+      command: |
+        echo "CI Build ID: $CI_BUILD_ID"
+        pnpm nx e2e platform-e2e -c ci --ci-build-id=$CI_BUILD_ID
   - store_artifacts:
       path: ~/project/apps/platform-e2e/src/videos
       destination: cypress/videos

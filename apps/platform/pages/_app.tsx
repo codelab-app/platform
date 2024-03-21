@@ -29,9 +29,16 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
     return initializeStore({ routerQuery: router.query, user })
   }, [user])
 
+  // So we can access in Cypress
   if (typeof window !== 'undefined' && window.Cypress) {
     set(window, '__store__', store)
   }
+
+  // const tracerService = store?.tracerService
+
+  // tracerService?.startSpan('demo span')
+
+  // tracerService?.endSpan()
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>

@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 10s
+  # scrape_timeout: "10s"
+  # evaluation_interval: "1m"
+
+scrape_configs:
+  - job_name: 'opentelemetry-collector'
+    static_configs:
+      - targets: ['opentelemetry:8889']
+      - targets: ['opentelemetry:8888']
+  - job_name: 'jaeger'
+    static_configs:
+      - targets: ['jaeger-all-in-one:14269']

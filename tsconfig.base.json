@@ -316,6 +316,7 @@
         "libs/frontend/infra/graphql/src/index.ts"
       ],
       "@codelab/frontend/infra/mobx": ["libs/frontend/infra/mobx/src/index.ts"],
+      "@codelab/frontend/infra/otel": ["libs/frontend/infra/otel/src/index.ts"],
       "@codelab/frontend/presentation/codelab-ui": [
         "libs/frontend/presentation/codelab-ui/src/index.ts"
       ],
@@ -372,6 +373,7 @@
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],
+      "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
       "@codelab/tools/eslint-plugin": ["libs/tools/eslint-plugin/src/index.ts"]

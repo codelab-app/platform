@@ -219,7 +219,11 @@ jobs:
       - run: pnpm cypress install
       - run: pnpm cypress verify
       - run:
-          command: pnpm nx e2e platform-e2e -c ci
+          command: |
+            echo "CI Build ID: $CI_BUILD_ID"
+            pnpm nx e2e platform-e2e -c ci --ci-build-id=$CI_BUILD_ID
+          environment:
+            CI_BUILD_ID: ${CIRCLE_SHA1:0:8}-${CIRCLE_BUILD_NUM}
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos
