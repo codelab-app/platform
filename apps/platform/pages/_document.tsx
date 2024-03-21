@@ -7,6 +7,7 @@ import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 import type { DocumentContext } from 'next/document'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
+import { NewRelicScript } from '../components/NewRelicScript'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -73,6 +74,7 @@ export default class MyDocument extends Document {
           `,
             }}
           ></script>
+          <NewRelicScript />
         </Head>
         <body>
           <Main />

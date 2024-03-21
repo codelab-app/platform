@@ -125,6 +125,20 @@ services:
   #     - GF_SECURITY_ADMIN_PASSWORD=secret
   #   depends_on:
   #     - prometheus
+  agent:
+    container_name: newrelic-infra
+    build:
+      context: .
+      dockerfile: newrelic-infra.dockerfile
+    cap_add:
+      - SYS_PTRACE
+    network_mode: host
+    pid: host
+    privileged: true
+    volumes:
+      - '/:/host:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    restart: unless-stopped
 
 volumes:
   codelab-neo4j:

@@ -148,6 +148,9 @@ dependencies:
   '@nestjs/swagger':
     specifier: 7.1.2
     version: 7.1.2(@nestjs/common@10.0.4)(@nestjs/core@10.0.4)(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)
+  '@newrelic/browser-agent':
+    specifier: ^1.253.0
+    version: 1.253.0
   '@next/bundle-analyzer':
     specifier: 14.0.2
     version: 14.0.2
@@ -6434,6 +6437,16 @@ packages:
       tslib: 2.6.0
     dev: true
 
+  /@newrelic/browser-agent@1.253.0:
+    resolution: {integrity: sha512-5hDB/x+eEs3mEZUZVeLz7Jcui5jU6wTzEAew0EmPM8kiuHQHTP7Kji+WlSkrAz0iNk6mh31077fnfkxXGq//Sw==}
+    engines: {node: '>=12.17.0 < 13.0.0 || >=13.7.0'}
+    dependencies:
+      core-js: 3.36.0
+      fflate: 0.7.4
+      rrweb: 2.0.0-alpha.11
+      web-vitals: 3.5.2
+    dev: false
+
   /@next/bundle-analyzer@14.0.2:
     resolution: {integrity: sha512-EsFpYsXUq0oj3LnTCCWQ6bH8D2M1MWVJJCQ7hn4g+rP4/ksfOMjfsHpsOUscaAadLwdXoupmRqsQ23Y/7NlpDg==}
     dependencies:
@@ -9427,6 +9440,12 @@ packages:
       lodash-es: 4.17.21
     dev: false
 
+  /@rrweb/types@2.0.0-alpha.11:
+    resolution: {integrity: sha512-8ccocIkT5J/bfNRQY85qR/g6p5YQFpgFO2cMt4+Ex7w31Lq0yqZBRaoYEsawQKpLrn5KOHkdn2UTUrna7WMQuA==}
+    dependencies:
+      rrweb-snapshot: 2.0.0-alpha.11
+    dev: false
+
   /@rushstack/eslint-patch@1.7.2:
     resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
     dev: true
@@ -11108,6 +11127,10 @@ packages:
       '@types/node': 18.14.2
     dev: false
 
+  /@types/css-font-loading-module@0.0.7:
+    resolution: {integrity: sha512-nl09VhutdjINdWyXxHWN/w9zlNCfr60JUqJbd24YXUuCwgeL0TpFSdElCwb6cxfB6ybE19Gjj4g0jsgkXxKv1Q==}
+    dev: false
+
   /@types/diff@5.0.3:
     resolution: {integrity: sha512-amrLbRqTU9bXMCc6uX0sWpxsQzRIo9z6MJPkH1pkez/qOxuqSZVuryJAWoBRq94CeG8JxY+VK4Le9HtjQR5T9A==}
     dev: true
@@ -12342,6 +12365,10 @@ packages:
       tslib: 2.3.1
     dev: false
 
+  /@xstate/fsm@1.6.5:
+    resolution: {integrity: sha512-b5o1I6aLNeYlU/3CPlj/Z91ybk1gUsKT+5NAJI+2W4UjvS5KLG28K9v5UvNoFVjHV8PajVZ00RH3vnjyQO7ZAw==}
+    dev: false
+
   /@xtuc/ieee754@1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
     dev: true
@@ -13286,6 +13313,11 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /base64-arraybuffer@1.0.2:
+    resolution: {integrity: sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==}
+    engines: {node: '>= 0.6.0'}
+    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -17004,6 +17036,14 @@ packages:
 
   /fecha@4.2.3:
     resolution: {integrity: sha512-OP2IUU6HeYKJi3i0z4A19kHMQoLVs4Hc+DPqqxI2h/DPZHTm/vjsfC6P0b4jCMy14XizLBqvndQ+UilD7707Jw==}
+    dev: false
+
+  /fflate@0.4.8:
+    resolution: {integrity: sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==}
+    dev: false
+
+  /fflate@0.7.4:
+    resolution: {integrity: sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw==}
     dev: false
 
   /figures@2.0.0:
@@ -24784,6 +24824,29 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /rrdom@2.0.0-alpha.11:
+    resolution: {integrity: sha512-U37m0t4jTz63wnVRcOQ5qFzSTrI5RdNgeXnHAha2Fmh9+1K+XuCx421a8D1wZk3WcDc2sFz/04FVdM0OD2caHg==}
+    dependencies:
+      rrweb-snapshot: 2.0.0-alpha.11
+    dev: false
+
+  /rrweb-snapshot@2.0.0-alpha.11:
+    resolution: {integrity: sha512-N0dzeJA2VhrlSOadkKwCVmV/DuNOwBH+Lhx89hAf9PQK4lCS8AP4AaylhqUdZOYHqwVjqsYel/uZ4hN79vuLhw==}
+    dev: false
+
+  /rrweb@2.0.0-alpha.11:
+    resolution: {integrity: sha512-vJ2gNvF+pUG9C2aaau7iSNqhWBSc4BwtUO4FpegOtDObuH4PIaxNJOlgHz82+WxKr9XPm93ER0LqmNpy0KYdKg==}
+    dependencies:
+      '@rrweb/types': 2.0.0-alpha.11
+      '@types/css-font-loading-module': 0.0.7
+      '@xstate/fsm': 1.6.5
+      base64-arraybuffer: 1.0.2
+      fflate: 0.4.8
+      mitt: 3.0.0
+      rrdom: 2.0.0-alpha.11
+      rrweb-snapshot: 2.0.0-alpha.11
+    dev: false
+
   /run-async@2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
     engines: {node: '>=0.12.0'}
@@ -27299,6 +27362,10 @@ packages:
     resolution: {integrity: sha512-d2JWLCivmZYTSIoge9MsgFCZrt571BikcWGYkjC1khllbTeDlGqZ2D8vD8E/lJa8WGWbb7Plm8/XJYV7IJHZZw==}
     engines: {node: '>= 8'}
     dev: true
+
+  /web-vitals@3.5.2:
+    resolution: {integrity: sha512-c0rhqNcHXRkY/ogGDJQxZ9Im9D19hDihbzSQJrsioex+KnFgmMzBiy57Z1EjkhX/+OjyBpclDCzz2ITtjokFmg==}
+    dev: false
 
   /webcrypto-core@1.7.8:
     resolution: {integrity: sha512-eBR98r9nQXTqXt/yDRtInszPMjTaSAMJAFDg2AHsgrnczawT1asx9YNBX6k5p+MekbPF4+s/UJJrr88zsTqkSg==}

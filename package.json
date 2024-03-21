@@ -82,6 +82,7 @@
     "@nestjs/passport": "10.0.2",
     "@nestjs/platform-express": "10.0.4",
     "@nestjs/swagger": "7.1.2",
+    "@newrelic/browser-agent": "^1.253.0",
     "@next/bundle-analyzer": "14.0.2",
     "@opentelemetry/api": "^1.8.0",
     "@opentelemetry/auto-instrumentations-node": "^0.43.0",
