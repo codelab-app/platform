@@ -6,6 +6,22 @@
         "api": {
           "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
         },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "8d95ea3e-2c68-4349-bdda-f6842c77954d",
+        "key": "autoSize",
+        "name": "Auto Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+        },
         "defaultValues": "{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
         "description": null,
         "fieldType": {

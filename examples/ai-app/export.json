@@ -101,8 +101,11 @@
           "name": "Chatbot Message Root",
           "slug": "Chatbot Message Root",
           "compositeKey": "9975de9f-84c9-4126-85df-473cfe3e844a-Chatbot Message Root",
-          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"margin-left\\\":\\\"5px\\\",\\\"margin-right\\\":\\\"5px\\\"}\"}}}",
-          "tailwindClassNames": [],
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"max-width\\\":\\\"300px\\\",\\\"margin-bottom\\\":\\\"10px\\\",\\\"margin-left\\\":\\\"5px\\\",\\\"margin-right\\\":\\\"5px\\\"}\"}}}",
+          "tailwindClassNames": [
+            "p-2",
+            "rounded-md"
+          ],
           "parentComponent": {
             "id": "9975de9f-84c9-4126-85df-473cfe3e844a",
             "name": "Chatbot Message"
@@ -114,7 +117,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "4b84bdb2-d2af-429b-b460-7627cbc72e10",
-            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{{componentProps.role}}: {{componentProps.content}}\"}"
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{{componentProps.content}}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -202,7 +205,7 @@
           "name": "Chatbot Root",
           "slug": "Chatbot Root",
           "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Chatbot Root",
-          "style": "{\"desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"300px\\\"}\"}}}",
+          "style": "{\"desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"300px\\\"}\"}},\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"background-color\\\":\\\"#f5f5ef\\\"}\"}}}",
           "tailwindClassNames": [
             "overflow-hidden"
           ],
@@ -237,7 +240,7 @@
           "name": "Html Div 1",
           "slug": "Html Div 1",
           "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Html Div 1",
-          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"background-color\\\":\\\"#eed274\\\"}\"}}}",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"background-color\\\":\\\"#eac645\\\",\\\"padding-left\\\":\\\"10px\\\"}\"}}}",
           "tailwindClassNames": null,
           "parentComponent": null,
           "parentElement": {
@@ -267,14 +270,49 @@
           }
         },
         {
+          "id": "501addf9-a511-4273-92af-a0092271007b",
+          "name": "Ant Design Typography Text",
+          "slug": "Ant Design Typography Text",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Typography Text",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\",\\\"font-size\\\":\\\"28px\\\",\\\"text-align\\\":\\\"left\\\"}\"}},\"desktop\":{\"guiString\":{\"none\":\"{\\\"font-size\\\":\\\"24px\\\"}\"}}}",
+          "tailwindClassNames": [],
+          "parentComponent": null,
+          "parentElement": {
+            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19"
+          }
+        },
+        {
           "id": "364bb6f8-0091-4dab-8301-58f06fcd4987",
           "name": "Html Div",
           "slug": "Html Div",
           "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Html Div",
-          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"height\\\":\\\"300px\\\",\\\"background-color\\\":\\\"#ffffff\\\",\\\"display\\\":\\\"flex\\\",\\\"flex-direction\\\":\\\"column\\\"}\"},\"cssString\":\"\"}}",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"height\\\":\\\"300px\\\",\\\"display\\\":\\\"flex\\\",\\\"flex-direction\\\":\\\"column\\\"}\"},\"cssString\":\"\"}}",
           "tailwindClassNames": [
-            "overflow-y-scroll",
-            "flex-col-reverse"
+            "[&>*:first-child]:!mt-auto",
+            "[&>*:nth-child(even)]:mr-auto",
+            "[&>*:nth-child(odd)]:ml-auto",
+            "[&>*:nth-child(odd)]:text-white",
+            "[&>*:nth-child(odd)]:bg-blue-500",
+            "[&>*:nth-child(even)]:bg-yellow-200",
+            "overflow-y-auto"
           ],
           "parentComponent": null,
           "parentElement": null,
@@ -284,7 +322,9 @@
           "nextSibling": {
             "id": "7b0d8be9-e9f0-4509-b046-712b2a43a22d"
           },
-          "firstChild": null,
+          "firstChild": {
+            "id": "67ac81b7-9d65-43ce-9706-de09f2be2a08"
+          },
           "childMapperPreviousSibling": null,
           "props": {
             "id": "039875f4-682c-4233-bfd5-b8b69b91ad8d",
@@ -305,12 +345,44 @@
           }
         },
         {
+          "id": "67ac81b7-9d65-43ce-9706-de09f2be2a08",
+          "name": "Ant Design Spin",
+          "slug": "Ant Design Spin",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Spin",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "364bb6f8-0091-4dab-8301-58f06fcd4987"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "62c874bf-31a3-4a46-ba53-924cca7b2aef",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": "{{state.loading}}",
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260"
+          }
+        },
+        {
           "id": "7b0d8be9-e9f0-4509-b046-712b2a43a22d",
           "name": "Ant Design Input Text Area",
           "slug": "Ant Design Input Text Area",
           "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Input Text Area",
           "style": "",
-          "tailwindClassNames": null,
+          "tailwindClassNames": [
+            "border-2"
+          ],
           "parentComponent": null,
           "parentElement": null,
           "prevSibling": {
@@ -321,7 +393,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "82e07e59-cf9d-4010-97d9-739db0e2cbbe",
-            "data": "{\"placeholder\":\"Type your message...\",\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"363002dc-21db-4c18-b807-9b898f41ffd8\"}}"
+            "data": "{\"placeholder\":\"Type your message...\",\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"363002dc-21db-4c18-b807-9b898f41ffd8\"},\"autoSize\":true}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -333,36 +405,6 @@
             "__typename": "Atom",
             "id": "70396f5e-0187-48d5-b165-590814af7d51"
           }
-        },
-        {
-          "id": "501addf9-a511-4273-92af-a0092271007b",
-          "name": "Ant Design Typography Text",
-          "slug": "Ant Design Typography Text",
-          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Typography Text",
-          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\",\\\"font-size\\\":\\\"28px\\\",\\\"text-align\\\":\\\"left\\\"}\"}}}",
-          "tailwindClassNames": [],
-          "parentComponent": null,
-          "parentElement": {
-            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
-          },
-          "prevSibling": null,
-          "nextSibling": null,
-          "firstChild": null,
-          "childMapperPreviousSibling": null,
-          "props": {
-            "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
-            "data": "{\"customText\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
-          },
-          "renderForEachPropKey": null,
-          "childMapperPropKey": null,
-          "childMapperComponent": null,
-          "renderIfExpression": null,
-          "preRenderAction": null,
-          "postRenderAction": null,
-          "renderType": {
-            "__typename": "Atom",
-            "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19"
-          }
         }
       ],
       "store": {
@@ -372,6 +414,22 @@
           "kind": "InterfaceType",
           "name": "Chatbot Store API",
           "fields": [
+            {
+              "api": {
+                "id": "c59496f1-635b-443d-8bad-8321276ee142"
+              },
+              "defaultValues": "false",
+              "description": null,
+              "fieldType": {
+                "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+              },
+              "id": "be731cf2-27be-41b8-a8d9-5f6a2a72312f",
+              "key": "loading",
+              "name": "Loading",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": "{}"
+            },
             {
               "api": {
                 "id": "c59496f1-635b-443d-8bad-8321276ee142"
@@ -510,7 +568,7 @@
               "store": {
                 "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
               },
-              "code": "function run(e) {\n  if (!state.messages) {\n    state.messages = []\n  }\n\n  state.messages.push({\n    role: 'user',\n    content: e.target.value,\n  })\n\n  setTimeout(() => {\n    e.target.value = ''\n  }, 200)\n\n  actions.onSend()\n}"
+              "code": "function run(e) {\n  if (!state.messages) {\n    state.messages = []\n  }\n\n  state.messages.push({\n    role: 'user',\n    content: e.target.value,\n  })\n\n  actions.onSend()\n\n  state.loading = true\n\n  setTimeout(() => {\n    e.target.value = ''\n    try {\n      refs['html-div'].current.scrollTop = refs['html-div'].current.scrollHeight\n    } catch (err) {\n      console.log('fail to auto scroll down')\n    }\n  }, 200)\n}"
             },
             {
               "__typename": "CodeAction",
@@ -520,7 +578,7 @@
               "store": {
                 "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
               },
-              "code": "function run(res) {\n  const { role, content } = res.data.choices[0].message\n  state.messages.push({\n    role,\n    content,\n  })\n}"
+              "code": "function run(res) {\n  const { role, content } = res.data.choices[0].message\n  state.messages.push({\n    role,\n    content,\n  })\n  state.loading = false\n  setTimeout(() => {\n    try {\n      refs['html-div'].current.scrollTop = refs['html-div'].current.scrollHeight\n    } catch (err) {\n      console.log('fail to auto scroll down')\n    }\n  }, 200)\n}"
             },
             {
               "__typename": "ApiAction",

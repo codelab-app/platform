@@ -54,12 +54,6 @@ export class RuntimeComponentPropModel
 
   @computed
   get componentEvaluatedProps() {
-    console.log({
-      childMapperProp: this.childMapperProp,
-      evaluatedProps: this.evaluatedProps,
-      instanceElementProps: this.instanceElementProps,
-    })
-
     return mergeProps(
       this.evaluatedProps,
       this.instanceElementProps,
