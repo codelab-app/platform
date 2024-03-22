@@ -41,9 +41,25 @@ export const initializeWebTraceProvider = () => {
   // )
   provider.addSpanProcessor(
     new SimpleSpanProcessor(
+      /**
+       * https://github.com/open-telemetry/opentelemetry-js/issues/3062#issuecomment-1189189494
+       *
+       * https://stackoverflow.com/questions/76266837/open-telemetry-cors-issue-exporting-trace-data-to-jaeger
+       *
+       * Apparently Jaeger doesn't support CORS through OTLP endpoints
+       *
+       * Cors is a `receivers` issue, not `exporters`, since `receivers` is collecting data from our client in the browser, and only browser have CORS restrictions.
+       *
+       * Exporters is server-side to server-side, so no cors issue
+       *
+       * Trying the reverse proxy, going through OTEL as intermediate doesn't seem to work
+       */
       new OTLPTraceExporter({
-        hostname: '127.0.0.1',
-        url: 'http://127.0.0.1:4318/v1/traces',
+        // headers: {},
+        // hostname: '127.0.0.1',
+        // url: '127.0.0.1:4318/v1/traces',
+        // url: 'http://127.0.0.1:4318/v1/traces',
+        url: 'http://127.0.0.1:3000/api/otel/v1/traces',
       }),
     ),
   )

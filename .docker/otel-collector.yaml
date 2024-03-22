@@ -8,21 +8,28 @@ receivers:
     protocols:
       # Our application is instrumented using an otel client that sends data to otel collector
       http:
-        # endpoint: '0.0.0.0:4318'
+        include_metadata: true
+        # Default is `0.0.0.0:4318`
+        # endpoint: 0.0.0.0:14318
         # https://github.com/open-telemetry/opentelemetry-js/issues/3802
         cors:
           # Can't use wildcard
-          # allowed_origins: ['http://127.0.0.1:3000']
-          allowed_origins: ['*']
-          allowed_headers: ['*']
-      grpc:
+          allowed_origins:
+            - '*'
+            # - http://127.0.0.1:3000
+            # - http://*
+            # - https://*
+          allowed_headers:
+            - '*'
+          max_age: 7200
+      # grpc:
 
 # The destinations where the collector sends the data after processing.
 exporters:
-  # Basically otel exports data to the otlp collector, which jaeger implements
-  otlp/jaeger:
-    # default is "http://localhost:4318"
-    endpoint: jaeger-all-in-one:4317
+  # Replaces `jaeger`, which implements otel specs now
+  otlp:
+    # Default is `http://localhost:4318`
+    endpoint: 'jaeger-all-in-one:4318'
     tls:
       insecure: true
 
@@ -57,7 +64,7 @@ service:
       receivers: [otlp]
       processors: [batch]
       # No longer jaeger, since jaeger supports otlp natively
-      exporters: [otlp/jaeger]
+      exporters: [otlp]
     # metrics:
     #   receivers: []
     #   processors: [batch]

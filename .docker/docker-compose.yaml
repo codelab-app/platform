@@ -74,12 +74,14 @@ services:
       - '8889:8889' # Prometheus exporter metrics
       - '13133:13133' # health_check extension
       - '55679:55679' # zpages extension
+      # - '4317:4317' # OTLP gRPC receiver
+      # - '4318:4318' # OTLP HTTP receiver
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/discussions/29670
     depends_on:
       - jaeger-all-in-one
-      - prometheus
+      # - prometheus
+      # - zipkin
     # environment:
-    # - OTEL_EXPORTER_OTLP_ENDPOINT=jaeger-all-in-one:4318
-    # - zipkin
 
   # Observability, used for tracing
   jaeger-all-in-one:
@@ -92,13 +94,13 @@ services:
       # Exposed for metrics to be used by Prometheus
       - '14269:14269'
       # https://opentelemetry.io/docs/languages/js/exporters/#jaeger
+      - '14250:14250' # Used to receive traces with gRPC
       - '4317:4317' # OTLP gRPC receiver
       - '4318:4318' # OTLP HTTP receiver
-      # - '14268'
-      # - '14250'
     environment:
       # Native support for OpenTelemetry in Jaeger. In the traces.exporters we no longer specify jaeger, but otlp
       # https://stackoverflow.com/questions/77305777/opentelemetry-collector-failing-to-export-to-jaeger-via-otlp
+      # This is to enable the Jaeger OTEL receiver
       - COLLECTOR_OTLP_ENABLED=true
 
   # Zipkin
@@ -110,14 +112,14 @@ services:
   #     - '9411:9411'
 
   # Observability, used for metrics
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus:v2.46.0
-    restart: unless-stopped
-    volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
-    ports:
-      - '9090:9090'
+  # prometheus:
+  #   container_name: prometheus
+  #   image: prom/prometheus:v2.46.0
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #     - '9090:9090'
 
   # grafana:
   #   container_name: grafana
