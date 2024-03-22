@@ -10,10 +10,10 @@ const HomePage: CodelabPage<DashboardTemplateProps> = () => {
 
   return (
     <div>
-      {/* <Link href="http://127.0.0.1:16686" target="_blank">
+      <Link href="http://127.0.0.1:16686" target="_blank">
         Jaeger
       </Link>
-      <Link href="http://127.0.0.1:9090/targets" target="_blank">
+      {/* <Link href="http://127.0.0.1:9090/targets" target="_blank">
         Prometheus
       </Link> */}
       {user ? (

@@ -35,7 +35,7 @@ const withWebpackConfig = (nextConfig = {}) =>
           const wdrPath = path.resolve(__dirname, './wdyr.js')
 
           if (entries['main.js'] && !entries['main.js'].includes(wdrPath)) {
-            entries['main.js'].unshift(wdrPath)
+            // entries['main.js'].unshift(wdrPath)
           }
 
           return entries
@@ -59,7 +59,9 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {},
+  experimental: {
+    instrumentationHook: true,
+  },
   nx: { svgr: true },
   /**
    * https://github.com/vercel/next.js/issues/58817

@@ -1,22 +1,40 @@
-import '../wdyr'
+// import '../wdyr'
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
+import {
+  initializeRelicAgent,
+  initializeWebTraceProvider,
+} from '@codelab/frontend/infra/otel'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
+import { trace } from '@opentelemetry/api'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import set from 'lodash/set'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import config from '../twind.config'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
 })
+
+const fetchGithubStars = async () => {
+  const provider = initializeWebTraceProvider()
+
+  return provider
+    .getTracer('nextjs-example')
+    .startActiveSpan('fetchGithubStars', (span) => {
+      console.log('fetchGithubStars')
+      span.end()
+    })
+}
+
+// void initializeRelicAgent()
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()
@@ -34,11 +52,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
     set(window, '__store__', store)
   }
 
-  // const tracerService = store?.tracerService
-
-  // tracerService?.startSpan('demo span')
-
-  // tracerService?.endSpan()
+  void fetchGithubStars()
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>
@@ -53,7 +67,6 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
 
   return (
     <StoreProvider value={store}>
-      {/* <Analytics /> */}
       <UserProvider>
         <CuiProvider>
           <ConfigProvider

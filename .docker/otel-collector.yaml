@@ -1,0 +1,64 @@
+# Look at the otel yaml options
+# https://opentelemetry.io/docs/collector/configuration
+
+# The sources from which the collector receives data.
+receivers:
+  # for additional configuration see https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver/otlpreceiver
+  otlp:
+    protocols:
+      # Our application is instrumented using an otel client that sends data to otel collector
+      http:
+        # endpoint: '0.0.0.0:4318'
+        # https://github.com/open-telemetry/opentelemetry-js/issues/3802
+        cors:
+          # Can't use wildcard
+          # allowed_origins: ['http://127.0.0.1:3000']
+          allowed_origins: ['*']
+          allowed_headers: ['*']
+      grpc:
+
+# The destinations where the collector sends the data after processing.
+exporters:
+  # Basically otel exports data to the otlp collector, which jaeger implements
+  otlp/jaeger:
+    # default is "http://localhost:4318"
+    endpoint: jaeger-all-in-one:4317
+    tls:
+      insecure: true
+
+  prometheus:
+    endpoint: '0.0.0.0:8889'
+    # const_labels:
+    #   label1: value1
+
+  logging:
+
+  debug:
+
+  # zipkin:
+  #   endpoint: 'http://zipkin-all-in-one:9411/api/v2/spans'
+  #   format: proto
+
+# Intermediate components that process the data before exporting.
+processors:
+  batch:
+
+extensions:
+  health_check:
+  pprof:
+    endpoint: :1888
+  zpages:
+    endpoint: :55679
+
+service:
+  extensions: [pprof, zpages, health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      # No longer jaeger, since jaeger supports otlp natively
+      exporters: [otlp/jaeger]
+    # metrics:
+    #   receivers: []
+    #   processors: [batch]
+    #   exporters: [prometheus]
