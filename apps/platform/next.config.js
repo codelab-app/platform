@@ -60,18 +60,18 @@ const nextConfig = {
     styledComponents: true,
   },
   experimental: {
-    instrumentationHook: true,
+    instrumentationHook: Boolean(process.env.NEXT_PLATFORM_ENABLE_OTEL),
   },
   nx: { svgr: true },
-  rewrites: async () => {
-    return [
+  rewrites: async () => ({
+    beforeFiles: [
       // This prevents CORS issue with frontend sending traces to Jaeger, can't add response headers to
       {
         destination: 'http://127.0.0.1:4318/:path*',
         source: '/api/otel/:path*',
       },
-    ]
-  },
+    ],
+  }),
   /**
    * https://github.com/vercel/next.js/issues/58817
    */

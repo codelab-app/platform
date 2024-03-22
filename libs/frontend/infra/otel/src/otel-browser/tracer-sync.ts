@@ -18,6 +18,11 @@ export const withTracerActiveSpanSync =
      */
     parentContext?: Context,
   ): T => {
+    // Call the original function if we're not tracing
+    if (process.env['NEXT_PLATFORM_ENABLE_OTEL'] !== 'true') {
+      return callback({} as Span)
+    }
+
     const provider = initializeWebTraceProvider()
     const activeContext = parentContext ?? context.active()
 

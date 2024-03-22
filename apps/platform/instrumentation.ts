@@ -12,5 +12,7 @@ import { WebTracerProvider } from '@opentelemetry/sdk-trace-web'
 import { SEMRESATTRS_SERVICE_NAME } from '@opentelemetry/semantic-conventions'
 
 export const register = async () => {
+  console.log('instrument!')
+
   initializeWebTraceProvider()
 }
