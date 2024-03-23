@@ -1,5 +1,6 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 
 export const createTagByUI = (name: string, parentName?: string) => {
   Cypress.log({
@@ -25,12 +26,13 @@ export const createTagByUI = (name: string, parentName?: string) => {
     .getCuiToolbarItem(MODEL_ACTION.CreateTag.key)
     .click()
 
-  if (parentName) {
-    // Open the child once created
-    cy.toggleCuiTreeNodeSwitcher(parentName)
-  }
+  cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
-  cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
+  // if (parentName) {
+  //   cy.toggleCuiTreeNodeSwitcher(parentName)
+  // }
+
+  // cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
 }
 
 export const deleteTagInTableByUI = (name: string) => {

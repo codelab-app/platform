@@ -36,19 +36,26 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     pathname: PageType.Type,
   })
 
-  const treeData: Array<ITreeNode<ITagNodeData>> = data
-    .filter((tag) => tag.isRoot)
-    .map((tag) => ({
-      children: tag.children.map((child) => child.current.treeNode),
-      extraData: {
-        node: tag,
-        type: 'tag',
-      },
-      key: tag.id,
-      primaryTitle: tag.name,
-      secondaryTitle: tag.name,
-      title: `${tag.name}`,
-    }))
+  console.log(isLoading)
+
+  /**
+   * Need to wait for all item to be hydrated first, before we can access children ref
+   */
+  const treeData: Array<ITreeNode<ITagNodeData>> = isLoading
+    ? []
+    : data
+        .filter((tag) => tag.isRoot)
+        .map((tag) => ({
+          children: tag.children.map((child) => child.current.treeNode),
+          extraData: {
+            node: tag,
+            type: 'tag',
+          },
+          key: tag.id,
+          primaryTitle: tag.name,
+          secondaryTitle: tag.name,
+          title: `${tag.name}`,
+        }))
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
     selectedKeys[0] &&
