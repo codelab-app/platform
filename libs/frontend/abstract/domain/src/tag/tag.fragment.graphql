@@ -1,6 +1,6 @@
 fragment Tag on Tag {
   children {
-    id
+    ...Tag
   }
   descendants {
     id

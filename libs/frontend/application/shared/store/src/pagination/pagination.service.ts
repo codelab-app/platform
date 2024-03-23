@@ -56,8 +56,13 @@ export class PaginationService<
 
     this.dataRefs.clear()
 
-    items.forEach((type) => {
-      this.dataRefs.set(type.id, paginationServiceRef(type.id) as Ref<T1>)
+    items.forEach((item) => {
+      if ('children' in item && item.children.length) {
+        item.children.forEach((child) => {
+          // console.log(child)
+        })
+      }
+      // this.dataRefs.set(item.id, paginationServiceRef(item.id) as Ref<T1>)
     })
 
     this.isLoading = false

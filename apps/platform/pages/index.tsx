@@ -5,7 +5,9 @@ import { Button } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 
-const HomePage: CodelabPage<DashboardTemplateProps> = () => {
+type HomePage = CodelabPage<DashboardTemplateProps>
+
+const HomePage: HomePage = () => {
   const { user } = useUser()
 
   return (
@@ -38,6 +40,8 @@ const HomePage: CodelabPage<DashboardTemplateProps> = () => {
  */
 export default HomePage
 
-HomePage.Layout = ({ children }) => {
+const HomePageLayout: HomePage['Layout'] = ({ children }) => {
   return <>{children()}</>
 }
+
+HomePage.Layout = HomePageLayout

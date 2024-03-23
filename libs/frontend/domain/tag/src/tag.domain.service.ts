@@ -48,6 +48,8 @@ export class TagDomainService
       parent: parent?.id ? tagRef(parent.id) : null,
     })
 
+    console.log(tag.id)
+
     this.tags.set(tag.id, tag)
 
     return tag

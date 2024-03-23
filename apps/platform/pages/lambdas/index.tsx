@@ -14,7 +14,9 @@ import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import Head from 'next/head'
 import React from 'react'
 
-const LambdasPage: CodelabPage<DashboardTemplateProps> = () => {
+type LambdasPage = CodelabPage<DashboardTemplateProps>
+
+const LambdasPage: LambdasPage = () => {
   return (
     <>
       <Head>
@@ -52,6 +54,8 @@ export default LambdasPage
 
 export const getServerSideProps = withPageAuthRedirect()
 
-LambdasPage.Layout = ({ children }) => {
+const LambdasPageLayout: LambdasPage['Layout'] = ({ children }) => {
   return <DashboardTemplate Header={Header}>{children()}</DashboardTemplate>
 }
+
+LambdasPage.Layout = LambdasPageLayout

@@ -36,7 +36,13 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     pathname: PageType.Type,
   })
 
-  console.log(isLoading)
+  tagService.tagDomainService.tags.forEach((tag) => {
+    tag.children.forEach((child) => {
+      console.log(child.id)
+    })
+  })
+
+  return null
 
   /**
    * Need to wait for all item to be hydrated first, before we can access children ref
@@ -47,6 +53,12 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         .filter((tag) => tag.isRoot)
         .map((tag) => ({
           children: tag.children.map((child) => child.current.treeNode),
+          // children: tag.children.map((child) => {
+          //   // Get from tagService instead, since the ref here isn't set
+          //   console.log(child)
+
+          //   return child
+          // }),
           extraData: {
             node: tag,
             type: 'tag',

@@ -22,7 +22,9 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+type AtomsPage = CodelabPage<DashboardTemplateProps>
+
+const AtomsPage: AtomsPage = observer(() => {
   return (
     <>
       <Head>
@@ -82,7 +84,7 @@ export default AtomsPage
 
 export const getServerSideProps = withPageAuthRedirect()
 
-AtomsPage.Layout = ({ children }) => {
+const AtomsPageLayout: AtomsPage['Layout'] = ({ children }) => {
   return (
     <DashboardTemplate
       Header={AtomsHeader}
@@ -100,3 +102,5 @@ AtomsPage.Layout = ({ children }) => {
     </DashboardTemplate>
   )
 }
+
+AtomsPage.Layout = AtomsPageLayout

@@ -7,7 +7,9 @@ import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
-const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
+type UsersPage = CodelabPage<DashboardTemplateProps>
+
+const UsersPage: UsersPage = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 
@@ -50,6 +52,8 @@ export default UsersPage
 
 export const getServerSideProps = withPageAuthRedirect()
 
-UsersPage.Layout = ({ children }) => {
+const UsersPageLayout: UsersPage['Layout'] = ({ children }) => {
   return <DashboardTemplate>{children()}</DashboardTemplate>
 }
+
+UsersPage.Layout = UsersPageLayout

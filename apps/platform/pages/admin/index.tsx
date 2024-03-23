@@ -21,7 +21,9 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+type AdminPage = CodelabPage<DashboardTemplateProps>
+
+const AdminPage: AdminPage = observer(() => {
   return (
     <>
       <Head>
@@ -44,7 +46,7 @@ export default AdminPage
 
 export const getServerSideProps = withPageAuthRedirect()
 
-AdminPage.Layout = ({ children }) => {
+const AdminPageLayout: AdminPage['Layout'] = ({ children }) => {
   const AdminHeader = () => (
     <CuiHeader
       direction={<CuiHeaderBreadcrumb items={[{ title: 'Admin' }]} />}
@@ -63,3 +65,5 @@ AdminPage.Layout = ({ children }) => {
     <DashboardTemplate Header={AdminHeader}>{children()}</DashboardTemplate>
   )
 }
+
+AdminPage.Layout = AdminPageLayout

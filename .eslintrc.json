@@ -29,7 +29,8 @@
     "./scripts/eslint/.eslintrc.naming.json",
     "./scripts/eslint/.eslintrc.cypress.json",
     "./scripts/eslint/.eslintrc.codelab.json",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:react/recommended"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
     // "plugin:import/recommended"
@@ -147,6 +148,7 @@
       "plugins": ["tailwindcss"],
       "extends": ["plugin:tailwindcss/recommended"],
       "rules": {
+        "react/prop-types": "off",
         "tailwindcss/no-custom-classname": ["error", {}]
       }
     },

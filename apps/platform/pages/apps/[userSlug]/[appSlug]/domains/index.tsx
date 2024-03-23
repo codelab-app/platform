@@ -65,7 +65,9 @@ const DomainsPageHeader = observer(() => {
   )
 })
 
-const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
+type DomainsPage = CodelabPage<DashboardTemplateProps>
+
+const DomainsPage: DomainsPage = (props) => {
   const { appService, userService } = useStore()
   const user = userService.user
   const { appName } = useAppQuery()
@@ -101,10 +103,12 @@ export default DomainsPage
 
 export const getServerSideProps = withPageAuthRedirect()
 
-DomainsPage.Layout = ({ children }) => {
+const DomainsPageLayout: DomainsPage['Layout'] = ({ children }) => {
   return (
     <DashboardTemplate Header={DomainsPageHeader}>
       {children()}
     </DashboardTemplate>
   )
 }
+
+DomainsPage.Layout = DomainsPageLayout

@@ -76,7 +76,9 @@ const AppsPageHeader = observer(() => {
   )
 })
 
-const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
+type AppsPage = CodelabPage<DashboardTemplateProps>
+
+const AppsPage: AppsPage = (props) => {
   const { appService, userService } = useStore()
   const user = userService.user
 
@@ -118,11 +120,13 @@ export default AppsPage
  */
 export const getServerSideProps = withPageAuthRedirect()
 
-AppsPage.Layout = ({ children }) => {
+const AppsPageLayout: AppsPage['Layout'] = ({ children }) => {
   return (
     <DashboardTemplate Header={AppsPageHeader}>{children()}</DashboardTemplate>
   )
 }
+
+AppsPage.Layout = AppsPageLayout
 
 export const config = {
   // after login this is the page where user is redirected to,
