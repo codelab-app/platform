@@ -208,6 +208,26 @@ jobs:
       - run:
           command: vercel deploy --prebuilt -c prod --token=$VERCEL_ACCESS_TOKEN
           name: Deploy Project Artifacts to Vercel
+  docker-platform:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform
+          name: Build platform Docker image
+  docker-platform-api:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform-api
+          name: Build platform api Docker image
   e2e:
     executor: docker-node-neo4j
     parallelism: 8
@@ -220,7 +240,8 @@ jobs:
       - run: pnpm cypress verify
       - run:
           command: |
-            CI_BUILD_ID=$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}
+            echo 'export CI_BUILD_ID="$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
+            source "$BASH_ENV"
             echo "CI Build ID: $CI_BUILD_ID"
             pnpm nx e2e platform-e2e -c ci --ci-build-id=$CI_BUILD_ID
           environment: null
@@ -463,6 +484,20 @@ workflows:
           requires:
             - setup-workspace
       - e2e:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - docker-platform:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - docker-platform-api:
           filters:
             branches:
               ignore:

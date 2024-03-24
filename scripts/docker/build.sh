@@ -5,4 +5,4 @@ DOCKER_BUILDKIT=0 \
 docker-compose \
   --verbose \
   -f .docker/docker-compose.build.yaml \
-  build platform
+  build platform-api

@@ -85,7 +85,9 @@ describe('Testing the Form atom', () => {
       'be.visible',
     )
 
+    cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).clear()
     cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).type('testing')
+
     cy.get(`#render-root #${elementFormItem_2.propsData?.name}`).click()
     cy.findByText('Select Option B').click()
     cy.get(`#render-root #${elementFormItem_3.propsData?.name}`).check()

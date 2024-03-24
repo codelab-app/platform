@@ -52,6 +52,20 @@ jobs:
             - master
       requires:
         - setup-workspace
+  - docker-platform:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
+  - docker-platform-api:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
   - notify-success:
       filters:
         branches:
