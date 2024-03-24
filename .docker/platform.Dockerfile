@@ -26,6 +26,8 @@ COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json .env ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
 COPY apps/platform ./apps/platform
+COPY libs ./libs
+COPY types ./types
 
 RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN pnpm nx build platform --verbose --skip-nx-cache

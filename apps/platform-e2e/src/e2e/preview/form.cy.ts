@@ -82,6 +82,10 @@ describe('Testing the Form atom', () => {
     cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
     cy.openPreview()
 
+    cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).should(
+      'be.visible',
+    )
+
     cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).type('testing')
     cy.get(`#render-root #${elementFormItem_2.propsData?.name}`).click()
     cy.findByText('Select Option B').click()

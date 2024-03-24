@@ -10,12 +10,14 @@
 *
 
 # # Except
-!/package.json
-!/pnpm-lock.yaml
+!/.env
 !/.npmrc
 !/nx.json
-!/.env
+!/package.json
+!/pnpm-lock.yaml
 !/tsconfig.base.json
+!/types
 
-!/dist/libs/tools/
 !/apps/platform/
+!/dist/libs/tools/
+!/libs/
