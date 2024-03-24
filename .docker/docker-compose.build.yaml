@@ -10,6 +10,7 @@ services:
       context: ../
       dockerfile: ${PWD}/.docker/platform.Dockerfile
     # image: codelabai/codelab:${DOCKER_TAG_VERSION}
+    # This is used after image has been built
     env_file:
       - ../.env
     environment:

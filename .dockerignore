@@ -14,6 +14,8 @@
 !/pnpm-lock.yaml
 !/.npmrc
 !/nx.json
+!/.env
+!/tsconfig.base.json
 
 !/dist/libs/tools/
 !/apps/platform/

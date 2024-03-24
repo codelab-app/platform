@@ -22,15 +22,13 @@ RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 WORKDIR /usr/src/platform
 
 # he trailing / is required when copying from multiple sources
-COPY package.json pnpm-lock.yaml .npmrc nx.json ./
+COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json .env ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
 COPY apps/platform ./apps/platform
 
 RUN pnpm install --frozen-lockfile --ignore-scripts
-RUN ls -la
-RUN ls -la apps/platform
-RUN pnpm nx build platform --skip-nx-cache --verbose
+RUN pnpm nx build platform --verbose --skip-nx-cache
 
 #
 # (2) Prod
