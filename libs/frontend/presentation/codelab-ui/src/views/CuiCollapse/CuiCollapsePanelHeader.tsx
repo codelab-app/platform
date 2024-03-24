@@ -77,7 +77,7 @@ export const CuiCollapsePanelHeader = ({
             event.stopPropagation()
           }}
         >
-          <CuiSidebarToolbar {...toolbar} />
+          <CuiSidebarToolbar items={toolbar.items} title={toolbar.title} />
         </div>
       )}
     </div>

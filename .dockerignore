@@ -6,13 +6,14 @@
 #
 # Instead copy all required files to directoy, then go from there
 
-# # Ignore everything
-# *
+# Ignore everything
+*
 
 # # Except
-# !/package.json
-# !/node_modules/
-# !/dist/apps/
+!/package.json
+!/pnpm-lock.yaml
+!/.npmrc
+!/nx.json
 
-# # Ignore again
-# /node_modules/.cache/
+!/dist/libs/tools/
+!/apps/platform/

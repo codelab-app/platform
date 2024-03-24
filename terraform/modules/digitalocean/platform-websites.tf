@@ -38,7 +38,7 @@ resource "digitalocean_app" "platform-websites" {
 
       # This will replace buildpacks
       dockerfile_path =   ".docker/platform.Dockerfile"
-      build_command = "scripts/digitalocean/websites/build.sh"
+      # build_command = "scripts/digitalocean/websites/build.sh"
       run_command   = "scripts/digitalocean/websites/run.sh"
 
       env {
