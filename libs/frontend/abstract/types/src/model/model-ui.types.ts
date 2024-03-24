@@ -1,6 +1,5 @@
-import type { TitleCase } from '@codelab/shared/abstract/types'
 import type { KebabCase } from 'type-fest'
-import type { ModelDataMap, ModelInteraction } from './model.data'
+import type { ModelInteraction } from './model.data'
 
 export type ModelUiKey = KebabCase<ModelInteraction<'uis'>>
 

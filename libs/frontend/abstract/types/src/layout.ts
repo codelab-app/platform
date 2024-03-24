@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import type { JSXElementConstructor } from 'react'
+import type { FunctionComponent, JSXElementConstructor } from 'react'
 import type { PropsWithRenderChildren } from './children'
 
 /**
@@ -18,7 +18,7 @@ export type CodelabPage<P = unknown, IP = P, RCP = unknown> = NextPage<P, IP> &
  *
  */
 export interface PageProps<Props, ChildrenProps> {
-  Layout?: JSXElementConstructor<PropsWithRenderChildren<Props, ChildrenProps>>
+  Layout?: FunctionComponent<PropsWithRenderChildren<Props, ChildrenProps>>
 }
 
 /**

@@ -8,13 +8,10 @@ import type {
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
-  connectNodeIds,
   connectOwner,
   reconnectNodeId,
-  reconnectNodeIds,
 } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'

@@ -1,7 +1,7 @@
 import { ObjectTyped } from 'object-typed'
-import voca, { kebabCase } from 'voca'
+import { kebabCase } from 'voca'
 import { titleCase } from '../utils'
-import type { ModelDataMap, ModelInteraction } from './model.data'
+import type { ModelInteraction } from './model.data'
 import { modelDataMap } from './model.data'
 import type {
   ModelActionData,

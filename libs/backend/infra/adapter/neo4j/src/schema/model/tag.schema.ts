@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client'
-import { tagIsRoot } from '../../cypher'
 
 export const tagSchema = gql`
   type Tag {

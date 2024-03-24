@@ -1,6 +1,6 @@
 import type { IRootStore } from '@codelab/frontend/abstract/application'
 import type { IPageProps } from '@codelab/frontend/abstract/domain'
-import { context, SpanStatusCode, trace } from '@opentelemetry/api'
+import { trace } from '@opentelemetry/api'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './root.store'
 

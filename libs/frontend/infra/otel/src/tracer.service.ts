@@ -1,10 +1,9 @@
 import type { ITracerService } from '@codelab/frontend/abstract/application'
 import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { isServer } from '@codelab/shared/utils'
-import type { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
 import type { AttributeValue, Span } from '@opentelemetry/api'
 import { context, trace } from '@opentelemetry/api'
-import { Model, model, prop } from 'mobx-keystone'
+import { Model, model } from 'mobx-keystone'
 import { browserAgentInstance } from './newrelic/agent'
 import { PLATFORM_TRACER_NAME } from './tracer'
 /**

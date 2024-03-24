@@ -9,7 +9,9 @@ interface NameServersProps {
 export const NS = ({ copyable, nameServers = [] }: NameServersProps) => (
   <React.Fragment>
     {nameServers.map((ns) => (
-      <Typography.Paragraph copyable={copyable}>{ns}</Typography.Paragraph>
+      <Typography.Paragraph copyable={copyable} key={ns}>
+        {ns}
+      </Typography.Paragraph>
     ))}
   </React.Fragment>
 )

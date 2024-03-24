@@ -31,6 +31,20 @@ interface MakeElementTreeProps {
   makeComponentDroppable?: boolean
 }
 
+const ForwardedDiv = forwardRef(
+  (props: PropsWithChildren, ref: Ref<HTMLDivElement>) => (
+    <div
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+      ref={ref}
+    >
+      {props.children}
+    </div>
+  ),
+)
+
+ForwardedDiv.displayName = 'ForwardedDiv'
+
 export const MakeElementTree = ({
   customDragOverlay,
   hierarchy,
@@ -75,27 +89,7 @@ export const MakeElementTree = ({
           {makeComponentDroppable &&
           (tobe === 'droppable' || tobe === 'both') ? (
             <MakeComponentDroppable
-              ReactComponent={forwardRef(
-                (props: PropsWithChildren, ref: Ref<HTMLDivElement>) => (
-                  <div
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...props}
-                    ref={ref}
-                  >
-                    {props.children}
-                  </div>
-                ),
-              )}
-              children={
-                children && (
-                  <MakeElementTree
-                    customDragOverlay={customDragOverlay}
-                    hierarchy={children}
-                    key={`subtree-${key}`}
-                    makeComponentDroppable={true}
-                  />
-                )
-              }
+              ReactComponent={ForwardedDiv}
               componentProps={{
                 id: key,
                 key,
@@ -105,22 +99,26 @@ export const MakeElementTree = ({
               id={key}
               key={key}
               parentDroppableContainerId={`${parentId}` || ''}
-            />
+            >
+              {children && (
+                <MakeElementTree
+                  customDragOverlay={customDragOverlay}
+                  hierarchy={children}
+                  key={`subtree-${key}`}
+                  makeComponentDroppable={true}
+                />
+              )}
+            </MakeComponentDroppable>
           ) : (
-            <div
-              children={
-                children && (
-                  <MakeElementTree
-                    customDragOverlay={customDragOverlay}
-                    hierarchy={children}
-                    key={`subtree-${key}`}
-                  />
-                )
-              }
-              id={key}
-              key={key}
-              style={style}
-            />
+            <div id={key} key={key} style={style}>
+              {children && (
+                <MakeElementTree
+                  customDragOverlay={customDragOverlay}
+                  hierarchy={children}
+                  key={`subtree-${key}`}
+                />
+              )}
+            </div>
           )}
         </WrapIf>
       </WrapIf>

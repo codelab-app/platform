@@ -1,84 +1,22 @@
-import LogoutOutlined from '@ant-design/icons/LogoutOutlined'
-import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import {
-  type CodelabPage,
-  MODEL_ACTION,
-} from '@codelab/frontend/abstract/types'
-import {
+  AppsView,
+  AppsViewLayout,
   BuildAppModal,
   CreateAppModal,
   DeleteAppModal,
   GetAppsList,
-  ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/application/app'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  CuiHeader,
-  CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
-import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import {
-  ContentSection,
-  DashboardTemplate,
-} from '@codelab/frontend/presentation/view'
+import { ContentSection } from '@codelab/frontend/presentation/view'
 import type { IRef } from '@codelab/shared/abstract/core'
 import { useAsync } from '@react-hookz/web'
-import { Image, Spin } from 'antd'
-import { observer } from 'mobx-react-lite'
+import { Spin } from 'antd'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 
-const AppsPageHeader = observer(() => {
-  const { appService } = useStore()
-
-  const toolbarItems: Array<ToolbarItem> = [
-    {
-      cuiKey: MODEL_ACTION.ImportApp.key,
-      icon: <ImportAppDialog key={0} />,
-      title: 'Import an app',
-    },
-    {
-      cuiKey: MODEL_ACTION.CreateApp.key,
-      icon: <PlusOutlined />,
-      onClick: () => appService.createModal.open(),
-      title: 'Create an App',
-    },
-    {
-      cuiKey: MODEL_ACTION.SignOutUser.key,
-      icon: <LogoutOutlined />,
-      onClick: () => {
-        // redirect to /api/auth/logout
-        window.location.href = '/api/auth/logout'
-      },
-      title: 'Sign Out',
-    },
-  ]
-
-  return (
-    <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Apps' }]} />}
-      logo={
-        <Image
-          alt="codelab logo"
-          className="size-full"
-          preview={false}
-          src="/logo.png"
-        />
-      }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
-      }
-    />
-  )
-})
-
-type AppsPage = CodelabPage<DashboardTemplateProps>
-
-const AppsPage: AppsPage = (props) => {
+const AppsView: AppsView = (props) => {
   const { appService, userService } = useStore()
   const user = userService.user
 
@@ -112,7 +50,7 @@ const AppsPage: AppsPage = (props) => {
   )
 }
 
-export default AppsPage
+export default AppsView
 
 // https://www.quintessential.gr/blog/development/how-to-integrate-redux-with-next-js-and-ssr
 /**
@@ -120,13 +58,7 @@ export default AppsPage
  */
 export const getServerSideProps = withPageAuthRedirect()
 
-const AppsPageLayout: AppsPage['Layout'] = ({ children }) => {
-  return (
-    <DashboardTemplate Header={AppsPageHeader}>{children()}</DashboardTemplate>
-  )
-}
-
-AppsPage.Layout = AppsPageLayout
+AppsView.Layout = AppsViewLayout
 
 export const config = {
   // after login this is the page where user is redirected to,

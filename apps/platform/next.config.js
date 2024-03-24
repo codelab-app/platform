@@ -25,24 +25,24 @@ const withWebpackConfig = (nextConfig = {}) =>
        *
        * https://github.com/welldone-software/why-did-you-render/issues/84
        */
-      if (process.env.NEXT_PLATFORM_ENABLE_WDYR) {
-        const { dev, isServer } = options
+      // if (process.env.NEXT_PLATFORM_ENABLE_WDYR) {
+      //   const { dev, isServer } = options
 
-        if (dev && !isServer) {
-          const originalEntry = config.entry
+      //   if (dev && !isServer) {
+      //     const originalEntry = config.entry
 
-          config.entry = async () => {
-            const entries = await originalEntry()
-            const wdrPath = path.resolve(__dirname, './wdyr.js')
+      //     config.entry = async () => {
+      //       const entries = await originalEntry()
+      //       const wdrPath = path.resolve(__dirname, './wdyr.js')
 
-            if (entries['main.js'] && !entries['main.js'].includes(wdrPath)) {
-              entries['main.js'].unshift(wdrPath)
-            }
+      //       if (entries['main.js'] && !entries['main.js'].includes(wdrPath)) {
+      //         entries['main.js'].unshift(wdrPath)
+      //       }
 
-            return entries
-          }
-        }
-      }
+      //       return entries
+      //     }
+      //   }
+      // }
 
       /**
        * Return

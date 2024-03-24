@@ -1,7 +1,4 @@
-import type {
-  CypressCommand,
-  OmitFirstArg,
-} from '@codelab/frontend/test/cypress/shared'
+import type { CypressCommand } from '@codelab/frontend/test/cypress/shared'
 import { getTree, getTreeNode, getTreeNodes } from './tree.command'
 
 export interface AntTreeCommands {

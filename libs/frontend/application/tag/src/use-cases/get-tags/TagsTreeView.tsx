@@ -9,12 +9,7 @@ import {
   useTablePagination,
 } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import {
-  CuiSkeletonWrapper,
-  CuiTree,
-  useToolbarPagination,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { useAsync } from '@react-hookz/web'
+import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -36,14 +31,6 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     pathname: PageType.Type,
   })
 
-  tagService.tagDomainService.tags.forEach((tag) => {
-    tag.children.forEach((child) => {
-      console.log(child.id)
-    })
-  })
-
-  return null
-
   /**
    * Need to wait for all item to be hydrated first, before we can access children ref
    */
@@ -53,12 +40,6 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         .filter((tag) => tag.isRoot)
         .map((tag) => ({
           children: tag.children.map((child) => child.current.treeNode),
-          // children: tag.children.map((child) => {
-          //   // Get from tagService instead, since the ref here isn't set
-          //   console.log(child)
-
-          //   return child
-          // }),
           extraData: {
             node: tag,
             type: 'tag',

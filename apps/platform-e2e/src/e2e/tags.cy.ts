@@ -1,4 +1,4 @@
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { CreateData, UpdateData } from '@codelab/shared/data/test'
 
 describe('Tag CRUD', () => {

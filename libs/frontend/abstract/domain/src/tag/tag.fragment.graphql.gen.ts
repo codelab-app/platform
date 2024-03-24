@@ -8,8 +8,8 @@ type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type TagFragment = {
   id: string
   name: string
-  children: Array<{ id: string }>
-  descendants: Array<{ id: string }>
+  children: Array<{ id: string; name: string }>
+  descendants: Array<{ id: string; name: string }>
   owner: OwnerFragment
   parent?: { id: string } | null
 }
@@ -20,9 +20,11 @@ export const TagFragmentDoc = gql`
   fragment Tag on Tag {
     children {
       id
+      name
     }
     descendants {
       id
+      name
     }
     id
     name

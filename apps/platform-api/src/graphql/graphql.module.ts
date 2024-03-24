@@ -6,7 +6,6 @@ import {
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
-import { hiveApollo } from '@graphql-hive/client'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'

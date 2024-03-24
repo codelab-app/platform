@@ -114,7 +114,14 @@ export class TagService
 
     this.paginationService.totalItems = count
 
-    return tags.map((tag) => this.tagDomainService.hydrate(tag))
+    return tags.map((tag) => {
+      /**
+       * Pagination may cause child data to not be loaded, we hydrate it separately here
+       */
+      tag.children.forEach((child) => this.tagDomainService.hydrate(child))
+
+      return this.tagDomainService.hydrate(tag)
+    })
   })
 
   @modelFlow
@@ -135,7 +142,11 @@ export class TagService
   onAttachedToRootStore() {
     this.paginationService.getDataFn = async (page, pageSize, filter) => {
       const items = await this.getAll(
-        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          name_MATCHES: `(?i).*${filter.name ?? ''}.*`,
+          // Fetch only the root tags
+          parentAggregate: { count: 0 },
+        },
         {
           limit: pageSize,
           offset: (page - 1) * pageSize,

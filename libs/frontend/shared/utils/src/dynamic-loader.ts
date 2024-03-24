@@ -13,17 +13,25 @@ export const dynamicLoader = (loadingFn: () => LoaderComponent<any>) => {
       const result = await loadingFn()
       const Component = 'default' in result ? result.default : result
 
-      return ({
+      const ForwardedComponent = ({
         forwarded,
         ...rest
       }: object & { forwarded: React.ForwardedRef<unknown> }) =>
         React.createElement(Component, { ...rest, ref: forwarded })
+
+      ForwardedComponent.displayName = 'ForwardedComponent'
+
+      return ForwardedComponent
     },
     { ssr: false },
   )
 
   // a workaround for: https://github.com/cookpete/react-player/issues/1455
-  return React.forwardRef((props: object, forwarded) =>
+  const DynamicComponent = React.forwardRef((props: object, forwarded) =>
     React.createElement(LoadedComponent, { ...props, forwarded }),
   )
+
+  DynamicComponent.displayName = 'DynamicComponent'
+
+  return DynamicComponent
 }

@@ -5,9 +5,9 @@ import { Button } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 
-type HomePage = CodelabPage<DashboardTemplateProps>
+type HomeView = CodelabPage<DashboardTemplateProps>
 
-const HomePage: HomePage = () => {
+const HomeView: HomeView = () => {
   const { user } = useUser()
 
   return (
@@ -38,10 +38,10 @@ const HomePage: HomePage = () => {
 /**
  * Need this file for Cypress `readywhen` to see if server is running
  */
-export default HomePage
+export default HomeView
 
-const HomePageLayout: HomePage['Layout'] = ({ children }) => {
+const HomeViewLayout: HomeView['Layout'] = ({ children }) => {
   return <>{children()}</>
 }
 
-HomePage.Layout = HomePageLayout
+HomeView.Layout = HomeViewLayout

@@ -8,7 +8,6 @@ import type { DocumentContext } from 'next/document'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import Script from 'next/script'
 import React from 'react'
-import { NewRelicScript } from '../components/NewRelicScript'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

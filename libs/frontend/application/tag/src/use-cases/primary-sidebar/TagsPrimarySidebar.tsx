@@ -67,3 +67,5 @@ export const TagsPrimarySidebar = observer(() => {
     />
   )
 })
+
+TagsPrimarySidebar.displayName = 'TagsPrimarySidebar'

@@ -51,3 +51,5 @@ export const StyledComponent = forwardRef(
     )
   },
 )
+
+StyledComponent.displayName = 'StyledComponent'

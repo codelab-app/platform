@@ -1,15 +1,11 @@
 import type { IUserModel } from '@codelab/frontend/abstract/domain'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import { DashboardTemplate } from '@codelab/frontend/presentation/view'
+import { UsersView, UsersViewLayout } from '@codelab/frontend/application/user'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
 import React from 'react'
 
-type UsersPage = CodelabPage<DashboardTemplateProps>
-
-const UsersPage: UsersPage = () => {
+const UsersView: UsersView = () => {
   // const { data } = useGetUsersQuery()
   const data = { users: [] }
 
@@ -48,12 +44,8 @@ const UsersPage: UsersPage = () => {
   )
 }
 
-export default UsersPage
+export default UsersView
 
 export const getServerSideProps = withPageAuthRedirect()
 
-const UsersPageLayout: UsersPage['Layout'] = ({ children }) => {
-  return <DashboardTemplate>{children()}</DashboardTemplate>
-}
-
-UsersPage.Layout = UsersPageLayout
+UsersView.Layout = UsersViewLayout

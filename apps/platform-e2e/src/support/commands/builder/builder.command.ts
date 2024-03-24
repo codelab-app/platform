@@ -1,5 +1,4 @@
 import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
-import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { ICreateCypressElementData } from '@codelab/shared/abstract/core'

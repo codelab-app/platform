@@ -1,9 +1,11 @@
 fragment Tag on Tag {
   children {
-    ...Tag
+    id
+    name
   }
   descendants {
     id
+    name
   }
   id
   # isRoot

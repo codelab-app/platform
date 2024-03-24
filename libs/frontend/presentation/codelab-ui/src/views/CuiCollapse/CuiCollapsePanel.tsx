@@ -3,7 +3,7 @@ import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'
 import { CuiCollapsePanelHeader } from './CuiCollapsePanelHeader'
 
-export interface CuiCollapsePanelProps {
+export interface CuiCollapsePanelItemsProps {
   content: React.ReactNode
   isLoading?: boolean
   key: string
@@ -11,15 +11,15 @@ export interface CuiCollapsePanelProps {
   toolbar?: CuiSidebarToolbarProps
 }
 
-interface CuiCollapseProps {
+interface CuiCollapsePanelProps {
   defaultActivePanels?: Array<string>
-  panels: Array<CuiCollapsePanelProps>
+  items: Array<CuiCollapsePanelItemsProps>
 }
 
-export const CuiCollapse = ({
+export const CuiCollapsePanel = ({
   defaultActivePanels,
-  panels,
-}: CuiCollapseProps) => {
+  items,
+}: CuiCollapsePanelProps) => {
   const [activePanels, setActivePanels] = useState<Record<string, boolean>>(
     defaultActivePanels?.reduce(
       (acc, panelKey) => ({
@@ -40,7 +40,7 @@ export const CuiCollapse = ({
   return (
     <div className="flex size-full flex-col overflow-y-auto overflow-x-hidden">
       <div className="flex size-full flex-col py-1">
-        {panels.map((view) => (
+        {items.map((view) => (
           <React.Fragment key={view.key}>
             <CuiCollapsePanelHeader
               defaultExpand={activePanels[view.key]}

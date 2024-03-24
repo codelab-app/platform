@@ -39,16 +39,14 @@ export class TagDomainService
   }
 
   @modelAction
-  hydrate = ({ children, descendants, id, isRoot, name, parent }: ITagDto) => {
-    const tag = new Tag({
-      children: children?.map((child) => tagRef(child.id)),
-      descendants: descendants?.map((child) => tagRef(child.id)),
-      id,
-      name,
-      parent: parent?.id ? tagRef(parent.id) : null,
-    })
+  hydrate = (tagDto: ITagDto) => {
+    let tag = this.tags.get(tagDto.id)
 
-    console.log(tag.id)
+    if (tag) {
+      tag.writeCache(tagDto)
+    } else {
+      tag = Tag.create(tagDto)
+    }
 
     this.tags.set(tag.id, tag)
 

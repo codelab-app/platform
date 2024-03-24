@@ -2,9 +2,9 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
-  BuilderDndContext,
   BuilderPrimarySidebar,
   BuilderTabs,
+  BuilderViewLayout,
   ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/application/builder'
@@ -18,14 +18,14 @@ import {
   useRenderedComponent,
 } from '@codelab/frontend/presentation/container'
 import {
-  DashboardTemplate,
+  DynamicDashboardTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
-const ComponentBuilder: CodelabPage = observer(() => {
+const ComponentBuilderView: CodelabPage = observer(() => {
   const { componentName } = useCurrentComponent()
 
   const [{ error, status }, loadCurrentPage] = useRenderedComponent(
@@ -40,7 +40,7 @@ const ComponentBuilder: CodelabPage = observer(() => {
   }, [componentName])
 
   return (
-    <DashboardTemplate
+    <DynamicDashboardTemplate
       ConfigPane={() => (
         <SkeletonWrapper isLoading={isLoading}>
           <ConfigPaneInspectorTabContainer />
@@ -72,16 +72,12 @@ const ComponentBuilder: CodelabPage = observer(() => {
       </Head>
 
       <BuilderTabs error={error} isLoading={isLoading} />
-    </DashboardTemplate>
+    </DynamicDashboardTemplate>
   )
 })
 
 export const getServerSideProps = withPageAuthRedirect()
 
-ComponentBuilder.Layout = observer(({ children }) => {
-  return <BuilderDndContext>{children()}</BuilderDndContext>
-})
+ComponentBuilderView.Layout = BuilderViewLayout
 
-export default ComponentBuilder
-
-ComponentBuilder.displayName = 'ComponentBuilder'
+export default ComponentBuilderView

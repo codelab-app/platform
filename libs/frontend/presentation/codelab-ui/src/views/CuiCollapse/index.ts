@@ -1,4 +1,3 @@
-export * from './CuiCollapse'
-export * from './CuiCollapseOrNot'
+export * from './CuiCollapsePanel'
 export * from './CuiCollapsePanelContent'
 export * from './CuiCollapsePanelHeader'

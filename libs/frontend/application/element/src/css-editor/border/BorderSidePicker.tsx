@@ -45,14 +45,15 @@ export const BorderSidePicker = ({
         {sides.map((borderSide) => {
           return (
             <Radio.Button
-              children={sideToIcon[borderSide]}
               className={`flex items-center justify-center ${
                 canResetSide?.(borderSide) ? 'bg-sky-100 hover:bg-sky-200' : ''
               }`}
               key={borderSide}
               style={{ borderRadius: 0, gridArea: borderSide }}
               value={borderSide}
-            ></Radio.Button>
+            >
+              {sideToIcon[borderSide]}
+            </Radio.Button>
           )
         })}
       </div>

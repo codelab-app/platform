@@ -2,7 +2,6 @@ import {
   IAtomType,
   type ICreateCypressElementData,
 } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
 
 export const createComponentData = {
   name: 'Component Name',

@@ -1,5 +1,3 @@
-import { connectNodeId } from '@codelab/shared/domain'
-
 /**
  * Create List Atom
  */

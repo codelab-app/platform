@@ -1,5 +1,4 @@
-import type { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
-import type { AttributeValue, Span } from '@opentelemetry/api'
+import type { Span } from '@opentelemetry/api'
 
 export interface ITracerService {
   addAction(name: string, attributes?: object): void

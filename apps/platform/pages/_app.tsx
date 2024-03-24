@@ -8,17 +8,35 @@ import { initializeStore } from '@codelab/frontend/infra/mobx'
 import { withTracerSpan } from '@codelab/frontend/infra/otel'
 import { CuiProvider } from '@codelab/frontend/presentation/codelab-ui'
 import { useTwindConfig } from '@codelab/frontend/shared/utils'
-import { trace } from '@opentelemetry/api'
+import { getEnv } from '@codelab/shared/config'
+import { isBrowser } from '@codelab/shared/utils'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import set from 'lodash/set'
 import { setGlobalConfig } from 'mobx-keystone'
 import { useRouter } from 'next/router'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import config from '../twind.config'
 
 setGlobalConfig({
   showDuplicateModelNameWarnings: process.env.NODE_ENV === 'production',
 })
+
+/**
+ * Need to paste here for it to work with mobx
+ */
+if (getEnv().endpoint.isLocal) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const whyDidYouRender = require('@welldone-software/why-did-you-render')
+
+  whyDidYouRender(React, {
+    collapseGroups: true,
+    // Exclude Ant Design components
+    exclude: [/PopupContent/],
+    // onlyLogs: true,
+    titleColor: 'green',
+    trackAllPureComponents: true,
+  })
+}
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   const router = useRouter()

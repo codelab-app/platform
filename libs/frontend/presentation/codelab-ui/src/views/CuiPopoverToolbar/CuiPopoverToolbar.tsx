@@ -28,6 +28,7 @@ export const CuiPopoverToolbar = ({ items }: CuiPopoverToolbarProps) => {
           <CuiPopoverToolbarItem
             cuiKey={item.cuiKey}
             icon={item.icon}
+            key={item.cuiKey}
             label={item.label}
             onClick={item.onClick}
             title={item.title}
