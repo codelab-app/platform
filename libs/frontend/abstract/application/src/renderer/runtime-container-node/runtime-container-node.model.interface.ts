@@ -11,10 +11,7 @@ import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
 
-export type SubTree =
-  | Ref<IComponentModel>
-  | Ref<IElementModel>
-  | Ref<IPageModel>
+export type SubTree = Ref<IElementModel>
 
 /**
  * Represents runtime model for IPageModel or IComponentModel
@@ -26,6 +23,7 @@ export interface IRuntimeContainerNodeModel extends AnyModel {
    * other than ones created by child mapper
    */
   childMapperIndex: Maybe<number>
+  closestContainerNode: Ref<IRuntimeContainerNodeModel>
   componentRuntimeProp?: IRuntimeComponentPropModel
   /**
    * Exposed for external use by other models and to preserve structure

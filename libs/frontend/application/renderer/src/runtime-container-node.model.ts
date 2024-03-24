@@ -24,7 +24,8 @@ import {
   pageRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
-import { IRef } from '@codelab/shared/abstract/core'
+import { Prop } from '@codelab/frontend/domain/prop'
+import { IRef, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import isNil from 'lodash/isNil'
@@ -52,6 +53,7 @@ const create = (dto: IRuntimeContainerNodeDTO) =>
 export class RuntimeContainerNodeModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
+    closestContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
     componentRuntimeProp: prop<Maybe<IRuntimeComponentPropModel>>(),
     containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
@@ -109,13 +111,29 @@ export class RuntimeContainerNodeModel
 
     const id = v4()
 
+    const componentRuntimeProp = isComponent(node)
+      ? RuntimeComponentPropModel.create({
+          runtimeComponent: runtimeContainerNodeRef(id),
+        })
+      : undefined
+
+    componentRuntimeProp?.setCustomProps(
+      Prop.create({
+        data: JSON.stringify({
+          children: subTrees.map((subTree) => ({
+            kind: ITypeKind.ElementType,
+            type: 'ReactNode',
+            value: subTree.id,
+          })),
+        }),
+        id: v4(),
+      }),
+    )
+
     const runtimeNode = RuntimeContainerNodeModel.create({
       childMapperIndex,
-      componentRuntimeProp: isComponent(node)
-        ? RuntimeComponentPropModel.create({
-            runtimeComponent: runtimeContainerNodeRef(id),
-          })
-        : undefined,
+      closestContainerNode: runtimeContainerNodeRef(this.id),
+      componentRuntimeProp,
       containerNode: isPage(node) ? pageRef(node.id) : componentRef(node.id),
       id,
       isTypedProp,

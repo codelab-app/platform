@@ -21,7 +21,6 @@ import {
   IElementTreeViewDataNode,
   isAtom,
   isComponent,
-  isPage,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -95,7 +94,6 @@ export class RuntimeElementModel
   @computed
   get children() {
     const runtimeContainer = this.closestContainerNode.current
-    const containerNode = runtimeContainer.containerNode.current
     const element = this.element.current
     const renderType = element.renderType.current
     const shouldRenderComponent = isComponent(renderType)
@@ -112,20 +110,6 @@ export class RuntimeElementModel
             ),
           ]
         : element.children.map((child) => runtimeContainer.addElement(child))
-
-    const shouldAttachSubTrees = isPage(containerNode)
-      ? containerNode.pageContentContainer?.id === this.element.id
-      : containerNode.childrenContainerElement.id === this.element.id
-
-    if (shouldAttachSubTrees) {
-      const runtimeSubTrees = runtimeContainer.subTrees.map((child) =>
-        isPage(child.current) || isComponent(child.current)
-          ? runtimeContainer.addContainerNode(child.current, { id: this.id })
-          : runtimeContainer.addElement(child.current),
-      )
-
-      children.push(...runtimeSubTrees)
-    }
 
     const previousSibling = element.childMapperPreviousSibling
 

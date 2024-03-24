@@ -29,7 +29,10 @@ export class ElementTypeTransformer
   public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
     const elements = isRuntimeElement(runtimeNode)
       ? runtimeNode.element.current.closestContainerNode.elements
-      : runtimeNode.containerNode.current.elements
+      : [
+          ...runtimeNode.containerNode.current.elements,
+          ...runtimeNode.subTrees.map((subTreeRef) => subTreeRef.current),
+        ]
 
     const targetElement = elements.find((el) => el.id === prop.value)
 
@@ -39,7 +42,7 @@ export class ElementTypeTransformer
 
     const runtimeElement = isRuntimeElement(runtimeNode)
       ? runtimeNode.closestContainerNode.current.addElement(targetElement)
-      : runtimeNode.addElement(targetElement)
+      : runtimeNode.closestContainerNode.current.addElement(targetElement)
 
     return runtimeElement.render
   }
