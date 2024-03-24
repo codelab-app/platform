@@ -21,8 +21,8 @@ RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 
 WORKDIR /usr/src/platform
 
-# he trailing / is required when copying from multiple sources
-COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json .env ./
+# The trailing / is required when copying from multiple sources
+COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json postcss.config.js tailwind.config.js .env ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
 COPY apps/platform ./apps/platform

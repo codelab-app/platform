@@ -79,7 +79,6 @@ describe('Testing the Form atom', () => {
   })
 
   it('should populate the form fields - input, select, and checkbox', () => {
-    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
     cy.openPreview()
 
     cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).should(

@@ -97,7 +97,8 @@ export const openPreview = () => {
 
   cy.waitForSpinners()
 
-  return cy.get('#render-root')
+  // Not working on CI
+  return cy.get('#render-root', { timeout: 30000 })
 }
 
 export const openBuilder = () => {

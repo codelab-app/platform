@@ -16,8 +16,10 @@
 !/package.json
 !/pnpm-lock.yaml
 !/tsconfig.base.json
-!/types
+!/postcss.config.js
+!/tailwind.config.js
 
+!/types
 !/apps/platform/
 !/dist/libs/tools/
 !/libs/
