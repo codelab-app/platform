@@ -5,7 +5,7 @@ import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourcesPrimarySidebar } from '../use-cases'
-import { ResourcesViewHeader } from './ResourcesViewheader'
+import { ResourcesViewHeader } from './ResourcesViewHeader'
 
 export type ResourcesView = CodelabPage<DashboardTemplateProps>
 

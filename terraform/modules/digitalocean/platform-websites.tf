@@ -4,12 +4,12 @@ resource "digitalocean_app" "platform-websites" {
     region = "sfo"
 
     domain {
-      name = "websites.codelab.app"
-      zone = "codelab.app"
+      name = "demo-codelab.online"
+      zone = "demo-codelab.online"
     }
 
     domain {
-      name = "*.websites.codelab.app"
+      name = "websites.codelab.app"
       zone = "codelab.app"
     }
 
@@ -36,6 +36,8 @@ resource "digitalocean_app" "platform-websites" {
         repo_clone_url = "https://github.com/codelab-app/platform"
       }
 
+      # This will replace buildpacks
+      dockerfile_path =   ".docker/platform.Dockerfile"
       build_command = "scripts/digitalocean/websites/build.sh"
       run_command   = "scripts/digitalocean/websites/run.sh"
 
@@ -72,6 +74,21 @@ resource "digitalocean_app" "platform-websites" {
       env {
         key   = "NEXT_PUBLIC_PLATFORM_API_PORT"
         value = var.next_public_platform_api_port
+      }
+    }
+
+    # Docker
+    worker {
+      instance_count     = 1
+      instance_size_slug = "basic-xs"
+      name               = "neo4j"
+      run_command        = "['neo4j', 'start']"
+
+      image {
+        registry      = "library"
+        registry_type = "DOCKER_HUB"
+        repository    = "neo4j"
+        tag           = "5.11.0"
       }
     }
   }
