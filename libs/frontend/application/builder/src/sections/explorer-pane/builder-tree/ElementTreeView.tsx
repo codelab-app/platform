@@ -124,4 +124,3 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
 )
 
 ElementTreeView.displayName = 'ElementTree'
-ElementTreeView.whyDidYouRender = true

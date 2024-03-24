@@ -98,7 +98,6 @@ export const CuiTree = observer(
 
     const handleExpand = useCallback<HandleExpand>(
       (_expandedKeys, info) => {
-        console.log('handle expand')
         onExpand?.(_expandedKeys, info)
         cuiTreeStore.setExpandedKeys(_expandedKeys)
         cuiTreeStore.setAutoExpandParent(false)

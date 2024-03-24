@@ -24,7 +24,7 @@ setGlobalConfig({
 /**
  * Need to paste here for it to work with mobx
  */
-if (getEnv().endpoint.isLocal) {
+if (getEnv().endpoint.isLocal && process.env['NEXT_PLATFORM_ENABLE_WDYR']) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const whyDidYouRender = require('@welldone-software/why-did-you-render')
 

@@ -51,10 +51,11 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
         }))
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    selectedKeys[0] &&
+    if (selectedKeys[0]) {
       tagService.tagDomainService.setSelectedTag(
         tagRef(selectedKeys[0].toString()),
       )
+    }
   }
 
   const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
@@ -68,8 +69,14 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
       checkStrictly
       checkable
       checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
+      expandedKeys={tagService.tagDomainService.expandedNodes}
       isLoading={isLoading}
       onCheck={onCheck}
+      onExpand={(expandedKeys) => {
+        tagService.tagDomainService.setExpandedNodes(
+          expandedKeys.map((key) => key.toString()),
+        )
+      }}
       onSearchKeywordChange={(keyword) => {
         void handleChange({ newFilter: { name: keyword || undefined } })
       }}

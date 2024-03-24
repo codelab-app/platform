@@ -45,12 +45,7 @@ export class TagService
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, data: ICreateTagData) {
-    const tag = this.tagDomainService.hydrate({
-      ...data,
-      children: [],
-      descendants: [],
-      isRoot: !data.parent?.id,
-    })
+    const tag = this.tagDomainService.hydrate(data)
 
     yield* _await(this.tagRepository.add(tag))
 
@@ -60,12 +55,10 @@ export class TagService
       return tag
     }
 
-    const [parentTag] = yield* _await(this.getAll({ id: tag.parent.id }))
-
-    // This updates the children tag of the parent
-    if (parentTag) {
-      this.tagDomainService.tags.set(parentTag.id, parentTag)
-    }
+    // Add the current tag to the parent as the child
+    tag.parent.current.writeCache({
+      children: [...tag.parent.current.children, tagRef(tag)],
+    })
 
     return tag
   })

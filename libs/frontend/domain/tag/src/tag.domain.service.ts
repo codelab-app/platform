@@ -3,7 +3,7 @@ import type {
   ITagModel,
 } from '@codelab/frontend/abstract/domain'
 import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
@@ -12,7 +12,8 @@ import { Tag, tagRef } from './store'
 @model('@codelab/TagDomainService')
 export class TagDomainService
   extends Model({
-    selectedTag: prop<Nullish<Ref<ITagModel>>>(null).withSetter(),
+    expandedNodes: prop<Array<string>>(() => []).withSetter(),
+    selectedTag: prop<Nullable<Ref<ITagModel>>>(null).withSetter(),
     tags: prop(() => objectMap<ITagModel>()),
   })
   implements ITagDomainService
