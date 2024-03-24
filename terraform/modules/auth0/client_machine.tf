@@ -3,7 +3,7 @@ resource "auth0_client" "machine_client" {
   description = "A M2M client used by Auth0 Actions Flows"
   app_type    = "non_interactive"
 
-  web_origins = ["${var.next_public_platform_host}"]
+  web_origins     = ["${var.next_public_platform_host}"]
   allowed_origins = ["${var.next_public_platform_host}"]
 }
 

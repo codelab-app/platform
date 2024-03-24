@@ -51,8 +51,6 @@ export class TagService
 
     this.paginationService.dataRefs.set(tag.id, tagRef(tag))
 
-    console.log(tag)
-
     if (!tag.parent) {
       return tag
     }
@@ -61,6 +59,12 @@ export class TagService
     tag.parent.current.writeCache({
       children: [...tag.parent.current.children, tagRef(tag)],
     })
+
+    // Expand the parent tree node to show the newly created child
+    this.tagDomainService.setExpandedNodes([
+      ...this.tagDomainService.expandedNodes,
+      tag.id,
+    ])
 
     return tag
   })

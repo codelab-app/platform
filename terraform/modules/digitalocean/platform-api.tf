@@ -1,6 +1,6 @@
 resource "digitalocean_app" "platform-api" {
   spec {
-    name = "platform-api"
+    name   = "platform-api"
     region = "sfo"
 
     domain {
@@ -10,16 +10,16 @@ resource "digitalocean_app" "platform-api" {
 
     service {
       instance_size_slug = "basic-xxs"
-      name = "platform-api"
-      http_port = 443
+      name               = "platform-api"
+      http_port          = 443
 
       git {
-        branch         = "master"
+        branch         = "staging"
         repo_clone_url = "https://github.com/codelab-app/platform"
       }
 
       build_command = "scripts/digitalocean/platform-api/build.sh"
-      run_command = "scripts/digitalocean/platform-api/run.sh"
+      run_command   = "scripts/digitalocean/platform-api/run.sh"
 
       env {
         key   = "NEO4J_USER"

@@ -40,15 +40,21 @@ export const CreateTagForm = observer(
       return Promise.resolve()
     }
 
-    const selectedTag = tagService.tagDomainService.selectedOption
+    const selectedOption = tagService.tagDomainService.selectedOption
     const closeForm = () => tagService.createForm.close()
+
+    const model = {
+      id: v4(),
+      parent: selectedOption
+        ? {
+            id: selectedOption.value.toString(),
+          }
+        : undefined,
+    }
 
     return (
       <Form<ICreateTagData>
-        model={{
-          id: v4(),
-          parent: { id: selectedTag.value.toString() },
-        }}
+        model={model}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating tag',
@@ -58,7 +64,8 @@ export const CreateTagForm = observer(
         submitRef={submitRef}
         uiKey={MODEL_ACTION.CreateTag.key}
       >
-        <AutoFields />
+        <AutoFields omitFields={['parent']} />
+        <AutoField label="Parent Tag" name="parent.id" />
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Tag" />
         </DisplayIf>

@@ -45,8 +45,6 @@ export class TagDomainService
 
   @modelAction
   hydrate = (tagDto: ITagDto) => {
-    console.log(tagDto)
-
     let tag = this.tags.get(tagDto.id)
 
     if (tag) {

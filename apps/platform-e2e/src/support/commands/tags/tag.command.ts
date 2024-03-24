@@ -27,12 +27,6 @@ export const createTagByUI = (name: string, parentName?: string) => {
     .click()
 
   cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
-
-  // if (parentName) {
-  //   cy.toggleCuiTreeNodeSwitcher(parentName)
-  // }
-
-  // cy.getCuiTreeItemByPrimaryTitle(name).should('exist')
 }
 
 export const deleteTagInTableByUI = (name: string) => {

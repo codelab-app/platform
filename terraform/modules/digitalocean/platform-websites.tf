@@ -1,6 +1,6 @@
 resource "digitalocean_app" "platform-websites" {
   spec {
-    name = "platform-websites"
+    name   = "platform-websites"
     region = "sfo"
 
     domain {
@@ -13,18 +13,31 @@ resource "digitalocean_app" "platform-websites" {
       zone = "codelab.app"
     }
 
+    domain {
+      name     = "production-demo-app.websites.codelab.app"
+      type     = "ALIAS"
+      wildcard = false
+      zone     = "codelab.app"
+    }
+
+    domain {
+      name     = "test-2.com"
+      type     = "ALIAS"
+      wildcard = false
+    }
+
     service {
       instance_size_slug = "basic-xxs"
-      name = "platform-websites"
-      http_port = 443
+      name               = "platform-websites"
+      http_port          = 443
 
       git {
-        branch         = "master"
+        branch         = "staging"
         repo_clone_url = "https://github.com/codelab-app/platform"
       }
 
       build_command = "scripts/digitalocean/websites/build.sh"
-      run_command = "scripts/digitalocean/websites/run.sh"
+      run_command   = "scripts/digitalocean/websites/run.sh"
 
       env {
         key   = "AUTH0_SECRET"

@@ -17,7 +17,7 @@ provider "digitalocean" {
 }
 
 resource "digitalocean_database_cluster" "redis_cluster" {
-  count = 0
+  count      = 0
   name       = "redis-cluster"
   engine     = "redis"
   size       = "db-s-1vcpu-1gb"

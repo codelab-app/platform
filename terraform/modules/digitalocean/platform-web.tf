@@ -1,6 +1,6 @@
 resource "digitalocean_app" "platform-web" {
   spec {
-    name = "platform-web"
+    name   = "platform-web"
     region = "sfo"
 
     domain {
@@ -10,16 +10,16 @@ resource "digitalocean_app" "platform-web" {
 
     service {
       instance_size_slug = "basic-xxs"
-      name = "platform-web"
-      http_port = 443
+      name               = "platform-web"
+      http_port          = 443
 
       git {
-        branch         = "master"
+        branch         = "staging"
         repo_clone_url = "https://github.com/codelab-app/platform"
       }
 
       build_command = "scripts/digitalocean/platform/build.sh"
-      run_command = "scripts/digitalocean/platform/run.sh"
+      run_command   = "scripts/digitalocean/platform/run.sh"
 
       env {
         key   = "AUTH0_SECRET"
