@@ -18,7 +18,7 @@ describe('Apps CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(appName).should('not.exist')
+      cy.findByText(appName).should('exist')
     })
 
     it('should create _app, 404, and 500 page for the app', () => {

@@ -14,13 +14,23 @@
 FROM node:18.17-alpine AS build
 
 # RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
-RUN apk update && apk add --no-cache libc6-compat
+RUN apk update
+# No cache reduces bundle size
+RUN apk add --no-cache libc6-compat python3 py3-pip make g++
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 
 WORKDIR /usr/src/platform
-COPY package.json pnpm-lock.yaml .
+
+# The trailing / is required when copying from multiple sources
+COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json postcss.config.js tailwind.config.js .env ./
+# Required for yarn workspaces
+COPY dist/libs/tools ./dist/libs/tools
+COPY apps/platform ./apps/platform
+COPY libs ./libs
+COPY types ./types
+
 RUN pnpm install --frozen-lockfile --ignore-scripts
-RUN pnpm nx build platform
+RUN pnpm nx build platform --verbose --skip-nx-cache
 
 #
 # (2) Prod
@@ -34,7 +44,7 @@ WORKDIR /usr/src/codelab
 # Ignore specs from image
 
 COPY --from=build /usr/src/platform/dist ./dist
-COPY --from=build /usr/src/platform/package.json .
+COPY --from=build /usr/src/platform/package.json ./
 COPY --from=build /usr/src/platform/node_modules ./node_modules
 
 # default commands and/or parameters for a container

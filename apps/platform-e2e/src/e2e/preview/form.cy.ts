@@ -1,3 +1,4 @@
+import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { Element } from '@codelab/shared/abstract/codegen'
 import type { IAppDto, IPageDto } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
@@ -79,6 +80,10 @@ describe('Testing the Form atom', () => {
 
   it('should populate the form fields - input, select, and checkbox', () => {
     cy.openPreview()
+
+    cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).should(
+      'be.visible',
+    )
 
     cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).type('testing')
     cy.get(`#render-root #${elementFormItem_2.propsData?.name}`).click()

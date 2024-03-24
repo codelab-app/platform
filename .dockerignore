@@ -6,13 +6,20 @@
 #
 # Instead copy all required files to directoy, then go from there
 
-# # Ignore everything
-# *
+# Ignore everything
+*
 
 # # Except
-# !/package.json
-# !/node_modules/
-# !/dist/apps/
+!/.env
+!/.npmrc
+!/nx.json
+!/package.json
+!/pnpm-lock.yaml
+!/tsconfig.base.json
+!/postcss.config.js
+!/tailwind.config.js
 
-# # Ignore again
-# /node_modules/.cache/
+!/types
+!/apps/platform/
+!/dist/libs/tools/
+!/libs/
