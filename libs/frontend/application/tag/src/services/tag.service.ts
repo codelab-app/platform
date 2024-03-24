@@ -51,6 +51,8 @@ export class TagService
 
     this.paginationService.dataRefs.set(tag.id, tagRef(tag))
 
+    console.log(tag)
+
     if (!tag.parent) {
       return tag
     }

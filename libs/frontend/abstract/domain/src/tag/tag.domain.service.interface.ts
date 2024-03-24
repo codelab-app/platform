@@ -7,7 +7,7 @@ import type { ITagModel } from './tag.model.interface'
 
 export interface ITagDomainService extends IHydrateable<ITagDto, ITagModel> {
   expandedNodes: Array<string>
-  selectedOption: LabeledValue
+  selectedOption: LabeledValue | null
   tags: ObjectMap<ITagModel>
   tagsList: Array<ITagModel>
   tagsSelectOptions: Array<LabeledValue>

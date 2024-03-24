@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npx nx build websites -c prod --verbose
+yarn nx build websites -c prod --verbose

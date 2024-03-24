@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd dist/apps/platform
-npx next start
+yarn next start

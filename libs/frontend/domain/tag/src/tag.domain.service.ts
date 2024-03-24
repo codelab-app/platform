@@ -20,9 +20,13 @@ export class TagDomainService
 {
   @computed
   get selectedOption() {
+    if (!this.selectedTag) {
+      return null
+    }
+
     return {
-      label: this.selectedTag?.current.name ?? '',
-      value: this.selectedTag?.current.id ?? '',
+      label: this.selectedTag.current.name,
+      value: this.selectedTag.current.id,
     }
   }
 
@@ -41,6 +45,8 @@ export class TagDomainService
 
   @modelAction
   hydrate = (tagDto: ITagDto) => {
+    console.log(tagDto)
+
     let tag = this.tags.get(tagDto.id)
 
     if (tag) {
