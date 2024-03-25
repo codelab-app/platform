@@ -49,7 +49,11 @@ import { ElementWrapper } from './element/ElementWrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
 import { RuntimeComponentModel } from './runtime-component.model'
 
-const compositeKey = (element: IElementModel, propKey?: string) => {
+const compositeKey = (
+  element: IElementModel,
+  parent: IRuntimeModel,
+  propKey?: string,
+) => {
   /**
    * sub trees of components may repeat which but they will never have the same root (instanceElement)
    * therefor use it to create a unique key
@@ -63,7 +67,7 @@ const compositeKey = (element: IElementModel, propKey?: string) => {
     parentNode = parentNode.instanceElement.current.closestContainerNode
   }
 
-  return `runtime.${element.id}${instanceKeyToRoot}${propKey}`
+  return `runtime.${parent.compositeKey}.${element.id}${instanceKeyToRoot}${propKey}`
 }
 
 const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)

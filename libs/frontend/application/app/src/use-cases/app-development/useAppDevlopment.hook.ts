@@ -19,14 +19,8 @@ interface DevelopmentPageProps {
  * Fetch related data for rendering page, and load them into store
  */
 export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
-  const {
-    appService,
-    builderService,
-    componentService,
-    rendererService,
-    typeService,
-    userService,
-  } = useStore()
+  const { appService, builderService, rendererService, userService } =
+    useStore()
 
   const router = useRouter()
   const { appName } = useAppQuery()

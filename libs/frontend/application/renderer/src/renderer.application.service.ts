@@ -65,11 +65,4 @@ export class RendererApplicationService
 
     return renderer
   }
-
-  /**
-   * This is the entry point to start the rendering process
-   */
-  renderRoot(renderer: IRendererModel) {
-    return renderer.render
-  }
 }

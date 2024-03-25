@@ -21,7 +21,10 @@ describe('Runtime Element', () => {
     const { runtimeElementService } = rootApplicationStore
     const { page, runtimePage } = setupPages(testbed)
     const rootElement = page.rootElement.current
-    const runtimeElement = runtimeElementService.element(rootElement)
+
+    const runtimeElement = runtimeElementService.elements.get(
+      RuntimeElementModel.compositeKey(rootElement, runtimePage!),
+    )
 
     // Test the creation of element node
     expect(runtimeElement?.element.id).toBe(rootElement.id)
@@ -46,7 +49,11 @@ describe('Runtime Element', () => {
     rootElement.writeCache({ firstChild: childElement })
 
     const runtimeChildElement = runtimeRootElement.children[0]
-    const childCompositeKey = RuntimeElementModel.compositeKey(childElement)
+
+    const childCompositeKey = RuntimeElementModel.compositeKey(
+      childElement,
+      runtimePage,
+    )
 
     expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)
   })

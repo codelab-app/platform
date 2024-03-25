@@ -60,7 +60,7 @@ const RootRendererComponent = React.forwardRef<
         wrapperProps={{ data: {}, id: ROOT_RENDER_CONTAINER_ID }}
       >
         <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-          {rendererService.renderRoot(renderer)}
+          {renderer.render}
         </div>
       </WrapIf>
     </ErrorBoundary>

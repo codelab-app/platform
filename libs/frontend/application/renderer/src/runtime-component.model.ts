@@ -2,6 +2,7 @@ import type {
   IRuntimeComponentDTO,
   IRuntimeComponentModel,
   IRuntimeComponentPropModel,
+  IRuntimeModel,
   IRuntimeStoreModel,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -33,6 +34,7 @@ import { RuntimeStoreModel } from './runtime-store.model'
 
 const compositeKey = (
   component: IComponentModel,
+  parent: IRuntimeModel,
   propKey?: ObjectKey,
   childMapperIndex?: number,
 ) => {
@@ -50,7 +52,7 @@ const compositeKey = (
   }
 
   // leave childMapperIndex the last to use keyStart for comparison
-  return `runtime.${component.id}${instanceKeyToRoot}${propKey}${childMapperIndex}`
+  return `runtime.${parent.compositeKey}.${component.id}${instanceKeyToRoot}${propKey}${childMapperIndex}`
 }
 
 const create = (dto: IRuntimeComponentDTO) =>
