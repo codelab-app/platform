@@ -218,6 +218,13 @@ jobs:
       - run:
           command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform
           name: Build platform Docker image
+      - run:
+          command: |
+            echo "$DIGITALOCEAN_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+          name: Login to Docker Registry
+      - run:
+          command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform
+          name: Push Docker Image
   docker-platform-api:
     executor: docker-node
     resource_class: large
@@ -228,6 +235,13 @@ jobs:
       - run:
           command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform-api
           name: Build platform api Docker image
+      - run:
+          command: |
+            echo "$DIGITALOCEAN_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+          name: Login to Docker Registry
+      - run:
+          command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform-api
+          name: Push Docker Image
   e2e:
     executor: docker-node-neo4j
     parallelism: 8
