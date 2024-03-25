@@ -1,9 +1,6 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Ref } from 'mobx-keystone'
-import type {
-  IRuntimeContainerNodeModel,
-  SubTree,
-} from '../runtime-container-node'
+import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
 
 export interface IRuntimeElementDTO {
@@ -11,5 +8,5 @@ export interface IRuntimeElementDTO {
   element: Ref<IElementModel>
   id?: string
   runtimeProps: IRuntimeElementPropModel
-  subTrees?: Array<SubTree>
+  subTrees?: Array<Ref<IElementModel>>
 }

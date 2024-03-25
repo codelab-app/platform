@@ -42,8 +42,8 @@ export class ElementTypeTransformer
 
     const runtimeElement = isRuntimeElement(runtimeNode)
       ? runtimeNode.closestContainerNode.current.addElement(targetElement)
-      : runtimeNode.closestContainerNode.current.addElement(targetElement)
+      : runtimeNode.closestContainerNode?.current.addElement(targetElement)
 
-    return runtimeElement.render
+    return runtimeElement?.render
   }
 }

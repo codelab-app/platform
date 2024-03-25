@@ -2,7 +2,6 @@ import type {
   IRuntimeComponentPropModel,
   IRuntimeContainerNodeDTO,
   IRuntimeStoreModel,
-  SubTree,
 } from '@codelab/frontend/abstract/application'
 import {
   IRuntimeContainerNodeModel,
@@ -53,7 +52,7 @@ const create = (dto: IRuntimeContainerNodeDTO) =>
 export class RuntimeContainerNodeModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
-    closestContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
+    closestContainerNode: prop<Maybe<Ref<IRuntimeContainerNodeModel>>>(),
     componentRuntimeProp: prop<Maybe<IRuntimeComponentPropModel>>(),
     containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
     id: idProp,
@@ -64,7 +63,7 @@ export class RuntimeContainerNodeModel
     runtimeElements: prop<ObjectMap<IRuntimeElementModel>>(() => objectMap([])),
     runtimeParent: prop<Maybe<Ref<IRuntimeElementModel>>>(),
     runtimeStore: prop<IRuntimeStoreModel>(),
-    subTrees: prop<Array<SubTree>>(() => []),
+    subTrees: prop<Array<Ref<IElementModel>>>(() => []),
   })
   implements IRuntimeContainerNodeModel
 {
@@ -94,7 +93,7 @@ export class RuntimeContainerNodeModel
   addContainerNode(
     node: IComponentModel | IPageModel,
     runtimeParent: IRef,
-    subTrees: Array<SubTree> = [],
+    subTrees: Array<Ref<IElementModel>> = [],
     childMapperIndex?: number,
     isTypedProp?: boolean,
   ): IRuntimeContainerNodeModel {
