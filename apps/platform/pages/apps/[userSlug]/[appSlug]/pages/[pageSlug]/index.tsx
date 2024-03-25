@@ -1,14 +1,15 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
-import type { IPageProps } from '@codelab/frontend/abstract/domain'
-import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/application/app'
 import { builderRouteChangeHandler } from '@codelab/frontend/application/builder'
-import { PageDetailHeader } from '@codelab/frontend/application/page'
+import {
+  PagePreviewView,
+  PagePreviewViewLayout,
+} from '@codelab/frontend/application/page'
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { usePageQuery } from '@codelab/frontend/presentation/container'
-import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import isBoolean from 'lodash/isBoolean'
@@ -18,7 +19,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
-const PageRenderer: CodelabPage<IPageProps> = observer(() => {
+const PagePreviewView: PagePreviewView = observer(() => {
   const router = useRouter()
   const { pageService } = useStore()
 
@@ -80,21 +81,8 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   )
 })
 
-export default PageRenderer
+export default PagePreviewView
 
 export const getServerSideProps = withPageAuthRedirect()
 
-PageRenderer.Layout = observer(({ children }) => {
-  return (
-    <DashboardTemplate
-      Header={observer(() => (
-        <PageDetailHeader />
-      ))}
-      headerHeight={48}
-    >
-      {children()}
-    </DashboardTemplate>
-  )
-})
-
-PageRenderer.displayName = 'PageRenderer'
+PagePreviewView.Layout = PagePreviewViewLayout

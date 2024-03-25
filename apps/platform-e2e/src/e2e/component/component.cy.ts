@@ -2,13 +2,9 @@ import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import { FIELD_TYPE } from '@codelab/frontend/test/cypress/antd'
 import { NETWORK_IDLE_TIME } from '@codelab/frontend/test/cypress/shared'
 import type { App } from '@codelab/shared/abstract/codegen'
-import type {
-  IAppDto,
-  ICreateCypressElementData,
-} from '@codelab/shared/abstract/core'
+import type { IAppDto } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { ROOT_ELEMENT_NAME } from '@codelab/shared/config'
-import { prettifyForConsole, slugify } from '@codelab/shared/utils'
+import { slugify } from '@codelab/shared/utils'
 import {
   componentElements,
   createComponentData,

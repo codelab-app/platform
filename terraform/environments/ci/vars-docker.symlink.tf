@@ -1,0 +1,1 @@
+../shared/vars-docker.tf

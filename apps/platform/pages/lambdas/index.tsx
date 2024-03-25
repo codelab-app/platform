@@ -1,20 +1,12 @@
 import {
-  type CodelabPage,
-  MODEL_ACTION,
-} from '@codelab/frontend/abstract/types'
-import { CreateLambdaButton } from '@codelab/frontend/application/lambda'
+  LambdasView,
+  LambdasViewLayout,
+} from '@codelab/frontend/application/lambda'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import type { ToolbarItem } from '@codelab/frontend/presentation/codelab-ui'
-import {
-  CuiHeader,
-  CuiHeaderToolbar,
-} from '@codelab/frontend/presentation/codelab-ui'
-import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import Head from 'next/head'
 import React from 'react'
 
-const LambdasPage: CodelabPage<DashboardTemplateProps> = () => {
+const LambdasView: LambdasView = () => {
   return (
     <>
       <Head>
@@ -31,27 +23,8 @@ const LambdasPage: CodelabPage<DashboardTemplateProps> = () => {
   )
 }
 
-const Header = () => {
-  const toolbarItems: Array<ToolbarItem> = [
-    {
-      cuiKey: MODEL_ACTION.CreateLambda.key,
-      icon: <CreateLambdaButton key={0} />,
-      title: 'Create Lambda',
-    },
-  ]
-
-  return (
-    <CuiHeader
-      toolbar={<CuiHeaderToolbar items={toolbarItems} title="Lambda" />}
-      // onBack={() => router.back()}
-    />
-  )
-}
-
-export default LambdasPage
+export default LambdasView
 
 export const getServerSideProps = withPageAuthRedirect()
 
-LambdasPage.Layout = ({ children }) => {
-  return <DashboardTemplate Header={Header}>{children()}</DashboardTemplate>
-}
+LambdasView.Layout = LambdasViewLayout

@@ -5,15 +5,17 @@ import { Button } from 'antd'
 import Link from 'next/link'
 import React from 'react'
 
-const HomePage: CodelabPage<DashboardTemplateProps> = () => {
+type HomeView = CodelabPage<DashboardTemplateProps>
+
+const HomeView: HomeView = () => {
   const { user } = useUser()
 
   return (
     <div>
-      {/* <Link href="http://127.0.0.1:16686" target="_blank">
+      <Link href="http://127.0.0.1:16686" target="_blank">
         Jaeger
       </Link>
-      <Link href="http://127.0.0.1:9090/targets" target="_blank">
+      {/* <Link href="http://127.0.0.1:9090/targets" target="_blank">
         Prometheus
       </Link> */}
       {user ? (
@@ -36,8 +38,10 @@ const HomePage: CodelabPage<DashboardTemplateProps> = () => {
 /**
  * Need this file for Cypress `readywhen` to see if server is running
  */
-export default HomePage
+export default HomeView
 
-HomePage.Layout = ({ children }) => {
+const HomeViewLayout: HomeView['Layout'] = ({ children }) => {
   return <>{children()}</>
 }
+
+HomeView.Layout = HomeViewLayout

@@ -30,7 +30,8 @@ export class PaginationService<
     currentPage: prop(1).withSetter(),
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     filter: prop(() => ({} as U2)).withSetter(),
-    isLoading: prop(false),
+    // Make initial true so we know data is not there yet
+    isLoading: prop(true),
     pageSize: prop(20).withSetter(),
     totalItems: prop<number>(0),
   }))<T1, U1>
@@ -55,8 +56,8 @@ export class PaginationService<
 
     this.dataRefs.clear()
 
-    items.forEach((type) => {
-      this.dataRefs.set(type.id, paginationServiceRef(type.id) as Ref<T1>)
+    items.forEach((item) => {
+      this.dataRefs.set(item.id, paginationServiceRef(item.id) as Ref<T1>)
     })
 
     this.isLoading = false

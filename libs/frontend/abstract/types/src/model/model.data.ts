@@ -1,5 +1,4 @@
 import { ModelName } from './model.types'
-import { MODEL_ACTION } from './model-action.factory'
 import { ModelAction } from './model-action.types'
 import { CuiComponents } from './model-ui.types'
 

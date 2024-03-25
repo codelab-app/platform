@@ -35,38 +35,38 @@ import React, { useMemo } from 'react'
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 
-export const RootRenderer = observer<
-  WithStyleProp<{ renderer: IRendererModel }>,
-  HTMLDivElement
->(
-  React.forwardRef(({ renderer }, ref) => {
-    const { builderService, rendererService } = useStore()
-    const { selectedBuilderWidth } = builderService
+const RootRendererComponent = React.forwardRef<
+  HTMLDivElement,
+  WithStyleProp<{ renderer: IRendererModel }>
+>(({ renderer }, ref) => {
+  const { builderService, rendererService } = useStore()
+  const { selectedBuilderWidth } = builderService
 
-    const containerStyle = useMemo(
-      () => ({
-        container: 'root / inline-size',
-        minHeight: '100%',
-        transform: 'translatex(0)',
-        width: `${selectedBuilderWidth.default}px`,
-      }),
-      [selectedBuilderWidth.default],
-    )
+  const containerStyle = useMemo(
+    () => ({
+      container: 'root / inline-size',
+      minHeight: '100%',
+      transform: 'translatex(0)',
+      width: `${selectedBuilderWidth.default}px`,
+    }),
+    [selectedBuilderWidth.default],
+  )
 
-    return (
-      <ErrorBoundary>
-        <WrapIf
-          Wrapper={MakeChildrenDroppable}
-          condition={renderer.rendererType !== RendererType.Production}
-          wrapperProps={{ data: {}, id: ROOT_RENDER_CONTAINER_ID }}
-        >
-          <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-            {rendererService.renderRoot(renderer)}
-          </div>
-        </WrapIf>
-      </ErrorBoundary>
-    )
-  }),
-)
+  return (
+    <ErrorBoundary>
+      <WrapIf
+        Wrapper={MakeChildrenDroppable}
+        condition={renderer.rendererType !== RendererType.Production}
+        wrapperProps={{ data: {}, id: ROOT_RENDER_CONTAINER_ID }}
+      >
+        <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
+          {rendererService.renderRoot(renderer)}
+        </div>
+      </WrapIf>
+    </ErrorBoundary>
+  )
+})
 
-RootRenderer.displayName = 'Renderer'
+RootRendererComponent.displayName = 'RootRendererComponent'
+
+export const RootRenderer = observer(RootRendererComponent)

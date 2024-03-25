@@ -4,7 +4,7 @@ variable "auth0_issuer_base_url" {
 }
 
 variable "auth0_audience" {
-  type        = string
+  type = string
 }
 
 variable "auth0_domain" {

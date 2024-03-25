@@ -8,13 +8,10 @@ import type {
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { ITagDto } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
-  connectNodeIds,
   connectOwner,
   reconnectNodeId,
-  reconnectNodeIds,
 } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -28,12 +25,13 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ children, descendants, id, isRoot, name }: ITagDto) => {
+const create = ({ children, descendants, id, name, parent }: ITagDto) => {
   return new Tag({
     children: children?.map((child) => tagRef(child.id)),
     descendants: descendants?.map((descendant) => tagRef(descendant.id)),
     id,
     name,
+    parent: parent ? tagRef(parent.id) : undefined,
   })
 }
 
@@ -44,7 +42,6 @@ export class Tag
     descendants: prop<Array<Ref<ITagModel>>>(() => []),
     id: idProp,
     name: prop<string>(),
-    // Used to compute root only, not used for connections
     parent: prop<Ref<ITagModel> | undefined>(undefined),
   })
   implements ITagModel

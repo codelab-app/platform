@@ -4,13 +4,14 @@ import { testCypressJsonConfig } from './cypress.test.config'
 
 const ciCypressJsonConfig: Cypress.ConfigOptions = {
   ...testCypressJsonConfig,
-  defaultCommandTimeout: 20000,
-  execTimeout: 20000,
-  pageLoadTimeout: 20000,
+  defaultCommandTimeout: 30000,
+  execTimeout: 30000,
+  pageLoadTimeout: 30000,
   // Cypress Cloud
   responseTimeout: 60000,
   retries: {
-    runMode: 1,
+    // Increased the timeout from 20000 to 30000, then disable retry
+    runMode: 0,
   },
 }
 

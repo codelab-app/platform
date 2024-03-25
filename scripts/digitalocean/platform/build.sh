@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npx nx build platform -c prod --verbose
+yarn nx build platform -c prod --verbose

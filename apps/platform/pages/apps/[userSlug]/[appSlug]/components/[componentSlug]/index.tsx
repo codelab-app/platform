@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { BuilderDndContext } from '@codelab/frontend/application/builder'
+import { BuilderViewLayout } from '@codelab/frontend/application/builder'
 import { PageDetailHeader } from '@codelab/frontend/application/page'
 import { RootRenderer } from '@codelab/frontend/application/renderer'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
@@ -8,14 +8,14 @@ import {
   useCurrentComponent,
   useRenderedComponent,
 } from '@codelab/frontend/presentation/container'
-import { DashboardTemplate } from '@codelab/frontend/presentation/view'
+import { DynamicDashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 
-const ComponentRenderer: CodelabPage = observer(() => {
+const ComponentPreviewView: CodelabPage = observer(() => {
   const { componentName } = useCurrentComponent()
 
   const [{ error, result, status }, loadCurrentComponent] =
@@ -28,7 +28,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
   }, [componentName])
 
   return (
-    <DashboardTemplate Header={PageDetailHeader} headerHeight={48}>
+    <DynamicDashboardTemplate Header={PageDetailHeader} headerHeight={48}>
       <Head>
         <title>{componentName} | Preview | Codelab</title>
       </Head>
@@ -36,16 +36,12 @@ const ComponentRenderer: CodelabPage = observer(() => {
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {isLoading && <Spin />}
       {result?.elementTree && <RootRenderer renderer={result.renderer} />}
-    </DashboardTemplate>
+    </DynamicDashboardTemplate>
   )
 })
 
 export const getServerSideProps = withPageAuthRedirect()
 
-ComponentRenderer.Layout = observer(({ children }) => {
-  return <BuilderDndContext>{children()}</BuilderDndContext>
-})
+ComponentPreviewView.Layout = BuilderViewLayout
 
-export default ComponentRenderer
-
-ComponentRenderer.displayName = 'ComponentRenderer'
+export default ComponentPreviewView

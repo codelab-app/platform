@@ -9,12 +9,7 @@ import {
   useTablePagination,
 } from '@codelab/frontend/application/shared/store'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import {
-  CuiSkeletonWrapper,
-  CuiTree,
-  useToolbarPagination,
-} from '@codelab/frontend/presentation/codelab-ui'
-import { useAsync } from '@react-hookz/web'
+import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -36,25 +31,31 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
     pathname: PageType.Type,
   })
 
-  const treeData: Array<ITreeNode<ITagNodeData>> = data
-    .filter((tag) => tag.isRoot)
-    .map((tag) => ({
-      children: tag.children.map((child) => child.current.treeNode),
-      extraData: {
-        node: tag,
-        type: 'tag',
-      },
-      key: tag.id,
-      primaryTitle: tag.name,
-      secondaryTitle: tag.name,
-      title: `${tag.name}`,
-    }))
+  /**
+   * Need to wait for all item to be hydrated first, before we can access children ref
+   */
+  const treeData: Array<ITreeNode<ITagNodeData>> = isLoading
+    ? []
+    : data
+        .filter((tag) => tag.isRoot)
+        .map((tag) => ({
+          children: tag.children.map((child) => child.current.treeNode),
+          extraData: {
+            node: tag,
+            type: 'tag',
+          },
+          key: tag.id,
+          primaryTitle: tag.name,
+          secondaryTitle: tag.name,
+          title: `${tag.name}`,
+        }))
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
-    selectedKeys[0] &&
+    if (selectedKeys[0]) {
       tagService.tagDomainService.setSelectedTag(
         tagRef(selectedKeys[0].toString()),
       )
+    }
   }
 
   const onCheck: TreeProps['onCheck'] = (checkedKeys, info) => {
@@ -68,8 +69,14 @@ export const TagsTreeView = observer(({ showSearchBar }: TagsTreeViewProps) => {
       checkStrictly
       checkable
       checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
+      expandedKeys={tagService.tagDomainService.expandedNodes}
       isLoading={isLoading}
       onCheck={onCheck}
+      onExpand={(expandedKeys) => {
+        tagService.tagDomainService.setExpandedNodes(
+          expandedKeys.map((key) => key.toString()),
+        )
+      }}
       onSearchKeywordChange={(keyword) => {
         void handleChange({ newFilter: { name: keyword || undefined } })
       }}

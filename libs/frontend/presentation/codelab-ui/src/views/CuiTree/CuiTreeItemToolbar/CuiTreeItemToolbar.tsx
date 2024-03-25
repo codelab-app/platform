@@ -16,6 +16,7 @@ export const CuiTreeItemToolbar = ({ items }: CuiTreeItemToolbarProps) => {
           <CuiTreeItemToolbarItem
             cuiKey={item.cuiKey}
             icon={item.icon}
+            key={item.cuiKey}
             onClick={item.onClick}
             title={item.title}
           />

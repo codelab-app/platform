@@ -6,9 +6,16 @@ import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React, { useRef } from 'react'
 import type { CuiSidebarToolbarProps } from '../../views'
-import { CuiCollapseOrNot, CuiSidebarToolbar } from '../../views'
-import { CuiSidebarPopoverContainer } from '../CuiSidebarPopover'
+import { CuiCollapsePanel, CuiSidebarToolbar } from '../../views'
+import {
+  CuiSidebarPopover,
+  CuiSidebarPopoverLayout,
+} from '../CuiSidebarPopover'
 import styles from './CuiSidebar.module.css'
+import { CuiSidebarLayout } from './layout/CuiSidebarLayout'
+import { CuiSidebarBody } from './views/CuiSidebarBody'
+import { CuiSidebarHeader } from './views/CuiSidebarHeader'
+import type { CuiSidebarTab } from './views/CuiSIdebarTabs'
 
 export interface CuiSidebarView {
   content: React.ReactNode
@@ -18,116 +25,49 @@ export interface CuiSidebarView {
   toolbar?: CuiSidebarToolbarProps
 }
 
-export interface CuiSidebarTab {
+export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
-  icon: ReactNode
-  key: string
+  // This is to override the header's label
   label: string
+  popover?: ReactNode
+
+  // tabs?: Array<CuiSidebarTab>
+  uiKey: ModelUiKey
+  /**
+   * If we only have 1 view, we make it a non-accordion style and make it the main header
+   *
+   * If we have more than 1 view, it becomes accordion style
+   */
   views: Array<CuiSidebarView>
 }
 
-export interface CuiSidebarProps {
-  defaultActiveViewKeys?: Array<string>
-  label: string
-  popover?: ReactNode
-  tabs?: Array<CuiSidebarTab>
-  toolbar?: CuiSidebarToolbarProps
-  uiKey: ModelUiKey
-  views?: Array<CuiSidebarView>
-}
-
+/**
+ * We conditionally render the sidebar based on how many views we have.
+ *
+ * If there is only 1 view, we render a toolbar header and collapse body separately
+ *
+ * If there is more than 1 view, we use the collapse header & body
+ */
 export const CuiSidebar = ({
   defaultActiveViewKeys,
   label,
   popover,
-  tabs,
-  toolbar,
   uiKey,
   views,
 }: CuiSidebarProps) => {
-  const sidebarRef = useRef<HTMLDivElement>(null)
+  const popoverAnchorRef = useRef<HTMLDivElement>(null)
+  const toolbar = views.length === 1 ? views[0]?.toolbar : undefined
 
   return (
-    <div
-      className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
-      data-cy={CY_DATA.cuiSidebar(uiKey).cyData}
-      ref={sidebarRef}
-    >
-      {tabs && tabs[0] ? (
-        <div className="cuiSidebarAntdTabsWrapper">
-          <Tabs defaultActiveKey={tabs[0].key}>
-            {tabs.map((tab) => (
-              <Tabs.TabPane
-                key={tab.key}
-                tab={<Tooltip title={tab.label}>{tab.icon}</Tooltip>}
-              >
-                <CuiCollapseOrNot
-                  defaultActivePanels={tab.defaultActiveViewKeys}
-                  panels={tab.views}
-                />
-              </Tabs.TabPane>
-            ))}
-            {views && (
-              <Tabs.TabPane
-                key="other"
-                tab={
-                  <Tooltip title="Other">
-                    <MoreOutlined rotate={90} />
-                  </Tooltip>
-                }
-              >
-                <CuiCollapseOrNot
-                  defaultActivePanels={defaultActiveViewKeys}
-                  panels={views}
-                />
-              </Tabs.TabPane>
-            )}
-          </Tabs>
-        </div>
-      ) : (
-        <>
-          <div
-            className="
-              flex
-              h-10
-              w-full
-              flex-row
-              items-center
-              justify-between
-              border-0
-              border-b-2
-              border-solid
-              border-gray-300
-              bg-neutral-100
-            "
-            data-cy={CY_DATA.cuiSidebarHeader().cyData}
-          >
-            <Typography className="pl-4">
-              {views?.length !== 1 ? label : views[0]?.label}
-            </Typography>
-            {toolbar && views?.length !== 1 ? (
-              <div className="max-w-lg">
-                <CuiSidebarToolbar {...toolbar} />
-              </div>
-            ) : views?.[0] && views[0].toolbar && views.length === 1 ? (
-              <div className="max-w-lg">
-                <CuiSidebarToolbar {...views[0].toolbar} />
-              </div>
-            ) : null}
-          </div>
-          {views && (
-            <CuiCollapseOrNot
-              defaultActivePanels={defaultActiveViewKeys}
-              panels={views}
-            />
-          )}
-        </>
-      )}
-      {popover && (
-        <CuiSidebarPopoverContainer anchorRef={sidebarRef}>
-          {popover}
-        </CuiSidebarPopoverContainer>
-      )}
-    </div>
+    <CuiSidebarLayout popoverAnchorRef={popoverAnchorRef} uiKey={uiKey}>
+      <CuiSidebarHeader label={label} toolbar={toolbar} />
+      <CuiSidebarBody
+        defaultActiveViewKeys={defaultActiveViewKeys}
+        views={views}
+      />
+      <CuiSidebarPopoverLayout popoverAnchorRef={popoverAnchorRef}>
+        {popover}
+      </CuiSidebarPopoverLayout>
+    </CuiSidebarLayout>
   )
 }

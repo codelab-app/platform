@@ -1,4 +1,8 @@
-import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import {
+  idSchema,
+  nonEmptyString,
+  refSchema,
+} from '@codelab/frontend/presentation/view'
 import type { ICreateTagData } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 import { TagSelect } from '../../shared'
@@ -14,9 +18,10 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
       nullable: true,
       properties: {
         ...idSchema({
-          component: TagSelect,
+          // component: TagSelect,
         }),
       },
+      default: null,
       required: [],
       type: 'object',
     },

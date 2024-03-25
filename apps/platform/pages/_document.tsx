@@ -6,6 +6,7 @@ You have to include it into the page using either next/head or a custom _documen
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs'
 import type { DocumentContext } from 'next/document'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 import React from 'react'
 
 export default class MyDocument extends Document {
@@ -41,6 +42,8 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          {/* Agent can be injected either as head script, or imported as NPM lib */}
+          {/* <NewRelicScript /> */}
           <link href="https://fonts.googleapis.com" rel="preconnect" />
           <link
             crossOrigin=""
@@ -56,7 +59,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Nunito:wght@300;400;500;600&display=swap"
             rel="stylesheet"
           />
-          <script
+          <Script
             dangerouslySetInnerHTML={{
               // eslint-disable-next-line @typescript-eslint/naming-convention
               /**
@@ -65,14 +68,15 @@ export default class MyDocument extends Document {
                * And if you're wondering why the script is placed here, it's because putting it in other locations won't work. Next.js has a built-in script that catches all errors and displays them to users. We aim to intercept these errors before Next.js does.
                */
               __html: `
-            window.addEventListener('error', event => {
-              if(event.filename.includes('editorjs')) {
-                event.stopImmediatePropagation()
-              }
-            })
-          `,
+                window.addEventListener('error', event => {
+                  if(event.filename.includes('editorjs')) {
+                    event.stopImmediatePropagation()
+                  }
+                })
+              `,
             }}
-          ></script>
+            id="editorjs-script"
+          ></Script>
         </Head>
         <body>
           <Main />

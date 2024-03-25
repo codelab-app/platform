@@ -31,6 +31,7 @@ import type { IPropService } from '../prop'
 import type { IRedirectService } from '../redirect'
 import type { IRendererService } from '../renderer'
 import type { IResourceService } from '../resource'
+import type { ITracerService } from '../services'
 import type { IStoreService } from '../store'
 import type { ITagService } from '../tag'
 import type { ITypeService } from '../type'
@@ -74,6 +75,7 @@ export interface IRootStore {
   routerService: IRouterService
   storeService: IStoreService
   tagService: ITagService
+  tracerService: ITracerService
   typeService: ITypeService
   userService: IUserService
 

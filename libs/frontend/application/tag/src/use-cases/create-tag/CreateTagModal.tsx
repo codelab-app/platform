@@ -29,7 +29,7 @@ export const CreateTagModal = observer(() => {
       <ModalForm.Form
         model={{
           id: v4(),
-          parent: { id: defaultOption.value.toString() },
+          parent: defaultOption ? { id: defaultOption.value.toString() } : null,
         }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
@@ -40,9 +40,7 @@ export const CreateTagModal = observer(() => {
         uiKey={MODEL_ACTION.CreateTag.key}
       >
         <AutoFields omitFields={['parent']} />
-        {/* <DisplayIfNotRoot> */}
         <AutoField label="Parent Tag" name="parent.id" />
-        {/* </DisplayIfNotRoot> */}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

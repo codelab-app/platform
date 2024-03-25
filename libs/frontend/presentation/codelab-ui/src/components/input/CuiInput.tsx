@@ -57,23 +57,22 @@ export const CuiInput = ({
 
   return (
     <Input
-      bordered={false}
       className={`
-      m-0
-      box-border
-      h-5
-      w-6
-      rounded-none
-      border-0
-      border-b
-      border-dotted
-      border-black
-    bg-none
-      p-0
-      text-center
-      text-sm
-      focus:outline-none
-    `}
+        m-0
+        box-border
+        h-5
+        w-6
+        rounded-none
+        border-0
+        border-b
+        border-dotted
+        border-black
+        bg-none
+        p-0
+        text-center
+        text-sm
+        focus:outline-none
+      `}
       defaultValue={defaultValue}
       disabled={disabled}
       id={id}
@@ -83,6 +82,7 @@ export const CuiInput = ({
       onPressEnter={onPressEnter}
       ref={inputRef}
       value={value}
+      variant="borderless"
     />
   )
 }

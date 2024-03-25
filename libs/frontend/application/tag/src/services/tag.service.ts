@@ -45,12 +45,7 @@ export class TagService
   @modelFlow
   @transaction
   create = _async(function* (this: TagService, data: ICreateTagData) {
-    const tag = this.tagDomainService.hydrate({
-      ...data,
-      children: [],
-      descendants: [],
-      isRoot: !data.parent?.id,
-    })
+    const tag = this.tagDomainService.hydrate(data)
 
     yield* _await(this.tagRepository.add(tag))
 
@@ -60,12 +55,16 @@ export class TagService
       return tag
     }
 
-    const [parentTag] = yield* _await(this.getAll({ id: tag.parent.id }))
+    // Add the current tag to the parent as the child
+    tag.parent.current.writeCache({
+      children: [...tag.parent.current.children, tagRef(tag)],
+    })
 
-    // This updates the children tag of the parent
-    if (parentTag) {
-      this.tagDomainService.tags.set(parentTag.id, parentTag)
-    }
+    // Expand the parent tree node to show the newly created child
+    this.tagDomainService.setExpandedNodes([
+      ...this.tagDomainService.expandedNodes,
+      tag.id,
+    ])
 
     return tag
   })
@@ -114,7 +113,14 @@ export class TagService
 
     this.paginationService.totalItems = count
 
-    return tags.map((tag) => this.tagDomainService.hydrate(tag))
+    return tags.map((tag) => {
+      /**
+       * Pagination may cause child data to not be loaded, we hydrate it separately here
+       */
+      tag.children.forEach((child) => this.tagDomainService.hydrate(child))
+
+      return this.tagDomainService.hydrate(tag)
+    })
   })
 
   @modelFlow
@@ -135,7 +141,11 @@ export class TagService
   onAttachedToRootStore() {
     this.paginationService.getDataFn = async (page, pageSize, filter) => {
       const items = await this.getAll(
-        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          name_MATCHES: `(?i).*${filter.name ?? ''}.*`,
+          // Fetch only the root tags
+          parentAggregate: { count: 0 },
+        },
         {
           limit: pageSize,
           offset: (page - 1) * pageSize,

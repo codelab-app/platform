@@ -1,0 +1,29 @@
+{
+  "name": "frontend-infra-otel",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/infra/otel/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-infra-otel.xml",
+          "quiet": true
+        }
+      },
+      "options": {
+        "lintFilePatterns": [
+          "libs/frontend/infra/otel/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      }
+    }
+  },
+  "tags": [
+    "projectType:library",
+    "type:concrete",
+    "layer:infra",
+    "scope:frontend"
+  ]
+}

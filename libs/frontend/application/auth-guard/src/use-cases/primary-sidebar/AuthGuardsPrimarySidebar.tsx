@@ -26,7 +26,7 @@ export const AuthGuardsPrimarySidebar = observer(() => {
 
   return (
     <CuiSidebar
-      label="authGuards"
+      label="Auth Guards"
       popover={<CreateAuthGuardPopover />}
       uiKey={MODEL_UI.SidebarAuthGuard.key}
       views={[

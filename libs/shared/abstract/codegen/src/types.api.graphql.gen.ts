@@ -22041,8 +22041,8 @@ export type ProductionStoreFragment = {
 export type TagFragment = {
   id: string
   name: string
-  children: Array<{ id: string }>
-  descendants: Array<{ id: string }>
+  children: Array<{ id: string; name: string }>
+  descendants: Array<{ id: string; name: string }>
   owner: OwnerFragment
   parent?: { id: string } | null
 }

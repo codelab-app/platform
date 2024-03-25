@@ -145,10 +145,10 @@ describe('Element Child Mapper', () => {
     cy.openPreview()
     cy.get('#render-root').contains('text updated test 1').should('not.exist')
     cy.get('#render-root').contains('text updated test 2').should('not.exist')
-    cy.openBuilder()
   })
 
   it('should not render instances when the prop is not an array', () => {
+    cy.openBuilder()
     cy.findAllByText(providerPageRowElement.name).first().click()
 
     cy.get('.ant-collapse').setFormFieldValue({

@@ -7,17 +7,17 @@ terraform {
   }
 }
 
-variable "digitalocean_token" {
+variable "DIGITALOCEAN_ACCESS_TOKEN" {
   type        = string
   description = "Digital Ocean access token"
 }
 
 provider "digitalocean" {
-  token = var.digitalocean_token
+  token = var.DIGITALOCEAN_ACCESS_TOKEN
 }
 
 resource "digitalocean_database_cluster" "redis_cluster" {
-  count = 0
+  count      = 0
   name       = "redis-cluster"
   engine     = "redis"
   size       = "db-s-1vcpu-1gb"

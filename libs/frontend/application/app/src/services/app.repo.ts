@@ -12,6 +12,8 @@ import { appApi } from '../graphql/app.api'
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
   async add(app: IAppModel) {
+    console.log(app.toCreateInput())
+
     const {
       createApps: { apps },
     } = await appApi.CreateApps({

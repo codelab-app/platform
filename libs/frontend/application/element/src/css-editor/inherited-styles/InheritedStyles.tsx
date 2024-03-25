@@ -56,10 +56,11 @@ export const InheritedStyles = observer(({ element }: InheritedStylesProps) => {
     element.style.stylesInheritedFromOtherBreakpoints
 
   const rootProps = getRules(currentStyles, inheritedStyles).map(
-    ({ level, overridden, style }) => (
+    ({ level, overridden, style }, index) => (
       <Typography.Text
         delete={overridden}
         disabled={overridden}
+        key={index}
         style={{ display: 'block', marginLeft: `${level}rem` }}
       >
         {style}

@@ -31,7 +31,7 @@ export const CuiSidebarPopoverHeader = ({
       <Typography className="pl-4">{label}</Typography>
       {toolbar && (
         <div className="max-w-lg">
-          <CuiPopoverToolbar {...toolbar} />
+          <CuiPopoverToolbar items={toolbar.items} title={toolbar.title} />
         </div>
       )}
     </div>

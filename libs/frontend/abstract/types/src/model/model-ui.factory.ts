@@ -1,10 +1,7 @@
-import type { TitleCase } from '@codelab/shared/abstract/types'
 import { ObjectTyped } from 'object-typed'
-import type { DeepWritable } from 'ts-essentials'
-import type { KebabCase } from 'type-fest'
 import { kebabCase } from 'voca'
 import { titleCase } from '../utils'
-import type { ModelDataMap, ModelInteraction } from './model.data'
+import type { ModelInteraction } from './model.data'
 import { modelDataMap } from './model.data'
 import type { ModelUiData, ModelUiKey } from './model-ui.types'
 

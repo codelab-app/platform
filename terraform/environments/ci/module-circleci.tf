@@ -1,9 +1,9 @@
 module "circleci" {
   source = "../../modules/circleci"
 
-  next_public_platform_host     = var.NEXT_PUBLIC_PLATFORM_HOST
+  next_public_platform_host         = var.NEXT_PUBLIC_PLATFORM_HOST
   next_public_platform_api_hostname = var.NEXT_PUBLIC_PLATFORM_API_HOSTNAME
-  next_public_platform_api_port = var.NEXT_PUBLIC_PLATFORM_API_PORT
+  next_public_platform_api_port     = var.NEXT_PUBLIC_PLATFORM_API_PORT
 
   auth0_audience         = var.AUTH0_AUDIENCE
   auth0_issuer_base_url  = var.AUTH0_ISSUER_BASE_URL
@@ -29,4 +29,9 @@ module "circleci" {
   next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
 
   nx_cloud_access_token = var.NX_CLOUD_ACCESS_TOKEN
+
+  dockerhub_username = var.DOCKERHUB_USERNAME
+  dockerhub_access_token = var.DOCKERHUB_ACCESS_TOKEN
+
+  digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
 }

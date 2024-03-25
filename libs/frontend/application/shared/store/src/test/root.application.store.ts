@@ -18,6 +18,7 @@ import type {
   IRouterService,
   IStoreService,
   ITagService,
+  ITracerService,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/application'
@@ -51,6 +52,7 @@ export const createRootApplicationStore = ({
       routerService: prop<Maybe<IRouterService>>(undefined),
       storeService: prop<Maybe<IStoreService>>(undefined),
       tagService: prop<Maybe<ITagService>>(() => undefined),
+      tracerService: prop<Maybe<ITracerService>>(() => undefined),
       typeService: prop<Maybe<ITypeService>>(() => undefined),
       userService: prop<Maybe<IUserService>>(() => undefined),
     })

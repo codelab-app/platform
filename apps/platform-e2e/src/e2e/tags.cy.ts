@@ -1,4 +1,4 @@
-import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
+import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { CreateData, UpdateData } from '@codelab/shared/data/test'
 
 describe('Tag CRUD', () => {
@@ -12,14 +12,17 @@ describe('Tag CRUD', () => {
   describe('create', () => {
     it('should be able to create tags', () => {
       cy.createTagByUI(CreateData.tag_0)
-
       cy.createTagByUI(CreateData.tag_1)
     })
 
     it('should be able to create a tag with parent', () => {
       cy.createTagByUI(CreateData.tag_0_0, CreateData.tag_0)
-
       cy.createTagByUI(CreateData.tag_1_0, CreateData.tag_1)
+
+      cy.getCuiTreeItemByPrimaryTitle(CreateData.tag_0).should('be.visible')
+      cy.getCuiTreeItemByPrimaryTitle(CreateData.tag_0_0).should('be.visible')
+      cy.getCuiTreeItemByPrimaryTitle(CreateData.tag_1).should('be.visible')
+      cy.getCuiTreeItemByPrimaryTitle(CreateData.tag_1_0).should('be.visible')
     })
   })
 

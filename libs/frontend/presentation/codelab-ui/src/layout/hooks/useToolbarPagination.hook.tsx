@@ -99,7 +99,7 @@ export const useToolbarPagination = <
       title: 'Next',
     },
     {
-      cuiKey: MODEL_ACTION.CurrentPagePagination.key,
+      cuiKey: MODEL_ACTION.PageSizePagination.key,
       icon: (
         <div className="flex w-16 flex-row items-center justify-between">
           <CuiInput

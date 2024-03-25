@@ -1,4 +1,3 @@
-import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { Form, handleFormSubmit } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'

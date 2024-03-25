@@ -1,69 +1,21 @@
-import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
-import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   CreateFieldModal,
   CreateTypeModal,
   DeleteFieldModal,
   DeleteTypeModal,
   TypeEditor,
-  TypesPrimarySidebar,
+  TypesView,
+  TypesViewLayout,
   UpdateFieldModal,
   UpdateTypeModal,
 } from '@codelab/frontend/application/type'
-import {
-  CuiHeader,
-  CuiHeaderBreadcrumb,
-} from '@codelab/frontend/presentation/codelab-ui'
-import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import {
-  ContentSection,
-  DashboardTemplate,
-} from '@codelab/frontend/presentation/view'
-import { Image } from 'antd'
+import { ContentSection } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const TypePageHeader = observer(() => {
-  const { fieldService, typeService } = useStore()
-  const typeToUpdate = typeService.updateForm.type?.name || ''
-  const fieldToUpdate = fieldService.updateForm.field?.key || ''
-
-  const typeOrField = typeService.updateForm.isOpen
-    ? 'type'
-    : fieldService.updateForm.isOpen
-    ? 'field'
-    : ''
-
-  const typeOrFieldName = typeService.updateForm.isOpen
-    ? typeToUpdate
-    : fieldToUpdate
-
-  return (
-    <CuiHeader
-      direction={
-        <CuiHeaderBreadcrumb
-          items={[
-            { title: 'Types' },
-            { title: typeOrField },
-            { title: typeOrFieldName },
-          ]}
-        />
-      }
-      logo={
-        <Image
-          alt="codelab logo"
-          className="size-full"
-          preview={false}
-          src="/logo.png"
-        />
-      }
-    />
-  )
-})
-
-const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
+const TypesView: TypesView = observer(() => {
   return (
     <>
       <Head>
@@ -83,25 +35,8 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   )
 })
 
-export default TypesPage
+export default TypesView
 
 export const getServerSideProps = withPageAuthRedirect()
 
-TypesPage.Layout = observer(({ children }) => {
-  return (
-    <DashboardTemplate
-      Header={TypePageHeader}
-      PrimarySidebar={{
-        default: PageType.Type,
-        items: [
-          {
-            key: PageType.Type,
-            render: TypesPrimarySidebar,
-          },
-        ],
-      }}
-    >
-      {children()}
-    </DashboardTemplate>
-  )
-})
+TypesView.Layout = TypesViewLayout

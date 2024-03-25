@@ -1,0 +1,18 @@
+executor: docker-node
+resource_class: large
+steps:
+  - restore-workspace
+    # This step ensures that Docker commands run in this job will execute on a remote Docker engine.
+  - setup_remote_docker:
+      docker_layer_caching: true
+  - run:
+      name: 'Build platform Docker image'
+      command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform
+  - run:
+      name: 'Login to Docker Registry'
+      # As a side note, it's usually considered better practice to enter the token interactively, this way the token won't ever show up in your shell history or be visible on your screen
+      command: |
+        echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+  - run:
+      name: 'Push Docker Image'
+      command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform

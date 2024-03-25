@@ -33,14 +33,14 @@ export const toggleCuiTreeNodeSwitcher = (primaryTitle: string) => {
   // Need this step, otherwise we may click before the switcher has been added
   cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
     .closestCuiTreeNode()
-    .find('.ant-tree-switcher')
-    .find('.anticon')
-    .should('exist')
+    .find('.ant-tree-switcher', { log: false })
+    .find('.anticon', { log: false })
+    .should('exist', { log: false })
 
   cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
     .closestCuiTreeNode()
-    .find('.ant-tree-switcher')
-    .click()
+    .find('.ant-tree-switcher', { log: false })
+    .click({ log: false })
 }
 
 export const toggleCuiTreeNodeCheckbox = (primaryTitle: string) => {
@@ -49,8 +49,8 @@ export const toggleCuiTreeNodeCheckbox = (primaryTitle: string) => {
   // Need this step, otherwise we may click before the checkbox has been added
   cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
     .closestCuiTreeNode()
-    .find('.ant-tree-checkbox')
-    .find('.anticon')
+    .find('.ant-tree-checkbox', { log: false })
+    .find('.anticon', { log: false })
     .should('exist')
 
   cy.getCuiTreeItemByPrimaryTitle(primaryTitle)
@@ -72,7 +72,7 @@ export const getCuiTreeItemByPrimaryTitle = (
           log: false,
         })
     : cy.get(CY_DATA.cuiTreeItemPrimaryTitle(primaryTitle).cySelector, {
-        log: true,
+        log: false,
       })
 }
 

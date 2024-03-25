@@ -8,7 +8,7 @@
         "project": ["libs/frontend/presentation/codelab-ui/tsconfig.*?.json"]
       },
       "rules": {
-        "react/jsx-props-no-spreading": "off"
+        // "react/jsx-props-no-spreading": "off"
       }
     },
     {

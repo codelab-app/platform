@@ -1,8 +1,6 @@
 import type {
-  IFieldNodeData,
   ITreeNode,
   ITypeModel,
-  ITypeNodeData,
   ITypeTreeNodeData,
 } from '@codelab/frontend/abstract/domain'
 import { PageType } from '@codelab/frontend/abstract/types'
