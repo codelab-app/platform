@@ -30,6 +30,11 @@ import { RuntimeStoreModel } from './runtime-store.model'
  *
  */
 
+const compositeKey = (page: IPageModel) => `runtime.${page.id}`
+
+const compositeKeyForProvider = (page: IPageModel, provider: IPageModel) =>
+  `runtime.${page.id}.${provider.id}`
+
 const create = ({ page }: IRuntimePageDTO): IRuntimePageModel => {
   const runtimeStore = RuntimeStoreModel.create({
     id: v4(),
@@ -40,7 +45,7 @@ const create = ({ page }: IRuntimePageDTO): IRuntimePageModel => {
 
   const childPage = page.providerPage
     ? new RuntimePageModel({
-        compositeKey: RuntimePageModel.compositeKey(page),
+        compositeKey: compositeKey(page),
         page: pageRef(page.id),
         runtimeStore: RuntimeStoreModel.create({
           id: v4(),
@@ -52,15 +57,13 @@ const create = ({ page }: IRuntimePageDTO): IRuntimePageModel => {
 
   return new RuntimePageModel({
     childPage,
-    compositeKey: RuntimePageModel.compositeKey(
-      page.providerPage ? page.providerPage : page,
-    ),
+    compositeKey: page.providerPage
+      ? compositeKeyForProvider(page, page.providerPage)
+      : compositeKey(page),
     page: pageRef(page.providerPage ? page.providerPage : page),
     runtimeStore,
   })
 }
-
-const compositeKey = (page: IPageModel) => `runtime.${page.id}`
 
 @model('@codelab/RuntimePage')
 export class RuntimePageModel
@@ -72,8 +75,6 @@ export class RuntimePageModel
   })
   implements IRuntimePageModel
 {
-  static compositeKey = compositeKey
-
   static create = create
 
   @computed

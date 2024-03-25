@@ -40,7 +40,12 @@ export class RuntimeElementService
      * to achieve that we use a composite key
      *
      */
-    const compositeKey = RuntimeElementModel.compositeKey(element, propKey)
+    const compositeKey = RuntimeElementModel.compositeKey(
+      element,
+      parent,
+      propKey,
+    )
+
     const foundElement = this.elements.get(compositeKey)
 
     if (foundElement) {
@@ -66,9 +71,5 @@ export class RuntimeElementService
     this.elements.set(runtimeElement.compositeKey, runtimeElement)
 
     return runtimeElement
-  }
-
-  element(element: IElementModel) {
-    return this.elements.get(RuntimeElementModel.compositeKey(element))
   }
 }
