@@ -17,6 +17,10 @@ resource "digitalocean_app" "platform-web" {
         branch         = "staging"
         repo_clone_url = "https://github.com/codelab-app/platform"
       }
+      # image {
+      #   registry_type = "DOCKER_HUB"
+      #   rrepository =  = var.dockerhub_username
+      # }
 
       build_command = "scripts/digitalocean/platform/build.sh"
       run_command   = "scripts/digitalocean/platform/run.sh"
