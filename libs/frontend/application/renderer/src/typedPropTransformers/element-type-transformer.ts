@@ -2,7 +2,10 @@ import type {
   IRuntimeModel,
   ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponent,
+  isRuntimeElement,
+} from '@codelab/frontend/abstract/application'
 import { type TypedProp } from '@codelab/frontend/abstract/domain'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes'
@@ -26,10 +29,12 @@ export class ElementTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
+  public transform(prop: TypedProp, key: string, runtimeNode: IRuntimeModel) {
     const elements = isRuntimeElement(runtimeNode)
       ? runtimeNode.element.current.closestContainerNode.elements
-      : runtimeNode.containerNode.current.elements
+      : isRuntimeComponent(runtimeNode)
+      ? runtimeNode.component.current.elements
+      : runtimeNode.page.current.elements
 
     const targetElement = elements.find((el) => el.id === prop.value)
 
@@ -37,9 +42,11 @@ export class ElementTypeTransformer
       return prop
     }
 
-    const runtimeElement = isRuntimeElement(runtimeNode)
-      ? runtimeNode.closestContainerNode.current.addElement(targetElement)
-      : runtimeNode.addElement(targetElement)
+    const runtimeElement = this.runtimeElementService.add(
+      targetElement,
+      runtimeNode,
+      key,
+    )
 
     return runtimeElement.render
   }

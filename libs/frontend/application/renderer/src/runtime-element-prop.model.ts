@@ -7,6 +7,7 @@ import type {
 import {
   getRendererService,
   IEvaluationContext,
+  isRuntimeComponent,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
@@ -95,10 +96,8 @@ export class RuntimeElementPropsModel
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    const { componentRuntimeProp } = this.closestRuntimeContainerNode
-
-    const componentProps = componentRuntimeProp
-      ? componentRuntimeProp.componentEvaluatedProps
+    const componentProps = isRuntimeComponent(this.closestRuntimeContainerNode)
+      ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}
 
     return this.addAndBind({
@@ -150,7 +149,7 @@ export class RuntimeElementPropsModel
    */
   @computed
   get renderedTypedProps() {
-    return mapDeep(this.props, (value) => {
+    return mapDeep(this.props, (value, key) => {
       if (!isTypedProp(value)) {
         return value
       }
@@ -165,7 +164,11 @@ export class RuntimeElementPropsModel
         return value.value
       }
 
-      return transformer.transform(value, this.runtimeElement.current)
+      return transformer.transform(
+        value,
+        key.toString(),
+        this.runtimeElement.current,
+      )
     })
   }
 

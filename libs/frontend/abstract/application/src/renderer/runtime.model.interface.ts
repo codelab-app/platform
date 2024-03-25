@@ -1,18 +1,8 @@
-import type { Ref } from 'mobx-keystone'
-import {
-  type IRuntimeContainerNodeModel,
-  runtimeContainerNodeRef,
-} from './runtime-container-node'
+import type { IRuntimeComponentModel } from './runtime-component'
 import type { IRuntimeElementModel } from './runtime-element'
-import { isRuntimeElement, runtimeElementRef } from './runtime-element'
+import type { IRuntimePageModel } from './runtime-page'
 
-export type IRuntimeModel = IRuntimeContainerNodeModel | IRuntimeElementModel
-
-export type IRuntimeModelRef =
-  | Ref<IRuntimeContainerNodeModel>
-  | Ref<IRuntimeElementModel>
-
-export const runtimeModelRef = (node: IRuntimeModel): IRuntimeModelRef =>
-  isRuntimeElement(node)
-    ? runtimeElementRef(node.id)
-    : runtimeContainerNodeRef(node.id)
+export type IRuntimeModel =
+  | IRuntimeComponentModel
+  | IRuntimeElementModel
+  | IRuntimePageModel

@@ -2,7 +2,6 @@ import type {
   IRuntimeModel,
   ITypedPropTransformer,
 } from '@codelab/frontend/abstract/application'
-import { isRuntimeElement } from '@codelab/frontend/abstract/application'
 import type { TypedProp } from '@codelab/frontend/abstract/domain'
 import { extractTypedPropValue } from '@codelab/frontend/abstract/domain'
 import { hasExpression } from '@codelab/shared/utils'
@@ -28,7 +27,7 @@ export class ReactNodeTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
+  public transform(prop: TypedProp, key: string, runtimeNode: IRuntimeModel) {
     const { expressionTransformer } = this.renderer
     const propValue = extractTypedPropValue(prop)
 
@@ -61,21 +60,14 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
-    const runtimeComponent = isRuntimeElement(runtimeNode)
-      ? runtimeNode.closestContainerNode.current.addContainerNode(
-          component,
-          runtimeNode,
-          undefined,
-          undefined,
-          true,
-        )
-      : runtimeNode.addContainerNode(
-          component,
-          runtimeNode,
-          undefined,
-          undefined,
-          true,
-        )
+    const runtimeComponent = this.runtimeComponentService.add(
+      component,
+      runtimeNode,
+      [],
+      key,
+      undefined,
+      true,
+    )
 
     return runtimeComponent.render
   }

@@ -1,34 +1,36 @@
 import type {
   ElementWrapperProps,
-  IRuntimeContainerNodeModel,
+  IRuntimeComponentModel,
   IRuntimeElementDTO,
   IRuntimeElementModel,
   IRuntimeElementPropModel,
+  IRuntimeModel,
+  IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  isRuntimeContainerNode,
+  getRuntimeComponentService,
+  getRuntimeElementService,
+  isRuntimeComponent,
   isRuntimeElement,
+  isRuntimePage,
   RendererType,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IComponentModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
-  IElementTreeViewDataNode,
+  getComponentDomainService,
+  type IElementModel,
+  type IElementTreeViewDataNode,
   isAtom,
   isComponent,
-  isPage,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -36,6 +38,7 @@ import {
   idProp,
   Model,
   model,
+  modelAction,
   patchRecorder,
   prop,
 } from 'mobx-keystone'
@@ -44,21 +47,44 @@ import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
 import { ElementWrapper } from './element/ElementWrapper'
 import { createTextEditor, createTextRenderer } from './element/wrapper.utils'
+import { RuntimeComponentModel } from './runtime-component.model'
+
+const compositeKey = (element: IElementModel, propKey?: string) => {
+  /**
+   * sub trees of components may repeat which but they will never have the same root (instanceElement)
+   * therefor use it to create a unique key
+   */
+
+  let instanceKeyToRoot = ''
+  let parentNode = element.closestContainerNode
+
+  while (isComponent(parentNode) && parentNode.instanceElement?.id) {
+    instanceKeyToRoot += parentNode.instanceElement.id
+    parentNode = parentNode.instanceElement.current.closestContainerNode
+  }
+
+  return `runtime.${element.id}${instanceKeyToRoot}${propKey}`
+}
 
 const create = (dto: IRuntimeElementDTO) => new RuntimeElementModel(dto)
 
 @model('@codelab/RuntimeElement')
 export class RuntimeElementModel
   extends Model({
-    closestContainerNode: prop<Ref<IRuntimeContainerNodeModel>>(),
+    closestContainerNode: prop<
+      Ref<IRuntimeComponentModel> | Ref<IRuntimePageModel>
+    >(),
+    compositeKey: idProp,
     element: prop<Ref<IElementModel>>(),
-    id: idProp,
     postRenderActionDone: prop(false).withSetter(),
     preRenderActionDone: prop(false).withSetter(),
+    propKey: prop<Maybe<string>>(),
     runtimeProps: prop<IRuntimeElementPropModel>(),
   })
   implements IRuntimeElementModel
 {
+  static compositeKey = compositeKey
+
   static create = create
 
   @computed
@@ -74,57 +100,77 @@ export class RuntimeElementModel
     const childMapperChildren = []
 
     for (let index = 0; index < props.length; index++) {
-      const runtimeComponent =
-        this.closestContainerNode.current.addContainerNode(
-          component,
-          { id: this.id },
-          undefined,
-          index,
-        )
+      const runtimeComponent = this.runtimeComponentService.add(
+        component,
+        this,
+        [],
+        this.propKey,
+        index,
+      )
 
       childMapperChildren.push(runtimeComponent)
     }
 
-    this.closestContainerNode.current.cleanupChildMapperNodes(
-      childMapperChildren,
+    const keyStart = RuntimeComponentModel.compositeKey(component, this.propKey)
+
+    const newKeys = childMapperChildren.map(
+      (runtimeComponent) => runtimeComponent.compositeKey,
     )
+
+    this.cleanupChildMapperNodes(keyStart, newKeys)
 
     return childMapperChildren
   }
 
   @computed
   get children() {
-    const runtimeContainer = this.closestContainerNode.current
-    const containerNode = runtimeContainer.containerNode.current
+    const container = this.closestContainerNode.current
     const element = this.element.current
     const renderType = element.renderType.current
     const shouldRenderComponent = isComponent(renderType)
 
-    const children: Array<IRuntimeContainerNodeModel | IRuntimeElementModel> =
-      shouldRenderComponent
-        ? [
-            // put component as a child instead of instance element children
-            runtimeContainer.addContainerNode(
-              renderType,
-              this,
-              // pass instance element children as subTrees to be transformed later
-              element.children.map((child) => elementRef(child.id)),
-            ),
-          ]
-        : element.children.map((child) => runtimeContainer.addElement(child))
+    const children: Array<IRuntimeModel> = shouldRenderComponent
+      ? [
+          // put component as a child instead of instance element children
+          this.runtimeComponentService.add(
+            renderType,
+            this,
+            // pass instance element children to be transformed later
+            element.children.map((child) => elementRef(child.id)),
+            this.propKey,
+          ),
+        ]
+      : element.children.map((child) =>
+          this.runtimeElementService.add(child, container, this.propKey),
+        )
 
-    const shouldAttachSubTrees = isPage(containerNode)
-      ? containerNode.pageContentContainer?.id === this.element.id
-      : containerNode.childrenContainerElement.id === this.element.id
+    /**
+     * Attach regular page to runtime element tree
+     */
 
-    if (shouldAttachSubTrees) {
-      const runtimeSubTrees = runtimeContainer.subTrees.map((child) =>
-        isPage(child.current) || isComponent(child.current)
-          ? runtimeContainer.addContainerNode(child.current, { id: this.id })
-          : runtimeContainer.addElement(child.current),
+    if (isRuntimePage(container)) {
+      const page = container.page.current
+      const shouldAttachPage = page.pageContentContainer?.id === this.element.id
+
+      if (container.childPage && shouldAttachPage) {
+        children.push(container.childPage)
+      }
+    }
+
+    /**
+     * Attach instance element children to runtime element tree
+     */
+    const shouldAddInstanceElementChildren =
+      isRuntimeComponent(container) &&
+      container.component.current.childrenContainerElement.id ===
+        this.element.id
+
+    if (shouldAddInstanceElementChildren) {
+      const instanceChildren = container.children.map((child) =>
+        this.runtimeElementService.add(child.current, container, this.propKey),
       )
 
-      children.push(...runtimeSubTrees)
+      children.push(...instanceChildren)
     }
 
     const previousSibling = element.childMapperPreviousSibling
@@ -142,6 +188,11 @@ export class RuntimeElementModel
     }
 
     return children
+  }
+
+  @computed
+  get componentDomainService() {
+    return getComponentDomainService(this)
   }
 
   @computed
@@ -238,6 +289,16 @@ export class RuntimeElementModel
   }
 
   @computed
+  get runtimeComponentService() {
+    return getRuntimeComponentService(this)
+  }
+
+  @computed
+  get runtimeElementService() {
+    return getRuntimeElementService(this)
+  }
+
+  @computed
   get runtimeStore() {
     return this.closestContainerNode.current.runtimeStore
   }
@@ -269,9 +330,17 @@ export class RuntimeElementModel
         propData.kind === ITypeKind.ReactNodeType &&
         typeof propData.value === 'string'
       ) {
-        const componentRootElement = this.renderService.runtimeContainerNode({
-          id: propData.value,
-        } as IComponentModel)?.runtimeRootElement
+        const component = this.componentDomainService.component(propData.value)
+
+        const runtimeComponentKey = RuntimeComponentModel.compositeKey(
+          component,
+          key,
+        )
+
+        const runtimeComponent =
+          this.runtimeComponentService.components.get(runtimeComponentKey)
+
+        const componentRootElement = runtimeComponent?.runtimeRootElement
 
         if (componentRootElement) {
           reactNodesChildren.push({
@@ -287,27 +356,7 @@ export class RuntimeElementModel
     })
 
     const children = [
-      ...this.children.map((child) =>
-        isRuntimeContainerNode(child)
-          ? {
-              ...child.runtimeRootElement.treeViewNode,
-              ...(!isNil(child.childMapperIndex) ? { children: [] } : {}),
-              isChildMapperComponentInstance:
-                !isNil(child.childMapperIndex) &&
-                isComponent(child.containerNode.current),
-              key: `${child.runtimeRootElement.element.current.id}${
-                !isNil(child.childMapperIndex)
-                  ? `-${child.childMapperIndex}`
-                  : ''
-              }`,
-              primaryTitle: `${child.runtimeRootElement.element.current.name}${
-                !isNil(child.childMapperIndex)
-                  ? ` ${child.childMapperIndex}`
-                  : ''
-              }`,
-            }
-          : child.treeViewNode,
-      ),
+      ...this.children.map((child) => child.treeViewNode),
       ...reactNodesChildren,
     ]
 
@@ -320,6 +369,23 @@ export class RuntimeElementModel
       secondaryTitle: this.element.current.treeTitle.secondary,
       title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
     }
+  }
+
+  /**
+   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
+   * e.g. when child mapper element depends on a filtered data
+   * @param validNodes new evaluated child mapper prop
+   */
+  @modelAction
+  cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>) {
+    this.runtimeComponentService.componentsList.forEach((runtimeComponent) => {
+      if (
+        runtimeComponent.compositeKey.startsWith(keyStart) &&
+        !newKeys.includes(runtimeComponent.compositeKey)
+      ) {
+        this.runtimeComponentService.delete(runtimeComponent)
+      }
+    })
   }
 
   onAttachedToRootStore() {
@@ -351,7 +417,6 @@ export class RuntimeElementModel
       )
 
       runner()
-
       this.setPostRenderActionDone(true)
     }
   }
@@ -370,7 +435,6 @@ export class RuntimeElementModel
       )
 
       runner()
-
       this.setPreRenderActionDone(true)
     }
   }

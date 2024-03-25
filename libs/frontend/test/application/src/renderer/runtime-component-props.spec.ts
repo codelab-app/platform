@@ -1,4 +1,4 @@
-import type { IRuntimeContainerNodeModel } from '@codelab/frontend/abstract/application'
+import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
@@ -16,31 +16,25 @@ describe('Runtime Component props', () => {
 
   describe('RuntimeProps.props', () => {
     it('should contain system props', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeContainerNode(component)
-      const runtimeProps = runtimeComponent?.componentRuntimeProp
+      const { component, renderer, runtimeComponent } = setupComponent(testbed)
+      const runtimeProps = runtimeComponent.runtimeProps
 
-      expect(runtimeProps?.props).toMatchObject({
+      expect(runtimeProps.props).toMatchObject({
         [DATA_COMPONENT_ID]: component.id,
         key: component.id,
       })
     })
 
     it('should contain component props', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeContainerNode(component)
-      const runtimeProps = runtimeComponent?.componentRuntimeProp
+      const { component, runtimeComponent } = setupComponent(testbed)
+      const runtimeProps = runtimeComponent.runtimeProps
 
-      expect(runtimeProps?.props).toMatchObject(component.props.values)
+      expect(runtimeProps.props).toMatchObject(component.props.values)
     })
 
     it('should contain default props', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeContainerNode(component)
-      const runtimeProps = runtimeComponent?.componentRuntimeProp
+      const { component, runtimeComponent } = setupComponent(testbed)
+      const runtimeProps = runtimeComponent.runtimeProps
       const fieldKey = 'fieldKey'
       const fieldDefaultValue = '"field-value"'
 
@@ -53,7 +47,7 @@ describe('Runtime Component props', () => {
 
       component.api.current.writeCache({ fields: [field] })
 
-      expect(runtimeProps?.props).toMatchObject({
+      expect(runtimeProps.props).toMatchObject({
         [fieldKey]: JSON.parse(fieldDefaultValue),
       })
     })
@@ -62,16 +56,14 @@ describe('Runtime Component props', () => {
   describe('RuntimeProps.evaluatedProps', () => {
     // expressions are evaluated with empty context
     it('should evaluate basic state field expression', () => {
-      const { rendererService } = rootApplicationStore
-      const { component } = setupComponent(testbed)
-      const runtimeComponent = rendererService.runtimeContainerNode(component)
+      const { component, runtimeComponent } = setupComponent(testbed)
       const fieldKey = 'fieldKey'
 
       component.props.set(fieldKey, '{{10 - 2}}')
 
-      const runtimeProps = runtimeComponent?.componentRuntimeProp
+      const runtimeProps = runtimeComponent.runtimeProps
 
-      expect(runtimeProps?.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
+      expect(runtimeProps.evaluatedProps).toMatchObject({ [fieldKey]: 8 })
     })
   })
 
@@ -89,11 +81,11 @@ describe('Runtime Component props', () => {
       })
 
       const runtimeComponent = runtimeElement
-        .children[0] as IRuntimeContainerNodeModel
+        .children[0] as IRuntimeComponentModel
 
-      const componentRuntimeProps = runtimeComponent.componentRuntimeProp
+      const componentRuntimeProps = runtimeComponent.runtimeProps
 
-      expect(componentRuntimeProps?.instanceElementProps).toEqual(
+      expect(componentRuntimeProps.instanceElementProps).toEqual(
         runtimeProps.evaluatedProps,
       )
     })
@@ -112,15 +104,15 @@ describe('Runtime Component props', () => {
       element.props.set(propKey, propsArray)
 
       const runtimeChildren =
-        runtimeElement.children as Array<IRuntimeContainerNodeModel>
+        runtimeElement.children as Array<IRuntimeComponentModel>
 
-      expect(runtimeChildren[0]?.componentRuntimeProp?.childMapperProp).toBe(
+      expect(runtimeChildren[0]?.runtimeProps?.childMapperProp).toBe(
         propsArray[0],
       )
-      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
+      expect(runtimeChildren[1]?.runtimeProps?.childMapperProp).toBe(
         propsArray[1],
       )
-      expect(runtimeChildren[1]?.componentRuntimeProp?.childMapperProp).toBe(
+      expect(runtimeChildren[1]?.runtimeProps?.childMapperProp).toBe(
         propsArray[1],
       )
     })

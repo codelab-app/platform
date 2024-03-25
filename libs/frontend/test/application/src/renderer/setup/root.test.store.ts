@@ -4,6 +4,8 @@ import {
   elementServiceContext,
   type IRootStore,
   rendererServiceContext,
+  runtimeComponentServiceContext,
+  runtimeElementServiceContext,
 } from '@codelab/frontend/abstract/application'
 import type {
   IRootDomainStore,
@@ -26,7 +28,11 @@ import { AtomService } from '@codelab/frontend/application/atom'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import { ElementService } from '@codelab/frontend/application/element'
 import { PageApplicationService } from '@codelab/frontend/application/page'
-import { RendererApplicationService } from '@codelab/frontend/application/renderer'
+import {
+  RendererApplicationService,
+  RuntimeComponentService,
+  RuntimeElementService,
+} from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { createRootApplicationStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -93,6 +99,8 @@ export const rootApplicationStore = createRootApplicationStore({
     pageDomainServiceContext,
     rendererServiceContext,
     resourceDomainServiceContext,
+    runtimeComponentServiceContext,
+    runtimeElementServiceContext,
     storeDomainServiceContext,
     typeDomainServiceContext,
     userDomainServiceContext,
@@ -107,6 +115,8 @@ export const rootApplicationStore = createRootApplicationStore({
     pageService: new PageApplicationService({}),
     rendererService: new RendererApplicationService({}),
     resourceService: new ResourceService({}),
+    runtimeComponentService: new RuntimeComponentService({}),
+    runtimeElementService: new RuntimeElementService({}),
     storeService: new StoreService({}),
     typeService: new TypeService({}),
     userService: UserService.init({

@@ -29,7 +29,8 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
-    const { elementService, rendererService } = useStore()
+    const { elementService, rendererService, runtimeElementService } =
+      useStore()
 
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -57,7 +58,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('childMapper')
     }
 
-    const runtimeElement = rendererService.runtimeElement(element)
+    const runtimeElement = runtimeElementService.element(element)
     const runtimeProps = runtimeElement?.runtimeProps
 
     return (

@@ -1,7 +1,5 @@
-import {
-  type IRuntimeElementModel,
-  RendererType,
-} from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
+import { RuntimeElementModel } from '@codelab/frontend/application/renderer'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
@@ -20,25 +18,25 @@ describe('Runtime Element', () => {
   })
 
   it('should create element runtime node', () => {
-    const { rendererService } = rootApplicationStore
-    const { page } = setupPages(testbed)
+    const { runtimeElementService } = rootApplicationStore
+    const { page, runtimePage } = setupPages(testbed)
     const rootElement = page.rootElement.current
-    const runtimeElement = rendererService.runtimeElement(rootElement)
+    const runtimeElement = runtimeElementService.element(rootElement)
 
     // Test the creation of element node
     expect(runtimeElement?.element.id).toBe(rootElement.id)
 
     // Test the creation of link with container node
-    expect(runtimeElement?.closestContainerNode.current.containerNode.id).toBe(
-      page.id,
+    expect(runtimeElement?.closestContainerNode.current.compositeKey).toBe(
+      runtimePage?.compositeKey,
     )
   })
 
   it('should add element runtime child', () => {
-    const { rendererService } = rootApplicationStore
-    const { page } = setupPages(testbed)
-    const rootElement = page.rootElement.current
-    const runtimeElement = rendererService.runtimeElement(rootElement)
+    const { renderer } = setupPages(testbed)
+    const runtimePage = renderer.runtimeRootContainerNode
+    const runtimeRootElement = runtimePage.runtimeRootElement
+    const rootElement = runtimeRootElement.element.current
 
     const childElement = testbed.addElement({
       name: 'child-element',
@@ -47,59 +45,42 @@ describe('Runtime Element', () => {
 
     rootElement.writeCache({ firstChild: childElement })
 
-    const runtimeChildElement = runtimeElement
-      ?.children[0] as IRuntimeElementModel
+    const runtimeChildElement = runtimeRootElement.children[0]
+    const childCompositeKey = RuntimeElementModel.compositeKey(childElement)
 
-    expect(runtimeChildElement.element.id).toBe(childElement.id)
+    expect(runtimeChildElement?.compositeKey).toBe(childCompositeKey)
   })
 
   it('should detach runtime element when element is detached', async () => {
-    const { elementService, rendererService } = rootApplicationStore
-    const { page } = setupPages(testbed)
-    const rootElement = page.rootElement.current
-    const runtimeElement = rendererService.runtimeElement(rootElement)
-    const runtimePage = runtimeElement?.closestContainerNode.current
+    const { elementService, runtimeElementService } = rootApplicationStore
+    const { page } = setupPages(testbed, undefined, IPageKind.Provider)
 
-    expect(runtimePage?.runtimeElementsList.length).toEqual(1)
+    expect(runtimeElementService.elementsList.length).toEqual(1)
 
-    elementService.elementDomainService.elements.delete(rootElement.id)
+    elementService.elementDomainService.elements.delete(page.rootElement.id)
 
-    expect(runtimePage?.runtimeElementsList.length).toEqual(0)
+    expect(runtimeElementService.elementsList.length).toEqual(0)
   })
 
   it.each([[IPageKind.Provider], [IPageKind.Regular]])(
     'should resolve closest runtime container node when in %s',
     (pageKind) => {
-      const { rendererService } = rootApplicationStore
-      const { page } = setupPages(testbed, RendererType.Preview, pageKind)
-      const pageRootElement = page.rootElement.current
-      const providerPageRootElement = page.providerPage?.rootElement.current
-
-      const runtimeProviderPage = page.providerPage
-        ? rendererService.runtimeContainerNode(page.providerPage)
-        : undefined
-
-      const runtimePage = rendererService.runtimeContainerNode(page)
-
-      const pageRuntimeRootElement =
-        rendererService.runtimeElement(pageRootElement)
-
-      const providerPageRuntimeRootElement = providerPageRootElement
-        ? rendererService.runtimeElement(providerPageRootElement)
-        : undefined
-
-      expect(pageRuntimeRootElement?.closestContainerNode.id).toBe(
-        runtimePage?.id,
+      const { runtimePage, runtimeProviderPage } = setupPages(
+        testbed,
+        RendererType.Preview,
+        pageKind,
       )
 
-      if (pageKind === IPageKind.Provider) {
-        // eslint-disable-next-line jest/no-conditional-expect
-        expect(runtimeProviderPage?.id).toBeUndefined()
-      }
+      const runtimeRootElement = runtimePage?.runtimeRootElement
+      const runtimeProviderRootElement = runtimeProviderPage?.runtimeRootElement
 
-      expect(providerPageRuntimeRootElement?.closestContainerNode.id).toBe(
-        runtimeProviderPage?.id,
+      expect(runtimeRootElement?.closestContainerNode.id).toBe(
+        runtimePage?.compositeKey,
       )
+
+      expect(
+        runtimeProviderRootElement?.closestContainerNode.current.compositeKey,
+      ).toBe(runtimeProviderPage?.compositeKey)
     },
   )
 
@@ -131,27 +112,19 @@ describe('Runtime Element', () => {
   ])(
     'should run custom hooks that mutates state when in %s page - preRenderAction: `%s`, postRenderAction: `%s`, expectedValue: `%s`',
     (pageKind, preRenderActionCode, postRenderActionCode, expectedValue) => {
-      const { rendererService } = rootApplicationStore
-
-      const { page, rendererId } = setupPages(
+      const { page, renderer, runtimeProviderPage } = setupPages(
         testbed,
         RendererType.Preview,
-        pageKind,
       )
 
       const providerPage = page.providerPage ?? page
-
-      const runtimeProviderPage = rendererService.runtimeContainerNode(
-        page.providerPage ?? page,
-      )
-
       const runtimeStore = runtimeProviderPage?.runtimeStore
       const storeApi = providerPage.store.current.api.current
       const stateFieldKey = 'search'
 
       const field = testbed.addField({
         api: storeApi,
-        defaultValues: 'default value',
+        defaultValues: JSON.stringify('default value'),
         fieldType: testbed.getStringType(),
         key: stateFieldKey,
       })
@@ -182,7 +155,7 @@ describe('Runtime Element', () => {
 
       const reactElement = testbed.addRenderer({
         containerNode: page,
-        id: rendererId,
+        id: renderer.id,
         rendererType: RendererType.Preview,
       }).render
 

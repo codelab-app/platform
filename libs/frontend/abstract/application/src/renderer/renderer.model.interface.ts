@@ -4,13 +4,14 @@ import type {
   IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
-import type { IRuntimeContainerNodeModel } from './runtime-container-node'
+import type { IRuntimeComponentModel } from './runtime-component'
+import type { IRuntimePageModel } from './runtime-page'
 import type { ITypedPropTransformer } from './typed-prop-transformer.interface'
 
 export const enum RendererType {
@@ -28,8 +29,10 @@ export interface IRendererModel {
   render: Nullable<ReactElement>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  rootElement: IElementModel
-  runtimeRootContainerNode: IRuntimeContainerNodeModel
+  runtimeComponent?: IRuntimeComponentModel
+  runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
+  runtimePage?: IRuntimePageModel
+  runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 }

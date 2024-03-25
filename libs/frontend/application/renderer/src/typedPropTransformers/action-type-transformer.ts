@@ -27,7 +27,7 @@ export class ActionTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, runtimeNode: IRuntimeModel) {
+  public transform(prop: TypedProp, key: string, runtimeNode: IRuntimeModel) {
     // unwrap custom action code so it is evaluated later
     if (hasExpression(prop.value)) {
       return prop.value

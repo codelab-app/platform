@@ -1,18 +1,10 @@
 /**
  * https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31245
  */
-import { CSSProp } from 'styled-components'
-import 'styled-components/cssprop'
+import type { CSSProp } from 'styled-components'
 
 declare module 'react' {
-  interface DOMAttributes<T> {
+  interface Attributes {
     css?: CSSProp
-  }
-}
-declare global {
-  namespace JSX {
-    interface IntrinsicAttributes {
-      css?: CSSProp
-    }
   }
 }

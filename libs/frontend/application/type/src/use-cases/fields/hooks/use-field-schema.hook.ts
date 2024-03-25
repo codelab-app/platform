@@ -16,17 +16,8 @@ export const useFieldSchema = (
   const { fieldService, rendererService, storeService } = useStore()
 
   return useMemo(() => {
-    const interfaceId =
-      fieldService.createForm.interface?.id ??
-      fieldService.updateForm.field?.api.current.id
-
-    const parentStore = storeService.storeDomainService.storesList.find(
-      ({ api }) => api.id === interfaceId,
-    )
-
-    const runtimeStore = parentStore
-      ? rendererService.runtimeStore(parentStore)
-      : undefined
+    const renderer = rendererService.activeRenderer?.current
+    const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
       (fieldName) => fieldName !== fieldService.updateForm.field?.key,

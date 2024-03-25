@@ -16,7 +16,7 @@ interface ChildMapperFieldsProps {
 }
 
 const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
-  const { rendererService } = useStore()
+  const { runtimeElementService } = useStore()
 
   const [childMapperComponentFieldProps] = useField<{ value?: IRef }>(
     'childMapperComponent',
@@ -35,7 +35,7 @@ const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
         label={null}
         name="childMapperPropKey"
         options={Object.keys(
-          rendererService.runtimeElement(element)?.runtimeProps
+          runtimeElementService.element(element)?.runtimeProps
             .expressionEvaluationContext || {},
         )
           .sort()

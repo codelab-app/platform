@@ -1,6 +1,7 @@
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
-import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
+import type { IRuntimeComponentModel } from '../runtime-component'
+import type { IRuntimePageModel } from '../runtime-page'
 
 export interface IEvaluationContext {
   actions: IPropData
@@ -46,7 +47,7 @@ export interface IRuntimeComponentPropModel extends IBaseRuntimeProps {
 }
 
 export interface IRuntimeElementPropModel extends IBaseRuntimeProps {
-  closestRuntimeContainerNode: IRuntimeContainerNodeModel
+  closestRuntimeContainerNode: IRuntimeComponentModel | IRuntimePageModel
   /**
    * Evaluated Props for child mapper
    */

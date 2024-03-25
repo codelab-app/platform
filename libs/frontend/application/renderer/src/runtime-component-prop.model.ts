@@ -1,14 +1,15 @@
+import type {
+  IRuntimeComponentModel,
+  IRuntimeComponentPropDTO,
+  IRuntimeComponentPropModel,
+} from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
-  type IEvaluationContext,
-  type IRuntimeComponentPropDTO,
-  type IRuntimeComponentPropModel,
-  type IRuntimeContainerNodeModel,
+  IEvaluationContext,
 } from '@codelab/frontend/abstract/application'
 import type { IPropModel } from '@codelab/frontend/abstract/domain'
 import {
   DATA_COMPONENT_ID,
-  IComponentModel,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend/domain/prop'
@@ -27,7 +28,7 @@ export class RuntimeComponentPropModel
   extends Model({
     customProps: prop<Maybe<IPropModel>>(() => undefined).withSetter(),
     id: idProp,
-    runtimeComponent: prop<Ref<IRuntimeContainerNodeModel>>(),
+    runtimeComponent: prop<Ref<IRuntimeComponentModel>>(),
   })
   implements IRuntimeComponentPropModel
 {
@@ -46,10 +47,8 @@ export class RuntimeComponentPropModel
     return props[Number(childMapperIndex)]
   }
 
-  @computed
-  get component(): IComponentModel {
-    return this.runtimeComponent.current.containerNode
-      .current as IComponentModel
+  get component() {
+    return this.runtimeComponent.current.component.current
   }
 
   @computed
@@ -118,7 +117,7 @@ export class RuntimeComponentPropModel
    */
   @computed
   get renderedTypedProps() {
-    return mapDeep(this.props, (value) => {
+    return mapDeep(this.props, (value, key) => {
       if (!isTypedProp(value)) {
         return value
       }
@@ -133,7 +132,11 @@ export class RuntimeComponentPropModel
         return value.value
       }
 
-      return transformer.transform(value, this.runtimeComponent.current)
+      return transformer.transform(
+        value,
+        key.toString(),
+        this.runtimeComponent.current,
+      )
     })
   }
 
