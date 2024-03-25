@@ -170,3 +170,10 @@ resource "circleci_environment_variable" "DOCKERHUB_ACCESS_TOKEN" {
   project      = local.project_name
   organization = local.organization
 }
+
+resource "circleci_environment_variable" "DIGITALOCEAN_ACCESS_TOKEN" {
+  name         = "DIGITALOCEAN_ACCESS_TOKEN"
+  value        = var.digitalocean_access_token
+  project      = local.project_name
+  organization = local.organization
+}

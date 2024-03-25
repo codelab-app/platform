@@ -12,7 +12,7 @@ steps:
       name: 'Login to Docker Registry'
       # As a side note, it's usually considered better practice to enter the token interactively, this way the token won't ever show up in your shell history or be visible on your screen
       command: |
-        echo "$DIGITALOCEAN_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+        echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
   - run:
       name: 'Push Docker Image'
       command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform-api

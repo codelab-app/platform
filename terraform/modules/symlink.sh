@@ -17,6 +17,7 @@ ln -s ../nx/vars.tf ./circleci/vars-nx.symlink.tf
 ln -s ../cypress/vars.tf ./circleci/vars-cypress.symlink.tf
 ln -s ../terraform/vars.tf ./circleci/vars-terraform.symlink.tf
 ln -s ../docker/vars.tf ./circleci/vars-docker.symlink.tf
+ln -s ../digitalocean/vars-access-token.tf ./circleci/vars-do-access-token.symlink.tf
 
 # Auth0
 ln -s ../codelab/vars-platform-web.tf ./auth0/vars-platform-web.symlink.tf

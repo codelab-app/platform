@@ -32,4 +32,6 @@ module "circleci" {
 
   dockerhub_username = var.DOCKERHUB_USERNAME
   dockerhub_access_token = var.DOCKERHUB_ACCESS_TOKEN
+
+  digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN
 }

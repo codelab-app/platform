@@ -13,9 +13,17 @@ resource "digitalocean_app" "platform-api" {
       name               = "platform-api"
       http_port          = 443
 
-      git {
-        branch         = "staging"
-        repo_clone_url = "https://github.com/codelab-app/platform"
+      # git {
+      #   branch         = "staging"
+      #   repo_clone_url = "https://github.com/codelab-app/platform"
+      # }
+
+      image {
+        registry_type = "DOCR"
+        repository =   "platform-api"
+        deploy_on_push {
+          enabled = true
+        }
       }
 
       build_command = "scripts/digitalocean/platform-api/build.sh"

@@ -10,3 +10,5 @@ ln -s ../shared/vars-platform-api.tf ./vars-platform-api.symlink.tf
 ln -s ../shared/vars-platform.tf ./vars-platform.symlink.tf
 ln -s ../shared/vars-supabase.tf ./vars-supabase.symlink.tf
 ln -s ../shared/vars-docker.tf ./vars-docker.symlink.tf
+ln -s ../shared/vars-do-access-token.tf ./vars-do-access-token.symlink.tf
+

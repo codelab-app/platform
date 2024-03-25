@@ -220,7 +220,7 @@ jobs:
           name: Build platform Docker image
       - run:
           command: |
-            echo "$DIGITALOCEAN_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+            echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
           name: Login to Docker Registry
       - run:
           command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform
@@ -237,7 +237,7 @@ jobs:
           name: Build platform api Docker image
       - run:
           command: |
-            echo "$DIGITALOCEAN_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+            echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
           name: Login to Docker Registry
       - run:
           command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform-api
@@ -498,20 +498,6 @@ workflows:
           requires:
             - setup-workspace
       - e2e:
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-workspace
-      - docker-platform:
-          filters:
-            branches:
-              ignore:
-                - master
-          requires:
-            - setup-workspace
-      - docker-platform-api:
           filters:
             branches:
               ignore:

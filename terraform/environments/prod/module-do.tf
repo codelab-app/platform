@@ -1,7 +1,7 @@
 module "digitalocean-codelab" {
   source = "../../modules/digitalocean"
 
-  do_token                          = var.DIGITALOCEAN_TOKEN
+  digitalocean_access_token =        var.DIGITALOCEAN_ACCESS_TOKEN
   auth0_secret                      = var.AUTH0_SECRET
   auth0_issuer_base_url             = var.AUTH0_ISSUER_BASE_URL
   auth0_audience                    = var.AUTH0_AUDIENCE

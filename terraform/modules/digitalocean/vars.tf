@@ -1,8 +1,3 @@
-variable "do_token" {
-  type        = string
-  description = "DO token for API access"
-}
-
 variable "auth0_secret" {}
 
 variable "auth0_issuer_base_url" {}
