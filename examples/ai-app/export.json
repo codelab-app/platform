@@ -164,7 +164,24 @@
         "id": "ea2b99fd-6f0d-408f-b172-fa2c705f60ff",
         "kind": "InterfaceType",
         "name": "Chatbot API",
-        "fields": [],
+        "fields": [
+          {
+            "api": {
+              "id": "ea2b99fd-6f0d-408f-b172-fa2c705f60ff"
+            },
+            "defaultValues": "\"gpt-3.5-turbo\"",
+            "description": null,
+            "fieldType": {
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+            },
+            "id": "031661f7-5388-423f-bc37-a1f6a829aa93",
+            "key": "model",
+            "name": "Model",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":false}}"
+          }
+        ],
         "types": [
           {
             "__typename": "InterfaceType",
@@ -187,7 +204,7 @@
         },
         "props": {
           "id": "862fe385-7c3b-42e0-b88c-36106ac65ccc",
-          "data": "{}"
+          "data": "{\"model\":\"gpt-3.5-turbo\"}"
         },
         "store": {
           "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
@@ -270,36 +287,6 @@
           }
         },
         {
-          "id": "501addf9-a511-4273-92af-a0092271007b",
-          "name": "Ant Design Typography Text",
-          "slug": "Ant Design Typography Text",
-          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Typography Text",
-          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\",\\\"font-size\\\":\\\"28px\\\",\\\"text-align\\\":\\\"left\\\"}\"}},\"desktop\":{\"guiString\":{\"none\":\"{\\\"font-size\\\":\\\"24px\\\"}\"}}}",
-          "tailwindClassNames": [],
-          "parentComponent": null,
-          "parentElement": {
-            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
-          },
-          "prevSibling": null,
-          "nextSibling": null,
-          "firstChild": null,
-          "childMapperPreviousSibling": null,
-          "props": {
-            "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
-            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
-          },
-          "renderForEachPropKey": null,
-          "childMapperPropKey": null,
-          "childMapperComponent": null,
-          "renderIfExpression": null,
-          "preRenderAction": null,
-          "postRenderAction": null,
-          "renderType": {
-            "__typename": "Atom",
-            "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19"
-          }
-        },
-        {
           "id": "364bb6f8-0091-4dab-8301-58f06fcd4987",
           "name": "Html Div",
           "slug": "Html Div",
@@ -342,6 +329,36 @@
           "renderType": {
             "__typename": "Atom",
             "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e"
+          }
+        },
+        {
+          "id": "501addf9-a511-4273-92af-a0092271007b",
+          "name": "Ant Design Typography Text",
+          "slug": "Ant Design Typography Text",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Typography Text",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\",\\\"font-size\\\":\\\"28px\\\",\\\"text-align\\\":\\\"left\\\"}\"}},\"desktop\":{\"guiString\":{\"none\":\"{\\\"font-size\\\":\\\"24px\\\"}\"}}}",
+          "tailwindClassNames": [],
+          "parentComponent": null,
+          "parentElement": {
+            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19"
           }
         },
         {
@@ -597,7 +614,7 @@
                 "id": "45cec8cc-d108-4657-a96d-91037223fdbe"
               },
               "config": {
-                "data": "{\"body\":\"{\\n  \\\"model\\\": \\\"gpt-3.5-turbo\\\",\\n  \\\"messages\\\": {{JSON.stringify([\\n    {\\n      role: 'system',\\n      content: 'You are a helpful assistant. Only reply with max of three sentences.',\\n    },\\n    ...(state.messages ?? []),\\n  ])}}\\n}\",\"headers\":\"{}\",\"method\":\"POST\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"/chat/completions\",\"variables\":\"{}\",\"responseType\":\"json\"}",
+                "data": "{\"body\":\"{\\n  \\\"model\\\": \\\"{{componentProps.model}}\\\",\\n  \\\"messages\\\": {{JSON.stringify([\\n    {\\n      role: 'system',\\n      content: 'You are a helpful assistant. Only reply with max of three sentences.',\\n    },\\n    ...(state.messages ?? []),\\n  ])}}\\n}\",\"headers\":\"{}\",\"method\":\"POST\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"/chat/completions\",\"variables\":\"{}\",\"responseType\":\"json\"}",
                 "id": "54aaa2fa-aad0-4fdd-a6dc-012051a6dc35"
               }
             }
