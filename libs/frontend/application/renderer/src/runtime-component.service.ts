@@ -38,6 +38,7 @@ export class RuntimeComponentService
   ): IRuntimeComponentModel {
     const compositeKey = RuntimeComponentModel.compositeKey(
       component,
+      parent,
       propKey,
       childMapperIndex,
     )
@@ -65,9 +66,5 @@ export class RuntimeComponentService
   @modelAction
   delete(runtimeComponent: IRuntimeComponentModel) {
     return this.components.delete(runtimeComponent.compositeKey)
-  }
-
-  component(component: IComponentModel) {
-    return this.components.get(RuntimeComponentModel.compositeKey(component))
   }
 }
