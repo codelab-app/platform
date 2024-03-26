@@ -527,13 +527,20 @@ workflows:
             branches:
               only:
                 - master
-      - plan:
+      - setup-infra-workspace:
           filters:
             branches:
               only:
                 - master
           requires:
             - setup-workspace
+      - plan:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
       - hold-apply:
           filters:
             branches:
