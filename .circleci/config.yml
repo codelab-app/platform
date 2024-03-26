@@ -482,7 +482,7 @@ workflows:
                 - master
           requires:
             - setup-workspace
-      - e2e:
+      - docker-platform:
           filters:
             branches:
               ignore:

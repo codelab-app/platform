@@ -52,7 +52,14 @@ jobs:
             - master
       requires:
         - setup-workspace
-  - e2e:
+  # - e2e:
+  #     filters:
+  #       branches:
+  #         ignore:
+  #           - master
+  #     requires:
+  #       - setup-workspace
+  - docker-platform:
       filters:
         branches:
           ignore:
