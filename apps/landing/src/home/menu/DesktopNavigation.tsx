@@ -6,7 +6,8 @@ import { Logo } from '../logo/Logo'
 import { menuItems } from './MenuContainer'
 
 export const MenuDesktop = () => {
-  const { user } = useUser()
+  // const { user } = useUser()
+  const user = false
 
   return (
     <nav>
@@ -27,6 +28,8 @@ export const MenuDesktop = () => {
               </Link>
             </li>
           ))}
+          {/* eslint-disable-next-line
+          @typescript-eslint/no-unnecessary-condition */}
           {user ? (
             <li className="hidden p-2 laptop:flex">
               <Link

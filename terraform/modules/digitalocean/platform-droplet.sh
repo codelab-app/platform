@@ -7,7 +7,7 @@ snap install doctl
 # https://github.com/digitalocean/doctl/issues/591
 mkdir ~/.config
 
-sudo doctl auth init --access-token ${var.digitalocean_access_token}
+sudo doctl auth init --interactive false --access-token ${var.digitalocean_access_token}
 
 # Using the doctl Snap? Grant access to the doctl:dot-docker plug to use this command with
 sudo snap connect doctl:dot-docker
