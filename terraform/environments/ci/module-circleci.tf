@@ -30,7 +30,7 @@ module "circleci" {
 
   nx_cloud_access_token = var.NX_CLOUD_ACCESS_TOKEN
 
-  dockerhub_username = var.DOCKERHUB_USERNAME
+  dockerhub_username     = var.DOCKERHUB_USERNAME
   dockerhub_access_token = var.DOCKERHUB_ACCESS_TOKEN
 
   digitalocean_access_token = var.DIGITALOCEAN_ACCESS_TOKEN

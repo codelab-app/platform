@@ -1,4 +1,4 @@
 environment:
   TF_WORKSPACE: prod
 docker:
-  - image: hashicorp/terraform:1.6.3
+  - image: hashicorp/terraform:1.7.0

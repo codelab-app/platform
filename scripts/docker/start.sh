@@ -12,4 +12,4 @@ docker compose \
   --env-file .env \
   --verbose \
   -f .docker/build.docker-compose.yaml \
-  build $SERVICE_NAME
+  up $SERVICE_NAME

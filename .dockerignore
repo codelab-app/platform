@@ -21,6 +21,7 @@
 
 !/types
 !/apps/platform/
+!/apps/landing/
 !/apps/platform-api/
 !/dist/libs/tools/
 !/libs/

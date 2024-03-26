@@ -14,5 +14,5 @@ ln -s ../shared/vars-hotjar.tf ./vars-hotjar.symlink.tf
 ln -s ../shared/vars-intercom.tf ./vars-intercom.symlink.tf
 ln -s ../shared/vars-google.tf ./vars-google.symlink.tf
 ln -s ../shared/vars-supabase.tf ./vars-supabase.symlink.tf
-ln -s ../shared/vars-digitalocean.tf ./vars-digitalocean.symlink.tf
+ln -s ../shared/vars-do-access-token.tf ./vars-do-access-token.symlink.tf
 ln -s ../shared/vars-aws.tf ./vars-aws.symlink.tf

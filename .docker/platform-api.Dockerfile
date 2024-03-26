@@ -47,9 +47,12 @@ COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=build /usr/src/codelab/package.json ./
 COPY --from=build /usr/src/codelab/node_modules ./node_modules
 
-# default commands and/or parameters for a container
-CMD ["cd dist/apps/platform-api", "node main.js"]
+EXPOSE 4000
 
-# is preferred when you want to define a container with a specific executable
-# You cannot override the ENTRYPOINT instruction by adding command-line parameters, but rather append to it
+# default commands and/or parameters for a container
+CMD ["node" "dist/apps/platform-api/main.js"]
+
+# CMD can be fully overridden via CLI
+#
+# ENTRYPOINT can only be extended via CLI
 # ENTRYPOINT
