@@ -129,17 +129,12 @@ export class RuntimeElementModel
 
     const previousSibling = element.childMapperPreviousSibling
 
-    if (previousSibling) {
-      const previousSiblingIndex = children.findIndex((child) => {
-        return (
-          isRuntimeElement(child) && child.element.id === previousSibling.id
-        )
-      })
+    const previousSiblingIndex = children.findIndex((child) => {
+      return isRuntimeElement(child) && child.element.id === previousSibling?.id
+    })
 
-      children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
-    } else {
-      children.push(...this.childMapperChildren)
-    }
+    // if no previous sibling, previousSiblingIndex will be -1 and we will insert at the beginning
+    children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
   }

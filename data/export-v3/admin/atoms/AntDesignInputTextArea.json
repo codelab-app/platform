@@ -1,0 +1,83 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "fields": [
+      {
+        "api": {
+          "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+        },
+        "defaultValues": "false",
+        "description": null,
+        "fieldType": {
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+        },
+        "id": "8d95ea3e-2c68-4349-bdda-f6842c77954d",
+        "key": "autoSize",
+        "name": "Auto Size",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{}"
+      },
+      {
+        "api": {
+          "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+        },
+        "defaultValues": "{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}",
+        "description": null,
+        "fieldType": {
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f"
+        },
+        "id": "6c9057fd-4e92-43fc-bfe9-36549fb4665e",
+        "key": "onPressEnter",
+        "name": "On Press Enter",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      },
+      {
+        "api": {
+          "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+        },
+        "defaultValues": "null",
+        "description": null,
+        "fieldType": {
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        },
+        "id": "0dd6e9c0-7f81-4469-add9-1e065db9b7db",
+        "key": "placeholder",
+        "name": "Placeholder",
+        "nextSibling": null,
+        "prevSibling": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}"
+      }
+    ],
+    "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2",
+    "kind": "InterfaceType",
+    "name": "AntDesignInputTextArea API",
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "fields": [],
+        "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2",
+        "kind": "InterfaceType",
+        "name": "AntDesignInputTextArea API"
+      }
+    ]
+  },
+  "atom": {
+    "__typename": "Atom",
+    "api": {
+      "id": "1a0b7ae6-de19-4eb9-be0d-5081d73dfcf2"
+    },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
+    "icon": null,
+    "id": "70396f5e-0187-48d5-b165-590814af7d51",
+    "name": "AntDesignInputTextArea",
+    "requiredParents": [],
+    "suggestedChildren": [],
+    "tags": [],
+    "type": "AntDesignInputTextArea"
+  }
+}

@@ -1,0 +1,933 @@
+{
+  "app": {
+    "__typename": "App",
+    "id": "b5424adf-f45a-4b16-adb1-e2342fb8696c",
+    "name": "Ai App",
+    "slug": "ai-app",
+    "domains": [],
+    "pages": [
+      {
+        "id": "8c17850a-20cd-4975-a661-4278207576bb"
+      },
+      {
+        "id": "e7c7a548-a2f3-484c-ac21-649e5908e228"
+      },
+      {
+        "id": "e2988b43-cab6-47f5-bbbc-e364e9a5a84d"
+      }
+    ],
+    "owner": {
+      "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+    }
+  },
+  "components": [
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc",
+        "kind": "InterfaceType",
+        "name": "Chatbot Message API",
+        "fields": [
+          {
+            "api": {
+              "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+            },
+            "id": "2008bb5e-fc0b-416c-a059-6f8ca4e060de",
+            "key": "content",
+            "name": "Content",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          },
+          {
+            "api": {
+              "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+            },
+            "id": "bb6d9546-6edd-416b-b308-ad0d2b784ec1",
+            "key": "role",
+            "name": "Role",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc",
+            "kind": "InterfaceType",
+            "name": "Chatbot Message API",
+            "fields": []
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "9975de9f-84c9-4126-85df-473cfe3e844a",
+        "name": "Chatbot Message",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "b9e38467-180e-4a7a-870a-a4fac38fccfa"
+        },
+        "props": {
+          "id": "50b03baf-4c6d-4b9c-bc33-18e6076e202c",
+          "data": "{}"
+        },
+        "store": {
+          "id": "4695c4b3-e3b5-4cc0-8d3e-6da290eec2b5"
+        },
+        "api": {
+          "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+        },
+        "childrenContainerElement": {
+          "id": "b9e38467-180e-4a7a-870a-a4fac38fccfa"
+        }
+      },
+      "elements": [
+        {
+          "id": "b9e38467-180e-4a7a-870a-a4fac38fccfa",
+          "name": "Chatbot Message Root",
+          "slug": "Chatbot Message Root",
+          "compositeKey": "9975de9f-84c9-4126-85df-473cfe3e844a-Chatbot Message Root",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"max-width\\\":\\\"300px\\\",\\\"margin-bottom\\\":\\\"10px\\\",\\\"margin-left\\\":\\\"5px\\\",\\\"margin-right\\\":\\\"5px\\\"}\"}}}",
+          "tailwindClassNames": [
+            "p-2",
+            "rounded-md"
+          ],
+          "parentComponent": {
+            "id": "9975de9f-84c9-4126-85df-473cfe3e844a",
+            "name": "Chatbot Message"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "4b84bdb2-d2af-429b-b460-7627cbc72e10",
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{{componentProps.content}}\"}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "9b44bd68-aac4-4782-ab41-e92adc095b0e",
+          "kind": "InterfaceType",
+          "name": "Chatbot Message Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "9b44bd68-aac4-4782-ab41-e92adc095b0e",
+              "kind": "InterfaceType",
+              "name": "Chatbot Message Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "4695c4b3-e3b5-4cc0-8d3e-6da290eec2b5",
+          "name": "Chatbot Message Store",
+          "api": {
+            "id": "9b44bd68-aac4-4782-ab41-e92adc095b0e"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "ea2b99fd-6f0d-408f-b172-fa2c705f60ff",
+        "kind": "InterfaceType",
+        "name": "Chatbot API",
+        "fields": [
+          {
+            "api": {
+              "id": "ea2b99fd-6f0d-408f-b172-fa2c705f60ff"
+            },
+            "defaultValues": "\"gpt-3.5-turbo\"",
+            "description": null,
+            "fieldType": {
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+            },
+            "id": "031661f7-5388-423f-bc37-a1f6a829aa93",
+            "key": "model",
+            "name": "Model",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":false}}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "ea2b99fd-6f0d-408f-b172-fa2c705f60ff",
+            "kind": "InterfaceType",
+            "name": "Chatbot API",
+            "fields": []
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "26c3017f-af88-42ee-8efe-b3db8857dd92",
+        "name": "Chatbot",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "22f49c73-31b5-4d04-bf26-11ecbb699edf"
+        },
+        "props": {
+          "id": "862fe385-7c3b-42e0-b88c-36106ac65ccc",
+          "data": "{\"model\":\"gpt-3.5-turbo\"}"
+        },
+        "store": {
+          "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
+        },
+        "api": {
+          "id": "ea2b99fd-6f0d-408f-b172-fa2c705f60ff"
+        },
+        "childrenContainerElement": {
+          "id": "22f49c73-31b5-4d04-bf26-11ecbb699edf"
+        }
+      },
+      "elements": [
+        {
+          "id": "22f49c73-31b5-4d04-bf26-11ecbb699edf",
+          "name": "Chatbot Root",
+          "slug": "Chatbot Root",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Chatbot Root",
+          "style": "{\"desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"300px\\\"}\"}},\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"background-color\\\":\\\"#f5f5ef\\\"}\"}}}",
+          "tailwindClassNames": [
+            "overflow-hidden"
+          ],
+          "parentComponent": {
+            "id": "26c3017f-af88-42ee-8efe-b3db8857dd92",
+            "name": "Chatbot"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "9452be4a-6922-41c7-8fe3-f2d6c48bcf6c",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e"
+          }
+        },
+        {
+          "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411",
+          "name": "Html Div 1",
+          "slug": "Html Div 1",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Html Div 1",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"background-color\\\":\\\"#eac645\\\",\\\"padding-left\\\":\\\"10px\\\"}\"}}}",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "22f49c73-31b5-4d04-bf26-11ecbb699edf"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "364bb6f8-0091-4dab-8301-58f06fcd4987"
+          },
+          "firstChild": {
+            "id": "501addf9-a511-4273-92af-a0092271007b"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "efe7d4ec-ec5a-41d1-90df-24417511e7fb",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e"
+          }
+        },
+        {
+          "id": "364bb6f8-0091-4dab-8301-58f06fcd4987",
+          "name": "Html Div",
+          "slug": "Html Div",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Html Div",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"height\\\":\\\"300px\\\",\\\"display\\\":\\\"flex\\\",\\\"flex-direction\\\":\\\"column\\\"}\"},\"cssString\":\"\"}}",
+          "tailwindClassNames": [
+            "[&>*:first-child]:!mt-auto",
+            "[&>*:nth-child(even)]:mr-auto",
+            "[&>*:nth-child(odd)]:ml-auto",
+            "[&>*:nth-child(odd)]:text-white",
+            "[&>*:nth-child(odd)]:bg-blue-500",
+            "[&>*:nth-child(even)]:bg-yellow-200",
+            "overflow-y-auto"
+          ],
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
+          },
+          "nextSibling": {
+            "id": "7b0d8be9-e9f0-4509-b046-712b2a43a22d"
+          },
+          "firstChild": {
+            "id": "67ac81b7-9d65-43ce-9706-de09f2be2a08"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "039875f4-682c-4233-bfd5-b8b69b91ad8d",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": "{{state.messages}}",
+          "childMapperComponent": {
+            "id": "9975de9f-84c9-4126-85df-473cfe3e844a",
+            "name": "Chatbot Message"
+          },
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bb6993d-8f45-4098-90bc-5d09a414c10e"
+          }
+        },
+        {
+          "id": "501addf9-a511-4273-92af-a0092271007b",
+          "name": "Ant Design Typography Text",
+          "slug": "Ant Design Typography Text",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Typography Text",
+          "style": "{\"mobile-portrait\":{\"guiString\":{\"none\":\"{\\\"color\\\":\\\"#ffffff\\\",\\\"font-size\\\":\\\"28px\\\",\\\"text-align\\\":\\\"left\\\"}\"}},\"desktop\":{\"guiString\":{\"none\":\"{\\\"font-size\\\":\\\"24px\\\"}\"}}}",
+          "tailwindClassNames": [],
+          "parentComponent": null,
+          "parentElement": {
+            "id": "78e5613f-e5b2-4a62-b773-d1c87a33e411"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19"
+          }
+        },
+        {
+          "id": "67ac81b7-9d65-43ce-9706-de09f2be2a08",
+          "name": "Ant Design Spin",
+          "slug": "Ant Design Spin",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Spin",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "364bb6f8-0091-4dab-8301-58f06fcd4987"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "62c874bf-31a3-4a46-ba53-924cca7b2aef",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": "{{state.loading}}",
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260"
+          }
+        },
+        {
+          "id": "7b0d8be9-e9f0-4509-b046-712b2a43a22d",
+          "name": "Ant Design Input Text Area",
+          "slug": "Ant Design Input Text Area",
+          "compositeKey": "26c3017f-af88-42ee-8efe-b3db8857dd92-Ant Design Input Text Area",
+          "style": "",
+          "tailwindClassNames": [
+            "border-2"
+          ],
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "364bb6f8-0091-4dab-8301-58f06fcd4987"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "82e07e59-cf9d-4010-97d9-739db0e2cbbe",
+            "data": "{\"placeholder\":\"Type your message...\",\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"363002dc-21db-4c18-b807-9b898f41ffd8\"},\"autoSize\":true}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "70396f5e-0187-48d5-b165-590814af7d51"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "c59496f1-635b-443d-8bad-8321276ee142",
+          "kind": "InterfaceType",
+          "name": "Chatbot Store API",
+          "fields": [
+            {
+              "api": {
+                "id": "c59496f1-635b-443d-8bad-8321276ee142"
+              },
+              "defaultValues": "false",
+              "description": null,
+              "fieldType": {
+                "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba"
+              },
+              "id": "be731cf2-27be-41b8-a8d9-5f6a2a72312f",
+              "key": "loading",
+              "name": "Loading",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": "{}"
+            },
+            {
+              "api": {
+                "id": "c59496f1-635b-443d-8bad-8321276ee142"
+              },
+              "defaultValues": "[]",
+              "description": null,
+              "fieldType": {
+                "id": "868550bf-e4a8-4e29-b0f0-a75d1d230f8c"
+              },
+              "id": "f714e48a-ab8e-41a8-89ea-a65295606cc3",
+              "key": "messages",
+              "name": "Messages",
+              "nextSibling": null,
+              "prevSibling": null,
+              "validationRules": "{\"general\":{\"nullable\":true}}"
+            },
+            {
+              "id": "bb6d9546-6edd-416b-b308-ad0d2b784ec1",
+              "key": "role",
+              "name": "Role",
+              "description": null,
+              "validationRules": "{\"general\":{\"nullable\":true}}",
+              "defaultValues": "null",
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+              }
+            },
+            {
+              "id": "2008bb5e-fc0b-416c-a059-6f8ca4e060de",
+              "key": "content",
+              "name": "Content",
+              "description": null,
+              "validationRules": "{\"general\":{\"nullable\":true}}",
+              "defaultValues": "null",
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+              }
+            }
+          ],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "c59496f1-635b-443d-8bad-8321276ee142",
+              "kind": "InterfaceType",
+              "name": "Chatbot Store API",
+              "fields": []
+            },
+            {
+              "__typename": "InterfaceType",
+              "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc",
+              "kind": "InterfaceType",
+              "name": "Chatbot Message API",
+              "fields": [
+                {
+                  "id": "2008bb5e-fc0b-416c-a059-6f8ca4e060de",
+                  "key": "content",
+                  "name": "Content",
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": {
+                    "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+                  }
+                },
+                {
+                  "id": "bb6d9546-6edd-416b-b308-ad0d2b784ec1",
+                  "key": "role",
+                  "name": "Role",
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": {
+                    "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc"
+                  }
+                }
+              ]
+            },
+            {
+              "__typename": "ArrayType",
+              "id": "868550bf-e4a8-4e29-b0f0-a75d1d230f8c",
+              "kind": "ArrayType",
+              "name": "Chatbot Messages",
+              "itemType": {
+                "__typename": "InterfaceType",
+                "id": "a8262606-a4fa-41cf-ad40-dc34470d0ddc",
+                "kind": "InterfaceType",
+                "name": "Chatbot Message API"
+              }
+            }
+          ]
+        },
+        "store": {
+          "id": "c11e734d-943a-4b20-965b-4137c6305cf7",
+          "name": "Chatbot Store",
+          "api": {
+            "id": "c59496f1-635b-443d-8bad-8321276ee142"
+          },
+          "actions": [
+            {
+              "__typename": "CodeAction",
+              "id": "363002dc-21db-4c18-b807-9b898f41ffd8",
+              "name": "sendMessage",
+              "type": "CodeAction",
+              "store": {
+                "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
+              },
+              "code": "function run(e) {\n  if (!state.messages) {\n    state.messages = []\n  }\n\n  state.messages.push({\n    role: 'user',\n    content: e.target.value,\n  })\n\n  actions.onSend()\n\n  state.loading = true\n\n  setTimeout(() => {\n    e.target.value = ''\n    try {\n      refs['html-div'].current.scrollTop = refs['html-div'].current.scrollHeight\n    } catch (err) {\n      console.log('fail to auto scroll down')\n    }\n  }, 200)\n}"
+            },
+            {
+              "__typename": "CodeAction",
+              "id": "728d2c2e-4ae6-4ded-be9f-523f6f4a95ca",
+              "name": "storeAiReply",
+              "type": "CodeAction",
+              "store": {
+                "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
+              },
+              "code": "function run(res) {\n  const { role, content } = res.data.choices[0].message\n  state.messages.push({\n    role,\n    content,\n  })\n  state.loading = false\n  setTimeout(() => {\n    try {\n      refs['html-div'].current.scrollTop = refs['html-div'].current.scrollHeight\n    } catch (err) {\n      console.log('fail to auto scroll down')\n    }\n  }, 200)\n}"
+            },
+            {
+              "__typename": "ApiAction",
+              "id": "54aaa2fa-aad0-4fdd-a6dc-012051a6dc35",
+              "name": "onSend",
+              "type": "ApiAction",
+              "store": {
+                "id": "c11e734d-943a-4b20-965b-4137c6305cf7"
+              },
+              "successAction": {
+                "id": "728d2c2e-4ae6-4ded-be9f-523f6f4a95ca",
+                "name": "storeAiReply"
+              },
+              "errorAction": null,
+              "resource": {
+                "id": "45cec8cc-d108-4657-a96d-91037223fdbe"
+              },
+              "config": {
+                "data": "{\"body\":\"{\\n  \\\"model\\\": \\\"{{componentProps.model}}\\\",\\n  \\\"messages\\\": {{JSON.stringify([\\n    {\\n      role: 'system',\\n      content: 'You are a helpful assistant. Only reply with max of three sentences.',\\n    },\\n    ...(state.messages ?? []),\\n  ])}}\\n}\",\"headers\":\"{}\",\"method\":\"POST\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"/chat/completions\",\"variables\":\"{}\",\"responseType\":\"json\"}",
+                "id": "54aaa2fa-aad0-4fdd-a6dc-012051a6dc35"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "pages": [
+    {
+      "elements": [
+        {
+          "id": "642f0700-049c-4b18-974f-de59b0b64cdd",
+          "name": "Body",
+          "slug": "Body",
+          "compositeKey": "8c17850a-20cd-4975-a661-4278207576bb-Body",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "02e84f06-914b-4569-954c-7e463cb9452f"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "ad9adef5-21df-4ac0-92ca-c48f685e72c2",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        },
+        {
+          "id": "02e84f06-914b-4569-954c-7e463cb9452f",
+          "name": "Chatbot",
+          "slug": "Chatbot",
+          "compositeKey": "8c17850a-20cd-4975-a661-4278207576bb-Chatbot",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "642f0700-049c-4b18-974f-de59b0b64cdd"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "d71348a4-c35a-4cf4-879f-2769d4090746",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Component",
+            "id": "26c3017f-af88-42ee-8efe-b3db8857dd92"
+          }
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "b5424adf-f45a-4b16-adb1-e2342fb8696c",
+          "name": "Ai App",
+          "owner": {
+            "auth0Id": "google-oauth2|114968004455663707800"
+          }
+        },
+        "id": "8c17850a-20cd-4975-a661-4278207576bb",
+        "name": "_app",
+        "slug": "_app",
+        "kind": "Provider",
+        "rootElement": {
+          "id": "642f0700-049c-4b18-974f-de59b0b64cdd",
+          "name": "Body"
+        },
+        "pageContentContainer": {
+          "id": "642f0700-049c-4b18-974f-de59b0b64cdd",
+          "name": "Body"
+        },
+        "url": "/_app",
+        "store": {
+          "id": "2e043a91-456a-4376-92de-3cd05033e05e"
+        }
+      },
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "5562cd15-aa8c-4f06-96f5-791fa1a6e36f",
+          "kind": "InterfaceType",
+          "name": "AI App(jethrocabaluna310) _app Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "5562cd15-aa8c-4f06-96f5-791fa1a6e36f",
+              "kind": "InterfaceType",
+              "name": "AI App(jethrocabaluna310) _app Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "2e043a91-456a-4376-92de-3cd05033e05e",
+          "name": "_app Store",
+          "api": {
+            "id": "5562cd15-aa8c-4f06-96f5-791fa1a6e36f"
+          },
+          "actions": [
+            {
+              "__typename": "ApiAction",
+              "id": "412e7a49-fa52-4b34-8959-5a6a2aacc128",
+              "name": "testChat",
+              "type": "ApiAction",
+              "store": {
+                "id": "2e043a91-456a-4376-92de-3cd05033e05e"
+              },
+              "successAction": null,
+              "errorAction": null,
+              "resource": {
+                "id": "45cec8cc-d108-4657-a96d-91037223fdbe"
+              },
+              "config": {
+                "data": "{\"body\":\"{}\",\"headers\":\"{}\",\"method\":\"POST\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"chat/completions\",\"variables\":\"{}\",\"responseType\":\"json\"}",
+                "id": "412e7a49-fa52-4b34-8959-5a6a2aacc128"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "id": "7fa59faa-bf56-4fec-a763-92fd086b07a7",
+          "name": "Body",
+          "slug": "Body",
+          "compositeKey": "e7c7a548-a2f3-484c-ac21-649e5908e228-Body",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "99492204-6278-41fd-a17d-9b29dbc1753b",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "b5424adf-f45a-4b16-adb1-e2342fb8696c",
+          "name": "Ai App",
+          "owner": {
+            "auth0Id": "google-oauth2|114968004455663707800"
+          }
+        },
+        "id": "e7c7a548-a2f3-484c-ac21-649e5908e228",
+        "name": "500",
+        "slug": "500",
+        "kind": "InternalServerError",
+        "rootElement": {
+          "id": "7fa59faa-bf56-4fec-a763-92fd086b07a7",
+          "name": "Body"
+        },
+        "pageContentContainer": null,
+        "url": "/500",
+        "store": {
+          "id": "07f9cffe-d7b8-4690-ae0c-3b3c8bc503ef"
+        }
+      },
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "a1cccd8d-3fcc-4e57-913e-5fe64bd6833a",
+          "kind": "InterfaceType",
+          "name": "AI App(jethrocabaluna310) 500 Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "a1cccd8d-3fcc-4e57-913e-5fe64bd6833a",
+              "kind": "InterfaceType",
+              "name": "AI App(jethrocabaluna310) 500 Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "07f9cffe-d7b8-4690-ae0c-3b3c8bc503ef",
+          "name": "500 Store",
+          "api": {
+            "id": "a1cccd8d-3fcc-4e57-913e-5fe64bd6833a"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "id": "218069dc-be48-4354-83ac-521bce187547",
+          "name": "Body",
+          "slug": "Body",
+          "compositeKey": "e2988b43-cab6-47f5-bbbc-e364e9a5a84d-Body",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "2e993068-b6fa-4d87-8d2c-49add621c221",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "b5424adf-f45a-4b16-adb1-e2342fb8696c",
+          "name": "Ai App",
+          "owner": {
+            "auth0Id": "google-oauth2|114968004455663707800"
+          }
+        },
+        "id": "e2988b43-cab6-47f5-bbbc-e364e9a5a84d",
+        "name": "404",
+        "slug": "404",
+        "kind": "NotFound",
+        "rootElement": {
+          "id": "218069dc-be48-4354-83ac-521bce187547",
+          "name": "Body"
+        },
+        "pageContentContainer": null,
+        "url": "/404",
+        "store": {
+          "id": "7f44a639-5e18-4edf-bd76-42cee29948f7"
+        }
+      },
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "434a8f23-256b-4daf-b241-6c06acebac53",
+          "kind": "InterfaceType",
+          "name": "AI App(jethrocabaluna310) 404 Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "434a8f23-256b-4daf-b241-6c06acebac53",
+              "kind": "InterfaceType",
+              "name": "AI App(jethrocabaluna310) 404 Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "7f44a639-5e18-4edf-bd76-42cee29948f7",
+          "name": "404 Store",
+          "api": {
+            "id": "434a8f23-256b-4daf-b241-6c06acebac53"
+          },
+          "actions": []
+        }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "id": "45cec8cc-d108-4657-a96d-91037223fdbe",
+      "type": "Rest",
+      "name": "OpenAI API",
+      "config": {
+        "id": "55dc0bfc-ca56-41d9-9a4e-60669ab76452",
+        "data": "{\"url\":\"https://api.openai.com/v1\",\"headers\":\"{\\n  \\\"Authorization\\\": \\\"Bearer your-openai-api-access-token\\\"\\n}\"}"
+      }
+    }
+  ]
+}

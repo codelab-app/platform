@@ -1481,6 +1481,7 @@ export const tailwindClasses = [
   'me-80',
   'me-96',
 
+  '!mt-auto',
   'mt-0',
   'mt-px',
   'mt-0.5',
@@ -1517,6 +1518,7 @@ export const tailwindClasses = [
   'mt-80',
   'mt-96',
 
+  'mr-auto',
   'mr-0',
   'mr-px',
   'mr-0.5',
@@ -1589,6 +1591,7 @@ export const tailwindClasses = [
   'mb-80',
   'mb-96',
 
+  'ml-auto',
   'ml-0',
   'ml-px',
   'ml-0.5',

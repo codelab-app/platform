@@ -63,6 +63,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     },
     IAtomType.AntDesignInput,
     IAtomType.AntDesignInputSearch,
+    IAtomType.AntDesignInputTextArea,
     IAtomType.AntDesignInputNumber,
     { [IAtomType.AntDesignMentions]: [IAtomType.AntDesignMentionsOption] },
     { [IAtomType.AntDesignRadio]: [IAtomType.AntDesignRadioGroup] },

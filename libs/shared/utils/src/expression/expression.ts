@@ -62,8 +62,6 @@ const getByExpression = <IContext>(
     evaluateExpression(value, context),
   )
 
-  console.log('expressionResults', data)
-
   return data
 }
 
