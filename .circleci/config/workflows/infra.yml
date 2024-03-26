@@ -4,14 +4,20 @@ jobs:
         branches:
           only:
             - master
+  - setup-infra-workspace:
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - setup-workspace
   - plan:
       filters:
         branches:
           only:
             - master
-      # e: docker-node
       requires:
-        - setup-workspace
+        - setup-infra-workspace
   - hold-apply:
       filters:
         branches:

@@ -2,3 +2,8 @@ executor: docker-node
 resource_class: large
 steps:
   - install-terraform
+  - login-docker
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - .docker/config.json

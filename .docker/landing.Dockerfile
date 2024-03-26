@@ -25,39 +25,28 @@ WORKDIR /usr/src/codelab
 COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json postcss.config.js tailwind.config.js ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
-COPY apps/platform ./apps/platform
+COPY apps/landing ./apps/landing
 COPY libs ./libs
 COPY types ./types
 
-# It's important to remember that for every --build-arg parameter used in the docker build command, there must be a corresponding ARG instruction in the Dockerfile
-ARG NEXT_PUBLIC_PLATFORM_HOST
-ARG NEXT_PUBLIC_PLATFORM_API_PORT
-ARG NEXT_PUBLIC_PLATFORM_API_HOSTNAME
-ARG AUTH0_SECRET
-ARG AUTH0_ISSUER_BASE_URL
-ARG AUTH0_CLIENT_ID
-ARG AUTH0_CLIENT_SECRET
-ARG AUTH0_AUDIENCE
-ARG AUTH0_BASE_URL
+# ARG MAILCHIMP_LIST_ID
+# ARG MAILCHIMP_API_KEY
+# ARG MAILCHIMP_SERVER_PREFIX
+# ARG NEXT_PUBLIC_INTERCOM_APP_ID
+ARG NEXT_PUBLIC_SUPABASE_URL
+ARG NEXT_PUBLIC_SUPABASE_KEY
+ARG SUPABASE_DB_PASS
 
-# Then pass from ARG to ENV
-#
-# https://stackoverflow.com/questions/60450479/using-arg-and-env-in-dockerfile
-#
-# What this means is, if the ENV and ARG have the same name, the ENV will overwrite the value of the ARG after the ENV line. Before the ENV line, the ARG value will be used.
-ENV NEXT_PUBLIC_PLATFORM_HOST=$NEXT_PUBLIC_PLATFORM_HOST
-ENV NEXT_PUBLIC_PLATFORM_API_PORT=$NEXT_PUBLIC_PLATFORM_API_PORT
-ENV NEXT_PUBLIC_PLATFORM_API_HOSTNAME=$NEXT_PUBLIC_PLATFORM_API_HOSTNAME
-ENV AUTH0_SECRET=$AUTH0_SECRET
-ENV AUTH0_ISSUER_BASE_URL=$AUTH0_ISSUER_BASE_URL
-ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
-ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
-ENV AUTH0_AUDIENCE=$AUTH0_AUDIENCE
-ENV AUTH0_BASE_URL=$AUTH0_BASE_URL
-ENV NEXT_TELEMETRY_DISABLED=1
+# ENV MAILCHIMP_LIST_ID=$MAILCHIMP_LIST_ID
+# ENV MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
+# ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
+# ENV NEXT_PUBLIC_INTERCOM_APP_ID=$NEXT_PUBLIC_INTERCOM_APP_ID
+ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+ENV NEXT_PUBLIC_SUPABASE_KEY=$NEXT_PUBLIC_SUPABASE_KEY
+ENV SUPABASE_DB_PASS=$SUPABASE_DB_PASS
 
 RUN pnpm install --frozen-lockfile --ignore-scripts
-RUN pnpm nx build platform --verbose --skip-nx-cache
+RUN pnpm nx build landing --verbose --skip-nx-cache
 
 #
 # (2) Prod
@@ -75,10 +64,11 @@ COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=build /usr/src/codelab/package.json ./
 COPY --from=build /usr/src/codelab/node_modules ./node_modules
 
-EXPOSE 3000
+# This way Docker will expose this port to the outside
+EXPOSE 4200
 
 # default commands and/or parameters for a container
 # CMD can be fully overridden via CLI
 # ENTRYPOINT can only be extended via CLI
-CMD ["pnpm", "next", "start", "dist/apps/platform"]
+CMD ["pnpm", "next", "start", "dist/apps/landing"]
 

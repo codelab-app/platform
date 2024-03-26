@@ -7,9 +7,9 @@ steps:
       docker_layer_caching: true
   # https://discuss.circleci.com/t/pass-env-vars-to-docker-containers-in-circle-2-0/17827/2
   - run:
-      name: 'Build platform Docker image'
+      name: 'Build platform landing Docker image'
       command: |
-        docker compose --verbose -f .docker/build.docker-compose.yaml build platform
+        docker compose --verbose -f .docker/build.docker-compose.yaml build landing
   - run:
       name: 'Push Docker Image'
-      command: docker compose --verbose -f .docker/build.docker-compose.yaml push platform
+      command: docker compose --verbose -f .docker/build.docker-compose.yaml push landing

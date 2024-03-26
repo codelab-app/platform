@@ -68,6 +68,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           ({ stage }) => {
             const autoApprove = stage === Stage.Prod ? '-auto-approve' : ''
 
+            // Add export TF_LOG=DEBUG for verbose
             return execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} apply ${autoApprove}`,
             )

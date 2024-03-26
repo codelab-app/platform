@@ -32,26 +32,27 @@ describe('Element Child Mapper', () => {
         IPageKindName.Provider,
       )}/builder`,
     )
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
+
     cy.findAllByText(providerPageRowElement.name).first().click()
     cy.findByText('Child Mapper').click()
 
-    cy.intercept('POST', 'api/graphql').as('selectPreviousSibling')
     cy.get('.ant-collapse').setFormFieldValue({
       label: 'Render next to',
       type: FIELD_TYPE.SELECT,
       value: providerPageRowFirstChild.name,
     })
-    cy.wait('@selectPreviousSibling')
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
-    cy.intercept('POST', 'api/graphql').as('addDataSource')
     cy.get('.ant-collapse').findByRole('button', { name: 'JS' }).click()
     cy.get('.ant-collapse').setFormFieldValue({
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "test 1" }, { name: "test 2" }]}}',
     })
-    cy.wait('@addDataSource')
+    cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
     cy.intercept('POST', 'api/graphql').as('selectComponent')
+
     cy.get('.ant-collapse').setFormFieldValue({
       label: 'Component',
       type: FIELD_TYPE.SELECT,
@@ -75,10 +76,10 @@ describe('Element Child Mapper', () => {
     cy.openPreview()
     cy.get('#render-root').contains('text test 1')
     cy.get('#render-root').contains('text test 2')
-    cy.openBuilder()
   })
 
   it('should render the component instances n times and next to the selected previous sibling', () => {
+    cy.openBuilder()
     cy.get('.ant-tree-treenode-draggable:nth-child(3)')
       .contains(providerPageRowFirstChild.name)
       .should('exist')
