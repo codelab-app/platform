@@ -14,7 +14,13 @@ resource "digitalocean_droplet" "landing" {
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = file("${path.module}/landing-droplet.sh")
+  user_data = templatefile("${path.module}/landing-droplet.yaml", {
+    digitalocean_access_token = var.digitalocean_access_token,
+    mailchimp_list_id = var.mailchimp_list_id,
+    mailchimp_api_key = var.mailchimp_api_key,
+    mailchimp_server_prefix = var.mailchimp_server_prefix,
+    # user_scripts_content = "${file("${path.module}/landing-droplet.sh")}"
+  })
 
   lifecycle {
     # ignore_changes = [user_data]
@@ -146,3 +152,27 @@ resource "digitalocean_loadbalancer" "public" {
     protocol = "tcp"
   }
 }
+
+# data "template_file" "landing_user_data" {
+#   # Need template for variable interpolation
+#   template = file("${path.module}/landing-droplet.tpl")
+
+#   vars = {
+#     digitalocean_access_token = var.digitalocean_access_token
+
+#     mailchimp_list_id     = var.mailchimp_list_id
+#     mailchimp_api_key     = var.mailchimp_api_key
+#     mailchimp_server_prefix = var.mailchimp_server_prefix
+
+#     user_scripts = data.template_file.landing_user_scripts
+#   }
+# }
+
+# data "template_file" "landing_user_scripts" {
+#   # Need template for variable interpolation
+#   template = file("${path.module}/landing-droplet.sh")
+
+#   vars = {
+#     digitalocean_access_token = var.digitalocean_access_token
+#   }
+# }
