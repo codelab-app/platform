@@ -26,6 +26,8 @@ services:
     restart: unless-stopped
     ports:
       - "80:3000"
+    environment:
+      - NODE_ENV=development
 EOF
 
 docker compose pull && docker -compose up -d --force-recreate
