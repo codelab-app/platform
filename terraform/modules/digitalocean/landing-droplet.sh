@@ -26,6 +26,10 @@ services:
     restart: unless-stopped
     ports:
       - "80:3000"
+    environment:
+      - MAILCHIMP_LIST_ID=${MAILCHIMP_LIST_ID}
+      - MAILCHIMP_API_KEY=${MAILCHIMP_API_KEY}
+      - MAILCHIMP_SERVER_PREFIX=${MAILCHIMP_SERVER_PREFIX}
 EOF
 
 docker compose pull && docker compose up -d --force-recreate
