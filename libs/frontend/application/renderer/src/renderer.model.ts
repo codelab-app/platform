@@ -14,6 +14,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
+  elementRef,
   isComponent,
   isPage,
   pageRef,
@@ -74,7 +75,7 @@ const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
       }),
       subTrees:
         isPage(containerNode) && containerNode.providerPage
-          ? [pageRef(containerNode.id)]
+          ? [elementRef(containerNode.rootElement.id)]
           : undefined,
     }),
     urlSegments,
