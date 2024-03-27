@@ -1,93 +1,56 @@
 #cloud-config
 
-# This file gets written to /var/lib/cloud/instance/user-data.txt
+# lifecycle in /etc/cloud/cloud.cfg
 
-# Cloud init is copied to droplet then run, you can run schema check there to make sure settings are valid
+# cloud-init config in /var/lib/cloud/instance/user-data.txt
 
-# Any change here will destroy and re-create the droplet, since cloud-init is only run once
+# /var/lib/cloud/instances/*/sem tells us which has been ran
 
-# https://forums.centos.org/viewtopic.php?t=66712
-# systemd-resolved manages /etc/resolv.conf
 manage_resolv_conf: true
 
 package_update: true
 package_upgrade: true
-# package_reboot_if_required: true
-
-# Don't need to install docker since we use an image with docker pre-installed
-
-# packages:
-#   # https://stackoverflow.com/questions/24418815/how-do-i-install-docker-using-cloud-init/62540068#62540068
-#   - docker.io
-#   - docker-compose
-
-# # create the docker group
-# groups:
-#   - docker
-
-# # Add default auto created user to docker group
-# system_info:
-#   default_user:
-#     groups: [docker]
-
-# $HOME is /root
-# Cannot use ~/ here
-
-#
-# Lifecycle
-#
-
-# For cloud-init lifecycle can see /etc/cloud/cloud.cfg
-#
-# We don't really need these, just explicitly show what is the order
-
-# cloud_init_modules:
-#   - write_files
-
-# cloud_config_modules:
-#   # Need this or else runcmd won't run
-#   # https://gist.github.com/mikesager/f091fc374547e4304ec2d8c517f13cbe
-#   - runcmd
-
-# cloud_final_modules:
-#   - final_message
-# # Allows running of shell scripts in the script-user directory
-# #   - scripts-user
-
-#
-# Lifecycle End
-#
 
 write_files:
   - path: /root/.config/doctl/config.yaml
     content: |
       access-token: ${digitalocean_access_token}
-  # cloud_final_modules.scripts-user will run the scripts in /var/lib/cloud/scripts/
-  # - path: /var/lib/cloud/scripts/per-once/init.sh
-  #   permissions: '0755'
-  #   # Indent issue for multiline
-  #   #
-  #   # https://discuss.hashicorp.com/t/wrong-indent-with-multiline-content-to-cloud-init-write-files-content-directives/35011/3
-  #   # https://github.com/hashicorp/terraform/issues/10378#issuecomment-263151581
-  #   content: |
-  #     ${indent(3, user_scripts_content)}
-  # - path: /root/docker/docker-compose.yml
-  #   # owner: docker:docker
-  #   permissions: '0644'
-  #   content: |
-  #     version: '3.8'
-  #     services:
-  #       landing:
-  #         image: registry.digitalocean.com/codelabapp/landing:latest
-  #         restart: unless-stopped
-  #         ports:
-  #           - "80:3000"
-  #         environment:
-  #           - MAILCHIMP_LIST_ID=${mailchimp_list_id}
-  #           - MAILCHIMP_API_KEY=${mailchimp_api_key}
-  #           - MAILCHIMP_SERVER_PREFIX=${mailchimp_server_prefix}
+  - path: /root/docker/docker-compose.yml
+    # owner: docker:docker
+    permissions: '0644'
+    content: |
+      version: '3.8'
+      services:
+        landing:
+          image: registry.digitalocean.com/codelabapp/landing:latest
+          restart: unless-stopped
+          ports:
+            - "80:3000"
+          environment:
+            - MAILCHIMP_LIST_ID=${mailchimp_list_id}
+            - MAILCHIMP_API_KEY=${mailchimp_api_key}
+            - MAILCHIMP_SERVER_PREFIX=${mailchimp_server_prefix}
+  - path: /var/lib/cloud/scripts/per-once/init.sh
+    permissions: '0755'
+    # Indent issue for multiline
+    #
+    # https://discuss.hashicorp.com/t/wrong-indent-with-multiline-content-to-cloud-init-write-files-content-directives/35011/3
+    # https://github.com/hashicorp/terraform/issues/10378#issuecomment-263151581
+    #
+    # Also cannot have spaces up front https://stackoverflow.com/questions/23818209/user-data-scripts-fails-without-giving-reason
+    content: |
+      #!/bin/bash
 
-# # If the item is a list, the items will be properly executed as if passed to execve(3) (with the first arg as the command).
-# # If the item is a string, it will be simply written to the file and will be interpreted by 'sh'
-# runcmd:
-#   - echo "Starting \"snap install doctl\" >> /var/log/cloud-init.log
+      set -x
+
+      echo "Executing custom scripts..." >> /var/log/codelab.log
+
+      snap install doctl
+
+      snap connect doctl:dot-docker
+
+      doctl auth init --interactive false --access-token ${digitalocean_access_token}
+
+      doctl registry login
+
+      docker compose pull && docker compose up -d --force-recreate

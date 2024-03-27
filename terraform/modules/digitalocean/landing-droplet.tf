@@ -19,7 +19,7 @@ resource "digitalocean_droplet" "landing" {
     mailchimp_list_id = var.mailchimp_list_id,
     mailchimp_api_key = var.mailchimp_api_key,
     mailchimp_server_prefix = var.mailchimp_server_prefix,
-    user_scripts_content = "${file("${path.module}/landing-droplet.sh")}"
+    # user_scripts_content = "${file("${path.module}/landing-droplet.sh")}"
   })
 
   lifecycle {
