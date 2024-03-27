@@ -58,6 +58,16 @@ resource "digitalocean_app" "platform-api" {
         key   = "AUTH0_ISSUER_BASE_URL"
         value = var.auth0_issuer_base_url
       }
+
+      env {
+        key   = "DIGITAL_OCEAN_API_TOKEN"
+        value = var.digital_ocean_api_token
+      }
+
+      env {
+        key   = "DIGITAL_OCEAN_APP_ID"
+        value = var.digital_ocean_app_id
+      }
     }
   }
 }

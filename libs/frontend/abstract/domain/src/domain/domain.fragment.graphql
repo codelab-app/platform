@@ -3,11 +3,8 @@ fragment Domain on Domain {
     id
   }
   domainConfig {
-    misconfigured
+    status
   }
   id
   name
-  projectDomain {
-    verified
-  }
 }

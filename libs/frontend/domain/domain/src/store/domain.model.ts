@@ -1,8 +1,7 @@
 import type { IDomainModel } from '@codelab/frontend/abstract/domain'
 import type {
   DomainDeleteInput,
-  VercelDomainConfig,
-  VercelProjectDomain,
+  ProductionDomainConfig,
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDto, IRef } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -10,13 +9,12 @@ import { connectNodeId } from '@codelab/shared/domain'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDto) => {
+const create = ({ app, domainConfig, id, name }: IDomainDto) => {
   return new Domain({
     app,
     domainConfig,
     id,
     name,
-    projectDomain,
   })
 }
 
@@ -24,10 +22,9 @@ const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDto) => {
 export class Domain
   extends Model({
     app: prop<IRef>(),
-    domainConfig: prop<Maybe<VercelDomainConfig>>(),
+    domainConfig: prop<Maybe<ProductionDomainConfig>>(),
     id: idProp,
     name: prop<string>(),
-    projectDomain: prop<Maybe<VercelProjectDomain>>(),
   })
   implements IDomainModel
 {
@@ -45,21 +42,13 @@ export class Domain
       domainConfig: this.domainConfig,
       id: this.id,
       name: this.name,
-      projectDomain: this.projectDomain,
     }
   }
 
   @modelAction
-  public writeCache({
-    app,
-    domainConfig,
-    id,
-    name,
-    projectDomain,
-  }: Partial<IDomainDto>) {
+  public writeCache({ app, domainConfig, name }: Partial<IDomainDto>) {
     this.name = name ?? this.name
     this.domainConfig = domainConfig ?? this.domainConfig
-    this.projectDomain = projectDomain ?? this.projectDomain
     this.app = app ?? this.app
 
     return this

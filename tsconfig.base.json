@@ -312,6 +312,9 @@
       "@codelab/frontend/domain/user": [
         "libs/frontend/domain/user/src/index.ts"
       ],
+      "@codelab/frontend/domain/production-domain": [
+        "libs/frontend/domain/production-domain/src/index.ts"
+      ],
       "@codelab/frontend/infra/graphql": [
         "libs/frontend/infra/graphql/src/index.ts"
       ],

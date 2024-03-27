@@ -8,6 +8,11 @@ resource "digitalocean_app" "platform-web" {
       zone = "codelab.app"
     }
 
+    domain {
+      name = "production-demo-app.websites.codelab.app"
+      zone = "codelab.app"
+    }
+
     service {
       instance_size_slug = "basic-xxs"
       name               = "platform-web"

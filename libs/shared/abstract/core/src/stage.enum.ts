@@ -8,7 +8,7 @@ export enum Stage {
   // Local using primary port
   Dev = 'dev',
 
-  // Vercel remote
+  // DigitalOcean remote
   Prod = 'prod',
 
   // Local using secondary port

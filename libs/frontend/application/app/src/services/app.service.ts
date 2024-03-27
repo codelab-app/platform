@@ -19,6 +19,7 @@ import {
 } from '@codelab/frontend/application/page'
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
+import { ProductionDomainService } from '@codelab/frontend/domain/production-domain'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
 import type { IUpdatePageData } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -46,6 +47,7 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new AppModalService({})),
     pageRepository: prop(() => new PageRepository({})),
+    productionDomainService: prop(() => new ProductionDomainService({})),
     updateModal: prop(() => new AppModalService({})),
   })
   implements IAppService
@@ -93,6 +95,7 @@ export class AppService
 
       for (const domain of app.domains) {
         // Remove domains in third party saas
+        await this.productionDomainService.delete(domain.name)
       }
 
       return app

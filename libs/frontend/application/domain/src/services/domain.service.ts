@@ -6,6 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { Domain } from '@codelab/frontend/domain/domain'
+import { ProductionDomainService } from '@codelab/frontend/domain/production-domain'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
 import type { IDomainDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -30,6 +31,7 @@ export class DomainService
     deleteModal: prop(() => new DomainModalService({})),
     domainRepository: prop(() => new DomainRepository({})),
     domains: prop(() => objectMap<Domain>()),
+    productionDomainService: prop(() => new ProductionDomainService({})),
     updateModal: prop(() => new DomainModalService({})),
   })
   implements IDomainService
@@ -48,13 +50,12 @@ export class DomainService
     const domain = this.hydrate({
       ...domainData,
       domainConfig: undefined,
-      projectDomain: undefined,
     })
 
+    yield* _await(this.productionDomainService.create(domain.name))
     yield* _await(this.domainRepository.add(domain))
 
-    // Fetching again to get the backend-generated
-    // domainConfig and projectDomain
+    // Fetching again to get the backend-generated domainConfig
     return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
 
@@ -69,6 +70,7 @@ export class DomainService
 
       this.domains.delete(id)
 
+      await this.productionDomainService.delete(domain.name)
       await this.domainRepository.delete([domain])
 
       return domain
@@ -98,10 +100,10 @@ export class DomainService
 
     domain.writeCache({ name })
 
+    yield* _await(this.productionDomainService.update(oldName, name))
     yield* _await(this.domainRepository.update(domain))
 
-    // Fetching again to get the backend-generated
-    // domainConfig and projectDomain
+    // Fetching again to get the backend-generated domainConfig
     return (yield* _await(this.getAll({ id: domain.id })))[0] || domain
   })
 
