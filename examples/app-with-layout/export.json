@@ -1,0 +1,1914 @@
+{
+  "app": {
+    "__typename": "App",
+    "id": "2ace741c-716c-45be-b1a0-b3471f7d109f",
+    "name": "My App",
+    "slug": "my-app",
+    "domains": [],
+    "pages": [
+      {
+        "id": "d63aec78-fc2c-42ec-8458-c877d190da3b"
+      },
+      {
+        "id": "e23393d7-28cb-4064-8cf6-fe799dcacc01"
+      },
+      {
+        "id": "1e6f1b1e-8024-4ee3-9f53-b01ba6d50bce"
+      }
+    ],
+    "owner": {
+      "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+    }
+  },
+  "components": [
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "a07233a9-776b-48cc-888a-db87a35a637b",
+        "kind": "InterfaceType",
+        "name": "Layout C API",
+        "fields": [
+          {
+            "api": {
+              "id": "a07233a9-776b-48cc-888a-db87a35a637b"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "e8d676b9-6ae8-457a-8421-a454019fcf2b",
+            "key": "footer",
+            "name": "Footer",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "a07233a9-776b-48cc-888a-db87a35a637b"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "a5540a4c-e4c5-470e-8fd4-e89235b55a0e",
+            "key": "header",
+            "name": "Header",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "a07233a9-776b-48cc-888a-db87a35a637b"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "72d80b4a-1744-4c3d-bd9a-ed3ff52bdc11",
+            "key": "sider",
+            "name": "Sider",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "a07233a9-776b-48cc-888a-db87a35a637b",
+            "kind": "InterfaceType",
+            "name": "Layout C API",
+            "fields": []
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "be7d80a3-897a-4129-a106-b3018711b865",
+        "name": "Layout C",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "d348cdea-514e-4bf3-ae33-c6c5c611c6bd"
+        },
+        "props": {
+          "id": "999524d4-e911-4425-aac3-a2bf3345e373",
+          "data": "{\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"sider\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+        },
+        "store": {
+          "id": "9bf0b56a-f3ec-4451-bb8d-49f1ad1ff9f4"
+        },
+        "api": {
+          "id": "a07233a9-776b-48cc-888a-db87a35a637b"
+        },
+        "childrenContainerElement": {
+          "id": "cacd99ee-4561-49c4-a4c6-406e84e1bc3c"
+        }
+      },
+      "elements": [
+        {
+          "id": "cacd99ee-4561-49c4-a4c6-406e84e1bc3c",
+          "name": "Ant Design Layout Content",
+          "slug": "Ant Design Layout Content",
+          "compositeKey": "be7d80a3-897a-4129-a106-b3018711b865-Ant Design Layout Content",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "bda549e0-a82c-4db8-8d2c-52fdd5214e3e"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "d303873e-ac62-4c49-905e-43149701a053"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "ca7b50b7-c381-46d7-a0db-4f4d46e98bed",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.children}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "67b35abd-5fd3-44ad-a7a5-966ff9805f7e"
+          }
+        },
+        {
+          "id": "bda549e0-a82c-4db8-8d2c-52fdd5214e3e",
+          "name": "Ant Design Layout",
+          "slug": "Ant Design Layout",
+          "compositeKey": "be7d80a3-897a-4129-a106-b3018711b865-Ant Design Layout",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "4208120d-7203-4b0c-8677-f06049e57901"
+          },
+          "nextSibling": {
+            "id": "4dfa0ca3-a486-4a3d-ab0d-4e2c16dfc2e9"
+          },
+          "firstChild": {
+            "id": "cacd99ee-4561-49c4-a4c6-406e84e1bc3c"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "d46ded3e-ad2b-401b-90ec-2faa7a7a0a37",
+            "data": "{\"className\":\" \",\"hasSider\":true}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        },
+        {
+          "id": "d303873e-ac62-4c49-905e-43149701a053",
+          "name": "Ant Design Layout Sider",
+          "slug": "Ant Design Layout Sider",
+          "compositeKey": "be7d80a3-897a-4129-a106-b3018711b865-Ant Design Layout Sider",
+          "style": "{\"desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"25%\\\"}\"}}}",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "cacd99ee-4561-49c4-a4c6-406e84e1bc3c"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "5286f68e-3cfc-4167-8d97-6e0a16398136",
+            "data": "{\"reverseArrow\":false,\"collapsible\":false,\"trigger\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"defaultCollapsed\":false,\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.sider}}\"},\"className\":\"    \",\"collapsed\":false}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef"
+          }
+        },
+        {
+          "id": "d348cdea-514e-4bf3-ae33-c6c5c611c6bd",
+          "name": "Layout C Root",
+          "slug": "Layout C Root",
+          "compositeKey": "be7d80a3-897a-4129-a106-b3018711b865-Layout C Root",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": {
+            "id": "be7d80a3-897a-4129-a106-b3018711b865",
+            "name": "Layout C"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "4208120d-7203-4b0c-8677-f06049e57901"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "15d56a07-778a-4ab4-9e13-abdf2df9709f",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        },
+        {
+          "id": "4dfa0ca3-a486-4a3d-ab0d-4e2c16dfc2e9",
+          "name": "Ant Design Layout Footer",
+          "slug": "Ant Design Layout Footer",
+          "compositeKey": "be7d80a3-897a-4129-a106-b3018711b865-Ant Design Layout Footer",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "bda549e0-a82c-4db8-8d2c-52fdd5214e3e"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "61756996-10fb-48ae-ba8f-3ef58fe20828",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.footer}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "f138aef8-86bb-4d20-a1d5-c4671f572759"
+          }
+        },
+        {
+          "id": "4208120d-7203-4b0c-8677-f06049e57901",
+          "name": "Ant Design Layout Header",
+          "slug": "Ant Design Layout Header",
+          "compositeKey": "be7d80a3-897a-4129-a106-b3018711b865-Ant Design Layout Header",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "d348cdea-514e-4bf3-ae33-c6c5c611c6bd"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "bda549e0-a82c-4db8-8d2c-52fdd5214e3e"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "8706bb54-028f-453e-88f7-0f1807bdf11e",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.header}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "c5bf2c32-5b19-4a78-87dd-d828fa6313b4"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "9ec46a2a-4576-41b9-a1e7-cf4d730bf8bb",
+          "kind": "InterfaceType",
+          "name": "Layout C Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "9ec46a2a-4576-41b9-a1e7-cf4d730bf8bb",
+              "kind": "InterfaceType",
+              "name": "Layout C Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "9bf0b56a-f3ec-4451-bb8d-49f1ad1ff9f4",
+          "name": "Layout C Store",
+          "api": {
+            "id": "9ec46a2a-4576-41b9-a1e7-cf4d730bf8bb"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3",
+        "kind": "InterfaceType",
+        "name": "Layout B API",
+        "fields": [
+          {
+            "api": {
+              "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "cd6d30bd-8371-4451-a44e-2baf7b19fd59",
+            "key": "children",
+            "name": "Children",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "0dc86ea8-0573-4af2-b279-052d78c277d8",
+            "key": "footer",
+            "name": "Footer",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "0e716439-a30e-44d0-b3ef-2efbf45ce48a",
+            "key": "header",
+            "name": "Header",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "2a6d5b80-bc61-4dd5-bae5-d96a50ada977",
+            "key": "sider",
+            "name": "Sider",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3",
+            "kind": "InterfaceType",
+            "name": "Layout B API",
+            "fields": []
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "b4717dea-b432-43b4-a798-f10ff14c0393",
+        "name": "Layout B",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "abb06cca-eb78-43e6-9df2-717a53642a0b"
+        },
+        "props": {
+          "id": "f0f12539-053d-4a45-bdc5-83275ee3a87e",
+          "data": "{\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"sider\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+        },
+        "store": {
+          "id": "ea14495e-7663-458d-a123-40ded17278d6"
+        },
+        "api": {
+          "id": "d29ca7f0-41f1-46a9-8de1-4f82687e4da3"
+        },
+        "childrenContainerElement": {
+          "id": "b498bf6e-2e1b-4f94-8cca-90d44b729543"
+        }
+      },
+      "elements": [
+        {
+          "id": "d8d457d0-dd37-44f8-b4e8-f5b4c3fd0378",
+          "name": "Ant Design Layout Header",
+          "slug": "Ant Design Layout Header",
+          "compositeKey": "b4717dea-b432-43b4-a798-f10ff14c0393-Ant Design Layout Header",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "abb06cca-eb78-43e6-9df2-717a53642a0b"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "e089318b-ccda-41df-a724-14d68ab0437b"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "b8f3403e-2ea0-43bb-859d-bd89613c5854",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.header}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "c5bf2c32-5b19-4a78-87dd-d828fa6313b4"
+          }
+        },
+        {
+          "id": "b498bf6e-2e1b-4f94-8cca-90d44b729543",
+          "name": "Ant Design Layout Content",
+          "slug": "Ant Design Layout Content",
+          "compositeKey": "b4717dea-b432-43b4-a798-f10ff14c0393-Ant Design Layout Content",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "00f65122-1eaf-4e8e-b06e-f860a21693fc"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "b1d72e04-eb14-4423-9c1b-90aa40237155",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.children}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "67b35abd-5fd3-44ad-a7a5-966ff9805f7e"
+          }
+        },
+        {
+          "id": "2cce8c83-a7fa-434f-b652-40b14e363262",
+          "name": "Ant Design Layout Footer",
+          "slug": "Ant Design Layout Footer",
+          "compositeKey": "b4717dea-b432-43b4-a798-f10ff14c0393-Ant Design Layout Footer",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "e089318b-ccda-41df-a724-14d68ab0437b"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "70db5385-873e-47f6-979e-5a970f9b35e0",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.footer}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "f138aef8-86bb-4d20-a1d5-c4671f572759"
+          }
+        },
+        {
+          "id": "e089318b-ccda-41df-a724-14d68ab0437b",
+          "name": "Ant Design Layout",
+          "slug": "Ant Design Layout",
+          "compositeKey": "b4717dea-b432-43b4-a798-f10ff14c0393-Ant Design Layout",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "d8d457d0-dd37-44f8-b4e8-f5b4c3fd0378"
+          },
+          "nextSibling": {
+            "id": "2cce8c83-a7fa-434f-b652-40b14e363262"
+          },
+          "firstChild": {
+            "id": "00f65122-1eaf-4e8e-b06e-f860a21693fc"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "d551624c-af47-4b4c-8ca6-6362a9b4c78d",
+            "data": "{\"className\":\"       \",\"hasSider\":true}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        },
+        {
+          "id": "00f65122-1eaf-4e8e-b06e-f860a21693fc",
+          "name": "Ant Design Layout Sider",
+          "slug": "Ant Design Layout Sider",
+          "compositeKey": "b4717dea-b432-43b4-a798-f10ff14c0393-Ant Design Layout Sider",
+          "style": "{\"desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"25%\\\"}\"}}}",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "e089318b-ccda-41df-a724-14d68ab0437b"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "b498bf6e-2e1b-4f94-8cca-90d44b729543"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "43940514-ff00-4ed0-987c-bc4eb38017c6",
+            "data": "{\"reverseArrow\":false,\"collapsible\":false,\"trigger\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"defaultCollapsed\":false,\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.sider}}\"},\"className\":\"    \",\"collapsed\":false}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef"
+          }
+        },
+        {
+          "id": "abb06cca-eb78-43e6-9df2-717a53642a0b",
+          "name": "Layout B Root",
+          "slug": "Layout B Root",
+          "compositeKey": "b4717dea-b432-43b4-a798-f10ff14c0393-Layout B Root",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": {
+            "id": "b4717dea-b432-43b4-a798-f10ff14c0393",
+            "name": "Layout B"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "d8d457d0-dd37-44f8-b4e8-f5b4c3fd0378"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "fe6b2170-3967-442c-8404-f62208715bb6",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "b3ed5212-f365-4e7d-b702-62c69643e9fd",
+          "kind": "InterfaceType",
+          "name": "Layout B Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "b3ed5212-f365-4e7d-b702-62c69643e9fd",
+              "kind": "InterfaceType",
+              "name": "Layout B Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "ea14495e-7663-458d-a123-40ded17278d6",
+          "name": "Layout B Store",
+          "api": {
+            "id": "b3ed5212-f365-4e7d-b702-62c69643e9fd"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "c8994fb0-0867-4734-96fa-826a968dec02",
+        "kind": "InterfaceType",
+        "name": "Layout A API",
+        "fields": [
+          {
+            "api": {
+              "id": "c8994fb0-0867-4734-96fa-826a968dec02"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "67c5b56c-f843-4cdd-93f0-b5cfddd212b1",
+            "key": "children",
+            "name": "Children",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "c8994fb0-0867-4734-96fa-826a968dec02"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "7e9c2759-c530-475d-a359-7a8d564dd202",
+            "key": "footer",
+            "name": "Footer",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "c8994fb0-0867-4734-96fa-826a968dec02"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "20e45b53-0f8c-466f-968b-d18d7a1b3cf0",
+            "key": "header",
+            "name": "Header",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "c8994fb0-0867-4734-96fa-826a968dec02",
+            "kind": "InterfaceType",
+            "name": "Layout A API",
+            "fields": []
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d",
+        "name": "Layout A",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "fa7fdd11-cc5d-48eb-881b-0374775896da"
+        },
+        "props": {
+          "id": "079f51ff-a47b-4066-b1f5-65d954559b7f",
+          "data": "{\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+        },
+        "store": {
+          "id": "079949e8-dd31-4dbc-9c4b-fab173b7b398"
+        },
+        "api": {
+          "id": "c8994fb0-0867-4734-96fa-826a968dec02"
+        },
+        "childrenContainerElement": {
+          "id": "7415eb52-5b76-43a5-ab5c-d6c4df76bcef"
+        }
+      },
+      "elements": [
+        {
+          "id": "fa7fdd11-cc5d-48eb-881b-0374775896da",
+          "name": "Layout A Root",
+          "slug": "Layout A Root",
+          "compositeKey": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d-Layout A Root",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": {
+            "id": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d",
+            "name": "Layout A"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "13f16c76-9c7d-4d7c-ba2b-782a8d37a745"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "de5f3974-ed46-482e-8bb0-bc14859fe3bb",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        },
+        {
+          "id": "13f16c76-9c7d-4d7c-ba2b-782a8d37a745",
+          "name": "Ant Design Layout Header",
+          "slug": "Ant Design Layout Header",
+          "compositeKey": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d-Ant Design Layout Header",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "fa7fdd11-cc5d-48eb-881b-0374775896da"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "7415eb52-5b76-43a5-ab5c-d6c4df76bcef"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "cb9225c6-ba2a-4b2e-9058-e04d49bf7714",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.header}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "c5bf2c32-5b19-4a78-87dd-d828fa6313b4"
+          }
+        },
+        {
+          "id": "7415eb52-5b76-43a5-ab5c-d6c4df76bcef",
+          "name": "Ant Design Layout Content",
+          "slug": "Ant Design Layout Content",
+          "compositeKey": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d-Ant Design Layout Content",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "13f16c76-9c7d-4d7c-ba2b-782a8d37a745"
+          },
+          "nextSibling": {
+            "id": "d3cf9845-772a-4c4a-9cfd-ae9ff5c084c4"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "e1e29924-789f-474c-888c-187961fc5515",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.children}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "67b35abd-5fd3-44ad-a7a5-966ff9805f7e"
+          }
+        },
+        {
+          "id": "d3cf9845-772a-4c4a-9cfd-ae9ff5c084c4",
+          "name": "Ant Design Layout Footer",
+          "slug": "Ant Design Layout Footer",
+          "compositeKey": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d-Ant Design Layout Footer",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "7415eb52-5b76-43a5-ab5c-d6c4df76bcef"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "9d2bbc18-22e2-4e76-90fe-f32a7d91cf2b",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.footer}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "f138aef8-86bb-4d20-a1d5-c4671f572759"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "adfbc06d-83ae-4203-8947-3bed6ec04014",
+          "kind": "InterfaceType",
+          "name": "Layout A Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "adfbc06d-83ae-4203-8947-3bed6ec04014",
+              "kind": "InterfaceType",
+              "name": "Layout A Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "079949e8-dd31-4dbc-9c4b-fab173b7b398",
+          "name": "Layout A Store",
+          "api": {
+            "id": "adfbc06d-83ae-4203-8947-3bed6ec04014"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "bfdcf6af-5fb6-4e0b-a0f1-a0ab6d940062",
+        "kind": "InterfaceType",
+        "name": "Layout D API",
+        "fields": [
+          {
+            "api": {
+              "id": "bfdcf6af-5fb6-4e0b-a0f1-a0ab6d940062"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "ef8074ed-9c93-4059-9b87-3e368e2ad96d",
+            "key": "footer",
+            "name": "Footer",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "bfdcf6af-5fb6-4e0b-a0f1-a0ab6d940062"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "8b381827-4057-46ed-b334-27cb4db22741",
+            "key": "header",
+            "name": "Header",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "bfdcf6af-5fb6-4e0b-a0f1-a0ab6d940062"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "84cf6a82-94d8-42b3-97e3-818f369e2267",
+            "key": "sider",
+            "name": "Sider",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "bfdcf6af-5fb6-4e0b-a0f1-a0ab6d940062",
+            "kind": "InterfaceType",
+            "name": "Layout D API",
+            "fields": []
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "49c33842-5dad-44a7-b932-52edc3c88be0",
+        "name": "Layout D",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "3f977ca2-6599-45cc-b186-b421d643a880"
+        },
+        "props": {
+          "id": "bd92472c-e877-4696-a2b8-df558bf7ce86",
+          "data": "{\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"sider\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+        },
+        "store": {
+          "id": "577b45f6-5e10-4922-b556-db4a310d879c"
+        },
+        "api": {
+          "id": "bfdcf6af-5fb6-4e0b-a0f1-a0ab6d940062"
+        },
+        "childrenContainerElement": {
+          "id": "caae22fb-82ad-4217-a9b0-e409ac65dac8"
+        }
+      },
+      "elements": [
+        {
+          "id": "3f977ca2-6599-45cc-b186-b421d643a880",
+          "name": "Layout D Root",
+          "slug": "Layout D Root",
+          "compositeKey": "49c33842-5dad-44a7-b932-52edc3c88be0-Layout D Root",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": {
+            "id": "49c33842-5dad-44a7-b932-52edc3c88be0",
+            "name": "Layout D"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "de1de7a4-9339-4be8-9783-de29ba89797c"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "e6f0e277-fa7a-45af-b130-f5e184932f4c",
+            "data": "{\"className\":\" \",\"hasSider\":true}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        },
+        {
+          "id": "abb677da-af4b-4ff4-9875-9957e38468fe",
+          "name": "Ant Design Layout",
+          "slug": "Ant Design Layout",
+          "compositeKey": "49c33842-5dad-44a7-b932-52edc3c88be0-Ant Design Layout",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "de1de7a4-9339-4be8-9783-de29ba89797c"
+          },
+          "nextSibling": null,
+          "firstChild": {
+            "id": "1e9672f9-a47b-4a2e-84c2-71c728b01650"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "753a822b-b102-4000-930d-8c53c43accb7",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612"
+          }
+        },
+        {
+          "id": "1e9672f9-a47b-4a2e-84c2-71c728b01650",
+          "name": "Ant Design Layout Header",
+          "slug": "Ant Design Layout Header",
+          "compositeKey": "49c33842-5dad-44a7-b932-52edc3c88be0-Ant Design Layout Header",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "abb677da-af4b-4ff4-9875-9957e38468fe"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "caae22fb-82ad-4217-a9b0-e409ac65dac8"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "4d12c120-e36c-4929-b2a8-5cb025ddec49",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.header}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "c5bf2c32-5b19-4a78-87dd-d828fa6313b4"
+          }
+        },
+        {
+          "id": "9ae04575-daf9-4fa3-bec4-f9e0d852415a",
+          "name": "Ant Design Layout Footer",
+          "slug": "Ant Design Layout Footer",
+          "compositeKey": "49c33842-5dad-44a7-b932-52edc3c88be0-Ant Design Layout Footer",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "caae22fb-82ad-4217-a9b0-e409ac65dac8"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "8e7c5270-73a5-4736-8f39-3a166e160245",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.footer}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "f138aef8-86bb-4d20-a1d5-c4671f572759"
+          }
+        },
+        {
+          "id": "de1de7a4-9339-4be8-9783-de29ba89797c",
+          "name": "Ant Design Layout Sider",
+          "slug": "Ant Design Layout Sider",
+          "compositeKey": "49c33842-5dad-44a7-b932-52edc3c88be0-Ant Design Layout Sider",
+          "style": "{\"desktop\":{\"guiString\":{\"none\":\"{\\\"width\\\":\\\"25%\\\"}\"}}}",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "3f977ca2-6599-45cc-b186-b421d643a880"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "abb677da-af4b-4ff4-9875-9957e38468fe"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "59f591d7-7cd3-4520-965f-8ff1557d8897",
+            "data": "{\"reverseArrow\":false,\"collapsible\":false,\"trigger\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"defaultCollapsed\":false,\"theme\":\"light\",\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.sider}}\"},\"className\":\"          \",\"collapsed\":false}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef"
+          }
+        },
+        {
+          "id": "caae22fb-82ad-4217-a9b0-e409ac65dac8",
+          "name": "Ant Design Layout Content",
+          "slug": "Ant Design Layout Content",
+          "compositeKey": "49c33842-5dad-44a7-b932-52edc3c88be0-Ant Design Layout Content",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "1e9672f9-a47b-4a2e-84c2-71c728b01650"
+          },
+          "nextSibling": {
+            "id": "9ae04575-daf9-4fa3-bec4-f9e0d852415a"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "f3106291-3ddf-4ff5-b639-2c24c0491f71",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.children}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "67b35abd-5fd3-44ad-a7a5-966ff9805f7e"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "4ed48706-088c-4b3b-a404-46c6e6407bbd",
+          "kind": "InterfaceType",
+          "name": "Layout D Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "4ed48706-088c-4b3b-a404-46c6e6407bbd",
+              "kind": "InterfaceType",
+              "name": "Layout D Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "577b45f6-5e10-4922-b556-db4a310d879c",
+          "name": "Layout D Store",
+          "api": {
+            "id": "4ed48706-088c-4b3b-a404-46c6e6407bbd"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1",
+        "kind": "InterfaceType",
+        "name": "Layout API",
+        "fields": [
+          {
+            "api": {
+              "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "d3153333-1e1e-4834-8d98-7788acf175c9",
+            "key": "footer",
+            "name": "Footer",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "8270a344-ad37-41f2-870f-a7cea8a4b3fb",
+            "key": "header",
+            "name": "Header",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "1aec0509-a39b-4fff-9b91-bede584764b1"
+            },
+            "id": "c55bc55c-eaba-41e7-b5d1-4b07e14b1215",
+            "key": "layoutStyle",
+            "name": "Layout Style",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          },
+          {
+            "api": {
+              "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1"
+            },
+            "defaultValues": "null",
+            "description": null,
+            "fieldType": {
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da"
+            },
+            "id": "07ec0e68-2d03-495c-b8f4-be57fd2d0f90",
+            "key": "sider",
+            "name": "Sider",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{}"
+          }
+        ],
+        "types": [
+          {
+            "__typename": "InterfaceType",
+            "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1",
+            "kind": "InterfaceType",
+            "name": "Layout API",
+            "fields": []
+          },
+          {
+            "__typename": "EnumType",
+            "id": "1aec0509-a39b-4fff-9b91-bede584764b1",
+            "kind": "EnumType",
+            "name": "Layout Style Enum",
+            "allowedValues": [
+              {
+                "id": "3a2f9443-97c4-4d1b-aa94-d477544dbfa3",
+                "key": "a",
+                "value": "A"
+              },
+              {
+                "id": "071a5e36-2cbb-4409-bd75-d7acff6c0417",
+                "key": "b",
+                "value": "B"
+              },
+              {
+                "id": "62de18e5-4c71-4162-be91-67e7f592be66",
+                "key": "c",
+                "value": "C"
+              },
+              {
+                "id": "8b8da477-9d84-4dee-aebb-7c7b5cb006d8",
+                "key": "d",
+                "value": "D"
+              }
+            ]
+          }
+        ]
+      },
+      "component": {
+        "__typename": "Component",
+        "id": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0",
+        "name": "Layout",
+        "owner": {
+          "id": "ba0a6114-ee7c-4717-8527-3266f9de04c6"
+        },
+        "rootElement": {
+          "id": "2b19d50a-dec2-4c0b-af33-63ef4b895d93"
+        },
+        "props": {
+          "id": "431b88e5-20fc-4c8c-9657-8ed44fe48f87",
+          "data": "{\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"sider\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+        },
+        "store": {
+          "id": "85393a66-2edf-4dde-8e9d-16fb7ab960dd"
+        },
+        "api": {
+          "id": "5b54e6eb-fc36-4efa-b2f7-3479dc76ddd1"
+        },
+        "childrenContainerElement": {
+          "id": "0200daf4-7f1a-47d7-88aa-b3e76de55ad5"
+        }
+      },
+      "elements": [
+        {
+          "id": "2b19d50a-dec2-4c0b-af33-63ef4b895d93",
+          "name": "Layout Root",
+          "slug": "Layout Root",
+          "compositeKey": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0-Layout Root",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": {
+            "id": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0",
+            "name": "Layout"
+          },
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "0a5eda63-5d9f-43fb-b679-09310e3bab0c"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "da8e3086-9933-4351-872b-e7edcc5abea9",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        },
+        {
+          "id": "1967ecda-b04c-44c8-b3fe-110c0e1ac70f",
+          "name": "Layout C",
+          "slug": "Layout C",
+          "compositeKey": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0-Layout C",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "0200daf4-7f1a-47d7-88aa-b3e76de55ad5"
+          },
+          "nextSibling": {
+            "id": "e7f386e2-332a-440f-8a27-d7a5a4e4a65b"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "170d740d-a948-4ac7-bbdf-6ff31697a5e7",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": "{{componentProps.layoutStyle === 'C'}}",
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Component",
+            "id": "be7d80a3-897a-4129-a106-b3018711b865"
+          }
+        },
+        {
+          "id": "e7f386e2-332a-440f-8a27-d7a5a4e4a65b",
+          "name": "Layout D",
+          "slug": "Layout D",
+          "compositeKey": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0-Layout D",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "1967ecda-b04c-44c8-b3fe-110c0e1ac70f"
+          },
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "b98adca5-3934-467c-b8c8-32d22635187c",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": "{{componentProps.layoutStyle === 'D'}}",
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Component",
+            "id": "49c33842-5dad-44a7-b932-52edc3c88be0"
+          }
+        },
+        {
+          "id": "0200daf4-7f1a-47d7-88aa-b3e76de55ad5",
+          "name": "Layout B",
+          "slug": "Layout B",
+          "compositeKey": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0-Layout B",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": {
+            "id": "0a5eda63-5d9f-43fb-b679-09310e3bab0c"
+          },
+          "nextSibling": {
+            "id": "1967ecda-b04c-44c8-b3fe-110c0e1ac70f"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "85f74873-bdf1-4c2e-aa78-9ec9461aae84",
+            "data": "{\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.footer}}\"},\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.header}}\"},\"sider\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.sider}}\"},\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": "{{componentProps.layoutStyle === 'B'}}",
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Component",
+            "id": "b4717dea-b432-43b4-a798-f10ff14c0393"
+          }
+        },
+        {
+          "id": "0a5eda63-5d9f-43fb-b679-09310e3bab0c",
+          "name": "Layout A",
+          "slug": "Layout A",
+          "compositeKey": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0-Layout A",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "2b19d50a-dec2-4c0b-af33-63ef4b895d93"
+          },
+          "prevSibling": null,
+          "nextSibling": {
+            "id": "0200daf4-7f1a-47d7-88aa-b3e76de55ad5"
+          },
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "35bb8733-4c52-4884-aab7-7da1d1b4d567",
+            "data": "{\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.header}}\"},\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"\"},\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{componentProps.footer}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": "{{componentProps.layoutStyle === 'A'}}",
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Component",
+            "id": "cea58cd9-e7f7-461c-be0e-fd58f4a6939d"
+          }
+        }
+      ],
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "3fdcf25a-9b8e-4656-86c4-b14a04dec46a",
+          "kind": "InterfaceType",
+          "name": "Layout Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "3fdcf25a-9b8e-4656-86c4-b14a04dec46a",
+              "kind": "InterfaceType",
+              "name": "Layout Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "85393a66-2edf-4dde-8e9d-16fb7ab960dd",
+          "name": "Layout Store",
+          "api": {
+            "id": "3fdcf25a-9b8e-4656-86c4-b14a04dec46a"
+          },
+          "actions": []
+        }
+      }
+    }
+  ],
+  "pages": [
+    {
+      "elements": [
+        {
+          "id": "cd31eb10-e100-4cc6-9c92-3a6b6dadfe8a",
+          "name": "Body",
+          "slug": "Body",
+          "compositeKey": "d63aec78-fc2c-42ec-8458-c877d190da3b-Body",
+          "style": "",
+          "tailwindClassNames": [],
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "3c96aa82-cd52-49e7-abda-7db7a7394f8e"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "b4356060-0dab-4e7a-938d-7280dcf74df3",
+            "data": "{\"children\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        },
+        {
+          "id": "3c96aa82-cd52-49e7-abda-7db7a7394f8e",
+          "name": "Layout",
+          "slug": "Layout",
+          "compositeKey": "d63aec78-fc2c-42ec-8458-c877d190da3b-Layout",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "cd31eb10-e100-4cc6-9c92-3a6b6dadfe8a"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": {
+            "id": "06239d6b-0ece-4976-866f-5e867117051d"
+          },
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "3c6b3f9f-7845-48c0-bddc-3fa3243123c7",
+            "data": "{\"sider\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyParagraph className=\\\"text-white\\\">Sidebar</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"},\"header\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyParagraph>Header</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"},\"layoutStyle\":\"B\",\"footer\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    return (\\n      <AntDesignTypographyParagraph>Footer</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"}}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Component",
+            "id": "306459ab-ae46-44b5-b6ba-02c3fbd6f3b0"
+          }
+        },
+        {
+          "id": "06239d6b-0ece-4976-866f-5e867117051d",
+          "name": "Ant Design Alert",
+          "slug": "Ant Design Alert",
+          "compositeKey": "d63aec78-fc2c-42ec-8458-c877d190da3b-Ant Design Alert",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": {
+            "id": "3c96aa82-cd52-49e7-abda-7db7a7394f8e"
+          },
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "d32bf362-9628-4e12-b373-99c8d4556f3b",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64"
+          }
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2ace741c-716c-45be-b1a0-b3471f7d109f",
+          "name": "My App",
+          "owner": {
+            "auth0Id": "google-oauth2|114968004455663707800"
+          }
+        },
+        "id": "d63aec78-fc2c-42ec-8458-c877d190da3b",
+        "name": "_app",
+        "slug": "_app",
+        "kind": "Provider",
+        "rootElement": {
+          "id": "cd31eb10-e100-4cc6-9c92-3a6b6dadfe8a",
+          "name": "Body"
+        },
+        "pageContentContainer": {
+          "id": "cd31eb10-e100-4cc6-9c92-3a6b6dadfe8a",
+          "name": "Body"
+        },
+        "url": "/_app",
+        "store": {
+          "id": "3ce1403e-b725-4fdf-890e-c5ada799b7ea"
+        }
+      },
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "07e89604-c101-4236-a849-4d28ba6bf9a7",
+          "kind": "InterfaceType",
+          "name": "My App(jethrocabaluna310) _app Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "07e89604-c101-4236-a849-4d28ba6bf9a7",
+              "kind": "InterfaceType",
+              "name": "My App(jethrocabaluna310) _app Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "3ce1403e-b725-4fdf-890e-c5ada799b7ea",
+          "name": "_app Store",
+          "api": {
+            "id": "07e89604-c101-4236-a849-4d28ba6bf9a7"
+          },
+          "actions": [
+            {
+              "__typename": "ApiAction",
+              "id": "1883879a-60ff-4fc9-82b1-1cd22c00b196",
+              "name": "testAction",
+              "type": "ApiAction",
+              "store": {
+                "id": "3ce1403e-b725-4fdf-890e-c5ada799b7ea"
+              },
+              "successAction": null,
+              "errorAction": null,
+              "resource": {
+                "id": "ab9fb01b-823d-4ad1-8ba5-412ca1e5f7a5"
+              },
+              "config": {
+                "data": "{\"data\":{\"data\":{\"body\":\"{}\",\"headers\":\"{}\",\"method\":\"GET\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"\",\"variables\":\"{}\",\"responseType\":\"json\"},\"id\":\"de8494f2-2ba1-4f83-be7b-e34c339e2bd3\",\"method\":\"GET\",\"responseType\":\"json\"},\"id\":\"1883879a-60ff-4fc9-82b1-1cd22c00b196\"}",
+                "id": "1883879a-60ff-4fc9-82b1-1cd22c00b196"
+              }
+            },
+            {
+              "__typename": "ApiAction",
+              "id": "e1c8ca5f-73a1-4d10-90f2-7937b89d3b1b",
+              "name": "testApiAction",
+              "type": "ApiAction",
+              "store": {
+                "id": "3ce1403e-b725-4fdf-890e-c5ada799b7ea"
+              },
+              "successAction": null,
+              "errorAction": null,
+              "resource": {
+                "id": "ab9fb01b-823d-4ad1-8ba5-412ca1e5f7a5"
+              },
+              "config": {
+                "data": "{\"data\":{\"data\":{\"data\":{\"body\":\"{}\",\"headers\":\"{}\",\"method\":\"GET\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"\",\"variables\":\"{}\",\"responseType\":\"json\"},\"id\":\"8f42bfdb-884c-40c1-bfc8-8a0b6d4255d4\",\"method\":\"GET\",\"responseType\":\"json\"},\"id\":\"e1c8ca5f-73a1-4d10-90f2-7937b89d3b1b\",\"method\":\"GET\",\"responseType\":\"json\"},\"id\":\"e1c8ca5f-73a1-4d10-90f2-7937b89d3b1b\"}",
+                "id": "e1c8ca5f-73a1-4d10-90f2-7937b89d3b1b"
+              }
+            },
+            {
+              "__typename": "ApiAction",
+              "id": "058418a9-4ced-4a7c-9474-f98421d54286",
+              "name": "testApi",
+              "type": "ApiAction",
+              "store": {
+                "id": "3ce1403e-b725-4fdf-890e-c5ada799b7ea"
+              },
+              "successAction": null,
+              "errorAction": null,
+              "resource": {
+                "id": "ab9fb01b-823d-4ad1-8ba5-412ca1e5f7a5"
+              },
+              "config": {
+                "data": "{\"body\":\"{}\",\"headers\":\"{}\",\"method\":\"GET\",\"query\":\"\",\"queryParams\":\"{}\",\"urlSegment\":\"/test\",\"variables\":\"{}\",\"responseType\":\"json\"}",
+                "id": "058418a9-4ced-4a7c-9474-f98421d54286"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "id": "0d056e4c-33b6-4f34-a557-5065b30c01be",
+          "name": "Body",
+          "slug": "Body",
+          "compositeKey": "e23393d7-28cb-4064-8cf6-fe799dcacc01-Body",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "3f408a74-67ec-4996-8e3d-47c421a535d7",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2ace741c-716c-45be-b1a0-b3471f7d109f",
+          "name": "My App",
+          "owner": {
+            "auth0Id": "google-oauth2|114968004455663707800"
+          }
+        },
+        "id": "e23393d7-28cb-4064-8cf6-fe799dcacc01",
+        "name": "404",
+        "slug": "404",
+        "kind": "NotFound",
+        "rootElement": {
+          "id": "0d056e4c-33b6-4f34-a557-5065b30c01be",
+          "name": "Body"
+        },
+        "pageContentContainer": null,
+        "url": "/404",
+        "store": {
+          "id": "f6f61934-1348-448f-a675-720a5cbfe15f"
+        }
+      },
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "132964ac-de96-4021-b6f2-882f5d8677c3",
+          "kind": "InterfaceType",
+          "name": "My App(jethrocabaluna310) 404 Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "132964ac-de96-4021-b6f2-882f5d8677c3",
+              "kind": "InterfaceType",
+              "name": "My App(jethrocabaluna310) 404 Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "f6f61934-1348-448f-a675-720a5cbfe15f",
+          "name": "404 Store",
+          "api": {
+            "id": "132964ac-de96-4021-b6f2-882f5d8677c3"
+          },
+          "actions": []
+        }
+      }
+    },
+    {
+      "elements": [
+        {
+          "id": "c8c462a1-3010-4725-aa78-e496fecf8cba",
+          "name": "Body",
+          "slug": "Body",
+          "compositeKey": "1e6f1b1e-8024-4ee3-9f53-b01ba6d50bce-Body",
+          "style": "",
+          "tailwindClassNames": null,
+          "parentComponent": null,
+          "parentElement": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "firstChild": null,
+          "childMapperPreviousSibling": null,
+          "props": {
+            "id": "1e5a1602-89f9-4962-926b-97f93173f40d",
+            "data": "{}"
+          },
+          "renderForEachPropKey": null,
+          "childMapperPropKey": null,
+          "childMapperComponent": null,
+          "renderIfExpression": null,
+          "preRenderAction": null,
+          "postRenderAction": null,
+          "renderType": {
+            "__typename": "Atom",
+            "id": "4a9dd961-501b-4246-8770-48fee5dc5852"
+          }
+        }
+      ],
+      "page": {
+        "app": {
+          "id": "2ace741c-716c-45be-b1a0-b3471f7d109f",
+          "name": "My App",
+          "owner": {
+            "auth0Id": "google-oauth2|114968004455663707800"
+          }
+        },
+        "id": "1e6f1b1e-8024-4ee3-9f53-b01ba6d50bce",
+        "name": "500",
+        "slug": "500",
+        "kind": "InternalServerError",
+        "rootElement": {
+          "id": "c8c462a1-3010-4725-aa78-e496fecf8cba",
+          "name": "Body"
+        },
+        "pageContentContainer": null,
+        "url": "/500",
+        "store": {
+          "id": "d5281a32-7810-400b-9446-d8f78914bab2"
+        }
+      },
+      "store": {
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "64445464-95ed-45c2-afb4-35aaaf52ccb7",
+          "kind": "InterfaceType",
+          "name": "My App(jethrocabaluna310) 500 Store API",
+          "fields": [],
+          "types": [
+            {
+              "__typename": "InterfaceType",
+              "id": "64445464-95ed-45c2-afb4-35aaaf52ccb7",
+              "kind": "InterfaceType",
+              "name": "My App(jethrocabaluna310) 500 Store API",
+              "fields": []
+            }
+          ]
+        },
+        "store": {
+          "id": "d5281a32-7810-400b-9446-d8f78914bab2",
+          "name": "500 Store",
+          "api": {
+            "id": "64445464-95ed-45c2-afb4-35aaaf52ccb7"
+          },
+          "actions": []
+        }
+      }
+    }
+  ],
+  "resources": [
+    {
+      "id": "ab9fb01b-823d-4ad1-8ba5-412ca1e5f7a5",
+      "type": "Rest",
+      "name": "Local Server",
+      "config": {
+        "id": "b7d6c21f-698b-4d87-8d48-8ec160a040e3",
+        "data": "{\"url\":\"http://localhost:4567\"}"
+      }
+    }
+  ]
+}
