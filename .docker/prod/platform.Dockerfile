@@ -32,25 +32,6 @@ COPY apps/web ./apps/web
 COPY libs ./libs
 COPY types ./types
 
-RUN pnpm install --frozen-lockfile --ignore-scripts
-RUN pnpm nx build platform --verbose --skip-nx-cache
-
-#
-# (2) Prod
-#
-FROM node:18.17-alpine AS prod
-
-RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
-# RUN apk add curl
-
-WORKDIR /usr/src/codelab
-
-# Ignore specs from image
-
-COPY --from=build /usr/src/codelab/dist ./dist
-COPY --from=build /usr/src/codelab/package.json ./
-COPY --from=build /usr/src/codelab/node_modules ./node_modules
-
 # It's important to remember that for every --build-arg parameter used in the docker build command, there must be a corresponding ARG instruction in the Dockerfile
 ARG NEXT_PUBLIC_WEB_HOST
 ARG NEXT_PUBLIC_API_PORT
@@ -74,7 +55,6 @@ ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
 ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 ENV NEXT_TELEMETRY_DISABLED=1
 
-<<<<<<<< HEAD:.docker/prod/web.Dockerfile
 RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN pnpm nx build web --verbose --skip-nx-cache
 
@@ -94,8 +74,6 @@ COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=build /usr/src/codelab/package.json ./
 COPY --from=build /usr/src/codelab/node_modules ./node_modules
 
-========
->>>>>>>> db219e59a (wip: fixing images env):.docker/prod/platform.Dockerfile
 EXPOSE 3000
 
 # default commands and/or parameters for a container
