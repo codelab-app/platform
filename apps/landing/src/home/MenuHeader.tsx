@@ -103,7 +103,8 @@ export const HomeMenuHeader = () => {
         <Menu.Item key="tutorials">
           <Link href={PageType.Tutorials}>Tutorials</Link>
         </Menu.Item>
-        {user ? authenticatedUserMenu : guestUserMenu}
+        {/* {user ? authenticatedUserMenu : guestUserMenu} */}
+        {guestUserMenu}
       </Menu>
       {/* </section> */}
     </div>

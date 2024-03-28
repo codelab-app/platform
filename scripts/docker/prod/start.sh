@@ -2,7 +2,11 @@
 
 set -x
 
-SERVICE_NAME="$1"
+# Check if at least one argument is provided
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 <service_name>..."
+  exit 1
+fi
 
 # Used locally for testing
 #
@@ -11,5 +15,5 @@ DOCKER_BUILDKIT=0 \
 docker compose \
   --env-file .env \
   --verbose \
-  -f .docker/build.docker-compose.yaml \
-  up $SERVICE_NAME
+  -f .docker/prod/docker-compose.yaml \
+  up "$@"
