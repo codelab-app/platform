@@ -183,10 +183,10 @@ jobs:
           docker_layer_caching: true
       - run:
           command: |
-            docker compose --verbose -f .docker/build.docker-compose.yaml build landing
+            docker compose --verbose -f .docker/prod/docker-compose.yaml build landing
           name: Build platform landing Docker image
       - run:
-          command: docker compose --verbose -f .docker/build.docker-compose.yaml push landing
+          command: docker compose --verbose -f .docker/prod/docker-compose.yaml push landing
           name: Push Docker Image
   docker-platform:
     executor: docker-node
@@ -197,10 +197,10 @@ jobs:
           docker_layer_caching: true
       - run:
           command: |
-            docker compose --verbose -f .docker/build.docker-compose.yaml build platform
+            docker compose --verbose -f .docker/prod/docker-compose.yaml build platform
           name: Build platform Docker image
       - run:
-          command: docker compose --verbose -f .docker/build.docker-compose.yaml push platform
+          command: docker compose --verbose -f .docker/prod/docker-compose.yaml push platform
           name: Push Docker Image
   docker-platform-api:
     executor: docker-node
@@ -210,10 +210,10 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: docker compose --verbose -f .docker/build.docker-compose.yaml build platform-api
+          command: docker compose --verbose -f .docker/prod/docker-compose.yaml build platform-api
           name: Build platform api Docker image
       - run:
-          command: docker compose --verbose -f .docker/build.docker-compose.yaml push platform-api
+          command: docker compose --verbose -f .docker/prod/docker-compose.yaml push platform-api
           name: Push Docker Image
   e2e:
     executor: docker-node-neo4j

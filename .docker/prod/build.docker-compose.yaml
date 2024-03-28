@@ -8,8 +8,8 @@ name: 'codelab'
 services:
   platform:
     build:
-      context: ../
-      dockerfile: ${PWD}/.docker/platform.Dockerfile
+      context: ../..
+      dockerfile: ${PWD}/.docker/prod/platform.Dockerfile
       # Could also add using CLI --build-arg
       args:
         NEXT_PUBLIC_PLATFORM_HOST: ${NEXT_PUBLIC_PLATFORM_HOST}
@@ -31,8 +31,8 @@ services:
     #   - NODE_ENV=development
   platform-api:
     build:
-      context: ../
-      dockerfile: ${PWD}/.docker/platform-api.Dockerfile
+      context: ../..
+      dockerfile: ${PWD}/.docker/prod/platform-api.Dockerfile
     image: registry.digitalocean.com/codelabapp/platform-api
     # image: codelabai/codelab:${DOCKER_TAG_VERSION}
     # This is used after image has been built
@@ -42,8 +42,8 @@ services:
     #   - NODE_ENV=development
   landing:
     build:
-      context: ../
-      dockerfile: ${PWD}/.docker/landing.Dockerfile
+      context: ../..
+      dockerfile: ${PWD}/.docker/prod/landing.Dockerfile
       args:
         # MAILCHIMP_LIST_ID: ${MAILCHIMP_LIST_ID}
         # MAILCHIMP_API_KEY: ${MAILCHIMP_API_KEY}

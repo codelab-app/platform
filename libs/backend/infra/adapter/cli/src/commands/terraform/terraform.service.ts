@@ -3,6 +3,7 @@ import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { loadStageMiddleware } from '../../shared/middleware'
+import type { StageParam } from '../../shared/options'
 import { getStageOptions } from '../../shared/options'
 
 @Injectable()
@@ -22,7 +23,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
         })
         .middleware([loadStageMiddleware])
-        .command(
+        .command<StageParam>(
           'init',
           'terraform init',
           (argv) => argv,
@@ -36,7 +37,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'plan',
           'terraform plan',
           (argv) => argv,
@@ -51,7 +52,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
          *
          * https://github.com/hashicorp/terraform/issues/23407
          */
-        .command(
+        .command<StageParam>(
           'import',
           'terraform import',
           (argv) => argv,
@@ -61,7 +62,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'apply',
           'terraform apply',
           (argv) => argv,
@@ -74,7 +75,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'validate',
           'terraform validate',
           (argv) => argv,
@@ -84,7 +85,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'destroy',
           'terraform destroy',
           (argv) => argv,

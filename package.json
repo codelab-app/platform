@@ -15,8 +15,8 @@
     "e2e": "nx e2e-open platform-e2e -c test",
     "e2e:api": "nx serve platform-api -c test",
     "cli": "scripts/nx/cli.sh",
-    "docker:up": "scripts/docker/up.sh",
-    "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
+    "docker:up": "scripts/docker/dev/up.sh",
+    "docker:prod:up": "scripts/docker/prod/up.sh",
     "codegen": "pnpm cli tasks codegen --stage dev",
     "build": "nx run-many --all --target=build",
     "test": "nx run-many --all --target=test --parallel=1 --runInBand",
@@ -31,7 +31,6 @@
     "commit": "git-cz",
     "cpack": "scripts/circleci/circleci-pack.sh",
     "git:prune": "git gc --aggressive --prune=now",
-    "project:update": "nx build tools-workspace && pnpm install && nx generate @codelab/workspace:nx-project-config",
     "prepare": "husky"
   },
   "private": true,

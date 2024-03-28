@@ -13,6 +13,7 @@ import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import type { Argv, CommandModule } from 'yargs'
 import { loadStageMiddleware } from '../../shared/middleware'
+import type { StageParam } from '../../shared/options'
 import { getStageOptions } from '../../shared/options'
 import { Tasks } from '../../shared/utils/tasks'
 
@@ -30,7 +31,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
     return yargv
       .options(getStageOptions([Stage.Dev, Stage.Test, Stage.CI]))
       .middleware([loadStageMiddleware])
-      .command(
+      .command<StageParam>(
         Tasks.Build,
         'Build projects',
         (argv) => argv,
@@ -48,7 +49,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
         }),
       )
-      .command(
+      .command<StageParam>(
         Tasks.Unit,
         'Run unit tests',
         (argv) => argv,
@@ -65,7 +66,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
         }),
       )
-      .command(
+      .command<StageParam>(
         Tasks.Int,
         'Run integration tests',
         (argv) => argv,
@@ -83,7 +84,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
         }),
       )
-      .command(
+      .command<StageParam>(
         Tasks.Codegen,
         'Run codegen',
         (argv) => argv,

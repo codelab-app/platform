@@ -103,7 +103,6 @@ services:
       # This is to enable the Jaeger OTEL receiver
       - COLLECTOR_OTLP_ENABLED=true
 
-  # Zipkin
   # zipkin-all-in-one:
   #   container_name: zipkin-all-in-one
   #   image: openzipkin/zipkin:latest
