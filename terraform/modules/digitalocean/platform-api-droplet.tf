@@ -8,16 +8,18 @@ resource "digitalocean_droplet" "platform-api" {
   monitoring = true
   ipv6       = true
 
-  vpc_uuid = digitalocean_vpc.platform_vpc.id
+  vpc_uuid = digitalocean_vpc.codelab_app.id
 
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = file("${path.module}/platform-api-droplet.sh")
+  user_data = templatefile("${path.module}/platform-api-droplet.yaml", {
+    digitalocean_access_token = var.digitalocean_access_token,
+  })
 
-  lifecycle {
-    ignore_changes = [user_data]
-  }
+  # lifecycle {
+  #   ignore_changes = [user_data]
+  # }
 
   # Optional: Enable the DigitalOcean agent
   droplet_agent = true

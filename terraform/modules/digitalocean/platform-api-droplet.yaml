@@ -22,11 +22,11 @@ write_files:
     content: |
       version: '3.8'
       services:
-        platform:
-          image: registry.digitalocean.com/codelabapp/platform:latest
+        platform-api:
+          image: registry.digitalocean.com/codelabapp/platform-api:latest
           restart: unless-stopped
           ports:
-            - "80:3000"
+            - "4000:4000"
     # triggered by config_scripts_user
   - path: /var/lib/cloud/scripts/per-once/start-docker-image.sh
     permissions: '0755'

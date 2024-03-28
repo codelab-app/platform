@@ -8,8 +8,8 @@
 
 # manage_resolv_conf: true
 
-package_update: true
-package_upgrade: true
+# package_update: true
+# package_upgrade: true
 # package_reboot_if_required: true
 
 write_files:
@@ -27,10 +27,6 @@ write_files:
           restart: unless-stopped
           ports:
             - "80:3000"
-          environment:
-            - MAILCHIMP_LIST_ID=${mailchimp_list_id}
-            - MAILCHIMP_API_KEY=${mailchimp_api_key}
-            - MAILCHIMP_SERVER_PREFIX=${mailchimp_server_prefix}
     # triggered by config_scripts_user
   - path: /var/lib/cloud/scripts/per-once/start-docker-image.sh
     permissions: '0755'

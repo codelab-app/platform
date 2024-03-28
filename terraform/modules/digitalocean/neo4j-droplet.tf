@@ -8,13 +8,15 @@ resource "digitalocean_droplet" "neo4j" {
   backups    = true # Enable backups for additional safety
   monitoring = true # Enable monitoring for the Droplet
   ipv6       = true # Enable IPv6 (make sure this is supported in your chosen region)
-  vpc_uuid   = digitalocean_vpc.platform_vpc.id
+  vpc_uuid   = digitalocean_vpc.codelab_app.id
 
   # SSH keys
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = file("${path.module}/neo4j-droplet.sh")
+  user_data = templatefile("${path.module}/neo4j-droplet.yaml", {
+    digitalocean_access_token = var.digitalocean_access_token,
+  })
 
   lifecycle {
     ignore_changes = [user_data]

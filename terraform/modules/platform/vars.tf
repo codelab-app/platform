@@ -1,4 +1,4 @@
 variable "next_public_platform_host" {
-    type        = string
+  type        = string
   description = "Domain of our project"
 }
