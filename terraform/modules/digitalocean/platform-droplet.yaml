@@ -22,20 +22,14 @@ write_files:
     content: |
       version: '3.8'
       services:
-        landing:
-          image: registry.digitalocean.com/codelabapp/landing:latest
+        platform:
+          image: registry.digitalocean.com/codelabapp/platform:latest
           restart: unless-stopped
           ports:
             - "80:3000"
     # triggered by config_scripts_user
   - path: /var/lib/cloud/scripts/per-once/start-docker-image.sh
     permissions: '0755'
-    # Indent issue for multiline
-    #
-    # https://discuss.hashicorp.com/t/wrong-indent-with-multiline-content-to-cloud-init-write-files-content-directives/35011/3
-    # https://github.com/hashicorp/terraform/issues/10378#issuecomment-263151581
-    #
-    # Also cannot have spaces up front https://stackoverflow.com/questions/23818209/user-data-scripts-fails-without-giving-reason
     content: |
       #!/bin/bash
       set -x

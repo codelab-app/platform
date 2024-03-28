@@ -8,13 +8,15 @@ resource "digitalocean_droplet" "platform" {
   monitoring = true
   ipv6       = true
 
-  vpc_uuid = digitalocean_vpc.platform_vpc.id
+  vpc_uuid = digitalocean_vpc.codelab_app.id
 
   # Taken from DO security SSH keys
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = file("${path.module}/platform-droplet.sh")
+  user_data = templatefile("${path.module}/platform-droplet.yaml", {
+    digitalocean_access_token = var.digitalocean_access_token,
+  })
 
   lifecycle {
     # ignore_changes = [user_data]
@@ -33,8 +35,8 @@ resource "digitalocean_firewall" "platform_firewall" {
 
   # Allows SSH access from specific IP ranges for secure shell administration.
   inbound_rule {
-    protocol         = "tcp"
-    port_range       = "22"
+    protocol   = "tcp"
+    port_range = "22"
     # source_addresses = ["192.168.1.0/24", "2002:1:2::/48"]
     source_addresses = ["0.0.0.0/0", "::/0"]
   }
@@ -94,18 +96,3 @@ resource "digitalocean_firewall" "platform_firewall" {
   }
 }
 
-resource "digitalocean_record" "platform_a_record" {
-  domain = digitalocean_domain.codelab_app.name
-  type   = "A"
-  name   = "admin"
-  value  = digitalocean_droplet.platform.ipv4_address
-  ttl    = 3600
-}
-
-resource "digitalocean_record" "platform_cname" {
-  domain = digitalocean_domain.codelab_app.name
-  type   = "CNAME"
-  name   = "www.admin"
-  value  = "@"
-  ttl    = 3600
-}

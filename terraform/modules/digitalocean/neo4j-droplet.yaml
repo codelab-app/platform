@@ -22,11 +22,27 @@ write_files:
     content: |
       version: '3.8'
       services:
-        landing:
-          image: registry.digitalocean.com/codelabapp/landing:latest
-          restart: unless-stopped
+        neo4j:
+          container_name: neo4j
+          image: neo4j:5.11.0
+          volumes:
+            - codelab-neo4j:/data
+            - codelab-neo4j:/plugins
+            - codelab-neo4j:/import
+            - codelab-neo4j:/logs
           ports:
-            - "80:3000"
+            - '7474:7474'
+            - '7687:7687'
+          environment:
+            - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+            - NEO4J_apoc_export_file_enabled=true
+            - NEO4J_apoc_import_file_enabled=true
+            - NEO4J_apoc_import_file_use__neo4j__config=true
+            - NEO4J_dbms.security.procedures.unrestricted=apoc.*
+            - NEO4J_PLUGINS=["apoc"]
+            - NEO4J_AUTH=neo4j/password
+          # networks: ["codelab-neo4j"]
+          restart: unless-stopped
     # triggered by config_scripts_user
   - path: /var/lib/cloud/scripts/per-once/start-docker-image.sh
     permissions: '0755'
