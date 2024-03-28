@@ -17,3 +17,7 @@ export const getStageOptions: GetStageOptions = (stages) => ({
     type: 'string',
   },
 })
+
+export interface StageParam {
+  stage: Stage
+}

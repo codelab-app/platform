@@ -14,7 +14,7 @@ services:
     image: registry.digitalocean.com/codelabapp/platform:latest
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - '4100:3000'
 
   landing:
     image: registry.digitalocean.com/codelabapp/landing:latest

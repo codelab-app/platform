@@ -9,7 +9,7 @@ steps:
   - run:
       name: 'Build platform Docker image'
       command: |
-        docker compose --verbose -f .docker/build.docker-compose.yaml build platform
+        docker compose --verbose -f .docker/prod/docker-compose.yaml build platform
   - run:
       name: 'Push Docker Image'
-      command: docker compose --verbose -f .docker/build.docker-compose.yaml push platform
+      command: docker compose --verbose -f .docker/prod/docker-compose.yaml push platform
