@@ -23,7 +23,8 @@ export enum PageType {
  * We always show `Login` `Register` even if user is login. We simply redirect them to `/apps` page if they're already logged in.
  */
 export const HomeMenuHeader = () => {
-  const { user } = useUser()
+  // const { user } = useUser()
+  const user = false
   const [collapsed, setCollapsed] = useState(true)
   const isMobileOrTablet = useMobileOrTabletMediaQuery()
 
@@ -40,7 +41,7 @@ export const HomeMenuHeader = () => {
         popupClassName="h-auto"
         style={{ order: 5 }}
       >
-        <Menu.Item>Email {user?.email}</Menu.Item>
+        {/* <Menu.Item>Email {user?.email}</Menu.Item> */}
       </Menu.SubMenu>
     </>
   )
@@ -102,7 +103,8 @@ export const HomeMenuHeader = () => {
         <Menu.Item key="tutorials">
           <Link href={PageType.Tutorials}>Tutorials</Link>
         </Menu.Item>
-        {user ? authenticatedUserMenu : guestUserMenu}
+        {/* {user ? authenticatedUserMenu : guestUserMenu} */}
+        {guestUserMenu}
       </Menu>
       {/* </section> */}
     </div>

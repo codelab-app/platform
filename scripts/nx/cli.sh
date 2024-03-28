@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x
 
 # Extract the arguments after "pnpm cli"
 args=${@#pnpm cli}

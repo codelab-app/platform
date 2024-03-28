@@ -29,6 +29,33 @@ COPY apps/platform ./apps/platform
 COPY libs ./libs
 COPY types ./types
 
+# It's important to remember that for every --build-arg parameter used in the docker build command, there must be a corresponding ARG instruction in the Dockerfile
+ARG NEXT_PUBLIC_PLATFORM_HOST
+ARG NEXT_PUBLIC_PLATFORM_API_PORT
+ARG NEXT_PUBLIC_PLATFORM_API_HOSTNAME
+ARG AUTH0_SECRET
+ARG AUTH0_ISSUER_BASE_URL
+ARG AUTH0_CLIENT_ID
+ARG AUTH0_CLIENT_SECRET
+ARG AUTH0_AUDIENCE
+ARG AUTH0_BASE_URL
+
+# Then pass from ARG to ENV
+#
+# https://stackoverflow.com/questions/60450479/using-arg-and-env-in-dockerfile
+#
+# What this means is, if the ENV and ARG have the same name, the ENV will overwrite the value of the ARG after the ENV line. Before the ENV line, the ARG value will be used.
+ENV NEXT_PUBLIC_PLATFORM_HOST=$NEXT_PUBLIC_PLATFORM_HOST
+ENV NEXT_PUBLIC_PLATFORM_API_PORT=$NEXT_PUBLIC_PLATFORM_API_PORT
+ENV NEXT_PUBLIC_PLATFORM_API_HOSTNAME=$NEXT_PUBLIC_PLATFORM_API_HOSTNAME
+ENV AUTH0_SECRET=$AUTH0_SECRET
+ENV AUTH0_ISSUER_BASE_URL=$AUTH0_ISSUER_BASE_URL
+ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
+ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
+ENV AUTH0_AUDIENCE=$AUTH0_AUDIENCE
+ENV AUTH0_BASE_URL=$AUTH0_BASE_URL
+ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN pnpm nx build platform --verbose --skip-nx-cache
 
@@ -37,6 +64,7 @@ RUN pnpm nx build platform --verbose --skip-nx-cache
 #
 FROM node:18.17-alpine AS prod
 
+RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 # RUN apk add curl
 
 WORKDIR /usr/src/codelab
@@ -47,9 +75,10 @@ COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=build /usr/src/codelab/package.json ./
 COPY --from=build /usr/src/codelab/node_modules ./node_modules
 
-# default commands and/or parameters for a container
-CMD ["cd dist/apps/platform", "pnpm next start"]
+EXPOSE 3000
 
-# is preferred when you want to define a container with a specific executable
-# You cannot override the ENTRYPOINT instruction by adding command-line parameters, but rather append to it
-# ENTRYPOINT
+# default commands and/or parameters for a container
+# CMD can be fully overridden via CLI
+# ENTRYPOINT can only be extended via CLI
+CMD ["pnpm", "next", "start", "dist/apps/platform"]
+

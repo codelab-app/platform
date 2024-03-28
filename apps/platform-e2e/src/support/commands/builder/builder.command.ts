@@ -109,6 +109,7 @@ export const openBuilder = () => {
   cy.getCuiToolbarItem(MODEL_ACTION.OpenBuilderBuilder.key)
     .find('button')
     .click()
+  cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
   cy.getCuiToolbarItem(MODEL_ACTION.OpenPreviewBuilder.key)
     .find('button')
     .should('be.visible')

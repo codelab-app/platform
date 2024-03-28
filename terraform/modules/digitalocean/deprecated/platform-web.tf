@@ -20,14 +20,15 @@ resource "digitalocean_app" "platform-web" {
 
       image {
         registry_type = "DOCR"
-        repository =   "platform-web"
+        repository    = "platform"
+
         deploy_on_push {
           enabled = true
         }
       }
 
-      build_command = "scripts/digitalocean/platform/build.sh"
-      run_command   = "scripts/digitalocean/platform/run.sh"
+      # build_command = "scripts/digitalocean/platform/build.sh"
+      # run_command   = "scripts/digitalocean/platform/run.sh"
 
       env {
         key   = "AUTH0_SECRET"

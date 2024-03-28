@@ -9,12 +9,9 @@ interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
 }
 
 export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
-  const [email, setEmail] = useState('')
-
-  const isValid = Typebox.ValidateAndClean(
-    Type.String({ format: 'email' }),
-    email,
-  )
+  const [email, setEmail] = useState<string | undefined>()
+  // Validate only if email is not empty, otherwise assume valid until typing starts
+  const isValid = email && Type.String({ format: 'email' }).check(email)
 
   return (
     <Modal
@@ -35,7 +32,11 @@ export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
         <Button
           className="mx-auto mt-5 block h-10 px-10 pt-1 text-lg font-bold"
           disabled={!isValid}
-          onClick={() => onOk(email)}
+          onClick={() => {
+            if (email && isValid) {
+              onOk(email)
+            }
+          }}
           type="primary"
         >
           Join
