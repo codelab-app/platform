@@ -3,7 +3,8 @@ import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { loadStageMiddleware } from '../../shared/middleware'
-import { getStageOptions, StageParam } from '../../shared/options'
+import type { StageParam } from '../../shared/options'
+import { getStageOptions } from '../../shared/options'
 
 @Injectable()
 export class DockerService implements CommandModule<unknown, unknown> {

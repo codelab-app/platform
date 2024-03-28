@@ -7,7 +7,7 @@ steps:
       docker_layer_caching: true
   - run:
       name: 'Build platform api Docker image'
-      command: docker compose --verbose -f .docker/prod/docker-compose.yaml build platform-api
+      command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build platform-api
   - run:
       name: 'Push Docker Image'
-      command: docker compose --verbose -f .docker/prod/docker-compose.yaml push platform-api
+      command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push platform-api
