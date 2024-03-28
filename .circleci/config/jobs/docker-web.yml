@@ -9,7 +9,14 @@ steps:
   - run:
       name: 'Build web Docker image'
       command: |
+<<<<<<< HEAD:.circleci/config/jobs/docker-web.yml
         docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
   - run:
       name: 'Push Docker Image'
       command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
+=======
+        docker compose --verbose -f .docker/prod/build.docker-compose.yaml build platform
+  - run:
+      name: 'Push Docker Image'
+      command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push platform
+>>>>>>> 6df526d95 (wip: fix image env):.circleci/config/jobs/docker-platform.yml
