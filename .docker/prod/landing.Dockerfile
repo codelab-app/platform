@@ -44,6 +44,11 @@ ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
 ENV NEXT_PUBLIC_SUPABASE_KEY=$NEXT_PUBLIC_SUPABASE_KEY
 ENV SUPABASE_DB_PASS=$SUPABASE_DB_PASS
 
+# Injected at runtime
+ENV MAILCHIMP_LIST_ID=$MAILCHIMP_LIST_ID
+ENV MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
+ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
+
 RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN pnpm nx build landing --verbose --skip-nx-cache
 
@@ -51,7 +56,6 @@ RUN pnpm nx build landing --verbose --skip-nx-cache
 # (2) Prod
 #
 FROM node:18.17-alpine AS prod
-
 
 RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 # RUN apk add curl
@@ -63,11 +67,6 @@ WORKDIR /usr/src/codelab
 COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=build /usr/src/codelab/package.json ./
 COPY --from=build /usr/src/codelab/node_modules ./node_modules
-
-# Injected at runtime
-ENV MAILCHIMP_LIST_ID=$MAILCHIMP_LIST_ID
-ENV MAILCHIMP_API_KEY=$MAILCHIMP_API_KEY
-ENV MAILCHIMP_SERVER_PREFIX=$MAILCHIMP_SERVER_PREFIX
 
 # This way Docker will expose this port to the outside
 EXPOSE 4200
