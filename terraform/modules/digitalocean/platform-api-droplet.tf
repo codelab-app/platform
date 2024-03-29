@@ -15,6 +15,12 @@ resource "digitalocean_droplet" "platform-api" {
   # Run once only
   user_data = templatefile("${path.module}/platform-api-droplet.yaml", {
     digitalocean_access_token = var.digitalocean_access_token,
+    # Not used
+    auth0_m2m_client_id     = "",
+    auth0_m2m_client_secret = "",
+    neo4j_uri               = var.neo4j_uri,
+    neo4j_user              = var.neo4j_user,
+    neo4j_password          = var.neo4j_password
   })
 
   # lifecycle {
@@ -26,7 +32,7 @@ resource "digitalocean_droplet" "platform-api" {
 }
 
 resource "digitalocean_record" "platform-api" {
-  domain = digitalocean_domain.codelab_app.name
+  domain = digitalocean_domain.codelab_app.id
   type   = "A"
   name   = "api"
   value  = digitalocean_droplet.platform-api.ipv4_address

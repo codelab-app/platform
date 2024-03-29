@@ -56,8 +56,6 @@ write_files:
       #!/bin/bash
       set -x
 
-      echo "Executing custom scripts..." >> /var/log/codelab.log
-
       snap install doctl
 
       snap connect doctl:dot-docker

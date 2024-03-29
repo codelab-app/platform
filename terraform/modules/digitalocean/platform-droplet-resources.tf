@@ -26,15 +26,15 @@ resource "digitalocean_loadbalancer" "platform" {
 }
 
 resource "digitalocean_record" "platform_a_record" {
-  domain = digitalocean_domain.codelab_app.name
+  domain = digitalocean_domain.codelab_app.id
   type   = "A"
   name   = "admin"
-  value  = digitalocean_droplet.platform.ipv4_address
+  value  = digitalocean_loadbalancer.platform.ip
   ttl    = 3600
 }
 
 resource "digitalocean_record" "platform_cname" {
-  domain = digitalocean_domain.codelab_app.name
+  domain = digitalocean_domain.codelab_app.id
   type   = "CNAME"
   name   = "www.admin"
   value  = "admin.codelab.app."
