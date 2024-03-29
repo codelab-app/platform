@@ -483,6 +483,8 @@ workflows:
           requires:
             - setup-workspace
       - docker-platform:
+          context:
+            - prod
           filters:
             branches:
               ignore:
