@@ -1,5 +1,4 @@
 
-
 variable "MAILCHIMP_LIST_ID" {
   type = string
 }

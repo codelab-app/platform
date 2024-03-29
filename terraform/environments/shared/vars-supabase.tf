@@ -1,5 +1,4 @@
 
-
 variable "NEXT_PUBLIC_SUPABASE_URL" {
   type = string
 }
