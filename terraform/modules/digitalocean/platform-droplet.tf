@@ -36,7 +36,7 @@ resource "digitalocean_droplet" "platform" {
 }
 
 resource "digitalocean_firewall" "platform_firewall" {
-  name = "platform-app-firewall"
+  name = "platform-firewall"
 
   droplet_ids = [
     digitalocean_droplet.platform.id,
