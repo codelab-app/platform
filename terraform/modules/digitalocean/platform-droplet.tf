@@ -17,8 +17,8 @@ resource "digitalocean_droplet" "platform" {
   user_data = templatefile("${path.module}/platform-droplet.yaml", {
     digitalocean_access_token         = var.digitalocean_access_token,
     next_public_platform_host         = var.next_public_platform_host,
-    next_public_platform_api_port     = var.next_public_platform_api_port,
-    next_public_platform_api_hostname = var.next_public_platform_api_hostname,
+    next_public_platform_api_port     = local.next_public_platform_api_port,
+    next_public_platform_api_hostname = local.next_public_platform_api_hostname,
     auth0_secret                      = var.auth0_secret,
     auth0_issuer_base_url             = var.auth0_issuer_base_url,
     auth0_client_id                   = var.auth0_web_client_id,

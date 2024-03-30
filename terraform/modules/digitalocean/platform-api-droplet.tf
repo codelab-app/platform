@@ -31,6 +31,11 @@ resource "digitalocean_droplet" "platform-api" {
   droplet_agent = true
 }
 
+locals {
+  next_public_platform_api_hostname = digitalocean_droplet.platform-api.ipv4_address_private
+  next_public_platform_api_port = 4000
+}
+
 resource "digitalocean_firewall" "platform_api_firewall" {
   name = "platform-api-firewall"
 
