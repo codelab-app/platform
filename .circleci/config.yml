@@ -483,6 +483,8 @@ workflows:
           requires:
             - setup-workspace
       - docker-platform:
+          context:
+            - prod
           filters:
             branches:
               ignore:
@@ -490,6 +492,8 @@ workflows:
           requires:
             - setup-infra-workspace
       - docker-platform-api:
+          context:
+            - prod
           filters:
             branches:
               ignore:
@@ -497,6 +501,8 @@ workflows:
           requires:
             - setup-infra-workspace
       - docker-landing:
+          context:
+            - prod
           filters:
             branches:
               ignore:

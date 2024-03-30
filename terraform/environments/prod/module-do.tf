@@ -11,8 +11,9 @@ module "digitalocean-codelab" {
   auth0_web_client_secret = module.auth0.web_client.client_secret
 
   next_public_platform_host         = var.NEXT_PUBLIC_PLATFORM_HOST
-  next_public_platform_api_hostname = var.NEXT_PUBLIC_PLATFORM_API_HOSTNAME
-  next_public_platform_api_port     = var.NEXT_PUBLIC_PLATFORM_API_PORT
+
+  # We are using VPC
+  # next_public_platform_api_hostname = var.NEXT_PUBLIC_PLATFORM_API_HOSTNAME next_public_platform_api_port     = var.NEXT_PUBLIC_PLATFORM_API_PORT
 
   neo4j_user     = var.NEO4J_USER
   neo4j_uri      = var.NEO4J_URI

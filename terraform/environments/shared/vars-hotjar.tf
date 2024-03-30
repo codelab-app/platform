@@ -1,3 +1,5 @@
+
+
 variable "NEXT_PUBLIC_HOTJAR_ID" {
   type = number
 }

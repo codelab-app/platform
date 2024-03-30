@@ -21,8 +21,12 @@ RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
 
 WORKDIR /usr/src/codelab
 
+# Put this separately for caching
 # The trailing / is required when copying from multiple sources
-COPY package.json pnpm-lock.yaml .npmrc nx.json tsconfig.base.json ./
+COPY package.json pnpm-lock.yaml  ./
+
+# The trailing / is required when copying from multiple sources
+COPY .npmrc nx.json tsconfig.base.json ./
 # Required for yarn workspaces
 COPY dist/libs/tools ./dist/libs/tools
 COPY apps/platform-api ./apps/platform-api

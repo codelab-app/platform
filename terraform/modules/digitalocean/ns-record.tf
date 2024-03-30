@@ -1,5 +1,5 @@
 resource "digitalocean_record" "ns1" {
-  domain = digitalocean_domain.codelab_app.name
+  domain = digitalocean_domain.codelab_app.id
   type   = "NS"
   name   = "@"
   value  = "ns1.digitalocean.com."
@@ -7,7 +7,7 @@ resource "digitalocean_record" "ns1" {
 }
 
 resource "digitalocean_record" "ns2" {
-  domain = digitalocean_domain.codelab_app.name
+  domain = digitalocean_domain.codelab_app.id
   type   = "NS"
   name   = "@"
   value  = "ns2.digitalocean.com."
@@ -15,7 +15,7 @@ resource "digitalocean_record" "ns2" {
 }
 
 resource "digitalocean_record" "ns3" {
-  domain = digitalocean_domain.codelab_app.name
+  domain = digitalocean_domain.codelab_app.id
   type   = "NS"
   name   = "@"
   value  = "ns3.digitalocean.com."

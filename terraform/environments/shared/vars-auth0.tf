@@ -1,7 +1,4 @@
-# Moved to platform's own variable, even though it is needed by Auth0
-# variable "NEXT_PUBLIC_PLATFORM_HOST" {
-#   type = string
-# }
+
 
 variable "AUTH0_ISSUER_BASE_URL" {
   type = string
@@ -27,10 +24,8 @@ variable "AUTH0_CYPRESS_PASSWORD" {
   type = string
 }
 
-variable "AUTH0_SECRET" {
-  type = string
-}
-
 variable "AUTH0_AUDIENCE" {
   type = string
 }
+
+

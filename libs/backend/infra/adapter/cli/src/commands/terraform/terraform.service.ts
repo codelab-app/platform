@@ -95,6 +95,28 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
+        .command<StageParam>(
+          'lint',
+          'terraform lint',
+          (argv) => argv,
+          ({ stage }) => {
+            return execCommand(
+              `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --recursive`,
+            )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/ci`,
+            // )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/dev`,
+            // )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/prod`,
+            // )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/test`,
+            // )
+          },
+        )
         .demandCommand(1, 'Please provide a task')
     )
   }

@@ -16,30 +16,42 @@ export default auth0Instance().handleAuth({
             throw new Error('Missing access token')
           }
 
-          // Can't find other way to see if we're running in Cypress
-          if (process.env['NX_CYPRESS_TARGET_CONFIGURATION']) {
-            return session
-          }
+          /**
+           * Only do this in development
+           */
+          if (process.env['NODE_ENV'] === 'development') {
+            /**
+             * Cannot call frontend proxy here, since session is not created yet
+             */
+            await restPlatformApiClient.post(
+              'admin/setup-dev',
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${session.accessToken}`,
+                  'X-ID-TOKEN': session.idToken,
+                },
+              },
+            )
 
-          // in production we don't want to seed the database
-          // each time any user logs-in
-          if (process.env['NODE_ENV'] !== 'development') {
             return session
           }
 
           /**
-           * Cannot call frontend proxy here, since session is not created yet
+           * Create user in our neo4j database
            */
-          await restPlatformApiClient.post(
-            'admin/setup-dev',
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${session.accessToken}`,
-                'X-ID-TOKEN': session.idToken,
+          if (process.env['NODE_ENV'] === 'production') {
+            await restPlatformApiClient.post(
+              'user/save',
+              {},
+              {
+                headers: {
+                  Authorization: `Bearer ${session.accessToken}`,
+                  'X-ID-TOKEN': session.idToken,
+                },
               },
-            },
-          )
+            )
+          }
 
           return session
         },
