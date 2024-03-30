@@ -1,14 +1,14 @@
 import type {
   ElementCssRules,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import { Card, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import styled from 'styled-components'
 
 interface InheritedStylesProps {
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
 }
 
 interface RuleState {
@@ -51,30 +51,34 @@ const getRules = (
   return [...rootRules, ...nestedRules]
 }
 
-export const InheritedStyles = observer(({ element }: InheritedStylesProps) => {
-  const { currentStyles, inheritedStyles } =
-    element.style.stylesInheritedFromOtherBreakpoints
+export const InheritedStyles = observer(
+  ({ runtimeElement }: InheritedStylesProps) => {
+    const { currentStyles, inheritedStyles } =
+      runtimeElement.style.stylesInheritedFromOtherBreakpoints
 
-  const rootProps = getRules(currentStyles, inheritedStyles).map(
-    ({ level, overridden, style }, index) => (
-      <Typography.Text
-        delete={overridden}
-        disabled={overridden}
-        key={index}
-        style={{ display: 'block', marginLeft: `${level}rem` }}
-      >
-        {style}
-      </Typography.Text>
-    ),
-  )
+    const rootProps = getRules(currentStyles, inheritedStyles).map(
+      ({ level, overridden, style }, index) => (
+        <Typography.Text
+          delete={overridden}
+          disabled={overridden}
+          key={index}
+          style={{ display: 'block', marginLeft: `${level}rem` }}
+        >
+          {style}
+        </Typography.Text>
+      ),
+    )
 
-  return (
-    <StyledCard>
-      {rootProps.length > 0 ? (
-        rootProps
-      ) : (
-        <Typography.Text type="secondary">No inherited styles</Typography.Text>
-      )}
-    </StyledCard>
-  )
-})
+    return (
+      <StyledCard>
+        {rootProps.length > 0 ? (
+          rootProps
+        ) : (
+          <Typography.Text type="secondary">
+            No inherited styles
+          </Typography.Text>
+        )}
+      </StyledCard>
+    )
+  },
+)

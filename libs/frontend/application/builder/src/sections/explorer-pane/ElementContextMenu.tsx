@@ -1,15 +1,19 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
-import type { IElementService } from '@codelab/frontend/abstract/application'
 import type {
   ICloneElementService,
-  IElementModel,
+  IElementService,
   IElementTreeViewDataNode,
-} from '@codelab/frontend/abstract/domain'
+  IRuntimeComponentModel,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponent,
+  RendererTab,
+} from '@codelab/frontend/abstract/application'
 import {
   elementRef,
   elementTreeRef,
   isComponent,
-  RendererTab,
 } from '@codelab/frontend/abstract/domain'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -31,7 +35,7 @@ interface ElementContextMenu {
   convertElementToComponent: ICloneElementService['convertElementToComponent']
   createForm: IElementService['createForm']
   deleteModal: IElementService['deleteModal']
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
   treeNode?: IElementTreeViewDataNode
 }
 
@@ -49,12 +53,13 @@ export const ElementContextMenu = observer<
     convertElementToComponent,
     createForm,
     deleteModal,
-    element,
+    runtimeElement,
     treeNode,
   }) => {
-    const { builderService, componentService } = useStore()
+    const { builderService } = useStore()
     const { user } = useUser()
     const { popover } = useCui()
+    const element = runtimeElement.element.current
     const componentInstance = isComponent(element.renderType)
 
     const [contextMenuItemId, setContextMenuNodeId] =
@@ -89,7 +94,7 @@ export const ElementContextMenu = observer<
         return
       }
 
-      await convertElementToComponent(element)
+      await convertElementToComponent(runtimeElement)
     }
 
     const onEditComponent = () => {
@@ -99,11 +104,13 @@ export const ElementContextMenu = observer<
 
       builderService.setActiveTab(RendererTab.Component)
 
-      const component = componentService.componentDomainService.components.get(
-        element.renderType.id,
+      const runtimeComponent = runtimeElement.children.find(
+        (child): child is IRuntimeComponentModel =>
+          isRuntimeComponent(child) &&
+          child.component.id === element.renderType.id,
       )
 
-      component && builderService.selectComponentNode(component)
+      runtimeComponent && builderService.selectComponentNode(runtimeComponent)
     }
 
     const menuItems = [

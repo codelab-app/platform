@@ -1,14 +1,23 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
-import type { IRuntimeModel } from './runtime.model.interface'
-import type { IRuntimeElementModel } from './runtime-element'
+import type { IRuntimeComponentModel } from './runtime-component'
+import type {
+  ElementStylePseudoClass,
+  IRuntimeElementModel,
+} from './runtime-element'
+import type { IRuntimePageModel } from './runtime-page'
 
 export interface IRuntimeElementService {
+  currentStylePseudoClass: ElementStylePseudoClass
   elements: ObjectMap<IRuntimeElementModel>
   elementsList: Array<IRuntimeElementModel>
   add(
     element: IElementModel,
-    parent: IRuntimeModel,
+    closestContainerNode: IRuntimeComponentModel | IRuntimePageModel,
+    parentElement: Nullable<IRuntimeElementModel>,
     propKey?: string,
   ): IRuntimeElementModel
+  runtimeElement(compositeKey: string): IRuntimeElementModel
+  setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
 }

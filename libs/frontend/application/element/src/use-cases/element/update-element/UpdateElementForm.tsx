@@ -1,5 +1,5 @@
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import type {
-  IElementModel,
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
@@ -23,12 +23,12 @@ import { RenderTypeCompositeField } from '../../../components/RenderTypeComposit
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
 }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ element }) => {
+  ({ runtimeElement }) => {
     const { elementService, rendererService, runtimeElementService } =
       useStore()
 
@@ -37,6 +37,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     const expandedFields: Array<string> = []
+    const element = runtimeElement.element.current
 
     if (element.renderType.id) {
       expandedFields.push('renderer')
@@ -58,8 +59,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('childMapper')
     }
 
-    const runtimeElement = runtimeElementService.element(element)
-    const runtimeProps = runtimeElement?.runtimeProps
+    const runtimeProps = runtimeElement.runtimeProps
 
     return (
       <div key={element.id}>
@@ -98,7 +98,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
               <AutoField
                 component={CodeMirrorField({
                   customOptions: createAutoCompleteOptions(
-                    runtimeProps?.expressionEvaluationContext,
+                    runtimeProps.expressionEvaluationContext,
                   ),
                   language: CodeMirrorLanguage.Javascript,
                 })}
@@ -110,7 +110,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
               <SelectActionField name="postRenderAction" />
             </Collapse.Panel>
             <Collapse.Panel header="Child Mapper" key="childMapper">
-              <ChildMapperCompositeField element={element} />
+              <ChildMapperCompositeField runtimeElement={runtimeElement} />
             </Collapse.Panel>
           </Collapse>
         </Form>

@@ -1,13 +1,13 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import DragOutlined from '@ant-design/icons/DragOutlined'
-import type {
-  BuilderDragData,
-  IElementService,
+import type { BuilderDragData } from '@codelab/frontend/abstract/application'
+import {
+  BuilderDndAction,
+  isRuntimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import { BuilderDndAction } from '@codelab/frontend/abstract/application'
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
-import { elementRef, isElementRef } from '@codelab/frontend/abstract/domain'
+import { elementRef } from '@codelab/frontend/abstract/domain'
 import { MakeChildrenDraggable } from '@codelab/frontend/application/dnd'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
 import { isServer } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
@@ -41,19 +41,19 @@ const StyledOverlayButtonGroup = styled.div`
 `
 
 export const BuilderClickOverlay = observer<{
-  builderService: IBuilderDomainService
-  elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
-}>(({ builderService, elementService, renderContainerRef }) => {
+}>(({ renderContainerRef }) => {
+  const { builderService, elementService, runtimeElementService } = useStore()
   const selectedNode = builderService.selectedNode
 
-  if (isServer || !selectedNode || !isElementRef(selectedNode)) {
+  if (isServer || !selectedNode || !isRuntimeElementRef(selectedNode)) {
     return null
   }
 
-  const element = queryRenderedElementById(selectedNode.id)
+  const element = selectedNode.current.element.current
+  const domElement = queryRenderedElementById(selectedNode.id)
 
-  if (!element || !renderContainerRef.current) {
+  if (!domElement || !renderContainerRef.current) {
     return null
   }
 
@@ -90,31 +90,24 @@ export const BuilderClickOverlay = observer<{
           </div>
         </MakeChildrenDraggable>
       </StyledOverlayButtonGroup>
-      <StyledSpan>{selectedNode.current.name}</StyledSpan>
+      <StyledSpan>{element.name}</StyledSpan>
     </StyledOverlayContainer>
   )
-
-  const { closestParentElement, nextSibling } = selectedNode.current
-  const breakpoint = builderService.selectedBuilderBreakpoint
-  const props = selectedNode.current.props.values
-  const parentId = closestParentElement?.id
-  const nextSiblingId = nextSibling?.id
-  const dependencies = [props, nextSiblingId, breakpoint, parentId]
 
   return createPortal(
     <ClickOverlay
       content={content}
       dependencies={[
         selectedNode.current.style.guiCss(
-          elementService.currentStylePseudoClass,
+          runtimeElementService.currentStylePseudoClass,
         ),
         selectedNode.current.style.customCss,
-        selectedNode.current.tailwindClassNames,
-        selectedNode.current.props.values,
-        selectedNode.current.nextSibling?.id,
-        selectedNode.current.parentElement?.id,
+        element.tailwindClassNames,
+        element.props.values,
+        element.nextSibling?.id,
+        element.parentElement?.id,
       ]}
-      element={element}
+      element={domElement}
       renderContainer={renderContainerRef.current}
     />,
     renderContainerRef.current,

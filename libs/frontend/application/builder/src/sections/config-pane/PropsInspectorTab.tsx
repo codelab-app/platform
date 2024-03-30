@@ -1,4 +1,8 @@
-import type { IPageNodeRef } from '@codelab/frontend/abstract/domain'
+import type {
+  IRuntimeComponentModel,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
+import { isRuntimeComponent } from '@codelab/frontend/abstract/application'
 import { propSafeStringify } from '@codelab/frontend/domain/prop'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
@@ -7,11 +11,17 @@ import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { usePropsInspector } from '../../hooks'
 
-const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
+const PropsInspectorTab = observer<{
+  runtimeNode: IRuntimeComponentModel | IRuntimeElementModel
+}>(({ runtimeNode }) => {
   const { isLoading, lastRenderedProp, nodeLabel, save } =
-    usePropsInspector(node)
+    usePropsInspector(runtimeNode)
 
-  const initialProps = node.current.props.jsonString
+  const node = isRuntimeComponent(runtimeNode)
+    ? runtimeNode.component.current
+    : runtimeNode.element.current
+
+  const initialProps = node.props.jsonString
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
 

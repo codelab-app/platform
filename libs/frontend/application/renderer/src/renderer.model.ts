@@ -1,17 +1,19 @@
+import type {
+  IExpressionTransformer,
+  IRendererDto,
+  IRendererModel,
+  IRenderPipe,
+  IRuntimeComponentModel,
+  IRuntimePageModel,
+  ITypedPropTransformer,
+  RendererType,
+} from '@codelab/frontend/abstract/application'
 import {
-  type IRendererDto,
-  type IRendererModel,
-  type IRenderPipe,
-  type IRuntimeComponentModel,
-  type IRuntimePageModel,
   isRuntimeComponent,
   isRuntimePage,
-  type ITypedPropTransformer,
-  type RendererType,
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
-  IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -22,11 +24,10 @@ import {
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { ExpressionTransformer } from './expression-transformer.service'
-import { defaultPipes, renderPipeFactory } from './renderPipes'
-import { RuntimeComponentModel } from './runtime-component.model'
-import { RuntimePageModel } from './runtime-page.model'
-import { typedPropTransformersFactory } from './typedPropTransformers'
+import { RuntimeComponentModel, RuntimePageModel } from './model'
+import { defaultPipes, renderPipeFactory } from './render-pipes'
+import { ExpressionTransformer } from './services'
+import { typedPropTransformersFactory } from './typed-prop-transformers'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree

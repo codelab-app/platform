@@ -1,4 +1,4 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Form } from '@codelab/frontend/presentation/view'
@@ -12,43 +12,44 @@ import { updateComponentSchema } from './update-component.schema'
 /**
  * Used for meta pane
  */
-export const UpdateComponentForm = observer<{ component: IComponentModel }>(
-  ({ component }) => {
-    const { componentService } = useStore()
-    const [key, setKey] = useState('')
+export const UpdateComponentForm = observer<{
+  runtimeComponent: IRuntimeComponentModel
+}>(({ runtimeComponent }) => {
+  const { componentService } = useStore()
+  const [key, setKey] = useState('')
+  const component = runtimeComponent.component.current
 
-    // for some reason FormContextProvider is not
-    // updated when the component is updated
-    useEffect(() => {
-      setKey(component.id)
-    }, [component])
+  // for some reason FormContextProvider is not
+  // updated when the component is updated
+  useEffect(() => {
+    setKey(component.id)
+  }, [component])
 
-    const model = {
-      childrenContainerElement: {
-        id: component.childrenContainerElement.current.id,
-      },
-      id: component.id,
-      name: component.name,
-    }
+  const model = {
+    childrenContainerElement: {
+      id: component.childrenContainerElement.current.id,
+    },
+    id: component.id,
+    name: component.name,
+  }
 
-    const onSubmit = (componentData: IUpdateComponentData) =>
-      componentService.update(componentData)
+  const onSubmit = (componentData: IUpdateComponentData) =>
+    componentService.update(componentData)
 
-    return (
-      <div key={key}>
-        <Form<IUpdateComponentData>
-          autosave
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={createFormErrorNotificationHandler({
-            title: 'Error while creating component',
-          })}
-          schema={updateComponentSchema}
-          uiKey={MODEL_ACTION.UpdateComponent.key}
-        >
-          <AutoFields />
-        </Form>
-      </div>
-    )
-  },
-)
+  return (
+    <div key={key}>
+      <Form<IUpdateComponentData>
+        autosave
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createFormErrorNotificationHandler({
+          title: 'Error while creating component',
+        })}
+        schema={updateComponentSchema}
+        uiKey={MODEL_ACTION.UpdateComponent.key}
+      >
+        <AutoFields />
+      </Form>
+    </div>
+  )
+})

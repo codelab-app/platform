@@ -58,16 +58,8 @@ export const Builder = observer(() => {
           key={elementTree.id}
         >
           <RootRenderer ref={ref} renderer={renderer} />
-          <BuilderClickOverlay
-            builderService={builderService}
-            elementService={elementService}
-            renderContainerRef={ref}
-          />
-          <BuilderHoverOverlay
-            builderService={builderService}
-            elementService={elementService}
-            renderContainerRef={ref}
-          />
+          <BuilderClickOverlay renderContainerRef={ref} />
+          <BuilderHoverOverlay renderContainerRef={ref} />
         </StyledBuilderResizeContainer>
       </BuilderResizeHandle>
     </StyledBuilderContainer>

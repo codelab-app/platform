@@ -4,10 +4,11 @@ import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
 import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
 import SettingOutlined from '@ant-design/icons/SettingOutlined'
 import {
-  isAtomRef,
-  isComponentRef,
-  isElementRef,
-} from '@codelab/frontend/abstract/domain'
+  isRuntimeComponent,
+  isRuntimeElement,
+  isRuntimePage,
+} from '@codelab/frontend/abstract/application'
+import { isAtomRef } from '@codelab/frontend/abstract/domain'
 import {
   UpdateComponentForm,
   UpdateComponentPropsForm,
@@ -36,7 +37,7 @@ interface TooltipIconProps {
   title: string
 }
 
-const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
+export const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
   return (
     <Tooltip
       className={classNames(
@@ -58,34 +59,32 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     useStore()
 
   const elementTree = rendererService.activeElementTree
-  const selectedNode = builderService.selectedNode
+  const selectedNode = builderService.selectedNode?.current
 
-  if (!selectedNode) {
+  if (!selectedNode || isRuntimePage(selectedNode)) {
     return null
   }
 
-  const element = elementTree?.element(selectedNode.id || '')
-
   const tabItems = [
     {
-      children: isElementRef(selectedNode) ? (
+      children: isRuntimeElement(selectedNode) ? (
         <>
           <UpdateElementForm
-            element={selectedNode.current}
-            key={selectedNode.id + '_update_form'}
+            key={`${selectedNode.compositeKey}_update_form`}
+            runtimeElement={selectedNode}
           />
           <MoveElementForm
-            element={selectedNode.current}
-            key={selectedNode.id + '_move_form'}
+            key={`${selectedNode.compositeKey}_move_form`}
+            runtimeElement={selectedNode}
           />
           <DeleteElementButton
             className="my-3"
-            disabled={selectedNode.current.isRoot}
-            element={selectedNode.current}
+            disabled={selectedNode.element.current.isRoot}
+            runtimeElement={selectedNode}
           />
         </>
       ) : (
-        <UpdateComponentForm component={selectedNode.current} />
+        <UpdateComponentForm runtimeComponent={selectedNode} />
       ),
       key: TAB_NAMES.Node,
       label: (
@@ -94,11 +93,11 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     },
     {
       children: (
-        <div key={selectedNode.id}>
-          {isElementRef(selectedNode) ? (
-            <UpdateElementPropsForm element={selectedNode} />
-          ) : isComponentRef(selectedNode) ? (
-            <UpdateComponentPropsForm component={selectedNode.current} />
+        <div key={selectedNode.compositeKey}>
+          {isRuntimeElement(selectedNode) ? (
+            <UpdateElementPropsForm runtimeElement={selectedNode} />
+          ) : isRuntimeComponent(selectedNode) ? (
+            <UpdateComponentPropsForm runtimeComponent={selectedNode} />
           ) : (
             'Add an atom or a component to this element to edit its props'
           )}
@@ -110,7 +109,10 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
           icon={
             <SettingOutlined
               style={
-                elementService.validationService.propsHaveErrors(element)
+                isRuntimeElement(selectedNode) &&
+                elementService.validationService.propsHaveErrors(
+                  selectedNode.element.current,
+                )
                   ? { color: 'red' }
                   : {}
               }
@@ -122,12 +124,12 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     },
     {
       children:
-        isElementRef(selectedNode) &&
-        isAtomRef(selectedNode.current.renderType) ? (
+        isRuntimeElement(selectedNode) &&
+        isAtomRef(selectedNode.element.current.renderType) ? (
           <ElementCssEditor
-            element={selectedNode.current}
+            element={selectedNode.element.current}
             elementService={elementService}
-            key={selectedNode.id}
+            key={selectedNode.compositeKey}
           />
         ) : (
           'Add an atom to this page element to edit its CSS'
@@ -138,7 +140,12 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       ),
     },
     {
-      children: <PropsInspectorTab key={selectedNode.id} node={selectedNode} />,
+      children: !isRuntimePage(selectedNode) && (
+        <PropsInspectorTab
+          key={selectedNode.compositeKey}
+          runtimeNode={selectedNode}
+        />
+      ),
       key: TAB_NAMES.PropsInspector,
       label: (
         <TooltipIcon icon={<CodeOutlined />} title={TAB_NAMES.PropsInspector} />
@@ -146,7 +153,10 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     },
     {
       children: (
-        <UpdatePageTabForm appService={appService} key={selectedNode.id} />
+        <UpdatePageTabForm
+          appService={appService}
+          key={selectedNode.compositeKey}
+        />
       ),
       key: TAB_NAMES.Page,
       label: <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />,

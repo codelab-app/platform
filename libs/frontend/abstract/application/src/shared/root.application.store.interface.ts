@@ -3,7 +3,6 @@ import type {
   IAppDomainService,
   IAtomDomainService,
   IAuthGuardDomainService,
-  IBuilderDomainService,
   IComponentDomainService,
   IElementDomainService,
   IFieldDomainService,
@@ -22,6 +21,7 @@ import type { IAdminService } from '../admin'
 import type { IAppService } from '../app'
 import type { IAtomService } from '../atom'
 import type { IAuthGuardService } from '../auth-guard'
+import type { IBuilderService } from '../builder'
 import type { IComponentApplicationService } from '../component'
 import type { IDomainService } from '../domain'
 import type { IElementService } from '../element'
@@ -66,7 +66,7 @@ export interface IRootStore {
   appService: IAppService
   atomService: IAtomService
   authGuardService: IAuthGuardService
-  builderService: IBuilderDomainService
+  builderService: IBuilderService
   componentService: IComponentApplicationService
   domainService: IDomainService
   elementService: IElementService
@@ -99,7 +99,7 @@ export interface IRootStoreContext {
   atomServiceContext: MaybeContext<IAtomService>
   authGuardDomainServiceContext: MaybeContext<IAuthGuardDomainService>
   authGuardServiceContext: MaybeContext<IAuthGuardService>
-  builderDomainServiceContext: MaybeContext<IBuilderDomainService>
+  builderServiceContext: MaybeContext<IBuilderService>
   componentDomainServiceContext: MaybeContext<IComponentDomainService>
   componentServiceContext: MaybeContext<IComponentApplicationService>
   domainServiceContext: MaybeContext<IDomainService>

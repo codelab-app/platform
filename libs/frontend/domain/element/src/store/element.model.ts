@@ -51,7 +51,6 @@ import {
 } from 'mobx-keystone'
 import { validateElement } from '../services/element.validate'
 import { getRenderType } from './element-render-type.field'
-import { ElementStyle } from './element-style.model'
 
 const create = (element: IElementDto): IElementModel => {
   const {
@@ -105,7 +104,7 @@ const create = (element: IElementDto): IElementModel => {
     renderIfExpression,
     renderingMetadata: null,
     renderType: getRenderType(renderType),
-    style: new ElementStyle({ style }),
+    style,
     tailwindClassNames,
   })
 }
@@ -145,7 +144,7 @@ export class Element
     // .withTransform(renderTypeTransform()),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IRef>>(null).withSetter(),
-    style: prop(() => new ElementStyle({})),
+    style: prop<Maybe<string>>(undefined).withSetter(),
     tailwindClassNames: prop<Nullable<Array<string>>>(null).withSetter(),
   })
   implements IElementModel
@@ -345,7 +344,7 @@ export class Element
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
       renderType: this.renderType.current.toJson,
-      style: this.style.toString(),
+      style: this.style,
     }
   }
 
@@ -545,7 +544,7 @@ export class Element
           ? connectNodeId(this.renderType.id)
           : undefined,
       },
-      style: this.style.toString(),
+      style: this.style,
     }
   }
 
@@ -593,7 +592,7 @@ export class Element
         Atom: renderAtomType,
         Component: renderComponentType,
       },
-      style: this.style.style,
+      style: this.style,
       tailwindClassNames: this.tailwindClassNames,
     }
   }
@@ -672,7 +671,7 @@ export class Element
       ? elementRef(childMapperPreviousSibling.id)
       : null
 
-    this.style.setStyle(style ?? this.style.toString())
+    this.style = style ?? this.style
 
     validateElement(this)
 

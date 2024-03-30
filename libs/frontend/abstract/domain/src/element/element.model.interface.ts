@@ -13,7 +13,6 @@ import type { IPropModel } from '../prop'
 import type { ICacheService } from '../shared'
 import type { IModel } from '../shared/models/model.interface'
 import type { IStoreModel } from '../store'
-import type { IElementStyleModel } from './element-style.model.interface'
 import type { IElementRenderTypeModel } from './render-type'
 
 /**
@@ -24,10 +23,6 @@ import type { IElementRenderTypeModel } from './render-type'
 export interface IElementContainer {
   id: string
   rootElementId: string
-}
-
-export interface CssMap {
-  [prop: string]: string
 }
 
 export interface RenderingError {
@@ -96,7 +91,7 @@ export interface IElementModel
   sourceElement: Nullable<IRef>
   // store attached to closestContainerNode
   store: Ref<IStoreModel>
-  style: IElementStyleModel
+  style: Maybe<string>
   tailwindClassNames?: Nullable<Array<string>>
   toId: object
   toTreeNode: object
@@ -123,6 +118,7 @@ export interface IElementModel
   setRenderType(renderType: IElementRenderTypeModel): void
   setRenderingError(error: Nullish<RenderingError>): void
   setSourceElement(element: Ref<IElementModel>): void
+  setStyle(style: string): void
   setTailwindClassNames(tailwindClassNames: Array<string>): void
   set_modified(modified: boolean): void
   toUpdateNodesInput(): Pick<

@@ -4,6 +4,7 @@ import type {
   IAppService,
   IAtomService,
   IAuthGuardService,
+  IBuilderService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
@@ -24,7 +25,6 @@ import type {
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/application'
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
@@ -40,7 +40,7 @@ export const createRootApplicationStore = ({
       appService: prop<Maybe<IAppService>>(undefined),
       atomService: prop<Maybe<IAtomService>>(undefined),
       authGuardService: prop<Maybe<IAuthGuardService>>(() => undefined),
-      builderService: prop<Maybe<IBuilderDomainService>>(undefined),
+      builderService: prop<Maybe<IBuilderService>>(undefined),
       componentService: prop<Maybe<IComponentApplicationService>>(undefined),
       domainService: prop<Maybe<IDomainService>>(undefined),
       elementApplicationService: prop<Maybe<IElementService>>(undefined),
@@ -91,7 +91,7 @@ export const createRootApplicationStore = ({
         appServiceContext,
         atomDomainServiceContext,
         atomServiceContext,
-        builderDomainServiceContext,
+        builderServiceContext,
         componentDomainServiceContext,
         componentServiceContext,
         domainServiceContext,
@@ -158,7 +158,7 @@ export const createRootApplicationStore = ({
         this,
         this.elementService?.elementDomainService,
       )
-      builderDomainServiceContext?.set(this, this.builderService)
+      builderServiceContext?.set(this, this.builderService)
       userServiceContext?.set(this, this.userService)
       userDomainServiceContext?.set(this, this.userService?.userDomainService)
       tagServiceContext?.set(this, this.tagService)

@@ -1,4 +1,4 @@
-import type { IComponentModel } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeComponentModel } from '@codelab/frontend/abstract/application'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { PropsForm } from '@codelab/frontend/application/type'
@@ -12,12 +12,13 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 
 export interface UpdateComponentPropsFormProps {
-  component: IComponentModel
+  runtimeComponent: IRuntimeComponentModel
 }
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
-  ({ component }) => {
+  ({ runtimeComponent }) => {
     const { propService, typeService } = useStore()
+    const component = runtimeComponent.component.current
     const api = component.api.current
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(() =>

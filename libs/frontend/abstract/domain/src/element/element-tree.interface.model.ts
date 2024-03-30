@@ -1,6 +1,5 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
-import type { IPageNodeRef } from '../page'
 import type { IElementModel } from './element.model.interface'
 
 /**
@@ -19,6 +18,5 @@ export interface IElementTree {
 
   descendants(subRoot: Ref<IElementModel>): Array<IElementModel>
   element(id: string): Maybe<IElementModel>
-  getPathFromRoot(pageNode: IPageNodeRef): Array<string>
   setRootElement(elementRef: Ref<IElementModel>): void
 }

@@ -1,8 +1,8 @@
 import {
   type IElementTreeViewDataNode,
-  type IPageNode,
-  isElement,
-} from '@codelab/frontend/abstract/domain'
+  type IRuntimeModel,
+  isRuntimeElement,
+} from '@codelab/frontend/abstract/application'
 import { CuiTreeItem } from '@codelab/frontend/presentation/codelab-ui'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -14,23 +14,26 @@ interface ElementTreeItemTitleProps {
   data: IElementTreeViewDataNode
   elementContextMenuProps: Omit<
     ElementContextMenuProps,
-    'element' | 'elementTree'
+    'elementTree' | 'runtimeElement'
   >
-  node: IPageNode | null
+  node: IRuntimeModel | null
 }
 
 export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
   ({ data, elementContextMenuProps, node }) => {
     // Add CSS to disable hover if node is un-selectable
-    if (node && isElement(node)) {
+    if (node && isRuntimeElement(node)) {
       return (
         <ElementContextMenu
           // eslint-disable-next-line react/jsx-props-no-spreading
           {...elementContextMenuProps}
-          element={node}
+          runtimeElement={node}
           treeNode={data}
         >
-          <ElementTreeItemElementTitle element={node} treeNode={data} />
+          <ElementTreeItemElementTitle
+            element={node.element.current}
+            treeNode={data}
+          />
         </ElementContextMenu>
       )
     }

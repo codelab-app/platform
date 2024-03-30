@@ -2,10 +2,7 @@ import type {
   IActionDomainService,
   IActionModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  getBuilderDomainService,
-  isElementRef,
-} from '@codelab/frontend/abstract/domain'
+import { IStoreModel } from '@codelab/frontend/abstract/domain'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
 import type { IActionDto } from '@codelab/shared/abstract/core'
 import { IActionKind, IRef } from '@codelab/shared/abstract/core'
@@ -27,21 +24,12 @@ export class ActionDomainService
     return [...this.actions.values()]
   }
 
-  @computed
-  get builderService() {
-    return getBuilderDomainService(this)
-  }
-
   @modelAction
-  getSelectActionOptions(actionEntity?: IRef) {
-    const { selectedNode } = this.builderService
-    const selectedNodeStore = selectedNode?.current.store.current
-
-    const providerStore =
-      selectedNode && isElementRef(selectedNode)
-        ? selectedNode.current.providerStore
-        : undefined
-
+  getSelectActionOptions(
+    selectedNodeStore: IStoreModel,
+    providerStore?: IStoreModel,
+    actionEntity?: IRef,
+  ) {
     const updatedAction = actionEntity
       ? this.action(actionEntity.id)
       : undefined
@@ -50,7 +38,7 @@ export class ActionDomainService
 
     const filtered = this.actionsList.filter((action) => {
       const belongsToStore =
-        action.store.id === selectedNodeStore?.id ||
+        action.store.id === selectedNodeStore.id ||
         action.store.id === providerStore?.id
 
       // when selecting success,error actions for an apiAction

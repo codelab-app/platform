@@ -9,7 +9,7 @@ import type { DeleteElementData } from './delete-element.schema'
 import { deleteElementSchema } from './delete-element.schema'
 
 export const DeleteElementModal = observer(() => {
-  const { builderService, elementService } = useStore()
+  const { elementService } = useStore()
   const closeModal = () => elementService.deleteModal.close()
 
   if (!elementService.deleteModal.element) {

@@ -3,28 +3,20 @@ import type {
   SelectElementOption,
 } from '@codelab/frontend/abstract/application'
 import {
+  getBuilderService,
   getRendererService,
-  RendererType,
   SelectElementOptions,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IElementModel,
-  IMoveElementContext,
-  IUpdateElementData,
-} from '@codelab/frontend/abstract/domain'
 import {
-  BuilderWidthBreakPoint,
-  defaultBuilderWidthBreakPoints,
-  elementRef,
-  ElementStylePseudoClass,
-  getBuilderDomainService,
+  type IElementModel,
+  type IMoveElementContext,
+  type IUpdateElementData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
 import { getPropService } from '@codelab/frontend/application/prop'
 import { getTypeService } from '@codelab/frontend/application/type'
 import {
   ElementDomainService,
-  jsonStringToCss,
   mapElementOption,
 } from '@codelab/frontend/domain/element'
 import type { IElementDto } from '@codelab/shared/abstract/core'
@@ -66,9 +58,6 @@ export class ElementService
   extends Model({
     cloneElementService: prop(() => new CloneElementService({})),
     createForm: prop(() => new CreateElementFormService({})),
-    currentStylePseudoClass: prop(
-      () => ElementStylePseudoClass.None,
-    ).withSetter(),
     deleteModal: prop(() => new ElementModalService({})),
     elementDomainService: prop(() => new ElementDomainService({})),
     elementRepository: prop(() => new ElementRepository({})),
@@ -130,9 +119,8 @@ export class ElementService
   ) {
     console.debug('ElementService.delete', subRootElement)
 
-    const parentComponent = subRootElement.parentComponent?.current
-    const childrenContainer = parentComponent?.childrenContainerElement.current
-
+    // const parentComponent = subRootElement.parentComponent?.current
+    // const childrenContainer = parentComponent?.childrenContainerElement.current
     // Check if the element is linked as a children container in parent component
     // and replace this link to component root before element is deleted
     // if (parentComponent && childrenContainer?.id === subRootElement.id) {
@@ -153,17 +141,9 @@ export class ElementService
       ...subRootElement.descendantElements,
     ]
 
-    /**
-     * Set the new node before we delete
-     */
-    const selectedNode =
-      subRootElement.prevSibling?.current ??
-      subRootElement.closestParentElement?.current ??
-      subRootElement.closestSubTreeRootElement
+    this.builderService.selectPerviousElementOnDelete()
 
     subRootElement.detachFromTree()
-
-    this.builderService.setSelectedNode(elementRef(selectedNode))
 
     yield* _await(this.elementRepository.delete(elementsToDelete))
 
@@ -338,58 +318,6 @@ export class ElementService
     return this.elementDomainService.element(id)
   }
 
-  /**
-   * Moved here to de-couple `Element` model from `Renderer`
-   */
-  styleStringWithBreakpoints(element: IElementModel): string {
-    const parsedCss = element.style.styleParsed
-    const activeRenderer = this.rendererService.activeRenderer?.current
-    const rendererType = activeRenderer?.rendererType
-
-    const isProduction =
-      rendererType === RendererType.Production ||
-      rendererType === RendererType.Preview
-
-    const breakpointStyles = []
-
-    for (const breakpoint of element.style.breakpointsByPrecedence) {
-      const breakpointStyle = parsedCss[breakpoint]
-      const breakpointWidth = defaultBuilderWidthBreakPoints[breakpoint]
-
-      const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
-
-      if (breakpointStyle) {
-        breakpointStyles.push(
-          `@container root (min-width: ${lowerBound}px) {
-            ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(
-              breakpointStyle.guiString?.[ElementStylePseudoClass.None] ?? '{}',
-            )}
-            &:hover {
-              ${jsonStringToCss(
-                breakpointStyle.guiString?.[ElementStylePseudoClass.Hover] ??
-                  '{}',
-              )}
-            }
-            &:focus {
-              ${jsonStringToCss(
-                breakpointStyle.guiString?.[ElementStylePseudoClass.Focus] ??
-                  '{}',
-              )}
-            }
-
-            .ce-inline-toolbar { color: initial; }
-          }`,
-        )
-      }
-    }
-
-    return breakpointStyles.join('\n')
-  }
-
   private getDescendants(
     element: SelectElementOption,
     elementMap: Record<string, SelectElementOption>,
@@ -429,7 +357,7 @@ export class ElementService
 
   @computed
   private get builderService() {
-    return getBuilderDomainService(this)
+    return getBuilderService(this)
   }
 
   @computed

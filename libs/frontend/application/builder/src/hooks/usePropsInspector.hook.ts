@@ -1,7 +1,14 @@
-import { isRuntimePage } from '@codelab/frontend/abstract/application'
+import type {
+  IRuntimeComponentModel,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponent,
+  isRuntimeElement,
+  isRuntimePage,
+} from '@codelab/frontend/abstract/application'
 import {
   type IPageNodeRef,
-  isElement,
   isElementRef,
 } from '@codelab/frontend/abstract/domain'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -57,22 +64,22 @@ const validateSchema = (node: IPageNodeRef) => {
 /**
  * If node is IComponent, that means we are viewing it in the component builder only.
  */
-export const usePropsInspector = (node: IPageNodeRef) => {
-  const { propService, runtimeComponentService, runtimeElementService } =
-    useStore()
-
+export const usePropsInspector = (
+  runtimeNode: IRuntimeComponentModel | IRuntimeElementModel,
+) => {
+  const { propService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
+
+  const node = isRuntimeComponent(runtimeNode)
+    ? runtimeNode.component
+    : runtimeNode.element
+
   const validator = validateSchema(node)
-  const nodeLabel = isElementRef(node) ? 'Element' : 'Component'
+  const nodeLabel = isRuntimeElement(runtimeNode) ? 'Element' : 'Component'
 
-  const runtimeModel = isElement(node.current)
-    ? runtimeElementService.element(node.current)
-    : runtimeComponentService.component(node.current)
-
-  const runtimeProps =
-    runtimeModel && !isRuntimePage(runtimeModel)
-      ? runtimeModel.runtimeProps
-      : undefined
+  const runtimeProps = !isRuntimePage(runtimeNode)
+    ? runtimeNode.runtimeProps
+    : undefined
 
   const evaluationContext = runtimeProps?.expressionEvaluationContext
   const lastRenderedProp = runtimeProps?.evaluatedProps || {}

@@ -4,7 +4,7 @@ import TabletOutlined from '@ant-design/icons/TabletOutlined'
 import {
   BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'

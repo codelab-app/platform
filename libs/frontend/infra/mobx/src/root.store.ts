@@ -4,6 +4,7 @@ import type {
   IAppService,
   IAtomService,
   IAuthGuardService,
+  IBuilderService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
@@ -27,6 +28,7 @@ import type {
 import {
   appServiceContext,
   authGuardServiceContext,
+  builderServiceContext,
   componentServiceContext,
   elementServiceContext,
   redirectServiceContext,
@@ -36,16 +38,12 @@ import {
   runtimeElementServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IBuilderDomainService,
-  ITagDomainService,
-} from '@codelab/frontend/abstract/domain'
+import type { ITagDomainService } from '@codelab/frontend/abstract/domain'
 import {
   actionDomainServiceContext,
   appDomainServiceContext,
   atomDomainServiceContext,
   authGuardDomainServiceContext,
-  builderDomainServiceContext,
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
@@ -63,6 +61,7 @@ import {
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
 import { AuthGuardService } from '@codelab/frontend/application/auth-guard'
+import { BuilderService } from '@codelab/frontend/application/builder'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
@@ -102,7 +101,6 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
-import { BuilderDomainService } from '@codelab/frontend/domain/builder'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
@@ -117,9 +115,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       appService: prop<IAppService>(() => new AppService({})),
       atomService: prop<IAtomService>(() => new AtomService({})),
       authGuardService: prop<IAuthGuardService>(() => new AuthGuardService({})),
-      builderService: prop<IBuilderDomainService>(
-        () => new BuilderDomainService({}),
-      ),
+      builderService: prop<IBuilderService>(() => new BuilderService({})),
       componentService: prop<IComponentApplicationService>(
         () => new ComponentApplicationService({}),
       ),
@@ -205,7 +201,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.elementService.elementDomainService,
       )
-      builderDomainServiceContext.set(this, this.builderService)
+      builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)
       userDomainServiceContext.set(this, this.userService.userDomainService)
       tagServiceContext.set(this, this.tagService)

@@ -266,9 +266,6 @@
       "@codelab/frontend/domain/auth-guard": [
         "libs/frontend/domain/auth-guard/src/index.ts"
       ],
-      "@codelab/frontend/domain/builder": [
-        "libs/frontend/domain/builder/src/index.ts"
-      ],
       "@codelab/frontend/domain/component": [
         "libs/frontend/domain/component/src/index.ts"
       ],

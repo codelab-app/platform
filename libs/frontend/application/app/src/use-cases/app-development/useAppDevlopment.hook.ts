@@ -43,8 +43,6 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
 
       const page = app.pageByName(pageName)
 
-      builderService.selectElementNode(page.rootElement.current)
-
       const roots = [
         // This will load the custom components in the _app (provider page) for the regular pages since we also
         // render the elements of the provider page as part of the regular page
@@ -86,6 +84,10 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
       console.debug(renderer)
 
       rendererService.setActiveRenderer(rendererRef(renderer.id))
+      builderService.selectElementNode(
+        renderer.runtimeRootContainerNode.runtimeRootElement,
+      )
+
       await renderer.expressionTransformer.init()
 
       return {

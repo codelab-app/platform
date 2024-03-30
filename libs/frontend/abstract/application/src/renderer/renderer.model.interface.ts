@@ -1,7 +1,5 @@
 import type {
   IComponentModel,
-  IElementModel,
-  IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
@@ -9,8 +7,10 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
+import type { IExpressionTransformer } from '../builder'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
 import type { IRuntimeComponentModel } from './runtime-component'
+import type { IRuntimeElementModel } from './runtime-element'
 import type { IRuntimePageModel } from './runtime-page'
 import type { ITypedPropTransformer } from './typed-prop-transformer.interface'
 
@@ -39,7 +39,6 @@ export interface IRendererModel {
 
 export interface ElementWrapperProps {
   children: ArrayOrSingle<React.ReactNode>
-  element: IElementModel
   errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
   key: string
   /**
@@ -47,5 +46,6 @@ export interface ElementWrapperProps {
    */
   renderOutput: IRenderOutput
   renderer: IRendererModel
+  runtimeElement: IRuntimeElementModel
   onRendered(): void
 }

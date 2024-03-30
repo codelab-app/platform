@@ -1,8 +1,8 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
-import {
-  CSS_AUTOSAVE_TIMEOUT,
-  type IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import type {
+  IElementService,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
+import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
@@ -21,8 +21,8 @@ const Label = styled.span`
 `
 
 export interface ElementCssEditorInternalProps {
-  element: IElementModel
   elementService: IElementService
+  runtimeElement: IRuntimeElementModel
 }
 
 /*
@@ -31,22 +31,26 @@ export interface ElementCssEditorInternalProps {
     can guiCss be set to?
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
-  ({ element, elementService }) => {
-    const lastStateRef = useRef(element.style.toString())
-    const lastTailwindClassNames = useRef(element.tailwindClassNames)
+  ({ elementService, runtimeElement }) => {
+    const lastStateRef = useRef(runtimeElement.style.toString())
+
+    const lastTailwindClassNames = useRef(
+      runtimeElement.element.current.tailwindClassNames,
+    )
 
     const cssChangeHandler = useDebouncedCallback(
-      (value: string) => element.style.setCustomCss(value),
-      [element],
+      (value: string) => runtimeElement.style.setCustomCss(value),
+      [runtimeElement],
       CSS_AUTOSAVE_TIMEOUT,
     )
 
     const updateElementStyles = useCallback(
       // TODO: Make this ito IElementDto
-      (updatedElement: IElementModel) => {
+      (updatedElement: IRuntimeElementModel) => {
         const oldStyle = lastStateRef.current
         const oldTailwindClassNames = lastTailwindClassNames.current
-        const { style, tailwindClassNames } = updatedElement
+        const { element, style } = updatedElement
+        const tailwindClassNames = element.current.tailwindClassNames
         const styleString = style.toString()
 
         // do not send request if value was not changed
@@ -58,7 +62,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           lastTailwindClassNames.current = tailwindClassNames
 
           void elementService.update({
-            ...updatedElement.toJson,
+            ...element.current.toJson,
             style: styleString,
             tailwindClassNames,
           })
@@ -68,8 +72,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     )
 
     useDebouncedEffect(
-      () => updateElementStyles(element),
-      [element.style.toString(), element.tailwindClassNames],
+      () => updateElementStyles(runtimeElement),
+      [
+        runtimeElement.style.toString(),
+        runtimeElement.element.current.tailwindClassNames,
+      ],
       CSS_AUTOSAVE_TIMEOUT,
     )
 
@@ -78,15 +85,15 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
-      () => () => updateElementStyles(element),
-      [element, updateElementStyles],
+      () => () => updateElementStyles(runtimeElement),
+      [runtimeElement, updateElementStyles],
     )
 
     return (
       <Row style={{ marginBottom: '10%' }}>
         <Col span={24}>
           <Label>Inherited css :</Label>
-          <InheritedStyles element={element} />
+          <InheritedStyles runtimeElement={runtimeElement} />
         </Col>
         <Col span={24}>
           <Label>Current breakpoint css :</Label>
@@ -95,11 +102,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             language={CodeMirrorLanguage.Css}
             onChange={cssChangeHandler}
             title="CSS Editor"
-            value={element.style.customCss ?? ''}
+            value={runtimeElement.style.customCss ?? ''}
           />
         </Col>
         <Col span={24}>
-          <TailwindClassEditor element={element} />
+          <TailwindClassEditor element={runtimeElement.element.current} />
         </Col>
         <Col span={24}>
           <StylesEditor />

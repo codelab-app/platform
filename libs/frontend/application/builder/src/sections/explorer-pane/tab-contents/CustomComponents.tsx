@@ -1,10 +1,10 @@
-import type { IPageNode } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
 import {
-  componentRef,
-  isComponent,
-  isElement,
+  isRuntimeComponent,
+  isRuntimeElement,
   RendererTab,
-} from '@codelab/frontend/abstract/domain'
+} from '@codelab/frontend/abstract/application'
+import { componentRef } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import {
@@ -21,11 +21,11 @@ import React, { useEffect, useRef } from 'react'
 import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
-  const { builderService, componentService, rendererService } = useStore()
+  const { builderService, componentService } = useStore()
   const { appSlug } = useAppQuery()
   const router = useRouter()
   const { userSlug } = useUserQuery()
-  const previousActiveNode = useRef<IPageNode>()
+  const previousActiveNode = useRef<IRuntimeModel>()
 
   const [{ error, status }, getComponents] = useAsync(() =>
     componentService.getAll(),
@@ -64,11 +64,17 @@ export const CustomComponents = observer(() => {
   const onBack = () => {
     builderService.setActiveTab(RendererTab.Page)
 
-    if (previousActiveNode.current && isComponent(previousActiveNode.current)) {
+    if (
+      previousActiveNode.current &&
+      isRuntimeComponent(previousActiveNode.current)
+    ) {
       builderService.selectComponentNode(previousActiveNode.current)
     }
 
-    if (previousActiveNode.current && isElement(previousActiveNode.current)) {
+    if (
+      previousActiveNode.current &&
+      isRuntimeElement(previousActiveNode.current)
+    ) {
       builderService.selectElementNode(previousActiveNode.current)
     }
   }

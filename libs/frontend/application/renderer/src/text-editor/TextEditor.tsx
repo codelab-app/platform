@@ -11,13 +11,14 @@ import {
 } from './editor'
 import { EDITOR_TOOLS } from './editor.tools'
 
-const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
-  const { elementService, propService } = useStore()
+const TextEditor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
+  const { propService, runtimeElementService } = useStore()
   const [editor, setEditor] = React.useState<EditorJS | null>(null)
-  const holder = `${elementId}-editor`
+  const holder = `${compositeKey}-editor`
+  const runtimeElement = runtimeElementService.runtimeElement(compositeKey)
+  const element = runtimeElement.element.current
 
   const onChange = (output: OutputData) => {
-    const element = elementService.element(elementId)
     const props = element.props
     const renderType = element.renderType.current
 
@@ -78,7 +79,7 @@ const TextEditor = ({ data, elementId, readOnly }: TextEditorProps) => {
         await editor.render(placeholderBlock)
       }
 
-      selectAllTextInTheElement(elementId)
+      selectAllTextInTheElement(element.id)
     })
   }, [readOnly])
 

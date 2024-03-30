@@ -1,11 +1,12 @@
 import type {
   IElementModel,
-  IElementTreeViewDataNode,
+  IElementStyleModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
+import type { IElementTreeViewDataNode } from '../../builder'
 import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
@@ -31,6 +32,8 @@ export interface IRuntimeElementModel extends AnyModel {
 
   element: Ref<IElementModel>
 
+  parentElement: Maybe<IRuntimeElementModel>
+  parentElementKey: Nullable<string>
   postRenderActionDone: boolean
   preRenderActionDone: boolean
   /**
@@ -53,6 +56,7 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
+  style: IElementStyleModel
   treeViewNode: IElementTreeViewDataNode
 
   cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>): void

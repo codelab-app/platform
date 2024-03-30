@@ -1,4 +1,5 @@
 import {
+  getBuilderService,
   getElementService,
   getRendererService,
   type IComponentApplicationService,
@@ -12,7 +13,6 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   componentRef,
-  getBuilderDomainService,
   getTagDomainService,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -277,15 +277,15 @@ export class ComponentApplicationService
 
     const filtered = this.componentDomainService.sortedComponentsList.filter(
       (component) => {
-        if (component.id === parentComponent?.id) {
+        if (component.id === parentComponent?.component.id) {
           return false
         }
 
         const parentIsDescendant = component.descendantComponents.some(
-          ({ id }) => id === parentComponent?.id,
+          ({ id }) => id === parentComponent?.component.id,
         )
 
-        return !parentComponent?.id || !parentIsDescendant
+        return !parentComponent?.component.id || !parentIsDescendant
       },
     )
 
@@ -318,14 +318,13 @@ export class ComponentApplicationService
   previewComponent = (id: string) => {
     const component = this.componentDomainService.component(id)
 
-    this.builderService.selectComponentNode(component)
-
     const renderer = this.rendererService.hydrate({
       containerNode: component,
       id: component.id,
       rendererType: RendererType.ComponentBuilder,
     })
 
+    this.builderService.selectComponentNode(renderer.runtimeComponent!)
     this.rendererService.setActiveRenderer(rendererRef(renderer))
   }
 
@@ -350,7 +349,7 @@ export class ComponentApplicationService
 
   @computed
   private get builderService() {
-    return getBuilderDomainService(this)
+    return getBuilderService(this)
   }
 
   @computed

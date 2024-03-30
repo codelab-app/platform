@@ -3,10 +3,8 @@ import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type {
-  IElementModel,
-  IElementTreeViewDataNode,
-} from '@codelab/frontend/abstract/domain'
+import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,

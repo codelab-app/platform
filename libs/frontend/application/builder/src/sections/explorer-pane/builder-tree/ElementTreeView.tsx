@@ -1,8 +1,8 @@
-import type {
-  IElementTreeViewDataNode,
-  IPageNode,
-} from '@codelab/frontend/abstract/domain'
-import { elementRef } from '@codelab/frontend/abstract/domain'
+import {
+  type IElementTreeViewDataNode,
+  type IRuntimeModel,
+  runtimeElementRef,
+} from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -20,7 +20,7 @@ interface ElementTreeViewProps {
   expandedNodeIds: Array<string>
   treeData: IElementTreeViewDataNode | undefined
 
-  selectTreeNode(node: Nullable<IPageNode>): void
+  selectTreeNode(node: Nullable<IRuntimeModel>): void
   /**
    * Page/Component builder tab
    */
@@ -93,7 +93,9 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
           }
 
           node.key.toString() !== 'components' &&
-            builderService.setHoveredNode(elementRef(node.key.toString()))
+            builderService.setHoveredNode(
+              runtimeElementRef(node.key.toString()),
+            )
         }}
         onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
