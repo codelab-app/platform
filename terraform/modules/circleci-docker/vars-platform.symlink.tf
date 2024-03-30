@@ -1,1 +1,1 @@
-../platform/vars.tf
+../codelab-web/vars.tf
