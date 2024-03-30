@@ -17,6 +17,5 @@ export interface IRuntimeComponentService {
     childMapperIndex?: number,
     isTypedProp?: boolean,
   ): IRuntimeComponentModel
-  component(component: IComponentModel): Maybe<IRuntimeComponentModel>
   delete(runtimeComponent: IRuntimeComponentModel): void
 }

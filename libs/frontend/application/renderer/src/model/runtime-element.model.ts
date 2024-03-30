@@ -18,6 +18,7 @@ import {
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   getComponentDomainService,
@@ -117,7 +118,11 @@ export class RuntimeElementModel
       childMapperChildren.push(runtimeComponent)
     }
 
-    const keyStart = RuntimeComponentModel.compositeKey(component, this.propKey)
+    const keyStart = RuntimeComponentModel.compositeKey(
+      component,
+      this,
+      this.propKey,
+    )
 
     const newKeys = childMapperChildren.map(
       (runtimeComponent) => runtimeComponent.compositeKey,
@@ -147,7 +152,7 @@ export class RuntimeElementModel
           ),
         ]
       : element.children.map((child) =>
-          this.runtimeElementService.add(child, container, this.propKey),
+          this.runtimeElementService.add(child, container, this, this.propKey),
         )
 
     /**
@@ -173,7 +178,12 @@ export class RuntimeElementModel
 
     if (shouldAddInstanceElementChildren) {
       const instanceChildren = container.children.map((child) =>
-        this.runtimeElementService.add(child.current, container, this.propKey),
+        this.runtimeElementService.add(
+          child.current,
+          container,
+          this,
+          this.propKey,
+        ),
       )
 
       children.push(...instanceChildren)
@@ -194,6 +204,13 @@ export class RuntimeElementModel
   @computed
   get componentDomainService() {
     return getComponentDomainService(this)
+  }
+
+  @computed
+  get parentElement() {
+    return this.parentElementKey
+      ? this.runtimeElementService.elements.get(this.parentElementKey)
+      : undefined
   }
 
   @computed

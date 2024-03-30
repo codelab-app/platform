@@ -1,7 +1,6 @@
 import type {
   IComponentModel,
   IElementModel,
-  IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
