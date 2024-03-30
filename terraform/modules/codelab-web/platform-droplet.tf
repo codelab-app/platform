@@ -1,6 +1,6 @@
-resource "digitalocean_droplet" "landing" {
+resource "digitalocean_droplet" "web" {
   image  = "docker-20-04"
-  name   = "landing"
+  name   = "web"
   region = "sfo2"
   size   = "s-1vcpu-1gb"
 
@@ -14,8 +14,17 @@ resource "digitalocean_droplet" "landing" {
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
   # Run once only
-  user_data = templatefile("${path.module}/landing-droplet.yaml", {
-    digitalocean_access_token = var.digitalocean_access_token,
+  user_data = templatefile("${path.module}/platform-droplet.yaml", {
+    digitalocean_access_token         = var.digitalocean_access_token,
+    next_public_platform_host         = var.next_public_platform_host,
+    next_public_platform_api_port     = local.next_public_platform_api_port,
+    next_public_platform_api_hostname = local.next_public_platform_api_hostname,
+    auth0_secret                      = var.auth0_secret,
+    auth0_issuer_base_url             = var.auth0_issuer_base_url,
+    auth0_client_id                   = var.auth0_web_client_id,
+    auth0_client_secret               = var.auth0_web_client_secret,
+    auth0_audience                    = var.auth0_audience,
+    auth0_base_url                    = var.auth0_base_url,
   })
 
   lifecycle {
@@ -24,15 +33,13 @@ resource "digitalocean_droplet" "landing" {
 
   # Optional: Enable the DigitalOcean agent
   droplet_agent = true
-
-  # tags = ["landing"]
 }
 
-resource "digitalocean_firewall" "landing_firewall" {
-  name = "landing-app-firewall"
+resource "digitalocean_firewall" "platform_firewall" {
+  name = "platform-firewall"
 
   droplet_ids = [
-    digitalocean_droplet.landing.id,
+    digitalocean_droplet.platform.id,
   ]
 
   # Allows SSH access from specific IP ranges for secure shell administration.
@@ -97,3 +104,4 @@ resource "digitalocean_firewall" "landing_firewall" {
     destination_addresses = ["0.0.0.0/0", "::/0"]
   }
 }
+
