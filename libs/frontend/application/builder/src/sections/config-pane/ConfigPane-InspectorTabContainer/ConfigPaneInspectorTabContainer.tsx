@@ -127,9 +127,8 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         isRuntimeElement(selectedNode) &&
         isAtomRef(selectedNode.element.current.renderType) ? (
           <ElementCssEditor
-            element={selectedNode.element.current}
-            elementService={elementService}
             key={selectedNode.compositeKey}
+            runtimeElement={selectedNode}
           />
         ) : (
           'Add an atom to this page element to edit its CSS'

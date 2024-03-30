@@ -1,8 +1,6 @@
-import type {
-  IElementService,
-  IRuntimeElementModel,
-} from '@codelab/frontend/abstract/application'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { CSS_AUTOSAVE_TIMEOUT } from '@codelab/frontend/abstract/domain'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
@@ -21,7 +19,6 @@ const Label = styled.span`
 `
 
 export interface ElementCssEditorInternalProps {
-  elementService: IElementService
   runtimeElement: IRuntimeElementModel
 }
 
@@ -31,7 +28,8 @@ export interface ElementCssEditorInternalProps {
     can guiCss be set to?
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
-  ({ elementService, runtimeElement }) => {
+  ({ runtimeElement }) => {
+    const { elementService } = useStore()
     const lastStateRef = useRef(runtimeElement.style.toString())
 
     const lastTailwindClassNames = useRef(

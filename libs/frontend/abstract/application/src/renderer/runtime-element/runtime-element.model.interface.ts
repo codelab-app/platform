@@ -1,7 +1,4 @@
-import type {
-  IElementModel,
-  IElementStyleModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
@@ -11,6 +8,7 @@ import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimePageModel } from '../runtime-page'
 import type { IRuntimeElementPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
+import type { IRuntimeElementStyleModel } from './runtime-element-style.model.interface'
 
 /**
  * This model is the runtime model for IElementModel
@@ -56,7 +54,7 @@ export interface IRuntimeElementModel extends AnyModel {
    * Return if we should render element or not based on renderIfExpression
    */
   shouldRender: boolean
-  style: IElementStyleModel
+  style: IRuntimeElementStyleModel
   treeViewNode: IElementTreeViewDataNode
 
   cleanupChildMapperNodes(keyStart: string, newKeys: Array<string>): void

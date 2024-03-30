@@ -274,7 +274,7 @@ export class CloneElementService
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
       renderType: element.renderType.current.toJson,
-      style: element.style.toString(),
+      style: element.style,
     }
 
     const elementCloneModel =
