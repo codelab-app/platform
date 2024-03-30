@@ -14,9 +14,9 @@ import { EDITOR_TOOLS } from './editor.tools'
 const TextEditor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
   const { propService, runtimeElementService } = useStore()
   const [editor, setEditor] = React.useState<EditorJS | null>(null)
-  const holder = `${compositeKey}-editor`
   const runtimeElement = runtimeElementService.runtimeElement(compositeKey)
   const element = runtimeElement.element.current
+  const holder = `${element.id}-editor`
 
   const onChange = (output: OutputData) => {
     const props = element.props
