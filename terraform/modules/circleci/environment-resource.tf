@@ -1,5 +1,5 @@
 locals {
-  project_name = "platform"
+  project_name = "codelab"
   organization = "codelab-app"
 }
 
