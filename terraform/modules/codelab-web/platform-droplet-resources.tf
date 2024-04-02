@@ -29,7 +29,7 @@ resource "digitalocean_record" "platform_a_record" {
   domain = digitalocean_domain.codelab_app.id
   type   = "A"
   name   = "admin"
-  value  = digitalocean_loadbalancer.platform.ip
+  value  = digitalocean_loadbalancer.web.ip
   ttl    = 3600
 }
 
