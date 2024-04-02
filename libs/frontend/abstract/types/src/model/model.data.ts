@@ -56,6 +56,7 @@ export const modelDataMap = {
       ModelAction.CancelCreate,
       ModelAction.Update,
       ModelAction.Delete,
+      'Import',
     ],
     uis: [CuiComponents.Sidebar],
   },

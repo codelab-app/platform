@@ -1,9 +1,10 @@
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined'
 import EditOutlined from '@ant-design/icons/EditOutlined'
 import ExportOutlined from '@ant-design/icons/ExportOutlined'
-import type {
-  IAtomModel,
-  IComponentModel,
+import {
+  type IAtomModel,
+  type IComponentModel,
+  isComponent,
 } from '@codelab/frontend/abstract/domain'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
@@ -17,7 +18,7 @@ interface ComponentItemProps {
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
-  onExport?(id: string): void
+  onExport?(component: IComponentModel): void
   onSelect?(id: string): void
 }
 
@@ -48,7 +49,7 @@ export const ComponentItem = ({
 
   const handleExportClick = (event: React.MouseEvent) => {
     event.stopPropagation()
-    onExport && onExport(component.id)
+    onExport && isComponent(component) && onExport(component)
   }
 
   const handleSelectClick = () => {

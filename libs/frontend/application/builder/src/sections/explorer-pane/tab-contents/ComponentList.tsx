@@ -23,7 +23,7 @@ export const ComponentList = observer<{
   selectedIds?: Array<string>
   onDelete?(id: string): void
   onEdit?(id: string): void
-  onExport?(id: string): void
+  onExport?(component: IComponentModel): void
   onSelect?(id: string): void
 }>(({ components, onDelete, onEdit, onExport, onSelect, selectedIds }) => {
   const [searchValue, setSearchValue] = useState('')

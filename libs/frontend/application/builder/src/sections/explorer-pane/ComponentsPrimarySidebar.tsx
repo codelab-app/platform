@@ -3,6 +3,7 @@ import { MODEL_ACTION, MODEL_UI } from '@codelab/frontend/abstract/types'
 import {
   CreateComponentPopover,
   DeleteComponentModal,
+  ImportComponentDialog,
 } from '@codelab/frontend/application/component'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { CuiSidebarView } from '@codelab/frontend/presentation/codelab-ui'
@@ -41,6 +42,11 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
                 popover.open(MODEL_ACTION.CreateComponent.key)
               },
               title: 'Add Component',
+            },
+            {
+              cuiKey: MODEL_ACTION.ImportComponent.key,
+              icon: <ImportComponentDialog key={0} />,
+              title: 'Import Component',
             },
           ],
           title: 'Components Toolbar',
