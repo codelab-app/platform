@@ -19,14 +19,8 @@ interface DevelopmentPageProps {
  * Fetch related data for rendering page, and load them into store
  */
 export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
-  const {
-    appService,
-    builderService,
-    componentService,
-    rendererService,
-    typeService,
-    userService,
-  } = useStore()
+  const { appService, builderService, rendererService, userService } =
+    useStore()
 
   const router = useRouter()
   const { appName } = useAppQuery()
@@ -48,8 +42,6 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
         )
 
       const page = app.pageByName(pageName)
-
-      builderService.selectElementNode(page.rootElement.current)
 
       const roots = [
         // This will load the custom components in the _app (provider page) for the regular pages since we also
@@ -92,6 +84,10 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
       console.debug(renderer)
 
       rendererService.setActiveRenderer(rendererRef(renderer.id))
+      builderService.selectElementNode(
+        renderer.runtimeRootContainerNode.runtimeRootElement,
+      )
+
       await renderer.expressionTransformer.init()
 
       return {

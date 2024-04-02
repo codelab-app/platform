@@ -1,18 +1,20 @@
+import type {
+  ICloneElementService,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import {
+  getBuilderService,
   getComponentService,
   getElementService,
   getRendererService,
+  isRuntimeElement,
+  runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import type {
-  ICloneElementService,
   IComponentModel,
   IElementModel,
 } from '@codelab/frontend/abstract/domain'
-import {
-  componentRef,
-  elementRef,
-  getBuilderDomainService,
-} from '@codelab/frontend/abstract/domain'
+import { componentRef } from '@codelab/frontend/abstract/domain'
 import { getPropService } from '@codelab/frontend/application/prop'
 import {
   getActionService,
@@ -78,8 +80,11 @@ export class CloneElementService
   @transaction
   convertElementToComponent = _async(function* (
     this: CloneElementService,
-    element: IElementModel,
+    runtimeElement: IRuntimeElementModel,
   ) {
+    const element = runtimeElement.element.current
+    const runtimeParentElement = runtimeElement.parentElement
+
     if (!element.closestParentElement) {
       throw new Error("Can't convert root element")
     }
@@ -145,7 +150,16 @@ export class CloneElementService
     )
 
     // 6. set newly created element as selected element in builder tree
-    this.builderService.setSelectedNode(elementRef(createdElement))
+    const runtimeCreatedElement = runtimeParentElement?.children.find(
+      (child): child is IRuntimeElementModel =>
+        isRuntimeElement(child) && child.element.id === createdElement.id,
+    )
+
+    if (runtimeCreatedElement) {
+      this.builderService.setSelectedNode(
+        runtimeElementRef(runtimeCreatedElement.compositeKey),
+      )
+    }
 
     return createdElement
   })
@@ -260,7 +274,7 @@ export class CloneElementService
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
       renderType: element.renderType.current.toJson,
-      style: element.style.toString(),
+      style: element.style,
     }
 
     const elementCloneModel =
@@ -314,7 +328,7 @@ export class CloneElementService
 
   @computed
   private get builderService() {
-    return getBuilderDomainService(this)
+    return getBuilderService(this)
   }
 
   @computed

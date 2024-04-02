@@ -1,26 +1,26 @@
-import { isElementRef } from '@codelab/frontend/abstract/domain'
+import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { useEffect, useState } from 'react'
 import type { CssProperty } from './css'
 import { DefaultCssProperties } from './css'
 
 export const useStyle = () => {
-  const { builderService, elementService } = useStore()
+  const { builderService, runtimeElementService } = useStore()
 
   const [currentStyles, setCurrentStyles] = useState<{
     [key: string]: string
   }>()
 
-  const currentStylePseudoClass = elementService.currentStylePseudoClass
+  const currentStylePseudoClass = runtimeElementService.currentStylePseudoClass
 
   useEffect(() => {
     loadCurrentStyles()
-  }, [elementService.currentStylePseudoClass])
+  }, [runtimeElementService.currentStylePseudoClass])
 
   const loadCurrentStyles = () => {
     if (
       builderService.selectedNode &&
-      isElementRef(builderService.selectedNode)
+      isRuntimeElementRef(builderService.selectedNode)
     ) {
       const newStyles = JSON.parse(
         builderService.selectedNode.current.style.guiCss(
@@ -48,7 +48,7 @@ export const useStyle = () => {
   const setStyle = (key: CssProperty, value: string) => {
     const { selectedNode } = builderService
 
-    if (!selectedNode || !isElementRef(selectedNode)) {
+    if (!selectedNode || !isRuntimeElementRef(selectedNode)) {
       return
     }
 
@@ -81,7 +81,7 @@ export const useStyle = () => {
   const removeStyles = (properties: Array<CssProperty>) => {
     const { selectedNode } = builderService
 
-    if (!selectedNode || !isElementRef(selectedNode)) {
+    if (!selectedNode || !isRuntimeElementRef(selectedNode)) {
       return
     }
 

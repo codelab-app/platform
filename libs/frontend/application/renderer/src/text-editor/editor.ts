@@ -1,8 +1,8 @@
 import type { OutputData } from '@editorjs/editorjs'
 
 export interface TextEditorProps {
+  compositeKey: string
   data?: string
-  elementId: string
   readOnly?: boolean
 }
 

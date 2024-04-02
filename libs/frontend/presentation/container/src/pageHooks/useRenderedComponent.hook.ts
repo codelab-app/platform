@@ -54,16 +54,18 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       component.elements,
     )
 
-    if (rootElement) {
-      builderService.selectElementNode(rootElement)
-      builderService.selectComponentNode(component)
-    }
-
     const renderer = rendererService.hydrate({
       containerNode: component,
       id: component.id,
       rendererType,
     })
+
+    if (renderer.runtimeComponent) {
+      builderService.selectElementNode(
+        renderer.runtimeRootContainerNode.runtimeRootElement,
+      )
+      builderService.selectComponentNode(renderer.runtimeComponent)
+    }
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()

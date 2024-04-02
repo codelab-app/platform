@@ -1,7 +1,7 @@
-import {
-  type IElementModel,
-  type MoveData,
-} from '@codelab/frontend/abstract/domain'
+import type {
+  IRuntimeElementModel,
+  MoveData,
+} from '@codelab/frontend/abstract/application'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/application/type'
@@ -15,7 +15,7 @@ import { moveElementSchema } from './move-element.schema'
 import { MoveElementAutoForm } from './MoveElementAutoForm'
 
 export interface MoveElementFormProps {
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
 }
 
 /**
@@ -27,90 +27,92 @@ export interface MoveElementFormProps {
  *
  * Not intended to be used in a modal
  */
-export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
-  const { atomService, elementService, rendererService } = useStore()
-  const elementTree = rendererService.activeElementTree
+export const MoveElementForm = observer<MoveElementFormProps>(
+  ({ runtimeElement }) => {
+    const { atomService, elementService, rendererService } = useStore()
+    const elementTree = rendererService.activeElementTree
+    const element = runtimeElement.element.current
 
-  // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
-  const { current: model } = useRef({
-    parentElement: { id: element.parentElement?.id },
-    prevSibling: { id: element.prevSibling?.current.id },
-  })
-
-  useEffect(() => {
-    model.prevSibling.id = element.prevSibling?.current.id
-    model.parentElement.id = element.parentElement?.id
-  }, [element.parentElement, element.prevSibling])
-
-  /**
-   * We either set the target parent, which adds as firstChild in move. Or we set the target sibling, which adds as sibling
-   */
-  const onSubmit = async ({ parentElement, prevSibling }: MoveData) => {
-    /**
-     * Create new model of desired state
-     */
-
-    const parentElementModel = elementService.elementDomainService.elements.get(
-      parentElement.id,
-    )
-
-    const prevSiblingModel = elementService.elementDomainService.elements.get(
-      prevSibling.id,
-    )
-
-    await elementService.move({
-      element,
-      nextSibling: prevSiblingModel,
-      parentElement: parentElementModel,
+    // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
+    const { current: model } = useRef({
+      parentElement: { id: element.parentElement?.id },
+      prevSibling: { id: element.prevSibling?.current.id },
     })
 
-    return Promise.resolve()
-  }
+    useEffect(() => {
+      model.prevSibling.id = element.prevSibling?.current.id
+      model.parentElement.id = element.parentElement?.id
+    }, [element.parentElement, element.prevSibling])
 
-  const elementAtomRequiredParents = atomService.atomDomainService.atoms
-    .get(element.renderType.id)
-    ?.requiredParents.map((parent) => parent.id)
+    /**
+     * We either set the target parent, which adds as firstChild in move. Or we set the target sibling, which adds as sibling
+     */
+    const onSubmit = async ({ parentElement, prevSibling }: MoveData) => {
+      /**
+       * Create new model of desired state
+       */
 
-  const elementOptions = elementAtomRequiredParents?.length
-    ? elementTree?.elements
-        .filter((el) =>
-          elementAtomRequiredParents.includes(el.renderType.id || ''),
-        )
-        .map(mapElementOption)
-    : elementTree?.elements.map(mapElementOption)
+      const parentElementModel =
+        elementService.elementDomainService.elements.get(parentElement.id)
 
-  return (
-    <div key={element.id}>
-      <MoveElementAutoForm<MoveData>
-        autosave
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while moving element',
-        })}
-        schema={moveElementSchema}
-        uiKey={MODEL_ACTION.MoveElement.key}
-      >
-        <AutoFields omitFields={['parentElement', 'prevSibling']} />
-        <AutoField
-          component={observer((props) => {
-            return (
-              <SelectExcludeDescendantsElements
-                allElementOptions={elementOptions}
-                allowClear={false}
-                targetElementId={element.id}
-                // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
-                {...(props as any)}
-              />
-            )
+      const prevSiblingModel = elementService.elementDomainService.elements.get(
+        prevSibling.id,
+      )
+
+      await elementService.move({
+        element,
+        nextSibling: prevSiblingModel,
+        parentElement: parentElementModel,
+      })
+
+      return Promise.resolve()
+    }
+
+    const elementAtomRequiredParents = atomService.atomDomainService.atoms
+      .get(element.renderType.id)
+      ?.requiredParents.map((parent) => parent.id)
+
+    const elementOptions = elementAtomRequiredParents?.length
+      ? elementTree?.elements
+          .filter((el) =>
+            elementAtomRequiredParents.includes(el.renderType.id || ''),
+          )
+          .map(mapElementOption)
+      : elementTree?.elements.map(mapElementOption)
+
+    return (
+      <div key={element.id}>
+        <MoveElementAutoForm<MoveData>
+          autosave
+          model={model}
+          onSubmit={onSubmit}
+          onSubmitError={createFormErrorNotificationHandler({
+            title: 'Error while moving element',
           })}
-          name="parentElement.id"
-        />
-        <SelectLinkElement
-          allElementOptions={elementOptions}
-          name="prevSibling.id"
-        />
-      </MoveElementAutoForm>
-    </div>
-  )
-})
+          schema={moveElementSchema}
+          uiKey={MODEL_ACTION.MoveElement.key}
+        >
+          <AutoFields omitFields={['parentElement', 'prevSibling']} />
+          <AutoField
+            component={observer((props) => {
+              return (
+                <SelectExcludeDescendantsElements
+                  allElementOptions={elementOptions}
+                  allowClear={false}
+                  targetElementId={element.id}
+                  // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
+                  {...(props as any)}
+                />
+              )
+            })}
+            name="parentElement.id"
+          />
+          <SelectLinkElement
+            allElementOptions={elementOptions}
+            name="prevSibling.id"
+          />
+        </MoveElementAutoForm>
+      </div>
+    )
+  },
+)

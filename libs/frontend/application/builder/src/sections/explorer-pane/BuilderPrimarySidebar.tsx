@@ -1,14 +1,15 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type {
-  IInterfaceTypeModel,
-  IPageNode,
-} from '@codelab/frontend/abstract/domain'
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
+import {
+  isRuntimeComponent,
+  isRuntimeElement,
+  RendererTab,
+} from '@codelab/frontend/abstract/application'
+import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   elementTreeRef,
   isComponent,
-  isElement,
-  RendererTab,
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -64,21 +65,18 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const { component } = useCurrentComponent()
     const containerNode = page ?? component
     const store = containerNode?.store.current
-
-    const runtimeContainerNode = containerNode
-      ? rendererService.runtimeContainerNode(containerNode)
-      : undefined
-
+    const renderer = rendererService.activeRenderer?.current
+    const runtimeContainerNode = renderer?.runtimeContainerNode
     const runtimeStore = runtimeContainerNode?.runtimeStore
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
     const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
 
-    const selectTreeNode = (node: IPageNode) => {
-      if (isComponent(node)) {
+    const selectTreeNode = (node: IRuntimeModel) => {
+      if (isRuntimeComponent(node)) {
         return builderService.selectComponentNode(node)
       }
 
-      if (isElement(node)) {
+      if (isRuntimeElement(node)) {
         return builderService.selectElementNode(node)
       }
     }

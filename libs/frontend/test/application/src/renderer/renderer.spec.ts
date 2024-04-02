@@ -1,3 +1,5 @@
+import { RendererType } from '@codelab/frontend/abstract/application'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
 import { setupComponent, setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
@@ -12,28 +14,23 @@ describe('Renderer', () => {
   })
 
   it('should create page runtime nodes', () => {
-    const { rendererService } = rootApplicationStore
-    const { page } = setupPages(testbed)
-
-    const runtimeProviderPage = page.providerPage
-      ? rendererService.runtimeContainerNode(page.providerPage)
-      : undefined
-
-    const runtimePage = rendererService.runtimeContainerNode(page)
+    const { page, runtimePage, runtimeProviderPage } = setupPages(
+      testbed,
+      RendererType.Preview,
+      IPageKind.Regular,
+    )
 
     // Test the creation of provider page node
-    expect(runtimeProviderPage?.containerNode.id).toBe(page.providerPage?.id)
+    expect(runtimeProviderPage?.page.id).toBe(page.providerPage?.id)
 
     // Test the creation of page node
-    expect(runtimePage?.containerNode.id).toBe(page.id)
+    expect(runtimePage?.page.id).toBe(page.id)
   })
 
   it('should create component runtime node', () => {
-    const { rendererService } = rootApplicationStore
-    const { component } = setupComponent(testbed)
-    const runtimeComponent = rendererService.runtimeContainerNode(component)
+    const { component, renderer } = setupComponent(testbed)
 
-    expect(runtimeComponent?.containerNode.id).toBe(component.id)
+    expect(renderer.runtimeComponent?.component.id).toBe(component.id)
   })
 
   afterAll(() => {

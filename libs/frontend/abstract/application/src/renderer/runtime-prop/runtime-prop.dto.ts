@@ -1,5 +1,5 @@
 import type { Ref } from 'mobx-keystone'
-import type { IRuntimeContainerNodeModel } from '../runtime-container-node'
+import type { IRuntimeComponentModel } from '../runtime-component'
 import type { IRuntimeElementModel } from '../runtime-element'
 
 export interface IRuntimeElementPropDTO {
@@ -7,5 +7,5 @@ export interface IRuntimeElementPropDTO {
 }
 
 export interface IRuntimeComponentPropDTO {
-  runtimeComponent: Ref<IRuntimeContainerNodeModel>
+  runtimeComponent: Ref<IRuntimeComponentModel>
 }

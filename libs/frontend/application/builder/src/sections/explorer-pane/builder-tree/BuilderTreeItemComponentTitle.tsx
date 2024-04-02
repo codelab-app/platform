@@ -1,43 +1,34 @@
-import {
-  type IComponentModel,
-  type IElementService,
-  isElementRef,
-} from '@codelab/frontend/abstract/domain'
-import { CreateElementButton } from '@codelab/frontend/domain/element'
+import { isRuntimeElement } from '@codelab/frontend/abstract/application'
+import { type IComponentModel } from '@codelab/frontend/abstract/domain'
+import { CreateElementButton } from '@codelab/frontend/application/element'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-interface BuilderTreeItemComponentTitleProps {
-  builderService: IBuilderService
+export const BuilderTreeItemComponentTitle = observer<{
   component: IComponentModel
-  elementService: IElementService
-}
+}>(({ component }) => {
+  const { builderService, elementService } = useStore()
+  const selectedNode = builderService.selectedNode
 
-export const BuilderTreeItemComponentTitle = observer(
-  ({
-    builderService,
-    component,
-    elementService,
-  }: BuilderTreeItemComponentTitleProps) => {
-    const { selectedNode } = builderService
+  const element =
+    selectedNode && isRuntimeElement(selectedNode)
+      ? selectedNode.element.current
+      : undefined
 
-    const selectedNodeId =
-      selectedNode && isElementRef(selectedNode) ? selectedNode.id : undefined
-
-    return (
-      <Row justify="space-between">
-        <Col className="px-2">{component.name}</Col>
-        <Col className="px-2">
-          <CreateElementButton
-            createElementForm={elementService.createForm}
-            elementTree={component}
-            key={0}
-            selectedElementId={selectedNodeId}
-            type="text"
-          />
-        </Col>
-      </Row>
-    )
-  },
-)
+  return (
+    <Row justify="space-between">
+      <Col className="px-2">{component.name}</Col>
+      <Col className="px-2">
+        <CreateElementButton
+          createElementForm={elementService.createForm}
+          elementTree={component}
+          key={0}
+          selectedElementId={element?.id}
+          type="text"
+        />
+      </Col>
+    </Row>
+  )
+})

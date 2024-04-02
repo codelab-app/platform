@@ -4,6 +4,7 @@ import type {
   IAppService,
   IAtomService,
   IAuthGuardService,
+  IBuilderService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
@@ -15,6 +16,8 @@ import type {
   IResourceService,
   IRootStore,
   IRouterService,
+  IRuntimeComponentService,
+  IRuntimeElementService,
   IStoreService,
   ITagService,
   ITracerService,
@@ -25,23 +28,22 @@ import type {
 import {
   appServiceContext,
   authGuardServiceContext,
+  builderServiceContext,
   componentServiceContext,
   elementServiceContext,
   redirectServiceContext,
   rendererServiceContext,
   resourceServiceContext,
+  runtimeComponentServiceContext,
+  runtimeElementServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
-import type {
-  IBuilderDomainService,
-  ITagDomainService,
-} from '@codelab/frontend/abstract/domain'
+import type { ITagDomainService } from '@codelab/frontend/abstract/domain'
 import {
   actionDomainServiceContext,
   appDomainServiceContext,
   atomDomainServiceContext,
   authGuardDomainServiceContext,
-  builderDomainServiceContext,
   componentDomainServiceContext,
   elementDomainServiceContext,
   fieldDomainServiceContext,
@@ -59,6 +61,7 @@ import {
   atomServiceContext,
 } from '@codelab/frontend/application/atom'
 import { AuthGuardService } from '@codelab/frontend/application/auth-guard'
+import { BuilderService } from '@codelab/frontend/application/builder'
 import { ComponentApplicationService } from '@codelab/frontend/application/component'
 import {
   DomainService,
@@ -74,7 +77,11 @@ import {
   propServiceContext,
 } from '@codelab/frontend/application/prop'
 import { RedirectService } from '@codelab/frontend/application/redirect'
-import { RendererApplicationService } from '@codelab/frontend/application/renderer'
+import {
+  RendererApplicationService,
+  RuntimeComponentService,
+  RuntimeElementService,
+} from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { RouterService } from '@codelab/frontend/application/shared/store'
 import {
@@ -94,7 +101,6 @@ import {
   typeServiceContext,
 } from '@codelab/frontend/application/type'
 import { UserService } from '@codelab/frontend/application/user'
-import { BuilderDomainService } from '@codelab/frontend/domain/builder'
 import { TagDomainService } from '@codelab/frontend/domain/tag'
 import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
@@ -109,9 +115,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       appService: prop<IAppService>(() => new AppService({})),
       atomService: prop<IAtomService>(() => new AtomService({})),
       authGuardService: prop<IAuthGuardService>(() => new AuthGuardService({})),
-      builderService: prop<IBuilderDomainService>(
-        () => new BuilderDomainService({}),
-      ),
+      builderService: prop<IBuilderService>(() => new BuilderService({})),
       componentService: prop<IComponentApplicationService>(
         () => new ComponentApplicationService({}),
       ),
@@ -132,6 +136,12 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       resourceService: prop<IResourceService>(() => new ResourceService({})),
       routerService: prop<IRouterService>(() =>
         RouterService.init(routerQuery),
+      ),
+      runtimeComponentService: prop<IRuntimeComponentService>(
+        () => new RuntimeComponentService({}),
+      ),
+      runtimeElementService: prop<IRuntimeElementService>(
+        () => new RuntimeElementService({}),
       ),
       storeService: prop<IStoreService>(() => new StoreService({})),
       tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
@@ -154,6 +164,8 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
       this.tagService.tagDomainService.tags.clear()
       this.userService.userDomainService.users.clear()
       this.rendererService.renderers.clear()
+      this.runtimeComponentService.components.clear()
+      this.runtimeElementService.elements.clear()
       this.redirectService.redirectDomainService.redirects.clear()
     }
 
@@ -189,7 +201,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.elementService.elementDomainService,
       )
-      builderDomainServiceContext.set(this, this.builderService)
+      builderServiceContext.set(this, this.builderService)
       userServiceContext.set(this, this.userService)
       userDomainServiceContext.set(this, this.userService.userDomainService)
       tagServiceContext.set(this, this.tagService)
@@ -204,6 +216,8 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this.redirectService.redirectDomainService,
       )
       rendererServiceContext.set(this, this.rendererService)
+      runtimeElementServiceContext.set(this, this.runtimeElementService)
+      runtimeComponentServiceContext.set(this, this.runtimeComponentService)
       actionDomainServiceContext.set(
         this,
         this.actionService.actionDomainService,

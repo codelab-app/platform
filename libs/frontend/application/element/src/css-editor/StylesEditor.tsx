@@ -1,5 +1,5 @@
 import CaretRightOutlined from '@ant-design/icons/CaretRightOutlined'
-import { ElementStylePseudoClass } from '@codelab/frontend/abstract/domain'
+import { ElementStylePseudoClass } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { Collapse, ConfigProvider, Select, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -22,7 +22,7 @@ const panelHeader = (title: string) => {
 
 export const StylesEditor = observer(() => {
   const className = '[&>*:first-child]:bg-gray-100 [&>*:first-child]:!py-1.5'
-  const { elementService } = useStore()
+  const { runtimeElementService } = useStore()
 
   return (
     <ConfigProvider
@@ -47,13 +47,15 @@ export const StylesEditor = observer(() => {
       <div>Style Selector: </div>
       <Select
         className="mb-2 w-full"
-        onSelect={(value) => elementService.setCurrentStylePseudoClass(value)}
+        onSelect={(value) =>
+          runtimeElementService.setCurrentStylePseudoClass(value)
+        }
         options={[
           { label: 'None', value: ElementStylePseudoClass.None },
           { label: 'Hover', value: ElementStylePseudoClass.Hover },
           { label: 'Focused', value: ElementStylePseudoClass.Focus },
         ]}
-        value={elementService.currentStylePseudoClass}
+        value={runtimeElementService.currentStylePseudoClass}
       />
       <Collapse
         bordered={false}

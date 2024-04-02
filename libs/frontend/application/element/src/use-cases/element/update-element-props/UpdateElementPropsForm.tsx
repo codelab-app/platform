@@ -1,4 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { isComponent } from '@codelab/frontend/abstract/domain'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/application/admin'
@@ -11,23 +11,22 @@ import type { IPropData } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
-import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
-  element: Ref<IElementModel>
+  runtimeElement: IRuntimeElementModel
 }
 
 /**
  * A `element` is associated with either `atom` api or `component` api, we load the API type so the prop form shows up.
  */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ element }) => {
+  ({ runtimeElement }) => {
     const { componentService, propService, rendererService, typeService } =
       useStore()
 
-    const currentElement = element.current
+    const currentElement = runtimeElement.element.current
     const apiId = currentElement.renderType.current.api.id
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(
@@ -47,7 +46,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
-      const props = element.current.props
+      const props = currentElement.props
       const renderTypeApi = currentElement.renderType.current.api.current
 
       return propService.updateWithDefaultValuesApplied(props, {
@@ -79,8 +78,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       submitRef.current?.validate?.()
     }, [submitRef.current])
 
-    const runtimeElement = rendererService.runtimeElement(currentElement)
-    const runtimeProps = runtimeElement?.runtimeProps
+    const runtimeProps = runtimeElement.runtimeProps
 
     return (
       <Spinner isLoading={status === 'loading'}>
@@ -88,11 +86,11 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           <Row className="mb-5" gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
-                autocomplete={runtimeProps?.expressionEvaluationContext}
+                autocomplete={runtimeProps.expressionEvaluationContext}
                 autosave
                 initialSchema={{}}
                 interfaceType={interfaceType}
-                key={element.id}
+                key={runtimeElement.compositeKey}
                 model={propsModel}
                 onSubmit={onSubmit}
                 submitField={React.Fragment}

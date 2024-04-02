@@ -1,6 +1,5 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
-import { isElementRef } from '@codelab/frontend/abstract/domain'
+import { isRuntimeElementRef } from '@codelab/frontend/abstract/application'
+import { useStore } from '@codelab/frontend/application/shared/store'
 import {
   HoverOverlay,
   MarginPaddingOverlay,
@@ -12,14 +11,13 @@ import { createPortal } from 'react-dom'
 import { queryRenderedElementById } from '../../utils'
 
 export const BuilderHoverOverlay = observer<{
-  builderService: IBuilderDomainService
-  elementService: IElementService
   renderContainerRef: React.MutableRefObject<HTMLElement | null>
-}>(({ builderService, renderContainerRef }) => {
+}>(({ renderContainerRef }) => {
+  const { builderService } = useStore()
   const hoveredNode = builderService.hoveredNode
   const selectedNode = builderService.selectedNode
 
-  if (isServer || !hoveredNode || !isElementRef(hoveredNode)) {
+  if (isServer || !hoveredNode || !isRuntimeElementRef(hoveredNode)) {
     return null
   }
 

@@ -1,8 +1,8 @@
 import type {
-  IBuilderDomainService,
   IComponentModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
+import type { IBuilderService } from '../builder'
 import type { RendererType } from './renderer.model.interface'
 
 export interface IRendererDto {
@@ -12,6 +12,6 @@ export interface IRendererDto {
   containerNode: IComponentModel | IPageModel
   id: string
   rendererType: RendererType
-  setSelectedNode?: IBuilderDomainService['setSelectedNode']
+  setSelectedNode?: IBuilderService['setSelectedNode']
   urlSegments?: Record<string, string>
 }

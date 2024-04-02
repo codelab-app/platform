@@ -85,11 +85,11 @@ describe('Testing the Form atom', () => {
       'be.visible',
     )
 
-    cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).clear()
-    cy.get(`#render-root #${elementFormItem_1.propsData?.name}`).type(
-      'testing',
-      { delay: 50 },
-    )
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
+    cy.get(`#render-root #${elementFormItem_1.propsData?.name}`)
+      .clear()
+      .type('testing', { delay: 100 })
+      .should('have.value', 'testing')
 
     cy.get(`#render-root #${elementFormItem_2.propsData?.name}`).click()
     cy.findByText('Select Option B').click()

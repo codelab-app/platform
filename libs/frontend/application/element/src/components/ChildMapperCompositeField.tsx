@@ -1,5 +1,4 @@
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import { useStore } from '@codelab/frontend/application/shared/store'
+import type { IRuntimeElementModel } from '@codelab/frontend/abstract/application'
 import { SelectComponent } from '@codelab/frontend/application/type'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
@@ -12,11 +11,11 @@ import { useField } from 'uniforms'
 import { SelectLinkElement } from './SelectLinkElement'
 
 interface ChildMapperFieldsProps {
-  element: IElementModel
+  runtimeElement: IRuntimeElementModel
 }
 
-const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
-  const { rendererService } = useStore()
+const ChildMapperFields = ({ runtimeElement }: ChildMapperFieldsProps) => {
+  const element = runtimeElement.element.current
 
   const [childMapperComponentFieldProps] = useField<{ value?: IRef }>(
     'childMapperComponent',
@@ -35,8 +34,7 @@ const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
         label={null}
         name="childMapperPropKey"
         options={Object.keys(
-          rendererService.runtimeElement(element)?.runtimeProps
-            .expressionEvaluationContext || {},
+          runtimeElement.runtimeProps.expressionEvaluationContext,
         )
           .sort()
           .map((label) => ({ label, value: label }))}

@@ -1,13 +1,11 @@
-import type {
-  IElementTree,
-  IPageNodeRef,
-} from '@codelab/frontend/abstract/domain'
+import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
+import type { IElementTree } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { createContext, useContext } from 'react'
 
 export interface FormContextValue {
   elementTree: Maybe<IElementTree>
-  selectedNode: Maybe<IPageNodeRef>
+  selectedNode: Maybe<IRuntimeModel>
 }
 
 const FormContext = createContext<FormContextValue>({

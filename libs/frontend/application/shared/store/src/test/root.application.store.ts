@@ -4,6 +4,7 @@ import type {
   IAppService,
   IAtomService,
   IAuthGuardService,
+  IBuilderService,
   IComponentApplicationService,
   IDomainService,
   IElementService,
@@ -16,13 +17,14 @@ import type {
   IRootStore,
   IRootStoreDtoTest,
   IRouterService,
+  IRuntimeComponentService,
+  IRuntimeElementService,
   IStoreService,
   ITagService,
   ITracerService,
   ITypeService,
   IUserService,
 } from '@codelab/frontend/abstract/application'
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
@@ -38,7 +40,7 @@ export const createRootApplicationStore = ({
       appService: prop<Maybe<IAppService>>(undefined),
       atomService: prop<Maybe<IAtomService>>(undefined),
       authGuardService: prop<Maybe<IAuthGuardService>>(() => undefined),
-      builderService: prop<Maybe<IBuilderDomainService>>(undefined),
+      builderService: prop<Maybe<IBuilderService>>(undefined),
       componentService: prop<Maybe<IComponentApplicationService>>(undefined),
       domainService: prop<Maybe<IDomainService>>(undefined),
       elementApplicationService: prop<Maybe<IElementService>>(undefined),
@@ -50,6 +52,8 @@ export const createRootApplicationStore = ({
       rendererService: prop<Maybe<IRendererService>>(undefined),
       resourceService: prop<Maybe<IResourceService>>(undefined),
       routerService: prop<Maybe<IRouterService>>(undefined),
+      runtimeComponentService: prop<Maybe<IRuntimeComponentService>>(undefined),
+      runtimeElementService: prop<Maybe<IRuntimeElementService>>(undefined),
       storeService: prop<Maybe<IStoreService>>(undefined),
       tagService: prop<Maybe<ITagService>>(() => undefined),
       tracerService: prop<Maybe<ITracerService>>(() => undefined),
@@ -75,6 +79,8 @@ export const createRootApplicationStore = ({
       this.tagService?.tagDomainService.tags.clear()
       this.userService?.userDomainService.users.clear()
       this.rendererService?.renderers.clear()
+      this.runtimeComponentService?.components.clear()
+      this.runtimeElementService?.elements.clear()
     }
 
     protected onInit() {
@@ -85,7 +91,7 @@ export const createRootApplicationStore = ({
         appServiceContext,
         atomDomainServiceContext,
         atomServiceContext,
-        builderDomainServiceContext,
+        builderServiceContext,
         componentDomainServiceContext,
         componentServiceContext,
         domainServiceContext,
@@ -99,6 +105,8 @@ export const createRootApplicationStore = ({
         rendererServiceContext,
         resourceDomainServiceContext,
         resourceServiceContext,
+        runtimeComponentServiceContext,
+        runtimeElementServiceContext,
         storeDomainServiceContext,
         storeServiceContext,
         tagServiceContext,
@@ -133,6 +141,8 @@ export const createRootApplicationStore = ({
       )
       actionServiceContext?.set(this, this.actionService)
       storeServiceContext?.set(this, this.storeService)
+      runtimeElementServiceContext?.set(this, this.runtimeElementService)
+      runtimeComponentServiceContext?.set(this, this.runtimeComponentService)
       storeDomainServiceContext?.set(
         this,
         this.storeService?.storeDomainService,
@@ -148,7 +158,7 @@ export const createRootApplicationStore = ({
         this,
         this.elementService?.elementDomainService,
       )
-      builderDomainServiceContext?.set(this, this.builderService)
+      builderServiceContext?.set(this, this.builderService)
       userServiceContext?.set(this, this.userService)
       userDomainServiceContext?.set(this, this.userService?.userDomainService)
       tagServiceContext?.set(this, this.tagService)

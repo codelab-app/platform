@@ -15,12 +15,21 @@ export type SelectActionProps = Pick<
 }
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
-  const { actionService } = useStore()
+  const { actionService, builderService } = useStore()
+  const selectedNode = builderService.selectedNode?.current
+  const runtimeStore = selectedNode?.runtimeStore
+  const store = runtimeStore?.store.current
 
-  const selectActionOptions =
-    actionService.actionDomainService.getSelectActionOptions(
-      fieldProps.updatedAction,
-    )
+  const providerStore =
+    runtimeStore?.runtimeProviderStore?.current.store.current
+
+  const selectActionOptions = store
+    ? actionService.actionDomainService.getSelectActionOptions(
+        store,
+        providerStore,
+        fieldProps.updatedAction,
+      )
+    : []
 
   return (
     <SelectField

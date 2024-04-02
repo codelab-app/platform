@@ -89,7 +89,7 @@ describe('Runtime Element props', () => {
         const fieldKey = 'fieldKey'
         const fieldDefaultValue = 'some-value'
         const propKey = 'propKey'
-        const store = page.providerPage?.store ?? element.store
+        const store = page.providerPage?.store ?? page.store
         const storeApi = store.current.api.current
 
         const field = testbed.addField({
@@ -327,7 +327,6 @@ describe('Runtime Element props', () => {
       const { element, page, rendered, runtimeElement } = setupRuntimeElement(
         testbed,
         RendererType.Preview,
-        pageKind,
       )
 
       const runtimeProps = runtimeElement.runtimeProps
@@ -410,7 +409,7 @@ describe('Runtime Element props', () => {
 
         const field = testbed.addField({
           api: storeApi,
-          defaultValues: 'default value',
+          defaultValues: JSON.stringify('default value'),
           fieldType: testbed.getStringType(),
           key: rootStateName,
         })
@@ -473,7 +472,7 @@ describe('Runtime Element props', () => {
     })
 
     it('should evaluate url props expression', () => {
-      const { element, page, rendererId, runtimeElement } =
+      const { element, page, renderer, runtimeElement } =
         setupRuntimeElement(testbed)
 
       const urlKey = 'urlKey'
@@ -487,7 +486,7 @@ describe('Runtime Element props', () => {
 
       testbed.addRenderer({
         containerNode: page,
-        id: rendererId,
+        id: renderer.id,
         rendererType: RendererType.Preview,
         urlSegments: { [urlKey]: urlPropValue },
       })

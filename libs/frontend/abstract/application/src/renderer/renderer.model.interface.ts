@@ -1,16 +1,17 @@
 import type {
   IComponentModel,
-  IElementModel,
-  IExpressionTransformer,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { ErrorBoundaryProps } from 'react-error-boundary'
 import type { ArrayOrSingle } from 'ts-essentials/dist/types'
+import type { IExpressionTransformer } from '../builder'
 import type { IRenderOutput, IRenderPipe } from './render.interface'
-import type { IRuntimeContainerNodeModel } from './runtime-container-node'
+import type { IRuntimeComponentModel } from './runtime-component'
+import type { IRuntimeElementModel } from './runtime-element'
+import type { IRuntimePageModel } from './runtime-page'
 import type { ITypedPropTransformer } from './typed-prop-transformer.interface'
 
 export const enum RendererType {
@@ -28,15 +29,16 @@ export interface IRendererModel {
   render: Nullable<ReactElement>
   renderPipe: IRenderPipe
   rendererType: RendererType
-  rootElement: IElementModel
-  runtimeRootContainerNode: IRuntimeContainerNodeModel
+  runtimeComponent?: IRuntimeComponentModel
+  runtimeContainerNode: Maybe<IRuntimeComponentModel> | Maybe<IRuntimePageModel>
+  runtimePage?: IRuntimePageModel
+  runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 }
 
 export interface ElementWrapperProps {
   children: ArrayOrSingle<React.ReactNode>
-  element: IElementModel
   errorBoundary: Omit<ErrorBoundaryProps, 'fallbackRender'>
   key: string
   /**
@@ -44,5 +46,6 @@ export interface ElementWrapperProps {
    */
   renderOutput: IRenderOutput
   renderer: IRendererModel
+  runtimeElement: IRuntimeElementModel
   onRendered(): void
 }

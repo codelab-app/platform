@@ -16,11 +16,8 @@ export const useActionSchema = (
   const { actionService, rendererService } = useStore()
 
   return useMemo(() => {
-    const store =
-      actionService.createForm.store ??
-      actionService.updateForm.action?.store.current
-
-    const runtimeStore = store ? rendererService.runtimeStore(store) : undefined
+    const renderer = rendererService.activeRenderer?.current
+    const runtimeStore = renderer?.runtimeContainerNode?.runtimeStore
 
     const forbiddenValues = Object.keys(runtimeStore?.state ?? {}).filter(
       (fieldName) => fieldName !== actionService.updateForm.action?.name,

@@ -1,10 +1,13 @@
-import type { IElementService } from '@codelab/frontend/abstract/application'
-import type { IBuilderDomainService } from '@codelab/frontend/abstract/domain'
-import { isElementRef } from '@codelab/frontend/abstract/domain'
+import {
+  type IBuilderService,
+  type IElementService,
+  isRuntimeElementRef,
+} from '@codelab/frontend/abstract/application'
+import { elementRef } from '@codelab/frontend/abstract/domain'
 import { useHotkeys } from 'react-hotkeys-hook'
 
 type UseBuilderHotkeysProps = Pick<
-  IBuilderDomainService,
+  IBuilderService,
   'selectedNode' | 'setSelectedNode'
 > &
   Pick<IElementService, 'deleteModal'>
@@ -23,11 +26,14 @@ export const useBuilderHotkeys = ({
     'del,backspace',
     () => {
       if (selectedNode) {
-        const isRootElement =
-          isElementRef(selectedNode) && selectedNode.current.isRoot
+        const element = isRuntimeElementRef(selectedNode)
+          ? selectedNode.current.element.current
+          : undefined
 
-        if (!isRootElement && isElementRef(selectedNode)) {
-          deleteModal.open(selectedNode)
+        const isRootElement = element?.isRoot
+
+        if (element && !isRootElement) {
+          deleteModal.open(elementRef(element))
         }
       }
     },
