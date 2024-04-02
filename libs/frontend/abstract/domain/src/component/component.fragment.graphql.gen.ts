@@ -16,7 +16,6 @@ export type ComponentFragment = {
   id: string
   name: string
   api: InterfaceTypeFragment
-  childrenContainerElement: { id: string }
   owner: OwnerFragment
   props: PropFragment
   rootElement: { id: string; name: string }
@@ -26,7 +25,6 @@ export type ComponentFragment = {
 export type ComponentProductionFragment = {
   id: string
   name: string
-  childrenContainerElement: { id: string }
   owner: OwnerFragment
   props: PropFragment
   rootElement: { id: string; name: string }
@@ -38,9 +36,6 @@ export const ComponentFragmentDoc = gql`
     __typename
     api {
       ...InterfaceType
-    }
-    childrenContainerElement {
-      id
     }
     id
     name
@@ -65,9 +60,6 @@ export const ComponentFragmentDoc = gql`
 `
 export const ComponentProductionFragmentDoc = gql`
   fragment ComponentProduction on Component {
-    childrenContainerElement {
-      id
-    }
     id
     name
     owner {

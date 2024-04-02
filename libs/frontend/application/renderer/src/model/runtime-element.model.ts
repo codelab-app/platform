@@ -13,21 +13,17 @@ import {
   getRuntimeComponentService,
   getRuntimeElementService,
   IElementTreeViewDataNode,
-  IRuntimeComponentModel,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
-  elementRef,
+  CUSTOM_TEXT_PROP_KEY,
   getComponentDomainService,
-  IElementModel,
   isAtom,
   isComponent,
-  isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
@@ -147,7 +143,16 @@ export class RuntimeElementModel
             renderType,
             this,
             // pass instance element children to be transformed later
-            element.children.map((child) => elementRef(child.id)),
+            element.children.map((child) =>
+              runtimeElementRef(
+                this.runtimeElementService.add(
+                  child,
+                  container,
+                  this,
+                  this.propKey,
+                ),
+              ),
+            ),
             this.propKey,
           ),
         ]
@@ -166,27 +171,6 @@ export class RuntimeElementModel
       if (container.childPage && shouldAttachPage) {
         children.push(container.childPage)
       }
-    }
-
-    /**
-     * Attach instance element children to runtime element tree
-     */
-    const shouldAddInstanceElementChildren =
-      isRuntimeComponent(container) &&
-      container.component.current.childrenContainerElement.id ===
-        this.element.id
-
-    if (shouldAddInstanceElementChildren) {
-      const instanceChildren = container.children.map((child) =>
-        this.runtimeElementService.add(
-          child.current,
-          container,
-          this,
-          this.propKey,
-        ),
-      )
-
-      children.push(...instanceChildren)
     }
 
     const previousSibling = element.childMapperPreviousSibling
@@ -199,318 +183,6 @@ export class RuntimeElementModel
     children.splice(previousSiblingIndex + 1, 0, ...this.childMapperChildren)
 
     return children
-  }
-
-  @computed
-  get componentDomainService() {
-    return getComponentDomainService(this)
-  }
-
-  @computed
-  get parentElement() {
-    return this.parentElementKey
-      ? this.runtimeElementService.elements.get(this.parentElementKey)
-      : undefined
-  }
-
-  @computed
-  get render(): Nullable<ReactElement> {
-    if (this.shouldRender === false) {
-      return null
-    }
-
-    // Render the element to an intermediate output
-    const renderOutput = this.renderer.renderPipe.render(this)
-    const children = this.renderChildren
-
-    for (let index = 0; index < props.length; index++) {
-      const runtimeComponent = this.runtimeComponentService.add(
-        component,
-        this,
-        [],
-        this.propKey,
-        index,
-      )
-
-      childMapperChildren.push(runtimeComponent)
-    }
-
-    const keyStart = RuntimeComponentModel.compositeKey(
-      component,
-      this,
-      this.propKey,
-    )
-
-    const newKeys = childMapperChildren.map(
-      (runtimeComponent) => runtimeComponent.compositeKey,
-    )
-
-    this.cleanupChildMapperNodes(keyStart, newKeys)
-
-  /**
-   * Renders the elements children
-   */
-  @computed
-  get renderChildren(): ArrayOrSingle<ReactNode> {
-    const renderedChildren = compact(this.children.map((child) => child.render))
-    const hasNoChildren = this.children.length === 0
-    const hasOneChild = this.children.length === 1
-
-    if (hasNoChildren) {
-      // Inject text, but only if we have no regular children
-      const injectedText =
-        this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
-
-      const shouldInjectText =
-        isAtom(this.element.current.renderType.current) &&
-        this.element.current.renderType.current.allowCustomTextInjection
-
-      if (shouldInjectText) {
-        const readOnly = !this.element.current.isTextContentEditable
-
-        return this.renderer.rendererType === RendererType.Preview ||
-          this.renderer.rendererType === RendererType.Production
-          ? createTextRenderer(injectedText)
-          : createTextEditor(injectedText, this.element.id, readOnly)
-      }
-
-      /*
-       * It's important to be undefined if we have no children to display,
-       * since void components like input will throw an error if their children prop isn't undefined
-       */
-      return undefined
-    }
-
-    /*
-     * If we have only one child, just return it.
-     * Ant Design doesn't handle array children well in some cases, like Forms
-     */
-    if (hasOneChild) {
-      return renderedChildren[0]
-    }
-
-    return renderedChildren
-  }
-
-  @computed
-  get renderer() {
-    const activeRenderer = getRendererService(this).activeRenderer?.current
-
-    if (!activeRenderer) {
-      throw new Error('No active Renderer was found')
-    }
-
-    return activeRenderer
-  }
-
-  @computed
-  get runtimeElementsList() {
-    return [...this._runtimeElements.values()]
-  }
-
-  @computed
-  get runtimeStore() {
-    return this.closestContainerNode.current.runtimeStore
-  }
-
-  @computed
-  get children() {
-    const container = this.closestContainerNode.current
-    const element = this.element.current
-    const renderType = element.renderType.current
-    const shouldRenderComponent = isComponent(renderType)
-
-    const children: Array<IRuntimeModel> = shouldRenderComponent
-      ? [
-          // put component as a child instead of instance element children
-          this.runtimeComponentService.add(
-            renderType,
-            this,
-            // pass instance element children to be transformed later
-            element.children.map((child) => elementRef(child.id)),
-            this.propKey,
-          ),
-        ]
-      : element.children.map((child) =>
-          this.runtimeElementService.add(child, container, this, this.propKey),
-        )
-
-    /**
-     * Attach regular page to runtime element tree
-     */
-
-    if (isRuntimePage(container)) {
-      const page = container.page.current
-      const shouldAttachPage = page.pageContentContainer?.id === this.element.id
-
-      if (container.childPage && shouldAttachPage) {
-        children.push(container.childPage)
-      }
-    }
-
-    /**
-     * Attach instance element children to runtime element tree
-     */
-    const shouldAddInstanceElementChildren =
-      isRuntimeComponent(container) &&
-      container.component.current.childrenContainerElement.id ===
-        this.element.id
-
-    if (shouldAddInstanceElementChildren) {
-      const instanceChildren = container.children.map((child) =>
-        this.runtimeElementService.add(
-          child.current,
-          container,
-          this,
-          this.propKey,
-        ),
-      )
-
-      children.push(...instanceChildren)
-    }
-
-    this._childPage = RuntimePageModel.create({
-      page: pageRef(page.id),
-      runtimeParent: runtimeElementRef(this.id),
-      runtimeStore: RuntimeStoreModel.create({
-        runtimeProviderStore: runtimeStoreRef(this.runtimeStore.id),
-        store: storeRef(page.store.id),
-      }),
-    })
-
-    return this._childPage
-  }
-
-  @modelAction
-  addComponent(
-    component: IComponentModel,
-    runtimeParent: IRef,
-    children: Array<Ref<IElementModel>> = [],
-    childMapperIndex?: number,
-    isTypedProp?: boolean,
-  ): IRuntimeComponentModel {
-    const componentsList = [...this._runtimeComponents.values()]
-
-    const foundComponent = componentsList.find(
-      (runtimeComponent) =>
-        runtimeComponent.component.id === component.id &&
-        isNil(childMapperIndex),
-    )
-
-    if (foundComponent) {
-      return foundComponent
-    }
-
-    const id = v4()
-
-    const runtimeComponent = RuntimeComponentModel.create({
-      childMapperIndex,
-      children,
-      component: componentRef(component.id),
-      id,
-      isTypedProp,
-      runtimeParent: runtimeElementRef(runtimeParent.id),
-      runtimeProps: RuntimeComponentPropModel.create({
-        runtimeComponent: runtimeComponentRef(id),
-      }),
-      runtimeStore: RuntimeStoreModel.create({
-        store: storeRef(component.store.id),
-      }),
-    })
-
-    this._runtimeComponents.set(runtimeComponent.id, runtimeComponent)
-
-    return runtimeComponent
-  }
-
-  @modelAction
-  addElement(element: IElementModel): IRuntimeElementModel {
-    const elementsList = [...this._runtimeElements.values()]
-
-    const foundElement = elementsList.find(
-      (runtimeElement) => runtimeElement.element.id === element.id,
-    )
-
-    if (foundElement) {
-      return foundElement
-    }
-
-    const id = v4()
-
-    const runtimeElement = RuntimeElementModel.create({
-      closestContainerNode: isRuntimePage(this.closestContainerNode.current)
-        ? runtimePageRef(this.closestContainerNode.id)
-        : runtimeComponentRef(this.closestContainerNode.id),
-      element: elementRef(element),
-      id,
-      runtimeProps: RuntimeElementPropsModel.create({
-        runtimeElement: runtimeElementRef(id),
-      }),
-    })
-
-    this._runtimeElements.set(runtimeElement.id, runtimeElement)
-
-    return runtimeElement
-  }
-
-  /**
-   * Used for cleaning up old child mapper nodes when the new evaluated prop has changed
-   * e.g. when child mapper element depends on a filtered data
-   * @param validNodes new evaluated child mapper prop
-   */
-  @modelAction
-  cleanupChildMapperNodes(validNodes: Array<IRuntimeComponentModel>) {
-    const componentLists = [...this._runtimeComponents.values()]
-
-    componentLists.forEach((component) => {
-      if (
-        !isNil(component.childMapperIndex) &&
-        !validNodes.some(
-          (validNode) =>
-            validNode.childMapperIndex === component.childMapperIndex,
-        )
-      ) {
-        this._runtimeComponents.delete(component.id)
-      }
-    })
-  }
-
-  runPostRenderAction = () => {
-    if (this.postRenderActionDone) {
-      return
-    }
-
-    const { postRenderAction } = this.element.current
-    const currentPostRenderAction = postRenderAction?.current
-
-    if (currentPostRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        currentPostRenderAction.name,
-      )
-
-      runner()
-
-      this.postRenderActionDone = true
-    }
-  }
-
-  runPreRenderAction = () => {
-    if (this.preRenderActionDone) {
-      return
-    }
-
-    const { preRenderAction } = this.element.current
-    const currentPreRenderAction = preRenderAction?.current
-
-    if (currentPreRenderAction) {
-      const runner = this.runtimeProps.getActionRunner(
-        preRenderAction.current.name,
-      )
-
-      runner()
-
-      this.preRenderActionDone = true
-    }
   }
 
   @computed
@@ -648,56 +320,27 @@ export class RuntimeElementModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    // Add assigned ReactNode props as children
-    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
+    const children = this.children.flatMap((child) =>
+      isRuntimeComponent(child)
+        ? child.children.map(
+            // if element is instance of component we render the element's children instead of component
+            (instanceChild) => instanceChild.current.treeViewNode,
+          )
+        : [child.treeViewNode],
+    )
 
-    Object.keys(this.runtimeProps.props).forEach((key, index) => {
-      const propData = this.runtimeProps.props[key]
-
-      if (
-        isTypedProp(propData) &&
-        propData.kind === ITypeKind.ReactNodeType &&
-        typeof propData.value === 'string'
-      ) {
-        const component = this.componentDomainService.component(propData.value)
-
-        const runtimeComponentKey = RuntimeComponentModel.compositeKey(
-          component,
-          this,
-          key,
-        )
-
-        const runtimeComponent =
-          this.runtimeComponentService.components.get(runtimeComponentKey)
-
-        const componentRootElement = runtimeComponent?.runtimeRootElement
-
-        if (componentRootElement) {
-          reactNodesChildren.push({
-            ...componentRootElement.treeViewNode,
-            children: [],
-            isChildMapperComponentInstance: true,
-            key: `${propData.value}${index}`,
-            primaryTitle: `${key}:`,
-            selectable: false,
-          })
-        }
-      }
-    })
-
-    const children = [
-      ...this.children.map((child) => child.treeViewNode),
-      ...reactNodesChildren,
-    ]
+    const element = this.element.current
+    const primaryTitle = element.treeTitle.primary
+    const secondaryTitle = element.treeTitle.secondary
 
     return {
       children,
       key: this.compositeKey,
       node: this,
-      primaryTitle: this.element.current.treeTitle.primary,
-      rootKey: this.element.current.closestSubTreeRootElement.id,
-      secondaryTitle: this.element.current.treeTitle.secondary,
-      title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
+      primaryTitle,
+      rootKey: this.closestContainerNode.current.compositeKey,
+      secondaryTitle,
+      title: `${primaryTitle} (${secondaryTitle})`,
     }
   }
 

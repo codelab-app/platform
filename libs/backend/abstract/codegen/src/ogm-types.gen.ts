@@ -3425,15 +3425,12 @@ export type Component = WithOwner & {
   store: Store
   propsAggregate?: Maybe<ComponentPropPropsAggregationSelection>
   props: Prop
-  childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
-  childrenContainerElement: Element
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
   owner: User
   rootElementConnection: ComponentRootElementConnection
   apiConnection: ComponentApiConnection
   storeConnection: ComponentStoreConnection
   propsConnection: ComponentPropsConnection
-  childrenContainerElementConnection: ComponentChildrenContainerElementConnection
   ownerConnection: WithOwnerOwnerConnection
 }
 
@@ -3481,17 +3478,6 @@ export type ComponentPropsArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-export type ComponentChildrenContainerElementAggregateArgs = {
-  where?: InputMaybe<ElementWhere>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-export type ComponentChildrenContainerElementArgs = {
-  where?: InputMaybe<ElementWhere>
-  options?: InputMaybe<ElementOptions>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-}
-
 export type ComponentOwnerAggregateArgs = {
   where?: InputMaybe<UserWhere>
   directed?: InputMaybe<Scalars['Boolean']['input']>
@@ -3535,14 +3521,6 @@ export type ComponentPropsConnectionArgs = {
   sort?: InputMaybe<Array<ComponentPropsConnectionSort>>
 }
 
-export type ComponentChildrenContainerElementConnectionArgs = {
-  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  first?: InputMaybe<Scalars['Int']['input']>
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  sort?: InputMaybe<Array<ComponentChildrenContainerElementConnectionSort>>
-}
-
 export type ComponentOwnerConnectionArgs = {
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
   first?: InputMaybe<Scalars['Int']['input']>
@@ -3571,39 +3549,10 @@ export type ComponentApiRelationship = {
   node: InterfaceType
 }
 
-export type ComponentChildrenContainerElementConnection = {
-  __typename: 'ComponentChildrenContainerElementConnection'
-  edges: Array<ComponentChildrenContainerElementRelationship>
-  totalCount: Scalars['Int']['output']
-  pageInfo: PageInfo
-}
-
-export type ComponentChildrenContainerElementRelationship = {
-  __typename: 'ComponentChildrenContainerElementRelationship'
-  cursor: Scalars['String']['output']
-  node: Element
-}
-
 export type ComponentEdge = {
   __typename: 'ComponentEdge'
   cursor: Scalars['String']['output']
   node: Component
-}
-
-export type ComponentElementChildrenContainerElementAggregationSelection = {
-  __typename: 'ComponentElementChildrenContainerElementAggregationSelection'
-  count: Scalars['Int']['output']
-  node?: Maybe<ComponentElementChildrenContainerElementNodeAggregateSelection>
-}
-
-export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
-  __typename: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  compositeKey: StringAggregateSelectionNonNullable
-  style: StringAggregateSelectionNullable
-  childMapperPropKey: StringAggregateSelectionNullable
-  renderForEachPropKey: StringAggregateSelectionNullable
-  renderIfExpression: StringAggregateSelectionNullable
 }
 
 export type ComponentElementRootElementAggregationSelection = {
@@ -14832,389 +14781,11 @@ export type ComponentApiUpdateFieldInput = {
   delete?: InputMaybe<ComponentApiDeleteFieldInput>
 }
 
-export type ComponentChildrenContainerElementAggregateInput = {
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  AND?: InputMaybe<Array<ComponentChildrenContainerElementAggregateInput>>
-  OR?: InputMaybe<Array<ComponentChildrenContainerElementAggregateInput>>
-  NOT?: InputMaybe<ComponentChildrenContainerElementAggregateInput>
-  node?: InputMaybe<ComponentChildrenContainerElementNodeAggregationWhereInput>
-}
-
-export type ComponentChildrenContainerElementConnectFieldInput = {
-  where?: InputMaybe<ElementConnectWhere>
-  /** Whether or not to overwrite any matching relationship with the new properties. */
-  overwrite?: Scalars['Boolean']['input']
-  connect?: InputMaybe<ElementConnectInput>
-}
-
-export type ComponentChildrenContainerElementConnectionSort = {
-  node?: InputMaybe<ElementSort>
-}
-
-export type ComponentChildrenContainerElementConnectionWhere = {
-  OR?: InputMaybe<Array<ComponentChildrenContainerElementConnectionWhere>>
-  AND?: InputMaybe<Array<ComponentChildrenContainerElementConnectionWhere>>
-  NOT?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  node?: InputMaybe<ElementWhere>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  node_NOT?: InputMaybe<ElementWhere>
-}
-
-export type ComponentChildrenContainerElementConnectOrCreateFieldInput = {
-  where: ElementConnectOrCreateWhere
-  onCreate: ComponentChildrenContainerElementConnectOrCreateFieldInputOnCreate
-}
-
-export type ComponentChildrenContainerElementConnectOrCreateFieldInputOnCreate =
-  {
-    node: ElementOnCreateInput
-  }
-
-export type ComponentChildrenContainerElementCreateFieldInput = {
-  node: ElementCreateInput
-}
-
-export type ComponentChildrenContainerElementDeleteFieldInput = {
-  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  delete?: InputMaybe<ElementDeleteInput>
-}
-
-export type ComponentChildrenContainerElementDisconnectFieldInput = {
-  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  disconnect?: InputMaybe<ElementDisconnectInput>
-}
-
-export type ComponentChildrenContainerElementFieldInput = {
-  connectOrCreate?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
-  connect?: InputMaybe<ComponentChildrenContainerElementConnectFieldInput>
-  create?: InputMaybe<ComponentChildrenContainerElementCreateFieldInput>
-}
-
-export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
-  AND?: InputMaybe<
-    Array<ComponentChildrenContainerElementNodeAggregationWhereInput>
-  >
-  OR?: InputMaybe<
-    Array<ComponentChildrenContainerElementNodeAggregationWhereInput>
-  >
-  NOT?: InputMaybe<ComponentChildrenContainerElementNodeAggregationWhereInput>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  id_EQUAL?: InputMaybe<Scalars['ID']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  style_EQUAL?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  style_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  style_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  style_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  style_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  childMapperPropKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  childMapperPropKey_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  childMapperPropKey_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  childMapperPropKey_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  childMapperPropKey_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  childMapperPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  childMapperPropKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderForEachPropKey_EQUAL?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Int']['input']
-  >
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Int']['input']
-  >
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderForEachPropKey_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  renderForEachPropKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderForEachPropKey_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_GTE?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderForEachPropKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderForEachPropKey_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  renderForEachPropKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderForEachPropKey_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderForEachPropKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_AVERAGE_LENGTH_LTE?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderForEachPropKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderForEachPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderIfExpression_EQUAL?: InputMaybe<Scalars['String']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  renderIfExpression_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderIfExpression_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderIfExpression_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderIfExpression_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  renderIfExpression_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  renderIfExpression_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  renderIfExpression_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  renderIfExpression_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type ComponentChildrenContainerElementUpdateConnectionInput = {
-  node?: InputMaybe<ElementUpdateInput>
-}
-
-export type ComponentChildrenContainerElementUpdateFieldInput = {
-  where?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  connectOrCreate?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
-  connect?: InputMaybe<ComponentChildrenContainerElementConnectFieldInput>
-  disconnect?: InputMaybe<ComponentChildrenContainerElementDisconnectFieldInput>
-  create?: InputMaybe<ComponentChildrenContainerElementCreateFieldInput>
-  update?: InputMaybe<ComponentChildrenContainerElementUpdateConnectionInput>
-  delete?: InputMaybe<ComponentChildrenContainerElementDeleteFieldInput>
-}
-
 export type ComponentConnectInput = {
   rootElement?: InputMaybe<ComponentRootElementConnectFieldInput>
   api?: InputMaybe<ComponentApiConnectFieldInput>
   store?: InputMaybe<ComponentStoreConnectFieldInput>
   props?: InputMaybe<ComponentPropsConnectFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementConnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
 }
 
@@ -15222,7 +14793,6 @@ export type ComponentConnectOrCreateInput = {
   rootElement?: InputMaybe<ComponentRootElementConnectOrCreateFieldInput>
   store?: InputMaybe<ComponentStoreConnectOrCreateFieldInput>
   props?: InputMaybe<ComponentPropsConnectOrCreateFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
 }
 
@@ -15241,7 +14811,6 @@ export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   store?: InputMaybe<ComponentStoreFieldInput>
   props?: InputMaybe<ComponentPropsFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementFieldInput>
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
 }
 
@@ -15250,7 +14819,6 @@ export type ComponentDeleteInput = {
   api?: InputMaybe<ComponentApiDeleteFieldInput>
   store?: InputMaybe<ComponentStoreDeleteFieldInput>
   props?: InputMaybe<ComponentPropsDeleteFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
 }
 
@@ -15259,7 +14827,6 @@ export type ComponentDisconnectInput = {
   api?: InputMaybe<ComponentApiDisconnectFieldInput>
   store?: InputMaybe<ComponentStoreDisconnectFieldInput>
   props?: InputMaybe<ComponentPropsDisconnectFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementDisconnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
 }
 
@@ -15600,7 +15167,6 @@ export type ComponentRelationInput = {
   api?: InputMaybe<ComponentApiCreateFieldInput>
   store?: InputMaybe<ComponentStoreCreateFieldInput>
   props?: InputMaybe<ComponentPropsCreateFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
 }
 
@@ -16131,7 +15697,6 @@ export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   store?: InputMaybe<ComponentStoreUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
-  childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementUpdateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
 }
 
@@ -16183,9 +15748,6 @@ export type ComponentWhere = {
   props?: InputMaybe<PropWhere>
   props_NOT?: InputMaybe<PropWhere>
   propsAggregate?: InputMaybe<ComponentPropsAggregateInput>
-  childrenContainerElement?: InputMaybe<ElementWhere>
-  childrenContainerElement_NOT?: InputMaybe<ElementWhere>
-  childrenContainerElementAggregate?: InputMaybe<ComponentChildrenContainerElementAggregateInput>
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ComponentOwnerAggregateInput>
@@ -16197,8 +15759,6 @@ export type ComponentWhere = {
   storeConnection_NOT?: InputMaybe<ComponentStoreConnectionWhere>
   propsConnection?: InputMaybe<ComponentPropsConnectionWhere>
   propsConnection_NOT?: InputMaybe<ComponentPropsConnectionWhere>
-  childrenContainerElementConnection?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
-  childrenContainerElementConnection_NOT?: InputMaybe<ComponentChildrenContainerElementConnectionWhere>
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }

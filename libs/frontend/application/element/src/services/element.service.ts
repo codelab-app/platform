@@ -120,15 +120,11 @@ export class ElementService
     console.debug('ElementService.delete', subRootElement)
 
     // const parentComponent = subRootElement.parentComponent?.current
-    // const childrenContainer = parentComponent?.childrenContainerElement.current
     // Check if the element is linked as a children container in parent component
     // and replace this link to component root before element is deleted
     // if (parentComponent && childrenContainer?.id === subRootElement.id) {
     //   yield* _await(
     //     this.componentService.update({
-    //       childrenContainerElement: {
-    //         id: parentComponent.rootElement.current.id,
-    //       },
     //       id: parentComponent.id,
     //       name: parentComponent.name,
     //     }),

@@ -4,7 +4,7 @@ import type { IRuntimeModel } from '../renderer'
 export interface IElementTreeViewDataNode {
   children?: Array<IElementTreeViewDataNode>
   isChildMapperComponentInstance?: boolean
-  // This is the id
+  // This is the compositeKey for runtime model
   key: number | string
   /**
    * We require our own node type, this is used for polymorphism.

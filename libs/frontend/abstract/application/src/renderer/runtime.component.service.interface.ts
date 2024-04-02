@@ -1,7 +1,4 @@
-import type {
-  IComponentModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { IRuntimeModel } from './runtime.model.interface'
 import type { IRuntimeComponentModel } from './runtime-component'
@@ -12,7 +9,7 @@ export interface IRuntimeComponentService {
   add(
     component: IComponentModel,
     parent: IRuntimeModel,
-    children: Array<Ref<IElementModel>>,
+    children: Array<Ref<IRuntimeModel>>,
     propKey?: string,
     childMapperIndex?: number,
     isTypedProp?: boolean,

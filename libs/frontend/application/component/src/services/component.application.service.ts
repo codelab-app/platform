@@ -144,7 +144,6 @@ export class ComponentApplicationService
 
     const component = this.componentDomainService.hydrate({
       api,
-      childrenContainerElement: { id: rootElementModel.id },
       id,
       name,
       props: componentProps,
@@ -358,7 +357,7 @@ export class ComponentApplicationService
   @transaction
   update = _async(function* (
     this: ComponentApplicationService,
-    { childrenContainerElement, id, name }: IUpdateComponentData,
+    { id, name }: IUpdateComponentData,
   ) {
     const component = this.componentDomainService.components.get(id)
 
@@ -366,7 +365,7 @@ export class ComponentApplicationService
       throw new Error('ID not found')
     }
 
-    component.writeCache({ childrenContainerElement, name })
+    component.writeCache({ name })
 
     yield* _await(this.componentRepository.update(component))
 

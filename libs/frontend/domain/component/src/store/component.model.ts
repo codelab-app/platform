@@ -26,7 +26,6 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   api,
-  childrenContainerElement,
   id,
   name,
   props,
@@ -35,7 +34,6 @@ const create = ({
 }: IComponentDto) => {
   return new Component({
     api: typeRef<IInterfaceTypeModel>(api.id),
-    childrenContainerElement: elementRef(childrenContainerElement.id),
     id,
     instanceElement: null,
     name,
@@ -49,7 +47,6 @@ const create = ({
 export class Component
   extends ExtendedModel(ElementTree, {
     api: prop<Ref<IInterfaceTypeModel>>(),
-    childrenContainerElement: prop<Ref<IElementModel>>().withSetter(),
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     name: prop<string>().withSetter(),
@@ -99,7 +96,6 @@ export class Component
     return {
       __typename: this.__typename,
       api: this.api,
-      childrenContainerElement: this.childrenContainerElement,
       id: this.id,
       name: this.name,
       props: this.props.toJson,
@@ -112,7 +108,6 @@ export class Component
   toCreateInput(): ComponentCreateInput {
     return {
       api: { create: { node: this.api.current.toCreateInput() } },
-      childrenContainerElement: connectNodeId(this.rootElement.id),
       id: this.id,
       name: this.name,
       owner: connectOwner(this.userDomainService.user),
@@ -123,13 +118,7 @@ export class Component
   }
 
   @modelAction
-  writeCache({
-    api,
-    childrenContainerElement,
-    name,
-    props,
-    rootElement,
-  }: Partial<IComponentDto>) {
+  writeCache({ api, name, props, rootElement }: Partial<IComponentDto>) {
     const apiRef = api?.id ? typeRef<IInterfaceTypeModel>(api.id) : this.api
 
     this.name = name ?? this.name
@@ -138,9 +127,6 @@ export class Component
       : this.rootElement
     this.api = apiRef
     this.props = props ? Prop.create(props) : this.props
-    this.childrenContainerElement = childrenContainerElement
-      ? elementRef(childrenContainerElement.id)
-      : this.childrenContainerElement
 
     return this
   }

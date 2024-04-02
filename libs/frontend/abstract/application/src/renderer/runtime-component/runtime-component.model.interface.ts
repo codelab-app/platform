@@ -1,11 +1,9 @@
-import type {
-  IComponentModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
 import type { IElementTreeViewDataNode } from '../../builder'
+import type { IRuntimeModel } from '../runtime.model.interface'
 import type { IRuntimeElementModel } from '../runtime-element'
 import type { IRuntimeComponentPropModel } from '../runtime-prop'
 import type { IRuntimeStoreModel } from '../runtime-store'
@@ -21,9 +19,9 @@ export interface IRuntimeComponentModel extends AnyModel {
    */
   childMapperIndex: Maybe<number>
   /**
-   * Children of the instance element which will be rendered under component.childrenContainerElement
+   * Children of the instance element which will be added as componentProp.children prop
    */
-  children: Array<Ref<IElementModel>>
+  children: Array<Ref<IRuntimeModel>>
   /**
    * Exposed for external use by other models and to preserve structure
    */
