@@ -7,8 +7,7 @@ import ToolOutlined from '@ant-design/icons/ToolOutlined'
 import { appRef, type IAppModel } from '@codelab/frontend/abstract/domain'
 import { restWebClient } from '@codelab/frontend/application/axios'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import type { IAppAggregate } from '@codelab/shared/abstract/core'
-import { prettifyForConsole } from '@codelab/shared/utils'
+import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -53,6 +52,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
   const onEditClick = () => appService.updateModal.open(appRef(app))
   const onDeleteClick = () => appService.deleteModal.open(appRef(app))
   const onBuildClick = () => appService.buildModal.open(appRef(app))
+  const [, exportApp] = useAsync(appService.exportApp)
   const router = useRouter()
 
   const goToDomainsPage = () =>
@@ -97,7 +97,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app }) => {
       key: 'export',
       label: 'Export',
       onClick: async () => {
-        await downloadExportedData(app)
+        await exportApp.execute(app)
       },
       style: menuItemStyle,
     },

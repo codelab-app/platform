@@ -12,8 +12,8 @@ import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 
 export const ImportAppDialog = observer(() => {
-  const { adminService } = useStore()
-  const [{ status }, importApp] = useAsync(adminService.importApp)
+  const { appService } = useStore()
+  const [{ status }, importApp] = useAsync(appService.importApp)
 
   const onError = useErrorNotify({
     description: (event: HttpException) => {

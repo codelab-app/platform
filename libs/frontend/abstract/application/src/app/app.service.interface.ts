@@ -28,7 +28,9 @@ export interface IAppService
   appRepository: IAppRepository
   buildModal: IEntityModalService<Ref<IAppModel>, { app?: IAppModel }>
 
+  exportApp(app: IAppModel): Promise<unknown>
   getSelectAppOptions(): Promise<Array<DefaultOptionType>>
+  importApp(appDataFile: File): Promise<Array<IAppModel>>
   loadAppsPreview(where: AppWhere): Promise<Array<IAppModel>>
   regeneratePages(app: IAppModel, pagesUrls?: Array<string>): Promise<void>
   updatePage(data: IUpdatePageData): Promise<void>
