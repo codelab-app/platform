@@ -3,7 +3,7 @@ resource "digitalocean_loadbalancer" "web" {
   name   = "web-load-balancer"
   region = "sfo2"
 
-  vpc_uuid = digitalocean_vpc.codelab_app.id
+  vpc_uuid = var.codelab_app_vpc_id
 
   droplet_ids = [
     digitalocean_droplet.web.id,

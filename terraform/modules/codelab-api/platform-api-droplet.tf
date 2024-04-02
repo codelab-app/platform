@@ -8,7 +8,7 @@ resource "digitalocean_droplet" "platform-api" {
   monitoring = true
   ipv6       = true
 
-  vpc_uuid = digitalocean_vpc.codelab_app.id
+  vpc_uuid = var.codelab_app_vpc_id
 
   ssh_keys = ["31:0e:90:12:06:a2:9f:8b:07:0e:a8:49:cc:d8:1f:71"]
 
