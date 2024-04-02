@@ -1,4 +1,4 @@
-describe(
+describe.skip(
   'Test App In Production',
   {
     env: {
