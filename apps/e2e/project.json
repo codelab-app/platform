@@ -18,9 +18,9 @@
           "baseUrl": "http://127.0.0.1:3000",
           "cypressConfig": "apps/e2e/cypress.ci.config.ts",
           "devServerTarget": "e2e:serve:ci",
+          "parallel": true,
           "record": true,
           "reporter": "../../node_modules/cypress-multi-reporters",
-          "parallel": true,
           "reporterOptions": {
             "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
           }
