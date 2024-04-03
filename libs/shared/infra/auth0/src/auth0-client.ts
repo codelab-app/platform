@@ -8,6 +8,9 @@ import { getEnv } from '@codelab/shared/config'
  */
 export const auth0Instance = () => {
   return initAuth0({
+    authorizationParams: {
+      audience: getEnv().auth0.audience,
+    },
     baseURL: getEnv().auth0.baseUrl,
     clientID: getEnv().auth0.clientId,
     clientSecret: getEnv().auth0.clientSecret,

@@ -10,7 +10,7 @@ resource "auth0_client" "machine_client" {
 # Allow machine client to access the scope of the management API
 resource "auth0_client_grant" "machine_client_grant" {
   client_id = auth0_client.machine_client.id
-  audience  = "${var.auth0_issuer_base_url}api/v2/"
+  audience  = local.auth0_audience
   scope     = ["update:users"]
 }
 

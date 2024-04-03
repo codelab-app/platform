@@ -27,13 +27,13 @@ exports.onExecutePostLogin = async (event, api) => {
    */
   const options = {
     method: 'POST',
-    url: new URL('oauth/token', '${var.auth0_issuer_base_url}').toString(),
+    url: new URL('oauth/token', '${local.auth0_issuer_base_url}').toString(),
     headers: { 'content-type': 'application/json' },
     data: {
       grant_type: 'client_credentials',
       client_id: '${auth0_client.machine_client.id}',
       client_secret: '${data.auth0_client.machine_client.client_secret}',
-      audience: new URL('api/v2/', '${var.auth0_issuer_base_url}').toString()
+      audience: '${local.auth0_audience}
     }
   }
 

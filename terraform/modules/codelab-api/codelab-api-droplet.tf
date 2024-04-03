@@ -33,7 +33,7 @@ resource "digitalocean_droplet" "codelab-api" {
 
 locals {
   next_public_api_hostname = digitalocean_droplet.codelab-api.ipv4_address_private
-  next_public_api_port = 4000
+  next_public_api_port     = 4000
 }
 
 resource "digitalocean_firewall" "platform_api_firewall" {

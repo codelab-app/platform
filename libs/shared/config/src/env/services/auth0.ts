@@ -3,6 +3,7 @@ import * as env from 'env-var'
 import type { IEndpointEnvVars } from './endpoint'
 
 export interface IAuth0EnvVars {
+  audience: string
   baseUrl: string
   clientId: string
   clientSecret: string
@@ -19,6 +20,8 @@ export interface IAuth0EnvVars {
  * `isVercelPreview` is build-time
  */
 export class Auth0EnvVars implements IAuth0EnvVars {
+  private _audience?: string
+
   private _clientId?: string
 
   private _clientSecret?: string
@@ -32,6 +35,13 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   private _secret?: string
 
   constructor(private readonly endpoint: IEndpointEnvVars) {}
+
+  get audience(): string {
+    return (this._audience ??= new URL(
+      'api/v2/',
+      this.issuerBaseUrl,
+    ).toString())
+  }
 
   get clientId(): string {
     return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString())
@@ -59,10 +69,10 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get issuerBaseUrl(): string {
-    return (this._issuerBaseUrl ??= env
-      .get('AUTH0_ISSUER_BASE_URL')
-      .required()
-      .asString())
+    const auth0Domain = env.get('AUTH0_DOMAIN').required().asString()
+    const issuerBaseUrl = new URL('/', `https://${auth0Domain}`).toString()
+
+    return (this._issuerBaseUrl ??= issuerBaseUrl)
   }
 
   get secret(): string {

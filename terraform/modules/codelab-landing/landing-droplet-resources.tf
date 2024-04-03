@@ -28,10 +28,10 @@ resource "digitalocean_loadbalancer" "landing" {
 resource "digitalocean_record" "landing_a_record" {
   domain = var.codelab_app_domain_id
   # domain = digitalocean_domain.codelab_app.id
-  type   = "A"
-  name   = "@"
-  value  = digitalocean_loadbalancer.landing.ip
-  ttl    = 3600
+  type  = "A"
+  name  = "@"
+  value = digitalocean_loadbalancer.landing.ip
+  ttl   = 3600
 }
 
 resource "digitalocean_record" "landing_cname" {

@@ -33,10 +33,9 @@ write_files:
             - NEXT_PUBLIC_API_PORT=${next_public_api_port}
             - NEXT_PUBLIC_API_HOSTNAME=${next_public_api_hostname}
             - AUTH0_SECRET=${auth0_secret}
-            - AUTH0_ISSUER_BASE_URL=${auth0_issuer_base_url}
+            - AUTH0_DOMAIN=${auth0_domain}
             - AUTH0_CLIENT_ID=${auth0_client_id}
             - AUTH0_CLIENT_SECRET=${auth0_client_secret}
-            - AUTH0_BASE_URL=${auth0_base_url}
     # triggered by config_scripts_user
   - path: /var/lib/cloud/scripts/per-once/start-docker-image.sh
     permissions: '0755'

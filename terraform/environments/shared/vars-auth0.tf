@@ -1,9 +1,3 @@
-
-
-variable "AUTH0_ISSUER_BASE_URL" {
-  type = string
-}
-
 variable "AUTH0_DOMAIN" {
   type = string
 }
@@ -23,9 +17,3 @@ variable "AUTH0_CYPRESS_USERNAME" {
 variable "AUTH0_CYPRESS_PASSWORD" {
   type = string
 }
-
-variable "AUTH0_AUDIENCE" {
-  type = string
-}
-
-
