@@ -59,7 +59,7 @@ jobs:
             - master
       requires:
         - setup-workspace
-  - docker-platform:
+  - docker-web:
       context:
         - prod
       filters:

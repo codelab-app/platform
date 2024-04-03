@@ -74,7 +74,6 @@ ENV AUTH0_CLIENT_ID=$AUTH0_CLIENT_ID
 ENV AUTH0_CLIENT_SECRET=$AUTH0_CLIENT_SECRET
 ENV NEXT_TELEMETRY_DISABLED=1
 
-<<<<<<<< HEAD:.docker/prod/web.Dockerfile
 RUN pnpm install --frozen-lockfile --ignore-scripts
 RUN pnpm nx build web --verbose --skip-nx-cache
 
@@ -94,8 +93,6 @@ COPY --from=build /usr/src/codelab/dist ./dist
 COPY --from=build /usr/src/codelab/package.json ./
 COPY --from=build /usr/src/codelab/node_modules ./node_modules
 
-========
->>>>>>>> db219e59a (wip: fixing images env):.docker/prod/platform.Dockerfile
 EXPOSE 3000
 
 # default commands and/or parameters for a container
