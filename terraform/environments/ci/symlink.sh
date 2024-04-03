@@ -7,8 +7,8 @@ rm ./*.symlink.tf
 ln -s ../shared/module-auth0.tf ./module-auth0.symlink.tf
 ln -s ../shared/vars-auth0.tf ./vars-auth0.symlink.tf
 ln -s ../shared/vars-auth0-secret.tf ./vars-auth0-secret.symlink.tf
-ln -s ../shared/vars-platform-api.tf ./vars-platform-api.symlink.tf
-ln -s ../shared/vars-platform.tf ./vars-platform.symlink.tf
+ln -s ../shared/vars-codelab-api.tf ./vars-codelab-api.symlink.tf
+ln -s ../shared/vars-codelab-web.tf ./vars-codelab-web.symlink.tf
 ln -s ../shared/vars-supabase.tf ./vars-supabase.symlink.tf
 ln -s ../shared/vars-docker.tf ./vars-docker.symlink.tf
 ln -s ../shared/vars-do-access-token.tf ./vars-do-access-token.symlink.tf

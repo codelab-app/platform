@@ -1,1 +1,0 @@
-../shared/vars-platform-api.tf

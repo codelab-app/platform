@@ -1,1 +1,1 @@
-../auth0-vars/vars-web-client.tf
+../auth0/shared/vars-web-client.tf

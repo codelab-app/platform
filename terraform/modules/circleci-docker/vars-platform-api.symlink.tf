@@ -1,1 +1,0 @@
-../platform-api/vars.tf

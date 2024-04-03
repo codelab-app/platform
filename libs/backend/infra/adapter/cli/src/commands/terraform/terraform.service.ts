@@ -90,6 +90,8 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform destroy',
           (argv) => argv,
           ({ stage }) => {
+            // `terraform state rm`
+
             return execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} destroy`,
             )

@@ -4,10 +4,9 @@ import * as env from 'env-var'
  * https://github.com/evanshortiss/env-var/issues/162
  */
 const { get } = env.from({
-  NEXT_PUBLIC_PLATFORM_API_HOSTNAME:
-    process.env['NEXT_PUBLIC_PLATFORM_API_HOSTNAME'],
-  NEXT_PUBLIC_PLATFORM_API_PORT: process.env['NEXT_PUBLIC_PLATFORM_API_PORT'],
-  NEXT_PUBLIC_PLATFORM_HOST: process.env['NEXT_PUBLIC_PLATFORM_HOST'],
+  NEXT_PUBLIC_API_HOSTNAME: process.env['NEXT_PUBLIC_API_HOSTNAME'],
+  NEXT_PUBLIC_API_PORT: process.env['NEXT_PUBLIC_API_PORT'],
+  NEXT_PUBLIC_WEB_HOST: process.env['NEXT_PUBLIC_WEB_HOST'],
 })
 
 export interface IEndpointEnvVars {
@@ -64,11 +63,9 @@ export class EndpointEnvVars implements IEndpointEnvVars {
       return this._platformApiHost
     }
 
-    const port = get('NEXT_PUBLIC_PLATFORM_API_PORT').required().asPortNumber()
+    const port = get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
 
-    const url = get('NEXT_PUBLIC_PLATFORM_API_HOSTNAME')
-      .required()
-      .asUrlObject()
+    const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject()
 
     return (this._platformApiHost = new URL(`${url.origin}:${port}`).toString())
   }
@@ -77,7 +74,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This is used before module is initialized, so we must access process.env
    */
   get platformHost(): string {
-    return (this._platformHost ??= get('NEXT_PUBLIC_PLATFORM_HOST')
+    return (this._platformHost ??= get('NEXT_PUBLIC_WEB_HOST')
       .required()
       .asString())
   }

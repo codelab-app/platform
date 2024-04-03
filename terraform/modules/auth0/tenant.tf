@@ -1,4 +1,4 @@
-resource "auth0_tenant" "tenant" {
+resource "auth0_tenant" "codelab" {
   # Required for /oauth/token password login
   default_directory = "Username-Password-Authentication"
 }

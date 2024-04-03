@@ -2,4 +2,5 @@
 
 set -x
 
-ln -s ../platform/vars.tf ./vars-platform-web.symlink.tf
+ln -s ../codelab-web/vars.tf ./vars-codelab-web.symlink.tf
+ln -s ./shared/vars-machine-client.tf ./vars-machine-client.symlink.tf

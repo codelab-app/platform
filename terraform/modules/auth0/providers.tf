@@ -14,7 +14,6 @@ terraform {
   }
 }
 
-
 provider "auth0" {
   domain        = var.auth0_domain
   client_id     = var.auth0_m2m_client_id

@@ -1,13 +1,13 @@
 locals {
-  project_name = "platform"
+  project_name = "codelab"
   organization = "codelab-app"
 }
 
 resource "circleci_environment_variable" "env_vars" {
   for_each = {
-    NEXT_PUBLIC_PLATFORM_HOST         = var.next_public_platform_host
-    NEXT_PUBLIC_PLATFORM_API_HOSTNAME = var.next_public_platform_api_hostname
-    NEXT_PUBLIC_PLATFORM_API_PORT     = var.next_public_platform_api_port
+    NEXT_PUBLIC_WEB_HOST         = var.next_public_web_host
+    NEXT_PUBLIC_API_HOSTNAME = var.next_public_api_hostname
+    NEXT_PUBLIC_API_PORT     = var.next_public_api_port
     AUTH0_CLIENT_ID                   = var.auth0_web_client_id
     AUTH0_CLIENT_SECRET               = var.auth0_web_client_secret
     AUTH0_M2M_CLIENT_ID               = var.auth0_m2m_client_id
@@ -17,7 +17,7 @@ resource "circleci_environment_variable" "env_vars" {
     AUTH0_AUDIENCE                    = var.auth0_audience
     AUTH0_ISSUER_BASE_URL             = var.auth0_issuer_base_url
     AUTH0_SECRET                      = var.auth0_secret
-    AUTH0_BASE_URL                    = var.next_public_platform_host
+    AUTH0_BASE_URL                    = var.next_public_web_host
     CYPRESS_RECORD_KEY                = var.cypress_record_key
     SLACK_ACCESS_TOKEN                = var.slack_access_token
     SLACK_DEFAULT_CHANNEL             = var.slack_default_channel

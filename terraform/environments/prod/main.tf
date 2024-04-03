@@ -11,6 +11,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.25.0"
     }
+
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "2.34.1"
+    }
   }
 
   cloud {
@@ -21,3 +26,4 @@ terraform {
     }
   }
 }
+
