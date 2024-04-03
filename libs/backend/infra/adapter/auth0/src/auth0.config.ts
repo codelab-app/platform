@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config'
 import * as env from 'env-var'
 
 export const auth0Config = registerAs('auth0', () => {
-  const auth0Domain = env.get('AUTH0_DOMAIN').required().asUrlString()
+  const auth0Domain = env.get('AUTH0_DOMAIN').required().asString()
 
   return {
     auth0_domain: auth0Domain,

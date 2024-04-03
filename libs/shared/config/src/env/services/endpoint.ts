@@ -64,7 +64,6 @@ export class EndpointEnvVars implements IEndpointEnvVars {
     }
 
     const port = get('NEXT_PUBLIC_API_PORT').required().asPortNumber()
-
     const url = get('NEXT_PUBLIC_API_HOSTNAME').required().asUrlObject()
 
     return (this._platformApiHost = new URL(`${url.origin}:${port}`).toString())

@@ -482,6 +482,13 @@ workflows:
                 - master
           requires:
             - setup-workspace
+      - e2e:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
       - docker-platform:
           context:
             - prod
@@ -519,6 +526,7 @@ workflows:
             - codegen
             - unit
             - integration
+            - e2e
       - plan:
           filters:
             branches:
