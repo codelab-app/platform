@@ -52,13 +52,13 @@ jobs:
             - master
       requires:
         - setup-workspace
-  # - e2e:
-  #     filters:
-  #       branches:
-  #         ignore:
-  #           - master
-  #     requires:
-  #       - setup-workspace
+  - e2e:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
   - docker-platform:
       context:
         - prod
