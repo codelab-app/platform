@@ -96,6 +96,7 @@ export const openPreview = () => {
     .should('be.visible')
 
   cy.waitForSpinners()
+  cy.waitForNetworkIdle(NETWORK_IDLE_TIME)
 
   // Not working on CI
   return cy.get('#render-root', { timeout: 60000 })
