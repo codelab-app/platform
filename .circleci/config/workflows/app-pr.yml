@@ -59,7 +59,7 @@ jobs:
             - master
       requires:
         - setup-workspace
-  - docker-platform:
+  - docker-web:
       context:
         - prod
       filters:
@@ -68,7 +68,7 @@ jobs:
             - master
       requires:
         - setup-infra-workspace
-  - docker-platform-api:
+  - docker-api:
       context:
         - prod
       filters:

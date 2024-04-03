@@ -6,7 +6,7 @@
 # Go through each directory that has possibly large cache
 DIRS=(
   ~/project/.nx/cache
-  ~/project/dist/apps/platform/.next
+  ~/project/dist/apps/web/.next
   ~/project/dist/apps/landing/.next
   ~/project/dist/apps/websites/.next
 )

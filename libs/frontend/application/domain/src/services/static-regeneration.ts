@@ -7,10 +7,10 @@ import {
 import { getEnv } from '@codelab/shared/config'
 import { useState } from 'react'
 
-// makes a call to the platform backend where session is checked
+// makes a call to the api backend where session is checked
 // and request will be redirected to appropriate user domain
 export const regeneratePages = async (pages: Array<string>, domain: string) => {
-  const baseUrl = getEnv().endpoint.platformHost
+  const baseUrl = getEnv().endpoint.webHost
   const pagesParam = pages.join(',')
   const protocol = baseUrl.startsWith('http') ? '' : 'https://'
 

@@ -248,8 +248,8 @@ dependencies:
     specifier: 5.14.2
     version: 5.14.2(react-dom@18.2.0)(react@18.2.0)
   auth0:
-    specifier: 4.0.1
-    version: 4.0.1
+    specifier: 4.3.1
+    version: 4.3.1
   axios:
     specifier: 1.5.0
     version: 1.5.0
@@ -13080,8 +13080,8 @@ packages:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
 
-  /auth0@4.0.1:
-    resolution: {integrity: sha512-/9GqIUF2rgIJypjXDB0zf9orVHKiOx5SV9ttLwmwbTcnGcDs+cdagxVrjzRHt4BNWvsrMOA2o+KCMm4yweijWg==}
+  /auth0@4.3.1:
+    resolution: {integrity: sha512-VuR/PdNHwXD9QiYUZf8UN0qiv07yJWHKfF2yEhePaPCrpwbEm6lHM6dkN7ylOdseogCkGmvchxYGMga0IPNrCA==}
     engines: {node: '>=18'}
     dependencies:
       jose: 4.15.5

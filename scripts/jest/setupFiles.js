@@ -18,13 +18,10 @@ if (process.env.NODE_ENV === 'test') {
     config({ path: envPath, override: true })
   }
 
-  const platformApiEnvPath = path.resolve(
-    __dirname,
-    '../../apps/platform-api/.env.test',
-  )
+  const apiEnvPath = path.resolve(__dirname, '../../apps/api/.env.test')
 
-  if (fs.existsSync(platformApiEnvPath)) {
-    config({ path: platformApiEnvPath, override: true })
+  if (fs.existsSync(apiEnvPath)) {
+    config({ path: apiEnvPath, override: true })
   }
 }
 

@@ -1,4 +1,4 @@
-resource "digitalocean_droplet" "codelab-api" {
+resource "digitalocean_droplet" "codelab_api" {
   image  = "docker-20-04"
   name   = "codelab-api"
   region = "sfo2"
@@ -32,15 +32,15 @@ resource "digitalocean_droplet" "codelab-api" {
 }
 
 locals {
-  next_public_api_hostname = digitalocean_droplet.codelab-api.ipv4_address_private
+  next_public_api_hostname = digitalocean_droplet.codelab_api.ipv4_address_private
   next_public_api_port     = 4000
 }
 
-resource "digitalocean_firewall" "platform_api_firewall" {
+resource "digitalocean_firewall" "api_firewall" {
   name = "codelab-api-firewall"
 
   droplet_ids = [
-    digitalocean_droplet.codelab-api.id,
+    digitalocean_droplet.codelab_api.id,
   ]
 
   # Allows SSH access from specific IP ranges for secure shell administration.
@@ -110,6 +110,6 @@ resource "digitalocean_firewall" "platform_api_firewall" {
 #   domain = digitalocean_domain.codelab_app.id
 #   type   = "A"
 #   name   = "api"
-#   value  = digitalocean_droplet.codelab-api.ipv4_address
+#   value  = digitalocean_droplet.codelab_api.ipv4_address
 #   ttl    = 3600
 # }

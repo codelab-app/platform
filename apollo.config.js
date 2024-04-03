@@ -2,7 +2,7 @@
 module.exports = {
   client: {
     service: {
-      name: 'platform',
+      name: 'codelab',
       localSchemaFile: './schema.graphql',
     },
     includes: ['./**/*.fragment.graphql', './**/*.endpoints.graphql'],

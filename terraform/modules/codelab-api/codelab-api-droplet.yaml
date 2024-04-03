@@ -22,8 +22,8 @@ write_files:
     content: |
       version: '3.8'
       services:
-        platform-api:
-          image: registry.digitalocean.com/codelabapp/platform-api:latest
+        api:
+          image: registry.digitalocean.com/codelabapp/api:latest
           restart: unless-stopped
           ports:
             - "4000:4000"

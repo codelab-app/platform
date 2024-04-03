@@ -4,6 +4,7 @@ import type { IEndpointEnvVars } from './endpoint'
 
 export interface IAuth0EnvVars {
   audience: string
+  domain: string
   baseUrl: string
   clientId: string
   clientSecret: string
@@ -21,6 +22,8 @@ export interface IAuth0EnvVars {
  */
 export class Auth0EnvVars implements IAuth0EnvVars {
   private _audience?: string
+
+  private _auth0Domain?: string
 
   private _clientId?: string
 
@@ -41,6 +44,10 @@ export class Auth0EnvVars implements IAuth0EnvVars {
       'api/v2/',
       this.issuerBaseUrl,
     ).toString())
+  }
+
+  get domain(): string {
+    return (this._auth0Domain ??= env.get('AUTH0_DOMAIN').required().asString())
   }
 
   get clientId(): string {
@@ -69,8 +76,7 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get issuerBaseUrl(): string {
-    const auth0Domain = env.get('AUTH0_DOMAIN').required().asString()
-    const issuerBaseUrl = new URL('/', `https://${auth0Domain}`).toString()
+    const issuerBaseUrl = new URL('/', `https://${this.domain}`).toString()
 
     return (this._issuerBaseUrl ??= issuerBaseUrl)
   }
@@ -80,7 +86,7 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get baseUrl() {
-    const auth0baseUrl = this.endpoint.platformHost
+    const auth0baseUrl = this.endpoint.webHost
 
     return auth0baseUrl
   }

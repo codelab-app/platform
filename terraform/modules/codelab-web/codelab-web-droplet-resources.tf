@@ -25,7 +25,7 @@ resource "digitalocean_loadbalancer" "web" {
   }
 }
 
-resource "digitalocean_record" "platform_a_record" {
+resource "digitalocean_record" "web_a_record" {
   domain = var.codelab_app_domain_id
   type   = "A"
   name   = "admin"
@@ -33,7 +33,7 @@ resource "digitalocean_record" "platform_a_record" {
   ttl    = 3600
 }
 
-resource "digitalocean_record" "platform_cname" {
+resource "digitalocean_record" "web_cname" {
   domain = var.codelab_app_domain_id
   type   = "CNAME"
   name   = "www.admin"

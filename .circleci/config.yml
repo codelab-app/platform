@@ -10,15 +10,15 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: npx nx run-many --target=build --projects=platform,platform-api,platform-e2e,cli --parallel=3 -c ci --nx-bail
+      - run: npx nx run-many --target=build --projects=web,api,e2e,cli --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/cli
-            - ~/project/dist/apps/platform/.next/cache
-            - ~/project/dist/apps/platform-api
+            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/api
   install-nvm:
     steps:
       - restore_cache:
@@ -174,6 +174,19 @@ jobs:
       - run:
           command: pnpm cli tasks codegen --stage ci
           name: GraphQL Codegen
+  docker-api:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build api
+          name: Build api Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
+          name: Push Docker Image
   docker-landing:
     executor: docker-node
     resource_class: large
@@ -184,11 +197,11 @@ jobs:
       - run:
           command: |
             docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
-          name: Build platform landing Docker image
+          name: Build landing Docker image
       - run:
           command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
           name: Push Docker Image
-  docker-platform:
+  docker-web:
     executor: docker-node
     resource_class: large
     steps:
@@ -197,23 +210,10 @@ jobs:
           docker_layer_caching: true
       - run:
           command: |
-            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build platform
-          name: Build platform Docker image
+            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
+          name: Build web Docker image
       - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push platform
-          name: Push Docker Image
-  docker-platform-api:
-    executor: docker-node
-    resource_class: large
-    steps:
-      - restore-workspace
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build platform-api
-          name: Build platform api Docker image
-      - run:
-          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push platform-api
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
           name: Push Docker Image
   e2e:
     executor: docker-node-neo4j
@@ -230,18 +230,18 @@ jobs:
             echo 'export CI_BUILD_ID="$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
             source "$BASH_ENV"
             echo "CI Build ID: $CI_BUILD_ID"
-            pnpm nx e2e platform-e2e -c ci --ci-build-id=$CI_BUILD_ID
+            pnpm nx e2e e2e -c ci --ci-build-id=$CI_BUILD_ID
           environment: null
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos
-          path: ~/project/apps/platform-e2e/src/videos
+          path: ~/project/apps/e2e/src/videos
       - store_artifacts:
           destination: cypress/screenshots
-          path: ~/project/apps/platform-e2e/src/screenshots
+          path: ~/project/apps/e2e/src/screenshots
       - store_artifacts:
           destination: cypress/data
-          path: ~/project/apps/platform-e2e/src/data
+          path: ~/project/apps/e2e/src/data
       - store_test_results:
           path: ./tmp/reports/e2e
   integration:
@@ -409,7 +409,7 @@ jobs:
       - persist_to_workspace:
           paths:
             - project/dist/apps/cli
-            - project/dist/apps/platform
+            - project/dist/apps/web
             - project/.nx/cache/lockfile.hash
           root: ~/
   unit:
@@ -489,7 +489,7 @@ workflows:
                 - master
           requires:
             - setup-workspace
-      - docker-platform:
+      - docker-web:
           context:
             - prod
           filters:
@@ -498,7 +498,7 @@ workflows:
                 - master
           requires:
             - setup-infra-workspace
-      - docker-platform-api:
+      - docker-api:
           context:
             - prod
           filters:

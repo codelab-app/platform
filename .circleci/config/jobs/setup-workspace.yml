@@ -16,6 +16,6 @@ steps:
         # Using too much workspace storage, eating up credits
         # - project/node_modules
         - project/dist/apps/cli
-        - project/dist/apps/platform
+        - project/dist/apps/web
         # This used as checksum to restore nx cache for e2e
         - project/.nx/cache/lockfile.hash

@@ -1,1 +1,1 @@
-export const PLATFORM_TRACER_NAME = 'default'
+export const WEB_TRACER_NAME = 'default'

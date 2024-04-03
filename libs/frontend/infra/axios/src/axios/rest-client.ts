@@ -1,15 +1,15 @@
 import { getEnv } from '@codelab/shared/config'
 import axios from 'axios'
 
-export const restPlatformClient = axios.create({
-  baseURL: new URL('api', getEnv().endpoint.platformHost).toString(),
+export const restWebClient = axios.create({
+  baseURL: new URL('api', getEnv().endpoint.webHost).toString(),
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   },
 })
 
-restPlatformClient.interceptors.response.use(
+restWebClient.interceptors.response.use(
   (response) => {
     // console.log(response)
 
@@ -21,15 +21,15 @@ restPlatformClient.interceptors.response.use(
   },
 )
 
-export const restPlatformApiClient = axios.create({
-  baseURL: new URL('api', getEnv().endpoint.platformApiHost).toString(),
+export const restApiClient = axios.create({
+  baseURL: new URL('api', getEnv().endpoint.apiHost).toString(),
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
   },
 })
 
-restPlatformApiClient.interceptors.response.use(
+restApiClient.interceptors.response.use(
   (response) => {
     // console.log(response)
 

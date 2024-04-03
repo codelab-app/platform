@@ -23,8 +23,8 @@ write_files:
     content: |
       version: '3.8'
       services:
-        platform:
-          image: registry.digitalocean.com/codelabapp/platform:latest
+        web:
+          image: registry.digitalocean.com/codelabapp/web:latest
           restart: unless-stopped
           ports:
             - "80:3000"

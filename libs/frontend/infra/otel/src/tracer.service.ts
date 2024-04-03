@@ -5,7 +5,7 @@ import type { AttributeValue, Span } from '@opentelemetry/api'
 import { context, trace } from '@opentelemetry/api'
 import { Model, model } from 'mobx-keystone'
 import { browserAgentInstance } from './newrelic/agent'
-import { PLATFORM_TRACER_NAME } from './tracer'
+import { WEB_TRACER_NAME } from './tracer'
 /**
  * @deprecated otel not working in browser
  */
@@ -77,7 +77,7 @@ export class TracerService extends Model({}) implements ITracerService {
   }
 
   getTracer() {
-    return trace.getTracer(PLATFORM_TRACER_NAME)
+    return trace.getTracer(WEB_TRACER_NAME)
   }
 
   startSpan(name: string): Span {

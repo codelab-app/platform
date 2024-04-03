@@ -1,0 +1,55 @@
+{
+  "extends": [
+    "plugin:@nx/react-typescript",
+    "next",
+    "next/core-web-vitals",
+    "../../.eslintrc.json"
+  ],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": [
+          "apps/web/tsconfig(.*)?.json",
+          "apps/web/tsconfig.storybook.json"
+        ]
+      },
+      "rules": {
+        "@next/next/no-html-link-for-pages": ["error", "apps/web/pages"],
+        "jsx-a11y/anchor-is-valid": "off",
+        "react/jsx-no-useless-fragment": "off"
+      }
+    },
+    {
+      "files": ["_app.tsx"],
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
+    },
+    {
+      "files": ["**/pages/api/*"],
+      "rules": {
+        "@nx/enforce-module-boundaries": "off"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
+      "rules": {}
+    }
+  ],
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off"
+  },
+  "env": {
+    "jest": true
+  }
+}

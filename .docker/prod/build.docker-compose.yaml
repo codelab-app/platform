@@ -6,10 +6,10 @@
 version: '3.8'
 name: 'codelab'
 services:
-  platform:
+  web:
     build:
       context: ../..
-      dockerfile: ${PWD}/.docker/prod/platform.Dockerfile
+      dockerfile: ${PWD}/.docker/prod/web.Dockerfile
       # Could also add using CLI --build-arg
       args:
         NEXT_PUBLIC_WEB_HOST: ${NEXT_PUBLIC_WEB_HOST}
@@ -19,7 +19,7 @@ services:
         AUTH0_DOMAIN: ${AUTH0_DOMAIN}
         AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID}
         AUTH0_CLIENT_SECRET: ${AUTH0_CLIENT_SECRET}
-    image: registry.digitalocean.com/codelabapp/platform
+    image: registry.digitalocean.com/codelabapp/web
     # image: codelabai/codelab:${DOCKER_TAG_VERSION}
     # This is used after image has been built
     # env_file:
@@ -27,11 +27,11 @@ services:
 
     # environment:
     #   - NODE_ENV=development
-  platform-api:
+  api:
     build:
       context: ../..
-      dockerfile: ${PWD}/.docker/prod/platform-api.Dockerfile
-    image: registry.digitalocean.com/codelabapp/platform-api
+      dockerfile: ${PWD}/.docker/prod/api.Dockerfile
+    image: registry.digitalocean.com/codelabapp/api
     # image: codelabai/codelab:${DOCKER_TAG_VERSION}
     # This is used after image has been built
     # env_file:

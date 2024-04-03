@@ -18,8 +18,6 @@ import type { INodeEnvVars } from './services/node'
 import { NodeEnvVars } from './services/node'
 import type { ISupabaseEnvVars } from './services/supabase'
 import { SupabaseEnvVars } from './services/supabase'
-import type { IVercelEnvVars } from './services/vercel'
-import { VercelEnvVars } from './services/vercel'
 
 export interface IEnvironmentVariables {
   auth0: IAuth0EnvVars
@@ -32,7 +30,6 @@ export interface IEnvironmentVariables {
   neo4j: INeo4jEnvVars
   node: INodeEnvVars
   supabase: ISupabaseEnvVars
-  vercel: IVercelEnvVars
 }
 
 /**
@@ -91,10 +88,6 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return (this._supabase ??= new SupabaseEnvVars())
   }
 
-  public get vercel() {
-    return (this._vercel ??= new VercelEnvVars())
-  }
-
   private static instance?: EnvironmentVariables
 
   private _auth0?: IAuth0EnvVars
@@ -116,8 +109,6 @@ class EnvironmentVariables implements IEnvironmentVariables {
   private _node?: INodeEnvVars
 
   private _supabase?: ISupabaseEnvVars
-
-  private _vercel?: IVercelEnvVars
 }
 
 export const getEnv = () => EnvironmentVariables.getInstance()
