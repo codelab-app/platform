@@ -1,4 +1,7 @@
-import type { IRuntimeComponentService } from '@codelab/frontend/abstract/application'
+import type {
+  IRuntimeComponentService,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import {
   IRuntimeComponentModel,
   IRuntimeModel,
@@ -30,7 +33,7 @@ export class RuntimeComponentService
   add(
     component: IComponentModel,
     parent: IRuntimeModel,
-    children: Array<Ref<IRuntimeModel>>,
+    children: Array<Ref<IRuntimeElementModel>> = [],
     propKey?: string,
     childMapperIndex?: number,
     isTypedProp?: boolean,
