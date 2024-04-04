@@ -19,9 +19,7 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   getComponentDomainService,
-  isAtom,
   isComponent,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
