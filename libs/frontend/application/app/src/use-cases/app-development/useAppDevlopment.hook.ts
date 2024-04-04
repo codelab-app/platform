@@ -28,6 +28,8 @@ export const useAppDevelopment = ({ rendererType }: DevelopmentPageProps) => {
   const userId = userService.user.id
 
   return useAsync(async () => {
+    console.log('useAppDevelopment')
+
     try {
       const appDevelopmentData =
         await appService.appDevelopmentService.getAppDevelopmentData({

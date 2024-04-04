@@ -47,13 +47,6 @@ import { typedPropTransformersFactory } from './typed-prop-transformers'
  */
 
 const create = ({ containerNode, rendererType }: IRendererDto) => {
-  const runtimeRootContainerNode = isPage(containerNode)
-    ? RuntimePageModel.create(containerNode)
-    : RuntimeComponentModel.create({
-        component: containerNode,
-        compositeKey: RuntimeComponentModel.compositeKey(containerNode),
-      })
-
   return new Renderer({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
