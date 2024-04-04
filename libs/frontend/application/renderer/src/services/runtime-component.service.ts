@@ -1,4 +1,7 @@
-import type { IRuntimeComponentService } from '@codelab/frontend/abstract/application'
+import type {
+  IRuntimeComponentService,
+  IRuntimeElementModel,
+} from '@codelab/frontend/abstract/application'
 import {
   IRuntimeComponentModel,
   IRuntimeModel,
