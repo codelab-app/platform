@@ -39,7 +39,6 @@ export const authGuardMenuItem: NavigationBarItem = {
 export const allPagesMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
-  componentSlug: Nullish<string>,
   userSlug: Nullish<string>,
 ): NavigationBarItem => ({
   disabled: !appSlug,
@@ -47,11 +46,10 @@ export const allPagesMenuItem = (
   key: ExplorerPaneType.PageList,
   link: {
     href: {
-      pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
+      pathname: PageType.PageBuilder,
       query: {
         appSlug,
-        ...(componentSlug ? { componentSlug } : null),
-        ...(pageSlug ? { pageSlug } : null),
+        pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userSlug,
       },
@@ -66,18 +64,21 @@ export const builderComponentsMenuItem = (
   componentSlug: Nullish<string>,
   userSlug: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appSlug || (!pageSlug && !componentSlug),
   icon: <CodeSandboxOutlined title="Builder Components" />,
   key: 'components',
   link: {
     href: {
-      pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
+      pathname: pageSlug
+        ? PageType.PageBuilder
+        : componentSlug
+        ? PageType.ComponentBuilder
+        : PageType.Components,
       query: {
-        appSlug,
+        ...(appSlug ? { appSlug } : null),
         ...(componentSlug ? { componentSlug } : null),
         ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.Components,
-        userSlug,
+        ...(userSlug ? { userSlug } : null),
       },
     },
   },
@@ -90,18 +91,18 @@ export const pageBuilderMenuItem = (
   componentSlug: Nullish<string>,
   userSlug: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appSlug || (!pageSlug && !componentSlug),
+  disabled: !appSlug && !pageSlug && !componentSlug,
   icon: <BuildOutlined title="Builder" />,
   key: ExplorerPaneType.Explorer,
   link: {
     href: {
       pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
-        appSlug,
-        ...(componentSlug ? { componentSlug } : null),
+        ...(appSlug ? { appSlug } : null),
         ...(pageSlug ? { pageSlug } : null),
+        ...(componentSlug ? { componentSlug } : null),
         primarySidebarKey: ExplorerPaneType.Explorer,
-        userSlug,
+        ...(userSlug ? { userSlug } : null),
       },
     },
   },

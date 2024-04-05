@@ -67,7 +67,6 @@ const PageBuilderView: CodelabPage = observer(() => {
         ],
       }}
       contentStyles={contentStyles}
-      headerHeight={48}
     >
       <Head>
         <title>{pageName} | Builder | Codelab</title>

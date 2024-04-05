@@ -21,5 +21,4 @@ export type DashboardTemplateProps<T = unknown> = T & {
   PrimarySidebar?: PrimarySidebar
   Header?: JSXElementConstructor<unknown>
   contentStyles?: React.CSSProperties
-  headerHeight?: number
 }

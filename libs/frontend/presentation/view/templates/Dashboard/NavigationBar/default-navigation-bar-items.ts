@@ -21,9 +21,9 @@ export const defaultNavigationBarItems = ({
 } => ({
   primaryItems: [
     appMenuItem,
-    allPagesMenuItem(appSlug, pageSlug, componentSlug, userSlug),
-    builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userSlug),
+    allPagesMenuItem(appSlug, pageSlug, userSlug),
     pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userSlug),
+    builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userSlug),
     resourceMenuItem,
     authGuardMenuItem,
   ],
