@@ -126,7 +126,9 @@ export class RuntimeComponentModel
     const isChildMapperComponentInstance = !isNil(this.childMapperIndex)
 
     return {
-      children: [this.runtimeRootElement.treeViewNode],
+      children: isChildMapperComponentInstance
+        ? []
+        : [this.runtimeRootElement.treeViewNode],
       component: { id: this.component.current.id },
       isChildMapperComponentInstance: false,
       key: this.compositeKey,
