@@ -69,7 +69,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const runtimeContainerNode = renderer?.runtimeContainerNode
     const runtimeStore = runtimeContainerNode?.runtimeStore
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
-    const antdTree = runtimeContainerNode?.runtimeRootElement.treeViewNode
+    const antdTree = runtimeContainerNode?.treeViewNode
 
     const selectTreeNode = (node: IRuntimeModel) => {
       if (isRuntimeComponent(node)) {

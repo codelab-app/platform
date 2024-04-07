@@ -13,7 +13,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type {
   IComponentModel,
-  IElementModel,
   IPageModel,
 } from '@codelab/frontend/abstract/domain'
 import {
@@ -23,7 +22,6 @@ import {
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
-import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
@@ -72,7 +70,7 @@ const create = (dto: IRuntimeComponentDTO) =>
 export class RuntimeComponentModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
-    children: prop<Array<Ref<IElementModel>>>(() => []),
+    children: prop<Array<Ref<IRuntimeElementModel>>>(() => []),
     component: prop<Ref<IComponentModel>>(),
     compositeKey: idProp,
     isTypedProp: prop<Maybe<boolean>>(false),
@@ -106,14 +104,12 @@ export class RuntimeComponentModel
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
     return {
-      ...this.runtimeRootElement.treeViewNode,
-      ...(!isNil(this.childMapperIndex) ? { children: [] } : {}),
-      isChildMapperComponentInstance: !isNil(this.childMapperIndex),
+      children: [this.runtimeRootElement.treeViewNode],
+      isChildMapperComponentInstance: false,
       key: this.compositeKey,
       node: this,
-      primaryTitle: `${this.runtimeRootElement.element.current.name}${
-        !isNil(this.childMapperIndex) ? ` ${this.childMapperIndex}` : ''
-      }`,
+      primaryTitle: this.component.current.name,
+      rootKey: this.component.current.id,
     }
   }
 }

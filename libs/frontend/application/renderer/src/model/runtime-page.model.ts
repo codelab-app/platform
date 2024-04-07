@@ -96,11 +96,6 @@ export class RuntimePageModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    return {
-      ...this.runtimeRootElement.treeViewNode,
-      key: this.compositeKey,
-      node: this,
-      primaryTitle: this.runtimeRootElement.element.current.name,
-    }
+    return this.runtimeRootElement.treeViewNode
   }
 }
