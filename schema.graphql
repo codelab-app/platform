@@ -3699,6 +3699,7 @@ enum AtomType {
   HtmlVar
   HtmlVideo
   HtmlWbr
+  LexicalEditor
   MuiAccordion
   MuiAccordionActions
   MuiAccordionDetails

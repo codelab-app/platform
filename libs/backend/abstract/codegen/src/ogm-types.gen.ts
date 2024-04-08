@@ -1851,6 +1851,7 @@ export enum AtomType {
   HtmlVideo = 'HtmlVideo',
   HtmlWbr = 'HtmlWbr',
   ExternalComponent = 'ExternalComponent',
+  LexicalEditor = 'LexicalEditor',
   NextLink = 'NextLink',
 }
 

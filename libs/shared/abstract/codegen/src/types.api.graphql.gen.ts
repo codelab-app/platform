@@ -3809,6 +3809,7 @@ export enum AtomType {
   HtmlVar = 'HtmlVar',
   HtmlVideo = 'HtmlVideo',
   HtmlWbr = 'HtmlWbr',
+  LexicalEditor = 'LexicalEditor',
   MuiAccordion = 'MuiAccordion',
   MuiAccordionActions = 'MuiAccordionActions',
   MuiAccordionDetails = 'MuiAccordionDetails',
