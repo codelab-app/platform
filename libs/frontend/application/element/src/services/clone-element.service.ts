@@ -269,6 +269,7 @@ export class CloneElementService
       closestContainerNode: element.closestContainerNode,
       id: v4(),
       name: duplicateName,
+      nextSibling: element.nextSibling?.current,
       page: element.page ? { id: element.page.id } : null,
       parentComponent: element.parentComponent
         ? { id: element.parentComponent.id }
