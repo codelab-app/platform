@@ -8,7 +8,6 @@ import { tx } from '@twind/core'
 import isNil from 'lodash/isNil'
 import { Fragment } from 'react'
 import { getAtom } from '../atoms'
-import { LexicalEditor } from '../text-editor/LexicalEditor'
 
 /**
  * Fragments can only have the `key` prop
