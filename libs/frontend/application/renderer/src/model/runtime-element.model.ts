@@ -319,11 +319,12 @@ export class RuntimeElementModel
 
     return {
       children,
+      element: { id: this.element.current.id },
       key: this.compositeKey,
-      primaryTitle: this.element.current.treeTitle.primary,
-      rootKey: this.element.current.closestSubTreeRootElement.id,
-      secondaryTitle: this.element.current.treeTitle.secondary,
-      title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
+      primaryTitle,
+      rootKey: this.closestContainerNode.current.compositeKey,
+      secondaryTitle,
+      title: `${primaryTitle} (${secondaryTitle})`,
       type: IRuntimeNodeType.Element,
     }
   }
