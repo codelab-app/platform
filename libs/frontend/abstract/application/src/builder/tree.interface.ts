@@ -1,17 +1,20 @@
+import type { IRef } from '@codelab/shared/abstract/core'
 import type * as React from 'react'
-import type { IRuntimeModel } from '../renderer'
+
+export enum IRuntimeNodeType {
+  Component = 'Component',
+  Element = 'Element',
+}
 
 export interface IElementTreeViewDataNode {
-  children?: Array<IElementTreeViewDataNode>
+  children: Array<IElementTreeViewDataNode>
+  // use store ids instead of models because modes gets detached/deleted which causes issues
+  component?: IRef
+  // use store ids instead of models because modes gets detached/deleted which causes issues
+  element?: IRef
   isChildMapperComponentInstance?: boolean
-  // This is the compositeKey for runtime model
-  key: number | string
-  /**
-   * We require our own node type, this is used for polymorphism.
-   *
-   * - Context menus (different for element vs component)
-   */
-  node: IRuntimeModel | null
+  // use store ids instead of models because modes gets detached/deleted which causes issues
+  key: string
   primaryTitle?: string
   rootKey: string | null
   secondaryTitle?: string
@@ -19,4 +22,5 @@ export interface IElementTreeViewDataNode {
   tags?: React.ReactNode
   title?: string
   toolbar?: React.ReactNode
+  type: IRuntimeNodeType
 }

@@ -34,6 +34,7 @@ import type {
   IRendererService,
   IRuntimeComponentService,
   IRuntimeElementService,
+  IRuntimePageService,
 } from '../renderer'
 import type { IResourceService } from '../resource'
 import type { ITracerService } from '../services'
@@ -78,6 +79,7 @@ export interface IRootStore {
   routerService: IRouterService
   runtimeComponentService: IRuntimeComponentService
   runtimeElementService: IRuntimeElementService
+  runtimePageService: IRuntimePageService
   storeService: IStoreService
   tagService: ITagService
   tracerService: ITracerService
@@ -117,6 +119,7 @@ export interface IRootStoreContext {
   routerServiceContext: MaybeContext<IRouterService>
   runtimeComponentServiceContext: MaybeContext<IRuntimeComponentService>
   runtimeElementServiceContext: MaybeContext<IRuntimeElementService>
+  runtimePageServiceContext: MaybeContext<IRuntimePageService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>
   storeServiceContext: MaybeContext<IStoreService>
   tagServiceContext: MaybeContext<ITagService>

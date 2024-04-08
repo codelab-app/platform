@@ -1,5 +1,5 @@
 import type { IAtomModel } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
   IRuntimeComponentModel,
@@ -34,8 +34,8 @@ export interface IBuilderService {
   selectedNode: Nullable<IRuntimeModelRef>
 
   hoverElementNode(node: Nullable<IRuntimeElementModel>): void
-  selectComponentNode(node: Nullable<IRuntimeComponentModel>): void
-  selectElementNode(node: Nullable<IRuntimeElementModel>): void
+  selectComponentNode(node: Nullish<IRuntimeComponentModel>): void
+  selectElementNode(node: Nullish<IRuntimeElementModel>): void
   selectPerviousElementOnDelete(): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
