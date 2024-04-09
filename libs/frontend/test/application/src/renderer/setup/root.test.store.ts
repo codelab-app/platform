@@ -4,6 +4,7 @@ import {
   elementServiceContext,
   type IRootStore,
   rendererServiceContext,
+  routerServiceContext,
   runtimeComponentServiceContext,
   runtimeElementServiceContext,
 } from '@codelab/frontend/abstract/application'
@@ -34,7 +35,10 @@ import {
   RuntimeElementService,
 } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
-import { createRootApplicationStore } from '@codelab/frontend/application/shared/store'
+import {
+  createTestRootStore,
+  RouterService,
+} from '@codelab/frontend/application/shared/store'
 import {
   ActionService,
   StoreService,
@@ -57,36 +61,7 @@ import { UserDomainService } from '@codelab/frontend/domain/user'
 import { userDto } from '@codelab/frontend/test/data'
 import { v4 } from 'uuid'
 
-const rootDomainStoreDto: IRootDomainStoreDto = {
-  context: {
-    appDomainServiceContext,
-    atomDomainServiceContext,
-    componentDomainServiceContext,
-    elementDomainServiceContext,
-    fieldDomainServiceContext,
-    pageDomainServiceContext,
-    storeDomainServiceContext,
-    typeDomainServiceContext,
-    userDomainServiceContext,
-  },
-  store: {
-    appDomainService: new AppDomainService({}),
-    atomDomainService: new AtomDomainService({}),
-    componentDomainService: new ComponentDomainService({}),
-    elementDomainService: new ElementDomainService({}),
-    fieldDomainService: new FieldDomainService({}),
-    pageDomainService: new PageDomainService({}),
-    storeDomainService: new StoreDomainService({}),
-    typeDomainService: new TypeDomainService({}),
-    userDomainService: UserDomainService.fromDto(userDto),
-  },
-}
-
-export const rootDomainStore = createRootDomainStore(
-  rootDomainStoreDto,
-) as IRootDomainStore
-
-export const rootApplicationStore = createRootApplicationStore({
+export const rootApplicationStore = createTestRootStore({
   context: {
     actionDomainServiceContext,
     appDomainServiceContext,
@@ -99,6 +74,7 @@ export const rootApplicationStore = createRootApplicationStore({
     pageDomainServiceContext,
     rendererServiceContext,
     resourceDomainServiceContext,
+    routerServiceContext,
     runtimeComponentServiceContext,
     runtimeElementServiceContext,
     storeDomainServiceContext,
@@ -115,6 +91,7 @@ export const rootApplicationStore = createRootApplicationStore({
     pageService: new PageApplicationService({}),
     rendererService: new RendererApplicationService({}),
     resourceService: new ResourceService({}),
+    routerService: new RouterService({}),
     runtimeComponentService: new RuntimeComponentService({}),
     runtimeElementService: new RuntimeElementService({}),
     storeService: new StoreService({}),

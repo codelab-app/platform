@@ -15,13 +15,15 @@ export class RedirectController {
   constructor(private redirectRepository: RedirectRepository) {}
 
   @Post('can-activate')
-  async canActivate(@Body() { authorization, domain, pageUrl }: ICanActivate) {
+  async canActivate(
+    @Body() { authorization, domain, pageUrlPattern }: ICanActivate,
+  ) {
     const redirect = await this.redirectRepository.findOne({
       where: {
         source: {
           AND: [
             { app: { domains_SINGLE: { name: domain } } },
-            { url: pageUrl },
+            { urlPattern: pageUrlPattern },
             // system page doesn't have auth guard
             { kind: IPageKind.Regular },
           ],
@@ -35,10 +37,12 @@ export class RedirectController {
     }
 
     const { authGuard, targetPage, targetType } = redirect
-    const isPage = targetType === IRedirectTargetType.Page && targetPage?.url
+
+    const isPage =
+      targetType === IRedirectTargetType.Page && targetPage?.urlPattern
 
     const redirectUrl = isPage
-      ? new URL(targetPage.url, domain).toString()
+      ? new URL(targetPage.urlPattern, domain).toString()
       : redirect.targetUrl
 
     // there is an auth guard to protect the page but not authorization is provided

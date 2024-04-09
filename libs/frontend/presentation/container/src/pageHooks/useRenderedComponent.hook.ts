@@ -48,6 +48,11 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       component.rootElement.id,
     )
 
+    if (rootElement) {
+      await elementService.loadDependantTypes(rootElement)
+    }
+
+    // TODO: Remove this in favor of loadDependantTypes
     await loadAllTypesForElements(
       componentService,
       typeService,

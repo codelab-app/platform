@@ -23,7 +23,6 @@
       "@fancyapps/ui",
       "cypher",
       "styled-components",
-      "@editorjs",
       "data-cy"
     ],
     "jsx": "preserve",

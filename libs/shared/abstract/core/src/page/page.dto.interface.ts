@@ -14,7 +14,7 @@ export const IPageDto = Type.Object({
   redirect: Typebox.Nullish(IRef),
   rootElement: IRef,
   store: IRef,
-  url: Type.String(),
+  urlPattern: Type.String(),
 })
 
 export type IPageDto = Static<typeof IPageDto>

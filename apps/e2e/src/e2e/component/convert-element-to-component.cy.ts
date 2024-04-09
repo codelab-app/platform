@@ -14,6 +14,7 @@ describe('Converting an element to a component', () => {
 
   before(() => {
     setupTest()
+
     cy.get<{ app: IAppDto }>('@setupComplete').then((res) => {
       app = res.app
     })

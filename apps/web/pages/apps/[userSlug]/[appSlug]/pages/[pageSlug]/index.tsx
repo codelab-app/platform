@@ -1,7 +1,8 @@
+import { contentQuotesLinter } from '@ant-design/cssinjs/lib/linters'
 import { RendererType } from '@codelab/frontend/abstract/application'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useAppDevelopment } from '@codelab/frontend/application/app'
-import { builderRouteChangeHandler } from '@codelab/frontend/application/builder'
+import { useRouteChangeHandler } from '@codelab/frontend/application/builder'
 import {
   PagePreviewView,
   PagePreviewViewLayout,
@@ -21,62 +22,35 @@ import React, { useEffect } from 'react'
 
 const PagePreviewView: PagePreviewView = observer(() => {
   const router = useRouter()
-  const { pageService } = useStore()
 
   const [{ error, result, status }, loadDevelopmentPage] = useAppDevelopment({
     rendererType: RendererType.Preview,
   })
 
-  const { pageName } = usePageQuery()
-  const pageNameRef = React.useRef(pageName)
+  useRouteChangeHandler(result?.app.pages, PageType.PageDetail)
 
-  const routeChangeHandler = React.useMemo(
-    () => async (url: string) => {
-      if (isNil(result) || isBoolean(result)) {
-        return
-      }
-
-      const pages = pageService.getPagesByApp(result.app.id)
-
-      await builderRouteChangeHandler(
-        router,
-        result.app,
-        pages,
-        url,
-        PageType.PageDetail,
-      )
-    },
-    [result, pageName],
-  )
-
+  /**
+   * Load the page each time we change the path
+   */
   useEffect(() => {
-    if (result && !isBoolean(result)) {
-      router.events.on('routeChangeStart', routeChangeHandler)
-    }
+    void loadDevelopmentPage.execute()
+  }, [router.asPath])
 
-    if (status === 'not-executed' || pageName !== pageNameRef.current) {
-      pageNameRef.current = pageName
-      void loadDevelopmentPage.execute()
-    }
+  if (status === 'loading' || status === 'not-executed') {
+    return <Spin />
+  }
 
-    return () => {
-      router.events.off('routeChangeStart', routeChangeHandler)
-    }
-  }, [pageName, result])
-
-  // boolean means router.push was called from the hook, so will redirect anyways
-  if (isBoolean(result)) {
+  if (!result) {
     return null
   }
 
   return (
     <>
       <Head>
-        <title>{result?.page.name}</title>
+        <title>{result.page.name}</title>
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
-      {status === 'not-executed' && <Spin />}
-      {result?.elementTree && <RootRenderer renderer={result.renderer} />}
+      <RootRenderer renderer={result.renderer} />
     </>
   )
 })

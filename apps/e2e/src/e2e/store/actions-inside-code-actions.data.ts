@@ -68,7 +68,7 @@ export const textElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Content',
   propsData: {
-    customText: `${stateKey1} - {{state.${stateKey1}}}, ${stateKey2} - {{state.${stateKey2}}}`,
+    children: `${stateKey1} - {{state.${stateKey1}}}, ${stateKey2} - {{state.${stateKey2}}}`,
   },
 }
 
@@ -78,7 +78,7 @@ export const buttonElementCreateData: ICreateElementData = {
   name: 'Post Button',
   prevSibling: textElementCreateData,
   propsData: {
-    customText: 'Click button to run actions',
+    children: 'Click button to run actions',
     onClick: {
       kind: ITypeKind.ActionType,
       type: actionTypeId,

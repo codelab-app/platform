@@ -1,4 +1,9 @@
-import type { IAppDto, ICreateElementData } from '@codelab/shared/abstract/core'
+import type {
+  IAppDto,
+  ICreateElementData,
+  ICreatePageData,
+  IPageDto,
+} from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
@@ -12,7 +17,7 @@ export const providerPageLinkElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Test Page Link',
   propsData: {
-    customText: 'go to test page',
+    children: 'go to test page',
     href: '/test-page',
   },
 }
@@ -21,7 +26,7 @@ export const staticPageTextElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Test Page Content',
   propsData: {
-    customText: 'this is the test page',
+    children: 'this is the test page',
   },
 }
 export const staticPageLinkElementCreateData: ICreateElementData = {
@@ -30,7 +35,7 @@ export const staticPageLinkElementCreateData: ICreateElementData = {
   name: 'Dynamic Page Link',
   prevSibling: { id: staticPageTextElementCreateData.id },
   propsData: {
-    customText: 'go to dynamic page',
+    children: 'go to dynamic page',
     href: `/tests/${testUrlProps.testId}/subtests/${testUrlProps.subtestId}`,
   },
 }
@@ -39,26 +44,26 @@ export const dynamicPageTextElementCreateData: ICreateElementData = {
   id: v4(),
   name: 'Dynamic Page Content',
   propsData: {
-    customText:
+    children:
       'testId: "{{urlProps.testId}}", subtestId: "{{urlProps.subtestId}}"',
   },
 }
 
 export const buildTestPages = (app: IAppDto) => {
-  const staticPageCreateData = {
+  const staticPageCreateData: ICreatePageData = {
     app,
     id: v4(),
     kind: IPageKind.Regular,
     name: 'Test Page',
-    url: '/test-page',
+    urlPattern: '/test-page',
   }
 
-  const dynamicPageCreateData = {
+  const dynamicPageCreateData: ICreatePageData = {
     app,
     id: v4(),
     kind: IPageKind.Regular,
     name: 'Dynamic Page',
-    url: '/tests/:testId/subtests/:subtestId',
+    urlPattern: '/tests/:testId/subtests/:subtestId',
   }
 
   return {

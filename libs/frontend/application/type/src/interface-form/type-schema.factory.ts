@@ -89,24 +89,17 @@ export class TypeSchemaFactory {
     return {
       kind: {
         default: type?.kind,
-
         enum: type?.kind ? [type.kind] : undefined,
-
         label: `${typeLabel}Kind`,
-
         type: 'string',
-
         uniforms: blankUniforms,
       },
       type: {
         default: type?.id,
         // This ensures that only this exact type is considered valid. Allows union types to use oneOf
         enum: type?.id ? [type.id] : undefined,
-
         label: typeLabel,
-
         type: 'string',
-
         uniforms: blankUniforms,
       },
       value: valueSchema,

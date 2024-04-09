@@ -28,10 +28,7 @@ import type {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
 
-export const createRootApplicationStore = ({
-  context,
-  store,
-}: IRootStoreDtoTest) => {
+export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
   @model('@codelab/TestRootStore')
   class TestRootStore
     extends Model({
@@ -105,6 +102,7 @@ export const createRootApplicationStore = ({
         rendererServiceContext,
         resourceDomainServiceContext,
         resourceServiceContext,
+        routerServiceContext,
         runtimeComponentServiceContext,
         runtimeElementServiceContext,
         storeDomainServiceContext,
@@ -152,6 +150,7 @@ export const createRootApplicationStore = ({
         this,
         this.resourceService?.resourceDomainService,
       )
+      routerServiceContext?.set(this, this.routerService)
       propServiceContext?.set(this, this.propService)
       elementServiceContext?.set(this, this.elementService)
       elementDomainServiceContext?.set(

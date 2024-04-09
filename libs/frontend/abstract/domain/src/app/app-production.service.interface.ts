@@ -12,7 +12,7 @@ import type { IAppModel } from './app.model.interface'
 
 export interface IAppProductionArgs {
   domain: string
-  pageUrl: string
+  pageUrlPattern: string
 }
 
 /**

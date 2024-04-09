@@ -40,11 +40,11 @@ export const UpdatePageForm = observer(
       return Promise.resolve()
     }
 
-    const model = {
+    const model: Partial<IUpdatePageData> = {
       app: pageToUpdate?.app,
       id: pageToUpdate?.id,
       name: pageToUpdate?.name,
-      url: pageToUpdate?.url,
+      urlPattern: pageToUpdate?.urlPattern,
     }
 
     return (

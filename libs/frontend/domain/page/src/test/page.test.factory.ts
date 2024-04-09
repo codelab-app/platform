@@ -13,7 +13,7 @@ export const pageFactory =
       name: dto.name ?? chance.word(),
       rootElement: { id: dto.rootElement?.id ?? v4() },
       store: { id: dto.store?.id ?? v4() },
-      url: chance.word(),
+      urlPattern: chance.word(),
     }
 
     return pageDomainService.hydrate(page)

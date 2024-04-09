@@ -1,7 +1,8 @@
-import {
-  type IRuntimeContainerNodeModel,
-  RendererType,
+import type {
+  IRuntimeComponentModel,
+  IRuntimeElementModel,
 } from '@codelab/frontend/abstract/application'
+import { RendererType } from '@codelab/frontend/abstract/application'
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import type { IResourceFetchConfig } from '@codelab/shared/abstract/core'
@@ -463,7 +464,7 @@ describe('Runtime Element props', () => {
       })
 
       const runtimeComponent = runtimeElement
-        .children[0] as IRuntimeContainerNodeModel
+        .children[0] as IRuntimeComponentModel
 
       const { runtimeProps } = runtimeComponent.runtimeRootElement
       const { evaluatedProps } = runtimeProps
@@ -472,24 +473,19 @@ describe('Runtime Element props', () => {
     })
 
     it('should evaluate url props expression', () => {
-      const { element, page, renderer, runtimeElement } =
-        setupRuntimeElement(testbed)
-
       const urlKey = 'urlKey'
       const urlPropValue = 'urlPropValue'
 
+      rootApplicationStore.routerService.update({
+        query: {
+          [urlKey]: urlPropValue,
+        },
+      })
+
+      const { element, page, renderer, runtimeElement } =
+        setupRuntimeElement(testbed)
+
       element.props.set(urlKey, `{{urlProps.${urlKey}}}`)
-
-      expect(runtimeElement.runtimeProps.evaluatedProps).toMatchObject({
-        [urlKey]: undefined,
-      })
-
-      testbed.addRenderer({
-        containerNode: page,
-        id: renderer.id,
-        rendererType: RendererType.Preview,
-        urlSegments: { [urlKey]: urlPropValue },
-      })
 
       expect(runtimeElement.runtimeProps.evaluatedProps).toMatchObject({
         [urlKey]: urlPropValue,

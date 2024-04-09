@@ -12,6 +12,7 @@ describe('_app page content container', () => {
 
   before(() => {
     setupTest()
+
     cy.get<{ app: IAppDto; page: IPageDto }>('@setupComplete').then((res) => {
       app = res.app
       page = res.page

@@ -94,7 +94,7 @@ export const PageTreeItem = observer(
       {
         cuiKey: MODEL_ACTION.BuildApp.key,
         icon: isRegenerating ? <LoadingOutlined /> : <ToolOutlined />,
-        onClick: () => regenerate(app, [page.url]),
+        onClick: () => regenerate(app, [page.urlPattern]),
         title: 'Build',
       },
       {

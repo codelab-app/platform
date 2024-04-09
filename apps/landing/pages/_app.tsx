@@ -1,7 +1,7 @@
 // import '../src/wdyr'
 import '../styles/app.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type { IAppProps } from '@codelab/frontend/abstract/domain'
+import type { IAppProps } from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { App as AntdApp, ConfigProvider } from 'antd'
 import React from 'react'

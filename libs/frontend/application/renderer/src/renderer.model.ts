@@ -45,7 +45,7 @@ import { typedPropTransformersFactory } from './typed-prop-transformers'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
+const create = ({ containerNode, rendererType }: IRendererDto) => {
   const runtimeRootContainerNode = isPage(containerNode)
     ? RuntimePageModel.create({ page: containerNode })
     : RuntimeComponentModel.create({
@@ -59,7 +59,6 @@ const create = ({ containerNode, rendererType, urlSegments }: IRendererDto) => {
       : componentRef(containerNode),
     rendererType,
     runtimeRootContainerNode,
-    urlSegments,
   })
 }
 
@@ -100,7 +99,6 @@ export class Renderer
     typedPropTransformers: prop<ObjectMap<ITypedPropTransformer>>(() =>
       typedPropTransformersFactory(),
     ),
-    urlSegments: prop<Record<string, string> | undefined>(),
   })
   implements IRendererModel
 {

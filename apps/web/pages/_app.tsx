@@ -1,7 +1,10 @@
 // import '../wdyr'
 import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
-import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppProps,
+  IPageProps,
+} from '@codelab/frontend/abstract/application'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
@@ -25,6 +28,8 @@ setGlobalConfig({
  * Need to paste here for it to work with mobx
  */
 if (getEnv().endpoint.isLocal && process.env['NEXT_WEB_ENABLE_WDYR']) {
+  console.log('Enable WDYR...')
+
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const whyDidYouRender = require('@welldone-software/why-did-you-render')
 
@@ -38,7 +43,10 @@ if (getEnv().endpoint.isLocal && process.env['NEXT_WEB_ENABLE_WDYR']) {
   })
 }
 
-const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
+const App = ({
+  Component,
+  pageProps: { user, ...pageProps },
+}: IAppProps<IPageProps>) => {
   const router = useRouter()
 
   const store = useMemo(() => {
@@ -47,7 +55,14 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
     }
 
     return withTracerSpan('initializeStore', () =>
-      initializeStore({ routerQuery: router.query, user }),
+      initializeStore({
+        router: {
+          path: router.asPath,
+          pathname: router.pathname,
+          query: router.query,
+        },
+        user,
+      }),
     )
   }, [user])
 
@@ -62,9 +77,7 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
   useTwindConfig(config)
 
   const LayoutContent = (props: object | undefined) => (
-    <AntdApp className="size-full">
-      <Component {...props} />
-    </AntdApp>
+    <Component {...pageProps} {...props} />
   )
 
   return (
@@ -85,14 +98,9 @@ const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
               },
             }}
           >
-            <Layout>
-              {LayoutContent}
-              {/* {(props) => (
-                <AntdApp className="size-full">
-                  <Component {...props} />
-                </AntdApp>
-              )} */}
-            </Layout>
+            <AntdApp className="size-full">
+              <Layout>{LayoutContent}</Layout>
+            </AntdApp>
           </ConfigProvider>
         </CuiProvider>
       </UserProvider>

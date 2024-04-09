@@ -20,7 +20,6 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   elementRef,
   getComponentDomainService,
   isAtom,
@@ -262,22 +261,6 @@ export class RuntimeElementModel
       // (children from props has precedence)
       if (this.runtimeProps.evaluatedProps['children']) {
         return this.runtimeProps.evaluatedProps['children']
-      }
-
-      const injectedText =
-        this.runtimeProps.evaluatedProps[CUSTOM_TEXT_PROP_KEY] || '""'
-
-      const shouldInjectText =
-        isAtom(this.element.current.renderType.current) &&
-        this.element.current.renderType.current.allowCustomTextInjection
-
-      if (shouldInjectText) {
-        const readOnly = !this.element.current.isTextContentEditable
-
-        return this.renderer.rendererType === RendererType.Preview ||
-          this.renderer.rendererType === RendererType.Production
-          ? createTextRenderer(injectedText)
-          : createTextEditor(injectedText, this.compositeKey, readOnly)
       }
 
       /*

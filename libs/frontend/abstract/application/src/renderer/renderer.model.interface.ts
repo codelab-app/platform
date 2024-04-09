@@ -34,7 +34,6 @@ export interface IRendererModel {
   runtimePage?: IRuntimePageModel
   runtimeRootContainerNode: IRuntimeComponentModel | IRuntimePageModel
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
-  urlSegments?: Record<string, string>
 }
 
 export interface ElementWrapperProps {

@@ -93,14 +93,6 @@ export class Atom
     return IElementRenderTypeKind.Atom as const
   }
 
-  /**
-   * Determines whether the atom accepts children and text make sense for the type.
-   */
-  @computed
-  get allowCustomTextInjection(): boolean {
-    return customTextInjectionWhiteList.indexOf(this.type) > -1
-  }
-
   @computed
   get library() {
     const atomType = this.type

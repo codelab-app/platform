@@ -50,7 +50,7 @@ export const componentElementCreateData = (
   name: 'Fetch Data',
   parentElement: component.rootElement,
   propsData: {
-    customText: 'Name of data - {{ componentProps.name }}',
+    children: 'Name of data - {{ componentProps.name }}',
     onClick: {
       kind: ITypeKind.ActionType,
       type: actionTypeId,

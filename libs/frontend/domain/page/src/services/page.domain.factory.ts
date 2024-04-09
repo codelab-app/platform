@@ -41,7 +41,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
   @modelAction
   private addDefaultPage(
     app: IAppModel,
-    { id, kind, name, url }: ICreatePageData,
+    { id, kind, name, urlPattern }: ICreatePageData,
     renderType: IElementRenderTypeDto,
   ) {
     const { user } = this.userDomainService
@@ -81,7 +81,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
       pageContentContainer,
       rootElement: pageRootElement,
       store: pageStore,
-      url,
+      urlPattern,
     })
   }
 
@@ -97,7 +97,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
         id: v4(),
         kind: IPageKind.InternalServerError,
         name: IPageKindName.InternalServerError,
-        url: `/${IPageKindName.InternalServerError}`,
+        urlPattern: `/${IPageKindName.InternalServerError}`,
       },
       renderType,
     )
@@ -112,7 +112,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
         id: v4(),
         kind: IPageKind.NotFound,
         name: IPageKindName.NotFound,
-        url: `/${IPageKindName.NotFound}`,
+        urlPattern: `/${IPageKindName.NotFound}`,
       },
       renderType,
     )
@@ -127,7 +127,7 @@ export class PageDomainFactory extends Model({}) implements IPageFactory {
         id: v4(),
         kind: IPageKind.Provider,
         name: IPageKindName.Provider,
-        url: `/${IPageKindName.Provider}`,
+        urlPattern: `/${IPageKindName.Provider}`,
       },
       renderType,
     )

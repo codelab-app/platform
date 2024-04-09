@@ -2455,7 +2455,7 @@ export type AppPagePagesNodeAggregateSelection = {
   __typename: 'AppPagePagesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type AppPagesConnection = {
@@ -4472,7 +4472,7 @@ export type ElementPagePageNodeAggregateSelection = {
   __typename: 'ElementPagePageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type ElementPageRelationship = {
@@ -5676,7 +5676,7 @@ export type Page = {
   slug: Scalars['String']['output']
   elements: Array<Element>
   kind: PageKind
-  url: Scalars['String']['output']
+  urlPattern: Scalars['String']['output']
   rootElementAggregate?: Maybe<PageElementRootElementAggregationSelection>
   rootElement: Element
   appAggregate?: Maybe<PageAppAppAggregationSelection>
@@ -5794,7 +5794,7 @@ export type PageAggregateSelection = {
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type PageAppAppAggregationSelection = {
@@ -6338,7 +6338,7 @@ export type RedirectPageSourceNodeAggregateSelection = {
   __typename: 'RedirectPageSourceNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type RedirectPageTargetPageAggregationSelection = {
@@ -6351,7 +6351,7 @@ export type RedirectPageTargetPageNodeAggregateSelection = {
   __typename: 'RedirectPageTargetPageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   compositeKey: StringAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type RedirectsConnection = {
@@ -9531,60 +9531,60 @@ export type AppPagesNodeAggregationWhereInput = {
   compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_EQUAL?: InputMaybe<Scalars['String']['input']>
+  urlPattern_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type AppPagesUpdateConnectionInput = {
@@ -17933,60 +17933,60 @@ export type ElementPageNodeAggregationWhereInput = {
   compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_EQUAL?: InputMaybe<Scalars['String']['input']>
+  urlPattern_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type ElementPageUpdateConnectionInput = {
@@ -25034,7 +25034,7 @@ export type PageCreateInput = {
   id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   kind: PageKind
-  url: Scalars['String']['input']
+  urlPattern: Scalars['String']['input']
   rootElement?: InputMaybe<PageRootElementFieldInput>
   app?: InputMaybe<PageAppFieldInput>
   store?: InputMaybe<PageStoreFieldInput>
@@ -25062,7 +25062,7 @@ export type PageOnCreateInput = {
   id: Scalars['ID']['input']
   compositeKey: Scalars['String']['input']
   kind: PageKind
-  url: Scalars['String']['input']
+  urlPattern: Scalars['String']['input']
 }
 
 export type PageOptions = {
@@ -25967,7 +25967,7 @@ export type PageSort = {
   id?: InputMaybe<SortDirection>
   compositeKey?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
-  url?: InputMaybe<SortDirection>
+  urlPattern?: InputMaybe<SortDirection>
 }
 
 export type PageStoreAggregateInput = {
@@ -26403,7 +26403,7 @@ export type PageUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   compositeKey?: InputMaybe<Scalars['String']['input']>
   kind?: InputMaybe<PageKind>
-  url?: InputMaybe<Scalars['String']['input']>
+  urlPattern?: InputMaybe<Scalars['String']['input']>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   app?: InputMaybe<PageAppUpdateFieldInput>
   store?: InputMaybe<PageStoreUpdateFieldInput>
@@ -26450,22 +26450,22 @@ export type PageWhere = {
   kind_IN?: InputMaybe<Array<PageKind>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT_IN?: InputMaybe<Array<PageKind>>
-  url?: InputMaybe<Scalars['String']['input']>
+  urlPattern?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  url_NOT?: InputMaybe<Scalars['String']['input']>
-  url_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  urlPattern_NOT?: InputMaybe<Scalars['String']['input']>
+  urlPattern_IN?: InputMaybe<Array<Scalars['String']['input']>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  url_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  url_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  url_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  url_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  url_MATCHES?: InputMaybe<Scalars['String']['input']>
+  urlPattern_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  urlPattern_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  urlPattern_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern_MATCHES?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  url_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  urlPattern_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  url_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  url_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   OR?: InputMaybe<Array<PageWhere>>
   AND?: InputMaybe<Array<PageWhere>>
   NOT?: InputMaybe<PageWhere>
@@ -27578,60 +27578,60 @@ export type RedirectSourceNodeAggregationWhereInput = {
   compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_EQUAL?: InputMaybe<Scalars['String']['input']>
+  urlPattern_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type RedirectSourceUpdateConnectionInput = {
@@ -27771,60 +27771,60 @@ export type RedirectTargetPageNodeAggregationWhereInput = {
   compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_EQUAL?: InputMaybe<Scalars['String']['input']>
+  urlPattern_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  url_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  url_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type RedirectTargetPageUpdateConnectionInput = {
@@ -33440,7 +33440,7 @@ export interface PageAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   compositeKey?: StringAggregateInputNonNullable
-  url?: StringAggregateInputNonNullable
+  urlPattern?: StringAggregateInputNonNullable
 }
 
 export declare class PageModel {

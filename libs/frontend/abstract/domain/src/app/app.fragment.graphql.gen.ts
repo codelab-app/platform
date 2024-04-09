@@ -123,7 +123,9 @@ export const AppProductionFragmentDoc = gql`
     owner {
       ...Owner
     }
-    pages(where: { OR: [{ url: $pageUrl }, { kind: Provider }] }) {
+    pages(
+      where: { OR: [{ urlPattern: $pageUrlPattern }, { kind: Provider }] }
+    ) {
       ...PageProduction
     }
     slug

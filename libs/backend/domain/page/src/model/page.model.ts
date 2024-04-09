@@ -23,7 +23,7 @@ export class Page extends IModel implements IPage {
 
   store: IRef
 
-  url: string
+  urlPattern: string
 
   constructor({
     app,
@@ -33,7 +33,7 @@ export class Page extends IModel implements IPage {
     pageContentContainer,
     rootElement,
     store,
-    url,
+    urlPattern,
   }: IPageDto) {
     super()
 
@@ -44,6 +44,6 @@ export class Page extends IModel implements IPage {
     this.pageContentContainer = pageContentContainer
     this.rootElement = rootElement
     this.store = store
-    this.url = url
+    this.urlPattern = urlPattern
   }
 }

@@ -25,11 +25,11 @@ import { appProductionApi } from './app-production.api'
 
 const getAppProductionData = async ({
   domain,
-  pageUrl,
+  pageUrlPattern,
 }: IAppProductionArgs): Promise<IAppProductionDto> => {
   const data = await appProductionApi.GetAppProduction({
     domain,
-    pageUrl,
+    pageUrlPattern,
   })
 
   const app = data.apps[0]
@@ -40,7 +40,7 @@ const getAppProductionData = async ({
 
   const pages = app.pages
   // provider page is also loaded therefore we need to find the current one
-  const loadedPage = pages.find((page) => page.url === pageUrl)
+  const loadedPage = pages.find((page) => page.urlPattern === pageUrlPattern)
 
   if (!loadedPage) {
     throw new Error('Missing page')

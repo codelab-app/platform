@@ -6,14 +6,16 @@ import type {
 } from '@codelab/frontend/abstract/application'
 import {
   getRendererService,
+  getRouterService,
   IEvaluationContext,
   isRuntimeComponent,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
-  CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
   isAtomRef,
+  isComponent,
+  isComponentRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import { mergeProps } from '@codelab/frontend/domain/prop'
@@ -25,6 +27,7 @@ import {
   mapDeep,
 } from '@codelab/shared/utils'
 import get from 'lodash/get'
+import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
 import { computed } from 'mobx'
@@ -96,6 +99,8 @@ export class RuntimeElementPropsModel
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
+    console.log(this.urlProps, this.urlProps?.['urlKey'])
+
     const componentProps = isRuntimeComponent(this.closestRuntimeContainerNode)
       ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}
@@ -190,7 +195,11 @@ export class RuntimeElementPropsModel
 
   @computed
   get urlProps(): IPropData | undefined {
-    return this.renderer.urlSegments
+    if (isComponentRef(this.renderer.containerNode)) {
+      return {}
+    }
+
+    return this.routerService.query
   }
 
   @modelAction
@@ -231,11 +240,9 @@ export class RuntimeElementPropsModel
       return evaluateObject(this.renderedTypedProps, context)
     }
 
-    const customTextProp = this.element.props.values[CUSTOM_TEXT_PROP_KEY]
-    const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
-    const evaluated = evaluateObject(props, context)
+    const evaluated = evaluateObject(this.renderedTypedProps, context)
 
-    return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
+    return evaluated
   }
 
   transformRuntimeActions(
@@ -252,5 +259,10 @@ export class RuntimeElementPropsModel
   @computed
   private get rendererService() {
     return getRendererService(this)
+  }
+
+  @computed
+  private get routerService() {
+    return getRouterService(this)
   }
 }

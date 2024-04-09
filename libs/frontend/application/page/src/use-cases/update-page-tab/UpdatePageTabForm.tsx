@@ -37,7 +37,7 @@ export const UpdatePageTabForm = observer<{
     pageContentContainer: pageContentContainer?.maybeCurrent?.id
       ? { id: pageContentContainer.maybeCurrent.id }
       : null,
-    url: page.url,
+    url: page.urlPattern,
   }
 
   return (

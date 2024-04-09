@@ -51,7 +51,7 @@ export class PageRepository extends AbstractRepository<
             pageContentContainer,
             rootElement,
             store,
-            url,
+            urlPattern,
           }) => ({
             app: connectNodeId(app.id),
             compositeKey: PageProperties.pageCompositeKey(name, app),
@@ -60,7 +60,7 @@ export class PageRepository extends AbstractRepository<
             pageContentContainer: connectNodeId(pageContentContainer?.id),
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),
-            url,
+            urlPattern,
           }),
         ),
         selectionSet: `{ pages { ${pageSelectionSet} } }`,
@@ -85,7 +85,7 @@ export class PageRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { app, name, pageContentContainer, rootElement, url }: IPageDto,
+    { app, name, pageContentContainer, rootElement, urlPattern }: IPageDto,
     where: PageWhere,
   ) {
     return (
@@ -97,7 +97,7 @@ export class PageRepository extends AbstractRepository<
           compositeKey: PageProperties.pageCompositeKey(name, app),
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
           rootElement: reconnectNodeId(rootElement.id),
-          url,
+          urlPattern,
         },
         where,
       })

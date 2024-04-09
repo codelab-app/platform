@@ -1,5 +1,7 @@
-import type { IRootStore } from '@codelab/frontend/abstract/application'
-import type { IPageProps } from '@codelab/frontend/abstract/domain'
+import type {
+  IPageProps,
+  IRootStore,
+} from '@codelab/frontend/abstract/application'
 import { trace } from '@opentelemetry/api'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './root.store'
@@ -11,10 +13,7 @@ export let _store: IRootStore | null = null
  *
  * @param pageProps
  */
-export const initializeStore = ({
-  routerQuery,
-  user,
-}: IPageProps): IRootStore => {
+export const initializeStore = ({ router, user }: IPageProps): IRootStore => {
   /**
    * Using snapshot on SSR is a bit tricky, since model data may be out of sync on server-side and client side. Passing snapshot data from backend to frontend is also very costly in terms of bandwidth.
    */
@@ -23,7 +22,7 @@ export const initializeStore = ({
     trace.getActiveSpan()?.addEvent('Store not found')
 
     const store = createRootStore({
-      routerQuery,
+      router,
       user,
     })
 
@@ -32,7 +31,7 @@ export const initializeStore = ({
     _store = store
   }
 
-  _store.routerService.update(routerQuery)
+  _store.routerService.update(router)
 
   return _store
 }

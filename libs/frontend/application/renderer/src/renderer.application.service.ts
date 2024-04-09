@@ -51,7 +51,6 @@ export class RendererApplicationService
     } else {
       // existing renderer may change type when switching between builder and preview modes
       renderer.rendererType = rendererDto.rendererType
-      renderer.urlSegments = rendererDto.urlSegments
 
       // Reset the pre/post render actions for all elements when navigating.
       // The stopper is used to prevent infinite re-rendering when the action mutates a state

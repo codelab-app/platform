@@ -2,7 +2,7 @@ import './editorjs.overrides.css'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import type { OutputData } from '@editorjs/editorjs'
 import EditorJS from '@editorjs/editorjs'
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import type { TextEditorProps } from './editor'
 import {
   createEditorContent,
@@ -13,7 +13,7 @@ import { EDITOR_TOOLS } from './editor.tools'
 
 const TextEditor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
   const { propService, runtimeElementService } = useStore()
-  const [editor, setEditor] = React.useState<EditorJS | null>(null)
+  const editorRef = useRef<EditorJS | null>(null)
   const runtimeElement = runtimeElementService.runtimeElement(compositeKey)
   const element = runtimeElement.element.current
   const holder = `${element.id}-editor`
@@ -30,7 +30,7 @@ const TextEditor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
   }
 
   useEffect(() => {
-    if (!editor) {
+    if (!editorRef.current) {
       const newEditor = new EditorJS({
         data: getInitialData(data),
         hideToolbar: true,
@@ -58,28 +58,28 @@ const TextEditor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
         tools: EDITOR_TOOLS,
       })
 
-      setEditor(newEditor)
+      editorRef.current = newEditor
     }
 
     return () => {
-      if (editor?.destroy) {
-        editor.destroy()
+      if (editorRef.current) {
+        editorRef.current = null
       }
     }
   }, [])
 
   useEffect(() => {
-    void editor?.isReady.then(async () => {
-      await editor.readOnly.toggle(readOnly)
+    void editorRef.current?.isReady.then(async () => {
+      await editorRef.current?.readOnly.toggle(readOnly)
 
-      if (editor.blocks.getBlocksCount() === 0) {
+      if (editorRef.current?.blocks.getBlocksCount() === 0) {
         // without a placeholder text, adding a new text is a little difficult
         const placeholderBlock = createEditorContent('Text')
 
-        await editor.render(placeholderBlock)
+        await editorRef.current.render(placeholderBlock)
       }
 
-      selectAllTextInTheElement(element.id)
+      // selectAllTextInTheElement(element.id)
     })
   }, [readOnly])
 

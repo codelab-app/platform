@@ -161,7 +161,10 @@ export class ElementService
    * Load the types for this element. An element could be `atom` or `component` type, and we want to load the corresponding types.
    */
   @modelFlow
-  loadTypes = _async(function* (this: ElementService, element: IElementModel) {
+  loadDependantTypes = _async(function* (
+    this: ElementService,
+    element: IElementModel,
+  ) {
     const apiId = element.renderType.current.api.id
 
     yield* _await(this.typeService.getInterface(apiId))

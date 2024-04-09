@@ -45,7 +45,7 @@ export class PageDomainService {
   }
 
   private async addDefaultPage(
-    { id, kind, name, url }: ICreatePageData,
+    { id, kind, name, urlPattern }: ICreatePageData,
     app: ICreatePageAppDto,
   ) {
     const user = this.authService.currentUser
@@ -82,7 +82,7 @@ export class PageDomainService {
       pageContentContainer,
       rootElement: pageRootElement,
       store: pageStore,
-      url,
+      urlPattern,
     })
   }
 
@@ -93,7 +93,7 @@ export class PageDomainService {
         id: v4(),
         kind: IPageKind.Provider,
         name: IPageKindName.Provider,
-        url: `/${IPageKindName.Provider}`,
+        urlPattern: `/${IPageKindName.Provider}`,
       },
       app,
     )
@@ -106,7 +106,7 @@ export class PageDomainService {
         id: v4(),
         kind: IPageKind.NotFound,
         name: IPageKindName.NotFound,
-        url: `/${IPageKindName.NotFound}`,
+        urlPattern: `/${IPageKindName.NotFound}`,
       },
       app,
     )
@@ -119,7 +119,7 @@ export class PageDomainService {
         id: v4(),
         kind: IPageKind.Provider,
         name: IPageKindName.Provider,
-        url: `/${IPageKindName.Provider}`,
+        urlPattern: `/${IPageKindName.Provider}`,
       },
       app,
     )

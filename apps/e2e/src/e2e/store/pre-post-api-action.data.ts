@@ -84,6 +84,6 @@ export const providerPageElement = (page: IPageDto): ICreateElementData => ({
   postRenderAction: { id: 'post-render-api-action-id' },
   preRenderAction: { id: 'pre-render-api-action-id' },
   propsData: {
-    customText: `pre-render response: "{{state.${stateKeyPreRender}}}", post-render response: "{{state.${stateKeyPostRender}}}"`,
+    children: `pre-render response: "{{state.${stateKeyPreRender}}}", post-render response: "{{state.${stateKeyPostRender}}}"`,
   },
 })

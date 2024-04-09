@@ -135,31 +135,33 @@ describe('State variables sharing between pages', () => {
     cy.get('[data-cy="cui-sidebar-view-header-State"]').click()
     cy.getCuiToolbarItem(MODEL_ACTION.CreateField.key).click()
 
-    cy.setFormFieldValue({
-      label: 'Key',
-      type: FIELD_TYPE.INPUT,
-      value: 'name',
+    cy.getCuiForm(MODEL_ACTION.CreateField.key).within(() => {
+      cy.setFormFieldValue({
+        label: 'Key',
+        type: FIELD_TYPE.INPUT,
+        value: 'name',
+      })
+
+      cy.setFormFieldValue({
+        label: 'Type',
+        type: FIELD_TYPE.SELECT,
+        value: 'String',
+      })
+
+      cy.findByText('Default values').should('exist')
+
+      cy.setFormFieldValue({
+        label: 'Default values',
+        type: FIELD_TYPE.CODE_MIRROR,
+        value: 'provider state value',
+      })
+
+      cy.intercept('POST', 'api/graphql').as('createState')
+      cy.getCuiPopover(MODEL_ACTION.CreateField.key)
+        .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
+        .click()
+      cy.wait('@createState')
     })
-
-    cy.setFormFieldValue({
-      label: 'Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'String',
-    })
-
-    cy.findByText('Default values').should('exist')
-
-    cy.setFormFieldValue({
-      label: 'Default values',
-      type: FIELD_TYPE.CODE_MIRROR,
-      value: 'provider state value',
-    })
-
-    cy.intercept('POST', 'api/graphql').as('createState')
-    cy.getCuiPopover(MODEL_ACTION.CreateField.key)
-      .getCuiToolbarItem(MODEL_ACTION.CreateField.key)
-      .click()
-    cy.wait('@createState')
   })
 
   /**

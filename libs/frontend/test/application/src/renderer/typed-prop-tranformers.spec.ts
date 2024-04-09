@@ -1,4 +1,3 @@
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/domain'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import {
   IElementRenderTypeKind,
@@ -109,7 +108,7 @@ describe('TypedPropTransformers', () => {
       },
     })
 
-    childElement.props.set(CUSTOM_TEXT_PROP_KEY, customTextExpression)
+    childElement.props.set('children', customTextExpression)
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 

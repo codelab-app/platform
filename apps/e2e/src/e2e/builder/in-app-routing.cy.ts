@@ -14,6 +14,7 @@ describe('In-app navigation between app pages', () => {
 
   before(() => {
     setupTest()
+
     cy.get<{ app: IAppDto }>('@setupComplete').then((res) => {
       app = res.app
     })
@@ -27,6 +28,7 @@ describe('In-app navigation between app pages', () => {
         )}`,
       )
     })
+
     it('should navigate to the static page when NextLink in the _app is clicked', () => {
       cy.get('#render-root')
         .contains(providerPageLinkElementCreateData.propsData?.customText)
@@ -54,6 +56,7 @@ describe('In-app navigation between app pages', () => {
         )}/builder`,
       )
     })
+
     it('should disable navigation', () => {
       cy.get('#render-root')
         .contains(providerPageLinkElementCreateData.propsData?.customText)

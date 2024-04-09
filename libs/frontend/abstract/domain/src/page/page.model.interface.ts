@@ -9,8 +9,7 @@ import type { Ref } from 'mobx-keystone'
 import type { IAppModel } from '../app'
 import type { IElementModel, IElementTree } from '../element'
 import type { IRedirectModel } from '../redirect'
-import type { ICacheService } from '../shared'
-import type { IModel } from '../shared/models/model.interface'
+import type { ICacheService, IModel } from '../shared'
 import type { IStoreModel } from '../store'
 
 export interface IPageModel
@@ -18,6 +17,10 @@ export interface IPageModel
     ICacheService<IPageDto, IPageModel>,
     IElementTree {
   app: Ref<IAppModel>
+  /**
+   * The platform URL
+   */
+  builderUrlInstance: string
   elements: Array<IElementModel>
   kind: IPageKind
   name: string
@@ -34,5 +37,8 @@ export interface IPageModel
   rootElement: Ref<IElementModel>
   slug: string
   store: Ref<IStoreModel>
-  url: string
+  /**
+   * This is the URL pattern
+   */
+  urlPattern: string
 }

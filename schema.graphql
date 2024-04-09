@@ -1462,7 +1462,7 @@ type AppPagePagesAggregationSelection {
 type AppPagePagesNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  url: StringAggregateSelectionNonNullable!
+  urlPattern: StringAggregateSelectionNonNullable!
 }
 
 input AppPagesAggregateInput {
@@ -1552,21 +1552,21 @@ input AppPagesNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  url_AVERAGE_LENGTH_EQUAL: Float
-  url_AVERAGE_LENGTH_GT: Float
-  url_AVERAGE_LENGTH_GTE: Float
-  url_AVERAGE_LENGTH_LT: Float
-  url_AVERAGE_LENGTH_LTE: Float
-  url_LONGEST_LENGTH_EQUAL: Int
-  url_LONGEST_LENGTH_GT: Int
-  url_LONGEST_LENGTH_GTE: Int
-  url_LONGEST_LENGTH_LT: Int
-  url_LONGEST_LENGTH_LTE: Int
-  url_SHORTEST_LENGTH_EQUAL: Int
-  url_SHORTEST_LENGTH_GT: Int
-  url_SHORTEST_LENGTH_GTE: Int
-  url_SHORTEST_LENGTH_LT: Int
-  url_SHORTEST_LENGTH_LTE: Int
+  urlPattern_AVERAGE_LENGTH_EQUAL: Float
+  urlPattern_AVERAGE_LENGTH_GT: Float
+  urlPattern_AVERAGE_LENGTH_GTE: Float
+  urlPattern_AVERAGE_LENGTH_LT: Float
+  urlPattern_AVERAGE_LENGTH_LTE: Float
+  urlPattern_LONGEST_LENGTH_EQUAL: Int
+  urlPattern_LONGEST_LENGTH_GT: Int
+  urlPattern_LONGEST_LENGTH_GTE: Int
+  urlPattern_LONGEST_LENGTH_LT: Int
+  urlPattern_LONGEST_LENGTH_LTE: Int
+  urlPattern_SHORTEST_LENGTH_EQUAL: Int
+  urlPattern_SHORTEST_LENGTH_GT: Int
+  urlPattern_SHORTEST_LENGTH_GTE: Int
+  urlPattern_SHORTEST_LENGTH_LT: Int
+  urlPattern_SHORTEST_LENGTH_LTE: Int
 }
 
 type AppPagesRelationship {
@@ -8148,21 +8148,21 @@ input ElementPageNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  url_AVERAGE_LENGTH_EQUAL: Float
-  url_AVERAGE_LENGTH_GT: Float
-  url_AVERAGE_LENGTH_GTE: Float
-  url_AVERAGE_LENGTH_LT: Float
-  url_AVERAGE_LENGTH_LTE: Float
-  url_LONGEST_LENGTH_EQUAL: Int
-  url_LONGEST_LENGTH_GT: Int
-  url_LONGEST_LENGTH_GTE: Int
-  url_LONGEST_LENGTH_LT: Int
-  url_LONGEST_LENGTH_LTE: Int
-  url_SHORTEST_LENGTH_EQUAL: Int
-  url_SHORTEST_LENGTH_GT: Int
-  url_SHORTEST_LENGTH_GTE: Int
-  url_SHORTEST_LENGTH_LT: Int
-  url_SHORTEST_LENGTH_LTE: Int
+  urlPattern_AVERAGE_LENGTH_EQUAL: Float
+  urlPattern_AVERAGE_LENGTH_GT: Float
+  urlPattern_AVERAGE_LENGTH_GTE: Float
+  urlPattern_AVERAGE_LENGTH_LT: Float
+  urlPattern_AVERAGE_LENGTH_LTE: Float
+  urlPattern_LONGEST_LENGTH_EQUAL: Int
+  urlPattern_LONGEST_LENGTH_GT: Int
+  urlPattern_LONGEST_LENGTH_GTE: Int
+  urlPattern_LONGEST_LENGTH_LT: Int
+  urlPattern_LONGEST_LENGTH_LTE: Int
+  urlPattern_SHORTEST_LENGTH_EQUAL: Int
+  urlPattern_SHORTEST_LENGTH_GT: Int
+  urlPattern_SHORTEST_LENGTH_GTE: Int
+  urlPattern_SHORTEST_LENGTH_LT: Int
+  urlPattern_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementPagePageAggregationSelection {
@@ -8173,7 +8173,7 @@ type ElementPagePageAggregationSelection {
 type ElementPagePageNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  url: StringAggregateSelectionNonNullable!
+  urlPattern: StringAggregateSelectionNonNullable!
 }
 
 type ElementPageRelationship {
@@ -13531,14 +13531,14 @@ type Page {
     sort: [PageStoreConnectionSort!]
     where: PageStoreConnectionWhere
   ): PageStoreConnection!
-  url: String!
+  urlPattern: String!
 }
 
 type PageAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
-  url: StringAggregateSelectionNonNullable!
+  urlPattern: StringAggregateSelectionNonNullable!
 }
 
 input PageAppAggregateInput {
@@ -13692,7 +13692,7 @@ input PageCreateInput {
   redirect: PageRedirectFieldInput
   rootElement: PageRootElementFieldInput
   store: PageStoreFieldInput
-  url: String!
+  urlPattern: String!
 }
 
 input PageDeleteInput {
@@ -13765,7 +13765,7 @@ input PageOnCreateInput {
   compositeKey: String!
   id: ID!
   kind: PageKind!
-  url: String!
+  urlPattern: String!
 }
 
 input PageOptions {
@@ -14247,7 +14247,7 @@ input PageSort {
   compositeKey: SortDirection
   id: SortDirection
   kind: SortDirection
-  url: SortDirection
+  urlPattern: SortDirection
 }
 
 input PageStoreAggregateInput {
@@ -14576,7 +14576,7 @@ input PageUpdateInput {
   redirect: PageRedirectUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
   store: PageStoreUpdateFieldInput
-  url: String
+  urlPattern: String
 }
 
 input PageWhere {
@@ -14622,12 +14622,12 @@ input PageWhere {
   storeConnection: PageStoreConnectionWhere
   storeConnection_NOT: PageStoreConnectionWhere
   store_NOT: StoreWhere
-  url: String
-  url_CONTAINS: String
-  url_ENDS_WITH: String
-  url_IN: [String!]
-  url_MATCHES: String
-  url_STARTS_WITH: String
+  urlPattern: String
+  urlPattern_CONTAINS: String
+  urlPattern_ENDS_WITH: String
+  urlPattern_IN: [String!]
+  urlPattern_MATCHES: String
+  urlPattern_STARTS_WITH: String
 }
 
 type PagesConnection {
@@ -15762,7 +15762,7 @@ type RedirectPageSourceAggregationSelection {
 type RedirectPageSourceNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  url: StringAggregateSelectionNonNullable!
+  urlPattern: StringAggregateSelectionNonNullable!
 }
 
 type RedirectPageTargetPageAggregationSelection {
@@ -15773,7 +15773,7 @@ type RedirectPageTargetPageAggregationSelection {
 type RedirectPageTargetPageNodeAggregateSelection {
   compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
-  url: StringAggregateSelectionNonNullable!
+  urlPattern: StringAggregateSelectionNonNullable!
 }
 
 input RedirectRelationInput {
@@ -15878,21 +15878,21 @@ input RedirectSourceNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  url_AVERAGE_LENGTH_EQUAL: Float
-  url_AVERAGE_LENGTH_GT: Float
-  url_AVERAGE_LENGTH_GTE: Float
-  url_AVERAGE_LENGTH_LT: Float
-  url_AVERAGE_LENGTH_LTE: Float
-  url_LONGEST_LENGTH_EQUAL: Int
-  url_LONGEST_LENGTH_GT: Int
-  url_LONGEST_LENGTH_GTE: Int
-  url_LONGEST_LENGTH_LT: Int
-  url_LONGEST_LENGTH_LTE: Int
-  url_SHORTEST_LENGTH_EQUAL: Int
-  url_SHORTEST_LENGTH_GT: Int
-  url_SHORTEST_LENGTH_GTE: Int
-  url_SHORTEST_LENGTH_LT: Int
-  url_SHORTEST_LENGTH_LTE: Int
+  urlPattern_AVERAGE_LENGTH_EQUAL: Float
+  urlPattern_AVERAGE_LENGTH_GT: Float
+  urlPattern_AVERAGE_LENGTH_GTE: Float
+  urlPattern_AVERAGE_LENGTH_LT: Float
+  urlPattern_AVERAGE_LENGTH_LTE: Float
+  urlPattern_LONGEST_LENGTH_EQUAL: Int
+  urlPattern_LONGEST_LENGTH_GT: Int
+  urlPattern_LONGEST_LENGTH_GTE: Int
+  urlPattern_LONGEST_LENGTH_LT: Int
+  urlPattern_LONGEST_LENGTH_LTE: Int
+  urlPattern_SHORTEST_LENGTH_EQUAL: Int
+  urlPattern_SHORTEST_LENGTH_GT: Int
+  urlPattern_SHORTEST_LENGTH_GTE: Int
+  urlPattern_SHORTEST_LENGTH_LT: Int
+  urlPattern_SHORTEST_LENGTH_LTE: Int
 }
 
 type RedirectSourceRelationship {
@@ -16001,21 +16001,21 @@ input RedirectTargetPageNodeAggregationWhereInput {
   compositeKey_SHORTEST_LENGTH_GTE: Int
   compositeKey_SHORTEST_LENGTH_LT: Int
   compositeKey_SHORTEST_LENGTH_LTE: Int
-  url_AVERAGE_LENGTH_EQUAL: Float
-  url_AVERAGE_LENGTH_GT: Float
-  url_AVERAGE_LENGTH_GTE: Float
-  url_AVERAGE_LENGTH_LT: Float
-  url_AVERAGE_LENGTH_LTE: Float
-  url_LONGEST_LENGTH_EQUAL: Int
-  url_LONGEST_LENGTH_GT: Int
-  url_LONGEST_LENGTH_GTE: Int
-  url_LONGEST_LENGTH_LT: Int
-  url_LONGEST_LENGTH_LTE: Int
-  url_SHORTEST_LENGTH_EQUAL: Int
-  url_SHORTEST_LENGTH_GT: Int
-  url_SHORTEST_LENGTH_GTE: Int
-  url_SHORTEST_LENGTH_LT: Int
-  url_SHORTEST_LENGTH_LTE: Int
+  urlPattern_AVERAGE_LENGTH_EQUAL: Float
+  urlPattern_AVERAGE_LENGTH_GT: Float
+  urlPattern_AVERAGE_LENGTH_GTE: Float
+  urlPattern_AVERAGE_LENGTH_LT: Float
+  urlPattern_AVERAGE_LENGTH_LTE: Float
+  urlPattern_LONGEST_LENGTH_EQUAL: Int
+  urlPattern_LONGEST_LENGTH_GT: Int
+  urlPattern_LONGEST_LENGTH_GTE: Int
+  urlPattern_LONGEST_LENGTH_LT: Int
+  urlPattern_LONGEST_LENGTH_LTE: Int
+  urlPattern_SHORTEST_LENGTH_EQUAL: Int
+  urlPattern_SHORTEST_LENGTH_GT: Int
+  urlPattern_SHORTEST_LENGTH_GTE: Int
+  urlPattern_SHORTEST_LENGTH_LT: Int
+  urlPattern_SHORTEST_LENGTH_LTE: Int
 }
 
 type RedirectTargetPageRelationship {

@@ -11,7 +11,7 @@ import { ResourceFragmentDoc } from '../../../../../abstract/domain/src/resource
 type GraphQLClientRequestHeaders = RequestOptions['requestHeaders']
 export type GetAppProductionQueryVariables = Types.Exact<{
   domain: Types.Scalars['String']['input']
-  pageUrl: Types.Scalars['String']['input']
+  pageUrlPattern: Types.Scalars['String']['input']
 }>
 
 export type GetAppProductionQuery = {
@@ -21,7 +21,7 @@ export type GetAppProductionQuery = {
 }
 
 export const GetAppProductionDocument = gql`
-  query GetAppProduction($domain: String!, $pageUrl: String!) {
+  query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
     apps(where: { domains_SOME: { name_IN: [$domain] } }) {
       ...AppProduction
     }

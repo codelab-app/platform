@@ -1,9 +1,6 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import {
-  CUSTOM_TEXT_PROP_KEY,
-  DATA_COMPONENT_ID,
-} from '@codelab/frontend/abstract/domain'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -17,6 +14,13 @@ import { getAtom } from '../atoms'
 const TextEditor = dynamic(() => import('../text-editor/TextEditor'), {
   ssr: false,
 })
+
+const LexcialTextEditor = dynamic(
+  () => import('../lexical-editor/LexicalEditor'),
+  {
+    ssr: false,
+  },
+)
 
 const TextRenderer = dynamic(() => import('../text-editor/TextRenderer'), {
   ssr: false,
@@ -34,7 +38,7 @@ export const extractValidProps = (
 ) =>
   ReactComponent === Fragment
     ? { key: renderOutput.props['key'] }
-    : omit(renderOutput.props, [CUSTOM_TEXT_PROP_KEY])
+    : renderOutput.props
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // if component does not have atom assigned to the root element
@@ -54,7 +58,7 @@ export const createTextEditor = (
   compositeKey: string,
   readOnly?: boolean,
 ) => {
-  return React.createElement(TextEditor, {
+  return React.createElement(LexcialTextEditor, {
     compositeKey,
     data: customText,
     readOnly,

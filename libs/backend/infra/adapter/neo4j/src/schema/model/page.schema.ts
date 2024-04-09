@@ -33,13 +33,11 @@ export const pageSchema = gql`
     pageContentContainer: Element
       @relationship(type: "CHILD_PAGE_CONTAINER_ELEMENT", direction: OUT)
     kind: PageKind!
-
     # To protect a page attach it to a redirect
     redirect: Redirect
       @relationship(type: "REDIRECT_FROM_PROTECTED_PAGE", direction: OUT)
-
     # when the app will be deployed - the page will be available on this URL
-    url: String!
+    urlPattern: String!
   }
 `
 

@@ -5,17 +5,17 @@ import { setupComponent, setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
-let testbed: TestBed
+let testBed: TestBed
 
 describe('Renderer', () => {
   beforeEach(() => {
     rootApplicationStore.clear()
-    testbed = new TestBed()
+    testBed = new TestBed()
   })
 
   it('should create page runtime nodes', () => {
     const { page, runtimePage, runtimeProviderPage } = setupPages(
-      testbed,
+      testBed,
       RendererType.Preview,
       IPageKind.Regular,
     )
@@ -28,7 +28,7 @@ describe('Renderer', () => {
   })
 
   it('should create component runtime node', () => {
-    const { component, renderer } = setupComponent(testbed)
+    const { component, renderer } = setupComponent(testBed)
 
     expect(renderer.runtimeComponent?.component.id).toBe(component.id)
   })

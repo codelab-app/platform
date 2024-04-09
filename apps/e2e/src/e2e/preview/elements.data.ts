@@ -16,7 +16,7 @@ export const elementForm = (page: IPageDto): ICreateElementData => ({
   name: elementFormName,
   parentElement: { id: page.rootElement.id },
   propsData: {
-    customText: '<p>Submit Form</p>',
+    children: '<p>Submit Form</p>',
     htmlType: 'submit',
     onFinish: {
       kind: ITypeKind.ActionType,
@@ -94,7 +94,7 @@ const elementFormItemInput_3: ICreateElementData = {
   name: 'Checkbox Input',
   parentElement: { id: elementFormItem_3.id },
   propsData: {
-    customText: '<p>Checkbox Field</p>',
+    children: '<p>Checkbox Field</p>',
   },
 }
 
@@ -111,7 +111,7 @@ const elementFormItemInput_4: ICreateElementData = {
   name: 'Element Button',
   parentElement: { id: elementFormItem_4.id },
   propsData: {
-    customText: '<p>Submit Form</p>',
+    children: '<p>Submit Form</p>',
     htmlType: 'submit',
   },
 }

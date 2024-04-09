@@ -1,4 +1,4 @@
-import type { IRouterPath } from '@codelab/frontend/abstract/application'
+import type { IRouterParam } from '@codelab/frontend/abstract/application'
 import type { NavigationBarItem } from '@codelab/frontend/presentation/codelab-ui'
 import {
   adminMenuItems,
@@ -15,7 +15,7 @@ export const defaultNavigationBarItems = ({
   componentSlug,
   pageSlug,
   userSlug,
-}: IRouterPath): {
+}: IRouterParam): {
   primaryItems: Array<NavigationBarItem>
   secondaryItems: Array<NavigationBarItem>
 } => ({

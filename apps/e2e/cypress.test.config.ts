@@ -5,7 +5,7 @@ import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
-  defaultCommandTimeout: 10000,
+  defaultCommandTimeout: 15000,
   env: {
     apiHost: getEnv().endpoint.apiHost,
     auth0BaseUrl: getEnv().endpoint.webHost,
@@ -44,7 +44,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   video: true,
   videosFolder: './src/videos',
   viewportHeight: 960,
-  viewportWidth: 1280,
+  viewportWidth: 1600,
 }
 
 export default defineConfig({

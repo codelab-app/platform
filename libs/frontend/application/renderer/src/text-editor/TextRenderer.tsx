@@ -6,6 +6,8 @@ interface Props {
 }
 
 const TextRenderer = ({ data }: Props) => {
+  console.log(data)
+
   const parsedData = useMemo(() => {
     try {
       return JSON.parse(data || '{}')

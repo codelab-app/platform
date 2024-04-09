@@ -34,7 +34,7 @@ export const regularPageCreateData = (app: IAppDto): ICreatePageData => ({
   id: v4(),
   kind: IPageKind.Regular,
   name: 'Test Page',
-  url: 'test-page',
+  urlPattern: '/test-page',
 })
 
 export const componentCreateData: ICreateComponentData = {
