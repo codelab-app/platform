@@ -316,6 +316,7 @@ export class RuntimeElementModel
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
     const children = this.children.flatMap((child) =>
+      // if element is instance of component we render the element's children instead of component
       isRuntimeComponent(child)
         ? child.children.map(
             // if element is instance of component we render the element's children instead of component
@@ -329,7 +330,7 @@ export class RuntimeElementModel
     const secondaryTitle = element.treeTitle.secondary
 
     const componentMeta = this.component
-      ? `instance of ${this.component}`
+      ? `instance of ${this.component.name}`
       : undefined
 
     const atomMeta = element.atomName ? `${element.atomName}` : undefined
