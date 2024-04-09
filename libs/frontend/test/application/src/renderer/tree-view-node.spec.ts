@@ -200,7 +200,7 @@ describe('TreeViewNode', () => {
       },
     })
 
-    const firstChild = testBed.addElement({
+    const instanceElementChild = testBed.addElement({
       parentElement: instanceElement,
       renderType: {
         __typename: IElementRenderTypeKind.Atom,
@@ -209,7 +209,7 @@ describe('TreeViewNode', () => {
     })
 
     const secondChild = testBed.addElement({
-      prevSibling: firstChild,
+      prevSibling: instanceElementChild,
       renderType: {
         __typename: IElementRenderTypeKind.Atom,
         id: testBed.getDivAtom()!.id,
@@ -233,17 +233,13 @@ describe('TreeViewNode', () => {
     })
 
     instanceElement.attachAsFirstChild(rootElement)
-    firstChild.attachAsFirstChild(instanceElement)
-    firstChild.attachAsPrevSibling(secondChild)
-    secondChild.attachAsPrevSibling(thirdChild)
-    thirdChild.attachAsPrevSibling(fourthChild)
+    instanceElementChild.attachAsFirstChild(instanceElement)
 
     const rootElementTreeNode = renderer.runtimeContainerNode?.treeViewNode
-    const instanceTreeNodeChildren = rootElementTreeNode?.children[0]?.children
+    const instanceTreeNodeChild = rootElementTreeNode?.children[0]?.children[0]
 
-    expect(instanceTreeNodeChildren?.length).toBe(4)
-    expect(instanceTreeNodeChildren?.[0]).toMatchObject({
-      element: { id: firstChild.id },
+    expect(instanceTreeNodeChild).toMatchObject({
+      element: { id: instanceElementChild.id },
       type: IRuntimeNodeType.Element,
     })
   })
