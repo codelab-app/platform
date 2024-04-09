@@ -9,6 +9,7 @@ import type {
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import {
+  getElementService,
   getRendererService,
   getRuntimeComponentService,
   getRuntimeElementService,
@@ -132,13 +133,11 @@ export class RuntimeElementModel
   get children() {
     const container = this.closestContainerNode.current
     const element = this.element.current
-    const renderType = element.renderType.current
-    const shouldRenderComponent = isComponent(renderType)
 
-    const children: Array<IRuntimeModel> = shouldRenderComponent
+    const children: Array<IRuntimeModel> = this.component
       ? [
           // put component as a child instead of instance element children
-          this.runtimeComponentService.add(renderType, this, this.propKey),
+          this.runtimeComponentService.add(this.component, this, this.propKey),
         ]
       : element.children.map((child) =>
           this.runtimeElementService.add(child, container, this, this.propKey),
@@ -170,8 +169,20 @@ export class RuntimeElementModel
   }
 
   @computed
+  get component() {
+    return isComponent(this.element.current.renderType.current)
+      ? this.element.current.renderType.current
+      : undefined
+  }
+
+  @computed
   get componentDomainService() {
     return getComponentDomainService(this)
+  }
+
+  @computed
+  get elementService() {
+    return getElementService(this)
   }
 
   @computed
@@ -317,9 +328,26 @@ export class RuntimeElementModel
     const primaryTitle = element.treeTitle.primary
     const secondaryTitle = element.treeTitle.secondary
 
+    const componentMeta = this.component
+      ? `instance of ${this.component}`
+      : undefined
+
+    const atomMeta = element.atomName ? `${element.atomName}` : undefined
+
+    const errorMessage = element.renderingMetadata?.error
+      ? `Error: ${element.renderingMetadata.error.message}`
+      : element.ancestorError
+      ? 'Something went wrong in a parent element'
+      : this.elementService.validationService.propsHaveErrors(element)
+      ? 'Some props are not correctly set'
+      : undefined
+
     return {
+      atomMeta,
       children,
+      componentMeta,
       element: { id: this.element.current.id },
+      errorMessage,
       key: this.compositeKey,
       primaryTitle,
       rootKey: this.closestContainerNode.current.compositeKey,
