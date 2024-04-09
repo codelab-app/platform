@@ -51,7 +51,7 @@ const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
 export const ElementTreeItemElementTitle = observer<{
   treeNode: IElementTreeViewDataNode
 }>(({ treeNode }) => {
-  const { atomMeta, componentMeta, errorMessage, selectable } = treeNode
+  const { atomMeta, componentMeta, errorMessage, selectable = true } = treeNode
 
   const Icon = componentMeta ? (
     <CodeSandboxOutlined style={{ color: 'blue' }} />
