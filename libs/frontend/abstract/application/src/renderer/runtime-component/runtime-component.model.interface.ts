@@ -20,7 +20,7 @@ export interface IRuntimeComponentModel extends AnyModel {
   /**
    * Children of the instance element which will be added as componentProp.children prop
    */
-  children: Array<Ref<IRuntimeElementModel>>
+  children: Array<IRuntimeElementModel>
   /**
    * Exposed for external use by other models and to preserve structure
    */

@@ -104,7 +104,6 @@ export class RuntimeElementModel
       const runtimeComponent = this.runtimeComponentService.add(
         component,
         this,
-        [],
         this.propKey,
         index,
       )
@@ -137,22 +136,7 @@ export class RuntimeElementModel
     const children: Array<IRuntimeModel> = shouldRenderComponent
       ? [
           // put component as a child instead of instance element children
-          this.runtimeComponentService.add(
-            renderType,
-            this,
-            // pass instance element children to be transformed later
-            element.children.map((child) =>
-              runtimeElementRef(
-                this.runtimeElementService.add(
-                  child,
-                  container,
-                  this,
-                  this.propKey,
-                ),
-              ),
-            ),
-            this.propKey,
-          ),
+          this.runtimeComponentService.add(renderType, this, this.propKey),
         ]
       : element.children.map((child) =>
           this.runtimeElementService.add(child, container, this, this.propKey),
@@ -322,7 +306,7 @@ export class RuntimeElementModel
       isRuntimeComponent(child)
         ? child.children.map(
             // if element is instance of component we render the element's children instead of component
-            (instanceChild) => instanceChild.current.treeViewNode,
+            (instanceChild) => instanceChild.treeViewNode,
           )
         : [child.treeViewNode],
     )

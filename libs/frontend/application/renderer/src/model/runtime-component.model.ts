@@ -70,7 +70,6 @@ const create = (dto: IRuntimeComponentDTO) =>
 export class RuntimeComponentModel
   extends Model({
     childMapperIndex: prop<Maybe<number>>().withSetter(),
-    children: prop<Array<Ref<IRuntimeElementModel>>>(() => []),
     component: prop<Ref<IComponentModel>>(),
     compositeKey: idProp,
     isTypedProp: prop<Maybe<boolean>>(false),
@@ -83,6 +82,25 @@ export class RuntimeComponentModel
   static compositeKey = compositeKey
 
   static create = create
+
+  @computed
+  get children() {
+    if (!this.runtimeParent) {
+      return []
+    }
+
+    const instanceElement = this.runtimeParent.current
+    const instanceElementChildren = instanceElement.element.current.children
+
+    return instanceElementChildren.map((child) =>
+      this.runtimeElementService.add(
+        child,
+        instanceElement.closestContainerNode.current,
+        instanceElement,
+        instanceElement.propKey,
+      ),
+    )
+  }
 
   @computed
   get render(): Nullable<ReactElement> {

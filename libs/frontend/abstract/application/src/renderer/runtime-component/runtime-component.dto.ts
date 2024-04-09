@@ -4,7 +4,6 @@ import type { IRuntimeElementModel } from '../runtime-element'
 
 export interface IRuntimeComponentDTO {
   childMapperIndex?: number
-  children?: Array<Ref<IRuntimeElementModel>>
   component: IComponentModel
   compositeKey: string
   isTypedProp?: boolean
