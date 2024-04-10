@@ -20,7 +20,6 @@ import {
   $getSelection,
 } from 'lexical'
 import React, { useCallback, useEffect, useState } from 'react'
-import type { TextEditorProps } from '../text-editor/editor'
 import { exampleTheme } from './example-theme'
 import { OnInitPlugin } from './OnInitPlugin'
 import { ToolbarPlugin } from './plugins/ToolbarPlugin'
@@ -46,6 +45,12 @@ const editorConfig = {
   },
   // The editor theme
   theme: exampleTheme,
+}
+
+export interface TextEditorProps {
+  compositeKey: string
+  data?: string
+  readOnly?: boolean
 }
 
 const Editor = ({ compositeKey, data, readOnly }: TextEditorProps) => {
