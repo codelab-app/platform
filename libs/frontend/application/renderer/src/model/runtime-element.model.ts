@@ -317,7 +317,7 @@ export class RuntimeElementModel
   get treeViewNode(): IElementTreeViewDataNode {
     const children = this.children.flatMap((child) =>
       // if element is instance of component we render the element's children instead of component
-      isRuntimeComponent(child)
+      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
         ? child.children.map(
             // if element is instance of component we render the element's children instead of component
             (instanceChild) => instanceChild.treeViewNode,
