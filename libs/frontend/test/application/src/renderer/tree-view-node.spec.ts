@@ -7,7 +7,8 @@ import {
   IPageKind,
 } from '@codelab/shared/abstract/core'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupPages } from './setup'
+import { v4 } from 'uuid'
+import { setupComponent, setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
@@ -32,6 +33,26 @@ describe('TreeViewNode', () => {
     expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
       element: { id: rootElement.id },
       key: runtimeRootElement?.compositeKey,
+    })
+  })
+
+  it('should contain component as the first node', () => {
+    const { component, renderer, runtimeComponent } = setupComponent(testBed)
+
+    expect(renderer.runtimeContainerNode?.treeViewNode).toMatchObject({
+      component: { id: component.id },
+      key: runtimeComponent.compositeKey,
+    })
+  })
+
+  it('should contain root element as a child', () => {
+    const { component, renderer, runtimeComponent } = setupComponent(testBed)
+
+    expect(
+      renderer.runtimeContainerNode?.treeViewNode.children[0],
+    ).toMatchObject({
+      element: { id: component.rootElement.id },
+      key: runtimeComponent.runtimeRootElement.compositeKey,
     })
   })
 
@@ -241,6 +262,41 @@ describe('TreeViewNode', () => {
     expect(instanceTreeNodeChild).toMatchObject({
       element: { id: instanceElementChild.id },
       type: IRuntimeNodeType.Element,
+    })
+  })
+
+  it('should show child mapper components', () => {
+    const { page, runtimePage } = setupPages(
+      testBed,
+      RendererType.PageBuilder,
+      IPageKind.Regular,
+    )
+
+    const propKey = 'propKey'
+    const propValue = ['a', 'b', 'c', 'd']
+    const componentName = 'Component 01'
+    const rootElement = page.rootElement.current
+
+    const component = testBed.addComponent({
+      name: componentName,
+      rootElement,
+    })
+
+    rootElement.writeCache({
+      childMapperComponent: component,
+      childMapperPropKey: `{{props.${propKey}}}`,
+      props: {
+        data: JSON.stringify({ [propKey]: propValue }),
+        id: v4(),
+      },
+    })
+
+    const node = runtimePage?.treeViewNode
+
+    expect(node?.children.length).toBe(propValue.length)
+    expect(node?.children[0]).toMatchObject({
+      primaryTitle: component.name,
+      selectable: false,
     })
   })
 
