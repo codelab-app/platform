@@ -21,6 +21,8 @@ import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   getComponentDomainService,
   isComponent,
+  isComponentRef,
+  isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -199,7 +201,7 @@ export class RuntimeElementModel
           this.element.current.setRenderingError(null)
         },
       },
-      key: this.element.id,
+      key: this.compositeKey,
       onRendered: async () => {
         await this.runPostRenderAction()
       },
@@ -314,6 +316,44 @@ export class RuntimeElementModel
     const element = this.element.current
     const primaryTitle = element.treeTitle.primary
     const secondaryTitle = element.treeTitle.secondary
+
+      if (
+        isTypedProp(propData) &&
+        propData.kind === ITypeKind.ReactNodeType &&
+        typeof propData.value === 'string'
+      ) {
+        const component = this.componentDomainService.component(propData.value)
+
+        const runtimeComponentKey = RuntimeComponentModel.compositeKey(
+          component,
+          this,
+          key,
+        )
+
+        const runtimeComponent =
+          this.runtimeComponentService.components.get(runtimeComponentKey)
+
+        const componentRootElement = runtimeComponent?.runtimeRootElement
+
+        if (componentRootElement) {
+          reactNodesChildren.push({
+            ...componentRootElement.treeViewNode,
+            children: [],
+            isChildMapperComponentInstance: true,
+            key: `${propData.value}${index}`,
+            primaryTitle: `${key}:`,
+            selectable: false,
+          })
+        }
+      }
+    })
+
+    const children = isComponentRef(this.element.current.renderType)
+      ? []
+      : [
+          ...this.children.map((child) => child.treeViewNode),
+          ...reactNodesChildren,
+        ]
 
     return {
       children,

@@ -1,3 +1,4 @@
+import BorderOuterOutlined from '@ant-design/icons/BorderOuterOutlined'
 import {
   type IElementTreeViewDataNode,
   type IRuntimeModel,
@@ -40,6 +41,7 @@ export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
 
     return (
       <CuiTreeItem
+        icon={<BorderOuterOutlined style={{ color: 'gray' }} />}
         primaryTitle={data.primaryTitle}
         secondaryTitle={data.secondaryTitle}
       />
