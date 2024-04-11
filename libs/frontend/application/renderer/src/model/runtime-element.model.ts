@@ -16,13 +16,11 @@ import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
-  RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
   getComponentDomainService,
-  isAtom,
   isComponent,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
@@ -45,11 +43,7 @@ import {
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
-import {
-  createTextEditor,
-  createTextRenderer,
-  ElementWrapper,
-} from '../wrappers'
+import { ElementWrapper } from '../wrappers'
 import { RuntimeComponentModel } from './runtime-component.model'
 
 const compositeKey = (
