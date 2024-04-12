@@ -17,7 +17,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
-import { restPlatformClient } from '@codelab/frontend/application/axios'
+import { restWebClient } from '@codelab/frontend/application/axios'
 import {
   ModalService,
   PaginationService,
@@ -196,7 +196,7 @@ export class ComponentApplicationService
     component: IComponentModel,
   ) {
     const res = yield* _await(
-      restPlatformClient.get<IComponentAggregate>(
+      restWebClient.get<IComponentAggregate>(
         `component/export?id=${component.id}`,
       ),
     )
@@ -339,7 +339,7 @@ export class ComponentApplicationService
     this.allComponentsLoaded = false
 
     const component = yield* _await(
-      restPlatformClient
+      restWebClient
         .post<Component>('/component/import', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })

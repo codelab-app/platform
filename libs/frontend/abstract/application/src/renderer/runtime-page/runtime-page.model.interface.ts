@@ -19,7 +19,6 @@ export interface IRuntimePageModel extends AnyModel {
    * Page domain model
    */
   page: Ref<IPageModel>
-
   render: Nullable<ReactElement>
   runtimeRootElement: IRuntimeElementModel
   runtimeStore: IRuntimeStoreModel

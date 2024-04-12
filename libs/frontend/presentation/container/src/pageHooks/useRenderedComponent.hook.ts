@@ -33,7 +33,7 @@ export const useRenderedComponent = (rendererType: RendererType) => {
     //  component.rootElement.id,
     // )
 
-    //if (rootElement) {
+    // if (rootElement) {
     //  await elementService.loadDependantTypes(rootElement)
     // }
 
