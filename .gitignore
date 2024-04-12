@@ -23,10 +23,6 @@
 tmp/
 out-tsc/
 
-# Cypress
-apps/platform-e2e/src/videos
-apps/platform-e2e/src/screenshots
-
 # dependencies
 node_modules/
 
@@ -53,7 +49,6 @@ Thumbs.db
 # Next.js
 .next/
 .nx/
-.vercel/
 
 # Next.js
 .next

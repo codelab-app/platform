@@ -20,7 +20,7 @@ export const basePageSelectionSet = `
     id
     name
   }
-  url
+  urlPattern
 `
 
 export const pageSelectionSet = `

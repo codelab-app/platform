@@ -22,7 +22,7 @@ export type IRedirect = Static<typeof IRedirect>
 export const ICanActivate = Type.Object({
   authorization: Typebox.Nullish(Type.String()),
   domain: Type.String(),
-  pageUrl: Type.String(),
+  pageUrlPattern: Type.String(),
 })
 
 export type ICanActivate = Static<typeof ICanActivate>

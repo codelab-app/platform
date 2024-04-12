@@ -1,0 +1,53 @@
+#
+# `--env-file`, a flag for docker-compose, is used for variable substitution
+# `env_file` is used to find env to inject into container at runtime
+# But won't work for CI, also this is not available in docker compose, which replaces docker-compose
+#
+version: '3.8'
+name: 'codelab'
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: ${PWD}/.docker/prod/web.Dockerfile
+      # Could also add using CLI --build-arg
+      args:
+        NEXT_PUBLIC_WEB_HOST: ${NEXT_PUBLIC_WEB_HOST}
+        NEXT_PUBLIC_API_PORT: ${NEXT_PUBLIC_API_PORT}
+        NEXT_PUBLIC_API_HOSTNAME: ${NEXT_PUBLIC_API_HOSTNAME}
+        AUTH0_SECRET: ${AUTH0_SECRET}
+        AUTH0_DOMAIN: ${AUTH0_DOMAIN}
+        AUTH0_CLIENT_ID: ${AUTH0_CLIENT_ID}
+        AUTH0_CLIENT_SECRET: ${AUTH0_CLIENT_SECRET}
+    image: registry.digitalocean.com/codelabapp/web
+    # image: codelabai/codelab:${DOCKER_TAG_VERSION}
+    # This is used after image has been built
+    # env_file:
+    #   - ../.env
+
+    # environment:
+    #   - NODE_ENV=development
+  api:
+    build:
+      context: ../..
+      dockerfile: ${PWD}/.docker/prod/api.Dockerfile
+    image: registry.digitalocean.com/codelabapp/api
+    # image: codelabai/codelab:${DOCKER_TAG_VERSION}
+    # This is used after image has been built
+    # env_file:
+    #   - ../.env
+    # environment:
+    #   - NODE_ENV=development
+  landing:
+    build:
+      context: ../..
+      dockerfile: ${PWD}/.docker/prod/landing.Dockerfile
+      args:
+        # MAILCHIMP_LIST_ID: ${MAILCHIMP_LIST_ID}
+        # MAILCHIMP_API_KEY: ${MAILCHIMP_API_KEY}
+        # MAILCHIMP_SERVER_PREFIX: ${MAILCHIMP_SERVER_PREFIX}
+        # NEXT_PUBLIC_INTERCOM_APP_ID: ${NEXT_PUBLIC_INTERCOM_APP_ID}
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_KEY: ${NEXT_PUBLIC_SUPABASE_KEY}
+        SUPABASE_DB_PASS: ${SUPABASE_DB_PASS}
+    image: registry.digitalocean.com/codelabapp/landing

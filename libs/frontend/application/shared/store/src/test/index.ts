@@ -1,1 +1,1 @@
-export * from './root.application.store'
+export * from './root.store'

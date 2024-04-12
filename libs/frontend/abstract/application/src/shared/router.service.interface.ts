@@ -1,20 +1,35 @@
+import { createContext } from 'mobx-keystone'
+import type { NextRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'querystring'
 
-export interface IRouterPath {
+/**
+ * Url param like :details
+ */
+export interface IRouterParam {
   appSlug?: string
   componentSlug?: string
   pageSlug?: string
   userSlug?: string
 }
 
+/**
+ * Query string
+ */
 export interface IRouterQuery {
   primarySidebarKey?: string
 }
 
-export type IRouterService = IRouterPath &
-  Required<IRouterQuery> & {
-    path: IRouterPath
-    query: IRouterQuery
+export interface IRouterProps {
+  path: NextRouter['asPath']
+  pathname: NextRouter['pathname']
+  query: NextRouter['query']
+}
 
-    update(routerQuery: ParsedUrlQuery): void
+export type IRouterService = IRouterParam &
+  Required<IRouterQuery> & {
+    param: IRouterParam
+    queryString: IRouterQuery
+    query: ParsedUrlQuery
+
+    update(router: Partial<IRouterProps>): void
   }

@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps<IAppProductionDto> = async (
 
   const props = await AppProductionService.getAppProductionData({
     domain: String(domain),
-    pageUrl,
+    pageUrlPattern: pageUrl,
   })
 
   return { props }

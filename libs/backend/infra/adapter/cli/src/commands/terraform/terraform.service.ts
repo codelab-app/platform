@@ -3,6 +3,7 @@ import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { loadStageMiddleware } from '../../shared/middleware'
+import type { StageParam } from '../../shared/options'
 import { getStageOptions } from '../../shared/options'
 
 @Injectable()
@@ -22,7 +23,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           ...getStageOptions([Stage.Dev, Stage.CI, Stage.Prod, Stage.Test]),
         })
         .middleware([loadStageMiddleware])
-        .command(
+        .command<StageParam>(
           'init',
           'terraform init',
           (argv) => argv,
@@ -36,7 +37,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'plan',
           'terraform plan',
           (argv) => argv,
@@ -51,7 +52,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
          *
          * https://github.com/hashicorp/terraform/issues/23407
          */
-        .command(
+        .command<StageParam>(
           'import',
           'terraform import',
           (argv) => argv,
@@ -61,19 +62,20 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'apply',
           'terraform apply',
           (argv) => argv,
           ({ stage }) => {
             const autoApprove = stage === Stage.Prod ? '-auto-approve' : ''
 
+            // Add export TF_LOG=DEBUG for verbose
             return execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} apply ${autoApprove}`,
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'validate',
           'terraform validate',
           (argv) => argv,
@@ -83,14 +85,38 @@ export class TerraformService implements CommandModule<unknown, unknown> {
             )
           },
         )
-        .command(
+        .command<StageParam>(
           'destroy',
           'terraform destroy',
           (argv) => argv,
           ({ stage }) => {
+            // `terraform state rm`
+
             return execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} destroy`,
             )
+          },
+        )
+        .command<StageParam>(
+          'lint',
+          'terraform lint',
+          (argv) => argv,
+          ({ stage }) => {
+            return execCommand(
+              `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --recursive`,
+            )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/ci`,
+            // )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/dev`,
+            // )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/prod`,
+            // )
+            // execCommand(
+            //   `tflint --config="${process.cwd()}/terraform/.tflint.hcl" --chdir=terraform/environments/test`,
+            // )
           },
         )
         .demandCommand(1, 'Please provide a task')

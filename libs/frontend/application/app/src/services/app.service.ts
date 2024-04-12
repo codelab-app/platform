@@ -172,13 +172,13 @@ export class AppService
   updatePage = _async(function* (this: AppService, data: IUpdatePageData) {
     const app = this.appDomainService.apps.get(data.app.id)
     const page = app?.page(data.id)
-    const { name, pageContentContainer, url } = data
+    const { name, pageContentContainer, urlPattern } = data
 
     page?.writeCache({
       app,
       name,
       pageContentContainer,
-      url,
+      urlPattern,
     })
 
     if (page) {
@@ -198,7 +198,7 @@ export class AppService
     }
 
     for (const domain of domains) {
-      const pages = pagesUrls ?? app.pages.map((page) => page.url)
+      const pages = pagesUrls ?? app.pages.map((page) => page.urlPattern)
 
       await regeneratePages(pages, domain.name)
     }

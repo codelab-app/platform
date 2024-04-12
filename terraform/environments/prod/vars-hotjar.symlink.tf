@@ -1,1 +1,0 @@
-../shared/vars-hotjar.tf

@@ -81,6 +81,8 @@ export interface IElementService
   //   hydratedElements: Array<IElementModel>
   //   rootElement: IElementModel
   // }
+
+  loadDependantTypes(element: IElementModel): void
   move(context: IMoveElementContext): Promise<void>
   syncModifiedElements(): Promise<void>
   update(data: IUpdateElementData): Promise<IElementModel>

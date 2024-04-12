@@ -38,7 +38,7 @@ import { CodelabLoggerService } from './pino.logger.service'
             //   // },
             // }),
             // Doesn't prefix in front of date
-            // msgPrefix: '[Platform API]',
+            // msgPrefix: '[API]',
             // Set Pino to synchronous mode
             serializers: {
               req: (req) => {

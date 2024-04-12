@@ -1,25 +1,29 @@
 import type {
-  IRouterPath,
+  IRouterParam,
   IRouterQuery,
   IRouterService,
 } from '@codelab/frontend/abstract/application'
+import { IRouterProps } from '@codelab/frontend/abstract/application'
 import { throwIfUndefined } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
-import { ParsedUrlQuery } from 'querystring'
+import type { ParsedUrlQuery } from 'querystring'
 
-const init = (routerQuery: ParsedUrlQuery) => {
+const init = (router: IRouterProps) => {
+  const { path, pathname, query } = router
+
   const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
-    routerQuery
+    query
 
   return new RouterService({
-    path: {
+    param: {
       appSlug: `${appSlug}`,
       componentSlug: `${componentSlug}`,
       pageSlug: `${pageSlug}`,
       userSlug: `${userSlug}`,
     },
-    query: {
+    query: router.query,
+    queryString: {
       primarySidebarKey: `${primarySidebarKey}`,
     },
   })
@@ -28,13 +32,14 @@ const init = (routerQuery: ParsedUrlQuery) => {
 @model('@codelab/RouterService')
 export class RouterService
   extends Model({
-    path: prop<IRouterPath>(() => ({
+    param: prop<IRouterParam>(() => ({
       appSlug: undefined,
       componentSlug: undefined,
       pageSlug: undefined,
       userSlug: undefined,
     })).withSetter(),
-    query: prop<IRouterQuery>(() => ({
+    query: prop<ParsedUrlQuery>(() => ({})).withSetter(),
+    queryString: prop<IRouterQuery>(() => ({
       primarySidebarKey: undefined,
     })).withSetter(),
   })
@@ -44,42 +49,46 @@ export class RouterService
 
   @computed
   get appSlug() {
-    return this.path.appSlug
+    return this.param.appSlug
   }
 
   @computed
   get componentSlug() {
-    return this.path.componentSlug
+    return this.param.componentSlug
   }
 
   @computed
   get pageSlug() {
-    return this.path.pageSlug
+    return this.param.pageSlug
   }
 
   @computed
   get primarySidebarKey() {
-    return throwIfUndefined(this.query.primarySidebarKey)
+    return throwIfUndefined(this.queryString.primarySidebarKey)
   }
 
   @computed
   get userSlug() {
-    return this.path.userSlug
+    return this.param.userSlug
   }
 
   @modelAction
-  update(routerQuery: ParsedUrlQuery) {
-    const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
-      routerQuery
+  update(router: IRouterProps) {
+    const { path, pathname, query } = router
 
-    this.setPath({
+    const { appSlug, componentSlug, pageSlug, primarySidebarKey, userSlug } =
+      query
+
+    this.setParam({
       appSlug: appSlug ? `${appSlug}` : undefined,
       componentSlug: componentSlug ? `${componentSlug}` : undefined,
       pageSlug: pageSlug ? `${pageSlug}` : undefined,
       userSlug: userSlug ? `${userSlug} ` : undefined,
     })
 
-    this.setQuery({
+    this.setQuery(query)
+
+    this.setQueryString({
       primarySidebarKey: `${primarySidebarKey}`,
     })
   }

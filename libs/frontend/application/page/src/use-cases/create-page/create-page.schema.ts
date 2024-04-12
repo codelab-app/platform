@@ -2,6 +2,7 @@ import {
   appSchema,
   idSchema,
   nonEmptyString,
+  pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import type { ICreatePageData } from '@codelab/shared/abstract/core'
@@ -16,11 +17,7 @@ export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
-    url: {
-      type: 'string',
-      label: 'Deployed Page URL',
-      help: 'Leave blank to autogenerate value',
-    },
+    ...pageUrlSchema,
   },
   required: ['name'],
   title: 'Create Page Input',

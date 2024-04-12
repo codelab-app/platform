@@ -1,4 +1,5 @@
 import { AuthenticationClient } from 'auth0'
+import set from 'lodash/set'
 
 // export const managementClient = new ManagementClient({
 //   clientId: m2mConfig.clientId,
@@ -8,27 +9,32 @@ import { AuthenticationClient } from 'auth0'
 // })
 
 interface Auth0ClientConfig {
+  auth0Audience: string
+  // 'codelab-app.us.auth0.com'
+  auth0Domain: string
   clientId: string
   clientSecret: string
-
-  issuerBaseUrl: string
 }
 
 export class Auth0Client {
-  constructor({ clientId, clientSecret, issuerBaseUrl }: Auth0ClientConfig) {
+  constructor({
+    auth0Audience,
+    auth0Domain,
+    clientId,
+    clientSecret,
+  }: Auth0ClientConfig) {
+    this.auth0Audience = auth0Audience
+
     this.client = new AuthenticationClient({
       clientId,
       clientSecret,
-      // This will be 'codelab-app.us.auth0.com'
-      domain: new URL(issuerBaseUrl).hostname,
-      // domain: issuerBaseUrl,
+      domain: auth0Domain,
     })
-    this.issuerBaseUrl = issuerBaseUrl
   }
 
   async loginWithPassword(username: string, password: string) {
     return this.client.oauth.passwordGrant({
-      audience: new URL('/api/v2/', this.issuerBaseUrl).toString(),
+      audience: this.auth0Audience,
       password,
       // realm: 'Username-Password-Authentication',
       // Replace with the connection you want to use
@@ -37,7 +43,7 @@ export class Auth0Client {
     })
   }
 
-  private client
+  private auth0Audience
 
-  private issuerBaseUrl
+  private client
 }

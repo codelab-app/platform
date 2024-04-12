@@ -25,29 +25,10 @@ export const useAppProduction = (appProductionData: IAppProductionDto) => {
 
     const page = app.pageByName(pageName)
 
-    // extract the dynamic segments from the url query params for the page url
-    // build complains with the return type `RegExpMatchArray` of `match`
-    const extractedUrlSegments =
-      (page.url.match(/:\w+/g) as Nullable<Array<string>>) ?? []
-
-    const urlSegments = extractedUrlSegments.reduce<Record<string, string>>(
-      (acc, segment) => {
-        const segmentName = segment.substring(1)
-
-        if (router.query[segmentName]) {
-          acc[segmentName] = router.query[segmentName] as string
-        }
-
-        return acc
-      },
-      {},
-    )
-
     const renderer = rendererService.hydrate({
       containerNode: page,
       id: page.id,
       rendererType: RendererType.Production,
-      urlSegments,
     })
 
     console.debug(renderer)

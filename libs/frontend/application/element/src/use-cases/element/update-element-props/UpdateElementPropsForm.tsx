@@ -23,7 +23,7 @@ export interface UpdateElementPropsFormProps {
  */
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ runtimeElement }) => {
-    const { componentService, propService, rendererService, typeService } =
+    const { elementService, propService, rendererService, typeService } =
       useStore()
 
     const currentElement = runtimeElement.element.current
@@ -31,11 +31,14 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(
       async () => {
-        const roots = rendererService.activeElementTree
-          ? [rendererService.activeElementTree.rootElement.current]
-          : []
+        const rootElement =
+          rendererService.activeElementTree?.rootElement.current
 
-        await loadAllTypesForElements(componentService, typeService, roots)
+        // await loadAllTypesForElements(componentService, typeService, roots)
+
+        if (rootElement) {
+          await elementService.loadDependantTypes(rootElement)
+        }
 
         return typeService.getInterface(apiId!)
       },

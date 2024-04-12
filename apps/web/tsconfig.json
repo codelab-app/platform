@@ -1,0 +1,64 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": false,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "types": [
+      "node",
+      "worker-loader",
+      "@fancyapps/ui",
+      "cypher",
+      "styled-components",
+      "data-cy"
+    ],
+    "jsx": "preserve",
+    "jsxImportSource": "@welldone-software/why-did-you-render"
+  },
+  // "references": [
+  //   {
+  //     "path": "./tsconfig.spec.json"
+  //   },
+  //   {
+  //     "path": "./tsconfig.storybook.json"
+  //   }
+  // ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.graphql",
+    "next-env.d.ts",
+    "index.d.ts",
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "jest.config.ts",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx",
+    "**/*.spec.js",
+    "**/*.test.js",
+    "**/*.spec.jsx",
+    "**/*.test.jsx",
+    "**/*.stories.ts",
+    "**/*.stories.js",
+    "**/*.stories.jsx",
+    "**/*.stories.tsx"
+  ]
+}

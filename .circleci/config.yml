@@ -10,15 +10,15 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: npx nx run-many --target=build --projects=platform,platform-api,platform-e2e,cli --parallel=3 -c ci --nx-bail
+      - run: npx nx run-many --target=build --projects=web,api,e2e,cli --parallel=3 -c ci --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
           name: Save NX Cache
           paths:
             - ~/project/.nx/cache
             - ~/project/dist/apps/cli
-            - ~/project/dist/apps/platform/.next/cache
-            - ~/project/dist/apps/platform-api
+            - ~/project/dist/apps/web/.next/cache
+            - ~/project/dist/apps/api
   install-nvm:
     steps:
       - restore_cache:
@@ -79,43 +79,40 @@ commands:
 
             sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 
+            apt list upgrade
+
             wget -O- https://apt.releases.hashicorp.com/gpg | \
             gpg --dearmor | \
             sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+
+            echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+            sudo tee /etc/apt/sources.list.d/hashicorp.list
 
             gpg --no-default-keyring \
             --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
             --fingerprint
 
             sudo apt update
-            sudo apt install terraform=1.6.3
+            sudo apt install terraform=1.7.0-*
           name: Install Terraform
+  login-docker:
+    description: Login to Docker
+    steps:
+      - run:
+          command: |
+            echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
+          name: Login to Docker Registry
   restore-infra-workspace:
     description: Restore Infra Workspace
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/project
-      - restore_cache:
-          keys:
-            - pnpm-cache-{{ checksum "pnpm-lock.yaml" }}
-          name: Restore Cache
-      - restore_cache:
-          keys:
-            - nvm-cache-{{ checksum ".nvmrc" }}
-          name: Restore NVM Cache
-      - restore_cache:
-          keys:
-            - nx-cache-{{ checksum ".nx/cache/lockfile.hash" }}
-          name: Restore NX Cache
+      - restore-workspace
       - install-terraform
-      - setup-env
   restore-workspace:
     description: Restore Workspace
     steps:
       - checkout
       - attach_workspace:
-          at: ~/project
+          at: ~/
       - restore_cache:
           keys:
             - node_modules-cache-{{ checksum "pnpm-lock.yaml" }}
@@ -155,7 +152,7 @@ executors:
       image: ubuntu-2004:2022.04.1
   terraform:
     docker:
-      - image: hashicorp/terraform:1.6.3
+      - image: hashicorp/terraform:1.7.0
     environment:
       TF_WORKSPACE: prod
 jobs:
@@ -177,38 +174,7 @@ jobs:
       - run:
           command: pnpm cli tasks codegen --stage ci
           name: GraphQL Codegen
-  deploy-preview:
-    executor: docker-node-neo4j
-    resource_class: large
-    steps:
-      - checkout
-      - add_ssh_keys-f:
-          fingerprints:
-            - SHA256:9rhQIHmDI4ch+zBMmw7SOWe0utLgvKuqcUrvoXEcKMk
-      - run:
-          command: git push -f origin HEAD:staging
-          name: Push to Staging Branch
-      - run:
-          command: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tV5TS4XJhvtYfyw8GMEKzRzSn9au/2Ze7qyE7x3
-          name: Trigger Vercel Deploy
-  deploy-production:
-    executor: docker-node-neo4j
-    resource_class: large
-    steps:
-      - restore-workspace
-      - run:
-          command: npm install --global vercel@latest
-          name: Install Vercel CLI
-      - run:
-          command: vercel pull --yes --environment=production --token=$VERCEL_ACCESS_TOKEN
-          name: Pull Vercel Environment Information
-      - run:
-          command: vercel build -c prod --token=$VERCEL_ACCESS_TOKEN
-          name: Build Project Artifacts
-      - run:
-          command: vercel deploy --prebuilt -c prod --token=$VERCEL_ACCESS_TOKEN
-          name: Deploy Project Artifacts to Vercel
-  docker-platform:
+  docker-api:
     executor: docker-node
     resource_class: large
     steps:
@@ -216,16 +182,12 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform
-          name: Build platform Docker image
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml build api
+          name: Build api Docker image
       - run:
-          command: |
-            echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
-          name: Login to Docker Registry
-      - run:
-          command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push api
           name: Push Docker Image
-  docker-platform-api:
+  docker-landing:
     executor: docker-node
     resource_class: large
     steps:
@@ -233,14 +195,25 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          command: docker-compose --verbose -f .docker/docker-compose.build.yaml build platform-api
-          name: Build platform api Docker image
+          command: |
+            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build landing
+          name: Build landing Docker image
+      - run:
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push landing
+          name: Push Docker Image
+  docker-web:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run:
           command: |
-            echo "$DIGITALOCEAN_ACCESS_TOKEN" | docker login --username codelabapp --password-stdin registry.digitalocean.com
-          name: Login to Docker Registry
+            docker compose --verbose -f .docker/prod/build.docker-compose.yaml build web
+          name: Build web Docker image
       - run:
-          command: docker-compose --verbose -f .docker/docker-compose.build.yaml push platform-api
+          command: docker compose --verbose -f .docker/prod/build.docker-compose.yaml push web
           name: Push Docker Image
   e2e:
     executor: docker-node-neo4j
@@ -257,18 +230,18 @@ jobs:
             echo 'export CI_BUILD_ID="$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
             source "$BASH_ENV"
             echo "CI Build ID: $CI_BUILD_ID"
-            pnpm nx e2e platform-e2e -c ci --ci-build-id=$CI_BUILD_ID
+            pnpm nx e2e e2e -c ci --ci-build-id=$CI_BUILD_ID
           environment: null
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos
-          path: ~/project/apps/platform-e2e/src/videos
+          path: ~/project/apps/e2e/src/videos
       - store_artifacts:
           destination: cypress/screenshots
-          path: ~/project/apps/platform-e2e/src/screenshots
+          path: ~/project/apps/e2e/src/screenshots
       - store_artifacts:
           destination: cypress/data
-          path: ~/project/apps/platform-e2e/src/data
+          path: ~/project/apps/e2e/src/data
       - store_test_results:
           path: ./tmp/reports/e2e
   integration:
@@ -418,6 +391,11 @@ jobs:
     resource_class: large
     steps:
       - install-terraform
+      - login-docker
+      - persist_to_workspace:
+          paths:
+            - .docker/config.json
+          root: ~/
   setup-workspace:
     executor: docker-node
     resource_class: large
@@ -430,10 +408,10 @@ jobs:
       - build-repo
       - persist_to_workspace:
           paths:
-            - dist/apps/cli
-            - dist/apps/platform
-            - .nx/cache/lockfile.hash
-          root: ~/project
+            - project/dist/apps/cli
+            - project/dist/apps/web
+            - project/.nx/cache/lockfile.hash
+          root: ~/
   unit:
     executor: docker-node
     resource_class: large
@@ -469,6 +447,13 @@ workflows:
             branches:
               ignore:
                 - master
+      - setup-infra-workspace:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
       - lint:
           filters:
             branches:
@@ -504,6 +489,33 @@ workflows:
                 - master
           requires:
             - setup-workspace
+      - docker-web:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-api:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-infra-workspace
+      - docker-landing:
+          context:
+            - prod
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-infra-workspace
       - notify-success:
           filters:
             branches:
@@ -515,6 +527,13 @@ workflows:
             - unit
             - integration
             - e2e
+      - plan:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-infra-workspace
   infra:
     jobs:
       - setup-workspace:
@@ -522,13 +541,20 @@ workflows:
             branches:
               only:
                 - master
-      - plan:
+      - setup-infra-workspace:
           filters:
             branches:
               only:
                 - master
           requires:
             - setup-workspace
+      - plan:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
       - hold-apply:
           filters:
             branches:

@@ -16,7 +16,7 @@ export const providerPageData = (
   },
   rootElement,
   store,
-  url: IPageKindName.Provider,
+  urlPattern: IPageKindName.Provider,
 })
 
 export const notFoundPageData = (
@@ -31,7 +31,7 @@ export const notFoundPageData = (
   name: IPageKindName.NotFound,
   rootElement,
   store,
-  url: IPageKindName.NotFound,
+  urlPattern: IPageKindName.NotFound,
 })
 
 export const internalServerErrorPageData = (
@@ -46,5 +46,5 @@ export const internalServerErrorPageData = (
   name: IPageKindName.InternalServerError,
   rootElement,
   store,
-  url: IPageKindName.InternalServerError,
+  urlPattern: IPageKindName.InternalServerError,
 })

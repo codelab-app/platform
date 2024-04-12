@@ -1,26 +1,13 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/application'
 import { RendererType } from '@codelab/frontend/abstract/application'
-import {
-  CUSTOM_TEXT_PROP_KEY,
-  DATA_COMPONENT_ID,
-} from '@codelab/frontend/abstract/domain'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { tx } from '@twind/core'
 import isNil from 'lodash/isNil'
-import omit from 'lodash/omit'
-import dynamic from 'next/dynamic'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { getAtom } from '../atoms'
-
-const TextEditor = dynamic(() => import('../text-editor/TextEditor'), {
-  ssr: false,
-})
-
-const TextRenderer = dynamic(() => import('../text-editor/TextRenderer'), {
-  ssr: false,
-})
 
 /**
  * Fragments can only have the `key` prop
@@ -34,7 +21,7 @@ export const extractValidProps = (
 ) =>
   ReactComponent === Fragment
     ? { key: renderOutput.props['key'] }
-    : omit(renderOutput.props, [CUSTOM_TEXT_PROP_KEY])
+    : renderOutput.props
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // if component does not have atom assigned to the root element
@@ -48,21 +35,6 @@ export const getReactComponent = (renderOutput: IRenderOutput) => {
   // Render the atom if it exists, otherwise use fragment
   return atomType ? getAtom(atomType) ?? Fragment : Fragment
 }
-
-export const createTextEditor = (
-  customText: string,
-  compositeKey: string,
-  readOnly?: boolean,
-) => {
-  return React.createElement(TextEditor, {
-    compositeKey,
-    data: customText,
-    readOnly,
-  })
-}
-
-export const createTextRenderer = (customText: string) =>
-  React.createElement(TextRenderer, { data: customText })
 
 export const generateTailwindClasses = (
   classNames: Nullable<Array<string>> | undefined,

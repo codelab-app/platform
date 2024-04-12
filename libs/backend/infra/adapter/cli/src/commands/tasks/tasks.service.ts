@@ -13,6 +13,7 @@ import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import type { Argv, CommandModule } from 'yargs'
 import { loadStageMiddleware } from '../../shared/middleware'
+import type { StageParam } from '../../shared/options'
 import { getStageOptions } from '../../shared/options'
 import { Tasks } from '../../shared/utils/tasks'
 
@@ -30,7 +31,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
     return yargv
       .options(getStageOptions([Stage.Dev, Stage.Test, Stage.CI]))
       .middleware([loadStageMiddleware])
-      .command(
+      .command<StageParam>(
         Tasks.Build,
         'Build projects',
         (argv) => argv,
@@ -39,16 +40,16 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(
-              'nx run-many --target=build --projects=platform,platform-api,platform-e2e -c test',
+              'nx run-many --target=build --projects=web,api,e2e -c test',
             )
           }
 
           if (stage === Stage.CI) {
-            execCommand('nx build platform -c ci')
+            execCommand('nx build web -c ci')
           }
         }),
       )
-      .command(
+      .command<StageParam>(
         Tasks.Unit,
         'Run unit tests',
         (argv) => argv,
@@ -56,7 +57,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`nx build platform -c test`)
+            // execCommand(`nx build web -c test`)
             execCommand('nx affected --target=test:unit -c test')
           }
 
@@ -65,7 +66,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
         }),
       )
-      .command(
+      .command<StageParam>(
         Tasks.Int,
         'Run integration tests',
         (argv) => argv,
@@ -83,7 +84,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
         }),
       )
-      .command(
+      .command<StageParam>(
         Tasks.Codegen,
         'Run codegen',
         (argv) => argv,
@@ -115,7 +116,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            const startServer = 'nx serve platform-api -c ci'
+            const startServer = 'nx serve api -c ci'
 
             const runSpecs =
               "pnpm wait-on 'tcp:127.0.0.1:4000' && pnpm graphql-codegen --config ./scripts/codegen/codegen.ts && exit 0"

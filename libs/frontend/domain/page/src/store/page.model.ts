@@ -10,6 +10,7 @@ import {
   elementRef,
   ElementTree,
   getRedirectDomainService,
+  getUserDomainService,
   redirectRef,
   storeRef,
 } from '@codelab/frontend/abstract/domain'
@@ -41,7 +42,7 @@ const create = ({
   redirect,
   rootElement,
   store,
-  url,
+  urlPattern,
 }: IPageDto) => {
   return new Page({
     app: appRef(app.id),
@@ -54,7 +55,7 @@ const create = ({
     redirect: redirect?.id ? redirectRef(redirect.id) : undefined,
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
-    url,
+    urlPattern,
   })
 }
 
@@ -67,7 +68,10 @@ export class Page
     pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
     redirect: prop<Ref<IRedirectModel> | undefined>(),
     store: prop<Ref<IStoreModel>>(),
-    url: prop<string>(),
+    /**
+     * This is the URL pattern
+     */
+    urlPattern: prop<string>(),
   })
   implements IPageModel
 {
@@ -82,6 +86,14 @@ export class Page
         where: {},
       },
     }
+  }
+
+  /**
+   * /home /apps/codelab/test/pages/home?primarySidebarKey=explorer
+   */
+  @computed
+  get builderUrlInstance() {
+    return `/apps/${this.userDomainService.user.username}/${this.app.current.slug}/pages/${this.slug}?primarySidebarKey=explorer`
   }
 
   @computed
@@ -109,7 +121,8 @@ export class Page
       rootElement: this.rootElement,
       slug: this.slug,
       store: this.store,
-      url: `apps/${this.app.id}/pages/${this.id}`,
+      urlPattern: this.urlPattern,
+      // urlPattern: `apps/${this.app.id}/pages/${this.id}`,
     }
   }
 
@@ -121,7 +134,7 @@ export class Page
     pageContentContainer,
     rootElement,
     store,
-    url,
+    urlPattern,
   }: Partial<IPageDto>) {
     this.name = name ?? this.name
     this.rootElement = rootElement
@@ -133,7 +146,7 @@ export class Page
       : this.pageContentContainer
     this.kind = kind ? kind : this.kind
     this.store = store ? storeRef(store.id) : this.store
-    this.url = url ?? ''
+    this.urlPattern = urlPattern ?? ''
 
     return this
   }
@@ -157,7 +170,7 @@ export class Page
           node: this.store.current.toCreateInput(),
         },
       },
-      url: this.url,
+      urlPattern: this.urlPattern,
     }
   }
 
@@ -168,12 +181,17 @@ export class Page
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,
       ),
-      url: this.url,
+      urlPattern: this.urlPattern,
     }
   }
 
   @computed
   private get redirectDomainService() {
     return getRedirectDomainService(this)
+  }
+
+  @computed
+  private get userDomainService() {
+    return getUserDomainService(this)
   }
 }

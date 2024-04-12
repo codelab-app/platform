@@ -14,7 +14,7 @@ fragment PagePreview on Page {
   store {
     id
   }
-  url
+  urlPattern
 }
 
 fragment Page on Page {
@@ -40,7 +40,7 @@ fragment Page on Page {
   store {
     ...Store
   }
-  url
+  urlPattern
 }
 
 fragment PageDevelopment on Page {
@@ -66,7 +66,7 @@ fragment PageDevelopment on Page {
   store {
     ...Store
   }
-  url
+  urlPattern
 }
 
 fragment PageProduction on Page {
@@ -92,5 +92,5 @@ fragment PageProduction on Page {
   store {
     ...Store
   }
-  url
+  urlPattern
 }

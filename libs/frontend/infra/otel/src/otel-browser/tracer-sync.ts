@@ -19,7 +19,7 @@ export const withTracerActiveSpanSync =
     parentContext?: Context,
   ): T => {
     // Call the original function if we're not tracing
-    if (process.env['NEXT_PLATFORM_ENABLE_OTEL'] !== 'true') {
+    if (process.env['NEXT_WEB_ENABLE_OTEL'] !== 'true') {
       return callback({} as Span)
     }
 
@@ -52,4 +52,4 @@ export const withTracerActiveSpanSync =
       })
   }
 
-export const withTracerSpan = withTracerActiveSpanSync('platform')
+export const withTracerSpan = withTracerActiveSpanSync('web')

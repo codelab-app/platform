@@ -20,7 +20,8 @@
 !/tailwind.config.js
 
 !/types
-!/apps/platform/
-!/apps/platform-api/
+!/apps/web/
+!/apps/landing/
+!/apps/api/
 !/dist/libs/tools/
 !/libs/

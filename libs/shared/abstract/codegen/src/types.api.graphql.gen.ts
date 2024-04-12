@@ -1538,7 +1538,7 @@ export type AppPagePagesAggregationSelection = {
 export type AppPagePagesNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type AppPagesAggregateInput = {
@@ -1625,21 +1625,21 @@ export type AppPagesNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type AppPagesRelationship = {
@@ -8371,21 +8371,21 @@ export type ElementPageNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type ElementPagePageAggregationSelection = {
@@ -8396,7 +8396,7 @@ export type ElementPagePageAggregationSelection = {
 export type ElementPagePageNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type ElementPageRelationship = {
@@ -14012,7 +14012,7 @@ export type Page = {
   store: Store
   storeAggregate?: Maybe<PageStoreStoreAggregationSelection>
   storeConnection: PageStoreConnection
-  url: Scalars['String']['output']
+  urlPattern: Scalars['String']['output']
 }
 
 export type PageAppArgs = {
@@ -14114,7 +14114,7 @@ export type PageAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type PageAppAggregateInput = {
@@ -14265,7 +14265,7 @@ export type PageCreateInput = {
   redirect?: InputMaybe<PageRedirectFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
   store?: InputMaybe<PageStoreFieldInput>
-  url: Scalars['String']['input']
+  urlPattern: Scalars['String']['input']
 }
 
 export type PageDeleteInput = {
@@ -14336,7 +14336,7 @@ export type PageOnCreateInput = {
   compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
   kind: PageKind
-  url: Scalars['String']['input']
+  urlPattern: Scalars['String']['input']
 }
 
 export type PageOptions = {
@@ -14832,7 +14832,7 @@ export type PageSort = {
   compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
-  url?: InputMaybe<SortDirection>
+  urlPattern?: InputMaybe<SortDirection>
 }
 
 export type PageStoreAggregateInput = {
@@ -15164,7 +15164,7 @@ export type PageUpdateInput = {
   redirect?: InputMaybe<PageRedirectUpdateFieldInput>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   store?: InputMaybe<PageStoreUpdateFieldInput>
-  url?: InputMaybe<Scalars['String']['input']>
+  urlPattern?: InputMaybe<Scalars['String']['input']>
 }
 
 export type PageWhere = {
@@ -15210,12 +15210,12 @@ export type PageWhere = {
   storeConnection?: InputMaybe<PageStoreConnectionWhere>
   storeConnection_NOT?: InputMaybe<PageStoreConnectionWhere>
   store_NOT?: InputMaybe<StoreWhere>
-  url?: InputMaybe<Scalars['String']['input']>
-  url_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  url_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  url_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  url_MATCHES?: InputMaybe<Scalars['String']['input']>
-  url_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern?: InputMaybe<Scalars['String']['input']>
+  urlPattern_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  urlPattern_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  urlPattern_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  urlPattern_MATCHES?: InputMaybe<Scalars['String']['input']>
+  urlPattern_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
 }
 
 export type PagesConnection = {
@@ -16720,7 +16720,7 @@ export type RedirectPageSourceAggregationSelection = {
 export type RedirectPageSourceNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type RedirectPageTargetPageAggregationSelection = {
@@ -16731,7 +16731,7 @@ export type RedirectPageTargetPageAggregationSelection = {
 export type RedirectPageTargetPageNodeAggregateSelection = {
   compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
-  url: StringAggregateSelectionNonNullable
+  urlPattern: StringAggregateSelectionNonNullable
 }
 
 export type RedirectRelationInput = {
@@ -16831,21 +16831,21 @@ export type RedirectSourceNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type RedirectSourceRelationship = {
@@ -16951,21 +16951,21 @@ export type RedirectTargetPageNodeAggregationWhereInput = {
   compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  urlPattern_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  urlPattern_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type RedirectTargetPageRelationship = {
@@ -21962,7 +21962,7 @@ export type PagePreviewFragment = {
   id: string
   kind: PageKind
   name: string
-  url: string
+  urlPattern: string
   app: { id: string }
   rootElement: { id: string }
   store: { id: string }
@@ -21972,7 +21972,7 @@ export type PageFragment = {
   id: string
   kind: PageKind
   name: string
-  url: string
+  urlPattern: string
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
@@ -21985,7 +21985,7 @@ export type PageDevelopmentFragment = {
   id: string
   kind: PageKind
   name: string
-  url: string
+  urlPattern: string
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
@@ -21999,7 +21999,7 @@ export type PageProductionFragment = {
   kind: PageKind
   name: string
   slug: string
-  url: string
+  urlPattern: string
   app: { id: string }
   elements: Array<ElementProductionFragment>
   pageContentContainer?: { id: string } | null
@@ -22363,7 +22363,7 @@ export type GetAppDevelopmentQuery = {
 
 export type GetAppProductionQueryVariables = Exact<{
   domain: Scalars['String']['input']
-  pageUrl: Scalars['String']['input']
+  pageUrlPattern: Scalars['String']['input']
 }>
 
 export type GetAppProductionQuery = {

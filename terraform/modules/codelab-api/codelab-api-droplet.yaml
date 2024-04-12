@@ -1,0 +1,60 @@
+#cloud-config
+
+# lifecycle in /etc/cloud/cloud.cfg
+
+# cloud-init config in /var/lib/cloud/instance/user-data.txt
+
+# /var/lib/cloud/instances/*/sem tells us which has been ran
+
+# manage_resolv_conf: true
+
+# package_update: true
+# package_upgrade: true
+# package_reboot_if_required: true
+
+write_files:
+  - path: /root/.config/doctl/config.yaml
+    content: |
+      access-token: ${digitalocean_access_token}
+  - path: /root/docker/docker-compose.yml
+    # owner: docker:docker
+    permissions: '0644'
+    content: |
+      version: '3.8'
+      services:
+        api:
+          image: registry.digitalocean.com/codelabapp/api:latest
+          restart: unless-stopped
+          ports:
+            - "4000:4000"
+          environment:
+            - AUTH0_M2M_CLIENT_ID=${auth0_m2m_client_id}
+            - AUTH0_M2M_CLIENT_SECRET=${auth0_m2m_client_secret}
+            - NEO4J_URI=${neo4j_uri}
+            - NEO4J_USER=${neo4j_user}
+            - NEO4J_PASSWORD=${neo4j_password}
+    # triggered by config_scripts_user
+  - path: /var/lib/cloud/scripts/per-once/start-docker-image.sh
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      set -x
+
+      snap install doctl
+
+      snap connect doctl:dot-docker
+
+      doctl auth init --interactive false --access-token ${digitalocean_access_token}
+
+      doctl registry login
+
+      cd /root/docker && docker compose pull && docker compose up -d --force-recreate
+
+# Still need to use this to call the user scripts
+runcmd:
+  - [
+      cloud-init-per,
+      once,
+      start-docker-image,
+      /var/lib/cloud/scripts/per-once/start-docker-image.sh,
+    ]

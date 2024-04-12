@@ -1,0 +1,1 @@
+../shared/vars-codelab-web.tf

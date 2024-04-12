@@ -4,7 +4,7 @@
   * Each module must declare its own provider requirements. This is especially important for non-HashiCorp providers.
   */
 terraform {
-  required_version = "1.6.3"
+  required_version = "1.7.0"
 
   required_providers {
     auth0 = {
@@ -13,7 +13,6 @@ terraform {
     }
   }
 }
-
 
 provider "auth0" {
   domain        = var.auth0_domain

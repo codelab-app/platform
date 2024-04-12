@@ -6,13 +6,11 @@ export const redirectSelectionSet = `
     id
   }
   targetType
-
   targetPage {
     id
-    url
+    urlPattern
   }
   targetUrl
-
   authGuard {
     ${authGuardSelectionSet}
   }

@@ -11,6 +11,8 @@ const Email = Type.Object({
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { apiKey, listId, serverPrefix } = getEnv().mailchimp
 
+  console.log(req.body)
+
   try {
     const { email } = Typebox.ValidateAndClean(Email, req.body)
 

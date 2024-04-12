@@ -1,1 +1,0 @@
-../codelab/vars-platform-web.tf

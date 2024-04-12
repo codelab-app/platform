@@ -22,7 +22,7 @@
       }
     }
   },
-  "defaultProject": "platform",
+  "defaultProject": "web",
   "generators": {
     "@nrwl/nest": {
       "application": {

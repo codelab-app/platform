@@ -185,7 +185,7 @@ describe('ComponentResolvers', () => {
             kind: IPageKind.Provider,
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),
-            url: IPageKindName.Provider,
+            urlPattern: IPageKindName.Provider,
           },
         ],
       })

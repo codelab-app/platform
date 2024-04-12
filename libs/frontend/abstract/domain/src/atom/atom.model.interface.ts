@@ -17,7 +17,7 @@ export interface IAtomModel
       'toDeleteInput'
     >,
     IAtomDto {
-  allowCustomTextInjection: boolean
+  allowRichTextInjection: boolean
   api: Ref<IInterfaceTypeModel>
   library: {
     color: string

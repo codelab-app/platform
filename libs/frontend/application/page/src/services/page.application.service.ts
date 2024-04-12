@@ -72,7 +72,7 @@ export class PageApplicationService
   @transaction
   create = _async(function* (
     this: PageApplicationService,
-    { app, id, name, url }: ICreatePageData,
+    { app, id, name, urlPattern }: ICreatePageData,
   ) {
     const rootElementProps: IPropDto = {
       data: '{}',
@@ -117,7 +117,7 @@ export class PageApplicationService
       store,
       // for new pages we allow user to omit url, in this case we autogenerate it
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      url: url ?? `/${slugify(name)}`,
+      urlPattern: urlPattern ?? `/${slugify(name)}`,
     })
 
     yield* _await(this.pageRepository.add(page))

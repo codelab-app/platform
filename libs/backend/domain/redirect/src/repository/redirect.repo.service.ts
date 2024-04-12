@@ -51,7 +51,6 @@ export class RedirectRepository extends AbstractRepository<
               ? reconnectNodeId(redirect.targetPage?.id)
               : undefined,
           targetType: redirect.targetType,
-
           targetUrl:
             redirect.targetType === IRedirectTargetType.Url
               ? redirect.targetType

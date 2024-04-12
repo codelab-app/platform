@@ -13,5 +13,4 @@ export interface IRendererDto {
   id: string
   rendererType: RendererType
   setSelectedNode?: IBuilderService['setSelectedNode']
-  urlSegments?: Record<string, string>
 }

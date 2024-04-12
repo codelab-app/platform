@@ -27,8 +27,6 @@ export const LAST_WORD_AFTER_DOT_REGEX = /\.\w+$/
 
 export const WORD_BEFORE_DOT_REGEX = /\w*(\.)?/
 
-export const CUSTOM_TEXT_PROP_KEY = 'customText'
-
 // export const DEFAULT_GET_SERVER_SIDE_PROPS = `async function (context) {
 //     return {
 //       props: {},

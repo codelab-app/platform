@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
   return (
     <>
       <SeoHead
-        description="Privacy policy page for Codelab platform"
+        description="Privacy policy page for Codelab builder"
         title="Privacy Policy"
       />
     </>

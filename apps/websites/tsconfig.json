@@ -11,8 +11,7 @@
       "worker-loader",
       "@fancyapps/ui",
       "cypher",
-      "styled-components",
-      "@editorjs"
+      "styled-components"
     ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,

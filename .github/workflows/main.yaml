@@ -2,28 +2,28 @@ on:
   push:
     branches:
       - master
-jobs:
-  deploy-platform-web:
-    runs-on: ubuntu-latest
-    steps:
-      - name: platform-web deployment
-        uses: digitalocean/app_action@v1.1.6
-        with:
-          app_name: platform-web
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-  deploy-platform-api:
-    runs-on: ubuntu-latest
-    steps:
-      - name: platform-api deployment
-        uses: digitalocean/app_action@v1.1.6
-        with:
-          app_name: platform-api
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-  deploy-platform-websites:
-    runs-on: ubuntu-latest
-    steps:
-      - name: platform-websites deployment
-        uses: digitalocean/app_action@v1.1.6
-        with:
-          app_name: platform-websites
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+# jobs:
+#   deploy-web:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: web deployment
+#         uses: digitalocean/app_action@v1.1.6
+#         with:
+#           app_name: web
+#           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+#   deploy-api:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: api deployment
+#         uses: digitalocean/app_action@v1.1.6
+#         with:
+#           app_name: api
+#           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+#   deploy-websites:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: websites deployment
+#         uses: digitalocean/app_action@v1.1.6
+#         with:
+#           app_name: websites
+#           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}

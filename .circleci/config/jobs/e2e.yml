@@ -19,15 +19,15 @@ steps:
         echo 'export CI_BUILD_ID="$(echo ${CIRCLE_SHA1:0:8})-${CIRCLE_BUILD_NUM}"' >> "$BASH_ENV"
         source "$BASH_ENV"
         echo "CI Build ID: $CI_BUILD_ID"
-        pnpm nx e2e platform-e2e -c ci --ci-build-id=$CI_BUILD_ID
+        pnpm nx e2e e2e -c ci --ci-build-id=$CI_BUILD_ID
   - store_artifacts:
-      path: ~/project/apps/platform-e2e/src/videos
+      path: ~/project/apps/e2e/src/videos
       destination: cypress/videos
   - store_artifacts:
-      path: ~/project/apps/platform-e2e/src/screenshots
+      path: ~/project/apps/e2e/src/screenshots
       destination: cypress/screenshots
   - store_artifacts:
-      path: ~/project/apps/platform-e2e/src/data
+      path: ~/project/apps/e2e/src/data
       destination: cypress/data
   - store_test_results:
       path: ./tmp/reports/e2e

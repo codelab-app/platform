@@ -1,0 +1,143 @@
+#
+# `--env-file`, a flag for docker-compose, is used for variable substitution
+#
+# `env_file` is used to find env to inject into docker container at runtime
+#
+# https://docs.docker.com/compose/environment-variables/
+#
+# When you use a bind mount, as in your example, Docker doesn't create a named volume. Instead, it directly maps the file or directory from your host machine into the container. In this case, ./prometheus.yaml from your local machine is being mounted to /etc/prometheus/prometheus.yml within the container.
+#
+version: '3.8'
+name: 'codelab'
+services:
+  neo4j:
+    container_name: codelab-neo4j
+    image: neo4j:5.11.0
+    volumes:
+      - codelab-neo4j:/data
+      - codelab-neo4j:/plugins
+      - codelab-neo4j:/import
+      - codelab-neo4j:/logs
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_dbms.security.procedures.unrestricted=apoc.*
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_AUTH=neo4j/password
+      # - NEO4J_dbms_default__database=neo4j
+      # - NEO4J_dbms_security_procedures_unrestricted=apoc.*,algo.*
+      # - NEO4J_dbms_memory_heap_initial__size=512m
+      # - NEO4J_dbms_memory_heap_max__size=2G
+      # - NEO4J_apoc_uuid_enabled=true
+      # - NEO4J_dbms_default__listen__address=0.0.0.0
+      # - NEO4J_dbms_allow__upgrade=true
+    # networks: ["codelab-neo4j"]
+    restart: unless-stopped
+
+  neo4j-test:
+    container_name: codelab-neo4j-test
+    image: neo4j:5.11.0
+    volumes:
+      - codelab-neo4j-test:/data
+      - codelab-neo4j-test:/plugins
+      - codelab-neo4j-test:/import
+      - codelab-neo4j-test:/logs
+    ports:
+      - '7475:7474'
+      - '7688:7687'
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_dbms.security.procedures.unrestricted=apoc.*
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_AUTH=neo4j/password
+    restart: unless-stopped
+
+  # Collectors, used for collecting metrics and traces
+  opentelemetry:
+    container_name: opentelemetry
+    image: otel/opentelemetry-collector:0.96.0
+    restart: unless-stopped
+    command: ['--config=/etc/otelcol/config.yaml']
+    volumes:
+      - ./otel-collector.yaml:/etc/otelcol/config.yaml
+    ports:
+      - '1888:1888' # pprof extension
+      - '8888:8888' # Prometheus metrics exposed by the collector
+      - '8889:8889' # Prometheus exporter metrics
+      - '13133:13133' # health_check extension
+      - '55679:55679' # zpages extension
+      # - '4317:4317' # OTLP gRPC receiver
+      # - '4318:4318' # OTLP HTTP receiver
+      # https://github.com/open-telemetry/opentelemetry-collector-contrib/discussions/29670
+    depends_on:
+      - jaeger-all-in-one
+      # - prometheus
+      # - zipkin
+    # environment:
+
+  # Observability, used for tracing
+  jaeger-all-in-one:
+    container_name: jaeger-all-in-one
+    image: jaegertracing/all-in-one:1.55
+    restart: unless-stopped
+    ports:
+      # Expoes Jaeger UI for the user
+      - '16686:16686'
+      # Exposed for metrics to be used by Prometheus
+      - '14269:14269'
+      # https://opentelemetry.io/docs/languages/js/exporters/#jaeger
+      - '14250:14250' # Used to receive traces with gRPC
+      - '4317:4317' # OTLP gRPC receiver
+      - '4318:4318' # OTLP HTTP receiver
+    environment:
+      # Native support for OpenTelemetry in Jaeger. In the traces.exporters we no longer specify jaeger, but otlp
+      # https://stackoverflow.com/questions/77305777/opentelemetry-collector-failing-to-export-to-jaeger-via-otlp
+      # This is to enable the Jaeger OTEL receiver
+      - COLLECTOR_OTLP_ENABLED=true
+
+  # zipkin-all-in-one:
+  #   container_name: zipkin-all-in-one
+  #   image: openzipkin/zipkin:latest
+  #   restart: always
+  #   ports:
+  #     - '9411:9411'
+
+  # Observability, used for metrics
+  # prometheus:
+  #   container_name: prometheus
+  #   image: prom/prometheus:v2.46.0
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+  #   ports:
+  #     - '9090:9090'
+
+  # grafana:
+  #   container_name: grafana
+  #   image: grafana/grafana:10.0.3
+  #   restart: always
+  #   ports:
+  #     - '3100:3000'
+  #   volumes:
+  #     - grafana-storage:/var/lib/grafana
+  #   environment:
+  #     - GF_SECURITY_ADMIN_USER=admin
+  #     - GF_SECURITY_ADMIN_PASSWORD=secret
+  #   depends_on:
+  #     - prometheus
+
+volumes:
+  codelab-neo4j:
+    name: codelab-neo4j
+  codelab-neo4j-test:
+    name: codelab-neo4j-test
+  # grafana-storage:
+  #   name: grafana-storage

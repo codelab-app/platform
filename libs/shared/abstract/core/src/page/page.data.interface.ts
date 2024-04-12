@@ -2,7 +2,7 @@ import type { IPage } from './page.dto.interface'
 
 export type IUpdatePageData = Pick<
   IPage,
-  'app' | 'id' | 'name' | 'pageContentContainer' | 'url'
+  'app' | 'id' | 'name' | 'pageContentContainer' | 'urlPattern'
 >
 
 /**
@@ -10,5 +10,5 @@ export type IUpdatePageData = Pick<
  */
 export type ICreatePageData = Pick<
   IPage,
-  'app' | 'id' | 'kind' | 'name' | 'url'
+  'app' | 'id' | 'kind' | 'name' | 'urlPattern'
 >

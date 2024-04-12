@@ -15,6 +15,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import type { Context } from 'mobx-keystone'
+import type { NextRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'querystring'
 import type { IActionService } from '../action'
 import type { IAdminService } from '../admin'
@@ -40,15 +41,13 @@ import type { IStoreService } from '../store'
 import type { ITagService } from '../tag'
 import type { ITypeService } from '../type'
 import type { IUserService } from '../user'
+import type { IPageProps } from './nextjs.interface'
 import type { IRouterService } from './router.service.interface'
 
 /**
  * Initial data to be injected into store
  */
-export interface RootStoreData {
-  routerQuery: ParsedUrlQuery
-  user: Auth0IdToken
-}
+export type RootStoreData = IPageProps
 
 export interface IRootStoreDto {
   context: IRootStoreContext
@@ -115,6 +114,7 @@ export interface IRootStoreContext {
   rendererServiceContext: MaybeContext<IRendererService>
   resourceDomainServiceContext: MaybeContext<IResourceDomainService>
   resourceServiceContext: MaybeContext<IResourceService>
+  routerServiceContext: MaybeContext<IRouterService>
   runtimeComponentServiceContext: MaybeContext<IRuntimeComponentService>
   runtimeElementServiceContext: MaybeContext<IRuntimeElementService>
   storeDomainServiceContext: MaybeContext<IStoreDomainService>

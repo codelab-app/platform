@@ -2,7 +2,7 @@ description: 'Restore Workspace'
 steps:
   - checkout
   - attach_workspace:
-      at: ~/project
+      at: ~/
   - restore_cache:
       name: 'Restore node_modules Cache'
       keys:

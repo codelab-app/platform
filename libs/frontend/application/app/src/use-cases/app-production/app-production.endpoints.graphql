@@ -1,5 +1,5 @@
-# In production we have domain and pageUrl we filter app by domain and page by url
-query GetAppProduction($domain: String!, $pageUrl: String!) {
+# In production we have domain and pageUrlPattern we filter app by domain and page by url
+query GetAppProduction($domain: String!, $pageUrlPattern: String!) {
   apps(where: { domains_SOME: { name_IN: [$domain] } }) {
     ...AppProduction
   }

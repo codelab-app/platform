@@ -34,6 +34,7 @@ import {
   redirectServiceContext,
   rendererServiceContext,
   resourceServiceContext,
+  routerServiceContext,
   runtimeComponentServiceContext,
   runtimeElementServiceContext,
   userServiceContext,
@@ -106,7 +107,7 @@ import { typeDomainServiceContext } from '@codelab/frontend/domain/type'
 import { TracerService } from '@codelab/frontend/infra/otel'
 import { Model, model, prop } from 'mobx-keystone'
 
-export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
+export const createRootStore = ({ router, user }: RootStoreData) => {
   @model('@codelab/RootStore')
   class RootStore
     extends Model({
@@ -134,9 +135,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         () => new RendererApplicationService({}),
       ),
       resourceService: prop<IResourceService>(() => new ResourceService({})),
-      routerService: prop<IRouterService>(() =>
-        RouterService.init(routerQuery),
-      ),
+      routerService: prop<IRouterService>(() => RouterService.init(router)),
       runtimeComponentService: prop<IRuntimeComponentService>(
         () => new RuntimeComponentService({}),
       ),
@@ -215,6 +214,7 @@ export const createRootStore = ({ routerQuery, user }: RootStoreData) => {
         this,
         this.redirectService.redirectDomainService,
       )
+      routerServiceContext.set(this, this.routerService)
       rendererServiceContext.set(this, this.rendererService)
       runtimeElementServiceContext.set(this, this.runtimeElementService)
       runtimeComponentServiceContext.set(this, this.runtimeComponentService)

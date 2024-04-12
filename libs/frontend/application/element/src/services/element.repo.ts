@@ -46,6 +46,9 @@ export class ElementRepository extends Model({}) implements IElementRepository {
     return nodesDeleted
   })
 
+  /**
+   * We make find get the dependantTypes, this can be used on prop form to get types
+   */
   @modelFlow
   find = _async(function* (
     this: ElementRepository,

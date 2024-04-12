@@ -1,7 +1,3 @@
-variable "CIRCLECI_TOKEN" {
-  type = string
-}
-
 variable "CYPRESS_RECORD_KEY" {
   type = string
 }

@@ -6,7 +6,7 @@ const TermsOfService = () => {
   return (
     <>
       <SeoHead
-        description="Terms of service for Codelab platform"
+        description="Terms of service for Codelab builder"
         title="Terms of Service"
       />
     </>

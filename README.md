@@ -2,7 +2,7 @@
 
 Checkout [Codelab.app Wiki](https://codelab-app.notion.site/991847918e6b4a7cbfb2cacd5e14e001?v=c64ddc7e78f74baaa375f336a31df0e0&pvs=4) to get started!
 
-IAppDto is used for hydrating data, many are optional since we may not require full data all the time.
+<!-- IAppDto is used for hydrating data, many are optional since we may not require full data all the time.
 
 IAppModel uses ref only, this allows us partial construction of models.
 
@@ -43,4 +43,4 @@ App contains page/element. These are created together
 
 Issue is that element requires page. But since we tied page to app, now element requires app. Creating a circular dep.
 
-Should keep page separate, this way we can create a page without an app.
+Should keep page separate, this way we can create a page without an app. -->

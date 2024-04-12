@@ -38,7 +38,7 @@ describe('Redirect', () => {
   it('should authorize page access when no redirect found', async () => {
     const response = await redirectController.canActivate({
       domain: 'test.com',
-      pageUrl: '/some-url',
+      pageUrlPattern: '/some-url',
     })
 
     expect(response).toMatchObject({
@@ -50,14 +50,14 @@ describe('Redirect', () => {
 
   it('should prevent page access when authorization cookie is missing', async () => {
     const domain = 'http://test.com'
-    const pageUrl = '/page-url'
+    const pageUrlPattern = '/page-url'
 
     const redirect = new Redirect({
       authGuard: { id: v4() },
       id: v4(),
       source: { id: v4() },
       // a workaround to quickly pass page url without create page model
-      targetPage: { id: v4(), url: pageUrl } as IRef,
+      targetPage: { id: v4(), urlPattern: pageUrlPattern } as IRef,
       targetType: IRedirectTargetType.Page,
     })
 
@@ -65,20 +65,20 @@ describe('Redirect', () => {
 
     const response = await redirectController.canActivate({
       domain,
-      pageUrl,
+      pageUrlPattern,
     })
 
     expect(response).toMatchObject({
       canActivate: false,
       message: 'Messing authorization in request body',
-      redirectUrl: `${domain}${pageUrl}`,
+      redirectUrl: `${domain}${pageUrlPattern}`,
       status: 200,
     })
   })
 
   it('should authorize page access when auth api return true', async () => {
     const domain = 'http://test.com'
-    const pageUrl = '/page-url'
+    const pageUrlPattern = '/page-url'
     const authorization = 'authorization-token'
 
     const resource = new Resource({
@@ -115,7 +115,7 @@ describe('Redirect', () => {
       id: v4(),
       source: { id: v4() },
       // a workaround to quickly pass page url without create page model
-      targetPage: { id: v4(), url: pageUrl } as IRef,
+      targetPage: { id: v4(), urlPattern: pageUrlPattern } as IRef,
       targetType: IRedirectTargetType.Page,
     })
 
@@ -130,7 +130,7 @@ describe('Redirect', () => {
     const response = await redirectController.canActivate({
       authorization,
       domain,
-      pageUrl,
+      pageUrlPattern,
     })
 
     expect(response).toMatchObject({
@@ -141,7 +141,7 @@ describe('Redirect', () => {
 
   it('should prevent page access when auth api return false', async () => {
     const domain = 'http://test.com'
-    const pageUrl = '/page-url'
+    const pageUrlPattern = '/page-url'
     const authorization = 'authorization-token'
 
     const resource = new Resource({
@@ -178,7 +178,7 @@ describe('Redirect', () => {
       id: v4(),
       source: { id: v4() },
       // a workaround to quickly pass page url without create page model
-      targetPage: { id: v4(), url: pageUrl } as IRef,
+      targetPage: { id: v4(), urlPattern: pageUrlPattern } as IRef,
       targetType: IRedirectTargetType.Page,
     })
 
@@ -193,12 +193,12 @@ describe('Redirect', () => {
     const response = await redirectController.canActivate({
       authorization,
       domain,
-      pageUrl,
+      pageUrlPattern,
     })
 
     expect(response).toMatchObject({
       canActivate: false,
-      redirectUrl: `${domain}${pageUrl}`,
+      redirectUrl: `${domain}${pageUrlPattern}`,
       status: 200,
     })
   })

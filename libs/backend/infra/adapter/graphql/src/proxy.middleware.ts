@@ -5,12 +5,12 @@ import { authMiddleware } from './auth.middleware'
 import { corsMiddleware } from './cors.middleware'
 
 /**
- * Proxy requests to platform api
+ * Proxy requests to api
  */
 export const proxyMiddleware: NextApiHandler = async (req, res) => {
   await corsMiddleware(req, res)
   await authMiddleware(req, res)
   await httpProxyMiddleware(req, res, {
-    target: getEnv().endpoint.platformApiHost,
+    target: getEnv().endpoint.apiHost,
   })
 }

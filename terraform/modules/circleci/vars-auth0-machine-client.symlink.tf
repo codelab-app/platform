@@ -1,1 +1,1 @@
-../auth0-vars/vars-machine-client.tf
+../auth0/shared/vars-machine-client.tf

@@ -17,7 +17,7 @@ export type PagePreviewFragment = {
   id: string
   kind: Types.PageKind
   name: string
-  url: string
+  urlPattern: string
   app: { id: string }
   rootElement: { id: string }
   store: { id: string }
@@ -27,7 +27,7 @@ export type PageFragment = {
   id: string
   kind: Types.PageKind
   name: string
-  url: string
+  urlPattern: string
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
@@ -40,7 +40,7 @@ export type PageDevelopmentFragment = {
   id: string
   kind: Types.PageKind
   name: string
-  url: string
+  urlPattern: string
   app: { id: string }
   elements: Array<ElementFragment>
   pageContentContainer?: { id: string } | null
@@ -54,7 +54,7 @@ export type PageProductionFragment = {
   kind: Types.PageKind
   name: string
   slug: string
-  url: string
+  urlPattern: string
   app: { id: string }
   elements: Array<ElementProductionFragment>
   pageContentContainer?: { id: string } | null
@@ -77,7 +77,7 @@ export const PagePreviewFragmentDoc = gql`
     store {
       id
     }
-    url
+    urlPattern
   }
 `
 export const PageFragmentDoc = gql`
@@ -103,7 +103,7 @@ export const PageFragmentDoc = gql`
     store {
       ...Store
     }
-    url
+    urlPattern
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -131,7 +131,7 @@ export const PageDevelopmentFragmentDoc = gql`
     store {
       ...Store
     }
-    url
+    urlPattern
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -160,7 +160,7 @@ export const PageProductionFragmentDoc = gql`
     store {
       ...Store
     }
-    url
+    urlPattern
   }
   ${ElementProductionFragmentDoc}
   ${StoreFragmentDoc}

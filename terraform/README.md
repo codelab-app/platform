@@ -36,3 +36,7 @@ To symlink var into another folder, go to the target folder first `ln -s ../../s
 ## Destroying
 
 Sometimes you need to manually destroy by deleting the state list.
+
+## TFLint
+
+tflint --config="${PWD}/terraform/.tflint.hcl" --recursive --fix

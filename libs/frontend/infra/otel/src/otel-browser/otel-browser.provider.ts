@@ -24,7 +24,7 @@ export const initializeWebTraceProvider = () => {
    */
   const config: TracerConfig = {
     resource: new Resource({
-      [SEMRESATTRS_SERVICE_NAME]: 'platform',
+      [SEMRESATTRS_SERVICE_NAME]: 'web',
     }),
   }
 
