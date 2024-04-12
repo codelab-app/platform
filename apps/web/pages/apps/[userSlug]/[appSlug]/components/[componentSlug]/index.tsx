@@ -28,7 +28,7 @@ const ComponentPreviewView: CodelabPage = observer(() => {
   }, [componentName])
 
   return (
-    <DynamicDashboardTemplate Header={PageDetailHeader} headerHeight={48}>
+    <DynamicDashboardTemplate Header={PageDetailHeader}>
       <Head>
         <title>{componentName} | Preview | Codelab</title>
       </Head>

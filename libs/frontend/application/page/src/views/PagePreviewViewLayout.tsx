@@ -15,7 +15,6 @@ export const PagePreviewViewLayout: PagePreviewView['Layout'] = observer(
         Header={observer(() => (
           <PageDetailHeader />
         ))}
-        headerHeight={48}
       >
         {children()}
       </DynamicDashboardTemplate>

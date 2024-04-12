@@ -8,10 +8,7 @@ import {
   ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/application/builder'
-import {
-  PageDetailHeader,
-  PagesPrimarySidebar,
-} from '@codelab/frontend/application/page'
+import { PageDetailHeader } from '@codelab/frontend/application/page'
 import { withPageAuthRedirect } from '@codelab/frontend/application/shared/auth'
 import {
   useCurrentComponent,
@@ -28,7 +25,7 @@ import React, { useEffect, useMemo } from 'react'
 const ComponentBuilderView: CodelabPage = observer(() => {
   const { componentName } = useCurrentComponent()
 
-  const [{ error, status }, loadCurrentPage] = useRenderedComponent(
+  const [{ error, status }, loadCurrentComponent] = useRenderedComponent(
     RendererType.ComponentBuilder,
   )
 
@@ -36,7 +33,7 @@ const ComponentBuilderView: CodelabPage = observer(() => {
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   useEffect(() => {
-    void loadCurrentPage.execute()
+    void loadCurrentComponent.execute()
   }, [componentName])
 
   return (
@@ -58,14 +55,9 @@ const ComponentBuilderView: CodelabPage = observer(() => {
             key: ExplorerPaneType.Explorer,
             render: () => <BuilderPrimarySidebar isLoading={isLoading} />,
           },
-          {
-            key: ExplorerPaneType.PageList,
-            render: () => <PagesPrimarySidebar />,
-          },
         ],
       }}
       contentStyles={contentStyles}
-      headerHeight={48}
     >
       <Head>
         <title>{componentName} | Builder | Codelab</title>

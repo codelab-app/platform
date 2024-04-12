@@ -7,10 +7,6 @@ import {
 import { componentRef } from '@codelab/frontend/abstract/domain'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
-import {
-  useAppQuery,
-  useUserQuery,
-} from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
 import { slugify } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
@@ -22,9 +18,7 @@ import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
   const { builderService, componentService } = useStore()
-  const { appSlug } = useAppQuery()
   const router = useRouter()
-  const { userSlug } = useUserQuery()
   const previousActiveNode = useRef<IRuntimeModel>()
 
   const [{ error, status }, getComponents] = useAsync(() =>
@@ -47,10 +41,8 @@ export const CustomComponents = observer(() => {
     await router.push({
       pathname: PageType.ComponentBuilder,
       query: {
-        appSlug,
         componentSlug,
         primarySidebarKey: ExplorerPaneType.Explorer,
-        userSlug,
       },
     })
   }
