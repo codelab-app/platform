@@ -45,7 +45,16 @@ export const TextEditorWrapper = observer<{
     [],
   )
 
+  const onClose = useCallback(() => {
+    element.setIsTextContentEditable(false)
+  }, [])
+
   return (
-    <LexicalTextEditor config={{ editable }} data={data} onChange={onChange} />
+    <LexicalTextEditor
+      config={{ editable }}
+      data={data}
+      onChange={onChange}
+      onClose={onClose}
+    />
   )
 })

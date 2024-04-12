@@ -33,18 +33,20 @@ export interface TextEditorProps {
   config?: Partial<InitialConfigType>
   data?: string
   onChange(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
+  onClose?(): void
 }
 
 export const TextEditor = ({
   config = {},
   data,
   onChange,
+  onClose: close = () => null,
 }: TextEditorProps) => {
   return (
     <LexicalComposer initialConfig={mergeProps(editorConfig, config)}>
       <div className="editor-container">
         <OnInitPlugin data={data} editable={Boolean(config.editable)} />
-        {config.editable && <ToolbarPlugin />}
+        {config.editable && <ToolbarPlugin onClose={close} />}
         <OnChangePlugin onChange={onChange} />
         <div className="editor-inner">
           <RichTextPlugin
