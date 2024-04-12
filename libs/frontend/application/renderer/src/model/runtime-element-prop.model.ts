@@ -227,7 +227,7 @@ export class RuntimeElementPropsModel
   }
 
   evaluateProps(context: IEvaluationContext) {
-    // Evaluate customText prop only in preview and production modes
+    // Evaluate children prop only in preview and production modes
     if (
       this.renderer.rendererType === RendererType.Preview ||
       this.renderer.rendererType === RendererType.Production

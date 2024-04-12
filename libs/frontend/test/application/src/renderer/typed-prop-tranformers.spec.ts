@@ -83,7 +83,7 @@ describe('TypedPropTransformers', () => {
     const propKey = 'someNode'
     const textPropKey = 'text'
     const textPropValue = 'some text value'
-    const customTextExpression = `{{componentProps.${textPropKey}}}`
+    const childrenExpression = `{{componentProps.${textPropKey}}}`
     const renderPropsType = testbed.addRenderProps({})
     const api = testbed.addInterfaceType({})
 
@@ -108,7 +108,7 @@ describe('TypedPropTransformers', () => {
       },
     })
 
-    childElement.props.set('children', customTextExpression)
+    childElement.props.set('children', childrenExpression)
 
     component.rootElement.current.writeCache({ firstChild: childElement })
 
