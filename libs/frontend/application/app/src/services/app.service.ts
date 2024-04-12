@@ -9,6 +9,7 @@ import {
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
+import { restPlatformClient } from '@codelab/frontend/application/axios'
 import {
   getDomainService,
   regeneratePages,
@@ -19,8 +20,12 @@ import {
 } from '@codelab/frontend/application/page'
 import { ModalService } from '@codelab/frontend/application/shared/store'
 import { AppDomainService } from '@codelab/frontend/domain/app'
-import type { AppWhere } from '@codelab/shared/abstract/codegen'
-import type { IUpdatePageData } from '@codelab/shared/abstract/core'
+import type { App, AppWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  IAppAggregate,
+  IUpdatePageData,
+} from '@codelab/shared/abstract/core'
+import { prettifyForConsole } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -102,6 +107,28 @@ export class AppService
   })
 
   @modelFlow
+  exportApp = _async(function* (this: AppService, app: IAppModel) {
+    const res = yield* _await(
+      restPlatformClient.get<IAppAggregate>(`app/export?id=${app.id}`),
+    )
+
+    const filename = `${app.slug}.json`
+    const contentType = 'application/json;charset=utf-8;'
+    const a = document.createElement('a')
+
+    a.download = filename
+    a.href = `data:${contentType},${encodeURIComponent(
+      prettifyForConsole(res.data),
+    )}`
+    a.target = '_blank'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+
+    return res
+  })
+
+  @modelFlow
   @transaction
   getAll = _async(function* (this: AppService, where: AppWhere) {
     const { items: apps } = yield* _await(this.appRepository.find(where))
@@ -125,6 +152,23 @@ export class AppService
       label: app.name,
       value: app.id,
     }))
+  })
+
+  @modelFlow
+  importApp = _async(function* (this: AppService, appDataFile: File) {
+    const formData = new FormData()
+
+    formData.append('file', appDataFile)
+
+    return yield* _await(
+      restPlatformClient
+        .post<App>('/app/import', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(({ data }) => {
+          return this.loadAppsPreview({ id: data.id })
+        }),
+    )
   })
 
   /**
