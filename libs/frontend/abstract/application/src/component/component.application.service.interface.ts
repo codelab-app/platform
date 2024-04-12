@@ -10,6 +10,7 @@ import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DefaultOptionType } from 'antd/lib/select'
 import type { Ref } from 'mobx-keystone'
 import type { IFormService } from '../services/form.service.interface'
@@ -34,6 +35,8 @@ export interface IComponentApplicationService
   componentRepository: IComponentRepository
   createForm: IFormService
 
+  exportComponent(component: IComponentModel): Promise<unknown>
   getSelectComponentOptions(): Promise<Array<DefaultOptionType>>
+  importComponent(componentDataFile: File): Promise<Maybe<IComponentModel>>
   previewComponent(id: string): void
 }

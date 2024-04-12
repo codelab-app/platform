@@ -31,6 +31,7 @@ export const CustomComponents = observer(() => {
     componentService.getAll(),
   )
 
+  const [, exportComponent] = useAsync(componentService.exportComponent)
   const isLoading = status === 'loading'
 
   useEffect(() => {
@@ -51,13 +52,6 @@ export const CustomComponents = observer(() => {
         primarySidebarKey: ExplorerPaneType.Explorer,
         userSlug,
       },
-    })
-  }
-
-  const exportComponent = (id: string) => {
-    void router.push({
-      pathname: PageType.ComponentExport,
-      query: { id },
     })
   }
 
@@ -86,7 +80,7 @@ export const CustomComponents = observer(() => {
         components={componentService.componentDomainService.componentList}
         onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
         onEdit={(id) => editComponent(id)}
-        onExport={(id) => exportComponent(id)}
+        onExport={(component) => void exportComponent.execute(component)}
         onSelect={componentService.previewComponent}
         selectedIds={
           builderService.selectedNode

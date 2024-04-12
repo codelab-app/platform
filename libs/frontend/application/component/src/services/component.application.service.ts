@@ -17,6 +17,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
+import { restPlatformClient } from '@codelab/frontend/application/axios'
 import {
   ModalService,
   PaginationService,
@@ -27,10 +28,12 @@ import { ComponentDomainService } from '@codelab/frontend/domain/component'
 import { Store } from '@codelab/frontend/domain/store'
 import { InterfaceType } from '@codelab/frontend/domain/type'
 import type {
+  Component,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import type {
+  IComponentAggregate,
   ICreateComponentData,
   IPropDto,
   IUpdateComponentData,
@@ -39,6 +42,7 @@ import {
   IElementRenderTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
+import { prettifyForConsole, slugify } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import uniq from 'lodash/uniq'
@@ -188,6 +192,33 @@ export class ComponentApplicationService
   })
 
   @modelFlow
+  exportComponent = _async(function* (
+    this: ComponentApplicationService,
+    component: IComponentModel,
+  ) {
+    const res = yield* _await(
+      restPlatformClient.get<IComponentAggregate>(
+        `component/export?id=${component.id}`,
+      ),
+    )
+
+    const filename = `${slugify(component.name)}.json`
+    const contentType = 'application/json;charset=utf-8;'
+    const a = document.createElement('a')
+
+    a.download = filename
+    a.href = `data:${contentType},${encodeURIComponent(
+      prettifyForConsole(res.data),
+    )}`
+    a.target = '_blank'
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+
+    return res
+  })
+
+  @modelFlow
   @transaction
   getAll = _async(function* (
     this: ComponentApplicationService,
@@ -293,6 +324,34 @@ export class ComponentApplicationService
       label: component.name,
       value: component.id,
     }))
+  })
+
+  @modelFlow
+  importComponent = _async(function* (
+    this: ComponentApplicationService,
+    componentDataFile: File,
+  ) {
+    const formData = new FormData()
+
+    formData.append('file', componentDataFile)
+
+    const oldLoadedComponentStatus = this.allComponentsLoaded
+
+    this.allComponentsLoaded = false
+
+    const component = yield* _await(
+      restPlatformClient
+        .post<Component>('/component/import', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(({ data }) => {
+          return this.getOne(data.id)
+        }),
+    )
+
+    this.allComponentsLoaded = oldLoadedComponentStatus
+
+    return component
   })
 
   @modelFlow
