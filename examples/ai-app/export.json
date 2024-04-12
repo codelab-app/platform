@@ -117,7 +117,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "4b84bdb2-d2af-429b-b460-7627cbc72e10",
-            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{{componentProps.content}}\"}"
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"children\":\"{{componentProps.content}}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -348,7 +348,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "bc61bf3c-a57a-4acc-b230-d6a2930b2e91",
-            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"customText\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
+            "data": "{\"mark\":false,\"code\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"children\":\"{\\\"time\\\":1711005680570,\\\"blocks\\\":[{\\\"id\\\":\\\"CpCNirzc5r\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Codelab AI Assistant\\\"}}],\\\"version\\\":\\\"2.28.2\\\"}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,

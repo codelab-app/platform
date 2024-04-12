@@ -16,7 +16,7 @@ export const childMapperComponentElementTypography: ICreateElementData = {
   id: v4(),
   name: 'Text Content',
   propsData: {
-    customText: 'text {{ componentProps.name }}',
+    children: 'text {{ componentProps.name }}',
   },
 }
 

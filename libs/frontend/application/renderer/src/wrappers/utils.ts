@@ -12,7 +12,7 @@ import { getAtom } from '../atoms'
 /**
  * Fragments can only have the `key` prop
  *
- * customText is rendered as a child of the component
+ * children is rendered as a child of the component
  * so shouldn't be passed as a prop to the element
  */
 export const extractValidProps = (

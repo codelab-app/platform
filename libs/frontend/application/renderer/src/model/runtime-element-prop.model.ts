@@ -26,7 +26,6 @@ import {
   mapDeep,
 } from '@codelab/shared/utils'
 import get from 'lodash/get'
-import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -97,8 +96,6 @@ export class RuntimeElementPropsModel
 
   @computed
   get expressionEvaluationContext(): IEvaluationContext {
-    console.log(this.urlProps, this.urlProps?.['urlKey'])
-
     const componentProps = isRuntimeComponent(this.closestRuntimeContainerNode)
       ? this.closestRuntimeContainerNode.runtimeProps.componentEvaluatedProps
       : {}
@@ -230,7 +227,7 @@ export class RuntimeElementPropsModel
   }
 
   evaluateProps(context: IEvaluationContext) {
-    // Evaluate customText prop only in preview and production modes
+    // Evaluate children prop only in preview and production modes
     if (
       this.renderer.rendererType === RendererType.Preview ||
       this.renderer.rendererType === RendererType.Production

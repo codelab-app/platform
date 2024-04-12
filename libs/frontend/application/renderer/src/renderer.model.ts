@@ -25,7 +25,6 @@ import {
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { RuntimeComponentModel, RuntimePageModel } from './model'
 import { defaultPipes, renderPipeFactory } from './render-pipes'
 import { ExpressionTransformer } from './services'
 import { typedPropTransformersFactory } from './typed-prop-transformers'
@@ -47,13 +46,6 @@ import { typedPropTransformersFactory } from './typed-prop-transformers'
  */
 
 const create = ({ containerNode, rendererType }: IRendererDto) => {
-  const runtimeRootContainerNode = isPage(containerNode)
-    ? RuntimePageModel.create(containerNode)
-    : RuntimeComponentModel.create({
-        component: containerNode,
-        compositeKey: RuntimeComponentModel.compositeKey(containerNode),
-      })
-
   return new Renderer({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)

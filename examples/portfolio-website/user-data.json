@@ -247,7 +247,7 @@
               "firstChild": null,
               "props": {
                 "id": "34b5b994-9abb-43fc-84ff-d337ef91df8c",
-                "data": "{\"customText\":\"<h1><strong class=\\\"ql-font-serif\\\">VP</strong></h1>\"}"
+                "data": "{\"children\":\"<h1><strong class=\\\"ql-font-serif\\\">VP</strong></h1>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -649,7 +649,7 @@
               "firstChild": null,
               "props": {
                 "id": "3491aea9-bbcb-4447-97b6-f4e916dc8f0f",
-                "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">But it's not all about coding for me. I'm equally drawn to pursuits like tennis, traveling, and snowboarding. I enjoy the thrill of a fast-paced game on the court, the awe-inspiring diversity of places and cultures around the world, and the exhilaration of descending snowy slopes. These activities not only bring balance to my life but also spark creativity and innovation in my work.</span></p>\"}"
+                "data": "{\"children\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">But it's not all about coding for me. I'm equally drawn to pursuits like tennis, traveling, and snowboarding. I enjoy the thrill of a fast-paced game on the court, the awe-inspiring diversity of places and cultures around the world, and the exhilaration of descending snowy slopes. These activities not only bring balance to my life but also spark creativity and innovation in my work.</span></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -680,7 +680,7 @@
               "firstChild": null,
               "props": {
                 "id": "85567160-1179-4fe5-9054-2fb1742595a4",
-                "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Outside of my primary job, I invest in promising companies on the stock market. The thrill of uncovering hidden gems and observing their growth mirrors my professional journey - where I started as a trainee and have since mentored numerous others to help them secure their first jobs in the industry.</span></p>\"}"
+                "data": "{\"children\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Outside of my primary job, I invest in promising companies on the stock market. The thrill of uncovering hidden gems and observing their growth mirrors my professional journey - where I started as a trainee and have since mentored numerous others to help them secure their first jobs in the industry.</span></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -773,7 +773,7 @@
               "firstChild": null,
               "props": {
                 "id": "b778c992-b9ac-42b9-8d3d-e938f78be334",
-                "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Building for the web is what I love. Whether it's something as simple as a single HTML file or as complex as a large React application, the thrill remains the same. The web is a realm of boundless potential where anyone can be a developer, writer, or creator - there are no barriers, only opportunities. Just build, and the world is your oyster.</span></p>\"}"
+                "data": "{\"children\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Building for the web is what I love. Whether it's something as simple as a single HTML file or as complex as a large React application, the thrill remains the same. The web is a realm of boundless potential where anyone can be a developer, writer, or creator - there are no barriers, only opportunities. Just build, and the world is your oyster.</span></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -829,7 +829,7 @@
               "firstChild": null,
               "props": {
                 "id": "c987c6d2-9b3e-4c5e-8c1f-a74c3b5f54eb",
-                "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">In the exciting realm of software development, there's always something new to learn, and I am committed to sharing my experiences and insights with the community. So, join me on this journey as we delve into the dynamic world of web development, investing, and beyond.</span></p>\"}"
+                "data": "{\"children\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">In the exciting realm of software development, there's always something new to learn, and I am committed to sharing my experiences and insights with the community. So, join me on this journey as we delve into the dynamic world of web development, investing, and beyond.</span></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -922,7 +922,7 @@
               "firstChild": null,
               "props": {
                 "id": "c6c65984-f867-4002-824c-73ffa56d025c",
-                "data": "{\"customText\":\"<p>Hello! I'm Vladyslav Polishchuk.</p><p>At present, I'm a Full-Stack Software Developer at a progressive startup where we're pioneering a state-of-the-art website builder for developers. My role here allows me to indulge in my passion for React, as well as engage with the vibrant, innovative developer community that we serve.</p>\"}"
+                "data": "{\"children\":\"<p>Hello! I'm Vladyslav Polishchuk.</p><p>At present, I'm a Full-Stack Software Developer at a progressive startup where we're pioneering a state-of-the-art website builder for developers. My role here allows me to indulge in my passion for React, as well as engage with the vibrant, innovative developer community that we serve.</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -987,7 +987,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"children\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1083,7 +1083,7 @@
               "firstChild": null,
               "props": {
                 "id": "d9d56356-8891-4e1b-9bfe-d131d31d33d1",
-                "data": "{\"customText\":\"<p>{{props.label}}</p>\"}"
+                "data": "{\"children\":\"<p>{{props.label}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1197,7 +1197,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"children\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1370,7 +1370,7 @@
               "firstChild": null,
               "props": {
                 "id": "f589d2dd-fc72-407f-8351-21dc42c20b02",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Sign in with GitHub</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Sign in with GitHub</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1463,7 +1463,7 @@
               "firstChild": { "id": "4ac4edbb-894f-4419-bebd-45cb982e8476" },
               "props": {
                 "id": "c681ccf8-cbe1-4999-858d-f191860479f7",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p><br></p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p><br></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1494,7 +1494,7 @@
               "firstChild": null,
               "props": {
                 "id": "e26783f8-839d-43d8-b0f8-32a3e736cdfb",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Logout</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Logout</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1525,7 +1525,7 @@
               "firstChild": { "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c" },
               "props": {
                 "id": "158a661a-ecda-4736-85d4-b4aa5420d71a",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p><br></p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p><br></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1556,7 +1556,7 @@
               "firstChild": null,
               "props": {
                 "id": "6b42fa43-2f8c-417f-aadd-6cf5536aa8bc",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Post</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"<p>Post</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1621,7 +1621,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"children\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1834,7 +1834,7 @@
               "firstChild": null,
               "props": {
                 "id": "ce781caa-fb5c-4c2f-bdd1-1b66cf004e9b",
-                "data": "{\"customText\":\"<p>My passion lies in front-end development, especially in mastering and creating robust applications with React. The ever-evolving nature of technology keeps me on my toes, and I'm always ready to tackle new challenges and learn more. Join me as I share my knowledge, experiences, and the exciting things I'm currently working on.</p>\"}"
+                "data": "{\"children\":\"<p>My passion lies in front-end development, especially in mastering and creating robust applications with React. The ever-evolving nature of technology keeps me on my toes, and I'm always ready to tackle new challenges and learn more. Join me as I share my knowledge, experiences, and the exciting things I'm currently working on.</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2020,7 +2020,7 @@
               "firstChild": null,
               "props": {
                 "id": "e3a0bd4d-a3ba-4769-824c-da40b948b3c7",
-                "data": "{\"customText\":\"<p>My professional journey has been an enriching one, encompassing a range of projects from charting and reporting applications to Product Lifecycle Management (PLM) systems. The most rewarding part of my career so far, however, has been mentoring aspiring developers, aiding them in their growth and seeing them land their first jobs in the industry.</p>\"}"
+                "data": "{\"children\":\"<p>My professional journey has been an enriching one, encompassing a range of projects from charting and reporting applications to Product Lifecycle Management (PLM) systems. The most rewarding part of my career so far, however, has been mentoring aspiring developers, aiding them in their growth and seeing them land their first jobs in the industry.</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2082,7 +2082,7 @@
               "firstChild": null,
               "props": {
                 "id": "8be4eac7-5cbf-48f9-9fe7-161c58832b08",
-                "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Hey there, I'm Vladyslav Polishchuk. I'm a Full-Stack Software Developer with a strong inclination for React and 7 years of industry experience under my belt. Currently, I'm at an innovative startup, where I am part of a dynamic team developing a cutting-edge website builder for fellow developers.</span></p>\"}"
+                "data": "{\"children\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Hey there, I'm Vladyslav Polishchuk. I'm a Full-Stack Software Developer with a strong inclination for React and 7 years of industry experience under my belt. Currently, I'm at an innovative startup, where I am part of a dynamic team developing a cutting-edge website builder for fellow developers.</span></p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2147,7 +2147,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"children\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2359,7 +2359,7 @@
         "firstChild": null,
         "props": {
           "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-          "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+          "data": "{\"children\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,

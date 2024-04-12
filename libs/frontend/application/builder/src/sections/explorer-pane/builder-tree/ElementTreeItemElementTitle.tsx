@@ -4,11 +4,7 @@ import DeploymentUnitOutlined from '@ant-design/icons/DeploymentUnitOutlined'
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined'
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
 import type { IElementTreeViewDataNode } from '@codelab/frontend/abstract/application'
-import {
-  elementRef,
-  elementTreeRef,
-  isComponentRef,
-} from '@codelab/frontend/abstract/domain'
+import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/domain'
 import type { ModelActionKey } from '@codelab/frontend/abstract/types'
 import { MODEL_ACTION } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/application/shared/store'
@@ -22,84 +18,62 @@ import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
+const Toolbar = observer<{ treeNode: IElementTreeViewDataNode }>(
+  ({ treeNode }) => {
+    const { elementService } = useStore()
+    const { popover } = useCui()
+    const element = elementService.element(treeNode.element!.id)
+
+    const onClick = () => {
+      popover.open(MODEL_ACTION.CreateElement.key)
+      elementService.createForm.open({
+        elementOptions:
+          element.closestContainerNode.elements.map(mapElementOption),
+        elementTree: elementTreeRef(element.closestContainerNode.id),
+        selectedElement: elementRef(element.id),
+      })
+    }
+
+    const items = [
+      {
+        cuiKey:
+          `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
+        icon: <PlusOutlined />,
+        onClick,
+        title: 'Add Child',
+      },
+    ]
+
+    return <CuiTreeItemToolbar items={items} title="ElementTreeItemToolbar" />
+  },
+)
+
 export const ElementTreeItemElementTitle = observer<{
   treeNode: IElementTreeViewDataNode
 }>(({ treeNode }) => {
-  const { elementService } = useStore()
-  const { popover } = useCui()
-  const element = elementService.element(treeNode.element!.id)
-  const atomName = element.atomName
+  const { atomMeta, componentMeta, errorMessage, selectable = true } = treeNode
 
-  const componentInstanceName = treeNode.isChildMapperComponentInstance
-    ? element.parentComponent?.maybeCurrent?.name
-    : isComponentRef(element.renderType)
-    ? element.renderType.maybeCurrent?.name
-    : null
+  const Icon = componentMeta ? (
+    <CodeSandboxOutlined style={{ color: 'blue' }} />
+  ) : atomMeta ? (
+    <DeploymentUnitOutlined style={{ color: 'green' }} />
+  ) : (
+    <BorderOuterOutlined style={{ color: 'gray' }} />
+  )
 
-  const componentMeta = componentInstanceName
-    ? `instance of ${componentInstanceName}`
-    : undefined
-
-  const atomMeta = atomName ? `${atomName}` : undefined
-  const meta = componentMeta ?? atomMeta ?? ''
-  const { selectable: treeNodeIsSelectable = true } = treeNode
-
-  const errorMessage = element.renderingMetadata?.error
-    ? `Error: ${element.renderingMetadata.error.message}`
-    : element.ancestorError
-    ? 'Something went wrong in a parent element'
-    : elementService.validationService.propsHaveErrors(element)
-    ? 'Some props are not correctly set'
-    : undefined
+  const Tag = errorMessage ? (
+    <Tooltip title={errorMessage}>
+      <ExclamationCircleOutlined style={{ color: 'red' }} />
+    </Tooltip>
+  ) : null
 
   return (
     <CuiTreeItem
-      icon={
-        componentMeta ? (
-          <CodeSandboxOutlined style={{ color: 'blue' }} />
-        ) : atomMeta ? (
-          <DeploymentUnitOutlined style={{ color: 'green' }} />
-        ) : (
-          <BorderOuterOutlined style={{ color: 'gray' }} />
-        )
-      }
+      icon={Icon}
       primaryTitle={treeNode.primaryTitle}
-      secondaryTitle={meta}
-      tag={
-        errorMessage ? (
-          <Tooltip title={errorMessage}>
-            <ExclamationCircleOutlined style={{ color: 'red' }} />
-          </Tooltip>
-        ) : null
-      }
-      toolbar={
-        treeNodeIsSelectable && (
-          <CuiTreeItemToolbar
-            items={[
-              {
-                cuiKey:
-                  `${MODEL_ACTION.CreateElement.key}-${element.id}` as ModelActionKey,
-                icon: <PlusOutlined />,
-                onClick: () => {
-                  popover.open(MODEL_ACTION.CreateElement.key)
-                  elementService.createForm.open({
-                    elementOptions:
-                      element.closestContainerNode.elements.map(
-                        mapElementOption,
-                      ),
-                    elementTree: elementTreeRef(
-                      element.closestContainerNode.id,
-                    ),
-                    selectedElement: elementRef(element.id),
-                  })
-                },
-                title: 'Add Child',
-              },
-            ]}
-            title="ElementTreeItemToolbar"
-          />
-        )
-      }
+      secondaryTitle={treeNode.secondaryTitle}
+      tag={Tag}
+      toolbar={selectable && <Toolbar treeNode={treeNode} />}
       variant={errorMessage ? 'danger' : 'primary'}
     />
   )

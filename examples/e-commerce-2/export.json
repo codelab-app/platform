@@ -464,7 +464,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "99505513-9b31-47fe-8498-261083fb4cce",
-            "data": "{\"customText\":\"{\\\"time\\\":1708421853857,\\\"blocks\\\":[{\\\"id\\\":\\\"DSyZsuVkOs\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{state.product?.price}}\\\"}}],\\\"version\\\":\\\"2.29.1\\\"}\",\"mark\":false,\"code\":false,\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
+            "data": "{\"children\":\"{\\\"time\\\":1708421853857,\\\"blocks\\\":[{\\\"id\\\":\\\"DSyZsuVkOs\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{state.product?.price}}\\\"}}],\\\"version\\\":\\\"2.29.1\\\"}\",\"mark\":false,\"code\":false,\"disabled\":false,\"delete\":false,\"underline\":false,\"strong\":false,\"italic\":false,\"keyboard\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"}}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -593,7 +593,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "22082daa-034e-4be0-a2ff-7f5421610944",
-            "data": "{\"delete\":false,\"underline\":false,\"code\":false,\"disabled\":false,\"mark\":false,\"italic\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"{\\\"time\\\":1704983952334,\\\"blocks\\\":[{\\\"id\\\":\\\"qKgPV2eFC5\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{state.product?.name}}\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\"}"
+            "data": "{\"delete\":false,\"underline\":false,\"code\":false,\"disabled\":false,\"mark\":false,\"italic\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"children\":\"{\\\"time\\\":1704983952334,\\\"blocks\\\":[{\\\"id\\\":\\\"qKgPV2eFC5\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"{{state.product?.name}}\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,
@@ -687,7 +687,7 @@
           "childMapperPreviousSibling": null,
           "props": {
             "id": "3bf9a088-d3a5-4861-b16b-080c8317fc83",
-            "data": "{\"customText\":\"{\\\"time\\\":1704984537007,\\\"blocks\\\":[{\\\"id\\\":\\\"GrzH11Llue\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Add to Cart\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"danger\":false,\"ghost\":false,\"disabled\":false,\"block\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"shape\":\"round\"}"
+            "data": "{\"children\":\"{\\\"time\\\":1704984537007,\\\"blocks\\\":[{\\\"id\\\":\\\"GrzH11Llue\\\",\\\"type\\\":\\\"paragraph\\\",\\\"data\\\":{\\\"text\\\":\\\"Add to Cart\\\"}}],\\\"version\\\":\\\"2.28.0\\\"}\",\"danger\":false,\"ghost\":false,\"disabled\":false,\"block\":false,\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"shape\":\"round\"}"
           },
           "renderForEachPropKey": null,
           "childMapperPropKey": null,

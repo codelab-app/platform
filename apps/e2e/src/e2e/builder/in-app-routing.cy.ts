@@ -31,16 +31,16 @@ describe('In-app navigation between app pages', () => {
 
     it('should navigate to the static page when NextLink in the _app is clicked', () => {
       cy.get('#render-root')
-        .contains(providerPageLinkElementCreateData.propsData?.customText)
+        .contains(providerPageLinkElementCreateData.propsData?.children)
         .click()
-      cy.contains(staticPageTextElementCreateData.propsData?.customText).should(
+      cy.contains(staticPageTextElementCreateData.propsData?.children).should(
         'exist',
       )
     })
 
     it('should navigate to the dynamic page when NextLink in the static page is clicked', () => {
       cy.get('#render-root')
-        .contains(staticPageLinkElementCreateData.propsData?.customText)
+        .contains(staticPageLinkElementCreateData.propsData?.children)
         .click()
       cy.findByText(
         `testId: "${testUrlProps.testId}", subtestId: "${testUrlProps.subtestId}"`,
@@ -59,16 +59,16 @@ describe('In-app navigation between app pages', () => {
 
     it('should disable navigation', () => {
       cy.get('#render-root')
-        .contains(providerPageLinkElementCreateData.propsData?.customText)
+        .contains(providerPageLinkElementCreateData.propsData?.children)
         .click()
 
       // No navigation should occur. Give it some time to navigate and check if the text is still there.
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(2000)
-      cy.contains(
-        providerPageLinkElementCreateData.propsData?.customText,
-      ).should('exist')
-      cy.contains(staticPageTextElementCreateData.propsData?.customText).should(
+      cy.contains(providerPageLinkElementCreateData.propsData?.children).should(
+        'exist',
+      )
+      cy.contains(staticPageTextElementCreateData.propsData?.children).should(
         'not.exist',
       )
     })

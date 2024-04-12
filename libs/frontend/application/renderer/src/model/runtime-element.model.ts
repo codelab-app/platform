@@ -9,6 +9,7 @@ import type {
   IRuntimePageModel,
 } from '@codelab/frontend/abstract/application'
 import {
+  getElementService,
   getRendererService,
   getRuntimeComponentService,
   getRuntimeElementService,
@@ -23,10 +24,7 @@ import {
   getComponentDomainService,
   isAtom,
   isComponent,
-  isComponentRef,
-  isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
@@ -135,13 +133,11 @@ export class RuntimeElementModel
   get children() {
     const container = this.closestContainerNode.current
     const element = this.element.current
-    const renderType = element.renderType.current
-    const shouldRenderComponent = isComponent(renderType)
 
-    const children: Array<IRuntimeModel> = shouldRenderComponent
+    const children: Array<IRuntimeModel> = this.component
       ? [
           // put component as a child instead of instance element children
-          this.runtimeComponentService.add(renderType, this, this.propKey),
+          this.runtimeComponentService.add(this.component, this, this.propKey),
         ]
       : element.children.map((child) =>
           this.runtimeElementService.add(child, container, this, this.propKey),
@@ -173,8 +169,20 @@ export class RuntimeElementModel
   }
 
   @computed
+  get component() {
+    return isComponent(this.element.current.renderType.current)
+      ? this.element.current.renderType.current
+      : undefined
+  }
+
+  @computed
   get componentDomainService() {
     return getComponentDomainService(this)
+  }
+
+  @computed
+  get elementService() {
+    return getElementService(this)
   }
 
   @computed
@@ -267,7 +275,7 @@ export class RuntimeElementModel
 
   @computed
   get renderer() {
-    const activeRenderer = this.renderService.activeRenderer?.current
+    const activeRenderer = getRendererService(this).activeRenderer?.current
 
     if (!activeRenderer) {
       throw new Error('No active Renderer was found')
@@ -307,56 +315,45 @@ export class RuntimeElementModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    // Add assigned ReactNode props as children
-    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
+    const children = this.children.flatMap((child) =>
+      // if element is instance of component we render the element's children instead of component
+      isRuntimeComponent(child) && !child.isChildMapperComponentInstance
+        ? child.children.map(
+            // if element is instance of component we render the element's children instead of component
+            (instanceChild) => instanceChild.treeViewNode,
+          )
+        : [child.treeViewNode],
+    )
 
-    Object.keys(this.runtimeProps.props).forEach((key, index) => {
-      const propData = this.runtimeProps.props[key]
+    const element = this.element.current
+    const primaryTitle = element.treeTitle.primary
+    const secondaryTitle = element.treeTitle.secondary
 
-      if (
-        isTypedProp(propData) &&
-        propData.kind === ITypeKind.ReactNodeType &&
-        typeof propData.value === 'string'
-      ) {
-        const component = this.componentDomainService.component(propData.value)
+    const componentMeta = this.component
+      ? `instance of ${this.component.name}`
+      : undefined
 
-        const runtimeComponentKey = RuntimeComponentModel.compositeKey(
-          component,
-          this,
-          key,
-        )
+    const atomMeta = element.atomName ? `${element.atomName}` : undefined
 
-        const runtimeComponent =
-          this.runtimeComponentService.components.get(runtimeComponentKey)
-
-        const componentRootElement = runtimeComponent?.runtimeRootElement
-
-        if (componentRootElement) {
-          reactNodesChildren.push({
-            ...componentRootElement.treeViewNode,
-            children: [],
-            isChildMapperComponentInstance: true,
-            key: `${propData.value}${index}`,
-            primaryTitle: `${key}:`,
-            selectable: false,
-          })
-        }
-      }
-    })
-
-    const children = [
-      ...this.children.map((child) => child.treeViewNode),
-      ...reactNodesChildren,
-    ]
+    const errorMessage = element.renderingMetadata?.error
+      ? `Error: ${element.renderingMetadata.error.message}`
+      : element.ancestorError
+      ? 'Something went wrong in a parent element'
+      : this.elementService.validationService.propsHaveErrors(element)
+      ? 'Some props are not correctly set'
+      : undefined
 
     return {
+      atomMeta,
       children,
+      componentMeta,
+      element: { id: this.element.current.id },
+      errorMessage,
       key: this.compositeKey,
-      // node: this,
-      primaryTitle: this.element.current.treeTitle.primary,
-      rootKey: this.element.current.closestSubTreeRootElement.id,
-      secondaryTitle: this.element.current.treeTitle.secondary,
-      title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
+      primaryTitle,
+      rootKey: this.closestContainerNode.current.compositeKey,
+      secondaryTitle,
+      title: `${primaryTitle} (${secondaryTitle})`,
       type: IRuntimeNodeType.Element,
     }
   }

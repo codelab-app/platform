@@ -87,7 +87,7 @@ export class RuntimeComponentModel
 
   @computed
   get children() {
-    if (!this.runtimeParent) {
+    if (!this.runtimeParent || this.isChildMapperComponentInstance) {
       return []
     }
 
@@ -102,6 +102,11 @@ export class RuntimeComponentModel
         instanceElement.propKey,
       ),
     )
+  }
+
+  @computed
+  get isChildMapperComponentInstance() {
+    return !isNil(this.childMapperIndex)
   }
 
   @computed
@@ -123,15 +128,17 @@ export class RuntimeComponentModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    const isChildMapperComponentInstance = !isNil(this.childMapperIndex)
-
     return {
-      children: [this.runtimeRootElement.treeViewNode],
+      // hide children for child mapper instances
+      children: this.isChildMapperComponentInstance
+        ? []
+        : [this.runtimeRootElement.treeViewNode],
       component: { id: this.component.current.id },
-      isChildMapperComponentInstance: false,
+      isChildMapperComponentInstance: this.isChildMapperComponentInstance,
       key: this.compositeKey,
       primaryTitle: this.component.current.name,
       rootKey: this.component.current.id,
+      selectable: !this.isChildMapperComponentInstance,
       type: IRuntimeNodeType.Component,
     }
   }

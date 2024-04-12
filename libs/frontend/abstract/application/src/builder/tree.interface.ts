@@ -1,6 +1,5 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type * as React from 'react'
-import type { IRuntimeModel } from '../renderer'
 
 export enum IRuntimeNodeType {
   Component = 'Component',
@@ -8,11 +7,14 @@ export enum IRuntimeNodeType {
 }
 
 export interface IElementTreeViewDataNode {
+  atomMeta?: string
   children: Array<IElementTreeViewDataNode>
   // use ids instead of models because models gets detached/deleted which causes issues
   component?: IRef
+  componentMeta?: string
   // use ids instead of models because models gets detached/deleted which causes issues
   element?: IRef
+  errorMessage?: string
   isChildMapperComponentInstance?: boolean
   // use ids instead of models because models gets detached/deleted which causes issues
   key: string

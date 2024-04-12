@@ -27,7 +27,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "3883af39-bff9-453d-ba7e-b6999fa91e7b",
-                "data": "{\"href\":\"{{state.shopifyCart?.checkoutUrl ?? '#'}}\",\"customText\":\"<p>Proceed to Checkout</p>\",\"style\":{\"display\":\"flex\",\"justifyContent\":\"space-around\",\"backgroundColor\":\"#1677ff\",\"borderRadius\":\"20px\",\"color\":\"white\",\"padding\":\"10px 0\"}}"
+                "data": "{\"href\":\"{{state.shopifyCart?.checkoutUrl ?? '#'}}\",\"children\":\"<p>Proceed to Checkout</p>\",\"style\":{\"display\":\"flex\",\"justifyContent\":\"space-around\",\"backgroundColor\":\"#1677ff\",\"borderRadius\":\"20px\",\"color\":\"white\",\"padding\":\"10px 0\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -101,7 +101,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c54c36a9-dfcb-4a59-b108-b8c91168dec6",
-                "data": "{\"customText\":\"<p>Total: ${{state.shopifyCart?.totalPrice ?? 0}} USD</p>\",\"style\":{\"textAlign\":\"right\"}}"
+                "data": "{\"children\":\"<p>Total: ${{state.shopifyCart?.totalPrice ?? 0}} USD</p>\",\"style\":{\"textAlign\":\"right\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -175,7 +175,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "e6ba018e-3541-4e0c-8fb1-105076eee10f",
-                "data": "{\"customText\":\"<p>Subtotal: ${{state.shopifyCart?.subtotalPrice ?? 0}} USD</p>\"}"
+                "data": "{\"children\":\"<p>Subtotal: ${{state.shopifyCart?.subtotalPrice ?? 0}} USD</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -394,7 +394,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "f5ba33f0-40d8-40b1-9f43-b7af77f0f6ba",
-                "data": "{\"customText\":\"<p>Taxes: ${{state.shopifyCart?.totalTaxPrice ?? 0}} USD</p>\"}"
+                "data": "{\"children\":\"<p>Taxes: ${{state.shopifyCart?.totalTaxPrice ?? 0}} USD</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -766,7 +766,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "9b58eda9-e928-432b-bec7-83534e8b63cd",
-                "data": "{\"customText\":\"<p>${{componentProps.price}} USD</p>\"}"
+                "data": "{\"children\":\"<p>${{componentProps.price}} USD</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -840,7 +840,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "1620a1d4-5ca9-43e0-8ea9-937095cb0047",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"b3bf58d0-f1cd-4adf-b712-67d08f84caa1\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p>+</p>\",\"data-component-id\":\"1u7-pSMLteaEACZTvoaDV8u75\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"b3bf58d0-f1cd-4adf-b712-67d08f84caa1\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>+</p>\",\"data-component-id\":\"1u7-pSMLteaEACZTvoaDV8u75\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -912,7 +912,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "454fff3a-b65a-40d1-973c-b224ef4dbdc8",
-                "data": "{\"customText\":\"<p>{{componentProps.quantity}}</p>\"}"
+                "data": "{\"children\":\"<p>{{componentProps.quantity}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1056,7 +1056,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cde47e87-3f07-400e-8edc-0c73bc0e826c",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d3846246-353e-4b1b-bc51-5c9758b25a7b\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p>-</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d3846246-353e-4b1b-bc51-5c9758b25a7b\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>-</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1091,7 +1091,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "6ca7b201-f847-4697-91ef-74828dc3b668",
-                "data": "{\"customText\":\"<p>{{componentProps.name}}</p>\"}"
+                "data": "{\"children\":\"<p>{{componentProps.name}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1813,7 +1813,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "9912cb3e-24da-4a76-ba5b-e1ac191ca3fb",
-                "data": "{\"style\":{\"color\":\"white\"},\"customText\":\"<p>${{state.product?.price}} USD</p>\"}"
+                "data": "{\"style\":{\"color\":\"white\"},\"children\":\"<p>${{state.product?.price}} USD</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1887,7 +1887,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "1e8dcda4-7811-42a4-a259-cf11dbe0d155",
-                "data": "{\"style\":{\"color\":\"white\"},\"customText\":\"<p>{{state.product?.name}}</p>\"}"
+                "data": "{\"style\":{\"color\":\"white\"},\"children\":\"<p>{{state.product?.name}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1954,7 +1954,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "15c4eea6-4a8c-4889-bd6e-934402d2cc68",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"4d9e7651-1aef-4708-8de0-e12bc70af60e\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p>Add to cart</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"4d9e7651-1aef-4708-8de0-e12bc70af60e\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>Add to cart</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2171,7 +2171,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "6d0c7017-1ddc-4db9-baf4-74174e25253a",
-                "data": "{\"customText\":\"<p>Showing {{rootState.shopifyProducts?.length}} results for \\\"{{rootState.searchKey ?? ''}}\\\"</p>\",\"style\":{\"color\":\"white\"}}"
+                "data": "{\"children\":\"<p>Showing {{rootState.shopifyProducts?.length}} results for \\\"{{rootState.searchKey ?? ''}}\\\"</p>\",\"style\":{\"color\":\"white\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2247,7 +2247,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "54488a16-b733-4955-a382-975d70a1f682",
-                "data": "{\"customText\":\"<p>Sort by</p>\",\"style\":{\"color\":\"white\"}}"
+                "data": "{\"children\":\"<p>Sort by</p>\",\"style\":{\"color\":\"white\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2394,7 +2394,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "471ebe4c-df67-485d-bfeb-939ec83e84d7",
-                "data": "{\"customText\":\"<p>Collections</p>\",\"style\":{\"color\":\"white\"}}"
+                "data": "{\"children\":\"<p>Collections</p>\",\"style\":{\"color\":\"white\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2739,7 +2739,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "2ad96b29-22b1-4581-b817-0c06ff8f3d92",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p>test</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"children\":\"<p>test</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,

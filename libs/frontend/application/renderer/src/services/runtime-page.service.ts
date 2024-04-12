@@ -43,14 +43,37 @@ export class RuntimePageService
       return foundPage
     }
 
-    const runtimePage = RuntimePageModel.create(page)
+    const runtimeStore = RuntimeStoreModel.create({
+      id: v4(),
+      store: storeRef(
+        page.providerPage ? page.providerPage.store.id : page.store.id,
+      ),
+    })
 
-    if (runtimePage.childPage) {
-      this.pages.set(
-        runtimePage.childPage.current.compositeKey,
-        runtimePage.childPage.current,
-      )
+    const childPage = page.providerPage
+      ? RuntimePageModel.create({
+          compositeKey: RuntimePageModel.compositeKey(page),
+          page: pageRef(page.id),
+          runtimeStore: RuntimeStoreModel.create({
+            id: v4(),
+            runtimeProviderStore: runtimeStoreRef(runtimeStore.id),
+            store: storeRef(page.store.id),
+          }),
+        })
+      : undefined
+
+    if (childPage) {
+      this.pages.set(childPage.compositeKey, childPage)
     }
+
+    const runtimePage = RuntimePageModel.create({
+      childPage: childPage ? runtimePageRef(childPage) : undefined,
+      compositeKey: page.providerPage
+        ? RuntimePageModel.compositeKeyForProvider(page, page.providerPage)
+        : RuntimePageModel.compositeKey(page),
+      page: pageRef(page.providerPage ? page.providerPage : page),
+      runtimeStore,
+    })
 
     this.pages.set(runtimePage.compositeKey, runtimePage)
 
