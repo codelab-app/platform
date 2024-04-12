@@ -13,13 +13,8 @@ import { loadAllTypesForElements } from './utils'
  * Fetch related data for rendering component, and load them into store
  */
 export const useRenderedComponent = (rendererType: RendererType) => {
-  const {
-    builderService,
-    componentService,
-    elementService,
-    rendererService,
-    typeService,
-  } = useStore()
+  const { builderService, componentService, rendererService, typeService } =
+    useStore()
 
   const { componentName } = useCurrentComponent()
   const router = useRouter()
@@ -34,13 +29,13 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       return null
     }
 
-    const rootElement = elementService.elementDomainService.maybeElement(
-      component.rootElement.id,
-    )
+    // const rootElement = elementService.elementDomainService.maybeElement(
+    //  component.rootElement.id,
+    // )
 
-    if (rootElement) {
-      await elementService.loadDependantTypes(rootElement)
-    }
+    //if (rootElement) {
+    //  await elementService.loadDependantTypes(rootElement)
+    // }
 
     // TODO: Remove this in favor of loadDependantTypes
     await loadAllTypesForElements(
@@ -59,7 +54,6 @@ export const useRenderedComponent = (rendererType: RendererType) => {
       builderService.selectElementNode(
         renderer.runtimeRootContainerNode.runtimeRootElement,
       )
-      builderService.selectComponentNode(renderer.runtimeComponent)
     }
 
     rendererService.setActiveRenderer(rendererRef(renderer.id))

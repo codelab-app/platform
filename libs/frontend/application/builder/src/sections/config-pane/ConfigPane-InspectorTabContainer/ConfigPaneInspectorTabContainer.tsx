@@ -1,4 +1,5 @@
 import CodeOutlined from '@ant-design/icons/CodeOutlined'
+import CodeSandboxOutlined from '@ant-design/icons/CodeSandboxOutlined'
 import FileOutlined from '@ant-design/icons/FileOutlined'
 import FormatPainterOutlined from '@ant-design/icons/FormatPainterOutlined'
 import NodeIndexOutlined from '@ant-design/icons/NodeIndexOutlined'
@@ -25,6 +26,7 @@ import { useStore } from '@codelab/frontend/application/shared/store'
 import { FormContextProvider } from '@codelab/frontend/presentation/view'
 import { Tabs, Tooltip } from 'antd'
 import classNames from 'classnames'
+import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React from 'react'
@@ -60,6 +62,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
 
   const elementTree = rendererService.activeElementTree
   const selectedNode = builderService.selectedNode?.current
+  const activeRenderer = rendererService.activeRenderer?.maybeCurrent
 
   if (!selectedNode || isRuntimePage(selectedNode)) {
     return null
@@ -83,8 +86,10 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
             runtimeElement={selectedNode}
           />
         </>
-      ) : (
+      ) : isNil(selectedNode.childMapperIndex) ? (
         <UpdateComponentForm runtimeComponent={selectedNode} />
+      ) : (
+        'Child Mapper Component Props cannot be edited'
       ),
       key: TAB_NAMES.Node,
       label: (
@@ -150,16 +155,40 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         <TooltipIcon icon={<CodeOutlined />} title={TAB_NAMES.PropsInspector} />
       ),
     },
-    {
-      children: (
-        <UpdatePageTabForm
-          appService={appService}
-          key={selectedNode.compositeKey}
-        />
-      ),
-      key: TAB_NAMES.Page,
-      label: <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />,
-    },
+    ...(activeRenderer?.runtimePage
+      ? [
+          {
+            children: (
+              <UpdatePageTabForm
+                appService={appService}
+                key={selectedNode.compositeKey}
+              />
+            ),
+            key: TAB_NAMES.Page,
+            label: (
+              <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />
+            ),
+          },
+        ]
+      : []),
+    ...(activeRenderer?.runtimeComponent
+      ? [
+          {
+            children: (
+              <UpdateComponentForm
+                runtimeComponent={activeRenderer.runtimeComponent}
+              />
+            ),
+            key: TAB_NAMES.Component,
+            label: (
+              <TooltipIcon
+                icon={<CodeSandboxOutlined />}
+                title={TAB_NAMES.Component}
+              />
+            ),
+          },
+        ]
+      : []),
   ]
 
   return (

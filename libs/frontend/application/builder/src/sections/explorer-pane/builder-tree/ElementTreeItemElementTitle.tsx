@@ -34,9 +34,7 @@ export const ElementTreeItemElementTitle = observer(
     const { popover } = useCui()
     const atomName = element.atomName
 
-    const componentInstanceName = treeNode.isChildMapperComponentInstance
-      ? element.parentComponent?.maybeCurrent?.name
-      : isComponentRef(element.renderType)
+    const componentInstanceName = isComponentRef(element.renderType)
       ? element.renderType.maybeCurrent?.name
       : null
 

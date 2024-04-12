@@ -8,7 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/domain'
 import {
   extractTypedPropValue,
-  isComponent,
+  isComponentRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
 import type { IPropData } from '@codelab/shared/abstract/core'
@@ -37,7 +37,7 @@ const getComponentIdsFromElements = (elements: Array<IElementModel>) =>
   elements
     .reduce<Array<string>>((acc, element) => {
       // Component as an element
-      if (isComponent(element.renderType)) {
+      if (isComponentRef(element.renderType)) {
         acc.push(element.renderType.id)
       }
 

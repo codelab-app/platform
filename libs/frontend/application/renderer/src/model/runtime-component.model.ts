@@ -121,13 +121,20 @@ export class RuntimeComponentModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
+    const isChildMapperComponentInstance = !isNil(this.childMapperIndex)
+
     return {
-      children: [this.runtimeRootElement.treeViewNode],
-      isChildMapperComponentInstance: false,
+      ...this.runtimeRootElement.treeViewNode,
+      ...(isChildMapperComponentInstance ? { children: [] } : {}),
+      isChildMapperComponentInstance,
       key: this.compositeKey,
       node: this,
-      primaryTitle: this.component.current.name,
-      rootKey: this.component.current.id,
+      primaryTitle: `${this.runtimeRootElement.element.current.name}${
+        isChildMapperComponentInstance ? ` ${this.childMapperIndex}` : ''
+      }`,
+      secondaryTitle: isChildMapperComponentInstance
+        ? `child mapper component (${this.component.current.name} instance)`
+        : '',
     }
   }
 }
