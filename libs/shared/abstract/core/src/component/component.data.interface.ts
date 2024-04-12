@@ -5,7 +5,4 @@ export type ICreateComponentData = Pick<IComponentDto, 'id' | 'name'> & {
   rootElement?: IRef
 }
 
-export type IUpdateComponentData = Pick<
-  IComponentDto,
-  'childrenContainerElement' | 'id' | 'name'
->
+export type IUpdateComponentData = Pick<IComponentDto, 'id' | 'name'>

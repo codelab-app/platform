@@ -19,6 +19,7 @@ import { evaluateObject, mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
+import React, { Fragment } from 'react'
 
 const create = (dto: IRuntimeComponentPropDTO) =>
   new RuntimeComponentPropModel(dto)
@@ -95,11 +96,18 @@ export class RuntimeComponentPropModel
 
   @computed
   get props() {
+    const children = React.createElement(
+      Fragment,
+      {},
+      this.runtimeComponent.current.children.map((child) => child.render),
+    )
+
     return mergeProps(
       this.component.api.current.defaultValues,
       this.component.props.values,
       this.customProps?.values,
       {
+        children,
         [DATA_COMPONENT_ID]: this.component.id,
         key: this.component.id,
       },

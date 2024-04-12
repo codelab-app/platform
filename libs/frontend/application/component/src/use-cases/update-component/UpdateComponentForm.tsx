@@ -26,9 +26,6 @@ export const UpdateComponentForm = observer<{
   }, [component])
 
   const model = {
-    childrenContainerElement: {
-      id: component.childrenContainerElement.current.id,
-    },
     id: component.id,
     name: component.name,
   }

@@ -21,9 +21,6 @@ export const componentSelectionSet = `
   api {
     id
   }
-  childrenContainerElement {
-    id
-  }
 `
 
 export const exportComponentSelectionSet = `
@@ -41,8 +38,5 @@ export const exportComponentSelectionSet = `
   }
   api {
     ${exportInterfaceTypeWithFieldsSelectionSet}
-  }
-  childrenContainerElement {
-    id
   }
 `

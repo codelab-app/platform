@@ -1,7 +1,4 @@
-import type {
-  IComponentModel,
-  IElementModel,
-} from '@codelab/frontend/abstract/domain'
+import type { IComponentModel } from '@codelab/frontend/abstract/domain'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import type { ReactElement } from 'react'
@@ -21,9 +18,9 @@ export interface IRuntimeComponentModel extends AnyModel {
    */
   childMapperIndex: Maybe<number>
   /**
-   * Children of the instance element which will be rendered under component.childrenContainerElement
+   * Children of the instance element which will be added as componentProp.children prop
    */
-  children: Array<Ref<IElementModel>>
+  children: Array<IRuntimeElementModel>
   /**
    * Exposed for external use by other models and to preserve structure
    */

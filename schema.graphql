@@ -3699,6 +3699,7 @@ enum AtomType {
   HtmlVar
   HtmlVideo
   HtmlWbr
+  LexicalEditor
   MuiAccordion
   MuiAccordionActions
   MuiAccordionDetails
@@ -5594,22 +5595,6 @@ type Component implements WithOwner {
     sort: [ComponentApiConnectionSort!]
     where: ComponentApiConnectionWhere
   ): ComponentApiConnection!
-  childrenContainerElement(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element!
-  childrenContainerElementAggregate(
-    directed: Boolean = true
-    where: ElementWhere
-  ): ComponentElementChildrenContainerElementAggregationSelection
-  childrenContainerElementConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ComponentChildrenContainerElementConnectionSort!]
-    where: ComponentChildrenContainerElementConnectionWhere
-  ): ComponentChildrenContainerElementConnection!
   elements: [Element!]!
   id: ID!
   name: String!
@@ -5774,177 +5759,8 @@ input ComponentApiUpdateFieldInput {
   where: ComponentApiConnectionWhere
 }
 
-input ComponentChildrenContainerElementAggregateInput {
-  AND: [ComponentChildrenContainerElementAggregateInput!]
-  NOT: ComponentChildrenContainerElementAggregateInput
-  OR: [ComponentChildrenContainerElementAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ComponentChildrenContainerElementNodeAggregationWhereInput
-}
-
-input ComponentChildrenContainerElementConnectFieldInput {
-  connect: ElementConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-  where: ElementConnectWhere
-}
-
-input ComponentChildrenContainerElementConnectOrCreateFieldInput {
-  onCreate: ComponentChildrenContainerElementConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input ComponentChildrenContainerElementConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type ComponentChildrenContainerElementConnection {
-  edges: [ComponentChildrenContainerElementRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ComponentChildrenContainerElementConnectionSort {
-  node: ElementSort
-}
-
-input ComponentChildrenContainerElementConnectionWhere {
-  AND: [ComponentChildrenContainerElementConnectionWhere!]
-  NOT: ComponentChildrenContainerElementConnectionWhere
-  OR: [ComponentChildrenContainerElementConnectionWhere!]
-  node: ElementWhere
-}
-
-input ComponentChildrenContainerElementCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input ComponentChildrenContainerElementDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: ComponentChildrenContainerElementConnectionWhere
-}
-
-input ComponentChildrenContainerElementDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: ComponentChildrenContainerElementConnectionWhere
-}
-
-input ComponentChildrenContainerElementFieldInput {
-  connect: ComponentChildrenContainerElementConnectFieldInput
-  connectOrCreate: ComponentChildrenContainerElementConnectOrCreateFieldInput
-  create: ComponentChildrenContainerElementCreateFieldInput
-}
-
-input ComponentChildrenContainerElementNodeAggregationWhereInput {
-  AND: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
-  NOT: ComponentChildrenContainerElementNodeAggregationWhereInput
-  OR: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
-  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
-  childMapperPropKey_AVERAGE_LENGTH_GT: Float
-  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
-  childMapperPropKey_AVERAGE_LENGTH_LT: Float
-  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
-  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
-  childMapperPropKey_LONGEST_LENGTH_GT: Int
-  childMapperPropKey_LONGEST_LENGTH_GTE: Int
-  childMapperPropKey_LONGEST_LENGTH_LT: Int
-  childMapperPropKey_LONGEST_LENGTH_LTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
-  childMapperPropKey_SHORTEST_LENGTH_GT: Int
-  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
-  childMapperPropKey_SHORTEST_LENGTH_LT: Int
-  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  compositeKey_AVERAGE_LENGTH_GT: Float
-  compositeKey_AVERAGE_LENGTH_GTE: Float
-  compositeKey_AVERAGE_LENGTH_LT: Float
-  compositeKey_AVERAGE_LENGTH_LTE: Float
-  compositeKey_LONGEST_LENGTH_EQUAL: Int
-  compositeKey_LONGEST_LENGTH_GT: Int
-  compositeKey_LONGEST_LENGTH_GTE: Int
-  compositeKey_LONGEST_LENGTH_LT: Int
-  compositeKey_LONGEST_LENGTH_LTE: Int
-  compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  compositeKey_SHORTEST_LENGTH_GT: Int
-  compositeKey_SHORTEST_LENGTH_GTE: Int
-  compositeKey_SHORTEST_LENGTH_LT: Int
-  compositeKey_SHORTEST_LENGTH_LTE: Int
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_LONGEST_LENGTH_GT: Int
-  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
-  renderForEachPropKey_LONGEST_LENGTH_LT: Int
-  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
-  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
-  renderIfExpression_AVERAGE_LENGTH_GT: Float
-  renderIfExpression_AVERAGE_LENGTH_GTE: Float
-  renderIfExpression_AVERAGE_LENGTH_LT: Float
-  renderIfExpression_AVERAGE_LENGTH_LTE: Float
-  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
-  renderIfExpression_LONGEST_LENGTH_GT: Int
-  renderIfExpression_LONGEST_LENGTH_GTE: Int
-  renderIfExpression_LONGEST_LENGTH_LT: Int
-  renderIfExpression_LONGEST_LENGTH_LTE: Int
-  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
-  renderIfExpression_SHORTEST_LENGTH_GT: Int
-  renderIfExpression_SHORTEST_LENGTH_GTE: Int
-  renderIfExpression_SHORTEST_LENGTH_LT: Int
-  renderIfExpression_SHORTEST_LENGTH_LTE: Int
-  style_AVERAGE_LENGTH_EQUAL: Float
-  style_AVERAGE_LENGTH_GT: Float
-  style_AVERAGE_LENGTH_GTE: Float
-  style_AVERAGE_LENGTH_LT: Float
-  style_AVERAGE_LENGTH_LTE: Float
-  style_LONGEST_LENGTH_EQUAL: Int
-  style_LONGEST_LENGTH_GT: Int
-  style_LONGEST_LENGTH_GTE: Int
-  style_LONGEST_LENGTH_LT: Int
-  style_LONGEST_LENGTH_LTE: Int
-  style_SHORTEST_LENGTH_EQUAL: Int
-  style_SHORTEST_LENGTH_GT: Int
-  style_SHORTEST_LENGTH_GTE: Int
-  style_SHORTEST_LENGTH_LT: Int
-  style_SHORTEST_LENGTH_LTE: Int
-}
-
-type ComponentChildrenContainerElementRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input ComponentChildrenContainerElementUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input ComponentChildrenContainerElementUpdateFieldInput {
-  connect: ComponentChildrenContainerElementConnectFieldInput
-  connectOrCreate: ComponentChildrenContainerElementConnectOrCreateFieldInput
-  create: ComponentChildrenContainerElementCreateFieldInput
-  delete: ComponentChildrenContainerElementDeleteFieldInput
-  disconnect: ComponentChildrenContainerElementDisconnectFieldInput
-  update: ComponentChildrenContainerElementUpdateConnectionInput
-  where: ComponentChildrenContainerElementConnectionWhere
-}
-
 input ComponentConnectInput {
   api: ComponentApiConnectFieldInput
-  childrenContainerElement: ComponentChildrenContainerElementConnectFieldInput
   owner: WithOwnerOwnerConnectFieldInput
   props: ComponentPropsConnectFieldInput
   rootElement: ComponentRootElementConnectFieldInput
@@ -5952,7 +5768,6 @@ input ComponentConnectInput {
 }
 
 input ComponentConnectOrCreateInput {
-  childrenContainerElement: ComponentChildrenContainerElementConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   props: ComponentPropsConnectOrCreateFieldInput
   rootElement: ComponentRootElementConnectOrCreateFieldInput
@@ -5969,7 +5784,6 @@ input ComponentConnectWhere {
 
 input ComponentCreateInput {
   api: ComponentApiFieldInput
-  childrenContainerElement: ComponentChildrenContainerElementFieldInput
   id: ID!
   name: String!
   owner: WithOwnerOwnerFieldInput
@@ -5980,7 +5794,6 @@ input ComponentCreateInput {
 
 input ComponentDeleteInput {
   api: ComponentApiDeleteFieldInput
-  childrenContainerElement: ComponentChildrenContainerElementDeleteFieldInput
   owner: WithOwnerOwnerDeleteFieldInput
   props: ComponentPropsDeleteFieldInput
   rootElement: ComponentRootElementDeleteFieldInput
@@ -5989,7 +5802,6 @@ input ComponentDeleteInput {
 
 input ComponentDisconnectInput {
   api: ComponentApiDisconnectFieldInput
-  childrenContainerElement: ComponentChildrenContainerElementDisconnectFieldInput
   owner: WithOwnerOwnerDisconnectFieldInput
   props: ComponentPropsDisconnectFieldInput
   rootElement: ComponentRootElementDisconnectFieldInput
@@ -5999,20 +5811,6 @@ input ComponentDisconnectInput {
 type ComponentEdge {
   cursor: String!
   node: Component!
-}
-
-type ComponentElementChildrenContainerElementAggregationSelection {
-  count: Int!
-  node: ComponentElementChildrenContainerElementNodeAggregateSelection
-}
-
-type ComponentElementChildrenContainerElementNodeAggregateSelection {
-  childMapperPropKey: StringAggregateSelectionNullable!
-  compositeKey: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  renderForEachPropKey: StringAggregateSelectionNullable!
-  renderIfExpression: StringAggregateSelectionNullable!
-  style: StringAggregateSelectionNullable!
 }
 
 type ComponentElementRootElementAggregationSelection {
@@ -6233,7 +6031,6 @@ input ComponentPropsUpdateFieldInput {
 
 input ComponentRelationInput {
   api: ComponentApiCreateFieldInput
-  childrenContainerElement: ComponentChildrenContainerElementCreateFieldInput
   owner: WithOwnerOwnerCreateFieldInput
   props: ComponentPropsCreateFieldInput
   rootElement: ComponentRootElementCreateFieldInput
@@ -6540,7 +6337,6 @@ input ComponentUniqueWhere {
 
 input ComponentUpdateInput {
   api: ComponentApiUpdateFieldInput
-  childrenContainerElement: ComponentChildrenContainerElementUpdateFieldInput
   id: ID
   name: String
   owner: WithOwnerOwnerUpdateFieldInput
@@ -6570,11 +6366,6 @@ input ComponentWhere {
   apiConnection: ComponentApiConnectionWhere
   apiConnection_NOT: ComponentApiConnectionWhere
   api_NOT: InterfaceTypeWhere
-  childrenContainerElement: ElementWhere
-  childrenContainerElementAggregate: ComponentChildrenContainerElementAggregateInput
-  childrenContainerElementConnection: ComponentChildrenContainerElementConnectionWhere
-  childrenContainerElementConnection_NOT: ComponentChildrenContainerElementConnectionWhere
-  childrenContainerElement_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

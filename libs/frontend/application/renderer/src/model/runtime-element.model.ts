@@ -19,13 +19,9 @@ import {
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
-  elementRef,
   getComponentDomainService,
-  isAtom,
   isComponent,
-  isTypedProp,
 } from '@codelab/frontend/abstract/domain'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
@@ -108,7 +104,6 @@ export class RuntimeElementModel
       const runtimeComponent = this.runtimeComponentService.add(
         component,
         this,
-        [],
         this.propKey,
         index,
       )
@@ -141,13 +136,7 @@ export class RuntimeElementModel
     const children: Array<IRuntimeModel> = shouldRenderComponent
       ? [
           // put component as a child instead of instance element children
-          this.runtimeComponentService.add(
-            renderType,
-            this,
-            // pass instance element children to be transformed later
-            element.children.map((child) => elementRef(child.id)),
-            this.propKey,
-          ),
+          this.runtimeComponentService.add(renderType, this, this.propKey),
         ]
       : element.children.map((child) =>
           this.runtimeElementService.add(child, container, this, this.propKey),
@@ -164,27 +153,6 @@ export class RuntimeElementModel
       if (container.childPage && shouldAttachPage) {
         children.push(container.childPage)
       }
-    }
-
-    /**
-     * Attach instance element children to runtime element tree
-     */
-    const shouldAddInstanceElementChildren =
-      isRuntimeComponent(container) &&
-      container.component.current.childrenContainerElement.id ===
-        this.element.id
-
-    if (shouldAddInstanceElementChildren) {
-      const instanceChildren = container.children.map((child) =>
-        this.runtimeElementService.add(
-          child.current,
-          container,
-          this,
-          this.propKey,
-        ),
-      )
-
-      children.push(...instanceChildren)
     }
 
     const previousSibling = element.childMapperPreviousSibling
@@ -334,56 +302,27 @@ export class RuntimeElementModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    // Add assigned ReactNode props as children
-    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
+    const children = this.children.flatMap((child) =>
+      isRuntimeComponent(child)
+        ? child.children.map(
+            // if element is instance of component we render the element's children instead of component
+            (instanceChild) => instanceChild.treeViewNode,
+          )
+        : [child.treeViewNode],
+    )
 
-    Object.keys(this.runtimeProps.props).forEach((key, index) => {
-      const propData = this.runtimeProps.props[key]
-
-      if (
-        isTypedProp(propData) &&
-        propData.kind === ITypeKind.ReactNodeType &&
-        typeof propData.value === 'string'
-      ) {
-        const component = this.componentDomainService.component(propData.value)
-
-        const runtimeComponentKey = RuntimeComponentModel.compositeKey(
-          component,
-          this,
-          key,
-        )
-
-        const runtimeComponent =
-          this.runtimeComponentService.components.get(runtimeComponentKey)
-
-        const componentRootElement = runtimeComponent?.runtimeRootElement
-
-        if (componentRootElement) {
-          reactNodesChildren.push({
-            ...componentRootElement.treeViewNode,
-            children: [],
-            isChildMapperComponentInstance: true,
-            key: `${propData.value}${index}`,
-            primaryTitle: `${key}:`,
-            selectable: false,
-          })
-        }
-      }
-    })
-
-    const children = [
-      ...this.children.map((child) => child.treeViewNode),
-      ...reactNodesChildren,
-    ]
+    const element = this.element.current
+    const primaryTitle = element.treeTitle.primary
+    const secondaryTitle = element.treeTitle.secondary
 
     return {
       children,
       key: this.compositeKey,
       node: this,
-      primaryTitle: this.element.current.treeTitle.primary,
-      rootKey: this.element.current.closestSubTreeRootElement.id,
-      secondaryTitle: this.element.current.treeTitle.secondary,
-      title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
+      primaryTitle,
+      rootKey: this.closestContainerNode.current.compositeKey,
+      secondaryTitle,
+      title: `${primaryTitle} (${secondaryTitle})`,
     }
   }
 

@@ -184,7 +184,6 @@ describe('PageResolvers', () => {
         input: [
           {
             api: connectNodeId(componentApi.id),
-            childrenContainerElement: connectNodeId(rootElement.id),
             id: v4(),
             name: 'Component',
             owner: connectOwner(owner),

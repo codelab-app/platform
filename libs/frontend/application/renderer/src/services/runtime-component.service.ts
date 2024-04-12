@@ -4,10 +4,9 @@ import {
   IRuntimeModel,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
-import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import { IComponentModel } from '@codelab/frontend/abstract/domain'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ObjectMap } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { RuntimeComponentModel } from '../model'
 
@@ -31,7 +30,6 @@ export class RuntimeComponentService
   add(
     component: IComponentModel,
     parent: IRuntimeModel,
-    children: Array<Ref<IElementModel>> = [],
     propKey?: string,
     childMapperIndex?: number,
     isTypedProp?: boolean,
@@ -51,7 +49,6 @@ export class RuntimeComponentService
 
     const runtimeComponent = RuntimeComponentModel.create({
       childMapperIndex,
-      children,
       component,
       compositeKey,
       isTypedProp,

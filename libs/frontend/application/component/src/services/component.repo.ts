@@ -5,7 +5,6 @@ import type {
   ComponentUniqueWhere,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { reconnectNodeId } from '@codelab/shared/domain'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { componentApi } from './component.api'
 
@@ -71,16 +70,13 @@ export class ComponentRepository
     this: ComponentRepository,
     component: IComponentModel,
   ) {
-    const { childrenContainerElement, id, name } = component
+    const { id, name } = component
 
     const {
       updateComponents: { components },
     } = yield* _await(
       componentApi.UpdateComponents({
         update: {
-          childrenContainerElement: reconnectNodeId(
-            childrenContainerElement.current.id,
-          ),
           name,
         },
         where: { id },

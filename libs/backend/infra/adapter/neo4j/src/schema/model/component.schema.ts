@@ -15,7 +15,7 @@ export const componentSchema = gql`
 
     # This is the slot where prop children is rendered in the component instance
     # We may want multiple slots in the future
-    childrenContainerElement: Element!
-      @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
+    # childrenContainerElement: Element!
+    #  @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
   }
 `

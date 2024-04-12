@@ -78,23 +78,11 @@ export const setupComponent = (testbed: TestBed) => {
     type: IAtomType.HtmlDiv,
   })
 
-  const childrenContainerElement = testbed.addElement({
-    closestContainerNode: { id: componentId },
-    name: 'children container',
-    parentElement: { id: rootElementId },
-    renderType: {
-      __typename: IElementRenderTypeKind.Atom,
-      id: htmlDivAtom.id,
-    },
-  })
-
   const component = testbed.addComponent({
-    childrenContainerElement,
     id: componentId,
     name: componentName,
     rootElement: testbed.addElement({
       closestContainerNode: { id: componentId },
-      firstChild: childrenContainerElement,
       name: ROOT_ELEMENT_NAME,
       parentComponent: { id: componentId },
       renderType: {
@@ -115,7 +103,7 @@ export const setupComponent = (testbed: TestBed) => {
 
   const runtimeComponent = renderer.runtimeComponent!
 
-  return { childrenContainerElement, component, renderer, runtimeComponent }
+  return { component, renderer, runtimeComponent }
 }
 
 export const setupRuntimeElement = (

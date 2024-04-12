@@ -63,7 +63,7 @@ export const CreateComponentForm = observer(
         submitRef={submitRef}
         uiKey={MODEL_ACTION.CreateComponent.key}
       >
-        <AutoFields omitFields={['childrenContainerElement', 'api']} />
+        <AutoFields omitFields={['api']} />
 
         <DisplayIf condition={showFormControl}>
           <FormController onCancel={closeForm} submitLabel="Create Component" />

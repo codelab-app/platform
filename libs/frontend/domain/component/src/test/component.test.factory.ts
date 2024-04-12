@@ -10,9 +10,6 @@ export const componentFactory =
       api: {
         id: dto.api?.id ?? v4(),
       },
-      childrenContainerElement: {
-        id: dto.childrenContainerElement?.id ?? v4(),
-      },
       id: dto.id ?? v4(),
       name: dto.name ?? chance.word({ capitalize: true }),
       props: {

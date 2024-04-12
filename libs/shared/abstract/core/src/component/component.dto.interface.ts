@@ -7,7 +7,6 @@ import { IProp, IPropDto } from '../prop/prop.dto.interface'
 
 export const IComponentDto = Type.Object({
   api: IRef,
-  childrenContainerElement: IRef,
   id: Type.String(),
   name: Type.String(),
   owner: Typebox.Nullish(IRef),

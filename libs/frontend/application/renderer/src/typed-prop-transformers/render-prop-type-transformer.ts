@@ -78,7 +78,6 @@ export class RenderPropTypeTransformer
       const runtimeComponent = this.runtimeComponentService.add(
         component,
         runtimeNode,
-        [],
         key,
         undefined,
         true,

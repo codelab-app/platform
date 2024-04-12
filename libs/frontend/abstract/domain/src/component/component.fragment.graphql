@@ -3,9 +3,6 @@ fragment Component on Component {
   api {
     ...InterfaceType
   }
-  childrenContainerElement {
-    id
-  }
   id
   name
   owner {
@@ -24,9 +21,6 @@ fragment Component on Component {
 }
 
 fragment ComponentProduction on Component {
-  childrenContainerElement {
-    id
-  }
   id
   name
   owner {

@@ -23,7 +23,6 @@ export interface IComponentModel
     IModel<ComponentCreateInput, ComponentUpdateInput, void, IComponent> {
   __typename: IElementRenderTypeKind.Component
   api: Ref<IInterfaceTypeModel>
-  childrenContainerElement: Ref<IElementModel>
   descendantComponents: Array<IComponentModel>
   instanceElement: Nullable<Ref<IElementModel>>
   props: IPropModel
@@ -34,7 +33,6 @@ export interface IComponentModel
   sourceComponent?: Nullable<IRef>
   store: Ref<IStoreModel>
 
-  setChildrenContainerElement(element: Ref<IElementModel>): void
   setInstanceElement(elementRef: Ref<IElementModel>): void
   setProps(props: IPropModel): void
   setSourceComponent(entity: IRef): void

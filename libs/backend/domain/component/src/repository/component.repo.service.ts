@@ -37,20 +37,8 @@ export class ComponentRepository extends AbstractRepository<
         await this.ogmService.Component
       ).create({
         input: components.map(
-          ({
-            api,
-            childrenContainerElement,
-            id,
-            name,
-            owner,
-            props,
-            rootElement,
-            store,
-          }) => ({
+          ({ api, id, name, owner, props, rootElement, store }) => ({
             api: connectNodeId(api.id),
-            childrenContainerElement: connectNodeId(
-              childrenContainerElement.id,
-            ),
             id,
             name,
             owner: connectOwner(this.authService.currentUser),
@@ -81,15 +69,7 @@ export class ComponentRepository extends AbstractRepository<
   }
 
   protected async _update(
-    {
-      api,
-      childrenContainerElement,
-      id,
-      name,
-      props,
-      rootElement,
-      store,
-    }: IComponentDto,
+    { api, id, name, props, rootElement, store }: IComponentDto,
     where: ComponentWhere,
   ) {
     return (
@@ -98,7 +78,6 @@ export class ComponentRepository extends AbstractRepository<
       ).update({
         update: {
           api: connectNodeId(api.id),
-          childrenContainerElement: connectNodeId(childrenContainerElement.id),
           id,
           name,
           props: connectNodeId(props.id),

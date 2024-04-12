@@ -54,7 +54,6 @@ export class ComponentApplicationService {
     const componentDto: IComponentDto = {
       ...createComponentData,
       api,
-      childrenContainerElement: rootElement,
       props,
       rootElement,
       store,
