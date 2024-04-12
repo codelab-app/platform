@@ -1,82 +1,61 @@
 /* eslint-disable tailwindcss/no-custom-classname */
 import './styles.css'
+import { mergeProps } from '@codelab/frontend/domain/prop'
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
+import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
+import type { InitialConfigType } from '@lexical/react/LexicalComposer'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary'
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin'
 import type { EditorState, LexicalEditor } from 'lexical'
-import React, { useCallback } from 'react'
-import { exampleTheme } from './example-theme'
+import React from 'react'
 import { OnInitPlugin } from './OnInitPlugin'
 import { ToolbarPlugin } from './plugins/ToolbarPlugin'
+import { defaultEditorTheme } from './theme'
 
-// Catch any errors that occur during Lexical updates and log them
-// or throw them as needed. If you don't throw them, Lexical will
-// try to recover gracefully without losing user data.
-const onError = (error: Error) => {
-  console.error(error)
-}
-
-const Placeholder = () => {
-  return <div className="editor-placeholder">...</div>
-}
-
-const editorConfig = {
-  namespace: 'React.js Demo',
-  nodes: [],
+const editorConfig: InitialConfigType = {
+  editable: true,
+  namespace: 'TextEditor',
   // Handling of errors during update
   onError: (error: Error) => {
+    console.error(error)
     throw error
   },
-  // The editor theme
-  theme: exampleTheme,
+
+  theme: defaultEditorTheme,
 }
 
 export interface TextEditorProps {
-  compositeKey: string
+  config?: Partial<InitialConfigType>
   data?: string
-  readOnly?: boolean
+  onChange(state: EditorState, editor: LexicalEditor, tags: Set<string>): void
 }
 
-export const TextEditor = ({ data }: TextEditorProps) => {
-  const onChange = useCallback(
-    (
-      _editorState: EditorState,
-      lexicalEditor: LexicalEditor,
-      tags: Set<string>,
-    ) => {
-      const editorData = _editorState.toJSON()
-
-      console.log(editorData)
-
-      _editorState.read(() => {
-        // Assuming you have a root node that contains text,
-        // and you want to log the entire content of the editor as text.
-        const textContent = _editorState._nodeMap.get('root')?.getTextContent()
-
-        console.log(textContent)
-      })
-    },
-    [],
-  )
-
+export const TextEditor = ({
+  config = {},
+  data,
+  onChange,
+}: TextEditorProps) => {
   return (
-    <LexicalComposer initialConfig={editorConfig}>
+    <LexicalComposer initialConfig={mergeProps(editorConfig, config)}>
       <div className="editor-container">
-        <ToolbarPlugin />
-        <OnChangePlugin onChange={onChange} />
         <OnInitPlugin data={data} />
+        {config.editable && <ToolbarPlugin />}
+        <OnChangePlugin onChange={onChange} />
         <div className="editor-inner">
           <RichTextPlugin
             ErrorBoundary={LexicalErrorBoundary}
             contentEditable={<ContentEditable className="editor-input" />}
-            // placeholder={<Placeholder />}
             placeholder={null}
           />
-          {/* <HistoryPlugin /> */}
-          {/* <AutoFocusPlugin /> */}
-          {/* <TreeViewPlugin /> */}
+          <HistoryPlugin />
+          <AutoFocusPlugin />
+          <ClearEditorPlugin />
+          <TabIndentationPlugin />
         </div>
       </div>
     </LexicalComposer>

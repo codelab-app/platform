@@ -3,7 +3,7 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 /**
  * The atoms that are not self closing and need text content to make sense
  */
-export const customTextInjectionWhiteList = [
+export const richTextInjectionWhiteList = [
   IAtomType.HtmlA,
   IAtomType.HtmlAside,
   IAtomType.HtmlButton,
