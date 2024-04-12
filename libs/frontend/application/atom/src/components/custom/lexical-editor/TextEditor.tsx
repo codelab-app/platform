@@ -43,7 +43,7 @@ export const TextEditor = ({
   return (
     <LexicalComposer initialConfig={mergeProps(editorConfig, config)}>
       <div className="editor-container">
-        <OnInitPlugin data={data} />
+        <OnInitPlugin data={data} editable={Boolean(config.editable)} />
         {config.editable && <ToolbarPlugin />}
         <OnChangePlugin onChange={onChange} />
         <div className="editor-inner">

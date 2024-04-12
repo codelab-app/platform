@@ -46,10 +46,6 @@ export const TextEditorWrapper = observer<{
   )
 
   return (
-    <LexicalTextEditor
-      config={{ editable: true }}
-      data={data}
-      onChange={onChange}
-    />
+    <LexicalTextEditor config={{ editable }} data={data} onChange={onChange} />
   )
 })
