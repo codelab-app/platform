@@ -19,6 +19,7 @@ import type {
   IRouterService,
   IRuntimeComponentService,
   IRuntimeElementService,
+  IRuntimePageService,
   IStoreService,
   ITagService,
   ITracerService,
@@ -51,6 +52,7 @@ export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
       routerService: prop<Maybe<IRouterService>>(undefined),
       runtimeComponentService: prop<Maybe<IRuntimeComponentService>>(undefined),
       runtimeElementService: prop<Maybe<IRuntimeElementService>>(undefined),
+      runtimePageService: prop<Maybe<IRuntimePageService>>(undefined),
       storeService: prop<Maybe<IStoreService>>(undefined),
       tagService: prop<Maybe<ITagService>>(() => undefined),
       tracerService: prop<Maybe<ITracerService>>(() => undefined),
@@ -78,6 +80,7 @@ export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
       this.rendererService?.renderers.clear()
       this.runtimeComponentService?.components.clear()
       this.runtimeElementService?.elements.clear()
+      this.runtimePageService?.pages.clear()
     }
 
     protected onInit() {
@@ -105,6 +108,7 @@ export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
         routerServiceContext,
         runtimeComponentServiceContext,
         runtimeElementServiceContext,
+        runtimePageServiceContext,
         storeDomainServiceContext,
         storeServiceContext,
         tagServiceContext,
@@ -140,6 +144,7 @@ export const createTestRootStore = ({ context, store }: IRootStoreDtoTest) => {
       actionServiceContext?.set(this, this.actionService)
       storeServiceContext?.set(this, this.storeService)
       runtimeElementServiceContext?.set(this, this.runtimeElementService)
+      runtimePageServiceContext?.set(this, this.runtimePageService)
       runtimeComponentServiceContext?.set(this, this.runtimeComponentService)
       storeDomainServiceContext?.set(
         this,

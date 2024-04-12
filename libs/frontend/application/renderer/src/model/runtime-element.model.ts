@@ -13,6 +13,7 @@ import {
   getRuntimeComponentService,
   getRuntimeElementService,
   IElementTreeViewDataNode,
+  IRuntimeNodeType,
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
@@ -152,8 +153,8 @@ export class RuntimeElementModel
       const page = container.page.current
       const shouldAttachPage = page.pageContentContainer?.id === this.element.id
 
-      if (container.childPage && shouldAttachPage) {
-        children.push(container.childPage)
+      if (container.childPage?.current && shouldAttachPage) {
+        children.push(container.childPage.current)
       }
     }
 
@@ -339,10 +340,12 @@ export class RuntimeElementModel
           reactNodesChildren.push({
             ...componentRootElement.treeViewNode,
             children: [],
+            component: { id: component.id },
             isChildMapperComponentInstance: true,
             key: `${propData.value}${index}`,
             primaryTitle: `${key}:`,
             selectable: false,
+            type: IRuntimeNodeType.Component,
           })
         }
       }
@@ -357,12 +360,13 @@ export class RuntimeElementModel
 
     return {
       children,
+      element: { id: this.element.current.id },
       key: this.compositeKey,
-      node: this,
-      primaryTitle,
-      rootKey: this.closestContainerNode.current.compositeKey,
-      secondaryTitle,
-      title: `${primaryTitle} (${secondaryTitle})`,
+      primaryTitle: this.element.current.treeTitle.primary,
+      rootKey: this.element.current.closestSubTreeRootElement.id,
+      secondaryTitle: this.element.current.treeTitle.secondary,
+      title: `${this.element.current.treeTitle.primary} (${this.element.current.treeTitle.secondary})`,
+      type: IRuntimeNodeType.Element,
     }
   }
 

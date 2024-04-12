@@ -1,5 +1,5 @@
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IRuntimeComponentModel } from './runtime-component'
 import type {
@@ -18,6 +18,7 @@ export interface IRuntimeElementService {
     parentElement: Nullable<IRuntimeElementModel>,
     propKey?: string,
   ): IRuntimeElementModel
+  maybeRuntimeElement(compositeKey: string): Maybe<IRuntimeElementModel>
   runtimeElement(compositeKey: string): IRuntimeElementModel
   setCurrentStylePseudoClass(pseudoClass: ElementStylePseudoClass): void
 }

@@ -1,14 +1,14 @@
 import {
   type IElementTreeViewDataNode,
-  type IRuntimeModel,
+  IRuntimeNodeType,
+  RendererTab,
   runtimeElementRef,
 } from '@codelab/frontend/abstract/application'
 import { useStore } from '@codelab/frontend/application/shared/store'
 import { CuiTree } from '@codelab/frontend/presentation/codelab-ui'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import has from 'lodash/has'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import {
   DISABLE_HOVER_CLASSNAME,
@@ -16,113 +16,85 @@ import {
 } from './disable-node-hover-effects'
 import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 
-interface ElementTreeViewProps {
-  expandedNodeIds: Array<string>
-  treeData: IElementTreeViewDataNode | undefined
-
-  selectTreeNode(node: Nullable<IRuntimeModel>): void
-  /**
-   * Page/Component builder tab
-   */
-  setActiveTab(): void
-  setExpandedNodeIds(ids: Array<string>): void
-}
-
 /**
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
-export const ElementTreeView = observer<ElementTreeViewProps>(
-  ({
-    expandedNodeIds,
-    selectTreeNode,
-    setActiveTab,
-    setExpandedNodeIds,
-    treeData,
-  }) => {
-    const { builderService, elementService } = useStore()
-    const { cloneElementService } = elementService
-    const selectedNode = builderService.selectedNode
-    const { handleDrop, isMoving } = useElementTreeDrop()
+export const ElementTreeView = observer<{
+  treeData?: IElementTreeViewDataNode
+}>(({ treeData }) => {
+  const { builderService, runtimeComponentService, runtimeElementService } =
+    useStore()
 
-    const elementContextMenuProps = useMemo(
-      () => ({
-        cloneElement:
-          cloneElementService.cloneElement.bind(cloneElementService),
-        convertElementToComponent:
-          cloneElementService.convertElementToComponent.bind(
-            cloneElementService,
-          ),
-        createForm: elementService.createForm,
-        deleteModal: elementService.deleteModal,
-      }),
-      [elementService],
-    )
+  const selectedNode = builderService.selectedNode
+  const { handleDrop, isMoving } = useElementTreeDrop()
 
-    return (
-      <CuiTree<IElementTreeViewDataNode>
-        allowDrop={(data) => {
-          // Child mapper component instances cannot be moved around individually since they are
-          // dynamically rendered and can't have NODE_SIBLING relationship to actual elements
-          // They can only be moved around via the `childMapperPreviousSibling` field of the element
-          if (
-            data.dragNode.isChildMapperComponentInstance ||
-            data.dropNode.isChildMapperComponentInstance
-          ) {
-            return false
-          }
+  return (
+    <CuiTree<IElementTreeViewDataNode>
+      allowDrop={(data) => {
+        // Child mapper component instances cannot be moved around individually since they are
+        // dynamically rendered and can't have NODE_SIBLING relationship to actual elements
+        // They can only be moved around via the `childMapperPreviousSibling` field of the element
+        if (
+          data.dragNode.isChildMapperComponentInstance ||
+          data.dropNode.isChildMapperComponentInstance
+        ) {
+          return false
+        }
 
-          return true
-        }}
-        defaultExpandAll
-        disabled={isMoving}
-        draggable={true}
-        expandedKeys={expandedNodeIds}
-        onClick={(event) => event.stopPropagation()}
-        onDrop={handleDrop}
-        onExpand={(expandedKeys) => {
-          return setExpandedNodeIds(expandedKeys as Array<string>)
-        }}
-        onMouseEnter={({ event, node }) => {
-          // Selectable by default, unless it's not
-          if (has(node, 'selectable') && !node.selectable) {
-            const target = event.target as Element
-            // This is where the hover effect is set
-            const treeNodeWrapper = target.closest(TREE_NODE_WRAPPER_SELECTOR)
+        return true
+      }}
+      defaultExpandAll
+      disabled={isMoving}
+      draggable={true}
+      expandedKeys={builderService.expandedPageElementTreeNodeIds}
+      onClick={(event) => event.stopPropagation()}
+      onDrop={handleDrop}
+      onExpand={(expandedKeys) => {
+        return builderService.setExpandedPageElementTreeNodeIds(
+          expandedKeys as Array<string>,
+        )
+      }}
+      onMouseEnter={({ event, node }) => {
+        // Selectable by default, unless it's not
+        if (has(node, 'selectable') && !node.selectable) {
+          const target = event.target as Element
+          // This is where the hover effect is set
+          const treeNodeWrapper = target.closest(TREE_NODE_WRAPPER_SELECTOR)
 
-            treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
-          }
+          treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
+        }
 
-          node.key.toString() !== 'components' &&
-            builderService.setHoveredNode(
-              runtimeElementRef(node.key.toString()),
-            )
-        }}
-        onMouseLeave={() => builderService.setHoveredNode(null)}
-        onSelect={([id], { nativeEvent, node }) => {
-          nativeEvent.stopPropagation()
+        if (node.type !== IRuntimeNodeType.Component) {
+          builderService.setHoveredNode(runtimeElementRef(node.key))
+        }
+      }}
+      onMouseLeave={() => builderService.setHoveredNode(null)}
+      onSelect={([id], { nativeEvent, node }) => {
+        nativeEvent.stopPropagation()
 
-          setActiveTab()
+        builderService.setActiveTab(RendererTab.Page)
 
-          if (!id) {
-            return
-          }
+        if (!id) {
+          return
+        }
 
-          selectTreeNode(node.node)
-        }}
-        selectedKeys={selectedNode ? [selectedNode.id] : []}
-        titleRender={(data) => {
-          return (
-            <ElementTreeItemTitle
-              data={data}
-              elementContextMenuProps={elementContextMenuProps}
-              node={data.node}
-            />
+        if (node.type === IRuntimeNodeType.Component) {
+          builderService.selectComponentNode(
+            runtimeComponentService.maybeRuntimeComponent(node.key),
           )
-        }}
-        treeData={treeData ? [treeData] : []}
-      />
-    )
-  },
-)
+        }
+
+        if (node.type === IRuntimeNodeType.Element) {
+          builderService.selectElementNode(
+            runtimeElementService.maybeRuntimeElement(node.key),
+          )
+        }
+      }}
+      selectedKeys={selectedNode ? [selectedNode.id] : []}
+      titleRender={(data) => <ElementTreeItemTitle data={data} />}
+      treeData={treeData ? [treeData] : []}
+    />
+  )
+})
 
 ElementTreeView.displayName = 'ElementTree'

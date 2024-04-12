@@ -60,7 +60,7 @@ export const setupPages = (
     renderer,
     runtimePage:
       pageKind === IPageKind.Regular
-        ? renderer.runtimePage?.childPage
+        ? renderer.runtimePage?.childPage?.current
         : renderer.runtimePage,
     runtimeProviderPage:
       pageKind === IPageKind.Regular ? renderer.runtimePage : undefined,

@@ -52,7 +52,7 @@ export class CloneElementService
     targetParent: IElementModel,
   ) {
     const oldToNewIdMap = yield* _await(
-      this.recursiveDuplicate(targetElement, targetParent),
+      this.recursiveDuplicate(targetElement, targetParent, true),
     )
 
     const createdElements = [...oldToNewIdMap.values()]
@@ -241,6 +241,7 @@ export class CloneElementService
   private async recursiveDuplicate(
     element: IElementModel,
     parentElement: IElementModel,
+    isRoot: boolean,
   ) {
     const duplicateName = makeAutoIncrementedName(
       this.rendererService.activeElementTree?.elements.map(
@@ -254,6 +255,8 @@ export class CloneElementService
       data: element.props.jsonString,
       id: v4(),
     }
+
+    const lastChild = parentElement.children[parentElement.children.length - 1]
 
     const cloneElementDto: ICreateElementDto = {
       childMapperComponent: element.childMapperComponent
@@ -270,6 +273,11 @@ export class CloneElementService
       parentComponent: element.parentComponent
         ? { id: element.parentComponent.id }
         : null,
+      // parent has no children it means the cloned element is the first child
+      parentElement: !lastChild ? parentElement : undefined,
+      // we cloning the root element of a sub tree attach cloned element to the original one
+      // attach it to the last child because we are cloning progressively.
+      prevSibling: isRoot ? element : lastChild,
       props: propsDto,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
@@ -278,38 +286,13 @@ export class CloneElementService
     }
 
     const elementCloneModel =
-      this.elementService.elementDomainService.hydrate(cloneElementDto)
+      this.elementService.elementDomainService.addTreeNode(cloneElementDto)
 
     await this.elementService.elementRepository.add(elementCloneModel)
 
-    const lastChild = parentElement.children[parentElement.children.length - 1]
-    const affectedNodeIds: Array<string> = []
-
-    // if (!lastChild) {
-    //   affectedNodeIds =
-    //     this.elementService..attachElementAsFirstChild({
-    //       element: elementCloneModel,
-    //       parentElement,
-    //     })
-    // } else {
-    //   affectedNodeIds =
-    //     this.elementService.moveElementService.attachElementAsNextSibling({
-    //       element: elementCloneModel,
-    //       targetElement: lastChild,
-    //     })
-    // }
-
-    await Promise.all(
-      affectedNodeIds.map((id) =>
-        this.elementService.elementRepository.updateNodes(
-          this.elementService.element(id),
-        ),
-      ),
-    )
-
     const children = await Promise.all(
       element.children.map((child) =>
-        this.recursiveDuplicate(child, elementCloneModel),
+        this.recursiveDuplicate(child, elementCloneModel, false),
       ),
     )
 

@@ -20,7 +20,7 @@ import {
   getAtomDomainService,
   getTagDomainService,
 } from '@codelab/frontend/abstract/domain'
-import { Nullable } from '@codelab/shared/abstract/types'
+import { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
@@ -157,7 +157,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectComponentNode(node: Nullable<IRuntimeComponentModel>) {
+  selectComponentNode(node: Nullish<IRuntimeComponentModel>) {
     if (!node) {
       return
     }
@@ -167,7 +167,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectElementNode(node: Nullable<IRuntimeElementModel>) {
+  selectElementNode(node: Nullish<IRuntimeElementModel>) {
     if (!node) {
       return
     }

@@ -7,6 +7,7 @@ import {
   routerServiceContext,
   runtimeComponentServiceContext,
   runtimeElementServiceContext,
+  runtimePageServiceContext,
 } from '@codelab/frontend/abstract/application'
 import type {
   IRootDomainStore,
@@ -33,6 +34,7 @@ import {
   RendererApplicationService,
   RuntimeComponentService,
   RuntimeElementService,
+  RuntimePageService,
 } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import {
@@ -77,6 +79,7 @@ export const rootApplicationStore = createTestRootStore({
     routerServiceContext,
     runtimeComponentServiceContext,
     runtimeElementServiceContext,
+    runtimePageServiceContext,
     storeDomainServiceContext,
     typeDomainServiceContext,
     userDomainServiceContext,
@@ -94,6 +97,7 @@ export const rootApplicationStore = createTestRootStore({
     routerService: new RouterService({}),
     runtimeComponentService: new RuntimeComponentService({}),
     runtimeElementService: new RuntimeElementService({}),
+    runtimePageService: new RuntimePageService({}),
     storeService: new StoreService({}),
     typeService: new TypeService({}),
     userService: UserService.init({

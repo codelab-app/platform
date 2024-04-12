@@ -18,6 +18,7 @@ import type {
   IRouterService,
   IRuntimeComponentService,
   IRuntimeElementService,
+  IRuntimePageService,
   IStoreService,
   ITagService,
   ITracerService,
@@ -37,6 +38,7 @@ import {
   routerServiceContext,
   runtimeComponentServiceContext,
   runtimeElementServiceContext,
+  runtimePageServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/application'
 import type { ITagDomainService } from '@codelab/frontend/abstract/domain'
@@ -82,6 +84,7 @@ import {
   RendererApplicationService,
   RuntimeComponentService,
   RuntimeElementService,
+  RuntimePageService,
 } from '@codelab/frontend/application/renderer'
 import { ResourceService } from '@codelab/frontend/application/resource'
 import { RouterService } from '@codelab/frontend/application/shared/store'
@@ -141,6 +144,9 @@ export const createRootStore = ({ router, user }: RootStoreData) => {
       ),
       runtimeElementService: prop<IRuntimeElementService>(
         () => new RuntimeElementService({}),
+      ),
+      runtimePageService: prop<IRuntimePageService>(
+        () => new RuntimePageService({}),
       ),
       storeService: prop<IStoreService>(() => new StoreService({})),
       tagDomainService: prop<ITagDomainService>(() => new TagDomainService({})),
@@ -218,6 +224,7 @@ export const createRootStore = ({ router, user }: RootStoreData) => {
       rendererServiceContext.set(this, this.rendererService)
       runtimeElementServiceContext.set(this, this.runtimeElementService)
       runtimeComponentServiceContext.set(this, this.runtimeComponentService)
+      runtimePageServiceContext.set(this, this.runtimePageService)
       actionDomainServiceContext.set(
         this,
         this.actionService.actionDomainService,

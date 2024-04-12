@@ -13,7 +13,7 @@ export interface IRuntimePageModel extends AnyModel {
   /**
    * Regular page in case the current model is a provider page
    */
-  childPage?: IRuntimePageModel
+  childPage?: Ref<IRuntimePageModel>
   compositeKey: string
   /**
    * Page domain model

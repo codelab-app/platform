@@ -9,6 +9,7 @@ import {
   getRuntimeElementService,
   IElementTreeViewDataNode,
   IRuntimeElementModel,
+  IRuntimeNodeType,
   runtimeComponentRef,
 } from '@codelab/frontend/abstract/application'
 import type {
@@ -33,7 +34,7 @@ const compositeKey = (
   component: IComponentModel,
   parent?: IRuntimeModel,
   propKey = '',
-  childMapperIndex?: number,
+  childMapperIndex = '',
 ) => {
   /**
    * sub trees of components may repeat which but they will never have the same root (instanceElement)
@@ -124,17 +125,13 @@ export class RuntimeComponentModel
     const isChildMapperComponentInstance = !isNil(this.childMapperIndex)
 
     return {
-      ...this.runtimeRootElement.treeViewNode,
-      ...(isChildMapperComponentInstance ? { children: [] } : {}),
-      isChildMapperComponentInstance,
+      children: [this.runtimeRootElement.treeViewNode],
+      component: { id: this.component.current.id },
+      isChildMapperComponentInstance: false,
       key: this.compositeKey,
-      node: this,
-      primaryTitle: `${this.runtimeRootElement.element.current.name}${
-        isChildMapperComponentInstance ? ` ${this.childMapperIndex}` : ''
-      }`,
-      secondaryTitle: isChildMapperComponentInstance
-        ? `child mapper component (${this.component.current.name} instance)`
-        : '',
+      primaryTitle: this.component.current.name,
+      rootKey: this.component.current.id,
+      type: IRuntimeNodeType.Component,
     }
   }
 }

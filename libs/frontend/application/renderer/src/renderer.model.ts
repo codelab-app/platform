@@ -3,12 +3,12 @@ import type {
   IRendererDto,
   IRendererModel,
   IRenderPipe,
-  IRuntimeComponentModel,
-  IRuntimePageModel,
   ITypedPropTransformer,
   RendererType,
 } from '@codelab/frontend/abstract/application'
 import {
+  getRuntimeComponentService,
+  getRuntimePageService,
   isRuntimeComponent,
   isRuntimePage,
   runtimeComponentRef,
@@ -25,7 +25,6 @@ import {
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
-import { RuntimeComponentModel, RuntimePageModel } from './model'
 import { defaultPipes, renderPipeFactory } from './render-pipes'
 import { ExpressionTransformer } from './services'
 import { typedPropTransformersFactory } from './typed-prop-transformers'
@@ -47,19 +46,11 @@ import { typedPropTransformersFactory } from './typed-prop-transformers'
  */
 
 const create = ({ containerNode, rendererType }: IRendererDto) => {
-  const runtimeRootContainerNode = isPage(containerNode)
-    ? RuntimePageModel.create({ page: containerNode })
-    : RuntimeComponentModel.create({
-        component: containerNode,
-        compositeKey: RuntimeComponentModel.compositeKey(containerNode),
-      })
-
   return new Renderer({
     containerNode: isPage(containerNode)
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeRootContainerNode,
   })
 }
 
@@ -89,12 +80,6 @@ export class Renderer
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
     /**
-     * Runtime model for page/component when it is created first time
-     */
-    runtimeRootContainerNode: prop<
-      IRuntimeComponentModel | IRuntimePageModel
-    >(),
-    /**
      * Those transform different kinds of typed values into render-ready props
      */
     typedPropTransformers: prop<ObjectMap<ITypedPropTransformer>>(() =>
@@ -121,9 +106,16 @@ export class Renderer
   }
 
   @computed
+  get runtimeComponentService() {
+    return getRuntimeComponentService(this)
+  }
+
+  @computed
   get runtimeContainerNode() {
     return (
-      this.runtimePage?.childPage ?? this.runtimePage ?? this.runtimeComponent
+      this.runtimePage?.childPage?.current ??
+      this.runtimePage ??
+      this.runtimeComponent
     )
   }
 
@@ -132,5 +124,17 @@ export class Renderer
     return isRuntimePage(this.runtimeRootContainerNode)
       ? this.runtimeRootContainerNode
       : undefined
+  }
+
+  @computed
+  get runtimePageService() {
+    return getRuntimePageService(this)
+  }
+
+  @computed
+  get runtimeRootContainerNode() {
+    return isPage(this.containerNode.current)
+      ? this.runtimePageService.add(this.containerNode.current)
+      : this.runtimeComponentService.add(this.containerNode.current)
   }
 }

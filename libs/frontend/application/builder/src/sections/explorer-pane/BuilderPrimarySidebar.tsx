@@ -1,10 +1,4 @@
 import PlusOutlined from '@ant-design/icons/PlusOutlined'
-import type { IRuntimeModel } from '@codelab/frontend/abstract/application'
-import {
-  isRuntimeComponent,
-  isRuntimeElement,
-  RendererTab,
-} from '@codelab/frontend/abstract/application'
 import type { IInterfaceTypeModel } from '@codelab/frontend/abstract/domain'
 import {
   elementRef,
@@ -71,29 +65,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const runtimeProviderStore = runtimeStore?.runtimeProviderStore?.current
     const antdTree = runtimeContainerNode?.treeViewNode
 
-    const selectTreeNode = (node: IRuntimeModel) => {
-      if (isRuntimeComponent(node)) {
-        return builderService.selectComponentNode(node)
-      }
-
-      if (isRuntimeElement(node)) {
-        return builderService.selectElementNode(node)
-      }
-    }
-
     const sidebarViews: Array<CuiSidebarView> = [
       {
-        content: antdTree && (
-          <ElementTreeView
-            expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
-            selectTreeNode={selectTreeNode}
-            setActiveTab={() => builderService.setActiveTab(RendererTab.Page)}
-            setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
-              builderService,
-            )}
-            treeData={antdTree}
-          />
-        ),
+        content: antdTree && <ElementTreeView treeData={antdTree} />,
         isLoading: isLoading || !containerNode,
         key: 'ElementTree',
         label: 'Elements Tree',

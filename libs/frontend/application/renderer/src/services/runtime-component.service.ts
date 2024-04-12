@@ -29,7 +29,8 @@ export class RuntimeComponentService
   @modelAction
   add(
     component: IComponentModel,
-    parent: IRuntimeModel,
+    parent?: IRuntimeModel,
+    children: Array<Ref<IElementModel>> = [],
     propKey?: string,
     childMapperIndex?: number,
     isTypedProp?: boolean,
@@ -38,7 +39,7 @@ export class RuntimeComponentService
       component,
       parent,
       propKey,
-      childMapperIndex,
+      childMapperIndex?.toString(),
     )
 
     const foundComponent = this.components.get(compositeKey)
@@ -52,7 +53,9 @@ export class RuntimeComponentService
       component,
       compositeKey,
       isTypedProp,
-      runtimeParent: runtimeElementRef(parent.compositeKey),
+      runtimeParent: parent
+        ? runtimeElementRef(parent.compositeKey)
+        : undefined,
     })
 
     this.components.set(runtimeComponent.compositeKey, runtimeComponent)
@@ -63,5 +66,19 @@ export class RuntimeComponentService
   @modelAction
   delete(runtimeComponent: IRuntimeComponentModel) {
     return this.components.delete(runtimeComponent.compositeKey)
+  }
+
+  maybeRuntimeComponent(compositeKey: string) {
+    return this.components.get(compositeKey)
+  }
+
+  runtimeComponent(compositeKey: string) {
+    const runtimeComponent = this.components.get(compositeKey)
+
+    if (!runtimeComponent) {
+      throw new Error('Missing runtime component')
+    }
+
+    return runtimeComponent
   }
 }
