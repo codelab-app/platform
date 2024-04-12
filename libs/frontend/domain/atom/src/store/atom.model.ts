@@ -11,7 +11,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/domain'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
+import { richTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import {
   AtomCreateInput,
   AtomUpdateInput,
@@ -91,6 +91,11 @@ export class Atom
   @computed
   get __typename() {
     return IElementRenderTypeKind.Atom as const
+  }
+
+  @computed
+  get allowRichTextInjection() {
+    return richTextInjectionWhiteList.includes(this.type)
   }
 
   @computed

@@ -16,7 +16,6 @@ import {
   isRuntimeComponent,
   isRuntimeElement,
   isRuntimePage,
-  RendererType,
 } from '@codelab/frontend/abstract/application'
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
@@ -45,11 +44,8 @@ import {
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import { ArrayOrSingle } from 'ts-essentials/dist/types'
-import {
-  createTextEditor,
-  createTextRenderer,
-  ElementWrapper,
-} from '../wrappers'
+import { ElementWrapper } from '../wrappers'
+import { TextEditorWrapper } from '../wrappers/TextEditorWrapper'
 import { RuntimeComponentModel } from './runtime-component.model'
 
 const compositeKey = (
@@ -259,8 +255,18 @@ export class RuntimeElementModel
     if (hasNoChildren) {
       // Inject children prop or text, but only if we have no regular children
       // (children from props has precedence)
-      if (this.runtimeProps.evaluatedProps['children']) {
-        return this.runtimeProps.evaluatedProps['children']
+      const children = this.runtimeProps.evaluatedProps['children']
+
+      const shouldInjectRichText =
+        isAtom(this.element.current.renderType.current) &&
+        this.element.current.renderType.current.allowRichTextInjection
+
+      if (shouldInjectRichText) {
+        return React.createElement(TextEditorWrapper, { runtimeElement: this })
+      }
+
+      if (children) {
+        return children
       }
 
       /*

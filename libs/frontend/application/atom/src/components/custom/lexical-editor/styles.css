@@ -66,7 +66,6 @@ h1 {
 }
 
 .editor-inner {
-  background: #fff;
   position: relative;
 }
 
@@ -327,6 +326,7 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 1px;
   background: #fff;
   padding: 4px;
@@ -448,4 +448,8 @@ i.right-align {
 
 i.justify-align {
   background-image: url(/icons/justify.svg);
+}
+
+i.check {
+  background-image: url(/icons/check.svg);
 }

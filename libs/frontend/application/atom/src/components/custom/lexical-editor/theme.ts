@@ -1,4 +1,4 @@
-export const exampleTheme = {
+export const defaultEditorTheme = {
   code: 'editor-code',
   heading: {
     h1: 'editor-heading-h1',

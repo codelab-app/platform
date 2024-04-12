@@ -1,11 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
 import {
@@ -28,7 +20,7 @@ const Divider = () => {
   return <div className="divider" />
 }
 
-export const ToolbarPlugin = () => {
+export const ToolbarPlugin = ({ onClose }: { onClose(): void }) => {
   const [editor] = useLexicalComposerContext()
   const toolbarRef = useRef(null)
   const [canUndo, setCanUndo] = useState(false)
@@ -147,7 +139,7 @@ export const ToolbarPlugin = () => {
         <i className="format strikethrough" />
       </button>
       <Divider />
-      {/* <button
+      <button
         aria-label="Left Align"
         className="toolbar-item spaced"
         onClick={() => {
@@ -182,7 +174,16 @@ export const ToolbarPlugin = () => {
         }}
       >
         <i className="format justify-align" />
-      </button> */}
+      </button>
+      <button
+        aria-label="Done"
+        className="toolbar-item"
+        onClick={() => {
+          onClose()
+        }}
+      >
+        <i className="format check" />
+      </button>
     </div>
   )
 }

@@ -7,7 +7,10 @@ import 'react-grid-layout/css/styles.css'
 // - set 100% width and height for html and body
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
-import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/domain'
+import type {
+  IAppProps,
+  IPageProps,
+} from '@codelab/frontend/abstract/application'
 import { StoreProvider } from '@codelab/frontend/application/shared/store'
 import { initializeStore } from '@codelab/frontend/infra/mobx'
 import type { Auth0IdToken } from '@codelab/shared/abstract/core'
@@ -37,7 +40,14 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const router = useRouter()
 
   const store = useMemo(() => {
-    return initializeStore({ routerQuery: router.query, user })
+    return initializeStore({
+      router: {
+        path: router.asPath,
+        pathname: router.pathname,
+        query: router.query,
+      },
+      user,
+    })
   }, [user])
 
   return (
