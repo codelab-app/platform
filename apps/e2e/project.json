@@ -1,92 +1,82 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["web"],
   "name": "e2e",
-  "projectType": "application",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/e2e/src",
-  "tags": ["projectType:application", "type:concrete"],
+  "projectType": "application",
   "targets": {
-    "build": {
-      "executor": "nx:run-commands",
+    "e2e-open": {
+      "executor": "@nx/cypress:cypress",
+      "defaultConfiguration": "test",
       "options": {
-        "command": "npx tsc --noEmit --project apps/e2e/tsconfig.lint.json"
+        "cypressConfig": "apps/e2e/cypress.test.config.ts",
+        "baseUrl": "http://127.0.0.1:3001",
+        "browser": "electron",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "test": {
+          "devServerTarget": "e2e:serve-open:test",
+          "record": false,
+          "watch": true,
+          "exit": false
+        }
       }
     },
     "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "defaultConfiguration": "test",
+      "options": {
+        "cypressConfig": "apps/e2e/cypress.test.config.ts",
+        "baseUrl": "http://127.0.0.1:3001",
+        "browser": "electron",
+        "testingType": "e2e"
+      },
       "configurations": {
+        "test": {
+          "devServerTarget": "e2e:serve:test",
+          "record": false,
+          "watch": false,
+          "exit": true
+        },
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
           "cypressConfig": "apps/e2e/cypress.ci.config.ts",
           "devServerTarget": "e2e:serve:ci",
-          "parallel": true,
-          "record": true,
           "reporter": "../../node_modules/cypress-multi-reporters",
           "reporterOptions": {
             "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
-          }
-        },
-        "test": {
-          "devServerTarget": "e2e:serve:test",
-          "exit": true,
-          "record": false,
-          "watch": false
+          },
+          "record": true,
+          "parallel": true
         }
-      },
-      "defaultConfiguration": "test",
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "baseUrl": "http://127.0.0.1:3001",
-        "browser": "electron",
-        "cypressConfig": "apps/e2e/cypress.test.config.ts",
-        "testingType": "e2e"
       }
     },
-    "e2e-open": {
+    "serve-open": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "readyWhen": "READY"
+      },
       "configurations": {
         "test": {
-          "devServerTarget": "e2e:serve-open:test",
-          "exit": false,
-          "record": false,
-          "watch": true
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck && echo 'READY'"
+            },
+            {
+              "command": "npx nx serve web -c test"
+            }
+          ]
         }
-      },
-      "defaultConfiguration": "test",
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "baseUrl": "http://127.0.0.1:3001",
-        "browser": "electron",
-        "cypressConfig": "apps/e2e/cypress.test.config.ts",
-        "testingType": "e2e"
-      }
-    },
-    "lint": {
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/e2e.xml",
-          "quiet": true
-        }
-      },
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["apps/e2e/**/*.{ts,tsx,js,jsx,graphql}"]
       }
     },
     "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "readyWhen": "READY"
+      },
       "configurations": {
-        "ci": {
-          "commands": [
-            {
-              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3000 http://127.0.0.1:4000/api/healthcheck && echo 'READY'"
-            },
-            {
-              "command": "npx nx serve web -c ci"
-            },
-            {
-              "command": "npx nx serve api -c ci --verbose"
-            }
-          ]
-        },
         "test": {
           "commands": [
             {
@@ -99,32 +89,42 @@
               "command": "npx nx serve api -c test"
             }
           ]
-        }
-      },
-      "executor": "nx:run-commands",
-      "options": {
-        "parallel": true,
-        "readyWhen": "READY"
-      }
-    },
-    "serve-open": {
-      "configurations": {
-        "test": {
+        },
+        "ci": {
           "commands": [
             {
-              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 http://127.0.0.1:4001/api/healthcheck && echo 'READY'"
+              "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3000 http://127.0.0.1:4000/api/healthcheck && echo 'READY'"
             },
             {
-              "command": "npx nx serve web -c test"
+              "command": "npx nx serve web -c ci"
+            },
+            {
+              "command": "npx nx serve api -c ci --verbose"
             }
           ]
         }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/e2e.xml",
+          "quiet": true
+        }
       },
+      "options": {
+        "lintFilePatterns": ["apps/e2e/**/*.{ts,tsx,js,jsx,graphql}"]
+      }
+    },
+    "build": {
       "executor": "nx:run-commands",
       "options": {
-        "parallel": true,
-        "readyWhen": "READY"
+        "command": "npx tsc --noEmit --project apps/e2e/tsconfig.lint.json"
       }
     }
-  }
+  },
+  "tags": ["projectType:application", "type:concrete"],
+  "implicitDependencies": ["web"]
 }

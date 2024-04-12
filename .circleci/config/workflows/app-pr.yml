@@ -67,15 +67,6 @@ jobs:
           ignore:
             - master
       requires:
-        - setup-workspace
-  - docker-web:
-      context:
-        - prod
-      filters:
-        branches:
-          ignore:
-            - master
-      requires:
         - setup-infra-workspace
   - docker-api:
       context:

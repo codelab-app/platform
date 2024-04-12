@@ -32,25 +32,6 @@ COPY apps/web ./apps/web
 COPY libs ./libs
 COPY types ./types
 
-RUN pnpm install --frozen-lockfile --ignore-scripts
-RUN pnpm nx build platform --verbose --skip-nx-cache
-
-#
-# (2) Prod
-#
-FROM node:18.17-alpine AS prod
-
-RUN corepack enable && corepack prepare pnpm@8.15.0 --activate
-# RUN apk add curl
-
-WORKDIR /usr/src/codelab
-
-# Ignore specs from image
-
-COPY --from=build /usr/src/codelab/dist ./dist
-COPY --from=build /usr/src/codelab/package.json ./
-COPY --from=build /usr/src/codelab/node_modules ./node_modules
-
 # It's important to remember that for every --build-arg parameter used in the docker build command, there must be a corresponding ARG instruction in the Dockerfile
 ARG NEXT_PUBLIC_WEB_HOST
 ARG NEXT_PUBLIC_API_PORT
