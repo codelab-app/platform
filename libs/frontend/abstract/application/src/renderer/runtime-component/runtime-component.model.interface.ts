@@ -25,10 +25,8 @@ export interface IRuntimeComponentModel extends AnyModel {
    * Exposed for external use by other models and to preserve structure
    */
   component: Ref<IComponentModel>
-
   compositeKey: string
   isTypedProp?: boolean
-
   render: Nullable<ReactElement>
   /**
    * Exposed for external use by other models and to preserve structure

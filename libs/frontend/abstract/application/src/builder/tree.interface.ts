@@ -1,5 +1,6 @@
 import type { IRef } from '@codelab/shared/abstract/core'
 import type * as React from 'react'
+import type { IRuntimeModel } from '../renderer'
 
 export enum IRuntimeNodeType {
   Component = 'Component',
@@ -15,6 +16,7 @@ export interface IElementTreeViewDataNode {
   isChildMapperComponentInstance?: boolean
   // use ids instead of models because models gets detached/deleted which causes issues
   key: string
+  // node: IRuntimeModel | null
   primaryTitle?: string
   rootKey: string | null
   secondaryTitle?: string

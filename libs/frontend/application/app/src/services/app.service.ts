@@ -9,7 +9,7 @@ import {
   type IUpdateAppData,
 } from '@codelab/frontend/abstract/domain'
 import { getAtomService } from '@codelab/frontend/application/atom'
-import { restPlatformClient } from '@codelab/frontend/application/axios'
+import { restWebClient } from '@codelab/frontend/application/axios'
 import {
   getDomainService,
   regeneratePages,
@@ -109,7 +109,7 @@ export class AppService
   @modelFlow
   exportApp = _async(function* (this: AppService, app: IAppModel) {
     const res = yield* _await(
-      restPlatformClient.get<IAppAggregate>(`app/export?id=${app.id}`),
+      restWebClient.get<IAppAggregate>(`app/export?id=${app.id}`),
     )
 
     const filename = `${app.slug}.json`
@@ -161,7 +161,7 @@ export class AppService
     formData.append('file', appDataFile)
 
     return yield* _await(
-      restPlatformClient
+      restWebClient
         .post<App>('/app/import', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })

@@ -21,10 +21,12 @@ import {
 import type { IElementModel } from '@codelab/frontend/abstract/domain'
 import {
   getComponentDomainService,
+  isAtom,
   isComponent,
   isComponentRef,
   isTypedProp,
 } from '@codelab/frontend/abstract/domain'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { evaluateExpression, hasExpression } from '@codelab/shared/utils'
@@ -305,18 +307,11 @@ export class RuntimeElementModel
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
-    const children = this.children.flatMap((child) =>
-      isRuntimeComponent(child)
-        ? child.children.map(
-            // if element is instance of component we render the element's children instead of component
-            (instanceChild) => instanceChild.treeViewNode,
-          )
-        : [child.treeViewNode],
-    )
+    // Add assigned ReactNode props as children
+    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
 
-    const element = this.element.current
-    const primaryTitle = element.treeTitle.primary
-    const secondaryTitle = element.treeTitle.secondary
+    Object.keys(this.runtimeProps.props).forEach((key, index) => {
+      const propData = this.runtimeProps.props[key]
 
       if (
         isTypedProp(propData) &&
@@ -340,28 +335,24 @@ export class RuntimeElementModel
           reactNodesChildren.push({
             ...componentRootElement.treeViewNode,
             children: [],
-            component: { id: component.id },
             isChildMapperComponentInstance: true,
             key: `${propData.value}${index}`,
             primaryTitle: `${key}:`,
             selectable: false,
-            type: IRuntimeNodeType.Component,
           })
         }
       }
     })
 
-    const children = isComponentRef(this.element.current.renderType)
-      ? []
-      : [
-          ...this.children.map((child) => child.treeViewNode),
-          ...reactNodesChildren,
-        ]
+    const children = [
+      ...this.children.map((child) => child.treeViewNode),
+      ...reactNodesChildren,
+    ]
 
     return {
       children,
-      element: { id: this.element.current.id },
       key: this.compositeKey,
+      // node: this,
       primaryTitle: this.element.current.treeTitle.primary,
       rootKey: this.element.current.closestSubTreeRootElement.id,
       secondaryTitle: this.element.current.treeTitle.secondary,

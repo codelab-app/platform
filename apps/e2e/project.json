@@ -34,7 +34,7 @@
       "configurations": {
         "test": {
           "devServerTarget": "e2e:serve:test",
-          "record": true,
+          "record": false,
           "watch": false,
           "exit": true
         },

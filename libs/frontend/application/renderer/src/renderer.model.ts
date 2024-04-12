@@ -25,6 +25,7 @@ import {
 import { computed } from 'mobx'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
+import { RuntimeComponentModel, RuntimePageModel } from './model'
 import { defaultPipes, renderPipeFactory } from './render-pipes'
 import { ExpressionTransformer } from './services'
 import { typedPropTransformersFactory } from './typed-prop-transformers'
@@ -47,7 +48,7 @@ import { typedPropTransformersFactory } from './typed-prop-transformers'
 
 const create = ({ containerNode, rendererType }: IRendererDto) => {
   const runtimeRootContainerNode = isPage(containerNode)
-    ? RuntimePageModel.create({ page: containerNode })
+    ? RuntimePageModel.create(containerNode)
     : RuntimeComponentModel.create({
         component: containerNode,
         compositeKey: RuntimeComponentModel.compositeKey(containerNode),
@@ -58,7 +59,6 @@ const create = ({ containerNode, rendererType }: IRendererDto) => {
       ? pageRef(containerNode)
       : componentRef(containerNode),
     rendererType,
-    runtimeRootContainerNode,
   })
 }
 
@@ -69,7 +69,6 @@ export class Renderer
      * The tree that's being rendered, we assume that this is properly constructed
      */
     containerNode: prop<Ref<IComponentModel> | Ref<IPageModel>>(),
-
     /**
      * Will log the render output and render pipe info to the console
      */
@@ -82,7 +81,6 @@ export class Renderer
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
-
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */

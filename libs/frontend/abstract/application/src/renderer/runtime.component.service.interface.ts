@@ -13,7 +13,7 @@ export interface IRuntimeComponentService {
   add(
     component: IComponentModel,
     parent?: IRuntimeModel,
-    children?: Array<Ref<IElementModel>>,
+    // children?: Array<Ref<IElementModel>>,
     propKey?: string,
     childMapperIndex?: number,
     isTypedProp?: boolean,
