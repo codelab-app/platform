@@ -2,16 +2,14 @@ import { RendererType } from '@codelab/frontend/abstract/application'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { configure } from 'mobx'
 import { unregisterRootStore } from 'mobx-keystone'
-import { setupPages } from './setup'
 import { rootApplicationStore } from './setup/root.test.store'
 import { TestBed } from './setup/testbed'
 
-let testbed: TestBed
+let testBed: TestBed
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    rootApplicationStore.clear()
-    testbed = new TestBed()
+    testBed = TestBed.Create()
   })
 
   it.each([[IPageKind.Provider], [IPageKind.Regular]])(
@@ -19,8 +17,7 @@ describe('Runtime Element props', () => {
     async (pageKind) => {
       const isProviderPage = pageKind === IPageKind.Provider
 
-      const { page, runtimePage } = setupPages(
-        testbed,
+      const { page, runtimePage } = testBed.setupPage(
         RendererType.Preview,
         pageKind,
       )
@@ -35,20 +32,20 @@ describe('Runtime Element props', () => {
 
       configure({ safeDescriptors: false })
 
-      const resource = testbed.addResource({})
+      const resource = testBed.addResource({})
       const store = isProviderPage ? element?.store : page.providerPage?.store
       const storeApi = store?.current.api.current
 
-      const field = testbed.addField({
+      const field = testBed.addField({
         api: storeApi,
         defaultValues: JSON.stringify(stateValue),
-        fieldType: testbed.getStringType(),
+        fieldType: testBed.getStringType(),
         key: stateKey,
       })
 
       storeApi?.writeCache({ fields: [field] })
 
-      testbed.addApiAction({
+      testBed.addApiAction({
         config: {
           data: JSON.stringify({
             queryParams: { name: `{{state.${stateKey}}}` },

@@ -23,8 +23,7 @@ let testbed: TestBed
 
 describe('Runtime Element props', () => {
   beforeEach(() => {
-    rootApplicationStore.clear()
-    testbed = new TestBed()
+    testbed = TestBed.Create()
   })
 
   describe('RuntimeProps.props', () => {

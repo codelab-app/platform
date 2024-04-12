@@ -15,8 +15,7 @@ let testbed: TestBed
 
 describe('TypedPropTransformers', () => {
   beforeEach(() => {
-    rootApplicationStore.clear()
-    testbed = new TestBed()
+    testbed = TestBed.Create()
   })
 
   it('should apply default typed prop transformer', () => {

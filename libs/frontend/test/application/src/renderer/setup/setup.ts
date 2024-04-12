@@ -15,7 +15,7 @@ export const setupPages = (
   pageKind: IPageKind = IPageKind.Regular,
 ) => {
   const app = testbed.addApp({})
-  const pageId = 'page-id'
+  const pageId = v4()
   const pageName = 'Page Name'
 
   const htmlDivAtom = testbed.addAtom({
@@ -107,12 +107,11 @@ export const setupComponent = (testbed: TestBed) => {
 }
 
 export const setupRuntimeElement = (
-  testbed: TestBed,
+  testBed: TestBed,
   rendererType: RendererType = RendererType.Preview,
   pageKind: IPageKind = IPageKind.Regular,
 ) => {
-  const { page, rendered, renderer, runtimePage } = setupPages(
-    testbed,
+  const { page, rendered, renderer, runtimePage } = testBed.setupPage(
     rendererType,
     pageKind,
   )
