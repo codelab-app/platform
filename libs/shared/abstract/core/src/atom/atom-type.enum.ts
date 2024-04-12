@@ -402,8 +402,6 @@ export enum __AtomType {
   // External dynamic component
   ExternalComponent = 'ExternalComponent',
 
-  LexicalEditor = 'LexicalEditor',
-
   // Nextjs components
   NextLink = 'NextLink',
 }
